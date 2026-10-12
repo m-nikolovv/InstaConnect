@@ -34,7 +34,6 @@
   <PropertyGroup Condition="'$(IsTestCodeProject)' == 'true'">
     <IsPackable>false</IsPackable>
   </PropertyGroup>
-
   <PropertyGroup Condition="'$(IsTestRunnerProject)' == 'true'">
     <Nullable>disable</Nullable>
     <IsTestProject>true</IsTestProject>
