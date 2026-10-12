@@ -18,6 +18,11 @@ updates:
     groups:
       nuget-minor-patch:
         update-types: [minor, patch]
+    ignore:
+      - dependency-name: 'MassTransit*'
+        versions: ['>= 9.0.0']
+      - dependency-name: 'MediatR'
+        versions: ['>= 13.0.0']
 
   - package-ecosystem: docker
     directories:
