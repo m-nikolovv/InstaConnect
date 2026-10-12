@@ -16,8 +16,8 @@ updates:
     schedule:
       interval: weekly
     groups:
-      nuget-minor-patch:
-        update-types: [minor, patch]
+      nuget:
+        patterns: ['*']
     ignore:
       - dependency-name: 'MassTransit*'
         versions: ['>= 9.0.0']

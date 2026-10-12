@@ -4,10 +4,10 @@
     <PackageReference Include="Asp.Versioning.Http" />
     <PackageReference Include="Asp.Versioning.Mvc" />
     <PackageReference Include="AspNetCore.HealthChecks.UI.Client" />
-    <PackageReference Include="Microsoft.Extensions.Caching.Memory" />
     <PackageReference Include="RazorLight" />
     <PackageReference Include="Serilog.AspNetCore" />
   </ItemGroup>
+
 
   <ItemGroup>
     <ProjectReference Include="..\InstaConnect.Common.Application\InstaConnect.Common.Application.csproj" />
