@@ -35,6 +35,10 @@
     <IsPackable>false</IsPackable>
   </PropertyGroup>
 
+  <ItemGroup Condition="'$(IsTestCodeProject)' == 'true'">
+    <FrameworkReference Include="Microsoft.AspNetCore.App" />
+  </ItemGroup>
+
   <PropertyGroup Condition="'$(IsTestRunnerProject)' == 'true'">
     <Nullable>disable</Nullable>
     <IsTestProject>true</IsTestProject>

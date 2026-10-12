@@ -24,7 +24,6 @@ public static class ServiceCollectionExtensions
 				  .WithTracing(t => t
 					  .AddAspNetCoreInstrumentation()
 					  .AddHttpClientInstrumentation()
-					  .AddRedisInstrumentation()
 					  .AddMassTransitInstrumentation()
 					  .AddOtlpExporter(o => o.Endpoint = new Uri(options.Endpoint)))
 				  .WithMetrics(m => m
