@@ -150,7 +150,30 @@ jobs:
       - name: Build
         run: dotnet build "$SOLUTION_FILTER" --configuration Release --no-restore
 
+      - name: Pull test container images
+        if: matrix.suite != 'Unit'
+        run: |
+          mapfile -t IMAGES < <(grep -oP 'Builder\("\K[^"]+' tests/Common/InstaConnect.Common.Tests/Features/Utilities/ContainerFactory.cs)
+          for IMAGE in "${IMAGES[@]}"; do
+            for ATTEMPT in 1 2 3 4 5; do
+              if docker pull --quiet "mirror.gcr.io/library/$IMAGE"; then
+                docker tag "mirror.gcr.io/library/$IMAGE" "$IMAGE"
+                break
+              fi
+              if docker pull --quiet "$IMAGE"; then
+                break
+              fi
+              if [ "$ATTEMPT" -eq 5 ]; then
+                echo "::error::Failed to pull $IMAGE"
+                exit 1
+              fi
+              sleep $((ATTEMPT * 10))
+            done
+          done
+
       - name: Run tests
+        env:
+          TESTCONTAINERS_RYUK_DISABLED: true
         run: >
           dotnet retest
           --retries 3
