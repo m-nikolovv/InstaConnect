@@ -16,13 +16,15 @@ updates:
     schedule:
       interval: weekly
     groups:
-      nuget-minor-patch:
-        update-types: [minor, patch]
+      nuget:
+        patterns: ['*']
     ignore:
       - dependency-name: 'MassTransit*'
         versions: ['>= 9.0.0']
       - dependency-name: 'MediatR'
         versions: ['>= 13.0.0']
+      - dependency-name: 'Serilog.Sinks.OpenTelemetry'
+        versions: ['4.2.1-nblumhardt-02317']
 
   - package-ecosystem: docker
     directories:
