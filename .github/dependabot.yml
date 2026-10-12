@@ -19,10 +19,8 @@ updates:
       nuget-minor-patch:
         update-types: [minor, patch]
     ignore:
-      # v9+ is commercially licensed; v8 stays Apache-2.0
       - dependency-name: 'MassTransit*'
         versions: ['>= 9.0.0']
-      # v13+ is RPL-1.5 or commercially licensed; v12 stays Apache-2.0
       - dependency-name: 'MediatR'
         versions: ['>= 13.0.0']
 
