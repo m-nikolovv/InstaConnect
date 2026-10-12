@@ -2,4 +2,8 @@
   <PropertyGroup Condition="'$(IsTestCodeProject)' == 'true' And '$(IsTestRunnerProject)' != 'true'">
     <IsTestProject>false</IsTestProject>
   </PropertyGroup>
+
+  <ItemGroup Condition="'$(UsingMicrosoftNETSdkWeb)' != 'true'">
+    <FrameworkReference Include="Microsoft.AspNetCore.App" />
+  </ItemGroup>
 </Project>

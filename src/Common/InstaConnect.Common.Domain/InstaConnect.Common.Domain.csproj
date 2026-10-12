@@ -8,9 +8,6 @@
     <PackageReference Include="Scrutor" />
   </ItemGroup>
 
-  <ItemGroup>
-    <FrameworkReference Include="Microsoft.AspNetCore.App" />
-  </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\InstaConnect.Common.Events\InstaConnect.Common.Events.csproj" />
