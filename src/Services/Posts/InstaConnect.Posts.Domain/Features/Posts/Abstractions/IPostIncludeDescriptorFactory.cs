@@ -9,4 +9,6 @@ public interface IPostIncludeDescriptorFactory
 	public PostsIncludeDescriptor CreatePostLikes();
 
 	public PostsIncludeDescriptor CreatePostComments();
+
+	public PostsIncludeDescriptor CreatePostImages();
 }

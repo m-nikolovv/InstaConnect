@@ -47,8 +47,9 @@ internal class PostPresentationMappings : IRegister
 		config.NewConfig<AddPostApiRequest, AddPostCommandRequest>()
 			.ConstructUsing(src => new(
 				src.UserId,
-				src.Body.Title,
-				src.Body.Content));
+				src.Form.Title,
+				src.Form.Content,
+				src.Form.Images ?? new List<IFormFile>()));
 
 		config.NewConfig<AddPostCommandResponse, AddPostApiResponse>()
 			.ConstructUsing(src => new(src.Response.Adapt<PostIdApiResponse>(config)));

@@ -7,5 +7,6 @@ public enum PostsDestinationType
 	Post,
 	PostLike,
 	PostComment,
-	PostCommentLike
+	PostCommentLike,
+	PostImage
 }

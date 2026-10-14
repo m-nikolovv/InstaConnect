@@ -81,7 +81,8 @@ internal class PostApplicationMappings : IRegister
 			.ConstructUsing(src => new(
 				new(src.UserId),
 				src.Title,
-				src.Content));
+				src.Content,
+				src.Images));
 
 		config.NewConfig<PostId, AddPostCommandResponse>()
 			.ConstructUsing(src => new(src.Adapt<PostIdCommandResponse>(config)));

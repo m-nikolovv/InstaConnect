@@ -32,6 +32,7 @@ internal static class ServiceCollectionExtensions
 				cm.MapMemberWithoutSerialization(c => c.User);
 				cm.MapMemberWithoutSerialization(c => c.PostLikes);
 				cm.MapMemberWithoutSerialization(c => c.PostComments);
+				cm.MapMemberWithoutSerialization(c => c.PostImages);
 
 				cm.MapCreator(c => new Post(
 					c.Id,

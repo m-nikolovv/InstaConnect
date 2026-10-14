@@ -10,6 +10,7 @@ public class Post : IEntityWithId<PostId>
 		UserId = new(string.Empty);
 		PostLikes = [];
 		PostComments = [];
+		PostImages = [];
 	}
 
 	public Post(
@@ -26,6 +27,7 @@ public class Post : IEntityWithId<PostId>
 		UserId = userId;
 		PostLikes = [];
 		PostComments = [];
+		PostImages = [];
 		CreatedAtUtc = createdAtUtc;
 		UpdatedAtUtc = updatedAtUtc;
 	}
@@ -43,6 +45,8 @@ public class Post : IEntityWithId<PostId>
 	public ICollection<PostLike> PostLikes { get; private set; }
 
 	public ICollection<PostComment> PostComments { get; private set; }
+
+	public ICollection<PostImage> PostImages { get; private set; }
 
 	public DateTimeOffset CreatedAtUtc { get; }
 
@@ -77,6 +81,13 @@ public class Post : IEntityWithId<PostId>
 	public Post AddPostComment(PostComment postComment)
 	{
 		PostComments.Add(postComment);
+
+		return this;
+	}
+
+	public Post AddPostImage(PostImage postImage)
+	{
+		PostImages.Add(postImage);
 
 		return this;
 	}

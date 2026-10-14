@@ -7,5 +7,6 @@ public enum PostsIncludeType
 	Post,
 	PostLike,
 	PostComment,
-	PostCommentLike
+	PostCommentLike,
+	PostImage
 }

@@ -59,6 +59,13 @@ public class PostIncludeBuilder
 		return this;
 	}
 
+	public PostIncludeBuilder WithPostImages()
+	{
+		_descriptors.Add(_descriptorFactory.CreatePostImages());
+
+		return this;
+	}
+
 	public PostInclude Build()
 	{
 		return new(_descriptors);

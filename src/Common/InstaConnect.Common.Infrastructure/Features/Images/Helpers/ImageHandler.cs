@@ -31,4 +31,11 @@ internal class ImageHandler : IImageHandler
 
 		return response;
 	}
+
+	public async Task<ICollection<Image>> UploadRangeAsync(IEnumerable<IFormFile> formFiles, CancellationToken cancellationToken)
+	{
+		var response = await Task.WhenAll(formFiles.Select(formFile => UploadAsync(formFile, cancellationToken)));
+
+		return response;
+	}
 }

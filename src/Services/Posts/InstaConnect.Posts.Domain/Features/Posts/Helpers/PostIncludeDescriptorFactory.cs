@@ -18,4 +18,9 @@ public class PostIncludeDescriptorFactory : IPostIncludeDescriptorFactory
 	{
 		return new(PostsDestinationType.Post, PostsIncludeType.PostComment);
 	}
+
+	public PostsIncludeDescriptor CreatePostImages()
+	{
+		return new(PostsDestinationType.Post, PostsIncludeType.PostImage);
+	}
 }

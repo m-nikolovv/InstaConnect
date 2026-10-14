@@ -9,6 +9,7 @@
     <Using Include="Microsoft.Extensions.DependencyInjection" />
     <Using Include="InstaConnect.Common.Domain.Features.Common.Extensions"/>
     <Using Include="InstaConnect.Common.Domain.Features.Guids.Abstractions" />
+    <Using Include="InstaConnect.Common.Domain.Features.Images.Abstractions" />
     <Using Include="InstaConnect.Common.Domain.Features.DateTimes.Abstractions" />
     <Using Include="InstaConnect.Common.Domain.Features.Entities.Abstractions" />
     <Using Include="InstaConnect.Common.Domain.Features.ValueObjects.Abstractions" />
@@ -55,6 +56,13 @@
     <Using Include="InstaConnect.Posts.Domain.Features.PostComments.Models.ValueObjects" />
     <Using Include="InstaConnect.Posts.Domain.Features.PostComments.Models.Requests" />
     <Using Include="InstaConnect.Posts.Domain.Features.PostComments.Models.Responses" />
+  </ItemGroup>
+
+  <ItemGroup Label="PostImages">
+    <Using Include="InstaConnect.Posts.Domain.Features.PostImages.Utilities" />
+    <Using Include="InstaConnect.Posts.Domain.Features.PostImages.Abstractions" />
+    <Using Include="InstaConnect.Posts.Domain.Features.PostImages.Models.Entities" />
+    <Using Include="InstaConnect.Posts.Domain.Features.PostImages.Models.ValueObjects" />
   </ItemGroup>
 
   <ItemGroup Label="PostCommentLikes">
