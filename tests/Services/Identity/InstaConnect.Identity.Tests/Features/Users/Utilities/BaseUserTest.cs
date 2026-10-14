@@ -24,8 +24,6 @@ public abstract class BaseUserTest : BaseTest
 	protected EmailConfirmationToken EmailConfirmationToken { get; }
 	protected ICollection<EmailConfirmationToken> EmailConfirmationTokens { get; }
 
-	protected CancellationToken CancellationToken { get; }
-
 	protected BaseUserTest(IPasswordHasher passwordHasher)
 	{
 		PasswordHasher = passwordHasher;
@@ -45,7 +43,5 @@ public abstract class BaseUserTest : BaseTest
 		EmailConfirmationTokenBuilder = EmailConfirmationTokenBuilderFactory.Create(User);
 		EmailConfirmationToken = EmailConfirmationTokenBuilder.Build();
 		EmailConfirmationTokens = EmailConfirmationToken.Generate(Users);
-
-		CancellationToken = MockFactory.CreateCancellationToken();
 	}
 }

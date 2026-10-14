@@ -6,14 +6,10 @@ public abstract class BaseUserTest : BaseTest
 	protected UserBuilder UserBuilder { get; }
 	protected User User { get; }
 
-	protected CancellationToken CancellationToken { get; }
-
 	protected BaseUserTest()
 	{
 		UserBuilderFactory = new();
 		UserBuilder = UserBuilderFactory.Create();
 		User = UserBuilder.Build();
-
-		CancellationToken = MockFactory.CreateCancellationToken();
 	}
 }

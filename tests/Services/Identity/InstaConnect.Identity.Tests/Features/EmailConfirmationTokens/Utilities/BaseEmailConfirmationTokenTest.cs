@@ -27,8 +27,6 @@ public abstract class BaseEmailConfirmationTokenTest : BaseTest
 	protected EmailConfirmationToken EmailConfirmationToken { get; }
 	protected ICollection<EmailConfirmationToken> EmailConfirmationTokens { get; }
 
-	protected CancellationToken CancellationToken { get; }
-
 	protected BaseEmailConfirmationTokenTest(IPasswordHasher passwordHasher)
 	{
 		PasswordHasher = passwordHasher;
@@ -51,7 +49,5 @@ public abstract class BaseEmailConfirmationTokenTest : BaseTest
 
 		ExpiredDate = EmailConfirmationTokenDataFaker.GetExpired(EmailConfirmationToken.ExpiresAtUtc);
 		UnexpiredDate = EmailConfirmationTokenDataFaker.GetUnexpired(EmailConfirmationToken.ExpiresAtUtc);
-
-		CancellationToken = MockFactory.CreateCancellationToken();
 	}
 }

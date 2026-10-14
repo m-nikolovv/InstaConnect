@@ -20,8 +20,6 @@ public abstract class BaseFollowTest : BaseTest
 	protected Follow Follow { get; }
 	protected ICollection<Follow> Follows { get; }
 
-	protected CancellationToken CancellationToken { get; }
-
 	protected BaseFollowTest()
 	{
 		FollowerBuilderFactory = new();
@@ -38,7 +36,5 @@ public abstract class BaseFollowTest : BaseTest
 		FollowBuilder = FollowBuilderFactory.Create(Follower, Following);
 		Follow = FollowBuilder.Build();
 		Follows = Follow.Generate(Followers, Followings);
-
-		CancellationToken = MockFactory.CreateCancellationToken();
 	}
 }

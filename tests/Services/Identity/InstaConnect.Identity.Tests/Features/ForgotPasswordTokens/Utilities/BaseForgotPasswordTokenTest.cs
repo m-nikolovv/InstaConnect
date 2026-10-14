@@ -27,8 +27,6 @@ public abstract class BaseForgotPasswordTokenTest : BaseTest
 	protected ForgotPasswordToken ForgotPasswordToken { get; }
 	protected ICollection<ForgotPasswordToken> ForgotPasswordTokens { get; }
 
-	protected CancellationToken CancellationToken { get; }
-
 	protected BaseForgotPasswordTokenTest(IPasswordHasher passwordHasher)
 	{
 		PasswordHasher = passwordHasher;
@@ -51,7 +49,5 @@ public abstract class BaseForgotPasswordTokenTest : BaseTest
 
 		ExpiredDate = ForgotPasswordTokenDataFaker.GetExpired(ForgotPasswordToken.ExpiresAtUtc);
 		UnexpiredDate = ForgotPasswordTokenDataFaker.GetUnexpired(ForgotPasswordToken.ExpiresAtUtc);
-
-		CancellationToken = MockFactory.CreateCancellationToken();
 	}
 }

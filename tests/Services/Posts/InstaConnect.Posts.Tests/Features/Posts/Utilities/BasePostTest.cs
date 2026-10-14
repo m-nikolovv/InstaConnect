@@ -20,8 +20,6 @@ public abstract class BasePostTest : BaseTest
 	protected PostLike PostLike { get; }
 	protected ICollection<PostLike> PostLikes { get; }
 
-	protected CancellationToken CancellationToken { get; }
-
 	protected BasePostTest()
 	{
 		UserBuilderFactory = new();
@@ -38,7 +36,5 @@ public abstract class BasePostTest : BaseTest
 		PostLikeBuilder = PostLikeBuilderFactory.Create(Post, User);
 		PostLike = PostLikeBuilder.Build();
 		PostLikes = PostLike.Generate(Posts, Users);
-
-		CancellationToken = MockFactory.CreateCancellationToken();
 	}
 }

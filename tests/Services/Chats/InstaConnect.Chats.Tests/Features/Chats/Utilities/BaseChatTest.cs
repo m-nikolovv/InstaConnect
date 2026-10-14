@@ -19,8 +19,6 @@ public abstract class BaseChatTest : BaseTest
 	protected Chat Chat { get; }
 	protected ICollection<Chat> Chats { get; }
 
-	protected CancellationToken CancellationToken { get; }
-
 	protected BaseChatTest()
 	{
 		ParticipantOneBuilderFactory = new();
@@ -37,7 +35,5 @@ public abstract class BaseChatTest : BaseTest
 		ChatBuilder = ChatBuilderFactory.Create(ParticipantOne, ParticipantTwo);
 		Chat = ChatBuilder.Build();
 		Chats = Chat.Generate(ParticipantOnes, ParticipantTwos);
-
-		CancellationToken = MockFactory.CreateCancellationToken();
 	}
 }

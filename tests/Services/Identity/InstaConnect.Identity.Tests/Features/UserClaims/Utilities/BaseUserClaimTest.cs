@@ -20,8 +20,6 @@ public abstract class BaseUserClaimTest : BaseTest
 	protected UserClaim UserClaim { get; }
 	protected ICollection<UserClaim> UserClaims { get; }
 
-	protected CancellationToken CancellationToken { get; }
-
 	protected BaseUserClaimTest(IPasswordHasher passwordHasher)
 	{
 		PasswordHasher = passwordHasher;
@@ -36,7 +34,5 @@ public abstract class BaseUserClaimTest : BaseTest
 		UserClaimBuilder = UserClaimBuilderFactory.Create(User);
 		UserClaim = UserClaimBuilder.Build();
 		UserClaims = UserClaim.Generate(Users);
-
-		CancellationToken = MockFactory.CreateCancellationToken();
 	}
 }

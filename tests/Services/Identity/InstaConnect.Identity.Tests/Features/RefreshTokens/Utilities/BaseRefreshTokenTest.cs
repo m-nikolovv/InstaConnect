@@ -28,8 +28,6 @@ public abstract class BaseRefreshTokenTest : BaseTest
 	protected RefreshToken RefreshToken { get; }
 	protected ICollection<RefreshToken> RefreshTokens { get; }
 
-	protected CancellationToken CancellationToken { get; }
-
 	protected BaseRefreshTokenTest(IPasswordHasher passwordHasher)
 	{
 		PasswordHasher = passwordHasher;
@@ -53,7 +51,5 @@ public abstract class BaseRefreshTokenTest : BaseTest
 
 		ExpiredDate = RefreshTokenDataFaker.GetExpired(RefreshToken.ExpiresAtUtc);
 		UnexpiredDate = RefreshTokenDataFaker.GetUnexpired(RefreshToken.ExpiresAtUtc);
-
-		CancellationToken = MockFactory.CreateCancellationToken();
 	}
 }
