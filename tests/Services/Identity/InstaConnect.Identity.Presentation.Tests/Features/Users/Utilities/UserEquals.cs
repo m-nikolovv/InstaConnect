@@ -453,11 +453,27 @@ public static class UserEquals
 		}
 	}
 
+	extension(EmailConfirmationToken entity)
+	{
+		public bool Matches(AddUserApiRequest request)
+		{
+			return entity.Id.Id.Id.IsNotNullOrEmptyOrWhiteSpace() &&
+				   entity.Id.Value.IsNotNullOrEmptyOrWhiteSpace() &&
+				   entity.CreatedAtUtc != default &&
+				   entity.ExpiresAtUtc != default;
+		}
+	}
+
 	extension(ICollection<EmailConfirmationToken> entities)
 	{
+		public bool Matches(AddUserApiRequest request)
+		{
+			return entities.AllAndNotEmpty(entity => entity.Matches(request));
+		}
+
 		public bool Matches(UpdateCurrentUserApiRequest request)
 		{
-			return entities.All(entity => entity.Id.Id.Matches(request.Id));
+			return entities.AllAndNotEmpty(entity => entity.Id.Id.Matches(request.Id));
 		}
 	}
 

@@ -1,4 +1,5 @@
 using InstaConnect.Common.Domain.Features.Common.Extensions;
+using InstaConnect.Common.Tests.Features.Extensions;
 using InstaConnect.Identity.Events.Features.EmailConfirmationTokens;
 using InstaConnect.Identity.Events.Features.Users;
 
@@ -35,9 +36,14 @@ public static class EmailConfirmationTokenEquals
 
 	extension(ICollection<EmailConfirmationToken> emailConfirmationTokens)
 	{
+		public bool Matches(AddEmailConfirmationTokenCommand command)
+		{
+			return emailConfirmationTokens.AllAndNotEmpty(emailConfirmationToken => emailConfirmationToken.Matches(command));
+		}
+
 		public bool Matches(VerifyEmailConfirmationTokenCommand command)
 		{
-			return emailConfirmationTokens.All(emailConfirmationToken => emailConfirmationToken.Matches(command));
+			return emailConfirmationTokens.AllAndNotEmpty(emailConfirmationToken => emailConfirmationToken.Matches(command));
 		}
 	}
 

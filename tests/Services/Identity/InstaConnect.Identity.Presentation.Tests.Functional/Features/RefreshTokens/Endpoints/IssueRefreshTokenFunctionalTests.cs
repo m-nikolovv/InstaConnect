@@ -222,7 +222,7 @@ public class IssueRefreshTokenFunctionalTests : BaseRefreshTokenPresentationComm
 		var user = await ServiceScope.GetByIdAsync(User.Id, CancellationToken);
 
 		// Assert
-		user.RefreshTokens.ShouldNotBeEmpty();
+		user.RefreshTokens.ShouldSatisfy(_request);
 	}
 
 	[Theory]
@@ -237,7 +237,7 @@ public class IssueRefreshTokenFunctionalTests : BaseRefreshTokenPresentationComm
 		var user = await ServiceScope.GetByIdAsync(User.Id, CancellationToken);
 
 		// Assert
-		user.RefreshTokens.ShouldNotBeEmpty();
+		user.RefreshTokens.ShouldSatisfy(request);
 	}
 
 	[Fact]

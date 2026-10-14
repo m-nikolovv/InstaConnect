@@ -139,7 +139,7 @@ public class AddUserCommandServiceIntegrationTests : BaseUserDomainCommandIntegr
 		var user = await ServiceScope.GetByIdAsync(response, CancellationToken);
 
 		// Assert
-		user.EmailConfirmationTokens.ShouldNotBeEmpty();
+		user.EmailConfirmationTokens.ShouldSatisfy(_command);
 	}
 
 	[Theory]
@@ -155,7 +155,7 @@ public class AddUserCommandServiceIntegrationTests : BaseUserDomainCommandIntegr
 		var user = await ServiceScope.GetByIdAsync(response, CancellationToken);
 
 		// Assert
-		user.EmailConfirmationTokens.ShouldNotBeEmpty();
+		user.EmailConfirmationTokens.ShouldSatisfy(command);
 	}
 
 	[Fact]

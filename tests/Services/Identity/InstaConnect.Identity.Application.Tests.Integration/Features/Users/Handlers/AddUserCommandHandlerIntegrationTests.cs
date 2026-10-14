@@ -1,3 +1,5 @@
+using InstaConnect.Identity.Domain.Tests.Features.Users.Assertions;
+
 namespace InstaConnect.Identity.Application.Tests.Integration.Features.Users.Handlers;
 
 public class AddUserCommandHandlerIntegrationTests : BaseUserApplicationCommandIntegrationTest
@@ -214,7 +216,7 @@ public class AddUserCommandHandlerIntegrationTests : BaseUserApplicationCommandI
 		var user = await ServiceScope.GetByIdAsync(response, CancellationToken);
 
 		// Assert
-		user.EmailConfirmationTokens.ShouldNotBeEmpty();
+		user.EmailConfirmationTokens.ShouldSatisfy(_request);
 	}
 
 	[Theory]
@@ -230,7 +232,7 @@ public class AddUserCommandHandlerIntegrationTests : BaseUserApplicationCommandI
 		var user = await ServiceScope.GetByIdAsync(response, CancellationToken);
 
 		// Assert
-		user.EmailConfirmationTokens.ShouldNotBeEmpty();
+		user.EmailConfirmationTokens.ShouldSatisfy(request);
 	}
 
 	[Fact]

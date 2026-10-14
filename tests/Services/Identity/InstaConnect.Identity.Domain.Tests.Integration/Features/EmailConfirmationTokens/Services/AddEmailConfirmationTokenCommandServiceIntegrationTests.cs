@@ -80,7 +80,7 @@ public class AddEmailConfirmationTokenCommandServiceIntegrationTests : BaseEmail
 		var user = await ServiceScope.GetByIdAsync(User.Id, CancellationToken);
 
 		// Assert
-		user.EmailConfirmationTokens.ShouldNotBeEmpty();
+		user.EmailConfirmationTokens.ShouldSatisfy(_command);
 	}
 
 	[Theory]
@@ -96,7 +96,7 @@ public class AddEmailConfirmationTokenCommandServiceIntegrationTests : BaseEmail
 		var user = await ServiceScope.GetByIdAsync(User.Id, CancellationToken);
 
 		// Assert
-		user.EmailConfirmationTokens.ShouldNotBeEmpty();
+		user.EmailConfirmationTokens.ShouldSatisfy(command);
 	}
 
 	[Fact]

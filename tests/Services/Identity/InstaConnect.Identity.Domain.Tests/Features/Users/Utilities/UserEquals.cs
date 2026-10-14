@@ -211,9 +211,14 @@ public static class UserEquals
 
 	extension(ICollection<EmailConfirmationToken> emailConfirmationTokens)
 	{
+		public bool Matches(AddUserCommand command)
+		{
+			return emailConfirmationTokens.AllAndNotEmpty(emailConfirmationToken => emailConfirmationToken.Matches(command));
+		}
+
 		public bool Matches(UpdateUserCommand command)
 		{
-			return emailConfirmationTokens.All(emailConfirmationToken => emailConfirmationToken.Matches(command));
+			return emailConfirmationTokens.AllAndNotEmpty(emailConfirmationToken => emailConfirmationToken.Matches(command));
 		}
 	}
 

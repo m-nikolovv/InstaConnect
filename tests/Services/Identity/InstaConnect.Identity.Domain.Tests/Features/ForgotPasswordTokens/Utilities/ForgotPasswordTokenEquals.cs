@@ -1,4 +1,5 @@
 using InstaConnect.Common.Domain.Features.Common.Extensions;
+using InstaConnect.Common.Tests.Features.Extensions;
 using InstaConnect.Identity.Domain.Features.Common.Helpers;
 using InstaConnect.Identity.Events.Features.ForgotPasswordTokens;
 using InstaConnect.Identity.Events.Features.Users;
@@ -105,9 +106,14 @@ public static class ForgotPasswordTokenEquals
 
 	extension(ICollection<ForgotPasswordToken> forgotPasswordTokens)
 	{
+		public bool Matches(AddForgotPasswordTokenCommand command)
+		{
+			return forgotPasswordTokens.AllAndNotEmpty(forgotPasswordToken => forgotPasswordToken.Matches(command));
+		}
+
 		public bool Matches(VerifyForgotPasswordTokenCommand command)
 		{
-			return forgotPasswordTokens.All(forgotPasswordToken => forgotPasswordToken.Matches(command));
+			return forgotPasswordTokens.AllAndNotEmpty(forgotPasswordToken => forgotPasswordToken.Matches(command));
 		}
 	}
 

@@ -4,6 +4,7 @@ using FluentAssertions;
 
 using InstaConnect.Common.Domain.Features.Exceptions.Exceptions;
 using InstaConnect.Common.Domain.Features.Exceptions.Utilities;
+using InstaConnect.Common.Tests.Features.Extensions;
 
 namespace InstaConnect.Common.Tests.Features.Assertions;
 
@@ -22,7 +23,7 @@ public static class ValidationExceptionAssertions
 			exception
 				.Which
 				.Errors
-				.All(a => a == messageTransformer.Transform(propertyExpression, propertyExpression.Compile()(request))).ShouldBeTrue();
+				.AllAndNotEmpty(a => a == messageTransformer.Transform(propertyExpression, propertyExpression.Compile()(request))).ShouldBeTrue();
 		}
 	}
 }

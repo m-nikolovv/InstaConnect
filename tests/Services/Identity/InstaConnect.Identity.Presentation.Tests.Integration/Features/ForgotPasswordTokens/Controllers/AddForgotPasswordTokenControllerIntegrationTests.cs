@@ -73,7 +73,7 @@ public class AddForgotPasswordTokenControllerIntegrationTests : BaseForgotPasswo
 		var user = await ServiceScope.GetByIdAsync(User.Id, CancellationToken);
 
 		// Assert
-		user.ForgotPasswordTokens.ShouldNotBeEmpty();
+		user.ForgotPasswordTokens.ShouldSatisfy(_request);
 	}
 
 	[Theory]
@@ -89,7 +89,7 @@ public class AddForgotPasswordTokenControllerIntegrationTests : BaseForgotPasswo
 		var user = await ServiceScope.GetByIdAsync(User.Id, CancellationToken);
 
 		// Assert
-		user.ForgotPasswordTokens.ShouldNotBeEmpty();
+		user.ForgotPasswordTokens.ShouldSatisfy(request);
 	}
 
 	[Fact]

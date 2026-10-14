@@ -22,6 +22,14 @@ public static class ForgotPasswordTokenMatchAssertions
 		}
 	}
 
+	extension(ICollection<ForgotPasswordToken> forgotPasswordTokens)
+	{
+		public void ShouldSatisfy(AddForgotPasswordTokenCommand command)
+		{
+			forgotPasswordTokens.ShouldSatisfy(p => p.Matches(command));
+		}
+	}
+
 	extension(ICollection<ForgotPasswordTokenAddedEventRequest> r)
 	{
 		public void ShouldSatisfy(AddForgotPasswordTokenCommand command, ICollection<ForgotPasswordToken> entities)

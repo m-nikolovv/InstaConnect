@@ -68,7 +68,7 @@ public class AddForgotPasswordTokenCommandServiceIntegrationTests : BaseForgotPa
 		var user = await ServiceScope.GetByIdAsync(User.Id, CancellationToken);
 
 		// Assert
-		user.ForgotPasswordTokens.ShouldNotBeEmpty();
+		user.ForgotPasswordTokens.ShouldSatisfy(_command);
 	}
 
 	[Theory]
@@ -84,7 +84,7 @@ public class AddForgotPasswordTokenCommandServiceIntegrationTests : BaseForgotPa
 		var user = await ServiceScope.GetByIdAsync(User.Id, CancellationToken);
 
 		// Assert
-		user.ForgotPasswordTokens.ShouldNotBeEmpty();
+		user.ForgotPasswordTokens.ShouldSatisfy(command);
 	}
 
 	[Fact]

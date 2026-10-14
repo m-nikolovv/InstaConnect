@@ -181,6 +181,11 @@ public static class UserMatchAssertions
 
 	extension(ICollection<EmailConfirmationToken> emailConfirmationTokens)
 	{
+		public void ShouldSatisfy(AddUserApiRequest request)
+		{
+			emailConfirmationTokens.ShouldSatisfy(p => p.Matches(request));
+		}
+
 		public void ShouldSatisfy(UpdateCurrentUserApiRequest request)
 		{
 			emailConfirmationTokens.ShouldSatisfy(p => p.Matches(request));

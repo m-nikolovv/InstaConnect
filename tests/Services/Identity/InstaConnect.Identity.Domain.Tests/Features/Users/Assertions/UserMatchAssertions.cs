@@ -61,6 +61,11 @@ public static class UserMatchAssertions
 
 	extension(ICollection<EmailConfirmationToken> emailConfirmationTokens)
 	{
+		public void ShouldSatisfy(AddUserCommand command)
+		{
+			emailConfirmationTokens.ShouldSatisfy(p => p.Matches(command));
+		}
+
 		public void ShouldSatisfy(UpdateUserCommand command)
 		{
 			emailConfirmationTokens.ShouldSatisfy(p => p.Matches(command));

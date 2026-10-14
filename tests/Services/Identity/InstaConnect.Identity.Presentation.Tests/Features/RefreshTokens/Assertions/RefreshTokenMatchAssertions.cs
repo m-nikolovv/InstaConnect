@@ -53,6 +53,19 @@ public static class RefreshTokenMatchAssertions
 		}
 	}
 
+	extension(ICollection<RefreshToken> refreshTokens)
+	{
+		public void ShouldSatisfy(IssueRefreshTokenApiRequest request)
+		{
+			refreshTokens.ShouldSatisfy(p => p.Matches(request));
+		}
+
+		public void ShouldSatisfy(RotateRefreshTokenApiRequest request)
+		{
+			refreshTokens.ShouldSatisfy(p => p.Matches(request));
+		}
+	}
+
 	extension(RefreshTokenCookieApiResponse response)
 	{
 		public void ShouldSatisfy(IssueRefreshTokenApiRequest request, RefreshToken refreshToken)

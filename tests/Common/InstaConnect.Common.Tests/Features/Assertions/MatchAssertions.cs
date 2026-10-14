@@ -48,10 +48,5 @@ public static class MatchAssertions
 		{
 			obj.Should().BeEmpty();
 		}
-
-		public void ShouldNotBeEmpty()
-		{
-			obj.Should().NotBeEmpty();
-		}
 	}
 }

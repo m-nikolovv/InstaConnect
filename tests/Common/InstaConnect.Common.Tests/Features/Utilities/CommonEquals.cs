@@ -2,6 +2,7 @@ using InstaConnect.Common.Domain.Features.Entities.Abstractions;
 using InstaConnect.Common.Domain.Features.Requests.Abstractions;
 using InstaConnect.Common.Domain.Features.ValueObjects.Models;
 using InstaConnect.Common.Tests.Features.DataAttributes.Enums.Sort;
+using InstaConnect.Common.Tests.Features.Extensions;
 
 namespace InstaConnect.Common.Tests.Features.Utilities;
 
@@ -66,8 +67,7 @@ public static class CommonEquals
 				.ToDictionary(entityKey);
 
 			return e.Count == entitiesByKey.Count &&
-				   e.Any() &&
-				   e.All(e =>
+				   e.AllAndNotEmpty(e =>
 				   entitiesByKey.TryGetValue(expectedKey(e), out var a) &&
 				   matcher(e, a));
 		}
@@ -86,8 +86,7 @@ public static class CommonEquals
 			var entitiesByKey = entities.FilterToDictionary(request, filter, entityKey);
 
 			return e.Count == entitiesByKey.Count &&
-				   e.Any() &&
-				   e.All(e =>
+				   e.AllAndNotEmpty(e =>
 				   entitiesByKey.TryGetValue(expectedKey(e), out var a) &&
 				   matcher(e, a));
 		}
@@ -104,9 +103,8 @@ public static class CommonEquals
 			var sortedEntities = entities.Filter(request, termTransformer, filter);
 
 			return e.Count == sortedEntities.Count &&
-				   e.Any() &&
 				   e.Zip(sortedEntities, (e, a) => matcher(e, a))
-						   .All(match => match);
+						   .AllAndNotEmpty(match => match);
 		}
 	}
 }

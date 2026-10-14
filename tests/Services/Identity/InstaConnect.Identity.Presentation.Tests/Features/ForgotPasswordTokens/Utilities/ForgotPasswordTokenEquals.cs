@@ -1,4 +1,5 @@
 using InstaConnect.Common.Domain.Features.Common.Extensions;
+using InstaConnect.Common.Tests.Features.Extensions;
 using InstaConnect.Identity.Domain.Features.Common.Helpers;
 using InstaConnect.Identity.Events.Features.ForgotPasswordTokens;
 using InstaConnect.Identity.Events.Features.Users;
@@ -43,6 +44,25 @@ public static class ForgotPasswordTokenEquals
 				   user.IsEmailConfirmed &&
 				   user.CreatedAtUtc != default &&
 				   user.UpdatedAtUtc != default;
+		}
+	}
+
+	extension(ForgotPasswordToken entity)
+	{
+		public bool Matches(AddForgotPasswordTokenApiRequest request)
+		{
+			return entity.Id.Id.Id.IsNotNullOrEmptyOrWhiteSpace() &&
+				   entity.Id.Value.IsNotNullOrEmptyOrWhiteSpace() &&
+				   entity.CreatedAtUtc != default &&
+				   entity.ExpiresAtUtc != default;
+		}
+	}
+
+	extension(ICollection<ForgotPasswordToken> entities)
+	{
+		public bool Matches(AddForgotPasswordTokenApiRequest request)
+		{
+			return entities.AllAndNotEmpty(entity => entity.Matches(request));
 		}
 	}
 

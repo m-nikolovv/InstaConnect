@@ -1,4 +1,5 @@
 using InstaConnect.Common.Domain.Features.Common.Extensions;
+using InstaConnect.Common.Tests.Features.Extensions;
 using InstaConnect.Identity.Application.Tests.Features.EmailConfirmationTokens.Utilities;
 using InstaConnect.Identity.Events.Features.EmailConfirmationTokens;
 using InstaConnect.Identity.Events.Features.Users;
@@ -37,6 +38,25 @@ public static class EmailConfirmationTokenEquals
 				   user.IsEmailConfirmed &&
 				   user.CreatedAtUtc != default &&
 				   user.UpdatedAtUtc != default;
+		}
+	}
+
+	extension(EmailConfirmationToken entity)
+	{
+		public bool Matches(AddEmailConfirmationTokenCommandRequest request)
+		{
+			return entity.Id.Id.Id.IsNotNullOrEmptyOrWhiteSpace() &&
+				   entity.Id.Value.IsNotNullOrEmptyOrWhiteSpace() &&
+				   entity.CreatedAtUtc != default &&
+				   entity.ExpiresAtUtc != default;
+		}
+	}
+
+	extension(ICollection<EmailConfirmationToken> entities)
+	{
+		public bool Matches(AddEmailConfirmationTokenCommandRequest request)
+		{
+			return entities.AllAndNotEmpty(entity => entity.Matches(request));
 		}
 	}
 

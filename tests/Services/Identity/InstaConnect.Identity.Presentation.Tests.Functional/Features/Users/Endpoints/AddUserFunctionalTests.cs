@@ -435,7 +435,7 @@ public class AddUserFunctionalTests : BaseUserPresentationCommandFunctionalTest
 		var user = await ServiceScope.GetByIdAsync(response, CancellationToken);
 
 		// Assert
-		user.EmailConfirmationTokens.ShouldNotBeEmpty();
+		user.EmailConfirmationTokens.ShouldSatisfy(_request);
 	}
 
 	[Theory]
@@ -450,7 +450,7 @@ public class AddUserFunctionalTests : BaseUserPresentationCommandFunctionalTest
 		var user = await ServiceScope.GetByIdAsync(response, CancellationToken);
 
 		// Assert
-		user.EmailConfirmationTokens.ShouldNotBeEmpty();
+		user.EmailConfirmationTokens.ShouldSatisfy(request);
 	}
 
 	[Fact]

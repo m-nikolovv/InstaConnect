@@ -181,7 +181,7 @@ public class RotateRefreshTokenControllerIntegrationTests : BaseRefreshTokenPres
 		var user = await ServiceScope.GetByIdAsync(User.Id, CancellationToken);
 
 		// Assert
-		user.RefreshTokens.ShouldNotBeEmpty();
+		user.RefreshTokens.ShouldSatisfy(_request);
 	}
 
 	[Theory]
@@ -197,7 +197,7 @@ public class RotateRefreshTokenControllerIntegrationTests : BaseRefreshTokenPres
 		var user = await ServiceScope.GetByIdAsync(User.Id, CancellationToken);
 
 		// Assert
-		user.RefreshTokens.ShouldNotBeEmpty();
+		user.RefreshTokens.ShouldSatisfy(request);
 	}
 
 	[Theory]
@@ -213,6 +213,6 @@ public class RotateRefreshTokenControllerIntegrationTests : BaseRefreshTokenPres
 		var user = await ServiceScope.GetByIdAsync(User.Id, CancellationToken);
 
 		// Assert
-		user.RefreshTokens.ShouldNotBeEmpty();
+		user.RefreshTokens.ShouldSatisfy(request);
 	}
 }

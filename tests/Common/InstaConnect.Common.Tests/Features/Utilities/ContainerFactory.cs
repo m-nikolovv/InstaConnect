@@ -8,7 +8,9 @@ public static class ContainerFactory
 {
 	public static MongoDbContainer GetMongoDbContainer()
 	{
-		return new MongoDbBuilder("mongo:8.0")
+		const string Image = "mongo:8.0";
+
+		return new MongoDbBuilder(Image)
 		   .WithReplicaSet()
 		   .WithCleanUp(true)
 		   .Build();
@@ -16,14 +18,18 @@ public static class ContainerFactory
 
 	public static RabbitMqContainer GetRabbitMqContainer()
 	{
-		return new RabbitMqBuilder("rabbitmq:4.3")
+		const string Image = "rabbitmq:4.3";
+
+		return new RabbitMqBuilder(Image)
 			.WithCleanUp(true)
 			.Build();
 	}
 
 	public static RedisContainer GetRedisContainer()
 	{
-		return new RedisBuilder("redis:7.4")
+		const string Image = "redis:7.4";
+
+		return new RedisBuilder(Image)
 			.WithCleanUp(true)
 			.Build();
 	}
