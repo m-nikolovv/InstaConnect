@@ -248,7 +248,7 @@ public class UpdateCurrentUserFunctionalTests : BaseUserPresentationCommandFunct
 	public async Task UpdateCurrentAsync_ShouldHaveBadRequestStatusCode_WhenUserEmailAlreadyTaken()
 	{
 		// Arrange
-		var user = UserBuilderFactory.Create(User.PasswordHash, User.ProfileImage.Url).Build();
+		var user = UserBuilderFactory.Create(User.PasswordHash).Build();
 		await ServiceScope.AddAsync(user, CancellationToken);
 		var request = _requestBuilder.WithEmail(user.Email).Build();
 
@@ -265,7 +265,7 @@ public class UpdateCurrentUserFunctionalTests : BaseUserPresentationCommandFunct
 		IStringTransformer transformer)
 	{
 		// Arrange
-		var user = UserBuilderFactory.Create(User.PasswordHash, User.ProfileImage.Url).Build();
+		var user = UserBuilderFactory.Create(User.PasswordHash).Build();
 		await ServiceScope.AddAsync(user, CancellationToken);
 		var request = _requestBuilder.WithEmail(user.Email, transformer).Build();
 
@@ -280,7 +280,7 @@ public class UpdateCurrentUserFunctionalTests : BaseUserPresentationCommandFunct
 	public async Task UpdateCurrentAsync_ShouldHaveUserEmailAlreadyTakenProblemDetails_WhenUserEmailAlreadyTaken()
 	{
 		// Arrange
-		var user = UserBuilderFactory.Create(User.PasswordHash, User.ProfileImage.Url).Build();
+		var user = UserBuilderFactory.Create(User.PasswordHash).Build();
 		await ServiceScope.AddAsync(user, CancellationToken);
 		var request = _requestBuilder.WithEmail(user.Email).Build();
 
@@ -297,7 +297,7 @@ public class UpdateCurrentUserFunctionalTests : BaseUserPresentationCommandFunct
 		IStringTransformer transformer)
 	{
 		// Arrange
-		var user = UserBuilderFactory.Create(User.PasswordHash, User.ProfileImage.Url).Build();
+		var user = UserBuilderFactory.Create(User.PasswordHash).Build();
 		await ServiceScope.AddAsync(user, CancellationToken);
 		var request = _requestBuilder.WithEmail(user.Email, transformer).Build();
 
@@ -312,7 +312,7 @@ public class UpdateCurrentUserFunctionalTests : BaseUserPresentationCommandFunct
 	public async Task UpdateCurrentAsync_ShouldHaveBadRequestStatusCode_WhenUserNameAlreadyTaken()
 	{
 		// Arrange
-		var user = UserBuilderFactory.Create(User.PasswordHash, User.ProfileImage.Url).Build();
+		var user = UserBuilderFactory.Create(User.PasswordHash).Build();
 		await ServiceScope.AddAsync(user, CancellationToken);
 		var request = _requestBuilder.WithName(user.Name).Build();
 
@@ -329,7 +329,7 @@ public class UpdateCurrentUserFunctionalTests : BaseUserPresentationCommandFunct
 		IStringTransformer transformer)
 	{
 		// Arrange
-		var user = UserBuilderFactory.Create(User.PasswordHash, User.ProfileImage.Url).Build();
+		var user = UserBuilderFactory.Create(User.PasswordHash).Build();
 		await ServiceScope.AddAsync(user, CancellationToken);
 		var request = _requestBuilder.WithName(user.Name, transformer).Build();
 
@@ -344,7 +344,7 @@ public class UpdateCurrentUserFunctionalTests : BaseUserPresentationCommandFunct
 	public async Task UpdateCurrentAsync_ShouldHaveUserNameAlreadyTakenProblemDetails_WhenUserNameAlreadyTaken()
 	{
 		// Arrange
-		var user = UserBuilderFactory.Create(User.PasswordHash, User.ProfileImage.Url).Build();
+		var user = UserBuilderFactory.Create(User.PasswordHash).Build();
 		await ServiceScope.AddAsync(user, CancellationToken);
 		var request = _requestBuilder.WithName(user.Name).Build();
 
@@ -361,7 +361,7 @@ public class UpdateCurrentUserFunctionalTests : BaseUserPresentationCommandFunct
 		IStringTransformer transformer)
 	{
 		// Arrange
-		var user = UserBuilderFactory.Create(User.PasswordHash, User.ProfileImage.Url).Build();
+		var user = UserBuilderFactory.Create(User.PasswordHash).Build();
 		await ServiceScope.AddAsync(user, CancellationToken);
 		var request = _requestBuilder.WithName(user.Name, transformer).Build();
 

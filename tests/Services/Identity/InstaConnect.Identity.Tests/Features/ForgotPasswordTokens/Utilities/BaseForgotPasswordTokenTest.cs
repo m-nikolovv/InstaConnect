@@ -1,10 +1,7 @@
-using InstaConnect.Common.Tests.Features.Extensions;
 using InstaConnect.Identity.Domain.Features.Common.Helpers;
 using InstaConnect.Identity.Tests.Features.ForgotPasswordTokens.Utilities;
 using InstaConnect.Identity.Tests.Features.UserClaims.Utilities;
 using InstaConnect.Identity.Tests.Features.Users.Utilities;
-
-using Microsoft.AspNetCore.Http;
 
 namespace InstaConnect.Identity.Tests.Features.ForgotPasswordTokens.Utilities;
 
@@ -12,7 +9,6 @@ public abstract class BaseForgotPasswordTokenTest : BaseTest
 {
 	protected IPasswordHasher PasswordHasher { get; }
 	protected string Password { get; }
-	protected IFormFile ProfileImage { get; }
 	protected DateTimeOffset ExpiredDate { get; }
 	protected DateTimeOffset UnexpiredDate { get; }
 
@@ -37,10 +33,9 @@ public abstract class BaseForgotPasswordTokenTest : BaseTest
 	{
 		PasswordHasher = passwordHasher;
 		Password = UserDataFaker.GetPassword();
-		ProfileImage = UserDataFaker.GetProfileImage();
 
 		UserBuilderFactory = new();
-		UserBuilder = UserBuilderFactory.Create(PasswordHasher.Hash(Password), ProfileImage.GetUrl());
+		UserBuilder = UserBuilderFactory.Create(PasswordHasher.Hash(Password));
 		User = UserBuilder.Build();
 		Users = User.Generate();
 

@@ -117,7 +117,7 @@ public class UpdateCurrentUserCommandHandlerIntegrationTests : BaseUserApplicati
 	public async Task SendAsync_ShouldThrowUserEmailAlreadyTakenException_WhenRequestIsInvalid()
 	{
 		// Arrange
-		var user = UserBuilderFactory.Create(User.PasswordHash, User.ProfileImage.Url).Build();
+		var user = UserBuilderFactory.Create(User.PasswordHash).Build();
 		await ServiceScope.AddAsync(user, CancellationToken);
 
 		var request = _requestBuilder.WithEmail(user.Email).Build();
@@ -132,7 +132,7 @@ public class UpdateCurrentUserCommandHandlerIntegrationTests : BaseUserApplicati
 		IStringTransformer transformer)
 	{
 		// Arrange
-		var user = UserBuilderFactory.Create(User.PasswordHash, User.ProfileImage.Url).Build();
+		var user = UserBuilderFactory.Create(User.PasswordHash).Build();
 		await ServiceScope.AddAsync(user, CancellationToken);
 
 		var request = _requestBuilder.WithEmail(user.Email, transformer).Build();
@@ -145,7 +145,7 @@ public class UpdateCurrentUserCommandHandlerIntegrationTests : BaseUserApplicati
 	public async Task SendAsync_ShouldThrowUserNameAlreadyTakenException_WhenRequestIsInvalid()
 	{
 		// Arrange
-		var user = UserBuilderFactory.Create(User.PasswordHash, User.ProfileImage.Url).Build();
+		var user = UserBuilderFactory.Create(User.PasswordHash).Build();
 		await ServiceScope.AddAsync(user, CancellationToken);
 
 		var request = _requestBuilder.WithName(user.Name).Build();
@@ -160,7 +160,7 @@ public class UpdateCurrentUserCommandHandlerIntegrationTests : BaseUserApplicati
 		IStringTransformer transformer)
 	{
 		// Arrange
-		var user = UserBuilderFactory.Create(User.PasswordHash, User.ProfileImage.Url).Build();
+		var user = UserBuilderFactory.Create(User.PasswordHash).Build();
 		await ServiceScope.AddAsync(user, CancellationToken);
 
 		var request = _requestBuilder.WithName(user.Name, transformer).Build();

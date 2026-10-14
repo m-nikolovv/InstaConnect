@@ -16,7 +16,7 @@ public class UserBuilder
 	private readonly DateTimeOffset _createdAtUtc;
 	private readonly DateTimeOffset _updatedAtUtc;
 
-	public UserBuilder(string passwordHash, string? profileImage)
+	public UserBuilder(string passwordHash)
 	{
 		_id = UserDataFaker.GetId();
 		_name = UserDataFaker.GetName();
@@ -25,7 +25,7 @@ public class UserBuilder
 		_email = UserDataFaker.GetEmail();
 		_isEmailConfirmed = UserDataFaker.GetIsEmailConfirmed();
 		_passwordHash = passwordHash;
-		_profileImage = profileImage;
+		_profileImage = UserDataFaker.GetProfileImageUrl();
 		_createdAtUtc = UserDataFaker.GetCreatedAtUtc();
 		_updatedAtUtc = _createdAtUtc;
 	}

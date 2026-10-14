@@ -1,9 +1,6 @@
-using InstaConnect.Common.Tests.Features.Extensions;
 using InstaConnect.Identity.Domain.Features.Common.Helpers;
 using InstaConnect.Identity.Tests.Features.EmailConfirmationTokens.Utilities;
 using InstaConnect.Identity.Tests.Features.ForgotPasswordTokens.Utilities;
-
-using Microsoft.AspNetCore.Http;
 
 namespace InstaConnect.Identity.Tests.Features.Users.Utilities;
 
@@ -11,7 +8,6 @@ public abstract class BaseUserTest : BaseTest
 {
 	protected IPasswordHasher PasswordHasher { get; }
 	protected string Password { get; }
-	protected IFormFile ProfileImage { get; }
 
 	protected UserBuilderFactory UserBuilderFactory { get; }
 	protected UserBuilder UserBuilder { get; }
@@ -34,10 +30,9 @@ public abstract class BaseUserTest : BaseTest
 	{
 		PasswordHasher = passwordHasher;
 		Password = UserDataFaker.GetPassword();
-		ProfileImage = UserDataFaker.GetProfileImage();
 
 		UserBuilderFactory = new();
-		UserBuilder = UserBuilderFactory.Create(PasswordHasher.Hash(Password), ProfileImage.GetUrl());
+		UserBuilder = UserBuilderFactory.Create(PasswordHasher.Hash(Password));
 		User = UserBuilder.Build();
 		Users = User.Generate();
 

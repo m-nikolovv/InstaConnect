@@ -51,7 +51,7 @@ public class UpdateUserCommandServiceIntegrationTests : BaseUserDomainCommandInt
 	public async Task UpdateAsync_ShouldThrowUserEmailAlreadyTakenException_WhenCommandIsInvalid()
 	{
 		// Arrange
-		var user = UserBuilderFactory.Create(User.PasswordHash, User.ProfileImage.Url).Build();
+		var user = UserBuilderFactory.Create(User.PasswordHash).Build();
 		await ServiceScope.AddAsync(user, CancellationToken);
 
 		var command = _commandBuilder.WithEmail(user.Email).Build();
@@ -66,7 +66,7 @@ public class UpdateUserCommandServiceIntegrationTests : BaseUserDomainCommandInt
 		IStringTransformer transformer)
 	{
 		// Arrange
-		var user = UserBuilderFactory.Create(User.PasswordHash, User.ProfileImage.Url).Build();
+		var user = UserBuilderFactory.Create(User.PasswordHash).Build();
 		await ServiceScope.AddAsync(user, CancellationToken);
 
 		var command = _commandBuilder.WithEmail(user.Email, transformer).Build();
@@ -79,7 +79,7 @@ public class UpdateUserCommandServiceIntegrationTests : BaseUserDomainCommandInt
 	public async Task UpdateAsync_ShouldThrowUserNameAlreadyTakenException_WhenCommandIsInvalid()
 	{
 		// Arrange
-		var user = UserBuilderFactory.Create(User.PasswordHash, User.ProfileImage.Url).Build();
+		var user = UserBuilderFactory.Create(User.PasswordHash).Build();
 		await ServiceScope.AddAsync(user, CancellationToken);
 
 		var command = _commandBuilder.WithName(user.Name).Build();
@@ -94,7 +94,7 @@ public class UpdateUserCommandServiceIntegrationTests : BaseUserDomainCommandInt
 		IStringTransformer transformer)
 	{
 		// Arrange
-		var user = UserBuilderFactory.Create(User.PasswordHash, User.ProfileImage.Url).Build();
+		var user = UserBuilderFactory.Create(User.PasswordHash).Build();
 		await ServiceScope.AddAsync(user, CancellationToken);
 
 		var command = _commandBuilder.WithName(user.Name, transformer).Build();
