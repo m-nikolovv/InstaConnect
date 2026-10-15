@@ -41,6 +41,13 @@ public static class ForgotPasswordTokenSetups
 			return (await serviceScope.GetForgotPasswordTokenCommandRepository().GetByIdAsync(id, include, cancellationToken)).SetUser();
 		}
 
+		public async Task<ICollection<ForgotPasswordToken>> GetByIdRangeAsync(
+			IEnumerable<ForgotPasswordTokenId> ids,
+			CancellationToken cancellationToken)
+		{
+			return await serviceScope.GetForgotPasswordTokenCommandRepository().GetByIdRangeAsync(ids, cancellationToken);
+		}
+
 		public async Task AddAsync(
 			ForgotPasswordToken forgotPasswordToken,
 			CancellationToken cancellationToken)
@@ -67,6 +74,13 @@ public static class ForgotPasswordTokenSetups
 			CancellationToken cancellationToken)
 		{
 			await serviceScope.GetForgotPasswordTokenCommandRepository().DeleteAsync(forgotPasswordToken, cancellationToken);
+		}
+
+		public async Task DeleteRangeAsync(
+			IEnumerable<ForgotPasswordToken> forgotPasswordTokens,
+			CancellationToken cancellationToken)
+		{
+			await serviceScope.GetForgotPasswordTokenCommandRepository().DeleteRangeAsync(forgotPasswordTokens, cancellationToken);
 		}
 	}
 }

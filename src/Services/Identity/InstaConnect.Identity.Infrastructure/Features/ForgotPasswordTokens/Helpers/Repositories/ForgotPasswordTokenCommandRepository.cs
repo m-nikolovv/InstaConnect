@@ -34,6 +34,16 @@ internal class ForgotPasswordTokenCommandRepository : IForgotPasswordTokenComman
 		return await GetByIdAsync(id, include, cancellationToken);
 	}
 
+	public async Task<ICollection<ForgotPasswordToken>> GetByIdRangeAsync(
+		IEnumerable<ForgotPasswordTokenId> ids,
+		CancellationToken cancellationToken)
+	{
+		return await _collection
+			.AggregateFluent()
+			.Match(ids)
+			.ToListAsync(cancellationToken);
+	}
+
 	public async Task<bool> ExistsByIdAsync(
 		ForgotPasswordTokenId id,
 		CancellationToken cancellationToken)

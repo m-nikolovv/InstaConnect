@@ -14,6 +14,11 @@ public static class ForgotPasswordTokenMockAssertions
 			collection.ShouldHaveReceivedOneAggregateFluent();
 		}
 
+		public void ShouldHaveReceivedOneAggregateFluent(ICollection<ForgotPasswordTokenId> ids)
+		{
+			collection.ShouldHaveReceivedOneAggregateFluent();
+		}
+
 		public void ShouldHaveReceivedOneAggregateFluent()
 		{
 			collection.ShouldHaveReceivedOne().AggregateFluent();
@@ -48,6 +53,11 @@ public static class ForgotPasswordTokenMockAssertions
 			fluent.ShouldHaveReceivedOne().Match(id);
 		}
 
+		public void ShouldHaveReceivedOneMatch(ICollection<ForgotPasswordTokenId> ids)
+		{
+			fluent.ShouldHaveReceivedOne().Match(ids);
+		}
+
 		public void ShouldHaveReceivedOneApplyIncludes(
 			ForgotPasswordTokenId id,
 			ForgotPasswordTokenInclude include)
@@ -72,6 +82,13 @@ public static class ForgotPasswordTokenMockAssertions
 			CancellationToken cancellationToken)
 		{
 			await fluent.ShouldHaveReceivedOneFirstOrDefaultAsync(cancellationToken);
+		}
+
+		public async Task ShouldHaveReceivedOneToListAsync(
+			ICollection<ForgotPasswordTokenId> ids,
+			CancellationToken cancellationToken)
+		{
+			await fluent.ShouldHaveReceivedOneToListAsync(cancellationToken);
 		}
 	}
 }

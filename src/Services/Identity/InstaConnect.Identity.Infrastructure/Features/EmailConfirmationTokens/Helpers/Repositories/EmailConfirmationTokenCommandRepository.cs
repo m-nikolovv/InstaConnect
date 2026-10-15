@@ -34,6 +34,16 @@ internal class EmailConfirmationTokenCommandRepository : IEmailConfirmationToken
 		return await GetByIdAsync(id, include, cancellationToken);
 	}
 
+	public async Task<ICollection<EmailConfirmationToken>> GetByIdRangeAsync(
+		IEnumerable<EmailConfirmationTokenId> ids,
+		CancellationToken cancellationToken)
+	{
+		return await _collection
+			.AggregateFluent()
+			.Match(ids)
+			.ToListAsync(cancellationToken);
+	}
+
 	public async Task<bool> ExistsByIdAsync(
 		EmailConfirmationTokenId id,
 		CancellationToken cancellationToken)

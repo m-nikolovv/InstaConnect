@@ -14,6 +14,13 @@ public static class MockAssertions
 		{
 			await collection.ShouldHaveReceivedOne().AddAsync(entity, cancellationToken);
 		}
+
+		public async Task ShouldHaveReceivedOneAddRangeAsync(
+			ICollection<TEntity> entities,
+			CancellationToken cancellationToken)
+		{
+			await collection.ShouldHaveReceivedOne().AddRangeAsync(entities, cancellationToken);
+		}
 	}
 
 	extension<TEntity>(IMongoDbFluent<TEntity> fluent)
@@ -32,6 +39,11 @@ public static class MockAssertions
 		public async Task ShouldHaveReceivedOneFirstOrDefaultAsync(CancellationToken cancellationToken)
 		{
 			await fluent.ShouldHaveReceivedOne().FirstOrDefaultAsync(cancellationToken);
+		}
+
+		public async Task ShouldHaveReceivedOneToListAsync(CancellationToken cancellationToken)
+		{
+			await fluent.ShouldHaveReceivedOne().ToListAsync(cancellationToken);
 		}
 	}
 

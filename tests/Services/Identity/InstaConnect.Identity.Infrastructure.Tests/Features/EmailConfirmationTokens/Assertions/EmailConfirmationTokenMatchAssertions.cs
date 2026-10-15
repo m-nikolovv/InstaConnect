@@ -14,6 +14,14 @@ public static class EmailConfirmationTokenMatchAssertions
 		}
 	}
 
+	extension(ICollection<EmailConfirmationToken> response)
+	{
+		public void ShouldSatisfy(ICollection<EmailConfirmationTokenId> ids, ICollection<EmailConfirmationToken> emailConfirmationTokens)
+		{
+			response.ShouldSatisfy(p => p.Matches(ids, emailConfirmationTokens));
+		}
+	}
+
 	extension(bool response)
 	{
 		public void ShouldSatisfy(EmailConfirmationTokenId id, EmailConfirmationToken? emailConfirmationToken)

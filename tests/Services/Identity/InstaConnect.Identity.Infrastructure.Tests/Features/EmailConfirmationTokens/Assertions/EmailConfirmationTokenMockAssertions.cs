@@ -14,6 +14,11 @@ public static class EmailConfirmationTokenMockAssertions
 			collection.ShouldHaveReceivedOneAggregateFluent();
 		}
 
+		public void ShouldHaveReceivedOneAggregateFluent(ICollection<EmailConfirmationTokenId> ids)
+		{
+			collection.ShouldHaveReceivedOneAggregateFluent();
+		}
+
 		public void ShouldHaveReceivedOneAggregateFluent()
 		{
 			collection.ShouldHaveReceivedOne().AggregateFluent();
@@ -48,6 +53,11 @@ public static class EmailConfirmationTokenMockAssertions
 			fluent.ShouldHaveReceivedOne().Match(id);
 		}
 
+		public void ShouldHaveReceivedOneMatch(ICollection<EmailConfirmationTokenId> ids)
+		{
+			fluent.ShouldHaveReceivedOne().Match(ids);
+		}
+
 		public void ShouldHaveReceivedOneApplyIncludes(
 			EmailConfirmationTokenId id,
 			EmailConfirmationTokenInclude include)
@@ -72,6 +82,13 @@ public static class EmailConfirmationTokenMockAssertions
 			CancellationToken cancellationToken)
 		{
 			await fluent.ShouldHaveReceivedOneFirstOrDefaultAsync(cancellationToken);
+		}
+
+		public async Task ShouldHaveReceivedOneToListAsync(
+			ICollection<EmailConfirmationTokenId> ids,
+			CancellationToken cancellationToken)
+		{
+			await fluent.ShouldHaveReceivedOneToListAsync(cancellationToken);
 		}
 	}
 }

@@ -18,6 +18,18 @@ public static class EmailConfirmationTokenEquals
 		}
 	}
 
+	extension(ICollection<EmailConfirmationToken> entities)
+	{
+		public bool Matches(ICollection<EmailConfirmationToken> emailConfirmationTokens)
+		{
+			return entities.MatchesCollection(
+				emailConfirmationTokens,
+				e => e.Id,
+				e => e.Id,
+				(entity, emailConfirmationToken) => entity.Matches(emailConfirmationToken));
+		}
+	}
+
 	extension(EmailConfirmationTokenId p)
 	{
 		public bool Matches(EmailConfirmationTokenId id)

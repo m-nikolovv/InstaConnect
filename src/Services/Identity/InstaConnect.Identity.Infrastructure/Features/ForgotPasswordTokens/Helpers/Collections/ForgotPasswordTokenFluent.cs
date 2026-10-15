@@ -29,4 +29,11 @@ internal class ForgotPasswordTokenFluent : MongoDbFluent<ForgotPasswordToken>, I
 
 		return this;
 	}
+
+	public IForgotPasswordTokenFluent Match(IEnumerable<ForgotPasswordTokenId> filter)
+	{
+		Match(filter.GetFilter());
+
+		return this;
+	}
 }

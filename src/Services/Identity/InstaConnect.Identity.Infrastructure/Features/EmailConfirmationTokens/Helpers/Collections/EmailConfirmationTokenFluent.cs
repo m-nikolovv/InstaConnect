@@ -29,4 +29,11 @@ internal class EmailConfirmationTokenFluent : MongoDbFluent<EmailConfirmationTok
 
 		return this;
 	}
+
+	public IEmailConfirmationTokenFluent Match(IEnumerable<EmailConfirmationTokenId> filter)
+	{
+		Match(filter.GetFilter());
+
+		return this;
+	}
 }

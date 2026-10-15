@@ -16,6 +16,13 @@ public static class EmailConfirmationTokenMockSetups
 			collection.SetupAggregateFluent(fluent);
 		}
 
+		public void SetupAggregateFluent(
+			ICollection<EmailConfirmationTokenId> ids,
+			IEmailConfirmationTokenFluent fluent)
+		{
+			collection.SetupAggregateFluent(fluent);
+		}
+
 		public void SetupAggregateFluent(IEmailConfirmationTokenFluent fluent)
 		{
 			collection.AggregateFluent().ReturnsResponse(fluent);
@@ -49,12 +56,25 @@ public static class EmailConfirmationTokenMockSetups
 			fluent.Match(id).ReturnsResponse(fluent);
 		}
 
+		public void SetupMatch(ICollection<EmailConfirmationTokenId> ids)
+		{
+			fluent.Match(ids).ReturnsResponse(fluent);
+		}
+
 		public void SetupFirstOrDefaultAsync(
 			EmailConfirmationTokenId id,
 			EmailConfirmationToken emailConfirmationToken,
 			CancellationToken cancellationToken)
 		{
 			fluent.SetupFirstOrDefaultAsync(emailConfirmationToken, cancellationToken);
+		}
+
+		public void SetupToListAsync(
+			ICollection<EmailConfirmationTokenId> ids,
+			ICollection<EmailConfirmationToken> emailConfirmationTokens,
+			CancellationToken cancellationToken)
+		{
+			fluent.SetupToListAsync(emailConfirmationTokens, cancellationToken);
 		}
 	}
 }
