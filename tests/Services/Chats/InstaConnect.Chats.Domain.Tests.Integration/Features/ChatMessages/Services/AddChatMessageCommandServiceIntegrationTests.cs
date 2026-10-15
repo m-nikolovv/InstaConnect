@@ -171,7 +171,7 @@ public class AddChatMessageCommandServiceIntegrationTests : BaseChatMessageDomai
 	public async Task AddAsync_ShouldReturnInvertedResponse_WhenCommandIsValid()
 	{
 		// Arrange
-		var command = _commandBuilder.WithParticipantOneId(ParticipantTwo.Id).WithParticipantTwoId(ParticipantOne.Id).Build();
+		var command = _commandBuilder.WithParticipantOneId(ParticipantTwoId).WithParticipantTwoId(ParticipantOneId).Build();
 
 		// Act
 		var response = await Service.AddAsync(command, CancellationToken);
@@ -187,7 +187,7 @@ public class AddChatMessageCommandServiceIntegrationTests : BaseChatMessageDomai
 		IStringTransformer transformer)
 	{
 		// Arrange
-		var command = _commandBuilder.WithParticipantOneId(ParticipantTwo.Id, transformer).WithParticipantTwoId(ParticipantOne.Id).Build();
+		var command = _commandBuilder.WithParticipantOneId(ParticipantTwoId, transformer).WithParticipantTwoId(ParticipantOneId).Build();
 
 		// Act
 		var response = await Service.AddAsync(command, CancellationToken);
@@ -203,7 +203,7 @@ public class AddChatMessageCommandServiceIntegrationTests : BaseChatMessageDomai
 		IStringTransformer transformer)
 	{
 		// Arrange
-		var command = _commandBuilder.WithParticipantOneId(ParticipantTwo.Id).WithParticipantTwoId(ParticipantOne.Id, transformer).Build();
+		var command = _commandBuilder.WithParticipantOneId(ParticipantTwoId).WithParticipantTwoId(ParticipantOneId, transformer).Build();
 
 		// Act
 		var response = await Service.AddAsync(command, CancellationToken);
@@ -217,7 +217,7 @@ public class AddChatMessageCommandServiceIntegrationTests : BaseChatMessageDomai
 	public async Task AddAsync_ShouldAddInvertedChatMessage_WhenCommandIsValid()
 	{
 		// Arrange
-		var command = _commandBuilder.WithParticipantOneId(ParticipantTwo.Id).WithParticipantTwoId(ParticipantOne.Id).Build();
+		var command = _commandBuilder.WithParticipantOneId(ParticipantTwoId).WithParticipantTwoId(ParticipantOneId).Build();
 
 		// Act
 		var response = await Service.AddAsync(command, CancellationToken);
@@ -233,7 +233,7 @@ public class AddChatMessageCommandServiceIntegrationTests : BaseChatMessageDomai
 		IStringTransformer transformer)
 	{
 		// Arrange
-		var command = _commandBuilder.WithParticipantOneId(ParticipantTwo.Id, transformer).WithParticipantTwoId(ParticipantOne.Id).Build();
+		var command = _commandBuilder.WithParticipantOneId(ParticipantTwoId, transformer).WithParticipantTwoId(ParticipantOneId).Build();
 
 		// Act
 		var response = await Service.AddAsync(command, CancellationToken);
@@ -249,7 +249,7 @@ public class AddChatMessageCommandServiceIntegrationTests : BaseChatMessageDomai
 		IStringTransformer transformer)
 	{
 		// Arrange
-		var command = _commandBuilder.WithParticipantOneId(ParticipantTwo.Id).WithParticipantTwoId(ParticipantOne.Id, transformer).Build();
+		var command = _commandBuilder.WithParticipantOneId(ParticipantTwoId).WithParticipantTwoId(ParticipantOneId, transformer).Build();
 
 		// Act
 		var response = await Service.AddAsync(command, CancellationToken);
@@ -263,7 +263,7 @@ public class AddChatMessageCommandServiceIntegrationTests : BaseChatMessageDomai
 	public async Task AddAsync_ShouldPublishInvertedChatMessageAddedNotification_WhenCommandIsValid()
 	{
 		// Arrange
-		var command = _commandBuilder.WithParticipantOneId(ParticipantTwo.Id).WithParticipantTwoId(ParticipantOne.Id).Build();
+		var command = _commandBuilder.WithParticipantOneId(ParticipantTwoId).WithParticipantTwoId(ParticipantOneId).Build();
 
 		// Act
 		var response = await Service.AddAsync(command, CancellationToken);
@@ -280,7 +280,7 @@ public class AddChatMessageCommandServiceIntegrationTests : BaseChatMessageDomai
 		IStringTransformer transformer)
 	{
 		// Arrange
-		var command = _commandBuilder.WithParticipantOneId(ParticipantTwo.Id, transformer).WithParticipantTwoId(ParticipantOne.Id).Build();
+		var command = _commandBuilder.WithParticipantOneId(ParticipantTwoId, transformer).WithParticipantTwoId(ParticipantOneId).Build();
 
 		// Act
 		var response = await Service.AddAsync(command, CancellationToken);
@@ -297,7 +297,7 @@ public class AddChatMessageCommandServiceIntegrationTests : BaseChatMessageDomai
 		IStringTransformer transformer)
 	{
 		// Arrange
-		var command = _commandBuilder.WithParticipantOneId(ParticipantTwo.Id).WithParticipantTwoId(ParticipantOne.Id, transformer).Build();
+		var command = _commandBuilder.WithParticipantOneId(ParticipantTwoId).WithParticipantTwoId(ParticipantOneId, transformer).Build();
 
 		// Act
 		var response = await Service.AddAsync(command, CancellationToken);

@@ -54,7 +54,7 @@ public class DeleteRefreshTokenCommandServiceIntegrationTests : BaseRefreshToken
 	{
 		// Act
 		await Service.DeleteAsync(_command, CancellationToken);
-		var refreshToken = await ServiceScope.GetByIdAsync(RefreshToken.Id, CancellationToken);
+		var refreshToken = await ServiceScope.GetByIdAsync(RefreshTokenId, CancellationToken);
 
 		// Assert
 		refreshToken.ShouldBeNull();
@@ -70,7 +70,7 @@ public class DeleteRefreshTokenCommandServiceIntegrationTests : BaseRefreshToken
 
 		// Act
 		await Service.DeleteAsync(command, CancellationToken);
-		var refreshToken = await ServiceScope.GetByIdAsync(RefreshToken.Id, CancellationToken);
+		var refreshToken = await ServiceScope.GetByIdAsync(RefreshTokenId, CancellationToken);
 
 		// Assert
 		refreshToken.ShouldBeNull();
@@ -86,7 +86,7 @@ public class DeleteRefreshTokenCommandServiceIntegrationTests : BaseRefreshToken
 
 		// Act
 		await Service.DeleteAsync(command, CancellationToken);
-		var refreshToken = await ServiceScope.GetByIdAsync(RefreshToken.Id, CancellationToken);
+		var refreshToken = await ServiceScope.GetByIdAsync(RefreshTokenId, CancellationToken);
 
 		// Assert
 		refreshToken.ShouldBeNull();

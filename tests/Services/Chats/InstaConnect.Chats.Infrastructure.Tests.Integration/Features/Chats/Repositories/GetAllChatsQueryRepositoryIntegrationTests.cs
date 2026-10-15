@@ -149,8 +149,8 @@ public class GetAllChatsQueryRepositoryIntegrationTests : BaseChatInfrastructure
 	public async Task GetAllAsync_ShouldReturnInvertedResponse_WhenQueryIsValid()
 	{
 		// Arrange
-		var filterQuery = _filterQueryBuilder.WithParticipantOneId(ParticipantTwo.Id).WithParticipantTwoName(ParticipantOne.Name).Build();
-		var currentUserQuery = _currentUserQueryBuilder.WithCurrentUserId(ParticipantTwo.Id).Build();
+		var filterQuery = _filterQueryBuilder.WithParticipantOneId(ParticipantTwoId).WithParticipantTwoName(ParticipantOne.Name).Build();
+		var currentUserQuery = _currentUserQueryBuilder.WithCurrentUserId(ParticipantTwoId).Build();
 
 		// Act
 		var response = await Repository.GetAllAsync(filterQuery, _sortingQuery, _paginationQuery, currentUserQuery, CancellationToken);
@@ -167,8 +167,8 @@ public class GetAllChatsQueryRepositoryIntegrationTests : BaseChatInfrastructure
 		IStringTransformer transformer)
 	{
 		// Arrange
-		var filterQuery = _filterQueryBuilder.WithParticipantOneId(ParticipantTwo.Id).WithParticipantTwoName(ParticipantOne.Name, transformer).Build();
-		var currentUserQuery = _currentUserQueryBuilder.WithCurrentUserId(ParticipantTwo.Id).Build();
+		var filterQuery = _filterQueryBuilder.WithParticipantOneId(ParticipantTwoId).WithParticipantTwoName(ParticipantOne.Name, transformer).Build();
+		var currentUserQuery = _currentUserQueryBuilder.WithCurrentUserId(ParticipantTwoId).Build();
 
 		// Act
 		var response = await Repository.GetAllAsync(filterQuery, _sortingQuery, _paginationQuery, currentUserQuery, CancellationToken);
@@ -183,8 +183,8 @@ public class GetAllChatsQueryRepositoryIntegrationTests : BaseChatInfrastructure
 		IStringTransformer transformer)
 	{
 		// Arrange
-		var filterQuery = _filterQueryBuilder.WithParticipantOneId(ParticipantTwo.Id, transformer).WithParticipantTwoName(ParticipantOne.Name).Build();
-		var currentUserQuery = _currentUserQueryBuilder.WithCurrentUserId(ParticipantTwo.Id).Build();
+		var filterQuery = _filterQueryBuilder.WithParticipantOneId(ParticipantTwoId, transformer).WithParticipantTwoName(ParticipantOne.Name).Build();
+		var currentUserQuery = _currentUserQueryBuilder.WithCurrentUserId(ParticipantTwoId).Build();
 
 		// Act
 		var response = await Repository.GetAllAsync(filterQuery, _sortingQuery, _paginationQuery, currentUserQuery, CancellationToken);
@@ -199,8 +199,8 @@ public class GetAllChatsQueryRepositoryIntegrationTests : BaseChatInfrastructure
 		IStringTransformer transformer)
 	{
 		// Arrange
-		var filterQuery = _filterQueryBuilder.WithParticipantOneId(ParticipantTwo.Id).WithParticipantTwoName(ParticipantOne.Name).Build();
-		var currentUserQuery = _currentUserQueryBuilder.WithCurrentUserId(ParticipantTwo.Id, transformer).Build();
+		var filterQuery = _filterQueryBuilder.WithParticipantOneId(ParticipantTwoId).WithParticipantTwoName(ParticipantOne.Name).Build();
+		var currentUserQuery = _currentUserQueryBuilder.WithCurrentUserId(ParticipantTwoId, transformer).Build();
 
 		// Act
 		var response = await Repository.GetAllAsync(filterQuery, _sortingQuery, _paginationQuery, currentUserQuery, CancellationToken);
@@ -216,8 +216,8 @@ public class GetAllChatsQueryRepositoryIntegrationTests : BaseChatInfrastructure
 		IEnumTransformer<CommonSortOrder> transformer, ISortEnumTermTransformer<Chat> termTransformer)
 	{
 		// Arrange
-		var filterQuery = _filterQueryBuilder.WithParticipantOneId(ParticipantTwo.Id).WithParticipantTwoName(ParticipantOne.Name).Build();
-		var currentUserQuery = _currentUserQueryBuilder.WithCurrentUserId(ParticipantTwo.Id).Build();
+		var filterQuery = _filterQueryBuilder.WithParticipantOneId(ParticipantTwoId).WithParticipantTwoName(ParticipantOne.Name).Build();
+		var currentUserQuery = _currentUserQueryBuilder.WithCurrentUserId(ParticipantTwoId).Build();
 		var sortingQuery = _sortingQueryBuilder.WithSortOrder(transformer).Build();
 
 		// Act
@@ -234,8 +234,8 @@ public class GetAllChatsQueryRepositoryIntegrationTests : BaseChatInfrastructure
 		IEnumTransformer<ChatsSortTerm> transformer, ISortEnumTermTransformer<Chat> termTransformer)
 	{
 		// Arrange
-		var filterQuery = _filterQueryBuilder.WithParticipantOneId(ParticipantTwo.Id).WithParticipantTwoName(ParticipantOne.Name).Build();
-		var currentUserQuery = _currentUserQueryBuilder.WithCurrentUserId(ParticipantTwo.Id).Build();
+		var filterQuery = _filterQueryBuilder.WithParticipantOneId(ParticipantTwoId).WithParticipantTwoName(ParticipantOne.Name).Build();
+		var currentUserQuery = _currentUserQueryBuilder.WithCurrentUserId(ParticipantTwoId).Build();
 		var sortingQuery = _sortingQueryBuilder.WithSortTerm(transformer).Build();
 
 		// Act

@@ -44,7 +44,7 @@ public class DeleteFollowCommandServiceIntegrationTests : BaseFollowDomainComman
 	{
 		// Act
 		await Service.DeleteAsync(_command, CancellationToken);
-		var follow = await ServiceScope.GetByIdAsync(Follow.Id, CancellationToken);
+		var follow = await ServiceScope.GetByIdAsync(FollowId, CancellationToken);
 
 		// Assert
 		follow.ShouldBeNull();
@@ -60,7 +60,7 @@ public class DeleteFollowCommandServiceIntegrationTests : BaseFollowDomainComman
 
 		// Act
 		await Service.DeleteAsync(command, CancellationToken);
-		var follow = await ServiceScope.GetByIdAsync(Follow.Id, CancellationToken);
+		var follow = await ServiceScope.GetByIdAsync(FollowId, CancellationToken);
 
 		// Assert
 		follow.ShouldBeNull();
@@ -76,7 +76,7 @@ public class DeleteFollowCommandServiceIntegrationTests : BaseFollowDomainComman
 
 		// Act
 		await Service.DeleteAsync(command, CancellationToken);
-		var follow = await ServiceScope.GetByIdAsync(Follow.Id, CancellationToken);
+		var follow = await ServiceScope.GetByIdAsync(FollowId, CancellationToken);
 
 		// Assert
 		follow.ShouldBeNull();

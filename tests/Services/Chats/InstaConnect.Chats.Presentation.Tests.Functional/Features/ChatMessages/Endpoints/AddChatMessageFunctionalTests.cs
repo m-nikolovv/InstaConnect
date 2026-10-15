@@ -329,7 +329,7 @@ public class AddChatMessageFunctionalTests : BaseChatMessagePresentationCommandF
 	public async Task AddAsync_ShouldHaveInvertedOkStatusCode_WhenRequestIsValid()
 	{
 		// Arrange
-		var request = _requestBuilder.WithParticipantOneId(ParticipantTwo.Id).WithParticipantTwoId(ParticipantOne.Id).Build();
+		var request = _requestBuilder.WithParticipantOneId(ParticipantTwoId).WithParticipantTwoId(ParticipantOneId).Build();
 
 		// Act
 		var response = await ApiClient.AddStatusCodeAsync(request, CancellationToken);
@@ -344,7 +344,7 @@ public class AddChatMessageFunctionalTests : BaseChatMessagePresentationCommandF
 		IStringTransformer transformer)
 	{
 		// Arrange
-		var request = _requestBuilder.WithParticipantOneId(ParticipantTwo.Id, transformer).WithParticipantTwoId(ParticipantOne.Id).Build();
+		var request = _requestBuilder.WithParticipantOneId(ParticipantTwoId, transformer).WithParticipantTwoId(ParticipantOneId).Build();
 
 		// Act
 		var response = await ApiClient.AddStatusCodeAsync(request, CancellationToken);
@@ -359,7 +359,7 @@ public class AddChatMessageFunctionalTests : BaseChatMessagePresentationCommandF
 		IStringTransformer transformer)
 	{
 		// Arrange
-		var request = _requestBuilder.WithParticipantOneId(ParticipantTwo.Id).WithParticipantTwoId(ParticipantOne.Id, transformer).Build();
+		var request = _requestBuilder.WithParticipantOneId(ParticipantTwoId).WithParticipantTwoId(ParticipantOneId, transformer).Build();
 
 		// Act
 		var response = await ApiClient.AddStatusCodeAsync(request, CancellationToken);
@@ -372,7 +372,7 @@ public class AddChatMessageFunctionalTests : BaseChatMessagePresentationCommandF
 	public async Task AddAsync_ShouldReturnInvertedResponse_WhenRequestIsValid()
 	{
 		// Arrange
-		var request = _requestBuilder.WithParticipantOneId(ParticipantTwo.Id).WithParticipantTwoId(ParticipantOne.Id).Build();
+		var request = _requestBuilder.WithParticipantOneId(ParticipantTwoId).WithParticipantTwoId(ParticipantOneId).Build();
 
 		// Act
 		var response = await ApiClient.AddAsync(request, CancellationToken);
@@ -388,7 +388,7 @@ public class AddChatMessageFunctionalTests : BaseChatMessagePresentationCommandF
 		IStringTransformer transformer)
 	{
 		// Arrange
-		var request = _requestBuilder.WithParticipantOneId(ParticipantTwo.Id, transformer).WithParticipantTwoId(ParticipantOne.Id).Build();
+		var request = _requestBuilder.WithParticipantOneId(ParticipantTwoId, transformer).WithParticipantTwoId(ParticipantOneId).Build();
 
 		// Act
 		var response = await ApiClient.AddAsync(request, CancellationToken);
@@ -404,7 +404,7 @@ public class AddChatMessageFunctionalTests : BaseChatMessagePresentationCommandF
 		IStringTransformer transformer)
 	{
 		// Arrange
-		var request = _requestBuilder.WithParticipantOneId(ParticipantTwo.Id).WithParticipantTwoId(ParticipantOne.Id, transformer).Build();
+		var request = _requestBuilder.WithParticipantOneId(ParticipantTwoId).WithParticipantTwoId(ParticipantOneId, transformer).Build();
 
 		// Act
 		var response = await ApiClient.AddAsync(request, CancellationToken);
@@ -418,7 +418,7 @@ public class AddChatMessageFunctionalTests : BaseChatMessagePresentationCommandF
 	public async Task AddAsync_ShouldAddInvertedChatMessage_WhenRequestIsValid()
 	{
 		// Arrange
-		var request = _requestBuilder.WithParticipantOneId(ParticipantTwo.Id).WithParticipantTwoId(ParticipantOne.Id).Build();
+		var request = _requestBuilder.WithParticipantOneId(ParticipantTwoId).WithParticipantTwoId(ParticipantOneId).Build();
 
 		// Act
 		var response = await ApiClient.AddAsync(request, CancellationToken);
@@ -434,7 +434,7 @@ public class AddChatMessageFunctionalTests : BaseChatMessagePresentationCommandF
 		IStringTransformer transformer)
 	{
 		// Arrange
-		var request = _requestBuilder.WithParticipantOneId(ParticipantTwo.Id, transformer).WithParticipantTwoId(ParticipantOne.Id).Build();
+		var request = _requestBuilder.WithParticipantOneId(ParticipantTwoId, transformer).WithParticipantTwoId(ParticipantOneId).Build();
 
 		// Act
 		var response = await ApiClient.AddAsync(request, CancellationToken);
@@ -450,7 +450,7 @@ public class AddChatMessageFunctionalTests : BaseChatMessagePresentationCommandF
 		IStringTransformer transformer)
 	{
 		// Arrange
-		var request = _requestBuilder.WithParticipantOneId(ParticipantTwo.Id).WithParticipantTwoId(ParticipantOne.Id, transformer).Build();
+		var request = _requestBuilder.WithParticipantOneId(ParticipantTwoId).WithParticipantTwoId(ParticipantOneId, transformer).Build();
 
 		// Act
 		var response = await ApiClient.AddAsync(request, CancellationToken);
@@ -464,7 +464,7 @@ public class AddChatMessageFunctionalTests : BaseChatMessagePresentationCommandF
 	public async Task AddAsync_ShouldPublishInvertedChatMessageAddedNotification_WhenRequestIsValid()
 	{
 		// Arrange
-		var request = _requestBuilder.WithParticipantOneId(ParticipantTwo.Id).WithParticipantTwoId(ParticipantOne.Id).Build();
+		var request = _requestBuilder.WithParticipantOneId(ParticipantTwoId).WithParticipantTwoId(ParticipantOneId).Build();
 
 		// Act
 		var response = await ApiClient.AddAsync(request, CancellationToken);
@@ -481,7 +481,7 @@ public class AddChatMessageFunctionalTests : BaseChatMessagePresentationCommandF
 		IStringTransformer transformer)
 	{
 		// Arrange
-		var request = _requestBuilder.WithParticipantOneId(ParticipantTwo.Id, transformer).WithParticipantTwoId(ParticipantOne.Id).Build();
+		var request = _requestBuilder.WithParticipantOneId(ParticipantTwoId, transformer).WithParticipantTwoId(ParticipantOneId).Build();
 
 		// Act
 		var response = await ApiClient.AddAsync(request, CancellationToken);
@@ -498,7 +498,7 @@ public class AddChatMessageFunctionalTests : BaseChatMessagePresentationCommandF
 		IStringTransformer transformer)
 	{
 		// Arrange
-		var request = _requestBuilder.WithParticipantOneId(ParticipantTwo.Id).WithParticipantTwoId(ParticipantOne.Id, transformer).Build();
+		var request = _requestBuilder.WithParticipantOneId(ParticipantTwoId).WithParticipantTwoId(ParticipantOneId, transformer).Build();
 
 		// Act
 		var response = await ApiClient.AddAsync(request, CancellationToken);

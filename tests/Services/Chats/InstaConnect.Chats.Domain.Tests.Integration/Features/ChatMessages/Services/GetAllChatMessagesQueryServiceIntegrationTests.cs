@@ -120,7 +120,7 @@ public class GetAllChatMessagesQueryServiceIntegrationTests : BaseChatMessageDom
 	public async Task GetAllAsync_ShouldReturnInvertedResponse_WhenQueryIsValid()
 	{
 		// Arrange
-		var query = _queryBuilder.WithParticipantTwoId(ParticipantOne.Id).WithCurrentUserId(ParticipantTwo.Id).Build();
+		var query = _queryBuilder.WithParticipantTwoId(ParticipantOneId).WithCurrentUserId(ParticipantTwoId).Build();
 
 		// Act
 		var response = await Service.GetAllAsync(query, CancellationToken);
@@ -135,7 +135,7 @@ public class GetAllChatMessagesQueryServiceIntegrationTests : BaseChatMessageDom
 		IStringTransformer transformer)
 	{
 		// Arrange
-		var query = _queryBuilder.WithParticipantTwoId(ParticipantOne.Id, transformer).WithCurrentUserId(ParticipantTwo.Id).Build();
+		var query = _queryBuilder.WithParticipantTwoId(ParticipantOneId, transformer).WithCurrentUserId(ParticipantTwoId).Build();
 
 		// Act
 		var response = await Service.GetAllAsync(query, CancellationToken);
@@ -151,7 +151,7 @@ public class GetAllChatMessagesQueryServiceIntegrationTests : BaseChatMessageDom
 		IEnumTransformer<CommonSortOrder> transformer, ISortEnumTermTransformer<ChatMessage> termTransformer)
 	{
 		// Arrange
-		var query = _queryBuilder.WithParticipantTwoId(ParticipantOne.Id).WithCurrentUserId(ParticipantTwo.Id).WithSortOrder(transformer).Build();
+		var query = _queryBuilder.WithParticipantTwoId(ParticipantOneId).WithCurrentUserId(ParticipantTwoId).WithSortOrder(transformer).Build();
 
 		// Act
 		var response = await Service.GetAllAsync(query, CancellationToken);
@@ -166,7 +166,7 @@ public class GetAllChatMessagesQueryServiceIntegrationTests : BaseChatMessageDom
 		IEnumTransformer<ChatMessagesSortTerm> transformer, ISortEnumTermTransformer<ChatMessage> termTransformer)
 	{
 		// Arrange
-		var query = _queryBuilder.WithParticipantTwoId(ParticipantOne.Id).WithCurrentUserId(ParticipantTwo.Id).WithSortTerm(transformer).Build();
+		var query = _queryBuilder.WithParticipantTwoId(ParticipantOneId).WithCurrentUserId(ParticipantTwoId).WithSortTerm(transformer).Build();
 
 		// Act
 		var response = await Service.GetAllAsync(query, CancellationToken);
@@ -181,7 +181,7 @@ public class GetAllChatMessagesQueryServiceIntegrationTests : BaseChatMessageDom
 		IStringTransformer transformer)
 	{
 		// Arrange
-		var query = _queryBuilder.WithParticipantTwoId(ParticipantOne.Id).WithCurrentUserId(ParticipantTwo.Id, transformer).Build();
+		var query = _queryBuilder.WithParticipantTwoId(ParticipantOneId).WithCurrentUserId(ParticipantTwoId, transformer).Build();
 
 		// Act
 		var response = await Service.GetAllAsync(query, CancellationToken);

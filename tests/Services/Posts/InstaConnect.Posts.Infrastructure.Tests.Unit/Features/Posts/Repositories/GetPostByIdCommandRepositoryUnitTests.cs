@@ -1,87 +1,77 @@
 using InstaConnect.Posts.Domain.Features.Posts.Models.Requests;
-using InstaConnect.Posts.Domain.Features.Posts.Models.ValueObjects;
 using InstaConnect.Posts.Infrastructure.Features.Posts.Helpers.Repositories;
 using InstaConnect.Posts.Infrastructure.Tests.Features.Posts.Assertions;
 using InstaConnect.Posts.Infrastructure.Tests.Features.Posts.Utilities;
 using InstaConnect.Posts.Infrastructure.Tests.Unit.Features.Posts.Utilities;
 using InstaConnect.Posts.Tests.Features.Posts.Assertions;
-using InstaConnect.Posts.Tests.Features.Posts.Builders;
 
 namespace InstaConnect.Posts.Infrastructure.Tests.Unit.Features.Posts.Repositories;
 
 public class GetPostByIdCommandRepositoryUnitTests : BasePostInfrastructureCommandUnitTest
 {
-	private readonly PostIdBuilderFactory _idBuilderFactory;
-	private readonly PostIdBuilder _idBuilder;
-	private readonly PostId _id;
-
 	private readonly PostInclude _include;
 
 	private readonly PostCommandRepository _repository;
 
 	public GetPostByIdCommandRepositoryUnitTests()
 	{
-		_idBuilderFactory = new();
-		_idBuilder = _idBuilderFactory.Create(Post.Id);
-		_id = _idBuilder.Build();
-
 		_include = IncludeBuilderFactory.Create().WithUser().WithPostLikes().Build();
 
 		_repository = new(Collection, IncludeBuilderFactory);
 
-		Collection.SetupAggregateFluent(_id, Fluent);
-		Fluent.SetupApplyIncludes(_id, _include);
-		Fluent.SetupMatch(_id);
-		Fluent.SetupFirstOrDefaultAsync(_id, Post, CancellationToken);
+		Collection.SetupAggregateFluent(PostId, Fluent);
+		Fluent.SetupApplyIncludes(PostId, _include);
+		Fluent.SetupMatch(PostId);
+		Fluent.SetupFirstOrDefaultAsync(PostId, Post, CancellationToken);
 	}
 
 	[Fact]
 	public async Task GetByIdAsync_ShouldReturnResponse_WhenRequestIsValid()
 	{
 		// Act
-		var response = await _repository.GetByIdAsync(_id, _include, CancellationToken);
+		var response = await _repository.GetByIdAsync(PostId, _include, CancellationToken);
 
 		// Assert
-		response.ShouldSatisfy(_id, Post);
+		response.ShouldSatisfy(PostId, Post);
 	}
 
 	[Fact]
 	public async Task GetByIdAsync_ShouldCallTheCollectionAggregateFluent_WhenRequestIsValid()
 	{
 		// Act
-		await _repository.GetByIdAsync(_id, _include, CancellationToken);
+		await _repository.GetByIdAsync(PostId, _include, CancellationToken);
 
 		// Assert
-		Collection.ShouldHaveReceivedOneAggregateFluent(_id);
+		Collection.ShouldHaveReceivedOneAggregateFluent(PostId);
 	}
 
 	[Fact]
 	public async Task GetByIdAsync_ShouldCallTheFluentApplyIncludes_WhenRequestIsValid()
 	{
 		// Act
-		await _repository.GetByIdAsync(_id, _include, CancellationToken);
+		await _repository.GetByIdAsync(PostId, _include, CancellationToken);
 
 		// Assert
-		Fluent.ShouldHaveReceivedOneApplyIncludes(_id, _include);
+		Fluent.ShouldHaveReceivedOneApplyIncludes(PostId, _include);
 	}
 
 	[Fact]
 	public async Task GetByIdAsync_ShouldCallTheFluentMatch_WhenRequestIsValid()
 	{
 		// Act
-		await _repository.GetByIdAsync(_id, _include, CancellationToken);
+		await _repository.GetByIdAsync(PostId, _include, CancellationToken);
 
 		// Assert
-		Fluent.ShouldHaveReceivedOneMatch(_id);
+		Fluent.ShouldHaveReceivedOneMatch(PostId);
 	}
 
 	[Fact]
 	public async Task GetByIdAsync_ShouldCallTheFluentFirstOrDefaultAsync_WhenRequestIsValid()
 	{
 		// Act
-		await _repository.GetByIdAsync(_id, _include, CancellationToken);
+		await _repository.GetByIdAsync(PostId, _include, CancellationToken);
 
 		// Assert
-		await Fluent.ShouldHaveReceivedOneFirstOrDefaultAsync(_id, CancellationToken);
+		await Fluent.ShouldHaveReceivedOneFirstOrDefaultAsync(PostId, CancellationToken);
 	}
 }

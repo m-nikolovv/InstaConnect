@@ -1,4 +1,3 @@
-using InstaConnect.Posts.Domain.Features.PostComments.Models.ValueObjects;
 using InstaConnect.Posts.Infrastructure.Tests.Features.PostComments.Assertions;
 using InstaConnect.Posts.Infrastructure.Tests.Integration.Features.PostComments.Utilities;
 using InstaConnect.Posts.Tests.Features.PostComments.Builders;
@@ -11,16 +10,9 @@ namespace InstaConnect.Posts.Infrastructure.Tests.Integration.Features.PostComme
 
 public class PostCommentExistsByIdQueryRepositoryIntegrationTests : BasePostCommentInfrastructureQueryIntegrationTest
 {
-	private readonly PostCommentIdBuilderFactory _idBuilderFactory;
-	private readonly PostCommentIdBuilder _idBuilder;
-	private readonly PostCommentId _id;
-
 	public PostCommentExistsByIdQueryRepositoryIntegrationTests(PostsWebApplicationFactory webApplicationFactory)
 		: base(webApplicationFactory)
 	{
-		_idBuilderFactory = new();
-		_idBuilder = _idBuilderFactory.Create(PostComment.Id);
-		_id = _idBuilder.Build();
 	}
 
 	protected override async Task OnInitializeAsync()
@@ -35,22 +27,22 @@ public class PostCommentExistsByIdQueryRepositoryIntegrationTests : BasePostComm
 		await ServiceScope.DeleteAsync(PostComment, CancellationToken);
 
 		// Act
-		var response = await Repository.ExistsByIdAsync(_id, CancellationToken);
-		var postComment = await ServiceScope.GetByIdAsync(_id, CancellationToken);
+		var response = await Repository.ExistsByIdAsync(PostCommentId, CancellationToken);
+		var postComment = await ServiceScope.GetByIdAsync(PostCommentId, CancellationToken);
 
 		// Assert
-		response.ShouldSatisfy(_id, postComment);
+		response.ShouldSatisfy(PostCommentId, postComment);
 	}
 
 	[Fact]
 	public async Task ExistsByIdAsync_ShouldReturnResponse_WhenQueryIsValid()
 	{
 		// Act
-		var response = await Repository.ExistsByIdAsync(_id, CancellationToken);
-		var postComment = await ServiceScope.GetByIdAsync(_id, CancellationToken);
+		var response = await Repository.ExistsByIdAsync(PostCommentId, CancellationToken);
+		var postComment = await ServiceScope.GetByIdAsync(PostCommentId, CancellationToken);
 
 		// Assert
-		response.ShouldSatisfy(_id, postComment);
+		response.ShouldSatisfy(PostCommentId, postComment);
 	}
 
 	[Theory]
@@ -59,11 +51,11 @@ public class PostCommentExistsByIdQueryRepositoryIntegrationTests : BasePostComm
 		IStringTransformer transformer)
 	{
 		// Arrange
-		var id = _idBuilder.WithId(transformer).Build();
+		var id = PostCommentIdBuilder.WithId(transformer).Build();
 
 		// Act
 		var response = await Repository.ExistsByIdAsync(id, CancellationToken);
-		var postComment = await ServiceScope.GetByIdAsync(_id, CancellationToken);
+		var postComment = await ServiceScope.GetByIdAsync(PostCommentId, CancellationToken);
 
 		// Assert
 		response.ShouldSatisfy(id, postComment);
@@ -75,11 +67,11 @@ public class PostCommentExistsByIdQueryRepositoryIntegrationTests : BasePostComm
 		IStringTransformer transformer)
 	{
 		// Arrange
-		var id = _idBuilder.WithCommentId(transformer).Build();
+		var id = PostCommentIdBuilder.WithCommentId(transformer).Build();
 
 		// Act
 		var response = await Repository.ExistsByIdAsync(id, CancellationToken);
-		var postComment = await ServiceScope.GetByIdAsync(_id, CancellationToken);
+		var postComment = await ServiceScope.GetByIdAsync(PostCommentId, CancellationToken);
 
 		// Assert
 		response.ShouldSatisfy(id, postComment);

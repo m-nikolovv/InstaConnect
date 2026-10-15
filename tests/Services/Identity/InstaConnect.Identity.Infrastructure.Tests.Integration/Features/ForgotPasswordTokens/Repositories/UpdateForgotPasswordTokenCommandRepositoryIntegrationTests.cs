@@ -20,11 +20,11 @@ public class UpdateForgotPasswordTokenCommandRepositoryIntegrationTests : BaseFo
 	public async Task UpdateAsync_ShouldUpdateForgotPasswordToken_WhenCommandIsValid()
 	{
 		// Arrange
-		var updatedForgotPasswordToken = ForgotPasswordTokenBuilderFactory.Create(User).WithValue(ForgotPasswordToken.Id).Build();
+		var updatedForgotPasswordToken = ForgotPasswordTokenBuilderFactory.Create(User).WithValue(ForgotPasswordTokenId).Build();
 
 		// Act
 		await Repository.UpdateAsync(updatedForgotPasswordToken, CancellationToken);
-		var forgotPasswordToken = await ServiceScope.GetByIdAsync(ForgotPasswordToken.Id, CancellationToken);
+		var forgotPasswordToken = await ServiceScope.GetByIdAsync(ForgotPasswordTokenId, CancellationToken);
 
 		// Assert
 		forgotPasswordToken.ShouldSatisfy(updatedForgotPasswordToken);

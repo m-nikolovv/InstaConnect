@@ -57,7 +57,7 @@ public class DeletePostCommandServiceIntegrationTests : BasePostDomainCommandInt
 	{
 		// Act
 		await Service.DeleteAsync(_command, CancellationToken);
-		var post = await ServiceScope.GetByIdAsync(Post.Id, CancellationToken);
+		var post = await ServiceScope.GetByIdAsync(PostId, CancellationToken);
 
 		// Assert
 		post.ShouldBeNull();
@@ -73,7 +73,7 @@ public class DeletePostCommandServiceIntegrationTests : BasePostDomainCommandInt
 
 		// Act
 		await Service.DeleteAsync(command, CancellationToken);
-		var post = await ServiceScope.GetByIdAsync(Post.Id, CancellationToken);
+		var post = await ServiceScope.GetByIdAsync(PostId, CancellationToken);
 
 		// Assert
 		post.ShouldBeNull();
@@ -89,7 +89,7 @@ public class DeletePostCommandServiceIntegrationTests : BasePostDomainCommandInt
 
 		// Act
 		await Service.DeleteAsync(command, CancellationToken);
-		var post = await ServiceScope.GetByIdAsync(Post.Id, CancellationToken);
+		var post = await ServiceScope.GetByIdAsync(PostId, CancellationToken);
 
 		// Assert
 		post.ShouldBeNull();

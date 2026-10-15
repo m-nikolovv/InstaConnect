@@ -42,7 +42,7 @@ public class DeleteUserCommandServiceIntegrationTests : BaseUserDomainCommandInt
 	{
 		// Act
 		await UserService.DeleteAsync(_command, CancellationToken);
-		var user = await ServiceScope.GetByIdAsync(User.Id, CancellationToken);
+		var user = await ServiceScope.GetByIdAsync(UserId, CancellationToken);
 
 		// Assert
 		user.ShouldBeNull();
@@ -58,7 +58,7 @@ public class DeleteUserCommandServiceIntegrationTests : BaseUserDomainCommandInt
 
 		// Act
 		await UserService.DeleteAsync(command, CancellationToken);
-		var user = await ServiceScope.GetByIdAsync(User.Id, CancellationToken);
+		var user = await ServiceScope.GetByIdAsync(UserId, CancellationToken);
 
 		// Assert
 		user.ShouldBeNull();

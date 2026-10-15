@@ -77,7 +77,7 @@ public class AddEmailConfirmationTokenCommandServiceIntegrationTests : BaseEmail
 	{
 		// Act
 		await Service.AddAsync(_command, CancellationToken);
-		var user = await ServiceScope.GetByIdAsync(User.Id, CancellationToken);
+		var user = await ServiceScope.GetByIdAsync(UserId, CancellationToken);
 
 		// Assert
 		user.EmailConfirmationTokens.ShouldSatisfy(_command);
@@ -93,7 +93,7 @@ public class AddEmailConfirmationTokenCommandServiceIntegrationTests : BaseEmail
 
 		// Act
 		await Service.AddAsync(command, CancellationToken);
-		var user = await ServiceScope.GetByIdAsync(User.Id, CancellationToken);
+		var user = await ServiceScope.GetByIdAsync(UserId, CancellationToken);
 
 		// Assert
 		user.EmailConfirmationTokens.ShouldSatisfy(command);
@@ -104,7 +104,7 @@ public class AddEmailConfirmationTokenCommandServiceIntegrationTests : BaseEmail
 	{
 		// Act
 		await Service.AddAsync(_command, CancellationToken);
-		var user = await ServiceScope.GetByIdAsync(User.Id, CancellationToken);
+		var user = await ServiceScope.GetByIdAsync(UserId, CancellationToken);
 		var eventRequests = await EmailConfirmationTokenEventClient.PublishedAddedRangeAsync(CancellationToken);
 
 		// Assert
@@ -121,7 +121,7 @@ public class AddEmailConfirmationTokenCommandServiceIntegrationTests : BaseEmail
 
 		// Act
 		await Service.AddAsync(command, CancellationToken);
-		var user = await ServiceScope.GetByIdAsync(User.Id, CancellationToken);
+		var user = await ServiceScope.GetByIdAsync(UserId, CancellationToken);
 		var eventRequests = await EmailConfirmationTokenEventClient.PublishedAddedRangeAsync(CancellationToken);
 
 		// Assert

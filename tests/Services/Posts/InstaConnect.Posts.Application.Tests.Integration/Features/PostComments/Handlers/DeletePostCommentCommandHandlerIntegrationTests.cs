@@ -104,7 +104,7 @@ public class DeletePostCommentCommandHandlerIntegrationTests : BasePostCommentAp
 	{
 		// Act
 		await Sender.SendAsync(_request, CancellationToken);
-		var postComment = await ServiceScope.GetByIdAsync(PostComment.Id, CancellationToken);
+		var postComment = await ServiceScope.GetByIdAsync(PostCommentId, CancellationToken);
 
 		// Assert
 		postComment.ShouldBeNull();
@@ -120,7 +120,7 @@ public class DeletePostCommentCommandHandlerIntegrationTests : BasePostCommentAp
 
 		// Act
 		await Sender.SendAsync(request, CancellationToken);
-		var postComment = await ServiceScope.GetByIdAsync(PostComment.Id, CancellationToken);
+		var postComment = await ServiceScope.GetByIdAsync(PostCommentId, CancellationToken);
 
 		// Assert
 		postComment.ShouldBeNull();
@@ -136,7 +136,7 @@ public class DeletePostCommentCommandHandlerIntegrationTests : BasePostCommentAp
 
 		// Act
 		await Sender.SendAsync(request, CancellationToken);
-		var postComment = await ServiceScope.GetByIdAsync(PostComment.Id, CancellationToken);
+		var postComment = await ServiceScope.GetByIdAsync(PostCommentId, CancellationToken);
 
 		// Assert
 		postComment.ShouldBeNull();
@@ -152,7 +152,7 @@ public class DeletePostCommentCommandHandlerIntegrationTests : BasePostCommentAp
 
 		// Act
 		await Sender.SendAsync(request, CancellationToken);
-		var postComment = await ServiceScope.GetByIdAsync(PostComment.Id, CancellationToken);
+		var postComment = await ServiceScope.GetByIdAsync(PostCommentId, CancellationToken);
 
 		// Assert
 		postComment.ShouldBeNull();

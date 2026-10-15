@@ -17,7 +17,7 @@ public class AddChatMessageCommandRepositoryIntegrationTests : BaseChatMessageIn
 	{
 		// Act
 		await Repository.AddAsync(ChatMessage, CancellationToken);
-		var chatMessage = await ServiceScope.GetByIdAsync(ChatMessage.Id, CancellationToken);
+		var chatMessage = await ServiceScope.GetByIdAsync(ChatMessageId, CancellationToken);
 
 		// Assert
 		chatMessage.ShouldSatisfy(ChatMessage);

@@ -20,7 +20,7 @@ public class DeletePostCommandRepositoryIntegrationTests : BasePostInfrastructur
 	{
 		// Act
 		await Repository.DeleteAsync(Post, CancellationToken);
-		var post = await ServiceScope.GetByIdAsync(Post.Id, CancellationToken);
+		var post = await ServiceScope.GetByIdAsync(PostId, CancellationToken);
 
 		// Assert
 		post.ShouldBeNull();

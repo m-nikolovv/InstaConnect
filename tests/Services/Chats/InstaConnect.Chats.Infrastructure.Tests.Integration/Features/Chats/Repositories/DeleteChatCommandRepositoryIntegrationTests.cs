@@ -20,7 +20,7 @@ public class DeleteChatCommandRepositoryIntegrationTests : BaseChatInfrastructur
 	{
 		// Act
 		await Repository.DeleteAsync(Chat, CancellationToken);
-		var chat = await ServiceScope.GetByIdAsync(Chat.Id, CancellationToken);
+		var chat = await ServiceScope.GetByIdAsync(ChatId, CancellationToken);
 
 		// Assert
 		chat.ShouldBeNull();

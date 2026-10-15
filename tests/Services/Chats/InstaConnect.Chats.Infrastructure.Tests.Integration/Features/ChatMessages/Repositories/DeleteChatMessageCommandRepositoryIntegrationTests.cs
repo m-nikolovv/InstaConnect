@@ -21,7 +21,7 @@ public class DeleteChatMessageCommandRepositoryIntegrationTests : BaseChatMessag
 	{
 		// Act
 		await Repository.DeleteAsync(ChatMessage, CancellationToken);
-		var chatMessage = await ServiceScope.GetByIdAsync(ChatMessage.Id, CancellationToken);
+		var chatMessage = await ServiceScope.GetByIdAsync(ChatMessageId, CancellationToken);
 
 		// Assert
 		chatMessage.ShouldBeNull();

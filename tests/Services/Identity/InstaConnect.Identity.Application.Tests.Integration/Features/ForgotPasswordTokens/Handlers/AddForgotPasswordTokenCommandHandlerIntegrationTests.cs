@@ -44,7 +44,7 @@ public class AddForgotPasswordTokenCommandHandlerIntegrationTests : BaseForgotPa
 	{
 		// Act
 		await Sender.SendAsync(_request, CancellationToken);
-		var user = await ServiceScope.GetByIdAsync(User.Id, CancellationToken);
+		var user = await ServiceScope.GetByIdAsync(UserId, CancellationToken);
 
 		// Assert
 		user.ForgotPasswordTokens.ShouldSatisfy(_request);
@@ -60,7 +60,7 @@ public class AddForgotPasswordTokenCommandHandlerIntegrationTests : BaseForgotPa
 
 		// Act
 		await Sender.SendAsync(request, CancellationToken);
-		var user = await ServiceScope.GetByIdAsync(User.Id, CancellationToken);
+		var user = await ServiceScope.GetByIdAsync(UserId, CancellationToken);
 
 		// Assert
 		user.ForgotPasswordTokens.ShouldSatisfy(request);
@@ -71,7 +71,7 @@ public class AddForgotPasswordTokenCommandHandlerIntegrationTests : BaseForgotPa
 	{
 		// Act
 		await Sender.SendAsync(_request, CancellationToken);
-		var user = await ServiceScope.GetByIdAsync(User.Id, CancellationToken);
+		var user = await ServiceScope.GetByIdAsync(UserId, CancellationToken);
 		var eventRequests = await ForgotPasswordTokenEventClient.PublishedAddedRangeAsync(CancellationToken);
 
 		// Assert
@@ -88,7 +88,7 @@ public class AddForgotPasswordTokenCommandHandlerIntegrationTests : BaseForgotPa
 
 		// Act
 		await Sender.SendAsync(request, CancellationToken);
-		var user = await ServiceScope.GetByIdAsync(User.Id, CancellationToken);
+		var user = await ServiceScope.GetByIdAsync(UserId, CancellationToken);
 		var eventRequests = await ForgotPasswordTokenEventClient.PublishedAddedRangeAsync(CancellationToken);
 
 		// Assert

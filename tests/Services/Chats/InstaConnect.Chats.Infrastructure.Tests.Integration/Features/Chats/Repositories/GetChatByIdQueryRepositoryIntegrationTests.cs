@@ -1,4 +1,3 @@
-using InstaConnect.Chats.Domain.Features.Chats.Models.ValueObjects;
 using InstaConnect.Chats.Domain.Features.Users.Models.Requests;
 using InstaConnect.Chats.Infrastructure.Tests.Features.Chats.Assertions;
 using InstaConnect.Chats.Infrastructure.Tests.Features.Common.Builders;
@@ -10,10 +9,6 @@ namespace InstaConnect.Chats.Infrastructure.Tests.Integration.Features.Chats.Rep
 
 public class GetChatByIdQueryRepositoryIntegrationTests : BaseChatInfrastructureQueryIntegrationTest
 {
-	private readonly ChatIdBuilderFactory _idBuilderFactory;
-	private readonly ChatIdBuilder _idBuilder;
-	private readonly ChatId _id;
-
 	private readonly CurrentUserQueryBuilderFactory _currentUserQueryBuilderFactory;
 	private readonly CurrentUserQueryBuilder _currentUserQueryBuilder;
 	private readonly CurrentUserQuery _currentUserQuery;
@@ -21,10 +16,6 @@ public class GetChatByIdQueryRepositoryIntegrationTests : BaseChatInfrastructure
 	public GetChatByIdQueryRepositoryIntegrationTests(ChatsWebApplicationFactory webApplicationFactory)
 		: base(webApplicationFactory)
 	{
-		_idBuilderFactory = new();
-		_idBuilder = _idBuilderFactory.Create(Chat.Id);
-		_id = _idBuilder.Build();
-
 		_currentUserQueryBuilderFactory = new();
 		_currentUserQueryBuilder = _currentUserQueryBuilderFactory.Create(ParticipantOne);
 		_currentUserQuery = _currentUserQueryBuilder.Build();
@@ -42,7 +33,7 @@ public class GetChatByIdQueryRepositoryIntegrationTests : BaseChatInfrastructure
 		await ServiceScope.DeleteAsync(Chat, CancellationToken);
 
 		// Act
-		var response = await Repository.GetByIdAsync(_id, _currentUserQuery, CancellationToken);
+		var response = await Repository.GetByIdAsync(ChatId, _currentUserQuery, CancellationToken);
 
 		// Assert
 		response.ShouldBeNull();
@@ -52,10 +43,10 @@ public class GetChatByIdQueryRepositoryIntegrationTests : BaseChatInfrastructure
 	public async Task GetByIdAsync_ShouldReturnResponse_WhenQueryIsValid()
 	{
 		// Act
-		var response = await Repository.GetByIdAsync(_id, _currentUserQuery, CancellationToken);
+		var response = await Repository.GetByIdAsync(ChatId, _currentUserQuery, CancellationToken);
 
 		// Assert
-		response.ShouldSatisfy(_id, _currentUserQuery, Chat);
+		response.ShouldSatisfy(ChatId, _currentUserQuery, Chat);
 	}
 
 	[Theory]
@@ -64,7 +55,7 @@ public class GetChatByIdQueryRepositoryIntegrationTests : BaseChatInfrastructure
 		IStringTransformer transformer)
 	{
 		// Arrange
-		var id = _idBuilder.WithParticipantOneId(transformer).Build();
+		var id = ChatIdBuilder.WithParticipantOneId(transformer).Build();
 
 		// Act
 		var response = await Repository.GetByIdAsync(id, _currentUserQuery, CancellationToken);
@@ -79,7 +70,7 @@ public class GetChatByIdQueryRepositoryIntegrationTests : BaseChatInfrastructure
 		IStringTransformer transformer)
 	{
 		// Arrange
-		var id = _idBuilder.WithParticipantTwoId(transformer).Build();
+		var id = ChatIdBuilder.WithParticipantTwoId(transformer).Build();
 
 		// Act
 		var response = await Repository.GetByIdAsync(id, _currentUserQuery, CancellationToken);
@@ -97,18 +88,18 @@ public class GetChatByIdQueryRepositoryIntegrationTests : BaseChatInfrastructure
 		var currentUserQuery = _currentUserQueryBuilder.WithCurrentUserId(transformer).Build();
 
 		// Act
-		var response = await Repository.GetByIdAsync(_id, currentUserQuery, CancellationToken);
+		var response = await Repository.GetByIdAsync(ChatId, currentUserQuery, CancellationToken);
 
 		// Assert
-		response.ShouldSatisfy(_id, currentUserQuery, Chat);
+		response.ShouldSatisfy(ChatId, currentUserQuery, Chat);
 	}
 
 	[Fact]
 	public async Task GetByIdAsync_ShouldReturnInvertedResponse_WhenQueryIsValid()
 	{
 		// Arrange
-		var id = _idBuilder.WithParticipantOneId(ParticipantTwo.Id).WithParticipantTwoId(ParticipantOne.Id).Build();
-		var currentUserQuery = _currentUserQueryBuilder.WithCurrentUserId(ParticipantTwo.Id).Build();
+		var id = ChatIdBuilder.WithParticipantOneId(ParticipantTwoId).WithParticipantTwoId(ParticipantOneId).Build();
+		var currentUserQuery = _currentUserQueryBuilder.WithCurrentUserId(ParticipantTwoId).Build();
 
 		// Act
 		var response = await Repository.GetByIdAsync(id, currentUserQuery, CancellationToken);
@@ -123,8 +114,8 @@ public class GetChatByIdQueryRepositoryIntegrationTests : BaseChatInfrastructure
 		IStringTransformer transformer)
 	{
 		// Arrange
-		var id = _idBuilder.WithParticipantOneId(ParticipantTwo.Id, transformer).WithParticipantTwoId(ParticipantOne.Id).Build();
-		var currentUserQuery = _currentUserQueryBuilder.WithCurrentUserId(ParticipantTwo.Id).Build();
+		var id = ChatIdBuilder.WithParticipantOneId(ParticipantTwoId, transformer).WithParticipantTwoId(ParticipantOneId).Build();
+		var currentUserQuery = _currentUserQueryBuilder.WithCurrentUserId(ParticipantTwoId).Build();
 
 		// Act
 		var response = await Repository.GetByIdAsync(id, currentUserQuery, CancellationToken);
@@ -139,8 +130,8 @@ public class GetChatByIdQueryRepositoryIntegrationTests : BaseChatInfrastructure
 		IStringTransformer transformer)
 	{
 		// Arrange
-		var id = _idBuilder.WithParticipantOneId(ParticipantTwo.Id).WithParticipantTwoId(ParticipantOne.Id, transformer).Build();
-		var currentUserQuery = _currentUserQueryBuilder.WithCurrentUserId(ParticipantTwo.Id).Build();
+		var id = ChatIdBuilder.WithParticipantOneId(ParticipantTwoId).WithParticipantTwoId(ParticipantOneId, transformer).Build();
+		var currentUserQuery = _currentUserQueryBuilder.WithCurrentUserId(ParticipantTwoId).Build();
 
 		// Act
 		var response = await Repository.GetByIdAsync(id, currentUserQuery, CancellationToken);
@@ -155,8 +146,8 @@ public class GetChatByIdQueryRepositoryIntegrationTests : BaseChatInfrastructure
 		IStringTransformer transformer)
 	{
 		// Arrange
-		var id = _idBuilder.WithParticipantOneId(ParticipantTwo.Id).WithParticipantTwoId(ParticipantOne.Id).Build();
-		var currentUserQuery = _currentUserQueryBuilder.WithCurrentUserId(ParticipantTwo.Id, transformer).Build();
+		var id = ChatIdBuilder.WithParticipantOneId(ParticipantTwoId).WithParticipantTwoId(ParticipantOneId).Build();
+		var currentUserQuery = _currentUserQueryBuilder.WithCurrentUserId(ParticipantTwoId, transformer).Build();
 
 		// Act
 		var response = await Repository.GetByIdAsync(id, currentUserQuery, CancellationToken);

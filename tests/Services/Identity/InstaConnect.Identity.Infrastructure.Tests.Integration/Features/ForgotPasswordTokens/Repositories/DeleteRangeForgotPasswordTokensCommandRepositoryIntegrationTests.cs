@@ -21,7 +21,7 @@ public class DeleteRangeForgotPasswordTokensCommandRepositoryIntegrationTests : 
 	{
 		// Act
 		await Repository.DeleteRangeAsync(User.ForgotPasswordTokens, CancellationToken);
-		var user = await ServiceScope.GetByIdAsync(User.Id, CancellationToken);
+		var user = await ServiceScope.GetByIdAsync(UserId, CancellationToken);
 
 		// Assert
 		user.ForgotPasswordTokens.ShouldBeEmpty();

@@ -20,7 +20,7 @@ public class DeleteEmailConfirmationTokenCommandRepositoryIntegrationTests : Bas
 	{
 		// Act
 		await Repository.DeleteAsync(EmailConfirmationToken, CancellationToken);
-		var emailConfirmationToken = await ServiceScope.GetByIdAsync(EmailConfirmationToken.Id, CancellationToken);
+		var emailConfirmationToken = await ServiceScope.GetByIdAsync(EmailConfirmationTokenId, CancellationToken);
 
 		// Assert
 		emailConfirmationToken.ShouldBeNull();

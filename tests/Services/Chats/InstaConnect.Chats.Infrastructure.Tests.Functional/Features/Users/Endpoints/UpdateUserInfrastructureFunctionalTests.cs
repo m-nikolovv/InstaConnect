@@ -376,7 +376,7 @@ public class UpdateUserInfrastructureFunctionalTests : BaseUserInfrastructureCom
 	{
 		// Act
 		await EventPublisher.PublishAsync(_request, CancellationToken);
-		var user = await ServiceScope.GetByIdAsync(User.Id, CancellationToken);
+		var user = await ServiceScope.GetByIdAsync(UserId, CancellationToken);
 
 		// Assert
 		user.ShouldSatisfy(_request);
@@ -392,7 +392,7 @@ public class UpdateUserInfrastructureFunctionalTests : BaseUserInfrastructureCom
 
 		// Act
 		await EventPublisher.PublishAsync(request, CancellationToken);
-		var user = await ServiceScope.GetByIdAsync(User.Id, CancellationToken);
+		var user = await ServiceScope.GetByIdAsync(UserId, CancellationToken);
 
 		// Assert
 		user.ShouldSatisfy(request);
@@ -408,7 +408,7 @@ public class UpdateUserInfrastructureFunctionalTests : BaseUserInfrastructureCom
 
 		// Act
 		await EventPublisher.PublishAsync(request, CancellationToken);
-		var user = await ServiceScope.GetByIdAsync(User.Id, CancellationToken);
+		var user = await ServiceScope.GetByIdAsync(UserId, CancellationToken);
 
 		// Assert
 		user.ShouldSatisfy(request);
@@ -422,7 +422,7 @@ public class UpdateUserInfrastructureFunctionalTests : BaseUserInfrastructureCom
 
 		// Act
 		await EventPublisher.PublishAsync(request, CancellationToken);
-		var user = await ServiceScope.GetByIdAsync(User.Id, CancellationToken);
+		var user = await ServiceScope.GetByIdAsync(UserId, CancellationToken);
 
 		// Assert
 		user.ShouldSatisfy(request);
@@ -438,7 +438,7 @@ public class UpdateUserInfrastructureFunctionalTests : BaseUserInfrastructureCom
 
 		// Act
 		await EventPublisher.PublishAsync(request, CancellationToken);
-		var user = await ServiceScope.GetByIdAsync(User.Id, CancellationToken);
+		var user = await ServiceScope.GetByIdAsync(UserId, CancellationToken);
 
 		// Assert
 		user.ShouldSatisfy(request);
@@ -454,7 +454,7 @@ public class UpdateUserInfrastructureFunctionalTests : BaseUserInfrastructureCom
 
 		// Act
 		await EventPublisher.PublishAsync(request, CancellationToken);
-		var user = await ServiceScope.GetByIdAsync(User.Id, CancellationToken);
+		var user = await ServiceScope.GetByIdAsync(UserId, CancellationToken);
 
 		// Assert
 		user.ShouldSatisfy(request);
@@ -468,7 +468,7 @@ public class UpdateUserInfrastructureFunctionalTests : BaseUserInfrastructureCom
 
 		// Act
 		await EventPublisher.PublishAsync(request, CancellationToken);
-		var user = await ServiceScope.GetByIdAsync(User.Id, CancellationToken);
+		var user = await ServiceScope.GetByIdAsync(UserId, CancellationToken);
 
 		// Assert
 		user.ShouldSatisfy(request);
@@ -484,7 +484,7 @@ public class UpdateUserInfrastructureFunctionalTests : BaseUserInfrastructureCom
 
 		// Act
 		await EventPublisher.PublishAsync(request, CancellationToken);
-		var user = await ServiceScope.GetByIdAsync(User.Id, CancellationToken);
+		var user = await ServiceScope.GetByIdAsync(UserId, CancellationToken);
 
 		// Assert
 		user.ShouldSatisfy(request);
@@ -501,7 +501,7 @@ public class UpdateUserInfrastructureFunctionalTests : BaseUserInfrastructureCom
 
 		// Act
 		await EventPublisher.PublishAsync(request, CancellationToken);
-		var user = await ServiceScope.GetByIdAsync(User.Id, CancellationToken);
+		var user = await ServiceScope.GetByIdAsync(UserId, CancellationToken);
 
 		// Assert
 		user.ShouldSatisfy(request);

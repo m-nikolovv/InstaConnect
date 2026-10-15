@@ -16,7 +16,7 @@ public class AddFollowCommandRepositoryIntegrationTests : BaseFollowInfrastructu
 	{
 		// Act
 		await Repository.AddAsync(Follow, CancellationToken);
-		var follow = await ServiceScope.GetByIdAsync(Follow.Id, CancellationToken);
+		var follow = await ServiceScope.GetByIdAsync(FollowId, CancellationToken);
 
 		// Assert
 		follow.ShouldSatisfy(Follow);

@@ -9,7 +9,7 @@ public abstract class BaseChatMessagePresentationCommandIntegrationTest : BaseCh
 	protected BaseChatMessagePresentationCommandIntegrationTest(ChatsWebApplicationFactory webApplicationFactory) : base(webApplicationFactory)
 	{
 		Controller = ServiceScope.GetChatMessageController();
-		MessageNotificationClient = webApplicationFactory.CreateMessageNotificationClient(ParticipantTwo.Id);
+		MessageNotificationClient = webApplicationFactory.CreateMessageNotificationClient(ParticipantTwoId);
 	}
 
 	public override async Task InitializeAsync()

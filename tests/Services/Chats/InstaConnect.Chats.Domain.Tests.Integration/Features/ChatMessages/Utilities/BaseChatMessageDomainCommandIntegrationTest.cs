@@ -18,7 +18,7 @@ public abstract class BaseChatMessageDomainCommandIntegrationTest : BaseChatMess
 		: base(webApplicationFactory)
 	{
 		Service = ServiceScope.GetChatMessageCommandService();
-		MessageNotificationClient = webApplicationFactory.CreateMessageNotificationClient(ParticipantTwo.Id);
+		MessageNotificationClient = webApplicationFactory.CreateMessageNotificationClient(ParticipantTwoId);
 	}
 
 	public override async Task InitializeAsync()

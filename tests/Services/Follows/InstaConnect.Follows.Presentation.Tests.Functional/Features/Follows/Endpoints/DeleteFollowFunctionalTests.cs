@@ -166,7 +166,7 @@ public class DeleteFollowFunctionalTests : BaseFollowPresentationCommandFunction
 	{
 		// Act
 		await ApiClient.DeleteAsync(_request, CancellationToken);
-		var follow = await ServiceScope.GetByIdAsync(Follow.Id, CancellationToken);
+		var follow = await ServiceScope.GetByIdAsync(FollowId, CancellationToken);
 
 		// Assert
 		follow.ShouldBeNull();
@@ -182,7 +182,7 @@ public class DeleteFollowFunctionalTests : BaseFollowPresentationCommandFunction
 
 		// Act
 		await ApiClient.DeleteAsync(request, CancellationToken);
-		var follow = await ServiceScope.GetByIdAsync(Follow.Id, CancellationToken);
+		var follow = await ServiceScope.GetByIdAsync(FollowId, CancellationToken);
 
 		// Assert
 		follow.ShouldBeNull();
@@ -198,7 +198,7 @@ public class DeleteFollowFunctionalTests : BaseFollowPresentationCommandFunction
 
 		// Act
 		await ApiClient.DeleteAsync(request, CancellationToken);
-		var follow = await ServiceScope.GetByIdAsync(Follow.Id, CancellationToken);
+		var follow = await ServiceScope.GetByIdAsync(FollowId, CancellationToken);
 
 		// Assert
 		follow.ShouldBeNull();

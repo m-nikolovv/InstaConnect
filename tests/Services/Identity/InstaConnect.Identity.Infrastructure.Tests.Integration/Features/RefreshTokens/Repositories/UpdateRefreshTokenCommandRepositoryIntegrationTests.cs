@@ -20,11 +20,11 @@ public class UpdateRefreshTokenCommandRepositoryIntegrationTests : BaseRefreshTo
 	public async Task UpdateAsync_ShouldUpdateRefreshToken_WhenCommandIsValid()
 	{
 		// Arrange
-		var updatedRefreshToken = RefreshTokenBuilderFactory.Create(User).WithValue(RefreshToken.Id).Build();
+		var updatedRefreshToken = RefreshTokenBuilderFactory.Create(User).WithValue(RefreshTokenId).Build();
 
 		// Act
 		await Repository.UpdateAsync(updatedRefreshToken, CancellationToken);
-		var refreshToken = await ServiceScope.GetByIdAsync(RefreshToken.Id, CancellationToken);
+		var refreshToken = await ServiceScope.GetByIdAsync(RefreshTokenId, CancellationToken);
 
 		// Assert
 		refreshToken.ShouldSatisfy(updatedRefreshToken);

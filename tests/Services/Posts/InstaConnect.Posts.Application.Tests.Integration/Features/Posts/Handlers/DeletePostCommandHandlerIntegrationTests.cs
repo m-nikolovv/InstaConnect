@@ -78,7 +78,7 @@ public class DeletePostCommandHandlerIntegrationTests : BasePostApplicationComma
 	{
 		// Act
 		await Sender.SendAsync(_request, CancellationToken);
-		var post = await ServiceScope.GetByIdAsync(Post.Id, CancellationToken);
+		var post = await ServiceScope.GetByIdAsync(PostId, CancellationToken);
 
 		// Assert
 		post.ShouldBeNull();
@@ -94,7 +94,7 @@ public class DeletePostCommandHandlerIntegrationTests : BasePostApplicationComma
 
 		// Act
 		await Sender.SendAsync(request, CancellationToken);
-		var post = await ServiceScope.GetByIdAsync(Post.Id, CancellationToken);
+		var post = await ServiceScope.GetByIdAsync(PostId, CancellationToken);
 
 		// Assert
 		post.ShouldBeNull();
@@ -110,7 +110,7 @@ public class DeletePostCommandHandlerIntegrationTests : BasePostApplicationComma
 
 		// Act
 		await Sender.SendAsync(request, CancellationToken);
-		var post = await ServiceScope.GetByIdAsync(Post.Id, CancellationToken);
+		var post = await ServiceScope.GetByIdAsync(PostId, CancellationToken);
 
 		// Assert
 		post.ShouldBeNull();

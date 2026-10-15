@@ -20,7 +20,7 @@ public class DeleteUserClaimCommandRepositoryIntegrationTests : BaseUserClaimInf
 	{
 		// Act
 		await Repository.DeleteAsync(UserClaim, CancellationToken);
-		var userClaim = await ServiceScope.GetByIdAsync(UserClaim.Id, CancellationToken);
+		var userClaim = await ServiceScope.GetByIdAsync(UserClaimId, CancellationToken);
 
 		// Assert
 		userClaim.ShouldBeNull();

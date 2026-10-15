@@ -17,7 +17,7 @@ public class AddPostCommandRepositoryIntegrationTests : BasePostInfrastructureCo
 	{
 		// Act
 		await Repository.AddAsync(Post, CancellationToken);
-		var post = await ServiceScope.GetByIdAsync(Post.Id, CancellationToken);
+		var post = await ServiceScope.GetByIdAsync(PostId, CancellationToken);
 
 		// Assert
 		post.ShouldSatisfy(Post);

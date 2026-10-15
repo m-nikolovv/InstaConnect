@@ -105,7 +105,7 @@ public class GetChatByIdControllerIntegrationTests : BaseChatPresentationQueryIn
 	public async Task GetByIdAsync_ShouldReturnInvertedOkStatusCode_WhenRequestIsValid()
 	{
 		// Arrange
-		var request = _requestBuilder.WithParticipantTwoId(ParticipantOne.Id).WithCurrentUserId(ParticipantTwo.Id).Build();
+		var request = _requestBuilder.WithParticipantTwoId(ParticipantOneId).WithCurrentUserId(ParticipantTwoId).Build();
 
 		// Act
 		var response = await Controller.GetByIdAsync(request, CancellationToken);
@@ -120,7 +120,7 @@ public class GetChatByIdControllerIntegrationTests : BaseChatPresentationQueryIn
 		IStringTransformer transformer)
 	{
 		// Arrange
-		var request = _requestBuilder.WithParticipantTwoId(ParticipantOne.Id, transformer).WithCurrentUserId(ParticipantTwo.Id).Build();
+		var request = _requestBuilder.WithParticipantTwoId(ParticipantOneId, transformer).WithCurrentUserId(ParticipantTwoId).Build();
 
 		// Act
 		var response = await Controller.GetByIdAsync(request, CancellationToken);
@@ -135,7 +135,7 @@ public class GetChatByIdControllerIntegrationTests : BaseChatPresentationQueryIn
 		IStringTransformer transformer)
 	{
 		// Arrange
-		var request = _requestBuilder.WithParticipantTwoId(ParticipantOne.Id).WithCurrentUserId(ParticipantTwo.Id, transformer).Build();
+		var request = _requestBuilder.WithParticipantTwoId(ParticipantOneId).WithCurrentUserId(ParticipantTwoId, transformer).Build();
 
 		// Act
 		var response = await Controller.GetByIdAsync(request, CancellationToken);
@@ -188,7 +188,7 @@ public class GetChatByIdControllerIntegrationTests : BaseChatPresentationQueryIn
 	public async Task GetByIdAsync_ShouldReturnInvertedResponse_WhenRequestIsValid()
 	{
 		// Arrange
-		var request = _requestBuilder.WithParticipantTwoId(ParticipantOne.Id).WithCurrentUserId(ParticipantTwo.Id).Build();
+		var request = _requestBuilder.WithParticipantTwoId(ParticipantOneId).WithCurrentUserId(ParticipantTwoId).Build();
 
 		// Act
 		var response = await Controller.GetByIdAsync(request, CancellationToken);
@@ -203,7 +203,7 @@ public class GetChatByIdControllerIntegrationTests : BaseChatPresentationQueryIn
 		IStringTransformer transformer)
 	{
 		// Arrange
-		var request = _requestBuilder.WithParticipantTwoId(ParticipantOne.Id, transformer).WithCurrentUserId(ParticipantTwo.Id).Build();
+		var request = _requestBuilder.WithParticipantTwoId(ParticipantOneId, transformer).WithCurrentUserId(ParticipantTwoId).Build();
 
 		// Act
 		var response = await Controller.GetByIdAsync(request, CancellationToken);
@@ -218,7 +218,7 @@ public class GetChatByIdControllerIntegrationTests : BaseChatPresentationQueryIn
 		IStringTransformer transformer)
 	{
 		// Arrange
-		var request = _requestBuilder.WithParticipantTwoId(ParticipantOne.Id).WithCurrentUserId(ParticipantTwo.Id, transformer).Build();
+		var request = _requestBuilder.WithParticipantTwoId(ParticipantOneId).WithCurrentUserId(ParticipantTwoId, transformer).Build();
 
 		// Act
 		var response = await Controller.GetByIdAsync(request, CancellationToken);

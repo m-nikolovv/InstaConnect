@@ -30,7 +30,7 @@ public class AddUserCommandServiceIntegrationTests : BaseUserDomainCommandIntegr
 	{
 		// Arrange
 		await ServiceScope.AddAsync(User, CancellationToken);
-		var command = _commandBuilder.WithId(User.Id).Build();
+		var command = _commandBuilder.WithId(UserId).Build();
 
 		// Assert
 		await UserService.ShouldThrowUserAlreadyExistsExceptionAsync(command, CancellationToken);
@@ -43,7 +43,7 @@ public class AddUserCommandServiceIntegrationTests : BaseUserDomainCommandIntegr
 	{
 		// Arrange
 		await ServiceScope.AddAsync(User, CancellationToken);
-		var command = _commandBuilder.WithId(User.Id, transformer).Build();
+		var command = _commandBuilder.WithId(UserId, transformer).Build();
 
 		// Assert
 		await UserService.ShouldThrowUserAlreadyExistsExceptionAsync(command, CancellationToken);

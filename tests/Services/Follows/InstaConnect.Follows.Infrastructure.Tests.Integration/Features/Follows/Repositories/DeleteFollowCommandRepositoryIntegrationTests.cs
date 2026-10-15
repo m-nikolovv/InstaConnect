@@ -20,7 +20,7 @@ public class DeleteFollowCommandRepositoryIntegrationTests : BaseFollowInfrastru
 	{
 		// Act
 		await Repository.DeleteAsync(Follow, CancellationToken);
-		var follow = await ServiceScope.GetByIdAsync(Follow.Id, CancellationToken);
+		var follow = await ServiceScope.GetByIdAsync(FollowId, CancellationToken);
 
 		// Assert
 		follow.ShouldBeNull();

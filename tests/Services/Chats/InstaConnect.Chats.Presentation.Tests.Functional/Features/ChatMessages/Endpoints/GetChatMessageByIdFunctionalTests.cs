@@ -293,7 +293,7 @@ public class GetChatMessageByIdFunctionalTests : BaseChatMessagePresentationQuer
 	public async Task GetByIdAsync_ShouldHaveInvertedOkStatusCode_WhenRequestIsValid()
 	{
 		// Arrange
-		var request = _requestBuilder.WithParticipantTwoId(ParticipantOne.Id).WithCurrentUserId(ParticipantTwo.Id).Build();
+		var request = _requestBuilder.WithParticipantTwoId(ParticipantOneId).WithCurrentUserId(ParticipantTwoId).Build();
 
 		// Act
 		var response = await ApiClient.GetByIdStatusCodeAsync(request, CancellationToken);
@@ -308,7 +308,7 @@ public class GetChatMessageByIdFunctionalTests : BaseChatMessagePresentationQuer
 		IStringTransformer transformer)
 	{
 		// Arrange
-		var request = _requestBuilder.WithParticipantTwoId(ParticipantOne.Id, transformer).WithCurrentUserId(ParticipantTwo.Id).Build();
+		var request = _requestBuilder.WithParticipantTwoId(ParticipantOneId, transformer).WithCurrentUserId(ParticipantTwoId).Build();
 
 		// Act
 		var response = await ApiClient.GetByIdStatusCodeAsync(request, CancellationToken);
@@ -323,7 +323,7 @@ public class GetChatMessageByIdFunctionalTests : BaseChatMessagePresentationQuer
 		IStringTransformer transformer)
 	{
 		// Arrange
-		var request = _requestBuilder.WithParticipantTwoId(ParticipantOne.Id).WithCurrentUserId(ParticipantTwo.Id).WithMessageId(transformer).Build();
+		var request = _requestBuilder.WithParticipantTwoId(ParticipantOneId).WithCurrentUserId(ParticipantTwoId).WithMessageId(transformer).Build();
 
 		// Act
 		var response = await ApiClient.GetByIdStatusCodeAsync(request, CancellationToken);
@@ -338,7 +338,7 @@ public class GetChatMessageByIdFunctionalTests : BaseChatMessagePresentationQuer
 		IStringTransformer transformer)
 	{
 		// Arrange
-		var request = _requestBuilder.WithParticipantTwoId(ParticipantOne.Id).WithCurrentUserId(ParticipantTwo.Id, transformer).Build();
+		var request = _requestBuilder.WithParticipantTwoId(ParticipantOneId).WithCurrentUserId(ParticipantTwoId, transformer).Build();
 
 		// Act
 		var response = await ApiClient.GetByIdStatusCodeAsync(request, CancellationToken);
@@ -351,7 +351,7 @@ public class GetChatMessageByIdFunctionalTests : BaseChatMessagePresentationQuer
 	public async Task GetByIdAsync_ShouldHaveInvertedResponse_WhenRequestIsValid()
 	{
 		// Arrange
-		var request = _requestBuilder.WithParticipantTwoId(ParticipantOne.Id).WithCurrentUserId(ParticipantTwo.Id).Build();
+		var request = _requestBuilder.WithParticipantTwoId(ParticipantOneId).WithCurrentUserId(ParticipantTwoId).Build();
 
 		// Act
 		var response = await ApiClient.GetByIdAsync(request, CancellationToken);
@@ -366,7 +366,7 @@ public class GetChatMessageByIdFunctionalTests : BaseChatMessagePresentationQuer
 		IStringTransformer transformer)
 	{
 		// Arrange
-		var request = _requestBuilder.WithParticipantTwoId(ParticipantOne.Id, transformer).WithCurrentUserId(ParticipantTwo.Id).Build();
+		var request = _requestBuilder.WithParticipantTwoId(ParticipantOneId, transformer).WithCurrentUserId(ParticipantTwoId).Build();
 
 		// Act
 		var response = await ApiClient.GetByIdAsync(request, CancellationToken);
@@ -381,7 +381,7 @@ public class GetChatMessageByIdFunctionalTests : BaseChatMessagePresentationQuer
 		IStringTransformer transformer)
 	{
 		// Arrange
-		var request = _requestBuilder.WithParticipantTwoId(ParticipantOne.Id).WithCurrentUserId(ParticipantTwo.Id).WithMessageId(transformer).Build();
+		var request = _requestBuilder.WithParticipantTwoId(ParticipantOneId).WithCurrentUserId(ParticipantTwoId).WithMessageId(transformer).Build();
 
 		// Act
 		var response = await ApiClient.GetByIdAsync(request, CancellationToken);
@@ -396,7 +396,7 @@ public class GetChatMessageByIdFunctionalTests : BaseChatMessagePresentationQuer
 		IStringTransformer transformer)
 	{
 		// Arrange
-		var request = _requestBuilder.WithParticipantTwoId(ParticipantOne.Id).WithCurrentUserId(ParticipantTwo.Id, transformer).Build();
+		var request = _requestBuilder.WithParticipantTwoId(ParticipantOneId).WithCurrentUserId(ParticipantTwoId, transformer).Build();
 
 		// Act
 		var response = await ApiClient.GetByIdAsync(request, CancellationToken);

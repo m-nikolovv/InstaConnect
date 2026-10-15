@@ -107,7 +107,7 @@ public class UpdateChatMessageControllerIntegrationTests : BaseChatMessagePresen
 	public async Task UpdateAsync_ShouldThrowChatMessageForbiddenException_WhenParticipantOneIdIsInvalid()
 	{
 		// Arrange
-		var request = _requestBuilder.WithParticipantOneId(ParticipantTwo.Id).WithParticipantTwoId(ParticipantOne.Id).Build();
+		var request = _requestBuilder.WithParticipantOneId(ParticipantTwoId).WithParticipantTwoId(ParticipantOneId).Build();
 
 		// Assert
 		await Controller.ShouldThrowChatMessageForbiddenExceptionAsync(request, CancellationToken);
@@ -172,9 +172,9 @@ public class UpdateChatMessageControllerIntegrationTests : BaseChatMessagePresen
 	public async Task UpdateAsync_ShouldReturnInvertedOkStatusCode_WhenRequestIsValid()
 	{
 		// Arrange
-		var updatedChatMessage = ChatMessageBuilder.WithSenderId(ParticipantTwo.Id).Build();
+		var updatedChatMessage = ChatMessageBuilder.WithSenderId(ParticipantTwoId).Build();
 		await ServiceScope.UpdateAsync(updatedChatMessage, CancellationToken);
-		var request = _requestBuilder.WithParticipantOneId(ParticipantTwo.Id).WithParticipantTwoId(ParticipantOne.Id).Build();
+		var request = _requestBuilder.WithParticipantOneId(ParticipantTwoId).WithParticipantTwoId(ParticipantOneId).Build();
 
 		// Act
 		var response = await Controller.UpdateAsync(request, CancellationToken);
@@ -189,9 +189,9 @@ public class UpdateChatMessageControllerIntegrationTests : BaseChatMessagePresen
 		IStringTransformer transformer)
 	{
 		// Arrange
-		var updatedChatMessage = ChatMessageBuilder.WithSenderId(ParticipantTwo.Id).Build();
+		var updatedChatMessage = ChatMessageBuilder.WithSenderId(ParticipantTwoId).Build();
 		await ServiceScope.UpdateAsync(updatedChatMessage, CancellationToken);
-		var request = _requestBuilder.WithParticipantOneId(ParticipantTwo.Id, transformer).WithParticipantTwoId(ParticipantOne.Id).Build();
+		var request = _requestBuilder.WithParticipantOneId(ParticipantTwoId, transformer).WithParticipantTwoId(ParticipantOneId).Build();
 
 		// Act
 		var response = await Controller.UpdateAsync(request, CancellationToken);
@@ -206,9 +206,9 @@ public class UpdateChatMessageControllerIntegrationTests : BaseChatMessagePresen
 		IStringTransformer transformer)
 	{
 		// Arrange
-		var updatedChatMessage = ChatMessageBuilder.WithSenderId(ParticipantTwo.Id).Build();
+		var updatedChatMessage = ChatMessageBuilder.WithSenderId(ParticipantTwoId).Build();
 		await ServiceScope.UpdateAsync(updatedChatMessage, CancellationToken);
-		var request = _requestBuilder.WithParticipantOneId(ParticipantTwo.Id).WithParticipantTwoId(ParticipantOne.Id, transformer).Build();
+		var request = _requestBuilder.WithParticipantOneId(ParticipantTwoId).WithParticipantTwoId(ParticipantOneId, transformer).Build();
 
 		// Act
 		var response = await Controller.UpdateAsync(request, CancellationToken);
@@ -223,9 +223,9 @@ public class UpdateChatMessageControllerIntegrationTests : BaseChatMessagePresen
 		IStringTransformer transformer)
 	{
 		// Arrange
-		var updatedChatMessage = ChatMessageBuilder.WithSenderId(ParticipantTwo.Id).Build();
+		var updatedChatMessage = ChatMessageBuilder.WithSenderId(ParticipantTwoId).Build();
 		await ServiceScope.UpdateAsync(updatedChatMessage, CancellationToken);
-		var request = _requestBuilder.WithParticipantOneId(ParticipantTwo.Id).WithParticipantTwoId(ParticipantOne.Id).WithMessageId(transformer).Build();
+		var request = _requestBuilder.WithParticipantOneId(ParticipantTwoId).WithParticipantTwoId(ParticipantOneId).WithMessageId(transformer).Build();
 
 		// Act
 		var response = await Controller.UpdateAsync(request, CancellationToken);
@@ -297,9 +297,9 @@ public class UpdateChatMessageControllerIntegrationTests : BaseChatMessagePresen
 	public async Task UpdateAsync_ShouldReturnInvertedOkResponse_WhenRequestIsValid()
 	{
 		// Arrange
-		var updatedChatMessage = ChatMessageBuilder.WithSenderId(ParticipantTwo.Id).Build();
+		var updatedChatMessage = ChatMessageBuilder.WithSenderId(ParticipantTwoId).Build();
 		await ServiceScope.UpdateAsync(updatedChatMessage, CancellationToken);
-		var request = _requestBuilder.WithParticipantOneId(ParticipantTwo.Id).WithParticipantTwoId(ParticipantOne.Id).Build();
+		var request = _requestBuilder.WithParticipantOneId(ParticipantTwoId).WithParticipantTwoId(ParticipantOneId).Build();
 
 		// Act
 		var response = await Controller.UpdateAsync(request, CancellationToken);
@@ -315,9 +315,9 @@ public class UpdateChatMessageControllerIntegrationTests : BaseChatMessagePresen
 		IStringTransformer transformer)
 	{
 		// Arrange
-		var updatedChatMessage = ChatMessageBuilder.WithSenderId(ParticipantTwo.Id).Build();
+		var updatedChatMessage = ChatMessageBuilder.WithSenderId(ParticipantTwoId).Build();
 		await ServiceScope.UpdateAsync(updatedChatMessage, CancellationToken);
-		var request = _requestBuilder.WithParticipantOneId(ParticipantTwo.Id, transformer).WithParticipantTwoId(ParticipantOne.Id).Build();
+		var request = _requestBuilder.WithParticipantOneId(ParticipantTwoId, transformer).WithParticipantTwoId(ParticipantOneId).Build();
 
 		// Act
 		var response = await Controller.UpdateAsync(request, CancellationToken);
@@ -333,9 +333,9 @@ public class UpdateChatMessageControllerIntegrationTests : BaseChatMessagePresen
 		IStringTransformer transformer)
 	{
 		// Arrange
-		var updatedChatMessage = ChatMessageBuilder.WithSenderId(ParticipantTwo.Id).Build();
+		var updatedChatMessage = ChatMessageBuilder.WithSenderId(ParticipantTwoId).Build();
 		await ServiceScope.UpdateAsync(updatedChatMessage, CancellationToken);
-		var request = _requestBuilder.WithParticipantOneId(ParticipantTwo.Id).WithParticipantTwoId(ParticipantOne.Id, transformer).Build();
+		var request = _requestBuilder.WithParticipantOneId(ParticipantTwoId).WithParticipantTwoId(ParticipantOneId, transformer).Build();
 
 		// Act
 		var response = await Controller.UpdateAsync(request, CancellationToken);
@@ -351,9 +351,9 @@ public class UpdateChatMessageControllerIntegrationTests : BaseChatMessagePresen
 		IStringTransformer transformer)
 	{
 		// Arrange
-		var updatedChatMessage = ChatMessageBuilder.WithSenderId(ParticipantTwo.Id).Build();
+		var updatedChatMessage = ChatMessageBuilder.WithSenderId(ParticipantTwoId).Build();
 		await ServiceScope.UpdateAsync(updatedChatMessage, CancellationToken);
-		var request = _requestBuilder.WithParticipantOneId(ParticipantTwo.Id).WithParticipantTwoId(ParticipantOne.Id).WithMessageId(transformer).Build();
+		var request = _requestBuilder.WithParticipantOneId(ParticipantTwoId).WithParticipantTwoId(ParticipantOneId).WithMessageId(transformer).Build();
 
 		// Act
 		var response = await Controller.UpdateAsync(request, CancellationToken);
@@ -426,9 +426,9 @@ public class UpdateChatMessageControllerIntegrationTests : BaseChatMessagePresen
 	public async Task UpdateAsync_ShouldUpdateInvertedChatMessage_WhenRequestIsValid()
 	{
 		// Arrange
-		var updatedChatMessage = ChatMessageBuilder.WithSenderId(ParticipantTwo.Id).Build();
+		var updatedChatMessage = ChatMessageBuilder.WithSenderId(ParticipantTwoId).Build();
 		await ServiceScope.UpdateAsync(updatedChatMessage, CancellationToken);
-		var request = _requestBuilder.WithParticipantOneId(ParticipantTwo.Id).WithParticipantTwoId(ParticipantOne.Id).Build();
+		var request = _requestBuilder.WithParticipantOneId(ParticipantTwoId).WithParticipantTwoId(ParticipantOneId).Build();
 
 		// Act
 		var response = await Controller.UpdateAsync(request, CancellationToken);
@@ -444,9 +444,9 @@ public class UpdateChatMessageControllerIntegrationTests : BaseChatMessagePresen
 		IStringTransformer transformer)
 	{
 		// Arrange
-		var updatedChatMessage = ChatMessageBuilder.WithSenderId(ParticipantTwo.Id).Build();
+		var updatedChatMessage = ChatMessageBuilder.WithSenderId(ParticipantTwoId).Build();
 		await ServiceScope.UpdateAsync(updatedChatMessage, CancellationToken);
-		var request = _requestBuilder.WithParticipantOneId(ParticipantTwo.Id, transformer).WithParticipantTwoId(ParticipantOne.Id).Build();
+		var request = _requestBuilder.WithParticipantOneId(ParticipantTwoId, transformer).WithParticipantTwoId(ParticipantOneId).Build();
 
 		// Act
 		var response = await Controller.UpdateAsync(request, CancellationToken);
@@ -462,9 +462,9 @@ public class UpdateChatMessageControllerIntegrationTests : BaseChatMessagePresen
 		IStringTransformer transformer)
 	{
 		// Arrange
-		var updatedChatMessage = ChatMessageBuilder.WithSenderId(ParticipantTwo.Id).Build();
+		var updatedChatMessage = ChatMessageBuilder.WithSenderId(ParticipantTwoId).Build();
 		await ServiceScope.UpdateAsync(updatedChatMessage, CancellationToken);
-		var request = _requestBuilder.WithParticipantOneId(ParticipantTwo.Id).WithParticipantTwoId(ParticipantOne.Id, transformer).Build();
+		var request = _requestBuilder.WithParticipantOneId(ParticipantTwoId).WithParticipantTwoId(ParticipantOneId, transformer).Build();
 
 		// Act
 		var response = await Controller.UpdateAsync(request, CancellationToken);
@@ -480,9 +480,9 @@ public class UpdateChatMessageControllerIntegrationTests : BaseChatMessagePresen
 		IStringTransformer transformer)
 	{
 		// Arrange
-		var updatedChatMessage = ChatMessageBuilder.WithSenderId(ParticipantTwo.Id).Build();
+		var updatedChatMessage = ChatMessageBuilder.WithSenderId(ParticipantTwoId).Build();
 		await ServiceScope.UpdateAsync(updatedChatMessage, CancellationToken);
-		var request = _requestBuilder.WithParticipantOneId(ParticipantTwo.Id).WithParticipantTwoId(ParticipantOne.Id).WithMessageId(transformer).Build();
+		var request = _requestBuilder.WithParticipantOneId(ParticipantTwoId).WithParticipantTwoId(ParticipantOneId).WithMessageId(transformer).Build();
 
 		// Act
 		var response = await Controller.UpdateAsync(request, CancellationToken);
@@ -559,9 +559,9 @@ public class UpdateChatMessageControllerIntegrationTests : BaseChatMessagePresen
 	public async Task UpdateAsync_ShouldPublishInvertedChatMessageUpdatedNotification_WhenRequestIsValid()
 	{
 		// Arrange
-		var updatedChatMessage = ChatMessageBuilder.WithSenderId(ParticipantTwo.Id).Build();
+		var updatedChatMessage = ChatMessageBuilder.WithSenderId(ParticipantTwoId).Build();
 		await ServiceScope.UpdateAsync(updatedChatMessage, CancellationToken);
-		var request = _requestBuilder.WithParticipantOneId(ParticipantTwo.Id).WithParticipantTwoId(ParticipantOne.Id).Build();
+		var request = _requestBuilder.WithParticipantOneId(ParticipantTwoId).WithParticipantTwoId(ParticipantOneId).Build();
 
 		// Act
 		var response = await Controller.UpdateAsync(request, CancellationToken);
@@ -578,9 +578,9 @@ public class UpdateChatMessageControllerIntegrationTests : BaseChatMessagePresen
 		IStringTransformer transformer)
 	{
 		// Arrange
-		var updatedChatMessage = ChatMessageBuilder.WithSenderId(ParticipantTwo.Id).Build();
+		var updatedChatMessage = ChatMessageBuilder.WithSenderId(ParticipantTwoId).Build();
 		await ServiceScope.UpdateAsync(updatedChatMessage, CancellationToken);
-		var request = _requestBuilder.WithParticipantOneId(ParticipantTwo.Id, transformer).WithParticipantTwoId(ParticipantOne.Id).Build();
+		var request = _requestBuilder.WithParticipantOneId(ParticipantTwoId, transformer).WithParticipantTwoId(ParticipantOneId).Build();
 
 		// Act
 		var response = await Controller.UpdateAsync(request, CancellationToken);
@@ -597,9 +597,9 @@ public class UpdateChatMessageControllerIntegrationTests : BaseChatMessagePresen
 		IStringTransformer transformer)
 	{
 		// Arrange
-		var updatedChatMessage = ChatMessageBuilder.WithSenderId(ParticipantTwo.Id).Build();
+		var updatedChatMessage = ChatMessageBuilder.WithSenderId(ParticipantTwoId).Build();
 		await ServiceScope.UpdateAsync(updatedChatMessage, CancellationToken);
-		var request = _requestBuilder.WithParticipantOneId(ParticipantTwo.Id).WithParticipantTwoId(ParticipantOne.Id, transformer).Build();
+		var request = _requestBuilder.WithParticipantOneId(ParticipantTwoId).WithParticipantTwoId(ParticipantOneId, transformer).Build();
 
 		// Act
 		var response = await Controller.UpdateAsync(request, CancellationToken);
@@ -616,9 +616,9 @@ public class UpdateChatMessageControllerIntegrationTests : BaseChatMessagePresen
 		IStringTransformer transformer)
 	{
 		// Arrange
-		var updatedChatMessage = ChatMessageBuilder.WithSenderId(ParticipantTwo.Id).Build();
+		var updatedChatMessage = ChatMessageBuilder.WithSenderId(ParticipantTwoId).Build();
 		await ServiceScope.UpdateAsync(updatedChatMessage, CancellationToken);
-		var request = _requestBuilder.WithParticipantOneId(ParticipantTwo.Id).WithParticipantTwoId(ParticipantOne.Id).WithMessageId(transformer).Build();
+		var request = _requestBuilder.WithParticipantOneId(ParticipantTwoId).WithParticipantTwoId(ParticipantOneId).WithMessageId(transformer).Build();
 
 		// Act
 		var response = await Controller.UpdateAsync(request, CancellationToken);

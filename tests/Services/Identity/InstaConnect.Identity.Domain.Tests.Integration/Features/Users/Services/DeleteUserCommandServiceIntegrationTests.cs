@@ -1,5 +1,4 @@
 using InstaConnect.Common.Tests.Features.DataAttributes.Strings.Base;
-using InstaConnect.Identity.Domain.Features.Users.Models.Entities;
 using InstaConnect.Identity.Domain.Features.Users.Models.Requests;
 using InstaConnect.Identity.Domain.Tests.Features.Users.Assertions;
 using InstaConnect.Identity.Domain.Tests.Features.Users.Builders;
@@ -44,7 +43,7 @@ public class DeleteUserCommandServiceIntegrationTests : BaseUserDomainCommandInt
 	{
 		// Act
 		await Service.DeleteAsync(_command, CancellationToken);
-		var user = await ServiceScope.GetByIdAsync(User.Id, CancellationToken);
+		var user = await ServiceScope.GetByIdAsync(UserId, CancellationToken);
 
 		// Assert
 		user.ShouldBeNull();
@@ -60,7 +59,7 @@ public class DeleteUserCommandServiceIntegrationTests : BaseUserDomainCommandInt
 
 		// Act
 		await Service.DeleteAsync(command, CancellationToken);
-		var user = await ServiceScope.GetByIdAsync(User.Id, CancellationToken);
+		var user = await ServiceScope.GetByIdAsync(UserId, CancellationToken);
 
 		// Assert
 		user.ShouldBeNull();

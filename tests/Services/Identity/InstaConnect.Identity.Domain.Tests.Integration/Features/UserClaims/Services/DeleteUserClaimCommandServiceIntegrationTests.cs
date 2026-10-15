@@ -54,7 +54,7 @@ public class DeleteUserClaimCommandServiceIntegrationTests : BaseUserClaimDomain
 	{
 		// Act
 		await Service.DeleteAsync(_command, CancellationToken);
-		var userClaim = await ServiceScope.GetByIdAsync(UserClaim.Id, CancellationToken);
+		var userClaim = await ServiceScope.GetByIdAsync(UserClaimId, CancellationToken);
 
 		// Assert
 		userClaim.ShouldBeNull();
@@ -70,7 +70,7 @@ public class DeleteUserClaimCommandServiceIntegrationTests : BaseUserClaimDomain
 
 		// Act
 		await Service.DeleteAsync(command, CancellationToken);
-		var userClaim = await ServiceScope.GetByIdAsync(UserClaim.Id, CancellationToken);
+		var userClaim = await ServiceScope.GetByIdAsync(UserClaimId, CancellationToken);
 
 		// Assert
 		userClaim.ShouldBeNull();

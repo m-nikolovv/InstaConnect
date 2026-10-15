@@ -1,4 +1,3 @@
-using InstaConnect.Identity.Domain.Features.ForgotPasswordTokens.Models.ValueObjects;
 using InstaConnect.Identity.Infrastructure.Tests.Features.ForgotPasswordTokens.Assertions;
 using InstaConnect.Identity.Infrastructure.Tests.Integration.Features.ForgotPasswordTokens.Utilities;
 using InstaConnect.Identity.Tests.Features.ForgotPasswordTokens.Builders;
@@ -10,16 +9,9 @@ namespace InstaConnect.Identity.Infrastructure.Tests.Integration.Features.Forgot
 
 public class ForgotPasswordTokenExistsByIdCommandRepositoryIntegrationTests : BaseForgotPasswordTokenInfrastructureCommandIntegrationTest
 {
-	private readonly ForgotPasswordTokenIdBuilderFactory _idBuilderFactory;
-	private readonly ForgotPasswordTokenIdBuilder _idBuilder;
-	private readonly ForgotPasswordTokenId _id;
-
 	public ForgotPasswordTokenExistsByIdCommandRepositoryIntegrationTests(IdentityWebApplicationFactory webApplicationFactory)
 		: base(webApplicationFactory)
 	{
-		_idBuilderFactory = new();
-		_idBuilder = _idBuilderFactory.Create(ForgotPasswordToken.Id);
-		_id = _idBuilder.Build();
 	}
 
 	protected override async Task OnInitializeAsync()
@@ -34,22 +26,22 @@ public class ForgotPasswordTokenExistsByIdCommandRepositoryIntegrationTests : Ba
 		await ServiceScope.DeleteAsync(ForgotPasswordToken, CancellationToken);
 
 		// Act
-		var response = await Repository.ExistsByIdAsync(_id, CancellationToken);
-		var forgotPasswordToken = await ServiceScope.GetByIdAsync(_id, CancellationToken);
+		var response = await Repository.ExistsByIdAsync(ForgotPasswordTokenId, CancellationToken);
+		var forgotPasswordToken = await ServiceScope.GetByIdAsync(ForgotPasswordTokenId, CancellationToken);
 
 		// Assert
-		response.ShouldSatisfy(_id, forgotPasswordToken);
+		response.ShouldSatisfy(ForgotPasswordTokenId, forgotPasswordToken);
 	}
 
 	[Fact]
 	public async Task ExistsByIdAsync_ShouldReturnResponse_WhenCommandIsValid()
 	{
 		// Act
-		var response = await Repository.ExistsByIdAsync(_id, CancellationToken);
-		var forgotPasswordToken = await ServiceScope.GetByIdAsync(_id, CancellationToken);
+		var response = await Repository.ExistsByIdAsync(ForgotPasswordTokenId, CancellationToken);
+		var forgotPasswordToken = await ServiceScope.GetByIdAsync(ForgotPasswordTokenId, CancellationToken);
 
 		// Assert
-		response.ShouldSatisfy(_id, forgotPasswordToken);
+		response.ShouldSatisfy(ForgotPasswordTokenId, forgotPasswordToken);
 	}
 
 	[Theory]
@@ -58,11 +50,11 @@ public class ForgotPasswordTokenExistsByIdCommandRepositoryIntegrationTests : Ba
 		IStringTransformer transformer)
 	{
 		// Arrange
-		var id = _idBuilder.WithId(transformer).Build();
+		var id = ForgotPasswordTokenIdBuilder.WithId(transformer).Build();
 
 		// Act
 		var response = await Repository.ExistsByIdAsync(id, CancellationToken);
-		var forgotPasswordToken = await ServiceScope.GetByIdAsync(_id, CancellationToken);
+		var forgotPasswordToken = await ServiceScope.GetByIdAsync(ForgotPasswordTokenId, CancellationToken);
 
 		// Assert
 		response.ShouldSatisfy(id, forgotPasswordToken);
@@ -74,11 +66,11 @@ public class ForgotPasswordTokenExistsByIdCommandRepositoryIntegrationTests : Ba
 		IStringTransformer transformer)
 	{
 		// Arrange
-		var id = _idBuilder.WithValue(transformer).Build();
+		var id = ForgotPasswordTokenIdBuilder.WithValue(transformer).Build();
 
 		// Act
 		var response = await Repository.ExistsByIdAsync(id, CancellationToken);
-		var forgotPasswordToken = await ServiceScope.GetByIdAsync(_id, CancellationToken);
+		var forgotPasswordToken = await ServiceScope.GetByIdAsync(ForgotPasswordTokenId, CancellationToken);
 
 		// Assert
 		response.ShouldSatisfy(id, forgotPasswordToken);

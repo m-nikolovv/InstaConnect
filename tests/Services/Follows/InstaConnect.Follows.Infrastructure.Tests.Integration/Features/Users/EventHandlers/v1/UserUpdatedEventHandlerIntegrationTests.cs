@@ -192,7 +192,7 @@ public class UserUpdatedEventHandlerIntegrationTests : BaseUserInfrastructureEve
 	{
 		// Act
 		await _handler.Consume(_request, CancellationToken);
-		var user = await ServiceScope.GetByIdAsync(User.Id, CancellationToken);
+		var user = await ServiceScope.GetByIdAsync(UserId, CancellationToken);
 
 		// Assert
 		user.ShouldSatisfy(_request);
@@ -208,7 +208,7 @@ public class UserUpdatedEventHandlerIntegrationTests : BaseUserInfrastructureEve
 
 		// Act
 		await _handler.Consume(request, CancellationToken);
-		var user = await ServiceScope.GetByIdAsync(User.Id, CancellationToken);
+		var user = await ServiceScope.GetByIdAsync(UserId, CancellationToken);
 
 		// Assert
 		user.ShouldSatisfy(request);
@@ -224,7 +224,7 @@ public class UserUpdatedEventHandlerIntegrationTests : BaseUserInfrastructureEve
 
 		// Act
 		await _handler.Consume(request, CancellationToken);
-		var user = await ServiceScope.GetByIdAsync(User.Id, CancellationToken);
+		var user = await ServiceScope.GetByIdAsync(UserId, CancellationToken);
 
 		// Assert
 		user.ShouldSatisfy(request);
@@ -238,7 +238,7 @@ public class UserUpdatedEventHandlerIntegrationTests : BaseUserInfrastructureEve
 
 		// Act
 		await _handler.Consume(request, CancellationToken);
-		var user = await ServiceScope.GetByIdAsync(User.Id, CancellationToken);
+		var user = await ServiceScope.GetByIdAsync(UserId, CancellationToken);
 
 		// Assert
 		user.ShouldSatisfy(request);
@@ -254,7 +254,7 @@ public class UserUpdatedEventHandlerIntegrationTests : BaseUserInfrastructureEve
 
 		// Act
 		await _handler.Consume(request, CancellationToken);
-		var user = await ServiceScope.GetByIdAsync(User.Id, CancellationToken);
+		var user = await ServiceScope.GetByIdAsync(UserId, CancellationToken);
 
 		// Assert
 		user.ShouldSatisfy(request);
@@ -270,7 +270,7 @@ public class UserUpdatedEventHandlerIntegrationTests : BaseUserInfrastructureEve
 
 		// Act
 		await _handler.Consume(request, CancellationToken);
-		var user = await ServiceScope.GetByIdAsync(User.Id, CancellationToken);
+		var user = await ServiceScope.GetByIdAsync(UserId, CancellationToken);
 
 		// Assert
 		user.ShouldSatisfy(request);
@@ -284,7 +284,7 @@ public class UserUpdatedEventHandlerIntegrationTests : BaseUserInfrastructureEve
 
 		// Act
 		await _handler.Consume(request, CancellationToken);
-		var user = await ServiceScope.GetByIdAsync(User.Id, CancellationToken);
+		var user = await ServiceScope.GetByIdAsync(UserId, CancellationToken);
 
 		// Assert
 		user.ShouldSatisfy(request);
@@ -300,7 +300,7 @@ public class UserUpdatedEventHandlerIntegrationTests : BaseUserInfrastructureEve
 
 		// Act
 		await _handler.Consume(request, CancellationToken);
-		var user = await ServiceScope.GetByIdAsync(User.Id, CancellationToken);
+		var user = await ServiceScope.GetByIdAsync(UserId, CancellationToken);
 
 		// Assert
 		user.ShouldSatisfy(request);
@@ -317,7 +317,7 @@ public class UserUpdatedEventHandlerIntegrationTests : BaseUserInfrastructureEve
 
 		// Act
 		await _handler.Consume(request, CancellationToken);
-		var user = await ServiceScope.GetByIdAsync(User.Id, CancellationToken);
+		var user = await ServiceScope.GetByIdAsync(UserId, CancellationToken);
 
 		// Assert
 		user.ShouldSatisfy(request);

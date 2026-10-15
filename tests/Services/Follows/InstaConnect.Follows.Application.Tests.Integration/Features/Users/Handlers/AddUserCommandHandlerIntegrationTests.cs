@@ -133,7 +133,7 @@ public class AddUserCommandHandlerIntegrationTests : BaseUserApplicationCommandI
 	{
 		// Arrange
 		await ServiceScope.AddAsync(User, CancellationToken);
-		var request = _requestBuilder.WithId(User.Id).Build();
+		var request = _requestBuilder.WithId(UserId).Build();
 
 		// Assert
 		await Sender.ShouldThrowUserAlreadyExistsExceptionAsync(request, CancellationToken);
@@ -146,7 +146,7 @@ public class AddUserCommandHandlerIntegrationTests : BaseUserApplicationCommandI
 	{
 		// Arrange
 		await ServiceScope.AddAsync(User, CancellationToken);
-		var request = _requestBuilder.WithId(User.Id, transformer).Build();
+		var request = _requestBuilder.WithId(UserId, transformer).Build();
 
 		// Assert
 		await Sender.ShouldThrowUserAlreadyExistsExceptionAsync(request, CancellationToken);

@@ -22,7 +22,7 @@ public class CreateChatMessageFactoryUnitTests : BaseChatMessageDomainCommandUni
 	public void Create_ShouldCreateChatMessage_WhenRequestIsValid()
 	{
 		// Act
-		var response = _factory.Create(ChatMessage.Id.Id, ChatMessage.SenderId, ChatMessage.Content);
+		var response = _factory.Create(ChatMessageId.Id, ChatMessage.SenderId, ChatMessage.Content);
 
 		// Assert
 		response.ShouldSatisfy(ChatMessage);
@@ -32,7 +32,7 @@ public class CreateChatMessageFactoryUnitTests : BaseChatMessageDomainCommandUni
 	public void Create_ShouldCallTheGuidProviderNewStringGuid_WhenRequestIsValid()
 	{
 		// Act
-		_factory.Create(ChatMessage.Id.Id, ChatMessage.SenderId, ChatMessage.Content);
+		_factory.Create(ChatMessageId.Id, ChatMessage.SenderId, ChatMessage.Content);
 
 		// Assert
 		GuidProvider.ShouldHaveReceivedOneNewStringGuid();
@@ -42,7 +42,7 @@ public class CreateChatMessageFactoryUnitTests : BaseChatMessageDomainCommandUni
 	public void Create_ShouldCallTheDateTimeProviderGetOffsetUtcNow_WhenRequestIsValid()
 	{
 		// Act
-		_factory.Create(ChatMessage.Id.Id, ChatMessage.SenderId, ChatMessage.Content);
+		_factory.Create(ChatMessageId.Id, ChatMessage.SenderId, ChatMessage.Content);
 
 		// Assert
 		DateTimeProvider.ShouldHaveReceivedOneGetOffsetUtcNow();

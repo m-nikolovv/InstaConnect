@@ -1,4 +1,3 @@
-using InstaConnect.Chats.Domain.Features.Chats.Models.ValueObjects;
 using InstaConnect.Chats.Infrastructure.Tests.Features.Chats.Assertions;
 using InstaConnect.Chats.Infrastructure.Tests.Integration.Features.Chats.Utilities;
 using InstaConnect.Chats.Tests.Features.Chats.Builders;
@@ -8,16 +7,9 @@ namespace InstaConnect.Chats.Infrastructure.Tests.Integration.Features.Chats.Rep
 
 public class ChatExistsByIdQueryRepositoryIntegrationTests : BaseChatInfrastructureQueryIntegrationTest
 {
-	private readonly ChatIdBuilderFactory _idBuilderFactory;
-	private readonly ChatIdBuilder _idBuilder;
-	private readonly ChatId _id;
-
 	public ChatExistsByIdQueryRepositoryIntegrationTests(ChatsWebApplicationFactory webApplicationFactory)
 		: base(webApplicationFactory)
 	{
-		_idBuilderFactory = new();
-		_idBuilder = _idBuilderFactory.Create(Chat.Id);
-		_id = _idBuilder.Build();
 	}
 
 	protected override async Task OnInitializeAsync()
@@ -32,22 +24,22 @@ public class ChatExistsByIdQueryRepositoryIntegrationTests : BaseChatInfrastruct
 		await ServiceScope.DeleteAsync(Chat, CancellationToken);
 
 		// Act
-		var response = await Repository.ExistsByIdAsync(_id, CancellationToken);
-		var chat = await ServiceScope.GetByIdAsync(_id, CancellationToken);
+		var response = await Repository.ExistsByIdAsync(ChatId, CancellationToken);
+		var chat = await ServiceScope.GetByIdAsync(ChatId, CancellationToken);
 
 		// Assert
-		response.ShouldSatisfy(_id, chat);
+		response.ShouldSatisfy(ChatId, chat);
 	}
 
 	[Fact]
 	public async Task ExistsByIdAsync_ShouldReturnResponse_WhenQueryIsValid()
 	{
 		// Act
-		var response = await Repository.ExistsByIdAsync(_id, CancellationToken);
-		var chat = await ServiceScope.GetByIdAsync(_id, CancellationToken);
+		var response = await Repository.ExistsByIdAsync(ChatId, CancellationToken);
+		var chat = await ServiceScope.GetByIdAsync(ChatId, CancellationToken);
 
 		// Assert
-		response.ShouldSatisfy(_id, chat);
+		response.ShouldSatisfy(ChatId, chat);
 	}
 
 	[Theory]
@@ -56,11 +48,11 @@ public class ChatExistsByIdQueryRepositoryIntegrationTests : BaseChatInfrastruct
 		IStringTransformer transformer)
 	{
 		// Arrange
-		var id = _idBuilder.WithParticipantOneId(transformer).Build();
+		var id = ChatIdBuilder.WithParticipantOneId(transformer).Build();
 
 		// Act
 		var response = await Repository.ExistsByIdAsync(id, CancellationToken);
-		var chat = await ServiceScope.GetByIdAsync(_id, CancellationToken);
+		var chat = await ServiceScope.GetByIdAsync(ChatId, CancellationToken);
 
 		// Assert
 		response.ShouldSatisfy(id, chat);
@@ -72,11 +64,11 @@ public class ChatExistsByIdQueryRepositoryIntegrationTests : BaseChatInfrastruct
 		IStringTransformer transformer)
 	{
 		// Arrange
-		var id = _idBuilder.WithParticipantTwoId(transformer).Build();
+		var id = ChatIdBuilder.WithParticipantTwoId(transformer).Build();
 
 		// Act
 		var response = await Repository.ExistsByIdAsync(id, CancellationToken);
-		var chat = await ServiceScope.GetByIdAsync(_id, CancellationToken);
+		var chat = await ServiceScope.GetByIdAsync(ChatId, CancellationToken);
 
 		// Assert
 		response.ShouldSatisfy(id, chat);
@@ -86,11 +78,11 @@ public class ChatExistsByIdQueryRepositoryIntegrationTests : BaseChatInfrastruct
 	public async Task ExistsByIdAsync_ShouldReturnResponse_WhenInvertedQueryIsValid()
 	{
 		// Arrange
-		var id = _idBuilder.WithParticipantOneId(ParticipantTwo.Id).WithParticipantTwoId(ParticipantOne.Id).Build();
+		var id = ChatIdBuilder.WithParticipantOneId(ParticipantTwoId).WithParticipantTwoId(ParticipantOneId).Build();
 
 		// Act
 		var response = await Repository.ExistsByIdAsync(id, CancellationToken);
-		var chat = await ServiceScope.GetByIdAsync(_id, CancellationToken);
+		var chat = await ServiceScope.GetByIdAsync(ChatId, CancellationToken);
 
 		// Assert
 		response.ShouldSatisfy(id, chat);
@@ -102,11 +94,11 @@ public class ChatExistsByIdQueryRepositoryIntegrationTests : BaseChatInfrastruct
 		IStringTransformer transformer)
 	{
 		// Arrange
-		var id = _idBuilder.WithParticipantOneId(ParticipantTwo.Id, transformer).WithParticipantTwoId(ParticipantOne.Id).Build();
+		var id = ChatIdBuilder.WithParticipantOneId(ParticipantTwoId, transformer).WithParticipantTwoId(ParticipantOneId).Build();
 
 		// Act
 		var response = await Repository.ExistsByIdAsync(id, CancellationToken);
-		var chat = await ServiceScope.GetByIdAsync(_id, CancellationToken);
+		var chat = await ServiceScope.GetByIdAsync(ChatId, CancellationToken);
 
 		// Assert
 		response.ShouldSatisfy(id, chat);
@@ -118,11 +110,11 @@ public class ChatExistsByIdQueryRepositoryIntegrationTests : BaseChatInfrastruct
 		IStringTransformer transformer)
 	{
 		// Arrange
-		var id = _idBuilder.WithParticipantOneId(ParticipantTwo.Id).WithParticipantTwoId(ParticipantOne.Id, transformer).Build();
+		var id = ChatIdBuilder.WithParticipantOneId(ParticipantTwoId).WithParticipantTwoId(ParticipantOneId, transformer).Build();
 
 		// Act
 		var response = await Repository.ExistsByIdAsync(id, CancellationToken);
-		var chat = await ServiceScope.GetByIdAsync(_id, CancellationToken);
+		var chat = await ServiceScope.GetByIdAsync(ChatId, CancellationToken);
 
 		// Assert
 		response.ShouldSatisfy(id, chat);

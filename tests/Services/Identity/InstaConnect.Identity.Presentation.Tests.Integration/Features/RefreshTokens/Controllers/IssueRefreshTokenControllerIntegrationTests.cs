@@ -133,7 +133,7 @@ public class IssueRefreshTokenControllerIntegrationTests : BaseRefreshTokenPrese
 	{
 		// Act
 		await Controller.IssueAsync(_request, CancellationToken);
-		var user = await ServiceScope.GetByIdAsync(User.Id, CancellationToken);
+		var user = await ServiceScope.GetByIdAsync(UserId, CancellationToken);
 
 		// Assert
 		user.RefreshTokens.ShouldSatisfy(_request);
@@ -149,7 +149,7 @@ public class IssueRefreshTokenControllerIntegrationTests : BaseRefreshTokenPrese
 
 		// Act
 		await Controller.IssueAsync(request, CancellationToken);
-		var user = await ServiceScope.GetByIdAsync(User.Id, CancellationToken);
+		var user = await ServiceScope.GetByIdAsync(UserId, CancellationToken);
 
 		// Assert
 		user.RefreshTokens.ShouldSatisfy(request);

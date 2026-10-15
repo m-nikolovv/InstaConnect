@@ -1,70 +1,60 @@
-using InstaConnect.Identity.Domain.Features.UserClaims.Models.ValueObjects;
 using InstaConnect.Identity.Infrastructure.Features.UserClaims.Helpers.Repositories;
 using InstaConnect.Identity.Infrastructure.Tests.Features.UserClaims.Assertions;
 using InstaConnect.Identity.Infrastructure.Tests.Features.UserClaims.Utilities;
 using InstaConnect.Identity.Infrastructure.Tests.Unit.Features.UserClaims.Utilities;
-using InstaConnect.Identity.Tests.Features.UserClaims.Builders;
 
 namespace InstaConnect.Identity.Infrastructure.Tests.Unit.Features.UserClaims.Repositories;
 
 public class UserClaimExistsByIdCommandRepositoryUnitTests : BaseUserClaimInfrastructureCommandUnitTest
 {
-	private readonly UserClaimIdBuilderFactory _idBuilderFactory;
-	private readonly UserClaimIdBuilder _idBuilder;
-	private readonly UserClaimId _id;
-
 	private readonly UserClaimCommandRepository _repository;
 
 	public UserClaimExistsByIdCommandRepositoryUnitTests()
 	{
-		_idBuilderFactory = new();
-		_idBuilder = _idBuilderFactory.Create(UserClaim.Id);
-		_id = _idBuilder.Build();
-
 		_repository = new(Collection, IncludeBuilderFactory);
 
-		Collection.SetupAggregateFluent(_id, Fluent);
-		Fluent.SetupMatch(_id);
-		Fluent.SetupAnyAsync(_id, UserClaim, CancellationToken);
+		Collection.SetupAggregateFluent(UserClaimId, Fluent);
+		Fluent.SetupMatch(UserClaimId);
+		Fluent.SetupAnyAsync(UserClaimId, UserClaim, CancellationToken);
 	}
 
 	[Fact]
 	public async Task ExistsByIdAsync_ShouldReturnResponse_WhenRequestIsValid()
 	{
 		// Act
-		var response = await _repository.ExistsByIdAsync(_id, CancellationToken);
+		var response = await _repository.ExistsByIdAsync(UserClaimId, CancellationToken);
 
 		// Assert
-		response.ShouldSatisfy(_id, UserClaim);
+		response.ShouldSatisfy(UserClaimId, UserClaim);
 	}
 
 	[Fact]
 	public async Task ExistsByIdAsync_ShouldCallTheCollectionAggregateFluent_WhenRequestIsValid()
 	{
 		// Act
-		await _repository.ExistsByIdAsync(_id, CancellationToken);
+		await _repository.ExistsByIdAsync(UserClaimId, CancellationToken);
 
 		// Assert
-		Collection.ShouldHaveReceivedOneAggregateFluent(_id);
+		Collection.ShouldHaveReceivedOneAggregateFluent(UserClaimId);
 	}
 
 	[Fact]
 	public async Task ExistsByIdAsync_ShouldCallTheFluentMatch_WhenRequestIsValid()
 	{
 		// Act
-		await _repository.ExistsByIdAsync(_id, CancellationToken);
+		await _repository.ExistsByIdAsync(UserClaimId, CancellationToken);
 
 		// Assert
-		Fluent.ShouldHaveReceivedOneMatch(_id);
+		Fluent.ShouldHaveReceivedOneMatch(UserClaimId);
 	}
 
 	[Fact]
 	public async Task ExistsByIdAsync_ShouldCallTheFluentAnyAsync_WhenRequestIsValid()
 	{
 		// Act
-		await _repository.ExistsByIdAsync(_id, CancellationToken);
+		await _repository.ExistsByIdAsync(UserClaimId, CancellationToken);
 
 		// Assert
-		await Fluent.ShouldHaveReceivedOneAnyAsync(_id, CancellationToken);
+		await Fluent.ShouldHaveReceivedOneAnyAsync(UserClaimId, CancellationToken);
 	}
 }

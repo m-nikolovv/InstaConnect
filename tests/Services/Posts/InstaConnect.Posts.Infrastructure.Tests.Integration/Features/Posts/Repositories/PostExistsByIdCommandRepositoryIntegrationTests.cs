@@ -1,4 +1,3 @@
-using InstaConnect.Posts.Domain.Features.Posts.Models.ValueObjects;
 using InstaConnect.Posts.Infrastructure.Tests.Features.Posts.Assertions;
 using InstaConnect.Posts.Infrastructure.Tests.Integration.Features.Posts.Utilities;
 using InstaConnect.Posts.Tests.Features.PostLikes.Utilities;
@@ -11,16 +10,9 @@ namespace InstaConnect.Posts.Infrastructure.Tests.Integration.Features.Posts.Rep
 
 public class PostExistsByIdCommandRepositoryIntegrationTests : BasePostInfrastructureCommandIntegrationTest
 {
-	private readonly PostIdBuilderFactory _idBuilderFactory;
-	private readonly PostIdBuilder _idBuilder;
-	private readonly PostId _id;
-
 	public PostExistsByIdCommandRepositoryIntegrationTests(PostsWebApplicationFactory webApplicationFactory)
 		: base(webApplicationFactory)
 	{
-		_idBuilderFactory = new();
-		_idBuilder = _idBuilderFactory.Create(Post.Id);
-		_id = _idBuilder.Build();
 	}
 
 	protected override async Task OnInitializeAsync()
@@ -35,22 +27,22 @@ public class PostExistsByIdCommandRepositoryIntegrationTests : BasePostInfrastru
 		await ServiceScope.DeleteAsync(Post, CancellationToken);
 
 		// Act
-		var response = await Repository.ExistsByIdAsync(_id, CancellationToken);
-		var post = await ServiceScope.GetByIdAsync(_id, CancellationToken);
+		var response = await Repository.ExistsByIdAsync(PostId, CancellationToken);
+		var post = await ServiceScope.GetByIdAsync(PostId, CancellationToken);
 
 		// Assert
-		response.ShouldSatisfy(_id, post);
+		response.ShouldSatisfy(PostId, post);
 	}
 
 	[Fact]
 	public async Task ExistsByIdAsync_ShouldReturnResponse_WhenCommandIsValid()
 	{
 		// Act
-		var response = await Repository.ExistsByIdAsync(_id, CancellationToken);
-		var post = await ServiceScope.GetByIdAsync(_id, CancellationToken);
+		var response = await Repository.ExistsByIdAsync(PostId, CancellationToken);
+		var post = await ServiceScope.GetByIdAsync(PostId, CancellationToken);
 
 		// Assert
-		response.ShouldSatisfy(_id, post);
+		response.ShouldSatisfy(PostId, post);
 	}
 
 	[Theory]
@@ -59,11 +51,11 @@ public class PostExistsByIdCommandRepositoryIntegrationTests : BasePostInfrastru
 		IStringTransformer transformer)
 	{
 		// Arrange
-		var id = _idBuilder.WithId(transformer).Build();
+		var id = PostIdBuilder.WithId(transformer).Build();
 
 		// Act
 		var response = await Repository.ExistsByIdAsync(id, CancellationToken);
-		var post = await ServiceScope.GetByIdAsync(_id, CancellationToken);
+		var post = await ServiceScope.GetByIdAsync(PostId, CancellationToken);
 
 		// Assert
 		response.ShouldSatisfy(id, post);

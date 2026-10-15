@@ -269,7 +269,7 @@ public class DeletePostCommentFunctionalTests : BasePostCommentPresentationComma
 	{
 		// Act
 		await CommentApiClient.DeleteAsync(_request, CancellationToken);
-		var postComment = await ServiceScope.GetByIdAsync(PostComment.Id, CancellationToken);
+		var postComment = await ServiceScope.GetByIdAsync(PostCommentId, CancellationToken);
 
 		// Assert
 		postComment.ShouldBeNull();
@@ -285,7 +285,7 @@ public class DeletePostCommentFunctionalTests : BasePostCommentPresentationComma
 
 		// Act
 		await CommentApiClient.DeleteAsync(request, CancellationToken);
-		var postComment = await ServiceScope.GetByIdAsync(PostComment.Id, CancellationToken);
+		var postComment = await ServiceScope.GetByIdAsync(PostCommentId, CancellationToken);
 
 		// Assert
 		postComment.ShouldBeNull();
@@ -301,7 +301,7 @@ public class DeletePostCommentFunctionalTests : BasePostCommentPresentationComma
 
 		// Act
 		await CommentApiClient.DeleteAsync(request, CancellationToken);
-		var postComment = await ServiceScope.GetByIdAsync(PostComment.Id, CancellationToken);
+		var postComment = await ServiceScope.GetByIdAsync(PostCommentId, CancellationToken);
 
 		// Assert
 		postComment.ShouldBeNull();
@@ -317,7 +317,7 @@ public class DeletePostCommentFunctionalTests : BasePostCommentPresentationComma
 
 		// Act
 		await CommentApiClient.DeleteAsync(request, CancellationToken);
-		var postComment = await ServiceScope.GetByIdAsync(PostComment.Id, CancellationToken);
+		var postComment = await ServiceScope.GetByIdAsync(PostCommentId, CancellationToken);
 
 		// Assert
 		postComment.ShouldBeNull();

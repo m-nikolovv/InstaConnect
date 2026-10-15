@@ -129,7 +129,7 @@ public class DeleteUserFunctionalTests : BaseUserPresentationCommandFunctionalTe
 	{
 		// Act
 		await ApiClient.DeleteAsync(_request, CancellationToken);
-		var user = await ServiceScope.GetByIdAsync(User.Id, CancellationToken);
+		var user = await ServiceScope.GetByIdAsync(UserId, CancellationToken);
 
 		// Assert
 		user.ShouldBeNull();
@@ -145,7 +145,7 @@ public class DeleteUserFunctionalTests : BaseUserPresentationCommandFunctionalTe
 
 		// Act
 		await ApiClient.DeleteAsync(request, CancellationToken);
-		var user = await ServiceScope.GetByIdAsync(User.Id, CancellationToken);
+		var user = await ServiceScope.GetByIdAsync(UserId, CancellationToken);
 
 		// Assert
 		user.ShouldBeNull();

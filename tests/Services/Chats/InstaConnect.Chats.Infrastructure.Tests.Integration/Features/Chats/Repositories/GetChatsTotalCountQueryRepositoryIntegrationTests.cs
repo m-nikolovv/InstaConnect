@@ -71,7 +71,7 @@ public class GetChatsTotalCountQueryRepositoryIntegrationTests : BaseChatInfrast
 	public async Task GetTotalCountAsync_ShouldReturnResponse_WhenInvertedQueryIsValid()
 	{
 		// Arrange
-		var filterQuery = _filterQueryBuilder.WithParticipantOneId(ParticipantTwo.Id).WithParticipantTwoName(ParticipantOne.Name).Build();
+		var filterQuery = _filterQueryBuilder.WithParticipantOneId(ParticipantTwoId).WithParticipantTwoName(ParticipantOne.Name).Build();
 
 		// Act
 		var response = await Repository.GetTotalCountAsync(filterQuery, CancellationToken);
@@ -88,7 +88,7 @@ public class GetChatsTotalCountQueryRepositoryIntegrationTests : BaseChatInfrast
 		IStringTransformer transformer)
 	{
 		// Arrange
-		var filterQuery = _filterQueryBuilder.WithParticipantOneId(ParticipantTwo.Id).WithParticipantTwoName(ParticipantOne.Name, transformer).Build();
+		var filterQuery = _filterQueryBuilder.WithParticipantOneId(ParticipantTwoId).WithParticipantTwoName(ParticipantOne.Name, transformer).Build();
 
 		// Act
 		var response = await Repository.GetTotalCountAsync(filterQuery, CancellationToken);
@@ -103,7 +103,7 @@ public class GetChatsTotalCountQueryRepositoryIntegrationTests : BaseChatInfrast
 		IStringTransformer transformer)
 	{
 		// Arrange
-		var filterQuery = _filterQueryBuilder.WithParticipantOneId(ParticipantTwo.Id, transformer).WithParticipantTwoName(ParticipantOne.Name).Build();
+		var filterQuery = _filterQueryBuilder.WithParticipantOneId(ParticipantTwoId, transformer).WithParticipantTwoName(ParticipantOne.Name).Build();
 
 		// Act
 		var response = await Repository.GetTotalCountAsync(filterQuery, CancellationToken);

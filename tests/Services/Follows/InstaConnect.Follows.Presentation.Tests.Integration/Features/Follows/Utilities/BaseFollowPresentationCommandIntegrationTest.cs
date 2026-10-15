@@ -12,7 +12,7 @@ public abstract class BaseFollowPresentationCommandIntegrationTest : BaseFollowW
 	{
 		Controller = ServiceScope.GetFollowController();
 		EventClient = webApplicationFactory.CreateEventClient();
-		NotificationClient = webApplicationFactory.CreateNotificationClient(Following.Id);
+		NotificationClient = webApplicationFactory.CreateNotificationClient(FollowingId);
 	}
 
 	public override async Task InitializeAsync()

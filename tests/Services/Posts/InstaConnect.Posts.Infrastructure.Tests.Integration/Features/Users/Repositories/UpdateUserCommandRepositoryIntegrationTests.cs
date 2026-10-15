@@ -17,11 +17,11 @@ public class UpdateUserCommandRepositoryIntegrationTests : BaseUserInfrastructur
 	[Fact]
 	public async Task UpdateAsync_ShouldUpdateUser_WhenCommandIsValid()
 	{
-		var updatedUser = UserBuilderFactory.Create().WithId(User.Id).Build();
+		var updatedUser = UserBuilderFactory.Create().WithId(UserId).Build();
 
 		// Act
 		await Repository.UpdateAsync(updatedUser, CancellationToken);
-		var user = await ServiceScope.GetByIdAsync(User.Id, CancellationToken);
+		var user = await ServiceScope.GetByIdAsync(UserId, CancellationToken);
 
 		// Assert
 		user.ShouldSatisfy(updatedUser);

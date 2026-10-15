@@ -123,7 +123,7 @@ public class GetAllChatsQueryServiceIntegrationTests : BaseChatDomainQueryIntegr
 	public async Task GetAllAsync_ShouldReturnInvertedResponse_WhenQueryIsValid()
 	{
 		// Arrange
-		var query = _queryBuilder.WithParticipantTwoName(ParticipantOne.Name).WithCurrentUserId(ParticipantTwo.Id).Build();
+		var query = _queryBuilder.WithParticipantTwoName(ParticipantOne.Name).WithCurrentUserId(ParticipantTwoId).Build();
 
 		// Act
 		var response = await Service.GetAllAsync(query, CancellationToken);
@@ -140,7 +140,7 @@ public class GetAllChatsQueryServiceIntegrationTests : BaseChatDomainQueryIntegr
 		IStringTransformer transformer)
 	{
 		// Arrange
-		var query = _queryBuilder.WithParticipantTwoName(ParticipantOne.Name, transformer).WithCurrentUserId(ParticipantTwo.Id).Build();
+		var query = _queryBuilder.WithParticipantTwoName(ParticipantOne.Name, transformer).WithCurrentUserId(ParticipantTwoId).Build();
 
 		// Act
 		var response = await Service.GetAllAsync(query, CancellationToken);
@@ -155,7 +155,7 @@ public class GetAllChatsQueryServiceIntegrationTests : BaseChatDomainQueryIntegr
 		IStringTransformer transformer)
 	{
 		// Arrange
-		var query = _queryBuilder.WithParticipantTwoName(ParticipantOne.Name).WithCurrentUserId(ParticipantTwo.Id, transformer).Build();
+		var query = _queryBuilder.WithParticipantTwoName(ParticipantOne.Name).WithCurrentUserId(ParticipantTwoId, transformer).Build();
 
 		// Act
 		var response = await Service.GetAllAsync(query, CancellationToken);
@@ -171,7 +171,7 @@ public class GetAllChatsQueryServiceIntegrationTests : BaseChatDomainQueryIntegr
 		IEnumTransformer<CommonSortOrder> transformer, ISortEnumTermTransformer<Chat> termTransformer)
 	{
 		// Arrange
-		var query = _queryBuilder.WithParticipantTwoName(ParticipantOne.Name).WithCurrentUserId(ParticipantTwo.Id).WithSortOrder(transformer).Build();
+		var query = _queryBuilder.WithParticipantTwoName(ParticipantOne.Name).WithCurrentUserId(ParticipantTwoId).WithSortOrder(transformer).Build();
 
 		// Act
 		var response = await Service.GetAllAsync(query, CancellationToken);
@@ -187,7 +187,7 @@ public class GetAllChatsQueryServiceIntegrationTests : BaseChatDomainQueryIntegr
 		IEnumTransformer<ChatsSortTerm> transformer, ISortEnumTermTransformer<Chat> termTransformer)
 	{
 		// Arrange
-		var query = _queryBuilder.WithParticipantTwoName(ParticipantOne.Name).WithCurrentUserId(ParticipantTwo.Id).WithSortTerm(transformer).Build();
+		var query = _queryBuilder.WithParticipantTwoName(ParticipantOne.Name).WithCurrentUserId(ParticipantTwoId).WithSortTerm(transformer).Build();
 
 		// Act
 		var response = await Service.GetAllAsync(query, CancellationToken);

@@ -19,7 +19,7 @@ public abstract class BaseFollowDomainCommandIntegrationTest : BaseFollowWebTest
 	{
 		Service = ServiceScope.GetFollowCommandService();
 		EventClient = webApplicationFactory.CreateEventClient();
-		NotificationClient = webApplicationFactory.CreateNotificationClient(Following.Id);
+		NotificationClient = webApplicationFactory.CreateNotificationClient(FollowingId);
 	}
 
 	public override async Task InitializeAsync()

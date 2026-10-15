@@ -77,7 +77,7 @@ public class VerifyEmailConfirmationTokenCommandServiceIntegrationTests : BaseEm
 	{
 		// Act
 		await Service.VerifyAsync(_command, CancellationToken);
-		var user = await ServiceScope.GetByIdAsync(User.Id, CancellationToken);
+		var user = await ServiceScope.GetByIdAsync(UserId, CancellationToken);
 
 		// Assert
 		user.ShouldSatisfy(_command);
@@ -93,7 +93,7 @@ public class VerifyEmailConfirmationTokenCommandServiceIntegrationTests : BaseEm
 
 		// Act
 		await Service.VerifyAsync(command, CancellationToken);
-		var user = await ServiceScope.GetByIdAsync(User.Id, CancellationToken);
+		var user = await ServiceScope.GetByIdAsync(UserId, CancellationToken);
 
 		// Assert
 		user.ShouldSatisfy(_command);
@@ -109,7 +109,7 @@ public class VerifyEmailConfirmationTokenCommandServiceIntegrationTests : BaseEm
 
 		// Act
 		await Service.VerifyAsync(command, CancellationToken);
-		var user = await ServiceScope.GetByIdAsync(User.Id, CancellationToken);
+		var user = await ServiceScope.GetByIdAsync(UserId, CancellationToken);
 
 		// Assert
 		user.ShouldSatisfy(_command);
@@ -120,7 +120,7 @@ public class VerifyEmailConfirmationTokenCommandServiceIntegrationTests : BaseEm
 	{
 		// Act
 		await Service.VerifyAsync(_command, CancellationToken);
-		var user = await ServiceScope.GetByIdAsync(User.Id, CancellationToken);
+		var user = await ServiceScope.GetByIdAsync(UserId, CancellationToken);
 
 		// Assert
 		user.EmailConfirmationTokens.ShouldBeEmpty();
@@ -136,7 +136,7 @@ public class VerifyEmailConfirmationTokenCommandServiceIntegrationTests : BaseEm
 
 		// Act
 		await Service.VerifyAsync(command, CancellationToken);
-		var user = await ServiceScope.GetByIdAsync(User.Id, CancellationToken);
+		var user = await ServiceScope.GetByIdAsync(UserId, CancellationToken);
 
 		// Assert
 		user.EmailConfirmationTokens.ShouldBeEmpty();
@@ -152,7 +152,7 @@ public class VerifyEmailConfirmationTokenCommandServiceIntegrationTests : BaseEm
 
 		// Act
 		await Service.VerifyAsync(command, CancellationToken);
-		var user = await ServiceScope.GetByIdAsync(User.Id, CancellationToken);
+		var user = await ServiceScope.GetByIdAsync(UserId, CancellationToken);
 
 		// Assert
 		user.EmailConfirmationTokens.ShouldBeEmpty();

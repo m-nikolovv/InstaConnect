@@ -196,7 +196,7 @@ public class AddChatFunctionalTests : BaseChatPresentationCommandFunctionalTest
 	{
 		// Arrange
 		await ServiceScope.AddAsync(Chat, CancellationToken);
-		var request = _requestBuilder.WithParticipantOneId(ParticipantTwo.Id).WithParticipantTwoId(ParticipantOne.Id).Build();
+		var request = _requestBuilder.WithParticipantOneId(ParticipantTwoId).WithParticipantTwoId(ParticipantOneId).Build();
 
 		// Act
 		var response = await ApiClient.AddProblemDetailsAsync(request, CancellationToken);
@@ -212,7 +212,7 @@ public class AddChatFunctionalTests : BaseChatPresentationCommandFunctionalTest
 	{
 		// Arrange
 		await ServiceScope.AddAsync(Chat, CancellationToken);
-		var request = _requestBuilder.WithParticipantOneId(ParticipantTwo.Id, transformer).WithParticipantTwoId(ParticipantOne.Id).Build();
+		var request = _requestBuilder.WithParticipantOneId(ParticipantTwoId, transformer).WithParticipantTwoId(ParticipantOneId).Build();
 
 		// Act
 		var response = await ApiClient.AddProblemDetailsAsync(request, CancellationToken);
@@ -228,7 +228,7 @@ public class AddChatFunctionalTests : BaseChatPresentationCommandFunctionalTest
 	{
 		// Arrange
 		await ServiceScope.AddAsync(Chat, CancellationToken);
-		var request = _requestBuilder.WithParticipantOneId(ParticipantTwo.Id).WithParticipantTwoId(ParticipantOne.Id, transformer).Build();
+		var request = _requestBuilder.WithParticipantOneId(ParticipantTwoId).WithParticipantTwoId(ParticipantOneId, transformer).Build();
 
 		// Act
 		var response = await ApiClient.AddProblemDetailsAsync(request, CancellationToken);

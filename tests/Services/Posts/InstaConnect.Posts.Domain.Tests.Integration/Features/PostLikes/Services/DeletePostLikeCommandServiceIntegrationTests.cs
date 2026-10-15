@@ -56,7 +56,7 @@ public class DeletePostLikeCommandServiceIntegrationTests : BasePostLikeDomainCo
 	{
 		// Act
 		await Service.DeleteAsync(_command, CancellationToken);
-		var postLike = await ServiceScope.GetByIdAsync(PostLike.Id, CancellationToken);
+		var postLike = await ServiceScope.GetByIdAsync(PostLikeId, CancellationToken);
 
 		// Assert
 		postLike.ShouldBeNull();
@@ -72,7 +72,7 @@ public class DeletePostLikeCommandServiceIntegrationTests : BasePostLikeDomainCo
 
 		// Act
 		await Service.DeleteAsync(command, CancellationToken);
-		var postLike = await ServiceScope.GetByIdAsync(PostLike.Id, CancellationToken);
+		var postLike = await ServiceScope.GetByIdAsync(PostLikeId, CancellationToken);
 
 		// Assert
 		postLike.ShouldBeNull();
@@ -88,7 +88,7 @@ public class DeletePostLikeCommandServiceIntegrationTests : BasePostLikeDomainCo
 
 		// Act
 		await Service.DeleteAsync(command, CancellationToken);
-		var postLike = await ServiceScope.GetByIdAsync(PostLike.Id, CancellationToken);
+		var postLike = await ServiceScope.GetByIdAsync(PostLikeId, CancellationToken);
 
 		// Assert
 		postLike.ShouldBeNull();

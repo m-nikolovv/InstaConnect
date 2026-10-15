@@ -22,7 +22,7 @@ public class CreateFollowFactoryUnitTests : BaseFollowDomainCommandUnitTest
 	public void Create_ShouldCreateFollow_WhenRequestIsValid()
 	{
 		// Act
-		var response = _factory.Create(Follow.Id.FollowerId, Follow.Id.FollowingId);
+		var response = _factory.Create(FollowId.FollowerId, FollowId.FollowingId);
 
 		// Assert
 		response.ShouldSatisfy(Follow);
@@ -32,7 +32,7 @@ public class CreateFollowFactoryUnitTests : BaseFollowDomainCommandUnitTest
 	public void Create_ShouldCallTheDateTimeProviderGetOffsetUtcNow_WhenRequestIsValid()
 	{
 		// Act
-		_factory.Create(Follow.Id.FollowerId, Follow.Id.FollowingId);
+		_factory.Create(FollowId.FollowerId, FollowId.FollowingId);
 
 		// Assert
 		DateTimeProvider.ShouldHaveReceivedOneGetOffsetUtcNow();

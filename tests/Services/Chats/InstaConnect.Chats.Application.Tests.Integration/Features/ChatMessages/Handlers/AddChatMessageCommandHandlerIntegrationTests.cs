@@ -208,7 +208,7 @@ public class AddChatMessageCommandHandlerIntegrationTests : BaseChatMessageAppli
 	public async Task SendAsync_ShouldReturnInvertedResponse_WhenRequestIsValid()
 	{
 		// Arrange
-		var request = _requestBuilder.WithParticipantOneId(ParticipantTwo.Id).WithParticipantTwoId(ParticipantOne.Id).Build();
+		var request = _requestBuilder.WithParticipantOneId(ParticipantTwoId).WithParticipantTwoId(ParticipantOneId).Build();
 
 		// Act
 		var response = await Sender.SendAsync(request, CancellationToken);
@@ -224,7 +224,7 @@ public class AddChatMessageCommandHandlerIntegrationTests : BaseChatMessageAppli
 		IStringTransformer transformer)
 	{
 		// Arrange
-		var request = _requestBuilder.WithParticipantOneId(ParticipantTwo.Id, transformer).WithParticipantTwoId(ParticipantOne.Id).Build();
+		var request = _requestBuilder.WithParticipantOneId(ParticipantTwoId, transformer).WithParticipantTwoId(ParticipantOneId).Build();
 
 		// Act
 		var response = await Sender.SendAsync(request, CancellationToken);
@@ -240,7 +240,7 @@ public class AddChatMessageCommandHandlerIntegrationTests : BaseChatMessageAppli
 		IStringTransformer transformer)
 	{
 		// Arrange
-		var request = _requestBuilder.WithParticipantOneId(ParticipantTwo.Id).WithParticipantTwoId(ParticipantOne.Id, transformer).Build();
+		var request = _requestBuilder.WithParticipantOneId(ParticipantTwoId).WithParticipantTwoId(ParticipantOneId, transformer).Build();
 
 		// Act
 		var response = await Sender.SendAsync(request, CancellationToken);
@@ -254,7 +254,7 @@ public class AddChatMessageCommandHandlerIntegrationTests : BaseChatMessageAppli
 	public async Task SendAsync_ShouldAddInvertedChatMessage_WhenRequestIsValid()
 	{
 		// Arrange
-		var request = _requestBuilder.WithParticipantOneId(ParticipantTwo.Id).WithParticipantTwoId(ParticipantOne.Id).Build();
+		var request = _requestBuilder.WithParticipantOneId(ParticipantTwoId).WithParticipantTwoId(ParticipantOneId).Build();
 
 		// Act
 		var response = await Sender.SendAsync(request, CancellationToken);
@@ -270,7 +270,7 @@ public class AddChatMessageCommandHandlerIntegrationTests : BaseChatMessageAppli
 		IStringTransformer transformer)
 	{
 		// Arrange
-		var request = _requestBuilder.WithParticipantOneId(ParticipantTwo.Id, transformer).WithParticipantTwoId(ParticipantOne.Id).Build();
+		var request = _requestBuilder.WithParticipantOneId(ParticipantTwoId, transformer).WithParticipantTwoId(ParticipantOneId).Build();
 
 		// Act
 		var response = await Sender.SendAsync(request, CancellationToken);
@@ -286,7 +286,7 @@ public class AddChatMessageCommandHandlerIntegrationTests : BaseChatMessageAppli
 		IStringTransformer transformer)
 	{
 		// Arrange
-		var request = _requestBuilder.WithParticipantOneId(ParticipantTwo.Id).WithParticipantTwoId(ParticipantOne.Id, transformer).Build();
+		var request = _requestBuilder.WithParticipantOneId(ParticipantTwoId).WithParticipantTwoId(ParticipantOneId, transformer).Build();
 
 		// Act
 		var response = await Sender.SendAsync(request, CancellationToken);
@@ -300,7 +300,7 @@ public class AddChatMessageCommandHandlerIntegrationTests : BaseChatMessageAppli
 	public async Task SendAsync_ShouldPublishInvertedChatMessageAddedNotification_WhenRequestIsValid()
 	{
 		// Arrange
-		var request = _requestBuilder.WithParticipantOneId(ParticipantTwo.Id).WithParticipantTwoId(ParticipantOne.Id).Build();
+		var request = _requestBuilder.WithParticipantOneId(ParticipantTwoId).WithParticipantTwoId(ParticipantOneId).Build();
 
 		// Act
 		var response = await Sender.SendAsync(request, CancellationToken);
@@ -317,7 +317,7 @@ public class AddChatMessageCommandHandlerIntegrationTests : BaseChatMessageAppli
 		IStringTransformer transformer)
 	{
 		// Arrange
-		var request = _requestBuilder.WithParticipantOneId(ParticipantTwo.Id, transformer).WithParticipantTwoId(ParticipantOne.Id).Build();
+		var request = _requestBuilder.WithParticipantOneId(ParticipantTwoId, transformer).WithParticipantTwoId(ParticipantOneId).Build();
 
 		// Act
 		var response = await Sender.SendAsync(request, CancellationToken);
@@ -334,7 +334,7 @@ public class AddChatMessageCommandHandlerIntegrationTests : BaseChatMessageAppli
 		IStringTransformer transformer)
 	{
 		// Arrange
-		var request = _requestBuilder.WithParticipantOneId(ParticipantTwo.Id).WithParticipantTwoId(ParticipantOne.Id, transformer).Build();
+		var request = _requestBuilder.WithParticipantOneId(ParticipantTwoId).WithParticipantTwoId(ParticipantOneId, transformer).Build();
 
 		// Act
 		var response = await Sender.SendAsync(request, CancellationToken);

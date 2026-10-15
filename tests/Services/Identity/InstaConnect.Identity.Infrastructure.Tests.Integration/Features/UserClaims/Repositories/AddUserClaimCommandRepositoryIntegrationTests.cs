@@ -16,7 +16,7 @@ public class AddUserClaimCommandRepositoryIntegrationTests : BaseUserClaimInfras
 	{
 		// Act
 		await Repository.AddAsync(UserClaim, CancellationToken);
-		var userClaim = await ServiceScope.GetByIdAsync(UserClaim.Id, CancellationToken);
+		var userClaim = await ServiceScope.GetByIdAsync(UserClaimId, CancellationToken);
 
 		// Assert
 		userClaim.ShouldSatisfy(UserClaim);

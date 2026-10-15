@@ -21,7 +21,7 @@ public class DeletePostCommentCommandRepositoryIntegrationTests : BasePostCommen
 	{
 		// Act
 		await Repository.DeleteAsync(PostComment, CancellationToken);
-		var postComment = await ServiceScope.GetByIdAsync(PostComment.Id, CancellationToken);
+		var postComment = await ServiceScope.GetByIdAsync(PostCommentId, CancellationToken);
 
 		// Assert
 		postComment.ShouldBeNull();

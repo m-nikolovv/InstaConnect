@@ -1,4 +1,3 @@
-using InstaConnect.Posts.Domain.Features.Posts.Models.ValueObjects;
 using InstaConnect.Posts.Domain.Features.Users.Models.Requests;
 using InstaConnect.Posts.Infrastructure.Tests.Features.Common.Builders;
 using InstaConnect.Posts.Infrastructure.Tests.Features.Posts.Assertions;
@@ -12,10 +11,6 @@ namespace InstaConnect.Posts.Infrastructure.Tests.Integration.Features.Posts.Rep
 
 public class GetPostByIdQueryRepositoryIntegrationTests : BasePostInfrastructureQueryIntegrationTest
 {
-	private readonly PostIdBuilderFactory _idBuilderFactory;
-	private readonly PostIdBuilder _idBuilder;
-	private readonly PostId _id;
-
 	private readonly CurrentUserQueryBuilderFactory _currentUserQueryBuilderFactory;
 	private readonly CurrentUserQueryBuilder _currentUserQueryBuilder;
 	private readonly CurrentUserQuery _currentUserQuery;
@@ -23,10 +18,6 @@ public class GetPostByIdQueryRepositoryIntegrationTests : BasePostInfrastructure
 	public GetPostByIdQueryRepositoryIntegrationTests(PostsWebApplicationFactory webApplicationFactory)
 		: base(webApplicationFactory)
 	{
-		_idBuilderFactory = new();
-		_idBuilder = _idBuilderFactory.Create(Post.Id);
-		_id = _idBuilder.Build();
-
 		_currentUserQueryBuilderFactory = new();
 		_currentUserQueryBuilder = _currentUserQueryBuilderFactory.Create(User);
 		_currentUserQuery = _currentUserQueryBuilder.Build();
@@ -44,7 +35,7 @@ public class GetPostByIdQueryRepositoryIntegrationTests : BasePostInfrastructure
 		await ServiceScope.DeleteAsync(Post, CancellationToken);
 
 		// Act
-		var response = await Repository.GetByIdAsync(_id, _currentUserQuery, CancellationToken);
+		var response = await Repository.GetByIdAsync(PostId, _currentUserQuery, CancellationToken);
 
 		// Assert
 		response.ShouldBeNull();
@@ -54,10 +45,10 @@ public class GetPostByIdQueryRepositoryIntegrationTests : BasePostInfrastructure
 	public async Task GetByIdAsync_ShouldReturnResponse_WhenQueryIsValid()
 	{
 		// Act
-		var response = await Repository.GetByIdAsync(_id, _currentUserQuery, CancellationToken);
+		var response = await Repository.GetByIdAsync(PostId, _currentUserQuery, CancellationToken);
 
 		// Assert
-		response.ShouldSatisfy(_id, _currentUserQuery, Post);
+		response.ShouldSatisfy(PostId, _currentUserQuery, Post);
 	}
 
 	[Theory]
@@ -66,7 +57,7 @@ public class GetPostByIdQueryRepositoryIntegrationTests : BasePostInfrastructure
 		IStringTransformer transformer)
 	{
 		// Arrange
-		var id = _idBuilder.WithId(transformer).Build();
+		var id = PostIdBuilder.WithId(transformer).Build();
 
 		// Act
 		var response = await Repository.GetByIdAsync(id, _currentUserQuery, CancellationToken);
@@ -86,9 +77,9 @@ public class GetPostByIdQueryRepositoryIntegrationTests : BasePostInfrastructure
 		var currentUserQuery = _currentUserQueryBuilder.WithCurrentUserId(transformer).Build();
 
 		// Act
-		var response = await Repository.GetByIdAsync(_id, currentUserQuery, CancellationToken);
+		var response = await Repository.GetByIdAsync(PostId, currentUserQuery, CancellationToken);
 
 		// Assert
-		response.ShouldSatisfy(_id, currentUserQuery, Post);
+		response.ShouldSatisfy(PostId, currentUserQuery, Post);
 	}
 }

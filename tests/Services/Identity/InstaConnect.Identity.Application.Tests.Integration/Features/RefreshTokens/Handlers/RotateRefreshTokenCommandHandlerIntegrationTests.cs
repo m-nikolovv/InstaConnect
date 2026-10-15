@@ -85,7 +85,7 @@ public class RotateRefreshTokenCommandHandlerIntegrationTests : BaseRefreshToken
 	{
 		// Act
 		await Sender.SendAsync(_request, CancellationToken);
-		var refreshToken = await ServiceScope.GetByIdAsync(RefreshToken.Id, CancellationToken);
+		var refreshToken = await ServiceScope.GetByIdAsync(RefreshTokenId, CancellationToken);
 
 		// Assert
 		refreshToken.ShouldBeNull();
@@ -101,7 +101,7 @@ public class RotateRefreshTokenCommandHandlerIntegrationTests : BaseRefreshToken
 
 		// Act
 		await Sender.SendAsync(request, CancellationToken);
-		var refreshToken = await ServiceScope.GetByIdAsync(RefreshToken.Id, CancellationToken);
+		var refreshToken = await ServiceScope.GetByIdAsync(RefreshTokenId, CancellationToken);
 
 		// Assert
 		refreshToken.ShouldBeNull();
@@ -117,7 +117,7 @@ public class RotateRefreshTokenCommandHandlerIntegrationTests : BaseRefreshToken
 
 		// Act
 		await Sender.SendAsync(request, CancellationToken);
-		var refreshToken = await ServiceScope.GetByIdAsync(RefreshToken.Id, CancellationToken);
+		var refreshToken = await ServiceScope.GetByIdAsync(RefreshTokenId, CancellationToken);
 
 		// Assert
 		refreshToken.ShouldBeNull();

@@ -106,7 +106,7 @@ public class DeleteFollowControllerIntegrationTests : BaseFollowPresentationComm
 	{
 		// Act
 		await Controller.DeleteAsync(_request, CancellationToken);
-		var follow = await ServiceScope.GetByIdAsync(Follow.Id, CancellationToken);
+		var follow = await ServiceScope.GetByIdAsync(FollowId, CancellationToken);
 
 		// Assert
 		follow.ShouldBeNull();
@@ -122,7 +122,7 @@ public class DeleteFollowControllerIntegrationTests : BaseFollowPresentationComm
 
 		// Act
 		await Controller.DeleteAsync(request, CancellationToken);
-		var follow = await ServiceScope.GetByIdAsync(Follow.Id, CancellationToken);
+		var follow = await ServiceScope.GetByIdAsync(FollowId, CancellationToken);
 
 		// Assert
 		follow.ShouldBeNull();
@@ -138,7 +138,7 @@ public class DeleteFollowControllerIntegrationTests : BaseFollowPresentationComm
 
 		// Act
 		await Controller.DeleteAsync(request, CancellationToken);
-		var follow = await ServiceScope.GetByIdAsync(Follow.Id, CancellationToken);
+		var follow = await ServiceScope.GetByIdAsync(FollowId, CancellationToken);
 
 		// Assert
 		follow.ShouldBeNull();

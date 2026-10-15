@@ -1,5 +1,4 @@
 using InstaConnect.Follows.Domain.Features.Follows.Models.Requests;
-using InstaConnect.Follows.Domain.Features.Follows.Models.ValueObjects;
 using InstaConnect.Follows.Infrastructure.Tests.Features.Follows.Assertions;
 using InstaConnect.Follows.Infrastructure.Tests.Integration.Features.Follows.Utilities;
 using InstaConnect.Follows.Tests.Features.Follows.Builders;
@@ -9,19 +8,11 @@ namespace InstaConnect.Follows.Infrastructure.Tests.Integration.Features.Follows
 
 public class GetFollowByIdCommandRepositoryIntegrationTests : BaseFollowInfrastructureCommandIntegrationTest
 {
-	private readonly FollowIdBuilderFactory _idBuilderFactory;
-	private readonly FollowIdBuilder _idBuilder;
-	private readonly FollowId _id;
-
 	private readonly FollowInclude _include;
 
 	public GetFollowByIdCommandRepositoryIntegrationTests(FollowsWebApplicationFactory webApplicationFactory)
 		: base(webApplicationFactory)
 	{
-		_idBuilderFactory = new();
-		_idBuilder = _idBuilderFactory.Create(Follow.Id);
-		_id = _idBuilder.Build();
-
 		_include = IncludeBuilderFactory.Create().WithFollower().WithFollowing().Build();
 	}
 
@@ -37,7 +28,7 @@ public class GetFollowByIdCommandRepositoryIntegrationTests : BaseFollowInfrastr
 		await ServiceScope.DeleteAsync(Follow, CancellationToken);
 
 		// Act
-		var response = await Repository.GetByIdAsync(_id, _include, CancellationToken);
+		var response = await Repository.GetByIdAsync(FollowId, _include, CancellationToken);
 
 		// Assert
 		response.ShouldBeNull();
@@ -47,10 +38,10 @@ public class GetFollowByIdCommandRepositoryIntegrationTests : BaseFollowInfrastr
 	public async Task GetByIdAsync_ShouldReturnResponse_WhenCommandIsValid()
 	{
 		// Act
-		var response = await Repository.GetByIdAsync(_id, _include, CancellationToken);
+		var response = await Repository.GetByIdAsync(FollowId, _include, CancellationToken);
 
 		// Assert
-		response.ShouldSatisfy(_id, Follow);
+		response.ShouldSatisfy(FollowId, Follow);
 	}
 
 	[Theory]
@@ -59,7 +50,7 @@ public class GetFollowByIdCommandRepositoryIntegrationTests : BaseFollowInfrastr
 		IStringTransformer transformer)
 	{
 		// Arrange
-		var id = _idBuilder.WithFollowerId(transformer).Build();
+		var id = FollowIdBuilder.WithFollowerId(transformer).Build();
 
 		// Act
 		var response = await Repository.GetByIdAsync(id, _include, CancellationToken);
@@ -74,7 +65,7 @@ public class GetFollowByIdCommandRepositoryIntegrationTests : BaseFollowInfrastr
 		IStringTransformer transformer)
 	{
 		// Arrange
-		var id = _idBuilder.WithFollowingId(transformer).Build();
+		var id = FollowIdBuilder.WithFollowingId(transformer).Build();
 
 		// Act
 		var response = await Repository.GetByIdAsync(id, _include, CancellationToken);

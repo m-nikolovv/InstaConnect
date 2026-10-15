@@ -16,7 +16,7 @@ public class AddRefreshTokenCommandRepositoryIntegrationTests : BaseRefreshToken
 	{
 		// Act
 		await Repository.AddAsync(RefreshToken, CancellationToken);
-		var refreshToken = await ServiceScope.GetByIdAsync(RefreshToken.Id, CancellationToken);
+		var refreshToken = await ServiceScope.GetByIdAsync(RefreshTokenId, CancellationToken);
 
 		// Assert
 		refreshToken.ShouldSatisfy(RefreshToken);

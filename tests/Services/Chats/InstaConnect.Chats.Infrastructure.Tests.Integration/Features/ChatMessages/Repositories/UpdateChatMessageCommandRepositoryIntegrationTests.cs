@@ -21,11 +21,11 @@ public class UpdateChatMessageCommandRepositoryIntegrationTests : BaseChatMessag
 	public async Task UpdateAsync_ShouldUpdateChatMessage_WhenCommandIsValid()
 	{
 		// Arrange
-		var updatedChatMessage = ChatMessageBuilderFactory.Create(Chat).WithMessageId(ChatMessage.Id).Build();
+		var updatedChatMessage = ChatMessageBuilderFactory.Create(Chat).WithMessageId(ChatMessageId).Build();
 
 		// Act
 		await Repository.UpdateAsync(updatedChatMessage, CancellationToken);
-		var chatMessage = await ServiceScope.GetByIdAsync(ChatMessage.Id, CancellationToken);
+		var chatMessage = await ServiceScope.GetByIdAsync(ChatMessageId, CancellationToken);
 
 		// Assert
 		chatMessage.ShouldSatisfy(updatedChatMessage);

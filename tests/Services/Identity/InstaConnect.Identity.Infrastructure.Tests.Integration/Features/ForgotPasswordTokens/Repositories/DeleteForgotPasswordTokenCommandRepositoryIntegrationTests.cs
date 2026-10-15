@@ -20,7 +20,7 @@ public class DeleteForgotPasswordTokenCommandRepositoryIntegrationTests : BaseFo
 	{
 		// Act
 		await Repository.DeleteAsync(ForgotPasswordToken, CancellationToken);
-		var forgotPasswordToken = await ServiceScope.GetByIdAsync(ForgotPasswordToken.Id, CancellationToken);
+		var forgotPasswordToken = await ServiceScope.GetByIdAsync(ForgotPasswordTokenId, CancellationToken);
 
 		// Assert
 		forgotPasswordToken.ShouldBeNull();

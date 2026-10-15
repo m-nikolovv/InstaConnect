@@ -21,7 +21,7 @@ public class DeleteRangeEmailConfirmationTokensCommandRepositoryIntegrationTests
 	{
 		// Act
 		await Repository.DeleteRangeAsync(User.EmailConfirmationTokens, CancellationToken);
-		var user = await ServiceScope.GetByIdAsync(User.Id, CancellationToken);
+		var user = await ServiceScope.GetByIdAsync(UserId, CancellationToken);
 
 		// Assert
 		user.EmailConfirmationTokens.ShouldBeEmpty();

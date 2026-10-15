@@ -24,7 +24,7 @@ public class CreateEmailConfirmationTokenFactoryUnitTests : BaseEmailConfirmatio
 	public void Create_ShouldCreateEmailConfirmationToken_WhenRequestIsValid()
 	{
 		// Act
-		var response = _factory.Create(EmailConfirmationToken.Id.Id);
+		var response = _factory.Create(EmailConfirmationTokenId.Id);
 
 		// Assert
 		response.ShouldSatisfy(EmailConfirmationToken);
@@ -34,7 +34,7 @@ public class CreateEmailConfirmationTokenFactoryUnitTests : BaseEmailConfirmatio
 	public void Create_ShouldCallTheGuidProviderNewStringGuid_WhenRequestIsValid()
 	{
 		// Act
-		_factory.Create(EmailConfirmationToken.Id.Id);
+		_factory.Create(EmailConfirmationTokenId.Id);
 
 		// Assert
 		GuidProvider.ShouldHaveReceivedOneNewStringGuid();
@@ -44,7 +44,7 @@ public class CreateEmailConfirmationTokenFactoryUnitTests : BaseEmailConfirmatio
 	public void Create_ShouldCallTheDateTimeProviderGetOffsetUtcNowWithLifetime_WhenRequestIsValid()
 	{
 		// Act
-		_factory.Create(EmailConfirmationToken.Id.Id);
+		_factory.Create(EmailConfirmationTokenId.Id);
 
 		// Assert
 		DateTimeProvider.ShouldHaveReceivedOneGetOffsetUtcNow(EmailConfirmationTokenOptions);
@@ -54,7 +54,7 @@ public class CreateEmailConfirmationTokenFactoryUnitTests : BaseEmailConfirmatio
 	public void Create_ShouldCallTheDateTimeProviderGetOffsetUtcNow_WhenRequestIsValid()
 	{
 		// Act
-		_factory.Create(EmailConfirmationToken.Id.Id);
+		_factory.Create(EmailConfirmationTokenId.Id);
 
 		// Assert
 		DateTimeProvider.ShouldHaveReceivedOneGetOffsetUtcNow();

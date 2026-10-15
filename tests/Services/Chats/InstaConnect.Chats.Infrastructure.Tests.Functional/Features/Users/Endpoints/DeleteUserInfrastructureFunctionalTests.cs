@@ -86,7 +86,7 @@ public class DeleteUserInfrastructureFunctionalTests : BaseUserInfrastructureCom
 	{
 		// Act
 		await EventPublisher.PublishAsync(_request, CancellationToken);
-		var user = await ServiceScope.GetByIdAsync(User.Id, CancellationToken);
+		var user = await ServiceScope.GetByIdAsync(UserId, CancellationToken);
 
 		// Assert
 		user.ShouldBeNull();
@@ -102,7 +102,7 @@ public class DeleteUserInfrastructureFunctionalTests : BaseUserInfrastructureCom
 
 		// Act
 		await EventPublisher.PublishAsync(request, CancellationToken);
-		var user = await ServiceScope.GetByIdAsync(User.Id, CancellationToken);
+		var user = await ServiceScope.GetByIdAsync(UserId, CancellationToken);
 
 		// Assert
 		user.ShouldBeNull();

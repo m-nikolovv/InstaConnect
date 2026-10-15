@@ -16,7 +16,7 @@ public class AddForgotPasswordTokenCommandRepositoryIntegrationTests : BaseForgo
 	{
 		// Act
 		await Repository.AddAsync(ForgotPasswordToken, CancellationToken);
-		var forgotPasswordToken = await ServiceScope.GetByIdAsync(ForgotPasswordToken.Id, CancellationToken);
+		var forgotPasswordToken = await ServiceScope.GetByIdAsync(ForgotPasswordTokenId, CancellationToken);
 
 		// Assert
 		forgotPasswordToken.ShouldSatisfy(ForgotPasswordToken);

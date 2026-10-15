@@ -1,5 +1,4 @@
 using InstaConnect.Chats.Domain.Features.ChatMessages.Models.Requests;
-using InstaConnect.Chats.Domain.Features.ChatMessages.Models.ValueObjects;
 using InstaConnect.Chats.Infrastructure.Tests.Features.ChatMessages.Assertions;
 using InstaConnect.Chats.Infrastructure.Tests.Integration.Features.ChatMessages.Utilities;
 using InstaConnect.Chats.Tests.Features.ChatMessages.Builders;
@@ -11,19 +10,11 @@ namespace InstaConnect.Chats.Infrastructure.Tests.Integration.Features.ChatMessa
 
 public class GetChatMessageByIdCommandRepositoryIntegrationTests : BaseChatMessageInfrastructureCommandIntegrationTest
 {
-	private readonly ChatMessageIdBuilderFactory _idBuilderFactory;
-	private readonly ChatMessageIdBuilder _idBuilder;
-	private readonly ChatMessageId _id;
-
 	private readonly ChatMessageInclude _include;
 
 	public GetChatMessageByIdCommandRepositoryIntegrationTests(ChatsWebApplicationFactory webApplicationFactory)
 		: base(webApplicationFactory)
 	{
-		_idBuilderFactory = new();
-		_idBuilder = _idBuilderFactory.Create(ChatMessage.Id);
-		_id = _idBuilder.Build();
-
 		_include = MessageIncludeBuilderFactory.Create().WithSender().WithChat().Build();
 	}
 
@@ -39,7 +30,7 @@ public class GetChatMessageByIdCommandRepositoryIntegrationTests : BaseChatMessa
 		await ServiceScope.DeleteAsync(ChatMessage, CancellationToken);
 
 		// Act
-		var response = await Repository.GetByIdAsync(_id, _include, CancellationToken);
+		var response = await Repository.GetByIdAsync(ChatMessageId, _include, CancellationToken);
 
 		// Assert
 		response.ShouldBeNull();
@@ -49,10 +40,10 @@ public class GetChatMessageByIdCommandRepositoryIntegrationTests : BaseChatMessa
 	public async Task GetByIdAsync_ShouldReturnResponse_WhenCommandIsValid()
 	{
 		// Act
-		var response = await Repository.GetByIdAsync(_id, _include, CancellationToken);
+		var response = await Repository.GetByIdAsync(ChatMessageId, _include, CancellationToken);
 
 		// Assert
-		response.ShouldSatisfy(_id, ChatMessage);
+		response.ShouldSatisfy(ChatMessageId, ChatMessage);
 	}
 
 	[Theory]
@@ -61,7 +52,7 @@ public class GetChatMessageByIdCommandRepositoryIntegrationTests : BaseChatMessa
 		IStringTransformer transformer)
 	{
 		// Arrange
-		var id = _idBuilder.WithParticipantOneId(transformer).Build();
+		var id = ChatMessageIdBuilder.WithParticipantOneId(transformer).Build();
 
 		// Act
 		var response = await Repository.GetByIdAsync(id, _include, CancellationToken);
@@ -76,7 +67,7 @@ public class GetChatMessageByIdCommandRepositoryIntegrationTests : BaseChatMessa
 		IStringTransformer transformer)
 	{
 		// Arrange
-		var id = _idBuilder.WithParticipantTwoId(transformer).Build();
+		var id = ChatMessageIdBuilder.WithParticipantTwoId(transformer).Build();
 
 		// Act
 		var response = await Repository.GetByIdAsync(id, _include, CancellationToken);
@@ -91,7 +82,7 @@ public class GetChatMessageByIdCommandRepositoryIntegrationTests : BaseChatMessa
 		IStringTransformer transformer)
 	{
 		// Arrange
-		var id = _idBuilder.WithMessageId(transformer).Build();
+		var id = ChatMessageIdBuilder.WithMessageId(transformer).Build();
 
 		// Act
 		var response = await Repository.GetByIdAsync(id, _include, CancellationToken);
@@ -104,7 +95,7 @@ public class GetChatMessageByIdCommandRepositoryIntegrationTests : BaseChatMessa
 	public async Task GetByIdAsync_ShouldReturnResponse_WhenInvertedCommandIsValid()
 	{
 		// Arrange
-		var id = _idBuilder.WithParticipantOneId(ParticipantTwo.Id).WithParticipantTwoId(ParticipantOne.Id).Build();
+		var id = ChatMessageIdBuilder.WithParticipantOneId(ParticipantTwoId).WithParticipantTwoId(ParticipantOneId).Build();
 
 		// Act
 		var response = await Repository.GetByIdAsync(id, _include, CancellationToken);
@@ -119,7 +110,7 @@ public class GetChatMessageByIdCommandRepositoryIntegrationTests : BaseChatMessa
 		IStringTransformer transformer)
 	{
 		// Arrange
-		var id = _idBuilder.WithParticipantOneId(ParticipantTwo.Id, transformer).WithParticipantTwoId(ParticipantOne.Id).Build();
+		var id = ChatMessageIdBuilder.WithParticipantOneId(ParticipantTwoId, transformer).WithParticipantTwoId(ParticipantOneId).Build();
 
 		// Act
 		var response = await Repository.GetByIdAsync(id, _include, CancellationToken);
@@ -134,7 +125,7 @@ public class GetChatMessageByIdCommandRepositoryIntegrationTests : BaseChatMessa
 		IStringTransformer transformer)
 	{
 		// Arrange
-		var id = _idBuilder.WithParticipantOneId(ParticipantTwo.Id).WithParticipantTwoId(ParticipantOne.Id, transformer).Build();
+		var id = ChatMessageIdBuilder.WithParticipantOneId(ParticipantTwoId).WithParticipantTwoId(ParticipantOneId, transformer).Build();
 
 		// Act
 		var response = await Repository.GetByIdAsync(id, _include, CancellationToken);
@@ -149,7 +140,7 @@ public class GetChatMessageByIdCommandRepositoryIntegrationTests : BaseChatMessa
 		IStringTransformer transformer)
 	{
 		// Arrange
-		var id = _idBuilder.WithParticipantOneId(ParticipantTwo.Id).WithParticipantTwoId(ParticipantOne.Id).WithMessageId(transformer).Build();
+		var id = ChatMessageIdBuilder.WithParticipantOneId(ParticipantTwoId).WithParticipantTwoId(ParticipantOneId).WithMessageId(transformer).Build();
 
 		// Act
 		var response = await Repository.GetByIdAsync(id, _include, CancellationToken);

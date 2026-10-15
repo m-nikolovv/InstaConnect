@@ -32,7 +32,7 @@ public class AddUserCommandServiceUnitTests : BaseUserDomainCommandUnitTest
 	public async Task AddAsync_ShouldThrowUserAlreadyExistsException_WhenCommandIsInvalid()
 	{
 		// Arrange
-		var command = _commandBuilder.WithId(User.Id).Build();
+		var command = _commandBuilder.WithId(UserId).Build();
 		UserRepository.SetupExistsByIdAsync(command, User, CancellationToken);
 
 		// Assert

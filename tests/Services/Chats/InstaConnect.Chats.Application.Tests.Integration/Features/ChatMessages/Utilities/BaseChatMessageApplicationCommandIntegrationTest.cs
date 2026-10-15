@@ -15,7 +15,7 @@ public abstract class BaseChatMessageApplicationCommandIntegrationTest : BaseCha
 		: base(webApplicationFactory)
 	{
 		Sender = ServiceScope.GetSender();
-		MessageNotificationClient = webApplicationFactory.CreateMessageNotificationClient(ParticipantTwo.Id);
+		MessageNotificationClient = webApplicationFactory.CreateMessageNotificationClient(ParticipantTwoId);
 	}
 
 	public override async Task InitializeAsync()

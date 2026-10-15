@@ -22,7 +22,7 @@ public class CreatePostLikeFactoryUnitTests : BasePostLikeDomainCommandUnitTest
 	public void Create_ShouldCreatePostLike_WhenRequestIsValid()
 	{
 		// Act
-		var response = _factory.Create(PostLike.Id.Id, PostLike.Id.UserId);
+		var response = _factory.Create(PostLikeId.Id, PostLikeId.UserId);
 
 		// Assert
 		response.ShouldSatisfy(PostLike);
@@ -32,7 +32,7 @@ public class CreatePostLikeFactoryUnitTests : BasePostLikeDomainCommandUnitTest
 	public void Create_ShouldCallTheDateTimeProviderGetOffsetUtcNow_WhenRequestIsValid()
 	{
 		// Act
-		_factory.Create(PostLike.Id.Id, PostLike.Id.UserId);
+		_factory.Create(PostLikeId.Id, PostLikeId.UserId);
 
 		// Assert
 		DateTimeProvider.ShouldHaveReceivedOneGetOffsetUtcNow();

@@ -20,7 +20,7 @@ public class DeleteRefreshTokenCommandRepositoryIntegrationTests : BaseRefreshTo
 	{
 		// Act
 		await Repository.DeleteAsync(RefreshToken, CancellationToken);
-		var refreshToken = await ServiceScope.GetByIdAsync(RefreshToken.Id, CancellationToken);
+		var refreshToken = await ServiceScope.GetByIdAsync(RefreshTokenId, CancellationToken);
 
 		// Assert
 		refreshToken.ShouldBeNull();

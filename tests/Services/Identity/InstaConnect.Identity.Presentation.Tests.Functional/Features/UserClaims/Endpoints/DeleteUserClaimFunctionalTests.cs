@@ -186,7 +186,7 @@ public class DeleteUserClaimFunctionalTests : BaseUserClaimPresentationCommandFu
 	{
 		// Act
 		await ClaimApiClient.DeleteAsync(_request, CancellationToken);
-		var userClaim = await ServiceScope.GetByIdAsync(UserClaim.Id, CancellationToken);
+		var userClaim = await ServiceScope.GetByIdAsync(UserClaimId, CancellationToken);
 
 		// Assert
 		userClaim.ShouldBeNull();
@@ -202,7 +202,7 @@ public class DeleteUserClaimFunctionalTests : BaseUserClaimPresentationCommandFu
 
 		// Act
 		await ClaimApiClient.DeleteAsync(request, CancellationToken);
-		var userClaim = await ServiceScope.GetByIdAsync(UserClaim.Id, CancellationToken);
+		var userClaim = await ServiceScope.GetByIdAsync(UserClaimId, CancellationToken);
 
 		// Assert
 		userClaim.ShouldBeNull();

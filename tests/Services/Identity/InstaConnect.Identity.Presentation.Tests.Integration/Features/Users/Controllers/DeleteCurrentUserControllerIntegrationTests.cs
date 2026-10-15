@@ -75,7 +75,7 @@ public class DeleteCurrentUserControllerIntegrationTests : BaseUserPresentationC
 	{
 		// Act
 		await Controller.DeleteCurrentAsync(_request, CancellationToken);
-		var user = await ServiceScope.GetByIdAsync(User.Id, CancellationToken);
+		var user = await ServiceScope.GetByIdAsync(UserId, CancellationToken);
 
 		// Assert
 		user.ShouldBeNull();
@@ -91,7 +91,7 @@ public class DeleteCurrentUserControllerIntegrationTests : BaseUserPresentationC
 
 		// Act
 		await Controller.DeleteCurrentAsync(request, CancellationToken);
-		var user = await ServiceScope.GetByIdAsync(User.Id, CancellationToken);
+		var user = await ServiceScope.GetByIdAsync(UserId, CancellationToken);
 
 		// Assert
 		user.ShouldBeNull();

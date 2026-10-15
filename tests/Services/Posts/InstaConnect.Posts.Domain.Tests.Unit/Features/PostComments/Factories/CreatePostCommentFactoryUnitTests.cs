@@ -22,7 +22,7 @@ public class CreatePostCommentFactoryUnitTests : BasePostCommentDomainCommandUni
 	public void Create_ShouldCreatePostComment_WhenRequestIsValid()
 	{
 		// Act
-		var response = _factory.Create(PostComment.Id.Id, PostComment.UserId, PostComment.Content);
+		var response = _factory.Create(PostCommentId.Id, PostComment.UserId, PostComment.Content);
 
 		// Assert
 		response.ShouldSatisfy(PostComment);
@@ -32,7 +32,7 @@ public class CreatePostCommentFactoryUnitTests : BasePostCommentDomainCommandUni
 	public void Create_ShouldCallTheGuidProviderNewStringGuid_WhenRequestIsValid()
 	{
 		// Act
-		_factory.Create(PostComment.Id.Id, PostComment.UserId, PostComment.Content);
+		_factory.Create(PostCommentId.Id, PostComment.UserId, PostComment.Content);
 
 		// Assert
 		GuidProvider.ShouldHaveReceivedOneNewStringGuid();
@@ -42,7 +42,7 @@ public class CreatePostCommentFactoryUnitTests : BasePostCommentDomainCommandUni
 	public void Create_ShouldCallTheDateTimeProviderGetOffsetUtcNow_WhenRequestIsValid()
 	{
 		// Act
-		_factory.Create(PostComment.Id.Id, PostComment.UserId, PostComment.Content);
+		_factory.Create(PostCommentId.Id, PostComment.UserId, PostComment.Content);
 
 		// Assert
 		DateTimeProvider.ShouldHaveReceivedOneGetOffsetUtcNow();

@@ -18,7 +18,7 @@ public class AddPostCommentLikeCommandRepositoryIntegrationTests : BasePostComme
 	{
 		// Act
 		await Repository.AddAsync(PostCommentLike, CancellationToken);
-		var postCommentLike = await ServiceScope.GetByIdAsync(PostCommentLike.Id, CancellationToken);
+		var postCommentLike = await ServiceScope.GetByIdAsync(PostCommentLikeId, CancellationToken);
 
 		// Assert
 		postCommentLike.ShouldSatisfy(PostCommentLike);

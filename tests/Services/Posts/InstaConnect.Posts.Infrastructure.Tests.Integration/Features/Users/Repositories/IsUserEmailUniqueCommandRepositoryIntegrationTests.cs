@@ -30,7 +30,7 @@ public class IsUserEmailUniqueCommandRepositoryIntegrationTests : BaseUserInfras
 
 		// Act
 		var response = await Repository.IsEmailUniqueAsync(_email, CancellationToken);
-		var user = await ServiceScope.GetByIdAsync(User.Id, CancellationToken);
+		var user = await ServiceScope.GetByIdAsync(UserId, CancellationToken);
 
 		// Assert
 		response.ShouldSatisfy(_email, user);
@@ -41,7 +41,7 @@ public class IsUserEmailUniqueCommandRepositoryIntegrationTests : BaseUserInfras
 	{
 		// Act
 		var response = await Repository.IsEmailUniqueAsync(_email, CancellationToken);
-		var user = await ServiceScope.GetByIdAsync(User.Id, CancellationToken);
+		var user = await ServiceScope.GetByIdAsync(UserId, CancellationToken);
 
 		// Assert
 		response.ShouldSatisfy(_email, user);
@@ -57,7 +57,7 @@ public class IsUserEmailUniqueCommandRepositoryIntegrationTests : BaseUserInfras
 
 		// Act
 		var response = await Repository.IsEmailUniqueAsync(email, CancellationToken);
-		var user = await ServiceScope.GetByIdAsync(User.Id, CancellationToken);
+		var user = await ServiceScope.GetByIdAsync(UserId, CancellationToken);
 
 		// Assert
 		response.ShouldSatisfy(email, user);

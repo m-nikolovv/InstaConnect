@@ -58,7 +58,7 @@ public class DeleteChatMessageCommandServiceUnitTests : BaseChatMessageDomainCom
 	public async Task DeleteAsync_ShouldThrowChatMessageForbiddenException_WhenParticipantOneIdIsInvalid()
 	{
 		// Arrange
-		var command = _commandBuilder.WithParticipantOneId(ParticipantTwo.Id).WithParticipantTwoId(ParticipantOne.Id).Build();
+		var command = _commandBuilder.WithParticipantOneId(ParticipantTwoId).WithParticipantTwoId(ParticipantOneId).Build();
 		Repository.SetupExistsByIdAsync(command, CancellationToken);
 		MessageRepository.SetupGetByIdAsync(command, _messageInclude, ChatMessage, CancellationToken);
 

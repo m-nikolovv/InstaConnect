@@ -21,7 +21,7 @@ public class CreateUserClaimFactoryUnitTests : BaseUserClaimDomainCommandUnitTes
 	public void Create_ShouldCreateUserClaim_WhenRequestIsValid()
 	{
 		// Act
-		var response = _factory.Create(UserClaim.Id.Id, UserClaim.Id.Claim);
+		var response = _factory.Create(UserClaimId.Id, UserClaimId.Claim);
 
 		// Assert
 		response.ShouldSatisfy(UserClaim);
@@ -31,7 +31,7 @@ public class CreateUserClaimFactoryUnitTests : BaseUserClaimDomainCommandUnitTes
 	public void Create_ShouldCallTheDateTimeProviderGetOffsetUtcNow_WhenRequestIsValid()
 	{
 		// Act
-		_factory.Create(UserClaim.Id.Id, UserClaim.Id.Claim);
+		_factory.Create(UserClaimId.Id, UserClaimId.Claim);
 
 		// Assert
 		DateTimeProvider.ShouldHaveReceivedOneGetOffsetUtcNow();

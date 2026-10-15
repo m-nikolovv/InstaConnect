@@ -116,7 +116,7 @@ public class DeleteCurrentRefreshTokenControllerIntegrationTests : BaseRefreshTo
 	{
 		// Act
 		await Controller.DeleteCurrentAsync(_request, CancellationToken);
-		var refreshToken = await ServiceScope.GetByIdAsync(RefreshToken.Id, CancellationToken);
+		var refreshToken = await ServiceScope.GetByIdAsync(RefreshTokenId, CancellationToken);
 
 		// Assert
 		refreshToken.ShouldBeNull();
@@ -132,7 +132,7 @@ public class DeleteCurrentRefreshTokenControllerIntegrationTests : BaseRefreshTo
 
 		// Act
 		await Controller.DeleteCurrentAsync(request, CancellationToken);
-		var refreshToken = await ServiceScope.GetByIdAsync(RefreshToken.Id, CancellationToken);
+		var refreshToken = await ServiceScope.GetByIdAsync(RefreshTokenId, CancellationToken);
 
 		// Assert
 		refreshToken.ShouldBeNull();
@@ -148,7 +148,7 @@ public class DeleteCurrentRefreshTokenControllerIntegrationTests : BaseRefreshTo
 
 		// Act
 		await Controller.DeleteCurrentAsync(request, CancellationToken);
-		var refreshToken = await ServiceScope.GetByIdAsync(RefreshToken.Id, CancellationToken);
+		var refreshToken = await ServiceScope.GetByIdAsync(RefreshTokenId, CancellationToken);
 
 		// Assert
 		refreshToken.ShouldBeNull();

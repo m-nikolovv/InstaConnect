@@ -1,4 +1,3 @@
-using InstaConnect.Identity.Domain.Features.UserClaims.Models.ValueObjects;
 using InstaConnect.Identity.Domain.Features.Users.Models.Requests;
 using InstaConnect.Identity.Infrastructure.Tests.Features.Common.Builders;
 using InstaConnect.Identity.Infrastructure.Tests.Features.UserClaims.Assertions;
@@ -11,10 +10,6 @@ namespace InstaConnect.Identity.Infrastructure.Tests.Integration.Features.UserCl
 
 public class GetUserClaimByIdQueryRepositoryIntegrationTests : BaseUserClaimInfrastructureQueryIntegrationTest
 {
-	private readonly UserClaimIdBuilderFactory _idBuilderFactory;
-	private readonly UserClaimIdBuilder _idBuilder;
-	private readonly UserClaimId _id;
-
 	private readonly CurrentUserQueryBuilderFactory _currentUserQueryBuilderFactory;
 	private readonly CurrentUserQueryBuilder _currentUserQueryBuilder;
 	private readonly CurrentUserQuery _currentUserQuery;
@@ -22,10 +17,6 @@ public class GetUserClaimByIdQueryRepositoryIntegrationTests : BaseUserClaimInfr
 	public GetUserClaimByIdQueryRepositoryIntegrationTests(IdentityWebApplicationFactory webApplicationFactory)
 		: base(webApplicationFactory)
 	{
-		_idBuilderFactory = new();
-		_idBuilder = _idBuilderFactory.Create(UserClaim.Id);
-		_id = _idBuilder.Build();
-
 		_currentUserQueryBuilderFactory = new();
 		_currentUserQueryBuilder = _currentUserQueryBuilderFactory.Create(User);
 		_currentUserQuery = _currentUserQueryBuilder.Build();
@@ -43,7 +34,7 @@ public class GetUserClaimByIdQueryRepositoryIntegrationTests : BaseUserClaimInfr
 		await ServiceScope.DeleteAsync(UserClaim, CancellationToken);
 
 		// Act
-		var response = await Repository.GetByIdAsync(_id, _currentUserQuery, CancellationToken);
+		var response = await Repository.GetByIdAsync(UserClaimId, _currentUserQuery, CancellationToken);
 
 		// Assert
 		response.ShouldBeNull();
@@ -53,10 +44,10 @@ public class GetUserClaimByIdQueryRepositoryIntegrationTests : BaseUserClaimInfr
 	public async Task GetByIdAsync_ShouldReturnResponse_WhenQueryIsValid()
 	{
 		// Act
-		var response = await Repository.GetByIdAsync(_id, _currentUserQuery, CancellationToken);
+		var response = await Repository.GetByIdAsync(UserClaimId, _currentUserQuery, CancellationToken);
 
 		// Assert
-		response.ShouldSatisfy(_id, _currentUserQuery, UserClaim);
+		response.ShouldSatisfy(UserClaimId, _currentUserQuery, UserClaim);
 	}
 
 	[Theory]
@@ -65,7 +56,7 @@ public class GetUserClaimByIdQueryRepositoryIntegrationTests : BaseUserClaimInfr
 		IStringTransformer transformer)
 	{
 		// Arrange
-		var id = _idBuilder.WithId(transformer).Build();
+		var id = UserClaimIdBuilder.WithId(transformer).Build();
 
 		// Act
 		var response = await Repository.GetByIdAsync(id, _currentUserQuery, CancellationToken);
@@ -85,9 +76,9 @@ public class GetUserClaimByIdQueryRepositoryIntegrationTests : BaseUserClaimInfr
 		var currentUserQuery = _currentUserQueryBuilder.WithCurrentUserId(transformer).Build();
 
 		// Act
-		var response = await Repository.GetByIdAsync(_id, currentUserQuery, CancellationToken);
+		var response = await Repository.GetByIdAsync(UserClaimId, currentUserQuery, CancellationToken);
 
 		// Assert
-		response.ShouldSatisfy(_id, currentUserQuery, UserClaim);
+		response.ShouldSatisfy(UserClaimId, currentUserQuery, UserClaim);
 	}
 }

@@ -16,7 +16,7 @@ public class AddEmailConfirmationTokenCommandRepositoryIntegrationTests : BaseEm
 	{
 		// Act
 		await Repository.AddAsync(EmailConfirmationToken, CancellationToken);
-		var emailConfirmationToken = await ServiceScope.GetByIdAsync(EmailConfirmationToken.Id, CancellationToken);
+		var emailConfirmationToken = await ServiceScope.GetByIdAsync(EmailConfirmationTokenId, CancellationToken);
 
 		// Assert
 		emailConfirmationToken.ShouldSatisfy(EmailConfirmationToken);

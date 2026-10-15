@@ -20,11 +20,11 @@ public class UpdatePostCommandRepositoryIntegrationTests : BasePostInfrastructur
 	[Fact]
 	public async Task UpdateAsync_ShouldUpdatePost_WhenCommandIsValid()
 	{
-		var updatedPost = PostBuilderFactory.Create(User).WithId(Post.Id).Build();
+		var updatedPost = PostBuilderFactory.Create(User).WithId(PostId).Build();
 
 		// Act
 		await Repository.UpdateAsync(updatedPost, CancellationToken);
-		var post = await ServiceScope.GetByIdAsync(Post.Id, CancellationToken);
+		var post = await ServiceScope.GetByIdAsync(PostId, CancellationToken);
 
 		// Assert
 		post.ShouldSatisfy(updatedPost);

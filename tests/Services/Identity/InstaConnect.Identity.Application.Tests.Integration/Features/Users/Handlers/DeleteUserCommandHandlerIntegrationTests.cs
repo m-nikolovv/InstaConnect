@@ -50,7 +50,7 @@ public class DeleteUserCommandHandlerIntegrationTests : BaseUserApplicationComma
 	{
 		// Act
 		await Sender.SendAsync(_request, CancellationToken);
-		var user = await ServiceScope.GetByIdAsync(User.Id, CancellationToken);
+		var user = await ServiceScope.GetByIdAsync(UserId, CancellationToken);
 
 		// Assert
 		user.ShouldBeNull();
@@ -66,7 +66,7 @@ public class DeleteUserCommandHandlerIntegrationTests : BaseUserApplicationComma
 
 		// Act
 		await Sender.SendAsync(request, CancellationToken);
-		var user = await ServiceScope.GetByIdAsync(User.Id, CancellationToken);
+		var user = await ServiceScope.GetByIdAsync(UserId, CancellationToken);
 
 		// Assert
 		user.ShouldBeNull();

@@ -102,7 +102,7 @@ public class DeletePostCommentLikeCommandHandlerIntegrationTests : BasePostComme
 	{
 		// Act
 		await Sender.SendAsync(_request, CancellationToken);
-		var postCommentLike = await ServiceScope.GetByIdAsync(PostCommentLike.Id, CancellationToken);
+		var postCommentLike = await ServiceScope.GetByIdAsync(PostCommentLikeId, CancellationToken);
 
 		// Assert
 		postCommentLike.ShouldBeNull();
@@ -118,7 +118,7 @@ public class DeletePostCommentLikeCommandHandlerIntegrationTests : BasePostComme
 
 		// Act
 		await Sender.SendAsync(request, CancellationToken);
-		var postCommentLike = await ServiceScope.GetByIdAsync(PostCommentLike.Id, CancellationToken);
+		var postCommentLike = await ServiceScope.GetByIdAsync(PostCommentLikeId, CancellationToken);
 
 		// Assert
 		postCommentLike.ShouldBeNull();
@@ -134,7 +134,7 @@ public class DeletePostCommentLikeCommandHandlerIntegrationTests : BasePostComme
 
 		// Act
 		await Sender.SendAsync(request, CancellationToken);
-		var postCommentLike = await ServiceScope.GetByIdAsync(PostCommentLike.Id, CancellationToken);
+		var postCommentLike = await ServiceScope.GetByIdAsync(PostCommentLikeId, CancellationToken);
 
 		// Assert
 		postCommentLike.ShouldBeNull();
@@ -150,7 +150,7 @@ public class DeletePostCommentLikeCommandHandlerIntegrationTests : BasePostComme
 
 		// Act
 		await Sender.SendAsync(request, CancellationToken);
-		var postCommentLike = await ServiceScope.GetByIdAsync(PostCommentLike.Id, CancellationToken);
+		var postCommentLike = await ServiceScope.GetByIdAsync(PostCommentLikeId, CancellationToken);
 
 		// Assert
 		postCommentLike.ShouldBeNull();

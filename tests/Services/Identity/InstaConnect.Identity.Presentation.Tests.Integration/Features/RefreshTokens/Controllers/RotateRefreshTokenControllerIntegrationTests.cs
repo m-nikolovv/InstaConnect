@@ -178,7 +178,7 @@ public class RotateRefreshTokenControllerIntegrationTests : BaseRefreshTokenPres
 	{
 		// Act
 		await Controller.RotateAsync(_request, CancellationToken);
-		var user = await ServiceScope.GetByIdAsync(User.Id, CancellationToken);
+		var user = await ServiceScope.GetByIdAsync(UserId, CancellationToken);
 
 		// Assert
 		user.RefreshTokens.ShouldSatisfy(_request);
@@ -194,7 +194,7 @@ public class RotateRefreshTokenControllerIntegrationTests : BaseRefreshTokenPres
 
 		// Act
 		await Controller.RotateAsync(request, CancellationToken);
-		var user = await ServiceScope.GetByIdAsync(User.Id, CancellationToken);
+		var user = await ServiceScope.GetByIdAsync(UserId, CancellationToken);
 
 		// Assert
 		user.RefreshTokens.ShouldSatisfy(request);
@@ -210,7 +210,7 @@ public class RotateRefreshTokenControllerIntegrationTests : BaseRefreshTokenPres
 
 		// Act
 		await Controller.RotateAsync(request, CancellationToken);
-		var user = await ServiceScope.GetByIdAsync(User.Id, CancellationToken);
+		var user = await ServiceScope.GetByIdAsync(UserId, CancellationToken);
 
 		// Assert
 		user.RefreshTokens.ShouldSatisfy(request);

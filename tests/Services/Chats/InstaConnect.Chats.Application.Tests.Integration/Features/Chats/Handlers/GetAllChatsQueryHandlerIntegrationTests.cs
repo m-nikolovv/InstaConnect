@@ -184,7 +184,7 @@ public class GetAllChatsQueryHandlerIntegrationTests : BaseChatApplicationQueryI
 	public async Task SendAsync_ShouldReturnInvertedResponse_WhenRequestIsValid()
 	{
 		// Arrange
-		var request = _requestBuilder.WithParticipantTwoName(ParticipantOne.Name).WithCurrentUserId(ParticipantTwo.Id).Build();
+		var request = _requestBuilder.WithParticipantTwoName(ParticipantOne.Name).WithCurrentUserId(ParticipantTwoId).Build();
 
 		// Act
 		var response = await Sender.SendAsync(request, CancellationToken);
@@ -201,7 +201,7 @@ public class GetAllChatsQueryHandlerIntegrationTests : BaseChatApplicationQueryI
 		IStringTransformer transformer)
 	{
 		// Arrange
-		var request = _requestBuilder.WithParticipantTwoName(ParticipantOne.Name, transformer).WithCurrentUserId(ParticipantTwo.Id).Build();
+		var request = _requestBuilder.WithParticipantTwoName(ParticipantOne.Name, transformer).WithCurrentUserId(ParticipantTwoId).Build();
 
 		// Act
 		var response = await Sender.SendAsync(request, CancellationToken);
@@ -216,7 +216,7 @@ public class GetAllChatsQueryHandlerIntegrationTests : BaseChatApplicationQueryI
 		IStringTransformer transformer)
 	{
 		// Arrange
-		var request = _requestBuilder.WithParticipantTwoName(ParticipantOne.Name).WithCurrentUserId(ParticipantTwo.Id, transformer).Build();
+		var request = _requestBuilder.WithParticipantTwoName(ParticipantOne.Name).WithCurrentUserId(ParticipantTwoId, transformer).Build();
 
 		// Act
 		var response = await Sender.SendAsync(request, CancellationToken);
@@ -232,7 +232,7 @@ public class GetAllChatsQueryHandlerIntegrationTests : BaseChatApplicationQueryI
 		IEnumTransformer<CommonSortOrder> transformer, ISortEnumTermTransformer<Chat> termTransformer)
 	{
 		// Arrange
-		var request = _requestBuilder.WithParticipantTwoName(ParticipantOne.Name).WithCurrentUserId(ParticipantTwo.Id).WithSortOrder(transformer).Build();
+		var request = _requestBuilder.WithParticipantTwoName(ParticipantOne.Name).WithCurrentUserId(ParticipantTwoId).WithSortOrder(transformer).Build();
 
 		// Act
 		var response = await Sender.SendAsync(request, CancellationToken);
@@ -248,7 +248,7 @@ public class GetAllChatsQueryHandlerIntegrationTests : BaseChatApplicationQueryI
 		IEnumTransformer<ChatsSortTerm> transformer, ISortEnumTermTransformer<Chat> termTransformer)
 	{
 		// Arrange
-		var request = _requestBuilder.WithParticipantTwoName(ParticipantOne.Name).WithCurrentUserId(ParticipantTwo.Id).WithSortTerm(transformer).Build();
+		var request = _requestBuilder.WithParticipantTwoName(ParticipantOne.Name).WithCurrentUserId(ParticipantTwoId).WithSortTerm(transformer).Build();
 
 		// Act
 		var response = await Sender.SendAsync(request, CancellationToken);

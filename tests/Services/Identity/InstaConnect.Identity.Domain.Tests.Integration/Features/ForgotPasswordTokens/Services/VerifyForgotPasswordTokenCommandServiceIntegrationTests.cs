@@ -66,7 +66,7 @@ public class VerifyForgotPasswordTokenCommandServiceIntegrationTests : BaseForgo
 	{
 		// Act
 		await Service.VerifyAsync(_command, CancellationToken);
-		var user = await ServiceScope.GetByIdAsync(User.Id, CancellationToken);
+		var user = await ServiceScope.GetByIdAsync(UserId, CancellationToken);
 
 		// Assert
 		user.ShouldSatisfy(_command, PasswordHasher);
@@ -82,7 +82,7 @@ public class VerifyForgotPasswordTokenCommandServiceIntegrationTests : BaseForgo
 
 		// Act
 		await Service.VerifyAsync(command, CancellationToken);
-		var user = await ServiceScope.GetByIdAsync(User.Id, CancellationToken);
+		var user = await ServiceScope.GetByIdAsync(UserId, CancellationToken);
 
 		// Assert
 		user.ShouldSatisfy(command, PasswordHasher);
@@ -98,7 +98,7 @@ public class VerifyForgotPasswordTokenCommandServiceIntegrationTests : BaseForgo
 
 		// Act
 		await Service.VerifyAsync(command, CancellationToken);
-		var user = await ServiceScope.GetByIdAsync(User.Id, CancellationToken);
+		var user = await ServiceScope.GetByIdAsync(UserId, CancellationToken);
 
 		// Assert
 		user.ShouldSatisfy(command, PasswordHasher);
@@ -109,7 +109,7 @@ public class VerifyForgotPasswordTokenCommandServiceIntegrationTests : BaseForgo
 	{
 		// Act
 		await Service.VerifyAsync(_command, CancellationToken);
-		var user = await ServiceScope.GetByIdAsync(User.Id, CancellationToken);
+		var user = await ServiceScope.GetByIdAsync(UserId, CancellationToken);
 
 		// Assert
 		user.ForgotPasswordTokens.ShouldBeEmpty();
@@ -125,7 +125,7 @@ public class VerifyForgotPasswordTokenCommandServiceIntegrationTests : BaseForgo
 
 		// Act
 		await Service.VerifyAsync(command, CancellationToken);
-		var user = await ServiceScope.GetByIdAsync(User.Id, CancellationToken);
+		var user = await ServiceScope.GetByIdAsync(UserId, CancellationToken);
 
 		// Assert
 		user.ForgotPasswordTokens.ShouldBeEmpty();
@@ -141,7 +141,7 @@ public class VerifyForgotPasswordTokenCommandServiceIntegrationTests : BaseForgo
 
 		// Act
 		await Service.VerifyAsync(command, CancellationToken);
-		var user = await ServiceScope.GetByIdAsync(User.Id, CancellationToken);
+		var user = await ServiceScope.GetByIdAsync(UserId, CancellationToken);
 
 		// Assert
 		user.ForgotPasswordTokens.ShouldBeEmpty();

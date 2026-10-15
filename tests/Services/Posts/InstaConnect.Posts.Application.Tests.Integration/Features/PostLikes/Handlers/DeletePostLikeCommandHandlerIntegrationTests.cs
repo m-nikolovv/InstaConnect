@@ -76,7 +76,7 @@ public class DeletePostLikeCommandHandlerIntegrationTests : BasePostLikeApplicat
 	{
 		// Act
 		await Sender.SendAsync(_request, CancellationToken);
-		var postLike = await ServiceScope.GetByIdAsync(PostLike.Id, CancellationToken);
+		var postLike = await ServiceScope.GetByIdAsync(PostLikeId, CancellationToken);
 
 		// Assert
 		postLike.ShouldBeNull();
@@ -92,7 +92,7 @@ public class DeletePostLikeCommandHandlerIntegrationTests : BasePostLikeApplicat
 
 		// Act
 		await Sender.SendAsync(request, CancellationToken);
-		var postLike = await ServiceScope.GetByIdAsync(PostLike.Id, CancellationToken);
+		var postLike = await ServiceScope.GetByIdAsync(PostLikeId, CancellationToken);
 
 		// Assert
 		postLike.ShouldBeNull();
@@ -108,7 +108,7 @@ public class DeletePostLikeCommandHandlerIntegrationTests : BasePostLikeApplicat
 
 		// Act
 		await Sender.SendAsync(request, CancellationToken);
-		var postLike = await ServiceScope.GetByIdAsync(PostLike.Id, CancellationToken);
+		var postLike = await ServiceScope.GetByIdAsync(PostLikeId, CancellationToken);
 
 		// Assert
 		postLike.ShouldBeNull();

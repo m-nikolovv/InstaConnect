@@ -17,7 +17,7 @@ public class AddPostLikeCommandRepositoryIntegrationTests : BasePostLikeInfrastr
 	{
 		// Act
 		await Repository.AddAsync(PostLike, CancellationToken);
-		var postLike = await ServiceScope.GetByIdAsync(PostLike.Id, CancellationToken);
+		var postLike = await ServiceScope.GetByIdAsync(PostLikeId, CancellationToken);
 
 		// Assert
 		postLike.ShouldSatisfy(PostLike);

@@ -1,4 +1,3 @@
-using InstaConnect.Posts.Domain.Features.PostLikes.Models.ValueObjects;
 using InstaConnect.Posts.Domain.Features.Users.Models.Requests;
 using InstaConnect.Posts.Infrastructure.Tests.Features.Common.Builders;
 using InstaConnect.Posts.Infrastructure.Tests.Features.PostLikes.Assertions;
@@ -12,10 +11,6 @@ namespace InstaConnect.Posts.Infrastructure.Tests.Integration.Features.PostLikes
 
 public class GetPostLikeByIdQueryRepositoryIntegrationTests : BasePostLikeInfrastructureQueryIntegrationTest
 {
-	private readonly PostLikeIdBuilderFactory _idBuilderFactory;
-	private readonly PostLikeIdBuilder _idBuilder;
-	private readonly PostLikeId _id;
-
 	private readonly CurrentUserQueryBuilderFactory _currentUserQueryBuilderFactory;
 	private readonly CurrentUserQueryBuilder _currentUserQueryBuilder;
 	private readonly CurrentUserQuery _currentUserQuery;
@@ -23,10 +18,6 @@ public class GetPostLikeByIdQueryRepositoryIntegrationTests : BasePostLikeInfras
 	public GetPostLikeByIdQueryRepositoryIntegrationTests(PostsWebApplicationFactory webApplicationFactory)
 		: base(webApplicationFactory)
 	{
-		_idBuilderFactory = new();
-		_idBuilder = _idBuilderFactory.Create(PostLike.Id);
-		_id = _idBuilder.Build();
-
 		_currentUserQueryBuilderFactory = new();
 		_currentUserQueryBuilder = _currentUserQueryBuilderFactory.Create(User);
 		_currentUserQuery = _currentUserQueryBuilder.Build();
@@ -44,7 +35,7 @@ public class GetPostLikeByIdQueryRepositoryIntegrationTests : BasePostLikeInfras
 		await ServiceScope.DeleteAsync(PostLike, CancellationToken);
 
 		// Act
-		var response = await Repository.GetByIdAsync(_id, _currentUserQuery, CancellationToken);
+		var response = await Repository.GetByIdAsync(PostLikeId, _currentUserQuery, CancellationToken);
 
 		// Assert
 		response.ShouldBeNull();
@@ -54,10 +45,10 @@ public class GetPostLikeByIdQueryRepositoryIntegrationTests : BasePostLikeInfras
 	public async Task GetByIdAsync_ShouldReturnResponse_WhenQueryIsValid()
 	{
 		// Act
-		var response = await Repository.GetByIdAsync(_id, _currentUserQuery, CancellationToken);
+		var response = await Repository.GetByIdAsync(PostLikeId, _currentUserQuery, CancellationToken);
 
 		// Assert
-		response.ShouldSatisfy(_id, _currentUserQuery, PostLike);
+		response.ShouldSatisfy(PostLikeId, _currentUserQuery, PostLike);
 	}
 
 	[Theory]
@@ -66,7 +57,7 @@ public class GetPostLikeByIdQueryRepositoryIntegrationTests : BasePostLikeInfras
 		IStringTransformer transformer)
 	{
 		// Arrange
-		var id = _idBuilder.WithId(transformer).Build();
+		var id = PostLikeIdBuilder.WithId(transformer).Build();
 
 		// Act
 		var response = await Repository.GetByIdAsync(id, _currentUserQuery, CancellationToken);
@@ -81,7 +72,7 @@ public class GetPostLikeByIdQueryRepositoryIntegrationTests : BasePostLikeInfras
 		IStringTransformer transformer)
 	{
 		// Arrange
-		var id = _idBuilder.WithUserId(transformer).Build();
+		var id = PostLikeIdBuilder.WithUserId(transformer).Build();
 
 		// Act
 		var response = await Repository.GetByIdAsync(id, _currentUserQuery, CancellationToken);
@@ -101,9 +92,9 @@ public class GetPostLikeByIdQueryRepositoryIntegrationTests : BasePostLikeInfras
 		var currentUserQuery = _currentUserQueryBuilder.WithCurrentUserId(transformer).Build();
 
 		// Act
-		var response = await Repository.GetByIdAsync(_id, currentUserQuery, CancellationToken);
+		var response = await Repository.GetByIdAsync(PostLikeId, currentUserQuery, CancellationToken);
 
 		// Assert
-		response.ShouldSatisfy(_id, currentUserQuery, PostLike);
+		response.ShouldSatisfy(PostLikeId, currentUserQuery, PostLike);
 	}
 }

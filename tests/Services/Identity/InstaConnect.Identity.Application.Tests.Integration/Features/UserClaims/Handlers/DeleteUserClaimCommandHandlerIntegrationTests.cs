@@ -73,7 +73,7 @@ public class DeleteUserClaimCommandHandlerIntegrationTests : BaseUserClaimApplic
 	{
 		// Act
 		await Sender.SendAsync(_request, CancellationToken);
-		var userClaim = await ServiceScope.GetByIdAsync(UserClaim.Id, CancellationToken);
+		var userClaim = await ServiceScope.GetByIdAsync(UserClaimId, CancellationToken);
 
 		// Assert
 		userClaim.ShouldBeNull();
@@ -89,7 +89,7 @@ public class DeleteUserClaimCommandHandlerIntegrationTests : BaseUserClaimApplic
 
 		// Act
 		await Sender.SendAsync(request, CancellationToken);
-		var userClaim = await ServiceScope.GetByIdAsync(UserClaim.Id, CancellationToken);
+		var userClaim = await ServiceScope.GetByIdAsync(UserClaimId, CancellationToken);
 
 		// Assert
 		userClaim.ShouldBeNull();

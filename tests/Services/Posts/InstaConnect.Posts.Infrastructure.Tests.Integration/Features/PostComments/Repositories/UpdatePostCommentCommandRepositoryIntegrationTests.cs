@@ -20,11 +20,11 @@ public class UpdatePostCommentCommandRepositoryIntegrationTests : BasePostCommen
 	[Fact]
 	public async Task UpdateAsync_ShouldUpdatePostComment_WhenCommandIsValid()
 	{
-		var updatedPostComment = PostCommentBuilderFactory.Create(Post, User).WithId(PostComment.Id).Build();
+		var updatedPostComment = PostCommentBuilderFactory.Create(Post, User).WithId(PostCommentId).Build();
 
 		// Act
 		await Repository.UpdateAsync(updatedPostComment, CancellationToken);
-		var postComment = await ServiceScope.GetByIdAsync(PostComment.Id, CancellationToken);
+		var postComment = await ServiceScope.GetByIdAsync(PostCommentId, CancellationToken);
 
 		// Assert
 		postComment.ShouldSatisfy(updatedPostComment);

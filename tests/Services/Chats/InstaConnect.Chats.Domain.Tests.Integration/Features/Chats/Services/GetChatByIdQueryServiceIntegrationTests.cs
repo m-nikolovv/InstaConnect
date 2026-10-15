@@ -82,7 +82,7 @@ public class GetChatByIdQueryServiceIntegrationTests : BaseChatDomainQueryIntegr
 	public async Task GetByIdAsync_ShouldReturnInvertedResponse_WhenQueryIsValid()
 	{
 		// Arrange
-		var query = _queryBuilder.WithParticipantTwoId(ParticipantOne.Id).WithCurrentUserId(ParticipantTwo.Id).Build();
+		var query = _queryBuilder.WithParticipantTwoId(ParticipantOneId).WithCurrentUserId(ParticipantTwoId).Build();
 
 		// Act
 		var response = await Service.GetByIdAsync(query, CancellationToken);
@@ -97,7 +97,7 @@ public class GetChatByIdQueryServiceIntegrationTests : BaseChatDomainQueryIntegr
 		IStringTransformer transformer)
 	{
 		// Arrange
-		var query = _queryBuilder.WithParticipantTwoId(ParticipantOne.Id, transformer).WithCurrentUserId(ParticipantTwo.Id).Build();
+		var query = _queryBuilder.WithParticipantTwoId(ParticipantOneId, transformer).WithCurrentUserId(ParticipantTwoId).Build();
 
 		// Act
 		var response = await Service.GetByIdAsync(query, CancellationToken);
@@ -112,7 +112,7 @@ public class GetChatByIdQueryServiceIntegrationTests : BaseChatDomainQueryIntegr
 		IStringTransformer transformer)
 	{
 		// Arrange
-		var query = _queryBuilder.WithParticipantTwoId(ParticipantOne.Id).WithCurrentUserId(ParticipantTwo.Id, transformer).Build();
+		var query = _queryBuilder.WithParticipantTwoId(ParticipantOneId).WithCurrentUserId(ParticipantTwoId, transformer).Build();
 
 		// Act
 		var response = await Service.GetByIdAsync(query, CancellationToken);

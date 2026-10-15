@@ -12,7 +12,7 @@ public abstract class BaseChatMessagePresentationCommandFunctionalTest : BaseCha
 	protected BaseChatMessagePresentationCommandFunctionalTest(ChatsWebApplicationFactory webApplicationFactory) : base(webApplicationFactory)
 	{
 		ApiClient = webApplicationFactory.CreateMessageApiClient();
-		MessageNotificationClient = webApplicationFactory.CreateMessageNotificationClient(ParticipantTwo.Id);
+		MessageNotificationClient = webApplicationFactory.CreateMessageNotificationClient(ParticipantTwoId);
 	}
 
 	public override async Task InitializeAsync()
