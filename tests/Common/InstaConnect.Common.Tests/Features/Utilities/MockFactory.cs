@@ -42,11 +42,11 @@ public static class MockFactory
 
 		imageHandler
 			.UploadAsync(Matcher.Any<IFormFile>(), Matcher.Any<CancellationToken>())
-			.ReturnsTaskResponse<Image, IFormFile>(formFile => new(formFile.GetUrl()));
+			.ReturnsTaskResponse<Url, IFormFile>(formFile => new(formFile.GetUrl()));
 
 		imageHandler
 			.UploadRangeAsync(Matcher.Any<IEnumerable<IFormFile>>(), Matcher.Any<CancellationToken>())
-			.ReturnsTaskResponse<ICollection<Image>, IEnumerable<IFormFile>>(formFiles => [.. formFiles.Select(formFile => new Image(formFile.GetUrl()))]);
+			.ReturnsTaskResponse<ICollection<Url>, IEnumerable<IFormFile>>(formFiles => [.. formFiles.Select(formFile => new Url(formFile.GetUrl()))]);
 
 		return imageHandler;
 	}

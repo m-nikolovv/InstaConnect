@@ -61,7 +61,7 @@ internal class PostCommentLikeFluent : MongoDbFluent<PostCommentLike>, IPostComm
 					p.User.LastName,
 					p.User.Email,
 					p.User.Name,
-					p.User.ProfileImage,
+					p.User.ProfileImageUrl,
 					p.User.CreatedAtUtc,
 					p.User.UpdatedAtUtc),
 				new PostCommentResponse(
@@ -74,7 +74,7 @@ internal class PostCommentLikeFluent : MongoDbFluent<PostCommentLike>, IPostComm
 							p.PostComment.User.LastName,
 							p.PostComment.User.Email,
 							p.PostComment.User.Name,
-							p.PostComment.User.ProfileImage,
+							p.PostComment.User.ProfileImageUrl,
 							p.PostComment.User.CreatedAtUtc,
 							p.PostComment.User.UpdatedAtUtc),
 						new PostResponse(
@@ -88,7 +88,7 @@ internal class PostCommentLikeFluent : MongoDbFluent<PostCommentLike>, IPostComm
 									p.PostComment.Post.User.LastName,
 									p.PostComment.Post.User.Email,
 									p.PostComment.Post.User.Name,
-									p.PostComment.Post.User.ProfileImage,
+									p.PostComment.Post.User.ProfileImageUrl,
 									p.PostComment.Post.User.CreatedAtUtc,
 									p.PostComment.Post.User.UpdatedAtUtc),
 							p.PostComment.Post.PostLikes != null && p.PostComment.Post.PostLikes.Any(
@@ -123,7 +123,7 @@ internal class PostCommentLikeFluent : MongoDbFluent<PostCommentLike>, IPostComm
 							p.PostComment.User.LastName,
 							p.PostComment.User.Email,
 							p.PostComment.User.Name,
-							p.PostComment.User.ProfileImage,
+							p.PostComment.User.ProfileImageUrl,
 							p.PostComment.User.CreatedAtUtc,
 							p.PostComment.User.UpdatedAtUtc),
 						new PostResponse(
@@ -137,7 +137,7 @@ internal class PostCommentLikeFluent : MongoDbFluent<PostCommentLike>, IPostComm
 									p.PostComment.Post.User.LastName,
 									p.PostComment.Post.User.Email,
 									p.PostComment.Post.User.Name,
-									p.PostComment.Post.User.ProfileImage,
+									p.PostComment.Post.User.ProfileImageUrl,
 									p.PostComment.Post.User.CreatedAtUtc,
 									p.PostComment.Post.User.UpdatedAtUtc),
 							p.PostComment.Post.PostLikes != null && p.PostComment.Post.PostLikes.Any(
@@ -166,7 +166,7 @@ internal class PostCommentLikeFluent : MongoDbFluent<PostCommentLike>, IPostComm
 					p.User.LastName,
 					p.User.Email,
 					p.User.Name,
-					p.User.ProfileImage,
+					p.User.ProfileImageUrl,
 					p.User.CreatedAtUtc,
 					p.User.UpdatedAtUtc),
 				null,

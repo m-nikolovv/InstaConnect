@@ -64,7 +64,7 @@ internal class UserFluent : MongoDbFluent<User>, IUserFluent
 				u.LastName,
 				u.Email,
 				u.Name,
-				u.ProfileImage,
+				u.ProfileImageUrl,
 				u.CreatedAtUtc,
 				u.UpdatedAtUtc));
 		var fluent = Project(projection);

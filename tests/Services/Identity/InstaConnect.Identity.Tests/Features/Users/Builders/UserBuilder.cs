@@ -12,7 +12,7 @@ public class UserBuilder
 	private readonly string _email;
 	private bool _isEmailConfirmed;
 	private string _passwordHash;
-	private readonly string? _profileImage;
+	private readonly string _profileImage;
 	private readonly DateTimeOffset _createdAtUtc;
 	private readonly DateTimeOffset _updatedAtUtc;
 

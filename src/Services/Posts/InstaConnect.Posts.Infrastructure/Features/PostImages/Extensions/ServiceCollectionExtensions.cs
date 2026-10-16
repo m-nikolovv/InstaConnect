@@ -17,14 +17,14 @@ internal static class ServiceCollectionExtensions
 				cm.MapIdMember(c => c.Id);
 
 				cm.MapMember(c => c.Id);
-				cm.MapMember(c => c.Image);
+				cm.MapMember(c => c.Url);
 				cm.MapMember(c => c.CreatedAtUtc);
 
 				cm.MapMemberWithoutSerialization(c => c.Post);
 
 				cm.MapCreator(c => new PostImage(
 					c.Id,
-					c.Image,
+					c.Url,
 					c.CreatedAtUtc));
 
 				cm.SetIgnoreExtraElements(true);

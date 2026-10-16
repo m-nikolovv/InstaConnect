@@ -10,7 +10,7 @@ public class UserBuilder
 	private readonly string _firstName;
 	private readonly string _lastName;
 	private readonly string _email;
-	private readonly string? _profileImage;
+	private readonly string _profileImage;
 	private readonly DateTimeOffset _createdAtUtc;
 	private readonly DateTimeOffset _updatedAtUtc;
 

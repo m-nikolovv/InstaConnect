@@ -51,7 +51,7 @@ internal class UserClaimFluent : MongoDbFluent<UserClaim>, IUserClaimFluent
 					uc.User.LastName,
 					uc.User.Email,
 					uc.User.Name,
-					uc.User.ProfileImage,
+					uc.User.ProfileImageUrl,
 					uc.User.CreatedAtUtc,
 					uc.User.UpdatedAtUtc),
 				uc.CreatedAtUtc));

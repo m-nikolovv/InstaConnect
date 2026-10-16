@@ -12,7 +12,7 @@ public static class UserMapper
 					   user.FirstName,
 					   user.LastName,
 					   user.Name.Value,
-					   user.ProfileImage?.Url,
+					   user.ProfileImageUrl?.Value,
 					   user.CreatedAtUtc,
 					   user.UpdatedAtUtc);
 		}

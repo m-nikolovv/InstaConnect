@@ -25,7 +25,7 @@ public class User : IEntityWithId<UserId>
 		Name name,
 		string passwordHash,
 		bool isEmailConfirmed,
-		Image? profileImage,
+		Url? profileImageUrl,
 		DateTimeOffset createdAtUtc,
 		DateTimeOffset updatedAtUtc)
 	{
@@ -36,7 +36,7 @@ public class User : IEntityWithId<UserId>
 		Name = name;
 		PasswordHash = passwordHash;
 		IsEmailConfirmed = isEmailConfirmed;
-		ProfileImage = profileImage;
+		ProfileImageUrl = profileImageUrl;
 		UserClaims = [];
 		RefreshTokens = [];
 		ForgotPasswordTokens = [];
@@ -53,7 +53,7 @@ public class User : IEntityWithId<UserId>
 		Name name,
 		string passwordHash,
 		bool isEmailConfirmed,
-		Image? profileImage,
+		Url? profileImageUrl,
 		DateTimeOffset createdAtUtc,
 		DateTimeOffset updatedAtUtc,
 		ICollection<UserClaim> userClaims,
@@ -68,7 +68,7 @@ public class User : IEntityWithId<UserId>
 		Name = name;
 		PasswordHash = passwordHash;
 		IsEmailConfirmed = isEmailConfirmed;
-		ProfileImage = profileImage;
+		ProfileImageUrl = profileImageUrl;
 		CreatedAtUtc = createdAtUtc;
 		UpdatedAtUtc = updatedAtUtc;
 		UserClaims = userClaims;
@@ -91,7 +91,7 @@ public class User : IEntityWithId<UserId>
 
 	public bool IsEmailConfirmed { get; private set; }
 
-	public Image? ProfileImage { get; private set; }
+	public Url? ProfileImageUrl { get; private set; }
 
 	public ICollection<UserClaim> UserClaims { get; private set; }
 
@@ -113,9 +113,9 @@ public class User : IEntityWithId<UserId>
 		IsEmailConfirmed = false;
 	}
 
-	public void UpdateProfileImage(Image? profileImage)
+	public void UpdateProfileImage(Url? profileImageUrl)
 	{
-		ProfileImage = profileImage;
+		ProfileImageUrl = profileImageUrl;
 	}
 
 	public void ConfirmEmail()

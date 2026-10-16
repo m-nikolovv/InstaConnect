@@ -62,7 +62,7 @@ internal class PostCommentFluent : MongoDbFluent<PostComment>, IPostCommentFluen
 					p.User.LastName,
 					p.User.Email,
 					p.User.Name,
-					p.User.ProfileImage,
+					p.User.ProfileImageUrl,
 					p.User.CreatedAtUtc,
 					p.User.UpdatedAtUtc),
 				new PostResponse(
@@ -76,7 +76,7 @@ internal class PostCommentFluent : MongoDbFluent<PostComment>, IPostCommentFluen
 							p.Post.User.LastName,
 							p.Post.User.Email,
 							p.Post.User.Name,
-							p.Post.User.ProfileImage,
+							p.Post.User.ProfileImageUrl,
 							p.Post.User.CreatedAtUtc,
 							p.Post.User.UpdatedAtUtc),
 					p.Post.PostLikes.Any(
@@ -112,7 +112,7 @@ internal class PostCommentFluent : MongoDbFluent<PostComment>, IPostCommentFluen
 							p.Post.User.LastName,
 							p.Post.User.Email,
 							p.Post.User.Name,
-							p.Post.User.ProfileImage,
+							p.Post.User.ProfileImageUrl,
 							p.Post.User.CreatedAtUtc,
 							p.Post.User.UpdatedAtUtc),
 					p.Post.PostLikes.Any(
@@ -142,7 +142,7 @@ internal class PostCommentFluent : MongoDbFluent<PostComment>, IPostCommentFluen
 					p.User.LastName,
 					p.User.Email,
 					p.User.Name,
-					p.User.ProfileImage,
+					p.User.ProfileImageUrl,
 					p.User.CreatedAtUtc,
 					p.User.UpdatedAtUtc),
 				null,

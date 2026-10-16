@@ -6,7 +6,7 @@ namespace InstaConnect.Common.Domain.Features.Images.Abstractions;
 
 public interface IImageHandler
 {
-	public Task<Image> UploadAsync(IFormFile formFile, CancellationToken cancellationToken);
+	public Task<Url> UploadAsync(IFormFile formFile, CancellationToken cancellationToken);
 
-	public Task<ICollection<Image>> UploadRangeAsync(IEnumerable<IFormFile> formFiles, CancellationToken cancellationToken);
+	public Task<ICollection<Url>> UploadRangeAsync(IEnumerable<IFormFile> formFiles, CancellationToken cancellationToken);
 }

@@ -5,22 +5,22 @@ public class PostImage : IEntityWithId<PostImageId>
 	private PostImage()
 	{
 		Id = new(new(string.Empty), string.Empty);
-		Image = new(string.Empty);
+		Url = new(string.Empty);
 	}
 
 	public PostImage(
 		PostImageId id,
-		Image image,
+		Url url,
 		DateTimeOffset createdAtUtc)
 	{
 		Id = id;
-		Image = image;
+		Url = url;
 		CreatedAtUtc = createdAtUtc;
 	}
 
 	public PostImageId Id { get; }
 
-	public Image Image { get; }
+	public Url Url { get; }
 
 	public Post? Post { get; private set; }
 

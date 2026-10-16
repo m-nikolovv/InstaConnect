@@ -19,7 +19,7 @@ public class User : IEntityWithId<UserId>
 		string lastName,
 		Email email,
 		Name name,
-		Image? profileImage,
+		Url? profileImageUrl,
 		DateTimeOffset createdAtUtc,
 		DateTimeOffset updatedAtUtc)
 	{
@@ -28,7 +28,7 @@ public class User : IEntityWithId<UserId>
 		LastName = lastName;
 		Email = email;
 		Name = name;
-		ProfileImage = profileImage;
+		ProfileImageUrl = profileImageUrl;
 		Chats = [];
 		ChatMessages = [];
 		CreatedAtUtc = createdAtUtc;
@@ -45,7 +45,7 @@ public class User : IEntityWithId<UserId>
 
 	public Name Name { get; private set; }
 
-	public Image? ProfileImage { get; private set; }
+	public Url? ProfileImageUrl { get; private set; }
 
 	public ICollection<Chat> Chats { get; private set; }
 
@@ -60,14 +60,14 @@ public class User : IEntityWithId<UserId>
 		string firstName,
 		string lastName,
 		Name name,
-		Image? profileImage,
+		Url? profileImageUrl,
 		DateTimeOffset updatedAtUtc)
 	{
 		Email = email;
 		FirstName = firstName;
 		LastName = lastName;
 		Name = name;
-		ProfileImage = profileImage;
+		ProfileImageUrl = profileImageUrl;
 		UpdatedAtUtc = updatedAtUtc;
 	}
 

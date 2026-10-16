@@ -110,7 +110,7 @@ public class AddUserCommandBuilder
 			_lastName,
 			new(_name),
 			new(_email),
-			new(_profileImage),
+			_profileImage == null ? null : new(_profileImage),
 			_createdAtUtc,
 			_updatedAtUtc);
 	}

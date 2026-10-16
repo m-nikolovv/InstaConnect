@@ -13,7 +13,7 @@ public static class UserMapper
 					   user.LastName,
 					   user.Email,
 					   user.Name,
-					   user.ProfileImage,
+					   user.ProfileImageUrl,
 					   user.CreatedAtUtc,
 					   user.UpdatedAtUtc);
 		}
@@ -25,7 +25,7 @@ public static class UserMapper
 					   command.LastName,
 					   command.Email,
 					   command.Name,
-					   command.ProfileImage,
+					   command.ProfileImageUrl,
 					   command.CreatedAtUtc,
 					   command.UpdatedAtUtc);
 		}

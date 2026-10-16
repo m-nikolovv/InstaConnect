@@ -13,13 +13,13 @@ internal class PostImageFactory : IPostImageFactory
 		_dateTimeProvider = dateTimeProvider;
 	}
 
-	public ICollection<PostImage> CreateRange(PostId id, IEnumerable<Image> images)
+	public ICollection<PostImage> CreateRange(PostId id, IEnumerable<Url> urls)
 	{
 		var utcNow = _dateTimeProvider.GetOffsetUtcNow();
-		var postImages = images
-			.Select(image => new PostImage(
+		var postImages = urls
+			.Select(url => new PostImage(
 				new(id, _guidProvider.NewStringGuid()),
-				image,
+				url,
 				utcNow))
 			.ToList();
 

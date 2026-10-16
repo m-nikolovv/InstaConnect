@@ -63,7 +63,7 @@ internal class PostFluent : MongoDbFluent<Post>, IPostFluent
 					 p.User.LastName,
 					 p.User.Email,
 					 p.User.Name,
-					 p.User.ProfileImage,
+					 p.User.ProfileImageUrl,
 					 p.User.CreatedAtUtc,
 					 p.User.UpdatedAtUtc),
 				 p.PostLikes.Any(

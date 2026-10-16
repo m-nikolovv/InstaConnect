@@ -24,7 +24,7 @@ public class CreateUserFactoryUnitTests : BaseUserDomainCommandUnitTest
 			User.LastName,
 			User.Name,
 			User.Email,
-			User.ProfileImage,
+			User.ProfileImageUrl,
 			User.CreatedAtUtc,
 			User.UpdatedAtUtc);
 

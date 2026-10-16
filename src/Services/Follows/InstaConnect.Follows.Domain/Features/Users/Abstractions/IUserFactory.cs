@@ -8,7 +8,7 @@ public interface IUserFactory
 		string lastName,
 		Name name,
 		Email email,
-		Image? profileImage,
+		Url? profileImageUrl,
 		DateTimeOffset createdAtUtc,
 		DateTimeOffset updatedAtUtc);
 }

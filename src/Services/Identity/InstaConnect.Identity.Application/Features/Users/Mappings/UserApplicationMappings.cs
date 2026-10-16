@@ -111,7 +111,7 @@ public class UserApplicationMappings : IRegister
 					src.FirstName,
 					src.LastName,
 					src.Name.Value,
-					src.ProfileImage == null ? null : src.ProfileImage.Url,
+					src.ProfileImageUrl == null ? null : src.ProfileImageUrl.Value,
 					src.CreatedAtUtc,
 					src.UpdatedAtUtc));
 
@@ -122,7 +122,7 @@ public class UserApplicationMappings : IRegister
 				  src.LastName,
 				  src.Name.Value,
 				  src.Email.Value,
-				  src.ProfileImage == null ? null : src.ProfileImage.Url,
+				  src.ProfileImageUrl == null ? null : src.ProfileImageUrl.Value,
 				  src.CreatedAtUtc,
 				  src.UpdatedAtUtc));
 

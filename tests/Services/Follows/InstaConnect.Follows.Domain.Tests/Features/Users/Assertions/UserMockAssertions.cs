@@ -16,7 +16,7 @@ public static class UserMockAssertions
 				command.LastName,
 				command.Name,
 				command.Email,
-				command.ProfileImage,
+				command.ProfileImageUrl,
 				command.CreatedAtUtc,
 				command.UpdatedAtUtc);
 		}
@@ -27,7 +27,7 @@ public static class UserMockAssertions
 			string lastName,
 			Name name,
 			Email email,
-			Image? profileImage,
+			Url? profileImageUrl,
 			DateTimeOffset createdAtUtc,
 			DateTimeOffset updatedAtUtc)
 		{
@@ -37,7 +37,7 @@ public static class UserMockAssertions
 				lastName,
 				name,
 				email,
-				profileImage,
+				profileImageUrl,
 				createdAtUtc,
 				updatedAtUtc);
 		}

@@ -18,7 +18,7 @@ public class ImageInfrastructureMappings : IRegister
 				File = new(src.FileName, src.OpenReadStream())
 			});
 
-		config.NewConfig<ImageUploadResult, Image>()
+		config.NewConfig<ImageUploadResult, Url>()
 			.ConstructUsing(src => new(src.Url.AbsoluteUri));
 	}
 }

@@ -55,7 +55,7 @@ internal class ChatFluent : MongoDbFluent<Chat>, IChatFluent
 								   p.Id.ParticipantOneId.Id.ToLower() == currentUserId ? p.ParticipantOne!.LastName : p.ParticipantTwo!.LastName,
 								   p.Id.ParticipantOneId.Id.ToLower() == currentUserId ? p.ParticipantOne!.Email : p.ParticipantTwo!.Email,
 								   p.Id.ParticipantOneId.Id.ToLower() == currentUserId ? p.ParticipantOne!.Name : p.ParticipantTwo!.Name,
-								   p.Id.ParticipantOneId.Id.ToLower() == currentUserId ? p.ParticipantOne!.ProfileImage : p.ParticipantTwo!.ProfileImage,
+								   p.Id.ParticipantOneId.Id.ToLower() == currentUserId ? p.ParticipantOne!.ProfileImageUrl : p.ParticipantTwo!.ProfileImageUrl,
 								   p.Id.ParticipantOneId.Id.ToLower() == currentUserId ? p.ParticipantOne!.CreatedAtUtc : p.ParticipantTwo!.CreatedAtUtc,
 								   p.Id.ParticipantOneId.Id.ToLower() == currentUserId ? p.ParticipantOne!.UpdatedAtUtc : p.ParticipantTwo!.UpdatedAtUtc),
 							   new UserResponse(
@@ -64,7 +64,7 @@ internal class ChatFluent : MongoDbFluent<Chat>, IChatFluent
 								   p.Id.ParticipantOneId.Id.ToLower() == currentUserId ? p.ParticipantTwo!.LastName : p.ParticipantOne!.LastName,
 								   p.Id.ParticipantOneId.Id.ToLower() == currentUserId ? p.ParticipantTwo!.Email : p.ParticipantOne!.Email,
 								   p.Id.ParticipantOneId.Id.ToLower() == currentUserId ? p.ParticipantTwo!.Name : p.ParticipantOne!.Name,
-								   p.Id.ParticipantOneId.Id.ToLower() == currentUserId ? p.ParticipantTwo!.ProfileImage : p.ParticipantOne!.ProfileImage,
+								   p.Id.ParticipantOneId.Id.ToLower() == currentUserId ? p.ParticipantTwo!.ProfileImageUrl : p.ParticipantOne!.ProfileImageUrl,
 								   p.Id.ParticipantOneId.Id.ToLower() == currentUserId ? p.ParticipantTwo!.CreatedAtUtc : p.ParticipantOne!.CreatedAtUtc,
 								   p.Id.ParticipantOneId.Id.ToLower() == currentUserId ? p.ParticipantTwo!.UpdatedAtUtc : p.ParticipantOne!.UpdatedAtUtc),
 							   p.CreatedAtUtc));
@@ -88,7 +88,7 @@ internal class ChatFluent : MongoDbFluent<Chat>, IChatFluent
 								   p.Id.ParticipantOneId.Id.ToLower() == currentUserId ? p.ParticipantTwo!.LastName : p.ParticipantOne!.LastName,
 								   p.Id.ParticipantOneId.Id.ToLower() == currentUserId ? p.ParticipantTwo!.Email : p.ParticipantOne!.Email,
 								   p.Id.ParticipantOneId.Id.ToLower() == currentUserId ? p.ParticipantTwo!.Name : p.ParticipantOne!.Name,
-								   p.Id.ParticipantOneId.Id.ToLower() == currentUserId ? p.ParticipantTwo!.ProfileImage : p.ParticipantOne!.ProfileImage,
+								   p.Id.ParticipantOneId.Id.ToLower() == currentUserId ? p.ParticipantTwo!.ProfileImageUrl : p.ParticipantOne!.ProfileImageUrl,
 								   p.Id.ParticipantOneId.Id.ToLower() == currentUserId ? p.ParticipantTwo!.CreatedAtUtc : p.ParticipantOne!.CreatedAtUtc,
 								   p.Id.ParticipantOneId.Id.ToLower() == currentUserId ? p.ParticipantTwo!.UpdatedAtUtc : p.ParticipantOne!.UpdatedAtUtc),
 							   p.CreatedAtUtc));
@@ -111,7 +111,7 @@ internal class ChatFluent : MongoDbFluent<Chat>, IChatFluent
 								   p.Id.ParticipantOneId.Id.ToLower() == currentUserId ? p.ParticipantOne!.LastName : p.ParticipantTwo!.LastName,
 								   p.Id.ParticipantOneId.Id.ToLower() == currentUserId ? p.ParticipantOne!.Email : p.ParticipantTwo!.Email,
 								   p.Id.ParticipantOneId.Id.ToLower() == currentUserId ? p.ParticipantOne!.Name : p.ParticipantTwo!.Name,
-								   p.Id.ParticipantOneId.Id.ToLower() == currentUserId ? p.ParticipantOne!.ProfileImage : p.ParticipantTwo!.ProfileImage,
+								   p.Id.ParticipantOneId.Id.ToLower() == currentUserId ? p.ParticipantOne!.ProfileImageUrl : p.ParticipantTwo!.ProfileImageUrl,
 								   p.Id.ParticipantOneId.Id.ToLower() == currentUserId ? p.ParticipantOne!.CreatedAtUtc : p.ParticipantTwo!.CreatedAtUtc,
 								   p.Id.ParticipantOneId.Id.ToLower() == currentUserId ? p.ParticipantOne!.UpdatedAtUtc : p.ParticipantTwo!.UpdatedAtUtc),
 							   null,

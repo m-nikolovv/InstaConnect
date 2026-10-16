@@ -34,16 +34,16 @@ public static class CommonEquals
 		}
 	}
 
-	extension(Image? p)
+	extension(Url? p)
 	{
 		public bool Matches(string? url)
 		{
-			return p == null || p.Url == url;
+			return p == null || p.Value == url;
 		}
 
-		public bool Matches(Image? image)
+		public bool Matches(Url? url)
 		{
-			return p.Matches(image?.Url);
+			return p.Matches(url?.Value);
 		}
 	}
 
