@@ -129,7 +129,7 @@ public static class PostValidationExceptionAssertions
 
 			await func.ShouldThrowInvalidValidationExceptionAsync(
 				request,
-				r => r.Body.Title,
+				r => r.Form.Title,
 				messageTransformer,
 				cancellationToken);
 		}
@@ -171,7 +171,7 @@ public static class PostValidationExceptionAssertions
 
 			await func.ShouldThrowInvalidValidationExceptionAsync(
 				request,
-				r => r.Body.Content,
+				r => r.Form.Content,
 				messageTransformer,
 				cancellationToken);
 		}

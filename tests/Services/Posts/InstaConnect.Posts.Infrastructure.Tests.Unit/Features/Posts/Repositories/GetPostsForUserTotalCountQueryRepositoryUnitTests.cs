@@ -23,7 +23,7 @@ public class GetPostsForUserTotalCountQueryRepositoryUnitTests : BasePostInfrast
 		_filterQueryBuilder = _filterQueryBuilderFactory.Create(Post);
 		_filterQuery = _filterQueryBuilder.Build();
 
-		_include = IncludeBuilderFactory.Create().WithPostLikes().Build();
+		_include = IncludeBuilderFactory.Create().WithPostLikes().WithPostImages().Build();
 
 		_repository = new(Collection, IncludeBuilderFactory);
 

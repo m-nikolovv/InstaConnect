@@ -1,6 +1,9 @@
+using InstaConnect.Posts.Domain.Features.PostImages.Models.ValueObjects;
 using InstaConnect.Posts.Domain.Features.PostLikes.Models.ValueObjects;
 using InstaConnect.Posts.Domain.Features.Posts.Models.ValueObjects;
 using InstaConnect.Posts.Domain.Features.Users.Models.ValueObjects;
+using InstaConnect.Posts.Tests.Features.PostImages.Builders;
+using InstaConnect.Posts.Tests.Features.PostImages.Utilities;
 using InstaConnect.Posts.Tests.Features.PostLikes.Utilities;
 using InstaConnect.Posts.Tests.Features.Users.Utilities;
 
@@ -8,6 +11,8 @@ namespace InstaConnect.Posts.Tests.Features.Posts.Utilities;
 
 public abstract class BasePostTest : BaseTest
 {
+	protected const int NumberOfImages = 5;
+
 	protected UserBuilderFactory UserBuilderFactory { get; }
 	protected UserBuilder UserBuilder { get; }
 	protected User User { get; }
@@ -46,6 +51,19 @@ public abstract class BasePostTest : BaseTest
 	protected PostLikeIdRangeBuilderFactory PostLikeIdRangeBuilderFactory { get; }
 	protected PostLikeIdRangeBuilder PostLikeIdRangeBuilder { get; }
 	protected ICollection<PostLikeId> PostLikeIds { get; }
+
+	protected PostImageBuilderFactory PostImageBuilderFactory { get; }
+	protected PostImageBuilder PostImageBuilder { get; }
+	protected PostImage PostImage { get; }
+	protected ICollection<PostImage> PostImages { get; }
+
+	protected PostImageIdBuilderFactory PostImageIdBuilderFactory { get; }
+	protected PostImageIdBuilder PostImageIdBuilder { get; }
+	protected PostImageId PostImageId { get; }
+
+	protected PostImageIdRangeBuilderFactory PostImageIdRangeBuilderFactory { get; }
+	protected PostImageIdRangeBuilder PostImageIdRangeBuilder { get; }
+	protected ICollection<PostImageId> PostImageIds { get; }
 
 	protected BasePostTest()
 	{
@@ -87,5 +105,18 @@ public abstract class BasePostTest : BaseTest
 		PostLikeIdRangeBuilderFactory = new();
 		PostLikeIdRangeBuilder = PostLikeIdRangeBuilderFactory.Create([.. PostLikes.Select(p => p.Id)]);
 		PostLikeIds = PostLikeIdRangeBuilder.Build();
+
+		PostImageBuilderFactory = new();
+		PostImageBuilder = PostImageBuilderFactory.Create(Post);
+		PostImage = PostImageBuilder.Build();
+		PostImages = PostImage.Generate(Posts, NumberOfImages);
+
+		PostImageIdBuilderFactory = new();
+		PostImageIdBuilder = PostImageIdBuilderFactory.Create(PostImage.Id);
+		PostImageId = PostImageIdBuilder.Build();
+
+		PostImageIdRangeBuilderFactory = new();
+		PostImageIdRangeBuilder = PostImageIdRangeBuilderFactory.Create([.. PostImages.Select(p => p.Id)]);
+		PostImageIds = PostImageIdRangeBuilder.Build();
 	}
 }

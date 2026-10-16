@@ -3,6 +3,7 @@ using System.Text;
 using Bogus;
 
 using InstaConnect.Common.Domain.Features.Requests.Models;
+using InstaConnect.Common.Tests.Features.Extensions;
 
 using Microsoft.AspNetCore.Http;
 

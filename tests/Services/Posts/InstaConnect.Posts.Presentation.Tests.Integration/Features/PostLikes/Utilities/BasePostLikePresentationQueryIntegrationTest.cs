@@ -16,6 +16,7 @@ public abstract class BasePostLikePresentationQueryIntegrationTest : BasePostLik
 	{
 		await ServiceScope.AddRangeAsync(Users, CancellationToken);
 		await ServiceScope.AddRangeAsync(Posts, CancellationToken);
+		await ServiceScope.AddRangeAsync(PostImages, CancellationToken);
 		await OnInitializeAsync();
 	}
 }

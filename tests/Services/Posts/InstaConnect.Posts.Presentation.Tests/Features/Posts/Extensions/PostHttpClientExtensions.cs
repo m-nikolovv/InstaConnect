@@ -3,6 +3,7 @@ using System.Net.Http.Json;
 using InstaConnect.Common.Infrastructure.Features.AccessTokens.Abstractions;
 using InstaConnect.Common.Presentation.Tests.Features.Extensions;
 using InstaConnect.Posts.Presentation.Features.Posts.Utilities;
+using InstaConnect.Posts.Presentation.Tests.Features.Posts.Utilities;
 
 namespace InstaConnect.Posts.Presentation.Tests.Features.Posts.Extensions;
 
@@ -53,7 +54,7 @@ internal static class PostHttpClientExtensions
 			var route = PostRouteFactory.GetRoute(request);
 
 			return await httpClient
-				.PostAsJsonAsync(route, request.Body, cancellationToken);
+				.PostAsync(route, request.Form.GetContent(), cancellationToken);
 		}
 
 		internal async Task<HttpResponseMessage> AddResponseMessageAsync(
@@ -65,7 +66,7 @@ internal static class PostHttpClientExtensions
 
 			return await httpClient
 				.WithAuthorization(request.UserId, baseAccessTokenGenerator)
-				.PostAsJsonAsync(route, request.Body, cancellationToken);
+				.PostAsync(route, request.Form.GetContent(), cancellationToken);
 		}
 
 		internal async Task<HttpResponseMessage> UpdateUnauthorizedResponseMessageAsync(

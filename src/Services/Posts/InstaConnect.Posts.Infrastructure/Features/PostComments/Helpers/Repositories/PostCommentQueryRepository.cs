@@ -42,7 +42,7 @@ internal class PostCommentQueryRepository : IPostCommentQueryRepository
 		CurrentUserQuery currentUser,
 		CancellationToken cancellationToken)
 	{
-		var include = _includeBuilderFactory.Create().WithUser().WithPostLikes().Build();
+		var include = _includeBuilderFactory.Create().WithUser().WithPostLikes().WithPostImages().Build();
 		var commentInclude = _commentIncludeBuilderFactory.Create().WithPost(include).WithPostCommentLikes().Build();
 
 		return await _collection
@@ -72,7 +72,7 @@ internal class PostCommentQueryRepository : IPostCommentQueryRepository
 		PostCommentsForUserFilterQuery filter,
 		CancellationToken cancellationToken)
 	{
-		var include = _includeBuilderFactory.Create().WithUser().WithPostLikes().Build();
+		var include = _includeBuilderFactory.Create().WithUser().WithPostLikes().WithPostImages().Build();
 		var commentInclude = _commentIncludeBuilderFactory.Create().WithPost(include).WithPostCommentLikes().Build();
 
 		return await _collection
@@ -87,7 +87,7 @@ internal class PostCommentQueryRepository : IPostCommentQueryRepository
 		CurrentUserQuery currentUser,
 		CancellationToken cancellationToken)
 	{
-		var include = _includeBuilderFactory.Create().WithUser().WithPostLikes().Build();
+		var include = _includeBuilderFactory.Create().WithUser().WithPostLikes().WithPostImages().Build();
 		var commentInclude = _commentIncludeBuilderFactory.Create().WithUser().WithPostCommentLikes().WithPost(include).Build();
 
 		return await _collection

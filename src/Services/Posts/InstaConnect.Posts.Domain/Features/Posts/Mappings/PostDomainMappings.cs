@@ -24,6 +24,7 @@ internal class PostDomainMappings : IRegister
 				src.Title,
 				src.Content,
 				src.User.Adapt<UserEventRequest>(config)!,
+				src.PostImages.Adapt<ICollection<PostImageEventRequest>>(config),
 				src.CreatedAtUtc,
 				src.UpdatedAtUtc));
 	}

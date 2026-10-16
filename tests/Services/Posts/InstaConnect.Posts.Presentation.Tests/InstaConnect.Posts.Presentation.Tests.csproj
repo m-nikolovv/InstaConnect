@@ -95,6 +95,11 @@
     <Using Include="InstaConnect.Posts.Application.Features.PostComments.Commands.Delete" />
   </ItemGroup>
 
+  <ItemGroup Label="PostImages">
+    <Using Include="InstaConnect.Posts.Domain.Features.PostImages.Models.Entities" />
+    <Using Include="InstaConnect.Posts.Domain.Features.PostImages.Models.ValueObjects" />
+  </ItemGroup>
+
   <ItemGroup Label="PostCommentLikes">
     <Using Include="InstaConnect.Posts.Domain.Features.PostCommentLikes.Models.Entities" />
     <Using Include="InstaConnect.Posts.Domain.Features.PostCommentLikes.Models.ValueObjects" />

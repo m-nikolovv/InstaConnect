@@ -49,11 +49,6 @@ public static class CommonEquals
 
 	extension<TExpected>(ICollection<TExpected> e)
 	{
-		public bool MatchesCollection(ICollection<TExpected> expected)
-		{
-			return e.OrderBy(x => x).SequenceEqual(expected);
-		}
-
 		public bool MatchesCollection<TEntity, TKey>(
 		ICollection<TEntity> entities,
 		Func<TExpected, TKey> expectedKey,

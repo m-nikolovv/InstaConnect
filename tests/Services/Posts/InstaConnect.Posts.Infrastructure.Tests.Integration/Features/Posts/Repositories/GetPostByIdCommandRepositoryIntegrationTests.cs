@@ -1,6 +1,7 @@
 using InstaConnect.Posts.Domain.Features.Posts.Models.Requests;
 using InstaConnect.Posts.Infrastructure.Tests.Features.Posts.Assertions;
 using InstaConnect.Posts.Infrastructure.Tests.Integration.Features.Posts.Utilities;
+using InstaConnect.Posts.Tests.Features.PostImages.Utilities;
 using InstaConnect.Posts.Tests.Features.PostLikes.Utilities;
 using InstaConnect.Posts.Tests.Features.Posts.Assertions;
 using InstaConnect.Posts.Tests.Features.Posts.Builders;
@@ -16,7 +17,7 @@ public class GetPostByIdCommandRepositoryIntegrationTests : BasePostInfrastructu
 	public GetPostByIdCommandRepositoryIntegrationTests(PostsWebApplicationFactory webApplicationFactory)
 		: base(webApplicationFactory)
 	{
-		_include = IncludeBuilderFactory.Create().WithUser().WithPostLikes().Build();
+		_include = IncludeBuilderFactory.Create().WithUser().WithPostLikes().WithPostImages().Build();
 	}
 
 	protected override async Task OnInitializeAsync()

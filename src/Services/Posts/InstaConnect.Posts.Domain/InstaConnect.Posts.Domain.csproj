@@ -59,10 +59,12 @@
   </ItemGroup>
 
   <ItemGroup Label="PostImages">
+    <Using Include="InstaConnect.Posts.Events.Features.PostImages" />
     <Using Include="InstaConnect.Posts.Domain.Features.PostImages.Utilities" />
     <Using Include="InstaConnect.Posts.Domain.Features.PostImages.Abstractions" />
     <Using Include="InstaConnect.Posts.Domain.Features.PostImages.Models.Entities" />
     <Using Include="InstaConnect.Posts.Domain.Features.PostImages.Models.ValueObjects" />
+    <Using Include="InstaConnect.Posts.Domain.Features.PostImages.Models.Responses" />
   </ItemGroup>
 
   <ItemGroup Label="PostCommentLikes">

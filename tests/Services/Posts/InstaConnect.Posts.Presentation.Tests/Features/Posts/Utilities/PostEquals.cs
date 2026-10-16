@@ -1,9 +1,12 @@
 using InstaConnect.Common.Domain.Features.Common.Extensions;
 using InstaConnect.Common.Presentation.Features.Requests.Abstractions;
 using InstaConnect.Common.Tests.Features.DataAttributes.Enums.Sort;
+using InstaConnect.Common.Tests.Features.Extensions;
 using InstaConnect.Posts.Domain.Features.Posts.Models.Requests;
+using InstaConnect.Posts.Events.Features.PostImages;
 using InstaConnect.Posts.Events.Features.Posts;
 using InstaConnect.Posts.Presentation.Features.Users.Abstractions;
+using InstaConnect.Posts.Presentation.Tests.Features.PostImages.Utilities;
 using InstaConnect.Posts.Presentation.Tests.Features.Users.Utilities;
 
 namespace InstaConnect.Posts.Presentation.Tests.Features.Posts.Utilities;
@@ -42,8 +45,9 @@ public static class PostEquals
 				   r.Id.EqualsOrdinalIgnoreCase(entity.Id.Id) &&
 				   r.UserId.EqualsOrdinalIgnoreCase(request.UserId) &&
 				   r.User.Matches(request, entity.User) &&
-				   r.Title == request.Body.Title &&
-				   r.Content == request.Body.Content &&
+				   r.PostImages.Matches(request, entity.PostImages) &&
+				   r.Title == request.Form.Title &&
+				   r.Content == request.Form.Content &&
 				   r.CreatedAtUtc == entity.CreatedAtUtc &&
 				   r.UpdatedAtUtc == entity.UpdatedAtUtc;
 		}
@@ -54,6 +58,7 @@ public static class PostEquals
 				   r.Id.EqualsOrdinalIgnoreCase(request.Id) &&
 				   r.UserId.EqualsOrdinalIgnoreCase(request.UserId) &&
 				   r.User.Matches(request, entity.User) &&
+				   r.PostImages.Matches(request, entity.PostImages) &&
 				   r.Title == request.Body.Title &&
 				   r.Content == request.Body.Content &&
 				   r.CreatedAtUtc == entity.CreatedAtUtc &&
@@ -66,6 +71,7 @@ public static class PostEquals
 				   r.Id.EqualsOrdinalIgnoreCase(request.Id) &&
 				   r.UserId.EqualsOrdinalIgnoreCase(request.UserId) &&
 				   r.User.Matches(request, entity.User) &&
+				   r.PostImages.Matches(request, entity.PostImages) &&
 				   r.Title == entity.Title &&
 				   r.Content == entity.Content &&
 				   r.CreatedAtUtc == entity.CreatedAtUtc &&
@@ -112,6 +118,66 @@ public static class PostEquals
 				   r.ProfileImageUrl == entity.ProfileImageUrl?.Value &&
 				   r.CreatedAtUtc == entity.CreatedAtUtc &&
 				   r.UpdatedAtUtc == entity.UpdatedAtUtc;
+		}
+	}
+
+	extension(PostImageEventRequest r)
+	{
+		public bool Matches(AddPostApiRequest request, PostImage? entity)
+		{
+			return entity != null &&
+				   r.Id.EqualsOrdinalIgnoreCase(entity.Id.Id.Id) &&
+				   r.ImageId.EqualsOrdinalIgnoreCase(entity.Id.ImageId) &&
+				   request.Form.Images.SingleOrDefault(image => r.Url.EqualsOrdinalIgnoreCase(image.GetUrl())) != null &&
+				   r.CreatedAtUtc == entity.CreatedAtUtc;
+		}
+
+		public bool Matches(UpdatePostApiRequest request, PostImage? entity)
+		{
+			return entity != null &&
+				   r.Id.EqualsOrdinalIgnoreCase(request.Id) &&
+				   r.ImageId.EqualsOrdinalIgnoreCase(entity.Id.ImageId) &&
+				   r.Url.EqualsOrdinalIgnoreCase(entity.Url.Value) &&
+				   r.CreatedAtUtc == entity.CreatedAtUtc;
+		}
+
+		public bool Matches(DeletePostApiRequest request, PostImage? entity)
+		{
+			return entity != null &&
+				   r.Id.EqualsOrdinalIgnoreCase(request.Id) &&
+				   r.ImageId.EqualsOrdinalIgnoreCase(entity.Id.ImageId) &&
+				   r.Url.EqualsOrdinalIgnoreCase(entity.Url.Value) &&
+				   r.CreatedAtUtc == entity.CreatedAtUtc;
+		}
+	}
+
+	extension(ICollection<PostImageEventRequest> r)
+	{
+		public bool Matches(AddPostApiRequest request, ICollection<PostImage> entities)
+		{
+			return r.MatchesCollection(
+				entities,
+				response => new(new(response.Id), response.ImageId),
+				postImage => postImage.Id,
+				(r, postImage) => r.Matches(request, postImage));
+		}
+
+		public bool Matches(UpdatePostApiRequest request, ICollection<PostImage> entities)
+		{
+			return r.MatchesCollection(
+				entities,
+				response => new(new(response.Id), response.ImageId),
+				postImage => postImage.Id,
+				(r, postImage) => r.Matches(request, postImage));
+		}
+
+		public bool Matches(DeletePostApiRequest request, ICollection<PostImage> entities)
+		{
+			return r.MatchesCollection(
+				entities,
+				response => new(new(response.Id), response.ImageId),
+				postImage => postImage.Id,
+				(r, postImage) => r.Matches(request, postImage));
 		}
 	}
 
@@ -162,9 +228,10 @@ public static class PostEquals
 	{
 		public bool Matches(AddPostApiRequest request)
 		{
-			return command.Title == request.Body.Title &&
-				   command.Content == request.Body.Content &&
-				   command.UserId == request.UserId;
+			return command.Title == request.Form.Title &&
+				   command.Content == request.Form.Content &&
+				   command.UserId == request.UserId &&
+				   command.Images == request.Form.Images;
 		}
 	}
 
@@ -280,8 +347,8 @@ public static class PostEquals
 		{
 			return post.Id.Id.IsNotNullOrEmptyOrWhiteSpace() &&
 				   post.UserId.Matches(request.UserId) &&
-				   post.Title == request.Body.Title &&
-				   post.Content == request.Body.Content &&
+				   post.Title == request.Form.Title &&
+				   post.Content == request.Form.Content &&
 				   post.CreatedAtUtc != default &&
 				   post.UpdatedAtUtc != default;
 		}
@@ -306,6 +373,25 @@ public static class PostEquals
 		{
 			return post.UserId.Matches(request.UserId) &&
 				   post.Title.StartsWithOrdinalIgnoreCase(request.Title);
+		}
+	}
+
+	extension(PostImage postImage)
+	{
+		public bool Matches(AddPostApiRequest request)
+		{
+			return postImage.Id.Id.Id.IsNotNullOrEmptyOrWhiteSpace() &&
+				   postImage.Id.ImageId.IsNotNullOrEmptyOrWhiteSpace() &&
+				   postImage.Url.Value.IsNotNullOrEmptyOrWhiteSpace() &&
+				   postImage.CreatedAtUtc != default;
+		}
+	}
+
+	extension(ICollection<PostImage> postImages)
+	{
+		public bool Matches(AddPostApiRequest request)
+		{
+			return postImages.AllAndNotEmpty(postImage => postImage.Matches(request));
 		}
 	}
 
@@ -337,6 +423,7 @@ public static class PostEquals
 				   post.UserId.Matches(response.UserId) &&
 				   post.Title == response.Title &&
 				   post.Content == response.Content &&
+				   response.PostImages.MatchesFull(post.PostImages) &&
 				   response.IsLikedByCurrentUser == post.PostLikes.Any(pl => pl.Id.UserId.Matches(request.CurrentUserId)) &&
 				   post.CreatedAtUtc == response.CreatedAtUtc &&
 				   post.UpdatedAtUtc == response.UpdatedAtUtc &&
@@ -352,6 +439,7 @@ public static class PostEquals
 				   post.UserId.Matches(response.UserId) &&
 				   post.Title == response.Title &&
 				   post.Content == response.Content &&
+				   response.PostImages.MatchesFull(post.PostImages) &&
 				   response.IsLikedByCurrentUser == post.PostLikes.Any(pl => pl.Id.UserId.Matches(request.CurrentUserId)) &&
 				   post.CreatedAtUtc == response.CreatedAtUtc &&
 				   post.UpdatedAtUtc == response.UpdatedAtUtc &&

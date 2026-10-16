@@ -42,7 +42,7 @@ internal class PostLikeQueryRepository : IPostLikeQueryRepository
 		CurrentUserQuery currentUser,
 		CancellationToken cancellationToken)
 	{
-		var include = _includeBuilderFactory.Create().WithUser().WithPostLikes().Build();
+		var include = _includeBuilderFactory.Create().WithUser().WithPostLikes().WithPostImages().Build();
 		var likeInclude = _likeIncludeBuilderFactory.Create().WithPost(include).Build();
 
 		return await _collection
@@ -72,7 +72,7 @@ internal class PostLikeQueryRepository : IPostLikeQueryRepository
 		PostLikesForUserFilterQuery filter,
 		CancellationToken cancellationToken)
 	{
-		var include = _includeBuilderFactory.Create().WithUser().WithPostLikes().Build();
+		var include = _includeBuilderFactory.Create().WithUser().WithPostLikes().WithPostImages().Build();
 		var likeInclude = _likeIncludeBuilderFactory.Create().WithPost(include).Build();
 
 		return await _collection
@@ -87,7 +87,7 @@ internal class PostLikeQueryRepository : IPostLikeQueryRepository
 		CurrentUserQuery currentUser,
 		CancellationToken cancellationToken)
 	{
-		var include = _includeBuilderFactory.Create().WithUser().WithPostLikes().Build();
+		var include = _includeBuilderFactory.Create().WithUser().WithPostLikes().WithPostImages().Build();
 		var likeInclude = _likeIncludeBuilderFactory.Create().WithUser().WithPost(include).Build();
 
 		return await _collection

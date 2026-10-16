@@ -91,6 +91,11 @@ internal class PostCommentLikeFluent : MongoDbFluent<PostCommentLike>, IPostComm
 									p.PostComment.Post.User.ProfileImageUrl,
 									p.PostComment.Post.User.CreatedAtUtc,
 									p.PostComment.Post.User.UpdatedAtUtc),
+							p.PostComment.Post.PostImages.Select(
+								pi => new PostImageResponse(
+									pi.Id,
+									pi.Url,
+									pi.CreatedAtUtc)).ToList(),
 							p.PostComment.Post.PostLikes != null && p.PostComment.Post.PostLikes.Any(
 								pl => pl.Id.UserId.Id.ToLower() == currentUserId),
 							p.PostComment.Post.CreatedAtUtc,
@@ -140,6 +145,11 @@ internal class PostCommentLikeFluent : MongoDbFluent<PostCommentLike>, IPostComm
 									p.PostComment.Post.User.ProfileImageUrl,
 									p.PostComment.Post.User.CreatedAtUtc,
 									p.PostComment.Post.User.UpdatedAtUtc),
+							p.PostComment.Post.PostImages.Select(
+								pi => new PostImageResponse(
+									pi.Id,
+									pi.Url,
+									pi.CreatedAtUtc)).ToList(),
 							p.PostComment.Post.PostLikes != null && p.PostComment.Post.PostLikes.Any(
 								pl => pl.Id.UserId.Id.ToLower() == currentUserId),
 							p.PostComment.Post.CreatedAtUtc,

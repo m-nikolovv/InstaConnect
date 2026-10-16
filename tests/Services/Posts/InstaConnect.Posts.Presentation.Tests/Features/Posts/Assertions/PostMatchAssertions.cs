@@ -155,6 +155,14 @@ public static class PostMatchAssertions
 		}
 	}
 
+	extension(ICollection<PostImage> postImages)
+	{
+		public void ShouldSatisfy(AddPostApiRequest request)
+		{
+			postImages.ShouldSatisfy(p => p.Matches(request));
+		}
+	}
+
 	extension(PostAddedEventRequest r)
 	{
 		public void ShouldSatisfy(AddPostApiRequest request, Post entity)

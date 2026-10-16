@@ -23,9 +23,9 @@ public class UpdatePostCommandServiceUnitTests : BasePostDomainCommandUnitTest
 		_commandBuilder = _commandBuilderFactory.Create(Post);
 		_command = _commandBuilder.Build();
 
-		_include = IncludeBuilderFactory.Create().WithUser().Build();
+		_include = IncludeBuilderFactory.Create().WithUser().WithPostImages().Build();
 
-		_service = new(Factory, Mapper, EventPublisher, Repository, DateTimeProvider, UserRepository, IncludeBuilderFactory);
+		_service = new(Factory, Mapper, ImageHandler, EventPublisher, ImageFactory, Repository, DateTimeProvider, UserRepository, ImageRepository, IncludeBuilderFactory);
 
 		Repository.SetupGetByIdAsync(_command, _include, Post, CancellationToken);
 		DateTimeProvider.SetupGetOffsetUtcNow(_command, Post);

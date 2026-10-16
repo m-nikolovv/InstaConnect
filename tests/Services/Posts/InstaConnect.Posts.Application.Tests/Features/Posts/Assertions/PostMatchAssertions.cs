@@ -81,6 +81,14 @@ public static class PostMatchAssertions
 		}
 	}
 
+	extension(ICollection<PostImage> postImages)
+	{
+		public void ShouldSatisfy(AddPostCommandRequest request)
+		{
+			postImages.ShouldSatisfy(p => p.Matches(request));
+		}
+	}
+
 	extension(PostAddedEventRequest r)
 	{
 		public void ShouldSatisfy(AddPostCommandRequest request, Post entity)

@@ -8,6 +8,7 @@ public record PostResponse(
 	string Title,
 	string Content,
 	UserResponse? User,
+	ICollection<PostImageResponse> PostImages,
 	bool IsLikedByCurrentUser,
 	DateTimeOffset CreatedAtUtc,
 	DateTimeOffset UpdatedAtUtc) : IEntityResponse;

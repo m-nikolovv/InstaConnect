@@ -1,5 +1,6 @@
 using InstaConnect.Common.Domain.Features.Mappers.Abstractions;
 using InstaConnect.Common.Events.Features.Events.Abstractions;
+using InstaConnect.Posts.Domain.Features.PostImages.Extensions;
 
 namespace InstaConnect.Posts.Domain.Features.Posts.Helpers;
 
@@ -52,22 +53,24 @@ internal class PostCommandService : IPostCommandService
 		var newPost = _factory.Create(user.Id, command.Title, command.Content).AddUser(user);
 		await _repository.AddAsync(newPost, cancellationToken);
 
-		await _eventPublisher.PublishAsync(
-			_mapper.Map<PostAddedEventRequest>(newPost), cancellationToken);
-
 		if (command.Images.Any())
 		{
 			var images = await _imageHandler.UploadRangeAsync(command.Images, cancellationToken);
-			var newPostImages = _imageFactory.CreateRange(newPost.Id, images);
+			var newPostImages = _imageFactory.CreateRange(newPost.Id, images).AddPost(newPost);
 			await _imageRepository.AddRangeAsync(newPostImages, cancellationToken);
+
+			newPost.AddPostImage(newPostImages);
 		}
+
+		await _eventPublisher.PublishAsync(
+			_mapper.Map<PostAddedEventRequest>(newPost), cancellationToken);
 
 		return newPost.Id;
 	}
 
 	public async Task<PostId> UpdateAsync(UpdatePostCommand command, CancellationToken cancellationToken)
 	{
-		var include = _includeBuilderFactory.Create().WithUser().Build();
+		var include = _includeBuilderFactory.Create().WithUser().WithPostImages().Build();
 		var post = await _repository.GetByIdAsync(command.Id, include, cancellationToken);
 
 		if (post == null)
@@ -91,7 +94,7 @@ internal class PostCommandService : IPostCommandService
 
 	public async Task DeleteAsync(DeletePostCommand command, CancellationToken cancellationToken)
 	{
-		var include = _includeBuilderFactory.Create().WithUser().Build();
+		var include = _includeBuilderFactory.Create().WithUser().WithPostImages().Build();
 		var post = await _repository.GetByIdAsync(command.Id, include, cancellationToken);
 
 		if (post == null)

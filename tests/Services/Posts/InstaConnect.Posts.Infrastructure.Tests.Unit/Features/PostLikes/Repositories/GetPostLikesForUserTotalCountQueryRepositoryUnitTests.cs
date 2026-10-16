@@ -23,7 +23,7 @@ public class GetPostLikesForUserTotalCountQueryRepositoryUnitTests : BasePostLik
 		_filterQueryBuilder = _filterQueryBuilderFactory.Create(PostLike);
 		_filterQuery = _filterQueryBuilder.Build();
 
-		_include = LikeIncludeBuilderFactory.Create().WithPost(IncludeBuilderFactory.Create().WithUser().WithPostLikes().Build()).Build();
+		_include = LikeIncludeBuilderFactory.Create().WithPost(IncludeBuilderFactory.Create().WithUser().WithPostLikes().WithPostImages().Build()).Build();
 
 		_repository = new(Collection, IncludeBuilderFactory, LikeIncludeBuilderFactory);
 

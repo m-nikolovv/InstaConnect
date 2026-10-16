@@ -56,4 +56,9 @@
     <Using Include="InstaConnect.Posts.Presentation.Features.PostCommentLikes.Models.Responses" />
   </ItemGroup>
 
+  <ItemGroup Label="PostImages">
+    <Using Include="InstaConnect.Posts.Application.Features.PostImages.Models" />
+    <Using Include="InstaConnect.Posts.Presentation.Features.PostImages.Models.Responses" />
+  </ItemGroup>
+
 </Project>

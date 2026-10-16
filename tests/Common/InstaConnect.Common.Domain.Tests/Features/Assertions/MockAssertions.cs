@@ -67,17 +67,10 @@ public static class MockAssertions
 		}
 
 		public async Task ShouldHaveReceivedOneUploadRangeAsync(
-			IEnumerable<IFormFile> formFiles,
+			ICollection<IFormFile> formFiles,
 			CancellationToken cancellationToken)
 		{
 			await imageHandler.ShouldHaveReceivedOne().UploadRangeAsync(formFiles, cancellationToken);
-		}
-
-		public async Task ShouldHaveReceivedZeroUploadRangeAsync(
-			IEnumerable<IFormFile> formFiles,
-			CancellationToken cancellationToken)
-		{
-			await imageHandler.ShouldHaveReceivedZero().UploadRangeAsync(formFiles, cancellationToken);
 		}
 
 		public async Task ShouldHaveReceivedZeroUploadAsync(
@@ -85,6 +78,13 @@ public static class MockAssertions
 			CancellationToken cancellationToken)
 		{
 			await imageHandler.ShouldHaveReceivedZero().UploadAsync(formFile, cancellationToken);
+		}
+
+		public async Task ShouldHaveReceivedZeroUploadRangeAsync(
+			ICollection<IFormFile> formFiles,
+			CancellationToken cancellationToken)
+		{
+			await imageHandler.ShouldHaveReceivedZero().UploadRangeAsync(formFiles, cancellationToken);
 		}
 	}
 }

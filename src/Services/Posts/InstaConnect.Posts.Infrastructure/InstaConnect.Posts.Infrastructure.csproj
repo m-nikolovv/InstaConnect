@@ -60,6 +60,7 @@
     <Using Include="InstaConnect.Posts.Domain.Features.PostImages.Abstractions" />
     <Using Include="InstaConnect.Posts.Domain.Features.PostImages.Models.Entities" />
     <Using Include="InstaConnect.Posts.Domain.Features.PostImages.Models.ValueObjects" />
+    <Using Include="InstaConnect.Posts.Domain.Features.PostImages.Models.Responses" />
     <Using Include="InstaConnect.Posts.Infrastructure.Features.PostImages.Abstractions" />
   </ItemGroup>
 

@@ -73,6 +73,7 @@ internal class PostApplicationMappings : IRegister
 					src.Title,
 					src.Content,
 					src.User.Adapt<UserQueryResponse>(config),
+					src.PostImages.Adapt<ICollection<PostImageQueryResponse>>(config),
 					src.IsLikedByCurrentUser,
 					src.CreatedAtUtc,
 					src.UpdatedAtUtc));

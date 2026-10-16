@@ -66,6 +66,11 @@ internal class PostFluent : MongoDbFluent<Post>, IPostFluent
 					 p.User.ProfileImageUrl,
 					 p.User.CreatedAtUtc,
 					 p.User.UpdatedAtUtc),
+				 p.PostImages.Select(
+					 pi => new PostImageResponse(
+						 pi.Id,
+						 pi.Url,
+						 pi.CreatedAtUtc)).ToList(),
 				 p.PostLikes.Any(
 					 pl => pl.Id.UserId.Id.ToLower() == currentUserId),
 				 p.CreatedAtUtc,
@@ -85,6 +90,11 @@ internal class PostFluent : MongoDbFluent<Post>, IPostFluent
 				 p.Title,
 				 p.Content,
 				 null,
+				 p.PostImages.Select(
+					 pi => new PostImageResponse(
+						 pi.Id,
+						 pi.Url,
+						 pi.CreatedAtUtc)).ToList(),
 				 p.PostLikes.Any(
 					 pl => pl.Id.UserId.Id.ToLower() == currentUserId),
 				 p.CreatedAtUtc,

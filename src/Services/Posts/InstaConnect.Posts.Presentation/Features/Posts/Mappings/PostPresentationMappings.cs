@@ -49,7 +49,7 @@ internal class PostPresentationMappings : IRegister
 				src.UserId,
 				src.Form.Title,
 				src.Form.Content,
-				src.Form.Images ?? new List<IFormFile>()));
+				src.Form.Images));
 
 		config.NewConfig<AddPostCommandResponse, AddPostApiResponse>()
 			.ConstructUsing(src => new(src.Response.Adapt<PostIdApiResponse>(config)));
@@ -74,6 +74,7 @@ internal class PostPresentationMappings : IRegister
 					src.Title,
 					src.Content,
 					src.User.Adapt<UserApiResponse>(config),
+					src.PostImages.Adapt<ICollection<PostImageApiResponse>>(config),
 					src.IsLikedByCurrentUser,
 					src.CreatedAtUtc,
 					src.UpdatedAtUtc));

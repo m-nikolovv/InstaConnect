@@ -16,6 +16,7 @@ public abstract class BasePostPresentationQueryIntegrationTest : BasePostWebTest
 	{
 		await ServiceScope.AddRangeAsync(Users, CancellationToken);
 		await ServiceScope.AddRangeAsync(PostLikes, CancellationToken);
+		await ServiceScope.AddRangeAsync(PostImages, CancellationToken);
 		await OnInitializeAsync();
 	}
 }

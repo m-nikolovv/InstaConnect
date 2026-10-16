@@ -1,5 +1,6 @@
 using InstaConnect.Common.Infrastructure.Features.Databases.Abstractions;
 using InstaConnect.Common.Infrastructure.Features.Databases.Helpers;
+using InstaConnect.Posts.Infrastructure.Features.PostImages.Extensions;
 
 using MongoDB.Driver;
 
@@ -22,5 +23,19 @@ internal class PostImageCollection : MongoDbCollection<PostImage>, IPostImageCol
 		var fluent = AggregateWithIgnoreCaseCollation();
 
 		return _fluentFactory.Create(fluent);
+	}
+
+	public async Task DeleteAsync(
+		PostImage entity,
+		CancellationToken cancellationToken)
+	{
+		await DeleteAsync(entity.Id.GetFilter(), cancellationToken);
+	}
+
+	public async Task DeleteRangeAsync(
+		IEnumerable<PostImage> entities,
+		CancellationToken cancellationToken)
+	{
+		await DeleteRangeAsync(entities.Select(p => p.Id).GetFilter(), cancellationToken);
 	}
 }

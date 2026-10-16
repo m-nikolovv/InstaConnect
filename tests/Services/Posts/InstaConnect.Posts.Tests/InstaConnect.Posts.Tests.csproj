@@ -28,6 +28,8 @@
     <Using Include="InstaConnect.Common.Tests.Features.DataAttributes.Enums.Base" />
     <Using Include="InstaConnect.Common.Tests.Features.DataAttributes.Enums.Empty" />
     <Using Include="InstaConnect.Common.Tests.Features.DataAttributes.Enums.Sort" />
+	<Using Include="InstaConnect.Common.Tests.Features.DataAttributes.FormFileCollections.Base" />
+	<Using Include="InstaConnect.Common.Tests.Features.DataAttributes.FormFileCollections.Empty" />
   </ItemGroup>
 
   <ItemGroup Label="Users">
@@ -56,6 +58,11 @@
     <Using Include="InstaConnect.Posts.Domain.Features.PostComments.Models.Entities" />
     <Using Include="InstaConnect.Posts.Domain.Features.PostComments.Models.Requests" />
     <Using Include="InstaConnect.Posts.Tests.Features.PostComments.Builders" />
+  </ItemGroup>
+
+  <ItemGroup Label="PostImages">
+    <Using Include="InstaConnect.Posts.Domain.Features.PostImages.Utilities" />
+    <Using Include="InstaConnect.Posts.Domain.Features.PostImages.Models.Entities" />
   </ItemGroup>
 
   <ItemGroup Label="PostCommentLikes">

@@ -5,7 +5,9 @@ using InstaConnect.Posts.Domain.Features.Posts.Models.Requests;
 using InstaConnect.Posts.Domain.Features.Posts.Models.Responses;
 using InstaConnect.Posts.Domain.Features.Posts.Models.ValueObjects;
 using InstaConnect.Posts.Domain.Features.Users.Models.Requests;
+using InstaConnect.Posts.Infrastructure.Tests.Features.PostImages.Utilities;
 using InstaConnect.Posts.Infrastructure.Tests.Features.Users.Utilities;
+using InstaConnect.Posts.Tests.Features.PostImages.Utilities;
 using InstaConnect.Posts.Tests.Features.Posts.Utilities;
 
 namespace InstaConnect.Posts.Infrastructure.Tests.Features.Posts.Utilities;
@@ -55,6 +57,7 @@ public static class PostEquals
 				   post.UserId.Matches(response.UserId) &&
 				   post.Title == response.Title &&
 				   post.Content == response.Content &&
+				   response.PostImages.MatchesFull(post.PostImages) &&
 				   response.IsLikedByCurrentUser == post.PostLikes.Any(pl => pl.Id.UserId.Matches(currentUserQuery.Id)) &&
 				   post.CreatedAtUtc == response.CreatedAtUtc &&
 				   post.UpdatedAtUtc == response.UpdatedAtUtc &&
@@ -71,6 +74,7 @@ public static class PostEquals
 				   post.UserId.Matches(response.UserId) &&
 				   post.Title == response.Title &&
 				   post.Content == response.Content &&
+				   response.PostImages.MatchesFull(post.PostImages) &&
 				   response.IsLikedByCurrentUser == post.PostLikes.Any(pl => pl.Id.UserId.Matches(currentUserQuery.Id)) &&
 				   post.CreatedAtUtc == response.CreatedAtUtc &&
 				   post.UpdatedAtUtc == response.UpdatedAtUtc &&

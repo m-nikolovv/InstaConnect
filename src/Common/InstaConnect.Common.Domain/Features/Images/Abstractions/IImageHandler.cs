@@ -8,5 +8,5 @@ public interface IImageHandler
 {
 	public Task<Url> UploadAsync(IFormFile formFile, CancellationToken cancellationToken);
 
-	public Task<ICollection<Url>> UploadRangeAsync(IEnumerable<IFormFile> formFiles, CancellationToken cancellationToken);
+	public Task<ICollection<Url>> UploadRangeAsync(ICollection<IFormFile> formFiles, CancellationToken cancellationToken);
 }

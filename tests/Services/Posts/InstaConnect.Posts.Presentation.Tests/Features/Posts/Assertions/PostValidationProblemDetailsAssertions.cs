@@ -44,7 +44,7 @@ public static class PostValidationProblemDetailsAssertions
 		{
 			problemDetails.ShouldSatisfyInvalidValidation(
 				request,
-				p => p.Body.Content,
+				p => p.Form.Content,
 				messageTransformer);
 		}
 
@@ -64,7 +64,7 @@ public static class PostValidationProblemDetailsAssertions
 		{
 			problemDetails.ShouldSatisfyInvalidValidation(
 				request,
-				p => p.Body.Title,
+				p => p.Form.Title,
 				messageTransformer);
 		}
 

@@ -1,3 +1,6 @@
+using InstaConnect.Common.Tests.Features.DataAttributes.FormFileCollections.Base;
+using InstaConnect.Posts.Tests.Features.Posts.DataAttributes.Images;
+
 namespace InstaConnect.Posts.Application.Tests.Unit.Features.Posts.Handlers.Add;
 
 public class AddPostCommandRequestValidatorUnitTests : BasePostApplicationCommandUnitTest
@@ -11,7 +14,7 @@ public class AddPostCommandRequestValidatorUnitTests : BasePostApplicationComman
 	public AddPostCommandRequestValidatorUnitTests()
 	{
 		_requestBuilderFactory = new();
-		_requestBuilder = _requestBuilderFactory.Create(User);
+		_requestBuilder = _requestBuilderFactory.Create(User, NumberOfImages);
 		_request = _requestBuilder.Build();
 
 		_requestValidator = new();
@@ -76,6 +79,21 @@ public class AddPostCommandRequestValidatorUnitTests : BasePostApplicationComman
 	{
 		// Act
 		var response = _requestValidator.TestValidate(_request);
+
+		// Assert
+		response.ShouldNotHaveAnyValidationErrorProperties();
+	}
+
+	[Theory]
+	[PostImagesEmptyData]
+	public void TestValidate_ShouldNotHaveAnyValidationsErrors_WhenRequestAndImagesAreValid(
+		IFormFileCollectionTransformer transformer)
+	{
+		// Arrange
+		var request = _requestBuilder.WithImages(transformer).Build();
+
+		// Act
+		var response = _requestValidator.TestValidate(request);
 
 		// Assert
 		response.ShouldNotHaveAnyValidationErrorProperties();

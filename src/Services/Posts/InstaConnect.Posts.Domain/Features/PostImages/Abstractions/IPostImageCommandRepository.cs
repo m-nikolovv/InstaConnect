@@ -6,5 +6,15 @@ public interface IPostImageCommandRepository
 		PostImageId id,
 		CancellationToken cancellationToken);
 
+	public Task<ICollection<PostImage>> GetByIdRangeAsync(
+		IEnumerable<PostImageId> ids,
+		CancellationToken cancellationToken);
+
+	public Task AddAsync(PostImage entity, CancellationToken cancellationToken);
+
 	public Task AddRangeAsync(IEnumerable<PostImage> entities, CancellationToken cancellationToken);
+
+	public Task DeleteAsync(PostImage entity, CancellationToken cancellationToken);
+
+	public Task DeleteRangeAsync(IEnumerable<PostImage> entities, CancellationToken cancellationToken);
 }

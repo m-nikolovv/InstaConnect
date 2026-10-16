@@ -25,11 +25,16 @@ public class PostsWebApplicationFactory : WebApplicationFactory<Program>, IAsync
 
 	protected override void ConfigureWebHost(IWebHostBuilder builder)
 	{
-		builder.ConfigureTestServices(serviceCollection => serviceCollection.AddTestEventClient(_rabbitMqContainer.GetConnectionString(), PostsInfrastructureReference.Assembly));
+		builder.ConfigureTestServices(serviceCollection =>
+		{
+			serviceCollection.AddMockImageHandler();
+			serviceCollection.AddTestEventClient(_rabbitMqContainer.GetConnectionString(), PostsInfrastructureReference.Assembly);
+		});
 
 		builder.UpdateMongoConfiguration(_mongoDbContainer.GetConnectionString());
 		builder.UpdateRabbitMqConfiguration(_rabbitMqContainer.GetConnectionString());
 		builder.UpdateAccessTokenConfiguration();
+		builder.UpdateCloudinaryConfiguration();
 		builder.UpdateOpenTelemetryConfiguration();
 		builder.UpdateCorsConfiguration();
 		builder.UpdateMainConfiguration();

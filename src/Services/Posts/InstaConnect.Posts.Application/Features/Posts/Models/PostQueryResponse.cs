@@ -6,6 +6,7 @@ public record PostQueryResponse(
 	string Title,
 	string Content,
 	UserQueryResponse? User,
+	ICollection<PostImageQueryResponse> PostImages,
 	bool IsLikedByCurrentUser,
 	DateTimeOffset CreatedAtUtc,
 	DateTimeOffset UpdatedAtUtc);

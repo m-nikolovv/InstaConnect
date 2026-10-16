@@ -11,7 +11,7 @@ public class AddPostCommandHandlerUnitTests : BasePostApplicationCommandUnitTest
 	public AddPostCommandHandlerUnitTests()
 	{
 		_requestBuilderFactory = new();
-		_requestBuilder = _requestBuilderFactory.Create(User);
+		_requestBuilder = _requestBuilderFactory.Create(User, NumberOfImages);
 		_request = _requestBuilder.Build();
 
 		_handler = new(Mapper, Service);

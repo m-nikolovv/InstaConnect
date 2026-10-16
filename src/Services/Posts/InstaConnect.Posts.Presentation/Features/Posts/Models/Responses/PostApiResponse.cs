@@ -6,6 +6,7 @@ public record PostApiResponse(
 	string Title,
 	string Content,
 	UserApiResponse? User,
+	ICollection<PostImageApiResponse> PostImages,
 	bool IsLikedByCurrentUser,
 	DateTimeOffset CreatedAtUtc,
 	DateTimeOffset UpdatedAtUtc);

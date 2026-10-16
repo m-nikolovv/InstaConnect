@@ -49,7 +49,7 @@ public class GetAllPostsQueryRepositoryUnitTests : BasePostInfrastructureQueryUn
 		_currentUserQueryBuilder = _currentUserQueryBuilderFactory.Create(User);
 		_currentUserQuery = _currentUserQueryBuilder.Build();
 
-		_include = IncludeBuilderFactory.Create().WithUser().WithPostLikes().Build();
+		_include = IncludeBuilderFactory.Create().WithUser().WithPostLikes().WithPostImages().Build();
 
 		_repository = new(Collection, IncludeBuilderFactory);
 

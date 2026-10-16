@@ -17,4 +17,11 @@ internal class PostImageFluent : MongoDbFluent<PostImage>, IPostImageFluent
 
 		return this;
 	}
+
+	public IPostImageFluent Match(IEnumerable<PostImageId> filter)
+	{
+		Match(filter.GetFilter());
+
+		return this;
+	}
 }

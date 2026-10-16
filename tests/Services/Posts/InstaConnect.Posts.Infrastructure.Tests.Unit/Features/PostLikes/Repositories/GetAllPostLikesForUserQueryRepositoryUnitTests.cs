@@ -49,7 +49,7 @@ public class GetAllPostLikesForUserQueryRepositoryUnitTests : BasePostLikeInfras
 		_currentUserQueryBuilder = _currentUserQueryBuilderFactory.Create(User);
 		_currentUserQuery = _currentUserQueryBuilder.Build();
 
-		_include = LikeIncludeBuilderFactory.Create().WithPost(IncludeBuilderFactory.Create().WithUser().WithPostLikes().Build()).Build();
+		_include = LikeIncludeBuilderFactory.Create().WithPost(IncludeBuilderFactory.Create().WithUser().WithPostLikes().WithPostImages().Build()).Build();
 
 		_repository = new(Collection, IncludeBuilderFactory, LikeIncludeBuilderFactory);
 

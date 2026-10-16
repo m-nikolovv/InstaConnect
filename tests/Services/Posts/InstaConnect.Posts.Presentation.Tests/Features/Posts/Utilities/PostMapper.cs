@@ -1,5 +1,6 @@
 using InstaConnect.Common.Presentation.Features.Requests.Abstractions;
 using InstaConnect.Posts.Presentation.Features.Users.Abstractions;
+using InstaConnect.Posts.Presentation.Tests.Features.PostImages.Utilities;
 using InstaConnect.Posts.Presentation.Tests.Features.Posts.Utilities;
 using InstaConnect.Posts.Presentation.Tests.Features.Users.Utilities;
 
@@ -24,6 +25,7 @@ public static class PostMapper
 					   post.Title,
 					   post.Content,
 					   post.User?.ToFullQueryResponse(),
+					   post.PostImages.ToFullQueryResponse(),
 					   post.PostLikes.Any(pl => pl.Id.UserId.Matches(request.CurrentUserId)),
 					   post.CreatedAtUtc,
 					   post.UpdatedAtUtc);
@@ -38,6 +40,7 @@ public static class PostMapper
 					   post.Title,
 					   post.Content,
 					   null,
+					   post.PostImages.ToFullQueryResponse(),
 					   post.PostLikes.Any(pl => pl.Id.UserId.Matches(request.CurrentUserId)),
 					   post.CreatedAtUtc,
 					   post.UpdatedAtUtc);
