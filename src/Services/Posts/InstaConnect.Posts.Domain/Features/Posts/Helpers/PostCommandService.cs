@@ -59,7 +59,7 @@ internal class PostCommandService : IPostCommandService
 			var newPostImages = _imageFactory.CreateRange(newPost.Id, images).AddPost(newPost);
 			await _imageRepository.AddRangeAsync(newPostImages, cancellationToken);
 
-			newPost.AddPostImage(newPostImages);
+			newPost.AddPostImages(newPostImages);
 		}
 
 		await _eventPublisher.PublishAsync(

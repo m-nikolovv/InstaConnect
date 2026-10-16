@@ -45,8 +45,8 @@ public static class MockFactory
 			.ReturnsTaskResponse<Url, IFormFile>(formFile => new(formFile.GetUrl()));
 
 		imageHandler
-			.UploadRangeAsync(Matcher.Any<IEnumerable<IFormFile>>(), Matcher.Any<CancellationToken>())
-			.ReturnsTaskResponse<ICollection<Url>, IEnumerable<IFormFile>>(formFiles => [.. formFiles.Select(formFile => new Url(formFile.GetUrl()))]);
+			.UploadRangeAsync(Matcher.Any<ICollection<IFormFile>>(), Matcher.Any<CancellationToken>())
+			.ReturnsTaskResponse<ICollection<Url>, ICollection<IFormFile>>(formFiles => [.. formFiles.Select(formFile => new Url(formFile.GetUrl()))]);
 
 		return imageHandler;
 	}

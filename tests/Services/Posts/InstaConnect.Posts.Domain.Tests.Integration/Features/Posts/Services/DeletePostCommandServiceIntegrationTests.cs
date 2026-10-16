@@ -3,6 +3,7 @@ using InstaConnect.Posts.Domain.Features.Posts.Models.Requests;
 using InstaConnect.Posts.Domain.Tests.Features.Posts.Assertions;
 using InstaConnect.Posts.Domain.Tests.Features.Posts.Builders;
 using InstaConnect.Posts.Domain.Tests.Integration.Features.Posts.Utilities;
+using InstaConnect.Posts.Tests.Features.PostImages.Utilities;
 using InstaConnect.Posts.Tests.Features.Posts.Assertions;
 using InstaConnect.Posts.Tests.Features.Posts.DataAttributes.Id;
 using InstaConnect.Posts.Tests.Features.Posts.Utilities;
@@ -28,6 +29,7 @@ public class DeletePostCommandServiceIntegrationTests : BasePostDomainCommandInt
 	protected override async Task OnInitializeAsync()
 	{
 		await ServiceScope.AddAsync(Post, CancellationToken);
+		await ServiceScope.AddRangeAsync(PostImages, CancellationToken);
 	}
 
 	[Fact]

@@ -348,7 +348,7 @@ public static class PostMockSetups
 
 		public void SetupCreateRange(
 			PostId id,
-			IEnumerable<Url> urls,
+			ICollection<Url> urls,
 			ICollection<PostImage> postImages)
 		{
 			factory

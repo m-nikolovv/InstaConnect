@@ -17,6 +17,7 @@ public class DeletePostControllerIntegrationTests : BasePostPresentationCommandI
 	protected override async Task OnInitializeAsync()
 	{
 		await ServiceScope.AddAsync(Post, CancellationToken);
+		await ServiceScope.AddRangeAsync(PostImages, CancellationToken);
 	}
 
 	[Theory]

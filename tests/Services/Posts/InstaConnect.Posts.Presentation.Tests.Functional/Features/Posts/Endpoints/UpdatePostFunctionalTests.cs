@@ -1,3 +1,5 @@
+using InstaConnect.Posts.Tests.Features.PostImages.Utilities;
+
 namespace InstaConnect.Posts.Presentation.Tests.Functional.Features.Posts.Endpoints;
 
 public class UpdatePostFunctionalTests : BasePostPresentationCommandFunctionalTest
@@ -17,6 +19,7 @@ public class UpdatePostFunctionalTests : BasePostPresentationCommandFunctionalTe
 	protected override async Task OnInitializeAsync()
 	{
 		await ServiceScope.AddAsync(Post, CancellationToken);
+		await ServiceScope.AddRangeAsync(PostImages, CancellationToken);
 	}
 
 	[Fact]

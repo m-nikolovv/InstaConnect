@@ -1,3 +1,5 @@
+using InstaConnect.Posts.Tests.Features.PostImages.Utilities;
+
 namespace InstaConnect.Posts.Application.Tests.Integration.Features.Posts.Handlers;
 
 public class UpdatePostCommandHandlerIntegrationTests : BasePostApplicationCommandIntegrationTest
@@ -17,6 +19,7 @@ public class UpdatePostCommandHandlerIntegrationTests : BasePostApplicationComma
 	protected override async Task OnInitializeAsync()
 	{
 		await ServiceScope.AddAsync(Post, CancellationToken);
+		await ServiceScope.AddRangeAsync(PostImages, CancellationToken);
 	}
 
 	[Theory]

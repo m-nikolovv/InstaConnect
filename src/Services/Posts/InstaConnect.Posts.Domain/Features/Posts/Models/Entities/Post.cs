@@ -92,7 +92,7 @@ public class Post : IEntityWithId<PostId>
 		return this;
 	}
 
-	public Post AddPostImage(ICollection<PostImage> postImages)
+	public Post AddPostImages(ICollection<PostImage> postImages)
 	{
 		PostImages.AddRange(postImages);
 
