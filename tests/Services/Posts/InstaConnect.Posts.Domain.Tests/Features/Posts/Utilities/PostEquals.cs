@@ -115,8 +115,7 @@ public static class PostEquals
 	{
 		public bool Matches(AddPostCommand command)
 		{
-			return p.Count == command.Images.Count &&
-				   p.AllAndNotEmpty(pi => pi.Matches(command));
+			return p.AllAndNotEmpty(pi => pi.Matches(command));
 		}
 	}
 
@@ -220,11 +219,12 @@ public static class PostEquals
 	{
 		public bool Matches(AddPostCommand command, ICollection<PostImage> entities)
 		{
-			return r.MatchesCollection(
-				entities,
-				response => new(new(response.Id), response.ImageId),
-				postImage => postImage.Id,
-				(r, postImage) => r.Matches(command, postImage));
+			return command.Images.IsEmpty() ||
+				   r.MatchesCollection(
+				       entities,
+				       response => new(new(response.Id), response.ImageId),
+				       postImage => postImage.Id,
+				       (r, postImage) => r.Matches(command, postImage));
 		}
 
 		public bool Matches(UpdatePostCommand command, ICollection<PostImage> entities)

@@ -20,7 +20,7 @@ public class AddPostCommandServiceUnitTests : BasePostDomainCommandUnitTest
 	public AddPostCommandServiceUnitTests()
 	{
 		_commandBuilderFactory = new();
-		_commandBuilder = _commandBuilderFactory.Create(User, NumberOfImages);
+		_commandBuilder = _commandBuilderFactory.Create(User, Post.PostImages.Count);
 		_command = _commandBuilder.Build();
 
 		_service = new(Factory, Mapper, ImageHandler, EventPublisher, ImageFactory, Repository, DateTimeProvider, UserRepository, ImageRepository, IncludeBuilderFactory);

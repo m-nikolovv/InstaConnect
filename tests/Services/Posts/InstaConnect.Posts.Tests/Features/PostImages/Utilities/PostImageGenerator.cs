@@ -4,7 +4,7 @@ public static class PostImageGenerator
 {
 	extension(PostImage basePostImage)
 	{
-		public ICollection<PostImage> Generate(IEnumerable<Post> posts, int numberOfIterations)
+		public ICollection<PostImage> Generate(IEnumerable<Post> posts, int numberOfIterations = 5)
 		{
 			return [basePostImage, .. posts
 				.SelectMany(post =>

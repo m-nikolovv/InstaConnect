@@ -15,8 +15,6 @@ namespace InstaConnect.Posts.Tests.Features.PostCommentLikes.Utilities;
 
 public abstract class BasePostCommentLikeTest : BaseTest
 {
-	protected const int NumberOfImages = 5;
-
 	protected UserBuilderFactory UserBuilderFactory { get; }
 	protected UserBuilder UserBuilder { get; }
 	protected User User { get; }
@@ -139,7 +137,7 @@ public abstract class BasePostCommentLikeTest : BaseTest
 		PostImageBuilderFactory = new();
 		PostImageBuilder = PostImageBuilderFactory.Create(Post);
 		PostImage = PostImageBuilder.Build();
-		PostImages = PostImage.Generate(Posts, NumberOfImages);
+		PostImages = PostImage.Generate(Posts);
 
 		PostImageIdBuilderFactory = new();
 		PostImageIdBuilder = PostImageIdBuilderFactory.Create(PostImage.Id);

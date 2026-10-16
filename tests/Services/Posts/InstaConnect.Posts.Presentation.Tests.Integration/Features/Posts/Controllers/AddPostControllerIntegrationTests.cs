@@ -13,7 +13,7 @@ public class AddPostControllerIntegrationTests : BasePostPresentationCommandInte
 		: base(webApplicationFactory)
 	{
 		_requestBuilderFactory = new();
-		_requestBuilder = _requestBuilderFactory.Create(User, NumberOfImages);
+		_requestBuilder = _requestBuilderFactory.Create(User, Post.PostImages.Count);
 		_request = _requestBuilder.Build();
 	}
 

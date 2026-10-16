@@ -160,11 +160,12 @@ public static class PostEquals
 	{
 		public bool Matches(AddPostCommandRequest request, ICollection<PostImage> entities)
 		{
-			return r.MatchesCollection(
-				entities,
-				response => new(new(response.Id), response.ImageId),
-				postImage => postImage.Id,
-				(r, postImage) => r.Matches(request, postImage));
+			return request.Images.IsEmpty() ||
+				   r.MatchesCollection(
+				       entities,
+				       response => new(new(response.Id), response.ImageId),
+				       postImage => postImage.Id,
+				       (r, postImage) => r.Matches(request, postImage));
 		}
 
 		public bool Matches(UpdatePostCommandRequest request, ICollection<PostImage> entities)

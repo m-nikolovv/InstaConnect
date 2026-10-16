@@ -22,7 +22,7 @@ public class AddPostCommandServiceIntegrationTests : BasePostDomainCommandIntegr
 		: base(webApplicationFactory)
 	{
 		_commandBuilderFactory = new();
-		_commandBuilder = _commandBuilderFactory.Create(User, NumberOfImages);
+		_commandBuilder = _commandBuilderFactory.Create(User, Post.PostImages.Count);
 		_command = _commandBuilder.Build();
 	}
 

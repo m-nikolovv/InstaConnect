@@ -155,11 +155,12 @@ public static class PostEquals
 	{
 		public bool Matches(AddPostApiRequest request, ICollection<PostImage> entities)
 		{
-			return r.MatchesCollection(
-				entities,
-				response => new(new(response.Id), response.ImageId),
-				postImage => postImage.Id,
-				(r, postImage) => r.Matches(request, postImage));
+			return request.Form.Images.IsEmpty() ||
+				   r.MatchesCollection(
+				       entities,
+				       response => new(new(response.Id), response.ImageId),
+				       postImage => postImage.Id,
+				       (r, postImage) => r.Matches(request, postImage));
 		}
 
 		public bool Matches(UpdatePostApiRequest request, ICollection<PostImage> entities)
