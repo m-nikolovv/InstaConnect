@@ -5,8 +5,10 @@ public record PostCommentApiResponse(
 	string CommentId,
 	string UserId,
 	string Content,
+	string Summary,
 	UserApiResponse? User,
 	PostApiResponse? Post,
+	ICollection<PostCommentImageApiResponse> PostCommentImages,
 	bool IsLikedByCurrentUser,
 	DateTimeOffset CreatedAtUtc,
 	DateTimeOffset UpdatedAtUtc);

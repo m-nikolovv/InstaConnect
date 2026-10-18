@@ -16,7 +16,7 @@ public class GetPostCommentByIdCommandRepositoryIntegrationTests : BasePostComme
 	public GetPostCommentByIdCommandRepositoryIntegrationTests(PostsWebApplicationFactory webApplicationFactory)
 		: base(webApplicationFactory)
 	{
-		_include = IncludeBuilderFactory.Create().WithUser().WithPost().Build();
+		_include = IncludeBuilderFactory.Create().WithUser().WithPost().WithPostCommentImages().Build();
 	}
 
 	protected override async Task OnInitializeAsync()

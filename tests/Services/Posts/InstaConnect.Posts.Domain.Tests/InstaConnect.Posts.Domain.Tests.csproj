@@ -74,6 +74,14 @@
     <Using Include="InstaConnect.Posts.Domain.Tests.Features.PostImages.Utilities" />
   </ItemGroup>
 
+  <ItemGroup Label="PostCommentImages">
+    <Using Include="InstaConnect.Posts.Domain.Features.PostCommentImages.Abstractions" />
+    <Using Include="InstaConnect.Posts.Domain.Features.PostCommentImages.Models.Entities" />
+    <Using Include="InstaConnect.Posts.Domain.Features.PostCommentImages.Models.ValueObjects" />
+    <Using Include="InstaConnect.Posts.Domain.Features.PostCommentImages.Utilities" />
+    <Using Include="InstaConnect.Posts.Domain.Tests.Features.PostCommentImages.Utilities" />
+  </ItemGroup>
+
   <ItemGroup Label="PostCommentLikes">
     <Using Include="InstaConnect.Posts.Domain.Features.PostCommentLikes.Abstractions" />
     <Using Include="InstaConnect.Posts.Domain.Features.PostCommentLikes.Models.Entities" />

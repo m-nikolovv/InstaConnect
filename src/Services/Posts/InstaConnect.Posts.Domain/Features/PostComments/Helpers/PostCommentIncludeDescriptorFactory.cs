@@ -18,4 +18,9 @@ public class PostCommentIncludeDescriptorFactory : IPostCommentIncludeDescriptor
 	{
 		return new(PostsDestinationType.PostComment, PostsIncludeType.PostCommentLike);
 	}
+
+	public PostsIncludeDescriptor CreatePostCommentImages()
+	{
+		return new(PostsDestinationType.PostComment, PostsIncludeType.PostCommentImage);
+	}
 }

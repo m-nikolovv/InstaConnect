@@ -1,5 +1,6 @@
 using InstaConnect.Common.Tests.Features.Extensions;
 using InstaConnect.Posts.Infrastructure.Features.Common.Extensions;
+using InstaConnect.Posts.Tests.Features.PostComments.Extensions;
 using InstaConnect.Posts.Tests.Features.Posts.Extensions;
 
 using Microsoft.AspNetCore.Hosting;
@@ -30,6 +31,7 @@ public class PostsWebApplicationFactory : WebApplicationFactory<Program>, IAsync
 		{
 			serviceCollection.AddMockImageHandler();
 			serviceCollection.AddPostMockSummarizer();
+			serviceCollection.AddPostCommentMockSummarizer();
 			serviceCollection.AddTestEventClient(_rabbitMqContainer.GetConnectionString(), PostsInfrastructureReference.Assembly);
 		});
 

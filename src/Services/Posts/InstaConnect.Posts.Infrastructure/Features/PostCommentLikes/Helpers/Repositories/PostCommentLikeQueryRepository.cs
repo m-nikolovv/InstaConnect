@@ -46,7 +46,7 @@ internal class PostCommentLikeQueryRepository : IPostCommentLikeQueryRepository
 		CancellationToken cancellationToken)
 	{
 		var include = _includeBuilderFactory.Create().WithUser().WithPostLikes().WithPostImages().Build();
-		var commentInclude = _commentIncludeBuilderFactory.Create().WithUser().WithPost(include).WithPostCommentLikes().Build();
+		var commentInclude = _commentIncludeBuilderFactory.Create().WithUser().WithPost(include).WithPostCommentLikes().WithPostCommentImages().Build();
 		var commentLikeInclude = _commentLikeIncludeBuilderFactory.Create().WithPostComment(commentInclude).Build();
 
 		return await _collection
@@ -77,7 +77,7 @@ internal class PostCommentLikeQueryRepository : IPostCommentLikeQueryRepository
 		CancellationToken cancellationToken)
 	{
 		var include = _includeBuilderFactory.Create().WithUser().WithPostLikes().WithPostImages().Build();
-		var commentInclude = _commentIncludeBuilderFactory.Create().WithUser().WithPost(include).WithPostCommentLikes().Build();
+		var commentInclude = _commentIncludeBuilderFactory.Create().WithUser().WithPost(include).WithPostCommentLikes().WithPostCommentImages().Build();
 		var commentLikeInclude = _commentLikeIncludeBuilderFactory.Create().WithPostComment(commentInclude).Build();
 
 		return await _collection
@@ -93,7 +93,7 @@ internal class PostCommentLikeQueryRepository : IPostCommentLikeQueryRepository
 		CancellationToken cancellationToken)
 	{
 		var include = _includeBuilderFactory.Create().WithUser().WithPostLikes().WithPostImages().Build();
-		var commentInclude = _commentIncludeBuilderFactory.Create().WithUser().WithPost(include).WithPostCommentLikes().Build();
+		var commentInclude = _commentIncludeBuilderFactory.Create().WithUser().WithPost(include).WithPostCommentLikes().WithPostCommentImages().Build();
 		var commentLikeInclude = _commentLikeIncludeBuilderFactory.Create().WithUser().WithPostComment(commentInclude).Build();
 
 		return await _collection

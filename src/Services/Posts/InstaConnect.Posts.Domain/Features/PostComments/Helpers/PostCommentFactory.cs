@@ -20,6 +20,7 @@ internal class PostCommentFactory : IPostCommentFactory
 		var postComment = new PostComment(
 			new(id, commentId),
 			content,
+			new(string.Empty),
 			userId,
 			utcNow,
 			utcNow);

@@ -23,7 +23,7 @@ internal class PostCommentQueryRepository : IPostCommentQueryRepository
 		CurrentUserQuery currentUser,
 		CancellationToken cancellationToken)
 	{
-		var commentInclude = _commentIncludeBuilderFactory.Create().WithUser().WithPostCommentLikes().Build();
+		var commentInclude = _commentIncludeBuilderFactory.Create().WithUser().WithPostCommentLikes().WithPostCommentImages().Build();
 
 		return await _collection
 			.AggregateFluent()
@@ -43,7 +43,7 @@ internal class PostCommentQueryRepository : IPostCommentQueryRepository
 		CancellationToken cancellationToken)
 	{
 		var include = _includeBuilderFactory.Create().WithUser().WithPostLikes().WithPostImages().Build();
-		var commentInclude = _commentIncludeBuilderFactory.Create().WithPost(include).WithPostCommentLikes().Build();
+		var commentInclude = _commentIncludeBuilderFactory.Create().WithPost(include).WithPostCommentLikes().WithPostCommentImages().Build();
 
 		return await _collection
 			.AggregateFluent()
@@ -59,7 +59,7 @@ internal class PostCommentQueryRepository : IPostCommentQueryRepository
 		PostCommentsFilterQuery filter,
 		CancellationToken cancellationToken)
 	{
-		var commentInclude = _commentIncludeBuilderFactory.Create().WithUser().WithPostCommentLikes().Build();
+		var commentInclude = _commentIncludeBuilderFactory.Create().WithUser().WithPostCommentLikes().WithPostCommentImages().Build();
 
 		return await _collection
 			.AggregateFluent()
@@ -73,7 +73,7 @@ internal class PostCommentQueryRepository : IPostCommentQueryRepository
 		CancellationToken cancellationToken)
 	{
 		var include = _includeBuilderFactory.Create().WithUser().WithPostLikes().WithPostImages().Build();
-		var commentInclude = _commentIncludeBuilderFactory.Create().WithPost(include).WithPostCommentLikes().Build();
+		var commentInclude = _commentIncludeBuilderFactory.Create().WithPost(include).WithPostCommentLikes().WithPostCommentImages().Build();
 
 		return await _collection
 			.AggregateFluent()
@@ -88,7 +88,7 @@ internal class PostCommentQueryRepository : IPostCommentQueryRepository
 		CancellationToken cancellationToken)
 	{
 		var include = _includeBuilderFactory.Create().WithUser().WithPostLikes().WithPostImages().Build();
-		var commentInclude = _commentIncludeBuilderFactory.Create().WithUser().WithPostCommentLikes().WithPost(include).Build();
+		var commentInclude = _commentIncludeBuilderFactory.Create().WithUser().WithPostCommentLikes().WithPost(include).WithPostCommentImages().Build();
 
 		return await _collection
 			.AggregateFluent()

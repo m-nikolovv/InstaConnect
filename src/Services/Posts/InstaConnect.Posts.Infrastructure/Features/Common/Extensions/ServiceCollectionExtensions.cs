@@ -1,14 +1,15 @@
 using InstaConnect.Common.Domain.Features.Mappers.Extensions;
 using InstaConnect.Common.Domain.Features.Validations.Extensions;
 using InstaConnect.Common.Infrastructure.Features.AccessTokens.Extensions;
-using InstaConnect.Common.Infrastructure.Features.Summarizers.Extensions;
 using InstaConnect.Common.Infrastructure.Features.Common.Extensions;
 using InstaConnect.Common.Infrastructure.Features.DateTimes.Extensions;
 using InstaConnect.Common.Infrastructure.Features.Events.Extensions;
 using InstaConnect.Common.Infrastructure.Features.Guids.Extensions;
 using InstaConnect.Common.Infrastructure.Features.Images.Extensions;
+using InstaConnect.Common.Infrastructure.Features.Summarizers.Extensions;
 using InstaConnect.Common.Infrastructure.Features.Telemetries.Extensions;
 using InstaConnect.Posts.Infrastructure.Features.Common.Utilities;
+using InstaConnect.Posts.Infrastructure.Features.PostCommentImages.Extensions;
 using InstaConnect.Posts.Infrastructure.Features.PostCommentLikes.Extensions;
 using InstaConnect.Posts.Infrastructure.Features.PostComments.Extensions;
 using InstaConnect.Posts.Infrastructure.Features.PostImages.Extensions;
@@ -31,6 +32,7 @@ public static class ServiceCollectionExtensions
 				.AddPostServices()
 				.AddPostLikeServices()
 				.AddPostImageServices()
+				.AddPostCommentImageServices()
 				.AddPostCommentServices()
 				.AddPostCommentLikeServices();
 

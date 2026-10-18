@@ -1,14 +1,21 @@
 using InstaConnect.Common.Application.Features.Requests.Abstractions;
 using InstaConnect.Common.Domain.Features.Common.Extensions;
 using InstaConnect.Common.Tests.Features.DataAttributes.Enums.Sort;
+using InstaConnect.Common.Tests.Features.Extensions;
 using InstaConnect.Identity.Events.Features.Users;
 using InstaConnect.Posts.Application.Features.PostComments.Models;
 using InstaConnect.Posts.Application.Features.Users.Abstractions;
+using InstaConnect.Posts.Application.Tests.Features.PostCommentImages.Utilities;
+using InstaConnect.Posts.Application.Tests.Features.PostComments.Extensions;
 using InstaConnect.Posts.Application.Tests.Features.PostComments.Utilities;
 using InstaConnect.Posts.Application.Tests.Features.PostLikes.Utilities;
 using InstaConnect.Posts.Application.Tests.Features.Posts.Utilities;
 using InstaConnect.Posts.Application.Tests.Features.Users.Utilities;
+using InstaConnect.Posts.Domain.Tests.Features.PostCommentImages.Utilities;
+using InstaConnect.Posts.Events.Features.PostCommentImages;
 using InstaConnect.Posts.Events.Features.PostComments;
+using InstaConnect.Posts.Tests.Features.PostCommentImages.Utilities;
+using InstaConnect.Posts.Tests.Features.PostComments.Extensions;
 
 namespace InstaConnect.Posts.Application.Tests.Features.PostComments.Utilities;
 
@@ -47,7 +54,9 @@ public static class PostCommentEquals
 				   r.CommentId.EqualsOrdinalIgnoreCase(entity.Id.CommentId) &&
 				   r.UserId.EqualsOrdinalIgnoreCase(request.UserId) &&
 				   r.Content == request.Content &&
+				   r.Summary == entity.GetSummary(request) &&
 				   r.User.Matches(request, entity.User) &&
+				   r.PostCommentImages.Matches(request, entity.PostCommentImages) &&
 				   r.CreatedAtUtc == entity.CreatedAtUtc &&
 				   r.UpdatedAtUtc == entity.UpdatedAtUtc;
 		}
@@ -59,7 +68,9 @@ public static class PostCommentEquals
 				   r.CommentId.EqualsOrdinalIgnoreCase(request.CommentId) &&
 				   r.UserId.EqualsOrdinalIgnoreCase(request.UserId) &&
 				   r.Content == request.Content &&
+				   r.Summary == entity.GetSummary(request) &&
 				   r.User.Matches(request, entity.User) &&
+				   r.PostCommentImages.Matches(request, entity.PostCommentImages) &&
 				   r.CreatedAtUtc == entity.CreatedAtUtc &&
 				   r.UpdatedAtUtc == entity.UpdatedAtUtc;
 		}
@@ -71,9 +82,75 @@ public static class PostCommentEquals
 				   r.CommentId.EqualsOrdinalIgnoreCase(request.CommentId) &&
 				   r.UserId.EqualsOrdinalIgnoreCase(request.UserId) &&
 				   r.Content == entity.Content &&
+				   r.Summary.EqualsOrdinalIgnoreCase(entity.Summary.Value) &&
 				   r.User.Matches(request, entity.User) &&
+				   r.PostCommentImages.Matches(request, entity.PostCommentImages) &&
 				   r.CreatedAtUtc == entity.CreatedAtUtc &&
 				   r.UpdatedAtUtc == entity.UpdatedAtUtc;
+		}
+	}
+
+	extension(PostCommentImageEventRequest r)
+	{
+		public bool Matches(AddPostCommentCommandRequest request, PostCommentImage? entity)
+		{
+			return entity != null &&
+				   r.Id.EqualsOrdinalIgnoreCase(entity.Id.Id.Id.Id) &&
+				   r.CommentId.EqualsOrdinalIgnoreCase(entity.Id.Id.CommentId) &&
+				   r.ImageId.EqualsOrdinalIgnoreCase(entity.Id.ImageId) &&
+				   request.Images.ContainsUrl(r.Url) &&
+				   r.CreatedAtUtc == entity.CreatedAtUtc;
+		}
+
+		public bool Matches(UpdatePostCommentCommandRequest request, PostCommentImage? entity)
+		{
+			return entity != null &&
+				   r.Id.EqualsOrdinalIgnoreCase(request.Id) &&
+				   r.CommentId.EqualsOrdinalIgnoreCase(request.CommentId) &&
+				   r.ImageId.EqualsOrdinalIgnoreCase(entity.Id.ImageId) &&
+				   r.Url.EqualsOrdinalIgnoreCase(entity.Url.Value) &&
+				   r.CreatedAtUtc == entity.CreatedAtUtc;
+		}
+
+		public bool Matches(DeletePostCommentCommandRequest request, PostCommentImage? entity)
+		{
+			return entity != null &&
+				   r.Id.EqualsOrdinalIgnoreCase(request.Id) &&
+				   r.CommentId.EqualsOrdinalIgnoreCase(request.CommentId) &&
+				   r.ImageId.EqualsOrdinalIgnoreCase(entity.Id.ImageId) &&
+				   r.Url.EqualsOrdinalIgnoreCase(entity.Url.Value) &&
+				   r.CreatedAtUtc == entity.CreatedAtUtc;
+		}
+	}
+
+	extension(ICollection<PostCommentImageEventRequest> r)
+	{
+		public bool Matches(AddPostCommentCommandRequest request, ICollection<PostCommentImage> entities)
+		{
+			return request.Images.IsEmpty() ||
+				   r.MatchesCollection(
+				       entities,
+				       response => new(new(new(response.Id), response.CommentId), response.ImageId),
+				       postCommentImage => postCommentImage.Id,
+				       (r, postCommentImage) => r.Matches(request, postCommentImage));
+		}
+
+		public bool Matches(UpdatePostCommentCommandRequest request, ICollection<PostCommentImage> entities)
+		{
+			return r.MatchesCollection(
+				entities,
+				response => new(new(new(response.Id), response.CommentId), response.ImageId),
+				postCommentImage => postCommentImage.Id,
+				(r, postCommentImage) => r.Matches(request, postCommentImage));
+		}
+
+		public bool Matches(DeletePostCommentCommandRequest request, ICollection<PostCommentImage> entities)
+		{
+			return r.MatchesCollection(
+				entities,
+				response => new(new(new(response.Id), response.CommentId), response.ImageId),
+				postCommentImage => postCommentImage.Id,
+				(r, postCommentImage) => r.Matches(request, postCommentImage));
 		}
 	}
 
@@ -167,7 +244,8 @@ public static class PostCommentEquals
 		{
 			return command.Id.Matches(request.Id) &&
 				   command.UserId.Matches(request.UserId) &&
-				   command.Content == request.Content;
+				   command.Content == request.Content &&
+				   command.Images == request.Images;
 		}
 	}
 
@@ -274,6 +352,7 @@ public static class PostCommentEquals
 				   postComment.Id.CommentId.IsNotNullOrEmptyOrWhiteSpace() &&
 				   postComment.UserId.Matches(request.UserId) &&
 				   postComment.Content == request.Content &&
+				   postComment.Summary.Matches(postComment.GetSummary(request)) &&
 				   postComment.CreatedAtUtc != default &&
 				   postComment.UpdatedAtUtc != default;
 		}
@@ -283,6 +362,7 @@ public static class PostCommentEquals
 			return postComment.Id.Matches(request.Id, request.CommentId) &&
 				   postComment.UserId.Matches(request.UserId) &&
 				   postComment.Content == request.Content &&
+				   postComment.Summary.Matches(postComment.GetSummary(request)) &&
 				   postComment.CreatedAtUtc != default &&
 				   postComment.UpdatedAtUtc != default;
 		}
@@ -296,6 +376,26 @@ public static class PostCommentEquals
 		public bool MatchesFilter(GetAllPostCommentsForUserQueryRequest request)
 		{
 			return postComment.UserId.Matches(request.UserId);
+		}
+	}
+
+	extension(PostCommentImage postCommentImage)
+	{
+		public bool Matches(AddPostCommentCommandRequest request)
+		{
+			return postCommentImage.Id.Id.Id.Id.IsNotNullOrEmptyOrWhiteSpace() &&
+				   postCommentImage.Id.Id.CommentId.IsNotNullOrEmptyOrWhiteSpace() &&
+				   postCommentImage.Id.ImageId.IsNotNullOrEmptyOrWhiteSpace() &&
+				   postCommentImage.Url.Value.IsNotNullOrEmptyOrWhiteSpace() &&
+				   postCommentImage.CreatedAtUtc != default;
+		}
+	}
+
+	extension(ICollection<PostCommentImage> postCommentImages)
+	{
+		public bool Matches(AddPostCommentCommandRequest request)
+		{
+			return postCommentImages.AllAndNotEmpty(postCommentImage => postCommentImage.Matches(request));
 		}
 	}
 
@@ -326,6 +426,8 @@ public static class PostCommentEquals
 				   postComment.Id.Matches(response.Id, response.CommentId) &&
 				   postComment.UserId.Matches(response.UserId) &&
 				   postComment.Content == response.Content &&
+				   postComment.Summary.Matches(response.Summary) &&
+				   response.PostCommentImages.MatchesFull(postComment.PostCommentImages) &&
 				   response.IsLikedByCurrentUser == postComment.PostCommentLikes.Any(pl => pl.Id.UserId.Matches(request.CurrentUserId)) &&
 				   postComment.CreatedAtUtc == response.CreatedAtUtc &&
 				   postComment.UpdatedAtUtc == response.UpdatedAtUtc &&
@@ -341,6 +443,8 @@ public static class PostCommentEquals
 				   postComment.Id.Matches(response.Id, response.CommentId) &&
 				   postComment.UserId.Matches(response.UserId) &&
 				   postComment.Content == response.Content &&
+				   postComment.Summary.Matches(response.Summary) &&
+				   response.PostCommentImages.MatchesFull(postComment.PostCommentImages) &&
 				   response.IsLikedByCurrentUser == postComment.PostCommentLikes.Any(pl => pl.Id.UserId.Matches(request.CurrentUserId)) &&
 				   postComment.CreatedAtUtc == response.CreatedAtUtc &&
 				   postComment.UpdatedAtUtc == response.UpdatedAtUtc &&
@@ -356,6 +460,8 @@ public static class PostCommentEquals
 				   postComment.Id.Matches(response.Id, response.CommentId) &&
 				   postComment.UserId.Matches(response.UserId) &&
 				   postComment.Content == response.Content &&
+				   postComment.Summary.Matches(response.Summary) &&
+				   response.PostCommentImages.MatchesFull(postComment.PostCommentImages) &&
 				   response.IsLikedByCurrentUser == postComment.PostCommentLikes.Any(pl => pl.Id.UserId.Matches(request.CurrentUserId)) &&
 				   postComment.CreatedAtUtc == response.CreatedAtUtc &&
 				   postComment.UpdatedAtUtc == response.UpdatedAtUtc &&

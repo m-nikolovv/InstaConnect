@@ -71,6 +71,7 @@ public static class PostCommentLikeEquals
 				   request.CommentId.EqualsOrdinalIgnoreCase(command.CommentId.CommentId) &&
 				   request.UserId.EqualsOrdinalIgnoreCase(command.UserId.Id) &&
 				   request.Content == entity.Content &&
+				   entity.Summary.Matches(request.Summary) &&
 				   request.User.Matches(command, entity.User) &&
 				   request.Post.Matches(command, entity.Post) &&
 				   request.CreatedAtUtc == entity.CreatedAtUtc &&
@@ -83,6 +84,7 @@ public static class PostCommentLikeEquals
 				   request.CommentId.EqualsOrdinalIgnoreCase(command.Id.CommentId.CommentId) &&
 				   request.UserId.EqualsOrdinalIgnoreCase(command.Id.UserId.Id) &&
 				   request.Content == entity.Content &&
+				   entity.Summary.Matches(request.Summary) &&
 				   request.User.Matches(command, entity.User) &&
 				   request.Post.Matches(command, entity.Post) &&
 				   request.CreatedAtUtc == entity.CreatedAtUtc &&

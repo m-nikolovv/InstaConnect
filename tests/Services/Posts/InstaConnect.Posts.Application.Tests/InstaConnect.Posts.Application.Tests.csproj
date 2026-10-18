@@ -99,6 +99,11 @@
     <Using Include="InstaConnect.Posts.Domain.Features.PostImages.Models.ValueObjects" />
   </ItemGroup>
 
+  <ItemGroup Label="PostCommentImages">
+    <Using Include="InstaConnect.Posts.Domain.Features.PostCommentImages.Models.Entities" />
+    <Using Include="InstaConnect.Posts.Domain.Features.PostCommentImages.Models.ValueObjects" />
+  </ItemGroup>
+
   <ItemGroup Label="PostCommentLikes">
     <Using Include="InstaConnect.Posts.Domain.Features.PostCommentLikes.Abstractions" />
     <Using Include="InstaConnect.Posts.Domain.Features.PostCommentLikes.Models.Entities" />

@@ -1,3 +1,6 @@
+using InstaConnect.Common.Tests.Features.DataAttributes.FormFileCollections.Base;
+using InstaConnect.Posts.Tests.Features.PostComments.DataAttributes.Images;
+
 namespace InstaConnect.Posts.Presentation.Tests.Functional.Features.PostComments.Endpoints;
 
 public class AddPostCommentFunctionalTests : BasePostCommentPresentationCommandFunctionalTest
@@ -10,7 +13,7 @@ public class AddPostCommentFunctionalTests : BasePostCommentPresentationCommandF
 		: base(webApplicationFactory)
 	{
 		_requestBuilderFactory = new();
-		_requestBuilder = _requestBuilderFactory.Create(Post, User);
+		_requestBuilder = _requestBuilderFactory.Create(Post, User, PostComment.PostCommentImages.Count);
 		_request = _requestBuilder.Build();
 	}
 
@@ -218,6 +221,21 @@ public class AddPostCommentFunctionalTests : BasePostCommentPresentationCommandF
 		response.ShouldBeOk();
 	}
 
+	[Theory]
+	[PostCommentImagesEmptyData]
+	public async Task AddAsync_ShouldHaveOkStatusCode_WhenRequestAndImagesAreValid(
+		IFormFileCollectionTransformer transformer)
+	{
+		// Arrange
+		var request = _requestBuilder.WithImages(transformer).Build();
+
+		// Act
+		var response = await CommentApiClient.AddStatusCodeAsync(request, CancellationToken);
+
+		// Assert
+		response.ShouldBeOk();
+	}
+
 	[Fact]
 	public async Task AddAsync_ShouldReturnResponse_WhenRequestIsValid()
 	{
@@ -261,6 +279,22 @@ public class AddPostCommentFunctionalTests : BasePostCommentPresentationCommandF
 		response.ShouldSatisfy(request, postComment);
 	}
 
+	[Theory]
+	[PostCommentImagesEmptyData]
+	public async Task AddAsync_ShouldReturnResponse_WhenRequestAndImagesAreValid(
+		IFormFileCollectionTransformer transformer)
+	{
+		// Arrange
+		var request = _requestBuilder.WithImages(transformer).Build();
+
+		// Act
+		var response = await CommentApiClient.AddAsync(request, CancellationToken);
+		var postComment = await ServiceScope.GetByIdAsync(response, CancellationToken);
+
+		// Assert
+		response.ShouldSatisfy(request, postComment);
+	}
+
 	[Fact]
 	public async Task AddAsync_ShouldAddPostComment_WhenRequestIsValid()
 	{
@@ -295,6 +329,22 @@ public class AddPostCommentFunctionalTests : BasePostCommentPresentationCommandF
 	{
 		// Arrange
 		var request = _requestBuilder.WithUserId(transformer).Build();
+
+		// Act
+		var response = await CommentApiClient.AddAsync(request, CancellationToken);
+		var postComment = await ServiceScope.GetByIdAsync(response, CancellationToken);
+
+		// Assert
+		postComment.ShouldSatisfy(request);
+	}
+
+	[Theory]
+	[PostCommentImagesEmptyData]
+	public async Task AddAsync_ShouldAddPostComment_WhenRequestAndImagesAreValid(
+		IFormFileCollectionTransformer transformer)
+	{
+		// Arrange
+		var request = _requestBuilder.WithImages(transformer).Build();
 
 		// Act
 		var response = await CommentApiClient.AddAsync(request, CancellationToken);
@@ -351,5 +401,82 @@ public class AddPostCommentFunctionalTests : BasePostCommentPresentationCommandF
 
 		// Assert
 		eventRequest.ShouldSatisfy(request, postComment);
+	}
+
+	[Theory]
+	[PostCommentImagesEmptyData]
+	public async Task AddAsync_ShouldPublishPostCommentAddedEvent_WhenRequestAndImagesAreValid(
+		IFormFileCollectionTransformer transformer)
+	{
+		// Arrange
+		var request = _requestBuilder.WithImages(transformer).Build();
+
+		// Act
+		var response = await CommentApiClient.AddAsync(request, CancellationToken);
+		var postComment = await ServiceScope.GetByIdAsync(response, CancellationToken);
+
+		var eventRequest = await CommentEventClient.PublishedAddedAsync(CancellationToken);
+
+		// Assert
+		eventRequest.ShouldSatisfy(request, postComment);
+	}
+
+	[Fact]
+	public async Task AddAsync_ShouldAddPostCommentImages_WhenRequestIsValid()
+	{
+		// Act
+		var response = await CommentApiClient.AddAsync(_request, CancellationToken);
+		var postComment = await ServiceScope.GetByIdAsync(response, CancellationToken);
+
+		// Assert
+		postComment.PostCommentImages.ShouldSatisfy(_request);
+	}
+
+	[Theory]
+	[PostIdDifferentCaseData]
+	public async Task AddAsync_ShouldAddPostCommentImages_WhenRequestAndIdAreValid(
+		IStringTransformer transformer)
+	{
+		// Arrange
+		var request = _requestBuilder.WithId(transformer).Build();
+
+		// Act
+		var response = await CommentApiClient.AddAsync(request, CancellationToken);
+		var postComment = await ServiceScope.GetByIdAsync(response, CancellationToken);
+
+		// Assert
+		postComment.PostCommentImages.ShouldSatisfy(request);
+	}
+
+	[Theory]
+	[UserIdDifferentCaseData]
+	public async Task AddAsync_ShouldAddPostCommentImages_WhenRequestAndUserIdAreValid(
+		IStringTransformer transformer)
+	{
+		// Arrange
+		var request = _requestBuilder.WithUserId(transformer).Build();
+
+		// Act
+		var response = await CommentApiClient.AddAsync(request, CancellationToken);
+		var postComment = await ServiceScope.GetByIdAsync(response, CancellationToken);
+
+		// Assert
+		postComment.PostCommentImages.ShouldSatisfy(request);
+	}
+
+	[Theory]
+	[PostCommentImagesEmptyData]
+	public async Task AddAsync_ShouldAddPostCommentImages_WhenRequestAndImagesAreValid(
+		IFormFileCollectionTransformer transformer)
+	{
+		// Arrange
+		var request = _requestBuilder.WithImages(transformer).Build();
+
+		// Act
+		var response = await CommentApiClient.AddAsync(request, CancellationToken);
+		var postComment = await ServiceScope.GetByIdAsync(response, CancellationToken);
+
+		// Assert
+		postComment.PostCommentImages.ShouldBeEmpty();
 	}
 }

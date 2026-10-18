@@ -1,15 +1,18 @@
 using InstaConnect.Posts.Domain.Features.PostCommentLikes.Models.ValueObjects;
-using InstaConnect.Posts.Domain.Features.PostComments.Models.ValueObjects;
-using InstaConnect.Posts.Domain.Features.PostImages.Models.ValueObjects;
-using InstaConnect.Posts.Domain.Features.PostLikes.Models.ValueObjects;
-using InstaConnect.Posts.Domain.Features.Posts.Models.ValueObjects;
-using InstaConnect.Posts.Domain.Features.Users.Models.ValueObjects;
-using InstaConnect.Posts.Tests.Features.PostComments.Utilities;
-using InstaConnect.Posts.Tests.Features.PostImages.Builders;
-using InstaConnect.Posts.Tests.Features.PostImages.Utilities;
-using InstaConnect.Posts.Tests.Features.PostLikes.Utilities;
-using InstaConnect.Posts.Tests.Features.Posts.Utilities;
+using InstaConnect.Posts.Domain.Features.PostCommentImages.Models.ValueObjects;
+using InstaConnect.Posts.Tests.Features.PostCommentImages.Builders;
+using InstaConnect.Posts.Tests.Features.PostCommentImages.Utilities;
 using InstaConnect.Posts.Tests.Features.Users.Utilities;
+using InstaConnect.Posts.Tests.Features.Posts.Utilities;
+using InstaConnect.Posts.Tests.Features.PostLikes.Utilities;
+using InstaConnect.Posts.Tests.Features.PostImages.Utilities;
+using InstaConnect.Posts.Domain.Features.PostComments.Models.ValueObjects;
+using InstaConnect.Posts.Domain.Features.PostLikes.Models.ValueObjects;
+using InstaConnect.Posts.Domain.Features.PostImages.Models.ValueObjects;
+using InstaConnect.Posts.Tests.Features.PostImages.Builders;
+using InstaConnect.Posts.Tests.Features.PostComments.Utilities;
+using InstaConnect.Posts.Domain.Features.Users.Models.ValueObjects;
+using InstaConnect.Posts.Domain.Features.Posts.Models.ValueObjects;
 
 namespace InstaConnect.Posts.Tests.Features.PostCommentLikes.Utilities;
 
@@ -79,6 +82,19 @@ public abstract class BasePostCommentLikeTest : BaseTest
 	protected PostCommentIdRangeBuilderFactory PostCommentIdRangeBuilderFactory { get; }
 	protected PostCommentIdRangeBuilder PostCommentIdRangeBuilder { get; }
 	protected ICollection<PostCommentId> PostCommentIds { get; }
+
+	protected PostCommentImageBuilderFactory PostCommentImageBuilderFactory { get; }
+	protected PostCommentImageBuilder PostCommentImageBuilder { get; }
+	protected PostCommentImage PostCommentImage { get; }
+	protected ICollection<PostCommentImage> PostCommentImages { get; }
+
+	protected PostCommentImageIdBuilderFactory PostCommentImageIdBuilderFactory { get; }
+	protected PostCommentImageIdBuilder PostCommentImageIdBuilder { get; }
+	protected PostCommentImageId PostCommentImageId { get; }
+
+	protected PostCommentImageIdRangeBuilderFactory PostCommentImageIdRangeBuilderFactory { get; }
+	protected PostCommentImageIdRangeBuilder PostCommentImageIdRangeBuilder { get; }
+	protected ICollection<PostCommentImageId> PostCommentImageIds { get; }
 
 	protected PostCommentLikeBuilderFactory PostCommentLikeBuilderFactory { get; }
 	protected PostCommentLikeBuilder PostCommentLikeBuilder { get; }
@@ -159,6 +175,19 @@ public abstract class BasePostCommentLikeTest : BaseTest
 		PostCommentIdRangeBuilderFactory = new();
 		PostCommentIdRangeBuilder = PostCommentIdRangeBuilderFactory.Create([.. PostComments.Select(p => p.Id)]);
 		PostCommentIds = PostCommentIdRangeBuilder.Build();
+
+		PostCommentImageBuilderFactory = new();
+		PostCommentImageBuilder = PostCommentImageBuilderFactory.Create(PostComment);
+		PostCommentImage = PostCommentImageBuilder.Build();
+		PostCommentImages = PostCommentImage.Generate(PostComments);
+
+		PostCommentImageIdBuilderFactory = new();
+		PostCommentImageIdBuilder = PostCommentImageIdBuilderFactory.Create(PostCommentImage.Id);
+		PostCommentImageId = PostCommentImageIdBuilder.Build();
+
+		PostCommentImageIdRangeBuilderFactory = new();
+		PostCommentImageIdRangeBuilder = PostCommentImageIdRangeBuilderFactory.Create([.. PostCommentImages.Select(p => p.Id)]);
+		PostCommentImageIds = PostCommentImageIdRangeBuilder.Build();
 
 		PostCommentLikeBuilderFactory = new();
 		PostCommentLikeBuilder = PostCommentLikeBuilderFactory.Create(PostComment, User);

@@ -26,9 +26,9 @@ public class DeletePostCommentCommandServiceUnitTests : BasePostCommentDomainCom
 		_command = _commandBuilder.Build();
 
 		_include = IncludeBuilderFactory.Create().WithUser().Build();
-		_commentInclude = CommentIncludeBuilderFactory.Create().WithUser().WithPost(_include).Build();
+		_commentInclude = CommentIncludeBuilderFactory.Create().WithUser().WithPost(_include).WithPostCommentImages().Build();
 
-		_service = new(Mapper, EventPublisher, Repository, DateTimeProvider, Factory, UserRepository, CommentRepository, IncludeBuilderFactory, CommentIncludeBuilderFactory);
+		_service = new(Mapper, ImageHandler, EventPublisher, Repository, DateTimeProvider, Factory, UserRepository, CommentSummarizer, CommentImageFactory, CommentRepository, IncludeBuilderFactory, CommentImageRepository, CommentIncludeBuilderFactory);
 
 		Repository.SetupExistsByIdAsync(_command, CancellationToken);
 		CommentRepository.SetupGetByIdAsync(_command, _commentInclude, PostComment, CancellationToken);

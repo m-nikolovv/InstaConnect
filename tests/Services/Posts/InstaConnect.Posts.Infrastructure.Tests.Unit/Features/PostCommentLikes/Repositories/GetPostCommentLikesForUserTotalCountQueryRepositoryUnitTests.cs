@@ -23,7 +23,7 @@ public class GetPostCommentLikesForUserTotalCountQueryRepositoryUnitTests : Base
 		_filterQueryBuilder = _filterQueryBuilderFactory.Create(PostCommentLike);
 		_filterQuery = _filterQueryBuilder.Build();
 
-		_include = CommentLikeIncludeBuilderFactory.Create().WithPostComment(CommentIncludeBuilderFactory.Create().WithUser().WithPost(IncludeBuilderFactory.Create().WithUser().WithPostLikes().WithPostImages().Build()).WithPostCommentLikes().Build()).Build();
+		_include = CommentLikeIncludeBuilderFactory.Create().WithPostComment(CommentIncludeBuilderFactory.Create().WithUser().WithPost(IncludeBuilderFactory.Create().WithUser().WithPostLikes().WithPostImages().Build()).WithPostCommentLikes().WithPostCommentImages().Build()).Build();
 
 		_repository = new(Collection, IncludeBuilderFactory, CommentIncludeBuilderFactory, CommentLikeIncludeBuilderFactory);
 

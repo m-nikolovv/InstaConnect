@@ -19,6 +19,7 @@ public abstract class BasePostCommentLikePresentationQueryIntegrationTest : Base
 		await ServiceScope.AddRangeAsync(PostLikes, CancellationToken);
 		await ServiceScope.AddRangeAsync(PostComments, CancellationToken);
 		await ServiceScope.AddRangeAsync(PostImages, CancellationToken);
+		await ServiceScope.AddRangeAsync(PostCommentImages, CancellationToken);
 		await OnInitializeAsync();
 	}
 }

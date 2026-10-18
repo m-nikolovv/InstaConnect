@@ -8,6 +8,7 @@ public class PostCommentBuilder
 	private string _id;
 	private readonly Post _post;
 	private readonly string _content;
+	private readonly string _summary;
 	private string _commentId;
 	private readonly string _userId;
 	private readonly User _user;
@@ -22,6 +23,7 @@ public class PostCommentBuilder
 		_userId = user.Id.Id;
 		_user = user;
 		_content = PostCommentDataFaker.GetContent();
+		_summary = PostCommentDataFaker.GetSummary();
 		_createdAtUtc = PostCommentDataFaker.GetCreatedAtUtc();
 		_updatedAtUtc = _createdAtUtc;
 	}
@@ -41,6 +43,7 @@ public class PostCommentBuilder
 					new(_id),
 					_commentId),
 				_content,
+				new(_summary),
 				new(_userId),
 				_createdAtUtc,
 				_updatedAtUtc);

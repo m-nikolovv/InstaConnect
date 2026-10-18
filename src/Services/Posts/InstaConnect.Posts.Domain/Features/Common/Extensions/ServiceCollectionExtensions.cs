@@ -1,5 +1,6 @@
 using InstaConnect.Common.Domain.Features.Mappers.Extensions;
 using InstaConnect.Common.Domain.Features.Validations.Extensions;
+using InstaConnect.Posts.Domain.Features.PostCommentImages.Extensions;
 using InstaConnect.Posts.Domain.Features.PostCommentLikes.Extensions;
 using InstaConnect.Posts.Domain.Features.PostComments.Extensions;
 using InstaConnect.Posts.Domain.Features.PostImages.Extensions;
@@ -20,6 +21,7 @@ public static class ServiceCollectionExtensions
 				.AddPostServices()
 				.AddPostLikeServices()
 				.AddPostImageServices()
+				.AddPostCommentImageServices()
 				.AddPostCommentServices()
 				.AddPostCommentLikeServices();
 

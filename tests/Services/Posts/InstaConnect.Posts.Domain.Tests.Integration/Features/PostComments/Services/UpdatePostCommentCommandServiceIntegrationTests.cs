@@ -3,6 +3,7 @@ using InstaConnect.Posts.Domain.Features.PostComments.Models.Requests;
 using InstaConnect.Posts.Domain.Tests.Features.PostComments.Assertions;
 using InstaConnect.Posts.Domain.Tests.Features.PostComments.Builders;
 using InstaConnect.Posts.Domain.Tests.Integration.Features.PostComments.Utilities;
+using InstaConnect.Posts.Tests.Features.PostCommentImages.Utilities;
 using InstaConnect.Posts.Tests.Features.PostComments.Assertions;
 using InstaConnect.Posts.Tests.Features.PostComments.DataAttributes.Id;
 using InstaConnect.Posts.Tests.Features.PostComments.Utilities;
@@ -30,6 +31,7 @@ public class UpdatePostCommentCommandServiceIntegrationTests : BasePostCommentDo
 	protected override async Task OnInitializeAsync()
 	{
 		await ServiceScope.AddAsync(PostComment, CancellationToken);
+		await ServiceScope.AddRangeAsync(PostCommentImages, CancellationToken);
 	}
 
 	[Fact]

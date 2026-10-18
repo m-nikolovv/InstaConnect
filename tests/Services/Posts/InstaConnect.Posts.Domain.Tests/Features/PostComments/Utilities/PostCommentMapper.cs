@@ -1,3 +1,4 @@
+using InstaConnect.Common.Tests.Features.Extensions;
 using InstaConnect.Posts.Domain.Features.Users.Models.Responses;
 using InstaConnect.Posts.Domain.Tests.Features.Posts.Utilities;
 using InstaConnect.Posts.Domain.Tests.Features.Users.Utilities;
@@ -33,8 +34,10 @@ public static class PostCommentMapper
 			return new(postComment.Id,
 					   postComment.UserId,
 					   postComment.Content,
+					   postComment.Summary,
 					   postComment.User?.ToFullResponse(),
 					   postComment.Post?.ToFullResponse(request),
+					   postComment.PostCommentImages.ToFullResponse(),
 					   postComment.PostCommentLikes.Any(pl => pl.Id.UserId.Matches(request.CurrentUser.Id)),
 					   postComment.CreatedAtUtc,
 					   postComment.UpdatedAtUtc);
@@ -47,8 +50,10 @@ public static class PostCommentMapper
 			return new(postComment.Id,
 					   postComment.UserId,
 					   postComment.Content,
+					   postComment.Summary,
 					   null,
 					   postComment.Post?.ToFullResponse(request),
+					   postComment.PostCommentImages.ToFullResponse(),
 					   postComment.PostCommentLikes.Any(pl => pl.Id.UserId.Matches(request.CurrentUser.Id)),
 					   postComment.CreatedAtUtc,
 					   postComment.UpdatedAtUtc);
@@ -61,8 +66,10 @@ public static class PostCommentMapper
 			return new(postComment.Id,
 					   postComment.UserId,
 					   postComment.Content,
+					   postComment.Summary,
 					   postComment.User?.ToFullResponse(),
 					   null,
+					   postComment.PostCommentImages.ToFullResponse(),
 					   postComment.PostCommentLikes.Any(pl => pl.Id.UserId.Matches(request.CurrentUser.Id)),
 					   postComment.CreatedAtUtc,
 					   postComment.UpdatedAtUtc);
@@ -72,6 +79,7 @@ public static class PostCommentMapper
 		{
 			return new(postComment.Id,
 					   command.Content,
+					   new(string.Empty),
 					   command.UserId,
 					   postComment.CreatedAtUtc,
 					   postComment.UpdatedAtUtc);
@@ -120,6 +128,17 @@ public static class PostCommentMapper
 			GetAllPostCommentsForUserQuery query)
 		{
 			return postComments.Count(postComment => postComment.MatchesFilter(query.Filter));
+		}
+	}
+
+	extension(ICollection<PostCommentImage> postCommentImages)
+	{
+		public ICollection<PostCommentImage> To(AddPostCommentCommand command)
+		{
+			return [.. postCommentImages.Zip(command.Images, (postCommentImage, formFile) => new PostCommentImage(
+				postCommentImage.Id,
+				formFile.GetUrl(),
+				postCommentImage.CreatedAtUtc))];
 		}
 	}
 }

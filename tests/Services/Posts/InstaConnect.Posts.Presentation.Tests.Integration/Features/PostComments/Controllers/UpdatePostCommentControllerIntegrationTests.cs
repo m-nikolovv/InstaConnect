@@ -17,6 +17,7 @@ public class UpdatePostCommentControllerIntegrationTests : BasePostCommentPresen
 	protected override async Task OnInitializeAsync()
 	{
 		await ServiceScope.AddAsync(PostComment, CancellationToken);
+		await ServiceScope.AddRangeAsync(PostCommentImages, CancellationToken);
 	}
 
 	[Theory]

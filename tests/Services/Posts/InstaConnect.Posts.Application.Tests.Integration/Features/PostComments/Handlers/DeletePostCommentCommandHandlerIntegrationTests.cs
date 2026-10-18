@@ -1,3 +1,5 @@
+using InstaConnect.Posts.Tests.Features.PostCommentImages.Utilities;
+
 namespace InstaConnect.Posts.Application.Tests.Integration.Features.PostComments.Handlers;
 
 public class DeletePostCommentCommandHandlerIntegrationTests : BasePostCommentApplicationCommandIntegrationTest
@@ -17,6 +19,7 @@ public class DeletePostCommentCommandHandlerIntegrationTests : BasePostCommentAp
 	protected override async Task OnInitializeAsync()
 	{
 		await ServiceScope.AddAsync(PostComment, CancellationToken);
+		await ServiceScope.AddRangeAsync(PostCommentImages, CancellationToken);
 	}
 
 	[Theory]

@@ -26,8 +26,10 @@ internal class PostCommentDomainMappings : IRegister
 				src.Id.CommentId,
 				src.UserId.Id,
 				src.Content,
+				src.Summary.Value,
 				src.User.Adapt<UserEventRequest>(config)!,
 				src.Post.Adapt<PostEventRequest>(config)!,
+				src.PostCommentImages.Adapt<ICollection<PostCommentImageEventRequest>>(config),
 				src.CreatedAtUtc,
 				src.UpdatedAtUtc));
 	}

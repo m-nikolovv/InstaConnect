@@ -6,8 +6,10 @@ using InstaConnect.Posts.Domain.Features.PostComments.Models.Responses;
 using InstaConnect.Posts.Domain.Features.PostComments.Models.ValueObjects;
 using InstaConnect.Posts.Domain.Features.Posts.Models.Entities;
 using InstaConnect.Posts.Domain.Features.Users.Models.Requests;
+using InstaConnect.Posts.Infrastructure.Tests.Features.PostCommentImages.Utilities;
 using InstaConnect.Posts.Infrastructure.Tests.Features.Posts.Utilities;
 using InstaConnect.Posts.Infrastructure.Tests.Features.Users.Utilities;
+using InstaConnect.Posts.Tests.Features.PostCommentImages.Utilities;
 using InstaConnect.Posts.Tests.Features.PostComments.Utilities;
 using InstaConnect.Posts.Tests.Features.Posts.Utilities;
 
@@ -56,6 +58,8 @@ public static class PostCommentEquals
 				   postComment.Id.Matches(response.Id) &&
 				   postComment.UserId.Matches(response.UserId) &&
 				   postComment.Content == response.Content &&
+				   postComment.Summary.Matches(response.Summary) &&
+				   response.PostCommentImages.MatchesFull(postComment.PostCommentImages) &&
 				   response.IsLikedByCurrentUser == postComment.PostCommentLikes.Any(pl => pl.Id.UserId.Matches(currentUserQuery.Id)) &&
 				   postComment.CreatedAtUtc == response.CreatedAtUtc &&
 				   postComment.UpdatedAtUtc == response.UpdatedAtUtc &&
@@ -72,6 +76,8 @@ public static class PostCommentEquals
 				   postComment.Id.Matches(response.Id) &&
 				   postComment.UserId.Matches(response.UserId) &&
 				   postComment.Content == response.Content &&
+				   postComment.Summary.Matches(response.Summary) &&
+				   response.PostCommentImages.MatchesFull(postComment.PostCommentImages) &&
 				   response.IsLikedByCurrentUser == postComment.PostCommentLikes.Any(pl => pl.Id.UserId.Matches(currentUserQuery.Id)) &&
 				   postComment.CreatedAtUtc == response.CreatedAtUtc &&
 				   postComment.UpdatedAtUtc == response.UpdatedAtUtc &&
@@ -88,6 +94,8 @@ public static class PostCommentEquals
 				   postComment.Id.Matches(response.Id) &&
 				   postComment.UserId.Matches(response.UserId) &&
 				   postComment.Content == response.Content &&
+				   postComment.Summary.Matches(response.Summary) &&
+				   response.PostCommentImages.MatchesFull(postComment.PostCommentImages) &&
 				   response.IsLikedByCurrentUser == postComment.PostCommentLikes.Any(pl => pl.Id.UserId.Matches(currentUserQuery.Id)) &&
 				   postComment.CreatedAtUtc == response.CreatedAtUtc &&
 				   postComment.UpdatedAtUtc == response.UpdatedAtUtc &&

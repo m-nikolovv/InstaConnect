@@ -60,6 +60,13 @@ public class PostCommentIncludeBuilder
 		return this;
 	}
 
+	public PostCommentIncludeBuilder WithPostCommentImages()
+	{
+		_descriptors.Add(_descriptorFactory.CreatePostCommentImages());
+
+		return this;
+	}
+
 	public PostCommentInclude Build()
 	{
 		return new(_descriptors);

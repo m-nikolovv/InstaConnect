@@ -148,4 +148,8 @@
     <Using Include="InstaConnect.Posts.Tests.Features.PostImages.Utilities" />
   </ItemGroup>
 
+  <ItemGroup Label="PostCommentImages">
+    <Using Include="InstaConnect.Posts.Tests.Features.PostCommentImages.Utilities" />
+  </ItemGroup>
+
 </Project>

@@ -77,6 +77,14 @@ public static class PostCommentMatchAssertions
 		}
 	}
 
+	extension(ICollection<PostCommentImage> postCommentImages)
+	{
+		public void ShouldSatisfy(AddPostCommentCommand command)
+		{
+			postCommentImages.ShouldSatisfy(p => p.Matches(command));
+		}
+	}
+
 	extension(PostCommentAddedEventRequest r)
 	{
 		public void ShouldSatisfy(AddPostCommentCommand command, PostComment entity)

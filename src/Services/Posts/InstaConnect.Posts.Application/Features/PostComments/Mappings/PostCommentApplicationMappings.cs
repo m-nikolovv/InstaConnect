@@ -62,8 +62,10 @@ internal class PostCommentApplicationMappings : IRegister
 				src.Id.CommentId,
 				src.UserId.Id,
 				src.Content,
+				src.Summary.Value,
 				src.User.Adapt<UserQueryResponse>(config),
 				src.Post.Adapt<PostQueryResponse>(config),
+				src.PostCommentImages.Adapt<ICollection<PostCommentImageQueryResponse>>(config),
 				src.IsLikedByCurrentUser,
 				src.CreatedAtUtc,
 				src.UpdatedAtUtc));
@@ -83,7 +85,8 @@ internal class PostCommentApplicationMappings : IRegister
 			.ConstructUsing(src => new(
 				new(src.Id),
 				src.Content,
-				new(src.UserId)));
+				new(src.UserId),
+				src.Images));
 
 		config.NewConfig<PostCommentId, AddPostCommentCommandResponse>()
 			.ConstructUsing(src => new(src.Adapt<PostCommentIdCommandResponse>(config)));

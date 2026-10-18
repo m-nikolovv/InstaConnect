@@ -49,8 +49,9 @@ internal class PostCommentPresentationMappings : IRegister
 		config.NewConfig<AddPostCommentApiRequest, AddPostCommentCommandRequest>()
 			.ConstructUsing(src => new(
 				src.Id,
-				src.Body.Content,
-				src.UserId));
+				src.Form.Content,
+				src.UserId,
+				src.Form.Images));
 
 		config.NewConfig<AddPostCommentCommandResponse, AddPostCommentApiResponse>()
 			.ConstructUsing(src => new(src.Response.Adapt<PostCommentIdApiResponse>(config)));
@@ -76,8 +77,10 @@ internal class PostCommentPresentationMappings : IRegister
 				src.CommentId,
 				src.UserId,
 				src.Content,
+				src.Summary,
 				src.User.Adapt<UserApiResponse>(config),
 				src.Post.Adapt<PostApiResponse>(config),
+				src.PostCommentImages.Adapt<ICollection<PostCommentImageApiResponse>>(config),
 				src.IsLikedByCurrentUser,
 				src.CreatedAtUtc,
 				src.UpdatedAtUtc));

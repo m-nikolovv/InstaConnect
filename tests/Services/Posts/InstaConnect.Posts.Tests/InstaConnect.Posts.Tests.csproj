@@ -65,6 +65,11 @@
     <Using Include="InstaConnect.Posts.Domain.Features.PostImages.Models.Entities" />
   </ItemGroup>
 
+  <ItemGroup Label="PostCommentImages">
+    <Using Include="InstaConnect.Posts.Domain.Features.PostCommentImages.Utilities" />
+    <Using Include="InstaConnect.Posts.Domain.Features.PostCommentImages.Models.Entities" />
+  </ItemGroup>
+
   <ItemGroup Label="PostCommentLikes">
     <Using Include="InstaConnect.Posts.Domain.Features.PostCommentLikes.Utilities" />
     <Using Include="InstaConnect.Posts.Domain.Features.PostCommentLikes.Models.Entities" />

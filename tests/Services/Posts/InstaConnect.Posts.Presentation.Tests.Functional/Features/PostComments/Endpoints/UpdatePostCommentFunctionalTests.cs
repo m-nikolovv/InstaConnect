@@ -1,3 +1,5 @@
+using InstaConnect.Posts.Tests.Features.PostCommentImages.Utilities;
+
 namespace InstaConnect.Posts.Presentation.Tests.Functional.Features.PostComments.Endpoints;
 
 public class UpdatePostCommentFunctionalTests : BasePostCommentPresentationCommandFunctionalTest
@@ -17,6 +19,7 @@ public class UpdatePostCommentFunctionalTests : BasePostCommentPresentationComma
 	protected override async Task OnInitializeAsync()
 	{
 		await ServiceScope.AddAsync(PostComment, CancellationToken);
+		await ServiceScope.AddRangeAsync(PostCommentImages, CancellationToken);
 	}
 
 	[Fact]

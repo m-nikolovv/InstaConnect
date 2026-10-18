@@ -11,7 +11,7 @@ public class AddPostCommentCommandHandlerUnitTests : BasePostCommentApplicationC
 	public AddPostCommentCommandHandlerUnitTests()
 	{
 		_requestBuilderFactory = new();
-		_requestBuilder = _requestBuilderFactory.Create(Post, User);
+		_requestBuilder = _requestBuilderFactory.Create(Post, User, PostComment.PostCommentImages.Count);
 		_request = _requestBuilder.Build();
 
 		_handler = new(Mapper, CommentService);

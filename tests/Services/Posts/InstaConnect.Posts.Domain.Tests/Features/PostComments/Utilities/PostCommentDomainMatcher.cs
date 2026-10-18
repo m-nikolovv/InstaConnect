@@ -1,3 +1,5 @@
+using InstaConnect.Common.Domain.Features.ValueObjects.Models;
+
 using InstaConnect.Posts.Events.Features.PostComments;
 
 namespace InstaConnect.Posts.Domain.Tests.Features.PostComments.Utilities;
@@ -14,6 +16,16 @@ public static class PostCommentDomainMatcher
 		public PostCommentAddedEventRequest IsPostCommentAddedEventRequest(PostComment postComment)
 		{
 			return Matcher.Is<PostCommentAddedEventRequest>(p => p.Matches(command, postComment));
+		}
+
+		public ICollection<Url> IsImages()
+		{
+			return Matcher.Is<ICollection<Url>>(p => p.Matches(command));
+		}
+
+		public ICollection<PostCommentImage> IsPostCommentImages()
+		{
+			return Matcher.Is<ICollection<PostCommentImage>>(p => p.Matches(command));
 		}
 	}
 

@@ -171,7 +171,7 @@ public static class PostCommentValidationExceptionAssertions
 
 			await func.ShouldThrowInvalidValidationExceptionAsync(
 				request,
-				r => r.Body.Content,
+				r => r.Form.Content,
 				messageTransformer,
 				cancellationToken);
 		}

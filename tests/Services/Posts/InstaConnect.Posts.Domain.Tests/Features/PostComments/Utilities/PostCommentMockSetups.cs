@@ -1,7 +1,8 @@
 using InstaConnect.Common.Domain.Features.DateTimes.Abstractions;
 using InstaConnect.Common.Domain.Features.Guids.Abstractions;
-using InstaConnect.Posts.Domain.Tests.Features.Posts.Utilities;
+using InstaConnect.Common.Domain.Features.ValueObjects.Models;
 using InstaConnect.Posts.Domain.Tests.Features.Users.Utilities;
+using InstaConnect.Posts.Domain.Tests.Features.Posts.Utilities;
 
 namespace InstaConnect.Posts.Domain.Tests.Features.PostComments.Utilities;
 
@@ -412,6 +413,29 @@ public static class PostCommentMockSetups
 			service
 				.UpdateAsync(command, cancellationToken)
 				.ReturnsTaskResponse(id);
+		}
+	}
+
+	extension(IPostCommentImageFactory factory)
+	{
+		public void SetupCreateRange(
+			AddPostCommentCommand command,
+			PostComment postComment)
+		{
+			factory.SetupCreateRange(
+				postComment.Id,
+				command.IsImages(),
+				postComment.PostCommentImages.To(command));
+		}
+
+		public void SetupCreateRange(
+			PostCommentId id,
+			ICollection<Url> urls,
+			ICollection<PostCommentImage> postCommentImages)
+		{
+			factory
+				.CreateRange(id, urls)
+				.ReturnsResponse(postCommentImages);
 		}
 	}
 }
