@@ -11,13 +11,7 @@ public static class PostDomainMockFactory
 
 	public static IPostAnalyzer CreateAnalyzer()
 	{
-		var analyzer = Mocker.Mock<IPostAnalyzer>();
-
-		analyzer
-			.AnalyzeAsync(Matcher.Any<PostResponse>(), Matcher.Any<CancellationToken>())
-			.ReturnsTaskResponse<PostAnalyzeResponse, PostResponse>(post => post.ToAnalyzeResponse());
-
-		return analyzer;
+		return Mocker.Mock<IPostAnalyzer>();
 	}
 
 	public static IPostCollectionResponseFactory CreateCollectionResponseFactory()

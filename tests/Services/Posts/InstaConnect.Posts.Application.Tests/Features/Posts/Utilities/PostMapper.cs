@@ -5,8 +5,6 @@ using InstaConnect.Posts.Application.Tests.Features.PostImages.Utilities;
 using InstaConnect.Posts.Application.Tests.Features.Posts.Utilities;
 using InstaConnect.Posts.Application.Tests.Features.Users.Utilities;
 
-using Microsoft.Extensions.AI;
-
 namespace InstaConnect.Posts.Application.Tests.Features.Posts.Utilities;
 
 public static class PostMapper

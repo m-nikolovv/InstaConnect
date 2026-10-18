@@ -294,6 +294,19 @@ public static class PostMockSetups
 		}
 	}
 
+	extension(IPostAnalyzer analyzer)
+	{
+		public void SetupAnalyzeAsync(
+			AnalyzePostByIdQuery query,
+			Post post,
+			CancellationToken cancellationToken)
+		{
+			analyzer
+				.AnalyzeAsync(query.IsPostResponse(post), cancellationToken)
+				.ReturnsTaskResponse(post.ToAnalyzeResponse(query));
+		}
+	}
+
 	extension(IPostQueryService service)
 	{
 		public void SetupGetAllAsync(

@@ -4,8 +4,6 @@ using InstaConnect.Posts.Domain.Tests.Features.Posts.Utilities;
 using InstaConnect.Posts.Domain.Tests.Features.Users.Utilities;
 using InstaConnect.Posts.Tests.Features.PostImages.Utilities;
 
-using Microsoft.Extensions.AI;
-
 namespace InstaConnect.Posts.Domain.Tests.Features.Posts.Utilities;
 
 public static class PostMapper
@@ -21,11 +19,6 @@ public static class PostMapper
 
 	extension(Post post)
 	{
-		public ChatMessage ToAnalyzeRequest()
-		{
-			return new(ChatRole.User, post.Title);
-		}
-
 		internal PostResponse ToFullResponse<TQuery>(
 			TQuery request)
 			where TQuery : ICurrentUserableQuery
@@ -93,27 +86,14 @@ public static class PostMapper
 		public PostAnalyzeResponse ToAnalyzeResponse(
 			AnalyzePostByIdQuery query)
 		{
-			return post.ToFullResponse(query).ToAnalyzeResponse();
-		}
-	}
-
-	extension(PostResponse post)
-	{
-		public ChatMessage ToAnalyzeRequest()
-		{
-			return new(ChatRole.User, post.Title);
-		}
-
-		public PostAnalyzeResponse ToAnalyzeResponse()
-		{
 			return new(post.Id,
 					   post.UserId,
 					   post.Title,
 					   post.Content,
-					   post.User,
-					   post.PostImages,
-					   post.IsLikedByCurrentUser,
-					   post.ToAnalyzeRequest().GetAnalysisSummary(),
+					   post.User?.ToFullResponse(),
+					   post.PostImages.ToFullResponse(),
+					   post.PostLikes.Any(pl => pl.Id.UserId.Matches(query.CurrentUser.Id)),
+					   post.GetAnalysisSummary(),
 					   post.CreatedAtUtc,
 					   post.UpdatedAtUtc);
 		}

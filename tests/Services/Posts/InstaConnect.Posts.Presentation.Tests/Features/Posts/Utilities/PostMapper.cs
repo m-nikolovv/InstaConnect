@@ -5,19 +5,12 @@ using InstaConnect.Posts.Presentation.Tests.Features.PostImages.Utilities;
 using InstaConnect.Posts.Presentation.Tests.Features.Posts.Utilities;
 using InstaConnect.Posts.Presentation.Tests.Features.Users.Utilities;
 
-using Microsoft.Extensions.AI;
-
 namespace InstaConnect.Posts.Presentation.Tests.Features.Posts.Utilities;
 
 public static class PostMapper
 {
 	extension(Post post)
 	{
-		public ChatMessage ToAnalyzeRequest()
-		{
-			return new(ChatRole.User, post.Title);
-		}
-
 		internal PostIdCommandResponse ToIdCommandResponse(
 )
 		{
@@ -64,7 +57,7 @@ public static class PostMapper
 					   post.User?.ToFullQueryResponse(),
 					   post.PostImages.ToFullQueryResponse(),
 					   post.PostLikes.Any(pl => pl.Id.UserId.Matches(request.CurrentUserId)),
-					   post.ToAnalyzeRequest().GetAnalysisSummary(),
+					   post.GetAnalysisSummary(),
 					   post.CreatedAtUtc,
 					   post.UpdatedAtUtc);
 		}

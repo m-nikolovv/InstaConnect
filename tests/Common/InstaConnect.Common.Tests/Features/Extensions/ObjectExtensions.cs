@@ -6,9 +6,9 @@ public static class ObjectExtensions
 	{
 		public string GetAnalysisSummary()
 		{
-			const string Format = "{0} analysis summary";
+			const string Message = "Analysis summary";
 
-			return Format.FormatCurrentCulture(value.GetType().Name);
+			return Message;
 		}
 	}
 }

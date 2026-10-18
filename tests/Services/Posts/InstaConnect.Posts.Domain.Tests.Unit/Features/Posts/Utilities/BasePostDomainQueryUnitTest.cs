@@ -8,19 +8,19 @@ namespace InstaConnect.Posts.Domain.Tests.Unit.Features.Posts.Utilities;
 
 public abstract class BasePostDomainQueryUnitTest : BasePostTest
 {
+	protected IPostAnalyzer Analyzer { get; }
+
 	protected IPostQueryRepository Repository { get; }
 
 	protected IUserQueryRepository UserRepository { get; }
 
 	protected IPostCollectionResponseFactory CollectionResponseFactory { get; }
 
-	protected IPostAnalyzer Analyzer { get; }
-
 	protected BasePostDomainQueryUnitTest()
 	{
+		Analyzer = PostDomainMockFactory.CreateAnalyzer();
 		Repository = PostDomainMockFactory.CreateQueryRepository();
 		UserRepository = UserDomainMockFactory.CreateQueryRepository();
 		CollectionResponseFactory = PostDomainMockFactory.CreateCollectionResponseFactory();
-		Analyzer = PostDomainMockFactory.CreateAnalyzer();
 	}
 }

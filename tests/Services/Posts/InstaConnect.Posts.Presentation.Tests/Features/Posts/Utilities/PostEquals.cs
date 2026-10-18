@@ -313,7 +313,7 @@ public static class PostEquals
 				   post.Content == response.Content &&
 				   response.PostImages.MatchesFull(post.PostImages) &&
 				   response.IsLikedByCurrentUser == post.PostLikes.Any(pl => pl.Id.UserId.Matches(request.CurrentUserId)) &&
-				   response.Summary == post.ToAnalyzeRequest().GetAnalysisSummary() &&
+				   response.Summary == post.GetAnalysisSummary() &&
 				   post.CreatedAtUtc == response.CreatedAtUtc &&
 				   post.UpdatedAtUtc == response.UpdatedAtUtc &&
 				   response.User.MatchesFull(post.User);

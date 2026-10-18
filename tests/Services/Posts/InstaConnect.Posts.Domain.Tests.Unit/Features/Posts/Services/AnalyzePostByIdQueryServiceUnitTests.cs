@@ -24,6 +24,7 @@ public class AnalyzePostByIdQueryServiceUnitTests : BasePostDomainQueryUnitTest
 		_service = new(Analyzer, Repository, UserRepository, CollectionResponseFactory);
 
 		Repository.SetupGetByIdAsync(_query, Post, CancellationToken);
+		Analyzer.SetupAnalyzeAsync(_query, Post, CancellationToken);
 	}
 
 	[Fact]
