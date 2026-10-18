@@ -37,7 +37,7 @@ public class PostsWebApplicationFactory : WebApplicationFactory<Program>, IAsync
 		builder.UpdateRabbitMqConfiguration(_rabbitMqContainer.GetConnectionString());
 		builder.UpdateAccessTokenConfiguration();
 		builder.UpdateCloudinaryConfiguration();
-		builder.UpdateOpenAiConfiguration();
+		builder.UpdateAnthropicConfiguration();
 		builder.UpdateOpenTelemetryConfiguration();
 		builder.UpdateCorsConfiguration();
 		builder.UpdateMainConfiguration();

@@ -14,9 +14,9 @@ public static class MockValues
 
 	public const string CloudinaryApiSecret = "test";
 
-	public const string OpenAiApiKey = "test";
+	public const string AnthropicApiKey = "test";
 
-	public const string OpenAiModel = "test";
+	public const string AnthropicModel = "test";
 
 	public const string AccessTokenSecurityKey = "6R9f6d1Y4Z$0^8Y&S2e3nF4*G6u7D0#L9K!pT2vW8xZ5@qR7mN3bH6cJ1L0sF4dE8";
 

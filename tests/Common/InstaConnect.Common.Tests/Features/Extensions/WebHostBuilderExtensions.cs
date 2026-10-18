@@ -57,15 +57,15 @@ public static class WebHostBuilderExtensions
 				MockValues.CloudinaryApiSecret);
 		}
 
-		public void UpdateOpenAiConfiguration()
+		public void UpdateAnthropicConfiguration()
 		{
 			webHostBuilder.UseSetting(
-				OpenAiOptions.SectionName.ToSectionKey(nameof(OpenAiOptions.ApiKey)),
-				MockValues.OpenAiApiKey);
+				AnthropicOptions.SectionName.ToSectionKey(nameof(AnthropicOptions.ApiKey)),
+				MockValues.AnthropicApiKey);
 
 			webHostBuilder.UseSetting(
-				OpenAiOptions.SectionName.ToSectionKey(nameof(OpenAiOptions.Model)),
-				MockValues.OpenAiModel);
+				AnthropicOptions.SectionName.ToSectionKey(nameof(AnthropicOptions.Model)),
+				MockValues.AnthropicModel);
 		}
 
 		public void UpdateSendGridConfiguration()

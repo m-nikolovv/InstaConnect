@@ -4,9 +4,9 @@ using InstaConnect.Common.Domain.Features.Validations.Extensions;
 
 namespace InstaConnect.Common.Infrastructure.Features.Summarizers.Models;
 
-public class OpenAiOptionsValidator : AbstractValidator<OpenAiOptions>
+public class AnthropicOptionsValidator : AbstractValidator<AnthropicOptions>
 {
-	public OpenAiOptionsValidator()
+	public AnthropicOptionsValidator()
 	{
 		RuleFor(o => o.ApiKey)
 			.NotEmptyWithMessage();
