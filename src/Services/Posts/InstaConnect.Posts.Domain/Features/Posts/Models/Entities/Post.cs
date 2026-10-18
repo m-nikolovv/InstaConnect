@@ -7,6 +7,7 @@ public class Post : IEntityWithId<PostId>
 		Id = new(string.Empty);
 		Title = string.Empty;
 		Content = string.Empty;
+		Summary = new(string.Empty);
 		UserId = new(string.Empty);
 		PostLikes = [];
 		PostComments = [];
@@ -17,6 +18,7 @@ public class Post : IEntityWithId<PostId>
 		PostId id,
 		string title,
 		string content,
+		Summary summary,
 		UserId userId,
 		DateTimeOffset createdAtUtc,
 		DateTimeOffset updatedAtUtc)
@@ -24,6 +26,7 @@ public class Post : IEntityWithId<PostId>
 		Id = id;
 		Title = title;
 		Content = content;
+		Summary = summary;
 		UserId = userId;
 		PostLikes = [];
 		PostComments = [];
@@ -37,6 +40,8 @@ public class Post : IEntityWithId<PostId>
 	public string Title { get; private set; }
 
 	public string Content { get; private set; }
+
+	public Summary Summary { get; private set; }
 
 	public UserId UserId { get; }
 
@@ -62,6 +67,11 @@ public class Post : IEntityWithId<PostId>
 		Title = title;
 		Content = content;
 		UpdatedAtUtc = updatedAtUtc;
+	}
+
+	public void UpdateSummary(Summary summary)
+	{
+		Summary = summary;
 	}
 
 	public Post AddUser(User? user)

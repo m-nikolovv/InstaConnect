@@ -21,6 +21,7 @@ internal class PostFactory : IPostFactory
 			new(id),
 			title,
 			content,
+			new(string.Empty),
 			userId,
 			utcNow,
 			utcNow);

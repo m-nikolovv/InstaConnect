@@ -47,18 +47,6 @@ internal static class PostHttpClientExtensions
 				.GetAsync(route, cancellationToken);
 		}
 
-		internal async Task<HttpResponseMessage> AnalyzeByIdResponseMessageAsync(
-			AnalyzePostByIdApiRequest request,
-			IBaseAccessTokenGenerator baseAccessTokenGenerator,
-			CancellationToken cancellationToken)
-		{
-			var route = PostRouteFactory.GetRoute(request);
-
-			return await httpClient
-				.WithAuthorization(request.CurrentUserId, baseAccessTokenGenerator)
-				.GetAsync(route, cancellationToken);
-		}
-
 		internal async Task<HttpResponseMessage> AddUnauthorizedResponseMessageAsync(
 			AddPostApiRequest request,
 			CancellationToken cancellationToken)

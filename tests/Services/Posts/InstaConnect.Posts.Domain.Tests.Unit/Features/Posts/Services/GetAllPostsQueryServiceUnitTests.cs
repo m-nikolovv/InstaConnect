@@ -21,7 +21,7 @@ public class GetAllPostsQueryServiceUnitTests : BasePostDomainQueryUnitTest
 		_queryBuilder = _queryBuilderFactory.Create(Post);
 		_query = _queryBuilder.Build();
 
-		_service = new(Analyzer, Repository, UserRepository, CollectionResponseFactory);
+		_service = new(Repository, UserRepository, CollectionResponseFactory);
 
 		Repository.SetupGetAllAsync(_query, Posts, CancellationToken);
 		Repository.SetupGetTotalCountAsync(_query, Posts, CancellationToken);

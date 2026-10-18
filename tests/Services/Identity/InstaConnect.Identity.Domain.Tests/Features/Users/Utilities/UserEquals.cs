@@ -31,7 +31,7 @@ public static class UserEquals
 				   user.Email.Matches(command.Email) &&
 				   user.FirstName == command.FirstName &&
 				   user.LastName == command.LastName &&
-				   user.ProfileImageUrl.Matches(command.ProfileImage?.GetUrl()) &&
+				   user.ProfileImageUrl.Matches(command.ProfileImage?.GetUrlValue()) &&
 				   user.PasswordHash.IsNotNullOrEmptyOrWhiteSpace() &&
 				   user.IsEmailNotConfirmed &&
 				   user.CreatedAtUtc != default &&
@@ -45,7 +45,7 @@ public static class UserEquals
 				   user.Email.Matches(command.Email) &&
 				   user.FirstName == command.FirstName &&
 				   user.LastName == command.LastName &&
-				   (command.ProfileImage == null || user.ProfileImageUrl.Matches(command.ProfileImage.GetUrl())) &&
+				   (command.ProfileImage == null || user.ProfileImageUrl.Matches(command.ProfileImage.GetUrlValue())) &&
 				   user.PasswordHash.IsNotNullOrEmptyOrWhiteSpace() &&
 				   user.CreatedAtUtc != default &&
 				   user.UpdatedAtUtc != default;
@@ -158,7 +158,7 @@ public static class UserEquals
 				   request.Email.EqualsOrdinalIgnoreCase(command.Email.Value) &&
 				   request.FirstName == command.FirstName &&
 				   request.LastName == command.LastName &&
-				   request.ProfileImageUrl == command.ProfileImage?.GetUrl() &&
+				   request.ProfileImageUrl == command.ProfileImage?.GetUrlValue() &&
 				   request.CreatedAtUtc == entity.CreatedAtUtc &&
 				   request.UpdatedAtUtc == entity.UpdatedAtUtc;
 		}
@@ -171,7 +171,7 @@ public static class UserEquals
 				   request.Email.EqualsOrdinalIgnoreCase(command.Email.Value) &&
 				   request.FirstName == command.FirstName &&
 				   request.LastName == command.LastName &&
-				   (command.ProfileImage == null || request.ProfileImageUrl == command.ProfileImage.GetUrl()) &&
+				   (command.ProfileImage == null || request.ProfileImageUrl == command.ProfileImage.GetUrlValue()) &&
 				   request.CreatedAtUtc == entity.CreatedAtUtc &&
 				   request.UpdatedAtUtc == entity.UpdatedAtUtc;
 		}

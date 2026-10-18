@@ -1,5 +1,6 @@
 using InstaConnect.Common.Tests.Features.Extensions;
 using InstaConnect.Posts.Infrastructure.Features.Common.Extensions;
+using InstaConnect.Posts.Tests.Features.Posts.Extensions;
 
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc.Testing;
@@ -28,7 +29,7 @@ public class PostsWebApplicationFactory : WebApplicationFactory<Program>, IAsync
 		builder.ConfigureTestServices(serviceCollection =>
 		{
 			serviceCollection.AddMockImageHandler();
-			serviceCollection.AddMockAnalyzer();
+			serviceCollection.AddPostMockSummarizer();
 			serviceCollection.AddTestEventClient(_rabbitMqContainer.GetConnectionString(), PostsInfrastructureReference.Assembly);
 		});
 

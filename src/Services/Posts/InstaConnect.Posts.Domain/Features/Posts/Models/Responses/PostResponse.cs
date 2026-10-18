@@ -7,6 +7,7 @@ public record PostResponse(
 	UserId UserId,
 	string Title,
 	string Content,
+	Summary Summary,
 	UserResponse? User,
 	ICollection<PostImageResponse> PostImages,
 	bool IsLikedByCurrentUser,

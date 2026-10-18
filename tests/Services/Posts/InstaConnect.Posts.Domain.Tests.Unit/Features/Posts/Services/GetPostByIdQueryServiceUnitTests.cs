@@ -21,7 +21,7 @@ public class GetPostByIdQueryServiceUnitTests : BasePostDomainQueryUnitTest
 		_queryBuilder = _queryBuilderFactory.Create(Post);
 		_query = _queryBuilder.Build();
 
-		_service = new(Analyzer, Repository, UserRepository, CollectionResponseFactory);
+		_service = new(Repository, UserRepository, CollectionResponseFactory);
 
 		Repository.SetupGetByIdAsync(_query, Post, CancellationToken);
 	}

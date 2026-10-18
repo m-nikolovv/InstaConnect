@@ -5,6 +5,7 @@ public record PostApiResponse(
 	string UserId,
 	string Title,
 	string Content,
+	string Summary,
 	UserApiResponse? User,
 	ICollection<PostImageApiResponse> PostImages,
 	bool IsLikedByCurrentUser,

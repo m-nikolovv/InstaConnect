@@ -57,6 +57,7 @@ internal class PostFluent : MongoDbFluent<Post>, IPostFluent
 				 p.UserId,
 				 p.Title,
 				 p.Content,
+				 p.Summary,
 				 new UserResponse(
 					 p.User!.Id,
 					 p.User.FirstName,
@@ -89,6 +90,7 @@ internal class PostFluent : MongoDbFluent<Post>, IPostFluent
 				 p.UserId,
 				 p.Title,
 				 p.Content,
+				 p.Summary,
 				 null,
 				 p.PostImages.Select(
 					 pi => new PostImageResponse(

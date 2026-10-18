@@ -57,6 +57,7 @@ public static class PostEquals
 				   post.UserId.Matches(response.UserId) &&
 				   post.Title == response.Title &&
 				   post.Content == response.Content &&
+				   post.Summary.Matches(response.Summary) &&
 				   response.PostImages.MatchesFull(post.PostImages) &&
 				   response.IsLikedByCurrentUser == post.PostLikes.Any(pl => pl.Id.UserId.Matches(currentUserQuery.Id)) &&
 				   post.CreatedAtUtc == response.CreatedAtUtc &&
@@ -74,6 +75,7 @@ public static class PostEquals
 				   post.UserId.Matches(response.UserId) &&
 				   post.Title == response.Title &&
 				   post.Content == response.Content &&
+				   post.Summary.Matches(response.Summary) &&
 				   response.PostImages.MatchesFull(post.PostImages) &&
 				   response.IsLikedByCurrentUser == post.PostLikes.Any(pl => pl.Id.UserId.Matches(currentUserQuery.Id)) &&
 				   post.CreatedAtUtc == response.CreatedAtUtc &&

@@ -25,7 +25,7 @@ public class DeletePostCommandServiceUnitTests : BasePostDomainCommandUnitTest
 
 		_include = IncludeBuilderFactory.Create().WithUser().WithPostImages().Build();
 
-		_service = new(Factory, Mapper, ImageHandler, EventPublisher, ImageFactory, Repository, DateTimeProvider, UserRepository, ImageRepository, IncludeBuilderFactory);
+		_service = new(Factory, Mapper, Summarizer, ImageHandler, EventPublisher, ImageFactory, Repository, DateTimeProvider, UserRepository, ImageRepository, IncludeBuilderFactory);
 
 		Repository.SetupGetByIdAsync(_command, _include, Post, CancellationToken);
 	}

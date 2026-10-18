@@ -134,16 +134,6 @@ public static class PostMockAssertions
 		}
 
 		public async Task ShouldHaveReceivedOneGetByIdAsync(
-			AnalyzePostByIdQuery query,
-			CancellationToken cancellationToken)
-		{
-			await repository.ShouldHaveReceivedOneGetByIdAsync(
-				query.Id,
-				query.CurrentUser,
-				cancellationToken);
-		}
-
-		public async Task ShouldHaveReceivedOneGetByIdAsync(
 			PostId id,
 			CurrentUserQuery currentUser,
 			CancellationToken cancellationToken)
@@ -333,24 +323,6 @@ public static class PostMockAssertions
 		{
 			await service.ShouldHaveReceivedOne().GetByIdAsync(query, cancellationToken);
 		}
-
-		public async Task ShouldHaveReceivedOneAnalyzeByIdAsync(
-			AnalyzePostByIdQuery query,
-			CancellationToken cancellationToken)
-		{
-			await service.ShouldHaveReceivedOne().AnalyzeByIdAsync(query, cancellationToken);
-		}
-	}
-
-	extension(IPostAnalyzer analyzer)
-	{
-		public async Task ShouldHaveReceivedOneAnalyzeAsync(
-			AnalyzePostByIdQuery query,
-			Post post,
-			CancellationToken cancellationToken)
-		{
-			await analyzer.ShouldHaveReceivedOne().AnalyzeAsync(query.IsPostResponse(post), cancellationToken);
-		}
 	}
 
 	extension(IPostCommandService service)
@@ -374,6 +346,30 @@ public static class PostMockAssertions
 			CancellationToken cancellationToken)
 		{
 			await service.ShouldHaveReceivedOne().DeleteAsync(command, cancellationToken);
+		}
+	}
+
+	extension(IPostSummarizer summarizer)
+	{
+		public async Task ShouldHaveReceivedOneSummarizeAsync(
+			AddPostCommand command,
+			CancellationToken cancellationToken)
+		{
+			await summarizer.ShouldHaveReceivedOneSummarizeAsync(command.IsPost(), cancellationToken);
+		}
+
+		public async Task ShouldHaveReceivedOneSummarizeAsync(
+			UpdatePostCommand command,
+			CancellationToken cancellationToken)
+		{
+			await summarizer.ShouldHaveReceivedOneSummarizeAsync(command.IsPost(), cancellationToken);
+		}
+
+		public async Task ShouldHaveReceivedOneSummarizeAsync(
+			Post post,
+			CancellationToken cancellationToken)
+		{
+			await summarizer.ShouldHaveReceivedOne().SummarizeAsync(post, cancellationToken);
 		}
 	}
 

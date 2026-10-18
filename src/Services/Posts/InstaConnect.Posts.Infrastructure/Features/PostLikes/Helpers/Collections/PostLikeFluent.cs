@@ -68,6 +68,7 @@ internal class PostLikeFluent : MongoDbFluent<PostLike>, IPostLikeFluent
 					p.Post.UserId,
 					p.Post.Title,
 					p.Post.Content,
+					p.Post.Summary,
 						new UserResponse(
 							p.Post.User!.Id,
 							p.Post.User.FirstName,
@@ -104,6 +105,7 @@ internal class PostLikeFluent : MongoDbFluent<PostLike>, IPostLikeFluent
 					p.Post.UserId,
 					p.Post.Title,
 					p.Post.Content,
+					p.Post.Summary,
 						new UserResponse(
 							p.Post.User!.Id,
 							p.Post.User.FirstName,

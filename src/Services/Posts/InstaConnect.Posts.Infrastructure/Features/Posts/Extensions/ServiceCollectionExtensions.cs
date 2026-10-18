@@ -26,6 +26,7 @@ internal static class ServiceCollectionExtensions
 				cm.MapMember(c => c.UserId);
 				cm.MapMember(c => c.Title);
 				cm.MapMember(c => c.Content);
+				cm.MapMember(c => c.Summary);
 				cm.MapMember(c => c.CreatedAtUtc);
 				cm.MapMember(c => c.UpdatedAtUtc);
 
@@ -38,6 +39,7 @@ internal static class ServiceCollectionExtensions
 					c.Id,
 					c.Title,
 					c.Content,
+					c.Summary,
 					c.UserId,
 					c.CreatedAtUtc,
 					c.UpdatedAtUtc));

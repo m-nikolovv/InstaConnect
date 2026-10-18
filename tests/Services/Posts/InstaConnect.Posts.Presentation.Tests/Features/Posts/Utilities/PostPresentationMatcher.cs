@@ -26,14 +26,6 @@ public static class PostPresentationMatcher
 		}
 	}
 
-	extension(AnalyzePostByIdApiRequest request)
-	{
-		public AnalyzePostByIdQueryRequest IsAnalyzePostByIdQueryRequest()
-		{
-			return Matcher.Is<AnalyzePostByIdQueryRequest>(p => p.Matches(request));
-		}
-	}
-
 	extension(AddPostApiRequest request)
 	{
 		public AddPostCommandRequest IsAddPostCommandRequest()

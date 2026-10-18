@@ -1,7 +1,7 @@
 using InstaConnect.Common.Domain.Features.Mappers.Extensions;
 using InstaConnect.Common.Domain.Features.Validations.Extensions;
 using InstaConnect.Common.Infrastructure.Features.AccessTokens.Extensions;
-using InstaConnect.Common.Infrastructure.Features.Analyzers.Extensions;
+using InstaConnect.Common.Infrastructure.Features.Summarizers.Extensions;
 using InstaConnect.Common.Infrastructure.Features.Common.Extensions;
 using InstaConnect.Common.Infrastructure.Features.DateTimes.Extensions;
 using InstaConnect.Common.Infrastructure.Features.Events.Extensions;
@@ -43,7 +43,7 @@ public static class ServiceCollectionExtensions
 				.AddEvents(configuration, PostsEventHandlerUtilities.Prefix, PostsInfrastructureReference.Assembly)
 				.AddAccessTokens(configuration)
 				.AddImages(configuration)
-				.AddAnalyzers(configuration)
+				.AddSummarizers(configuration)
 				.AddGuids()
 				.AddDateTimes()
 				.AddDatabaseSortOrders();

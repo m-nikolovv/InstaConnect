@@ -100,6 +100,7 @@ public static class PostCommentLikeEquals
 				   request.User.Matches(command, entity.User) &&
 				   request.Title == entity.Title &&
 				   request.Content == entity.Content &&
+				   entity.Summary.Matches(request.Summary) &&
 				   request.CreatedAtUtc == entity.CreatedAtUtc &&
 				   request.UpdatedAtUtc == entity.UpdatedAtUtc;
 		}
@@ -111,6 +112,7 @@ public static class PostCommentLikeEquals
 				   request.User.Matches(command, entity.User) &&
 				   request.Title == entity.Title &&
 				   request.Content == entity.Content &&
+				   entity.Summary.Matches(request.Summary) &&
 				   request.CreatedAtUtc == entity.CreatedAtUtc &&
 				   request.UpdatedAtUtc == entity.UpdatedAtUtc;
 		}

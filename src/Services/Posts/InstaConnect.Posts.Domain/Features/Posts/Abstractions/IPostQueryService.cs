@@ -7,6 +7,4 @@ public interface IPostQueryService
 	public Task<PostCollectionResponse> GetAllForUserAsync(GetAllPostsForUserQuery query, CancellationToken cancellationToken);
 
 	public Task<PostResponse> GetByIdAsync(GetPostByIdQuery query, CancellationToken cancellationToken);
-
-	public Task<PostAnalyzeResponse> AnalyzeByIdAsync(AnalyzePostByIdQuery query, CancellationToken cancellationToken);
 }

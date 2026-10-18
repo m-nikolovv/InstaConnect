@@ -1,6 +1,6 @@
 using InstaConnect.Common.Infrastructure.Features.AccessTokens.Models;
 using InstaConnect.Common.Infrastructure.Features.Caches.Models;
-using InstaConnect.Common.Infrastructure.Features.Analyzers.Models;
+using InstaConnect.Common.Infrastructure.Features.Summarizers.Models;
 using InstaConnect.Common.Infrastructure.Features.Databases.Models;
 using InstaConnect.Common.Infrastructure.Features.Emails.Models;
 using InstaConnect.Common.Infrastructure.Features.Events.Models;

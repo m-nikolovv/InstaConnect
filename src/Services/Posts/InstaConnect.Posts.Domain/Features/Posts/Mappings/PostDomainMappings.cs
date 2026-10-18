@@ -23,6 +23,7 @@ internal class PostDomainMappings : IRegister
 				src.UserId.Id,
 				src.Title,
 				src.Content,
+				src.Summary.Value,
 				src.User.Adapt<UserEventRequest>(config)!,
 				src.PostImages.Adapt<ICollection<PostImageEventRequest>>(config),
 				src.CreatedAtUtc,

@@ -53,7 +53,7 @@ public static class UserEquals
 				   r.Email.EqualsOrdinalIgnoreCase(request.Email) &&
 				   r.FirstName == request.FirstName &&
 				   r.LastName == request.LastName &&
-				   r.ProfileImageUrl == request.ProfileImage?.GetUrl() &&
+				   r.ProfileImageUrl == request.ProfileImage?.GetUrlValue() &&
 				   r.CreatedAtUtc == entity.CreatedAtUtc &&
 				   r.UpdatedAtUtc == entity.UpdatedAtUtc;
 		}
@@ -66,7 +66,7 @@ public static class UserEquals
 				   r.Email.EqualsOrdinalIgnoreCase(request.Email) &&
 				   r.FirstName == request.FirstName &&
 				   r.LastName == request.LastName &&
-				   (request.ProfileImage == null || r.ProfileImageUrl == request.ProfileImage.GetUrl()) &&
+				   (request.ProfileImage == null || r.ProfileImageUrl == request.ProfileImage.GetUrlValue()) &&
 				   r.CreatedAtUtc == entity.CreatedAtUtc &&
 				   r.UpdatedAtUtc == entity.UpdatedAtUtc;
 		}
@@ -267,7 +267,7 @@ public static class UserEquals
 				   user.LastName == request.LastName &&
 				   user.Name.Matches(request.Name) &&
 				   user.Email.Matches(request.Email) &&
-				   user.ProfileImageUrl.Matches(request.ProfileImage?.GetUrl()) &&
+				   user.ProfileImageUrl.Matches(request.ProfileImage?.GetUrlValue()) &&
 				   passwordHasher.IsMatch(request.Password, user.PasswordHash) &&
 				   user.IsEmailNotConfirmed &&
 				   user.CreatedAtUtc != default &&
@@ -281,7 +281,7 @@ public static class UserEquals
 				   user.LastName == request.LastName &&
 				   user.Name.Matches(request.Name) &&
 				   user.Email.Matches(request.Email) &&
-				   (request.ProfileImage == null || user.ProfileImageUrl.Matches(request.ProfileImage.GetUrl())) &&
+				   (request.ProfileImage == null || user.ProfileImageUrl.Matches(request.ProfileImage.GetUrlValue())) &&
 				   user.PasswordHash.IsNotNullOrEmptyOrWhiteSpace() &&
 				   user.CreatedAtUtc != default &&
 				   user.UpdatedAtUtc != default;

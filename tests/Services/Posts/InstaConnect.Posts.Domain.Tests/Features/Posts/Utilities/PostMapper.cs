@@ -27,6 +27,7 @@ public static class PostMapper
 					   post.UserId,
 					   post.Title,
 					   post.Content,
+					   post.Summary,
 					   post.User?.ToFullResponse(),
 					   post.PostImages.ToFullResponse(),
 					   post.PostLikes.Any(pl => pl.Id.UserId.Matches(request.CurrentUser.Id)),
@@ -42,6 +43,7 @@ public static class PostMapper
 					   post.UserId,
 					   post.Title,
 					   post.Content,
+					   post.Summary,
 					   null,
 					   post.PostImages.ToFullResponse(),
 					   post.PostLikes.Any(pl => pl.Id.UserId.Matches(request.CurrentUser.Id)),
@@ -54,6 +56,7 @@ public static class PostMapper
 			return new(post.Id,
 					   command.Title,
 					   command.Content,
+					   new(string.Empty),
 					   command.UserId,
 					   post.CreatedAtUtc,
 					   post.UpdatedAtUtc);
@@ -75,21 +78,6 @@ public static class PostMapper
 			GetPostByIdQuery query)
 		{
 			return post.ToFullResponse(query);
-		}
-
-		public PostAnalyzeResponse ToResponse(
-			AnalyzePostByIdQuery query)
-		{
-			return new(post.Id,
-					   post.UserId,
-					   post.Title,
-					   post.Content,
-					   post.User?.ToFullResponse(),
-					   post.PostImages.ToFullResponse(),
-					   post.PostLikes.Any(pl => pl.Id.UserId.Matches(query.CurrentUser.Id)),
-					   post.GetAnalysisSummary(),
-					   post.CreatedAtUtc,
-					   post.UpdatedAtUtc);
 		}
 	}
 
@@ -126,7 +114,7 @@ public static class PostMapper
 		{
 			return [.. postImages.Zip(command.Images, (postImage, formFile) => new PostImage(
 				postImage.Id,
-				new(formFile.GetUrl()),
+				formFile.GetUrl(),
 				postImage.CreatedAtUtc))];
 		}
 	}

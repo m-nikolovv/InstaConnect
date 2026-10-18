@@ -23,6 +23,8 @@ public abstract class BasePostDomainCommandUnitTest : BasePostTest
 
 	protected IGuidProvider GuidProvider { get; }
 
+	protected IPostSummarizer Summarizer { get; }
+
 	protected IImageHandler ImageHandler { get; }
 
 	protected IEventPublisher EventPublisher { get; }
@@ -44,6 +46,7 @@ public abstract class BasePostDomainCommandUnitTest : BasePostTest
 		Factory = PostDomainMockFactory.CreateFactory();
 		Mapper = MockFactory.CreateMapper(PostsDomainReference.Assembly);
 		GuidProvider = DomainMockFactory.CreateGuidProvider();
+		Summarizer = PostMockFactory.CreateSummarizer();
 		ImageHandler = MockFactory.CreateImageHandler();
 		EventPublisher = DomainMockFactory.CreateEventPublisher();
 		ImageFactory = PostImageDomainMockFactory.CreateFactory();

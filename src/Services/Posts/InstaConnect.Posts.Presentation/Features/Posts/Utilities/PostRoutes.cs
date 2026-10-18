@@ -8,8 +8,6 @@ public static class PostRoutes
 
 	public const string Id = "{id}";
 
-	public const string Analysis = "{id}/analysis";
-
 	public const string Version1 = "1.0";
 }
 

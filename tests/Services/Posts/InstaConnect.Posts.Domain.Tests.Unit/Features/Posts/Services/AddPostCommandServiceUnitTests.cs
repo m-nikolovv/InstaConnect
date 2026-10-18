@@ -23,7 +23,7 @@ public class AddPostCommandServiceUnitTests : BasePostDomainCommandUnitTest
 		_commandBuilder = _commandBuilderFactory.Create(User, Post.PostImages.Count);
 		_command = _commandBuilder.Build();
 
-		_service = new(Factory, Mapper, ImageHandler, EventPublisher, ImageFactory, Repository, DateTimeProvider, UserRepository, ImageRepository, IncludeBuilderFactory);
+		_service = new(Factory, Mapper, Summarizer, ImageHandler, EventPublisher, ImageFactory, Repository, DateTimeProvider, UserRepository, ImageRepository, IncludeBuilderFactory);
 
 		UserRepository.SetupGetByIdAsync(_command, User, CancellationToken);
 		Factory.SetupCreate(_command, Post);
@@ -113,6 +113,31 @@ public class AddPostCommandServiceUnitTests : BasePostDomainCommandUnitTest
 
 		// Assert
 		await Repository.ShouldHaveReceivedOneAddAsync(command, CancellationToken);
+	}
+
+	[Fact]
+	public async Task AddAsync_ShouldCallTheSummarizerSummarizeAsync_WhenCommandIsValid()
+	{
+		// Act
+		await _service.AddAsync(_command, CancellationToken);
+
+		// Assert
+		await Summarizer.ShouldHaveReceivedOneSummarizeAsync(_command, CancellationToken);
+	}
+
+	[Theory]
+	[PostImagesEmptyData]
+	public async Task AddAsync_ShouldCallTheSummarizerSummarizeAsync_WhenCommandAndImagesAreValid(
+		IFormFileCollectionTransformer transformer)
+	{
+		// Arrange
+		var command = _commandBuilder.WithImages(transformer).Build();
+
+		// Act
+		await _service.AddAsync(command, CancellationToken);
+
+		// Assert
+		await Summarizer.ShouldHaveReceivedOneSummarizeAsync(command, CancellationToken);
 	}
 
 	[Fact]

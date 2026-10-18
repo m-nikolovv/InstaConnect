@@ -52,12 +52,4 @@ public static class PostDomainMatcher
 			return Matcher.Is<ICollection<PostImage>>(p => p.Matches(command));
 		}
 	}
-
-	extension(AnalyzePostByIdQuery query)
-	{
-		public PostResponse IsPostResponse(Post post)
-		{
-			return Matcher.Is<PostResponse>(p => p.MatchesFull(query, post));
-		}
-	}
 }

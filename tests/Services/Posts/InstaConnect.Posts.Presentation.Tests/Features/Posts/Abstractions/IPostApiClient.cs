@@ -15,9 +15,6 @@ public interface IPostApiClient
 	public Task<GetPostByIdApiResponse> GetByIdAsync(GetPostByIdApiRequest request, CancellationToken cancellationToken);
 	public Task<ApplicationProblemDetails> GetByIdProblemDetailsAsync(GetPostByIdApiRequest request, CancellationToken cancellationToken);
 	public Task<HttpStatusCode> GetByIdStatusCodeAsync(GetPostByIdApiRequest request, CancellationToken cancellationToken);
-	public Task<AnalyzePostByIdApiResponse> AnalyzeByIdAsync(AnalyzePostByIdApiRequest request, CancellationToken cancellationToken);
-	public Task<ApplicationProblemDetails> AnalyzeByIdProblemDetailsAsync(AnalyzePostByIdApiRequest request, CancellationToken cancellationToken);
-	public Task<HttpStatusCode> AnalyzeByIdStatusCodeAsync(AnalyzePostByIdApiRequest request, CancellationToken cancellationToken);
 	public Task<AddPostApiResponse> AddAsync(AddPostApiRequest request, CancellationToken cancellationToken);
 	public Task<ApplicationProblemDetails> AddUnauthorizedProblemDetailsAsync(AddPostApiRequest request, CancellationToken cancellationToken);
 	public Task<ApplicationProblemDetails> AddProblemDetailsAsync(AddPostApiRequest request, CancellationToken cancellationToken);

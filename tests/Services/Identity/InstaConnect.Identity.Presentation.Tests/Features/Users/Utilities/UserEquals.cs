@@ -53,7 +53,7 @@ public static class UserEquals
 				   r.Email.EqualsOrdinalIgnoreCase(request.Form.Email) &&
 				   r.FirstName == request.Form.FirstName &&
 				   r.LastName == request.Form.LastName &&
-				   r.ProfileImageUrl == request.Form.ProfileImage?.GetUrl() &&
+				   r.ProfileImageUrl == request.Form.ProfileImage?.GetUrlValue() &&
 				   r.CreatedAtUtc == entity.CreatedAtUtc &&
 				   r.UpdatedAtUtc == entity.UpdatedAtUtc;
 		}
@@ -66,7 +66,7 @@ public static class UserEquals
 				   r.Email.EqualsOrdinalIgnoreCase(request.Form.Email) &&
 				   r.FirstName == request.Form.FirstName &&
 				   r.LastName == request.Form.LastName &&
-				   (request.Form.ProfileImage == null || r.ProfileImageUrl == request.Form.ProfileImage.GetUrl()) &&
+				   (request.Form.ProfileImage == null || r.ProfileImageUrl == request.Form.ProfileImage.GetUrlValue()) &&
 				   r.CreatedAtUtc == entity.CreatedAtUtc &&
 				   r.UpdatedAtUtc == entity.UpdatedAtUtc;
 		}
@@ -285,7 +285,7 @@ public static class UserEquals
 				   user.LastName == request.Form.LastName &&
 				   user.Name.Matches(request.Form.Name) &&
 				   user.Email.Matches(request.Form.Email) &&
-				   user.ProfileImageUrl.Matches(request.Form.ProfileImage?.GetUrl()) &&
+				   user.ProfileImageUrl.Matches(request.Form.ProfileImage?.GetUrlValue()) &&
 				   passwordHasher.IsMatch(request.Form.Password, user.PasswordHash) &&
 				   user.IsEmailNotConfirmed &&
 				   user.CreatedAtUtc != default &&
@@ -299,7 +299,7 @@ public static class UserEquals
 				   user.LastName == request.Form.LastName &&
 				   user.Name.Matches(request.Form.Name) &&
 				   user.Email.Matches(request.Form.Email) &&
-				   (request.Form.ProfileImage == null || user.ProfileImageUrl.Matches(request.Form.ProfileImage.GetUrl())) &&
+				   (request.Form.ProfileImage == null || user.ProfileImageUrl.Matches(request.Form.ProfileImage.GetUrlValue())) &&
 				   user.PasswordHash.IsNotNullOrEmptyOrWhiteSpace() &&
 				   user.CreatedAtUtc != default &&
 				   user.UpdatedAtUtc != default;

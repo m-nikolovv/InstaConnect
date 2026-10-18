@@ -2,7 +2,7 @@ using FluentValidation;
 
 using InstaConnect.Common.Domain.Features.Validations.Extensions;
 
-namespace InstaConnect.Common.Infrastructure.Features.Analyzers.Models;
+namespace InstaConnect.Common.Infrastructure.Features.Summarizers.Models;
 
 public class OpenAiOptionsValidator : AbstractValidator<OpenAiOptions>
 {

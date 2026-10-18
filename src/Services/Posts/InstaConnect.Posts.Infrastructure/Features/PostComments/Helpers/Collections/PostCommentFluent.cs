@@ -70,6 +70,7 @@ internal class PostCommentFluent : MongoDbFluent<PostComment>, IPostCommentFluen
 					p.Post.UserId,
 					p.Post.Title,
 					p.Post.Content,
+					p.Post.Summary,
 						new UserResponse(
 							p.Post.User!.Id,
 							p.Post.User.FirstName,
@@ -111,6 +112,7 @@ internal class PostCommentFluent : MongoDbFluent<PostComment>, IPostCommentFluen
 					p.Post.UserId,
 					p.Post.Title,
 					p.Post.Content,
+					p.Post.Summary,
 						new UserResponse(
 							p.Post.User!.Id,
 							p.Post.User.FirstName,

@@ -25,7 +25,7 @@ public class UpdatePostCommandServiceUnitTests : BasePostDomainCommandUnitTest
 
 		_include = IncludeBuilderFactory.Create().WithUser().WithPostImages().Build();
 
-		_service = new(Factory, Mapper, ImageHandler, EventPublisher, ImageFactory, Repository, DateTimeProvider, UserRepository, ImageRepository, IncludeBuilderFactory);
+		_service = new(Factory, Mapper, Summarizer, ImageHandler, EventPublisher, ImageFactory, Repository, DateTimeProvider, UserRepository, ImageRepository, IncludeBuilderFactory);
 
 		Repository.SetupGetByIdAsync(_command, _include, Post, CancellationToken);
 		DateTimeProvider.SetupGetOffsetUtcNow(_command, Post);
@@ -80,6 +80,16 @@ public class UpdatePostCommandServiceUnitTests : BasePostDomainCommandUnitTest
 
 		// Assert
 		await Repository.ShouldHaveReceivedOneUpdateAsync(_command, CancellationToken);
+	}
+
+	[Fact]
+	public async Task UpdateAsync_ShouldCallTheSummarizerSummarizeAsync_WhenCommandIsValid()
+	{
+		// Act
+		await _service.UpdateAsync(_command, CancellationToken);
+
+		// Assert
+		await Summarizer.ShouldHaveReceivedOneSummarizeAsync(_command, CancellationToken);
 	}
 
 	[Fact]

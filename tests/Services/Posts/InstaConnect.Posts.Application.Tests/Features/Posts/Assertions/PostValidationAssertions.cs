@@ -69,23 +69,6 @@ public static class PostValidationAssertions
 		}
 	}
 
-	extension(TestValidationResult<AnalyzePostByIdQueryRequest> response)
-	{
-		public void ShouldHaveValidationErrorForId(
-			AnalyzePostByIdQueryRequest request,
-			IStringMessageTransformer messageTransformer)
-		{
-			response.ShouldHaveValidationErrorForProperty(request, p => p.Id, messageTransformer);
-		}
-
-		public void ShouldHaveValidationErrorForCurrentUserId(
-			AnalyzePostByIdQueryRequest request,
-			IStringMessageTransformer messageTransformer)
-		{
-			response.ShouldHaveValidationErrorForProperty(request, p => p.CurrentUserId, messageTransformer);
-		}
-	}
-
 	extension(TestValidationResult<AddPostCommandRequest> response)
 	{
 		public void ShouldHaveValidationErrorForContent(

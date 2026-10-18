@@ -30,14 +30,6 @@ public static class PostMatchAssertions
 		}
 	}
 
-	extension(AnalyzePostByIdQueryResponse response)
-	{
-		public void ShouldSatisfy(AnalyzePostByIdQueryRequest request, Post post)
-		{
-			response.ShouldSatisfy(p => p.Matches(request, post));
-		}
-	}
-
 	extension(GetAllPostsQueryResponse response)
 	{
 		public void ShouldSatisfy(

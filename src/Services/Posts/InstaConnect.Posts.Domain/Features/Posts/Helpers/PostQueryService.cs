@@ -2,18 +2,15 @@ namespace InstaConnect.Posts.Domain.Features.Posts.Helpers;
 
 internal class PostQueryService : IPostQueryService
 {
-	private readonly IPostAnalyzer _analyzer;
 	private readonly IPostQueryRepository _repository;
 	private readonly IUserQueryRepository _userRepository;
 	private readonly IPostCollectionResponseFactory _collectionResponseFactory;
 
 	public PostQueryService(
-		IPostAnalyzer analyzer,
 		IPostQueryRepository repository,
 		IUserQueryRepository userRepository,
 		IPostCollectionResponseFactory collectionResponseFactory)
 	{
-		_analyzer = analyzer;
 		_repository = repository;
 		_userRepository = userRepository;
 		_collectionResponseFactory = collectionResponseFactory;
@@ -67,20 +64,5 @@ internal class PostQueryService : IPostQueryService
 		}
 
 		return post;
-	}
-
-	public async Task<PostAnalyzeResponse> AnalyzeByIdAsync(AnalyzePostByIdQuery query, CancellationToken cancellationToken)
-	{
-		var post = await _repository.GetByIdAsync(
-			query.Id,
-			query.CurrentUser,
-			cancellationToken);
-
-		if (post == null)
-		{
-			throw new PostNotFoundException(query.Id);
-		}
-
-		return await _analyzer.AnalyzeAsync(post, cancellationToken);
 	}
 }

@@ -38,16 +38,6 @@ public static class PostValidationProblemDetailsAssertions
 				messageTransformer);
 		}
 
-		public void ShouldSatisfyInvalidValidationForId(
-			AnalyzePostByIdApiRequest request,
-			IStringMessageTransformer messageTransformer)
-		{
-			problemDetails.ShouldSatisfyInvalidValidation(
-				request,
-				p => p.Id,
-				messageTransformer);
-		}
-
 		public void ShouldSatisfyInvalidValidationForContent(
 			AddPostApiRequest request,
 			IStringMessageTransformer messageTransformer)
@@ -110,16 +100,6 @@ public static class PostValidationProblemDetailsAssertions
 
 		public void ShouldSatisfyInvalidValidationForCurrentUserId(
 			GetPostByIdApiRequest request,
-			IStringMessageTransformer messageTransformer)
-		{
-			problemDetails.ShouldSatisfyInvalidValidation(
-				request,
-				p => p.CurrentUserId,
-				messageTransformer);
-		}
-
-		public void ShouldSatisfyInvalidValidationForCurrentUserId(
-			AnalyzePostByIdApiRequest request,
 			IStringMessageTransformer messageTransformer)
 		{
 			problemDetails.ShouldSatisfyInvalidValidation(

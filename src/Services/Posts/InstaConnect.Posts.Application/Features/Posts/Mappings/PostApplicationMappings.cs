@@ -1,7 +1,6 @@
 using InstaConnect.Posts.Application.Features.Posts.Commands.Add;
 using InstaConnect.Posts.Application.Features.Posts.Commands.Delete;
 using InstaConnect.Posts.Application.Features.Posts.Commands.Update;
-using InstaConnect.Posts.Application.Features.Posts.Queries.AnalyzeById;
 using InstaConnect.Posts.Application.Features.Posts.Queries.GetAll;
 using InstaConnect.Posts.Application.Features.Posts.Queries.GetAllForUser;
 using InstaConnect.Posts.Application.Features.Posts.Queries.GetById;
@@ -57,15 +56,6 @@ internal class PostApplicationMappings : IRegister
 		config.NewConfig<PostResponse, GetPostByIdQueryResponse>()
 			.ConstructUsing(src => new(src.Adapt<PostQueryResponse>(config)));
 
-		config.NewConfig<AnalyzePostByIdQueryRequest, AnalyzePostByIdQuery>()
-			.ConstructUsing(src => new(
-									   new(src.Id),
-									   new(
-										   new(src.CurrentUserId))));
-
-		config.NewConfig<PostAnalyzeResponse, AnalyzePostByIdQueryResponse>()
-			.ConstructUsing(src => new(src.Adapt<PostAnalyzeQueryResponse>(config)));
-
 		config.NewConfig<PostCollectionResponse, PostCollectionQueryResponse>()
 			.ConstructUsing(src => new(
 				  src.User.Adapt<UserQueryResponse>(config),
@@ -82,22 +72,10 @@ internal class PostApplicationMappings : IRegister
 					src.UserId.Id,
 					src.Title,
 					src.Content,
+					src.Summary.Value,
 					src.User.Adapt<UserQueryResponse>(config),
 					src.PostImages.Adapt<ICollection<PostImageQueryResponse>>(config),
 					src.IsLikedByCurrentUser,
-					src.CreatedAtUtc,
-					src.UpdatedAtUtc));
-
-		config.NewConfig<PostAnalyzeResponse, PostAnalyzeQueryResponse>()
-			.ConstructUsing(src => new(
-					src.Id.Id,
-					src.UserId.Id,
-					src.Title,
-					src.Content,
-					src.User.Adapt<UserQueryResponse>(config),
-					src.PostImages.Adapt<ICollection<PostImageQueryResponse>>(config),
-					src.IsLikedByCurrentUser,
-					src.Summary,
 					src.CreatedAtUtc,
 					src.UpdatedAtUtc));
 

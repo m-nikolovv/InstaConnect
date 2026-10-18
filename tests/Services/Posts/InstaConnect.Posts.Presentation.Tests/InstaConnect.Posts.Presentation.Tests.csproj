@@ -8,7 +8,7 @@
 
   <ItemGroup Label="Common">
     <Using Include="Microsoft.AspNetCore.Mvc" />
-    <Using Include="InstaConnect.Common.Infrastructure.Features.Databases.Helpers"/>
+    <Using Include="InstaConnect.Common.Infrastructure.Features.Databases.Helpers" />
     <Using Include="InstaConnect.Common.Tests.Features.Abstractions" />
     <Using Include="InstaConnect.Common.Tests.Features.Helpers" />
     <Using Include="InstaConnect.Common.Tests.Features.Assertions" />
@@ -51,7 +51,6 @@
     <Using Include="InstaConnect.Posts.Application.Features.Posts.Queries.GetAll" />
     <Using Include="InstaConnect.Posts.Application.Features.Posts.Queries.GetAllForUser" />
     <Using Include="InstaConnect.Posts.Application.Features.Posts.Queries.GetById" />
-    <Using Include="InstaConnect.Posts.Application.Features.Posts.Queries.AnalyzeById" />
     <Using Include="InstaConnect.Posts.Application.Features.Posts.Commands.Add" />
     <Using Include="InstaConnect.Posts.Application.Features.Posts.Commands.Update" />
     <Using Include="InstaConnect.Posts.Application.Features.Posts.Commands.Delete" />

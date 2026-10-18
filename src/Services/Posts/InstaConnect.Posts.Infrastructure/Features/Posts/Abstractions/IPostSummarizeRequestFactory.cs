@@ -2,7 +2,7 @@ using Microsoft.Extensions.AI;
 
 namespace InstaConnect.Posts.Infrastructure.Features.Posts.Abstractions;
 
-public interface IPostAnalyzeRequestFactory
+public interface IPostSummarizeRequestFactory
 {
-	public ChatMessage Create(PostResponse post);
+	public ChatMessage Create(Post post);
 }

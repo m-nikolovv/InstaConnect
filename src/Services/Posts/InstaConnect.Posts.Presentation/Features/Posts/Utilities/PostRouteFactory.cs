@@ -59,13 +59,6 @@ public static class PostRouteFactory
 		return GetId(request.Id);
 	}
 
-	public static string GetRoute(AnalyzePostByIdApiRequest request)
-	{
-		const string Format = "{0}/analysis";
-
-		return Format.FormatCurrentCulture(GetId(request.Id));
-	}
-
 	public static string GetRoute(AddPostApiRequest request)
 	{
 		return GetDefault();

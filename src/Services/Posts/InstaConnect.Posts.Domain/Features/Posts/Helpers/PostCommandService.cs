@@ -8,6 +8,7 @@ internal class PostCommandService : IPostCommandService
 {
 	private readonly IPostFactory _factory;
 	private readonly IApplicationMapper _mapper;
+	private readonly IPostSummarizer _summarizer;
 	private readonly IImageHandler _imageHandler;
 	private readonly IEventPublisher _eventPublisher;
 	private readonly IPostImageFactory _imageFactory;
@@ -20,6 +21,7 @@ internal class PostCommandService : IPostCommandService
 	public PostCommandService(
 		IPostFactory factory,
 		IApplicationMapper mapper,
+		IPostSummarizer summarizer,
 		IImageHandler imageHandler,
 		IEventPublisher eventPublisher,
 		IPostImageFactory imageFactory,
@@ -31,6 +33,7 @@ internal class PostCommandService : IPostCommandService
 	{
 		_factory = factory;
 		_mapper = mapper;
+		_summarizer = summarizer;
 		_imageHandler = imageHandler;
 		_eventPublisher = eventPublisher;
 		_imageFactory = imageFactory;
@@ -51,7 +54,6 @@ internal class PostCommandService : IPostCommandService
 		}
 
 		var newPost = _factory.Create(user.Id, command.Title, command.Content).AddUser(user);
-		await _repository.AddAsync(newPost, cancellationToken);
 
 		if (command.Images.Any())
 		{
@@ -61,6 +63,11 @@ internal class PostCommandService : IPostCommandService
 
 			newPost.AddPostImages(newPostImages);
 		}
+
+		var summary = await _summarizer.SummarizeAsync(newPost, cancellationToken);
+		newPost.UpdateSummary(summary);
+
+		await _repository.AddAsync(newPost, cancellationToken);
 
 		await _eventPublisher.PublishAsync(
 			_mapper.Map<PostAddedEventRequest>(newPost), cancellationToken);
@@ -84,6 +91,10 @@ internal class PostCommandService : IPostCommandService
 		}
 
 		post.Update(command.Title, command.Content, _dateTimeProvider.GetOffsetUtcNow());
+
+		var summary = await _summarizer.SummarizeAsync(post, cancellationToken);
+		post.UpdateSummary(summary);
+
 		await _repository.UpdateAsync(post, cancellationToken);
 
 		await _eventPublisher.PublishAsync(

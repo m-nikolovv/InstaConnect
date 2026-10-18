@@ -34,6 +34,19 @@ public static class CommonEquals
 		}
 	}
 
+	extension(Summary p)
+	{
+		public bool Matches(string value)
+		{
+			return p.Value == value;
+		}
+
+		public bool Matches(Summary summary)
+		{
+			return p.Matches(summary.Value);
+		}
+	}
+
 	extension(Url? p)
 	{
 		public bool Matches(string? url)

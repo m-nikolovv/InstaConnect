@@ -26,14 +26,6 @@ public static class PostApplicationMatcher
 		}
 	}
 
-	extension(AnalyzePostByIdQueryRequest request)
-	{
-		public AnalyzePostByIdQuery IsAnalyzePostByIdQuery()
-		{
-			return Matcher.Is<AnalyzePostByIdQuery>(p => p.Matches(request));
-		}
-	}
-
 	extension(AddPostCommandRequest request)
 	{
 		public AddPostCommand IsAddPostCommand()

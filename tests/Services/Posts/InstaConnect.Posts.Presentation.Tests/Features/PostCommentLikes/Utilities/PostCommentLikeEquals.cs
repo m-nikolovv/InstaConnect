@@ -94,6 +94,7 @@ public static class PostCommentLikeEquals
 				   r.User.Matches(request, entity.User) &&
 				   r.Title == entity.Title &&
 				   r.Content == entity.Content &&
+				   r.Summary.EqualsOrdinalIgnoreCase(entity.Summary.Value) &&
 				   r.CreatedAtUtc == entity.CreatedAtUtc &&
 				   r.UpdatedAtUtc == entity.UpdatedAtUtc;
 		}
@@ -105,6 +106,7 @@ public static class PostCommentLikeEquals
 				   r.User.Matches(request, entity.User) &&
 				   r.Title == entity.Title &&
 				   r.Content == entity.Content &&
+				   r.Summary.EqualsOrdinalIgnoreCase(entity.Summary.Value) &&
 				   r.CreatedAtUtc == entity.CreatedAtUtc &&
 				   r.UpdatedAtUtc == entity.UpdatedAtUtc;
 		}

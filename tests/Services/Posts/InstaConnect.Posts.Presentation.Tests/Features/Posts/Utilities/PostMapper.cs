@@ -1,5 +1,4 @@
 using InstaConnect.Common.Presentation.Features.Requests.Abstractions;
-using InstaConnect.Common.Tests.Features.Extensions;
 using InstaConnect.Posts.Presentation.Features.Users.Abstractions;
 using InstaConnect.Posts.Presentation.Tests.Features.PostImages.Utilities;
 using InstaConnect.Posts.Presentation.Tests.Features.Posts.Utilities;
@@ -25,6 +24,7 @@ public static class PostMapper
 					   post.UserId.Id,
 					   post.Title,
 					   post.Content,
+					   post.Summary.Value,
 					   post.User?.ToFullQueryResponse(),
 					   post.PostImages.ToFullQueryResponse(),
 					   post.PostLikes.Any(pl => pl.Id.UserId.Matches(request.CurrentUserId)),
@@ -40,6 +40,7 @@ public static class PostMapper
 					   post.UserId.Id,
 					   post.Title,
 					   post.Content,
+					   post.Summary.Value,
 					   null,
 					   post.PostImages.ToFullQueryResponse(),
 					   post.PostLikes.Any(pl => pl.Id.UserId.Matches(request.CurrentUserId)),
@@ -63,21 +64,6 @@ public static class PostMapper
 			GetPostByIdApiRequest request)
 		{
 			return new(post.ToFullQueryResponse(request));
-		}
-
-		public AnalyzePostByIdQueryResponse ToResponse(
-			AnalyzePostByIdApiRequest request)
-		{
-			return new(new(post.Id.Id,
-						   post.UserId.Id,
-						   post.Title,
-						   post.Content,
-						   post.User?.ToFullQueryResponse(),
-						   post.PostImages.ToFullQueryResponse(),
-						   post.PostLikes.Any(pl => pl.Id.UserId.Matches(request.CurrentUserId)),
-						   post.GetAnalysisSummary(),
-						   post.CreatedAtUtc,
-						   post.UpdatedAtUtc));
 		}
 	}
 

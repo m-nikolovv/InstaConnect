@@ -8,6 +8,7 @@ public class PostBuilder
 	private string _id;
 	private readonly string _title;
 	private readonly string _content;
+	private readonly string _summary;
 	private readonly string _userId;
 	private readonly User _user;
 	private readonly DateTimeOffset _createdAtUtc;
@@ -20,6 +21,7 @@ public class PostBuilder
 		_user = user;
 		_title = PostDataFaker.GetTitle();
 		_content = PostDataFaker.GetContent();
+		_summary = PostDataFaker.GetSummary();
 		_createdAtUtc = PostDataFaker.GetCreatedAtUtc();
 		_updatedAtUtc = _createdAtUtc;
 	}
@@ -37,6 +39,7 @@ public class PostBuilder
 				new(_id),
 				_title,
 				_content,
+				new(_summary),
 				new(_userId),
 				_createdAtUtc,
 				_updatedAtUtc);

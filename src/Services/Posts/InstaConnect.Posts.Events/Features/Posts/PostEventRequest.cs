@@ -8,6 +8,7 @@ public record PostEventRequest(
 		string UserId,
 		string Title,
 		string Content,
+		string Summary,
 		UserEventRequest User,
 		ICollection<PostImageEventRequest> PostImages,
 		DateTimeOffset CreatedAtUtc,
