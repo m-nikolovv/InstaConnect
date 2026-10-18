@@ -329,9 +329,10 @@ public static class PostEquals
 		}
 	}
 
-	extension(PostAnalyzeResponse response)
+	extension(PostAnalyzeResponse? response)
 	{
-		public bool Matches(AnalyzePostByIdQuery query, Post post)
+		public bool MatchesFull<TQuery>(TQuery request, Post? post)
+			where TQuery : ICurrentUserableQuery
 		{
 			return response != null &&
 				   post != null &&
@@ -340,11 +341,16 @@ public static class PostEquals
 				   post.Title == response.Title &&
 				   post.Content == response.Content &&
 				   response.PostImages.MatchesFull(post.PostImages) &&
-				   response.IsLikedByCurrentUser == post.PostLikes.Any(pl => pl.Id.UserId.Matches(query.CurrentUser.Id)) &&
+				   response.IsLikedByCurrentUser == post.PostLikes.Any(pl => pl.Id.UserId.Matches(request.CurrentUser.Id)) &&
 				   response.Summary == post.GetAnalysisSummary() &&
 				   post.CreatedAtUtc == response.CreatedAtUtc &&
 				   post.UpdatedAtUtc == response.UpdatedAtUtc &&
 				   response.User.MatchesFull(post.User);
+		}
+
+		public bool Matches(AnalyzePostByIdQuery query, Post post)
+		{
+			return response.MatchesFull(query, post);
 		}
 	}
 

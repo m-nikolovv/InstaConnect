@@ -297,26 +297,7 @@ public static class PostEquals
 	{
 		public bool Matches(AnalyzePostByIdApiRequest request, Post post)
 		{
-			return response.Response.Matches(request, post);
-		}
-	}
-
-	extension(PostAnalyzeApiResponse? response)
-	{
-		public bool Matches(AnalyzePostByIdApiRequest request, Post? post)
-		{
-			return response != null &&
-				   post != null &&
-				   post.Id.Matches(response.Id) &&
-				   post.UserId.Matches(response.UserId) &&
-				   post.Title == response.Title &&
-				   post.Content == response.Content &&
-				   response.PostImages.MatchesFull(post.PostImages) &&
-				   response.IsLikedByCurrentUser == post.PostLikes.Any(pl => pl.Id.UserId.Matches(request.CurrentUserId)) &&
-				   response.Summary == post.GetAnalysisSummary() &&
-				   post.CreatedAtUtc == response.CreatedAtUtc &&
-				   post.UpdatedAtUtc == response.UpdatedAtUtc &&
-				   response.User.MatchesFull(post.User);
+			return response.Response.MatchesFull(request, post);
 		}
 	}
 
@@ -481,6 +462,26 @@ public static class PostEquals
 				   post.CreatedAtUtc == response.CreatedAtUtc &&
 				   post.UpdatedAtUtc == response.UpdatedAtUtc &&
 				   response.User == null;
+		}
+	}
+
+	extension(PostAnalyzeApiResponse? response)
+	{
+		public bool MatchesFull<TRequest>(TRequest request, Post? post)
+		where TRequest : ICurrentUserableApiRequest
+		{
+			return response != null &&
+				   post != null &&
+				   post.Id.Matches(response.Id) &&
+				   post.UserId.Matches(response.UserId) &&
+				   post.Title == response.Title &&
+				   post.Content == response.Content &&
+				   response.PostImages.MatchesFull(post.PostImages) &&
+				   response.IsLikedByCurrentUser == post.PostLikes.Any(pl => pl.Id.UserId.Matches(request.CurrentUserId)) &&
+				   response.Summary == post.GetAnalysisSummary() &&
+				   post.CreatedAtUtc == response.CreatedAtUtc &&
+				   post.UpdatedAtUtc == response.UpdatedAtUtc &&
+				   response.User.MatchesFull(post.User);
 		}
 	}
 

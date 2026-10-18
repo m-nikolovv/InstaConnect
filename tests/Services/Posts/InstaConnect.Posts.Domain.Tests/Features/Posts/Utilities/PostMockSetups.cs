@@ -145,7 +145,7 @@ public static class PostMockSetups
 			Post post,
 			CancellationToken cancellationToken)
 		{
-			service.SetupGetByIdAsync(query.Id, query.CurrentUser, post.ToResponse(query), cancellationToken);
+			service.SetupGetByIdAsync(query.Id, query.CurrentUser, post.ToFullResponse(query), cancellationToken);
 		}
 
 		public void SetupGetByIdAsync(
@@ -303,7 +303,7 @@ public static class PostMockSetups
 		{
 			analyzer
 				.AnalyzeAsync(query.IsPostResponse(post), cancellationToken)
-				.ReturnsTaskResponse(post.ToAnalyzeResponse(query));
+				.ReturnsTaskResponse(post.ToResponse(query));
 		}
 	}
 

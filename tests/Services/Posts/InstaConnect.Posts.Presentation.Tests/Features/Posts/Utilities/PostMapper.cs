@@ -47,21 +47,6 @@ public static class PostMapper
 					   post.UpdatedAtUtc);
 		}
 
-		internal PostAnalyzeQueryResponse ToAnalyzeQueryResponse(
-			AnalyzePostByIdApiRequest request)
-		{
-			return new(post.Id.Id,
-					   post.UserId.Id,
-					   post.Title,
-					   post.Content,
-					   post.User?.ToFullQueryResponse(),
-					   post.PostImages.ToFullQueryResponse(),
-					   post.PostLikes.Any(pl => pl.Id.UserId.Matches(request.CurrentUserId)),
-					   post.GetAnalysisSummary(),
-					   post.CreatedAtUtc,
-					   post.UpdatedAtUtc);
-		}
-
 		public AddPostCommandResponse ToResponse(
 			AddPostApiRequest request)
 		{
@@ -83,7 +68,16 @@ public static class PostMapper
 		public AnalyzePostByIdQueryResponse ToResponse(
 			AnalyzePostByIdApiRequest request)
 		{
-			return new(post.ToAnalyzeQueryResponse(request));
+			return new(new(post.Id.Id,
+						   post.UserId.Id,
+						   post.Title,
+						   post.Content,
+						   post.User?.ToFullQueryResponse(),
+						   post.PostImages.ToFullQueryResponse(),
+						   post.PostLikes.Any(pl => pl.Id.UserId.Matches(request.CurrentUserId)),
+						   post.GetAnalysisSummary(),
+						   post.CreatedAtUtc,
+						   post.UpdatedAtUtc));
 		}
 	}
 

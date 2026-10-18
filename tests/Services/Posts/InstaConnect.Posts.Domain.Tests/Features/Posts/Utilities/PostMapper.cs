@@ -77,13 +77,7 @@ public static class PostMapper
 			return post.ToFullResponse(query);
 		}
 
-		public PostResponse ToResponse(
-			AnalyzePostByIdQuery query)
-		{
-			return post.ToFullResponse(query);
-		}
-
-		public PostAnalyzeResponse ToAnalyzeResponse(
+		public PostAnalyzeResponse ToResponse(
 			AnalyzePostByIdQuery query)
 		{
 			return new(post.Id,

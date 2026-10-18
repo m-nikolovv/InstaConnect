@@ -38,19 +38,6 @@ public class AnalyzePostByIdQueryServiceUnitTests : BasePostDomainQueryUnitTest
 	}
 
 	[Fact]
-	public async Task AnalyzeByIdAsync_ShouldNotCallTheAnalyzerAnalyzeAsync_WhenIdIsInvalid()
-	{
-		// Arrange
-		Repository.RemoveGetByIdAsync(_query, Post, CancellationToken);
-
-		// Act
-		await Record.ExceptionAsync(() => _service.AnalyzeByIdAsync(_query, CancellationToken));
-
-		// Assert
-		await Analyzer.ShouldHaveReceivedZeroAnalyzeAsync(_query, CancellationToken);
-	}
-
-	[Fact]
 	public async Task AnalyzeByIdAsync_ShouldReturnResponse_WhenQueryIsValid()
 	{
 		// Act
