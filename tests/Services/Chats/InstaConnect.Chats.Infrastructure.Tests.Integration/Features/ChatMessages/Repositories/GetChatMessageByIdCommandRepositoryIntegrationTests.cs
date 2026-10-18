@@ -1,6 +1,7 @@
 using InstaConnect.Chats.Domain.Features.ChatMessages.Models.Requests;
 using InstaConnect.Chats.Infrastructure.Tests.Features.ChatMessages.Assertions;
 using InstaConnect.Chats.Infrastructure.Tests.Integration.Features.ChatMessages.Utilities;
+using InstaConnect.Chats.Tests.Features.ChatMessageImages.Utilities;
 using InstaConnect.Chats.Tests.Features.ChatMessages.Builders;
 using InstaConnect.Chats.Tests.Features.ChatMessages.DataAttributes.Id;
 using InstaConnect.Chats.Tests.Features.ChatMessages.Utilities;
@@ -15,12 +16,13 @@ public class GetChatMessageByIdCommandRepositoryIntegrationTests : BaseChatMessa
 	public GetChatMessageByIdCommandRepositoryIntegrationTests(ChatsWebApplicationFactory webApplicationFactory)
 		: base(webApplicationFactory)
 	{
-		_include = MessageIncludeBuilderFactory.Create().WithSender().WithChat().Build();
+		_include = MessageIncludeBuilderFactory.Create().WithSender().WithChat().WithChatMessageImages().Build();
 	}
 
 	protected override async Task OnInitializeAsync()
 	{
 		await ServiceScope.AddAsync(ChatMessage, CancellationToken);
+		await ServiceScope.AddRangeAsync(ChatMessageImages, CancellationToken);
 	}
 
 	[Fact]

@@ -71,4 +71,9 @@
     <Using Include="InstaConnect.Chats.Application.Features.ChatMessages.Commands.Delete" />
   </ItemGroup>
 
+  <ItemGroup Label="ChatMessageImages">
+    <Using Include="InstaConnect.Chats.Domain.Features.ChatMessageImages.Models.Entities" />
+    <Using Include="InstaConnect.Chats.Domain.Features.ChatMessageImages.Models.ValueObjects" />
+  </ItemGroup>
+
 </Project>

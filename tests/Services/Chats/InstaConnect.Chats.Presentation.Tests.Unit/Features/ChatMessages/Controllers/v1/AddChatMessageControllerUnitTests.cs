@@ -11,7 +11,7 @@ public class AddChatMessageControllerUnitTests : BaseChatMessagePresentationComm
 	public AddChatMessageControllerUnitTests()
 	{
 		_requestBuilderFactory = new();
-		_requestBuilder = _requestBuilderFactory.Create(Chat);
+		_requestBuilder = _requestBuilderFactory.Create(Chat, ChatMessage.ChatMessageImages.Count);
 		_request = _requestBuilder.Build();
 
 		_controller = new(Mapper, Sender);

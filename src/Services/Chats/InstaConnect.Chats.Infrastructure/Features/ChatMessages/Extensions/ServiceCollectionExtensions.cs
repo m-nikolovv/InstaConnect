@@ -24,16 +24,19 @@ internal static class ServiceCollectionExtensions
 				cm.MapMember(c => c.Id);
 				cm.MapMember(c => c.SenderId);
 				cm.MapMember(c => c.Content);
+				cm.MapMember(c => c.Summary);
 				cm.MapMember(c => c.CreatedAtUtc);
 				cm.MapMember(c => c.UpdatedAtUtc);
 
 				cm.MapMemberWithoutSerialization(c => c.Chat);
 				cm.MapMemberWithoutSerialization(c => c.Sender);
+				cm.MapMemberWithoutSerialization(c => c.ChatMessageImages);
 
 				cm.MapCreator(c => new ChatMessage(
 					c.Id,
 					c.SenderId,
 					c.Content,
+					c.Summary,
 					c.CreatedAtUtc,
 					c.UpdatedAtUtc));
 

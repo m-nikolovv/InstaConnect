@@ -83,4 +83,8 @@
     <Using Include="InstaConnect.Chats.Tests.Features.ChatMessages.DataAttributes.SortTerm" />
   </ItemGroup>
 
+  <ItemGroup Label="ChatMessageImages">
+    <Using Include="InstaConnect.Chats.Tests.Features.ChatMessageImages.Utilities" />
+  </ItemGroup>
+
 </Project>

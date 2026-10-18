@@ -54,4 +54,12 @@
     <Using Include="InstaConnect.Chats.Tests.Features.ChatMessages.Utilities" />
   </ItemGroup>
 
+  <ItemGroup Label="ChatMessageImages">
+    <Using Include="InstaConnect.Chats.Domain.Features.ChatMessageImages.Abstractions" />
+    <Using Include="InstaConnect.Chats.Domain.Features.ChatMessageImages.Models.Entities" />
+    <Using Include="InstaConnect.Chats.Domain.Features.ChatMessageImages.Models.ValueObjects" />
+    <Using Include="InstaConnect.Chats.Domain.Features.ChatMessageImages.Utilities" />
+    <Using Include="InstaConnect.Chats.Domain.Tests.Features.ChatMessageImages.Utilities" />
+  </ItemGroup>
+
 </Project>

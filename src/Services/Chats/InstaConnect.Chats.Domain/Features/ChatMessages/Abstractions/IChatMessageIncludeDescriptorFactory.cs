@@ -6,4 +6,5 @@ public interface IChatMessageIncludeDescriptorFactory
 {
 	public ChatsIncludeDescriptor CreateChat();
 	public ChatsIncludeDescriptor CreateSender();
+	public ChatsIncludeDescriptor CreateChatMessageImages();
 }

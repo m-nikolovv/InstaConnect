@@ -80,6 +80,14 @@ public static class ChatMessageMatchAssertions
 		}
 	}
 
+	extension(ICollection<ChatMessageImage> chatMessageImages)
+	{
+		public void ShouldSatisfy(AddChatMessageCommandRequest request)
+		{
+			chatMessageImages.ShouldSatisfy(p => p.Matches(request));
+		}
+	}
+
 	extension(ChatMessageAddedNotificationRequest r)
 	{
 		public void ShouldSatisfy(

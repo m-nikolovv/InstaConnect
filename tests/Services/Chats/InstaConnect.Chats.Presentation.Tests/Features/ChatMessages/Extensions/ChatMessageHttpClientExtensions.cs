@@ -1,6 +1,7 @@
 using System.Net.Http.Json;
 
 using InstaConnect.Chats.Presentation.Features.ChatMessages.Utilities;
+using InstaConnect.Chats.Presentation.Tests.Features.ChatMessages.Utilities;
 using InstaConnect.Common.Infrastructure.Features.AccessTokens.Abstractions;
 using InstaConnect.Common.Presentation.Tests.Features.Extensions;
 
@@ -61,7 +62,7 @@ internal static class ChatMessageHttpClientExtensions
 			var route = ChatMessageRouteFactory.GetRoute(request);
 
 			return await httpClient
-				.PostAsJsonAsync(route, request.Body, cancellationToken);
+				.PostAsync(route, request.Form.GetContent(), cancellationToken);
 		}
 
 		internal async Task<HttpResponseMessage> AddResponseMessageAsync(
@@ -73,7 +74,7 @@ internal static class ChatMessageHttpClientExtensions
 
 			return await httpClient
 				.WithAuthorization(request.ParticipantOneId, baseAccessTokenGenerator)
-				.PostAsJsonAsync(route, request.Body, cancellationToken);
+				.PostAsync(route, request.Form.GetContent(), cancellationToken);
 		}
 
 		internal async Task<HttpResponseMessage> UpdateUnauthorizedResponseMessageAsync(

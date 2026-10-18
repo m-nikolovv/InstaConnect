@@ -6,7 +6,9 @@ public record ChatMessageQueryResponse(
 	string MessageId,
 	string SenderId,
 	string Content,
+	string Summary,
 	ChatQueryResponse? Chat,
 	UserQueryResponse? Sender,
+	ICollection<ChatMessageImageQueryResponse> ChatMessageImages,
 	DateTimeOffset CreatedAtUtc,
 	DateTimeOffset UpdatedAtUtc);

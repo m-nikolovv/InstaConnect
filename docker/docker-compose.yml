@@ -188,6 +188,11 @@ services:
       MongoConfiguration__ConnectionString: "mongodb://${MONGO_USERNAME}:${MONGO_PASSWORD}@mongo:27017/instaconnect_chats?replicaSet=rs0&authSource=admin"
       RabbitMqConfiguration__ConnectionString: "amqp://${RABBITMQ_USERNAME}:${RABBITMQ_PASSWORD}@rabbitmq:5672/"
       RedisConfiguration__ConnectionString: "redis:6379,password=${REDIS_PASSWORD},abortConnect=False"
+      CloudinaryConfiguration__CloudName: ${CLOUDINARY_CLOUD_NAME}
+      CloudinaryConfiguration__ApiKey: ${CLOUDINARY_API_KEY}
+      CloudinaryConfiguration__ApiSecret: ${CLOUDINARY_API_SECRET}
+      AnthropicConfiguration__ApiKey: ${ANTHROPIC_API_KEY}
+      AnthropicConfiguration__Model: ${ANTHROPIC_MODEL}
     healthcheck:
       test: ["CMD-SHELL", "wget --spider --tries=1 --no-verbose http://127.0.0.1:80/healthz || exit 1"]
       interval: 15s

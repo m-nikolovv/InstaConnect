@@ -13,7 +13,9 @@ internal class ChatMessageDomainMappings : IRegister
 				src.Id.MessageId,
 				src.Sender.Adapt<UserNotificationRequest>(config)!,
 				src.Chat.Adapt<ChatNotificationRequest>(config)!,
+				src.ChatMessageImages.Adapt<ICollection<ChatMessageImageNotificationRequest>>(config),
 				src.Content,
+				src.Summary.Value,
 				src.CreatedAtUtc,
 				src.UpdatedAtUtc));
 

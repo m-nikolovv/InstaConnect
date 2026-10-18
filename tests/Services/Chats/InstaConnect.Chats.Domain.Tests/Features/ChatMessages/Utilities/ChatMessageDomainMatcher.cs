@@ -1,3 +1,5 @@
+using InstaConnect.Common.Domain.Features.ValueObjects.Models;
+
 namespace InstaConnect.Chats.Domain.Tests.Features.ChatMessages.Utilities;
 
 public static class ChatMessageDomainMatcher
@@ -12,6 +14,16 @@ public static class ChatMessageDomainMatcher
 		public ChatMessageAddedNotificationRequest IsChatMessageAddedNotificationRequest(ChatMessage chatMessage)
 		{
 			return Matcher.Is<ChatMessageAddedNotificationRequest>(p => p.Matches(command, chatMessage));
+		}
+
+		public ICollection<Url> IsImages()
+		{
+			return Matcher.Is<ICollection<Url>>(p => p.Matches(command));
+		}
+
+		public ICollection<ChatMessageImage> IsChatMessageImages()
+		{
+			return Matcher.Is<ICollection<ChatMessageImage>>(p => p.Matches(command));
 		}
 	}
 

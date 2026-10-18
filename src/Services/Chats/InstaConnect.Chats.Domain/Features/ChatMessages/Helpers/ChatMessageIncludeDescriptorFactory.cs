@@ -13,4 +13,9 @@ public class ChatMessageIncludeDescriptorFactory : IChatMessageIncludeDescriptor
 	{
 		return new(ChatsDestinationType.ChatMessage, ChatsIncludeType.Chat);
 	}
+
+	public ChatsIncludeDescriptor CreateChatMessageImages()
+	{
+		return new(ChatsDestinationType.ChatMessage, ChatsIncludeType.ChatMessageImage);
+	}
 }

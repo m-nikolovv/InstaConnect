@@ -1,9 +1,9 @@
-using InstaConnect.Chats.Presentation.Features.ChatMessages.Models.Bodies;
+using InstaConnect.Chats.Presentation.Features.ChatMessages.Models.Forms;
 
 namespace InstaConnect.Chats.Presentation.Features.ChatMessages.Models.Requests;
 
 public record AddChatMessageApiRequest(
 	[UserIdFromClaim] string ParticipantOneId,
 	[FromRoute] string ParticipantTwoId,
-	[FromBody] AddChatMessageApiBody Body
+	[FromForm(Name = "")] AddChatMessageApiForm Form
 );

@@ -27,7 +27,7 @@ public class GetChatMessageByIdQueryRepositoryUnitTests : BaseChatMessageInfrast
 		_currentUserQuery = _currentUserQueryBuilder.Build();
 
 		_include = IncludeBuilderFactory.Create().WithParticipantOne().WithParticipantTwo().Build();
-		_messageInclude = MessageIncludeBuilderFactory.Create().WithSender().WithChat(_include).Build();
+		_messageInclude = MessageIncludeBuilderFactory.Create().WithSender().WithChat(_include).WithChatMessageImages().Build();
 
 		_repository = new(Collection, IncludeBuilderFactory, MessageIncludeBuilderFactory);
 

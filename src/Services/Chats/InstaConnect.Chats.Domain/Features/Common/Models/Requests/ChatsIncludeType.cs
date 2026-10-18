@@ -8,5 +8,6 @@ public enum ChatsIncludeType
 	ChatMessage,
 	ParticipantOne,
 	ParticipantTwo,
-	Sender
+	Sender,
+	ChatMessageImage
 }

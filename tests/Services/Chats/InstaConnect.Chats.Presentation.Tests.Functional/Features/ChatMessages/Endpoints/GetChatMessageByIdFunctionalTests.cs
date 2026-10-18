@@ -17,6 +17,7 @@ public class GetChatMessageByIdFunctionalTests : BaseChatMessagePresentationQuer
 	protected override async Task OnInitializeAsync()
 	{
 		await ServiceScope.AddAsync(ChatMessage, CancellationToken);
+		await ServiceScope.AddRangeAsync(ChatMessageImages, CancellationToken);
 	}
 
 	[Fact]

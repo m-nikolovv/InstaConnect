@@ -2,6 +2,7 @@ using InstaConnect.Chats.Domain.Features.ChatMessages.Models.Requests;
 using InstaConnect.Chats.Domain.Tests.Features.ChatMessages.Assertions;
 using InstaConnect.Chats.Domain.Tests.Features.ChatMessages.Builders;
 using InstaConnect.Chats.Domain.Tests.Integration.Features.ChatMessages.Utilities;
+using InstaConnect.Chats.Tests.Features.ChatMessageImages.Utilities;
 using InstaConnect.Chats.Tests.Features.ChatMessages.Assertions;
 using InstaConnect.Chats.Tests.Features.ChatMessages.DataAttributes.Id;
 using InstaConnect.Chats.Tests.Features.ChatMessages.Utilities;
@@ -29,6 +30,7 @@ public class DeleteChatMessageCommandServiceIntegrationTests : BaseChatMessageDo
 	protected override async Task OnInitializeAsync()
 	{
 		await ServiceScope.AddAsync(ChatMessage, CancellationToken);
+		await ServiceScope.AddRangeAsync(ChatMessageImages, CancellationToken);
 	}
 
 	[Fact]
@@ -255,6 +257,7 @@ public class DeleteChatMessageCommandServiceIntegrationTests : BaseChatMessageDo
 		// Arrange
 		var updatedChatMessage = ChatMessageBuilder.WithSenderId(ParticipantTwoId).Build();
 		updatedChatMessage.AddSender(ParticipantTwo);
+		updatedChatMessage.AddChatMessageImages(ChatMessage.ChatMessageImages);
 		await ServiceScope.UpdateAsync(updatedChatMessage, CancellationToken);
 		var command = _commandBuilder.WithParticipantOneId(ParticipantTwoId).WithParticipantTwoId(ParticipantOneId).Build();
 
@@ -274,6 +277,7 @@ public class DeleteChatMessageCommandServiceIntegrationTests : BaseChatMessageDo
 		// Arrange
 		var updatedChatMessage = ChatMessageBuilder.WithSenderId(ParticipantTwoId).Build();
 		updatedChatMessage.AddSender(ParticipantTwo);
+		updatedChatMessage.AddChatMessageImages(ChatMessage.ChatMessageImages);
 		await ServiceScope.UpdateAsync(updatedChatMessage, CancellationToken);
 		var command = _commandBuilder.WithParticipantOneId(ParticipantTwoId, transformer).WithParticipantTwoId(ParticipantOneId).Build();
 
@@ -293,6 +297,7 @@ public class DeleteChatMessageCommandServiceIntegrationTests : BaseChatMessageDo
 		// Arrange
 		var updatedChatMessage = ChatMessageBuilder.WithSenderId(ParticipantTwoId).Build();
 		updatedChatMessage.AddSender(ParticipantTwo);
+		updatedChatMessage.AddChatMessageImages(ChatMessage.ChatMessageImages);
 		await ServiceScope.UpdateAsync(updatedChatMessage, CancellationToken);
 		var command = _commandBuilder.WithParticipantOneId(ParticipantTwoId).WithParticipantTwoId(ParticipantOneId, transformer).Build();
 
@@ -312,6 +317,7 @@ public class DeleteChatMessageCommandServiceIntegrationTests : BaseChatMessageDo
 		// Arrange
 		var updatedChatMessage = ChatMessageBuilder.WithSenderId(ParticipantTwoId).Build();
 		updatedChatMessage.AddSender(ParticipantTwo);
+		updatedChatMessage.AddChatMessageImages(ChatMessage.ChatMessageImages);
 		await ServiceScope.UpdateAsync(updatedChatMessage, CancellationToken);
 		var command = _commandBuilder.WithParticipantOneId(ParticipantTwoId).WithParticipantTwoId(ParticipantOneId).WithMessageId(transformer).Build();
 

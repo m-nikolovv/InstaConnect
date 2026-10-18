@@ -3,6 +3,7 @@ using InstaConnect.Chats.Domain.Features.ChatMessages.Models.Requests;
 using InstaConnect.Chats.Domain.Tests.Features.ChatMessages.Assertions;
 using InstaConnect.Chats.Domain.Tests.Features.ChatMessages.Builders;
 using InstaConnect.Chats.Domain.Tests.Integration.Features.ChatMessages.Utilities;
+using InstaConnect.Chats.Tests.Features.ChatMessageImages.Utilities;
 using InstaConnect.Chats.Tests.Features.ChatMessages.DataAttributes.SortOrder;
 using InstaConnect.Chats.Tests.Features.ChatMessages.DataAttributes.SortTerm;
 using InstaConnect.Chats.Tests.Features.ChatMessages.Utilities;
@@ -33,6 +34,7 @@ public class GetAllChatMessagesQueryServiceIntegrationTests : BaseChatMessageDom
 	protected override async Task OnInitializeAsync()
 	{
 		await ServiceScope.AddRangeAsync(ChatMessages, CancellationToken);
+		await ServiceScope.AddRangeAsync(ChatMessageImages, CancellationToken);
 	}
 
 	[Fact]

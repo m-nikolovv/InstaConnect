@@ -40,7 +40,8 @@ internal class ChatMessagePresentationMappings : IRegister
 			.ConstructUsing(src => new(
 				src.ParticipantOneId,
 				src.ParticipantTwoId,
-				src.Body.Content));
+				src.Form.Content,
+				src.Form.Images));
 
 		config.NewConfig<AddChatMessageCommandResponse, AddChatMessageApiResponse>()
 			.ConstructUsing(src => new(src.Response.Adapt<ChatMessageIdApiResponse>(config)));
@@ -74,8 +75,10 @@ internal class ChatMessagePresentationMappings : IRegister
 				src.MessageId,
 				src.SenderId,
 				src.Content,
+				src.Summary,
 				src.Chat.Adapt<ChatApiResponse>(config),
 				src.Sender.Adapt<UserApiResponse>(config),
+				src.ChatMessageImages.Adapt<ICollection<ChatMessageImageApiResponse>>(config),
 				src.CreatedAtUtc,
 				src.UpdatedAtUtc));
 

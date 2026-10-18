@@ -1,8 +1,13 @@
+using InstaConnect.Chats.Domain.Features.ChatMessageImages.Models.Requests;
+using InstaConnect.Chats.Domain.Tests.Features.ChatMessages.Extensions;
 using InstaConnect.Chats.Domain.Tests.Features.Chats.Utilities;
 using InstaConnect.Chats.Domain.Tests.Features.Users.Utilities;
+using InstaConnect.Chats.Tests.Features.ChatMessages.Extensions;
 using InstaConnect.Common.Domain.Features.Common.Extensions;
 using InstaConnect.Common.Domain.Features.Requests.Abstractions;
+using InstaConnect.Common.Domain.Features.ValueObjects.Models;
 using InstaConnect.Common.Tests.Features.DataAttributes.Enums.Sort;
+using InstaConnect.Common.Tests.Features.Extensions;
 
 namespace InstaConnect.Chats.Domain.Tests.Features.ChatMessages.Utilities;
 
@@ -74,7 +79,9 @@ public static class ChatMessageEquals
 				   request.MessageId.EqualsOrdinalIgnoreCase(entity.Id.MessageId) &&
 				   request.Sender.MatchesSender(command, entity.Sender) &&
 				   request.Chat.Matches(command, entity.Chat) &&
+				   request.ChatMessageImages.Matches(command, entity.ChatMessageImages) &&
 				   request.Content == command.Content &&
+				   request.Summary == entity.GetSummary(command) &&
 				   request.CreatedAtUtc == entity.CreatedAtUtc &&
 				   request.UpdatedAtUtc == entity.UpdatedAtUtc;
 		}
@@ -87,7 +94,9 @@ public static class ChatMessageEquals
 				   request.MessageId.EqualsOrdinalIgnoreCase(command.Id.MessageId) &&
 				   request.Sender.MatchesSender(command, entity.Sender) &&
 				   request.Chat.Matches(command, entity.Chat) &&
+				   request.ChatMessageImages.Matches(command, entity.ChatMessageImages) &&
 				   request.Content == command.Content &&
+				   request.Summary == entity.GetSummary(command) &&
 				   request.CreatedAtUtc == entity.CreatedAtUtc &&
 				   request.UpdatedAtUtc == entity.UpdatedAtUtc;
 		}
@@ -100,7 +109,9 @@ public static class ChatMessageEquals
 				   request.MessageId.EqualsOrdinalIgnoreCase(command.Id.MessageId) &&
 				   request.Sender.MatchesSender(command, entity.Sender) &&
 				   request.Chat.Matches(command, entity.Chat) &&
+				   request.ChatMessageImages.Matches(command, entity.ChatMessageImages) &&
 				   request.Content == entity.Content &&
+				   entity.Summary.Matches(request.Summary) &&
 				   request.CreatedAtUtc == entity.CreatedAtUtc &&
 				   request.UpdatedAtUtc == entity.UpdatedAtUtc;
 		}
@@ -113,7 +124,9 @@ public static class ChatMessageEquals
 				   request.MessageId.EqualsOrdinalIgnoreCase(entity.Id.MessageId) &&
 				   request.Sender.MatchesSenderInverted(command, entity.Sender) &&
 				   request.Chat.MatchesInverted(command, entity.Chat) &&
+				   request.ChatMessageImages.MatchesInverted(command, entity.ChatMessageImages) &&
 				   request.Content == command.Content &&
+				   request.Summary == entity.GetSummary(command) &&
 				   request.CreatedAtUtc == entity.CreatedAtUtc &&
 				   request.UpdatedAtUtc == entity.UpdatedAtUtc;
 		}
@@ -126,7 +139,9 @@ public static class ChatMessageEquals
 				   request.MessageId.EqualsOrdinalIgnoreCase(command.Id.MessageId) &&
 				   request.Sender.MatchesSenderInverted(command, entity.Sender) &&
 				   request.Chat.MatchesInverted(command, entity.Chat) &&
+				   request.ChatMessageImages.MatchesInverted(command, entity.ChatMessageImages) &&
 				   request.Content == command.Content &&
+				   request.Summary == entity.GetSummary(command) &&
 				   request.CreatedAtUtc == entity.CreatedAtUtc &&
 				   request.UpdatedAtUtc == entity.UpdatedAtUtc;
 		}
@@ -139,9 +154,139 @@ public static class ChatMessageEquals
 				   request.MessageId.EqualsOrdinalIgnoreCase(command.Id.MessageId) &&
 				   request.Sender.MatchesSenderInverted(command, entity.Sender) &&
 				   request.Chat.MatchesInverted(command, entity.Chat) &&
+				   request.ChatMessageImages.MatchesInverted(command, entity.ChatMessageImages) &&
 				   request.Content == entity.Content &&
+				   entity.Summary.Matches(request.Summary) &&
 				   request.CreatedAtUtc == entity.CreatedAtUtc &&
 				   request.UpdatedAtUtc == entity.UpdatedAtUtc;
+		}
+	}
+
+	extension(ChatMessageImageNotificationRequest r)
+	{
+		public bool Matches(AddChatMessageCommand command, ChatMessageImage? entity)
+		{
+			return entity != null &&
+				   r.ParticipantOneId.EqualsOrdinalIgnoreCase(command.Id.ParticipantOneId.Id) &&
+				   r.ParticipantTwoId.EqualsOrdinalIgnoreCase(command.Id.ParticipantTwoId.Id) &&
+				   r.MessageId.EqualsOrdinalIgnoreCase(entity.Id.Id.MessageId) &&
+				   r.ImageId.EqualsOrdinalIgnoreCase(entity.Id.ImageId) &&
+				   command.Images.ContainsUrl(r.Url) &&
+				   r.CreatedAtUtc == entity.CreatedAtUtc;
+		}
+
+		public bool Matches(UpdateChatMessageCommand command, ChatMessageImage? entity)
+		{
+			return entity != null &&
+				   r.ParticipantOneId.EqualsOrdinalIgnoreCase(command.Id.Id.ParticipantOneId.Id) &&
+				   r.ParticipantTwoId.EqualsOrdinalIgnoreCase(command.Id.Id.ParticipantTwoId.Id) &&
+				   r.MessageId.EqualsOrdinalIgnoreCase(command.Id.MessageId) &&
+				   r.ImageId.EqualsOrdinalIgnoreCase(entity.Id.ImageId) &&
+				   r.Url.EqualsOrdinalIgnoreCase(entity.Url.Value) &&
+				   r.CreatedAtUtc == entity.CreatedAtUtc;
+		}
+
+		public bool Matches(DeleteChatMessageCommand command, ChatMessageImage? entity)
+		{
+			return entity != null &&
+				   r.ParticipantOneId.EqualsOrdinalIgnoreCase(command.Id.Id.ParticipantOneId.Id) &&
+				   r.ParticipantTwoId.EqualsOrdinalIgnoreCase(command.Id.Id.ParticipantTwoId.Id) &&
+				   r.MessageId.EqualsOrdinalIgnoreCase(command.Id.MessageId) &&
+				   r.ImageId.EqualsOrdinalIgnoreCase(entity.Id.ImageId) &&
+				   r.Url.EqualsOrdinalIgnoreCase(entity.Url.Value) &&
+				   r.CreatedAtUtc == entity.CreatedAtUtc;
+		}
+
+		public bool MatchesInverted(AddChatMessageCommand command, ChatMessageImage? entity)
+		{
+			return entity != null &&
+				   r.ParticipantOneId.EqualsOrdinalIgnoreCase(command.Id.ParticipantTwoId.Id) &&
+				   r.ParticipantTwoId.EqualsOrdinalIgnoreCase(command.Id.ParticipantOneId.Id) &&
+				   r.MessageId.EqualsOrdinalIgnoreCase(entity.Id.Id.MessageId) &&
+				   r.ImageId.EqualsOrdinalIgnoreCase(entity.Id.ImageId) &&
+				   command.Images.ContainsUrl(r.Url) &&
+				   r.CreatedAtUtc == entity.CreatedAtUtc;
+		}
+
+		public bool MatchesInverted(UpdateChatMessageCommand command, ChatMessageImage? entity)
+		{
+			return entity != null &&
+				   r.ParticipantOneId.EqualsOrdinalIgnoreCase(command.Id.Id.ParticipantTwoId.Id) &&
+				   r.ParticipantTwoId.EqualsOrdinalIgnoreCase(command.Id.Id.ParticipantOneId.Id) &&
+				   r.MessageId.EqualsOrdinalIgnoreCase(command.Id.MessageId) &&
+				   r.ImageId.EqualsOrdinalIgnoreCase(entity.Id.ImageId) &&
+				   r.Url.EqualsOrdinalIgnoreCase(entity.Url.Value) &&
+				   r.CreatedAtUtc == entity.CreatedAtUtc;
+		}
+
+		public bool MatchesInverted(DeleteChatMessageCommand command, ChatMessageImage? entity)
+		{
+			return entity != null &&
+				   r.ParticipantOneId.EqualsOrdinalIgnoreCase(command.Id.Id.ParticipantTwoId.Id) &&
+				   r.ParticipantTwoId.EqualsOrdinalIgnoreCase(command.Id.Id.ParticipantOneId.Id) &&
+				   r.MessageId.EqualsOrdinalIgnoreCase(command.Id.MessageId) &&
+				   r.ImageId.EqualsOrdinalIgnoreCase(entity.Id.ImageId) &&
+				   r.Url.EqualsOrdinalIgnoreCase(entity.Url.Value) &&
+				   r.CreatedAtUtc == entity.CreatedAtUtc;
+		}
+	}
+
+	extension(ICollection<ChatMessageImageNotificationRequest> r)
+	{
+		public bool Matches(AddChatMessageCommand command, ICollection<ChatMessageImage> entities)
+		{
+			return command.Images.IsEmpty() ||
+				   r.MatchesCollection(
+				       entities,
+				       response => new(new(new(new(response.ParticipantOneId), new(response.ParticipantTwoId)), response.MessageId), response.ImageId),
+				       chatMessageImage => chatMessageImage.Id,
+				       (r, chatMessageImage) => r.Matches(command, chatMessageImage));
+		}
+
+		public bool Matches(UpdateChatMessageCommand command, ICollection<ChatMessageImage> entities)
+		{
+			return r.MatchesCollection(
+				entities,
+				response => new(new(new(new(response.ParticipantOneId), new(response.ParticipantTwoId)), response.MessageId), response.ImageId),
+				chatMessageImage => chatMessageImage.Id,
+				(r, chatMessageImage) => r.Matches(command, chatMessageImage));
+		}
+
+		public bool Matches(DeleteChatMessageCommand command, ICollection<ChatMessageImage> entities)
+		{
+			return r.MatchesCollection(
+				entities,
+				response => new(new(new(new(response.ParticipantOneId), new(response.ParticipantTwoId)), response.MessageId), response.ImageId),
+				chatMessageImage => chatMessageImage.Id,
+				(r, chatMessageImage) => r.Matches(command, chatMessageImage));
+		}
+
+		public bool MatchesInverted(AddChatMessageCommand command, ICollection<ChatMessageImage> entities)
+		{
+			return command.Images.IsEmpty() ||
+				   r.MatchesCollection(
+				       entities,
+				       response => new(new(new(new(response.ParticipantOneId), new(response.ParticipantTwoId)), response.MessageId), response.ImageId),
+				       chatMessageImage => chatMessageImage.Id,
+				       (r, chatMessageImage) => r.MatchesInverted(command, chatMessageImage));
+		}
+
+		public bool MatchesInverted(UpdateChatMessageCommand command, ICollection<ChatMessageImage> entities)
+		{
+			return r.MatchesCollection(
+				entities,
+				response => new(new(new(new(response.ParticipantOneId), new(response.ParticipantTwoId)), response.MessageId), response.ImageId),
+				chatMessageImage => chatMessageImage.Id,
+				(r, chatMessageImage) => r.MatchesInverted(command, chatMessageImage));
+		}
+
+		public bool MatchesInverted(DeleteChatMessageCommand command, ICollection<ChatMessageImage> entities)
+		{
+			return r.MatchesCollection(
+				entities,
+				response => new(new(new(new(response.ParticipantOneId), new(response.ParticipantTwoId)), response.MessageId), response.ImageId),
+				chatMessageImage => chatMessageImage.Id,
+				(r, chatMessageImage) => r.MatchesInverted(command, chatMessageImage));
 		}
 	}
 
@@ -375,6 +520,7 @@ public static class ChatMessageEquals
 				   chatMessage.Id.MessageId.IsNotNullOrEmptyOrWhiteSpace() &&
 				   chatMessage.SenderId.Matches(command.Id.ParticipantOneId) &&
 				   chatMessage.Content == command.Content &&
+				   chatMessage.Summary.Matches(chatMessage.GetSummary(command)) &&
 				   chatMessage.CreatedAtUtc != default &&
 				   chatMessage.UpdatedAtUtc != default;
 		}
@@ -384,6 +530,7 @@ public static class ChatMessageEquals
 			return chatMessage.Id.Matches(command.Id) &&
 				   chatMessage.SenderId.Matches(command.Id.Id.ParticipantOneId) &&
 				   chatMessage.Content == command.Content &&
+				   chatMessage.Summary.Matches(chatMessage.GetSummary(command)) &&
 				   chatMessage.CreatedAtUtc != default &&
 				   chatMessage.UpdatedAtUtc != default;
 		}
@@ -403,6 +550,7 @@ public static class ChatMessageEquals
 				   chatMessage.Id.MessageId.IsNotNullOrEmptyOrWhiteSpace() &&
 				   chatMessage.SenderId.Matches(command.Id.ParticipantTwoId) &&
 				   chatMessage.Content == command.Content &&
+				   chatMessage.Summary.Matches(chatMessage.GetSummary(command)) &&
 				   chatMessage.CreatedAtUtc != default &&
 				   chatMessage.UpdatedAtUtc != default;
 		}
@@ -412,6 +560,7 @@ public static class ChatMessageEquals
 			return chatMessage.Id.Matches(new(command.Id.Id.ParticipantTwoId, command.Id.Id.ParticipantOneId), command.Id.MessageId) &&
 				   chatMessage.SenderId.Matches(command.Id.Id.ParticipantOneId) &&
 				   chatMessage.Content == command.Content &&
+				   chatMessage.Summary.Matches(chatMessage.GetSummary(command)) &&
 				   chatMessage.CreatedAtUtc != default &&
 				   chatMessage.UpdatedAtUtc != default;
 		}
@@ -425,6 +574,43 @@ public static class ChatMessageEquals
 		}
 	}
 
+	extension(Url p)
+	{
+		public bool Matches(AddChatMessageCommand command)
+		{
+			return command.Images.ContainsUrl(p);
+		}
+	}
+
+	extension(ICollection<Url> p)
+	{
+		public bool Matches(AddChatMessageCommand command)
+		{
+			return p.AllAndNotEmpty(u => u.Matches(command));
+		}
+	}
+
+	extension(ChatMessageImage p)
+	{
+		public bool Matches(AddChatMessageCommand command)
+		{
+			return p.Id.Id.Id.ParticipantOneId.Id.IsNotNullOrEmptyOrWhiteSpace() &&
+				   p.Id.Id.Id.ParticipantTwoId.Id.IsNotNullOrEmptyOrWhiteSpace() &&
+				   p.Id.Id.MessageId.IsNotNullOrEmptyOrWhiteSpace() &&
+				   p.Id.ImageId.IsNotNullOrEmptyOrWhiteSpace() &&
+				   p.Url.Matches(command) &&
+				   p.CreatedAtUtc != default;
+		}
+	}
+
+	extension(ICollection<ChatMessageImage> p)
+	{
+		public bool Matches(AddChatMessageCommand command)
+		{
+			return p.AllAndNotEmpty(pi => pi.Matches(command));
+		}
+	}
+
 	extension(ChatMessageResponse? response)
 	{
 		public bool MatchesFull<TQuery>(TQuery request, ChatMessage? chatMessage)
@@ -435,6 +621,8 @@ public static class ChatMessageEquals
 				   chatMessage.Id.Matches(response.Id) &&
 				   chatMessage.SenderId.Matches(response.SenderId) &&
 				   chatMessage.Content == response.Content &&
+				   chatMessage.Summary.Matches(response.Summary) &&
+				   response.ChatMessageImages.MatchesFull(chatMessage.ChatMessageImages) &&
 				   chatMessage.CreatedAtUtc == response.CreatedAtUtc &&
 				   chatMessage.UpdatedAtUtc == response.UpdatedAtUtc &&
 				   response.Sender.MatchesFull(chatMessage.Sender) &&
@@ -449,6 +637,8 @@ public static class ChatMessageEquals
 				   chatMessage.Id.Matches(new(response.Id.Id.ParticipantTwoId, response.Id.Id.ParticipantOneId), response.Id.MessageId) &&
 				   chatMessage.SenderId.Matches(response.SenderId) &&
 				   chatMessage.Content == response.Content &&
+				   chatMessage.Summary.Matches(response.Summary) &&
+				   response.ChatMessageImages.MatchesFullInverted(chatMessage.ChatMessageImages) &&
 				   chatMessage.CreatedAtUtc == response.CreatedAtUtc &&
 				   chatMessage.UpdatedAtUtc == response.UpdatedAtUtc &&
 				   response.Sender.MatchesFull(chatMessage.Sender) &&
@@ -463,6 +653,8 @@ public static class ChatMessageEquals
 				   chatMessage.Id.Matches(response.Id) &&
 				   chatMessage.SenderId.Matches(response.SenderId) &&
 				   chatMessage.Content == response.Content &&
+				   chatMessage.Summary.Matches(response.Summary) &&
+				   response.ChatMessageImages.MatchesFull(chatMessage.ChatMessageImages) &&
 				   chatMessage.CreatedAtUtc == response.CreatedAtUtc &&
 				   chatMessage.UpdatedAtUtc == response.UpdatedAtUtc &&
 				   response.Sender.MatchesFull(chatMessage.Sender) &&
@@ -477,6 +669,8 @@ public static class ChatMessageEquals
 				   chatMessage.Id.Matches(new(response.Id.Id.ParticipantTwoId, response.Id.Id.ParticipantOneId), response.Id.MessageId) &&
 				   chatMessage.SenderId.Matches(response.SenderId) &&
 				   chatMessage.Content == response.Content &&
+				   chatMessage.Summary.Matches(response.Summary) &&
+				   response.ChatMessageImages.MatchesFullInverted(chatMessage.ChatMessageImages) &&
 				   chatMessage.CreatedAtUtc == response.CreatedAtUtc &&
 				   chatMessage.UpdatedAtUtc == response.UpdatedAtUtc &&
 				   response.Sender.MatchesFull(chatMessage.Sender) &&

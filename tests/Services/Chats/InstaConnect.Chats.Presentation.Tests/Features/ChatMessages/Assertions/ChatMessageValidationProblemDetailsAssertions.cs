@@ -144,7 +144,7 @@ public static class ChatMessageValidationProblemDetailsAssertions
 		{
 			problemDetails.ShouldSatisfyInvalidValidation(
 				request,
-				p => p.Body.Content,
+				p => p.Form.Content,
 				messageTransformer);
 		}
 

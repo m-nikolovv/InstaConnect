@@ -168,6 +168,14 @@ public static class ChatMessageMatchAssertions
 		}
 	}
 
+	extension(ICollection<ChatMessageImage> chatMessageImages)
+	{
+		public void ShouldSatisfy(AddChatMessageApiRequest request)
+		{
+			chatMessageImages.ShouldSatisfy(p => p.Matches(request));
+		}
+	}
+
 	extension(ChatMessageAddedNotificationRequest r)
 	{
 		public void ShouldSatisfy(

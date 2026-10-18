@@ -23,7 +23,7 @@ public class GetChatMessagesTotalCountQueryRepositoryUnitTests : BaseChatMessage
 		_filterQueryBuilder = _filterQueryBuilderFactory.Create(ChatMessage);
 		_filterQuery = _filterQueryBuilder.Build();
 
-		_messageInclude = MessageIncludeBuilderFactory.Create().WithSender().Build();
+		_messageInclude = MessageIncludeBuilderFactory.Create().WithSender().WithChatMessageImages().Build();
 
 		_repository = new(Collection, IncludeBuilderFactory, MessageIncludeBuilderFactory);
 

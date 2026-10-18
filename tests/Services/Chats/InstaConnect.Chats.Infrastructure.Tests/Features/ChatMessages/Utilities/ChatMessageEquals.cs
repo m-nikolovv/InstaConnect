@@ -4,6 +4,7 @@ using InstaConnect.Chats.Domain.Features.ChatMessages.Models.Responses;
 using InstaConnect.Chats.Domain.Features.ChatMessages.Models.ValueObjects;
 using InstaConnect.Chats.Domain.Features.Chats.Models.Entities;
 using InstaConnect.Chats.Domain.Features.Users.Models.Requests;
+using InstaConnect.Chats.Infrastructure.Tests.Features.ChatMessageImages.Utilities;
 using InstaConnect.Chats.Infrastructure.Tests.Features.Chats.Utilities;
 using InstaConnect.Chats.Infrastructure.Tests.Features.Users.Utilities;
 using InstaConnect.Chats.Tests.Features.ChatMessages.Utilities;
@@ -42,6 +43,8 @@ public static class ChatMessageEquals
 				   chatMessage.Id.Matches(response.Id) &&
 				   chatMessage.SenderId.Matches(response.SenderId) &&
 				   chatMessage.Content == response.Content &&
+				   chatMessage.Summary.Matches(response.Summary) &&
+				   response.ChatMessageImages.MatchesFull(chatMessage.ChatMessageImages) &&
 				   chatMessage.CreatedAtUtc == response.CreatedAtUtc &&
 				   chatMessage.UpdatedAtUtc == response.UpdatedAtUtc &&
 				   response.Sender.MatchesFull(chatMessage.Sender) &&
@@ -57,6 +60,8 @@ public static class ChatMessageEquals
 				   chatMessage.Id.Matches(new(response.Id.Id.ParticipantTwoId, response.Id.Id.ParticipantOneId), response.Id.MessageId) &&
 				   chatMessage.SenderId.Matches(response.SenderId) &&
 				   chatMessage.Content == response.Content &&
+				   chatMessage.Summary.Matches(response.Summary) &&
+				   response.ChatMessageImages.MatchesFullInverted(chatMessage.ChatMessageImages) &&
 				   chatMessage.CreatedAtUtc == response.CreatedAtUtc &&
 				   chatMessage.UpdatedAtUtc == response.UpdatedAtUtc &&
 				   response.Sender.MatchesFull(chatMessage.Sender) &&
@@ -72,6 +77,8 @@ public static class ChatMessageEquals
 				   chatMessage.Id.Matches(response.Id) &&
 				   chatMessage.SenderId.Matches(response.SenderId) &&
 				   chatMessage.Content == response.Content &&
+				   chatMessage.Summary.Matches(response.Summary) &&
+				   response.ChatMessageImages.MatchesFull(chatMessage.ChatMessageImages) &&
 				   chatMessage.CreatedAtUtc == response.CreatedAtUtc &&
 				   chatMessage.UpdatedAtUtc == response.UpdatedAtUtc &&
 				   response.Sender.MatchesFull(chatMessage.Sender) &&
@@ -87,6 +94,8 @@ public static class ChatMessageEquals
 				   chatMessage.Id.Matches(new(response.Id.Id.ParticipantTwoId, response.Id.Id.ParticipantOneId), response.Id.MessageId) &&
 				   chatMessage.SenderId.Matches(response.SenderId) &&
 				   chatMessage.Content == response.Content &&
+				   chatMessage.Summary.Matches(response.Summary) &&
+				   response.ChatMessageImages.MatchesFullInverted(chatMessage.ChatMessageImages) &&
 				   chatMessage.CreatedAtUtc == response.CreatedAtUtc &&
 				   chatMessage.UpdatedAtUtc == response.UpdatedAtUtc &&
 				   response.Sender.MatchesFull(chatMessage.Sender) &&

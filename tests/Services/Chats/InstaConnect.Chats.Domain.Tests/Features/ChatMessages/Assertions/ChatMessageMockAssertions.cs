@@ -1,6 +1,7 @@
 using InstaConnect.Chats.Domain.Tests.Features.ChatMessages.Utilities;
 using InstaConnect.Chats.Domain.Tests.Features.Chats.Assertions;
 using InstaConnect.Common.Domain.Features.DateTimes.Abstractions;
+using InstaConnect.Common.Domain.Features.Images.Abstractions;
 
 namespace InstaConnect.Chats.Domain.Tests.Features.ChatMessages.Assertions;
 
@@ -324,6 +325,81 @@ public static class ChatMessageMockAssertions
 			CancellationToken cancellationToken)
 		{
 			await service.ShouldHaveReceivedOne().DeleteAsync(command, cancellationToken);
+		}
+	}
+
+	extension(IChatMessageSummarizer summarizer)
+	{
+		public async Task ShouldHaveReceivedOneSummarizeAsync(
+			AddChatMessageCommand command,
+			CancellationToken cancellationToken)
+		{
+			await summarizer.ShouldHaveReceivedOneSummarizeAsync(command.IsChatMessage(), cancellationToken);
+		}
+
+		public async Task ShouldHaveReceivedOneSummarizeAsync(
+			UpdateChatMessageCommand command,
+			CancellationToken cancellationToken)
+		{
+			await summarizer.ShouldHaveReceivedOneSummarizeAsync(command.IsChatMessage(), cancellationToken);
+		}
+
+		public async Task ShouldHaveReceivedOneSummarizeAsync(
+			ChatMessage chatMessage,
+			CancellationToken cancellationToken)
+		{
+			await summarizer.ShouldHaveReceivedOne().SummarizeAsync(chatMessage, cancellationToken);
+		}
+	}
+
+	extension(IImageHandler imageHandler)
+	{
+		public async Task ShouldHaveReceivedOneUploadRangeAsync(
+			AddChatMessageCommand command,
+			CancellationToken cancellationToken)
+		{
+			await imageHandler.ShouldHaveReceivedOneUploadRangeAsync(command.Images, cancellationToken);
+		}
+
+		public async Task ShouldHaveReceivedZeroUploadRangeAsync(
+			AddChatMessageCommand command,
+			CancellationToken cancellationToken)
+		{
+			await imageHandler.ShouldHaveReceivedZeroUploadRangeAsync(command.Images, cancellationToken);
+		}
+	}
+
+	extension(IChatMessageImageFactory factory)
+	{
+		public void ShouldHaveReceivedOneCreateRange(
+			AddChatMessageCommand command,
+			ChatMessage chatMessage)
+		{
+			factory.ShouldHaveReceivedOne().CreateRange(chatMessage.Id, command.IsImages());
+		}
+
+		public void ShouldHaveReceivedZeroCreateRange(
+			AddChatMessageCommand command,
+			ChatMessage chatMessage)
+		{
+			factory.ShouldHaveReceivedZero().CreateRange(chatMessage.Id, command.IsImages());
+		}
+	}
+
+	extension(IChatMessageImageCommandRepository repository)
+	{
+		public async Task ShouldHaveReceivedOneAddRangeAsync(
+			AddChatMessageCommand command,
+			CancellationToken cancellationToken)
+		{
+			await repository.ShouldHaveReceivedOne().AddRangeAsync(command.IsChatMessageImages(), cancellationToken);
+		}
+
+		public async Task ShouldHaveReceivedZeroAddRangeAsync(
+			AddChatMessageCommand command,
+			CancellationToken cancellationToken)
+		{
+			await repository.ShouldHaveReceivedZero().AddRangeAsync(command.IsChatMessageImages(), cancellationToken);
 		}
 	}
 }

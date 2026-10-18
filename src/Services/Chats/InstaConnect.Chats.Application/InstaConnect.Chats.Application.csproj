@@ -44,4 +44,11 @@
     <Using Include="InstaConnect.Chats.Application.Features.ChatMessages.Extensions" />
   </ItemGroup>
 
+  <ItemGroup Label="ChatMessageImages">
+    <Using Include="InstaConnect.Chats.Domain.Features.ChatMessageImages.Models.Entities" />
+    <Using Include="InstaConnect.Chats.Domain.Features.ChatMessageImages.Models.ValueObjects" />
+    <Using Include="InstaConnect.Chats.Domain.Features.ChatMessageImages.Models.Responses" />
+    <Using Include="InstaConnect.Chats.Application.Features.ChatMessageImages.Models" />
+  </ItemGroup>
+
 </Project>

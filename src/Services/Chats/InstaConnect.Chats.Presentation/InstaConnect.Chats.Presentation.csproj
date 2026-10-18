@@ -42,4 +42,9 @@
     <Using Include="InstaConnect.Chats.Presentation.Features.ChatMessages.Models.Responses" />
   </ItemGroup>
 
+  <ItemGroup Label="ChatMessageImages">
+    <Using Include="InstaConnect.Chats.Application.Features.ChatMessageImages.Models" />
+    <Using Include="InstaConnect.Chats.Presentation.Features.ChatMessageImages.Models.Responses" />
+  </ItemGroup>
+
 </Project>

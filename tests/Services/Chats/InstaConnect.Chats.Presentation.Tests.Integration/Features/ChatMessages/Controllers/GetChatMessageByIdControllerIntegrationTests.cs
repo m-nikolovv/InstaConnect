@@ -17,6 +17,7 @@ public class GetChatMessageByIdControllerIntegrationTests : BaseChatMessagePrese
 	protected override async Task OnInitializeAsync()
 	{
 		await ServiceScope.AddAsync(ChatMessage, CancellationToken);
+		await ServiceScope.AddRangeAsync(ChatMessageImages, CancellationToken);
 	}
 
 	[Theory]

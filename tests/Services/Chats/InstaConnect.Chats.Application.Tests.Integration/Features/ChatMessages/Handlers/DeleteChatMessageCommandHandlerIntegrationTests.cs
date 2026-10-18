@@ -17,6 +17,7 @@ public class DeleteChatMessageCommandHandlerIntegrationTests : BaseChatMessageAp
 	protected override async Task OnInitializeAsync()
 	{
 		await ServiceScope.AddAsync(ChatMessage, CancellationToken);
+		await ServiceScope.AddRangeAsync(ChatMessageImages, CancellationToken);
 	}
 
 	[Theory]
@@ -291,6 +292,7 @@ public class DeleteChatMessageCommandHandlerIntegrationTests : BaseChatMessageAp
 		// Arrange
 		var updatedChatMessage = ChatMessageBuilder.WithSenderId(ParticipantTwoId).Build();
 		updatedChatMessage.AddSender(ParticipantTwo);
+		updatedChatMessage.AddChatMessageImages(ChatMessage.ChatMessageImages);
 		await ServiceScope.UpdateAsync(updatedChatMessage, CancellationToken);
 		var request = _requestBuilder.WithParticipantOneId(ParticipantTwoId).WithParticipantTwoId(ParticipantOneId).Build();
 
@@ -310,6 +312,7 @@ public class DeleteChatMessageCommandHandlerIntegrationTests : BaseChatMessageAp
 		// Arrange
 		var updatedChatMessage = ChatMessageBuilder.WithSenderId(ParticipantTwoId).Build();
 		updatedChatMessage.AddSender(ParticipantTwo);
+		updatedChatMessage.AddChatMessageImages(ChatMessage.ChatMessageImages);
 		await ServiceScope.UpdateAsync(updatedChatMessage, CancellationToken);
 		var request = _requestBuilder.WithParticipantOneId(ParticipantTwoId, transformer).WithParticipantTwoId(ParticipantOneId).Build();
 
@@ -329,6 +332,7 @@ public class DeleteChatMessageCommandHandlerIntegrationTests : BaseChatMessageAp
 		// Arrange
 		var updatedChatMessage = ChatMessageBuilder.WithSenderId(ParticipantTwoId).Build();
 		updatedChatMessage.AddSender(ParticipantTwo);
+		updatedChatMessage.AddChatMessageImages(ChatMessage.ChatMessageImages);
 		await ServiceScope.UpdateAsync(updatedChatMessage, CancellationToken);
 		var request = _requestBuilder.WithParticipantOneId(ParticipantTwoId).WithParticipantTwoId(ParticipantOneId, transformer).Build();
 
@@ -348,6 +352,7 @@ public class DeleteChatMessageCommandHandlerIntegrationTests : BaseChatMessageAp
 		// Arrange
 		var updatedChatMessage = ChatMessageBuilder.WithSenderId(ParticipantTwoId).Build();
 		updatedChatMessage.AddSender(ParticipantTwo);
+		updatedChatMessage.AddChatMessageImages(ChatMessage.ChatMessageImages);
 		await ServiceScope.UpdateAsync(updatedChatMessage, CancellationToken);
 		var request = _requestBuilder.WithParticipantOneId(ParticipantTwoId).WithParticipantTwoId(ParticipantOneId).WithMessageId(transformer).Build();
 

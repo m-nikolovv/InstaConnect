@@ -9,6 +9,7 @@
     <Using Include="Microsoft.Extensions.DependencyInjection" />
     <Using Include="InstaConnect.Common.Domain.Features.Common.Extensions"/>
     <Using Include="InstaConnect.Common.Domain.Features.Guids.Abstractions" />
+    <Using Include="InstaConnect.Common.Domain.Features.Images.Abstractions" />
     <Using Include="InstaConnect.Common.Domain.Features.DateTimes.Abstractions" />
     <Using Include="InstaConnect.Common.Domain.Features.Entities.Abstractions" />
     <Using Include="InstaConnect.Common.Domain.Features.ValueObjects.Abstractions" />
@@ -44,6 +45,15 @@
     <Using Include="InstaConnect.Chats.Domain.Features.ChatMessages.Models.ValueObjects" />
     <Using Include="InstaConnect.Chats.Domain.Features.ChatMessages.Models.Requests" />
     <Using Include="InstaConnect.Chats.Domain.Features.ChatMessages.Models.Responses" />
+  </ItemGroup>
+
+  <ItemGroup Label="ChatMessageImages">
+    <Using Include="InstaConnect.Chats.Domain.Features.ChatMessageImages.Utilities" />
+    <Using Include="InstaConnect.Chats.Domain.Features.ChatMessageImages.Abstractions" />
+    <Using Include="InstaConnect.Chats.Domain.Features.ChatMessageImages.Models.Entities" />
+    <Using Include="InstaConnect.Chats.Domain.Features.ChatMessageImages.Models.ValueObjects" />
+    <Using Include="InstaConnect.Chats.Domain.Features.ChatMessageImages.Models.Requests" />
+    <Using Include="InstaConnect.Chats.Domain.Features.ChatMessageImages.Models.Responses" />
   </ItemGroup>
 
 </Project>

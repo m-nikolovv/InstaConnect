@@ -21,6 +21,7 @@ internal class ChatMessageFactory : IChatMessageFactory
 			new(id, messageId),
 			senderId,
 			content,
+			new(string.Empty),
 			utcNow,
 			utcNow);
 

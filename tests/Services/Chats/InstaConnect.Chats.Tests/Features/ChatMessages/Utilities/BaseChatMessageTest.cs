@@ -1,6 +1,9 @@
+using InstaConnect.Chats.Domain.Features.ChatMessageImages.Models.ValueObjects;
 using InstaConnect.Chats.Domain.Features.ChatMessages.Models.ValueObjects;
 using InstaConnect.Chats.Domain.Features.Chats.Models.ValueObjects;
 using InstaConnect.Chats.Domain.Features.Users.Models.ValueObjects;
+using InstaConnect.Chats.Tests.Features.ChatMessageImages.Builders;
+using InstaConnect.Chats.Tests.Features.ChatMessageImages.Utilities;
 using InstaConnect.Chats.Tests.Features.Chats.Utilities;
 using InstaConnect.Chats.Tests.Features.Users.Utilities;
 
@@ -60,6 +63,19 @@ public abstract class BaseChatMessageTest : BaseTest
 	protected ChatMessageIdRangeBuilder ChatMessageIdRangeBuilder { get; }
 	protected ICollection<ChatMessageId> ChatMessageIds { get; }
 
+	protected ChatMessageImageBuilderFactory ChatMessageImageBuilderFactory { get; }
+	protected ChatMessageImageBuilder ChatMessageImageBuilder { get; }
+	protected ChatMessageImage ChatMessageImage { get; }
+	protected ICollection<ChatMessageImage> ChatMessageImages { get; }
+
+	protected ChatMessageImageIdBuilderFactory ChatMessageImageIdBuilderFactory { get; }
+	protected ChatMessageImageIdBuilder ChatMessageImageIdBuilder { get; }
+	protected ChatMessageImageId ChatMessageImageId { get; }
+
+	protected ChatMessageImageIdRangeBuilderFactory ChatMessageImageIdRangeBuilderFactory { get; }
+	protected ChatMessageImageIdRangeBuilder ChatMessageImageIdRangeBuilder { get; }
+	protected ICollection<ChatMessageImageId> ChatMessageImageIds { get; }
+
 	protected BaseChatMessageTest()
 	{
 		ParticipantOneBuilderFactory = new();
@@ -113,5 +129,18 @@ public abstract class BaseChatMessageTest : BaseTest
 		ChatMessageIdRangeBuilderFactory = new();
 		ChatMessageIdRangeBuilder = ChatMessageIdRangeBuilderFactory.Create([.. ChatMessages.Select(c => c.Id)]);
 		ChatMessageIds = ChatMessageIdRangeBuilder.Build();
+
+		ChatMessageImageBuilderFactory = new();
+		ChatMessageImageBuilder = ChatMessageImageBuilderFactory.Create(ChatMessage);
+		ChatMessageImage = ChatMessageImageBuilder.Build();
+		ChatMessageImages = ChatMessageImage.Generate(ChatMessages);
+
+		ChatMessageImageIdBuilderFactory = new();
+		ChatMessageImageIdBuilder = ChatMessageImageIdBuilderFactory.Create(ChatMessageImage.Id);
+		ChatMessageImageId = ChatMessageImageIdBuilder.Build();
+
+		ChatMessageImageIdRangeBuilderFactory = new();
+		ChatMessageImageIdRangeBuilder = ChatMessageImageIdRangeBuilderFactory.Create([.. ChatMessageImages.Select(c => c.Id)]);
+		ChatMessageImageIds = ChatMessageImageIdRangeBuilder.Build();
 	}
 }

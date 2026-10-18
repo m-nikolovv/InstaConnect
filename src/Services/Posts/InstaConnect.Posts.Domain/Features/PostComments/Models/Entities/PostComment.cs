@@ -30,11 +30,6 @@ public class PostComment : IEntityWithId<PostCommentId>
 		UpdatedAtUtc = updatedAtUtc;
 	}
 
-	public void UpdateSummary(Summary summary)
-	{
-		Summary = summary;
-	}
-
 	public PostCommentId Id { get; }
 
 	public string Content { get; private set; }
@@ -59,6 +54,11 @@ public class PostComment : IEntityWithId<PostCommentId>
 	{
 		Content = content;
 		UpdatedAtUtc = updatedAtUtc;
+	}
+
+	public void UpdateSummary(Summary summary)
+	{
+		Summary = summary;
 	}
 
 	public bool IsNotOwnedByUser(UserId userId)

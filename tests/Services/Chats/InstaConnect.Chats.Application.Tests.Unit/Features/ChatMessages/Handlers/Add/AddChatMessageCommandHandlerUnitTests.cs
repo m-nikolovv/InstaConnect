@@ -11,7 +11,7 @@ public class AddChatMessageCommandHandlerUnitTests : BaseChatMessageApplicationC
 	public AddChatMessageCommandHandlerUnitTests()
 	{
 		_requestBuilderFactory = new();
-		_requestBuilder = _requestBuilderFactory.Create(Chat);
+		_requestBuilder = _requestBuilderFactory.Create(Chat, ChatMessage.ChatMessageImages.Count);
 		_request = _requestBuilder.Build();
 
 		_handler = new(Mapper, CommentService);

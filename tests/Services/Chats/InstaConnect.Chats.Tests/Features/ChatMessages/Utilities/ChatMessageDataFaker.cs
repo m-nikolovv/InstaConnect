@@ -12,6 +12,11 @@ public static class ChatMessageDataFaker
 		return DataFaker.GetAverageString(ChatMessageConfigurations.ContentMaxLength, ChatMessageConfigurations.ContentMinLength);
 	}
 
+	public static string GetSummary()
+	{
+		return DataFaker.GetAverageString(ChatMessageConfigurations.SummaryMaxLength, ChatMessageConfigurations.SummaryMinLength);
+	}
+
 	public static DateTimeOffset GetCreatedAtUtc()
 	{
 		return DataFaker.GetSoonDate();

@@ -49,7 +49,7 @@ public class GetAllChatMessagesQueryRepositoryUnitTests : BaseChatMessageInfrast
 		_currentUserQueryBuilder = _currentUserQueryBuilderFactory.Create(ParticipantOne);
 		_currentUserQuery = _currentUserQueryBuilder.Build();
 
-		_messageInclude = MessageIncludeBuilderFactory.Create().WithSender().Build();
+		_messageInclude = MessageIncludeBuilderFactory.Create().WithSender().WithChatMessageImages().Build();
 
 		_repository = new(Collection, IncludeBuilderFactory, MessageIncludeBuilderFactory);
 

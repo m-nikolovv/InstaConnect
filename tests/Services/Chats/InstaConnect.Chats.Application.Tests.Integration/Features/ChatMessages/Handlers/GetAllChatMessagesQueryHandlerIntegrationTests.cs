@@ -21,6 +21,7 @@ public class GetAllChatMessagesQueryHandlerIntegrationTests : BaseChatMessageApp
 	protected override async Task OnInitializeAsync()
 	{
 		await ServiceScope.AddRangeAsync(ChatMessages, CancellationToken);
+		await ServiceScope.AddRangeAsync(ChatMessageImages, CancellationToken);
 	}
 
 	[Theory]

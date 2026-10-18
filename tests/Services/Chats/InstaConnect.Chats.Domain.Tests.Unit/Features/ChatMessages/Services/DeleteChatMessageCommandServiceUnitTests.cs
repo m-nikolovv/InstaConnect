@@ -26,9 +26,9 @@ public class DeleteChatMessageCommandServiceUnitTests : BaseChatMessageDomainCom
 		_command = _commandBuilder.Build();
 
 		_include = IncludeBuilderFactory.Create().WithParticipantOne().WithParticipantTwo().Build();
-		_messageInclude = MessageIncludeBuilderFactory.Create().WithSender().WithChat(_include).Build();
+		_messageInclude = MessageIncludeBuilderFactory.Create().WithSender().WithChat(_include).WithChatMessageImages().Build();
 
-		_service = new(Mapper, Repository, DateTimeProvider, Factory, MessageRepository, IncludeBuilderFactory, NotificationService, MessageIncludeBuilderFactory);
+		_service = new(Mapper, ImageHandler, Repository, DateTimeProvider, Factory, MessageSummarizer, MessageImageFactory, MessageRepository, IncludeBuilderFactory, MessageImageRepository, NotificationService, MessageIncludeBuilderFactory);
 
 		Repository.SetupExistsByIdAsync(_command, CancellationToken);
 		MessageRepository.SetupGetByIdAsync(_command, _messageInclude, ChatMessage, CancellationToken);

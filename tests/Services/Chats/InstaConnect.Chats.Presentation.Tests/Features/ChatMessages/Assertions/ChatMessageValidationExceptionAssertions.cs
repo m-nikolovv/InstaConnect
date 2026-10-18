@@ -128,7 +128,7 @@ public static class ChatMessageValidationExceptionAssertions
 
 			await func.ShouldThrowInvalidValidationExceptionAsync(
 				request,
-				r => r.Body.Content,
+				r => r.Form.Content,
 				messageTransformer,
 				cancellationToken);
 		}

@@ -6,6 +6,8 @@ public record ChatMessageNotificationRequest(
 	string MessageId,
 	UserNotificationRequest Sender,
 	ChatNotificationRequest Chat,
+	ICollection<ChatMessageImageNotificationRequest> ChatMessageImages,
 	string Content,
+	string Summary,
 	DateTimeOffset CreatedAtUtc,
 	DateTimeOffset UpdatedAtUtc);

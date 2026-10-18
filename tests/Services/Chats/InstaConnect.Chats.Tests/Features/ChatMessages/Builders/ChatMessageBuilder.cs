@@ -12,6 +12,7 @@ public class ChatMessageBuilder
 	private string _senderId;
 	private readonly User _sender;
 	private readonly string _content;
+	private readonly string _summary;
 	private readonly DateTimeOffset _createdAtUtc;
 	private readonly DateTimeOffset _updatedAtUtc;
 
@@ -24,6 +25,7 @@ public class ChatMessageBuilder
 		_senderId = chat.Id.ParticipantOneId.Id;
 		_sender = chat.ParticipantOne!;
 		_content = ChatMessageDataFaker.GetContent();
+		_summary = ChatMessageDataFaker.GetSummary();
 		_createdAtUtc = ChatMessageDataFaker.GetCreatedAtUtc();
 		_updatedAtUtc = _createdAtUtc;
 	}
@@ -52,6 +54,7 @@ public class ChatMessageBuilder
 					_messageId),
 				new(_senderId),
 				_content,
+				new(_summary),
 				_createdAtUtc,
 				_updatedAtUtc);
 

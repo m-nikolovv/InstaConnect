@@ -26,9 +26,9 @@ public class UpdateChatMessageCommandServiceUnitTests : BaseChatMessageDomainCom
 		_command = _commandBuilder.Build();
 
 		_include = IncludeBuilderFactory.Create().WithParticipantOne().WithParticipantTwo().Build();
-		_messageInclude = MessageIncludeBuilderFactory.Create().WithSender().WithChat(_include).Build();
+		_messageInclude = MessageIncludeBuilderFactory.Create().WithSender().WithChat(_include).WithChatMessageImages().Build();
 
-		_service = new(Mapper, Repository, DateTimeProvider, Factory, MessageRepository, IncludeBuilderFactory, NotificationService, MessageIncludeBuilderFactory);
+		_service = new(Mapper, ImageHandler, Repository, DateTimeProvider, Factory, MessageSummarizer, MessageImageFactory, MessageRepository, IncludeBuilderFactory, MessageImageRepository, NotificationService, MessageIncludeBuilderFactory);
 
 		Repository.SetupExistsByIdAsync(_command, CancellationToken);
 		MessageRepository.SetupGetByIdAsync(_command, _messageInclude, ChatMessage, CancellationToken);
@@ -115,6 +115,16 @@ public class UpdateChatMessageCommandServiceUnitTests : BaseChatMessageDomainCom
 
 		// Assert
 		await MessageRepository.ShouldHaveReceivedOneUpdateAsync(_command, CancellationToken);
+	}
+
+	[Fact]
+	public async Task UpdateAsync_ShouldCallTheMessageSummarizerSummarizeAsync_WhenCommandIsValid()
+	{
+		// Act
+		await _service.UpdateAsync(_command, CancellationToken);
+
+		// Assert
+		await MessageSummarizer.ShouldHaveReceivedOneSummarizeAsync(_command, CancellationToken);
 	}
 
 	[Fact]

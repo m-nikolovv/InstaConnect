@@ -1,3 +1,4 @@
+using InstaConnect.Chats.Domain.Features.ChatMessageImages.Extensions;
 using InstaConnect.Chats.Domain.Features.ChatMessages.Extensions;
 using InstaConnect.Chats.Domain.Features.Chats.Extensions;
 using InstaConnect.Chats.Domain.Features.Users.Extensions;
@@ -15,7 +16,8 @@ public static class ServiceCollectionExtensions
 			serviceCollection
 				.AddUserServices()
 				.AddChatServices()
-				.AddChatMessageServices();
+				.AddChatMessageServices()
+				.AddChatMessageImageServices();
 
 			serviceCollection
 				.AddMappers(ChatsDomainReference.Assembly, CommonDomainReference.Assembly)
