@@ -141,6 +141,14 @@ public static class PostMockSetups
 		}
 
 		public void SetupGetByIdAsync(
+			AnalyzePostByIdQuery query,
+			Post post,
+			CancellationToken cancellationToken)
+		{
+			service.SetupGetByIdAsync(query.Id, query.CurrentUser, post.ToResponse(query), cancellationToken);
+		}
+
+		public void SetupGetByIdAsync(
 			PostId id,
 			CurrentUserQuery currentUser,
 			PostResponse? response,
@@ -153,6 +161,14 @@ public static class PostMockSetups
 
 		public void RemoveGetByIdAsync(
 			GetPostByIdQuery query,
+			Post post,
+			CancellationToken cancellationToken)
+		{
+			service.SetupGetByIdAsync(query.Id, query.CurrentUser, null, cancellationToken);
+		}
+
+		public void RemoveGetByIdAsync(
+			AnalyzePostByIdQuery query,
 			Post post,
 			CancellationToken cancellationToken)
 		{
@@ -307,6 +323,16 @@ public static class PostMockSetups
 		{
 			service
 				.GetByIdAsync(query, cancellationToken)
+				.ReturnsTaskResponse(response);
+		}
+
+		public void SetupAnalyzeByIdAsync(
+			AnalyzePostByIdQuery query,
+			PostAnalyzeResponse response,
+			CancellationToken cancellationToken)
+		{
+			service
+				.AnalyzeByIdAsync(query, cancellationToken)
 				.ReturnsTaskResponse(response);
 		}
 	}

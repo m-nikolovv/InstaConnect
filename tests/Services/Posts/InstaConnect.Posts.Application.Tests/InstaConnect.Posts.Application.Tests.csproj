@@ -52,6 +52,7 @@
     <Using Include="InstaConnect.Posts.Application.Features.Posts.Queries.GetAll" />
     <Using Include="InstaConnect.Posts.Application.Features.Posts.Queries.GetAllForUser" />
     <Using Include="InstaConnect.Posts.Application.Features.Posts.Queries.GetById" />
+    <Using Include="InstaConnect.Posts.Application.Features.Posts.Queries.AnalyzeById" />
     <Using Include="InstaConnect.Posts.Application.Features.Posts.Commands.Add" />
     <Using Include="InstaConnect.Posts.Application.Features.Posts.Commands.Update" />
     <Using Include="InstaConnect.Posts.Application.Features.Posts.Commands.Delete" />

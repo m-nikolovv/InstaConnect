@@ -28,6 +28,7 @@ public class PostsWebApplicationFactory : WebApplicationFactory<Program>, IAsync
 		builder.ConfigureTestServices(serviceCollection =>
 		{
 			serviceCollection.AddMockImageHandler();
+			serviceCollection.AddMockAnalyzer();
 			serviceCollection.AddTestEventClient(_rabbitMqContainer.GetConnectionString(), PostsInfrastructureReference.Assembly);
 		});
 
@@ -35,6 +36,7 @@ public class PostsWebApplicationFactory : WebApplicationFactory<Program>, IAsync
 		builder.UpdateRabbitMqConfiguration(_rabbitMqContainer.GetConnectionString());
 		builder.UpdateAccessTokenConfiguration();
 		builder.UpdateCloudinaryConfiguration();
+		builder.UpdateOpenAiConfiguration();
 		builder.UpdateOpenTelemetryConfiguration();
 		builder.UpdateCorsConfiguration();
 		builder.UpdateMainConfiguration();

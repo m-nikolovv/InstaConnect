@@ -52,6 +52,18 @@ public static class PostExceptionAssertions
 				cancellationToken);
 		}
 
+		public async Task ShouldThrowPostNotFoundExceptionAsync(
+			AnalyzePostByIdApiRequest request,
+			CancellationToken cancellationToken)
+		{
+			var func = () => controller.AnalyzeByIdAsync(request, cancellationToken);
+
+			await func.ShouldThrowPostNotFoundExceptionAsync(
+				request,
+				r => r.Id,
+				cancellationToken);
+		}
+
 		public async Task ShouldThrowPostForbiddenExceptionAsync(
 			UpdatePostApiRequest request,
 			CancellationToken cancellationToken)

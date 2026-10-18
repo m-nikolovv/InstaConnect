@@ -98,6 +98,7 @@ public static class PostEquals
 		{
 			return p.AllAndNotEmpty(u => u.Matches(command));
 		}
+
 	}
 
 	extension(PostImage p)
@@ -325,6 +326,25 @@ public static class PostEquals
 		public bool Matches(GetPostByIdQuery query, Post post)
 		{
 			return response.MatchesFull(query, post);
+		}
+	}
+
+	extension(PostAnalyzeResponse response)
+	{
+		public bool Matches(AnalyzePostByIdQuery query, Post post)
+		{
+			return response != null &&
+				   post != null &&
+				   post.Id.Matches(response.Id) &&
+				   post.UserId.Matches(response.UserId) &&
+				   post.Title == response.Title &&
+				   post.Content == response.Content &&
+				   response.PostImages.MatchesFull(post.PostImages) &&
+				   response.IsLikedByCurrentUser == post.PostLikes.Any(pl => pl.Id.UserId.Matches(query.CurrentUser.Id)) &&
+				   response.Summary == post.ToAnalyzeRequest().GetAnalysisSummary() &&
+				   post.CreatedAtUtc == response.CreatedAtUtc &&
+				   post.UpdatedAtUtc == response.UpdatedAtUtc &&
+				   response.User.MatchesFull(post.User);
 		}
 	}
 

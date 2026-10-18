@@ -155,6 +155,8 @@ services:
       CloudinaryConfiguration__CloudName: ${CLOUDINARY_CLOUD_NAME}
       CloudinaryConfiguration__ApiKey: ${CLOUDINARY_API_KEY}
       CloudinaryConfiguration__ApiSecret: ${CLOUDINARY_API_SECRET}
+      OpenAiConfiguration__ApiKey: ${OPENAI_API_KEY}
+      OpenAiConfiguration__Model: ${OPENAI_MODEL}
     healthcheck:
       test: ["CMD-SHELL", "wget --spider --tries=1 --no-verbose http://127.0.0.1:80/healthz || exit 1"]
       interval: 15s

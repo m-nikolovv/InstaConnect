@@ -1,5 +1,6 @@
 using InstaConnect.Posts.Application.Features.Posts.Commands.Add;
 using InstaConnect.Posts.Application.Features.Posts.Commands.Update;
+using InstaConnect.Posts.Application.Features.Posts.Queries.AnalyzeById;
 using InstaConnect.Posts.Application.Features.Posts.Queries.GetAll;
 using InstaConnect.Posts.Application.Features.Posts.Queries.GetAllForUser;
 using InstaConnect.Posts.Application.Features.Posts.Queries.GetById;
@@ -44,6 +45,12 @@ internal class PostPresentationMappings : IRegister
 		config.NewConfig<GetPostByIdQueryResponse, GetPostByIdApiResponse>()
 			.ConstructUsing(src => new(src.Response.Adapt<PostApiResponse>(config)));
 
+		config.NewConfig<AnalyzePostByIdApiRequest, AnalyzePostByIdQueryRequest>()
+			.ConstructUsing(src => new(src.Id, src.CurrentUserId));
+
+		config.NewConfig<AnalyzePostByIdQueryResponse, AnalyzePostByIdApiResponse>()
+			.ConstructUsing(src => new(src.Response.Adapt<PostAnalyzeApiResponse>(config)));
+
 		config.NewConfig<AddPostApiRequest, AddPostCommandRequest>()
 			.ConstructUsing(src => new(
 				src.UserId,
@@ -76,6 +83,19 @@ internal class PostPresentationMappings : IRegister
 					src.User.Adapt<UserApiResponse>(config),
 					src.PostImages.Adapt<ICollection<PostImageApiResponse>>(config),
 					src.IsLikedByCurrentUser,
+					src.CreatedAtUtc,
+					src.UpdatedAtUtc));
+
+		config.NewConfig<PostAnalyzeQueryResponse, PostAnalyzeApiResponse>()
+			.ConstructUsing(src => new(
+					src.Id,
+					src.UserId,
+					src.Title,
+					src.Content,
+					src.User.Adapt<UserApiResponse>(config),
+					src.PostImages.Adapt<ICollection<PostImageApiResponse>>(config),
+					src.IsLikedByCurrentUser,
+					src.Summary,
 					src.CreatedAtUtc,
 					src.UpdatedAtUtc));
 

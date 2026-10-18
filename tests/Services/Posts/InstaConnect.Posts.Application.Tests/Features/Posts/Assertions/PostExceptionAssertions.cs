@@ -55,6 +55,18 @@ public static class PostExceptionAssertions
 		}
 
 		public async Task ShouldThrowPostNotFoundExceptionAsync(
+			AnalyzePostByIdQueryRequest request,
+			CancellationToken cancellationToken)
+		{
+			var func = () => sender.SendAsync(request, cancellationToken);
+
+			await func.ShouldThrowPostNotFoundExceptionAsync(
+				request,
+				r => r.Id,
+				cancellationToken);
+		}
+
+		public async Task ShouldThrowPostNotFoundExceptionAsync(
 			DeletePostCommandRequest request,
 			CancellationToken cancellationToken)
 		{

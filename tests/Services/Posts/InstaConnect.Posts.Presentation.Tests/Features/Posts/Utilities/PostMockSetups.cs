@@ -33,6 +33,14 @@ public static class PostMockSetups
 		}
 
 		public void SetupSendAsync(
+			AnalyzePostByIdApiRequest request,
+			Post post,
+			CancellationToken cancellationToken)
+		{
+			sender.SetupSendAsync(request.IsAnalyzePostByIdQueryRequest(), post.ToResponse(request), cancellationToken);
+		}
+
+		public void SetupSendAsync(
 			AddPostApiRequest request,
 			Post post,
 			CancellationToken cancellationToken)

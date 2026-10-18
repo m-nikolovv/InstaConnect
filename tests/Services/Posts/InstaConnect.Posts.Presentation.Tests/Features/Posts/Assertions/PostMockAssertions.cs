@@ -30,6 +30,13 @@ public static class PostMockAssertions
 		}
 
 		public async Task ShouldHaveReceivedOneSendAsync(
+			AnalyzePostByIdApiRequest request,
+			CancellationToken cancellationToken)
+		{
+			await sender.ShouldHaveReceivedOneSendAsync(request.IsAnalyzePostByIdQueryRequest(), cancellationToken);
+		}
+
+		public async Task ShouldHaveReceivedOneSendAsync(
 			AddPostApiRequest request,
 			CancellationToken cancellationToken)
 		{

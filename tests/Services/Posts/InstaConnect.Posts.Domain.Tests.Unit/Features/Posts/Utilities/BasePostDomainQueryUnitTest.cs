@@ -14,10 +14,13 @@ public abstract class BasePostDomainQueryUnitTest : BasePostTest
 
 	protected IPostCollectionResponseFactory CollectionResponseFactory { get; }
 
+	protected IPostAnalyzer Analyzer { get; }
+
 	protected BasePostDomainQueryUnitTest()
 	{
 		Repository = PostDomainMockFactory.CreateQueryRepository();
 		UserRepository = UserDomainMockFactory.CreateQueryRepository();
 		CollectionResponseFactory = PostDomainMockFactory.CreateCollectionResponseFactory();
+		Analyzer = PostDomainMockFactory.CreateAnalyzer();
 	}
 }

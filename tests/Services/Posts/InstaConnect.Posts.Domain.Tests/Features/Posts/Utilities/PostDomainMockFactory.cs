@@ -9,6 +9,17 @@ public static class PostDomainMockFactory
 		return Mocker.Mock<IPostFactory>();
 	}
 
+	public static IPostAnalyzer CreateAnalyzer()
+	{
+		var analyzer = Mocker.Mock<IPostAnalyzer>();
+
+		analyzer
+			.AnalyzeAsync(Matcher.Any<PostResponse>(), Matcher.Any<CancellationToken>())
+			.ReturnsTaskResponse<PostAnalyzeResponse, PostResponse>(post => post.ToAnalyzeResponse());
+
+		return analyzer;
+	}
+
 	public static IPostCollectionResponseFactory CreateCollectionResponseFactory()
 	{
 		return new PostCollectionResponseFactory(new Paginator());

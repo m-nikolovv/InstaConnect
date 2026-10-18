@@ -1,8 +1,11 @@
 using InstaConnect.Common.Application.Features.Requests.Abstractions;
+using InstaConnect.Common.Tests.Features.Extensions;
 using InstaConnect.Posts.Application.Features.Users.Abstractions;
 using InstaConnect.Posts.Application.Tests.Features.PostImages.Utilities;
 using InstaConnect.Posts.Application.Tests.Features.Posts.Utilities;
 using InstaConnect.Posts.Application.Tests.Features.Users.Utilities;
+
+using Microsoft.Extensions.AI;
 
 namespace InstaConnect.Posts.Application.Tests.Features.Posts.Utilities;
 
@@ -56,6 +59,21 @@ public static class PostMapper
 			GetPostByIdQueryRequest request)
 		{
 			return post.ToFullResponse(request);
+		}
+
+		public PostAnalyzeResponse ToResponse(
+			AnalyzePostByIdQueryRequest request)
+		{
+			return new(post.Id,
+					   post.UserId,
+					   post.Title,
+					   post.Content,
+					   post.User?.ToFullResponse(),
+					   post.PostImages.ToFullResponse(),
+					   post.PostLikes.Any(pl => pl.Id.UserId.Matches(request.CurrentUserId)),
+					   post.GetAnalysisSummary(),
+					   post.CreatedAtUtc,
+					   post.UpdatedAtUtc);
 		}
 	}
 

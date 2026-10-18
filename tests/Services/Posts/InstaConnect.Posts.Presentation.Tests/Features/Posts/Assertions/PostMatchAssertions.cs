@@ -36,6 +36,16 @@ public static class PostMatchAssertions
 		}
 	}
 
+	extension(AnalyzePostByIdApiResponse response)
+	{
+		public void ShouldSatisfy(
+		AnalyzePostByIdApiRequest request,
+		Post post)
+		{
+			response.ShouldSatisfy(p => p.Matches(request, post));
+		}
+	}
+
 	extension(GetAllPostsApiResponse response)
 	{
 		public void ShouldSatisfy(
@@ -98,6 +108,16 @@ public static class PostMatchAssertions
 	{
 		public void ShouldSatisfy(
 		GetPostByIdApiRequest request,
+		Post post)
+		{
+			response.ShouldBeActionResultAndSatisfy(p => p.Matches(request, post));
+		}
+	}
+
+	extension(ActionResult<AnalyzePostByIdApiResponse> response)
+	{
+		public void ShouldSatisfy(
+		AnalyzePostByIdApiRequest request,
 		Post post)
 		{
 			response.ShouldBeActionResultAndSatisfy(p => p.Matches(request, post));

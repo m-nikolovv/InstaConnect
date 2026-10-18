@@ -31,6 +31,18 @@ public static class PostExceptionAssertions
 				r => r.Id,
 				cancellationToken);
 		}
+
+		public async Task ShouldThrowPostNotFoundExceptionAsync(
+			AnalyzePostByIdQuery request,
+			CancellationToken cancellationToken)
+		{
+			var func = () => service.AnalyzeByIdAsync(request, cancellationToken);
+
+			await func.ShouldThrowPostNotFoundExceptionAsync(
+				request,
+				r => r.Id,
+				cancellationToken);
+		}
 	}
 
 	extension(IPostCommandService service)

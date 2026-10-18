@@ -39,6 +39,14 @@ public static class PostProblemDetailsAssertions
 		}
 
 		public void ShouldSatisfyPostNotFound(
+			AnalyzePostByIdApiRequest request)
+		{
+			problemDetails.ShouldSatisfyPostNotFound(
+				request,
+				r => r.Id);
+		}
+
+		public void ShouldSatisfyPostNotFound(
 			DeletePostApiRequest request)
 		{
 			problemDetails.ShouldSatisfyPostNotFound(

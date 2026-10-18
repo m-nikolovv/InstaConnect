@@ -102,6 +102,33 @@ internal class PostApiClient : IPostApiClient
 		return response.GetStatusCode();
 	}
 
+	public async Task<ApplicationProblemDetails> AnalyzeByIdProblemDetailsAsync(
+		AnalyzePostByIdApiRequest request,
+		CancellationToken cancellationToken)
+	{
+		var response = await _httpClient.AnalyzeByIdResponseMessageAsync(request, _baseAccessTokenGenerator, cancellationToken);
+
+		return await response.GetProblemDetailsFromJsonAsync(cancellationToken);
+	}
+
+	public async Task<AnalyzePostByIdApiResponse> AnalyzeByIdAsync(
+		AnalyzePostByIdApiRequest request,
+		CancellationToken cancellationToken)
+	{
+		var response = await _httpClient.AnalyzeByIdResponseMessageAsync(request, _baseAccessTokenGenerator, cancellationToken);
+
+		return await response.GetFromJsonAsync<AnalyzePostByIdApiResponse>(cancellationToken);
+	}
+
+	public async Task<HttpStatusCode> AnalyzeByIdStatusCodeAsync(
+		AnalyzePostByIdApiRequest request,
+		CancellationToken cancellationToken)
+	{
+		var response = await _httpClient.AnalyzeByIdResponseMessageAsync(request, _baseAccessTokenGenerator, cancellationToken);
+
+		return response.GetStatusCode();
+	}
+
 	public async Task<ApplicationProblemDetails> AddUnauthorizedProblemDetailsAsync(
 		AddPostApiRequest request,
 		CancellationToken cancellationToken)

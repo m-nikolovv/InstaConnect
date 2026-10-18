@@ -27,6 +27,14 @@ public static class PostMatchAssertions
 		}
 	}
 
+	extension(PostAnalyzeResponse response)
+	{
+		public void ShouldSatisfy(AnalyzePostByIdQuery query, Post post)
+		{
+			response.ShouldSatisfy(p => p.Matches(query, post));
+		}
+	}
+
 	extension(PostCollectionResponse response)
 	{
 		public void ShouldSatisfy(

@@ -30,6 +30,14 @@ public static class PostMockSetups
 		{
 			service.SetupGetByIdAsync(request.IsGetPostByIdQuery(), post.ToResponse(request), cancellationToken);
 		}
+
+		public void SetupAnalyzeByIdAsync(
+			AnalyzePostByIdQueryRequest request,
+			Post post,
+			CancellationToken cancellationToken)
+		{
+			service.SetupAnalyzeByIdAsync(request.IsAnalyzePostByIdQuery(), post.ToResponse(request), cancellationToken);
+		}
 	}
 
 	extension(IPostCommandService service)

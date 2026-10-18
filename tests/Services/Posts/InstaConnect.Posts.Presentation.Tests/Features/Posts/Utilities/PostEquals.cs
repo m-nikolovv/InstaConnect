@@ -225,6 +225,15 @@ public static class PostEquals
 		}
 	}
 
+	extension(AnalyzePostByIdQueryRequest query)
+	{
+		public bool Matches(AnalyzePostByIdApiRequest request)
+		{
+			return query.Id == request.Id &&
+				   query.MatchesCurrentUserable(request);
+		}
+	}
+
 	extension(AddPostCommandRequest command)
 	{
 		public bool Matches(AddPostApiRequest request)
@@ -281,6 +290,33 @@ public static class PostEquals
 		public bool Matches(GetPostByIdApiRequest request, Post post)
 		{
 			return response.Response.MatchesFull(request, post);
+		}
+	}
+
+	extension(AnalyzePostByIdApiResponse response)
+	{
+		public bool Matches(AnalyzePostByIdApiRequest request, Post post)
+		{
+			return response.Response.Matches(request, post);
+		}
+	}
+
+	extension(PostAnalyzeApiResponse? response)
+	{
+		public bool Matches(AnalyzePostByIdApiRequest request, Post? post)
+		{
+			return response != null &&
+				   post != null &&
+				   post.Id.Matches(response.Id) &&
+				   post.UserId.Matches(response.UserId) &&
+				   post.Title == response.Title &&
+				   post.Content == response.Content &&
+				   response.PostImages.MatchesFull(post.PostImages) &&
+				   response.IsLikedByCurrentUser == post.PostLikes.Any(pl => pl.Id.UserId.Matches(request.CurrentUserId)) &&
+				   response.Summary == post.ToAnalyzeRequest().GetAnalysisSummary() &&
+				   post.CreatedAtUtc == response.CreatedAtUtc &&
+				   post.UpdatedAtUtc == response.UpdatedAtUtc &&
+				   response.User.MatchesFull(post.User);
 		}
 	}
 

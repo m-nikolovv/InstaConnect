@@ -33,6 +33,13 @@ public static class ServiceCollectionExtensions
 			return serviceCollection;
 		}
 
+		public IServiceCollection AddMockAnalyzer()
+		{
+			serviceCollection.AddSingleton(_ => MockFactory.CreateAnalyzer());
+
+			return serviceCollection;
+		}
+
 		public IServiceCollection AddMockEmailSender()
 		{
 			serviceCollection.AddScoped(_ => MockFactory.CreateEmailSender());

@@ -1,5 +1,6 @@
 using InstaConnect.Common.Infrastructure.Features.AccessTokens.Models;
 using InstaConnect.Common.Infrastructure.Features.Caches.Models;
+using InstaConnect.Common.Infrastructure.Features.Analyzers.Models;
 using InstaConnect.Common.Infrastructure.Features.Databases.Models;
 using InstaConnect.Common.Infrastructure.Features.Emails.Models;
 using InstaConnect.Common.Infrastructure.Features.Events.Models;
@@ -54,6 +55,17 @@ public static class WebHostBuilderExtensions
 			webHostBuilder.UseSetting(
 				CloudinaryOptions.SectionName.ToSectionKey(nameof(CloudinaryOptions.ApiSecret)),
 				MockValues.CloudinaryApiSecret);
+		}
+
+		public void UpdateOpenAiConfiguration()
+		{
+			webHostBuilder.UseSetting(
+				OpenAiOptions.SectionName.ToSectionKey(nameof(OpenAiOptions.ApiKey)),
+				MockValues.OpenAiApiKey);
+
+			webHostBuilder.UseSetting(
+				OpenAiOptions.SectionName.ToSectionKey(nameof(OpenAiOptions.Model)),
+				MockValues.OpenAiModel);
 		}
 
 		public void UpdateSendGridConfiguration()

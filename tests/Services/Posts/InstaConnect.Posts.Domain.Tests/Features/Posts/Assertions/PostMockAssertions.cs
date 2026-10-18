@@ -134,6 +134,16 @@ public static class PostMockAssertions
 		}
 
 		public async Task ShouldHaveReceivedOneGetByIdAsync(
+			AnalyzePostByIdQuery query,
+			CancellationToken cancellationToken)
+		{
+			await repository.ShouldHaveReceivedOneGetByIdAsync(
+				query.Id,
+				query.CurrentUser,
+				cancellationToken);
+		}
+
+		public async Task ShouldHaveReceivedOneGetByIdAsync(
 			PostId id,
 			CurrentUserQuery currentUser,
 			CancellationToken cancellationToken)
@@ -322,6 +332,31 @@ public static class PostMockAssertions
 			CancellationToken cancellationToken)
 		{
 			await service.ShouldHaveReceivedOne().GetByIdAsync(query, cancellationToken);
+		}
+
+		public async Task ShouldHaveReceivedOneAnalyzeByIdAsync(
+			AnalyzePostByIdQuery query,
+			CancellationToken cancellationToken)
+		{
+			await service.ShouldHaveReceivedOne().AnalyzeByIdAsync(query, cancellationToken);
+		}
+	}
+
+	extension(IPostAnalyzer analyzer)
+	{
+		public async Task ShouldHaveReceivedOneAnalyzeAsync(
+			AnalyzePostByIdQuery query,
+			Post post,
+			CancellationToken cancellationToken)
+		{
+			await analyzer.ShouldHaveReceivedOne().AnalyzeAsync(query.IsPostResponse(post), cancellationToken);
+		}
+
+		public async Task ShouldHaveReceivedZeroAnalyzeAsync(
+			AnalyzePostByIdQuery query,
+			CancellationToken cancellationToken)
+		{
+			await analyzer.ShouldHaveReceivedZero().AnalyzeAsync(Matcher.Any<PostResponse>(), cancellationToken);
 		}
 	}
 

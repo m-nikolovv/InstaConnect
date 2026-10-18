@@ -4,6 +4,7 @@ using InstaConnect.Common.Presentation.Features.Controllers.Utilities;
 using InstaConnect.Posts.Application.Features.Posts.Commands.Add;
 using InstaConnect.Posts.Application.Features.Posts.Commands.Delete;
 using InstaConnect.Posts.Application.Features.Posts.Commands.Update;
+using InstaConnect.Posts.Application.Features.Posts.Queries.AnalyzeById;
 using InstaConnect.Posts.Application.Features.Posts.Queries.GetAll;
 using InstaConnect.Posts.Application.Features.Posts.Queries.GetById;
 
@@ -52,6 +53,21 @@ public class PostController : ControllerBase
 		var queryRequest = _mapper.Map<GetPostByIdQueryRequest>(request);
 		var queryResponse = await _sender.SendAsync(queryRequest, cancellationToken);
 		var response = _mapper.Map<GetPostByIdApiResponse>(queryResponse);
+
+		return Ok(response);
+	}
+
+	// GET: api/posts/5f0f2dd0-e957-4d72-8141-767a36fc6e95/analysis
+	[HttpGet(PostRoutes.Analysis)]
+	[ProducesResponseType(StatusCodes.Status200OK)]
+	[ProducesResponseType(StatusCodes.Status404NotFound)]
+	public async Task<ActionResult<AnalyzePostByIdApiResponse>> AnalyzeByIdAsync(
+		AnalyzePostByIdApiRequest request,
+		CancellationToken cancellationToken)
+	{
+		var queryRequest = _mapper.Map<AnalyzePostByIdQueryRequest>(request);
+		var queryResponse = await _sender.SendAsync(queryRequest, cancellationToken);
+		var response = _mapper.Map<AnalyzePostByIdApiResponse>(queryResponse);
 
 		return Ok(response);
 	}

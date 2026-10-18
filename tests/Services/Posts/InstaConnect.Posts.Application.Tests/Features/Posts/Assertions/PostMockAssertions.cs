@@ -27,6 +27,13 @@ public static class PostMockAssertions
 		{
 			await postService.ShouldHaveReceivedOneGetByIdAsync(request.IsGetPostByIdQuery(), cancellationToken);
 		}
+
+		public async Task ShouldHaveReceivedOneAnalyzeByIdAsync(
+			AnalyzePostByIdQueryRequest request,
+			CancellationToken cancellationToken)
+		{
+			await postService.ShouldHaveReceivedOneAnalyzeByIdAsync(request.IsAnalyzePostByIdQuery(), cancellationToken);
+		}
 	}
 
 	extension(IPostCommandService postService)

@@ -49,6 +49,20 @@ public static class PostValidationExceptionAssertions
 				cancellationToken);
 		}
 
+		public async Task ShouldThrowInvalidValidationExceptionForIdAsync(
+			AnalyzePostByIdQueryRequest request,
+			IStringMessageTransformer messageTransformer,
+			CancellationToken cancellationToken)
+		{
+			var func = () => sender.SendAsync(request, cancellationToken);
+
+			await func.ShouldThrowInvalidValidationExceptionAsync(
+				request,
+				p => p.Id,
+				messageTransformer,
+				cancellationToken);
+		}
+
 		public async Task ShouldThrowInvalidValidationExceptionForContentAsync(
 			AddPostCommandRequest request,
 			IStringMessageTransformer messageTransformer,
@@ -191,6 +205,20 @@ public static class PostValidationExceptionAssertions
 
 		public async Task ShouldThrowInvalidValidationExceptionForCurrentUserIdAsync(
 			GetPostByIdQueryRequest request,
+			IStringMessageTransformer messageTransformer,
+			CancellationToken cancellationToken)
+		{
+			var func = () => sender.SendAsync(request, cancellationToken);
+
+			await func.ShouldThrowInvalidValidationExceptionAsync(
+				request,
+				p => p.CurrentUserId,
+				messageTransformer,
+				cancellationToken);
+		}
+
+		public async Task ShouldThrowInvalidValidationExceptionForCurrentUserIdAsync(
+			AnalyzePostByIdQueryRequest request,
 			IStringMessageTransformer messageTransformer,
 			CancellationToken cancellationToken)
 		{
