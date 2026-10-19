@@ -14,6 +14,9 @@ public class DeleteChatMessageCommandServiceUnitTests : BaseChatMessageDomainCom
 	private readonly DeleteChatMessageCommandBuilder _commandBuilder;
 	private readonly DeleteChatMessageCommand _command;
 
+	private readonly DeleteChatMessageCommandBuilder _invertedCommandBuilder;
+	private readonly DeleteChatMessageCommand _invertedCommand;
+
 	private readonly ChatInclude _include;
 	private readonly ChatMessageInclude _messageInclude;
 
@@ -24,6 +27,9 @@ public class DeleteChatMessageCommandServiceUnitTests : BaseChatMessageDomainCom
 		_commandBuilderFactory = new();
 		_commandBuilder = _commandBuilderFactory.Create(ChatMessage);
 		_command = _commandBuilder.Build();
+
+		_invertedCommandBuilder = _commandBuilderFactory.Create(ChatMessage).WithParticipantOneId(ParticipantTwoId).WithParticipantTwoId(ParticipantOneId);
+		_invertedCommand = _invertedCommandBuilder.Build();
 
 		_include = IncludeBuilderFactory.Create().WithParticipantOne().WithParticipantTwo().Build();
 		_messageInclude = MessageIncludeBuilderFactory.Create().WithSender().WithChat(_include).WithChatMessageImages().Build();
@@ -58,12 +64,11 @@ public class DeleteChatMessageCommandServiceUnitTests : BaseChatMessageDomainCom
 	public async Task DeleteAsync_ShouldThrowChatMessageForbiddenException_WhenParticipantOneIdIsInvalid()
 	{
 		// Arrange
-		var command = _commandBuilder.WithParticipantOneId(ParticipantTwoId).WithParticipantTwoId(ParticipantOneId).Build();
-		Repository.SetupExistsByIdAsync(command, CancellationToken);
-		MessageRepository.SetupGetByIdAsync(command, _messageInclude, ChatMessage, CancellationToken);
+		Repository.SetupExistsByIdAsync(_invertedCommand, CancellationToken);
+		MessageRepository.SetupGetByIdAsync(_invertedCommand, _messageInclude, ChatMessage, CancellationToken);
 
 		// Assert
-		await _service.ShouldThrowChatMessageForbiddenExceptionAsync(command, CancellationToken);
+		await _service.ShouldThrowChatMessageForbiddenExceptionAsync(_invertedCommand, CancellationToken);
 	}
 
 	[Fact]

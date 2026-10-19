@@ -97,15 +97,12 @@ public class ChatMessageExistsByIdCommandRepositoryIntegrationTests : BaseChatMe
 	[Fact]
 	public async Task ExistsByIdAsync_ShouldReturnResponse_WhenInvertedCommandIsValid()
 	{
-		// Arrange
-		var id = ChatMessageIdBuilder.WithParticipantOneId(ParticipantTwoId).WithParticipantTwoId(ParticipantOneId).Build();
-
 		// Act
-		var response = await Repository.ExistsByIdAsync(id, CancellationToken);
+		var response = await Repository.ExistsByIdAsync(InvertedChatMessageId, CancellationToken);
 		var chatMessage = await ServiceScope.GetByIdAsync(ChatMessageId, CancellationToken);
 
 		// Assert
-		response.ShouldSatisfy(id, chatMessage);
+		response.ShouldSatisfy(InvertedChatMessageId, chatMessage);
 	}
 
 	[Theory]
@@ -114,14 +111,14 @@ public class ChatMessageExistsByIdCommandRepositoryIntegrationTests : BaseChatMe
 		IStringTransformer transformer)
 	{
 		// Arrange
-		var id = ChatMessageIdBuilder.WithParticipantOneId(ParticipantTwoId, transformer).WithParticipantTwoId(ParticipantOneId).Build();
+		var invertedId = InvertedChatMessageIdBuilder.WithParticipantOneId(transformer).Build();
 
 		// Act
-		var response = await Repository.ExistsByIdAsync(id, CancellationToken);
+		var response = await Repository.ExistsByIdAsync(invertedId, CancellationToken);
 		var chatMessage = await ServiceScope.GetByIdAsync(ChatMessageId, CancellationToken);
 
 		// Assert
-		response.ShouldSatisfy(id, chatMessage);
+		response.ShouldSatisfy(invertedId, chatMessage);
 	}
 
 	[Theory]
@@ -130,14 +127,14 @@ public class ChatMessageExistsByIdCommandRepositoryIntegrationTests : BaseChatMe
 		IStringTransformer transformer)
 	{
 		// Arrange
-		var id = ChatMessageIdBuilder.WithParticipantOneId(ParticipantTwoId).WithParticipantTwoId(ParticipantOneId, transformer).Build();
+		var invertedId = InvertedChatMessageIdBuilder.WithParticipantTwoId(transformer).Build();
 
 		// Act
-		var response = await Repository.ExistsByIdAsync(id, CancellationToken);
+		var response = await Repository.ExistsByIdAsync(invertedId, CancellationToken);
 		var chatMessage = await ServiceScope.GetByIdAsync(ChatMessageId, CancellationToken);
 
 		// Assert
-		response.ShouldSatisfy(id, chatMessage);
+		response.ShouldSatisfy(invertedId, chatMessage);
 	}
 
 	[Theory]
@@ -146,13 +143,13 @@ public class ChatMessageExistsByIdCommandRepositoryIntegrationTests : BaseChatMe
 		IStringTransformer transformer)
 	{
 		// Arrange
-		var id = ChatMessageIdBuilder.WithParticipantOneId(ParticipantTwoId).WithParticipantTwoId(ParticipantOneId).WithMessageId(transformer).Build();
+		var invertedId = InvertedChatMessageIdBuilder.WithMessageId(transformer).Build();
 
 		// Act
-		var response = await Repository.ExistsByIdAsync(id, CancellationToken);
+		var response = await Repository.ExistsByIdAsync(invertedId, CancellationToken);
 		var chatMessage = await ServiceScope.GetByIdAsync(ChatMessageId, CancellationToken);
 
 		// Assert
-		response.ShouldSatisfy(id, chatMessage);
+		response.ShouldSatisfy(invertedId, chatMessage);
 	}
 }

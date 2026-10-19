@@ -36,14 +36,20 @@ public abstract class BaseChatTest : BaseTest
 	protected ChatBuilder ChatBuilder { get; }
 	protected Chat Chat { get; }
 	protected ICollection<Chat> Chats { get; }
+	protected Chat InvertedChat { get; }
+	protected ICollection<Chat> InvertedChats { get; }
 
 	protected ChatIdBuilderFactory ChatIdBuilderFactory { get; }
 	protected ChatIdBuilder ChatIdBuilder { get; }
 	protected ChatId ChatId { get; }
+	protected ChatIdBuilder InvertedChatIdBuilder { get; }
+	protected ChatId InvertedChatId { get; }
 
 	protected ChatIdRangeBuilderFactory ChatIdRangeBuilderFactory { get; }
 	protected ChatIdRangeBuilder ChatIdRangeBuilder { get; }
 	protected ICollection<ChatId> ChatIds { get; }
+	protected ChatIdRangeBuilder InvertedChatIdRangeBuilder { get; }
+	protected ICollection<ChatId> InvertedChatIds { get; }
 
 	protected BaseChatTest()
 	{
@@ -77,13 +83,19 @@ public abstract class BaseChatTest : BaseTest
 		ChatBuilder = ChatBuilderFactory.Create(ParticipantOne, ParticipantTwo);
 		Chat = ChatBuilder.Build();
 		Chats = Chat.Generate(ParticipantOnes, ParticipantTwos);
+		InvertedChat = ChatBuilder.WithParticipantOne(ParticipantTwo).WithParticipantTwo(ParticipantOne).Build();
+		InvertedChats = InvertedChat.Generate(ParticipantTwos, ParticipantOnes);
 
 		ChatIdBuilderFactory = new();
 		ChatIdBuilder = ChatIdBuilderFactory.Create(Chat.Id);
 		ChatId = ChatIdBuilder.Build();
+		InvertedChatIdBuilder = ChatIdBuilderFactory.Create(InvertedChat.Id);
+		InvertedChatId = InvertedChatIdBuilder.Build();
 
 		ChatIdRangeBuilderFactory = new();
 		ChatIdRangeBuilder = ChatIdRangeBuilderFactory.Create([.. Chats.Select(c => c.Id)]);
 		ChatIds = ChatIdRangeBuilder.Build();
+		InvertedChatIdRangeBuilder = ChatIdRangeBuilderFactory.Create([.. InvertedChats.Select(c => c.Id)]);
+		InvertedChatIds = InvertedChatIdRangeBuilder.Build();
 	}
 }

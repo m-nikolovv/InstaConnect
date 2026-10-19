@@ -78,9 +78,23 @@ public class User : IEntityWithId<UserId>
 		return this;
 	}
 
+	public User AddChats(ICollection<Chat> chats)
+	{
+		Chats.AddRange(chats);
+
+		return this;
+	}
+
 	public User AddChatMessage(ChatMessage chatMessage)
 	{
 		ChatMessages.Add(chatMessage);
+
+		return this;
+	}
+
+	public User AddChatMessages(ICollection<ChatMessage> chatMessages)
+	{
+		ChatMessages.AddRange(chatMessages);
 
 		return this;
 	}

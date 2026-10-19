@@ -78,9 +78,23 @@ public class User : IEntityWithId<UserId>
 		return this;
 	}
 
+	public User AddFollowFollowers(ICollection<Follow> followFollowers)
+	{
+		FollowFollowers.AddRange(followFollowers);
+
+		return this;
+	}
+
 	public User AddFollowFollowing(Follow followFollowing)
 	{
 		FollowFollowings.Add(followFollowing);
+
+		return this;
+	}
+
+	public User AddFollowFollowings(ICollection<Follow> followFollowings)
+	{
+		FollowFollowings.AddRange(followFollowings);
 
 		return this;
 	}

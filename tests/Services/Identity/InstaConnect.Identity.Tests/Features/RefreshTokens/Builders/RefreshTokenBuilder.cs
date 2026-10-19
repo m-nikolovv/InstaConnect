@@ -20,6 +20,15 @@ public class RefreshTokenBuilder
 		_createdAtUtc = RefreshTokenDataFaker.GetCreatedAtUtc();
 	}
 
+	public RefreshTokenBuilder(RefreshToken refreshToken)
+	{
+		_id = refreshToken.Id.Id.Id;
+		_user = refreshToken.User!;
+		_value = refreshToken.Id.Value;
+		_expiresAtUtc = refreshToken.ExpiresAtUtc;
+		_createdAtUtc = refreshToken.CreatedAtUtc;
+	}
+
 	public RefreshTokenBuilder WithValue(RefreshTokenId value)
 	{
 		_value = value.Value;

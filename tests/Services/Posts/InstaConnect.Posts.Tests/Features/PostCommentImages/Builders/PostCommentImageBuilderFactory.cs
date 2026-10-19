@@ -6,4 +6,9 @@ public class PostCommentImageBuilderFactory
 	{
 		return new(postComment);
 	}
+
+	public PostCommentImageBuilder Create(PostCommentImage postCommentImage)
+	{
+		return new(postCommentImage);
+	}
 }

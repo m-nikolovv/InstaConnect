@@ -21,6 +21,16 @@ public class PostCommentLikeBuilder
 		_createdAtUtc = PostCommentLikeDataFaker.GetCreatedAtUtc();
 	}
 
+	public PostCommentLikeBuilder(PostCommentLike postCommentLike)
+	{
+		_id = postCommentLike.Id.CommentId.Id.Id;
+		_commentId = postCommentLike.Id.CommentId.CommentId;
+		_postComment = postCommentLike.PostComment!;
+		_userId = postCommentLike.Id.UserId.Id;
+		_user = postCommentLike.User!;
+		_createdAtUtc = postCommentLike.CreatedAtUtc;
+	}
+
 	public PostCommentLike Build()
 	{
 		var postCommentLike = new PostCommentLike(

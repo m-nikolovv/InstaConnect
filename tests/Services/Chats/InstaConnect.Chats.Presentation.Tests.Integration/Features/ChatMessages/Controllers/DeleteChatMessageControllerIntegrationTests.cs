@@ -6,12 +6,18 @@ public class DeleteChatMessageControllerIntegrationTests : BaseChatMessagePresen
 	private readonly DeleteChatMessageApiRequestBuilder _requestBuilder;
 	private readonly DeleteChatMessageApiRequest _request;
 
+	private readonly DeleteChatMessageApiRequestBuilder _invertedRequestBuilder;
+	private readonly DeleteChatMessageApiRequest _invertedRequest;
+
 	public DeleteChatMessageControllerIntegrationTests(ChatsWebApplicationFactory webApplicationFactory)
 		: base(webApplicationFactory)
 	{
 		_requestBuilderFactory = new();
 		_requestBuilder = _requestBuilderFactory.Create(ChatMessage);
 		_request = _requestBuilder.Build();
+
+		_invertedRequestBuilder = _requestBuilderFactory.Create(ChatMessage).WithParticipantOneId(ParticipantTwoId).WithParticipantTwoId(ParticipantOneId);
+		_invertedRequest = _invertedRequestBuilder.Build();
 	}
 
 	protected override async Task OnInitializeAsync()
@@ -92,10 +98,9 @@ public class DeleteChatMessageControllerIntegrationTests : BaseChatMessagePresen
 	public async Task DeleteAsync_ShouldThrowChatMessageForbiddenException_WhenUserIdIsInvalid()
 	{
 		// Arrange
-		var request = _requestBuilder.WithParticipantOneId(ParticipantTwoId).WithParticipantTwoId(ParticipantOneId).Build();
 
 		// Assert
-		await Controller.ShouldThrowChatMessageForbiddenExceptionAsync(request, CancellationToken);
+		await Controller.ShouldThrowChatMessageForbiddenExceptionAsync(_invertedRequest, CancellationToken);
 	}
 
 	[Fact]
@@ -157,12 +162,10 @@ public class DeleteChatMessageControllerIntegrationTests : BaseChatMessagePresen
 	public async Task DeleteAsync_ShouldReturnInvertedNoContentStatusCode_WhenRequestIsValid()
 	{
 		// Arrange
-		var updatedChatMessage = ChatMessageBuilder.WithSenderId(ParticipantTwoId).Build();
-		await ServiceScope.UpdateAsync(updatedChatMessage, CancellationToken);
-		var request = _requestBuilder.WithParticipantOneId(ParticipantTwoId).WithParticipantTwoId(ParticipantOneId).Build();
+		await ServiceScope.UpdateAsync(InvertedChatMessage, CancellationToken);
 
 		// Act
-		var response = await Controller.DeleteAsync(request, CancellationToken);
+		var response = await Controller.DeleteAsync(_invertedRequest, CancellationToken);
 
 		// Assert
 		response.ShouldBeActionResultWithNoContentStatusCode();
@@ -174,12 +177,11 @@ public class DeleteChatMessageControllerIntegrationTests : BaseChatMessagePresen
 		IStringTransformer transformer)
 	{
 		// Arrange
-		var updatedChatMessage = ChatMessageBuilder.WithSenderId(ParticipantTwoId).Build();
-		await ServiceScope.UpdateAsync(updatedChatMessage, CancellationToken);
-		var request = _requestBuilder.WithParticipantOneId(ParticipantTwoId, transformer).WithParticipantTwoId(ParticipantOneId).Build();
+		await ServiceScope.UpdateAsync(InvertedChatMessage, CancellationToken);
+		var invertedRequest = _invertedRequestBuilder.WithParticipantOneId(transformer).Build();
 
 		// Act
-		var response = await Controller.DeleteAsync(request, CancellationToken);
+		var response = await Controller.DeleteAsync(invertedRequest, CancellationToken);
 
 		// Assert
 		response.ShouldBeActionResultWithNoContentStatusCode();
@@ -191,12 +193,11 @@ public class DeleteChatMessageControllerIntegrationTests : BaseChatMessagePresen
 		IStringTransformer transformer)
 	{
 		// Arrange
-		var updatedChatMessage = ChatMessageBuilder.WithSenderId(ParticipantTwoId).Build();
-		await ServiceScope.UpdateAsync(updatedChatMessage, CancellationToken);
-		var request = _requestBuilder.WithParticipantOneId(ParticipantTwoId).WithParticipantTwoId(ParticipantOneId, transformer).Build();
+		await ServiceScope.UpdateAsync(InvertedChatMessage, CancellationToken);
+		var invertedRequest = _invertedRequestBuilder.WithParticipantTwoId(transformer).Build();
 
 		// Act
-		var response = await Controller.DeleteAsync(request, CancellationToken);
+		var response = await Controller.DeleteAsync(invertedRequest, CancellationToken);
 
 		// Assert
 		response.ShouldBeActionResultWithNoContentStatusCode();
@@ -208,12 +209,11 @@ public class DeleteChatMessageControllerIntegrationTests : BaseChatMessagePresen
 		IStringTransformer transformer)
 	{
 		// Arrange
-		var updatedChatMessage = ChatMessageBuilder.WithSenderId(ParticipantTwoId).Build();
-		await ServiceScope.UpdateAsync(updatedChatMessage, CancellationToken);
-		var request = _requestBuilder.WithParticipantOneId(ParticipantTwoId).WithParticipantTwoId(ParticipantOneId).WithMessageId(transformer).Build();
+		await ServiceScope.UpdateAsync(InvertedChatMessage, CancellationToken);
+		var invertedRequest = _invertedRequestBuilder.WithMessageId(transformer).Build();
 
 		// Act
-		var response = await Controller.DeleteAsync(request, CancellationToken);
+		var response = await Controller.DeleteAsync(invertedRequest, CancellationToken);
 
 		// Assert
 		response.ShouldBeActionResultWithNoContentStatusCode();
@@ -282,12 +282,10 @@ public class DeleteChatMessageControllerIntegrationTests : BaseChatMessagePresen
 	public async Task DeleteAsync_ShouldDeleteInvertedChatMessage_WhenRequestIsValid()
 	{
 		// Arrange
-		var updatedChatMessage = ChatMessageBuilder.WithSenderId(ParticipantTwoId).Build();
-		await ServiceScope.UpdateAsync(updatedChatMessage, CancellationToken);
-		var request = _requestBuilder.WithParticipantOneId(ParticipantTwoId).WithParticipantTwoId(ParticipantOneId).Build();
+		await ServiceScope.UpdateAsync(InvertedChatMessage, CancellationToken);
 
 		// Act
-		await Controller.DeleteAsync(request, CancellationToken);
+		await Controller.DeleteAsync(_invertedRequest, CancellationToken);
 		var chatMessage = await ServiceScope.GetByIdAsync(ChatMessageId, CancellationToken);
 
 		// Assert
@@ -300,12 +298,11 @@ public class DeleteChatMessageControllerIntegrationTests : BaseChatMessagePresen
 		IStringTransformer transformer)
 	{
 		// Arrange
-		var updatedChatMessage = ChatMessageBuilder.WithSenderId(ParticipantTwoId).Build();
-		await ServiceScope.UpdateAsync(updatedChatMessage, CancellationToken);
-		var request = _requestBuilder.WithParticipantOneId(ParticipantTwoId, transformer).WithParticipantTwoId(ParticipantOneId).Build();
+		await ServiceScope.UpdateAsync(InvertedChatMessage, CancellationToken);
+		var invertedRequest = _invertedRequestBuilder.WithParticipantOneId(transformer).Build();
 
 		// Act
-		await Controller.DeleteAsync(request, CancellationToken);
+		await Controller.DeleteAsync(invertedRequest, CancellationToken);
 		var chatMessage = await ServiceScope.GetByIdAsync(ChatMessageId, CancellationToken);
 
 		// Assert
@@ -318,12 +315,11 @@ public class DeleteChatMessageControllerIntegrationTests : BaseChatMessagePresen
 		IStringTransformer transformer)
 	{
 		// Arrange
-		var updatedChatMessage = ChatMessageBuilder.WithSenderId(ParticipantTwoId).Build();
-		await ServiceScope.UpdateAsync(updatedChatMessage, CancellationToken);
-		var request = _requestBuilder.WithParticipantOneId(ParticipantTwoId).WithParticipantTwoId(ParticipantOneId, transformer).Build();
+		await ServiceScope.UpdateAsync(InvertedChatMessage, CancellationToken);
+		var invertedRequest = _invertedRequestBuilder.WithParticipantTwoId(transformer).Build();
 
 		// Act
-		await Controller.DeleteAsync(request, CancellationToken);
+		await Controller.DeleteAsync(invertedRequest, CancellationToken);
 		var chatMessage = await ServiceScope.GetByIdAsync(ChatMessageId, CancellationToken);
 
 		// Assert
@@ -336,12 +332,11 @@ public class DeleteChatMessageControllerIntegrationTests : BaseChatMessagePresen
 		IStringTransformer transformer)
 	{
 		// Arrange
-		var updatedChatMessage = ChatMessageBuilder.WithSenderId(ParticipantTwoId).Build();
-		await ServiceScope.UpdateAsync(updatedChatMessage, CancellationToken);
-		var request = _requestBuilder.WithParticipantOneId(ParticipantTwoId).WithParticipantTwoId(ParticipantOneId).WithMessageId(transformer).Build();
+		await ServiceScope.UpdateAsync(InvertedChatMessage, CancellationToken);
+		var invertedRequest = _invertedRequestBuilder.WithMessageId(transformer).Build();
 
 		// Act
-		await Controller.DeleteAsync(request, CancellationToken);
+		await Controller.DeleteAsync(invertedRequest, CancellationToken);
 		var chatMessage = await ServiceScope.GetByIdAsync(ChatMessageId, CancellationToken);
 
 		// Assert
@@ -411,18 +406,14 @@ public class DeleteChatMessageControllerIntegrationTests : BaseChatMessagePresen
 	public async Task DeleteAsync_ShouldPublishInvertedChatMessageDeletedNotification_WhenRequestIsValid()
 	{
 		// Arrange
-		var updatedChatMessage = ChatMessageBuilder.WithSenderId(ParticipantTwoId).Build();
-		updatedChatMessage.AddSender(ParticipantTwo);
-		updatedChatMessage.AddChatMessageImages(ChatMessage.ChatMessageImages);
-		await ServiceScope.UpdateAsync(updatedChatMessage, CancellationToken);
-		var request = _requestBuilder.WithParticipantOneId(ParticipantTwoId).WithParticipantTwoId(ParticipantOneId).Build();
+		await ServiceScope.UpdateAsync(InvertedChatMessage, CancellationToken);
 
 		// Act
-		await Controller.DeleteAsync(request, CancellationToken);
+		await Controller.DeleteAsync(_invertedRequest, CancellationToken);
 		var notificationRequest = await MessageNotificationClient.PublishedDeletedAsync(CancellationToken);
 
 		// Assert
-		notificationRequest.ShouldSatisfyInverted(request, updatedChatMessage);
+		notificationRequest.ShouldSatisfyInverted(_invertedRequest, InvertedChatMessage);
 	}
 
 	[Theory]
@@ -431,18 +422,15 @@ public class DeleteChatMessageControllerIntegrationTests : BaseChatMessagePresen
 		IStringTransformer transformer)
 	{
 		// Arrange
-		var updatedChatMessage = ChatMessageBuilder.WithSenderId(ParticipantTwoId).Build();
-		updatedChatMessage.AddSender(ParticipantTwo);
-		updatedChatMessage.AddChatMessageImages(ChatMessage.ChatMessageImages);
-		await ServiceScope.UpdateAsync(updatedChatMessage, CancellationToken);
-		var request = _requestBuilder.WithParticipantOneId(ParticipantTwoId, transformer).WithParticipantTwoId(ParticipantOneId).Build();
+		await ServiceScope.UpdateAsync(InvertedChatMessage, CancellationToken);
+		var invertedRequest = _invertedRequestBuilder.WithParticipantOneId(transformer).Build();
 
 		// Act
-		await Controller.DeleteAsync(request, CancellationToken);
+		await Controller.DeleteAsync(invertedRequest, CancellationToken);
 		var notificationRequest = await MessageNotificationClient.PublishedDeletedAsync(CancellationToken);
 
 		// Assert
-		notificationRequest.ShouldSatisfyInverted(request, updatedChatMessage);
+		notificationRequest.ShouldSatisfyInverted(invertedRequest, InvertedChatMessage);
 	}
 
 	[Theory]
@@ -451,18 +439,15 @@ public class DeleteChatMessageControllerIntegrationTests : BaseChatMessagePresen
 		IStringTransformer transformer)
 	{
 		// Arrange
-		var updatedChatMessage = ChatMessageBuilder.WithSenderId(ParticipantTwoId).Build();
-		updatedChatMessage.AddSender(ParticipantTwo);
-		updatedChatMessage.AddChatMessageImages(ChatMessage.ChatMessageImages);
-		await ServiceScope.UpdateAsync(updatedChatMessage, CancellationToken);
-		var request = _requestBuilder.WithParticipantOneId(ParticipantTwoId).WithParticipantTwoId(ParticipantOneId, transformer).Build();
+		await ServiceScope.UpdateAsync(InvertedChatMessage, CancellationToken);
+		var invertedRequest = _invertedRequestBuilder.WithParticipantTwoId(transformer).Build();
 
 		// Act
-		await Controller.DeleteAsync(request, CancellationToken);
+		await Controller.DeleteAsync(invertedRequest, CancellationToken);
 		var notificationRequest = await MessageNotificationClient.PublishedDeletedAsync(CancellationToken);
 
 		// Assert
-		notificationRequest.ShouldSatisfyInverted(request, updatedChatMessage);
+		notificationRequest.ShouldSatisfyInverted(invertedRequest, InvertedChatMessage);
 	}
 
 	[Theory]
@@ -471,17 +456,14 @@ public class DeleteChatMessageControllerIntegrationTests : BaseChatMessagePresen
 		IStringTransformer transformer)
 	{
 		// Arrange
-		var updatedChatMessage = ChatMessageBuilder.WithSenderId(ParticipantTwoId).Build();
-		updatedChatMessage.AddSender(ParticipantTwo);
-		updatedChatMessage.AddChatMessageImages(ChatMessage.ChatMessageImages);
-		await ServiceScope.UpdateAsync(updatedChatMessage, CancellationToken);
-		var request = _requestBuilder.WithParticipantOneId(ParticipantTwoId).WithParticipantTwoId(ParticipantOneId).WithMessageId(transformer).Build();
+		await ServiceScope.UpdateAsync(InvertedChatMessage, CancellationToken);
+		var invertedRequest = _invertedRequestBuilder.WithMessageId(transformer).Build();
 
 		// Act
-		await Controller.DeleteAsync(request, CancellationToken);
+		await Controller.DeleteAsync(invertedRequest, CancellationToken);
 		var notificationRequest = await MessageNotificationClient.PublishedDeletedAsync(CancellationToken);
 
 		// Assert
-		notificationRequest.ShouldSatisfyInverted(request, updatedChatMessage);
+		notificationRequest.ShouldSatisfyInverted(invertedRequest, InvertedChatMessage);
 	}
 }

@@ -6,12 +6,18 @@ public class UpdateChatMessageFunctionalTests : BaseChatMessagePresentationComma
 	private readonly UpdateChatMessageApiRequestBuilder _requestBuilder;
 	private readonly UpdateChatMessageApiRequest _request;
 
+	private readonly UpdateChatMessageApiRequestBuilder _invertedRequestBuilder;
+	private readonly UpdateChatMessageApiRequest _invertedRequest;
+
 	public UpdateChatMessageFunctionalTests(ChatsWebApplicationFactory webApplicationFactory)
 		: base(webApplicationFactory)
 	{
 		_requestBuilderFactory = new();
 		_requestBuilder = _requestBuilderFactory.Create(ChatMessage);
 		_request = _requestBuilder.Build();
+
+		_invertedRequestBuilder = _requestBuilderFactory.Create(ChatMessage).WithParticipantOneId(ParticipantTwoId).WithParticipantTwoId(ParticipantOneId);
+		_invertedRequest = _invertedRequestBuilder.Build();
 	}
 
 	protected override async Task OnInitializeAsync()
@@ -219,11 +225,8 @@ public class UpdateChatMessageFunctionalTests : BaseChatMessagePresentationComma
 	[Fact]
 	public async Task UpdateAsync_ShouldHaveForbiddenStatusCode_WhenParticipantOneIdIsInvalid()
 	{
-		// Arrange
-		var request = _requestBuilder.WithParticipantOneId(ParticipantTwoId).WithParticipantTwoId(ParticipantOneId).Build();
-
 		// Act
-		var response = await ApiClient.UpdateStatusCodeAsync(request, CancellationToken);
+		var response = await ApiClient.UpdateStatusCodeAsync(_invertedRequest, CancellationToken);
 
 		// Assert
 		response.ShouldBeForbidden();
@@ -232,14 +235,11 @@ public class UpdateChatMessageFunctionalTests : BaseChatMessagePresentationComma
 	[Fact]
 	public async Task UpdateAsync_ShouldHaveChatMessageForbiddenProblemDetails_WhenParticipantOneIdIsInvalid()
 	{
-		// Arrange
-		var request = _requestBuilder.WithParticipantOneId(ParticipantTwoId).WithParticipantTwoId(ParticipantOneId).Build();
-
 		// Act
-		var response = await ApiClient.UpdateProblemDetailsAsync(request, CancellationToken);
+		var response = await ApiClient.UpdateProblemDetailsAsync(_invertedRequest, CancellationToken);
 
 		// Assert
-		response.ShouldSatisfyChatMessageForbidden(request);
+		response.ShouldSatisfyChatMessageForbidden(_invertedRequest);
 	}
 
 	[Fact]
@@ -480,12 +480,10 @@ public class UpdateChatMessageFunctionalTests : BaseChatMessagePresentationComma
 	public async Task UpdateAsync_ShouldHaveInvertedOkStatusCode_WhenRequestIsValid()
 	{
 		// Arrange
-		var updatedChatMessage = ChatMessageBuilder.WithSenderId(ParticipantTwoId).Build();
-		await ServiceScope.UpdateAsync(updatedChatMessage, CancellationToken);
-		var request = _requestBuilder.WithParticipantOneId(ParticipantTwoId).WithParticipantTwoId(ParticipantOneId).Build();
+		await ServiceScope.UpdateAsync(InvertedChatMessage, CancellationToken);
 
 		// Act
-		var response = await ApiClient.UpdateStatusCodeAsync(request, CancellationToken);
+		var response = await ApiClient.UpdateStatusCodeAsync(_invertedRequest, CancellationToken);
 
 		// Assert
 		response.ShouldBeOk();
@@ -497,12 +495,11 @@ public class UpdateChatMessageFunctionalTests : BaseChatMessagePresentationComma
 		IStringTransformer transformer)
 	{
 		// Arrange
-		var updatedChatMessage = ChatMessageBuilder.WithSenderId(ParticipantTwoId).Build();
-		await ServiceScope.UpdateAsync(updatedChatMessage, CancellationToken);
-		var request = _requestBuilder.WithParticipantOneId(ParticipantTwoId, transformer).WithParticipantTwoId(ParticipantOneId).Build();
+		await ServiceScope.UpdateAsync(InvertedChatMessage, CancellationToken);
+		var invertedRequest = _invertedRequestBuilder.WithParticipantOneId(transformer).Build();
 
 		// Act
-		var response = await ApiClient.UpdateStatusCodeAsync(request, CancellationToken);
+		var response = await ApiClient.UpdateStatusCodeAsync(invertedRequest, CancellationToken);
 
 		// Assert
 		response.ShouldBeOk();
@@ -514,12 +511,11 @@ public class UpdateChatMessageFunctionalTests : BaseChatMessagePresentationComma
 		IStringTransformer transformer)
 	{
 		// Arrange
-		var updatedChatMessage = ChatMessageBuilder.WithSenderId(ParticipantTwoId).Build();
-		await ServiceScope.UpdateAsync(updatedChatMessage, CancellationToken);
-		var request = _requestBuilder.WithParticipantOneId(ParticipantTwoId).WithParticipantTwoId(ParticipantOneId, transformer).Build();
+		await ServiceScope.UpdateAsync(InvertedChatMessage, CancellationToken);
+		var invertedRequest = _invertedRequestBuilder.WithParticipantTwoId(transformer).Build();
 
 		// Act
-		var response = await ApiClient.UpdateStatusCodeAsync(request, CancellationToken);
+		var response = await ApiClient.UpdateStatusCodeAsync(invertedRequest, CancellationToken);
 
 		// Assert
 		response.ShouldBeOk();
@@ -531,12 +527,11 @@ public class UpdateChatMessageFunctionalTests : BaseChatMessagePresentationComma
 		IStringTransformer transformer)
 	{
 		// Arrange
-		var updatedChatMessage = ChatMessageBuilder.WithSenderId(ParticipantTwoId).Build();
-		await ServiceScope.UpdateAsync(updatedChatMessage, CancellationToken);
-		var request = _requestBuilder.WithParticipantOneId(ParticipantTwoId).WithParticipantTwoId(ParticipantOneId).WithMessageId(transformer).Build();
+		await ServiceScope.UpdateAsync(InvertedChatMessage, CancellationToken);
+		var invertedRequest = _invertedRequestBuilder.WithMessageId(transformer).Build();
 
 		// Act
-		var response = await ApiClient.UpdateStatusCodeAsync(request, CancellationToken);
+		var response = await ApiClient.UpdateStatusCodeAsync(invertedRequest, CancellationToken);
 
 		// Assert
 		response.ShouldBeOk();
@@ -546,15 +541,13 @@ public class UpdateChatMessageFunctionalTests : BaseChatMessagePresentationComma
 	public async Task UpdateAsync_ShouldHaveInvertedResponse_WhenRequestIsValid()
 	{
 		// Arrange
-		var updatedChatMessage = ChatMessageBuilder.WithSenderId(ParticipantTwoId).Build();
-		await ServiceScope.UpdateAsync(updatedChatMessage, CancellationToken);
-		var request = _requestBuilder.WithParticipantOneId(ParticipantTwoId).WithParticipantTwoId(ParticipantOneId).Build();
+		await ServiceScope.UpdateAsync(InvertedChatMessage, CancellationToken);
 
 		// Act
-		var response = await ApiClient.UpdateAsync(request, CancellationToken);
+		var response = await ApiClient.UpdateAsync(_invertedRequest, CancellationToken);
 
 		// Assert
-		response.ShouldSatisfy(request, ChatMessage);
+		response.ShouldSatisfy(_invertedRequest, ChatMessage);
 	}
 
 	[Theory]
@@ -563,16 +556,15 @@ public class UpdateChatMessageFunctionalTests : BaseChatMessagePresentationComma
 		IStringTransformer transformer)
 	{
 		// Arrange
-		var updatedChatMessage = ChatMessageBuilder.WithSenderId(ParticipantTwoId).Build();
-		await ServiceScope.UpdateAsync(updatedChatMessage, CancellationToken);
-		var request = _requestBuilder.WithParticipantOneId(ParticipantTwoId, transformer).WithParticipantTwoId(ParticipantOneId).Build();
+		await ServiceScope.UpdateAsync(InvertedChatMessage, CancellationToken);
+		var invertedRequest = _invertedRequestBuilder.WithParticipantOneId(transformer).Build();
 
 		// Act
-		var response = await ApiClient.UpdateAsync(request, CancellationToken);
+		var response = await ApiClient.UpdateAsync(invertedRequest, CancellationToken);
 		var chatMessage = await ServiceScope.GetByIdAsync(response, CancellationToken);
 
 		// Assert
-		response.ShouldSatisfy(request, chatMessage);
+		response.ShouldSatisfy(invertedRequest, chatMessage);
 	}
 
 	[Theory]
@@ -581,16 +573,15 @@ public class UpdateChatMessageFunctionalTests : BaseChatMessagePresentationComma
 		IStringTransformer transformer)
 	{
 		// Arrange
-		var updatedChatMessage = ChatMessageBuilder.WithSenderId(ParticipantTwoId).Build();
-		await ServiceScope.UpdateAsync(updatedChatMessage, CancellationToken);
-		var request = _requestBuilder.WithParticipantOneId(ParticipantTwoId).WithParticipantTwoId(ParticipantOneId, transformer).Build();
+		await ServiceScope.UpdateAsync(InvertedChatMessage, CancellationToken);
+		var invertedRequest = _invertedRequestBuilder.WithParticipantTwoId(transformer).Build();
 
 		// Act
-		var response = await ApiClient.UpdateAsync(request, CancellationToken);
+		var response = await ApiClient.UpdateAsync(invertedRequest, CancellationToken);
 		var chatMessage = await ServiceScope.GetByIdAsync(response, CancellationToken);
 
 		// Assert
-		response.ShouldSatisfy(request, chatMessage);
+		response.ShouldSatisfy(invertedRequest, chatMessage);
 	}
 
 	[Theory]
@@ -599,31 +590,28 @@ public class UpdateChatMessageFunctionalTests : BaseChatMessagePresentationComma
 		IStringTransformer transformer)
 	{
 		// Arrange
-		var updatedChatMessage = ChatMessageBuilder.WithSenderId(ParticipantTwoId).Build();
-		await ServiceScope.UpdateAsync(updatedChatMessage, CancellationToken);
-		var request = _requestBuilder.WithParticipantOneId(ParticipantTwoId).WithParticipantTwoId(ParticipantOneId).WithMessageId(transformer).Build();
+		await ServiceScope.UpdateAsync(InvertedChatMessage, CancellationToken);
+		var invertedRequest = _invertedRequestBuilder.WithMessageId(transformer).Build();
 
 		// Act
-		var response = await ApiClient.UpdateAsync(request, CancellationToken);
+		var response = await ApiClient.UpdateAsync(invertedRequest, CancellationToken);
 
 		// Assert
-		response.ShouldSatisfy(request, ChatMessage);
+		response.ShouldSatisfy(invertedRequest, ChatMessage);
 	}
 
 	[Fact]
 	public async Task UpdateAsync_ShouldUpdateInvertedChatMessage_WhenRequestIsValid()
 	{
 		// Arrange
-		var updatedChatMessage = ChatMessageBuilder.WithSenderId(ParticipantTwoId).Build();
-		await ServiceScope.UpdateAsync(updatedChatMessage, CancellationToken);
-		var request = _requestBuilder.WithParticipantOneId(ParticipantTwoId).WithParticipantTwoId(ParticipantOneId).Build();
+		await ServiceScope.UpdateAsync(InvertedChatMessage, CancellationToken);
 
 		// Act
-		var response = await ApiClient.UpdateAsync(request, CancellationToken);
+		var response = await ApiClient.UpdateAsync(_invertedRequest, CancellationToken);
 		var chatMessage = await ServiceScope.GetByIdAsync(response, CancellationToken);
 
 		// Assert
-		chatMessage.ShouldSatisfyInverted(request);
+		chatMessage.ShouldSatisfyInverted(_invertedRequest);
 	}
 
 	[Theory]
@@ -632,16 +620,15 @@ public class UpdateChatMessageFunctionalTests : BaseChatMessagePresentationComma
 		IStringTransformer transformer)
 	{
 		// Arrange
-		var updatedChatMessage = ChatMessageBuilder.WithSenderId(ParticipantTwoId).Build();
-		await ServiceScope.UpdateAsync(updatedChatMessage, CancellationToken);
-		var request = _requestBuilder.WithParticipantOneId(ParticipantTwoId, transformer).WithParticipantTwoId(ParticipantOneId).Build();
+		await ServiceScope.UpdateAsync(InvertedChatMessage, CancellationToken);
+		var invertedRequest = _invertedRequestBuilder.WithParticipantOneId(transformer).Build();
 
 		// Act
-		var response = await ApiClient.UpdateAsync(request, CancellationToken);
+		var response = await ApiClient.UpdateAsync(invertedRequest, CancellationToken);
 		var chatMessage = await ServiceScope.GetByIdAsync(response, CancellationToken);
 
 		// Assert
-		chatMessage.ShouldSatisfyInverted(request);
+		chatMessage.ShouldSatisfyInverted(invertedRequest);
 	}
 
 	[Theory]
@@ -650,16 +637,15 @@ public class UpdateChatMessageFunctionalTests : BaseChatMessagePresentationComma
 		IStringTransformer transformer)
 	{
 		// Arrange
-		var updatedChatMessage = ChatMessageBuilder.WithSenderId(ParticipantTwoId).Build();
-		await ServiceScope.UpdateAsync(updatedChatMessage, CancellationToken);
-		var request = _requestBuilder.WithParticipantOneId(ParticipantTwoId).WithParticipantTwoId(ParticipantOneId, transformer).Build();
+		await ServiceScope.UpdateAsync(InvertedChatMessage, CancellationToken);
+		var invertedRequest = _invertedRequestBuilder.WithParticipantTwoId(transformer).Build();
 
 		// Act
-		var response = await ApiClient.UpdateAsync(request, CancellationToken);
+		var response = await ApiClient.UpdateAsync(invertedRequest, CancellationToken);
 		var chatMessage = await ServiceScope.GetByIdAsync(response, CancellationToken);
 
 		// Assert
-		chatMessage.ShouldSatisfyInverted(request);
+		chatMessage.ShouldSatisfyInverted(invertedRequest);
 	}
 
 	[Theory]
@@ -668,33 +654,30 @@ public class UpdateChatMessageFunctionalTests : BaseChatMessagePresentationComma
 		IStringTransformer transformer)
 	{
 		// Arrange
-		var updatedChatMessage = ChatMessageBuilder.WithSenderId(ParticipantTwoId).Build();
-		await ServiceScope.UpdateAsync(updatedChatMessage, CancellationToken);
-		var request = _requestBuilder.WithParticipantOneId(ParticipantTwoId).WithParticipantTwoId(ParticipantOneId).WithMessageId(transformer).Build();
+		await ServiceScope.UpdateAsync(InvertedChatMessage, CancellationToken);
+		var invertedRequest = _invertedRequestBuilder.WithMessageId(transformer).Build();
 
 		// Act
-		var response = await ApiClient.UpdateAsync(request, CancellationToken);
+		var response = await ApiClient.UpdateAsync(invertedRequest, CancellationToken);
 		var chatMessage = await ServiceScope.GetByIdAsync(response, CancellationToken);
 
 		// Assert
-		chatMessage.ShouldSatisfyInverted(request);
+		chatMessage.ShouldSatisfyInverted(invertedRequest);
 	}
 
 	[Fact]
 	public async Task UpdateAsync_ShouldPublishInvertedChatMessageUpdatedNotification_WhenRequestIsValid()
 	{
 		// Arrange
-		var updatedChatMessage = ChatMessageBuilder.WithSenderId(ParticipantTwoId).Build();
-		await ServiceScope.UpdateAsync(updatedChatMessage, CancellationToken);
-		var request = _requestBuilder.WithParticipantOneId(ParticipantTwoId).WithParticipantTwoId(ParticipantOneId).Build();
+		await ServiceScope.UpdateAsync(InvertedChatMessage, CancellationToken);
 
 		// Act
-		var response = await ApiClient.UpdateAsync(request, CancellationToken);
+		var response = await ApiClient.UpdateAsync(_invertedRequest, CancellationToken);
 		var chatMessage = await ServiceScope.GetByIdAsync(response, CancellationToken);
 		var notificationRequest = await MessageNotificationClient.PublishedUpdatedAsync(CancellationToken);
 
 		// Assert
-		notificationRequest.ShouldSatisfyInverted(request, chatMessage);
+		notificationRequest.ShouldSatisfyInverted(_invertedRequest, chatMessage);
 	}
 
 	[Theory]
@@ -703,17 +686,16 @@ public class UpdateChatMessageFunctionalTests : BaseChatMessagePresentationComma
 		IStringTransformer transformer)
 	{
 		// Arrange
-		var updatedChatMessage = ChatMessageBuilder.WithSenderId(ParticipantTwoId).Build();
-		await ServiceScope.UpdateAsync(updatedChatMessage, CancellationToken);
-		var request = _requestBuilder.WithParticipantOneId(ParticipantTwoId, transformer).WithParticipantTwoId(ParticipantOneId).Build();
+		await ServiceScope.UpdateAsync(InvertedChatMessage, CancellationToken);
+		var invertedRequest = _invertedRequestBuilder.WithParticipantOneId(transformer).Build();
 
 		// Act
-		var response = await ApiClient.UpdateAsync(request, CancellationToken);
+		var response = await ApiClient.UpdateAsync(invertedRequest, CancellationToken);
 		var chatMessage = await ServiceScope.GetByIdAsync(response, CancellationToken);
 		var notificationRequest = await MessageNotificationClient.PublishedUpdatedAsync(CancellationToken);
 
 		// Assert
-		notificationRequest.ShouldSatisfyInverted(request, chatMessage);
+		notificationRequest.ShouldSatisfyInverted(invertedRequest, chatMessage);
 	}
 
 	[Theory]
@@ -722,17 +704,16 @@ public class UpdateChatMessageFunctionalTests : BaseChatMessagePresentationComma
 		IStringTransformer transformer)
 	{
 		// Arrange
-		var updatedChatMessage = ChatMessageBuilder.WithSenderId(ParticipantTwoId).Build();
-		await ServiceScope.UpdateAsync(updatedChatMessage, CancellationToken);
-		var request = _requestBuilder.WithParticipantOneId(ParticipantTwoId).WithParticipantTwoId(ParticipantOneId, transformer).Build();
+		await ServiceScope.UpdateAsync(InvertedChatMessage, CancellationToken);
+		var invertedRequest = _invertedRequestBuilder.WithParticipantTwoId(transformer).Build();
 
 		// Act
-		var response = await ApiClient.UpdateAsync(request, CancellationToken);
+		var response = await ApiClient.UpdateAsync(invertedRequest, CancellationToken);
 		var chatMessage = await ServiceScope.GetByIdAsync(response, CancellationToken);
 		var notificationRequest = await MessageNotificationClient.PublishedUpdatedAsync(CancellationToken);
 
 		// Assert
-		notificationRequest.ShouldSatisfyInverted(request, chatMessage);
+		notificationRequest.ShouldSatisfyInverted(invertedRequest, chatMessage);
 	}
 
 	[Theory]
@@ -741,16 +722,15 @@ public class UpdateChatMessageFunctionalTests : BaseChatMessagePresentationComma
 		IStringTransformer transformer)
 	{
 		// Arrange
-		var updatedChatMessage = ChatMessageBuilder.WithSenderId(ParticipantTwoId).Build();
-		await ServiceScope.UpdateAsync(updatedChatMessage, CancellationToken);
-		var request = _requestBuilder.WithParticipantOneId(ParticipantTwoId).WithParticipantTwoId(ParticipantOneId).WithMessageId(transformer).Build();
+		await ServiceScope.UpdateAsync(InvertedChatMessage, CancellationToken);
+		var invertedRequest = _invertedRequestBuilder.WithMessageId(transformer).Build();
 
 		// Act
-		var response = await ApiClient.UpdateAsync(request, CancellationToken);
+		var response = await ApiClient.UpdateAsync(invertedRequest, CancellationToken);
 		var chatMessage = await ServiceScope.GetByIdAsync(response, CancellationToken);
 		var notificationRequest = await MessageNotificationClient.PublishedUpdatedAsync(CancellationToken);
 
 		// Assert
-		notificationRequest.ShouldSatisfyInverted(request, chatMessage);
+		notificationRequest.ShouldSatisfyInverted(invertedRequest, chatMessage);
 	}
 }

@@ -174,6 +174,11 @@ public static class ChatMessageMatchAssertions
 		{
 			chatMessageImages.ShouldSatisfy(p => p.Matches(request));
 		}
+
+		public void ShouldSatisfyInverted(AddChatMessageApiRequest request)
+		{
+			chatMessageImages.ShouldSatisfy(p => p.MatchesInverted(request));
+		}
 	}
 
 	extension(ChatMessageAddedNotificationRequest r)

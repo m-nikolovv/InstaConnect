@@ -77,15 +77,12 @@ public class ChatExistsByIdQueryRepositoryIntegrationTests : BaseChatInfrastruct
 	[Fact]
 	public async Task ExistsByIdAsync_ShouldReturnResponse_WhenInvertedQueryIsValid()
 	{
-		// Arrange
-		var id = ChatIdBuilder.WithParticipantOneId(ParticipantTwoId).WithParticipantTwoId(ParticipantOneId).Build();
-
 		// Act
-		var response = await Repository.ExistsByIdAsync(id, CancellationToken);
+		var response = await Repository.ExistsByIdAsync(InvertedChatId, CancellationToken);
 		var chat = await ServiceScope.GetByIdAsync(ChatId, CancellationToken);
 
 		// Assert
-		response.ShouldSatisfy(id, chat);
+		response.ShouldSatisfy(InvertedChatId, chat);
 	}
 
 	[Theory]
@@ -94,14 +91,14 @@ public class ChatExistsByIdQueryRepositoryIntegrationTests : BaseChatInfrastruct
 		IStringTransformer transformer)
 	{
 		// Arrange
-		var id = ChatIdBuilder.WithParticipantOneId(ParticipantTwoId, transformer).WithParticipantTwoId(ParticipantOneId).Build();
+		var invertedId = InvertedChatIdBuilder.WithParticipantOneId(transformer).Build();
 
 		// Act
-		var response = await Repository.ExistsByIdAsync(id, CancellationToken);
+		var response = await Repository.ExistsByIdAsync(invertedId, CancellationToken);
 		var chat = await ServiceScope.GetByIdAsync(ChatId, CancellationToken);
 
 		// Assert
-		response.ShouldSatisfy(id, chat);
+		response.ShouldSatisfy(invertedId, chat);
 	}
 
 	[Theory]
@@ -110,13 +107,13 @@ public class ChatExistsByIdQueryRepositoryIntegrationTests : BaseChatInfrastruct
 		IStringTransformer transformer)
 	{
 		// Arrange
-		var id = ChatIdBuilder.WithParticipantOneId(ParticipantTwoId).WithParticipantTwoId(ParticipantOneId, transformer).Build();
+		var invertedId = InvertedChatIdBuilder.WithParticipantTwoId(transformer).Build();
 
 		// Act
-		var response = await Repository.ExistsByIdAsync(id, CancellationToken);
+		var response = await Repository.ExistsByIdAsync(invertedId, CancellationToken);
 		var chat = await ServiceScope.GetByIdAsync(ChatId, CancellationToken);
 
 		// Assert
-		response.ShouldSatisfy(id, chat);
+		response.ShouldSatisfy(invertedId, chat);
 	}
 }

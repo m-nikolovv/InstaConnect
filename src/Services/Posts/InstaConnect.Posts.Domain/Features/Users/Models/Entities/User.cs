@@ -86,9 +86,23 @@ public class User : IEntityWithId<UserId>
 		return this;
 	}
 
+	public User AddPosts(ICollection<Post> posts)
+	{
+		Posts.AddRange(posts);
+
+		return this;
+	}
+
 	public User AddPostLike(PostLike postLike)
 	{
 		PostLikes.Add(postLike);
+
+		return this;
+	}
+
+	public User AddPostLikes(ICollection<PostLike> postLikes)
+	{
+		PostLikes.AddRange(postLikes);
 
 		return this;
 	}
@@ -100,9 +114,23 @@ public class User : IEntityWithId<UserId>
 		return this;
 	}
 
+	public User AddPostComments(ICollection<PostComment> postComments)
+	{
+		PostComments.AddRange(postComments);
+
+		return this;
+	}
+
 	public User AddPostCommentLike(PostCommentLike postCommentLike)
 	{
 		PostCommentLikes.Add(postCommentLike);
+
+		return this;
+	}
+
+	public User AddPostCommentLikes(ICollection<PostCommentLike> postCommentLikes)
+	{
+		PostCommentLikes.AddRange(postCommentLikes);
 
 		return this;
 	}

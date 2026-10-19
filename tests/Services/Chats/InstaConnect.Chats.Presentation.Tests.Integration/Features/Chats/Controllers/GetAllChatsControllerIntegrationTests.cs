@@ -10,12 +10,18 @@ public class GetAllChatsControllerIntegrationTests : BaseChatPresentationQueryIn
 	private readonly GetAllChatsApiRequestBuilder _requestBuilder;
 	private readonly GetAllChatsApiRequest _request;
 
+	private readonly GetAllChatsApiRequestBuilder _invertedRequestBuilder;
+	private readonly GetAllChatsApiRequest _invertedRequest;
+
 	public GetAllChatsControllerIntegrationTests(ChatsWebApplicationFactory webApplicationFactory)
 		: base(webApplicationFactory)
 	{
 		_requestBuilderFactory = new();
 		_requestBuilder = _requestBuilderFactory.Create(Chat);
 		_request = _requestBuilder.Build();
+
+		_invertedRequestBuilder = _requestBuilderFactory.Create(Chat).WithCurrentUserId(ParticipantTwoId).WithParticipantTwoName(ParticipantOne.Name);
+		_invertedRequest = _invertedRequestBuilder.Build();
 	}
 
 	protected override async Task OnInitializeAsync()
@@ -183,11 +189,8 @@ public class GetAllChatsControllerIntegrationTests : BaseChatPresentationQueryIn
 	[Fact]
 	public async Task GetAllAsync_ShouldReturnInvertedOkStatusCode_WhenRequestIsValid()
 	{
-		// Arrange
-		var request = _requestBuilder.WithParticipantTwoName(ParticipantOne.Name).WithCurrentUserId(ParticipantTwoId).Build();
-
 		// Act
-		var response = await Controller.GetAllAsync(request, CancellationToken);
+		var response = await Controller.GetAllAsync(_invertedRequest, CancellationToken);
 
 		// Assert
 		response.ShouldBeActionResultWithOkStatusCode();
@@ -201,10 +204,10 @@ public class GetAllChatsControllerIntegrationTests : BaseChatPresentationQueryIn
 		IStringTransformer transformer)
 	{
 		// Arrange
-		var request = _requestBuilder.WithParticipantTwoName(ParticipantOne.Name, transformer).WithCurrentUserId(ParticipantTwoId).Build();
+		var invertedRequest = _invertedRequestBuilder.WithParticipantTwoName(transformer).Build();
 
 		// Act
-		var response = await Controller.GetAllAsync(request, CancellationToken);
+		var response = await Controller.GetAllAsync(invertedRequest, CancellationToken);
 
 		// Assert
 		response.ShouldBeActionResultWithOkStatusCode();
@@ -216,10 +219,10 @@ public class GetAllChatsControllerIntegrationTests : BaseChatPresentationQueryIn
 		IStringTransformer transformer)
 	{
 		// Arrange
-		var request = _requestBuilder.WithParticipantTwoName(ParticipantOne.Name).WithCurrentUserId(ParticipantTwoId, transformer).Build();
+		var invertedRequest = _invertedRequestBuilder.WithCurrentUserId(transformer).Build();
 
 		// Act
-		var response = await Controller.GetAllAsync(request, CancellationToken);
+		var response = await Controller.GetAllAsync(invertedRequest, CancellationToken);
 
 		// Assert
 		response.ShouldBeActionResultWithOkStatusCode();
@@ -232,10 +235,10 @@ public class GetAllChatsControllerIntegrationTests : BaseChatPresentationQueryIn
 		IEnumTransformer<CommonSortOrder> transformer)
 	{
 		// Arrange
-		var request = _requestBuilder.WithParticipantTwoName(ParticipantOne.Name).WithCurrentUserId(ParticipantTwoId).WithSortOrder(transformer).Build();
+		var invertedRequest = _invertedRequestBuilder.WithSortOrder(transformer).Build();
 
 		// Act
-		var response = await Controller.GetAllAsync(request, CancellationToken);
+		var response = await Controller.GetAllAsync(invertedRequest, CancellationToken);
 
 		// Assert
 		response.ShouldBeActionResultWithOkStatusCode();
@@ -248,10 +251,10 @@ public class GetAllChatsControllerIntegrationTests : BaseChatPresentationQueryIn
 		IEnumTransformer<ChatsSortTerm> transformer)
 	{
 		// Arrange
-		var request = _requestBuilder.WithParticipantTwoName(ParticipantOne.Name).WithCurrentUserId(ParticipantTwoId).WithSortTerm(transformer).Build();
+		var invertedRequest = _invertedRequestBuilder.WithSortTerm(transformer).Build();
 
 		// Act
-		var response = await Controller.GetAllAsync(request, CancellationToken);
+		var response = await Controller.GetAllAsync(invertedRequest, CancellationToken);
 
 		// Assert
 		response.ShouldBeActionResultWithOkStatusCode();
@@ -334,14 +337,11 @@ public class GetAllChatsControllerIntegrationTests : BaseChatPresentationQueryIn
 	[Fact]
 	public async Task GetAllAsync_ShouldReturnInvertedResponse_WhenRequestIsValid()
 	{
-		// Arrange
-		var request = _requestBuilder.WithParticipantTwoName(ParticipantOne.Name).WithCurrentUserId(ParticipantTwoId).Build();
-
 		// Act
-		var response = await Controller.GetAllAsync(request, CancellationToken);
+		var response = await Controller.GetAllAsync(_invertedRequest, CancellationToken);
 
 		// Assert
-		response.ShouldSatisfyInverted(request, ParticipantTwo, Chats);
+		response.ShouldSatisfyInverted(_invertedRequest, ParticipantTwo, Chats);
 	}
 
 	[Theory]
@@ -352,13 +352,13 @@ public class GetAllChatsControllerIntegrationTests : BaseChatPresentationQueryIn
 		IStringTransformer transformer)
 	{
 		// Arrange
-		var request = _requestBuilder.WithParticipantTwoName(ParticipantOne.Name, transformer).WithCurrentUserId(ParticipantTwoId).Build();
+		var invertedRequest = _invertedRequestBuilder.WithParticipantTwoName(transformer).Build();
 
 		// Act
-		var response = await Controller.GetAllAsync(request, CancellationToken);
+		var response = await Controller.GetAllAsync(invertedRequest, CancellationToken);
 
 		// Assert
-		response.ShouldSatisfyInverted(request, ParticipantTwo, Chats);
+		response.ShouldSatisfyInverted(invertedRequest, ParticipantTwo, Chats);
 	}
 
 	[Theory]
@@ -367,13 +367,13 @@ public class GetAllChatsControllerIntegrationTests : BaseChatPresentationQueryIn
 		IStringTransformer transformer)
 	{
 		// Arrange
-		var request = _requestBuilder.WithParticipantTwoName(ParticipantOne.Name).WithCurrentUserId(ParticipantTwoId, transformer).Build();
+		var invertedRequest = _invertedRequestBuilder.WithCurrentUserId(transformer).Build();
 
 		// Act
-		var response = await Controller.GetAllAsync(request, CancellationToken);
+		var response = await Controller.GetAllAsync(invertedRequest, CancellationToken);
 
 		// Assert
-		response.ShouldSatisfyInverted(request, ParticipantTwo, Chats);
+		response.ShouldSatisfyInverted(invertedRequest, ParticipantTwo, Chats);
 	}
 
 	[Theory]
@@ -383,13 +383,13 @@ public class GetAllChatsControllerIntegrationTests : BaseChatPresentationQueryIn
 		IEnumTransformer<CommonSortOrder> transformer, ISortEnumTermTransformer<Chat> termTransformer)
 	{
 		// Arrange
-		var request = _requestBuilder.WithParticipantTwoName(ParticipantOne.Name).WithCurrentUserId(ParticipantTwoId).WithSortOrder(transformer).Build();
+		var invertedRequest = _invertedRequestBuilder.WithSortOrder(transformer).Build();
 
 		// Act
-		var response = await Controller.GetAllAsync(request, CancellationToken);
+		var response = await Controller.GetAllAsync(invertedRequest, CancellationToken);
 
 		// Assert
-		response.ShouldSatisfyInverted(request, ParticipantTwo, Chats, termTransformer);
+		response.ShouldSatisfyInverted(invertedRequest, ParticipantTwo, Chats, termTransformer);
 	}
 
 	[Theory]
@@ -399,12 +399,12 @@ public class GetAllChatsControllerIntegrationTests : BaseChatPresentationQueryIn
 		IEnumTransformer<ChatsSortTerm> transformer, ISortEnumTermTransformer<Chat> termTransformer)
 	{
 		// Arrange
-		var request = _requestBuilder.WithParticipantTwoName(ParticipantOne.Name).WithCurrentUserId(ParticipantTwoId).WithSortTerm(transformer).Build();
+		var invertedRequest = _invertedRequestBuilder.WithSortTerm(transformer).Build();
 
 		// Act
-		var response = await Controller.GetAllAsync(request, CancellationToken);
+		var response = await Controller.GetAllAsync(invertedRequest, CancellationToken);
 
 		// Assert
-		response.ShouldSatisfyInverted(request, ParticipantTwo, Chats, termTransformer);
+		response.ShouldSatisfyInverted(invertedRequest, ParticipantTwo, Chats, termTransformer);
 	}
 }

@@ -594,8 +594,16 @@ public static class ChatMessageEquals
 	{
 		public bool Matches(AddChatMessageCommand command)
 		{
-			return p.Id.Id.Id.ParticipantOneId.Id.IsNotNullOrEmptyOrWhiteSpace() &&
-				   p.Id.Id.Id.ParticipantTwoId.Id.IsNotNullOrEmptyOrWhiteSpace() &&
+			return p.Id.Id.Id.Matches(command.Id) &&
+				   p.Id.Id.MessageId.IsNotNullOrEmptyOrWhiteSpace() &&
+				   p.Id.ImageId.IsNotNullOrEmptyOrWhiteSpace() &&
+				   p.Url.Matches(command) &&
+				   p.CreatedAtUtc != default;
+		}
+
+		public bool MatchesInverted(AddChatMessageCommand command)
+		{
+			return p.Id.Id.Id.Matches(command.Id.ParticipantTwoId, command.Id.ParticipantOneId) &&
 				   p.Id.Id.MessageId.IsNotNullOrEmptyOrWhiteSpace() &&
 				   p.Id.ImageId.IsNotNullOrEmptyOrWhiteSpace() &&
 				   p.Url.Matches(command) &&
@@ -608,6 +616,11 @@ public static class ChatMessageEquals
 		public bool Matches(AddChatMessageCommand command)
 		{
 			return p.AllAndNotEmpty(pi => pi.Matches(command));
+		}
+
+		public bool MatchesInverted(AddChatMessageCommand command)
+		{
+			return p.AllAndNotEmpty(pi => pi.MatchesInverted(command));
 		}
 	}
 

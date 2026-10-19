@@ -10,12 +10,18 @@ public class GetAllChatsQueryHandlerIntegrationTests : BaseChatApplicationQueryI
 	private readonly GetAllChatsQueryRequestBuilder _requestBuilder;
 	private readonly GetAllChatsQueryRequest _request;
 
+	private readonly GetAllChatsQueryRequestBuilder _invertedRequestBuilder;
+	private readonly GetAllChatsQueryRequest _invertedRequest;
+
 	public GetAllChatsQueryHandlerIntegrationTests(ChatsWebApplicationFactory webApplicationFactory)
 		: base(webApplicationFactory)
 	{
 		_requestBuilderFactory = new();
 		_requestBuilder = _requestBuilderFactory.Create(Chat);
 		_request = _requestBuilder.Build();
+
+		_invertedRequestBuilder = _requestBuilderFactory.Create(Chat).WithCurrentUserId(ParticipantTwoId).WithParticipantTwoName(ParticipantOne.Name);
+		_invertedRequest = _invertedRequestBuilder.Build();
 	}
 
 	protected override async Task OnInitializeAsync()
@@ -183,14 +189,11 @@ public class GetAllChatsQueryHandlerIntegrationTests : BaseChatApplicationQueryI
 	[Fact]
 	public async Task SendAsync_ShouldReturnInvertedResponse_WhenRequestIsValid()
 	{
-		// Arrange
-		var request = _requestBuilder.WithParticipantTwoName(ParticipantOne.Name).WithCurrentUserId(ParticipantTwoId).Build();
-
 		// Act
-		var response = await Sender.SendAsync(request, CancellationToken);
+		var response = await Sender.SendAsync(_invertedRequest, CancellationToken);
 
 		// Assert
-		response.ShouldSatisfyInverted(request, ParticipantTwo, Chats);
+		response.ShouldSatisfyInverted(_invertedRequest, ParticipantTwo, Chats);
 	}
 
 	[Theory]
@@ -201,13 +204,13 @@ public class GetAllChatsQueryHandlerIntegrationTests : BaseChatApplicationQueryI
 		IStringTransformer transformer)
 	{
 		// Arrange
-		var request = _requestBuilder.WithParticipantTwoName(ParticipantOne.Name, transformer).WithCurrentUserId(ParticipantTwoId).Build();
+		var invertedRequest = _invertedRequestBuilder.WithParticipantTwoName(transformer).Build();
 
 		// Act
-		var response = await Sender.SendAsync(request, CancellationToken);
+		var response = await Sender.SendAsync(invertedRequest, CancellationToken);
 
 		// Assert
-		response.ShouldSatisfyInverted(request, ParticipantTwo, Chats);
+		response.ShouldSatisfyInverted(invertedRequest, ParticipantTwo, Chats);
 	}
 
 	[Theory]
@@ -216,13 +219,13 @@ public class GetAllChatsQueryHandlerIntegrationTests : BaseChatApplicationQueryI
 		IStringTransformer transformer)
 	{
 		// Arrange
-		var request = _requestBuilder.WithParticipantTwoName(ParticipantOne.Name).WithCurrentUserId(ParticipantTwoId, transformer).Build();
+		var invertedRequest = _invertedRequestBuilder.WithCurrentUserId(transformer).Build();
 
 		// Act
-		var response = await Sender.SendAsync(request, CancellationToken);
+		var response = await Sender.SendAsync(invertedRequest, CancellationToken);
 
 		// Assert
-		response.ShouldSatisfyInverted(request, ParticipantTwo, Chats);
+		response.ShouldSatisfyInverted(invertedRequest, ParticipantTwo, Chats);
 	}
 
 	[Theory]
@@ -232,13 +235,13 @@ public class GetAllChatsQueryHandlerIntegrationTests : BaseChatApplicationQueryI
 		IEnumTransformer<CommonSortOrder> transformer, ISortEnumTermTransformer<Chat> termTransformer)
 	{
 		// Arrange
-		var request = _requestBuilder.WithParticipantTwoName(ParticipantOne.Name).WithCurrentUserId(ParticipantTwoId).WithSortOrder(transformer).Build();
+		var invertedRequest = _invertedRequestBuilder.WithSortOrder(transformer).Build();
 
 		// Act
-		var response = await Sender.SendAsync(request, CancellationToken);
+		var response = await Sender.SendAsync(invertedRequest, CancellationToken);
 
 		// Assert
-		response.ShouldSatisfyInverted(request, ParticipantTwo, Chats, termTransformer);
+		response.ShouldSatisfyInverted(invertedRequest, ParticipantTwo, Chats, termTransformer);
 	}
 
 	[Theory]
@@ -248,12 +251,12 @@ public class GetAllChatsQueryHandlerIntegrationTests : BaseChatApplicationQueryI
 		IEnumTransformer<ChatsSortTerm> transformer, ISortEnumTermTransformer<Chat> termTransformer)
 	{
 		// Arrange
-		var request = _requestBuilder.WithParticipantTwoName(ParticipantOne.Name).WithCurrentUserId(ParticipantTwoId).WithSortTerm(transformer).Build();
+		var invertedRequest = _invertedRequestBuilder.WithSortTerm(transformer).Build();
 
 		// Act
-		var response = await Sender.SendAsync(request, CancellationToken);
+		var response = await Sender.SendAsync(invertedRequest, CancellationToken);
 
 		// Assert
-		response.ShouldSatisfyInverted(request, ParticipantTwo, Chats, termTransformer);
+		response.ShouldSatisfyInverted(invertedRequest, ParticipantTwo, Chats, termTransformer);
 	}
 }

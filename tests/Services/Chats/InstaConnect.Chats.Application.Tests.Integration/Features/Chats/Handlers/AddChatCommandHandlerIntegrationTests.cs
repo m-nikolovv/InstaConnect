@@ -6,12 +6,18 @@ public class AddChatCommandHandlerIntegrationTests : BaseChatApplicationCommandI
 	private readonly AddChatCommandRequestBuilder _requestBuilder;
 	private readonly AddChatCommandRequest _request;
 
+	private readonly AddChatCommandRequestBuilder _invertedRequestBuilder;
+	private readonly AddChatCommandRequest _invertedRequest;
+
 	public AddChatCommandHandlerIntegrationTests(ChatsWebApplicationFactory webApplicationFactory)
 		: base(webApplicationFactory)
 	{
 		_requestBuilderFactory = new();
 		_requestBuilder = _requestBuilderFactory.Create(ParticipantOne, ParticipantTwo);
 		_request = _requestBuilder.Build();
+
+		_invertedRequestBuilder = _requestBuilderFactory.Create(ParticipantOne, ParticipantTwo).WithParticipantOneId(ParticipantTwoId).WithParticipantTwoId(ParticipantOneId);
+		_invertedRequest = _invertedRequestBuilder.Build();
 	}
 
 	[Theory]
@@ -107,10 +113,9 @@ public class AddChatCommandHandlerIntegrationTests : BaseChatApplicationCommandI
 	{
 		// Arrange
 		await ServiceScope.AddAsync(Chat, CancellationToken);
-		var request = _requestBuilder.WithParticipantOneId(ParticipantTwoId).WithParticipantTwoId(ParticipantOneId).Build();
 
 		// Assert
-		await Sender.ShouldThrowChatAlreadyExistsExceptionAsync(request, CancellationToken);
+		await Sender.ShouldThrowChatAlreadyExistsExceptionAsync(_invertedRequest, CancellationToken);
 	}
 
 	[Theory]
@@ -120,10 +125,10 @@ public class AddChatCommandHandlerIntegrationTests : BaseChatApplicationCommandI
 	{
 		// Arrange
 		await ServiceScope.AddAsync(Chat, CancellationToken);
-		var request = _requestBuilder.WithParticipantOneId(ParticipantTwoId, transformer).WithParticipantTwoId(ParticipantOneId).Build();
+		var invertedRequest = _invertedRequestBuilder.WithParticipantOneId(transformer).Build();
 
 		// Assert
-		await Sender.ShouldThrowChatAlreadyExistsExceptionAsync(request, CancellationToken);
+		await Sender.ShouldThrowChatAlreadyExistsExceptionAsync(invertedRequest, CancellationToken);
 	}
 
 	[Theory]
@@ -133,10 +138,10 @@ public class AddChatCommandHandlerIntegrationTests : BaseChatApplicationCommandI
 	{
 		// Arrange
 		await ServiceScope.AddAsync(Chat, CancellationToken);
-		var request = _requestBuilder.WithParticipantOneId(ParticipantTwoId).WithParticipantTwoId(ParticipantOneId, transformer).Build();
+		var invertedRequest = _invertedRequestBuilder.WithParticipantTwoId(transformer).Build();
 
 		// Assert
-		await Sender.ShouldThrowChatAlreadyExistsExceptionAsync(request, CancellationToken);
+		await Sender.ShouldThrowChatAlreadyExistsExceptionAsync(invertedRequest, CancellationToken);
 	}
 
 	[Fact]

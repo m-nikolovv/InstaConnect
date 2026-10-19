@@ -41,27 +41,38 @@ public abstract class BaseChatMessageTest : BaseTest
 	protected ChatBuilder ChatBuilder { get; }
 	protected Chat Chat { get; }
 	protected ICollection<Chat> Chats { get; }
+	protected Chat InvertedChat { get; }
+	protected ICollection<Chat> InvertedChats { get; }
 
 	protected ChatIdBuilderFactory ChatIdBuilderFactory { get; }
 	protected ChatIdBuilder ChatIdBuilder { get; }
 	protected ChatId ChatId { get; }
+	protected ChatIdBuilder InvertedChatIdBuilder { get; }
+	protected ChatId InvertedChatId { get; }
 
 	protected ChatIdRangeBuilderFactory ChatIdRangeBuilderFactory { get; }
 	protected ChatIdRangeBuilder ChatIdRangeBuilder { get; }
 	protected ICollection<ChatId> ChatIds { get; }
+	protected ChatIdRangeBuilder InvertedChatIdRangeBuilder { get; }
+	protected ICollection<ChatId> InvertedChatIds { get; }
 
 	protected ChatMessageBuilderFactory ChatMessageBuilderFactory { get; }
 	protected ChatMessageBuilder ChatMessageBuilder { get; }
 	protected ChatMessage ChatMessage { get; }
 	protected ICollection<ChatMessage> ChatMessages { get; }
+	protected ChatMessage InvertedChatMessage { get; }
 
 	protected ChatMessageIdBuilderFactory ChatMessageIdBuilderFactory { get; }
 	protected ChatMessageIdBuilder ChatMessageIdBuilder { get; }
 	protected ChatMessageId ChatMessageId { get; }
+	protected ChatMessageIdBuilder InvertedChatMessageIdBuilder { get; }
+	protected ChatMessageId InvertedChatMessageId { get; }
 
 	protected ChatMessageIdRangeBuilderFactory ChatMessageIdRangeBuilderFactory { get; }
 	protected ChatMessageIdRangeBuilder ChatMessageIdRangeBuilder { get; }
 	protected ICollection<ChatMessageId> ChatMessageIds { get; }
+	protected ChatMessageIdRangeBuilder InvertedChatMessageIdRangeBuilder { get; }
+	protected ICollection<ChatMessageId> InvertedChatMessageIds { get; }
 
 	protected ChatMessageImageBuilderFactory ChatMessageImageBuilderFactory { get; }
 	protected ChatMessageImageBuilder ChatMessageImageBuilder { get; }
@@ -108,14 +119,20 @@ public abstract class BaseChatMessageTest : BaseTest
 		ChatBuilder = ChatBuilderFactory.Create(ParticipantOne, ParticipantTwo);
 		Chat = ChatBuilder.Build();
 		Chats = Chat.Generate(ParticipantOnes, ParticipantTwos);
+		InvertedChat = ChatBuilder.WithParticipantOne(ParticipantTwo).WithParticipantTwo(ParticipantOne).Build();
+		InvertedChats = InvertedChat.Generate(ParticipantTwos, ParticipantOnes);
 
 		ChatIdBuilderFactory = new();
 		ChatIdBuilder = ChatIdBuilderFactory.Create(Chat.Id);
 		ChatId = ChatIdBuilder.Build();
+		InvertedChatIdBuilder = ChatIdBuilderFactory.Create(InvertedChat.Id);
+		InvertedChatId = InvertedChatIdBuilder.Build();
 
 		ChatIdRangeBuilderFactory = new();
 		ChatIdRangeBuilder = ChatIdRangeBuilderFactory.Create([.. Chats.Select(c => c.Id)]);
 		ChatIds = ChatIdRangeBuilder.Build();
+		InvertedChatIdRangeBuilder = ChatIdRangeBuilderFactory.Create([.. InvertedChats.Select(c => c.Id)]);
+		InvertedChatIds = InvertedChatIdRangeBuilder.Build();
 
 		ChatMessageBuilderFactory = new();
 		ChatMessageBuilder = ChatMessageBuilderFactory.Create(Chat);
@@ -125,15 +142,20 @@ public abstract class BaseChatMessageTest : BaseTest
 		ChatMessageIdBuilderFactory = new();
 		ChatMessageIdBuilder = ChatMessageIdBuilderFactory.Create(ChatMessage.Id);
 		ChatMessageId = ChatMessageIdBuilder.Build();
+		InvertedChatMessageIdBuilder = ChatMessageIdBuilderFactory.Create(ChatMessage.Id).WithParticipantOneId(ParticipantTwoId).WithParticipantTwoId(ParticipantOneId);
+		InvertedChatMessageId = InvertedChatMessageIdBuilder.Build();
 
 		ChatMessageIdRangeBuilderFactory = new();
 		ChatMessageIdRangeBuilder = ChatMessageIdRangeBuilderFactory.Create([.. ChatMessages.Select(c => c.Id)]);
 		ChatMessageIds = ChatMessageIdRangeBuilder.Build();
+		InvertedChatMessageIdRangeBuilder = ChatMessageIdRangeBuilderFactory.Create([.. ChatMessageIds.Select(id => ChatMessageIdBuilderFactory.Create(id).WithParticipantOneId(id.Id.ParticipantTwoId).WithParticipantTwoId(id.Id.ParticipantOneId).Build())]);
+		InvertedChatMessageIds = InvertedChatMessageIdRangeBuilder.Build();
 
 		ChatMessageImageBuilderFactory = new();
 		ChatMessageImageBuilder = ChatMessageImageBuilderFactory.Create(ChatMessage);
 		ChatMessageImage = ChatMessageImageBuilder.Build();
 		ChatMessageImages = ChatMessageImage.Generate(ChatMessages);
+		InvertedChatMessage = ChatMessageBuilderFactory.Create(ChatMessage).WithSender(ParticipantTwo).Build();
 
 		ChatMessageImageIdBuilderFactory = new();
 		ChatMessageImageIdBuilder = ChatMessageImageIdBuilderFactory.Create(ChatMessageImage.Id);

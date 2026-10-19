@@ -6,4 +6,9 @@ public class UserBuilderFactory
 	{
 		return new(passwordHash);
 	}
+
+	public UserBuilder Create(User user)
+	{
+		return new(user);
+	}
 }

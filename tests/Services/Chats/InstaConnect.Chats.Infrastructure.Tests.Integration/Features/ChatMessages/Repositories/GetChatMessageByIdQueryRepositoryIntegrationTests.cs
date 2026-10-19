@@ -16,12 +16,18 @@ public class GetChatMessageByIdQueryRepositoryIntegrationTests : BaseChatMessage
 	private readonly CurrentUserQueryBuilder _currentUserQueryBuilder;
 	private readonly CurrentUserQuery _currentUserQuery;
 
+	private readonly CurrentUserQueryBuilder _invertedCurrentUserQueryBuilder;
+	private readonly CurrentUserQuery _invertedCurrentUserQuery;
+
 	public GetChatMessageByIdQueryRepositoryIntegrationTests(ChatsWebApplicationFactory webApplicationFactory)
 		: base(webApplicationFactory)
 	{
 		_currentUserQueryBuilderFactory = new();
 		_currentUserQueryBuilder = _currentUserQueryBuilderFactory.Create(ParticipantOne);
 		_currentUserQuery = _currentUserQueryBuilder.Build();
+
+		_invertedCurrentUserQueryBuilder = _currentUserQueryBuilderFactory.Create(ParticipantTwo);
+		_invertedCurrentUserQuery = _invertedCurrentUserQueryBuilder.Build();
 	}
 
 	protected override async Task OnInitializeAsync()
@@ -116,15 +122,11 @@ public class GetChatMessageByIdQueryRepositoryIntegrationTests : BaseChatMessage
 	[Fact]
 	public async Task GetByIdAsync_ShouldReturnInvertedResponse_WhenQueryIsValid()
 	{
-		// Arrange
-		var id = ChatMessageIdBuilder.WithParticipantOneId(ParticipantTwoId).WithParticipantTwoId(ParticipantOneId).Build();
-		var currentUserQuery = _currentUserQueryBuilder.WithCurrentUserId(ParticipantTwoId).Build();
-
 		// Act
-		var response = await Repository.GetByIdAsync(id, currentUserQuery, CancellationToken);
+		var response = await Repository.GetByIdAsync(InvertedChatMessageId, _invertedCurrentUserQuery, CancellationToken);
 
 		// Assert
-		response.ShouldSatisfyInverted(id, currentUserQuery, ChatMessage);
+		response.ShouldSatisfyInverted(InvertedChatMessageId, _invertedCurrentUserQuery, ChatMessage);
 	}
 
 	[Theory]
@@ -133,14 +135,13 @@ public class GetChatMessageByIdQueryRepositoryIntegrationTests : BaseChatMessage
 		IStringTransformer transformer)
 	{
 		// Arrange
-		var id = ChatMessageIdBuilder.WithParticipantOneId(ParticipantTwoId, transformer).WithParticipantTwoId(ParticipantOneId).Build();
-		var currentUserQuery = _currentUserQueryBuilder.WithCurrentUserId(ParticipantTwoId).Build();
+		var invertedId = InvertedChatMessageIdBuilder.WithParticipantOneId(transformer).Build();
 
 		// Act
-		var response = await Repository.GetByIdAsync(id, currentUserQuery, CancellationToken);
+		var response = await Repository.GetByIdAsync(invertedId, _invertedCurrentUserQuery, CancellationToken);
 
 		// Assert
-		response.ShouldSatisfyInverted(id, currentUserQuery, ChatMessage);
+		response.ShouldSatisfyInverted(invertedId, _invertedCurrentUserQuery, ChatMessage);
 	}
 
 	[Theory]
@@ -149,14 +150,13 @@ public class GetChatMessageByIdQueryRepositoryIntegrationTests : BaseChatMessage
 		IStringTransformer transformer)
 	{
 		// Arrange
-		var id = ChatMessageIdBuilder.WithParticipantOneId(ParticipantTwoId).WithParticipantTwoId(ParticipantOneId, transformer).Build();
-		var currentUserQuery = _currentUserQueryBuilder.WithCurrentUserId(ParticipantTwoId).Build();
+		var invertedId = InvertedChatMessageIdBuilder.WithParticipantTwoId(transformer).Build();
 
 		// Act
-		var response = await Repository.GetByIdAsync(id, currentUserQuery, CancellationToken);
+		var response = await Repository.GetByIdAsync(invertedId, _invertedCurrentUserQuery, CancellationToken);
 
 		// Assert
-		response.ShouldSatisfyInverted(id, currentUserQuery, ChatMessage);
+		response.ShouldSatisfyInverted(invertedId, _invertedCurrentUserQuery, ChatMessage);
 	}
 
 	[Theory]
@@ -165,14 +165,13 @@ public class GetChatMessageByIdQueryRepositoryIntegrationTests : BaseChatMessage
 		IStringTransformer transformer)
 	{
 		// Arrange
-		var id = ChatMessageIdBuilder.WithParticipantOneId(ParticipantTwoId).WithParticipantTwoId(ParticipantOneId).WithMessageId(transformer).Build();
-		var currentUserQuery = _currentUserQueryBuilder.WithCurrentUserId(ParticipantTwoId).Build();
+		var invertedId = InvertedChatMessageIdBuilder.WithMessageId(transformer).Build();
 
 		// Act
-		var response = await Repository.GetByIdAsync(id, currentUserQuery, CancellationToken);
+		var response = await Repository.GetByIdAsync(invertedId, _invertedCurrentUserQuery, CancellationToken);
 
 		// Assert
-		response.ShouldSatisfyInverted(id, currentUserQuery, ChatMessage);
+		response.ShouldSatisfyInverted(invertedId, _invertedCurrentUserQuery, ChatMessage);
 	}
 
 	[Theory]
@@ -181,13 +180,12 @@ public class GetChatMessageByIdQueryRepositoryIntegrationTests : BaseChatMessage
 		IStringTransformer transformer)
 	{
 		// Arrange
-		var id = ChatMessageIdBuilder.WithParticipantOneId(ParticipantTwoId).WithParticipantTwoId(ParticipantOneId).Build();
-		var currentUserQuery = _currentUserQueryBuilder.WithCurrentUserId(ParticipantTwoId, transformer).Build();
+		var invertedCurrentUserQuery = _invertedCurrentUserQueryBuilder.WithCurrentUserId(transformer).Build();
 
 		// Act
-		var response = await Repository.GetByIdAsync(id, currentUserQuery, CancellationToken);
+		var response = await Repository.GetByIdAsync(InvertedChatMessageId, invertedCurrentUserQuery, CancellationToken);
 
 		// Assert
-		response.ShouldSatisfyInverted(id, currentUserQuery, ChatMessage);
+		response.ShouldSatisfyInverted(InvertedChatMessageId, invertedCurrentUserQuery, ChatMessage);
 	}
 }

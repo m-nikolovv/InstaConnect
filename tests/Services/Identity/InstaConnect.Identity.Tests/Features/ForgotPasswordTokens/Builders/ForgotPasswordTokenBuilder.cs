@@ -20,6 +20,15 @@ public class ForgotPasswordTokenBuilder
 		_createdAtUtc = ForgotPasswordTokenDataFaker.GetCreatedAtUtc();
 	}
 
+	public ForgotPasswordTokenBuilder(ForgotPasswordToken forgotPasswordToken)
+	{
+		_id = forgotPasswordToken.Id.Id.Id;
+		_user = forgotPasswordToken.User!;
+		_value = forgotPasswordToken.Id.Value;
+		_expiresAtUtc = forgotPasswordToken.ExpiresAtUtc;
+		_createdAtUtc = forgotPasswordToken.CreatedAtUtc;
+	}
+
 	public ForgotPasswordTokenBuilder WithValue(ForgotPasswordTokenId value)
 	{
 		_value = value.Value;

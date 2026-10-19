@@ -77,14 +77,11 @@ public class GetChatByIdCommandRepositoryIntegrationTests : BaseChatInfrastructu
 	[Fact]
 	public async Task GetByIdAsync_ShouldReturnResponse_WhenInvertedCommandIsValid()
 	{
-		// Arrange
-		var id = ChatIdBuilder.WithParticipantOneId(ParticipantTwoId).WithParticipantTwoId(ParticipantOneId).Build();
-
 		// Act
-		var response = await Repository.GetByIdAsync(id, _include, CancellationToken);
+		var response = await Repository.GetByIdAsync(InvertedChatId, _include, CancellationToken);
 
 		// Assert
-		response.ShouldSatisfy(id, Chat);
+		response.ShouldSatisfy(InvertedChatId, Chat);
 	}
 
 	[Theory]
@@ -93,13 +90,13 @@ public class GetChatByIdCommandRepositoryIntegrationTests : BaseChatInfrastructu
 		IStringTransformer transformer)
 	{
 		// Arrange
-		var id = ChatIdBuilder.WithParticipantOneId(ParticipantTwoId, transformer).WithParticipantTwoId(ParticipantOneId).Build();
+		var invertedId = InvertedChatIdBuilder.WithParticipantOneId(transformer).Build();
 
 		// Act
-		var response = await Repository.GetByIdAsync(id, _include, CancellationToken);
+		var response = await Repository.GetByIdAsync(invertedId, _include, CancellationToken);
 
 		// Assert
-		response.ShouldSatisfy(id, Chat);
+		response.ShouldSatisfy(invertedId, Chat);
 	}
 
 	[Theory]
@@ -108,12 +105,12 @@ public class GetChatByIdCommandRepositoryIntegrationTests : BaseChatInfrastructu
 		IStringTransformer transformer)
 	{
 		// Arrange
-		var id = ChatIdBuilder.WithParticipantOneId(ParticipantTwoId).WithParticipantTwoId(ParticipantOneId, transformer).Build();
+		var invertedId = InvertedChatIdBuilder.WithParticipantTwoId(transformer).Build();
 
 		// Act
-		var response = await Repository.GetByIdAsync(id, _include, CancellationToken);
+		var response = await Repository.GetByIdAsync(invertedId, _include, CancellationToken);
 
 		// Assert
-		response.ShouldSatisfy(id, Chat);
+		response.ShouldSatisfy(invertedId, Chat);
 	}
 }

@@ -18,6 +18,14 @@ public class UserClaimBuilder
 		_createdAtUtc = UserClaimDataFaker.GetCreatedAtUtc();
 	}
 
+	public UserClaimBuilder(UserClaim userClaim)
+	{
+		_id = userClaim.Id.Id.Id;
+		_user = userClaim.User!;
+		_claim = userClaim.Id.Claim;
+		_createdAtUtc = userClaim.CreatedAtUtc;
+	}
+
 	public UserClaim Build()
 	{
 		var userClaim = new UserClaim(

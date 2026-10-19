@@ -96,14 +96,11 @@ public class GetChatMessageByIdCommandRepositoryIntegrationTests : BaseChatMessa
 	[Fact]
 	public async Task GetByIdAsync_ShouldReturnResponse_WhenInvertedCommandIsValid()
 	{
-		// Arrange
-		var id = ChatMessageIdBuilder.WithParticipantOneId(ParticipantTwoId).WithParticipantTwoId(ParticipantOneId).Build();
-
 		// Act
-		var response = await Repository.GetByIdAsync(id, _include, CancellationToken);
+		var response = await Repository.GetByIdAsync(InvertedChatMessageId, _include, CancellationToken);
 
 		// Assert
-		response.ShouldSatisfy(id, ChatMessage);
+		response.ShouldSatisfy(InvertedChatMessageId, ChatMessage);
 	}
 
 	[Theory]
@@ -112,13 +109,13 @@ public class GetChatMessageByIdCommandRepositoryIntegrationTests : BaseChatMessa
 		IStringTransformer transformer)
 	{
 		// Arrange
-		var id = ChatMessageIdBuilder.WithParticipantOneId(ParticipantTwoId, transformer).WithParticipantTwoId(ParticipantOneId).Build();
+		var invertedId = InvertedChatMessageIdBuilder.WithParticipantOneId(transformer).Build();
 
 		// Act
-		var response = await Repository.GetByIdAsync(id, _include, CancellationToken);
+		var response = await Repository.GetByIdAsync(invertedId, _include, CancellationToken);
 
 		// Assert
-		response.ShouldSatisfy(id, ChatMessage);
+		response.ShouldSatisfy(invertedId, ChatMessage);
 	}
 
 	[Theory]
@@ -127,13 +124,13 @@ public class GetChatMessageByIdCommandRepositoryIntegrationTests : BaseChatMessa
 		IStringTransformer transformer)
 	{
 		// Arrange
-		var id = ChatMessageIdBuilder.WithParticipantOneId(ParticipantTwoId).WithParticipantTwoId(ParticipantOneId, transformer).Build();
+		var invertedId = InvertedChatMessageIdBuilder.WithParticipantTwoId(transformer).Build();
 
 		// Act
-		var response = await Repository.GetByIdAsync(id, _include, CancellationToken);
+		var response = await Repository.GetByIdAsync(invertedId, _include, CancellationToken);
 
 		// Assert
-		response.ShouldSatisfy(id, ChatMessage);
+		response.ShouldSatisfy(invertedId, ChatMessage);
 	}
 
 	[Theory]
@@ -142,12 +139,12 @@ public class GetChatMessageByIdCommandRepositoryIntegrationTests : BaseChatMessa
 		IStringTransformer transformer)
 	{
 		// Arrange
-		var id = ChatMessageIdBuilder.WithParticipantOneId(ParticipantTwoId).WithParticipantTwoId(ParticipantOneId).WithMessageId(transformer).Build();
+		var invertedId = InvertedChatMessageIdBuilder.WithMessageId(transformer).Build();
 
 		// Act
-		var response = await Repository.GetByIdAsync(id, _include, CancellationToken);
+		var response = await Repository.GetByIdAsync(invertedId, _include, CancellationToken);
 
 		// Assert
-		response.ShouldSatisfy(id, ChatMessage);
+		response.ShouldSatisfy(invertedId, ChatMessage);
 	}
 }

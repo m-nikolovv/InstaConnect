@@ -23,6 +23,17 @@ public class ChatMessageImageBuilder
 		_createdAtUtc = ChatMessageImageDataFaker.GetCreatedAtUtc();
 	}
 
+	public ChatMessageImageBuilder(ChatMessageImage chatMessageImage)
+	{
+		_url = chatMessageImage.Url.Value;
+		_imageId = chatMessageImage.Id.ImageId;
+		_messageId = chatMessageImage.Id.Id.MessageId;
+		_participantOneId = chatMessageImage.Id.Id.Id.ParticipantOneId.Id;
+		_participantTwoId = chatMessageImage.Id.Id.Id.ParticipantTwoId.Id;
+		_chatMessage = chatMessageImage.ChatMessage!;
+		_createdAtUtc = chatMessageImage.CreatedAtUtc;
+	}
+
 	public ChatMessageImage Build()
 	{
 		var chatMessageImage = new ChatMessageImage(

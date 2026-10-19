@@ -6,4 +6,9 @@ public class ChatBuilderFactory
 	{
 		return new(participantOne, participantTwo);
 	}
+
+	public ChatBuilder Create(Chat chat)
+	{
+		return new(chat);
+	}
 }

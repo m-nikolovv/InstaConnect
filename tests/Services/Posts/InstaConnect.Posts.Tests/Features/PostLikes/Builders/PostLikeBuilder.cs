@@ -19,6 +19,15 @@ public class PostLikeBuilder
 		_createdAtUtc = PostLikeDataFaker.GetCreatedAtUtc();
 	}
 
+	public PostLikeBuilder(PostLike postLike)
+	{
+		_id = postLike.Id.Id.Id;
+		_post = postLike.Post!;
+		_userId = postLike.Id.UserId.Id;
+		_user = postLike.User!;
+		_createdAtUtc = postLike.CreatedAtUtc;
+	}
+
 	public PostLike Build()
 	{
 		var postLike = new PostLike(

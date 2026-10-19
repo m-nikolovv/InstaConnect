@@ -14,12 +14,18 @@ public class GetChatMessagesTotalCountQueryRepositoryIntegrationTests : BaseChat
 	private readonly ChatMessagesFilterQueryBuilder _filterQueryBuilder;
 	private readonly ChatMessagesFilterQuery _filterQuery;
 
+	private readonly ChatMessagesFilterQueryBuilder _invertedFilterQueryBuilder;
+	private readonly ChatMessagesFilterQuery _invertedFilterQuery;
+
 	public GetChatMessagesTotalCountQueryRepositoryIntegrationTests(ChatsWebApplicationFactory webApplicationFactory)
 		: base(webApplicationFactory)
 	{
 		_filterQueryBuilderFactory = new();
 		_filterQueryBuilder = _filterQueryBuilderFactory.Create(ChatMessage);
 		_filterQuery = _filterQueryBuilder.Build();
+
+		_invertedFilterQueryBuilder = _filterQueryBuilderFactory.Create(ChatMessage).WithParticipantOneId(ParticipantTwoId).WithParticipantTwoId(ParticipantOneId);
+		_invertedFilterQuery = _invertedFilterQueryBuilder.Build();
 	}
 
 	protected override async Task OnInitializeAsync()
@@ -71,14 +77,11 @@ public class GetChatMessagesTotalCountQueryRepositoryIntegrationTests : BaseChat
 	[Fact]
 	public async Task GetTotalCountAsync_ShouldReturnResponse_WhenInvertedQueryIsValid()
 	{
-		// Arrange
-		var filterQuery = _filterQueryBuilder.WithParticipantOneId(ParticipantTwoId).WithParticipantTwoId(ParticipantOneId).Build();
-
 		// Act
-		var response = await Repository.GetTotalCountAsync(filterQuery, CancellationToken);
+		var response = await Repository.GetTotalCountAsync(_invertedFilterQuery, CancellationToken);
 
 		// Assert
-		response.ShouldSatisfy(filterQuery, ChatMessages);
+		response.ShouldSatisfy(_invertedFilterQuery, ChatMessages);
 	}
 
 	[Theory]
@@ -87,13 +90,13 @@ public class GetChatMessagesTotalCountQueryRepositoryIntegrationTests : BaseChat
 		IStringTransformer transformer)
 	{
 		// Arrange
-		var filterQuery = _filterQueryBuilder.WithParticipantOneId(ParticipantTwoId, transformer).WithParticipantTwoId(ParticipantOneId).Build();
+		var invertedFilterQuery = _invertedFilterQueryBuilder.WithParticipantOneId(transformer).Build();
 
 		// Act
-		var response = await Repository.GetTotalCountAsync(filterQuery, CancellationToken);
+		var response = await Repository.GetTotalCountAsync(invertedFilterQuery, CancellationToken);
 
 		// Assert
-		response.ShouldSatisfy(filterQuery, ChatMessages);
+		response.ShouldSatisfy(invertedFilterQuery, ChatMessages);
 	}
 
 	[Theory]
@@ -102,12 +105,12 @@ public class GetChatMessagesTotalCountQueryRepositoryIntegrationTests : BaseChat
 		IStringTransformer transformer)
 	{
 		// Arrange
-		var filterQuery = _filterQueryBuilder.WithParticipantOneId(ParticipantTwoId).WithParticipantTwoId(ParticipantOneId, transformer).Build();
+		var invertedFilterQuery = _invertedFilterQueryBuilder.WithParticipantTwoId(transformer).Build();
 
 		// Act
-		var response = await Repository.GetTotalCountAsync(filterQuery, CancellationToken);
+		var response = await Repository.GetTotalCountAsync(invertedFilterQuery, CancellationToken);
 
 		// Assert
-		response.ShouldSatisfy(filterQuery, ChatMessages);
+		response.ShouldSatisfy(invertedFilterQuery, ChatMessages);
 	}
 }

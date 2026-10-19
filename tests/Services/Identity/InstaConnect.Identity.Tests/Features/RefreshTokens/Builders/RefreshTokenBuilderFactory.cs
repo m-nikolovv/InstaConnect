@@ -6,4 +6,9 @@ public class RefreshTokenBuilderFactory
 	{
 		return new(user);
 	}
+
+	public RefreshTokenBuilder Create(RefreshToken refreshToken)
+	{
+		return new(refreshToken);
+	}
 }

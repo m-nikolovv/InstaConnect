@@ -97,6 +97,11 @@ public static class ChatMessageMatchAssertions
 		{
 			chatMessageImages.ShouldSatisfy(p => p.Matches(command));
 		}
+
+		public void ShouldSatisfyInverted(AddChatMessageCommand command)
+		{
+			chatMessageImages.ShouldSatisfy(p => p.MatchesInverted(command));
+		}
 	}
 
 	extension(ChatMessageAddedNotificationRequest r)

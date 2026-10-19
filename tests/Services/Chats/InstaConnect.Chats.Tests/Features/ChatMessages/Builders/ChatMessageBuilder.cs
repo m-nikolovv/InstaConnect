@@ -1,5 +1,4 @@
 using InstaConnect.Chats.Domain.Features.ChatMessages.Models.ValueObjects;
-using InstaConnect.Chats.Domain.Features.Users.Models.ValueObjects;
 
 namespace InstaConnect.Chats.Tests.Features.ChatMessages.Builders;
 
@@ -10,9 +9,10 @@ public class ChatMessageBuilder
 	private readonly Chat _chat;
 	private string _messageId;
 	private string _senderId;
-	private readonly User _sender;
+	private User _sender;
 	private readonly string _content;
 	private readonly string _summary;
+	private readonly ICollection<ChatMessageImage> _chatMessageImages;
 	private readonly DateTimeOffset _createdAtUtc;
 	private readonly DateTimeOffset _updatedAtUtc;
 
@@ -26,13 +26,30 @@ public class ChatMessageBuilder
 		_sender = chat.ParticipantOne!;
 		_content = ChatMessageDataFaker.GetContent();
 		_summary = ChatMessageDataFaker.GetSummary();
+		_chatMessageImages = [];
 		_createdAtUtc = ChatMessageDataFaker.GetCreatedAtUtc();
 		_updatedAtUtc = _createdAtUtc;
 	}
 
-	public ChatMessageBuilder WithSenderId(UserId senderId)
+	public ChatMessageBuilder(ChatMessage chatMessage)
 	{
-		_senderId = senderId.Id;
+		_participantOneId = chatMessage.Id.Id.ParticipantOneId.Id;
+		_participantTwoId = chatMessage.Id.Id.ParticipantTwoId.Id;
+		_chat = chatMessage.Chat!;
+		_messageId = chatMessage.Id.MessageId;
+		_senderId = chatMessage.SenderId.Id;
+		_sender = chatMessage.Sender!;
+		_content = chatMessage.Content;
+		_summary = chatMessage.Summary.Value;
+		_chatMessageImages = [.. chatMessage.ChatMessageImages];
+		_createdAtUtc = chatMessage.CreatedAtUtc;
+		_updatedAtUtc = chatMessage.UpdatedAtUtc;
+	}
+
+	public ChatMessageBuilder WithSender(User sender)
+	{
+		_senderId = sender.Id.Id;
+		_sender = sender;
 
 		return this;
 	}
@@ -62,6 +79,7 @@ public class ChatMessageBuilder
 		_sender.AddChatMessage(chatMessage);
 		chatMessage.AddChat(_chat);
 		chatMessage.AddSender(_sender);
+		chatMessage.AddChatMessageImages(_chatMessageImages);
 
 		return chatMessage;
 	}

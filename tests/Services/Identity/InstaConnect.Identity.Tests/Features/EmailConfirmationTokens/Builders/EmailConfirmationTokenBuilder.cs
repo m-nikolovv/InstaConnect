@@ -20,6 +20,15 @@ public class EmailConfirmationTokenBuilder
 		_createdAtUtc = EmailConfirmationTokenDataFaker.GetCreatedAtUtc();
 	}
 
+	public EmailConfirmationTokenBuilder(EmailConfirmationToken emailConfirmationToken)
+	{
+		_id = emailConfirmationToken.Id.Id.Id;
+		_user = emailConfirmationToken.User!;
+		_value = emailConfirmationToken.Id.Value;
+		_expiresAtUtc = emailConfirmationToken.ExpiresAtUtc;
+		_createdAtUtc = emailConfirmationToken.CreatedAtUtc;
+	}
+
 	public EmailConfirmationTokenBuilder WithValue(EmailConfirmationTokenId value)
 	{
 		_value = value.Value;

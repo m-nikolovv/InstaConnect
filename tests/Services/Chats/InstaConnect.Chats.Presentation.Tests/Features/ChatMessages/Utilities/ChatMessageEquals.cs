@@ -699,8 +699,16 @@ public static class ChatMessageEquals
 	{
 		public bool Matches(AddChatMessageApiRequest request)
 		{
-			return chatMessageImage.Id.Id.Id.ParticipantOneId.Id.IsNotNullOrEmptyOrWhiteSpace() &&
-				   chatMessageImage.Id.Id.Id.ParticipantTwoId.Id.IsNotNullOrEmptyOrWhiteSpace() &&
+			return chatMessageImage.Id.Id.Id.Matches(request.ParticipantOneId, request.ParticipantTwoId) &&
+				   chatMessageImage.Id.Id.MessageId.IsNotNullOrEmptyOrWhiteSpace() &&
+				   chatMessageImage.Id.ImageId.IsNotNullOrEmptyOrWhiteSpace() &&
+				   chatMessageImage.Url.Value.IsNotNullOrEmptyOrWhiteSpace() &&
+				   chatMessageImage.CreatedAtUtc != default;
+		}
+
+		public bool MatchesInverted(AddChatMessageApiRequest request)
+		{
+			return chatMessageImage.Id.Id.Id.Matches(request.ParticipantTwoId, request.ParticipantOneId) &&
 				   chatMessageImage.Id.Id.MessageId.IsNotNullOrEmptyOrWhiteSpace() &&
 				   chatMessageImage.Id.ImageId.IsNotNullOrEmptyOrWhiteSpace() &&
 				   chatMessageImage.Url.Value.IsNotNullOrEmptyOrWhiteSpace() &&
@@ -713,6 +721,11 @@ public static class ChatMessageEquals
 		public bool Matches(AddChatMessageApiRequest request)
 		{
 			return chatMessageImages.AllAndNotEmpty(chatMessageImage => chatMessageImage.Matches(request));
+		}
+
+		public bool MatchesInverted(AddChatMessageApiRequest request)
+		{
+			return chatMessageImages.AllAndNotEmpty(chatMessageImage => chatMessageImage.MatchesInverted(request));
 		}
 	}
 

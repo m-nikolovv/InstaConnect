@@ -19,6 +19,15 @@ public class PostImageBuilder
 		_createdAtUtc = PostImageDataFaker.GetCreatedAtUtc();
 	}
 
+	public PostImageBuilder(PostImage postImage)
+	{
+		_id = postImage.Id.Id.Id;
+		_post = postImage.Post!;
+		_imageId = postImage.Id.ImageId;
+		_url = postImage.Url.Value;
+		_createdAtUtc = postImage.CreatedAtUtc;
+	}
+
 	public PostImage Build()
 	{
 		var postImage = new PostImage(

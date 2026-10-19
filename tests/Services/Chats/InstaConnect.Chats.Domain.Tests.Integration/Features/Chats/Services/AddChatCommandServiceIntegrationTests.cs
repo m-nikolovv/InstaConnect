@@ -16,12 +16,18 @@ public class AddChatCommandServiceIntegrationTests : BaseChatDomainCommandIntegr
 	private readonly AddChatCommandBuilder _commandBuilder;
 	private readonly AddChatCommand _command;
 
+	private readonly AddChatCommandBuilder _invertedCommandBuilder;
+	private readonly AddChatCommand _invertedCommand;
+
 	public AddChatCommandServiceIntegrationTests(ChatsWebApplicationFactory webApplicationFactory)
 		: base(webApplicationFactory)
 	{
 		_commandBuilderFactory = new();
 		_commandBuilder = _commandBuilderFactory.Create(ParticipantOne, ParticipantTwo);
 		_command = _commandBuilder.Build();
+
+		_invertedCommandBuilder = _commandBuilderFactory.Create(ParticipantOne, ParticipantTwo).WithParticipantOneId(ParticipantTwoId).WithParticipantTwoId(ParticipantOneId);
+		_invertedCommand = _invertedCommandBuilder.Build();
 	}
 
 	[Fact]
@@ -85,10 +91,9 @@ public class AddChatCommandServiceIntegrationTests : BaseChatDomainCommandIntegr
 	{
 		// Arrange
 		await ServiceScope.AddAsync(Chat, CancellationToken);
-		var command = _commandBuilder.WithParticipantOneId(ParticipantTwoId).WithParticipantTwoId(ParticipantOneId).Build();
 
 		// Assert
-		await Service.ShouldThrowChatAlreadyExistsExceptionAsync(command, CancellationToken);
+		await Service.ShouldThrowChatAlreadyExistsExceptionAsync(_invertedCommand, CancellationToken);
 	}
 
 	[Theory]
@@ -98,10 +103,10 @@ public class AddChatCommandServiceIntegrationTests : BaseChatDomainCommandIntegr
 	{
 		// Arrange
 		await ServiceScope.AddAsync(Chat, CancellationToken);
-		var command = _commandBuilder.WithParticipantOneId(ParticipantTwoId, transformer).WithParticipantTwoId(ParticipantOneId).Build();
+		var invertedCommand = _invertedCommandBuilder.WithParticipantOneId(transformer).Build();
 
 		// Assert
-		await Service.ShouldThrowChatAlreadyExistsExceptionAsync(command, CancellationToken);
+		await Service.ShouldThrowChatAlreadyExistsExceptionAsync(invertedCommand, CancellationToken);
 	}
 
 	[Theory]
@@ -111,10 +116,10 @@ public class AddChatCommandServiceIntegrationTests : BaseChatDomainCommandIntegr
 	{
 		// Arrange
 		await ServiceScope.AddAsync(Chat, CancellationToken);
-		var command = _commandBuilder.WithParticipantOneId(ParticipantTwoId).WithParticipantTwoId(ParticipantOneId, transformer).Build();
+		var invertedCommand = _invertedCommandBuilder.WithParticipantTwoId(transformer).Build();
 
 		// Assert
-		await Service.ShouldThrowChatAlreadyExistsExceptionAsync(command, CancellationToken);
+		await Service.ShouldThrowChatAlreadyExistsExceptionAsync(invertedCommand, CancellationToken);
 	}
 
 	[Fact]

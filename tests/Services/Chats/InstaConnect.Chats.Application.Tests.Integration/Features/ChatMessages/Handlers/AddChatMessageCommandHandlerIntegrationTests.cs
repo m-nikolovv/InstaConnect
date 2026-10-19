@@ -9,12 +9,18 @@ public class AddChatMessageCommandHandlerIntegrationTests : BaseChatMessageAppli
 	private readonly AddChatMessageCommandRequestBuilder _requestBuilder;
 	private readonly AddChatMessageCommandRequest _request;
 
+	private readonly AddChatMessageCommandRequestBuilder _invertedRequestBuilder;
+	private readonly AddChatMessageCommandRequest _invertedRequest;
+
 	public AddChatMessageCommandHandlerIntegrationTests(ChatsWebApplicationFactory webApplicationFactory)
 		: base(webApplicationFactory)
 	{
 		_requestBuilderFactory = new();
 		_requestBuilder = _requestBuilderFactory.Create(Chat, ChatMessage.ChatMessageImages.Count);
 		_request = _requestBuilder.Build();
+
+		_invertedRequestBuilder = _requestBuilderFactory.Create(Chat, ChatMessage.ChatMessageImages.Count).WithParticipantOneId(ParticipantTwoId).WithParticipantTwoId(ParticipantOneId);
+		_invertedRequest = _invertedRequestBuilder.Build();
 	}
 
 	[Theory]
@@ -259,15 +265,12 @@ public class AddChatMessageCommandHandlerIntegrationTests : BaseChatMessageAppli
 	[Fact]
 	public async Task SendAsync_ShouldReturnInvertedResponse_WhenRequestIsValid()
 	{
-		// Arrange
-		var request = _requestBuilder.WithParticipantOneId(ParticipantTwoId).WithParticipantTwoId(ParticipantOneId).Build();
-
 		// Act
-		var response = await Sender.SendAsync(request, CancellationToken);
+		var response = await Sender.SendAsync(_invertedRequest, CancellationToken);
 		var chatMessage = await ServiceScope.GetByIdAsync(response, CancellationToken);
 
 		// Assert
-		response.ShouldSatisfy(request, chatMessage);
+		response.ShouldSatisfy(_invertedRequest, chatMessage);
 	}
 
 	[Theory]
@@ -276,14 +279,14 @@ public class AddChatMessageCommandHandlerIntegrationTests : BaseChatMessageAppli
 		IStringTransformer transformer)
 	{
 		// Arrange
-		var request = _requestBuilder.WithParticipantOneId(ParticipantTwoId, transformer).WithParticipantTwoId(ParticipantOneId).Build();
+		var invertedRequest = _invertedRequestBuilder.WithParticipantOneId(transformer).Build();
 
 		// Act
-		var response = await Sender.SendAsync(request, CancellationToken);
+		var response = await Sender.SendAsync(invertedRequest, CancellationToken);
 		var chatMessage = await ServiceScope.GetByIdAsync(response, CancellationToken);
 
 		// Assert
-		response.ShouldSatisfy(request, chatMessage);
+		response.ShouldSatisfy(invertedRequest, chatMessage);
 	}
 
 	[Theory]
@@ -292,14 +295,14 @@ public class AddChatMessageCommandHandlerIntegrationTests : BaseChatMessageAppli
 		IStringTransformer transformer)
 	{
 		// Arrange
-		var request = _requestBuilder.WithParticipantOneId(ParticipantTwoId).WithParticipantTwoId(ParticipantOneId, transformer).Build();
+		var invertedRequest = _invertedRequestBuilder.WithParticipantTwoId(transformer).Build();
 
 		// Act
-		var response = await Sender.SendAsync(request, CancellationToken);
+		var response = await Sender.SendAsync(invertedRequest, CancellationToken);
 		var chatMessage = await ServiceScope.GetByIdAsync(response, CancellationToken);
 
 		// Assert
-		response.ShouldSatisfy(request, chatMessage);
+		response.ShouldSatisfy(invertedRequest, chatMessage);
 	}
 
 	[Theory]
@@ -308,28 +311,25 @@ public class AddChatMessageCommandHandlerIntegrationTests : BaseChatMessageAppli
 		IFormFileCollectionTransformer transformer)
 	{
 		// Arrange
-		var request = _requestBuilder.WithParticipantOneId(ParticipantTwoId).WithParticipantTwoId(ParticipantOneId).WithImages(transformer).Build();
+		var invertedRequest = _invertedRequestBuilder.WithImages(transformer).Build();
 
 		// Act
-		var response = await Sender.SendAsync(request, CancellationToken);
+		var response = await Sender.SendAsync(invertedRequest, CancellationToken);
 		var chatMessage = await ServiceScope.GetByIdAsync(response, CancellationToken);
 
 		// Assert
-		response.ShouldSatisfy(request, chatMessage);
+		response.ShouldSatisfy(invertedRequest, chatMessage);
 	}
 
 	[Fact]
 	public async Task SendAsync_ShouldAddInvertedChatMessage_WhenRequestIsValid()
 	{
-		// Arrange
-		var request = _requestBuilder.WithParticipantOneId(ParticipantTwoId).WithParticipantTwoId(ParticipantOneId).Build();
-
 		// Act
-		var response = await Sender.SendAsync(request, CancellationToken);
+		var response = await Sender.SendAsync(_invertedRequest, CancellationToken);
 		var chatMessage = await ServiceScope.GetByIdAsync(response, CancellationToken);
 
 		// Assert
-		chatMessage.ShouldSatisfyInverted(request);
+		chatMessage.ShouldSatisfyInverted(_invertedRequest);
 	}
 
 	[Theory]
@@ -338,14 +338,14 @@ public class AddChatMessageCommandHandlerIntegrationTests : BaseChatMessageAppli
 		IStringTransformer transformer)
 	{
 		// Arrange
-		var request = _requestBuilder.WithParticipantOneId(ParticipantTwoId, transformer).WithParticipantTwoId(ParticipantOneId).Build();
+		var invertedRequest = _invertedRequestBuilder.WithParticipantOneId(transformer).Build();
 
 		// Act
-		var response = await Sender.SendAsync(request, CancellationToken);
+		var response = await Sender.SendAsync(invertedRequest, CancellationToken);
 		var chatMessage = await ServiceScope.GetByIdAsync(response, CancellationToken);
 
 		// Assert
-		chatMessage.ShouldSatisfyInverted(request);
+		chatMessage.ShouldSatisfyInverted(invertedRequest);
 	}
 
 	[Theory]
@@ -354,14 +354,14 @@ public class AddChatMessageCommandHandlerIntegrationTests : BaseChatMessageAppli
 		IStringTransformer transformer)
 	{
 		// Arrange
-		var request = _requestBuilder.WithParticipantOneId(ParticipantTwoId).WithParticipantTwoId(ParticipantOneId, transformer).Build();
+		var invertedRequest = _invertedRequestBuilder.WithParticipantTwoId(transformer).Build();
 
 		// Act
-		var response = await Sender.SendAsync(request, CancellationToken);
+		var response = await Sender.SendAsync(invertedRequest, CancellationToken);
 		var chatMessage = await ServiceScope.GetByIdAsync(response, CancellationToken);
 
 		// Assert
-		chatMessage.ShouldSatisfyInverted(request);
+		chatMessage.ShouldSatisfyInverted(invertedRequest);
 	}
 
 	[Theory]
@@ -370,29 +370,26 @@ public class AddChatMessageCommandHandlerIntegrationTests : BaseChatMessageAppli
 		IFormFileCollectionTransformer transformer)
 	{
 		// Arrange
-		var request = _requestBuilder.WithParticipantOneId(ParticipantTwoId).WithParticipantTwoId(ParticipantOneId).WithImages(transformer).Build();
+		var invertedRequest = _invertedRequestBuilder.WithImages(transformer).Build();
 
 		// Act
-		var response = await Sender.SendAsync(request, CancellationToken);
+		var response = await Sender.SendAsync(invertedRequest, CancellationToken);
 		var chatMessage = await ServiceScope.GetByIdAsync(response, CancellationToken);
 
 		// Assert
-		chatMessage.ShouldSatisfyInverted(request);
+		chatMessage.ShouldSatisfyInverted(invertedRequest);
 	}
 
 	[Fact]
 	public async Task SendAsync_ShouldPublishInvertedChatMessageAddedNotification_WhenRequestIsValid()
 	{
-		// Arrange
-		var request = _requestBuilder.WithParticipantOneId(ParticipantTwoId).WithParticipantTwoId(ParticipantOneId).Build();
-
 		// Act
-		var response = await Sender.SendAsync(request, CancellationToken);
+		var response = await Sender.SendAsync(_invertedRequest, CancellationToken);
 		var chatMessage = await ServiceScope.GetByIdAsync(response, CancellationToken);
 		var notificationRequest = await MessageNotificationClient.PublishedAddedAsync(CancellationToken);
 
 		// Assert
-		notificationRequest.ShouldSatisfyInverted(request, chatMessage);
+		notificationRequest.ShouldSatisfyInverted(_invertedRequest, chatMessage);
 	}
 
 	[Theory]
@@ -401,15 +398,15 @@ public class AddChatMessageCommandHandlerIntegrationTests : BaseChatMessageAppli
 		IStringTransformer transformer)
 	{
 		// Arrange
-		var request = _requestBuilder.WithParticipantOneId(ParticipantTwoId, transformer).WithParticipantTwoId(ParticipantOneId).Build();
+		var invertedRequest = _invertedRequestBuilder.WithParticipantOneId(transformer).Build();
 
 		// Act
-		var response = await Sender.SendAsync(request, CancellationToken);
+		var response = await Sender.SendAsync(invertedRequest, CancellationToken);
 		var chatMessage = await ServiceScope.GetByIdAsync(response, CancellationToken);
 		var notificationRequest = await MessageNotificationClient.PublishedAddedAsync(CancellationToken);
 
 		// Assert
-		notificationRequest.ShouldSatisfyInverted(request, chatMessage);
+		notificationRequest.ShouldSatisfyInverted(invertedRequest, chatMessage);
 	}
 
 	[Theory]
@@ -418,15 +415,15 @@ public class AddChatMessageCommandHandlerIntegrationTests : BaseChatMessageAppli
 		IStringTransformer transformer)
 	{
 		// Arrange
-		var request = _requestBuilder.WithParticipantOneId(ParticipantTwoId).WithParticipantTwoId(ParticipantOneId, transformer).Build();
+		var invertedRequest = _invertedRequestBuilder.WithParticipantTwoId(transformer).Build();
 
 		// Act
-		var response = await Sender.SendAsync(request, CancellationToken);
+		var response = await Sender.SendAsync(invertedRequest, CancellationToken);
 		var chatMessage = await ServiceScope.GetByIdAsync(response, CancellationToken);
 		var notificationRequest = await MessageNotificationClient.PublishedAddedAsync(CancellationToken);
 
 		// Assert
-		notificationRequest.ShouldSatisfyInverted(request, chatMessage);
+		notificationRequest.ShouldSatisfyInverted(invertedRequest, chatMessage);
 	}
 
 	[Theory]
@@ -435,15 +432,15 @@ public class AddChatMessageCommandHandlerIntegrationTests : BaseChatMessageAppli
 		IFormFileCollectionTransformer transformer)
 	{
 		// Arrange
-		var request = _requestBuilder.WithParticipantOneId(ParticipantTwoId).WithParticipantTwoId(ParticipantOneId).WithImages(transformer).Build();
+		var invertedRequest = _invertedRequestBuilder.WithImages(transformer).Build();
 
 		// Act
-		var response = await Sender.SendAsync(request, CancellationToken);
+		var response = await Sender.SendAsync(invertedRequest, CancellationToken);
 		var chatMessage = await ServiceScope.GetByIdAsync(response, CancellationToken);
 		var notificationRequest = await MessageNotificationClient.PublishedAddedAsync(CancellationToken);
 
 		// Assert
-		notificationRequest.ShouldSatisfyInverted(request, chatMessage);
+		notificationRequest.ShouldSatisfyInverted(invertedRequest, chatMessage);
 	}
 
 	[Fact]
@@ -499,6 +496,65 @@ public class AddChatMessageCommandHandlerIntegrationTests : BaseChatMessageAppli
 
 		// Act
 		var response = await Sender.SendAsync(request, CancellationToken);
+		var chatMessage = await ServiceScope.GetByIdAsync(response, CancellationToken);
+
+		// Assert
+		chatMessage.ChatMessageImages.ShouldBeEmpty();
+	}
+
+	[Fact]
+	public async Task SendAsync_ShouldAddInvertedChatMessageImages_WhenRequestIsValid()
+	{
+		// Act
+		var response = await Sender.SendAsync(_invertedRequest, CancellationToken);
+		var chatMessage = await ServiceScope.GetByIdAsync(response, CancellationToken);
+
+		// Assert
+		chatMessage.ChatMessageImages.ShouldSatisfyInverted(_invertedRequest);
+	}
+
+	[Theory]
+	[UserIdDifferentCaseData]
+	public async Task SendAsync_ShouldAddInvertedChatMessageImages_WhenRequestAndParticipantOneIdAreValid(
+		IStringTransformer transformer)
+	{
+		// Arrange
+		var invertedRequest = _invertedRequestBuilder.WithParticipantOneId(transformer).Build();
+
+		// Act
+		var response = await Sender.SendAsync(invertedRequest, CancellationToken);
+		var chatMessage = await ServiceScope.GetByIdAsync(response, CancellationToken);
+
+		// Assert
+		chatMessage.ChatMessageImages.ShouldSatisfyInverted(invertedRequest);
+	}
+
+	[Theory]
+	[UserIdDifferentCaseData]
+	public async Task SendAsync_ShouldAddInvertedChatMessageImages_WhenRequestAndParticipantTwoIdAreValid(
+		IStringTransformer transformer)
+	{
+		// Arrange
+		var invertedRequest = _invertedRequestBuilder.WithParticipantTwoId(transformer).Build();
+
+		// Act
+		var response = await Sender.SendAsync(invertedRequest, CancellationToken);
+		var chatMessage = await ServiceScope.GetByIdAsync(response, CancellationToken);
+
+		// Assert
+		chatMessage.ChatMessageImages.ShouldSatisfyInverted(invertedRequest);
+	}
+
+	[Theory]
+	[ChatMessageImagesEmptyData]
+	public async Task SendAsync_ShouldAddInvertedChatMessageImages_WhenRequestAndImagesAreValid(
+		IFormFileCollectionTransformer transformer)
+	{
+		// Arrange
+		var invertedRequest = _invertedRequestBuilder.WithImages(transformer).Build();
+
+		// Act
+		var response = await Sender.SendAsync(invertedRequest, CancellationToken);
 		var chatMessage = await ServiceScope.GetByIdAsync(response, CancellationToken);
 
 		// Assert

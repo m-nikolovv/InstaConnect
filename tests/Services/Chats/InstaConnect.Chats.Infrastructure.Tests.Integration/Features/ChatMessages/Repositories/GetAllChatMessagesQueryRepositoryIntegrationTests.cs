@@ -21,6 +21,9 @@ public class GetAllChatMessagesQueryRepositoryIntegrationTests : BaseChatMessage
 	private readonly ChatMessagesFilterQueryBuilder _filterQueryBuilder;
 	private readonly ChatMessagesFilterQuery _filterQuery;
 
+	private readonly ChatMessagesFilterQueryBuilder _invertedFilterQueryBuilder;
+	private readonly ChatMessagesFilterQuery _invertedFilterQuery;
+
 	private readonly ChatMessagesSortingQueryBuilderFactory _sortingQueryBuilderFactory;
 	private readonly ChatMessagesSortingQueryBuilder _sortingQueryBuilder;
 	private readonly ChatMessagesSortingQuery _sortingQuery;
@@ -33,12 +36,18 @@ public class GetAllChatMessagesQueryRepositoryIntegrationTests : BaseChatMessage
 	private readonly CurrentUserQueryBuilder _currentUserQueryBuilder;
 	private readonly CurrentUserQuery _currentUserQuery;
 
+	private readonly CurrentUserQueryBuilder _invertedCurrentUserQueryBuilder;
+	private readonly CurrentUserQuery _invertedCurrentUserQuery;
+
 	public GetAllChatMessagesQueryRepositoryIntegrationTests(ChatsWebApplicationFactory webApplicationFactory)
 		: base(webApplicationFactory)
 	{
 		_filterQueryBuilderFactory = new();
 		_filterQueryBuilder = _filterQueryBuilderFactory.Create(ChatMessage);
 		_filterQuery = _filterQueryBuilder.Build();
+
+		_invertedFilterQueryBuilder = _filterQueryBuilderFactory.Create(ChatMessage).WithParticipantOneId(ParticipantTwoId).WithParticipantTwoId(ParticipantOneId);
+		_invertedFilterQuery = _invertedFilterQueryBuilder.Build();
 
 		_sortingQueryBuilderFactory = new();
 		_sortingQueryBuilder = _sortingQueryBuilderFactory.Create();
@@ -51,6 +60,9 @@ public class GetAllChatMessagesQueryRepositoryIntegrationTests : BaseChatMessage
 		_currentUserQueryBuilderFactory = new();
 		_currentUserQueryBuilder = _currentUserQueryBuilderFactory.Create(ParticipantOne);
 		_currentUserQuery = _currentUserQueryBuilder.Build();
+
+		_invertedCurrentUserQueryBuilder = _currentUserQueryBuilderFactory.Create(ParticipantTwo);
+		_invertedCurrentUserQuery = _invertedCurrentUserQueryBuilder.Build();
 	}
 
 	protected override async Task OnInitializeAsync()
@@ -148,15 +160,11 @@ public class GetAllChatMessagesQueryRepositoryIntegrationTests : BaseChatMessage
 	[Fact]
 	public async Task GetAllAsync_ShouldReturnInvertedResponse_WhenQueryIsValid()
 	{
-		// Arrange
-		var filterQuery = _filterQueryBuilder.WithParticipantOneId(ParticipantTwoId).WithParticipantTwoId(ParticipantOneId).Build();
-		var currentUserQuery = _currentUserQueryBuilder.WithCurrentUserId(ParticipantTwoId).Build();
-
 		// Act
-		var response = await Repository.GetAllAsync(filterQuery, _sortingQuery, _paginationQuery, currentUserQuery, CancellationToken);
+		var response = await Repository.GetAllAsync(_invertedFilterQuery, _sortingQuery, _paginationQuery, _invertedCurrentUserQuery, CancellationToken);
 
 		// Assert
-		response.ShouldSatisfyInverted(filterQuery, _sortingQuery, _paginationQuery, currentUserQuery, Chat, ChatMessages);
+		response.ShouldSatisfyInverted(_invertedFilterQuery, _sortingQuery, _paginationQuery, _invertedCurrentUserQuery, Chat, ChatMessages);
 	}
 
 	[Theory]
@@ -165,14 +173,13 @@ public class GetAllChatMessagesQueryRepositoryIntegrationTests : BaseChatMessage
 		IStringTransformer transformer)
 	{
 		// Arrange
-		var filterQuery = _filterQueryBuilder.WithParticipantOneId(ParticipantTwoId, transformer).WithParticipantTwoId(ParticipantOneId).Build();
-		var currentUserQuery = _currentUserQueryBuilder.WithCurrentUserId(ParticipantTwoId).Build();
+		var invertedFilterQuery = _invertedFilterQueryBuilder.WithParticipantOneId(transformer).Build();
 
 		// Act
-		var response = await Repository.GetAllAsync(filterQuery, _sortingQuery, _paginationQuery, currentUserQuery, CancellationToken);
+		var response = await Repository.GetAllAsync(invertedFilterQuery, _sortingQuery, _paginationQuery, _invertedCurrentUserQuery, CancellationToken);
 
 		// Assert
-		response.ShouldSatisfyInverted(filterQuery, _sortingQuery, _paginationQuery, currentUserQuery, Chat, ChatMessages);
+		response.ShouldSatisfyInverted(invertedFilterQuery, _sortingQuery, _paginationQuery, _invertedCurrentUserQuery, Chat, ChatMessages);
 	}
 
 	[Theory]
@@ -181,14 +188,13 @@ public class GetAllChatMessagesQueryRepositoryIntegrationTests : BaseChatMessage
 		IStringTransformer transformer)
 	{
 		// Arrange
-		var filterQuery = _filterQueryBuilder.WithParticipantOneId(ParticipantTwoId).WithParticipantTwoId(ParticipantOneId, transformer).Build();
-		var currentUserQuery = _currentUserQueryBuilder.WithCurrentUserId(ParticipantTwoId).Build();
+		var invertedFilterQuery = _invertedFilterQueryBuilder.WithParticipantTwoId(transformer).Build();
 
 		// Act
-		var response = await Repository.GetAllAsync(filterQuery, _sortingQuery, _paginationQuery, currentUserQuery, CancellationToken);
+		var response = await Repository.GetAllAsync(invertedFilterQuery, _sortingQuery, _paginationQuery, _invertedCurrentUserQuery, CancellationToken);
 
 		// Assert
-		response.ShouldSatisfyInverted(filterQuery, _sortingQuery, _paginationQuery, currentUserQuery, Chat, ChatMessages);
+		response.ShouldSatisfyInverted(invertedFilterQuery, _sortingQuery, _paginationQuery, _invertedCurrentUserQuery, Chat, ChatMessages);
 	}
 
 	[Theory]
@@ -197,14 +203,13 @@ public class GetAllChatMessagesQueryRepositoryIntegrationTests : BaseChatMessage
 		IStringTransformer transformer)
 	{
 		// Arrange
-		var filterQuery = _filterQueryBuilder.WithParticipantOneId(ParticipantTwoId).WithParticipantTwoId(ParticipantOneId).Build();
-		var currentUserQuery = _currentUserQueryBuilder.WithCurrentUserId(ParticipantTwoId, transformer).Build();
+		var invertedCurrentUserQuery = _invertedCurrentUserQueryBuilder.WithCurrentUserId(transformer).Build();
 
 		// Act
-		var response = await Repository.GetAllAsync(filterQuery, _sortingQuery, _paginationQuery, currentUserQuery, CancellationToken);
+		var response = await Repository.GetAllAsync(_invertedFilterQuery, _sortingQuery, _paginationQuery, invertedCurrentUserQuery, CancellationToken);
 
 		// Assert
-		response.ShouldSatisfyInverted(filterQuery, _sortingQuery, _paginationQuery, currentUserQuery, Chat, ChatMessages);
+		response.ShouldSatisfyInverted(_invertedFilterQuery, _sortingQuery, _paginationQuery, invertedCurrentUserQuery, Chat, ChatMessages);
 	}
 
 	[Theory]
@@ -214,15 +219,13 @@ public class GetAllChatMessagesQueryRepositoryIntegrationTests : BaseChatMessage
 		IEnumTransformer<CommonSortOrder> transformer, ISortEnumTermTransformer<ChatMessage> termTransformer)
 	{
 		// Arrange
-		var filterQuery = _filterQueryBuilder.WithParticipantOneId(ParticipantTwoId).WithParticipantTwoId(ParticipantOneId).Build();
-		var currentUserQuery = _currentUserQueryBuilder.WithCurrentUserId(ParticipantTwoId).Build();
 		var sortingQuery = _sortingQueryBuilder.WithSortOrder(transformer).Build();
 
 		// Act
-		var response = await Repository.GetAllAsync(filterQuery, sortingQuery, _paginationQuery, currentUserQuery, CancellationToken);
+		var response = await Repository.GetAllAsync(_invertedFilterQuery, sortingQuery, _paginationQuery, _invertedCurrentUserQuery, CancellationToken);
 
 		// Assert
-		response.ShouldSatisfyInverted(filterQuery, sortingQuery, _paginationQuery, currentUserQuery, Chat, ChatMessages, termTransformer);
+		response.ShouldSatisfyInverted(_invertedFilterQuery, sortingQuery, _paginationQuery, _invertedCurrentUserQuery, Chat, ChatMessages, termTransformer);
 	}
 
 	[Theory]
@@ -231,14 +234,12 @@ public class GetAllChatMessagesQueryRepositoryIntegrationTests : BaseChatMessage
 		IEnumTransformer<ChatMessagesSortTerm> transformer, ISortEnumTermTransformer<ChatMessage> termTransformer)
 	{
 		// Arrange
-		var filterQuery = _filterQueryBuilder.WithParticipantOneId(ParticipantTwoId).WithParticipantTwoId(ParticipantOneId).Build();
-		var currentUserQuery = _currentUserQueryBuilder.WithCurrentUserId(ParticipantTwoId).Build();
 		var sortingQuery = _sortingQueryBuilder.WithSortTerm(transformer).Build();
 
 		// Act
-		var response = await Repository.GetAllAsync(filterQuery, sortingQuery, _paginationQuery, currentUserQuery, CancellationToken);
+		var response = await Repository.GetAllAsync(_invertedFilterQuery, sortingQuery, _paginationQuery, _invertedCurrentUserQuery, CancellationToken);
 
 		// Assert
-		response.ShouldSatisfyInverted(filterQuery, sortingQuery, _paginationQuery, currentUserQuery, Chat, ChatMessages, termTransformer);
+		response.ShouldSatisfyInverted(_invertedFilterQuery, sortingQuery, _paginationQuery, _invertedCurrentUserQuery, Chat, ChatMessages, termTransformer);
 	}
 }

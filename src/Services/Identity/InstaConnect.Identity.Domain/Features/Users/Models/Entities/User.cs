@@ -147,9 +147,23 @@ public class User : IEntityWithId<UserId>
 		return this;
 	}
 
+	public User AddUserClaims(ICollection<UserClaim> userClaims)
+	{
+		UserClaims.AddRange(userClaims);
+
+		return this;
+	}
+
 	public User AddRefreshToken(RefreshToken refreshToken)
 	{
 		RefreshTokens.Add(refreshToken);
+
+		return this;
+	}
+
+	public User AddRefreshTokens(ICollection<RefreshToken> refreshTokens)
+	{
+		RefreshTokens.AddRange(refreshTokens);
 
 		return this;
 	}
@@ -161,9 +175,23 @@ public class User : IEntityWithId<UserId>
 		return this;
 	}
 
+	public User AddForgotPasswordTokens(ICollection<ForgotPasswordToken> forgotPasswordTokens)
+	{
+		ForgotPasswordTokens.AddRange(forgotPasswordTokens);
+
+		return this;
+	}
+
 	public User AddEmailConfirmationToken(EmailConfirmationToken emailConfirmationToken)
 	{
 		EmailConfirmationTokens.Add(emailConfirmationToken);
+
+		return this;
+	}
+
+	public User AddEmailConfirmationTokens(ICollection<EmailConfirmationToken> emailConfirmationTokens)
+	{
+		EmailConfirmationTokens.AddRange(emailConfirmationTokens);
 
 		return this;
 	}

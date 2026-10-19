@@ -6,4 +6,9 @@ public class ChatMessageImageBuilderFactory
 	{
 		return new(chatMessage);
 	}
+
+	public ChatMessageImageBuilder Create(ChatMessageImage chatMessageImage)
+	{
+		return new(chatMessageImage);
+	}
 }

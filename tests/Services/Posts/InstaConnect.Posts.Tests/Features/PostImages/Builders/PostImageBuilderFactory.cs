@@ -6,4 +6,9 @@ public class PostImageBuilderFactory
 	{
 		return new(post);
 	}
+
+	public PostImageBuilder Create(PostImage postImage)
+	{
+		return new(postImage);
+	}
 }

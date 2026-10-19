@@ -6,12 +6,18 @@ public class AddChatFunctionalTests : BaseChatPresentationCommandFunctionalTest
 	private readonly AddChatApiRequestBuilder _requestBuilder;
 	private readonly AddChatApiRequest _request;
 
+	private readonly AddChatApiRequestBuilder _invertedRequestBuilder;
+	private readonly AddChatApiRequest _invertedRequest;
+
 	public AddChatFunctionalTests(ChatsWebApplicationFactory webApplicationFactory)
 		: base(webApplicationFactory)
 	{
 		_requestBuilderFactory = new();
 		_requestBuilder = _requestBuilderFactory.Create(ParticipantOne, ParticipantTwo);
 		_request = _requestBuilder.Build();
+
+		_invertedRequestBuilder = _requestBuilderFactory.Create(ParticipantOne, ParticipantTwo).WithParticipantOneId(ParticipantTwoId).WithParticipantTwoId(ParticipantOneId);
+		_invertedRequest = _invertedRequestBuilder.Build();
 	}
 
 	[Fact]
@@ -196,13 +202,12 @@ public class AddChatFunctionalTests : BaseChatPresentationCommandFunctionalTest
 	{
 		// Arrange
 		await ServiceScope.AddAsync(Chat, CancellationToken);
-		var request = _requestBuilder.WithParticipantOneId(ParticipantTwoId).WithParticipantTwoId(ParticipantOneId).Build();
 
 		// Act
-		var response = await ApiClient.AddProblemDetailsAsync(request, CancellationToken);
+		var response = await ApiClient.AddProblemDetailsAsync(_invertedRequest, CancellationToken);
 
 		// Assert
-		response.ShouldSatisfyChatAlreadyExists(request);
+		response.ShouldSatisfyChatAlreadyExists(_invertedRequest);
 	}
 
 	[Theory]
@@ -212,13 +217,13 @@ public class AddChatFunctionalTests : BaseChatPresentationCommandFunctionalTest
 	{
 		// Arrange
 		await ServiceScope.AddAsync(Chat, CancellationToken);
-		var request = _requestBuilder.WithParticipantOneId(ParticipantTwoId, transformer).WithParticipantTwoId(ParticipantOneId).Build();
+		var invertedRequest = _invertedRequestBuilder.WithParticipantOneId(transformer).Build();
 
 		// Act
-		var response = await ApiClient.AddProblemDetailsAsync(request, CancellationToken);
+		var response = await ApiClient.AddProblemDetailsAsync(invertedRequest, CancellationToken);
 
 		// Assert
-		response.ShouldSatisfyChatAlreadyExists(request);
+		response.ShouldSatisfyChatAlreadyExists(invertedRequest);
 	}
 
 	[Theory]
@@ -228,13 +233,13 @@ public class AddChatFunctionalTests : BaseChatPresentationCommandFunctionalTest
 	{
 		// Arrange
 		await ServiceScope.AddAsync(Chat, CancellationToken);
-		var request = _requestBuilder.WithParticipantOneId(ParticipantTwoId).WithParticipantTwoId(ParticipantOneId, transformer).Build();
+		var invertedRequest = _invertedRequestBuilder.WithParticipantTwoId(transformer).Build();
 
 		// Act
-		var response = await ApiClient.AddProblemDetailsAsync(request, CancellationToken);
+		var response = await ApiClient.AddProblemDetailsAsync(invertedRequest, CancellationToken);
 
 		// Assert
-		response.ShouldSatisfyChatAlreadyExists(request);
+		response.ShouldSatisfyChatAlreadyExists(invertedRequest);
 	}
 
 	[Fact]

@@ -87,6 +87,13 @@ public class PostComment : IEntityWithId<PostCommentId>
 		return this;
 	}
 
+	public PostComment AddPostCommentLikes(ICollection<PostCommentLike> postCommentLikes)
+	{
+		PostCommentLikes.AddRange(postCommentLikes);
+
+		return this;
+	}
+
 	public PostComment AddPostCommentImage(PostCommentImage postCommentImage)
 	{
 		PostCommentImages.Add(postCommentImage);
