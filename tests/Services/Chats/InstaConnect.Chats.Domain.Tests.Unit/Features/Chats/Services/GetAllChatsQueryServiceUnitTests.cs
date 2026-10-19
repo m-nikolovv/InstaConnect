@@ -29,7 +29,7 @@ public class GetAllChatsQueryServiceUnitTests : BaseChatDomainQueryUnitTest
 	}
 
 	[Fact]
-	public async Task GetAllAsync_ShouldThrowUserNotFoundException_WhenParticipantOneIdIsInvalid()
+	public async Task GetAllAsync_ShouldThrowUserNotFoundException_WhenUserNotFound()
 	{
 		// Arrange
 		UserRepository.RemoveGetByIdAsync(_query, ParticipantOne, CancellationToken);

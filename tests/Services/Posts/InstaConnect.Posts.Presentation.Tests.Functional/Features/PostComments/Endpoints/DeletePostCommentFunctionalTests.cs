@@ -131,7 +131,7 @@ public class DeletePostCommentFunctionalTests : BasePostCommentPresentationComma
 	}
 
 	[Fact]
-	public async Task DeleteAsync_ShouldHaveNotFoundStatusCode_WhenIdIsInvalid()
+	public async Task DeleteAsync_ShouldHaveNotFoundStatusCode_WhenPostNotFound()
 	{
 		// Arrange
 		await ServiceScope.DeleteAsync(Post, CancellationToken);
@@ -144,7 +144,7 @@ public class DeletePostCommentFunctionalTests : BasePostCommentPresentationComma
 	}
 
 	[Fact]
-	public async Task DeleteAsync_ShouldHavePostNotFoundProblemDetails_WhenIdIsInvalid()
+	public async Task DeleteAsync_ShouldHavePostNotFoundProblemDetails_WhenPostNotFound()
 	{
 		// Arrange
 		await ServiceScope.DeleteAsync(Post, CancellationToken);
@@ -157,7 +157,7 @@ public class DeletePostCommentFunctionalTests : BasePostCommentPresentationComma
 	}
 
 	[Fact]
-	public async Task DeleteAsync_ShouldHaveNotFoundStatusCode_WhenCommentIdIsInvalid()
+	public async Task DeleteAsync_ShouldHaveNotFoundStatusCode_WhenPostCommentNotFound()
 	{
 		// Arrange
 		await ServiceScope.DeleteAsync(PostComment, CancellationToken);
@@ -170,7 +170,7 @@ public class DeletePostCommentFunctionalTests : BasePostCommentPresentationComma
 	}
 
 	[Fact]
-	public async Task DeleteAsync_ShouldHavePostCommentNotFoundProblemDetails_WhenCommentIdIsInvalid()
+	public async Task DeleteAsync_ShouldHavePostCommentNotFoundProblemDetails_WhenPostCommentNotFound()
 	{
 		// Arrange
 		await ServiceScope.DeleteAsync(PostComment, CancellationToken);
@@ -183,7 +183,7 @@ public class DeletePostCommentFunctionalTests : BasePostCommentPresentationComma
 	}
 
 	[Fact]
-	public async Task DeleteAsync_ShouldHaveForbiddenStatusCode_WhenUserIdIsInvalid()
+	public async Task DeleteAsync_ShouldHaveForbiddenStatusCode_WhenPostCommentForbidden()
 	{
 		// Arrange
 		var user = UserBuilderFactory.Create().Build();
@@ -198,7 +198,7 @@ public class DeletePostCommentFunctionalTests : BasePostCommentPresentationComma
 	}
 
 	[Fact]
-	public async Task DeleteAsync_ShouldHavePostCommentForbiddenProblemDetails_WhenUserIdIsInvalid()
+	public async Task DeleteAsync_ShouldHavePostCommentForbiddenProblemDetails_WhenPostCommentForbidden()
 	{
 		// Arrange
 		var user = UserBuilderFactory.Create().Build();

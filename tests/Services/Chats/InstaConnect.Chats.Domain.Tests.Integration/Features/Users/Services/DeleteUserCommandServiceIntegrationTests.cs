@@ -28,7 +28,7 @@ public class DeleteUserCommandServiceIntegrationTests : BaseUserDomainCommandInt
 	}
 
 	[Fact]
-	public async Task DeleteAsync_ShouldThrowUserNotFoundException_WhenCommandIsInvalid()
+	public async Task DeleteAsync_ShouldThrowUserNotFoundException_WhenUserNotFound()
 	{
 		// Arrange
 		await ServiceScope.DeleteAsync(User, CancellationToken);

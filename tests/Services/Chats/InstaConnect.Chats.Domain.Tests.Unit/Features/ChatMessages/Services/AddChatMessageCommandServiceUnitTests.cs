@@ -36,7 +36,7 @@ public class AddChatMessageCommandServiceUnitTests : BaseChatMessageDomainComman
 	}
 
 	[Fact]
-	public async Task AddAsync_ShouldThrowChatNotFoundException_WhenIdIsInvalid()
+	public async Task AddAsync_ShouldThrowChatNotFoundException_WhenChatNotFound()
 	{
 		// Arrange
 		Repository.RemoveGetByIdAsync(_command, _include, Chat, CancellationToken);

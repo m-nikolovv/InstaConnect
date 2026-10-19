@@ -32,7 +32,7 @@ public class DeleteUserClaimCommandServiceUnitTests : BaseUserClaimDomainCommand
 	}
 
 	[Fact]
-	public async Task DeleteAsync_ShouldThrowUserNotFoundException_WhenUserIdIsInvalid()
+	public async Task DeleteAsync_ShouldThrowUserNotFoundException_WhenUserNotFound()
 	{
 		// Arrange
 		Repository.RemoveExistsByIdAsync(_command, CancellationToken);

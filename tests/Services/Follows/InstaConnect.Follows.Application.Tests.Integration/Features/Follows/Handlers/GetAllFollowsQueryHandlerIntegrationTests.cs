@@ -120,7 +120,7 @@ public class GetAllFollowsQueryHandlerIntegrationTests : BaseFollowApplicationQu
 	}
 
 	[Fact]
-	public async Task SendAsync_ShouldThrowFollowerNotFoundException_WhenFollowerIdIsInvalid()
+	public async Task SendAsync_ShouldThrowFollowerNotFoundException_WhenFollowerNotFound()
 	{
 		// Arrange
 		await ServiceScope.DeleteAsync(Follower, CancellationToken);

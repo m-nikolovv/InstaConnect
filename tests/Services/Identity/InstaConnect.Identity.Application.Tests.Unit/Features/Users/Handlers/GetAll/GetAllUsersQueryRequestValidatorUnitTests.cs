@@ -145,7 +145,7 @@ public class GetAllUsersQueryRequestValidatorUnitTests : BaseUserApplicationQuer
 	[Theory]
 	[UserNameEmptyData]
 	[UserNameNullData]
-	public void TestValidate_ShouldNotHaveAnyValidationsErrors_WhenNameIsValid(
+	public void TestValidate_ShouldNotHaveAnyValidationErrors_WhenNameIsValid(
 		IStringTransformer transformer)
 	{
 		// Arrange
@@ -161,7 +161,7 @@ public class GetAllUsersQueryRequestValidatorUnitTests : BaseUserApplicationQuer
 	[Theory]
 	[UserFirstNameEmptyData]
 	[UserFirstNameNullData]
-	public void TestValidate_ShouldNotHaveAnyValidationsErrors_WhenFirstNameIsValid(
+	public void TestValidate_ShouldNotHaveAnyValidationErrors_WhenFirstNameIsValid(
 		IStringTransformer transformer)
 	{
 		// Arrange
@@ -177,7 +177,7 @@ public class GetAllUsersQueryRequestValidatorUnitTests : BaseUserApplicationQuer
 	[Theory]
 	[UserLastNameEmptyData]
 	[UserLastNameNullData]
-	public void TestValidate_ShouldNotHaveAnyValidationsErrors_WhenLastNameIsValid(
+	public void TestValidate_ShouldNotHaveAnyValidationErrors_WhenLastNameIsValid(
 		IStringTransformer transformer)
 	{
 		// Arrange
@@ -193,7 +193,7 @@ public class GetAllUsersQueryRequestValidatorUnitTests : BaseUserApplicationQuer
 	[Theory]
 	[UserIdNullData]
 	[UserIdEmptyData]
-	public void TestValidate_ShouldNotHaveAnyValidationsErrors_WhenCurrentIdIsValid(
+	public void TestValidate_ShouldNotHaveAnyValidationErrors_WhenCurrentIdIsValid(
 		IStringTransformer transformer)
 	{
 		// Arrange
@@ -207,7 +207,7 @@ public class GetAllUsersQueryRequestValidatorUnitTests : BaseUserApplicationQuer
 	}
 
 	[Fact]
-	public void TestValidate_ShouldNotHaveAnyValidationsErrors_WhenRequestIsValid()
+	public void TestValidate_ShouldNotHaveAnyValidationErrors_WhenRequestIsValid()
 	{
 		// Act
 		var response = _requestValidator.TestValidate(_request);

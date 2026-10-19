@@ -41,7 +41,7 @@ public class UserDeletedEventHandlerIntegrationTests : BaseUserInfrastructureEve
 	}
 
 	[Fact]
-	public async Task Consume_ShouldThrowUserNotFoundException_WhenIdNotFound()
+	public async Task Consume_ShouldThrowUserNotFoundException_WhenUserNotFound()
 	{
 		// Arrange
 		await ServiceScope.DeleteAsync(User, CancellationToken);

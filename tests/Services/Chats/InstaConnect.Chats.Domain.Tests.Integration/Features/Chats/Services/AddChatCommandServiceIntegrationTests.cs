@@ -31,7 +31,7 @@ public class AddChatCommandServiceIntegrationTests : BaseChatDomainCommandIntegr
 	}
 
 	[Fact]
-	public async Task AddAsync_ShouldThrowUserNotFoundException_WhenParticipantOneIdIsInvalid()
+	public async Task AddAsync_ShouldThrowUserNotFoundException_WhenUserNotFoundAndParticipantOneIdIsInvalid()
 	{
 		// Arrange
 		await ServiceScope.DeleteAsync(ParticipantOne, CancellationToken);
@@ -41,7 +41,7 @@ public class AddChatCommandServiceIntegrationTests : BaseChatDomainCommandIntegr
 	}
 
 	[Fact]
-	public async Task AddAsync_ShouldThrowUserNotFoundException_WhenParticipantTwoIdIsInvalid()
+	public async Task AddAsync_ShouldThrowUserNotFoundException_WhenUserNotFoundAndParticipantTwoIdIsInvalid()
 	{
 		// Arrange
 		await ServiceScope.DeleteAsync(ParticipantTwo, CancellationToken);
@@ -62,7 +62,7 @@ public class AddChatCommandServiceIntegrationTests : BaseChatDomainCommandIntegr
 
 	[Theory]
 	[UserIdDifferentCaseData]
-	public async Task AddAsync_ShouldThrowChatAlreadyExistsException_WhenChatAlreadyExistsAndParticipantOneIdIsValid(
+	public async Task AddAsync_ShouldThrowChatAlreadyExistsException_WhenChatAlreadyExistsAndParticipantOneIdIsInvalid(
 		IStringTransformer transformer)
 	{
 		// Arrange
@@ -75,7 +75,7 @@ public class AddChatCommandServiceIntegrationTests : BaseChatDomainCommandIntegr
 
 	[Theory]
 	[UserIdDifferentCaseData]
-	public async Task AddAsync_ShouldThrowChatAlreadyExistsException_WhenChatAlreadyExistsAndParticipantTwoIdIsValid(
+	public async Task AddAsync_ShouldThrowChatAlreadyExistsException_WhenChatAlreadyExistsAndParticipantTwoIdIsInvalid(
 		IStringTransformer transformer)
 	{
 		// Arrange
@@ -98,7 +98,7 @@ public class AddChatCommandServiceIntegrationTests : BaseChatDomainCommandIntegr
 
 	[Theory]
 	[UserIdDifferentCaseData]
-	public async Task AddAsync_ShouldThrowChatAlreadyExistsException_WhenInvertedChatAlreadyExistsAndParticipantOneIdIsValid(
+	public async Task AddAsync_ShouldThrowChatAlreadyExistsException_WhenInvertedChatAlreadyExistsAndParticipantOneIdIsInvalid(
 		IStringTransformer transformer)
 	{
 		// Arrange
@@ -111,7 +111,7 @@ public class AddChatCommandServiceIntegrationTests : BaseChatDomainCommandIntegr
 
 	[Theory]
 	[UserIdDifferentCaseData]
-	public async Task AddAsync_ShouldThrowChatAlreadyExistsException_WhenInvertedChatAlreadyExistsAndParticipantTwoIdIsValid(
+	public async Task AddAsync_ShouldThrowChatAlreadyExistsException_WhenInvertedChatAlreadyExistsAndParticipantTwoIdIsInvalid(
 		IStringTransformer transformer)
 	{
 		// Arrange

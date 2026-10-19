@@ -135,7 +135,7 @@ public class GetChatMessageByIdFunctionalTests : BaseChatMessagePresentationQuer
 	}
 
 	[Fact]
-	public async Task GetByIdAsync_ShouldHaveNotFoundStatusCode_WhenIdIsInvalid()
+	public async Task GetByIdAsync_ShouldHaveNotFoundStatusCode_WhenChatNotFound()
 	{
 		// Arrange
 		await ServiceScope.DeleteAsync(Chat, CancellationToken);
@@ -148,7 +148,7 @@ public class GetChatMessageByIdFunctionalTests : BaseChatMessagePresentationQuer
 	}
 
 	[Fact]
-	public async Task GetByIdAsync_ShouldHaveChatNotFoundProblemDetails_WhenIdIsInvalid()
+	public async Task GetByIdAsync_ShouldHaveChatNotFoundProblemDetails_WhenChatNotFound()
 	{
 		// Arrange
 		await ServiceScope.DeleteAsync(Chat, CancellationToken);
@@ -161,7 +161,7 @@ public class GetChatMessageByIdFunctionalTests : BaseChatMessagePresentationQuer
 	}
 
 	[Fact]
-	public async Task GetByIdAsync_ShouldHaveNotFoundStatusCode_WhenMessageIdIsInvalid()
+	public async Task GetByIdAsync_ShouldHaveNotFoundStatusCode_WhenChatMessageNotFound()
 	{
 		// Arrange
 		await ServiceScope.DeleteAsync(ChatMessage, CancellationToken);
@@ -174,7 +174,7 @@ public class GetChatMessageByIdFunctionalTests : BaseChatMessagePresentationQuer
 	}
 
 	[Fact]
-	public async Task GetByIdAsync_ShouldHaveChatMessageNotFoundProblemDetails_WhenMessageIdIsInvalid()
+	public async Task GetByIdAsync_ShouldHaveChatMessageNotFoundProblemDetails_WhenChatMessageNotFound()
 	{
 		// Arrange
 		await ServiceScope.DeleteAsync(ChatMessage, CancellationToken);

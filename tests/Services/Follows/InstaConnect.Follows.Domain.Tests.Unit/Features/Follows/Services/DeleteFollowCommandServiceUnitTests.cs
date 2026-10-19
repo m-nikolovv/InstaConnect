@@ -31,7 +31,7 @@ public class DeleteFollowCommandServiceUnitTests : BaseFollowDomainCommandUnitTe
 	}
 
 	[Fact]
-	public async Task DeleteAsync_ShouldThrowFollowNotFoundException_WhenIdIsInvalid()
+	public async Task DeleteAsync_ShouldThrowFollowNotFoundException_WhenFollowNotFound()
 	{
 		// Arrange
 		Repository.RemoveGetByIdAsync(_command, _include, Follow, CancellationToken);

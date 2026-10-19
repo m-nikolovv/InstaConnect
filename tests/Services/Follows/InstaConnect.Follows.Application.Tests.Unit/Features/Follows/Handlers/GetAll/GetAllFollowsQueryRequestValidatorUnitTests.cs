@@ -133,7 +133,7 @@ public class GetAllFollowsQueryRequestValidatorUnitTests : BaseFollowApplication
 	[Theory]
 	[UserNameEmptyData]
 	[UserNameNullData]
-	public void TestValidate_ShouldNotHaveAnyValidationsErrors_WhenFollowingNameIsValid(
+	public void TestValidate_ShouldNotHaveAnyValidationErrors_WhenFollowingNameIsValid(
 		IStringTransformer transformer)
 	{
 		// Arrange
@@ -149,7 +149,7 @@ public class GetAllFollowsQueryRequestValidatorUnitTests : BaseFollowApplication
 	[Theory]
 	[UserIdNullData]
 	[UserIdEmptyData]
-	public void TestValidate_ShouldNotHaveAnyValidationsErrors_WhenCurrentUserIdIsValid(
+	public void TestValidate_ShouldNotHaveAnyValidationErrors_WhenCurrentUserIdIsValid(
 		IStringTransformer transformer)
 	{
 		// Arrange
@@ -163,7 +163,7 @@ public class GetAllFollowsQueryRequestValidatorUnitTests : BaseFollowApplication
 	}
 
 	[Fact]
-	public void TestValidate_ShouldNotHaveAnyValidationsErrors_WhenRequestIsValid()
+	public void TestValidate_ShouldNotHaveAnyValidationErrors_WhenRequestIsValid()
 	{
 		// Act
 		var response = _requestValidator.TestValidate(_request);

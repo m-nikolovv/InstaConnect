@@ -171,7 +171,7 @@ public class UpdatePostFunctionalTests : BasePostPresentationCommandFunctionalTe
 	}
 
 	[Fact]
-	public async Task UpdateAsync_ShouldHaveNotFoundStatusCode_WhenIdIsInvalid()
+	public async Task UpdateAsync_ShouldHaveNotFoundStatusCode_WhenPostNotFound()
 	{
 		// Arrange
 		await ServiceScope.DeleteAsync(Post, CancellationToken);
@@ -184,7 +184,7 @@ public class UpdatePostFunctionalTests : BasePostPresentationCommandFunctionalTe
 	}
 
 	[Fact]
-	public async Task UpdateAsync_ShouldHavePostNotFoundProblemDetails_WhenIdIsInvalid()
+	public async Task UpdateAsync_ShouldHavePostNotFoundProblemDetails_WhenPostNotFound()
 	{
 		// Arrange
 		await ServiceScope.DeleteAsync(Post, CancellationToken);
@@ -197,7 +197,7 @@ public class UpdatePostFunctionalTests : BasePostPresentationCommandFunctionalTe
 	}
 
 	[Fact]
-	public async Task UpdateAsync_ShouldHaveForbiddenStatusCode_WhenUserIdIsInvalid()
+	public async Task UpdateAsync_ShouldHaveForbiddenStatusCode_WhenPostForbidden()
 	{
 		// Arrange
 		var user = UserBuilderFactory.Create().Build();
@@ -212,7 +212,7 @@ public class UpdatePostFunctionalTests : BasePostPresentationCommandFunctionalTe
 	}
 
 	[Fact]
-	public async Task UpdateAsync_ShouldHavePostForbiddenProblemDetails_WhenUserIdIsInvalid()
+	public async Task UpdateAsync_ShouldHavePostForbiddenProblemDetails_WhenPostForbidden()
 	{
 		// Arrange
 		var user = UserBuilderFactory.Create().Build();

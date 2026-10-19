@@ -50,7 +50,7 @@ public class RotateRefreshTokenCommandServiceIntegrationTests : BaseRefreshToken
 	}
 
 	[Fact]
-	public async Task RotateAsync_ShouldThrowRefreshTokenExpiredException_WhenRefreshTokenHasExpired()
+	public async Task RotateAsync_ShouldThrowRefreshTokenExpiredException_WhenRefreshTokenExpired()
 	{
 		// Arrange
 		var updatedRefreshToken = RefreshTokenBuilder.WithAlreadyExpiresAtUtc().Build();

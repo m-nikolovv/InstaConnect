@@ -53,7 +53,7 @@ public class GetUserDetailsByIdQueryRequestValidatorUnitTests : BaseUserApplicat
 	[Theory]
 	[UserIdNullData]
 	[UserIdEmptyData]
-	public void TestValidate_ShouldNotHaveAnyValidationsErrors_WhenCurrentIdIsValid(
+	public void TestValidate_ShouldNotHaveAnyValidationErrors_WhenCurrentIdIsValid(
 		IStringTransformer transformer)
 	{
 		// Arrange
@@ -67,7 +67,7 @@ public class GetUserDetailsByIdQueryRequestValidatorUnitTests : BaseUserApplicat
 	}
 
 	[Fact]
-	public void TestValidate_ShouldNotHaveAnyValidationsErrors_WhenRequestIsValid()
+	public void TestValidate_ShouldNotHaveAnyValidationErrors_WhenRequestIsValid()
 	{
 		// Act
 		var response = _requestValidator.TestValidate(_request);

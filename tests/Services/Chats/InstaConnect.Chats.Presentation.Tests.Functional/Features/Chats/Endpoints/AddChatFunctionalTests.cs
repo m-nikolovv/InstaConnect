@@ -101,7 +101,7 @@ public class AddChatFunctionalTests : BaseChatPresentationCommandFunctionalTest
 	}
 
 	[Fact]
-	public async Task AddAsync_ShouldHaveNotFoundStatusCode_WhenParticipantOneIdIsInvalid()
+	public async Task AddAsync_ShouldHaveNotFoundStatusCode_WhenParticipantOneNotFound()
 	{
 		// Arrange
 		await ServiceScope.DeleteAsync(ParticipantOne, CancellationToken);
@@ -114,7 +114,7 @@ public class AddChatFunctionalTests : BaseChatPresentationCommandFunctionalTest
 	}
 
 	[Fact]
-	public async Task AddAsync_ShouldHaveParticipantOneNotFoundProblemDetails_WhenParticipantOneIdIsInvalid()
+	public async Task AddAsync_ShouldHaveParticipantOneNotFoundProblemDetails_WhenParticipantOneNotFound()
 	{
 		// Arrange
 		await ServiceScope.DeleteAsync(ParticipantOne, CancellationToken);
@@ -127,7 +127,7 @@ public class AddChatFunctionalTests : BaseChatPresentationCommandFunctionalTest
 	}
 
 	[Fact]
-	public async Task AddAsync_ShouldHaveNotFoundStatusCode_WhenParticipantTwoIdIsInvalid()
+	public async Task AddAsync_ShouldHaveNotFoundStatusCode_WhenParticipantTwoNotFound()
 	{
 		// Arrange
 		await ServiceScope.DeleteAsync(ParticipantTwo, CancellationToken);
@@ -140,7 +140,7 @@ public class AddChatFunctionalTests : BaseChatPresentationCommandFunctionalTest
 	}
 
 	[Fact]
-	public async Task AddAsync_ShouldHaveParticipantTwoNotFoundProblemDetails_WhenParticipantTwoIdIsInvalid()
+	public async Task AddAsync_ShouldHaveParticipantTwoNotFoundProblemDetails_WhenParticipantTwoNotFound()
 	{
 		// Arrange
 		await ServiceScope.DeleteAsync(ParticipantTwo, CancellationToken);
@@ -150,6 +150,19 @@ public class AddChatFunctionalTests : BaseChatPresentationCommandFunctionalTest
 
 		// Assert
 		response.ShouldSatisfyParticipantTwoNotFound(_request);
+	}
+
+	[Fact]
+	public async Task AddAsync_ShouldHaveBadRequestStatusCode_WhenChatAlreadyExists()
+	{
+		// Arrange
+		await ServiceScope.AddAsync(Chat, CancellationToken);
+
+		// Act
+		var response = await ApiClient.AddStatusCodeAsync(_request, CancellationToken);
+
+		// Assert
+		response.ShouldBeBadRequest();
 	}
 
 	[Fact]
@@ -167,7 +180,23 @@ public class AddChatFunctionalTests : BaseChatPresentationCommandFunctionalTest
 
 	[Theory]
 	[UserIdDifferentCaseData]
-	public async Task AddAsync_ShouldHaveChatAlreadyExistsProblemDetails_WhenChatAlreadyExistsAndParticipantOneIdIsValid(
+	public async Task AddAsync_ShouldHaveBadRequestStatusCode_WhenChatAlreadyExistsAndParticipantOneIdIsInvalid(
+		IStringTransformer transformer)
+	{
+		// Arrange
+		await ServiceScope.AddAsync(Chat, CancellationToken);
+		var request = _requestBuilder.WithParticipantOneId(transformer).Build();
+
+		// Act
+		var response = await ApiClient.AddStatusCodeAsync(request, CancellationToken);
+
+		// Assert
+		response.ShouldBeBadRequest();
+	}
+
+	[Theory]
+	[UserIdDifferentCaseData]
+	public async Task AddAsync_ShouldHaveChatAlreadyExistsProblemDetails_WhenChatAlreadyExistsAndParticipantOneIdIsInvalid(
 		IStringTransformer transformer)
 	{
 		// Arrange
@@ -183,7 +212,23 @@ public class AddChatFunctionalTests : BaseChatPresentationCommandFunctionalTest
 
 	[Theory]
 	[UserIdDifferentCaseData]
-	public async Task AddAsync_ShouldHaveChatAlreadyExistsProblemDetails_WhenChatAlreadyExistsAndParticipantTwoIdIsValid(
+	public async Task AddAsync_ShouldHaveBadRequestStatusCode_WhenChatAlreadyExistsAndParticipantTwoIdIsInvalid(
+		IStringTransformer transformer)
+	{
+		// Arrange
+		await ServiceScope.AddAsync(Chat, CancellationToken);
+		var request = _requestBuilder.WithParticipantTwoId(transformer).Build();
+
+		// Act
+		var response = await ApiClient.AddStatusCodeAsync(request, CancellationToken);
+
+		// Assert
+		response.ShouldBeBadRequest();
+	}
+
+	[Theory]
+	[UserIdDifferentCaseData]
+	public async Task AddAsync_ShouldHaveChatAlreadyExistsProblemDetails_WhenChatAlreadyExistsAndParticipantTwoIdIsInvalid(
 		IStringTransformer transformer)
 	{
 		// Arrange
@@ -195,6 +240,19 @@ public class AddChatFunctionalTests : BaseChatPresentationCommandFunctionalTest
 
 		// Assert
 		response.ShouldSatisfyChatAlreadyExists(request);
+	}
+
+	[Fact]
+	public async Task AddAsync_ShouldHaveBadRequestStatusCode_WhenInvertedChatAlreadyExists()
+	{
+		// Arrange
+		await ServiceScope.AddAsync(Chat, CancellationToken);
+
+		// Act
+		var response = await ApiClient.AddStatusCodeAsync(_invertedRequest, CancellationToken);
+
+		// Assert
+		response.ShouldBeBadRequest();
 	}
 
 	[Fact]
@@ -212,7 +270,23 @@ public class AddChatFunctionalTests : BaseChatPresentationCommandFunctionalTest
 
 	[Theory]
 	[UserIdDifferentCaseData]
-	public async Task AddAsync_ShouldHaveChatAlreadyExistsProblemDetails_WhenInvertedChatAlreadyExistsAndParticipantOneIdIsValid(
+	public async Task AddAsync_ShouldHaveBadRequestStatusCode_WhenInvertedChatAlreadyExistsAndParticipantOneIdIsInvalid(
+		IStringTransformer transformer)
+	{
+		// Arrange
+		await ServiceScope.AddAsync(Chat, CancellationToken);
+		var invertedRequest = _invertedRequestBuilder.WithParticipantOneId(transformer).Build();
+
+		// Act
+		var response = await ApiClient.AddStatusCodeAsync(invertedRequest, CancellationToken);
+
+		// Assert
+		response.ShouldBeBadRequest();
+	}
+
+	[Theory]
+	[UserIdDifferentCaseData]
+	public async Task AddAsync_ShouldHaveChatAlreadyExistsProblemDetails_WhenInvertedChatAlreadyExistsAndParticipantOneIdIsInvalid(
 		IStringTransformer transformer)
 	{
 		// Arrange
@@ -228,7 +302,23 @@ public class AddChatFunctionalTests : BaseChatPresentationCommandFunctionalTest
 
 	[Theory]
 	[UserIdDifferentCaseData]
-	public async Task AddAsync_ShouldHaveChatAlreadyExistsProblemDetails_WhenInvertedChatAlreadyExistsAndParticipantTwoIdIsValid(
+	public async Task AddAsync_ShouldHaveBadRequestStatusCode_WhenInvertedChatAlreadyExistsAndParticipantTwoIdIsInvalid(
+		IStringTransformer transformer)
+	{
+		// Arrange
+		await ServiceScope.AddAsync(Chat, CancellationToken);
+		var invertedRequest = _invertedRequestBuilder.WithParticipantTwoId(transformer).Build();
+
+		// Act
+		var response = await ApiClient.AddStatusCodeAsync(invertedRequest, CancellationToken);
+
+		// Assert
+		response.ShouldBeBadRequest();
+	}
+
+	[Theory]
+	[UserIdDifferentCaseData]
+	public async Task AddAsync_ShouldHaveChatAlreadyExistsProblemDetails_WhenInvertedChatAlreadyExistsAndParticipantTwoIdIsInvalid(
 		IStringTransformer transformer)
 	{
 		// Arrange

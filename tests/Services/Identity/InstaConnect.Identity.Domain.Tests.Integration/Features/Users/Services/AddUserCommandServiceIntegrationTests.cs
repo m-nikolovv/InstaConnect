@@ -30,7 +30,7 @@ public class AddUserCommandServiceIntegrationTests : BaseUserDomainCommandIntegr
 	}
 
 	[Fact]
-	public async Task AddAsync_ShouldThrowUserEmailAlreadyTakenException_WhenEmailIsNotUnique()
+	public async Task AddAsync_ShouldThrowUserEmailAlreadyTakenException_WhenUserEmailAlreadyTaken()
 	{
 		// Arrange
 		await ServiceScope.AddAsync(User, CancellationToken);
@@ -42,7 +42,7 @@ public class AddUserCommandServiceIntegrationTests : BaseUserDomainCommandIntegr
 
 	[Theory]
 	[UserEmailDifferentCaseData]
-	public async Task AddAsync_ShouldThrowUserEmailAlreadyTakenException_WhenEmailIsNotUniqueAndCaseDiffers(
+	public async Task AddAsync_ShouldThrowUserEmailAlreadyTakenException_WhenUserEmailAlreadyTakenAndEmailIsInvalid(
 		IStringTransformer transformer)
 	{
 		// Arrange
@@ -54,7 +54,7 @@ public class AddUserCommandServiceIntegrationTests : BaseUserDomainCommandIntegr
 	}
 
 	[Fact]
-	public async Task AddAsync_ShouldThrowUserNameAlreadyTakenException_WhenNameIsNotUnique()
+	public async Task AddAsync_ShouldThrowUserNameAlreadyTakenException_WhenUserNameAlreadyTaken()
 	{
 		// Arrange
 		await ServiceScope.AddAsync(User, CancellationToken);
@@ -66,7 +66,7 @@ public class AddUserCommandServiceIntegrationTests : BaseUserDomainCommandIntegr
 
 	[Theory]
 	[UserNameDifferentCaseData]
-	public async Task AddAsync_ShouldThrowUserNameAlreadyTakenException_WhenNameIsNotUniqueAndCaseDiffers(
+	public async Task AddAsync_ShouldThrowUserNameAlreadyTakenException_WhenUserNameAlreadyTakenAndNameIsInvalid(
 		IStringTransformer transformer)
 	{
 		// Arrange

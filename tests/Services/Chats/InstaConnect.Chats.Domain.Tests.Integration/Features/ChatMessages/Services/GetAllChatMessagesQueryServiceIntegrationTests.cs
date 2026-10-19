@@ -44,7 +44,7 @@ public class GetAllChatMessagesQueryServiceIntegrationTests : BaseChatMessageDom
 	}
 
 	[Fact]
-	public async Task GetAllAsync_ShouldThrowChatNotFoundException_WhenIdIsInvalid()
+	public async Task GetAllAsync_ShouldThrowChatNotFoundException_WhenChatNotFound()
 	{
 		// Arrange
 		await ServiceScope.DeleteAsync(Chat, CancellationToken);

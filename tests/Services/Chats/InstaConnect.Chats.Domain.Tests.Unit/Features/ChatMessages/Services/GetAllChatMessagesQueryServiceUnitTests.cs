@@ -29,7 +29,7 @@ public class GetAllChatMessagesQueryServiceUnitTests : BaseChatMessageDomainQuer
 	}
 
 	[Fact]
-	public async Task GetAllAsync_ShouldThrowChatNotFoundException_WhenIdIsInvalid()
+	public async Task GetAllAsync_ShouldThrowChatNotFoundException_WhenChatNotFound()
 	{
 		// Arrange
 		Repository.RemoveGetByIdAsync(_query, Chat, CancellationToken);

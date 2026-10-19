@@ -33,7 +33,7 @@ public class DeletePostCommandServiceIntegrationTests : BasePostDomainCommandInt
 	}
 
 	[Fact]
-	public async Task DeleteAsync_ShouldThrowPostNotFoundException_WhenIdIsInvalid()
+	public async Task DeleteAsync_ShouldThrowPostNotFoundException_WhenPostNotFound()
 	{
 		// Arrange
 		await ServiceScope.DeleteAsync(Post, CancellationToken);
@@ -43,7 +43,7 @@ public class DeletePostCommandServiceIntegrationTests : BasePostDomainCommandInt
 	}
 
 	[Fact]
-	public async Task DeleteAsync_ShouldThrowPostForbiddenException_WhenUserIdIsInvalid()
+	public async Task DeleteAsync_ShouldThrowPostForbiddenException_WhenPostForbidden()
 	{
 		// Arrange
 		var user = UserBuilderFactory.Create().Build();

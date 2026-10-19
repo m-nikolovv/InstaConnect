@@ -126,7 +126,7 @@ public class AddUserClaimFunctionalTests : BaseUserClaimPresentationCommandFunct
 	}
 
 	[Fact]
-	public async Task AddAsync_ShouldHaveBadRequestStatusCode_WhenUserClaimAlreadyExists()
+	public async Task AddAsync_ShouldHaveBadRequestStatusCode_WhenUserClaimAlreadyTaken()
 	{
 		// Arrange
 		await ServiceScope.AddAsync(UserClaim, CancellationToken);
@@ -140,7 +140,7 @@ public class AddUserClaimFunctionalTests : BaseUserClaimPresentationCommandFunct
 
 	[Theory]
 	[UserIdDifferentCaseData]
-	public async Task AddAsync_ShouldHaveBadRequestStatusCode_WhenUserClaimAlreadyExistsAndCaseDiffers(
+	public async Task AddAsync_ShouldHaveBadRequestStatusCode_WhenUserClaimAlreadyTakenAndIdIsInvalid(
 		IStringTransformer transformer)
 	{
 		// Arrange
@@ -155,7 +155,7 @@ public class AddUserClaimFunctionalTests : BaseUserClaimPresentationCommandFunct
 	}
 
 	[Fact]
-	public async Task AddAsync_ShouldHaveUserClaimAlreadyTakenProblemDetails_WhenUserClaimAlreadyExists()
+	public async Task AddAsync_ShouldHaveUserClaimAlreadyTakenProblemDetails_WhenUserClaimAlreadyTaken()
 	{
 		// Arrange
 		await ServiceScope.AddAsync(UserClaim, CancellationToken);
@@ -169,7 +169,7 @@ public class AddUserClaimFunctionalTests : BaseUserClaimPresentationCommandFunct
 
 	[Theory]
 	[UserIdDifferentCaseData]
-	public async Task AddAsync_ShouldHaveUserClaimAlreadyTakenProblemDetails_WhenUserClaimAlreadyExistsAndCaseDiffers(
+	public async Task AddAsync_ShouldHaveUserClaimAlreadyTakenProblemDetails_WhenUserClaimAlreadyTakenAndIdIsInvalid(
 		IStringTransformer transformer)
 	{
 		// Arrange
@@ -273,7 +273,7 @@ public class AddUserClaimFunctionalTests : BaseUserClaimPresentationCommandFunct
 
 	[Theory]
 	[UserIdDifferentCaseData]
-	public async Task AddAsync_ShouldPublishUserClaimAddedEvent_WhenRequestAndIdIsValid(IStringTransformer transformer)
+	public async Task AddAsync_ShouldPublishUserClaimAddedEvent_WhenRequestAndIdAreValid(IStringTransformer transformer)
 	{
 		// Arrange
 		var request = _requestBuilder.WithId(transformer).Build();

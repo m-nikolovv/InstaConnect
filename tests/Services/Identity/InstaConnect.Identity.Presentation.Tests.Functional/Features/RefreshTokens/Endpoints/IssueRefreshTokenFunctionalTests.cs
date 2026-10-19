@@ -85,7 +85,7 @@ public class IssueRefreshTokenFunctionalTests : BaseRefreshTokenPresentationComm
 	}
 
 	[Fact]
-	public async Task IssueAsync_ShouldHaveBadRequestStatusCode_WhenUserNotFound()
+	public async Task IssueAsync_ShouldHaveBadRequestStatusCode_WhenUserInvalidDetailsAndNameIsInvalid()
 	{
 		// Arrange
 		await ServiceScope.DeleteAsync(User, CancellationToken);
@@ -98,7 +98,7 @@ public class IssueRefreshTokenFunctionalTests : BaseRefreshTokenPresentationComm
 	}
 
 	[Fact]
-	public async Task IssueAsync_ShouldHaveUserInvalidDetailsProblemDetails_WhenUserNotFound()
+	public async Task IssueAsync_ShouldHaveUserInvalidDetailsProblemDetails_WhenUserInvalidDetailsAndNameIsInvalid()
 	{
 		// Arrange
 		await ServiceScope.DeleteAsync(User, CancellationToken);
@@ -111,7 +111,7 @@ public class IssueRefreshTokenFunctionalTests : BaseRefreshTokenPresentationComm
 	}
 
 	[Fact]
-	public async Task IssueAsync_ShouldHaveBadRequestStatusCode_WhenPasswordDoesNotMatch()
+	public async Task IssueAsync_ShouldHaveBadRequestStatusCode_WhenUserInvalidDetailsAndPasswordIsInvalid()
 	{
 		// Arrange
 		var updatedUser = UserBuilder.WithPasswordHash(PasswordHasher.Hash(NewPassword)).Build();
@@ -125,7 +125,7 @@ public class IssueRefreshTokenFunctionalTests : BaseRefreshTokenPresentationComm
 	}
 
 	[Fact]
-	public async Task IssueAsync_ShouldHaveUserInvalidDetailsProblemDetails_WhenPasswordDoesNotMatch()
+	public async Task IssueAsync_ShouldHaveUserInvalidDetailsProblemDetails_WhenUserInvalidDetailsAndPasswordIsInvalid()
 	{
 		// Arrange
 		var updatedUser = UserBuilder.WithPasswordHash(PasswordHasher.Hash(NewPassword)).Build();
@@ -139,7 +139,7 @@ public class IssueRefreshTokenFunctionalTests : BaseRefreshTokenPresentationComm
 	}
 
 	[Fact]
-	public async Task IssueAsync_ShouldHaveBadRequestStatusCode_WhenEmailIsNotConfirmed()
+	public async Task IssueAsync_ShouldHaveBadRequestStatusCode_WhenUserNameEmailNotConfirmed()
 	{
 		// Arrange
 		var updatedUser = UserBuilder.WithUnconfirmedEmail().Build();
@@ -153,7 +153,7 @@ public class IssueRefreshTokenFunctionalTests : BaseRefreshTokenPresentationComm
 	}
 
 	[Fact]
-	public async Task IssueAsync_ShouldHaveUserNameEmailNotConfirmedProblemDetails_WhenEmailIsNotConfirmed()
+	public async Task IssueAsync_ShouldHaveUserNameEmailNotConfirmedProblemDetails_WhenUserNameEmailNotConfirmed()
 	{
 		// Arrange
 		var updatedUser = UserBuilder.WithUnconfirmedEmail().Build();

@@ -114,7 +114,7 @@ public class UpdateCurrentUserCommandHandlerIntegrationTests : BaseUserApplicati
 	}
 
 	[Fact]
-	public async Task SendAsync_ShouldThrowUserEmailAlreadyTakenException_WhenRequestIsInvalid()
+	public async Task SendAsync_ShouldThrowUserEmailAlreadyTakenException_WhenUserEmailAlreadyTaken()
 	{
 		// Arrange
 		var user = UserBuilderFactory.Create(User.PasswordHash).Build();
@@ -128,7 +128,7 @@ public class UpdateCurrentUserCommandHandlerIntegrationTests : BaseUserApplicati
 
 	[Theory]
 	[UserEmailDifferentCaseData]
-	public async Task SendAsync_ShouldThrowUserEmailAlreadyTakenException_WhenEmailIsInvalid(
+	public async Task SendAsync_ShouldThrowUserEmailAlreadyTakenException_WhenUserEmailAlreadyTakenAndEmailIsInvalid(
 		IStringTransformer transformer)
 	{
 		// Arrange
@@ -142,7 +142,7 @@ public class UpdateCurrentUserCommandHandlerIntegrationTests : BaseUserApplicati
 	}
 
 	[Fact]
-	public async Task SendAsync_ShouldThrowUserNameAlreadyTakenException_WhenRequestIsInvalid()
+	public async Task SendAsync_ShouldThrowUserNameAlreadyTakenException_WhenUserNameAlreadyTaken()
 	{
 		// Arrange
 		var user = UserBuilderFactory.Create(User.PasswordHash).Build();
@@ -156,7 +156,7 @@ public class UpdateCurrentUserCommandHandlerIntegrationTests : BaseUserApplicati
 
 	[Theory]
 	[UserNameDifferentCaseData]
-	public async Task SendAsync_ShouldThrowUserNameAlreadyTakenException_WhenNameIsInvalid(
+	public async Task SendAsync_ShouldThrowUserNameAlreadyTakenException_WhenUserNameAlreadyTakenAndNameIsInvalid(
 		IStringTransformer transformer)
 	{
 		// Arrange

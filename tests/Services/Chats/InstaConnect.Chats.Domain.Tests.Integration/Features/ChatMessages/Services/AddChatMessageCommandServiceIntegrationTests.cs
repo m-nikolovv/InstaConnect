@@ -34,7 +34,7 @@ public class AddChatMessageCommandServiceIntegrationTests : BaseChatMessageDomai
 	}
 
 	[Fact]
-	public async Task AddAsync_ShouldThrowChatNotFoundException_WhenIdIsInvalid()
+	public async Task AddAsync_ShouldThrowChatNotFoundException_WhenChatNotFound()
 	{
 		// Arrange
 		await ServiceScope.DeleteAsync(Chat, CancellationToken);

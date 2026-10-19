@@ -232,7 +232,7 @@ public class AddUserFunctionalTests : BaseUserPresentationCommandFunctionalTest
 	}
 
 	[Fact]
-	public async Task AddAsync_ShouldHaveBadRequestStatusCode_WhenEmailAlreadyExists()
+	public async Task AddAsync_ShouldHaveBadRequestStatusCode_WhenUserEmailAlreadyTaken()
 	{
 		// Arrange
 		await ServiceScope.AddAsync(User, CancellationToken);
@@ -247,7 +247,7 @@ public class AddUserFunctionalTests : BaseUserPresentationCommandFunctionalTest
 
 	[Theory]
 	[UserEmailDifferentCaseData]
-	public async Task AddAsync_ShouldHaveBadRequestStatusCode_WhenEmailAlreadyExistsAndCaseDiffers(
+	public async Task AddAsync_ShouldHaveBadRequestStatusCode_WhenUserEmailAlreadyTakenAndEmailIsInvalid(
 		IStringTransformer transformer)
 	{
 		// Arrange
@@ -262,7 +262,7 @@ public class AddUserFunctionalTests : BaseUserPresentationCommandFunctionalTest
 	}
 
 	[Fact]
-	public async Task AddAsync_ShouldHaveUserEmailAlreadyTakenProblemDetails_WhenEmailAlreadyExists()
+	public async Task AddAsync_ShouldHaveUserEmailAlreadyTakenProblemDetails_WhenUserEmailAlreadyTaken()
 	{
 		// Arrange
 		await ServiceScope.AddAsync(User, CancellationToken);
@@ -277,7 +277,7 @@ public class AddUserFunctionalTests : BaseUserPresentationCommandFunctionalTest
 
 	[Theory]
 	[UserEmailDifferentCaseData]
-	public async Task AddAsync_ShouldHaveUserEmailAlreadyTakenProblemDetails_WhenEmailAlreadyExistsAndCaseDiffers(
+	public async Task AddAsync_ShouldHaveUserEmailAlreadyTakenProblemDetails_WhenUserEmailAlreadyTakenAndEmailIsInvalid(
 		IStringTransformer transformer)
 	{
 		// Arrange
@@ -292,7 +292,7 @@ public class AddUserFunctionalTests : BaseUserPresentationCommandFunctionalTest
 	}
 
 	[Fact]
-	public async Task AddAsync_ShouldHaveBadRequestStatusCode_WhenUserNameAlreadyExists()
+	public async Task AddAsync_ShouldHaveBadRequestStatusCode_WhenUserNameAlreadyTaken()
 	{
 		// Arrange
 		await ServiceScope.AddAsync(User, CancellationToken);
@@ -307,7 +307,7 @@ public class AddUserFunctionalTests : BaseUserPresentationCommandFunctionalTest
 
 	[Theory]
 	[UserNameDifferentCaseData]
-	public async Task AddAsync_ShouldHaveBadRequestStatusCode_WhenUserNameAlreadyExistsAndCaseDiffers(
+	public async Task AddAsync_ShouldHaveBadRequestStatusCode_WhenUserNameAlreadyTakenAndNameIsInvalid(
 		IStringTransformer transformer)
 	{
 		// Arrange
@@ -322,7 +322,7 @@ public class AddUserFunctionalTests : BaseUserPresentationCommandFunctionalTest
 	}
 
 	[Fact]
-	public async Task AddAsync_ShouldHaveUserNameAlreadyTakenProblemDetails_WhenUserNameAlreadyExists()
+	public async Task AddAsync_ShouldHaveUserNameAlreadyTakenProblemDetails_WhenUserNameAlreadyTaken()
 	{
 		// Arrange
 		await ServiceScope.AddAsync(User, CancellationToken);
@@ -337,7 +337,7 @@ public class AddUserFunctionalTests : BaseUserPresentationCommandFunctionalTest
 
 	[Theory]
 	[UserNameDifferentCaseData]
-	public async Task AddAsync_ShouldHaveUserNameAlreadyTakenProblemDetails_WhenUserNameAlreadyExistsAndCaseDiffers(
+	public async Task AddAsync_ShouldHaveUserNameAlreadyTakenProblemDetails_WhenUserNameAlreadyTakenAndNameIsInvalid(
 		IStringTransformer transformer)
 	{
 		// Arrange

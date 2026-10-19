@@ -210,7 +210,7 @@ public class VerifyForgotPasswordTokenFunctionalTests : BaseForgotPasswordTokenP
 	}
 
 	[Fact]
-	public async Task VerifyAsync_ShouldHaveBadRequestStatusCode_WhenForgotPasswordTokenHasExpired()
+	public async Task VerifyAsync_ShouldHaveBadRequestStatusCode_WhenForgotPasswordTokenExpired()
 	{
 		// Arrange
 		var updatedForgotPasswordToken = ForgotPasswordTokenBuilder.WithAlreadyExpiresAtUtc().Build();
@@ -224,7 +224,7 @@ public class VerifyForgotPasswordTokenFunctionalTests : BaseForgotPasswordTokenP
 	}
 
 	[Fact]
-	public async Task VerifyAsync_ShouldHaveForgotPasswordTokenExpiredProblemDetails_WhenForgotPasswordTokenHasExpired()
+	public async Task VerifyAsync_ShouldHaveForgotPasswordTokenExpiredProblemDetails_WhenForgotPasswordTokenExpired()
 	{
 		// Arrange
 		var updatedForgotPasswordToken = ForgotPasswordTokenBuilder.WithAlreadyExpiresAtUtc().Build();
@@ -249,7 +249,7 @@ public class VerifyForgotPasswordTokenFunctionalTests : BaseForgotPasswordTokenP
 
 	[Theory]
 	[UserIdDifferentCaseData]
-	public async Task VerifyAsync_ShouldHaveNoContentStatusCode_WhenRequestAndIdIsValid(
+	public async Task VerifyAsync_ShouldHaveNoContentStatusCode_WhenRequestAndIdAreValid(
 		IStringTransformer transformer)
 	{
 		// Arrange
@@ -264,7 +264,7 @@ public class VerifyForgotPasswordTokenFunctionalTests : BaseForgotPasswordTokenP
 
 	[Theory]
 	[ForgotPasswordTokenValueDifferentCaseData]
-	public async Task VerifyAsync_ShouldHaveNoContentStatusCode_WhenRequestAndValueIsValid(
+	public async Task VerifyAsync_ShouldHaveNoContentStatusCode_WhenRequestAndValueAreValid(
 		IStringTransformer transformer)
 	{
 		// Arrange

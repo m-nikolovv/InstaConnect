@@ -62,7 +62,7 @@ public static class ChatProblemDetailsAssertions
 			Func<TRequest, string> participantOneIdPropertyExpression,
 			Func<TRequest, string> participantTwoIdPropertyExpression)
 		{
-			problemDetails.ShouldSatisfyNotFound(
+			problemDetails.ShouldSatisfyBadRequest(
 				ChatExceptionErrorMessages.GetAlreadyExistsMessage(new(new(participantOneIdPropertyExpression(request)), new(participantTwoIdPropertyExpression(request)))));
 		}
 	}

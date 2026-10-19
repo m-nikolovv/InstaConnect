@@ -31,7 +31,7 @@ public class GetPostLikeByIdQueryServiceIntegrationTests : BasePostLikeDomainQue
 	}
 
 	[Fact]
-	public async Task GetByIdAsync_ShouldThrowPostNotFoundException_WhenIdIsInvalid()
+	public async Task GetByIdAsync_ShouldThrowPostNotFoundException_WhenPostNotFound()
 	{
 		// Arrange
 		await ServiceScope.DeleteAsync(Post, CancellationToken);
@@ -41,7 +41,7 @@ public class GetPostLikeByIdQueryServiceIntegrationTests : BasePostLikeDomainQue
 	}
 
 	[Fact]
-	public async Task GetByIdAsync_ShouldThrowPostLikeNotFoundException_WhenUserIdIsInvalid()
+	public async Task GetByIdAsync_ShouldThrowPostLikeNotFoundException_WhenPostLikeNotFound()
 	{
 		// Arrange
 		await ServiceScope.DeleteAsync(PostLike, CancellationToken);

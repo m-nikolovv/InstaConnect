@@ -83,7 +83,7 @@ public class DeleteCurrentRefreshTokenControllerIntegrationTests : BaseRefreshTo
 
 	[Theory]
 	[UserIdDifferentCaseData]
-	public async Task DeleteCurrentAsync_ShouldReturnNoContentStatusCode_WhenRequestAndIdIsValid(
+	public async Task DeleteCurrentAsync_ShouldReturnNoContentStatusCode_WhenRequestAndIdAreValid(
 		IStringTransformer transformer)
 	{
 		// Arrange
@@ -98,7 +98,7 @@ public class DeleteCurrentRefreshTokenControllerIntegrationTests : BaseRefreshTo
 
 	[Theory]
 	[RefreshTokenValueDifferentCaseData]
-	public async Task DeleteCurrentAsync_ShouldReturnNoContentStatusCode_WhenRequestAndValueIsValid(
+	public async Task DeleteCurrentAsync_ShouldReturnNoContentStatusCode_WhenRequestAndValueAreValid(
 		IStringTransformer transformer)
 	{
 		// Arrange

@@ -136,7 +136,7 @@ public class AddChatMessageFunctionalTests : BaseChatMessagePresentationCommandF
 	}
 
 	[Fact]
-	public async Task AddAsync_ShouldHaveNotFoundStatusCode_WhenIdIsInvalid()
+	public async Task AddAsync_ShouldHaveNotFoundStatusCode_WhenChatNotFound()
 	{
 		// Arrange
 		await ServiceScope.DeleteAsync(Chat, CancellationToken);
@@ -149,7 +149,7 @@ public class AddChatMessageFunctionalTests : BaseChatMessagePresentationCommandF
 	}
 
 	[Fact]
-	public async Task AddAsync_ShouldHaveChatNotFoundProblemDetails_WhenIdIsInvalid()
+	public async Task AddAsync_ShouldHaveChatNotFoundProblemDetails_WhenChatNotFound()
 	{
 		// Arrange
 		await ServiceScope.DeleteAsync(Chat, CancellationToken);

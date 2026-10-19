@@ -47,7 +47,7 @@ public class IssueRefreshTokenControllerIntegrationTests : BaseRefreshTokenPrese
 	}
 
 	[Fact]
-	public async Task IssueAsync_ShouldThrowUserInvalidDetailsException_WhenUserNotFound()
+	public async Task IssueAsync_ShouldThrowUserInvalidDetailsException_WhenUserInvalidDetailsAndNameIsInvalid()
 	{
 		// Arrange
 		await ServiceScope.DeleteAsync(User, CancellationToken);
@@ -57,7 +57,7 @@ public class IssueRefreshTokenControllerIntegrationTests : BaseRefreshTokenPrese
 	}
 
 	[Fact]
-	public async Task IssueAsync_ShouldThrowUserInvalidDetailsException_WhenPasswordDoesNotMatch()
+	public async Task IssueAsync_ShouldThrowUserInvalidDetailsException_WhenUserInvalidDetailsAndPasswordIsInvalid()
 	{
 		// Arrange
 		var updatedUser = UserBuilder.WithPasswordHash(PasswordHasher.Hash(NewPassword)).Build();
@@ -68,7 +68,7 @@ public class IssueRefreshTokenControllerIntegrationTests : BaseRefreshTokenPrese
 	}
 
 	[Fact]
-	public async Task IssueAsync_ShouldThrowUserNameEmailNotConfirmedException_WhenEmailIsNotConfirmed()
+	public async Task IssueAsync_ShouldThrowUserNameEmailNotConfirmedException_WhenUserNameEmailNotConfirmed()
 	{
 		// Arrange
 		var updatedUser = UserBuilder.WithUnconfirmedEmail().Build();

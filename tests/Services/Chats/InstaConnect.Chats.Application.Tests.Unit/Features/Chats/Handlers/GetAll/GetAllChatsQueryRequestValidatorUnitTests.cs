@@ -118,7 +118,7 @@ public class GetAllChatsQueryRequestValidatorUnitTests : BaseChatApplicationQuer
 	[Theory]
 	[UserNameEmptyData]
 	[UserNameNullData]
-	public void TestValidate_ShouldNotHaveAnyValidationsErrors_WhenParticipantTwoNameIsValid(
+	public void TestValidate_ShouldNotHaveAnyValidationErrors_WhenParticipantTwoNameIsValid(
 		IStringTransformer transformer)
 	{
 		// Arrange
@@ -132,7 +132,7 @@ public class GetAllChatsQueryRequestValidatorUnitTests : BaseChatApplicationQuer
 	}
 
 	[Fact]
-	public void TestValidate_ShouldNotHaveAnyValidationsErrors_WhenRequestIsValid()
+	public void TestValidate_ShouldNotHaveAnyValidationErrors_WhenRequestIsValid()
 	{
 		// Act
 		var response = _requestValidator.TestValidate(_request);

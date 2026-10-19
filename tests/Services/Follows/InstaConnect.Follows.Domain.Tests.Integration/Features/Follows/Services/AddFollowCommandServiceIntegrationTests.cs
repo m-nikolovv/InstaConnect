@@ -25,7 +25,7 @@ public class AddFollowCommandServiceIntegrationTests : BaseFollowDomainCommandIn
 	}
 
 	[Fact]
-	public async Task AddAsync_ShouldThrowUserNotFoundException_WhenFollowerIdIsInvalid()
+	public async Task AddAsync_ShouldThrowUserNotFoundException_WhenUserNotFoundAndFollowerIdIsInvalid()
 	{
 		// Arrange
 		await ServiceScope.DeleteAsync(Follower, CancellationToken);
@@ -35,7 +35,7 @@ public class AddFollowCommandServiceIntegrationTests : BaseFollowDomainCommandIn
 	}
 
 	[Fact]
-	public async Task AddAsync_ShouldThrowUserNotFoundException_WhenFollowingIdIsInvalid()
+	public async Task AddAsync_ShouldThrowUserNotFoundException_WhenUserNotFoundAndFollowingIdIsInvalid()
 	{
 		// Arrange
 		await ServiceScope.DeleteAsync(Following, CancellationToken);
@@ -56,7 +56,7 @@ public class AddFollowCommandServiceIntegrationTests : BaseFollowDomainCommandIn
 
 	[Theory]
 	[UserIdDifferentCaseData]
-	public async Task AddAsync_ShouldThrowFollowAlreadyExistsException_WhenFollowAlreadyExistsAndFollowerIdIsValid(
+	public async Task AddAsync_ShouldThrowFollowAlreadyExistsException_WhenFollowAlreadyExistsAndFollowerIdIsInvalid(
 		IStringTransformer transformer)
 	{
 		// Arrange
@@ -69,7 +69,7 @@ public class AddFollowCommandServiceIntegrationTests : BaseFollowDomainCommandIn
 
 	[Theory]
 	[UserIdDifferentCaseData]
-	public async Task AddAsync_ShouldThrowFollowAlreadyExistsException_WhenFollowAlreadyExistsAndFollowingIdIsValid(
+	public async Task AddAsync_ShouldThrowFollowAlreadyExistsException_WhenFollowAlreadyExistsAndFollowingIdIsInvalid(
 		IStringTransformer transformer)
 	{
 		// Arrange

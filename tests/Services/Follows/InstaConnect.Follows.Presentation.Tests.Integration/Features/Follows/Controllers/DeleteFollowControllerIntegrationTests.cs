@@ -52,7 +52,7 @@ public class DeleteFollowControllerIntegrationTests : BaseFollowPresentationComm
 	}
 
 	[Fact]
-	public async Task DeleteAsync_ShouldThrowFollowNotFoundException_WhenIdIsInvalid()
+	public async Task DeleteAsync_ShouldThrowFollowNotFoundException_WhenFollowNotFound()
 	{
 		// Arrange
 		await ServiceScope.DeleteAsync(Follow, CancellationToken);

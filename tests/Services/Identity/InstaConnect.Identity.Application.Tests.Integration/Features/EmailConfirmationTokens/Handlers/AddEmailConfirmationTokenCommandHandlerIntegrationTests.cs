@@ -30,7 +30,7 @@ public class AddEmailConfirmationTokenCommandHandlerIntegrationTests : BaseEmail
 	}
 
 	[Fact]
-	public async Task SendAsync_ShouldThrowUserNameNotFoundException_WhenUserNotFound()
+	public async Task SendAsync_ShouldThrowUserNameNotFoundException_WhenUserNameNotFound()
 	{
 		// Arrange
 		await ServiceScope.DeleteAsync(User, CancellationToken);
@@ -40,7 +40,7 @@ public class AddEmailConfirmationTokenCommandHandlerIntegrationTests : BaseEmail
 	}
 
 	[Fact]
-	public async Task SendAsync_ShouldThrowUserNameEmailAlreadyConfirmedException_WhenEmailIsConfirmed()
+	public async Task SendAsync_ShouldThrowUserNameEmailAlreadyConfirmedException_WhenUserNameEmailAlreadyConfirmed()
 	{
 		// Arrange
 		var updatedUser = UserBuilder.WithConfirmedEmail().Build();

@@ -135,7 +135,7 @@ public class DeleteChatMessageFunctionalTests : BaseChatMessagePresentationComma
 	}
 
 	[Fact]
-	public async Task DeleteAsync_ShouldHaveNotFoundStatusCode_WhenIdIsInvalid()
+	public async Task DeleteAsync_ShouldHaveNotFoundStatusCode_WhenChatNotFound()
 	{
 		// Arrange
 		await ServiceScope.DeleteAsync(Chat, CancellationToken);
@@ -148,7 +148,7 @@ public class DeleteChatMessageFunctionalTests : BaseChatMessagePresentationComma
 	}
 
 	[Fact]
-	public async Task DeleteAsync_ShouldHaveChatNotFoundProblemDetails_WhenIdIsInvalid()
+	public async Task DeleteAsync_ShouldHaveChatNotFoundProblemDetails_WhenChatNotFound()
 	{
 		// Arrange
 		await ServiceScope.DeleteAsync(Chat, CancellationToken);
@@ -161,7 +161,7 @@ public class DeleteChatMessageFunctionalTests : BaseChatMessagePresentationComma
 	}
 
 	[Fact]
-	public async Task DeleteAsync_ShouldHaveNotFoundStatusCode_WhenMessageIdIsInvalid()
+	public async Task DeleteAsync_ShouldHaveNotFoundStatusCode_WhenChatMessageNotFound()
 	{
 		// Arrange
 		await ServiceScope.DeleteAsync(ChatMessage, CancellationToken);
@@ -174,7 +174,7 @@ public class DeleteChatMessageFunctionalTests : BaseChatMessagePresentationComma
 	}
 
 	[Fact]
-	public async Task DeleteAsync_ShouldHaveChatMessageNotFoundProblemDetails_WhenMessageIdIsInvalid()
+	public async Task DeleteAsync_ShouldHaveChatMessageNotFoundProblemDetails_WhenChatMessageNotFound()
 	{
 		// Arrange
 		await ServiceScope.DeleteAsync(ChatMessage, CancellationToken);
@@ -187,7 +187,7 @@ public class DeleteChatMessageFunctionalTests : BaseChatMessagePresentationComma
 	}
 
 	[Fact]
-	public async Task DeleteAsync_ShouldHaveForbiddenStatusCode_WhenUserIdIsInvalid()
+	public async Task DeleteAsync_ShouldHaveForbiddenStatusCode_WhenChatMessageForbidden()
 	{
 		// Act
 		var response = await ApiClient.DeleteStatusCodeAsync(_invertedRequest, CancellationToken);
@@ -197,7 +197,7 @@ public class DeleteChatMessageFunctionalTests : BaseChatMessagePresentationComma
 	}
 
 	[Fact]
-	public async Task DeleteAsync_ShouldHaveChatMessageForbiddenProblemDetails_WhenUserIdIsInvalid()
+	public async Task DeleteAsync_ShouldHaveChatMessageForbiddenProblemDetails_WhenChatMessageForbidden()
 	{
 		// Act
 		var response = await ApiClient.DeleteProblemDetailsAsync(_invertedRequest, CancellationToken);

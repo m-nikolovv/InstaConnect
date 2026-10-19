@@ -47,7 +47,7 @@ public class AddEmailConfirmationTokenFunctionalTests : BaseEmailConfirmationTok
 	}
 
 	[Fact]
-	public async Task AddAsync_ShouldHaveNotFoundStatusCode_WhenUserNotFound()
+	public async Task AddAsync_ShouldHaveNotFoundStatusCode_WhenUserNameNotFound()
 	{
 		// Arrange
 		await ServiceScope.DeleteAsync(User, CancellationToken);
@@ -60,7 +60,7 @@ public class AddEmailConfirmationTokenFunctionalTests : BaseEmailConfirmationTok
 	}
 
 	[Fact]
-	public async Task AddAsync_ShouldHaveUserNameNotFoundProblemDetails_WhenUserNotFound()
+	public async Task AddAsync_ShouldHaveUserNameNotFoundProblemDetails_WhenUserNameNotFound()
 	{
 		// Arrange
 		await ServiceScope.DeleteAsync(User, CancellationToken);
@@ -73,7 +73,7 @@ public class AddEmailConfirmationTokenFunctionalTests : BaseEmailConfirmationTok
 	}
 
 	[Fact]
-	public async Task AddAsync_ShouldHaveBadRequestStatusCode_WhenEmailIsConfirmed()
+	public async Task AddAsync_ShouldHaveBadRequestStatusCode_WhenUserNameEmailAlreadyConfirmed()
 	{
 		// Arrange
 		var updatedUser = UserBuilder.WithConfirmedEmail().Build();
@@ -87,7 +87,7 @@ public class AddEmailConfirmationTokenFunctionalTests : BaseEmailConfirmationTok
 	}
 
 	[Fact]
-	public async Task AddAsync_ShouldHaveUserNameEmailAlreadyConfirmedProblemDetails_WhenEmailIsConfirmed()
+	public async Task AddAsync_ShouldHaveUserNameEmailAlreadyConfirmedProblemDetails_WhenUserNameEmailAlreadyConfirmed()
 	{
 		// Arrange
 		var updatedUser = UserBuilder.WithConfirmedEmail().Build();

@@ -69,7 +69,7 @@ public class DeletePostCommentControllerIntegrationTests : BasePostCommentPresen
 	}
 
 	[Fact]
-	public async Task DeleteAsync_ShouldThrowPostNotFoundException_WhenIdIsInvalid()
+	public async Task DeleteAsync_ShouldThrowPostNotFoundException_WhenPostNotFound()
 	{
 		// Arrange
 		await ServiceScope.DeleteAsync(Post, CancellationToken);
@@ -79,7 +79,7 @@ public class DeletePostCommentControllerIntegrationTests : BasePostCommentPresen
 	}
 
 	[Fact]
-	public async Task DeleteAsync_ShouldThrowPostCommentNotFoundException_WhenCommentIdIsInvalid()
+	public async Task DeleteAsync_ShouldThrowPostCommentNotFoundException_WhenPostCommentNotFound()
 	{
 		// Arrange
 		await ServiceScope.DeleteAsync(PostComment, CancellationToken);
@@ -89,7 +89,7 @@ public class DeletePostCommentControllerIntegrationTests : BasePostCommentPresen
 	}
 
 	[Fact]
-	public async Task DeleteAsync_ShouldThrowPostCommentForbiddenException_WhenUserIdIsInvalid()
+	public async Task DeleteAsync_ShouldThrowPostCommentForbiddenException_WhenPostCommentForbidden()
 	{
 		// Arrange
 		var user = UserBuilderFactory.Create().Build();

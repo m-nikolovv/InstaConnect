@@ -134,7 +134,7 @@ public class AddPostFunctionalTests : BasePostPresentationCommandFunctionalTest
 	}
 
 	[Fact]
-	public async Task AddAsync_ShouldHaveNotFoundStatusCode_WhenUserIdIsInvalid()
+	public async Task AddAsync_ShouldHaveNotFoundStatusCode_WhenUserNotFound()
 	{
 		// Arrange
 		await ServiceScope.DeleteAsync(User, CancellationToken);
@@ -147,7 +147,7 @@ public class AddPostFunctionalTests : BasePostPresentationCommandFunctionalTest
 	}
 
 	[Fact]
-	public async Task AddAsync_ShouldHaveUserNotFoundProblemDetails_WhenUserIdIsInvalid()
+	public async Task AddAsync_ShouldHaveUserNotFoundProblemDetails_WhenUserNotFound()
 	{
 		// Arrange
 		await ServiceScope.DeleteAsync(User, CancellationToken);

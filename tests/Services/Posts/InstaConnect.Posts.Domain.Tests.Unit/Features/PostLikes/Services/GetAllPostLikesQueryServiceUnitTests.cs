@@ -29,7 +29,7 @@ public class GetAllPostLikesQueryServiceUnitTests : BasePostLikeDomainQueryUnitT
 	}
 
 	[Fact]
-	public async Task GetAllAsync_ShouldThrowPostNotFoundException_WhenIdIsInvalid()
+	public async Task GetAllAsync_ShouldThrowPostNotFoundException_WhenPostNotFound()
 	{
 		// Arrange
 		Repository.RemoveGetByIdAsync(_query, Post, CancellationToken);

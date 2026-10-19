@@ -63,7 +63,7 @@ public class AddPostCommentLikeControllerIntegrationTests : BasePostCommentLikeP
 	}
 
 	[Fact]
-	public async Task AddAsync_ShouldThrowPostNotFoundException_WhenIdIsInvalid()
+	public async Task AddAsync_ShouldThrowPostNotFoundException_WhenPostNotFound()
 	{
 		// Arrange
 		await ServiceScope.DeleteAsync(Post, CancellationToken);
@@ -73,7 +73,7 @@ public class AddPostCommentLikeControllerIntegrationTests : BasePostCommentLikeP
 	}
 
 	[Fact]
-	public async Task AddAsync_ShouldThrowPostCommentNotFoundException_WhenCommentIdIsInvalid()
+	public async Task AddAsync_ShouldThrowPostCommentNotFoundException_WhenPostCommentNotFound()
 	{
 		// Arrange
 		await ServiceScope.DeleteAsync(PostComment, CancellationToken);
@@ -83,7 +83,7 @@ public class AddPostCommentLikeControllerIntegrationTests : BasePostCommentLikeP
 	}
 
 	[Fact]
-	public async Task AddAsync_ShouldThrowUserNotFoundException_WhenUserIdIsInvalid()
+	public async Task AddAsync_ShouldThrowUserNotFoundException_WhenUserNotFound()
 	{
 		// Arrange
 		await ServiceScope.DeleteAsync(User, CancellationToken);
@@ -104,7 +104,7 @@ public class AddPostCommentLikeControllerIntegrationTests : BasePostCommentLikeP
 
 	[Theory]
 	[PostIdDifferentCaseData]
-	public async Task AddAsync_ShouldThrowPostCommentLikeAlreadyExistsException_WhenPostCommentLikeAlreadyExistsAndIdIsValid(
+	public async Task AddAsync_ShouldThrowPostCommentLikeAlreadyExistsException_WhenPostCommentLikeAlreadyExistsAndIdIsInvalid(
 		IStringTransformer transformer)
 	{
 		// Arrange
@@ -117,7 +117,7 @@ public class AddPostCommentLikeControllerIntegrationTests : BasePostCommentLikeP
 
 	[Theory]
 	[PostCommentIdDifferentCaseData]
-	public async Task AddAsync_ShouldThrowPostCommentLikeAlreadyExistsException_WhenPostCommentLikeAlreadyExistsAndCommentIdIsValid(
+	public async Task AddAsync_ShouldThrowPostCommentLikeAlreadyExistsException_WhenPostCommentLikeAlreadyExistsAndCommentIdIsInvalid(
 		IStringTransformer transformer)
 	{
 		// Arrange
@@ -130,7 +130,7 @@ public class AddPostCommentLikeControllerIntegrationTests : BasePostCommentLikeP
 
 	[Theory]
 	[UserIdDifferentCaseData]
-	public async Task AddAsync_ShouldThrowPostCommentLikeAlreadyExistsException_WhenPostCommentLikeAlreadyExistsAndUserIdIsValid(
+	public async Task AddAsync_ShouldThrowPostCommentLikeAlreadyExistsException_WhenPostCommentLikeAlreadyExistsAndUserIdIsInvalid(
 		IStringTransformer transformer)
 	{
 		// Arrange

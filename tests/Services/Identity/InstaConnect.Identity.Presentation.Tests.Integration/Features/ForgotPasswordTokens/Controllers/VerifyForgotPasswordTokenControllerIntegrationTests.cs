@@ -103,7 +103,7 @@ public class VerifyForgotPasswordTokenControllerIntegrationTests : BaseForgotPas
 	}
 
 	[Fact]
-	public async Task VerifyAsync_ShouldThrowForgotPasswordTokenExpiredException_WhenForgotPasswordTokenHasExpired()
+	public async Task VerifyAsync_ShouldThrowForgotPasswordTokenExpiredException_WhenForgotPasswordTokenExpired()
 	{
 		// Arrange
 		var updatedForgotPasswordToken = ForgotPasswordTokenBuilder.WithAlreadyExpiresAtUtc().Build();
@@ -125,7 +125,7 @@ public class VerifyForgotPasswordTokenControllerIntegrationTests : BaseForgotPas
 
 	[Theory]
 	[UserIdDifferentCaseData]
-	public async Task VerifyAsync_ShouldReturnNoContentStatusCode_WhenRequestAndIdIsValid(
+	public async Task VerifyAsync_ShouldReturnNoContentStatusCode_WhenRequestAndIdAreValid(
 		IStringTransformer transformer)
 	{
 		// Arrange
@@ -140,7 +140,7 @@ public class VerifyForgotPasswordTokenControllerIntegrationTests : BaseForgotPas
 
 	[Theory]
 	[ForgotPasswordTokenValueDifferentCaseData]
-	public async Task VerifyAsync_ShouldReturnNoContentStatusCode_WhenRequestAndValueIsValid(
+	public async Task VerifyAsync_ShouldReturnNoContentStatusCode_WhenRequestAndValueAreValid(
 		IStringTransformer transformer)
 	{
 		// Arrange

@@ -55,7 +55,7 @@ public class DeletePostCommandHandlerIntegrationTests : BasePostApplicationComma
 	}
 
 	[Fact]
-	public async Task SendAsync_ShouldThrowPostNotFoundException_WhenIdIsInvalid()
+	public async Task SendAsync_ShouldThrowPostNotFoundException_WhenPostNotFound()
 	{
 		// Arrange
 		await ServiceScope.DeleteAsync(Post, CancellationToken);
@@ -65,7 +65,7 @@ public class DeletePostCommandHandlerIntegrationTests : BasePostApplicationComma
 	}
 
 	[Fact]
-	public async Task SendAsync_ShouldThrowPostForbiddenException_WhenUserIdIsInvalid()
+	public async Task SendAsync_ShouldThrowPostForbiddenException_WhenPostForbidden()
 	{
 		// Arrange
 		var user = UserBuilderFactory.Create().Build();

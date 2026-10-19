@@ -75,7 +75,7 @@ public class AddChatMessageCommandRequestValidatorUnitTests : BaseChatMessageApp
 	}
 
 	[Fact]
-	public void TestValidate_ShouldNotHaveAnyValidationsErrors_WhenRequestIsValid()
+	public void TestValidate_ShouldNotHaveAnyValidationErrors_WhenRequestIsValid()
 	{
 		// Act
 		var response = _requestValidator.TestValidate(_request);
@@ -86,7 +86,7 @@ public class AddChatMessageCommandRequestValidatorUnitTests : BaseChatMessageApp
 
 	[Theory]
 	[ChatMessageImagesEmptyData]
-	public void TestValidate_ShouldNotHaveAnyValidationsErrors_WhenRequestAndImagesAreValid(
+	public void TestValidate_ShouldNotHaveAnyValidationErrors_WhenRequestAndImagesAreValid(
 		IFormFileCollectionTransformer transformer)
 	{
 		// Arrange

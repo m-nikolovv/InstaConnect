@@ -123,7 +123,7 @@ public class AddPostCommentLikeFunctionalTests : BasePostCommentLikePresentation
 	}
 
 	[Fact]
-	public async Task AddAsync_ShouldHaveNotFoundStatusCode_WhenIdIsInvalid()
+	public async Task AddAsync_ShouldHaveNotFoundStatusCode_WhenPostNotFound()
 	{
 		// Arrange
 		await ServiceScope.DeleteAsync(Post, CancellationToken);
@@ -136,7 +136,7 @@ public class AddPostCommentLikeFunctionalTests : BasePostCommentLikePresentation
 	}
 
 	[Fact]
-	public async Task AddAsync_ShouldHavePostNotFoundProblemDetails_WhenIdIsInvalid()
+	public async Task AddAsync_ShouldHavePostNotFoundProblemDetails_WhenPostNotFound()
 	{
 		// Arrange
 		await ServiceScope.DeleteAsync(Post, CancellationToken);
@@ -149,7 +149,7 @@ public class AddPostCommentLikeFunctionalTests : BasePostCommentLikePresentation
 	}
 
 	[Fact]
-	public async Task AddAsync_ShouldHaveNotFoundStatusCode_WhenCommentIdIsInvalid()
+	public async Task AddAsync_ShouldHaveNotFoundStatusCode_WhenPostCommentNotFound()
 	{
 		// Arrange
 		await ServiceScope.DeleteAsync(PostComment, CancellationToken);
@@ -162,7 +162,7 @@ public class AddPostCommentLikeFunctionalTests : BasePostCommentLikePresentation
 	}
 
 	[Fact]
-	public async Task AddAsync_ShouldHavePostCommentNotFoundProblemDetails_WhenCommentIdIsInvalid()
+	public async Task AddAsync_ShouldHavePostCommentNotFoundProblemDetails_WhenPostCommentNotFound()
 	{
 		// Arrange
 		await ServiceScope.DeleteAsync(PostComment, CancellationToken);
@@ -175,7 +175,7 @@ public class AddPostCommentLikeFunctionalTests : BasePostCommentLikePresentation
 	}
 
 	[Fact]
-	public async Task AddAsync_ShouldHaveNotFoundStatusCode_WhenUserIdIsInvalid()
+	public async Task AddAsync_ShouldHaveNotFoundStatusCode_WhenUserNotFound()
 	{
 		// Arrange
 		await ServiceScope.DeleteAsync(User, CancellationToken);
@@ -188,7 +188,7 @@ public class AddPostCommentLikeFunctionalTests : BasePostCommentLikePresentation
 	}
 
 	[Fact]
-	public async Task AddAsync_ShouldHaveUserNotFoundProblemDetails_WhenUserIdIsInvalid()
+	public async Task AddAsync_ShouldHaveUserNotFoundProblemDetails_WhenUserNotFound()
 	{
 		// Arrange
 		await ServiceScope.DeleteAsync(User, CancellationToken);
@@ -215,7 +215,7 @@ public class AddPostCommentLikeFunctionalTests : BasePostCommentLikePresentation
 
 	[Theory]
 	[PostIdDifferentCaseData]
-	public async Task AddAsync_ShouldHaveBadRequestStatusCode_WhenPostCommentLikeAlreadyExistsAndIdIsValid(
+	public async Task AddAsync_ShouldHaveBadRequestStatusCode_WhenPostCommentLikeAlreadyExistsAndIdIsInvalid(
 		IStringTransformer transformer)
 	{
 		// Arrange
@@ -231,7 +231,7 @@ public class AddPostCommentLikeFunctionalTests : BasePostCommentLikePresentation
 
 	[Theory]
 	[PostCommentIdDifferentCaseData]
-	public async Task AddAsync_ShouldHaveBadRequestStatusCode_WhenPostCommentLikeAlreadyExistsAndCommentIdIsValid(
+	public async Task AddAsync_ShouldHaveBadRequestStatusCode_WhenPostCommentLikeAlreadyExistsAndCommentIdIsInvalid(
 		IStringTransformer transformer)
 	{
 		// Arrange
@@ -247,7 +247,7 @@ public class AddPostCommentLikeFunctionalTests : BasePostCommentLikePresentation
 
 	[Theory]
 	[UserIdDifferentCaseData]
-	public async Task AddAsync_ShouldHaveBadRequestStatusCode_WhenPostCommentLikeAlreadyExistsAndUserIdIsValid(
+	public async Task AddAsync_ShouldHaveBadRequestStatusCode_WhenPostCommentLikeAlreadyExistsAndUserIdIsInvalid(
 		IStringTransformer transformer)
 	{
 		// Arrange
@@ -276,7 +276,7 @@ public class AddPostCommentLikeFunctionalTests : BasePostCommentLikePresentation
 
 	[Theory]
 	[PostIdDifferentCaseData]
-	public async Task AddAsync_ShouldHavePostCommentLikeAlreadyExistsProblemDetails_WhenPostCommentLikeAlreadyExistsAndIdIsValid(
+	public async Task AddAsync_ShouldHavePostCommentLikeAlreadyExistsProblemDetails_WhenPostCommentLikeAlreadyExistsAndIdIsInvalid(
 		IStringTransformer transformer)
 	{
 		// Arrange
@@ -292,7 +292,7 @@ public class AddPostCommentLikeFunctionalTests : BasePostCommentLikePresentation
 
 	[Theory]
 	[PostCommentIdDifferentCaseData]
-	public async Task AddAsync_ShouldHavePostCommentLikeAlreadyExistsProblemDetails_WhenPostCommentLikeAlreadyExistsAndCommentIdIsValid(
+	public async Task AddAsync_ShouldHavePostCommentLikeAlreadyExistsProblemDetails_WhenPostCommentLikeAlreadyExistsAndCommentIdIsInvalid(
 		IStringTransformer transformer)
 	{
 		// Arrange
@@ -308,7 +308,7 @@ public class AddPostCommentLikeFunctionalTests : BasePostCommentLikePresentation
 
 	[Theory]
 	[UserIdDifferentCaseData]
-	public async Task AddAsync_ShouldHavePostCommentLikeAlreadyExistsProblemDetails_WhenPostCommentLikeAlreadyExistsAndUserIdIsValid(
+	public async Task AddAsync_ShouldHavePostCommentLikeAlreadyExistsProblemDetails_WhenPostCommentLikeAlreadyExistsAndUserIdIsInvalid(
 		IStringTransformer transformer)
 	{
 		// Arrange

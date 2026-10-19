@@ -112,7 +112,7 @@ public class UpdateCurrentUserControllerIntegrationTests : BaseUserPresentationC
 	}
 
 	[Fact]
-	public async Task UpdateCurrentAsync_ShouldThrowUserEmailAlreadyTakenException_WhenRequestIsInvalid()
+	public async Task UpdateCurrentAsync_ShouldThrowUserEmailAlreadyTakenException_WhenUserEmailAlreadyTaken()
 	{
 		// Arrange
 		var user = UserBuilderFactory.Create(User.PasswordHash).Build();
@@ -125,7 +125,7 @@ public class UpdateCurrentUserControllerIntegrationTests : BaseUserPresentationC
 
 	[Theory]
 	[UserEmailDifferentCaseData]
-	public async Task UpdateCurrentAsync_ShouldThrowUserEmailAlreadyTakenException_WhenEmailIsInvalid(
+	public async Task UpdateCurrentAsync_ShouldThrowUserEmailAlreadyTakenException_WhenUserEmailAlreadyTakenAndEmailIsInvalid(
 		IStringTransformer transformer)
 	{
 		// Arrange
@@ -138,7 +138,7 @@ public class UpdateCurrentUserControllerIntegrationTests : BaseUserPresentationC
 	}
 
 	[Fact]
-	public async Task UpdateCurrentAsync_ShouldThrowUserNameAlreadyTakenException_WhenRequestIsInvalid()
+	public async Task UpdateCurrentAsync_ShouldThrowUserNameAlreadyTakenException_WhenUserNameAlreadyTaken()
 	{
 		// Arrange
 		var user = UserBuilderFactory.Create(User.PasswordHash).Build();
@@ -151,7 +151,7 @@ public class UpdateCurrentUserControllerIntegrationTests : BaseUserPresentationC
 
 	[Theory]
 	[UserNameDifferentCaseData]
-	public async Task UpdateCurrentAsync_ShouldThrowUserNameAlreadyTakenException_WhenNameIsInvalid(
+	public async Task UpdateCurrentAsync_ShouldThrowUserNameAlreadyTakenException_WhenUserNameAlreadyTakenAndNameIsInvalid(
 		IStringTransformer transformer)
 	{
 		// Arrange
@@ -173,7 +173,7 @@ public class UpdateCurrentUserControllerIntegrationTests : BaseUserPresentationC
 
 	[Theory]
 	[UserIdDifferentCaseData]
-	public async Task UpdateCurrentAsync_ShouldReturnOkStatusCode_WhenRequestAndIdIsValid(
+	public async Task UpdateCurrentAsync_ShouldReturnOkStatusCode_WhenRequestAndIdAreValid(
 		IStringTransformer transformer)
 	{
 		var request = _requestBuilder.WithId(transformer).Build();
@@ -185,7 +185,7 @@ public class UpdateCurrentUserControllerIntegrationTests : BaseUserPresentationC
 
 	[Theory]
 	[UserNameDifferentCaseData]
-	public async Task UpdateCurrentAsync_ShouldReturnOkStatusCode_WhenRequestAndNameIsValid(
+	public async Task UpdateCurrentAsync_ShouldReturnOkStatusCode_WhenRequestAndNameAreValid(
 		IStringTransformer transformer)
 	{
 		var request = _requestBuilder.WithName(transformer).Build();
@@ -219,7 +219,7 @@ public class UpdateCurrentUserControllerIntegrationTests : BaseUserPresentationC
 
 	[Theory]
 	[UserEmailDifferentCaseData]
-	public async Task UpdateCurrentAsync_ShouldReturnOkStatusCode_WhenRequestAndEmailIsValid(
+	public async Task UpdateCurrentAsync_ShouldReturnOkStatusCode_WhenRequestAndEmailAreValid(
 		IStringTransformer transformer)
 	{
 		var request = _requestBuilder.WithEmail(transformer).Build();
@@ -253,7 +253,7 @@ public class UpdateCurrentUserControllerIntegrationTests : BaseUserPresentationC
 
 	[Theory]
 	[UserProfileImageNullData]
-	public async Task UpdateCurrentAsync_ShouldReturnOkStatusCode_WhenRequestAndProfileImageIsValid(
+	public async Task UpdateCurrentAsync_ShouldReturnOkStatusCode_WhenRequestAndProfileImageAreValid(
 		IFormFileTransformer transformer)
 	{
 		var request = _requestBuilder.WithProfileImage(transformer).Build();

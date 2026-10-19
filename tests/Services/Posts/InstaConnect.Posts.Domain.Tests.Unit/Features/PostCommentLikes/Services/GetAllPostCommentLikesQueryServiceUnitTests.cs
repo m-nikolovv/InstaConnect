@@ -30,7 +30,7 @@ public class GetAllPostCommentLikesQueryServiceUnitTests : BasePostCommentLikeDo
 	}
 
 	[Fact]
-	public async Task GetAllAsync_ShouldThrowPostNotFoundException_WhenIdIsInvalid()
+	public async Task GetAllAsync_ShouldThrowPostNotFoundException_WhenPostNotFound()
 	{
 		// Arrange
 		Repository.RemoveExistsByIdAsync(_query, CancellationToken);
@@ -40,7 +40,7 @@ public class GetAllPostCommentLikesQueryServiceUnitTests : BasePostCommentLikeDo
 	}
 
 	[Fact]
-	public async Task GetAllAsync_ShouldThrowPostCommentNotFoundException_WhenCommentIdIsInvalid()
+	public async Task GetAllAsync_ShouldThrowPostCommentNotFoundException_WhenPostCommentNotFound()
 	{
 		// Arrange
 		CommentRepository.RemoveGetByIdAsync(_query, PostComment, CancellationToken);

@@ -51,7 +51,7 @@ public class RotateRefreshTokenCommandServiceUnitTests : BaseRefreshTokenDomainC
 	}
 
 	[Fact]
-	public async Task RotateAsync_ShouldThrowUserEmailNotConfirmedException_WhenEmailIsNotConfirmed()
+	public async Task RotateAsync_ShouldThrowUserEmailNotConfirmedException_WhenUserEmailNotConfirmed()
 	{
 		// Arrange
 		var unconfirmedUser = UserBuilder.WithUnconfirmedEmail().Build();
@@ -72,7 +72,7 @@ public class RotateRefreshTokenCommandServiceUnitTests : BaseRefreshTokenDomainC
 	}
 
 	[Fact]
-	public async Task RotateAsync_ShouldThrowRefreshTokenExpiredException_WhenRefreshTokenHasExpired()
+	public async Task RotateAsync_ShouldThrowRefreshTokenExpiredException_WhenRefreshTokenExpired()
 	{
 		// Arrange
 		DateTimeProvider.SetupGetOffsetUtcNow(_command, ExpiredDate);

@@ -96,7 +96,7 @@ public class DeleteFollowFunctionalTests : BaseFollowPresentationCommandFunction
 	}
 
 	[Fact]
-	public async Task DeleteAsync_ShouldHaveNotFoundStatusCode_WhenIdIsInvalid()
+	public async Task DeleteAsync_ShouldHaveNotFoundStatusCode_WhenFollowNotFound()
 	{
 		// Arrange
 		await ServiceScope.DeleteAsync(Follow, CancellationToken);
@@ -109,7 +109,7 @@ public class DeleteFollowFunctionalTests : BaseFollowPresentationCommandFunction
 	}
 
 	[Fact]
-	public async Task DeleteAsync_ShouldHaveFollowNotFoundProblemDetails_WhenIdIsInvalid()
+	public async Task DeleteAsync_ShouldHaveFollowNotFoundProblemDetails_WhenFollowNotFound()
 	{
 		// Arrange
 		await ServiceScope.DeleteAsync(Follow, CancellationToken);

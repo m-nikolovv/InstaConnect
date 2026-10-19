@@ -36,7 +36,7 @@ public class AddEmailConfirmationTokenCommandServiceUnitTests : BaseEmailConfirm
 	}
 
 	[Fact]
-	public async Task AddAsync_ShouldThrowUserNameNotFoundException_WhenUserNotFound()
+	public async Task AddAsync_ShouldThrowUserNameNotFoundException_WhenUserNameNotFound()
 	{
 		// Arrange
 		Repository.RemoveGetByNameAsync(_command, User, CancellationToken);
@@ -46,7 +46,7 @@ public class AddEmailConfirmationTokenCommandServiceUnitTests : BaseEmailConfirm
 	}
 
 	[Fact]
-	public async Task AddAsync_ShouldThrowUserNameEmailAlreadyConfirmedException_WhenEmailIsConfirmed()
+	public async Task AddAsync_ShouldThrowUserNameEmailAlreadyConfirmedException_WhenUserNameEmailAlreadyConfirmed()
 	{
 		// Arrange
 		var confirmedUser = UserBuilder.WithConfirmedEmail().Build();

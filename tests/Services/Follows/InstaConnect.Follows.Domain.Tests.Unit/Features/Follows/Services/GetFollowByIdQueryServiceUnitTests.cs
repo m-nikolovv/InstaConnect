@@ -27,7 +27,7 @@ public class GetFollowByIdQueryServiceUnitTests : BaseFollowDomainQueryUnitTest
 	}
 
 	[Fact]
-	public async Task GetByIdAsync_ShouldThrowFollowNotFoundException_WhenIdIsInvalid()
+	public async Task GetByIdAsync_ShouldThrowFollowNotFoundException_WhenFollowNotFound()
 	{
 		// Arrange
 		Repository.RemoveGetByIdAsync(_query, Follow, CancellationToken);

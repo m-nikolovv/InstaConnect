@@ -122,7 +122,7 @@ public class RotateRefreshTokenFunctionalTests : BaseRefreshTokenPresentationCom
 	}
 
 	[Fact]
-	public async Task RotateAsync_ShouldHaveBadRequestStatusCode_WhenEmailIsNotConfirmed()
+	public async Task RotateAsync_ShouldHaveBadRequestStatusCode_WhenUserEmailNotConfirmed()
 	{
 		// Arrange
 		var updatedUser = UserBuilder.WithUnconfirmedEmail().Build();
@@ -136,7 +136,7 @@ public class RotateRefreshTokenFunctionalTests : BaseRefreshTokenPresentationCom
 	}
 
 	[Fact]
-	public async Task RotateAsync_ShouldHaveUserEmailNotConfirmedProblemDetails_WhenEmailIsNotConfirmed()
+	public async Task RotateAsync_ShouldHaveUserEmailNotConfirmedProblemDetails_WhenUserEmailNotConfirmed()
 	{
 		// Arrange
 		var updatedUser = UserBuilder.WithUnconfirmedEmail().Build();
@@ -176,7 +176,7 @@ public class RotateRefreshTokenFunctionalTests : BaseRefreshTokenPresentationCom
 	}
 
 	[Fact]
-	public async Task RotateAsync_ShouldHaveBadRequestStatusCode_WhenRefreshTokenHasExpired()
+	public async Task RotateAsync_ShouldHaveBadRequestStatusCode_WhenRefreshTokenExpired()
 	{
 		// Arrange
 		var updatedRefreshToken = RefreshTokenBuilder.WithAlreadyExpiresAtUtc().Build();
@@ -190,7 +190,7 @@ public class RotateRefreshTokenFunctionalTests : BaseRefreshTokenPresentationCom
 	}
 
 	[Fact]
-	public async Task RotateAsync_ShouldHaveRefreshTokenExpiredProblemDetails_WhenRefreshTokenHasExpired()
+	public async Task RotateAsync_ShouldHaveRefreshTokenExpiredProblemDetails_WhenRefreshTokenExpired()
 	{
 		// Arrange
 		var updatedRefreshToken = RefreshTokenBuilder.WithAlreadyExpiresAtUtc().Build();

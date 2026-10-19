@@ -261,7 +261,7 @@ public class UpdateCurrentUserFunctionalTests : BaseUserPresentationCommandFunct
 
 	[Theory]
 	[UserEmailDifferentCaseData]
-	public async Task UpdateCurrentAsync_ShouldHaveBadRequestStatusCode_WhenUserEmailAlreadyTakenAndEmailIsValid(
+	public async Task UpdateCurrentAsync_ShouldHaveBadRequestStatusCode_WhenUserEmailAlreadyTakenAndEmailIsInvalid(
 		IStringTransformer transformer)
 	{
 		// Arrange
@@ -293,7 +293,7 @@ public class UpdateCurrentUserFunctionalTests : BaseUserPresentationCommandFunct
 
 	[Theory]
 	[UserEmailDifferentCaseData]
-	public async Task UpdateCurrentAsync_ShouldHaveUserEmailAlreadyTakenProblemDetails_WhenEmailIsValidAndAlreadyTaken(
+	public async Task UpdateCurrentAsync_ShouldHaveUserEmailAlreadyTakenProblemDetails_WhenUserEmailAlreadyTakenAndEmailIsInvalid(
 		IStringTransformer transformer)
 	{
 		// Arrange
@@ -325,7 +325,7 @@ public class UpdateCurrentUserFunctionalTests : BaseUserPresentationCommandFunct
 
 	[Theory]
 	[UserNameDifferentCaseData]
-	public async Task UpdateCurrentAsync_ShouldHaveBadRequestStatusCode_WhenUserNameAlreadyTakenAndNameIsValid(
+	public async Task UpdateCurrentAsync_ShouldHaveBadRequestStatusCode_WhenUserNameAlreadyTakenAndNameIsInvalid(
 		IStringTransformer transformer)
 	{
 		// Arrange
@@ -357,7 +357,7 @@ public class UpdateCurrentUserFunctionalTests : BaseUserPresentationCommandFunct
 
 	[Theory]
 	[UserNameDifferentCaseData]
-	public async Task UpdateCurrentAsync_ShouldHaveUserNameAlreadyTakenProblemDetails_WhenNameIsValidAndAlreadyTaken(
+	public async Task UpdateCurrentAsync_ShouldHaveUserNameAlreadyTakenProblemDetails_WhenUserNameAlreadyTakenAndNameIsInvalid(
 		IStringTransformer transformer)
 	{
 		// Arrange
@@ -384,7 +384,7 @@ public class UpdateCurrentUserFunctionalTests : BaseUserPresentationCommandFunct
 
 	[Theory]
 	[UserIdDifferentCaseData]
-	public async Task UpdateCurrentAsync_ShouldHaveOkStatusCode_WhenRequestAndIdIsValid(
+	public async Task UpdateCurrentAsync_ShouldHaveOkStatusCode_WhenRequestAndIdAreValid(
 		IStringTransformer transformer)
 	{
 		// Arrange
@@ -399,7 +399,7 @@ public class UpdateCurrentUserFunctionalTests : BaseUserPresentationCommandFunct
 
 	[Theory]
 	[UserNameDifferentCaseData]
-	public async Task UpdateCurrentAsync_ShouldHaveOkStatusCode_WhenRequestAndNameIsValid(
+	public async Task UpdateCurrentAsync_ShouldHaveOkStatusCode_WhenRequestAndNameAreValid(
 		IStringTransformer transformer)
 	{
 		// Arrange
@@ -442,7 +442,7 @@ public class UpdateCurrentUserFunctionalTests : BaseUserPresentationCommandFunct
 
 	[Theory]
 	[UserEmailDifferentCaseData]
-	public async Task UpdateCurrentAsync_ShouldHaveOkStatusCode_WhenRequestAndEmailIsValid(
+	public async Task UpdateCurrentAsync_ShouldHaveOkStatusCode_WhenRequestAndEmailAreValid(
 		IStringTransformer transformer)
 	{
 		// Arrange
@@ -485,7 +485,7 @@ public class UpdateCurrentUserFunctionalTests : BaseUserPresentationCommandFunct
 
 	[Theory]
 	[UserProfileImageNullData]
-	public async Task UpdateCurrentAsync_ShouldHaveOkStatusCode_WhenRequestAndProfileImageIsValid(
+	public async Task UpdateCurrentAsync_ShouldHaveOkStatusCode_WhenRequestAndProfileImageAreValid(
 		IFormFileTransformer transformer)
 	{
 		// Arrange

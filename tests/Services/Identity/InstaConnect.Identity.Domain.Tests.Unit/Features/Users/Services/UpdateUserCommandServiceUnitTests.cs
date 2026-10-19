@@ -49,7 +49,7 @@ public class UpdateUserCommandServiceUnitTests : BaseUserDomainCommandUnitTest
 	}
 
 	[Fact]
-	public async Task UpdateAsync_ShouldThrowUserNotFoundException_WhenIdIsInvalid()
+	public async Task UpdateAsync_ShouldThrowUserNotFoundException_WhenUserNotFound()
 	{
 		// Arrange
 		Repository.RemoveGetByIdAsync(_command, _include, User, CancellationToken);
@@ -59,7 +59,7 @@ public class UpdateUserCommandServiceUnitTests : BaseUserDomainCommandUnitTest
 	}
 
 	[Fact]
-	public async Task UpdateAsync_ShouldThrowUserEmailAlreadyTakenException_WhenEmailIsInvalid()
+	public async Task UpdateAsync_ShouldThrowUserEmailAlreadyTakenException_WhenUserEmailAlreadyTaken()
 	{
 		// Arrange
 		Repository.RemoveIsEmailUniqueAsync(_command, CancellationToken);
@@ -69,7 +69,7 @@ public class UpdateUserCommandServiceUnitTests : BaseUserDomainCommandUnitTest
 	}
 
 	[Fact]
-	public async Task UpdateAsync_ShouldThrowUserNameAlreadyTakenException_WhenNameIsInvalid()
+	public async Task UpdateAsync_ShouldThrowUserNameAlreadyTakenException_WhenUserNameAlreadyTaken()
 	{
 		// Arrange
 		Repository.RemoveIsNameUniqueAsync(_command, CancellationToken);

@@ -75,7 +75,7 @@ public class DeleteChatMessageControllerIntegrationTests : BaseChatMessagePresen
 	}
 
 	[Fact]
-	public async Task DeleteAsync_ShouldThrowChatNotFoundException_WhenIdIsInvalid()
+	public async Task DeleteAsync_ShouldThrowChatNotFoundException_WhenChatNotFound()
 	{
 		// Arrange
 		await ServiceScope.DeleteAsync(Chat, CancellationToken);
@@ -85,7 +85,7 @@ public class DeleteChatMessageControllerIntegrationTests : BaseChatMessagePresen
 	}
 
 	[Fact]
-	public async Task DeleteAsync_ShouldThrowChatMessageNotFoundException_WhenMessageIdIsInvalid()
+	public async Task DeleteAsync_ShouldThrowChatMessageNotFoundException_WhenChatMessageNotFound()
 	{
 		// Arrange
 		await ServiceScope.DeleteAsync(ChatMessage, CancellationToken);
@@ -95,7 +95,7 @@ public class DeleteChatMessageControllerIntegrationTests : BaseChatMessagePresen
 	}
 
 	[Fact]
-	public async Task DeleteAsync_ShouldThrowChatMessageForbiddenException_WhenUserIdIsInvalid()
+	public async Task DeleteAsync_ShouldThrowChatMessageForbiddenException_WhenChatMessageForbidden()
 	{
 		// Arrange
 

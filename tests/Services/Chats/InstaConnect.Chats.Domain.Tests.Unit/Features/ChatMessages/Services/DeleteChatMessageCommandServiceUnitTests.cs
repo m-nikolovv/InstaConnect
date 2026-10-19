@@ -41,7 +41,7 @@ public class DeleteChatMessageCommandServiceUnitTests : BaseChatMessageDomainCom
 	}
 
 	[Fact]
-	public async Task DeleteAsync_ShouldThrowChatNotFoundException_WhenIdIsInvalid()
+	public async Task DeleteAsync_ShouldThrowChatNotFoundException_WhenChatNotFound()
 	{
 		// Arrange
 		Repository.RemoveExistsByIdAsync(_command, CancellationToken);
@@ -51,7 +51,7 @@ public class DeleteChatMessageCommandServiceUnitTests : BaseChatMessageDomainCom
 	}
 
 	[Fact]
-	public async Task DeleteAsync_ShouldThrowChatMessageNotFoundException_WhenChatMessageDoesNotExist()
+	public async Task DeleteAsync_ShouldThrowChatMessageNotFoundException_WhenChatMessageNotFound()
 	{
 		// Arrange
 		MessageRepository.RemoveGetByIdAsync(_command, _messageInclude, ChatMessage, CancellationToken);
@@ -61,7 +61,7 @@ public class DeleteChatMessageCommandServiceUnitTests : BaseChatMessageDomainCom
 	}
 
 	[Fact]
-	public async Task DeleteAsync_ShouldThrowChatMessageForbiddenException_WhenParticipantOneIdIsInvalid()
+	public async Task DeleteAsync_ShouldThrowChatMessageForbiddenException_WhenChatMessageForbidden()
 	{
 		// Arrange
 		Repository.SetupExistsByIdAsync(_invertedCommand, CancellationToken);

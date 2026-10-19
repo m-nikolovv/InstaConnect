@@ -29,7 +29,7 @@ public class GetAllUserClaimsQueryServiceUnitTests : BaseUserClaimDomainQueryUni
 	}
 
 	[Fact]
-	public async Task GetAllAsync_ShouldThrowUserNotFoundException_WhenUserIdIsInvalid()
+	public async Task GetAllAsync_ShouldThrowUserNotFoundException_WhenUserNotFound()
 	{
 		// Arrange
 		Repository.RemoveGetByIdAsync(_query, User, CancellationToken);

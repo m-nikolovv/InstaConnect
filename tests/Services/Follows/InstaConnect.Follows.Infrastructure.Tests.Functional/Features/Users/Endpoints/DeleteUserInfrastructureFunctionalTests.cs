@@ -41,7 +41,7 @@ public class DeleteUserInfrastructureFunctionalTests : BaseUserInfrastructureCom
 	}
 
 	[Fact]
-	public async Task PublishAsync_ShouldFaultUserDeletedEvent_WhenIdNotFound()
+	public async Task PublishAsync_ShouldFaultUserDeletedEvent_WhenUserNotFound()
 	{
 		// Arrange
 		await ServiceScope.DeleteAsync(User, CancellationToken);

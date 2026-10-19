@@ -62,7 +62,7 @@ public class RotateRefreshTokenControllerIntegrationTests : BaseRefreshTokenPres
 	}
 
 	[Fact]
-	public async Task RotateAsync_ShouldThrowUserEmailNotConfirmedException_WhenEmailIsNotConfirmed()
+	public async Task RotateAsync_ShouldThrowUserEmailNotConfirmedException_WhenUserEmailNotConfirmed()
 	{
 		// Arrange
 		var updatedUser = UserBuilder.WithUnconfirmedEmail().Build();
@@ -83,7 +83,7 @@ public class RotateRefreshTokenControllerIntegrationTests : BaseRefreshTokenPres
 	}
 
 	[Fact]
-	public async Task RotateAsync_ShouldThrowRefreshTokenExpiredException_WhenRefreshTokenHasExpired()
+	public async Task RotateAsync_ShouldThrowRefreshTokenExpiredException_WhenRefreshTokenExpired()
 	{
 		// Arrange
 		var updatedRefreshToken = RefreshTokenBuilder.WithAlreadyExpiresAtUtc().Build();

@@ -28,7 +28,7 @@ public class GetPostCommentByIdQueryServiceUnitTests : BasePostCommentDomainQuer
 	}
 
 	[Fact]
-	public async Task GetByIdAsync_ShouldThrowPostNotFoundException_WhenIdIsInvalid()
+	public async Task GetByIdAsync_ShouldThrowPostNotFoundException_WhenPostNotFound()
 	{
 		// Arrange
 		Repository.RemoveExistsByIdAsync(_query, CancellationToken);
@@ -38,7 +38,7 @@ public class GetPostCommentByIdQueryServiceUnitTests : BasePostCommentDomainQuer
 	}
 
 	[Fact]
-	public async Task GetByIdAsync_ShouldThrowPostCommentNotFoundException_WhenPostCommentDoesNotExist()
+	public async Task GetByIdAsync_ShouldThrowPostCommentNotFoundException_WhenPostCommentNotFound()
 	{
 		// Arrange
 		CommentRepository.RemoveGetByIdAsync(_query, PostComment, CancellationToken);

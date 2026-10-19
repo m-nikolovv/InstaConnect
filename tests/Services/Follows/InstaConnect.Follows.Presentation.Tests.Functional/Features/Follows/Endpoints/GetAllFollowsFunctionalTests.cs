@@ -242,7 +242,7 @@ public class GetAllFollowsFunctionalTests : BaseFollowPresentationQueryFunctiona
 	}
 
 	[Fact]
-	public async Task GetAllAsync_ShouldHaveNotFoundStatusCode_WhenFollowerIdIsInvalid()
+	public async Task GetAllAsync_ShouldHaveNotFoundStatusCode_WhenFollowerNotFound()
 	{
 		// Arrange
 		await ServiceScope.DeleteAsync(Follower, CancellationToken);
@@ -255,7 +255,7 @@ public class GetAllFollowsFunctionalTests : BaseFollowPresentationQueryFunctiona
 	}
 
 	[Fact]
-	public async Task GetAllAsync_ShouldHaveFollowerNotFoundProblemDetails_WhenFollowerIdIsInvalid()
+	public async Task GetAllAsync_ShouldHaveFollowerNotFoundProblemDetails_WhenFollowerNotFound()
 	{
 		// Arrange
 		await ServiceScope.DeleteAsync(Follower, CancellationToken);

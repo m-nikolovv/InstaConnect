@@ -28,7 +28,7 @@ public class GetChatMessageByIdQueryServiceUnitTests : BaseChatMessageDomainQuer
 	}
 
 	[Fact]
-	public async Task GetByIdAsync_ShouldThrowChatNotFoundException_WhenIdIsInvalid()
+	public async Task GetByIdAsync_ShouldThrowChatNotFoundException_WhenChatNotFound()
 	{
 		// Arrange
 		Repository.RemoveExistsByIdAsync(_query, CancellationToken);
@@ -38,7 +38,7 @@ public class GetChatMessageByIdQueryServiceUnitTests : BaseChatMessageDomainQuer
 	}
 
 	[Fact]
-	public async Task GetByIdAsync_ShouldThrowChatMessageNotFoundException_WhenChatMessageDoesNotExist()
+	public async Task GetByIdAsync_ShouldThrowChatMessageNotFoundException_WhenChatMessageNotFound()
 	{
 		// Arrange
 		MessageRepository.RemoveGetByIdAsync(_query, ChatMessage, CancellationToken);

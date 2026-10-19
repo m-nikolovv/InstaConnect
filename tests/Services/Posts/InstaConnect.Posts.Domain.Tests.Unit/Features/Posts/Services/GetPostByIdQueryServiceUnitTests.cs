@@ -27,7 +27,7 @@ public class GetPostByIdQueryServiceUnitTests : BasePostDomainQueryUnitTest
 	}
 
 	[Fact]
-	public async Task GetByIdAsync_ShouldThrowPostNotFoundException_WhenIdIsInvalid()
+	public async Task GetByIdAsync_ShouldThrowPostNotFoundException_WhenPostNotFound()
 	{
 		// Arrange
 		Repository.RemoveGetByIdAsync(_query, Post, CancellationToken);

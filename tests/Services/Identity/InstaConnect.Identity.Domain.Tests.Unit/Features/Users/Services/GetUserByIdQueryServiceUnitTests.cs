@@ -27,7 +27,7 @@ public class GetUserByIdQueryServiceUnitTests : BaseUserDomainQueryUnitTest
 	}
 
 	[Fact]
-	public async Task GetByIdAsync_ShouldThrowUserNotFoundException_WhenIdIsInvalid()
+	public async Task GetByIdAsync_ShouldThrowUserNotFoundException_WhenUserNotFound()
 	{
 		// Arrange
 		Repository.RemoveGetByIdAsync(_query, User, CancellationToken);

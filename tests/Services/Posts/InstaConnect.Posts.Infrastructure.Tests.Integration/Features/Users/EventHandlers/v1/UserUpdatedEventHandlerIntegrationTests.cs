@@ -126,7 +126,7 @@ public class UserUpdatedEventHandlerIntegrationTests : BaseUserInfrastructureEve
 	}
 
 	[Fact]
-	public async Task Consume_ShouldThrowUserNotFoundException_WhenIdNotFound()
+	public async Task Consume_ShouldThrowUserNotFoundException_WhenUserNotFound()
 	{
 		// Arrange
 		await ServiceScope.DeleteAsync(User, CancellationToken);
@@ -136,7 +136,7 @@ public class UserUpdatedEventHandlerIntegrationTests : BaseUserInfrastructureEve
 	}
 
 	[Fact]
-	public async Task Consume_ShouldThrowUserEmailAlreadyExistsException_WhenEmailAlreadyExists()
+	public async Task Consume_ShouldThrowUserEmailAlreadyExistsException_WhenUserEmailAlreadyExists()
 	{
 		// Arrange
 		var newUser = UserBuilderFactory.Create().Build();
@@ -149,7 +149,7 @@ public class UserUpdatedEventHandlerIntegrationTests : BaseUserInfrastructureEve
 
 	[Theory]
 	[UserEmailDifferentCaseData]
-	public async Task Consume_ShouldThrowUserEmailAlreadyExistsException_WhenEmailIsInvalidAndAlreadyExists(
+	public async Task Consume_ShouldThrowUserEmailAlreadyExistsException_WhenUserEmailAlreadyExistsAndEmailIsInvalid(
 		IStringTransformer transformer)
 	{
 		// Arrange
@@ -162,7 +162,7 @@ public class UserUpdatedEventHandlerIntegrationTests : BaseUserInfrastructureEve
 	}
 
 	[Fact]
-	public async Task Consume_ShouldThrowUserNameAlreadyExistsException_WhenNameAlreadyExists()
+	public async Task Consume_ShouldThrowUserNameAlreadyExistsException_WhenUserNameAlreadyExists()
 	{
 		// Arrange
 		var newUser = UserBuilderFactory.Create().Build();
@@ -175,7 +175,7 @@ public class UserUpdatedEventHandlerIntegrationTests : BaseUserInfrastructureEve
 
 	[Theory]
 	[UserNameDifferentCaseData]
-	public async Task Consume_ShouldThrowUserNameAlreadyExistsException_WhenNameIsInvalidAndAlreadyExists(
+	public async Task Consume_ShouldThrowUserNameAlreadyExistsException_WhenUserNameAlreadyExistsAndNameIsInvalid(
 		IStringTransformer transformer)
 	{
 		// Arrange

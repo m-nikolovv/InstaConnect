@@ -30,7 +30,7 @@ public class AddForgotPasswordTokenCommandHandlerIntegrationTests : BaseForgotPa
 	}
 
 	[Fact]
-	public async Task SendAsync_ShouldThrowUserNameNotFoundException_WhenUserNotFound()
+	public async Task SendAsync_ShouldThrowUserNameNotFoundException_WhenUserNameNotFound()
 	{
 		// Arrange
 		await ServiceScope.DeleteAsync(User, CancellationToken);

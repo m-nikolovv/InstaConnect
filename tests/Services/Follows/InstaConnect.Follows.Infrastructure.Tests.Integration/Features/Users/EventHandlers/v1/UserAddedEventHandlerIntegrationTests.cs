@@ -133,7 +133,7 @@ public class UserAddedEventHandlerIntegrationTests : BaseUserInfrastructureEvent
 	}
 
 	[Fact]
-	public async Task Consume_ShouldThrowUserAlreadyExistsException_WhenIdAlreadyExists()
+	public async Task Consume_ShouldThrowUserAlreadyExistsException_WhenUserAlreadyExists()
 	{
 		// Arrange
 		var newUser = UserBuilderFactory.Create().Build();
@@ -146,7 +146,7 @@ public class UserAddedEventHandlerIntegrationTests : BaseUserInfrastructureEvent
 
 	[Theory]
 	[UserIdDifferentCaseData]
-	public async Task Consume_ShouldThrowUserAlreadyExistsException_WhenIdIsInvalidAndAlreadyExists(
+	public async Task Consume_ShouldThrowUserAlreadyExistsException_WhenUserAlreadyExistsAndIdIsInvalid(
 		IStringTransformer transformer)
 	{
 		// Arrange
@@ -159,7 +159,7 @@ public class UserAddedEventHandlerIntegrationTests : BaseUserInfrastructureEvent
 	}
 
 	[Fact]
-	public async Task Consume_ShouldThrowUserEmailAlreadyExistsException_WhenEmailAlreadyExists()
+	public async Task Consume_ShouldThrowUserEmailAlreadyExistsException_WhenUserEmailAlreadyExists()
 	{
 		// Arrange
 		var newUser = UserBuilderFactory.Create().Build();
@@ -172,7 +172,7 @@ public class UserAddedEventHandlerIntegrationTests : BaseUserInfrastructureEvent
 
 	[Theory]
 	[UserEmailDifferentCaseData]
-	public async Task Consume_ShouldThrowUserEmailAlreadyExistsException_WhenEmailIsInvalidAndAlreadyExists(
+	public async Task Consume_ShouldThrowUserEmailAlreadyExistsException_WhenUserEmailAlreadyExistsAndEmailIsInvalid(
 		IStringTransformer transformer)
 	{
 		// Arrange
@@ -185,7 +185,7 @@ public class UserAddedEventHandlerIntegrationTests : BaseUserInfrastructureEvent
 	}
 
 	[Fact]
-	public async Task Consume_ShouldThrowUserNameAlreadyExistsException_WhenNameAlreadyExists()
+	public async Task Consume_ShouldThrowUserNameAlreadyExistsException_WhenUserNameAlreadyExists()
 	{
 		// Arrange
 		var newUser = UserBuilderFactory.Create().Build();
@@ -198,7 +198,7 @@ public class UserAddedEventHandlerIntegrationTests : BaseUserInfrastructureEvent
 
 	[Theory]
 	[UserNameDifferentCaseData]
-	public async Task Consume_ShouldThrowUserNameAlreadyExistsException_WhenNameIsInvalidAndAlreadyExists(
+	public async Task Consume_ShouldThrowUserNameAlreadyExistsException_WhenUserNameAlreadyExistsAndNameIsInvalid(
 		IStringTransformer transformer)
 	{
 		// Arrange

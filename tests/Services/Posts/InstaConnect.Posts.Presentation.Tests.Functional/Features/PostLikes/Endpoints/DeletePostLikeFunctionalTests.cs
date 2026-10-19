@@ -96,7 +96,7 @@ public class DeletePostLikeFunctionalTests : BasePostLikePresentationCommandFunc
 	}
 
 	[Fact]
-	public async Task DeleteAsync_ShouldHaveNotFoundStatusCode_WhenIdIsInvalid()
+	public async Task DeleteAsync_ShouldHaveNotFoundStatusCode_WhenPostNotFound()
 	{
 		// Arrange
 		await ServiceScope.DeleteAsync(Post, CancellationToken);
@@ -109,7 +109,7 @@ public class DeletePostLikeFunctionalTests : BasePostLikePresentationCommandFunc
 	}
 
 	[Fact]
-	public async Task DeleteAsync_ShouldHavePostNotFoundProblemDetails_WhenIdIsInvalid()
+	public async Task DeleteAsync_ShouldHavePostNotFoundProblemDetails_WhenPostNotFound()
 	{
 		// Arrange
 		await ServiceScope.DeleteAsync(Post, CancellationToken);
@@ -122,7 +122,7 @@ public class DeletePostLikeFunctionalTests : BasePostLikePresentationCommandFunc
 	}
 
 	[Fact]
-	public async Task DeleteAsync_ShouldHaveNotFoundStatusCode_WhenUserIdIsInvalid()
+	public async Task DeleteAsync_ShouldHaveNotFoundStatusCode_WhenPostLikeNotFound()
 	{
 		// Arrange
 		await ServiceScope.DeleteAsync(PostLike, CancellationToken);
@@ -135,7 +135,7 @@ public class DeletePostLikeFunctionalTests : BasePostLikePresentationCommandFunc
 	}
 
 	[Fact]
-	public async Task DeleteAsync_ShouldHavePostLikeNotFoundProblemDetails_WhenUserIdIsInvalid()
+	public async Task DeleteAsync_ShouldHavePostLikeNotFoundProblemDetails_WhenPostLikeNotFound()
 	{
 		// Arrange
 		await ServiceScope.DeleteAsync(PostLike, CancellationToken);

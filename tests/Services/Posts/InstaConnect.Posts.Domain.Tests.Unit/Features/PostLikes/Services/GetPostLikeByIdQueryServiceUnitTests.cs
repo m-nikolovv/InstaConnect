@@ -28,7 +28,7 @@ public class GetPostLikeByIdQueryServiceUnitTests : BasePostLikeDomainQueryUnitT
 	}
 
 	[Fact]
-	public async Task GetByIdAsync_ShouldThrowPostNotFoundException_WhenIdIsInvalid()
+	public async Task GetByIdAsync_ShouldThrowPostNotFoundException_WhenPostNotFound()
 	{
 		// Arrange
 		Repository.RemoveExistsByIdAsync(_query, CancellationToken);
@@ -38,7 +38,7 @@ public class GetPostLikeByIdQueryServiceUnitTests : BasePostLikeDomainQueryUnitT
 	}
 
 	[Fact]
-	public async Task GetByIdAsync_ShouldThrowPostLikeNotFoundException_WhenUserIdIsInvalid()
+	public async Task GetByIdAsync_ShouldThrowPostLikeNotFoundException_WhenPostLikeNotFound()
 	{
 		// Arrange
 		LikeRepository.RemoveGetByIdAsync(_query, PostLike, CancellationToken);

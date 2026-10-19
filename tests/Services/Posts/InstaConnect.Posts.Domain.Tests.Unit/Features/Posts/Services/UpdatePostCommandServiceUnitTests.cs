@@ -32,7 +32,7 @@ public class UpdatePostCommandServiceUnitTests : BasePostDomainCommandUnitTest
 	}
 
 	[Fact]
-	public async Task UpdateAsync_ShouldThrowPostNotFoundException_WhenIdIsInvalid()
+	public async Task UpdateAsync_ShouldThrowPostNotFoundException_WhenPostNotFound()
 	{
 		// Arrange
 		Repository.RemoveGetByIdAsync(_command, _include, Post, CancellationToken);
@@ -42,7 +42,7 @@ public class UpdatePostCommandServiceUnitTests : BasePostDomainCommandUnitTest
 	}
 
 	[Fact]
-	public async Task UpdateAsync_ShouldThrowPostForbiddenException_WhenUserIdIsInvalid()
+	public async Task UpdateAsync_ShouldThrowPostForbiddenException_WhenPostForbidden()
 	{
 		// Arrange
 		var user = UserBuilderFactory.Create().Build();

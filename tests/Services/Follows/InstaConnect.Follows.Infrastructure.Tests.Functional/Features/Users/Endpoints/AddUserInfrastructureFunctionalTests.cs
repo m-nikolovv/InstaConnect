@@ -161,7 +161,7 @@ public class AddUserInfrastructureFunctionalTests : BaseUserInfrastructureComman
 	}
 
 	[Fact]
-	public async Task PublishAsync_ShouldFaultUserAddedEvent_WhenIdAlreadyExists()
+	public async Task PublishAsync_ShouldFaultUserAddedEvent_WhenUserAlreadyExists()
 	{
 		// Arrange
 		var newUser = UserBuilderFactory.Create().Build();
@@ -178,7 +178,7 @@ public class AddUserInfrastructureFunctionalTests : BaseUserInfrastructureComman
 
 	[Theory]
 	[UserIdDifferentCaseData]
-	public async Task PublishAsync_ShouldFaultUserAddedEvent_WhenIdIsInvalidAndAlreadyExists(
+	public async Task PublishAsync_ShouldFaultUserAddedEvent_WhenUserAlreadyExistsAndIdIsInvalid(
 		IStringTransformer transformer)
 	{
 		// Arrange
@@ -195,7 +195,7 @@ public class AddUserInfrastructureFunctionalTests : BaseUserInfrastructureComman
 	}
 
 	[Fact]
-	public async Task PublishAsync_ShouldFaultUserAddedEvent_WhenEmailAlreadyExists()
+	public async Task PublishAsync_ShouldFaultUserAddedEvent_WhenUserEmailAlreadyExists()
 	{
 		// Arrange
 		var newUser = UserBuilderFactory.Create().Build();
@@ -212,7 +212,7 @@ public class AddUserInfrastructureFunctionalTests : BaseUserInfrastructureComman
 
 	[Theory]
 	[UserEmailDifferentCaseData]
-	public async Task PublishAsync_ShouldFaultUserAddedEvent_WhenEmailIsInvalidAndAlreadyExists(
+	public async Task PublishAsync_ShouldFaultUserAddedEvent_WhenUserEmailAlreadyExistsAndEmailIsInvalid(
 		IStringTransformer transformer)
 	{
 		// Arrange
@@ -229,7 +229,7 @@ public class AddUserInfrastructureFunctionalTests : BaseUserInfrastructureComman
 	}
 
 	[Fact]
-	public async Task PublishAsync_ShouldFaultUserAddedEvent_WhenNameAlreadyExists()
+	public async Task PublishAsync_ShouldFaultUserAddedEvent_WhenUserNameAlreadyExists()
 	{
 		// Arrange
 		var newUser = UserBuilderFactory.Create().Build();
@@ -246,7 +246,7 @@ public class AddUserInfrastructureFunctionalTests : BaseUserInfrastructureComman
 
 	[Theory]
 	[UserNameDifferentCaseData]
-	public async Task PublishAsync_ShouldFaultUserAddedEvent_WhenNameIsInvalidAndAlreadyExists(
+	public async Task PublishAsync_ShouldFaultUserAddedEvent_WhenUserNameAlreadyExistsAndNameIsInvalid(
 		IStringTransformer transformer)
 	{
 		// Arrange

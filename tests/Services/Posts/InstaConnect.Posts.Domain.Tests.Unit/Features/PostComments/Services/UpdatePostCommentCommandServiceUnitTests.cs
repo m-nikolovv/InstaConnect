@@ -36,7 +36,7 @@ public class UpdatePostCommentCommandServiceUnitTests : BasePostCommentDomainCom
 	}
 
 	[Fact]
-	public async Task UpdateAsync_ShouldThrowPostNotFoundException_WhenIdIsInvalid()
+	public async Task UpdateAsync_ShouldThrowPostNotFoundException_WhenPostNotFound()
 	{
 		// Arrange
 		Repository.RemoveExistsByIdAsync(_command, CancellationToken);
@@ -46,7 +46,7 @@ public class UpdatePostCommentCommandServiceUnitTests : BasePostCommentDomainCom
 	}
 
 	[Fact]
-	public async Task UpdateAsync_ShouldThrowPostCommentNotFoundException_WhenPostCommentDoesNotExist()
+	public async Task UpdateAsync_ShouldThrowPostCommentNotFoundException_WhenPostCommentNotFound()
 	{
 		// Arrange
 		CommentRepository.RemoveGetByIdAsync(_command, _commentInclude, PostComment, CancellationToken);
@@ -56,7 +56,7 @@ public class UpdatePostCommentCommandServiceUnitTests : BasePostCommentDomainCom
 	}
 
 	[Fact]
-	public async Task UpdateAsync_ShouldThrowPostCommentForbiddenException_WhenUserIdIsInvalid()
+	public async Task UpdateAsync_ShouldThrowPostCommentForbiddenException_WhenPostCommentForbidden()
 	{
 		// Arrange
 		var user = UserBuilderFactory.Create().Build();

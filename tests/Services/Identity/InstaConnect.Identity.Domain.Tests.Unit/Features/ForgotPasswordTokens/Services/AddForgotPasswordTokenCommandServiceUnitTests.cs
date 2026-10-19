@@ -37,7 +37,7 @@ public class AddForgotPasswordTokenCommandServiceUnitTests : BaseForgotPasswordT
 	}
 
 	[Fact]
-	public async Task AddAsync_ShouldThrowUserNameNotFoundException_WhenUserNotFound()
+	public async Task AddAsync_ShouldThrowUserNameNotFoundException_WhenUserNameNotFound()
 	{
 		// Arrange
 		Repository.RemoveGetByNameAsync(_command, User, CancellationToken);

@@ -114,7 +114,7 @@ public class VerifyEmailConfirmationTokenFunctionalTests : BaseEmailConfirmation
 	}
 
 	[Fact]
-	public async Task VerifyAsync_ShouldHaveBadRequestStatusCode_WhenEmailIsConfirmed()
+	public async Task VerifyAsync_ShouldHaveBadRequestStatusCode_WhenUserEmailAlreadyConfirmed()
 	{
 		// Arrange
 		var updatedUser = UserBuilder.WithConfirmedEmail().Build();
@@ -128,7 +128,7 @@ public class VerifyEmailConfirmationTokenFunctionalTests : BaseEmailConfirmation
 	}
 
 	[Fact]
-	public async Task VerifyAsync_ShouldHaveUserEmailAlreadyConfirmedProblemDetails_WhenEmailIsConfirmed()
+	public async Task VerifyAsync_ShouldHaveUserEmailAlreadyConfirmedProblemDetails_WhenUserEmailAlreadyConfirmed()
 	{
 		// Arrange
 		var updatedUser = UserBuilder.WithConfirmedEmail().Build();
@@ -168,7 +168,7 @@ public class VerifyEmailConfirmationTokenFunctionalTests : BaseEmailConfirmation
 	}
 
 	[Fact]
-	public async Task VerifyAsync_ShouldHaveBadRequestStatusCode_WhenEmailConfirmationTokenHasExpired()
+	public async Task VerifyAsync_ShouldHaveBadRequestStatusCode_WhenEmailConfirmationTokenExpired()
 	{
 		// Arrange
 		var updatedEmailConfirmationToken = EmailConfirmationTokenBuilder.WithAlreadyExpiresAtUtc().Build();
@@ -182,7 +182,7 @@ public class VerifyEmailConfirmationTokenFunctionalTests : BaseEmailConfirmation
 	}
 
 	[Fact]
-	public async Task VerifyAsync_ShouldHaveEmailConfirmationTokenExpiredProblemDetails_WhenWhenEmailConfirmationTokenHasExpired()
+	public async Task VerifyAsync_ShouldHaveEmailConfirmationTokenExpiredProblemDetails_WhenEmailConfirmationTokenExpired()
 	{
 		// Arrange
 		var updatedEmailConfirmationToken = EmailConfirmationTokenBuilder.WithAlreadyExpiresAtUtc().Build();
@@ -207,7 +207,7 @@ public class VerifyEmailConfirmationTokenFunctionalTests : BaseEmailConfirmation
 
 	[Theory]
 	[UserIdDifferentCaseData]
-	public async Task VerifyAsync_ShouldHaveNoContentStatusCode_WhenRequestAndIdIsValid(
+	public async Task VerifyAsync_ShouldHaveNoContentStatusCode_WhenRequestAndIdAreValid(
 		IStringTransformer transformer)
 	{
 		// Arrange
@@ -222,7 +222,7 @@ public class VerifyEmailConfirmationTokenFunctionalTests : BaseEmailConfirmation
 
 	[Theory]
 	[EmailConfirmationTokenValueDifferentCaseData]
-	public async Task VerifyAsync_ShouldHaveNoContentStatusCode_WhenRequestAndValueIsValid(
+	public async Task VerifyAsync_ShouldHaveNoContentStatusCode_WhenRequestAndValueAreValid(
 		IStringTransformer transformer)
 	{
 		// Arrange

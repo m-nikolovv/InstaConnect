@@ -85,7 +85,7 @@ public class UpdatePostControllerIntegrationTests : BasePostPresentationCommandI
 	}
 
 	[Fact]
-	public async Task UpdateAsync_ShouldThrowPostNotFoundException_WhenIdIsInvalid()
+	public async Task UpdateAsync_ShouldThrowPostNotFoundException_WhenPostNotFound()
 	{
 		// Arrange
 		await ServiceScope.DeleteAsync(Post, CancellationToken);
@@ -95,7 +95,7 @@ public class UpdatePostControllerIntegrationTests : BasePostPresentationCommandI
 	}
 
 	[Fact]
-	public async Task UpdateAsync_ShouldThrowPostForbiddenException_WhenUserIdIsInvalid()
+	public async Task UpdateAsync_ShouldThrowPostForbiddenException_WhenPostForbidden()
 	{
 		// Arrange
 		var user = UserBuilderFactory.Create().Build();

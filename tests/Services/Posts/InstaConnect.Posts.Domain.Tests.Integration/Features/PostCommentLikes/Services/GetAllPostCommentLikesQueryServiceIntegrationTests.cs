@@ -41,7 +41,7 @@ public class GetAllPostCommentLikesQueryServiceIntegrationTests : BasePostCommen
 	}
 
 	[Fact]
-	public async Task GetAllAsync_ShouldThrowPostNotFoundException_WhenIdIsInvalid()
+	public async Task GetAllAsync_ShouldThrowPostNotFoundException_WhenPostNotFound()
 	{
 		// Arrange
 		await ServiceScope.DeleteAsync(Post, CancellationToken);
@@ -51,7 +51,7 @@ public class GetAllPostCommentLikesQueryServiceIntegrationTests : BasePostCommen
 	}
 
 	[Fact]
-	public async Task GetAllAsync_ShouldThrowPostCommentNotFoundException_WhenCommentIdIsInvalid()
+	public async Task GetAllAsync_ShouldThrowPostCommentNotFoundException_WhenPostCommentNotFound()
 	{
 		// Arrange
 		await ServiceScope.DeleteAsync(PostComment, CancellationToken);

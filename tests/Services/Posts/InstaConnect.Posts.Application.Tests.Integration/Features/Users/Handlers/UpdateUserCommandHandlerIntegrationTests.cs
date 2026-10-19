@@ -127,7 +127,7 @@ public class UpdateUserCommandHandlerIntegrationTests : BaseUserApplicationComma
 	}
 
 	[Fact]
-	public async Task SendAsync_ShouldThrowUserNotFoundException_WhenRequestIsInvalid()
+	public async Task SendAsync_ShouldThrowUserNotFoundException_WhenUserNotFound()
 	{
 		// Arrange
 		await ServiceScope.DeleteAsync(User, CancellationToken);
@@ -137,7 +137,7 @@ public class UpdateUserCommandHandlerIntegrationTests : BaseUserApplicationComma
 	}
 
 	[Fact]
-	public async Task SendAsync_ShouldThrowUserEmailAlreadyExistsException_WhenRequestIsInvalid()
+	public async Task SendAsync_ShouldThrowUserEmailAlreadyExistsException_WhenUserEmailAlreadyExists()
 	{
 		// Arrange
 		var user = UserBuilderFactory.Create().Build();
@@ -151,7 +151,7 @@ public class UpdateUserCommandHandlerIntegrationTests : BaseUserApplicationComma
 
 	[Theory]
 	[UserEmailDifferentCaseData]
-	public async Task SendAsync_ShouldThrowUserEmailAlreadyExistsException_WhenEmailIsInvalid(
+	public async Task SendAsync_ShouldThrowUserEmailAlreadyExistsException_WhenUserEmailAlreadyExistsAndEmailIsInvalid(
 		IStringTransformer transformer)
 	{
 		// Arrange
@@ -165,7 +165,7 @@ public class UpdateUserCommandHandlerIntegrationTests : BaseUserApplicationComma
 	}
 
 	[Fact]
-	public async Task SendAsync_ShouldThrowUserNameAlreadyExistsException_WhenRequestIsInvalid()
+	public async Task SendAsync_ShouldThrowUserNameAlreadyExistsException_WhenUserNameAlreadyExists()
 	{
 		// Arrange
 		var user = UserBuilderFactory.Create().Build();
@@ -179,7 +179,7 @@ public class UpdateUserCommandHandlerIntegrationTests : BaseUserApplicationComma
 
 	[Theory]
 	[UserNameDifferentCaseData]
-	public async Task SendAsync_ShouldThrowUserNameAlreadyExistsException_WhenNameIsInvalid(
+	public async Task SendAsync_ShouldThrowUserNameAlreadyExistsException_WhenUserNameAlreadyExistsAndNameIsInvalid(
 		IStringTransformer transformer)
 	{
 		// Arrange

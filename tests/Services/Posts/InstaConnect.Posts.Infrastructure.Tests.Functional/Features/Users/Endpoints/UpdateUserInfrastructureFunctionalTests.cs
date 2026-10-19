@@ -150,7 +150,7 @@ public class UpdateUserInfrastructureFunctionalTests : BaseUserInfrastructureCom
 	}
 
 	[Fact]
-	public async Task PublishAsync_ShouldFaultUserUpdatedEvent_WhenIdNotFound()
+	public async Task PublishAsync_ShouldFaultUserUpdatedEvent_WhenUserNotFound()
 	{
 		// Arrange
 		await ServiceScope.DeleteAsync(User, CancellationToken);
@@ -164,7 +164,7 @@ public class UpdateUserInfrastructureFunctionalTests : BaseUserInfrastructureCom
 	}
 
 	[Fact]
-	public async Task PublishAsync_ShouldFaultUserUpdatedEvent_WhenEmailAlreadyExists()
+	public async Task PublishAsync_ShouldFaultUserUpdatedEvent_WhenUserEmailAlreadyExists()
 	{
 		// Arrange
 		var newUser = UserBuilderFactory.Create().Build();
@@ -182,7 +182,7 @@ public class UpdateUserInfrastructureFunctionalTests : BaseUserInfrastructureCom
 
 	[Theory]
 	[UserEmailDifferentCaseData]
-	public async Task PublishAsync_ShouldFaultUserUpdatedEvent_WhenEmailIsInvalidAndAlreadyExists(
+	public async Task PublishAsync_ShouldFaultUserUpdatedEvent_WhenUserEmailAlreadyExistsAndEmailIsInvalid(
 		IStringTransformer transformer)
 	{
 		// Arrange
@@ -200,7 +200,7 @@ public class UpdateUserInfrastructureFunctionalTests : BaseUserInfrastructureCom
 	}
 
 	[Fact]
-	public async Task PublishAsync_ShouldFaultUserUpdatedEvent_WhenNameAlreadyExists()
+	public async Task PublishAsync_ShouldFaultUserUpdatedEvent_WhenUserNameAlreadyExists()
 	{
 		// Arrange
 		var newUser = UserBuilderFactory.Create().Build();
@@ -218,7 +218,7 @@ public class UpdateUserInfrastructureFunctionalTests : BaseUserInfrastructureCom
 
 	[Theory]
 	[UserNameDifferentCaseData]
-	public async Task PublishAsync_ShouldFaultUserUpdatedEvent_WhenNameIsInvalidAndAlreadyExists(
+	public async Task PublishAsync_ShouldFaultUserUpdatedEvent_WhenUserNameAlreadyExistsAndNameIsInvalid(
 		IStringTransformer transformer)
 	{
 		// Arrange

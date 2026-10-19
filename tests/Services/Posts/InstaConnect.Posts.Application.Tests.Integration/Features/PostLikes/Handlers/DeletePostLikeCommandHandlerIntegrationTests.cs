@@ -52,7 +52,7 @@ public class DeletePostLikeCommandHandlerIntegrationTests : BasePostLikeApplicat
 	}
 
 	[Fact]
-	public async Task SendAsync_ShouldThrowPostNotFoundException_WhenIdIsInvalid()
+	public async Task SendAsync_ShouldThrowPostNotFoundException_WhenPostNotFound()
 	{
 		// Arrange
 		await ServiceScope.DeleteAsync(Post, CancellationToken);
@@ -62,7 +62,7 @@ public class DeletePostLikeCommandHandlerIntegrationTests : BasePostLikeApplicat
 	}
 
 	[Fact]
-	public async Task SendAsync_ShouldThrowPostLikeNotFoundException_WhenUserIdIsInvalid()
+	public async Task SendAsync_ShouldThrowPostLikeNotFoundException_WhenPostLikeNotFound()
 	{
 		// Arrange
 		await ServiceScope.DeleteAsync(PostLike, CancellationToken);

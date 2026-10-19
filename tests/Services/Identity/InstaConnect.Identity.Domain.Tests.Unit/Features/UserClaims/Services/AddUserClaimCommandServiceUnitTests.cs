@@ -29,7 +29,7 @@ public class AddUserClaimCommandServiceUnitTests : BaseUserClaimDomainCommandUni
 	}
 
 	[Fact]
-	public async Task AddAsync_ShouldThrowUserNotFoundException_WhenIdIsInvalid()
+	public async Task AddAsync_ShouldThrowUserNotFoundException_WhenUserNotFound()
 	{
 		// Arrange
 		Repository.RemoveGetByIdAsync(_command, User, CancellationToken);

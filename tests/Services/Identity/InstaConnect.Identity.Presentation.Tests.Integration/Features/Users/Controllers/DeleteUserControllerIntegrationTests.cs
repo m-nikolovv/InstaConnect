@@ -57,7 +57,7 @@ public class DeleteUserControllerIntegrationTests : BaseUserPresentationCommandI
 
 	[Theory]
 	[UserIdDifferentCaseData]
-	public async Task DeleteAsync_ShouldReturnNoContentStatusCode_WhenRequestAndIdIsValid(
+	public async Task DeleteAsync_ShouldReturnNoContentStatusCode_WhenRequestAndIdAreValid(
 		IStringTransformer transformer)
 	{
 		// Arrange

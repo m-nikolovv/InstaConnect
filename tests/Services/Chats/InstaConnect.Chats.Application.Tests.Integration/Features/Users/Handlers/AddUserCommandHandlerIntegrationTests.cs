@@ -129,7 +129,7 @@ public class AddUserCommandHandlerIntegrationTests : BaseUserApplicationCommandI
 	}
 
 	[Fact]
-	public async Task SendAsync_ShouldThrowUserAlreadyExistsException_WhenRequestIsInvalid()
+	public async Task SendAsync_ShouldThrowUserAlreadyExistsException_WhenUserAlreadyExists()
 	{
 		// Arrange
 		await ServiceScope.AddAsync(User, CancellationToken);
@@ -141,7 +141,7 @@ public class AddUserCommandHandlerIntegrationTests : BaseUserApplicationCommandI
 
 	[Theory]
 	[UserIdDifferentCaseData]
-	public async Task SendAsync_ShouldThrowUserAlreadyExistsException_WhenIdIsInvalid(
+	public async Task SendAsync_ShouldThrowUserAlreadyExistsException_WhenUserAlreadyExistsAndIdIsInvalid(
 		IStringTransformer transformer)
 	{
 		// Arrange
@@ -153,7 +153,7 @@ public class AddUserCommandHandlerIntegrationTests : BaseUserApplicationCommandI
 	}
 
 	[Fact]
-	public async Task SendAsync_ShouldThrowUserEmailAlreadyExistsException_WhenRequestIsInvalid()
+	public async Task SendAsync_ShouldThrowUserEmailAlreadyExistsException_WhenUserEmailAlreadyExists()
 	{
 		// Arrange
 		await ServiceScope.AddAsync(User, CancellationToken);
@@ -165,7 +165,7 @@ public class AddUserCommandHandlerIntegrationTests : BaseUserApplicationCommandI
 
 	[Theory]
 	[UserEmailDifferentCaseData]
-	public async Task SendAsync_ShouldThrowUserEmailAlreadyExistsException_WhenEmailIsInvalid(
+	public async Task SendAsync_ShouldThrowUserEmailAlreadyExistsException_WhenUserEmailAlreadyExistsAndEmailIsInvalid(
 		IStringTransformer transformer)
 	{
 		// Arrange
@@ -177,7 +177,7 @@ public class AddUserCommandHandlerIntegrationTests : BaseUserApplicationCommandI
 	}
 
 	[Fact]
-	public async Task SendAsync_ShouldThrowUserNameAlreadyExistsException_WhenRequestIsInvalid()
+	public async Task SendAsync_ShouldThrowUserNameAlreadyExistsException_WhenUserNameAlreadyExists()
 	{
 		// Arrange
 		await ServiceScope.AddAsync(User, CancellationToken);
@@ -189,7 +189,7 @@ public class AddUserCommandHandlerIntegrationTests : BaseUserApplicationCommandI
 
 	[Theory]
 	[UserNameDifferentCaseData]
-	public async Task SendAsync_ShouldThrowUserNameAlreadyExistsException_WhenNameIsInvalid(
+	public async Task SendAsync_ShouldThrowUserNameAlreadyExistsException_WhenUserNameAlreadyExistsAndNameIsInvalid(
 		IStringTransformer transformer)
 	{
 		// Arrange

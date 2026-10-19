@@ -118,7 +118,7 @@ public class GetAllUserClaimsQueryRequestValidatorUnitTests : BaseUserClaimAppli
 	[Theory]
 	[UserIdNullData]
 	[UserIdEmptyData]
-	public void TestValidate_ShouldNotHaveAnyValidationsErrors_WhenCurrentIdIsValid(
+	public void TestValidate_ShouldNotHaveAnyValidationErrors_WhenCurrentIdIsValid(
 		IStringTransformer transformer)
 	{
 		// Arrange
@@ -132,7 +132,7 @@ public class GetAllUserClaimsQueryRequestValidatorUnitTests : BaseUserClaimAppli
 	}
 
 	[Fact]
-	public void TestValidate_ShouldNotHaveAnyValidationsErrors_WhenRequestIsValid()
+	public void TestValidate_ShouldNotHaveAnyValidationErrors_WhenRequestIsValid()
 	{
 		// Act
 		var response = _requestValidator.TestValidate(_request);

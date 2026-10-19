@@ -130,7 +130,7 @@ public class GetAllPostsQueryRequestValidatorUnitTests : BasePostApplicationQuer
 	[Theory]
 	[UserNameEmptyData]
 	[UserNameNullData]
-	public void TestValidate_ShouldNotHaveAnyValidationsErrors_WhenUserNameIsValid(
+	public void TestValidate_ShouldNotHaveAnyValidationErrors_WhenUserNameIsValid(
 		IStringTransformer transformer)
 	{
 		// Arrange
@@ -146,7 +146,7 @@ public class GetAllPostsQueryRequestValidatorUnitTests : BasePostApplicationQuer
 	[Theory]
 	[PostTitleEmptyData]
 	[PostTitleNullData]
-	public void TestValidate_ShouldNotHaveAnyValidationsErrors_WhenTitleIsValid(
+	public void TestValidate_ShouldNotHaveAnyValidationErrors_WhenTitleIsValid(
 		IStringTransformer transformer)
 	{
 		// Arrange
@@ -162,7 +162,7 @@ public class GetAllPostsQueryRequestValidatorUnitTests : BasePostApplicationQuer
 	[Theory]
 	[UserIdNullData]
 	[UserIdEmptyData]
-	public void TestValidate_ShouldNotHaveAnyValidationsErrors_WhenCurrentUserIdIsValid(
+	public void TestValidate_ShouldNotHaveAnyValidationErrors_WhenCurrentUserIdIsValid(
 		IStringTransformer transformer)
 	{
 		// Arrange
@@ -176,7 +176,7 @@ public class GetAllPostsQueryRequestValidatorUnitTests : BasePostApplicationQuer
 	}
 
 	[Fact]
-	public void TestValidate_ShouldNotHaveAnyValidationsErrors_WhenRequestIsValid()
+	public void TestValidate_ShouldNotHaveAnyValidationErrors_WhenRequestIsValid()
 	{
 		// Act
 		var response = _requestValidator.TestValidate(_request);

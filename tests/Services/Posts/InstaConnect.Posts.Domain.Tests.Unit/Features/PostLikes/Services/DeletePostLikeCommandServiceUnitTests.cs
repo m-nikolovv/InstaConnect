@@ -35,7 +35,7 @@ public class DeletePostLikeCommandServiceUnitTests : BasePostLikeDomainCommandUn
 	}
 
 	[Fact]
-	public async Task DeleteAsync_ShouldThrowPostNotFoundException_WhenIdIsInvalid()
+	public async Task DeleteAsync_ShouldThrowPostNotFoundException_WhenPostNotFound()
 	{
 		// Arrange
 		Repository.RemoveExistsByIdAsync(_command, CancellationToken);
@@ -45,7 +45,7 @@ public class DeletePostLikeCommandServiceUnitTests : BasePostLikeDomainCommandUn
 	}
 
 	[Fact]
-	public async Task DeleteAsync_ShouldThrowPostLikeNotFoundException_WhenUserIdIsInvalid()
+	public async Task DeleteAsync_ShouldThrowPostLikeNotFoundException_WhenPostLikeNotFound()
 	{
 		// Arrange
 		LikeRepository.RemoveGetByIdAsync(_command, _likeInclude, PostLike, CancellationToken);
