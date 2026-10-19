@@ -30,7 +30,7 @@ public class UpdatePostCommandHandlerUnitTests : BasePostApplicationCommandUnitT
 	}
 
 	[Fact]
-	public async Task Handle_ShouldCallServiceUpdateAsync_WhenRequestIsValid()
+	public async Task Handle_ShouldCallTheServiceUpdateAsync_WhenRequestIsValid()
 	{
 		// Act
 		await _handler.Handle(_request, CancellationToken);

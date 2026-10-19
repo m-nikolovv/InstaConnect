@@ -14,16 +14,16 @@ public class DeleteChatMessageCommandHandlerUnitTests : BaseChatMessageApplicati
 		_requestBuilder = _requestBuilderFactory.Create(ChatMessage);
 		_request = _requestBuilder.Build();
 
-		_handler = new(Mapper, CommentService);
+		_handler = new(Mapper, MessageService);
 	}
 
 	[Fact]
-	public async Task Handle_ShouldCallCommentServiceDeleteAsync_WhenRequestIsValid()
+	public async Task Handle_ShouldCallTheMessageServiceDeleteAsync_WhenRequestIsValid()
 	{
 		// Act
 		await _handler.Handle(_request, CancellationToken);
 
 		// Assert
-		await CommentService.ShouldHaveReceivedOneDeleteAsync(_request, CancellationToken);
+		await MessageService.ShouldHaveReceivedOneDeleteAsync(_request, CancellationToken);
 	}
 }

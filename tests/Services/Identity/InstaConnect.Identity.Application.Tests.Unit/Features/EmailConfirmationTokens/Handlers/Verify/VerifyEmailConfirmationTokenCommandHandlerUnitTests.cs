@@ -18,7 +18,7 @@ public class VerifyEmailConfirmationTokenCommandHandlerUnitTests : BaseEmailConf
 	}
 
 	[Fact]
-	public async Task Handle_ShouldCallServiceVerifyAsync_WhenRequestIsValid()
+	public async Task Handle_ShouldCallTheServiceVerifyAsync_WhenRequestIsValid()
 	{
 		// Act
 		await _handler.Handle(_request, CancellationToken);

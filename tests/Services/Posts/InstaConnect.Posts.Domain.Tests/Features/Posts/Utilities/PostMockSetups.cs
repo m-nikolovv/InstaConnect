@@ -128,7 +128,7 @@ public static class PostMockSetups
 			CancellationToken cancellationToken)
 		{
 			service
-				.GetForUserTotalCountAsync(filter, cancellationToken)
+				.GetTotalCountForUserAsync(filter, cancellationToken)
 				.ReturnsTaskResponse(totalCount);
 		}
 

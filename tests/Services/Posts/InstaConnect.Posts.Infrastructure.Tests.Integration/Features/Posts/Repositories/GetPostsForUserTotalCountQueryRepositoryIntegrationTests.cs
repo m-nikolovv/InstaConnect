@@ -27,10 +27,10 @@ public class GetPostsForUserTotalCountQueryRepositoryIntegrationTests : BasePost
 	}
 
 	[Fact]
-	public async Task GetForUserTotalCountAsync_ShouldReturnResponse_WhenQueryIsValid()
+	public async Task GetTotalCountForUserAsync_ShouldReturnResponse_WhenQueryIsValid()
 	{
 		// Act
-		var response = await Repository.GetForUserTotalCountAsync(_filterQuery, CancellationToken);
+		var response = await Repository.GetTotalCountForUserAsync(_filterQuery, CancellationToken);
 
 		// Assert
 		response.ShouldSatisfy(_filterQuery, Posts);
@@ -38,14 +38,14 @@ public class GetPostsForUserTotalCountQueryRepositoryIntegrationTests : BasePost
 
 	[Theory]
 	[UserIdDifferentCaseData]
-	public async Task GetForUserTotalCountAsync_ShouldReturnResponse_WhenQueryAndUserIdAreValid(
+	public async Task GetTotalCountForUserAsync_ShouldReturnResponse_WhenQueryAndUserIdAreValid(
 		IStringTransformer transformer)
 	{
 		// Arrange
 		var filterQuery = _filterQueryBuilder.WithUserId(transformer).Build();
 
 		// Act
-		var response = await Repository.GetForUserTotalCountAsync(filterQuery, CancellationToken);
+		var response = await Repository.GetTotalCountForUserAsync(filterQuery, CancellationToken);
 
 		// Assert
 		response.ShouldSatisfy(filterQuery, Posts);
@@ -55,14 +55,14 @@ public class GetPostsForUserTotalCountQueryRepositoryIntegrationTests : BasePost
 	[PostTitleNullData]
 	[PostTitleEmptyData]
 	[PostTitleDifferentCaseData]
-	public async Task GetForUserTotalCountAsync_ShouldReturnResponse_WhenQueryAndTitleAreValid(
+	public async Task GetTotalCountForUserAsync_ShouldReturnResponse_WhenQueryAndTitleAreValid(
 		IStringTransformer transformer)
 	{
 		// Arrange
 		var filterQuery = _filterQueryBuilder.WithTitle(transformer).Build();
 
 		// Act
-		var response = await Repository.GetForUserTotalCountAsync(filterQuery, CancellationToken);
+		var response = await Repository.GetTotalCountForUserAsync(filterQuery, CancellationToken);
 
 		// Assert
 		response.ShouldSatisfy(filterQuery, Posts);

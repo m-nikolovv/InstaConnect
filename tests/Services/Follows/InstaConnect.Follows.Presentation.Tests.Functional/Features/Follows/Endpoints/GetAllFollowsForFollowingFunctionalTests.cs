@@ -57,7 +57,7 @@ public class GetAllFollowsForFollowingFunctionalTests : BaseFollowPresentationQu
 
 	[Theory]
 	[UserNameTooLongData]
-	public async Task GetAllAsync_ShouldHaveBadRequestStatusCode_WhenFollowerNameIsInvalid(
+	public async Task GetAllForFollowingAsync_ShouldHaveBadRequestStatusCode_WhenFollowerNameIsInvalid(
 		IStringTransformer transformer)
 	{
 		// Arrange
@@ -72,7 +72,7 @@ public class GetAllFollowsForFollowingFunctionalTests : BaseFollowPresentationQu
 
 	[Theory]
 	[UserNameTooLongWithMessageData]
-	public async Task GetAllAsync_ShouldHaveBadRequestProblemDetails_WhenFollowerNameIsInvalid(
+	public async Task GetAllForFollowingAsync_ShouldHaveBadRequestProblemDetails_WhenFollowerNameIsInvalid(
 		IStringTransformer transformer, IStringMessageTransformer messageTransformer)
 	{
 		// Arrange
@@ -268,7 +268,7 @@ public class GetAllFollowsForFollowingFunctionalTests : BaseFollowPresentationQu
 	[UserNameNullData]
 	[UserNameEmptyData]
 	[UserNameDifferentCaseData]
-	public async Task GetAllAsync_ShouldHaveOkStatusCode_WhenRequestAndFollowerNameAreValid(
+	public async Task GetAllForFollowingAsync_ShouldHaveOkStatusCode_WhenRequestAndFollowerNameAreValid(
 		IStringTransformer transformer)
 	{
 		// Arrange

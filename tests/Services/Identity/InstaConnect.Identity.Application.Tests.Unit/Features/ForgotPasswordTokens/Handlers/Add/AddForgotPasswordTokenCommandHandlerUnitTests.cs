@@ -20,7 +20,7 @@ public class AddForgotPasswordTokenCommandHandlerUnitTests : BaseForgotPasswordT
 	}
 
 	[Fact]
-	public async Task Handle_ShouldCallServiceAddAsync_WhenRequestIsValid()
+	public async Task Handle_ShouldCallTheServiceAddAsync_WhenRequestIsValid()
 	{
 		// Act
 		await _handler.Handle(_request, CancellationToken);

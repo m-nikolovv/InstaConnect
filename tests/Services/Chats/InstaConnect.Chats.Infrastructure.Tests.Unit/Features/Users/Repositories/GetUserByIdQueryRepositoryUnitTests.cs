@@ -67,7 +67,7 @@ public class GetUserByIdQueryRepositoryUnitTests : BaseUserInfrastructureQueryUn
 	}
 
 	[Fact]
-	public async Task GetByIdAsync_ShouldCallTheFluentResponseFirstOrDefaultAsync_WhenRequestIsValid()
+	public async Task GetByIdAsync_ShouldCallTheResponseFluentFirstOrDefaultAsync_WhenRequestIsValid()
 	{
 		// Act
 		await _repository.GetByIdAsync(UserId, _currentUserQuery, CancellationToken);

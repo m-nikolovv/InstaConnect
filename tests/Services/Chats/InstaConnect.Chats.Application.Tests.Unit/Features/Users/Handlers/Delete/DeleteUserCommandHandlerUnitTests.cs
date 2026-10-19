@@ -18,7 +18,7 @@ public class DeleteUserCommandHandlerUnitTests : BaseUserApplicationCommandUnitT
 	}
 
 	[Fact]
-	public async Task Handle_ShouldCallUserServiceDeleteAsync_WhenRequestIsValid()
+	public async Task Handle_ShouldCallTheUserServiceDeleteAsync_WhenRequestIsValid()
 	{
 		// Act
 		await _handler.Handle(_request, CancellationToken);

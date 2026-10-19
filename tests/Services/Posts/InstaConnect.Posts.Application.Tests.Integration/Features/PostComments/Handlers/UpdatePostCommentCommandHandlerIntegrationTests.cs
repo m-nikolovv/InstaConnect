@@ -223,7 +223,7 @@ public class UpdatePostCommentCommandHandlerIntegrationTests : BasePostCommentAp
 
 	[Theory]
 	[UserIdDifferentCaseData]
-	public async Task SendAsync_ShouldUpdatePostComment_WhenRequestAndUserIdAreValids(
+	public async Task SendAsync_ShouldUpdatePostComment_WhenRequestAndUserIdAreValid(
 		IStringTransformer transformer)
 	{
 		// Arrange
@@ -288,7 +288,7 @@ public class UpdatePostCommentCommandHandlerIntegrationTests : BasePostCommentAp
 
 	[Theory]
 	[UserIdDifferentCaseData]
-	public async Task SendAsync_ShouldPublishUpdatedEvent_WhenRequestAndUserIdAreValids(
+	public async Task SendAsync_ShouldPublishPostCommentUpdatedEvent_WhenRequestAndUserIdAreValid(
 		IStringTransformer transformer)
 	{
 		// Arrange

@@ -64,7 +64,7 @@ internal class PostQueryRepository : IPostQueryRepository
 			.GetCountAsync(cancellationToken);
 	}
 
-	public async Task<long> GetForUserTotalCountAsync(
+	public async Task<long> GetTotalCountForUserAsync(
 		PostsForUserFilterQuery filter,
 		CancellationToken cancellationToken)
 	{

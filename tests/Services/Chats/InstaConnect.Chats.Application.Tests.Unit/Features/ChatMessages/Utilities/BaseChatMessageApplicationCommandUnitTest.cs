@@ -7,11 +7,11 @@ public abstract class BaseChatMessageApplicationCommandUnitTest : BaseChatMessag
 {
 	protected IApplicationMapper Mapper { get; }
 
-	protected IChatMessageCommandService CommentService { get; }
+	protected IChatMessageCommandService MessageService { get; }
 
 	protected BaseChatMessageApplicationCommandUnitTest()
 	{
 		Mapper = MockFactory.CreateMapper(ChatsApplicationReference.Assembly);
-		CommentService = ChatMessageApplicationMockFactory.CreateCommandService();
+		MessageService = ChatMessageApplicationMockFactory.CreateCommandService();
 	}
 }

@@ -107,7 +107,7 @@ public class AddEmailConfirmationTokenCommandServiceUnitTests : BaseEmailConfirm
 	}
 
 	[Fact]
-	public async Task AddAsync_ShouldCallTheEmailConfirmationTokenEmailSenderSendAsync_WhenCommandIsValid()
+	public async Task AddAsync_ShouldCallTheEmailSenderSendAsync_WhenCommandIsValid()
 	{
 		// Act
 		await _service.AddAsync(_command, CancellationToken);

@@ -30,7 +30,7 @@ public class GetAllPostCommentLikesQueryHandlerUnitTests : BasePostCommentLikeAp
 	}
 
 	[Fact]
-	public async Task Handle_ShouldCallCommentLikeServiceGetAllAsync_WhenRequestIsValid()
+	public async Task Handle_ShouldCallTheCommentLikeServiceGetAllAsync_WhenRequestIsValid()
 	{
 		// Act
 		await _handler.Handle(_request, CancellationToken);

@@ -51,7 +51,7 @@ public class DeleteUserCommandServiceIntegrationTests : BaseUserDomainCommandInt
 
 	[Theory]
 	[UserIdDifferentCaseData]
-	public async Task DeleteAsync_ShouldDeleteUser_WhenIdIsValidAndDifferentCase(
+	public async Task DeleteAsync_ShouldDeleteUser_WhenIdIsValidAndCaseDiffers(
 		IStringTransformer transformer)
 	{
 		// Arrange
@@ -78,7 +78,7 @@ public class DeleteUserCommandServiceIntegrationTests : BaseUserDomainCommandInt
 
 	[Theory]
 	[UserIdDifferentCaseData]
-	public async Task DeleteAsync_ShouldPublishUserDeletedEvent_WhenIdIsValidAndDifferentCase(
+	public async Task DeleteAsync_ShouldPublishUserDeletedEvent_WhenIdIsValidAndCaseDiffers(
 		IStringTransformer transformer)
 	{
 		// Arrange

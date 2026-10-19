@@ -99,7 +99,7 @@ public class VerifyForgotPasswordTokenCommandHandlerIntegrationTests : BaseForgo
 	}
 
 	[Fact]
-	public async Task SendAsync_ShouldThrowForgotPasswordExpiredException_WhenForgotPasswordTokenHasExpired()
+	public async Task SendAsync_ShouldThrowForgotPasswordTokenExpiredException_WhenForgotPasswordTokenHasExpired()
 	{
 		// Arrange
 		var updatedForgotPasswordToken = ForgotPasswordTokenBuilder.WithAlreadyExpiresAtUtc().Build();
@@ -110,7 +110,7 @@ public class VerifyForgotPasswordTokenCommandHandlerIntegrationTests : BaseForgo
 	}
 
 	[Fact]
-	public async Task SendAsync_ShouldUpdatedUser_WhenRequestIsValid()
+	public async Task SendAsync_ShouldUpdateUser_WhenRequestIsValid()
 	{
 		// Act
 		await Sender.SendAsync(_request, CancellationToken);
@@ -122,7 +122,7 @@ public class VerifyForgotPasswordTokenCommandHandlerIntegrationTests : BaseForgo
 
 	[Theory]
 	[UserIdDifferentCaseData]
-	public async Task SendAsync_ShouldUpdatedUser_WhenRequestAndIdAreValid(
+	public async Task SendAsync_ShouldUpdateUser_WhenRequestAndIdAreValid(
 		IStringTransformer transformer)
 	{
 		// Arrange
@@ -138,7 +138,7 @@ public class VerifyForgotPasswordTokenCommandHandlerIntegrationTests : BaseForgo
 
 	[Theory]
 	[ForgotPasswordTokenValueDifferentCaseData]
-	public async Task SendAsync_ShouldUpdatedUser_WhenRequestAndValueAreValid(
+	public async Task SendAsync_ShouldUpdateUser_WhenRequestAndValueAreValid(
 		IStringTransformer transformer)
 	{
 		// Arrange

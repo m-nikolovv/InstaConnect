@@ -34,7 +34,7 @@ public class RotateRefreshTokenCommandHandlerUnitTests : BaseRefreshTokenApplica
 	}
 
 	[Fact]
-	public async Task Handle_ShouldCallServiceRotateAsync_WhenRequestIsValid()
+	public async Task Handle_ShouldCallTheServiceRotateAsync_WhenRequestIsValid()
 	{
 		// Act
 		await _handler.Handle(_request, CancellationToken);

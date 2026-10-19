@@ -3,11 +3,11 @@ using InstaConnect.Posts.Infrastructure.Tests.Unit.Features.PostImages.Utilities
 
 namespace InstaConnect.Posts.Infrastructure.Tests.Unit.Features.PostImages.Repositories;
 
-public class AddRangePostImageCommandRepositoryUnitTests : BasePostImageInfrastructureCommandUnitTest
+public class AddRangePostImagesCommandRepositoryUnitTests : BasePostImageInfrastructureCommandUnitTest
 {
 	private readonly PostImageCommandRepository _repository;
 
-	public AddRangePostImageCommandRepositoryUnitTests()
+	public AddRangePostImagesCommandRepositoryUnitTests()
 	{
 		_repository = new(Collection);
 	}

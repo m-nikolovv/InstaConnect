@@ -30,7 +30,7 @@ public class UpdateUserCommandHandlerUnitTests : BaseUserApplicationCommandUnitT
 	}
 
 	[Fact]
-	public async Task Handle_ShouldCallUserServiceUpdateAsync_WhenRequestIsValid()
+	public async Task Handle_ShouldCallTheUserServiceUpdateAsync_WhenRequestIsValid()
 	{
 		// Act
 		await _handler.Handle(_request, CancellationToken);

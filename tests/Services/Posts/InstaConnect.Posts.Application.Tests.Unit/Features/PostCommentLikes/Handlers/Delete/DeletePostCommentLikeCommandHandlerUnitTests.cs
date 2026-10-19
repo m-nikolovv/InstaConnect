@@ -18,7 +18,7 @@ public class DeletePostCommentLikeCommandHandlerUnitTests : BasePostCommentLikeA
 	}
 
 	[Fact]
-	public async Task Handle_ShouldCallCommentLikeServiceDeleteAsync_WhenRequestIsValid()
+	public async Task Handle_ShouldCallTheCommentLikeServiceDeleteAsync_WhenRequestIsValid()
 	{
 		// Act
 		await _handler.Handle(_request, CancellationToken);

@@ -30,7 +30,7 @@ public class GetAllPostLikesForUserQueryHandlerUnitTests : BasePostLikeApplicati
 	}
 
 	[Fact]
-	public async Task Handle_ShouldCallLikeServiceGetAllForUserAsync_WhenRequestIsValid()
+	public async Task Handle_ShouldCallTheLikeServiceGetAllForUserAsync_WhenRequestIsValid()
 	{
 		// Act
 		await _handler.Handle(_request, CancellationToken);

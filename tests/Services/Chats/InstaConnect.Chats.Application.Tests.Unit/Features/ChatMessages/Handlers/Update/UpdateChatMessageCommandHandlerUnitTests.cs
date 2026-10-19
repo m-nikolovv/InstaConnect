@@ -14,9 +14,9 @@ public class UpdateChatMessageCommandHandlerUnitTests : BaseChatMessageApplicati
 		_requestBuilder = _requestBuilderFactory.Create(ChatMessage);
 		_request = _requestBuilder.Build();
 
-		_handler = new(Mapper, CommentService);
+		_handler = new(Mapper, MessageService);
 
-		CommentService.SetupUpdateAsync(_request, ChatMessage, CancellationToken);
+		MessageService.SetupUpdateAsync(_request, ChatMessage, CancellationToken);
 	}
 
 	[Fact]
@@ -30,12 +30,12 @@ public class UpdateChatMessageCommandHandlerUnitTests : BaseChatMessageApplicati
 	}
 
 	[Fact]
-	public async Task Handle_ShouldCallCommentServiceUpdateAsync_WhenRequestIsValid()
+	public async Task Handle_ShouldCallTheMessageServiceUpdateAsync_WhenRequestIsValid()
 	{
 		// Act
 		await _handler.Handle(_request, CancellationToken);
 
 		// Assert
-		await CommentService.ShouldHaveReceivedOneUpdateAsync(_request, CancellationToken);
+		await MessageService.ShouldHaveReceivedOneUpdateAsync(_request, CancellationToken);
 	}
 }

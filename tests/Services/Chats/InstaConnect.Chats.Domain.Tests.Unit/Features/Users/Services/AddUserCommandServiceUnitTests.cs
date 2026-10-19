@@ -92,7 +92,7 @@ public class AddUserCommandServiceUnitTests : BaseUserDomainCommandUnitTest
 	}
 
 	[Fact]
-	public async Task AddAsync_ShouldCallTheUserRepositoryGetByIdAsync_WhenCommandIsValid()
+	public async Task AddAsync_ShouldCallTheUserRepositoryExistsByIdAsync_WhenCommandIsValid()
 	{
 		// Act
 		await _service.AddAsync(_command, CancellationToken);
@@ -102,7 +102,7 @@ public class AddUserCommandServiceUnitTests : BaseUserDomainCommandUnitTest
 	}
 
 	[Fact]
-	public async Task AddAsync_ShouldCallTheUserRepositoryGetByNameAsync_WhenCommandIsValid()
+	public async Task AddAsync_ShouldCallTheUserRepositoryIsNameUniqueAsync_WhenCommandIsValid()
 	{
 		// Act
 		await _service.AddAsync(_command, CancellationToken);
@@ -112,7 +112,7 @@ public class AddUserCommandServiceUnitTests : BaseUserDomainCommandUnitTest
 	}
 
 	[Fact]
-	public async Task AddAsync_ShouldCallTheUserRepositoryGetByEmailAsync_WhenCommandIsValid()
+	public async Task AddAsync_ShouldCallTheUserRepositoryIsEmailUniqueAsync_WhenCommandIsValid()
 	{
 		// Act
 		await _service.AddAsync(_command, CancellationToken);

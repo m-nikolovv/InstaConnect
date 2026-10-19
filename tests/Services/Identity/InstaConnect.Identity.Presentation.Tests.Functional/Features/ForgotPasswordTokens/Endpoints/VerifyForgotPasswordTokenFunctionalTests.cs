@@ -278,7 +278,7 @@ public class VerifyForgotPasswordTokenFunctionalTests : BaseForgotPasswordTokenP
 	}
 
 	[Fact]
-	public async Task VerifyAsync_ShouldUpdatedUser_WhenRequestIsValid()
+	public async Task VerifyAsync_ShouldUpdateUser_WhenRequestIsValid()
 	{
 		// Act
 		await ForgotPasswordTokenApiClient.VerifyAsync(_request, CancellationToken);
@@ -290,7 +290,7 @@ public class VerifyForgotPasswordTokenFunctionalTests : BaseForgotPasswordTokenP
 
 	[Theory]
 	[UserIdDifferentCaseData]
-	public async Task VerifyAsync_ShouldUpdatedUser_WhenRequestAndIdAreValid(
+	public async Task VerifyAsync_ShouldUpdateUser_WhenRequestAndIdAreValid(
 		IStringTransformer transformer)
 	{
 		// Arrange
@@ -306,7 +306,7 @@ public class VerifyForgotPasswordTokenFunctionalTests : BaseForgotPasswordTokenP
 
 	[Theory]
 	[ForgotPasswordTokenValueDifferentCaseData]
-	public async Task VerifyAsync_ShouldUpdatedUser_WhenRequestAndValueAreValid(
+	public async Task VerifyAsync_ShouldUpdateUser_WhenRequestAndValueAreValid(
 		IStringTransformer transformer)
 	{
 		// Arrange

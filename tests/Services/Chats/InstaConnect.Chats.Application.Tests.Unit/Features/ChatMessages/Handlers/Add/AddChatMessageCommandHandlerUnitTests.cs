@@ -14,9 +14,9 @@ public class AddChatMessageCommandHandlerUnitTests : BaseChatMessageApplicationC
 		_requestBuilder = _requestBuilderFactory.Create(Chat, ChatMessage.ChatMessageImages.Count);
 		_request = _requestBuilder.Build();
 
-		_handler = new(Mapper, CommentService);
+		_handler = new(Mapper, MessageService);
 
-		CommentService.SetupAddAsync(_request, ChatMessage, CancellationToken);
+		MessageService.SetupAddAsync(_request, ChatMessage, CancellationToken);
 	}
 
 	[Fact]
@@ -30,12 +30,12 @@ public class AddChatMessageCommandHandlerUnitTests : BaseChatMessageApplicationC
 	}
 
 	[Fact]
-	public async Task Handle_ShouldCallCommentServiceAddAsync_WhenRequestIsValid()
+	public async Task Handle_ShouldCallTheMessageServiceAddAsync_WhenRequestIsValid()
 	{
 		// Act
 		await _handler.Handle(_request, CancellationToken);
 
 		// Assert
-		await CommentService.ShouldHaveReceivedOneAddAsync(_request, CancellationToken);
+		await MessageService.ShouldHaveReceivedOneAddAsync(_request, CancellationToken);
 	}
 }

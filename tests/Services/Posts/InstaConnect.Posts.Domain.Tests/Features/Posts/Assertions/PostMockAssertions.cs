@@ -118,7 +118,7 @@ public static class PostMockAssertions
 			PostsForUserFilterQuery filter,
 			CancellationToken cancellationToken)
 		{
-			await repository.ShouldHaveReceivedOne().GetForUserTotalCountAsync(
+			await repository.ShouldHaveReceivedOne().GetTotalCountForUserAsync(
 				filter,
 				cancellationToken);
 		}

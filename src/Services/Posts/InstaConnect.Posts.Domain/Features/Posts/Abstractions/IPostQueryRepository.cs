@@ -20,7 +20,7 @@ public interface IPostQueryRepository
 		PostsFilterQuery filter,
 		CancellationToken cancellationToken);
 
-	public Task<long> GetForUserTotalCountAsync(
+	public Task<long> GetTotalCountForUserAsync(
 		PostsForUserFilterQuery filter,
 		CancellationToken cancellationToken);
 

@@ -202,7 +202,7 @@ public class AddFollowCommandHandlerIntegrationTests : BaseFollowApplicationComm
 
 	[Theory]
 	[UserIdDifferentCaseData]
-	public async Task SendAsync_ShouldPublishFollowAddedEvent_WhenRequestAnFollowerIdAreValid(
+	public async Task SendAsync_ShouldPublishFollowAddedEvent_WhenRequestAndFollowerIdAreValid(
 		IStringTransformer transformer)
 	{
 		// Arrange
@@ -248,7 +248,7 @@ public class AddFollowCommandHandlerIntegrationTests : BaseFollowApplicationComm
 
 	[Theory]
 	[UserIdDifferentCaseData]
-	public async Task SendAsync_ShouldPublishFollowAddedNotification_WhenRequestAnFollowerIdAreValid(
+	public async Task SendAsync_ShouldPublishFollowAddedNotification_WhenRequestAndFollowerIdAreValid(
 		IStringTransformer transformer)
 	{
 		// Arrange

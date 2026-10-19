@@ -14,9 +14,9 @@ public class GetChatMessageByIdQueryHandlerUnitTests : BaseChatMessageApplicatio
 		_requestBuilder = _requestBuilderFactory.Create(ChatMessage);
 		_request = _requestBuilder.Build();
 
-		_handler = new(Mapper, CommentService);
+		_handler = new(Mapper, MessageService);
 
-		CommentService.SetupGetByIdAsync(_request, ChatMessage, CancellationToken);
+		MessageService.SetupGetByIdAsync(_request, ChatMessage, CancellationToken);
 	}
 
 	[Fact]
@@ -30,12 +30,12 @@ public class GetChatMessageByIdQueryHandlerUnitTests : BaseChatMessageApplicatio
 	}
 
 	[Fact]
-	public async Task Handle_ShouldCallChatMessageServiceGetByIdAsync_WhenRequestIsValid()
+	public async Task Handle_ShouldCallTheMessageServiceGetByIdAsync_WhenRequestIsValid()
 	{
 		// Act
 		await _handler.Handle(_request, CancellationToken);
 
 		// Assert
-		await CommentService.ShouldHaveReceivedOneGetByIdAsync(_request, CancellationToken);
+		await MessageService.ShouldHaveReceivedOneGetByIdAsync(_request, CancellationToken);
 	}
 }

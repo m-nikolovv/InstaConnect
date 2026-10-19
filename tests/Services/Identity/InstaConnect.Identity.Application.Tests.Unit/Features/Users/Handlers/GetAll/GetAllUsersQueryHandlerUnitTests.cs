@@ -30,7 +30,7 @@ public class GetAllUsersQueryHandlerUnitTests : BaseUserApplicationQueryUnitTest
 	}
 
 	[Fact]
-	public async Task Handle_ShouldCallServiceGetAllAsync_WhenRequestIsValid()
+	public async Task Handle_ShouldCallTheServiceGetAllAsync_WhenRequestIsValid()
 	{
 		// Act
 		await _handler.Handle(_request, CancellationToken);

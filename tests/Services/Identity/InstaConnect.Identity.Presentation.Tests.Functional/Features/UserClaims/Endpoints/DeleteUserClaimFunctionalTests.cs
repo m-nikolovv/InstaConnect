@@ -76,7 +76,7 @@ public class DeleteUserClaimFunctionalTests : BaseUserClaimPresentationCommandFu
 
 	[Theory]
 	[UserClaimClaimEmptyData]
-	public async Task AddAsync_ShouldHaveBadRequestStatusCode_WhenClaimIsInvalid(IEnumTransformer<ApplicationClaims> transformer)
+	public async Task DeleteAsync_ShouldHaveBadRequestStatusCode_WhenClaimIsInvalid(IEnumTransformer<ApplicationClaims> transformer)
 	{
 		// Arrange
 		var request = _requestBuilder.WithClaim(transformer).Build();
@@ -90,7 +90,7 @@ public class DeleteUserClaimFunctionalTests : BaseUserClaimPresentationCommandFu
 
 	[Theory]
 	[UserClaimClaimEmptyWithMessageData]
-	public async Task AddAsync_ShouldHaveBadRequestProblemDetails_WhenClaimIsInvalid(
+	public async Task DeleteAsync_ShouldHaveBadRequestProblemDetails_WhenClaimIsInvalid(
 		IEnumTransformer<ApplicationClaims> transformer,
 		IEnumMessageTransformer<ApplicationClaims> messageTransformer)
 	{

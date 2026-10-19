@@ -14,9 +14,9 @@ public class GetAllChatMessagesQueryHandlerUnitTests : BaseChatMessageApplicatio
 		_requestBuilder = _requestBuilderFactory.Create(ChatMessage);
 		_request = _requestBuilder.Build();
 
-		_handler = new(Mapper, CommentService);
+		_handler = new(Mapper, MessageService);
 
-		CommentService.SetupGetAllAsync(_request, Chat, ChatMessages, CancellationToken);
+		MessageService.SetupGetAllAsync(_request, Chat, ChatMessages, CancellationToken);
 	}
 
 	[Fact]
@@ -30,12 +30,12 @@ public class GetAllChatMessagesQueryHandlerUnitTests : BaseChatMessageApplicatio
 	}
 
 	[Fact]
-	public async Task Handle_ShouldCallCommentServiceGetAllAsync_WhenRequestIsValid()
+	public async Task Handle_ShouldCallTheMessageServiceGetAllAsync_WhenRequestIsValid()
 	{
 		// Act
 		await _handler.Handle(_request, CancellationToken);
 
 		// Assert
-		await CommentService.ShouldHaveReceivedOneGetAllAsync(_request, CancellationToken);
+		await MessageService.ShouldHaveReceivedOneGetAllAsync(_request, CancellationToken);
 	}
 }

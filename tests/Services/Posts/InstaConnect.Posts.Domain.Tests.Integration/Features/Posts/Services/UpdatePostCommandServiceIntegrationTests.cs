@@ -126,7 +126,7 @@ public class UpdatePostCommandServiceIntegrationTests : BasePostDomainCommandInt
 
 	[Theory]
 	[UserIdDifferentCaseData]
-	public async Task UpdateAsync_ShouldUpdatePost_WhenCommandAndUserIdAreValids(
+	public async Task UpdateAsync_ShouldUpdatePost_WhenCommandAndUserIdAreValid(
 		IStringTransformer transformer)
 	{
 		// Arrange
@@ -173,7 +173,7 @@ public class UpdatePostCommandServiceIntegrationTests : BasePostDomainCommandInt
 
 	[Theory]
 	[UserIdDifferentCaseData]
-	public async Task UpdateAsync_ShouldPublishPostUpdatedEvent_WhenCommandAndUserIdAreValids(
+	public async Task UpdateAsync_ShouldPublishPostUpdatedEvent_WhenCommandAndUserIdAreValid(
 		IStringTransformer transformer)
 	{
 		// Arrange

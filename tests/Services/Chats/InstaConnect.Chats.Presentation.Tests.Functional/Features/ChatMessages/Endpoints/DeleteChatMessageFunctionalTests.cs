@@ -274,7 +274,7 @@ public class DeleteChatMessageFunctionalTests : BaseChatMessagePresentationComma
 
 	[Theory]
 	[UserIdDifferentCaseData]
-	public async Task UpdateAsync_ShouldReturnResponse_WhenRequestAndParticipantOneIdAreValid(
+	public async Task DeleteAsync_ShouldReturnResponse_WhenRequestAndParticipantOneIdAreValid(
 		IStringTransformer transformer)
 	{
 		// Arrange
@@ -290,7 +290,7 @@ public class DeleteChatMessageFunctionalTests : BaseChatMessagePresentationComma
 
 	[Theory]
 	[UserIdDifferentCaseData]
-	public async Task UpdateAsync_ShouldReturnResponse_WhenRequestAndParticipantTwoIdAreValid(
+	public async Task DeleteAsync_ShouldReturnResponse_WhenRequestAndParticipantTwoIdAreValid(
 		IStringTransformer transformer)
 	{
 		// Arrange

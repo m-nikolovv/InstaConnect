@@ -73,7 +73,7 @@ public class VerifyEmailConfirmationTokenCommandServiceIntegrationTests : BaseEm
 	}
 
 	[Fact]
-	public async Task VerifyAsync_ShouldUpdatedUser_WhenCommandIsValid()
+	public async Task VerifyAsync_ShouldUpdateUser_WhenCommandIsValid()
 	{
 		// Act
 		await Service.VerifyAsync(_command, CancellationToken);
@@ -85,7 +85,7 @@ public class VerifyEmailConfirmationTokenCommandServiceIntegrationTests : BaseEm
 
 	[Theory]
 	[UserIdDifferentCaseData]
-	public async Task VerifyAsync_ShouldUpdatedUser_WhenCommandAndIdAreValid(
+	public async Task VerifyAsync_ShouldUpdateUser_WhenCommandAndIdAreValid(
 		IStringTransformer transformer)
 	{
 		// Arrange
@@ -101,7 +101,7 @@ public class VerifyEmailConfirmationTokenCommandServiceIntegrationTests : BaseEm
 
 	[Theory]
 	[EmailConfirmationTokenValueDifferentCaseData]
-	public async Task VerifyAsync_ShouldUpdatedUser_WhenCommandAndValueAreValid(
+	public async Task VerifyAsync_ShouldUpdateUser_WhenCommandAndValueAreValid(
 		IStringTransformer transformer)
 	{
 		// Arrange

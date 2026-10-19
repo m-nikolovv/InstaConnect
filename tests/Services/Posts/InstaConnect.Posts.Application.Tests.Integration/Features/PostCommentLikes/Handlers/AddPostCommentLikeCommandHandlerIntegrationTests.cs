@@ -274,7 +274,7 @@ public class AddPostCommentLikeCommandHandlerIntegrationTests : BasePostCommentL
 
 	[Theory]
 	[PostIdDifferentCaseData]
-	public async Task SendAsync_ShouldPublishPostCommentLikeAddedEvent_WhenRequestAnIdAreValid(
+	public async Task SendAsync_ShouldPublishPostCommentLikeAddedEvent_WhenRequestAndIdAreValid(
 		IStringTransformer transformer)
 	{
 		// Arrange
@@ -292,7 +292,7 @@ public class AddPostCommentLikeCommandHandlerIntegrationTests : BasePostCommentL
 
 	[Theory]
 	[PostCommentIdDifferentCaseData]
-	public async Task SendAsync_ShouldPublishPostCommentLikeAddedEvent_WhenRequestAnCommentIdAreValid(
+	public async Task SendAsync_ShouldPublishPostCommentLikeAddedEvent_WhenRequestAndCommentIdAreValid(
 		IStringTransformer transformer)
 	{
 		// Arrange

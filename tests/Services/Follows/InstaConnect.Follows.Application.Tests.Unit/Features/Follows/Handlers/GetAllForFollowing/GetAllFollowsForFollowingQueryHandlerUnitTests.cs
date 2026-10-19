@@ -30,7 +30,7 @@ public class GetAllFollowsForFollowingQueryHandlerUnitTests : BaseFollowApplicat
 	}
 
 	[Fact]
-	public async Task Handle_ShouldCallLikeServiceGetAllForFollowingAsync_WhenRequestIsValid()
+	public async Task Handle_ShouldCallTheServiceGetAllForFollowingAsync_WhenRequestIsValid()
 	{
 		// Act
 		await _handler.Handle(_request, CancellationToken);

@@ -173,7 +173,7 @@ public class AddUserCommandServiceUnitTests : BaseUserDomainCommandUnitTest
 
 	[Theory]
 	[UserProfileImageNullData]
-	public async Task AddAsync_ShouldCallTheImageHandlerUploadAsync_WhenProfileImageIsValid(
+	public async Task AddAsync_ShouldNotCallTheImageHandlerUploadAsync_WhenProfileImageIsValid(
 		IFormFileTransformer transformer)
 	{
 		// Arrange

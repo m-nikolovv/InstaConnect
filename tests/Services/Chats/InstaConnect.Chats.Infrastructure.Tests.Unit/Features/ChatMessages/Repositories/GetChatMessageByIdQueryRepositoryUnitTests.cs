@@ -89,7 +89,7 @@ public class GetChatMessageByIdQueryRepositoryUnitTests : BaseChatMessageInfrast
 	}
 
 	[Fact]
-	public async Task GetByIdAsync_ShouldCallTheFluentResponseFirstOrDefaultAsync_WhenRequestIsValid()
+	public async Task GetByIdAsync_ShouldCallTheResponseFluentFirstOrDefaultAsync_WhenRequestIsValid()
 	{
 		// Act
 		await _repository.GetByIdAsync(ChatMessageId, _currentUserQuery, CancellationToken);

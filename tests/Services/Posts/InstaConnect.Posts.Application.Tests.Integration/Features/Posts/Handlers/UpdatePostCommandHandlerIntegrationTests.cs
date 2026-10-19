@@ -180,7 +180,7 @@ public class UpdatePostCommandHandlerIntegrationTests : BasePostApplicationComma
 
 	[Theory]
 	[UserIdDifferentCaseData]
-	public async Task SendAsync_ShouldUpdatePost_WhenRequestAndUserIdAreValids(
+	public async Task SendAsync_ShouldUpdatePost_WhenRequestAndUserIdAreValid(
 		IStringTransformer transformer)
 	{
 		// Arrange
@@ -227,7 +227,7 @@ public class UpdatePostCommandHandlerIntegrationTests : BasePostApplicationComma
 
 	[Theory]
 	[UserIdDifferentCaseData]
-	public async Task SendAsync_ShouldPublishPostUpdatedEvent_WhenRequestAndUserIdAreValids(
+	public async Task SendAsync_ShouldPublishPostUpdatedEvent_WhenRequestAndUserIdAreValid(
 		IStringTransformer transformer)
 	{
 		// Arrange

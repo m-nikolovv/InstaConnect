@@ -219,7 +219,7 @@ public class AddPostCommentCommandHandlerIntegrationTests : BasePostCommentAppli
 
 	[Theory]
 	[PostIdDifferentCaseData]
-	public async Task SendAsync_ShouldPublishPostCommentAddedEvent_WhenRequestAnIdAreValid(
+	public async Task SendAsync_ShouldPublishPostCommentAddedEvent_WhenRequestAndIdAreValid(
 		IStringTransformer transformer)
 	{
 		// Arrange

@@ -3,11 +3,11 @@ using InstaConnect.Chats.Infrastructure.Tests.Unit.Features.ChatMessageImages.Ut
 
 namespace InstaConnect.Chats.Infrastructure.Tests.Unit.Features.ChatMessageImages.Repositories;
 
-public class AddRangeChatMessageImageCommandRepositoryUnitTests : BaseChatMessageImageInfrastructureCommandUnitTest
+public class AddRangeChatMessageImagesCommandRepositoryUnitTests : BaseChatMessageImageInfrastructureCommandUnitTest
 {
 	private readonly ChatMessageImageCommandRepository _repository;
 
-	public AddRangeChatMessageImageCommandRepositoryUnitTests()
+	public AddRangeChatMessageImagesCommandRepositoryUnitTests()
 	{
 		_repository = new(Collection);
 	}

@@ -203,7 +203,7 @@ public class AddPostLikeCommandHandlerIntegrationTests : BasePostLikeApplication
 
 	[Theory]
 	[PostIdDifferentCaseData]
-	public async Task SendAsync_ShouldPublishPostLikeAddedEvent_WhenRequestAnIdAreValid(
+	public async Task SendAsync_ShouldPublishPostLikeAddedEvent_WhenRequestAndIdAreValid(
 		IStringTransformer transformer)
 	{
 		// Arrange

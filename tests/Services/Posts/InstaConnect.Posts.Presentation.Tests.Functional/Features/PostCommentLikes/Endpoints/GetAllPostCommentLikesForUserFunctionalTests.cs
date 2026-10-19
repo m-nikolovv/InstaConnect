@@ -210,7 +210,7 @@ public class GetAllPostCommentLikesForUserFunctionalTests : BasePostCommentLikeP
 	}
 
 	[Fact]
-	public async Task GetAllAsync_ShouldHaveNotFoundStatusCode_WhenUserIdIsInvalid()
+	public async Task GetAllForUserAsync_ShouldHaveNotFoundStatusCode_WhenUserIdIsInvalid()
 	{
 		// Arrange
 		await ServiceScope.DeleteAsync(User, CancellationToken);
@@ -223,7 +223,7 @@ public class GetAllPostCommentLikesForUserFunctionalTests : BasePostCommentLikeP
 	}
 
 	[Fact]
-	public async Task GetAllAsync_ShouldHaveUserNotFoundProblemDetails_WhenUserIdIsInvalid()
+	public async Task GetAllForUserAsync_ShouldHaveUserNotFoundProblemDetails_WhenUserIdIsInvalid()
 	{
 		// Arrange
 		await ServiceScope.DeleteAsync(User, CancellationToken);

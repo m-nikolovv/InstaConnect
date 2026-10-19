@@ -134,7 +134,7 @@ public class VerifyEmailConfirmationTokenControllerIntegrationTests : BaseEmailC
 	}
 
 	[Fact]
-	public async Task VerifyAsync_ShouldUpdatedUser_WhenRequestIsValid()
+	public async Task VerifyAsync_ShouldUpdateUser_WhenRequestIsValid()
 	{
 		// Act
 		await Controller.VerifyAsync(_request, CancellationToken);
@@ -146,7 +146,7 @@ public class VerifyEmailConfirmationTokenControllerIntegrationTests : BaseEmailC
 
 	[Theory]
 	[UserIdDifferentCaseData]
-	public async Task VerifyAsync_ShouldUpdatedUser_WhenRequestAndIdAreValid(
+	public async Task VerifyAsync_ShouldUpdateUser_WhenRequestAndIdAreValid(
 		IStringTransformer transformer)
 	{
 		// Arrange
@@ -162,7 +162,7 @@ public class VerifyEmailConfirmationTokenControllerIntegrationTests : BaseEmailC
 
 	[Theory]
 	[EmailConfirmationTokenValueDifferentCaseData]
-	public async Task VerifyAsync_ShouldUpdatedUser_WhenRequestAndValueAreValid(
+	public async Task VerifyAsync_ShouldUpdateUser_WhenRequestAndValueAreValid(
 		IStringTransformer transformer)
 	{
 		// Arrange

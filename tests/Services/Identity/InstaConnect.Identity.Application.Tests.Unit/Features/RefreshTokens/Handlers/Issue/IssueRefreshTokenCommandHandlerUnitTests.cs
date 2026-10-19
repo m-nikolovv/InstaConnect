@@ -30,7 +30,7 @@ public class IssueRefreshTokenCommandHandlerUnitTests : BaseRefreshTokenApplicat
 	}
 
 	[Fact]
-	public async Task Handle_ShouldCallServiceIssueAsync_WhenRequestIsValid()
+	public async Task Handle_ShouldCallTheServiceIssueAsync_WhenRequestIsValid()
 	{
 		// Act
 		await _handler.Handle(_request, CancellationToken);

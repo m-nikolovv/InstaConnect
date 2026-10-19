@@ -42,7 +42,7 @@ public class AddUserCommandServiceIntegrationTests : BaseUserDomainCommandIntegr
 
 	[Theory]
 	[UserEmailDifferentCaseData]
-	public async Task AddAsync_ShouldThrowUserEmailAlreadyTakenException_WhenEmailIsNotUniqueAndDifferentCase(
+	public async Task AddAsync_ShouldThrowUserEmailAlreadyTakenException_WhenEmailIsNotUniqueAndCaseDiffers(
 		IStringTransformer transformer)
 	{
 		// Arrange
@@ -66,7 +66,7 @@ public class AddUserCommandServiceIntegrationTests : BaseUserDomainCommandIntegr
 
 	[Theory]
 	[UserNameDifferentCaseData]
-	public async Task AddAsync_ShouldThrowUserNameAlreadyTakenException_WhenNameIsNotUniqueAndDifferentCase(
+	public async Task AddAsync_ShouldThrowUserNameAlreadyTakenException_WhenNameIsNotUniqueAndCaseDiffers(
 		IStringTransformer transformer)
 	{
 		// Arrange

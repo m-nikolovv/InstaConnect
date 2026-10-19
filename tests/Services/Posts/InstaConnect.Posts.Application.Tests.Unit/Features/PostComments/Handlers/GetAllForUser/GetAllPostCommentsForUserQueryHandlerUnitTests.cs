@@ -30,7 +30,7 @@ public class GetAllPostCommentsForUserQueryHandlerUnitTests : BasePostCommentApp
 	}
 
 	[Fact]
-	public async Task Handle_ShouldCallPostCommentServiceGetAllForUserAsync_WhenRequestIsValid()
+	public async Task Handle_ShouldCallTheCommentServiceGetAllForUserAsync_WhenRequestIsValid()
 	{
 		// Act
 		await _handler.Handle(_request, CancellationToken);

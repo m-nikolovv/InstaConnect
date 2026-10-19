@@ -30,7 +30,7 @@ public class GetPostLikeByIdQueryHandlerUnitTests : BasePostLikeApplicationQuery
 	}
 
 	[Fact]
-	public async Task Handle_ShouldCallLikeServiceGetByIdAsync_WhenRequestIsValid()
+	public async Task Handle_ShouldCallTheLikeServiceGetByIdAsync_WhenRequestIsValid()
 	{
 		// Act
 		await _handler.Handle(_request, CancellationToken);
