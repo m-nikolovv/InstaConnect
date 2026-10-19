@@ -1,8 +1,8 @@
 using InstaConnect.Common.Domain.Features.DateTimes.Abstractions;
 using InstaConnect.Common.Domain.Features.Images.Abstractions;
 using InstaConnect.Common.Events.Features.Events.Abstractions;
-using InstaConnect.Posts.Domain.Tests.Features.Posts.Assertions;
 using InstaConnect.Posts.Domain.Tests.Features.PostComments.Utilities;
+using InstaConnect.Posts.Domain.Tests.Features.Posts.Assertions;
 
 namespace InstaConnect.Posts.Domain.Tests.Features.PostComments.Assertions;
 

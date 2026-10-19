@@ -125,10 +125,10 @@ public static class PostCommentEquals
 		{
 			return request.Form.Images.IsEmpty() ||
 				   r.MatchesCollection(
-				       entities,
-				       response => new(new(new(response.Id), response.CommentId), response.ImageId),
-				       postCommentImage => postCommentImage.Id,
-				       (r, postCommentImage) => r.Matches(request, postCommentImage));
+					   entities,
+					   response => new(new(new(response.Id), response.CommentId), response.ImageId),
+					   postCommentImage => postCommentImage.Id,
+					   (r, postCommentImage) => r.Matches(request, postCommentImage));
 		}
 
 		public bool Matches(UpdatePostCommentApiRequest request, ICollection<PostCommentImage> entities)

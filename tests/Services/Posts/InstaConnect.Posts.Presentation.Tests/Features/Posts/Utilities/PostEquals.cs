@@ -162,10 +162,10 @@ public static class PostEquals
 		{
 			return request.Form.Images.IsEmpty() ||
 				   r.MatchesCollection(
-				       entities,
-				       response => new(new(response.Id), response.ImageId),
-				       postImage => postImage.Id,
-				       (r, postImage) => r.Matches(request, postImage));
+					   entities,
+					   response => new(new(response.Id), response.ImageId),
+					   postImage => postImage.Id,
+					   (r, postImage) => r.Matches(request, postImage));
 		}
 
 		public bool Matches(UpdatePostApiRequest request, ICollection<PostImage> entities)

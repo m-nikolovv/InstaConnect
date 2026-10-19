@@ -228,10 +228,10 @@ public static class PostEquals
 		{
 			return command.Images.IsEmpty() ||
 				   r.MatchesCollection(
-				       entities,
-				       response => new(new(response.Id), response.ImageId),
-				       postImage => postImage.Id,
-				       (r, postImage) => r.Matches(command, postImage));
+					   entities,
+					   response => new(new(response.Id), response.ImageId),
+					   postImage => postImage.Id,
+					   (r, postImage) => r.Matches(command, postImage));
 		}
 
 		public bool Matches(UpdatePostCommand command, ICollection<PostImage> entities)

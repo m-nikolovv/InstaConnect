@@ -153,7 +153,7 @@ jobs:
       - name: Pull test container images
         if: matrix.suite != 'Unit'
         run: |
-          mapfile -t IMAGES < <(grep -oP 'Builder\("\K[^"]+' tests/Common/InstaConnect.Common.Tests/Features/Utilities/ContainerFactory.cs)
+          mapfile -t IMAGES < <(grep -oP 'const string Image = "\K[^"]+' tests/Common/InstaConnect.Common.Tests/Features/Utilities/ContainerFactory.cs)
           for IMAGE in "${IMAGES[@]}"; do
             for ATTEMPT in 1 2 3 4 5; do
               if docker pull --quiet "mirror.gcr.io/library/$IMAGE"; then

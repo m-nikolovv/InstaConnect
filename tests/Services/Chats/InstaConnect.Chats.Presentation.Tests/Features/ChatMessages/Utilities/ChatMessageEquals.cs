@@ -224,10 +224,10 @@ public static class ChatMessageEquals
 		{
 			return request.Form.Images.IsEmpty() ||
 				   r.MatchesCollection(
-				       entities,
-				       response => new(new(new(new(response.ParticipantOneId), new(response.ParticipantTwoId)), response.MessageId), response.ImageId),
-				       chatMessageImage => chatMessageImage.Id,
-				       (r, chatMessageImage) => r.Matches(request, chatMessageImage));
+					   entities,
+					   response => new(new(new(new(response.ParticipantOneId), new(response.ParticipantTwoId)), response.MessageId), response.ImageId),
+					   chatMessageImage => chatMessageImage.Id,
+					   (r, chatMessageImage) => r.Matches(request, chatMessageImage));
 		}
 
 		public bool Matches(UpdateChatMessageApiRequest request, ICollection<ChatMessageImage> entities)
@@ -252,10 +252,10 @@ public static class ChatMessageEquals
 		{
 			return request.Form.Images.IsEmpty() ||
 				   r.MatchesCollection(
-				       entities,
-				       response => new(new(new(new(response.ParticipantOneId), new(response.ParticipantTwoId)), response.MessageId), response.ImageId),
-				       chatMessageImage => chatMessageImage.Id,
-				       (r, chatMessageImage) => r.MatchesInverted(request, chatMessageImage));
+					   entities,
+					   response => new(new(new(new(response.ParticipantOneId), new(response.ParticipantTwoId)), response.MessageId), response.ImageId),
+					   chatMessageImage => chatMessageImage.Id,
+					   (r, chatMessageImage) => r.MatchesInverted(request, chatMessageImage));
 		}
 
 		public bool MatchesInverted(UpdateChatMessageApiRequest request, ICollection<ChatMessageImage> entities)

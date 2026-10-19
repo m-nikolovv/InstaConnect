@@ -1,10 +1,10 @@
 using InstaConnect.Common.Infrastructure.Features.AccessTokens.Models;
 using InstaConnect.Common.Infrastructure.Features.Caches.Models;
-using InstaConnect.Common.Infrastructure.Features.Summarizers.Models;
 using InstaConnect.Common.Infrastructure.Features.Databases.Models;
 using InstaConnect.Common.Infrastructure.Features.Emails.Models;
 using InstaConnect.Common.Infrastructure.Features.Events.Models;
 using InstaConnect.Common.Infrastructure.Features.Images.Models;
+using InstaConnect.Common.Infrastructure.Features.Summarizers.Models;
 using InstaConnect.Common.Infrastructure.Features.Telemetries.Models;
 using InstaConnect.Common.Presentation.Features.Common.Models;
 using InstaConnect.Common.Presentation.Features.Controllers.Models;
