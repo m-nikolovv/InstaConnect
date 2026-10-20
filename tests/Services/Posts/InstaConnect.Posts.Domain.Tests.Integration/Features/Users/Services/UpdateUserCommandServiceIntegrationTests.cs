@@ -109,7 +109,7 @@ public class UpdateUserCommandServiceIntegrationTests : BaseUserDomainCommandInt
 
 	[Theory]
 	[UserIdDifferentCaseData]
-	public async Task UpdateAsync_ShouldReturnResponse_WhenIdIsValid(
+	public async Task UpdateAsync_ShouldReturnResponse_WhenCommandAndIdAreValid(
 		IStringTransformer transformer)
 	{
 		// Arrange
@@ -125,7 +125,7 @@ public class UpdateUserCommandServiceIntegrationTests : BaseUserDomainCommandInt
 
 	[Theory]
 	[UserNameDifferentCaseData]
-	public async Task UpdateAsync_ShouldReturnResponse_WhenNameIsValid(
+	public async Task UpdateAsync_ShouldReturnResponse_WhenCommandAndNameAreValid(
 		IStringTransformer transformer)
 	{
 		// Arrange
@@ -171,7 +171,7 @@ public class UpdateUserCommandServiceIntegrationTests : BaseUserDomainCommandInt
 
 	[Theory]
 	[UserEmailDifferentCaseData]
-	public async Task UpdateAsync_ShouldReturnResponse_WhenEmailIsValid(
+	public async Task UpdateAsync_ShouldReturnResponse_WhenCommandAndEmailAreValid(
 		IStringTransformer transformer)
 	{
 		// Arrange
@@ -218,7 +218,7 @@ public class UpdateUserCommandServiceIntegrationTests : BaseUserDomainCommandInt
 	[Theory]
 	[UserProfileImageNullData]
 	[UserProfileImageEmptyData]
-	public async Task UpdateAsync_ShouldReturnResponse_WhenProfileImageIsValid(
+	public async Task UpdateAsync_ShouldReturnResponse_WhenCommandAndProfileImageAreValid(
 		IStringTransformer transformer)
 	{
 		// Arrange
@@ -245,7 +245,7 @@ public class UpdateUserCommandServiceIntegrationTests : BaseUserDomainCommandInt
 
 	[Theory]
 	[UserIdDifferentCaseData]
-	public async Task UpdateAsync_ShouldUpdateUser_WhenIdIsValid(
+	public async Task UpdateAsync_ShouldUpdateUser_WhenCommandAndIdAreValid(
 		IStringTransformer transformer)
 	{
 		// Arrange
@@ -261,7 +261,7 @@ public class UpdateUserCommandServiceIntegrationTests : BaseUserDomainCommandInt
 
 	[Theory]
 	[UserNameDifferentCaseData]
-	public async Task UpdateAsync_ShouldUpdateUser_WhenNameIsValid(
+	public async Task UpdateAsync_ShouldUpdateUser_WhenCommandAndNameAreValid(
 		IStringTransformer transformer)
 	{
 		// Arrange
@@ -307,7 +307,7 @@ public class UpdateUserCommandServiceIntegrationTests : BaseUserDomainCommandInt
 
 	[Theory]
 	[UserEmailDifferentCaseData]
-	public async Task UpdateAsync_ShouldUpdateUser_WhenEmailIsValid(
+	public async Task UpdateAsync_ShouldUpdateUser_WhenCommandAndEmailAreValid(
 		IStringTransformer transformer)
 	{
 		// Arrange
@@ -354,7 +354,7 @@ public class UpdateUserCommandServiceIntegrationTests : BaseUserDomainCommandInt
 	[Theory]
 	[UserProfileImageNullData]
 	[UserProfileImageEmptyData]
-	public async Task UpdateAsync_ShouldUpdateUser_WhenProfileImageIsValid(
+	public async Task UpdateAsync_ShouldUpdateUser_WhenCommandAndProfileImageAreValid(
 		IStringTransformer transformer)
 	{
 		// Arrange

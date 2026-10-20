@@ -1,6 +1,6 @@
 namespace InstaConnect.Identity.Presentation.Tests.Integration.Features.RefreshTokens.Controllers;
 
-public class IssueRefreshTokenControllerIntegrationTests : BaseRefreshTokenPresentationIntegrationTest
+public class IssueRefreshTokenControllerIntegrationTests : BaseRefreshTokenPresentationCommandIntegrationTest
 {
 	private readonly IssueRefreshTokenApiRequestBuilderFactory _requestBuilderFactory;
 	private readonly IssueRefreshTokenApiRequestBuilder _requestBuilder;
@@ -90,7 +90,7 @@ public class IssueRefreshTokenControllerIntegrationTests : BaseRefreshTokenPrese
 
 	[Theory]
 	[UserNameDifferentCaseData]
-	public async Task IssueAsync_ShouldReturnOkStatusCode_WhenNameIsValid(
+	public async Task IssueAsync_ShouldReturnOkStatusCode_WhenRequestAndNameAreValid(
 		IStringTransformer transformer)
 	{
 		// Arrange
@@ -115,7 +115,7 @@ public class IssueRefreshTokenControllerIntegrationTests : BaseRefreshTokenPrese
 
 	[Theory]
 	[UserNameDifferentCaseData]
-	public async Task IssueAsync_ShouldReturnResponse_WhenNameIsValid(
+	public async Task IssueAsync_ShouldReturnResponse_WhenRequestAndNameAreValid(
 		IStringTransformer transformer)
 	{
 		// Arrange
@@ -141,7 +141,7 @@ public class IssueRefreshTokenControllerIntegrationTests : BaseRefreshTokenPrese
 
 	[Theory]
 	[UserNameDifferentCaseData]
-	public async Task IssueAsync_ShouldIssueRefreshToken_WhenNameIsValid(
+	public async Task IssueAsync_ShouldIssueRefreshToken_WhenRequestAndNameAreValid(
 		IStringTransformer transformer)
 	{
 		// Arrange

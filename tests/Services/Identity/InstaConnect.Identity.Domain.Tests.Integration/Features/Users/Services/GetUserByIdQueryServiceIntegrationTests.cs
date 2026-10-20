@@ -49,7 +49,7 @@ public class GetUserByIdQueryServiceIntegrationTests : BaseUserDomainQueryIntegr
 
 	[Theory]
 	[UserIdDifferentCaseData]
-	public async Task GetByIdAsync_ShouldReturnResponse_WhenIdIsValidAndCaseDiffers(
+	public async Task GetByIdAsync_ShouldReturnResponse_WhenQueryAndIdAreValid(
 		IStringTransformer transformer)
 	{
 		// Arrange

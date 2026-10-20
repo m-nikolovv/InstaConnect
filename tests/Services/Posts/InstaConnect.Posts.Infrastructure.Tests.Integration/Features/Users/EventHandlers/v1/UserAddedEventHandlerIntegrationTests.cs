@@ -224,7 +224,7 @@ public class UserAddedEventHandlerIntegrationTests : BaseUserInfrastructureEvent
 	[Theory]
 	[UserProfileImageNullData]
 	[UserProfileImageEmptyData]
-	public async Task Consume_ShouldAddUser_WhenProfileImageIsValid(
+	public async Task Consume_ShouldAddUser_WhenRequestAndProfileImageAreValid(
 		IStringTransformer transformer)
 	{
 		// Arrange

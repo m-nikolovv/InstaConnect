@@ -511,7 +511,7 @@ public class UpdateCurrentUserFunctionalTests : BaseUserPresentationCommandFunct
 
 	[Theory]
 	[UserIdDifferentCaseData]
-	public async Task UpdateCurrentAsync_ShouldReturnResponse_WhenIdIsValid(
+	public async Task UpdateCurrentAsync_ShouldReturnResponse_WhenRequestAndIdAreValid(
 		IStringTransformer transformer)
 	{
 		// Arrange
@@ -527,7 +527,7 @@ public class UpdateCurrentUserFunctionalTests : BaseUserPresentationCommandFunct
 
 	[Theory]
 	[UserNameDifferentCaseData]
-	public async Task UpdateCurrentAsync_ShouldReturnResponse_WhenNameIsValid(
+	public async Task UpdateCurrentAsync_ShouldReturnResponse_WhenRequestAndNameAreValid(
 		IStringTransformer transformer)
 	{
 		// Arrange
@@ -573,7 +573,7 @@ public class UpdateCurrentUserFunctionalTests : BaseUserPresentationCommandFunct
 
 	[Theory]
 	[UserEmailDifferentCaseData]
-	public async Task UpdateCurrentAsync_ShouldReturnResponse_WhenEmailIsValid(
+	public async Task UpdateCurrentAsync_ShouldReturnResponse_WhenRequestAndEmailAreValid(
 		IStringTransformer transformer)
 	{
 		// Arrange
@@ -646,7 +646,7 @@ public class UpdateCurrentUserFunctionalTests : BaseUserPresentationCommandFunct
 
 	[Theory]
 	[UserIdDifferentCaseData]
-	public async Task UpdateCurrentAsync_ShouldUpdateUser_WhenIdIsValid(
+	public async Task UpdateCurrentAsync_ShouldUpdateUser_WhenRequestAndIdAreValid(
 		IStringTransformer transformer)
 	{
 		// Arrange
@@ -662,7 +662,7 @@ public class UpdateCurrentUserFunctionalTests : BaseUserPresentationCommandFunct
 
 	[Theory]
 	[UserNameDifferentCaseData]
-	public async Task UpdateCurrentAsync_ShouldUpdateUser_WhenNameIsValid(
+	public async Task UpdateCurrentAsync_ShouldUpdateUser_WhenRequestAndNameAreValid(
 		IStringTransformer transformer)
 	{
 		// Arrange
@@ -708,7 +708,7 @@ public class UpdateCurrentUserFunctionalTests : BaseUserPresentationCommandFunct
 
 	[Theory]
 	[UserEmailDifferentCaseData]
-	public async Task UpdateCurrentAsync_ShouldUpdateUser_WhenEmailIsValid(
+	public async Task UpdateCurrentAsync_ShouldUpdateUser_WhenRequestAndEmailAreValid(
 		IStringTransformer transformer)
 	{
 		// Arrange
@@ -782,7 +782,7 @@ public class UpdateCurrentUserFunctionalTests : BaseUserPresentationCommandFunct
 
 	[Theory]
 	[UserIdDifferentCaseData]
-	public async Task UpdateCurrentAsync_ShouldPublishUserUpdatedEvent_WhenIdIsValid(
+	public async Task UpdateCurrentAsync_ShouldPublishUserUpdatedEvent_WhenRequestAndIdAreValid(
 		IStringTransformer transformer)
 	{
 		// Arrange
@@ -799,7 +799,7 @@ public class UpdateCurrentUserFunctionalTests : BaseUserPresentationCommandFunct
 
 	[Theory]
 	[UserNameDifferentCaseData]
-	public async Task UpdateCurrentAsync_ShouldPublishUserUpdatedEvent_WhenNameIsValid(
+	public async Task UpdateCurrentAsync_ShouldPublishUserUpdatedEvent_WhenRequestAndNameAreValid(
 		IStringTransformer transformer)
 	{
 		// Arrange
@@ -848,7 +848,7 @@ public class UpdateCurrentUserFunctionalTests : BaseUserPresentationCommandFunct
 
 	[Theory]
 	[UserEmailDifferentCaseData]
-	public async Task UpdateCurrentAsync_ShouldPublishUserUpdatedEvent_WhenEmailIsValid(
+	public async Task UpdateCurrentAsync_ShouldPublishUserUpdatedEvent_WhenRequestAndEmailAreValid(
 		IStringTransformer transformer)
 	{
 		// Arrange
@@ -925,7 +925,7 @@ public class UpdateCurrentUserFunctionalTests : BaseUserPresentationCommandFunct
 
 	[Theory]
 	[UserIdDifferentCaseData]
-	public async Task UpdateCurrentAsync_ShouldDeleteEmailConfirmationTokens_WhenIdIsValid(
+	public async Task UpdateCurrentAsync_ShouldDeleteEmailConfirmationTokens_WhenRequestAndIdAreValid(
 		IStringTransformer transformer)
 	{
 		// Arrange
@@ -941,7 +941,7 @@ public class UpdateCurrentUserFunctionalTests : BaseUserPresentationCommandFunct
 
 	[Theory]
 	[UserNameDifferentCaseData]
-	public async Task UpdateCurrentAsync_ShouldDeleteEmailConfirmationTokens_WhenNameIsValid(
+	public async Task UpdateCurrentAsync_ShouldDeleteEmailConfirmationTokens_WhenRequestAndNameAreValid(
 		IStringTransformer transformer)
 	{
 		// Arrange
@@ -1017,7 +1017,7 @@ public class UpdateCurrentUserFunctionalTests : BaseUserPresentationCommandFunct
 
 	[Theory]
 	[UserEmailDifferentCaseData]
-	public async Task UpdateCurrentAsync_ShouldDeleteEmailConfirmationTokens_WhenEmailIsValid(
+	public async Task UpdateCurrentAsync_ShouldDeleteEmailConfirmationTokens_WhenRequestAndEmailAreValid(
 		IStringTransformer transformer)
 	{
 		// Arrange
@@ -1061,7 +1061,7 @@ public class UpdateCurrentUserFunctionalTests : BaseUserPresentationCommandFunct
 
 	[Theory]
 	[UserIdDifferentCaseData]
-	public async Task UpdateCurrentAsync_ShouldPublishEmailConfirmationTokenDeletedEvents_WhenIdIsValid(
+	public async Task UpdateCurrentAsync_ShouldPublishEmailConfirmationTokenDeletedEvents_WhenRequestAndIdAreValid(
 		IStringTransformer transformer)
 	{
 		// Arrange
@@ -1078,7 +1078,7 @@ public class UpdateCurrentUserFunctionalTests : BaseUserPresentationCommandFunct
 
 	[Theory]
 	[UserNameDifferentCaseData]
-	public async Task UpdateCurrentAsync_ShouldPublishEmailConfirmationTokenDeletedEvents_WhenNameIsValid(
+	public async Task UpdateCurrentAsync_ShouldPublishEmailConfirmationTokenDeletedEvents_WhenRequestAndNameAreValid(
 		IStringTransformer transformer)
 	{
 		// Arrange
@@ -1157,7 +1157,7 @@ public class UpdateCurrentUserFunctionalTests : BaseUserPresentationCommandFunct
 
 	[Theory]
 	[UserEmailDifferentCaseData]
-	public async Task UpdateCurrentAsync_ShouldPublishEmailConfirmationTokenDeletedEvents_WhenEmailIsValid(
+	public async Task UpdateCurrentAsync_ShouldPublishEmailConfirmationTokenDeletedEvents_WhenRequestAndEmailAreValid(
 		IStringTransformer transformer)
 	{
 		// Arrange

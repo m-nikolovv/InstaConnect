@@ -195,7 +195,7 @@ public class AddUserClaimFunctionalTests : BaseUserClaimPresentationCommandFunct
 
 	[Theory]
 	[UserIdDifferentCaseData]
-	public async Task AddAsync_ShouldHaveOkStatusCode_WhenIdIsValid(IStringTransformer transformer)
+	public async Task AddAsync_ShouldHaveOkStatusCode_WhenRequestAndIdAreValid(IStringTransformer transformer)
 	{
 		// Arrange
 		var request = _requestBuilder.WithId(transformer).Build();
@@ -220,7 +220,7 @@ public class AddUserClaimFunctionalTests : BaseUserClaimPresentationCommandFunct
 
 	[Theory]
 	[UserIdDifferentCaseData]
-	public async Task AddAsync_ShouldReturnResponse_WhenIdIsValid(IStringTransformer transformer)
+	public async Task AddAsync_ShouldReturnResponse_WhenRequestAndIdAreValid(IStringTransformer transformer)
 	{
 		// Arrange
 		var request = _requestBuilder.WithId(transformer).Build();
@@ -246,7 +246,7 @@ public class AddUserClaimFunctionalTests : BaseUserClaimPresentationCommandFunct
 
 	[Theory]
 	[UserIdDifferentCaseData]
-	public async Task AddAsync_ShouldAddUserClaim_WhenIdIsValid(IStringTransformer transformer)
+	public async Task AddAsync_ShouldAddUserClaim_WhenRequestAndIdAreValid(IStringTransformer transformer)
 	{
 		// Arrange
 		var request = _requestBuilder.WithId(transformer).Build();

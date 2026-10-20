@@ -215,7 +215,7 @@ public class RotateRefreshTokenFunctionalTests : BaseRefreshTokenPresentationCom
 
 	[Theory]
 	[UserIdDifferentCaseData]
-	public async Task RotateAsync_ShouldHaveOkStatusCode_WhenIdIsValid(IStringTransformer transformer)
+	public async Task RotateAsync_ShouldHaveOkStatusCode_WhenRequestAndIdAreValid(IStringTransformer transformer)
 	{
 		// Arrange
 		var request = _requestBuilder.WithId(transformer).Build();
@@ -229,7 +229,7 @@ public class RotateRefreshTokenFunctionalTests : BaseRefreshTokenPresentationCom
 
 	[Theory]
 	[RefreshTokenValueDifferentCaseData]
-	public async Task RotateAsync_ShouldHaveOkStatusCode_WhenValueIsValid(IStringTransformer transformer)
+	public async Task RotateAsync_ShouldHaveOkStatusCode_WhenRequestAndValueAreValid(IStringTransformer transformer)
 	{
 		// Arrange
 		var request = _requestBuilder.WithValue(transformer).Build();
@@ -253,7 +253,7 @@ public class RotateRefreshTokenFunctionalTests : BaseRefreshTokenPresentationCom
 
 	[Theory]
 	[UserIdDifferentCaseData]
-	public async Task RotateAsync_ShouldReturnResponse_WhenIdIsValid(IStringTransformer transformer)
+	public async Task RotateAsync_ShouldReturnResponse_WhenRequestAndIdAreValid(IStringTransformer transformer)
 	{
 		// Arrange
 		var request = _requestBuilder.WithId(transformer).Build();
@@ -267,7 +267,7 @@ public class RotateRefreshTokenFunctionalTests : BaseRefreshTokenPresentationCom
 
 	[Theory]
 	[RefreshTokenValueDifferentCaseData]
-	public async Task RotateAsync_ShouldReturnResponse_WhenValueIsValid(IStringTransformer transformer)
+	public async Task RotateAsync_ShouldReturnResponse_WhenRequestAndValueAreValid(IStringTransformer transformer)
 	{
 		// Arrange
 		var request = _requestBuilder.WithValue(transformer).Build();
@@ -292,7 +292,7 @@ public class RotateRefreshTokenFunctionalTests : BaseRefreshTokenPresentationCom
 
 	[Theory]
 	[UserIdDifferentCaseData]
-	public async Task RotateAsync_ShouldRotateRefreshToken_WhenIdIsValid(IStringTransformer transformer)
+	public async Task RotateAsync_ShouldRotateRefreshToken_WhenRequestAndIdAreValid(IStringTransformer transformer)
 	{
 		// Arrange
 		var request = _requestBuilder.WithId(transformer).Build();
@@ -307,7 +307,7 @@ public class RotateRefreshTokenFunctionalTests : BaseRefreshTokenPresentationCom
 
 	[Theory]
 	[RefreshTokenValueDifferentCaseData]
-	public async Task RotateAsync_ShouldRotateRefreshToken_WhenValueIsValid(IStringTransformer transformer)
+	public async Task RotateAsync_ShouldRotateRefreshToken_WhenRequestAndValueAreValid(IStringTransformer transformer)
 	{
 		// Arrange
 		var request = _requestBuilder.WithValue(transformer).Build();
@@ -333,7 +333,7 @@ public class RotateRefreshTokenFunctionalTests : BaseRefreshTokenPresentationCom
 
 	[Theory]
 	[UserIdDifferentCaseData]
-	public async Task RotateAsync_ShouldReturnCookieResponse_WhenIdIsValid(IStringTransformer transformer)
+	public async Task RotateAsync_ShouldReturnCookieResponse_WhenRequestAndIdAreValid(IStringTransformer transformer)
 	{
 		// Arrange
 		var request = _requestBuilder.WithId(transformer).Build();
@@ -348,7 +348,7 @@ public class RotateRefreshTokenFunctionalTests : BaseRefreshTokenPresentationCom
 
 	[Theory]
 	[RefreshTokenValueDifferentCaseData]
-	public async Task RotateAsync_ShouldReturnCookieResponse_WhenValueIsValid(IStringTransformer transformer)
+	public async Task RotateAsync_ShouldReturnCookieResponse_WhenRequestAndValueAreValid(IStringTransformer transformer)
 	{
 		// Arrange
 		var request = _requestBuilder.WithValue(transformer).Build();

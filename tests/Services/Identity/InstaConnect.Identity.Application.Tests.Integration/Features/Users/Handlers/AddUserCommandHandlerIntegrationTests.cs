@@ -167,7 +167,7 @@ public class AddUserCommandHandlerIntegrationTests : BaseUserApplicationCommandI
 
 	[Theory]
 	[UserProfileImageNullData]
-	public async Task SendAsync_ShouldReturnResponse_WhenProfileImageIsValid(
+	public async Task SendAsync_ShouldReturnResponse_WhenRequestAndProfileImageAreValid(
 		IFormFileTransformer transformer)
 	{
 		// Arrange
@@ -194,7 +194,7 @@ public class AddUserCommandHandlerIntegrationTests : BaseUserApplicationCommandI
 
 	[Theory]
 	[UserProfileImageNullData]
-	public async Task SendAsync_ShouldAddUser_WhenProfileImageIsValid(
+	public async Task SendAsync_ShouldAddUser_WhenRequestAndProfileImageAreValid(
 		IFormFileTransformer transformer)
 	{
 		// Arrange
@@ -221,7 +221,7 @@ public class AddUserCommandHandlerIntegrationTests : BaseUserApplicationCommandI
 
 	[Theory]
 	[UserProfileImageNullData]
-	public async Task SendAsync_ShouldAddEmailConfirmationToken_WhenProfileImageIsValid(
+	public async Task SendAsync_ShouldAddEmailConfirmationToken_WhenRequestAndProfileImageAreValid(
 		IFormFileTransformer transformer)
 	{
 		// Arrange

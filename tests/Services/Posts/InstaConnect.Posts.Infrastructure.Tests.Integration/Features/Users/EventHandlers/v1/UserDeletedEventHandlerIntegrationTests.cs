@@ -63,7 +63,7 @@ public class UserDeletedEventHandlerIntegrationTests : BaseUserInfrastructureEve
 
 	[Theory]
 	[UserIdDifferentCaseData]
-	public async Task Consume_ShouldDeleteUser_WhenIdIsValid(
+	public async Task Consume_ShouldDeleteUser_WhenRequestAndIdAreValid(
 		IStringTransformer transformer)
 	{
 		// Arrange

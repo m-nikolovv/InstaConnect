@@ -57,7 +57,7 @@ public class DeleteUserCommandHandlerIntegrationTests : BaseUserApplicationComma
 
 	[Theory]
 	[UserIdDifferentCaseData]
-	public async Task SendAsync_ShouldDeleteUser_WhenIdIsValid(
+	public async Task SendAsync_ShouldDeleteUser_WhenRequestAndIdAreValid(
 		IStringTransformer transformer)
 	{
 		// Arrange

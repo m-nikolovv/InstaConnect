@@ -205,7 +205,7 @@ public class UpdateUserCommandHandlerIntegrationTests : BaseUserApplicationComma
 
 	[Theory]
 	[UserIdDifferentCaseData]
-	public async Task SendAsync_ShouldReturnResponse_WhenIdIsValid(
+	public async Task SendAsync_ShouldReturnResponse_WhenRequestAndIdAreValid(
 		IStringTransformer transformer)
 	{
 		// Arrange
@@ -221,7 +221,7 @@ public class UpdateUserCommandHandlerIntegrationTests : BaseUserApplicationComma
 
 	[Theory]
 	[UserNameDifferentCaseData]
-	public async Task SendAsync_ShouldReturnResponse_WhenNameIsValid(
+	public async Task SendAsync_ShouldReturnResponse_WhenRequestAndNameAreValid(
 		IStringTransformer transformer)
 	{
 		// Arrange
@@ -267,7 +267,7 @@ public class UpdateUserCommandHandlerIntegrationTests : BaseUserApplicationComma
 
 	[Theory]
 	[UserEmailDifferentCaseData]
-	public async Task SendAsync_ShouldReturnResponse_WhenEmailIsValid(
+	public async Task SendAsync_ShouldReturnResponse_WhenRequestAndEmailAreValid(
 		IStringTransformer transformer)
 	{
 		// Arrange
@@ -314,7 +314,7 @@ public class UpdateUserCommandHandlerIntegrationTests : BaseUserApplicationComma
 	[Theory]
 	[UserProfileImageNullData]
 	[UserProfileImageEmptyData]
-	public async Task SendAsync_ShouldReturnResponse_WhenProfileImageIsValid(
+	public async Task SendAsync_ShouldReturnResponse_WhenRequestAndProfileImageAreValid(
 		IStringTransformer transformer)
 	{
 		// Arrange
@@ -341,7 +341,7 @@ public class UpdateUserCommandHandlerIntegrationTests : BaseUserApplicationComma
 
 	[Theory]
 	[UserIdDifferentCaseData]
-	public async Task SendAsync_ShouldUpdateUser_WhenIdIsValid(
+	public async Task SendAsync_ShouldUpdateUser_WhenRequestAndIdAreValid(
 		IStringTransformer transformer)
 	{
 		// Arrange
@@ -357,7 +357,7 @@ public class UpdateUserCommandHandlerIntegrationTests : BaseUserApplicationComma
 
 	[Theory]
 	[UserNameDifferentCaseData]
-	public async Task SendAsync_ShouldUpdateUser_WhenNameIsValid(
+	public async Task SendAsync_ShouldUpdateUser_WhenRequestAndNameAreValid(
 		IStringTransformer transformer)
 	{
 		// Arrange
@@ -403,7 +403,7 @@ public class UpdateUserCommandHandlerIntegrationTests : BaseUserApplicationComma
 
 	[Theory]
 	[UserEmailDifferentCaseData]
-	public async Task SendAsync_ShouldUpdateUser_WhenEmailIsValid(
+	public async Task SendAsync_ShouldUpdateUser_WhenRequestAndEmailAreValid(
 		IStringTransformer transformer)
 	{
 		// Arrange

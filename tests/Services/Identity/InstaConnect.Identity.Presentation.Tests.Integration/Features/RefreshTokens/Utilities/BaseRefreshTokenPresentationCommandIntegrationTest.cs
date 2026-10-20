@@ -1,10 +1,10 @@
 namespace InstaConnect.Identity.Presentation.Tests.Integration.Features.RefreshTokens.Utilities;
 
-public abstract class BaseRefreshTokenPresentationIntegrationTest : BaseRefreshTokenWebTest
+public abstract class BaseRefreshTokenPresentationCommandIntegrationTest : BaseRefreshTokenWebTest
 {
 	protected RefreshTokenController Controller { get; }
 
-	protected BaseRefreshTokenPresentationIntegrationTest(IdentityWebApplicationFactory webApplicationFactory) : base(webApplicationFactory)
+	protected BaseRefreshTokenPresentationCommandIntegrationTest(IdentityWebApplicationFactory webApplicationFactory) : base(webApplicationFactory)
 	{
 		Controller = ServiceScope.GetRefreshTokenController();
 	}

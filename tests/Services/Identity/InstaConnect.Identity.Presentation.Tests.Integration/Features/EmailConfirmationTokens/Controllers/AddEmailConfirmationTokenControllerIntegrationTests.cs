@@ -63,7 +63,7 @@ public class AddEmailConfirmationTokenControllerIntegrationTests : BaseEmailConf
 
 	[Theory]
 	[UserNameDifferentCaseData]
-	public async Task AddAsync_ShouldReturnNoContentStatusCode_WhenNameIsValid(
+	public async Task AddAsync_ShouldReturnNoContentStatusCode_WhenRequestAndNameAreValid(
 		IStringTransformer transformer)
 	{
 		// Arrange
@@ -89,7 +89,7 @@ public class AddEmailConfirmationTokenControllerIntegrationTests : BaseEmailConf
 
 	[Theory]
 	[UserNameDifferentCaseData]
-	public async Task AddAsync_ShouldAddEmailConfirmationToken_WhenNameIsValid(
+	public async Task AddAsync_ShouldAddEmailConfirmationToken_WhenRequestAndNameAreValid(
 		IStringTransformer transformer)
 	{
 		// Arrange

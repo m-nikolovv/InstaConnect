@@ -90,7 +90,7 @@ public class UpdateUserCommandServiceUnitTests : BaseUserDomainCommandUnitTest
 
 	[Theory]
 	[UserNameDifferentCaseData]
-	public async Task UpdateAsync_ShouldReturnResponse_WhenNameIsValid(
+	public async Task UpdateAsync_ShouldReturnResponse_WhenCommandAndNameAreValid(
 		IStringTransformer transformer)
 	{
 		// Arrange
@@ -135,7 +135,7 @@ public class UpdateUserCommandServiceUnitTests : BaseUserDomainCommandUnitTest
 
 	[Theory]
 	[UserEmailDifferentCaseData]
-	public async Task UpdateAsync_ShouldReturnResponse_WhenEmailIsValid(
+	public async Task UpdateAsync_ShouldReturnResponse_WhenCommandAndEmailAreValid(
 		IStringTransformer transformer)
 	{
 		// Arrange
@@ -180,7 +180,7 @@ public class UpdateUserCommandServiceUnitTests : BaseUserDomainCommandUnitTest
 
 	[Theory]
 	[UserProfileImageNullData]
-	public async Task UpdateAsync_ShouldReturnResponse_WhenProfileImageIsValid(
+	public async Task UpdateAsync_ShouldReturnResponse_WhenCommandAndProfileImageAreValid(
 		IFormFileTransformer transformer)
 	{
 		// Arrange
@@ -205,7 +205,7 @@ public class UpdateUserCommandServiceUnitTests : BaseUserDomainCommandUnitTest
 
 	[Theory]
 	[UserNameDifferentCaseData]
-	public async Task UpdateAsync_ShouldCallTheRepositoryGetByIdAsync_WhenNameIsValid(
+	public async Task UpdateAsync_ShouldCallTheRepositoryGetByIdAsync_WhenCommandAndNameAreValid(
 		IStringTransformer transformer)
 	{
 		// Arrange
@@ -250,7 +250,7 @@ public class UpdateUserCommandServiceUnitTests : BaseUserDomainCommandUnitTest
 
 	[Theory]
 	[UserEmailDifferentCaseData]
-	public async Task UpdateAsync_ShouldCallTheRepositoryGetByIdAsync_WhenEmailIsValid(
+	public async Task UpdateAsync_ShouldCallTheRepositoryGetByIdAsync_WhenCommandAndEmailAreValid(
 		IStringTransformer transformer)
 	{
 		// Arrange
@@ -295,7 +295,7 @@ public class UpdateUserCommandServiceUnitTests : BaseUserDomainCommandUnitTest
 
 	[Theory]
 	[UserProfileImageNullData]
-	public async Task UpdateAsync_ShouldCallTheRepositoryGetByIdAsync_WhenProfileImageIsValid(
+	public async Task UpdateAsync_ShouldCallTheRepositoryGetByIdAsync_WhenCommandAndProfileImageAreValid(
 		IFormFileTransformer transformer)
 	{
 		// Arrange
@@ -320,7 +320,7 @@ public class UpdateUserCommandServiceUnitTests : BaseUserDomainCommandUnitTest
 
 	[Theory]
 	[UserNameDifferentCaseData]
-	public async Task UpdateAsync_ShouldCallTheRepositoryIsEmailUniqueAsync_WhenNameIsValid(
+	public async Task UpdateAsync_ShouldCallTheRepositoryIsEmailUniqueAsync_WhenCommandAndNameAreValid(
 		IStringTransformer transformer)
 	{
 		// Arrange
@@ -365,7 +365,7 @@ public class UpdateUserCommandServiceUnitTests : BaseUserDomainCommandUnitTest
 
 	[Theory]
 	[UserEmailDifferentCaseData]
-	public async Task UpdateAsync_ShouldCallTheRepositoryIsEmailUniqueAsync_WhenEmailIsValid(
+	public async Task UpdateAsync_ShouldCallTheRepositoryIsEmailUniqueAsync_WhenCommandAndEmailAreValid(
 		IStringTransformer transformer)
 	{
 		// Arrange
@@ -410,7 +410,7 @@ public class UpdateUserCommandServiceUnitTests : BaseUserDomainCommandUnitTest
 
 	[Theory]
 	[UserProfileImageNullData]
-	public async Task UpdateAsync_ShouldCallTheRepositoryIsEmailUniqueAsync_WhenProfileImageIsValid(
+	public async Task UpdateAsync_ShouldCallTheRepositoryIsEmailUniqueAsync_WhenCommandAndProfileImageAreValid(
 		IFormFileTransformer transformer)
 	{
 		// Arrange
@@ -435,7 +435,7 @@ public class UpdateUserCommandServiceUnitTests : BaseUserDomainCommandUnitTest
 
 	[Theory]
 	[UserNameDifferentCaseData]
-	public async Task UpdateAsync_ShouldCallTheRepositoryIsNameUniqueAsync_WhenNameIsValid(
+	public async Task UpdateAsync_ShouldCallTheRepositoryIsNameUniqueAsync_WhenCommandAndNameAreValid(
 		IStringTransformer transformer)
 	{
 		// Arrange
@@ -480,7 +480,7 @@ public class UpdateUserCommandServiceUnitTests : BaseUserDomainCommandUnitTest
 
 	[Theory]
 	[UserEmailDifferentCaseData]
-	public async Task UpdateAsync_ShouldCallTheRepositoryIsNameUniqueAsync_WhenEmailIsValid(
+	public async Task UpdateAsync_ShouldCallTheRepositoryIsNameUniqueAsync_WhenCommandAndEmailAreValid(
 		IStringTransformer transformer)
 	{
 		// Arrange
@@ -525,7 +525,7 @@ public class UpdateUserCommandServiceUnitTests : BaseUserDomainCommandUnitTest
 
 	[Theory]
 	[UserProfileImageNullData]
-	public async Task UpdateAsync_ShouldCallTheRepositoryIsNameUniqueAsync_WhenProfileImageIsValid(
+	public async Task UpdateAsync_ShouldCallTheRepositoryIsNameUniqueAsync_WhenCommandAndProfileImageAreValid(
 		IFormFileTransformer transformer)
 	{
 		// Arrange
@@ -550,7 +550,7 @@ public class UpdateUserCommandServiceUnitTests : BaseUserDomainCommandUnitTest
 
 	[Theory]
 	[UserNameDifferentCaseData]
-	public async Task UpdateAsync_ShouldCallTheEmailConfirmationTokenRepositoryDeleteRangeAsync_WhenNameIsValid(
+	public async Task UpdateAsync_ShouldCallTheEmailConfirmationTokenRepositoryDeleteRangeAsync_WhenCommandAndNameAreValid(
 		IStringTransformer transformer)
 	{
 		// Arrange
@@ -595,7 +595,7 @@ public class UpdateUserCommandServiceUnitTests : BaseUserDomainCommandUnitTest
 
 	[Theory]
 	[UserEmailDifferentCaseData]
-	public async Task UpdateAsync_ShouldCallTheEmailConfirmationTokenRepositoryDeleteRangeAsync_WhenEmailIsValid(
+	public async Task UpdateAsync_ShouldCallTheEmailConfirmationTokenRepositoryDeleteRangeAsync_WhenCommandAndEmailAreValid(
 		IStringTransformer transformer)
 	{
 		// Arrange
@@ -640,7 +640,7 @@ public class UpdateUserCommandServiceUnitTests : BaseUserDomainCommandUnitTest
 
 	[Theory]
 	[UserProfileImageNullData]
-	public async Task UpdateAsync_ShouldCallTheEmailConfirmationTokenRepositoryDeleteRangeAsync_WhenEmailIsChangedAndProfileImageIsValid(
+	public async Task UpdateAsync_ShouldCallTheEmailConfirmationTokenRepositoryDeleteRangeAsync_WhenCommandAndProfileImageAreValid(
 		IFormFileTransformer transformer)
 	{
 		// Arrange
@@ -665,7 +665,7 @@ public class UpdateUserCommandServiceUnitTests : BaseUserDomainCommandUnitTest
 
 	[Theory]
 	[UserNameDifferentCaseData]
-	public async Task UpdateAsync_ShouldCallTheEventPublisherPublishAsyncForEmailConfirmationTokenDeleted_WhenNameIsValid(
+	public async Task UpdateAsync_ShouldCallTheEventPublisherPublishAsyncForEmailConfirmationTokenDeleted_WhenCommandAndNameAreValid(
 		IStringTransformer transformer)
 	{
 		// Arrange
@@ -710,7 +710,7 @@ public class UpdateUserCommandServiceUnitTests : BaseUserDomainCommandUnitTest
 
 	[Theory]
 	[UserEmailDifferentCaseData]
-	public async Task UpdateAsync_ShouldCallTheEventPublisherPublishAsyncForEmailConfirmationTokenDeleted_WhenEmailIsValid(
+	public async Task UpdateAsync_ShouldCallTheEventPublisherPublishAsyncForEmailConfirmationTokenDeleted_WhenCommandAndEmailAreValid(
 		IStringTransformer transformer)
 	{
 		// Arrange
@@ -755,7 +755,7 @@ public class UpdateUserCommandServiceUnitTests : BaseUserDomainCommandUnitTest
 
 	[Theory]
 	[UserProfileImageNullData]
-	public async Task UpdateAsync_ShouldCallTheEventPublisherPublishAsyncForEmailConfirmationTokenDeleted_WhenEmailIsChangedAndProfileImageIsValid(
+	public async Task UpdateAsync_ShouldCallTheEventPublisherPublishAsyncForEmailConfirmationTokenDeleted_WhenCommandAndProfileImageAreValid(
 		IFormFileTransformer transformer)
 	{
 		// Arrange
@@ -780,7 +780,7 @@ public class UpdateUserCommandServiceUnitTests : BaseUserDomainCommandUnitTest
 
 	[Theory]
 	[UserNameDifferentCaseData]
-	public async Task UpdateAsync_ShouldCallTheImageHandlerUploadAsync_WhenNameIsValid(
+	public async Task UpdateAsync_ShouldCallTheImageHandlerUploadAsync_WhenCommandAndNameAreValid(
 		IStringTransformer transformer)
 	{
 		// Arrange
@@ -825,7 +825,7 @@ public class UpdateUserCommandServiceUnitTests : BaseUserDomainCommandUnitTest
 
 	[Theory]
 	[UserEmailDifferentCaseData]
-	public async Task UpdateAsync_ShouldCallTheImageHandlerUploadAsync_WhenEmailIsValid(
+	public async Task UpdateAsync_ShouldCallTheImageHandlerUploadAsync_WhenCommandAndEmailAreValid(
 		IStringTransformer transformer)
 	{
 		// Arrange
@@ -870,7 +870,7 @@ public class UpdateUserCommandServiceUnitTests : BaseUserDomainCommandUnitTest
 
 	[Theory]
 	[UserProfileImageNullData]
-	public async Task UpdateAsync_ShouldNotCallTheImageHandlerUploadAsync_WhenProfileImageIsValid(
+	public async Task UpdateAsync_ShouldNotCallTheImageHandlerUploadAsync_WhenCommandAndProfileImageAreValid(
 		IFormFileTransformer transformer)
 	{
 		// Arrange
@@ -895,7 +895,7 @@ public class UpdateUserCommandServiceUnitTests : BaseUserDomainCommandUnitTest
 
 	[Theory]
 	[UserNameDifferentCaseData]
-	public async Task UpdateAsync_ShouldCallTheDateTimeProviderGetOffsetUtcNow_WhenNameIsValid(
+	public async Task UpdateAsync_ShouldCallTheDateTimeProviderGetOffsetUtcNow_WhenCommandAndNameAreValid(
 		IStringTransformer transformer)
 	{
 		// Arrange
@@ -940,7 +940,7 @@ public class UpdateUserCommandServiceUnitTests : BaseUserDomainCommandUnitTest
 
 	[Theory]
 	[UserEmailDifferentCaseData]
-	public async Task UpdateAsync_ShouldCallTheDateTimeProviderGetOffsetUtcNow_WhenEmailIsValid(
+	public async Task UpdateAsync_ShouldCallTheDateTimeProviderGetOffsetUtcNow_WhenCommandAndEmailAreValid(
 		IStringTransformer transformer)
 	{
 		// Arrange
@@ -985,7 +985,7 @@ public class UpdateUserCommandServiceUnitTests : BaseUserDomainCommandUnitTest
 
 	[Theory]
 	[UserProfileImageNullData]
-	public async Task UpdateAsync_ShouldCallTheDateTimeProviderGetOffsetUtcNow_WhenProfileImageIsValid(
+	public async Task UpdateAsync_ShouldCallTheDateTimeProviderGetOffsetUtcNow_WhenCommandAndProfileImageAreValid(
 		IFormFileTransformer transformer)
 	{
 		// Arrange
@@ -1010,7 +1010,7 @@ public class UpdateUserCommandServiceUnitTests : BaseUserDomainCommandUnitTest
 
 	[Theory]
 	[UserNameDifferentCaseData]
-	public async Task UpdateAsync_ShouldCallTheRepositoryUpdateAsync_WhenNameIsValid(
+	public async Task UpdateAsync_ShouldCallTheRepositoryUpdateAsync_WhenCommandAndNameAreValid(
 		IStringTransformer transformer)
 	{
 		// Arrange
@@ -1055,7 +1055,7 @@ public class UpdateUserCommandServiceUnitTests : BaseUserDomainCommandUnitTest
 
 	[Theory]
 	[UserEmailDifferentCaseData]
-	public async Task UpdateAsync_ShouldCallTheRepositoryUpdateAsync_WhenEmailIsValid(
+	public async Task UpdateAsync_ShouldCallTheRepositoryUpdateAsync_WhenCommandAndEmailAreValid(
 		IStringTransformer transformer)
 	{
 		// Arrange
@@ -1100,7 +1100,7 @@ public class UpdateUserCommandServiceUnitTests : BaseUserDomainCommandUnitTest
 
 	[Theory]
 	[UserProfileImageNullData]
-	public async Task UpdateAsync_ShouldCallTheRepositoryUpdateAsync_WhenProfileImageIsValid(
+	public async Task UpdateAsync_ShouldCallTheRepositoryUpdateAsync_WhenCommandAndProfileImageAreValid(
 		IFormFileTransformer transformer)
 	{
 		// Arrange
@@ -1125,7 +1125,7 @@ public class UpdateUserCommandServiceUnitTests : BaseUserDomainCommandUnitTest
 
 	[Theory]
 	[UserNameDifferentCaseData]
-	public async Task UpdateAsync_ShouldCallTheEventPublisherPublishAsyncForUserUpdated_WhenNameIsValid(
+	public async Task UpdateAsync_ShouldCallTheEventPublisherPublishAsyncForUserUpdated_WhenCommandAndNameAreValid(
 		IStringTransformer transformer)
 	{
 		// Arrange
@@ -1170,7 +1170,7 @@ public class UpdateUserCommandServiceUnitTests : BaseUserDomainCommandUnitTest
 
 	[Theory]
 	[UserEmailDifferentCaseData]
-	public async Task UpdateAsync_ShouldCallTheEventPublisherPublishAsyncForUserUpdated_WhenEmailIsValid(
+	public async Task UpdateAsync_ShouldCallTheEventPublisherPublishAsyncForUserUpdated_WhenCommandAndEmailAreValid(
 		IStringTransformer transformer)
 	{
 		// Arrange
@@ -1215,7 +1215,7 @@ public class UpdateUserCommandServiceUnitTests : BaseUserDomainCommandUnitTest
 
 	[Theory]
 	[UserProfileImageNullData]
-	public async Task UpdateAsync_ShouldCallTheEventPublisherPublishAsyncForUserUpdated_WhenProfileImageIsValid(
+	public async Task UpdateAsync_ShouldCallTheEventPublisherPublishAsyncForUserUpdated_WhenCommandAndProfileImageAreValid(
 		IFormFileTransformer transformer)
 	{
 		// Arrange

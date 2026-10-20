@@ -1,6 +1,6 @@
 namespace InstaConnect.Identity.Presentation.Tests.Integration.Features.RefreshTokens.Controllers;
 
-public class DeleteCurrentRefreshTokenControllerIntegrationTests : BaseRefreshTokenPresentationIntegrationTest
+public class DeleteCurrentRefreshTokenControllerIntegrationTests : BaseRefreshTokenPresentationCommandIntegrationTest
 {
 	private readonly DeleteCurrentRefreshTokenApiRequestBuilderFactory _requestBuilderFactory;
 	private readonly DeleteCurrentRefreshTokenApiRequestBuilder _requestBuilder;
@@ -124,7 +124,7 @@ public class DeleteCurrentRefreshTokenControllerIntegrationTests : BaseRefreshTo
 
 	[Theory]
 	[UserIdDifferentCaseData]
-	public async Task DeleteCurrentAsync_ShouldDeleteCurrentRefreshToken_WhenIdIsValid(
+	public async Task DeleteCurrentAsync_ShouldDeleteCurrentRefreshToken_WhenRequestAndIdAreValid(
 		IStringTransformer transformer)
 	{
 		// Arrange
@@ -140,7 +140,7 @@ public class DeleteCurrentRefreshTokenControllerIntegrationTests : BaseRefreshTo
 
 	[Theory]
 	[RefreshTokenValueDifferentCaseData]
-	public async Task DeleteCurrentAsync_ShouldDeleteCurrentRefreshToken_WhenValueIsValid(
+	public async Task DeleteCurrentAsync_ShouldDeleteCurrentRefreshToken_WhenRequestAndValueAreValid(
 		IStringTransformer transformer)
 	{
 		// Arrange

@@ -129,7 +129,7 @@ public class DeleteCurrentUserFunctionalTests : BaseUserPresentationCommandFunct
 
 	[Theory]
 	[UserIdDifferentCaseData]
-	public async Task DeleteCurrentAsync_ShouldDeleteUser_WhenIdIsValid(
+	public async Task DeleteCurrentAsync_ShouldDeleteUser_WhenRequestAndIdAreValid(
 		IStringTransformer transformer)
 	{
 		// Arrange
@@ -156,7 +156,7 @@ public class DeleteCurrentUserFunctionalTests : BaseUserPresentationCommandFunct
 
 	[Theory]
 	[UserIdDifferentCaseData]
-	public async Task DeleteCurrentAsync_ShouldPublishUserDeletedEvent_WhenIdIsValid(
+	public async Task DeleteCurrentAsync_ShouldPublishUserDeletedEvent_WhenRequestAndIdAreValid(
 		IStringTransformer transformer)
 	{
 		// Arrange

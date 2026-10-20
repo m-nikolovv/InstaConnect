@@ -194,7 +194,7 @@ public class DeleteUserClaimFunctionalTests : BaseUserClaimPresentationCommandFu
 
 	[Theory]
 	[UserIdDifferentCaseData]
-	public async Task DeleteAsync_ShouldDeleteUserClaim_WhenIdIsValid(
+	public async Task DeleteAsync_ShouldDeleteUserClaim_WhenRequestAndIdAreValid(
 		IStringTransformer transformer)
 	{
 		// Arrange
@@ -221,7 +221,7 @@ public class DeleteUserClaimFunctionalTests : BaseUserClaimPresentationCommandFu
 
 	[Theory]
 	[UserIdDifferentCaseData]
-	public async Task DeleteAsync_ShouldPublishUserClaimDeletedEvent_WhenIdIsValid(
+	public async Task DeleteAsync_ShouldPublishUserClaimDeletedEvent_WhenRequestAndIdAreValid(
 		IStringTransformer transformer)
 	{
 		// Arrange

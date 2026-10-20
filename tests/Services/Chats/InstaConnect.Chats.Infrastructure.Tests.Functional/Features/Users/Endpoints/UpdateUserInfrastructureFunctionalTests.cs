@@ -248,7 +248,7 @@ public class UpdateUserInfrastructureFunctionalTests : BaseUserInfrastructureCom
 
 	[Theory]
 	[UserIdDifferentCaseData]
-	public async Task PublishAsync_ShouldConsumeUserUpdatedEvent_WhenIdIsValid(
+	public async Task PublishAsync_ShouldConsumeUserUpdatedEvent_WhenRequestAndIdAreValid(
 		IStringTransformer transformer)
 	{
 		// Arrange
@@ -264,7 +264,7 @@ public class UpdateUserInfrastructureFunctionalTests : BaseUserInfrastructureCom
 
 	[Theory]
 	[UserNameDifferentCaseData]
-	public async Task PublishAsync_ShouldConsumeUserUpdatedEvent_WhenNameIsValid(
+	public async Task PublishAsync_ShouldConsumeUserUpdatedEvent_WhenRequestAndNameAreValid(
 		IStringTransformer transformer)
 	{
 		// Arrange
@@ -310,7 +310,7 @@ public class UpdateUserInfrastructureFunctionalTests : BaseUserInfrastructureCom
 
 	[Theory]
 	[UserEmailDifferentCaseData]
-	public async Task PublishAsync_ShouldConsumeUserUpdatedEvent_WhenEmailIsValid(
+	public async Task PublishAsync_ShouldConsumeUserUpdatedEvent_WhenRequestAndEmailAreValid(
 		IStringTransformer transformer)
 	{
 		// Arrange
@@ -357,7 +357,7 @@ public class UpdateUserInfrastructureFunctionalTests : BaseUserInfrastructureCom
 	[Theory]
 	[UserProfileImageNullData]
 	[UserProfileImageEmptyData]
-	public async Task PublishAsync_ShouldConsumeUserUpdatedEvent_WhenProfileImageIsValid(
+	public async Task PublishAsync_ShouldConsumeUserUpdatedEvent_WhenRequestAndProfileImageAreValid(
 		IStringTransformer transformer)
 	{
 		// Arrange
@@ -384,7 +384,7 @@ public class UpdateUserInfrastructureFunctionalTests : BaseUserInfrastructureCom
 
 	[Theory]
 	[UserIdDifferentCaseData]
-	public async Task PublishAsync_ShouldUpdateUser_WhenIdIsValid(
+	public async Task PublishAsync_ShouldUpdateUser_WhenRequestAndIdAreValid(
 		IStringTransformer transformer)
 	{
 		// Arrange
@@ -400,7 +400,7 @@ public class UpdateUserInfrastructureFunctionalTests : BaseUserInfrastructureCom
 
 	[Theory]
 	[UserNameDifferentCaseData]
-	public async Task PublishAsync_ShouldUpdateUser_WhenNameIsValid(
+	public async Task PublishAsync_ShouldUpdateUser_WhenRequestAndNameAreValid(
 		IStringTransformer transformer)
 	{
 		// Arrange
@@ -446,7 +446,7 @@ public class UpdateUserInfrastructureFunctionalTests : BaseUserInfrastructureCom
 
 	[Theory]
 	[UserEmailDifferentCaseData]
-	public async Task PublishAsync_ShouldUpdateUser_WhenEmailIsValid(
+	public async Task PublishAsync_ShouldUpdateUser_WhenRequestAndEmailAreValid(
 		IStringTransformer transformer)
 	{
 		// Arrange

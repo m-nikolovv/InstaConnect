@@ -112,7 +112,7 @@ public class AddEmailConfirmationTokenFunctionalTests : BaseEmailConfirmationTok
 
 	[Theory]
 	[UserNameDifferentCaseData]
-	public async Task AddAsync_ShouldHaveOkStatusCode_WhenNameIsValid(IStringTransformer transformer)
+	public async Task AddAsync_ShouldHaveOkStatusCode_WhenRequestAndNameAreValid(IStringTransformer transformer)
 	{
 		// Arrange
 		var request = _requestBuilder.WithName(transformer).Build();
@@ -137,7 +137,7 @@ public class AddEmailConfirmationTokenFunctionalTests : BaseEmailConfirmationTok
 
 	[Theory]
 	[UserNameDifferentCaseData]
-	public async Task AddAsync_ShouldAddEmailConfirmationToken_WhenNameIsValid(IStringTransformer transformer)
+	public async Task AddAsync_ShouldAddEmailConfirmationToken_WhenRequestAndNameAreValid(IStringTransformer transformer)
 	{
 		// Arrange
 		var request = _requestBuilder.WithName(transformer).Build();

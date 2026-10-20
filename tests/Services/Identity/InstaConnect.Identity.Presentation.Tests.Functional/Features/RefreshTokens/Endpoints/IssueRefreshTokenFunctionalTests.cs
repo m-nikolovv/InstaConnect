@@ -178,7 +178,7 @@ public class IssueRefreshTokenFunctionalTests : BaseRefreshTokenPresentationComm
 
 	[Theory]
 	[UserNameDifferentCaseData]
-	public async Task IssueAsync_ShouldHaveOkStatusCode_WhenNameIsValid(IStringTransformer transformer)
+	public async Task IssueAsync_ShouldHaveOkStatusCode_WhenRequestAndNameAreValid(IStringTransformer transformer)
 	{
 		// Arrange
 		var request = _requestBuilder.WithName(transformer).Build();
@@ -202,7 +202,7 @@ public class IssueRefreshTokenFunctionalTests : BaseRefreshTokenPresentationComm
 
 	[Theory]
 	[UserNameDifferentCaseData]
-	public async Task IssueAsync_ShouldReturnResponse_WhenNameIsValid(IStringTransformer transformer)
+	public async Task IssueAsync_ShouldReturnResponse_WhenRequestAndNameAreValid(IStringTransformer transformer)
 	{
 		// Arrange
 		var request = _requestBuilder.WithName(transformer).Build();
@@ -227,7 +227,7 @@ public class IssueRefreshTokenFunctionalTests : BaseRefreshTokenPresentationComm
 
 	[Theory]
 	[UserNameDifferentCaseData]
-	public async Task IssueAsync_ShouldIssueRefreshToken_WhenNameIsValid(IStringTransformer transformer)
+	public async Task IssueAsync_ShouldIssueRefreshToken_WhenRequestAndNameAreValid(IStringTransformer transformer)
 	{
 		// Arrange
 		var request = _requestBuilder.WithName(transformer).Build();
@@ -253,7 +253,7 @@ public class IssueRefreshTokenFunctionalTests : BaseRefreshTokenPresentationComm
 
 	[Theory]
 	[UserNameDifferentCaseData]
-	public async Task IssueAsync_ShouldReturnCookieResponse_WhenNameIsValid(IStringTransformer transformer)
+	public async Task IssueAsync_ShouldReturnCookieResponse_WhenRequestAndNameAreValid(IStringTransformer transformer)
 	{
 		// Arrange
 		var request = _requestBuilder.WithName(transformer).Build();

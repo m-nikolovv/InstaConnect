@@ -214,7 +214,7 @@ public class AddUserCommandHandlerIntegrationTests : BaseUserApplicationCommandI
 	[Theory]
 	[UserProfileImageNullData]
 	[UserProfileImageEmptyData]
-	public async Task SendAsync_ShouldReturnResponse_WhenProfileImageIsValid(
+	public async Task SendAsync_ShouldReturnResponse_WhenRequestAndProfileImageAreValid(
 		IStringTransformer transformer)
 	{
 		// Arrange
@@ -242,7 +242,7 @@ public class AddUserCommandHandlerIntegrationTests : BaseUserApplicationCommandI
 	[Theory]
 	[UserProfileImageNullData]
 	[UserProfileImageEmptyData]
-	public async Task SendAsync_ShouldAddUser_WhenProfileImageIsValid(
+	public async Task SendAsync_ShouldAddUser_WhenRequestAndProfileImageAreValid(
 		IStringTransformer transformer)
 	{
 		// Arrange

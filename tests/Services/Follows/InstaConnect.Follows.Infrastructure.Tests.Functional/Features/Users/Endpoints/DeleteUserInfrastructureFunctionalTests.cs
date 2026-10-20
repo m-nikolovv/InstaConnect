@@ -67,7 +67,7 @@ public class DeleteUserInfrastructureFunctionalTests : BaseUserInfrastructureCom
 
 	[Theory]
 	[UserIdDifferentCaseData]
-	public async Task PublishAsync_ShouldConsumeUserDeletedEvent_WhenIdIsValid(
+	public async Task PublishAsync_ShouldConsumeUserDeletedEvent_WhenRequestAndIdAreValid(
 		IStringTransformer transformer)
 	{
 		// Arrange
@@ -94,7 +94,7 @@ public class DeleteUserInfrastructureFunctionalTests : BaseUserInfrastructureCom
 
 	[Theory]
 	[UserIdDifferentCaseData]
-	public async Task PublishAsync_ShouldDeleteUser_WhenIdIsValid(
+	public async Task PublishAsync_ShouldDeleteUser_WhenRequestAndIdAreValid(
 		IStringTransformer transformer)
 	{
 		// Arrange

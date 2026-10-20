@@ -90,7 +90,7 @@ public class AddUserCommandServiceIntegrationTests : BaseUserDomainCommandIntegr
 
 	[Theory]
 	[UserProfileImageNullData]
-	public async Task AddAsync_ShouldReturnResponse_WhenProfileImageIsValid(
+	public async Task AddAsync_ShouldReturnResponse_WhenCommandAndProfileImageAreValid(
 		IFormFileTransformer transformer)
 	{
 		// Arrange
@@ -117,7 +117,7 @@ public class AddUserCommandServiceIntegrationTests : BaseUserDomainCommandIntegr
 
 	[Theory]
 	[UserProfileImageNullData]
-	public async Task AddAsync_ShouldAddUser_WhenProfileImageIsValid(
+	public async Task AddAsync_ShouldAddUser_WhenCommandAndProfileImageAreValid(
 		IFormFileTransformer transformer)
 	{
 		// Arrange
@@ -144,7 +144,7 @@ public class AddUserCommandServiceIntegrationTests : BaseUserDomainCommandIntegr
 
 	[Theory]
 	[UserProfileImageNullData]
-	public async Task AddAsync_ShouldAddEmailConfirmationToken_WhenProfileImageIsValid(
+	public async Task AddAsync_ShouldAddEmailConfirmationToken_WhenCommandAndProfileImageAreValid(
 		IFormFileTransformer transformer)
 	{
 		// Arrange
@@ -172,7 +172,7 @@ public class AddUserCommandServiceIntegrationTests : BaseUserDomainCommandIntegr
 
 	[Theory]
 	[UserProfileImageNullData]
-	public async Task AddAsync_ShouldPublishUserAddedEvent_WhenProfileImageIsValid(
+	public async Task AddAsync_ShouldPublishUserAddedEvent_WhenCommandAndProfileImageAreValid(
 		IFormFileTransformer transformer)
 	{
 		// Arrange
@@ -201,7 +201,7 @@ public class AddUserCommandServiceIntegrationTests : BaseUserDomainCommandIntegr
 
 	[Theory]
 	[UserProfileImageNullData]
-	public async Task AddAsync_ShouldPublishEmailConfirmationTokenAddedEvent_WhenProfileImageIsValid(
+	public async Task AddAsync_ShouldPublishEmailConfirmationTokenAddedEvent_WhenCommandAndProfileImageAreValid(
 		IFormFileTransformer transformer)
 	{
 		// Arrange

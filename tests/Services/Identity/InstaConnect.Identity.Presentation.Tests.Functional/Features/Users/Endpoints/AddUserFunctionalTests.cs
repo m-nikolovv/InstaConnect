@@ -363,7 +363,7 @@ public class AddUserFunctionalTests : BaseUserPresentationCommandFunctionalTest
 
 	[Theory]
 	[UserProfileImageNullData]
-	public async Task AddAsync_ShouldHaveOkStatusCode_WhenProfileImageIsValid(IFormFileTransformer transformer)
+	public async Task AddAsync_ShouldHaveOkStatusCode_WhenRequestAndProfileImageAreValid(IFormFileTransformer transformer)
 	{
 		// Arrange
 		var request = _requestBuilder.WithProfileImage(transformer).Build();
@@ -388,7 +388,7 @@ public class AddUserFunctionalTests : BaseUserPresentationCommandFunctionalTest
 
 	[Theory]
 	[UserProfileImageNullData]
-	public async Task AddAsync_ShouldReturnResponse_WhenProfileImageIsValid(IFormFileTransformer transformer)
+	public async Task AddAsync_ShouldReturnResponse_WhenRequestAndProfileImageAreValid(IFormFileTransformer transformer)
 	{
 		// Arrange
 		var request = _requestBuilder.WithProfileImage(transformer).Build();
@@ -414,7 +414,7 @@ public class AddUserFunctionalTests : BaseUserPresentationCommandFunctionalTest
 
 	[Theory]
 	[UserProfileImageNullData]
-	public async Task AddAsync_ShouldAddUser_WhenProfileImageIsValid(IFormFileTransformer transformer)
+	public async Task AddAsync_ShouldAddUser_WhenRequestAndProfileImageAreValid(IFormFileTransformer transformer)
 	{
 		// Arrange
 		var request = _requestBuilder.WithProfileImage(transformer).Build();
@@ -440,7 +440,7 @@ public class AddUserFunctionalTests : BaseUserPresentationCommandFunctionalTest
 
 	[Theory]
 	[UserProfileImageNullData]
-	public async Task AddAsync_ShouldAddEmailConfirmationToken_WhenProfileImageIsValid(IFormFileTransformer transformer)
+	public async Task AddAsync_ShouldAddEmailConfirmationToken_WhenRequestAndProfileImageAreValid(IFormFileTransformer transformer)
 	{
 		// Arrange
 		var request = _requestBuilder.WithProfileImage(transformer).Build();

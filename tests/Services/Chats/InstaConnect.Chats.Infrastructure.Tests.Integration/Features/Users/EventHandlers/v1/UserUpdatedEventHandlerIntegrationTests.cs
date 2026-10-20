@@ -200,7 +200,7 @@ public class UserUpdatedEventHandlerIntegrationTests : BaseUserInfrastructureEve
 
 	[Theory]
 	[UserIdDifferentCaseData]
-	public async Task Consume_ShouldUpdateUser_WhenIdIsValid(
+	public async Task Consume_ShouldUpdateUser_WhenRequestAndIdAreValid(
 		IStringTransformer transformer)
 	{
 		// Arrange
@@ -216,7 +216,7 @@ public class UserUpdatedEventHandlerIntegrationTests : BaseUserInfrastructureEve
 
 	[Theory]
 	[UserNameDifferentCaseData]
-	public async Task Consume_ShouldUpdateUser_WhenNameIsValid(
+	public async Task Consume_ShouldUpdateUser_WhenRequestAndNameAreValid(
 		IStringTransformer transformer)
 	{
 		// Arrange
@@ -262,7 +262,7 @@ public class UserUpdatedEventHandlerIntegrationTests : BaseUserInfrastructureEve
 
 	[Theory]
 	[UserEmailDifferentCaseData]
-	public async Task Consume_ShouldUpdateUser_WhenEmailIsValid(
+	public async Task Consume_ShouldUpdateUser_WhenRequestAndEmailAreValid(
 		IStringTransformer transformer)
 	{
 		// Arrange

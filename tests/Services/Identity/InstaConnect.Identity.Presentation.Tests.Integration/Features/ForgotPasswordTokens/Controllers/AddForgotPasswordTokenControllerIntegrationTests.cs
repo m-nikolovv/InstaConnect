@@ -52,7 +52,7 @@ public class AddForgotPasswordTokenControllerIntegrationTests : BaseForgotPasswo
 
 	[Theory]
 	[UserNameDifferentCaseData]
-	public async Task AddAsync_ShouldReturnNoContentStatusCode_WhenNameIsValid(
+	public async Task AddAsync_ShouldReturnNoContentStatusCode_WhenRequestAndNameAreValid(
 		IStringTransformer transformer)
 	{
 		// Arrange
@@ -78,7 +78,7 @@ public class AddForgotPasswordTokenControllerIntegrationTests : BaseForgotPasswo
 
 	[Theory]
 	[UserNameDifferentCaseData]
-	public async Task AddAsync_ShouldAddForgotPasswordToken_WhenNameIsValid(
+	public async Task AddAsync_ShouldAddForgotPasswordToken_WhenRequestAndNameAreValid(
 		IStringTransformer transformer)
 	{
 		// Arrange

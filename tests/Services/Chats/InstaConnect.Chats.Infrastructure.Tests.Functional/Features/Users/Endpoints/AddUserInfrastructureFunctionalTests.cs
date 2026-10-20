@@ -276,7 +276,7 @@ public class AddUserInfrastructureFunctionalTests : BaseUserInfrastructureComman
 	[Theory]
 	[UserProfileImageNullData]
 	[UserProfileImageEmptyData]
-	public async Task PublishAsync_ShouldConsumeUserAddedEvent_WhenProfileImageIsValid(
+	public async Task PublishAsync_ShouldConsumeUserAddedEvent_WhenRequestAndProfileImageAreValid(
 		IStringTransformer transformer)
 	{
 		// Arrange
@@ -304,7 +304,7 @@ public class AddUserInfrastructureFunctionalTests : BaseUserInfrastructureComman
 	[Theory]
 	[UserProfileImageNullData]
 	[UserProfileImageEmptyData]
-	public async Task PublishAsync_ShouldAddUser_WhenProfileImageIsValid(
+	public async Task PublishAsync_ShouldAddUser_WhenRequestAndProfileImageAreValid(
 		IStringTransformer transformer)
 	{
 		// Arrange

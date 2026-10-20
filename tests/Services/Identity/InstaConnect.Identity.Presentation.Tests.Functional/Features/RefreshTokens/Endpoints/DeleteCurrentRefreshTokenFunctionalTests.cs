@@ -198,7 +198,7 @@ public class DeleteCurrentRefreshTokenFunctionalTests : BaseRefreshTokenPresenta
 
 	[Theory]
 	[UserIdDifferentCaseData]
-	public async Task DeleteCurrentAsync_ShouldDeleteCurrentRefreshToken_WhenIdIsValid(
+	public async Task DeleteCurrentAsync_ShouldDeleteCurrentRefreshToken_WhenRequestAndIdAreValid(
 		IStringTransformer transformer)
 	{
 		// Arrange
@@ -214,7 +214,7 @@ public class DeleteCurrentRefreshTokenFunctionalTests : BaseRefreshTokenPresenta
 
 	[Theory]
 	[RefreshTokenValueDifferentCaseData]
-	public async Task DeleteCurrentAsync_ShouldDeleteCurrentRefreshToken_WhenValueIsValid(
+	public async Task DeleteCurrentAsync_ShouldDeleteCurrentRefreshToken_WhenRequestAndValueAreValid(
 		IStringTransformer transformer)
 	{
 		// Arrange
@@ -240,7 +240,7 @@ public class DeleteCurrentRefreshTokenFunctionalTests : BaseRefreshTokenPresenta
 
 	[Theory]
 	[UserIdDifferentCaseData]
-	public async Task DeleteCurrentAsync_ShouldNotReturnCookieResponse_WhenIdIsValid(IStringTransformer transformer)
+	public async Task DeleteCurrentAsync_ShouldNotReturnCookieResponse_WhenRequestAndIdAreValid(IStringTransformer transformer)
 	{
 		// Arrange
 		var request = _requestBuilder.WithId(transformer).Build();
@@ -254,7 +254,7 @@ public class DeleteCurrentRefreshTokenFunctionalTests : BaseRefreshTokenPresenta
 
 	[Theory]
 	[RefreshTokenValueDifferentCaseData]
-	public async Task DeleteCurrentAsync_ShouldNotReturnCookieResponse_WhenValueIsValid(IStringTransformer transformer)
+	public async Task DeleteCurrentAsync_ShouldNotReturnCookieResponse_WhenRequestAndValueAreValid(IStringTransformer transformer)
 	{
 		// Arrange
 		var request = _requestBuilder.WithValue(transformer).Build();
