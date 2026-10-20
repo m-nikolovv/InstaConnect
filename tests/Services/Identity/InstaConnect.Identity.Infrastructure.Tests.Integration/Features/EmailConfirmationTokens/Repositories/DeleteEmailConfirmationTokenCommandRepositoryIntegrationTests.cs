@@ -1,6 +1,3 @@
-using InstaConnect.Identity.Infrastructure.Tests.Integration.Features.EmailConfirmationTokens.Utilities;
-using InstaConnect.Identity.Tests.Features.EmailConfirmationTokens.Utilities;
-
 namespace InstaConnect.Identity.Infrastructure.Tests.Integration.Features.EmailConfirmationTokens.Repositories;
 
 public class DeleteEmailConfirmationTokenCommandRepositoryIntegrationTests : BaseEmailConfirmationTokenInfrastructureCommandIntegrationTest
@@ -20,7 +17,7 @@ public class DeleteEmailConfirmationTokenCommandRepositoryIntegrationTests : Bas
 	{
 		// Act
 		await Repository.DeleteAsync(EmailConfirmationToken, CancellationToken);
-		var emailConfirmationToken = await ServiceScope.GetByIdAsync(EmailConfirmationToken.Id, CancellationToken);
+		var emailConfirmationToken = await ServiceScope.GetByIdAsync(EmailConfirmationTokenId, CancellationToken);
 
 		// Assert
 		emailConfirmationToken.ShouldBeNull();

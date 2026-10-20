@@ -1,4 +1,4 @@
-using InstaConnect.Chats.Domain.Features.Users.Models.Responses;
+using InstaConnect.Chats.Domain.Features.Users.Abstractions;
 
 namespace InstaConnect.Chats.Infrastructure.Features.Users.Helpers.Repositories;
 

@@ -1,6 +1,7 @@
-using InstaConnect.Common.Domain.Features.DateTimes.Abstractions;
+using InstaConnect.Common.Domain.Features.Images.Abstractions;
+using InstaConnect.Common.Domain.Tests.Features.Assertions;
 using InstaConnect.Common.Events.Features.Events.Abstractions;
-using InstaConnect.Posts.Domain.Tests.Features.PostComments.Utilities;
+using InstaConnect.Posts.Domain.Features.PostCommentImages.Abstractions;
 using InstaConnect.Posts.Domain.Tests.Features.Posts.Assertions;
 
 namespace InstaConnect.Posts.Domain.Tests.Features.PostComments.Assertions;
@@ -399,6 +400,81 @@ public static class PostCommentMockAssertions
 			CancellationToken cancellationToken)
 		{
 			await service.ShouldHaveReceivedOne().DeleteAsync(command, cancellationToken);
+		}
+	}
+
+	extension(IPostCommentSummarizer summarizer)
+	{
+		public async Task ShouldHaveReceivedOneSummarizeAsync(
+			AddPostCommentCommand command,
+			CancellationToken cancellationToken)
+		{
+			await summarizer.ShouldHaveReceivedOneSummarizeAsync(command.IsPostComment(), cancellationToken);
+		}
+
+		public async Task ShouldHaveReceivedOneSummarizeAsync(
+			UpdatePostCommentCommand command,
+			CancellationToken cancellationToken)
+		{
+			await summarizer.ShouldHaveReceivedOneSummarizeAsync(command.IsPostComment(), cancellationToken);
+		}
+
+		public async Task ShouldHaveReceivedOneSummarizeAsync(
+			PostComment postComment,
+			CancellationToken cancellationToken)
+		{
+			await summarizer.ShouldHaveReceivedOne().SummarizeAsync(postComment, cancellationToken);
+		}
+	}
+
+	extension(IImageHandler imageHandler)
+	{
+		public async Task ShouldHaveReceivedOneUploadRangeAsync(
+			AddPostCommentCommand command,
+			CancellationToken cancellationToken)
+		{
+			await imageHandler.ShouldHaveReceivedOneUploadRangeAsync(command.Images, cancellationToken);
+		}
+
+		public async Task ShouldHaveReceivedZeroUploadRangeAsync(
+			AddPostCommentCommand command,
+			CancellationToken cancellationToken)
+		{
+			await imageHandler.ShouldHaveReceivedZeroUploadRangeAsync(command.Images, cancellationToken);
+		}
+	}
+
+	extension(IPostCommentImageFactory factory)
+	{
+		public void ShouldHaveReceivedOneCreateRange(
+			AddPostCommentCommand command,
+			PostComment postComment)
+		{
+			factory.ShouldHaveReceivedOne().CreateRange(postComment.Id, command.IsImages());
+		}
+
+		public void ShouldHaveReceivedZeroCreateRange(
+			AddPostCommentCommand command,
+			PostComment postComment)
+		{
+			factory.ShouldHaveReceivedZero().CreateRange(postComment.Id, command.IsImages());
+		}
+	}
+
+	extension(IPostCommentImageCommandRepository repository)
+	{
+		public async Task ShouldHaveReceivedOneAddRangeAsync(
+			AddPostCommentCommand command,
+			CancellationToken cancellationToken)
+		{
+			await repository.ShouldHaveReceivedOne().AddRangeAsync(command.IsPostCommentImages(), cancellationToken);
+		}
+
+		public async Task ShouldHaveReceivedZeroAddRangeAsync(
+			AddPostCommentCommand command,
+			CancellationToken cancellationToken)
+		{
+			await repository.ShouldHaveReceivedZero().AddRangeAsync(command.IsPostCommentImages(), cancellationToken);
 		}
 	}
 }

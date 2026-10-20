@@ -1,7 +1,13 @@
+using InstaConnect.Common.Presentation.Tests.Features.Assertions;
+using InstaConnect.Common.Presentation.Tests.Features.Utilities;
+using InstaConnect.Common.Tests.Features.Assertions;
 using InstaConnect.Common.Tests.Features.DataAttributes.Enums.Sort;
-using InstaConnect.Follows.Domain.Features.Follows.Models.Requests;
 using InstaConnect.Follows.Events.Features.Follows;
-using InstaConnect.Follows.Presentation.Tests.Features.Follows.Utilities;
+using InstaConnect.Follows.Presentation.Tests.Features.Follows.Assertions;
+using InstaConnect.Follows.Tests.Features.Follows.Assertions;
+using InstaConnect.Follows.Tests.Features.Users.Assertions;
+
+using Microsoft.AspNetCore.Mvc;
 
 namespace InstaConnect.Follows.Presentation.Tests.Features.Follows.Assertions;
 

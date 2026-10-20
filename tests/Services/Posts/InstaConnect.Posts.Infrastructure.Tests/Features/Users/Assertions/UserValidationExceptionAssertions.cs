@@ -1,3 +1,6 @@
+using InstaConnect.Common.Tests.Features.DataAttributes.DateTimeOffsets.Base;
+using InstaConnect.Posts.Infrastructure.Features.Users.EventHandlers;
+
 namespace InstaConnect.Posts.Infrastructure.Tests.Features.Users.Assertions;
 
 public static class UserValidationExceptionAssertions

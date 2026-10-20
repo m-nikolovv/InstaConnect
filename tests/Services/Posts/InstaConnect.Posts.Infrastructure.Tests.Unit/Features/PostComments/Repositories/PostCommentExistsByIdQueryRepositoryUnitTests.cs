@@ -1,70 +1,55 @@
-using InstaConnect.Posts.Domain.Features.PostComments.Models.ValueObjects;
-using InstaConnect.Posts.Infrastructure.Features.PostComments.Helpers.Repositories;
-using InstaConnect.Posts.Infrastructure.Tests.Features.PostComments.Assertions;
-using InstaConnect.Posts.Infrastructure.Tests.Features.PostComments.Utilities;
-using InstaConnect.Posts.Infrastructure.Tests.Unit.Features.PostComments.Utilities;
-using InstaConnect.Posts.Tests.Features.PostComments.Builders;
-
 namespace InstaConnect.Posts.Infrastructure.Tests.Unit.Features.PostComments.Repositories;
 
 public class PostCommentExistsByIdQueryRepositoryUnitTests : BasePostCommentInfrastructureQueryUnitTest
 {
-	private readonly PostCommentIdBuilderFactory _idBuilderFactory;
-	private readonly PostCommentIdBuilder _idBuilder;
-	private readonly PostCommentId _id;
-
 	private readonly PostCommentQueryRepository _repository;
 
 	public PostCommentExistsByIdQueryRepositoryUnitTests()
 	{
-		_idBuilderFactory = new();
-		_idBuilder = _idBuilderFactory.Create(PostComment.Id);
-		_id = _idBuilder.Build();
-
 		_repository = new(Collection, IncludeBuilderFactory, CommentIncludeBuilderFactory);
 
-		Collection.SetupAggregateFluent(_id, Fluent);
-		Fluent.SetupMatch(_id);
-		Fluent.SetupAnyAsync(_id, PostComment, CancellationToken);
+		Collection.SetupAggregateFluent(PostCommentId, Fluent);
+		Fluent.SetupMatch(PostCommentId);
+		Fluent.SetupAnyAsync(PostCommentId, PostComment, CancellationToken);
 	}
 
 	[Fact]
-	public async Task ExistsByIdAsync_ShouldReturnResponse_WhenRequestIsValid()
+	public async Task ExistsByIdAsync_ShouldReturnResponse_WhenQueryIsValid()
 	{
 		// Act
-		var response = await _repository.ExistsByIdAsync(_id, CancellationToken);
+		var response = await _repository.ExistsByIdAsync(PostCommentId, CancellationToken);
 
 		// Assert
-		response.ShouldSatisfy(_id, PostComment);
+		response.ShouldSatisfy(PostCommentId, PostComment);
 	}
 
 	[Fact]
-	public async Task ExistsByIdAsync_ShouldCallTheCollectionAggregateFluent_WhenRequestIsValid()
+	public async Task ExistsByIdAsync_ShouldCallTheCollectionAggregateFluent_WhenQueryIsValid()
 	{
 		// Act
-		await _repository.ExistsByIdAsync(_id, CancellationToken);
+		await _repository.ExistsByIdAsync(PostCommentId, CancellationToken);
 
 		// Assert
-		Collection.ShouldHaveReceivedOneAggregateFluent(_id);
+		Collection.ShouldHaveReceivedOneAggregateFluent(PostCommentId);
 	}
 
 	[Fact]
-	public async Task ExistsByIdAsync_ShouldCallTheFluentMatch_WhenRequestIsValid()
+	public async Task ExistsByIdAsync_ShouldCallTheFluentMatch_WhenQueryIsValid()
 	{
 		// Act
-		await _repository.ExistsByIdAsync(_id, CancellationToken);
+		await _repository.ExistsByIdAsync(PostCommentId, CancellationToken);
 
 		// Assert
-		Fluent.ShouldHaveReceivedOneMatch(_id);
+		Fluent.ShouldHaveReceivedOneMatch(PostCommentId);
 	}
 
 	[Fact]
-	public async Task ExistsByIdAsync_ShouldCallTheFluentAnyAsync_WhenRequestIsValid()
+	public async Task ExistsByIdAsync_ShouldCallTheFluentAnyAsync_WhenQueryIsValid()
 	{
 		// Act
-		await _repository.ExistsByIdAsync(_id, CancellationToken);
+		await _repository.ExistsByIdAsync(PostCommentId, CancellationToken);
 
 		// Assert
-		await Fluent.ShouldHaveReceivedOneAnyAsync(_id, CancellationToken);
+		await Fluent.ShouldHaveReceivedOneAnyAsync(PostCommentId, CancellationToken);
 	}
 }

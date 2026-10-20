@@ -4,11 +4,22 @@
     <ProjectReference Include="..\InstaConnect.Chats.Domain.Tests\InstaConnect.Chats.Domain.Tests.csproj" />
   </ItemGroup>
 
-  <ItemGroup Label="Common">
-    <Using Include="InstaConnect.Common.Tests.Features.Abstractions" />
-    <Using Include="InstaConnect.Common.Tests.Features.Assertions" />
-    <Using Include="InstaConnect.Common.Tests.Features.Utilities" />
-    <Using Include="InstaConnect.Chats.Tests.Features.Common.Utilities" />
+  <ItemGroup Label="ChatMessages">
+    <Using Include="InstaConnect.Chats.Domain.Features.ChatMessages.Helpers" />
+    <Using Include="InstaConnect.Chats.Domain.Features.ChatMessages.Models.Requests" />
+    <Using Include="InstaConnect.Chats.Domain.Tests.Features.ChatMessages.Assertions" />
+    <Using Include="InstaConnect.Chats.Domain.Tests.Features.ChatMessages.Builders" />
+    <Using Include="InstaConnect.Chats.Domain.Tests.Features.ChatMessages.Utilities" />
+    <Using Include="InstaConnect.Chats.Domain.Tests.Unit.Features.ChatMessages.Utilities" />
+  </ItemGroup>
+
+  <ItemGroup Label="Chats">
+    <Using Include="InstaConnect.Chats.Domain.Features.Chats.Models.Requests" />
+    <Using Include="InstaConnect.Chats.Domain.Tests.Features.Chats.Utilities" />
+  </ItemGroup>
+
+  <ItemGroup Label="Users">
+    <Using Include="InstaConnect.Chats.Domain.Tests.Features.Users.Utilities" />
   </ItemGroup>
 
 </Project>

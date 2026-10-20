@@ -1,5 +1,3 @@
-using InstaConnect.Posts.Domain.Features.Common.Models.Requests;
-
 namespace InstaConnect.Posts.Domain.Features.Posts.Helpers;
 
 public class PostIncludeBuilder
@@ -55,6 +53,13 @@ public class PostIncludeBuilder
 	{
 		_descriptors.Add(_descriptorFactory.CreatePostComments());
 		_descriptors.AddRange(include.Descriptors);
+
+		return this;
+	}
+
+	public PostIncludeBuilder WithPostImages()
+	{
+		_descriptors.Add(_descriptorFactory.CreatePostImages());
 
 		return this;
 	}

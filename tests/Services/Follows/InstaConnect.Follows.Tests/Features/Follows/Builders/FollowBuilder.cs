@@ -1,5 +1,3 @@
-using InstaConnect.Follows.Tests.Features.Follows.Utilities;
-
 namespace InstaConnect.Follows.Tests.Features.Follows.Builders;
 
 public class FollowBuilder
@@ -17,6 +15,15 @@ public class FollowBuilder
 		_followingId = following.Id.Id;
 		_following = following;
 		_createdAtUtc = FollowDataFaker.GetCreatedAtUtc();
+	}
+
+	public FollowBuilder(Follow follow)
+	{
+		_followerId = follow.Id.FollowerId.Id;
+		_follower = follow.Follower!;
+		_followingId = follow.Id.FollowingId.Id;
+		_following = follow.Following!;
+		_createdAtUtc = follow.CreatedAtUtc;
 	}
 
 	public Follow Build()

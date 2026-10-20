@@ -1,6 +1,3 @@
-using InstaConnect.Identity.Infrastructure.Tests.Integration.Features.ForgotPasswordTokens.Utilities;
-using InstaConnect.Identity.Tests.Features.ForgotPasswordTokens.Utilities;
-
 namespace InstaConnect.Identity.Infrastructure.Tests.Integration.Features.ForgotPasswordTokens.Repositories;
 
 public class DeleteForgotPasswordTokenCommandRepositoryIntegrationTests : BaseForgotPasswordTokenInfrastructureCommandIntegrationTest
@@ -20,7 +17,7 @@ public class DeleteForgotPasswordTokenCommandRepositoryIntegrationTests : BaseFo
 	{
 		// Act
 		await Repository.DeleteAsync(ForgotPasswordToken, CancellationToken);
-		var forgotPasswordToken = await ServiceScope.GetByIdAsync(ForgotPasswordToken.Id, CancellationToken);
+		var forgotPasswordToken = await ServiceScope.GetByIdAsync(ForgotPasswordTokenId, CancellationToken);
 
 		// Assert
 		forgotPasswordToken.ShouldBeNull();

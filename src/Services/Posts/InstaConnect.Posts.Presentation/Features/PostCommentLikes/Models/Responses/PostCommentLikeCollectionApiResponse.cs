@@ -1,5 +1,3 @@
-using InstaConnect.Common.Presentation.Features.Requests.Abstractions;
-
 namespace InstaConnect.Posts.Presentation.Features.PostCommentLikes.Models.Responses;
 
 public record PostCommentLikeCollectionApiResponse(

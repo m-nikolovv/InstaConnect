@@ -7,15 +7,18 @@ public class Post : IEntityWithId<PostId>
 		Id = new(string.Empty);
 		Title = string.Empty;
 		Content = string.Empty;
+		Summary = new(string.Empty);
 		UserId = new(string.Empty);
 		PostLikes = [];
 		PostComments = [];
+		PostImages = [];
 	}
 
 	public Post(
 		PostId id,
 		string title,
 		string content,
+		Summary summary,
 		UserId userId,
 		DateTimeOffset createdAtUtc,
 		DateTimeOffset updatedAtUtc)
@@ -23,9 +26,11 @@ public class Post : IEntityWithId<PostId>
 		Id = id;
 		Title = title;
 		Content = content;
+		Summary = summary;
 		UserId = userId;
 		PostLikes = [];
 		PostComments = [];
+		PostImages = [];
 		CreatedAtUtc = createdAtUtc;
 		UpdatedAtUtc = updatedAtUtc;
 	}
@@ -36,6 +41,8 @@ public class Post : IEntityWithId<PostId>
 
 	public string Content { get; private set; }
 
+	public Summary Summary { get; private set; }
+
 	public UserId UserId { get; }
 
 	public User? User { get; private set; }
@@ -43,6 +50,8 @@ public class Post : IEntityWithId<PostId>
 	public ICollection<PostLike> PostLikes { get; private set; }
 
 	public ICollection<PostComment> PostComments { get; private set; }
+
+	public ICollection<PostImage> PostImages { get; private set; }
 
 	public DateTimeOffset CreatedAtUtc { get; }
 
@@ -60,6 +69,11 @@ public class Post : IEntityWithId<PostId>
 		UpdatedAtUtc = updatedAtUtc;
 	}
 
+	public void UpdateSummary(Summary summary)
+	{
+		Summary = summary;
+	}
+
 	public Post AddUser(User? user)
 	{
 		User = user;
@@ -74,9 +88,37 @@ public class Post : IEntityWithId<PostId>
 		return this;
 	}
 
+	public Post AddPostLikes(ICollection<PostLike> postLikes)
+	{
+		PostLikes.AddRange(postLikes);
+
+		return this;
+	}
+
 	public Post AddPostComment(PostComment postComment)
 	{
 		PostComments.Add(postComment);
+
+		return this;
+	}
+
+	public Post AddPostComments(ICollection<PostComment> postComments)
+	{
+		PostComments.AddRange(postComments);
+
+		return this;
+	}
+
+	public Post AddPostImage(PostImage postImage)
+	{
+		PostImages.Add(postImage);
+
+		return this;
+	}
+
+	public Post AddPostImages(ICollection<PostImage> postImages)
+	{
+		PostImages.AddRange(postImages);
 
 		return this;
 	}

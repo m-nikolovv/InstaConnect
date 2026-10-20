@@ -1,5 +1,3 @@
-using MongoDB.Driver;
-
 namespace InstaConnect.Chats.Infrastructure.Features.Users.Helpers.Collections;
 
 internal class UserFluentFactory : IUserFluentFactory

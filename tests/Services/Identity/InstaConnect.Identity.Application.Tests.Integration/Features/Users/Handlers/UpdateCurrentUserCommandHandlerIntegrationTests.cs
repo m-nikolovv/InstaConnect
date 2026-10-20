@@ -1,4 +1,11 @@
+using InstaConnect.Common.Tests.Features.DataAttributes.FormFiles.Base;
+using InstaConnect.Identity.Application.Features.Users.Commands.UpdateCurrent;
 using InstaConnect.Identity.Domain.Features.EmailConfirmationTokens.Extensions;
+using InstaConnect.Identity.Tests.Features.Users.Builders;
+using InstaConnect.Identity.Tests.Features.Users.DataAttributes.Email;
+using InstaConnect.Identity.Tests.Features.Users.DataAttributes.FirstName;
+using InstaConnect.Identity.Tests.Features.Users.DataAttributes.LastName;
+using InstaConnect.Identity.Tests.Features.Users.DataAttributes.ProfileImage;
 
 namespace InstaConnect.Identity.Application.Tests.Integration.Features.Users.Handlers;
 
@@ -114,10 +121,10 @@ public class UpdateCurrentUserCommandHandlerIntegrationTests : BaseUserApplicati
 	}
 
 	[Fact]
-	public async Task SendAsync_ShouldThrowUserEmailAlreadyTakenException_WhenRequestIsInvalid()
+	public async Task SendAsync_ShouldThrowUserEmailAlreadyTakenException_WhenUserEmailAlreadyTaken()
 	{
 		// Arrange
-		var user = UserBuilderFactory.Create(User.PasswordHash, User.ProfileImage.Url).Build();
+		var user = UserBuilderFactory.Create(User.PasswordHash).Build();
 		await ServiceScope.AddAsync(user, CancellationToken);
 
 		var request = _requestBuilder.WithEmail(user.Email).Build();
@@ -128,11 +135,11 @@ public class UpdateCurrentUserCommandHandlerIntegrationTests : BaseUserApplicati
 
 	[Theory]
 	[UserEmailDifferentCaseData]
-	public async Task SendAsync_ShouldThrowUserEmailAlreadyTakenException_WhenEmailIsInvalid(
+	public async Task SendAsync_ShouldThrowUserEmailAlreadyTakenException_WhenUserEmailAlreadyTakenAndEmailIsInvalid(
 		IStringTransformer transformer)
 	{
 		// Arrange
-		var user = UserBuilderFactory.Create(User.PasswordHash, User.ProfileImage.Url).Build();
+		var user = UserBuilderFactory.Create(User.PasswordHash).Build();
 		await ServiceScope.AddAsync(user, CancellationToken);
 
 		var request = _requestBuilder.WithEmail(user.Email, transformer).Build();
@@ -142,10 +149,10 @@ public class UpdateCurrentUserCommandHandlerIntegrationTests : BaseUserApplicati
 	}
 
 	[Fact]
-	public async Task SendAsync_ShouldThrowUserNameAlreadyTakenException_WhenRequestIsInvalid()
+	public async Task SendAsync_ShouldThrowUserNameAlreadyTakenException_WhenUserNameAlreadyTaken()
 	{
 		// Arrange
-		var user = UserBuilderFactory.Create(User.PasswordHash, User.ProfileImage.Url).Build();
+		var user = UserBuilderFactory.Create(User.PasswordHash).Build();
 		await ServiceScope.AddAsync(user, CancellationToken);
 
 		var request = _requestBuilder.WithName(user.Name).Build();
@@ -156,11 +163,11 @@ public class UpdateCurrentUserCommandHandlerIntegrationTests : BaseUserApplicati
 
 	[Theory]
 	[UserNameDifferentCaseData]
-	public async Task SendAsync_ShouldThrowUserNameAlreadyTakenException_WhenNameIsInvalid(
+	public async Task SendAsync_ShouldThrowUserNameAlreadyTakenException_WhenUserNameAlreadyTakenAndNameIsInvalid(
 		IStringTransformer transformer)
 	{
 		// Arrange
-		var user = UserBuilderFactory.Create(User.PasswordHash, User.ProfileImage.Url).Build();
+		var user = UserBuilderFactory.Create(User.PasswordHash).Build();
 		await ServiceScope.AddAsync(user, CancellationToken);
 
 		var request = _requestBuilder.WithName(user.Name, transformer).Build();
@@ -182,7 +189,7 @@ public class UpdateCurrentUserCommandHandlerIntegrationTests : BaseUserApplicati
 
 	[Theory]
 	[UserIdDifferentCaseData]
-	public async Task SendAsync_ShouldReturnResponse_WhenIdIsValid(
+	public async Task SendAsync_ShouldReturnResponse_WhenRequestAndIdAreValid(
 		IStringTransformer transformer)
 	{
 		// Arrange
@@ -198,7 +205,7 @@ public class UpdateCurrentUserCommandHandlerIntegrationTests : BaseUserApplicati
 
 	[Theory]
 	[UserNameDifferentCaseData]
-	public async Task SendAsync_ShouldReturnResponse_WhenNameIsValid(
+	public async Task SendAsync_ShouldReturnResponse_WhenRequestAndNameAreValid(
 		IStringTransformer transformer)
 	{
 		// Arrange
@@ -244,7 +251,7 @@ public class UpdateCurrentUserCommandHandlerIntegrationTests : BaseUserApplicati
 
 	[Theory]
 	[UserEmailDifferentCaseData]
-	public async Task SendAsync_ShouldReturnResponse_WhenEmailIsValid(
+	public async Task SendAsync_ShouldReturnResponse_WhenRequestAndEmailAreValid(
 		IStringTransformer transformer)
 	{
 		// Arrange
@@ -290,7 +297,7 @@ public class UpdateCurrentUserCommandHandlerIntegrationTests : BaseUserApplicati
 
 	[Theory]
 	[UserProfileImageNullData]
-	public async Task SendAsync_ShouldReturnResponse_WhenProfileImageIsValid(
+	public async Task SendAsync_ShouldReturnResponse_WhenRequestAndProfileImageAreValid(
 		IFormFileTransformer transformer)
 	{
 		// Arrange
@@ -317,7 +324,7 @@ public class UpdateCurrentUserCommandHandlerIntegrationTests : BaseUserApplicati
 
 	[Theory]
 	[UserIdDifferentCaseData]
-	public async Task SendAsync_ShouldUpdateUser_WhenIdIsValid(
+	public async Task SendAsync_ShouldUpdateUser_WhenRequestAndIdAreValid(
 		IStringTransformer transformer)
 	{
 		// Arrange
@@ -333,7 +340,7 @@ public class UpdateCurrentUserCommandHandlerIntegrationTests : BaseUserApplicati
 
 	[Theory]
 	[UserNameDifferentCaseData]
-	public async Task SendAsync_ShouldUpdateUser_WhenNameIsValid(
+	public async Task SendAsync_ShouldUpdateUser_WhenRequestAndNameAreValid(
 		IStringTransformer transformer)
 	{
 		// Arrange
@@ -379,7 +386,7 @@ public class UpdateCurrentUserCommandHandlerIntegrationTests : BaseUserApplicati
 
 	[Theory]
 	[UserEmailDifferentCaseData]
-	public async Task SendAsync_ShouldUpdateUser_WhenEmailIsValid(
+	public async Task SendAsync_ShouldUpdateUser_WhenRequestAndEmailAreValid(
 		IStringTransformer transformer)
 	{
 		// Arrange
@@ -453,7 +460,7 @@ public class UpdateCurrentUserCommandHandlerIntegrationTests : BaseUserApplicati
 
 	[Theory]
 	[UserIdDifferentCaseData]
-	public async Task SendAsync_ShouldPublishUserUpdatedEvent_WhenIdIsValid(
+	public async Task SendAsync_ShouldPublishUserUpdatedEvent_WhenRequestAndIdAreValid(
 		IStringTransformer transformer)
 	{
 		// Arrange
@@ -470,7 +477,7 @@ public class UpdateCurrentUserCommandHandlerIntegrationTests : BaseUserApplicati
 
 	[Theory]
 	[UserNameDifferentCaseData]
-	public async Task SendAsync_ShouldPublishUserUpdatedEvent_WhenNameIsValid(
+	public async Task SendAsync_ShouldPublishUserUpdatedEvent_WhenRequestAndNameAreValid(
 		IStringTransformer transformer)
 	{
 		// Arrange
@@ -519,7 +526,7 @@ public class UpdateCurrentUserCommandHandlerIntegrationTests : BaseUserApplicati
 
 	[Theory]
 	[UserEmailDifferentCaseData]
-	public async Task SendAsync_ShouldPublishUserUpdatedEvent_WhenEmailIsValid(
+	public async Task SendAsync_ShouldPublishUserUpdatedEvent_WhenRequestAndEmailAreValid(
 		IStringTransformer transformer)
 	{
 		// Arrange
@@ -596,7 +603,7 @@ public class UpdateCurrentUserCommandHandlerIntegrationTests : BaseUserApplicati
 
 	[Theory]
 	[UserIdDifferentCaseData]
-	public async Task SendAsync_ShouldDeleteEmailConfirmationTokens_WhenIdIsValid(
+	public async Task SendAsync_ShouldDeleteEmailConfirmationTokens_WhenRequestAndIdAreValid(
 		IStringTransformer transformer)
 	{
 		// Arrange
@@ -612,7 +619,7 @@ public class UpdateCurrentUserCommandHandlerIntegrationTests : BaseUserApplicati
 
 	[Theory]
 	[UserNameDifferentCaseData]
-	public async Task SendAsync_ShouldDeleteEmailConfirmationTokens_WhenNameIsValid(
+	public async Task SendAsync_ShouldDeleteEmailConfirmationTokens_WhenRequestAndNameAreValid(
 		IStringTransformer transformer)
 	{
 		// Arrange
@@ -688,7 +695,7 @@ public class UpdateCurrentUserCommandHandlerIntegrationTests : BaseUserApplicati
 
 	[Theory]
 	[UserEmailDifferentCaseData]
-	public async Task SendAsync_ShouldDeleteEmailConfirmationTokens_WhenEmailIsValid(
+	public async Task SendAsync_ShouldDeleteEmailConfirmationTokens_WhenRequestAndEmailAreValid(
 		IStringTransformer transformer)
 	{
 		// Arrange
@@ -732,7 +739,7 @@ public class UpdateCurrentUserCommandHandlerIntegrationTests : BaseUserApplicati
 
 	[Theory]
 	[UserIdDifferentCaseData]
-	public async Task SendAsync_ShouldPublishEmailConfirmationTokenDeletedEvents_WhenIdIsValid(
+	public async Task SendAsync_ShouldPublishEmailConfirmationTokenDeletedEvents_WhenRequestAndIdAreValid(
 		IStringTransformer transformer)
 	{
 		// Arrange
@@ -749,7 +756,7 @@ public class UpdateCurrentUserCommandHandlerIntegrationTests : BaseUserApplicati
 
 	[Theory]
 	[UserNameDifferentCaseData]
-	public async Task SendAsync_ShouldPublishEmailConfirmationTokenDeletedEvents_WhenNameIsValid(
+	public async Task SendAsync_ShouldPublishEmailConfirmationTokenDeletedEvents_WhenRequestAndNameAreValid(
 		IStringTransformer transformer)
 	{
 		// Arrange
@@ -828,7 +835,7 @@ public class UpdateCurrentUserCommandHandlerIntegrationTests : BaseUserApplicati
 
 	[Theory]
 	[UserEmailDifferentCaseData]
-	public async Task SendAsync_ShouldPublishEmailConfirmationTokenDeletedEvents_WhenEmailIsValid(
+	public async Task SendAsync_ShouldPublishEmailConfirmationTokenDeletedEvents_WhenRequestAndEmailAreValid(
 		IStringTransformer transformer)
 	{
 		// Arrange

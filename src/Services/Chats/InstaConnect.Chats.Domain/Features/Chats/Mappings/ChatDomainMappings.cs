@@ -1,6 +1,5 @@
+using InstaConnect.Chats.Events.Features.Chats;
 using InstaConnect.Identity.Events.Features.Users;
-
-using Mapster;
 
 namespace InstaConnect.Chats.Domain.Features.Chats.Mappings;
 

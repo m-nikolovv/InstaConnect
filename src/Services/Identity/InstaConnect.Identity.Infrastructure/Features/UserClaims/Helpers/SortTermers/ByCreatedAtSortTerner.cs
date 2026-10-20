@@ -1,5 +1,3 @@
-using System.Linq.Expressions;
-
 namespace InstaConnect.Identity.Infrastructure.Features.UserClaims.Helpers.SortTermers;
 
 internal class ByCreatedAtSortTerner : IUserClaimsSortTermer

@@ -2,7 +2,6 @@ using InstaConnect.Chats.Domain.Features.Users.Helpers;
 using InstaConnect.Chats.Domain.Features.Users.Models.Requests;
 using InstaConnect.Chats.Domain.Tests.Features.Users.Assertions;
 using InstaConnect.Chats.Domain.Tests.Features.Users.Builders;
-using InstaConnect.Chats.Domain.Tests.Features.Users.Utilities;
 using InstaConnect.Chats.Domain.Tests.Unit.Features.Users.Utilities;
 using InstaConnect.Chats.Tests.Features.Users.DataAttributes.Email;
 using InstaConnect.Chats.Tests.Features.Users.DataAttributes.Name;
@@ -32,7 +31,7 @@ public class UpdateUserCommandServiceUnitTests : BaseUserDomainCommandUnitTest
 	}
 
 	[Fact]
-	public async Task UpdateAsync_ShouldThrowUserNotFoundException_WhenCommandIsInvalid()
+	public async Task UpdateAsync_ShouldThrowUserNotFoundException_WhenUserNotFound()
 	{
 		// Arrange
 		UserRepository.RemoveGetByIdAsync(_command, User, CancellationToken);
@@ -42,7 +41,7 @@ public class UpdateUserCommandServiceUnitTests : BaseUserDomainCommandUnitTest
 	}
 
 	[Fact]
-	public async Task UpdateAsync_ShouldThrowUserEmailAlreadyExistsException_WhenCommandIsInvalid()
+	public async Task UpdateAsync_ShouldThrowUserEmailAlreadyExistsException_WhenUserEmailAlreadyExists()
 	{
 		// Arrange
 		var user = UserBuilderFactory.Create().Build();
@@ -54,7 +53,7 @@ public class UpdateUserCommandServiceUnitTests : BaseUserDomainCommandUnitTest
 	}
 
 	[Fact]
-	public async Task UpdateAsync_ShouldThrowUserNameAlreadyExistsException_WhenCommandIsInvalid()
+	public async Task UpdateAsync_ShouldThrowUserNameAlreadyExistsException_WhenUserNameAlreadyExists()
 	{
 		// Arrange
 		var user = UserBuilderFactory.Create().Build();
@@ -198,7 +197,7 @@ public class UpdateUserCommandServiceUnitTests : BaseUserDomainCommandUnitTest
 	}
 
 	[Fact]
-	public async Task UpdateAsync_ShouldCallTheUserRepositoryGetByNameAsync_WhenCommandIsValid()
+	public async Task UpdateAsync_ShouldCallTheUserRepositoryIsNameUniqueAsync_WhenCommandIsValid()
 	{
 		// Act
 		await _service.UpdateAsync(_command, CancellationToken);
@@ -208,7 +207,7 @@ public class UpdateUserCommandServiceUnitTests : BaseUserDomainCommandUnitTest
 	}
 
 	[Fact]
-	public async Task UpdateAsync_ShouldCallTheUserRepositoryGetByNameAsync_WhenNameHasNotChanged()
+	public async Task UpdateAsync_ShouldCallTheUserRepositoryIsNameUniqueAsync_WhenNameHasNotChanged()
 	{
 		// Arrange
 		var command = _commandBuilder.WithName(User.Name).Build();
@@ -222,7 +221,7 @@ public class UpdateUserCommandServiceUnitTests : BaseUserDomainCommandUnitTest
 
 	[Theory]
 	[UserNameDifferentCaseData]
-	public async Task UpdateAsync_ShouldCallTheUserRepositoryGetByNameAsync_WhenNameIsValidAndHasNotChanged(
+	public async Task UpdateAsync_ShouldCallTheUserRepositoryIsNameUniqueAsync_WhenNameIsValidAndHasNotChanged(
 		IStringTransformer transformer)
 	{
 		// Arrange
@@ -236,7 +235,7 @@ public class UpdateUserCommandServiceUnitTests : BaseUserDomainCommandUnitTest
 	}
 
 	[Fact]
-	public async Task UpdateAsync_ShouldCallTheUserRepositoryGetByNameAsync_WhenEmailHasNotChanged()
+	public async Task UpdateAsync_ShouldCallTheUserRepositoryIsNameUniqueAsync_WhenEmailHasNotChanged()
 	{
 		// Arrange
 		var command = _commandBuilder.WithEmail(User.Email).Build();
@@ -250,7 +249,7 @@ public class UpdateUserCommandServiceUnitTests : BaseUserDomainCommandUnitTest
 
 	[Theory]
 	[UserEmailDifferentCaseData]
-	public async Task UpdateAsync_ShouldCallTheUserRepositoryGetByNameAsync_WhenEmailIsValidAndHasNotChanged(
+	public async Task UpdateAsync_ShouldCallTheUserRepositoryIsNameUniqueAsync_WhenEmailIsValidAndHasNotChanged(
 		IStringTransformer transformer)
 	{
 		// Arrange
@@ -264,7 +263,7 @@ public class UpdateUserCommandServiceUnitTests : BaseUserDomainCommandUnitTest
 	}
 
 	[Fact]
-	public async Task UpdateAsync_ShouldCallTheUserRepositoryGetByEmailAsync_WhenCommandIsValid()
+	public async Task UpdateAsync_ShouldCallTheUserRepositoryIsEmailUniqueAsync_WhenCommandIsValid()
 	{
 		// Act
 		await _service.UpdateAsync(_command, CancellationToken);
@@ -274,7 +273,7 @@ public class UpdateUserCommandServiceUnitTests : BaseUserDomainCommandUnitTest
 	}
 
 	[Fact]
-	public async Task UpdateAsync_ShouldCallTheUserRepositoryGetByEmailAsync_WhenNameHasNotChanged()
+	public async Task UpdateAsync_ShouldCallTheUserRepositoryIsEmailUniqueAsync_WhenNameHasNotChanged()
 	{
 		// Arrange
 		var command = _commandBuilder.WithName(User.Name).Build();
@@ -288,7 +287,7 @@ public class UpdateUserCommandServiceUnitTests : BaseUserDomainCommandUnitTest
 
 	[Theory]
 	[UserNameDifferentCaseData]
-	public async Task UpdateAsync_ShouldCallTheUserRepositoryGetByEmailAsync_WhenNameIsValidAndHasNotChanged(
+	public async Task UpdateAsync_ShouldCallTheUserRepositoryIsEmailUniqueAsync_WhenNameIsValidAndHasNotChanged(
 		IStringTransformer transformer)
 	{
 		// Arrange
@@ -302,7 +301,7 @@ public class UpdateUserCommandServiceUnitTests : BaseUserDomainCommandUnitTest
 	}
 
 	[Fact]
-	public async Task UpdateAsync_ShouldCallTheUserRepositoryGetByEmailAsync_WhenEmailHasNotChanged()
+	public async Task UpdateAsync_ShouldCallTheUserRepositoryIsEmailUniqueAsync_WhenEmailHasNotChanged()
 	{
 		// Arrange
 		var command = _commandBuilder.WithEmail(User.Email).Build();
@@ -316,7 +315,7 @@ public class UpdateUserCommandServiceUnitTests : BaseUserDomainCommandUnitTest
 
 	[Theory]
 	[UserEmailDifferentCaseData]
-	public async Task UpdateAsync_ShouldCallTheUserRepositoryGetByEmailAsync_WhenEmailIsValidAndHasNotChanged(
+	public async Task UpdateAsync_ShouldCallTheUserRepositoryIsEmailUniqueAsync_WhenEmailIsValidAndHasNotChanged(
 		IStringTransformer transformer)
 	{
 		// Arrange

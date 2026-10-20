@@ -1,3 +1,5 @@
+using InstaConnect.Identity.Application.Features.EmailConfirmationTokens.Extensions;
+
 namespace InstaConnect.Identity.Application.Features.EmailConfirmationTokens.Commands.Verify;
 
 public class VerifyEmailConfirmationTokenCommandRequestValidator : AbstractValidator<VerifyEmailConfirmationTokenCommandRequest>

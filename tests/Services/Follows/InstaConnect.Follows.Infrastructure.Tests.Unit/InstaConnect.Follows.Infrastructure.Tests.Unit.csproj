@@ -5,34 +5,20 @@
     <ProjectReference Include="..\InstaConnect.Follows.Infrastructure.Tests\InstaConnect.Follows.Infrastructure.Tests.csproj" />
   </ItemGroup>
 
-  <ItemGroup Label="Common">
-    <Using Include="InstaConnect.Common.Tests.Features.Abstractions" />
-    <Using Include="InstaConnect.Common.Tests.Features.Helpers" />
-    <Using Include="InstaConnect.Common.Tests.Features.Assertions" />
-    <Using Include="InstaConnect.Common.Tests.Features.Utilities" />
-    <Using Include="InstaConnect.Common.Tests.Features.DataAttributes.Enums" />
-    <Using Include="InstaConnect.Common.Tests.Features.DataAttributes.Enums.Base" />
-    <Using Include="InstaConnect.Common.Tests.Features.DataAttributes.Strings.Base" />
-    <Using Include="InstaConnect.Common.Tests.Features.DataAttributes.Ints.Base" />
-    <Using Include="InstaConnect.Common.Tests.Features.DataAttributes.DateTimeOffsets.Base" />
-    <Using Include="InstaConnect.Common.Infrastructure.Tests.Features.Assertions" />
-    <Using Include="InstaConnect.Follows.Tests.Features.Common.Utilities" />
+  <ItemGroup Label="Users">
+    <Using Include="InstaConnect.Follows.Domain.Features.Users.Models.Requests" />
+    <Using Include="InstaConnect.Follows.Infrastructure.Features.Users.Helpers.Repositories" />
+    <Using Include="InstaConnect.Follows.Infrastructure.Tests.Features.Users.Assertions" />
+    <Using Include="InstaConnect.Follows.Infrastructure.Tests.Features.Users.Utilities" />
+    <Using Include="InstaConnect.Follows.Infrastructure.Tests.Unit.Features.Users.Utilities" />
   </ItemGroup>
 
-  <ItemGroup Label="Users">
-    <Using Include="InstaConnect.Identity.Events.Features.Users" />
-    <Using Include="InstaConnect.Follows.Infrastructure.Features.Users.EventHandlers" />
-    <Using Include="InstaConnect.Follows.Domain.Features.Users.Abstractions" />
-    <Using Include="InstaConnect.Follows.Domain.Features.Users.Models.Entities" />
-    <Using Include="InstaConnect.Follows.Infrastructure.Tests.Features.Users.Builders" />
-    <Using Include="InstaConnect.Follows.Infrastructure.Tests.Features.Users.Utilities" />
-    <Using Include="InstaConnect.Follows.Infrastructure.Tests.Features.Users.Assertions" />
-    <Using Include="InstaConnect.Follows.Application.Features.Users.Commands.Add" />
-    <Using Include="InstaConnect.Follows.Application.Features.Users.Commands.Update" />
-    <Using Include="InstaConnect.Follows.Application.Features.Users.Commands.Delete" />
-    <Using Include="InstaConnect.Follows.Infrastructure.Tests.Unit.Features.Users.Utilities" />
-    <Using Include="InstaConnect.Follows.Tests.Features.Users.Builders" />
-    <Using Include="InstaConnect.Follows.Tests.Features.Users.Utilities" />
+  <ItemGroup Label="Follows">
+    <Using Include="InstaConnect.Follows.Domain.Features.Follows.Models.Requests" />
+    <Using Include="InstaConnect.Follows.Infrastructure.Features.Follows.Helpers.Repositories" />
+    <Using Include="InstaConnect.Follows.Infrastructure.Tests.Features.Follows.Assertions" />
+    <Using Include="InstaConnect.Follows.Infrastructure.Tests.Features.Follows.Utilities" />
+    <Using Include="InstaConnect.Follows.Infrastructure.Tests.Unit.Features.Follows.Utilities" />
   </ItemGroup>
 
 </Project>

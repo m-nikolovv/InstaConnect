@@ -1,7 +1,8 @@
-using InstaConnect.Common.Application.Features.Requests.Abstractions;
+using InstaConnect.Common.Infrastructure.Features.Databases.Helpers;
 using InstaConnect.Identity.Application.Features.Users.Abstractions;
 using InstaConnect.Identity.Application.Tests.Features.UserClaims.Utilities;
-using InstaConnect.Identity.Application.Tests.Features.Users.Utilities;
+using InstaConnect.Identity.Domain.Features.UserClaims.Models.Responses;
+using InstaConnect.Identity.Domain.Features.UserClaims.Models.ValueObjects;
 
 namespace InstaConnect.Identity.Application.Tests.Features.UserClaims.Utilities;
 

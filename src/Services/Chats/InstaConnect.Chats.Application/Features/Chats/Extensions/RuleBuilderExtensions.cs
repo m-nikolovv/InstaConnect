@@ -1,3 +1,5 @@
+using InstaConnect.Chats.Domain.Features.Chats.Utilities;
+
 namespace InstaConnect.Chats.Application.Features.Chats.Extensions;
 
 internal static class RuleBuilderExtensions

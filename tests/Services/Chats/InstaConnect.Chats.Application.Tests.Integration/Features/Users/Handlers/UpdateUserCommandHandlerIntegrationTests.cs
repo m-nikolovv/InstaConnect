@@ -1,3 +1,16 @@
+using InstaConnect.Chats.Application.Features.Users.Commands.Update;
+using InstaConnect.Chats.Application.Tests.Features.Users.Builders;
+using InstaConnect.Chats.Application.Tests.Integration.Features.Users.Utilities;
+using InstaConnect.Chats.Domain.Features.Users.Models.Entities;
+using InstaConnect.Chats.Tests.Features.Users.Builders;
+using InstaConnect.Chats.Tests.Features.Users.DataAttributes.Email;
+using InstaConnect.Chats.Tests.Features.Users.DataAttributes.FirstName;
+using InstaConnect.Chats.Tests.Features.Users.DataAttributes.LastName;
+using InstaConnect.Chats.Tests.Features.Users.DataAttributes.Name;
+using InstaConnect.Chats.Tests.Features.Users.DataAttributes.ProfileImage;
+using InstaConnect.Chats.Tests.Features.Users.DataAttributes.UpdatedAtUtc;
+using InstaConnect.Common.Tests.Features.DataAttributes.DateTimeOffsets.Base;
+
 namespace InstaConnect.Chats.Application.Tests.Integration.Features.Users.Handlers;
 
 public class UpdateUserCommandHandlerIntegrationTests : BaseUserApplicationCommandIntegrationTest
@@ -127,7 +140,7 @@ public class UpdateUserCommandHandlerIntegrationTests : BaseUserApplicationComma
 	}
 
 	[Fact]
-	public async Task SendAsync_ShouldThrowUserNotFoundException_WhenRequestIsInvalid()
+	public async Task SendAsync_ShouldThrowUserNotFoundException_WhenUserNotFound()
 	{
 		// Arrange
 		await ServiceScope.DeleteAsync(User, CancellationToken);
@@ -137,7 +150,7 @@ public class UpdateUserCommandHandlerIntegrationTests : BaseUserApplicationComma
 	}
 
 	[Fact]
-	public async Task SendAsync_ShouldThrowUserEmailAlreadyExistsException_WhenRequestIsInvalid()
+	public async Task SendAsync_ShouldThrowUserEmailAlreadyExistsException_WhenUserEmailAlreadyExists()
 	{
 		// Arrange
 		var user = UserBuilderFactory.Create().Build();
@@ -151,7 +164,7 @@ public class UpdateUserCommandHandlerIntegrationTests : BaseUserApplicationComma
 
 	[Theory]
 	[UserEmailDifferentCaseData]
-	public async Task SendAsync_ShouldThrowUserEmailAlreadyExistsException_WhenEmailIsInvalid(
+	public async Task SendAsync_ShouldThrowUserEmailAlreadyExistsException_WhenUserEmailAlreadyExistsAndEmailIsInvalid(
 		IStringTransformer transformer)
 	{
 		// Arrange
@@ -165,7 +178,7 @@ public class UpdateUserCommandHandlerIntegrationTests : BaseUserApplicationComma
 	}
 
 	[Fact]
-	public async Task SendAsync_ShouldThrowUserNameAlreadyExistsException_WhenRequestIsInvalid()
+	public async Task SendAsync_ShouldThrowUserNameAlreadyExistsException_WhenUserNameAlreadyExists()
 	{
 		// Arrange
 		var user = UserBuilderFactory.Create().Build();
@@ -179,7 +192,7 @@ public class UpdateUserCommandHandlerIntegrationTests : BaseUserApplicationComma
 
 	[Theory]
 	[UserNameDifferentCaseData]
-	public async Task SendAsync_ShouldThrowUserNameAlreadyExistsException_WhenNameIsInvalid(
+	public async Task SendAsync_ShouldThrowUserNameAlreadyExistsException_WhenUserNameAlreadyExistsAndNameIsInvalid(
 		IStringTransformer transformer)
 	{
 		// Arrange
@@ -205,7 +218,7 @@ public class UpdateUserCommandHandlerIntegrationTests : BaseUserApplicationComma
 
 	[Theory]
 	[UserIdDifferentCaseData]
-	public async Task SendAsync_ShouldReturnResponse_WhenIdIsValid(
+	public async Task SendAsync_ShouldReturnResponse_WhenRequestAndIdAreValid(
 		IStringTransformer transformer)
 	{
 		// Arrange
@@ -221,7 +234,7 @@ public class UpdateUserCommandHandlerIntegrationTests : BaseUserApplicationComma
 
 	[Theory]
 	[UserNameDifferentCaseData]
-	public async Task SendAsync_ShouldReturnResponse_WhenNameIsValid(
+	public async Task SendAsync_ShouldReturnResponse_WhenRequestAndNameAreValid(
 		IStringTransformer transformer)
 	{
 		// Arrange
@@ -267,7 +280,7 @@ public class UpdateUserCommandHandlerIntegrationTests : BaseUserApplicationComma
 
 	[Theory]
 	[UserEmailDifferentCaseData]
-	public async Task SendAsync_ShouldReturnResponse_WhenEmailIsValid(
+	public async Task SendAsync_ShouldReturnResponse_WhenRequestAndEmailAreValid(
 		IStringTransformer transformer)
 	{
 		// Arrange
@@ -314,7 +327,7 @@ public class UpdateUserCommandHandlerIntegrationTests : BaseUserApplicationComma
 	[Theory]
 	[UserProfileImageNullData]
 	[UserProfileImageEmptyData]
-	public async Task SendAsync_ShouldReturnResponse_WhenProfileImageIsValid(
+	public async Task SendAsync_ShouldReturnResponse_WhenRequestAndProfileImageAreValid(
 		IStringTransformer transformer)
 	{
 		// Arrange
@@ -341,7 +354,7 @@ public class UpdateUserCommandHandlerIntegrationTests : BaseUserApplicationComma
 
 	[Theory]
 	[UserIdDifferentCaseData]
-	public async Task SendAsync_ShouldUpdateUser_WhenIdIsValid(
+	public async Task SendAsync_ShouldUpdateUser_WhenRequestAndIdAreValid(
 		IStringTransformer transformer)
 	{
 		// Arrange
@@ -357,7 +370,7 @@ public class UpdateUserCommandHandlerIntegrationTests : BaseUserApplicationComma
 
 	[Theory]
 	[UserNameDifferentCaseData]
-	public async Task SendAsync_ShouldUpdateUser_WhenNameIsValid(
+	public async Task SendAsync_ShouldUpdateUser_WhenRequestAndNameAreValid(
 		IStringTransformer transformer)
 	{
 		// Arrange
@@ -403,7 +416,7 @@ public class UpdateUserCommandHandlerIntegrationTests : BaseUserApplicationComma
 
 	[Theory]
 	[UserEmailDifferentCaseData]
-	public async Task SendAsync_ShouldUpdateUser_WhenEmailIsValid(
+	public async Task SendAsync_ShouldUpdateUser_WhenRequestAndEmailAreValid(
 		IStringTransformer transformer)
 	{
 		// Arrange

@@ -1,3 +1,5 @@
+using InstaConnect.Follows.Application.Features.Follows.Commands.Add;
+
 namespace InstaConnect.Follows.Application.Tests.Integration.Features.Follows.Handlers;
 
 public class AddFollowCommandHandlerIntegrationTests : BaseFollowApplicationCommandIntegrationTest
@@ -47,7 +49,7 @@ public class AddFollowCommandHandlerIntegrationTests : BaseFollowApplicationComm
 	}
 
 	[Fact]
-	public async Task SendAsync_ShouldThrowFollowerNotFoundException_WhenFollowerIdIsInvalid()
+	public async Task SendAsync_ShouldThrowFollowerNotFoundException_WhenFollowerNotFound()
 	{
 		// Arrange
 		await ServiceScope.DeleteAsync(Follower, CancellationToken);
@@ -57,7 +59,7 @@ public class AddFollowCommandHandlerIntegrationTests : BaseFollowApplicationComm
 	}
 
 	[Fact]
-	public async Task SendAsync_ShouldThrowFollowingNotFoundException_WhenFollowingIdIsInvalid()
+	public async Task SendAsync_ShouldThrowFollowingNotFoundException_WhenFollowingNotFound()
 	{
 		// Arrange
 		await ServiceScope.DeleteAsync(Following, CancellationToken);
@@ -78,7 +80,7 @@ public class AddFollowCommandHandlerIntegrationTests : BaseFollowApplicationComm
 
 	[Theory]
 	[UserIdDifferentCaseData]
-	public async Task SendAsync_ShouldThrowFollowAlreadyExistsException_WhenFollowAlreadyExistsAndFollowerIdIsValid(
+	public async Task SendAsync_ShouldThrowFollowAlreadyExistsException_WhenFollowAlreadyExistsAndFollowerIdIsInvalid(
 		IStringTransformer transformer)
 	{
 		// Arrange
@@ -91,7 +93,7 @@ public class AddFollowCommandHandlerIntegrationTests : BaseFollowApplicationComm
 
 	[Theory]
 	[UserIdDifferentCaseData]
-	public async Task SendAsync_ShouldThrowFollowAlreadyExistsException_WhenFollowAlreadyExistsAndFollowingIdIsValid(
+	public async Task SendAsync_ShouldThrowFollowAlreadyExistsException_WhenFollowAlreadyExistsAndFollowingIdIsInvalid(
 		IStringTransformer transformer)
 	{
 		// Arrange
@@ -202,7 +204,7 @@ public class AddFollowCommandHandlerIntegrationTests : BaseFollowApplicationComm
 
 	[Theory]
 	[UserIdDifferentCaseData]
-	public async Task SendAsync_ShouldPublishFollowAddedEvent_WhenRequestAnFollowerIdAreValid(
+	public async Task SendAsync_ShouldPublishFollowAddedEvent_WhenRequestAndFollowerIdAreValid(
 		IStringTransformer transformer)
 	{
 		// Arrange
@@ -248,7 +250,7 @@ public class AddFollowCommandHandlerIntegrationTests : BaseFollowApplicationComm
 
 	[Theory]
 	[UserIdDifferentCaseData]
-	public async Task SendAsync_ShouldPublishFollowAddedNotification_WhenRequestAnFollowerIdAreValid(
+	public async Task SendAsync_ShouldPublishFollowAddedNotification_WhenRequestAndFollowerIdAreValid(
 		IStringTransformer transformer)
 	{
 		// Arrange

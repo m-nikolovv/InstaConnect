@@ -1,5 +1,3 @@
-using InstaConnect.Posts.Infrastructure.Features.Users.Helpers.Repositories;
-
 namespace InstaConnect.Posts.Infrastructure.Tests.Unit.Features.Users.Repositories;
 
 public class UpdateUserCommandRepositoryUnitTests : BaseUserInfrastructureCommandUnitTest
@@ -12,7 +10,7 @@ public class UpdateUserCommandRepositoryUnitTests : BaseUserInfrastructureComman
 	}
 
 	[Fact]
-	public async Task UpdateAsync_ShouldCallTheCollectionUpdateAsync_WhenRequestIsValid()
+	public async Task UpdateAsync_ShouldCallTheCollectionUpdateAsync_WhenCommandIsValid()
 	{
 		// Act
 		await _repository.UpdateAsync(User, CancellationToken);

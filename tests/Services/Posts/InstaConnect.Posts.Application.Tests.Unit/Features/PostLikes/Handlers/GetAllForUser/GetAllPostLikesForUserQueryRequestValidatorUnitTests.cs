@@ -1,5 +1,9 @@
-using InstaConnect.Common.Domain.Features.Requests.Models;
+using InstaConnect.Posts.Application.Features.PostLikes.Queries.GetAllForUser;
 using InstaConnect.Posts.Domain.Features.PostLikes.Models.Requests;
+using InstaConnect.Posts.Tests.Features.PostLikes.DataAttributes.Page;
+using InstaConnect.Posts.Tests.Features.PostLikes.DataAttributes.PageSize;
+using InstaConnect.Posts.Tests.Features.PostLikes.DataAttributes.SortOrder;
+using InstaConnect.Posts.Tests.Features.PostLikes.DataAttributes.SortTerm.ForUser;
 
 namespace InstaConnect.Posts.Application.Tests.Unit.Features.PostLikes.Handlers.GetAllForUser;
 
@@ -118,7 +122,7 @@ public class GetAllPostLikesForUserQueryRequestValidatorUnitTests : BasePostLike
 	[Theory]
 	[UserIdNullData]
 	[UserIdEmptyData]
-	public void TestValidate_ShouldNotHaveAnyValidationsErrors_WhenCurrentUserIdIsValid(
+	public void TestValidate_ShouldNotHaveAnyValidationErrors_WhenCurrentUserIdIsValid(
 		IStringTransformer transformer)
 	{
 		// Arrange
@@ -132,7 +136,7 @@ public class GetAllPostLikesForUserQueryRequestValidatorUnitTests : BasePostLike
 	}
 
 	[Fact]
-	public void TestValidate_ShouldNotHaveAnyValidationsErrors_WhenRequestIsValid()
+	public void TestValidate_ShouldNotHaveAnyValidationErrors_WhenRequestIsValid()
 	{
 		// Act
 		var response = _requestValidator.TestValidate(_request);

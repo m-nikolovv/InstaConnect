@@ -1,8 +1,8 @@
-using InstaConnect.Common.Domain.Features.Exceptions.Exceptions;
+using InstaConnect.Chats.Domain.Features.Chats.Utilities;
 
 namespace InstaConnect.Chats.Domain.Features.Chats.Exceptions;
 
-public class ChatAlreadyExistsException : NotFoundException
+public class ChatAlreadyExistsException : BadRequestException
 {
 	public ChatAlreadyExistsException(ChatId id)
 		: base(ChatExceptionErrorMessages.GetAlreadyExistsMessage(id))

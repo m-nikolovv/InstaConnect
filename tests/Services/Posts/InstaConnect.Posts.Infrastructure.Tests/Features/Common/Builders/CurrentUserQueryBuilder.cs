@@ -1,5 +1,3 @@
-using InstaConnect.Posts.Domain.Features.Users.Models.Requests;
-
 namespace InstaConnect.Posts.Infrastructure.Tests.Features.Common.Builders;
 
 public class CurrentUserQueryBuilder

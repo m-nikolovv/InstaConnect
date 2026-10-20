@@ -1,5 +1,6 @@
 using InstaConnect.Common.Presentation.Features.Controllers.Abstractions;
 using InstaConnect.Identity.Presentation.Features.RefreshTokens.Abstractions;
+using InstaConnect.Identity.Presentation.Features.RefreshTokens.Utilities;
 
 namespace InstaConnect.Identity.Presentation.Features.RefreshTokens.Helpers;
 

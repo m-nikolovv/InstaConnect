@@ -6,4 +6,9 @@ public class PostCommentBuilderFactory
 	{
 		return new(post, user);
 	}
+
+	public PostCommentBuilder Create(PostComment postComment)
+	{
+		return new(postComment);
+	}
 }

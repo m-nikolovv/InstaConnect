@@ -1,4 +1,5 @@
 using InstaConnect.Common.Domain.Features.AccessTokens.Models;
+using InstaConnect.Identity.Domain.Features.RefreshTokens.Models.Responses;
 
 namespace InstaConnect.Identity.Application.Tests.Features.RefreshTokens.Utilities;
 

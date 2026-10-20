@@ -1,5 +1,4 @@
 using InstaConnect.Follows.Domain.Features.Follows.Abstractions;
-using InstaConnect.Follows.Domain.Features.Follows.Models.Requests;
 using InstaConnect.Follows.Presentation.Features.Follows.Abstractions;
 
 using Microsoft.AspNetCore.SignalR;

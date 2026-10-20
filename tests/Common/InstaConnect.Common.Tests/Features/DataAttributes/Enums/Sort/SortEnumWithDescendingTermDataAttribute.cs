@@ -1,7 +1,3 @@
-using System.Reflection;
-
-using InstaConnect.Common.Domain.Features.Entities.Abstractions;
-
 namespace InstaConnect.Common.Tests.Features.DataAttributes.Enums.Sort;
 
 [AttributeUsage(AttributeTargets.Method, AllowMultiple = true, Inherited = true)]

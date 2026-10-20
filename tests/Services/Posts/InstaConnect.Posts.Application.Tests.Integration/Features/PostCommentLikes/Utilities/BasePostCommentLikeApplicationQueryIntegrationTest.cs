@@ -1,4 +1,4 @@
-using InstaConnect.Common.Application.Features.Requests.Abstractions;
+using InstaConnect.Posts.Tests.Features.PostCommentImages.Utilities;
 
 namespace InstaConnect.Posts.Application.Tests.Integration.Features.PostCommentLikes.Utilities;
 
@@ -17,6 +17,8 @@ public abstract class BasePostCommentLikeApplicationQueryIntegrationTest : BaseP
 		await ServiceScope.AddRangeAsync(Posts, CancellationToken);
 		await ServiceScope.AddRangeAsync(PostLikes, CancellationToken);
 		await ServiceScope.AddRangeAsync(PostComments, CancellationToken);
+		await ServiceScope.AddRangeAsync(PostImages, CancellationToken);
+		await ServiceScope.AddRangeAsync(PostCommentImages, CancellationToken);
 		await OnInitializeAsync();
 	}
 }

@@ -3,8 +3,6 @@ using InstaConnect.Follows.Application.Features.Users.Commands.Delete;
 using InstaConnect.Follows.Application.Features.Users.Commands.Update;
 using InstaConnect.Identity.Events.Features.Users;
 
-using Mapster;
-
 namespace InstaConnect.Follows.Infrastructure.Features.Users.Mappings;
 
 internal class UserInfrastructureMappings : IRegister

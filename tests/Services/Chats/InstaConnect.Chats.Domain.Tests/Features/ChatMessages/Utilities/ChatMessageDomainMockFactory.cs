@@ -1,4 +1,5 @@
 using InstaConnect.Chats.Domain.Features.ChatMessages.Helpers;
+using InstaConnect.Common.Infrastructure.Features.Databases.Helpers;
 
 namespace InstaConnect.Chats.Domain.Tests.Features.ChatMessages.Utilities;
 

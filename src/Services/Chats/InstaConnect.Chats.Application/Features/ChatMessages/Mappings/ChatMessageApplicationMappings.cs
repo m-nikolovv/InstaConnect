@@ -1,10 +1,11 @@
+using InstaConnect.Chats.Application.Features.ChatMessageImages.Models;
 using InstaConnect.Chats.Application.Features.ChatMessages.Commands.Add;
 using InstaConnect.Chats.Application.Features.ChatMessages.Commands.Delete;
 using InstaConnect.Chats.Application.Features.ChatMessages.Commands.Update;
 using InstaConnect.Chats.Application.Features.ChatMessages.Queries.GetAll;
 using InstaConnect.Chats.Application.Features.ChatMessages.Queries.GetById;
-
-using Mapster;
+using InstaConnect.Chats.Domain.Features.ChatMessages.Models.Responses;
+using InstaConnect.Chats.Domain.Features.ChatMessages.Models.ValueObjects;
 
 namespace InstaConnect.Chats.Application.Features.ChatMessages.Mappings;
 
@@ -48,7 +49,8 @@ public class ChatMessageApplicationMappings : IRegister
 									   new(
 											   new(src.ParticipantOneId),
 											   new(src.ParticipantTwoId)),
-									   src.Content));
+									   src.Content,
+									   src.Images));
 
 		config.NewConfig<ChatMessageId, AddChatMessageCommandResponse>()
 			.ConstructUsing(src => new(src.Adapt<ChatMessageIdCommandResponse>(config)));
@@ -86,8 +88,10 @@ public class ChatMessageApplicationMappings : IRegister
 				src.Id.MessageId,
 				src.SenderId.Id,
 				src.Content,
+				src.Summary.Value,
 				src.Chat.Adapt<ChatQueryResponse>(config),
 				src.Sender.Adapt<UserQueryResponse>(config),
+				src.ChatMessageImages.Adapt<ICollection<ChatMessageImageQueryResponse>>(config),
 				src.CreatedAtUtc,
 				src.UpdatedAtUtc));
 

@@ -3,8 +3,6 @@ using InstaConnect.Common.Infrastructure.Features.AccessTokens.Helpers;
 using InstaConnect.Common.Infrastructure.Features.AccessTokens.Models;
 
 using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
 
 namespace InstaConnect.Common.Infrastructure.Features.AccessTokens.Extensions;

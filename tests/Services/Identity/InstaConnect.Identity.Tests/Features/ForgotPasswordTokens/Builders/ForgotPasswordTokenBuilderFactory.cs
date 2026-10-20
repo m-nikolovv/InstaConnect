@@ -6,4 +6,9 @@ public class ForgotPasswordTokenBuilderFactory
 	{
 		return new(user);
 	}
+
+	public ForgotPasswordTokenBuilder Create(ForgotPasswordToken forgotPasswordToken)
+	{
+		return new(forgotPasswordToken);
+	}
 }

@@ -1,7 +1,4 @@
 using InstaConnect.Identity.Domain.Features.EmailConfirmationTokens.Abstractions;
-using InstaConnect.Identity.Domain.Features.EmailConfirmationTokens.Models.ValueObjects;
-
-using Microsoft.Extensions.DependencyInjection;
 
 namespace InstaConnect.Identity.Tests.Features.EmailConfirmationTokens.Utilities;
 
@@ -41,6 +38,13 @@ public static class EmailConfirmationTokenSetups
 			return (await serviceScope.GetEmailConfirmationTokenCommandRepository().GetByIdAsync(id, include, cancellationToken)).SetUser();
 		}
 
+		public async Task<ICollection<EmailConfirmationToken>> GetByIdRangeAsync(
+			IEnumerable<EmailConfirmationTokenId> ids,
+			CancellationToken cancellationToken)
+		{
+			return await serviceScope.GetEmailConfirmationTokenCommandRepository().GetByIdRangeAsync(ids, cancellationToken);
+		}
+
 		public async Task AddAsync(
 			EmailConfirmationToken emailConfirmationToken,
 			CancellationToken cancellationToken)
@@ -67,6 +71,13 @@ public static class EmailConfirmationTokenSetups
 			CancellationToken cancellationToken)
 		{
 			await serviceScope.GetEmailConfirmationTokenCommandRepository().DeleteAsync(emailConfirmationToken, cancellationToken);
+		}
+
+		public async Task DeleteRangeAsync(
+			IEnumerable<EmailConfirmationToken> emailConfirmationTokens,
+			CancellationToken cancellationToken)
+		{
+			await serviceScope.GetEmailConfirmationTokenCommandRepository().DeleteRangeAsync(emailConfirmationTokens, cancellationToken);
 		}
 	}
 }

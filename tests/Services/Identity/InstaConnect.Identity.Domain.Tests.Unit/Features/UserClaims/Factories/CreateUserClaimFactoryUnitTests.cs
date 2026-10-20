@@ -1,6 +1,4 @@
-using InstaConnect.Common.Domain.Tests.Features.Assertions;
 using InstaConnect.Identity.Domain.Features.UserClaims.Helpers;
-using InstaConnect.Identity.Domain.Tests.Features.UserClaims.Utilities;
 using InstaConnect.Identity.Domain.Tests.Unit.Features.UserClaims.Utilities;
 using InstaConnect.Identity.Tests.Features.UserClaims.Assertions;
 
@@ -21,7 +19,7 @@ public class CreateUserClaimFactoryUnitTests : BaseUserClaimDomainCommandUnitTes
 	public void Create_ShouldCreateUserClaim_WhenRequestIsValid()
 	{
 		// Act
-		var response = _factory.Create(UserClaim.Id.Id, UserClaim.Id.Claim);
+		var response = _factory.Create(UserClaimId.Id, UserClaimId.Claim);
 
 		// Assert
 		response.ShouldSatisfy(UserClaim);
@@ -31,7 +29,7 @@ public class CreateUserClaimFactoryUnitTests : BaseUserClaimDomainCommandUnitTes
 	public void Create_ShouldCallTheDateTimeProviderGetOffsetUtcNow_WhenRequestIsValid()
 	{
 		// Act
-		_factory.Create(UserClaim.Id.Id, UserClaim.Id.Claim);
+		_factory.Create(UserClaimId.Id, UserClaimId.Claim);
 
 		// Assert
 		DateTimeProvider.ShouldHaveReceivedOneGetOffsetUtcNow();

@@ -1,4 +1,10 @@
 <Project>
+  <Import Project="$(MSBuildThisFileDirectory)Directory.Build.Events.props" />
+  <Import Project="$(MSBuildThisFileDirectory)Directory.Build.Domain.props" />
+  <Import Project="$(MSBuildThisFileDirectory)Directory.Build.Application.props" />
+  <Import Project="$(MSBuildThisFileDirectory)Directory.Build.Infrastructure.props" />
+  <Import Project="$(MSBuildThisFileDirectory)Directory.Build.Presentation.props" />
+
   <PropertyGroup>
     <TargetFramework>net10.0</TargetFramework>
     <ImplicitUsings>true</ImplicitUsings>
@@ -51,5 +57,26 @@
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
     <Using Include="Xunit" />
+  </ItemGroup>
+
+  <PropertyGroup Condition="!$(MSBuildProjectName.StartsWith('InstaConnect.Common.'))">
+    <ProjectLayer>$([System.Text.RegularExpressions.Regex]::Replace($(MSBuildProjectName), '^InstaConnect\.[A-Za-z]+\.', ''))</ProjectLayer>
+  </PropertyGroup>
+
+  <ItemGroup Label="Common" Condition="'$(IsTestCodeProject)' != 'true' And !$(MSBuildProjectName.EndsWith('.Events'))">
+    <Using Include="Mapster" />
+    <Using Include="Microsoft.Extensions.DependencyInjection" />
+  </ItemGroup>
+
+  <ItemGroup Label="Tests" Condition="'$(ProjectLayer)' == 'Tests'">
+    <Using Include="InstaConnect.Common.Domain.Features.Requests.Models" />
+    <Using Include="InstaConnect.Common.Tests.Features.DataAttributes.Enums.Empty" />
+    <Using Include="InstaConnect.Common.Tests.Features.DataAttributes.Enums.Sort" />
+    <Using Include="InstaConnect.Common.Tests.Features.DataAttributes.Strings.Empty" />
+    <Using Include="InstaConnect.Common.Tests.Features.DataAttributes.Strings.Null" />
+    <Using Include="InstaConnect.Common.Tests.Features.DataAttributes.Strings.TooLong" />
+    <Using Include="InstaConnect.Common.Tests.Features.DataAttributes.Strings.TooShort" />
+    <Using Include="InstaConnect.Common.Tests.Features.Utilities" />
+    <Using Include="Microsoft.Extensions.DependencyInjection" />
   </ItemGroup>
 </Project>

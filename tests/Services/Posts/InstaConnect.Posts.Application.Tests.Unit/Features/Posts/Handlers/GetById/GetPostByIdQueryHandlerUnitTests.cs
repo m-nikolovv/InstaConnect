@@ -1,3 +1,5 @@
+using InstaConnect.Posts.Application.Features.Posts.Queries.GetById;
+
 namespace InstaConnect.Posts.Application.Tests.Unit.Features.Posts.Handlers.GetById;
 
 public class GetPostByIdQueryHandlerUnitTests : BasePostApplicationQueryUnitTest
@@ -30,7 +32,7 @@ public class GetPostByIdQueryHandlerUnitTests : BasePostApplicationQueryUnitTest
 	}
 
 	[Fact]
-	public async Task Handle_ShouldCallServiceGetByIdAsync_WhenRequestIsValid()
+	public async Task Handle_ShouldCallTheServiceGetByIdAsync_WhenRequestIsValid()
 	{
 		// Act
 		await _handler.Handle(_request, CancellationToken);

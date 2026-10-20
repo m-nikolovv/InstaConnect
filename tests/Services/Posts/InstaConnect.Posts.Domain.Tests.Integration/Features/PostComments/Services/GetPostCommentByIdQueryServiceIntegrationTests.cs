@@ -1,17 +1,3 @@
-using InstaConnect.Common.Tests.Features.DataAttributes.Strings.Base;
-using InstaConnect.Posts.Domain.Features.PostComments.Models.Requests;
-using InstaConnect.Posts.Domain.Tests.Features.PostComments.Assertions;
-using InstaConnect.Posts.Domain.Tests.Features.PostComments.Builders;
-using InstaConnect.Posts.Domain.Tests.Integration.Features.PostComments.Utilities;
-using InstaConnect.Posts.Tests.Features.PostCommentLikes.Utilities;
-using InstaConnect.Posts.Tests.Features.PostComments.DataAttributes.Id;
-using InstaConnect.Posts.Tests.Features.PostComments.Utilities;
-using InstaConnect.Posts.Tests.Features.PostLikes.Utilities;
-using InstaConnect.Posts.Tests.Features.Posts.DataAttributes.Id;
-using InstaConnect.Posts.Tests.Features.Posts.Utilities;
-using InstaConnect.Posts.Tests.Features.Users.DataAttributes.Id;
-using InstaConnect.Posts.Tests.Features.Users.Utilities;
-
 namespace InstaConnect.Posts.Domain.Tests.Integration.Features.PostComments.Services;
 
 public class GetPostCommentByIdQueryServiceIntegrationTests : BasePostCommentDomainQueryIntegrationTest
@@ -34,7 +20,7 @@ public class GetPostCommentByIdQueryServiceIntegrationTests : BasePostCommentDom
 	}
 
 	[Fact]
-	public async Task GetByIdAsync_ShouldThrowPostNotFoundException_WhenIdIsInvalid()
+	public async Task GetByIdAsync_ShouldThrowPostNotFoundException_WhenPostNotFound()
 	{
 		// Arrange
 		await ServiceScope.DeleteAsync(Post, CancellationToken);
@@ -44,7 +30,7 @@ public class GetPostCommentByIdQueryServiceIntegrationTests : BasePostCommentDom
 	}
 
 	[Fact]
-	public async Task GetByIdAsync_ShouldThrowPostCommentNotFoundException_WhenPostCommentIsInvalid()
+	public async Task GetByIdAsync_ShouldThrowPostCommentNotFoundException_WhenPostCommentNotFound()
 	{
 		// Arrange
 		await ServiceScope.DeleteAsync(PostComment, CancellationToken);

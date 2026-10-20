@@ -4,8 +4,6 @@ using Bogus;
 
 using InstaConnect.Common.Domain.Features.Requests.Models;
 
-using Microsoft.AspNetCore.Http;
-
 namespace InstaConnect.Common.Tests.Features.Utilities;
 
 public abstract class DataFaker

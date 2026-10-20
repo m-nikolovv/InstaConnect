@@ -1,7 +1,6 @@
 using InstaConnect.Common.Domain.Features.ValueObjects.Models;
 using InstaConnect.Common.Infrastructure.Tests.Features.Builders;
-using InstaConnect.Posts.Domain.Features.Users.Models.Requests;
-using InstaConnect.Posts.Infrastructure.Features.Users.Helpers.Repositories;
+using InstaConnect.Posts.Domain.Features.Users.Models.Entities;
 
 namespace InstaConnect.Posts.Infrastructure.Tests.Unit.Features.Users.Repositories;
 
@@ -32,7 +31,7 @@ public class GetUserByNameCommandRepositoryUnitTests : BaseUserInfrastructureCom
 	}
 
 	[Fact]
-	public async Task GetByNameAsync_ShouldReturnResponse_WhenRequestIsValid()
+	public async Task GetByNameAsync_ShouldReturnResponse_WhenCommandIsValid()
 	{
 		// Act
 		var response = await _repository.GetByNameAsync(_name, _include, CancellationToken);
@@ -42,7 +41,7 @@ public class GetUserByNameCommandRepositoryUnitTests : BaseUserInfrastructureCom
 	}
 
 	[Fact]
-	public async Task GetByNameAsync_ShouldCallTheCollectionAggregateFluent_WhenRequestIsValid()
+	public async Task GetByNameAsync_ShouldCallTheCollectionAggregateFluent_WhenCommandIsValid()
 	{
 		// Act
 		await _repository.GetByNameAsync(_name, _include, CancellationToken);
@@ -52,7 +51,7 @@ public class GetUserByNameCommandRepositoryUnitTests : BaseUserInfrastructureCom
 	}
 
 	[Fact]
-	public async Task GetByNameAsync_ShouldCallTheFluentApplyIncludes_WhenRequestIsValid()
+	public async Task GetByNameAsync_ShouldCallTheFluentApplyIncludes_WhenCommandIsValid()
 	{
 		// Act
 		await _repository.GetByNameAsync(_name, _include, CancellationToken);
@@ -62,7 +61,7 @@ public class GetUserByNameCommandRepositoryUnitTests : BaseUserInfrastructureCom
 	}
 
 	[Fact]
-	public async Task GetByNameAsync_ShouldCallTheFluentMatch_WhenRequestIsValid()
+	public async Task GetByNameAsync_ShouldCallTheFluentMatch_WhenCommandIsValid()
 	{
 		// Act
 		await _repository.GetByNameAsync(_name, _include, CancellationToken);
@@ -72,7 +71,7 @@ public class GetUserByNameCommandRepositoryUnitTests : BaseUserInfrastructureCom
 	}
 
 	[Fact]
-	public async Task GetByNameAsync_ShouldCallTheFluentFirstOrDefaultAsync_WhenRequestIsValid()
+	public async Task GetByNameAsync_ShouldCallTheFluentFirstOrDefaultAsync_WhenCommandIsValid()
 	{
 		// Act
 		await _repository.GetByNameAsync(_name, _include, CancellationToken);

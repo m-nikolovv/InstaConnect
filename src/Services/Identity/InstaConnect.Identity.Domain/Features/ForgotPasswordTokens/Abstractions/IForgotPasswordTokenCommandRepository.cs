@@ -11,6 +11,10 @@ public interface IForgotPasswordTokenCommandRepository
 		ForgotPasswordTokenId id,
 		CancellationToken cancellationToken);
 
+	public Task<ICollection<ForgotPasswordToken>> GetByIdRangeAsync(
+		IEnumerable<ForgotPasswordTokenId> ids,
+		CancellationToken cancellationToken);
+
 	public Task<bool> ExistsByIdAsync(
 		ForgotPasswordTokenId id,
 		CancellationToken cancellationToken);

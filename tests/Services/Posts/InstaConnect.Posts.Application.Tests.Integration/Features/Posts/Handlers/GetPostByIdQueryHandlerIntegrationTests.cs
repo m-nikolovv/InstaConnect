@@ -1,3 +1,5 @@
+using InstaConnect.Posts.Application.Features.Posts.Queries.GetById;
+
 namespace InstaConnect.Posts.Application.Tests.Integration.Features.Posts.Handlers;
 
 public class GetPostByIdQueryHandlerIntegrationTests : BasePostApplicationQueryIntegrationTest
@@ -49,7 +51,7 @@ public class GetPostByIdQueryHandlerIntegrationTests : BasePostApplicationQueryI
 	}
 
 	[Fact]
-	public async Task SendAsync_ShouldThrowPostNotFoundException_WhenIdIsInvalid()
+	public async Task SendAsync_ShouldThrowPostNotFoundException_WhenPostNotFound()
 	{
 		// Arrange
 		await ServiceScope.DeleteAsync(Post, CancellationToken);

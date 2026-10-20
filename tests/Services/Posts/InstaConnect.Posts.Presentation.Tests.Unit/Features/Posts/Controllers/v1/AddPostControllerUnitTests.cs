@@ -1,3 +1,5 @@
+using InstaConnect.Posts.Domain.Features.Posts.Models.Entities;
+
 namespace InstaConnect.Posts.Presentation.Tests.Unit.Features.Posts.Controllers.v1;
 
 public class AddPostControllerUnitTests : BasePostPresentationCommandUnitTest
@@ -11,7 +13,7 @@ public class AddPostControllerUnitTests : BasePostPresentationCommandUnitTest
 	public AddPostControllerUnitTests()
 	{
 		_requestBuilderFactory = new();
-		_requestBuilder = _requestBuilderFactory.Create(User);
+		_requestBuilder = _requestBuilderFactory.Create(User, Post.PostImages.Count);
 		_request = _requestBuilder.Build();
 
 		_controller = new(Mapper, Sender);

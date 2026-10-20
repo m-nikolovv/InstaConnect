@@ -1,9 +1,3 @@
-using InstaConnect.Common.Domain.Features.Databases.Abstractions;
-using InstaConnect.Common.Infrastructure.Features.Databases.Abstractions;
-using InstaConnect.Common.Infrastructure.Features.Databases.Helpers;
-
-using MongoDB.Driver;
-
 namespace InstaConnect.Posts.Infrastructure.Features.Posts.Helpers.Collections;
 
 internal class PostResponseFluent :

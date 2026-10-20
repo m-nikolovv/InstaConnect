@@ -1,3 +1,7 @@
+using InstaConnect.Identity.Domain.Features.ForgotPasswordTokens.Abstractions;
+using InstaConnect.Identity.Domain.Features.ForgotPasswordTokens.Models.Requests;
+using InstaConnect.Identity.Domain.Features.ForgotPasswordTokens.Models.ValueObjects;
+
 namespace InstaConnect.Identity.Infrastructure.Features.ForgotPasswordTokens.Helpers.Repositories;
 
 internal class ForgotPasswordTokenCommandRepository : IForgotPasswordTokenCommandRepository
@@ -32,6 +36,16 @@ internal class ForgotPasswordTokenCommandRepository : IForgotPasswordTokenComman
 		var include = _includeBuilderFactory.Create().Build();
 
 		return await GetByIdAsync(id, include, cancellationToken);
+	}
+
+	public async Task<ICollection<ForgotPasswordToken>> GetByIdRangeAsync(
+		IEnumerable<ForgotPasswordTokenId> ids,
+		CancellationToken cancellationToken)
+	{
+		return await _collection
+			.AggregateFluent()
+			.Match(ids)
+			.ToListAsync(cancellationToken);
 	}
 
 	public async Task<bool> ExistsByIdAsync(

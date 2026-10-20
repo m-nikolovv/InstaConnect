@@ -1,14 +1,4 @@
-using InstaConnect.Common.Tests.Features.DataAttributes.Strings.Base;
-using InstaConnect.Posts.Domain.Features.PostLikes.Models.Requests;
-using InstaConnect.Posts.Domain.Tests.Features.PostLikes.Assertions;
-using InstaConnect.Posts.Domain.Tests.Features.PostLikes.Builders;
-using InstaConnect.Posts.Domain.Tests.Integration.Features.PostLikes.Utilities;
 using InstaConnect.Posts.Tests.Features.PostLikes.Assertions;
-using InstaConnect.Posts.Tests.Features.PostLikes.Utilities;
-using InstaConnect.Posts.Tests.Features.Posts.DataAttributes.Id;
-using InstaConnect.Posts.Tests.Features.Posts.Utilities;
-using InstaConnect.Posts.Tests.Features.Users.DataAttributes.Id;
-using InstaConnect.Posts.Tests.Features.Users.Utilities;
 
 namespace InstaConnect.Posts.Domain.Tests.Integration.Features.PostLikes.Services;
 
@@ -32,7 +22,7 @@ public class DeletePostLikeCommandServiceIntegrationTests : BasePostLikeDomainCo
 	}
 
 	[Fact]
-	public async Task DeleteAsync_ShouldThrowPostNotFoundException_WhenIdIsInvalid()
+	public async Task DeleteAsync_ShouldThrowPostNotFoundException_WhenPostNotFound()
 	{
 		// Arrange
 		await ServiceScope.DeleteAsync(Post, CancellationToken);
@@ -42,7 +32,7 @@ public class DeletePostLikeCommandServiceIntegrationTests : BasePostLikeDomainCo
 	}
 
 	[Fact]
-	public async Task DeleteAsync_ShouldThrowPostLikeNotFoundException_WhenUserIdIsInvalid()
+	public async Task DeleteAsync_ShouldThrowPostLikeNotFoundException_WhenPostLikeNotFound()
 	{
 		// Arrange
 		await ServiceScope.DeleteAsync(PostLike, CancellationToken);
@@ -56,7 +46,7 @@ public class DeletePostLikeCommandServiceIntegrationTests : BasePostLikeDomainCo
 	{
 		// Act
 		await Service.DeleteAsync(_command, CancellationToken);
-		var postLike = await ServiceScope.GetByIdAsync(PostLike.Id, CancellationToken);
+		var postLike = await ServiceScope.GetByIdAsync(PostLikeId, CancellationToken);
 
 		// Assert
 		postLike.ShouldBeNull();
@@ -72,7 +62,7 @@ public class DeletePostLikeCommandServiceIntegrationTests : BasePostLikeDomainCo
 
 		// Act
 		await Service.DeleteAsync(command, CancellationToken);
-		var postLike = await ServiceScope.GetByIdAsync(PostLike.Id, CancellationToken);
+		var postLike = await ServiceScope.GetByIdAsync(PostLikeId, CancellationToken);
 
 		// Assert
 		postLike.ShouldBeNull();
@@ -88,7 +78,7 @@ public class DeletePostLikeCommandServiceIntegrationTests : BasePostLikeDomainCo
 
 		// Act
 		await Service.DeleteAsync(command, CancellationToken);
-		var postLike = await ServiceScope.GetByIdAsync(PostLike.Id, CancellationToken);
+		var postLike = await ServiceScope.GetByIdAsync(PostLikeId, CancellationToken);
 
 		// Assert
 		postLike.ShouldBeNull();

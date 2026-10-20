@@ -1,4 +1,4 @@
-using InstaConnect.Common.Domain.Features.Mappers.Abstractions;
+using InstaConnect.Chats.Domain.Features.Chats.Abstractions;
 
 namespace InstaConnect.Chats.Application.Features.Chats.Queries.GetAll;
 

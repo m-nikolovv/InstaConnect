@@ -1,7 +1,3 @@
-using InstaConnect.Posts.Infrastructure.Features.Posts.Helpers.Repositories;
-using InstaConnect.Posts.Infrastructure.Tests.Features.Posts.Assertions;
-using InstaConnect.Posts.Infrastructure.Tests.Unit.Features.Posts.Utilities;
-
 namespace InstaConnect.Posts.Infrastructure.Tests.Unit.Features.Posts.Repositories;
 
 public class DeletePostCommandRepositoryUnitTests : BasePostInfrastructureCommandUnitTest
@@ -14,7 +10,7 @@ public class DeletePostCommandRepositoryUnitTests : BasePostInfrastructureComman
 	}
 
 	[Fact]
-	public async Task DeleteAsync_ShouldCallTheCollectionDeleteAsync_WhenRequestIsValid()
+	public async Task DeleteAsync_ShouldCallTheCollectionDeleteAsync_WhenCommandIsValid()
 	{
 		// Act
 		await _repository.DeleteAsync(Post, CancellationToken);

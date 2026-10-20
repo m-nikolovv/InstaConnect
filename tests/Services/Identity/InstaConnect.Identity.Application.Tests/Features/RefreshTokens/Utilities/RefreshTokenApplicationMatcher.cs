@@ -1,3 +1,5 @@
+using InstaConnect.Identity.Domain.Features.RefreshTokens.Models.Requests;
+
 namespace InstaConnect.Identity.Application.Tests.Features.RefreshTokens.Utilities;
 
 public static class RefreshTokenApplicationMatcher

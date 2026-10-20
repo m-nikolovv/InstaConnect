@@ -8,66 +8,54 @@
   </ItemGroup>
 
   <ItemGroup Label="Common">
-    <Using Include="InstaConnect.Common.Tests.Features.Abstractions" />
+    <Using Include="InstaConnect.Common.Domain.Features.Common.Extensions" />
+    <Using Include="InstaConnect.Common.Events.Features.AccessTokens.Models" />
     <Using Include="InstaConnect.Common.Tests.Features.Assertions" />
-    <Using Include="InstaConnect.Common.Tests.Features.Utilities" />
-    <Using Include="InstaConnect.Common.Tests.Features.DataAttributes.DateTimeOffsets.Base" />
-    <Using Include="InstaConnect.Common.Tests.Features.DataAttributes.DateTimeOffsets.Empty" />
-    <Using Include="InstaConnect.Common.Tests.Features.DataAttributes.Ints.Base" />
-    <Using Include="InstaConnect.Common.Tests.Features.DataAttributes.Ints.Empty" />
-    <Using Include="InstaConnect.Common.Tests.Features.DataAttributes.Ints.TooSmall" />
     <Using Include="InstaConnect.Common.Tests.Features.DataAttributes.Ints.TooLarge" />
+    <Using Include="InstaConnect.Common.Tests.Features.DataAttributes.Ints.TooSmall" />
     <Using Include="InstaConnect.Common.Tests.Features.DataAttributes.Strings.Base" />
     <Using Include="InstaConnect.Common.Tests.Features.DataAttributes.Strings.DifferentCase" />
-    <Using Include="InstaConnect.Common.Tests.Features.DataAttributes.Strings.Empty" />
-    <Using Include="InstaConnect.Common.Tests.Features.DataAttributes.Strings.NotEqual" />
-    <Using Include="InstaConnect.Common.Tests.Features.DataAttributes.Strings.TooShort" />
-    <Using Include="InstaConnect.Common.Tests.Features.DataAttributes.Strings.TooLong" />
-    <Using Include="InstaConnect.Common.Tests.Features.DataAttributes.Strings.Null" />
-    <Using Include="InstaConnect.Common.Tests.Features.DataAttributes.Strings.InvalidEmail" />
-    <Using Include="InstaConnect.Common.Tests.Features.DataAttributes.Enums.Base" />
-    <Using Include="InstaConnect.Common.Tests.Features.DataAttributes.Enums.Empty" />
-    <Using Include="InstaConnect.Common.Tests.Features.DataAttributes.Enums.Sort" />
-    <Using Include="InstaConnect.Common.Tests.Features.DataAttributes.Booleans.Base" />
-    <Using Include="InstaConnect.Common.Tests.Features.DataAttributes.Booleans.True" />
-    <Using Include="InstaConnect.Common.Tests.Features.DataAttributes.Booleans.False" />
-    <Using Include="InstaConnect.Common.Tests.Features.DataAttributes.FormFiles.Base" />
-    <Using Include="InstaConnect.Common.Tests.Features.DataAttributes.FormFiles.Null" />
+    <Using Include="InstaConnect.Identity.Domain.Features.Common.Helpers" />
+    <Using Include="InstaConnect.Identity.Tests.Features.Common.Utilities" />
+    <Using Include="Xunit" />
   </ItemGroup>
 
   <ItemGroup Label="Users">
-    <Using Include="InstaConnect.Identity.Domain.Features.Users.Utilities" />
     <Using Include="InstaConnect.Identity.Domain.Features.Users.Models.Entities" />
     <Using Include="InstaConnect.Identity.Domain.Features.Users.Models.Requests" />
+    <Using Include="InstaConnect.Identity.Domain.Features.Users.Models.ValueObjects" />
+    <Using Include="InstaConnect.Identity.Domain.Features.Users.Utilities" />
     <Using Include="InstaConnect.Identity.Tests.Features.Users.Builders" />
+    <Using Include="InstaConnect.Identity.Tests.Features.Users.Utilities" />
   </ItemGroup>
 
   <ItemGroup Label="UserClaims">
-    <Using Include="InstaConnect.Identity.Domain.Features.UserClaims.Utilities" />
     <Using Include="InstaConnect.Identity.Domain.Features.UserClaims.Models.Entities" />
     <Using Include="InstaConnect.Identity.Domain.Features.UserClaims.Models.Requests" />
-    <Using Include="InstaConnect.Identity.Tests.Features.UserClaims.Builders" />
+    <Using Include="InstaConnect.Identity.Domain.Features.UserClaims.Models.ValueObjects" />
+    <Using Include="InstaConnect.Identity.Domain.Features.UserClaims.Utilities" />
+    <Using Include="InstaConnect.Identity.Tests.Features.UserClaims.Utilities" />
   </ItemGroup>
 
   <ItemGroup Label="RefreshTokens">
-    <Using Include="InstaConnect.Identity.Domain.Features.RefreshTokens.Utilities" />
     <Using Include="InstaConnect.Identity.Domain.Features.RefreshTokens.Models.Entities" />
-    <Using Include="InstaConnect.Identity.Domain.Features.RefreshTokens.Models.Requests" />
-    <Using Include="InstaConnect.Identity.Tests.Features.RefreshTokens.Builders" />
+    <Using Include="InstaConnect.Identity.Domain.Features.RefreshTokens.Models.ValueObjects" />
+    <Using Include="InstaConnect.Identity.Domain.Features.RefreshTokens.Utilities" />
+    <Using Include="InstaConnect.Identity.Tests.Features.RefreshTokens.Utilities" />
   </ItemGroup>
 
   <ItemGroup Label="ForgotPasswordTokens">
-    <Using Include="InstaConnect.Identity.Domain.Features.ForgotPasswordTokens.Utilities" />
     <Using Include="InstaConnect.Identity.Domain.Features.ForgotPasswordTokens.Models.Entities" />
-    <Using Include="InstaConnect.Identity.Domain.Features.ForgotPasswordTokens.Models.Requests" />
-    <Using Include="InstaConnect.Identity.Tests.Features.ForgotPasswordTokens.Builders" />
+    <Using Include="InstaConnect.Identity.Domain.Features.ForgotPasswordTokens.Models.ValueObjects" />
+    <Using Include="InstaConnect.Identity.Domain.Features.ForgotPasswordTokens.Utilities" />
+    <Using Include="InstaConnect.Identity.Tests.Features.ForgotPasswordTokens.Utilities" />
   </ItemGroup>
 
   <ItemGroup Label="EmailConfirmationTokens">
-    <Using Include="InstaConnect.Identity.Domain.Features.EmailConfirmationTokens.Utilities" />
     <Using Include="InstaConnect.Identity.Domain.Features.EmailConfirmationTokens.Models.Entities" />
-    <Using Include="InstaConnect.Identity.Domain.Features.EmailConfirmationTokens.Models.Requests" />
-    <Using Include="InstaConnect.Identity.Tests.Features.EmailConfirmationTokens.Builders" />
+    <Using Include="InstaConnect.Identity.Domain.Features.EmailConfirmationTokens.Models.ValueObjects" />
+    <Using Include="InstaConnect.Identity.Domain.Features.EmailConfirmationTokens.Utilities" />
+    <Using Include="InstaConnect.Identity.Tests.Features.EmailConfirmationTokens.Utilities" />
   </ItemGroup>
 
 </Project>

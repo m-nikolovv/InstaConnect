@@ -1,7 +1,5 @@
 using InstaConnect.Follows.Tests.Features.Common.Utilities;
 
-using Microsoft.Extensions.DependencyInjection;
-
 using Xunit;
 
 namespace InstaConnect.Follows.Tests.Features.Users.Utilities;

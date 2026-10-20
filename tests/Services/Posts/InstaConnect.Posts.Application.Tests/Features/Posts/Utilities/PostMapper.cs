@@ -1,7 +1,6 @@
-using InstaConnect.Common.Application.Features.Requests.Abstractions;
-using InstaConnect.Posts.Application.Features.Users.Abstractions;
-using InstaConnect.Posts.Application.Tests.Features.Posts.Utilities;
-using InstaConnect.Posts.Application.Tests.Features.Users.Utilities;
+using InstaConnect.Common.Infrastructure.Features.Databases.Helpers;
+using InstaConnect.Posts.Application.Tests.Features.PostImages.Utilities;
+using InstaConnect.Posts.Domain.Features.Posts.Models.Responses;
 
 namespace InstaConnect.Posts.Application.Tests.Features.Posts.Utilities;
 
@@ -17,7 +16,9 @@ public static class PostMapper
 					   post.UserId,
 					   post.Title,
 					   post.Content,
+					   post.Summary,
 					   post.User?.ToFullResponse(),
+					   post.PostImages.ToFullResponse(),
 					   post.PostLikes.Any(pl => pl.Id.UserId.Matches(request.CurrentUserId)),
 					   post.CreatedAtUtc,
 					   post.UpdatedAtUtc);
@@ -31,7 +32,9 @@ public static class PostMapper
 					   post.UserId,
 					   post.Title,
 					   post.Content,
+					   post.Summary,
 					   null,
+					   post.PostImages.ToFullResponse(),
 					   post.PostLikes.Any(pl => pl.Id.UserId.Matches(request.CurrentUserId)),
 					   post.CreatedAtUtc,
 					   post.UpdatedAtUtc);

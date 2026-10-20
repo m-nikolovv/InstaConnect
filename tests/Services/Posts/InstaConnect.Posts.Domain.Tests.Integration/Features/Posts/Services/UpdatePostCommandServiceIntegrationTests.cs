@@ -1,13 +1,4 @@
-using InstaConnect.Common.Tests.Features.DataAttributes.Strings.Base;
-using InstaConnect.Posts.Domain.Features.Posts.Models.Requests;
-using InstaConnect.Posts.Domain.Tests.Features.Posts.Assertions;
-using InstaConnect.Posts.Domain.Tests.Features.Posts.Builders;
-using InstaConnect.Posts.Domain.Tests.Integration.Features.Posts.Utilities;
 using InstaConnect.Posts.Tests.Features.Posts.Assertions;
-using InstaConnect.Posts.Tests.Features.Posts.DataAttributes.Id;
-using InstaConnect.Posts.Tests.Features.Posts.Utilities;
-using InstaConnect.Posts.Tests.Features.Users.DataAttributes.Id;
-using InstaConnect.Posts.Tests.Features.Users.Utilities;
 
 namespace InstaConnect.Posts.Domain.Tests.Integration.Features.Posts.Services;
 
@@ -28,10 +19,11 @@ public class UpdatePostCommandServiceIntegrationTests : BasePostDomainCommandInt
 	protected override async Task OnInitializeAsync()
 	{
 		await ServiceScope.AddAsync(Post, CancellationToken);
+		await ServiceScope.AddRangeAsync(PostImages, CancellationToken);
 	}
 
 	[Fact]
-	public async Task UpdateAsync_ShouldThrowPostNotFoundException_WhenIdIsInvalid()
+	public async Task UpdateAsync_ShouldThrowPostNotFoundException_WhenPostNotFound()
 	{
 		// Arrange
 		await ServiceScope.DeleteAsync(Post, CancellationToken);
@@ -41,7 +33,7 @@ public class UpdatePostCommandServiceIntegrationTests : BasePostDomainCommandInt
 	}
 
 	[Fact]
-	public async Task UpdateAsync_ShouldThrowPostForbiddenException_WhenUserIdIsInvalid()
+	public async Task UpdateAsync_ShouldThrowPostForbiddenException_WhenPostForbidden()
 	{
 		// Arrange
 		var user = UserBuilderFactory.Create().Build();
@@ -124,7 +116,7 @@ public class UpdatePostCommandServiceIntegrationTests : BasePostDomainCommandInt
 
 	[Theory]
 	[UserIdDifferentCaseData]
-	public async Task UpdateAsync_ShouldUpdatePost_WhenCommandAndUserIdAreValids(
+	public async Task UpdateAsync_ShouldUpdatePost_WhenCommandAndUserIdAreValid(
 		IStringTransformer transformer)
 	{
 		// Arrange
@@ -171,7 +163,7 @@ public class UpdatePostCommandServiceIntegrationTests : BasePostDomainCommandInt
 
 	[Theory]
 	[UserIdDifferentCaseData]
-	public async Task UpdateAsync_ShouldPublishPostUpdatedEvent_WhenCommandAndUserIdAreValids(
+	public async Task UpdateAsync_ShouldPublishPostUpdatedEvent_WhenCommandAndUserIdAreValid(
 		IStringTransformer transformer)
 	{
 		// Arrange

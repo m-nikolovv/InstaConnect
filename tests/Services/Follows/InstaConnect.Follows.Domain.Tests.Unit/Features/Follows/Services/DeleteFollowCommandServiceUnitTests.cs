@@ -1,10 +1,3 @@
-using InstaConnect.Follows.Domain.Features.Follows.Helpers;
-using InstaConnect.Follows.Domain.Features.Follows.Models.Requests;
-using InstaConnect.Follows.Domain.Tests.Features.Follows.Assertions;
-using InstaConnect.Follows.Domain.Tests.Features.Follows.Builders;
-using InstaConnect.Follows.Domain.Tests.Features.Follows.Utilities;
-using InstaConnect.Follows.Domain.Tests.Unit.Features.Follows.Utilities;
-
 namespace InstaConnect.Follows.Domain.Tests.Unit.Features.Follows.Services;
 
 public class DeleteFollowCommandServiceUnitTests : BaseFollowDomainCommandUnitTest
@@ -31,7 +24,7 @@ public class DeleteFollowCommandServiceUnitTests : BaseFollowDomainCommandUnitTe
 	}
 
 	[Fact]
-	public async Task DeleteAsync_ShouldThrowFollowNotFoundException_WhenIdIsInvalid()
+	public async Task DeleteAsync_ShouldThrowFollowNotFoundException_WhenFollowNotFound()
 	{
 		// Arrange
 		Repository.RemoveGetByIdAsync(_command, _include, Follow, CancellationToken);

@@ -8,9 +8,16 @@
     <PackageReference Include="Scrutor" />
   </ItemGroup>
 
-
   <ItemGroup>
     <ProjectReference Include="..\InstaConnect.Common.Events\InstaConnect.Common.Events.csproj" />
+  </ItemGroup>
+
+  <ItemGroup Label="Common">
+    <Using Include="FluentValidation" />
+    <Using Include="InstaConnect.Common.Domain.Features.Common.Abstractions" />
+    <Using Include="InstaConnect.Common.Domain.Features.Common.Extensions" />
+    <Using Include="InstaConnect.Common.Domain.Features.Exceptions.Models" />
+    <Using Include="InstaConnect.Common.Domain.Features.ValueObjects.Abstractions" />
   </ItemGroup>
 
 </Project>

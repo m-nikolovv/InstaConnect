@@ -1,7 +1,4 @@
 using InstaConnect.Posts.Domain.Features.Posts.Abstractions;
-using InstaConnect.Posts.Domain.Features.Posts.Models.ValueObjects;
-
-using Microsoft.Extensions.DependencyInjection;
 
 namespace InstaConnect.Posts.Tests.Features.Posts.Utilities;
 
@@ -46,9 +43,9 @@ public static class PostSetups
 			PostId id,
 			CancellationToken cancellationToken)
 		{
-			var include = serviceScope.GetPostIncludeBuilderFactory().Create().WithUser().Build();
+			var include = serviceScope.GetPostIncludeBuilderFactory().Create().WithUser().WithPostImages().Build();
 
-			return (await serviceScope.GetPostCommandRepository().GetByIdAsync(id, include, cancellationToken)).SetUser();
+			return (await serviceScope.GetPostCommandRepository().GetByIdAsync(id, include, cancellationToken)).SetUser().SetPostImages();
 		}
 
 		public async Task AddAsync(

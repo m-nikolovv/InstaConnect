@@ -1,3 +1,5 @@
+using InstaConnect.Posts.Application.Features.PostComments.Commands.Delete;
+
 namespace InstaConnect.Posts.Application.Tests.Unit.Features.PostComments.Handlers.Delete;
 
 public class DeletePostCommentCommandRequestValidatorUnitTests : BasePostCommentApplicationCommandUnitTest
@@ -72,7 +74,7 @@ public class DeletePostCommentCommandRequestValidatorUnitTests : BasePostComment
 	}
 
 	[Fact]
-	public void TestValidate_ShouldNotHaveAnyValidationsErrors_WhenRequestIsValid()
+	public void TestValidate_ShouldNotHaveAnyValidationErrors_WhenRequestIsValid()
 	{
 		// Act
 		var response = _requestValidator.TestValidate(_request);

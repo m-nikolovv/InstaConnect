@@ -1,9 +1,3 @@
-using InstaConnect.Common.Domain.Features.Common.Extensions;
-using InstaConnect.Identity.Domain.Features.EmailConfirmationTokens.Models.ValueObjects;
-using InstaConnect.Identity.Domain.Features.Users.Models.ValueObjects;
-using InstaConnect.Identity.Tests.Features.EmailConfirmationTokens.Utilities;
-using InstaConnect.Identity.Tests.Features.Users.Utilities;
-
 namespace InstaConnect.Identity.Tests.Features.EmailConfirmationTokens.Utilities;
 
 public static class EmailConfirmationTokenEquals
@@ -15,6 +9,18 @@ public static class EmailConfirmationTokenEquals
 			return entity.Id.Matches(e.Id) &&
 				   entity.ExpiresAtUtc == e.ExpiresAtUtc &&
 				   entity.CreatedAtUtc == e.CreatedAtUtc;
+		}
+	}
+
+	extension(ICollection<EmailConfirmationToken> entities)
+	{
+		public bool Matches(ICollection<EmailConfirmationToken> emailConfirmationTokens)
+		{
+			return entities.MatchesCollection(
+				emailConfirmationTokens,
+				e => e.Id,
+				e => e.Id,
+				(entity, emailConfirmationToken) => entity.Matches(emailConfirmationToken));
 		}
 	}
 

@@ -1,5 +1,3 @@
-using Mapster;
-
 namespace InstaConnect.Posts.Infrastructure.Features.PostCommentLikes.Mappings;
 
 internal class PostCommentLikeInfrastructureMappings : IRegister

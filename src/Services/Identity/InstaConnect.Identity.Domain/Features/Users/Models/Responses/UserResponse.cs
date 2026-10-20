@@ -6,7 +6,7 @@ public record UserResponse(
 	string LastName,
 	Email Email,
 	Name Name,
-	Image? ProfileImage,
+	Url? ProfileImageUrl,
 	DateTimeOffset CreatedAtUtc,
 	DateTimeOffset UpdatedAtUtc) : IEntityResponse;
 

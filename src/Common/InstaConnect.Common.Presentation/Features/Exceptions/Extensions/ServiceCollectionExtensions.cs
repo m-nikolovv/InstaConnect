@@ -1,9 +1,6 @@
 using InstaConnect.Common.Domain.Features.Common.Extensions;
 using InstaConnect.Common.Presentation.Features.Common.Extensions;
-using InstaConnect.Common.Presentation.Features.Exceptions.Abstractions;
 using InstaConnect.Common.Presentation.Features.Exceptions.Helpers;
-
-using Microsoft.Extensions.DependencyInjection;
 
 namespace InstaConnect.Common.Presentation.Features.Exceptions.Extensions;
 

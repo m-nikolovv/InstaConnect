@@ -1,7 +1,9 @@
-using InstaConnect.Common.Domain.Features.Requests.Models;
-using InstaConnect.Common.Tests.Features.DataAttributes.Enums.Sort;
-
+using InstaConnect.Posts.Domain.Features.PostCommentLikes.Models.Entities;
 using InstaConnect.Posts.Domain.Features.PostCommentLikes.Models.Requests;
+using InstaConnect.Posts.Tests.Features.PostCommentLikes.DataAttributes.Page;
+using InstaConnect.Posts.Tests.Features.PostCommentLikes.DataAttributes.PageSize;
+using InstaConnect.Posts.Tests.Features.PostCommentLikes.DataAttributes.SortOrder;
+using InstaConnect.Posts.Tests.Features.PostCommentLikes.DataAttributes.SortTerm.ForUser;
 
 namespace InstaConnect.Posts.Presentation.Tests.Integration.Features.PostCommentLikes.Controllers;
 
@@ -108,7 +110,7 @@ public class GetAllPostCommentLikesForUserControllerIntegrationTests : BasePostC
 	}
 
 	[Fact]
-	public async Task GetAllAsync_ShouldThrowUserNotFoundException_WhenUserIdIsInvalid()
+	public async Task GetAllAsync_ShouldThrowUserNotFoundException_WhenUserNotFound()
 	{
 		// Arrange
 		await ServiceScope.DeleteAsync(User, CancellationToken);

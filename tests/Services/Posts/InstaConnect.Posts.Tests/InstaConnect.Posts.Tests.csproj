@@ -8,61 +8,70 @@
   </ItemGroup>
 
   <ItemGroup Label="Common">
-    <Using Include="InstaConnect.Common.Tests.Features.Abstractions" />
-    <Using Include="InstaConnect.Common.Tests.Features.Helpers" />
+    <Using Include="InstaConnect.Common.Domain.Features.Common.Extensions" />
     <Using Include="InstaConnect.Common.Tests.Features.Assertions" />
-    <Using Include="InstaConnect.Common.Tests.Features.Utilities" />
-    <Using Include="InstaConnect.Common.Tests.Features.DataAttributes.DateTimeOffsets.Base" />
-    <Using Include="InstaConnect.Common.Tests.Features.DataAttributes.DateTimeOffsets.Empty" />
-    <Using Include="InstaConnect.Common.Tests.Features.DataAttributes.Ints.Base" />
-    <Using Include="InstaConnect.Common.Tests.Features.DataAttributes.Ints.Empty" />
-    <Using Include="InstaConnect.Common.Tests.Features.DataAttributes.Ints.TooSmall" />
+    <Using Include="InstaConnect.Common.Tests.Features.DataAttributes.Base" />
     <Using Include="InstaConnect.Common.Tests.Features.DataAttributes.Ints.TooLarge" />
+    <Using Include="InstaConnect.Common.Tests.Features.DataAttributes.Ints.TooSmall" />
     <Using Include="InstaConnect.Common.Tests.Features.DataAttributes.Strings.Base" />
     <Using Include="InstaConnect.Common.Tests.Features.DataAttributes.Strings.DifferentCase" />
-    <Using Include="InstaConnect.Common.Tests.Features.DataAttributes.Strings.Empty" />
-    <Using Include="InstaConnect.Common.Tests.Features.DataAttributes.Strings.TooShort" />
-    <Using Include="InstaConnect.Common.Tests.Features.DataAttributes.Strings.TooLong" />
-    <Using Include="InstaConnect.Common.Tests.Features.DataAttributes.Strings.Null" />
-    <Using Include="InstaConnect.Common.Tests.Features.DataAttributes.Strings.InvalidEmail" />
-    <Using Include="InstaConnect.Common.Tests.Features.DataAttributes.Enums.Base" />
-    <Using Include="InstaConnect.Common.Tests.Features.DataAttributes.Enums.Empty" />
-    <Using Include="InstaConnect.Common.Tests.Features.DataAttributes.Enums.Sort" />
+    <Using Include="InstaConnect.Posts.Tests.Features.Common.Utilities" />
+    <Using Include="Xunit" />
   </ItemGroup>
 
   <ItemGroup Label="Users">
-    <Using Include="InstaConnect.Posts.Domain.Features.Users.Utilities" />
     <Using Include="InstaConnect.Posts.Domain.Features.Users.Models.Entities" />
-    <Using Include="InstaConnect.Posts.Domain.Features.Users.Models.Requests" />
+    <Using Include="InstaConnect.Posts.Domain.Features.Users.Models.ValueObjects" />
+    <Using Include="InstaConnect.Posts.Domain.Features.Users.Utilities" />
+    <Using Include="InstaConnect.Posts.Tests.Features.Users.Assertions" />
     <Using Include="InstaConnect.Posts.Tests.Features.Users.Builders" />
+    <Using Include="InstaConnect.Posts.Tests.Features.Users.Utilities" />
   </ItemGroup>
 
   <ItemGroup Label="Posts">
-    <Using Include="InstaConnect.Posts.Domain.Features.Posts.Utilities" />
     <Using Include="InstaConnect.Posts.Domain.Features.Posts.Models.Entities" />
     <Using Include="InstaConnect.Posts.Domain.Features.Posts.Models.Requests" />
+    <Using Include="InstaConnect.Posts.Domain.Features.Posts.Models.ValueObjects" />
+    <Using Include="InstaConnect.Posts.Domain.Features.Posts.Utilities" />
     <Using Include="InstaConnect.Posts.Tests.Features.Posts.Builders" />
+    <Using Include="InstaConnect.Posts.Tests.Features.Posts.Utilities" />
   </ItemGroup>
 
   <ItemGroup Label="PostLikes">
-    <Using Include="InstaConnect.Posts.Domain.Features.PostLikes.Utilities" />
     <Using Include="InstaConnect.Posts.Domain.Features.PostLikes.Models.Entities" />
     <Using Include="InstaConnect.Posts.Domain.Features.PostLikes.Models.Requests" />
-    <Using Include="InstaConnect.Posts.Tests.Features.PostLikes.Builders" />
+    <Using Include="InstaConnect.Posts.Domain.Features.PostLikes.Models.ValueObjects" />
+    <Using Include="InstaConnect.Posts.Domain.Features.PostLikes.Utilities" />
+    <Using Include="InstaConnect.Posts.Tests.Features.PostLikes.Utilities" />
   </ItemGroup>
 
   <ItemGroup Label="PostComments">
-    <Using Include="InstaConnect.Posts.Domain.Features.PostComments.Utilities" />
     <Using Include="InstaConnect.Posts.Domain.Features.PostComments.Models.Entities" />
     <Using Include="InstaConnect.Posts.Domain.Features.PostComments.Models.Requests" />
-    <Using Include="InstaConnect.Posts.Tests.Features.PostComments.Builders" />
+    <Using Include="InstaConnect.Posts.Domain.Features.PostComments.Models.ValueObjects" />
+    <Using Include="InstaConnect.Posts.Domain.Features.PostComments.Utilities" />
+    <Using Include="InstaConnect.Posts.Tests.Features.PostComments.Utilities" />
+  </ItemGroup>
+
+  <ItemGroup Label="PostImages">
+    <Using Include="InstaConnect.Posts.Domain.Features.PostImages.Models.Entities" />
+    <Using Include="InstaConnect.Posts.Domain.Features.PostImages.Models.ValueObjects" />
+    <Using Include="InstaConnect.Posts.Tests.Features.PostImages.Builders" />
+    <Using Include="InstaConnect.Posts.Tests.Features.PostImages.Utilities" />
+  </ItemGroup>
+
+  <ItemGroup Label="PostCommentImages">
+    <Using Include="InstaConnect.Posts.Domain.Features.PostCommentImages.Models.Entities" />
+    <Using Include="InstaConnect.Posts.Domain.Features.PostCommentImages.Models.ValueObjects" />
+    <Using Include="InstaConnect.Posts.Tests.Features.PostCommentImages.Utilities" />
   </ItemGroup>
 
   <ItemGroup Label="PostCommentLikes">
-    <Using Include="InstaConnect.Posts.Domain.Features.PostCommentLikes.Utilities" />
     <Using Include="InstaConnect.Posts.Domain.Features.PostCommentLikes.Models.Entities" />
     <Using Include="InstaConnect.Posts.Domain.Features.PostCommentLikes.Models.Requests" />
-    <Using Include="InstaConnect.Posts.Tests.Features.PostCommentLikes.Builders" />
+    <Using Include="InstaConnect.Posts.Domain.Features.PostCommentLikes.Models.ValueObjects" />
+    <Using Include="InstaConnect.Posts.Domain.Features.PostCommentLikes.Utilities" />
+    <Using Include="InstaConnect.Posts.Tests.Features.PostCommentLikes.Utilities" />
   </ItemGroup>
 
 </Project>

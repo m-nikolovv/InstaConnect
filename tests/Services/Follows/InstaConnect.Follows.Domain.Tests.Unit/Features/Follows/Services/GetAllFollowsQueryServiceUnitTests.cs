@@ -1,10 +1,3 @@
-using InstaConnect.Follows.Domain.Features.Follows.Helpers;
-using InstaConnect.Follows.Domain.Features.Follows.Models.Requests;
-using InstaConnect.Follows.Domain.Tests.Features.Follows.Assertions;
-using InstaConnect.Follows.Domain.Tests.Features.Follows.Builders;
-using InstaConnect.Follows.Domain.Tests.Features.Follows.Utilities;
-using InstaConnect.Follows.Domain.Tests.Unit.Features.Follows.Utilities;
-
 namespace InstaConnect.Follows.Domain.Tests.Unit.Features.Follows.Services;
 
 public class GetAllFollowsQueryServiceUnitTests : BaseFollowDomainQueryUnitTest
@@ -29,7 +22,7 @@ public class GetAllFollowsQueryServiceUnitTests : BaseFollowDomainQueryUnitTest
 	}
 
 	[Fact]
-	public async Task GetAllAsync_ShouldThrowUserNotFoundException_WhenFollowerIdIsInvalid()
+	public async Task GetAllAsync_ShouldThrowFollowerNotFoundException_WhenFollowerNotFound()
 	{
 		// Arrange
 		UserRepository.RemoveGetByIdAsync(_query, Follower, CancellationToken);

@@ -1,3 +1,5 @@
+using InstaConnect.Chats.Application.Features.Chats.Queries.GetById;
+
 namespace InstaConnect.Chats.Application.Tests.Unit.Features.Chats.Handlers.GetById;
 
 public class GetChatByIdQueryRequestValidatorUnitTests : BaseChatApplicationQueryUnitTest
@@ -54,7 +56,7 @@ public class GetChatByIdQueryRequestValidatorUnitTests : BaseChatApplicationQuer
 	}
 
 	[Fact]
-	public void TestValidate_ShouldNotHaveAnyValidationsErrors_WhenRequestIsValid()
+	public void TestValidate_ShouldNotHaveAnyValidationErrors_WhenRequestIsValid()
 	{
 		// Act
 		var response = _requestValidator.TestValidate(_request);

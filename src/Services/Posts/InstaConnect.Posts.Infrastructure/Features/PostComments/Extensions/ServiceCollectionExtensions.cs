@@ -1,7 +1,3 @@
-using InstaConnect.Posts.Infrastructure.Features.Common.Extensions;
-
-using MongoDB.Bson.Serialization;
-
 namespace InstaConnect.Posts.Infrastructure.Features.PostComments.Extensions;
 
 internal static class ServiceCollectionExtensions
@@ -25,16 +21,19 @@ internal static class ServiceCollectionExtensions
 				cm.MapMember(c => c.Id);
 				cm.MapMember(c => c.UserId);
 				cm.MapMember(c => c.Content);
+				cm.MapMember(c => c.Summary);
 				cm.MapMember(c => c.CreatedAtUtc);
 				cm.MapMember(c => c.UpdatedAtUtc);
 
 				cm.MapMemberWithoutSerialization(c => c.User);
 				cm.MapMemberWithoutSerialization(c => c.Post);
 				cm.MapMemberWithoutSerialization(c => c.PostCommentLikes);
+				cm.MapMemberWithoutSerialization(c => c.PostCommentImages);
 
 				cm.MapCreator(c => new PostComment(
 					c.Id,
 					c.Content,
+					c.Summary,
 					c.UserId,
 					c.CreatedAtUtc,
 					c.UpdatedAtUtc));

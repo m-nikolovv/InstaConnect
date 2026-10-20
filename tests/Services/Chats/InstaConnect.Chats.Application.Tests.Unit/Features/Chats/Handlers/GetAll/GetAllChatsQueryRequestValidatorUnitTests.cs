@@ -1,5 +1,13 @@
+using InstaConnect.Chats.Application.Features.Chats.Queries.GetAll;
 using InstaConnect.Chats.Domain.Features.Chats.Models.Requests;
+using InstaConnect.Chats.Tests.Features.Chats.DataAttributes.Page;
+using InstaConnect.Chats.Tests.Features.Chats.DataAttributes.PageSize;
+using InstaConnect.Chats.Tests.Features.Chats.DataAttributes.SortOrder;
+using InstaConnect.Chats.Tests.Features.Chats.DataAttributes.SortTerm;
+using InstaConnect.Chats.Tests.Features.Users.DataAttributes.Name;
 using InstaConnect.Common.Domain.Features.Requests.Models;
+using InstaConnect.Common.Tests.Features.DataAttributes.Enums.Base;
+using InstaConnect.Common.Tests.Features.DataAttributes.Ints.Base;
 
 namespace InstaConnect.Chats.Application.Tests.Unit.Features.Chats.Handlers.GetAll;
 
@@ -118,7 +126,7 @@ public class GetAllChatsQueryRequestValidatorUnitTests : BaseChatApplicationQuer
 	[Theory]
 	[UserNameEmptyData]
 	[UserNameNullData]
-	public void TestValidate_ShouldNotHaveAnyValidationsErrors_WhenParticipantTwoNameIsValid(
+	public void TestValidate_ShouldNotHaveAnyValidationErrors_WhenParticipantTwoNameIsValid(
 		IStringTransformer transformer)
 	{
 		// Arrange
@@ -132,7 +140,7 @@ public class GetAllChatsQueryRequestValidatorUnitTests : BaseChatApplicationQuer
 	}
 
 	[Fact]
-	public void TestValidate_ShouldNotHaveAnyValidationsErrors_WhenRequestIsValid()
+	public void TestValidate_ShouldNotHaveAnyValidationErrors_WhenRequestIsValid()
 	{
 		// Act
 		var response = _requestValidator.TestValidate(_request);

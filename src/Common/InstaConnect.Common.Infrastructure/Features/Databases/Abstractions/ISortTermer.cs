@@ -1,5 +1,3 @@
-using System.Linq.Expressions;
-
 namespace InstaConnect.Common.Infrastructure.Features.Databases.Abstractions;
 
 public interface ISortTermer<TSortTerm, TEntity>

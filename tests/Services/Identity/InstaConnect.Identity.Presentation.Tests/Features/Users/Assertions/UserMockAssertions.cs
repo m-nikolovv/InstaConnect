@@ -1,7 +1,3 @@
-using InstaConnect.Common.Application.Features.Requests.Abstractions;
-using InstaConnect.Common.Application.Tests.Features.Assertions;
-using InstaConnect.Identity.Presentation.Tests.Features.Users.Utilities;
-
 namespace InstaConnect.Identity.Presentation.Tests.Features.Users.Assertions;
 
 public static class UserMockAssertions

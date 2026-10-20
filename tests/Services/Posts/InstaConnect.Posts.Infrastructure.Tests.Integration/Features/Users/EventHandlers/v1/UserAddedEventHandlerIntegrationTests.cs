@@ -1,4 +1,15 @@
 using InstaConnect.Common.Infrastructure.Tests.Features.Utilities;
+using InstaConnect.Common.Tests.Features.DataAttributes.DateTimeOffsets.Base;
+using InstaConnect.Identity.Events.Features.Users;
+using InstaConnect.Posts.Infrastructure.Features.Users.EventHandlers;
+using InstaConnect.Posts.Infrastructure.Tests.Features.Users.Builders;
+using InstaConnect.Posts.Infrastructure.Tests.Features.Users.Utilities;
+using InstaConnect.Posts.Tests.Features.Users.DataAttributes.CreatedAtUtc;
+using InstaConnect.Posts.Tests.Features.Users.DataAttributes.Email;
+using InstaConnect.Posts.Tests.Features.Users.DataAttributes.FirstName;
+using InstaConnect.Posts.Tests.Features.Users.DataAttributes.LastName;
+using InstaConnect.Posts.Tests.Features.Users.DataAttributes.ProfileImage;
+using InstaConnect.Posts.Tests.Features.Users.DataAttributes.UpdatedAtUtc;
 
 namespace InstaConnect.Posts.Infrastructure.Tests.Integration.Features.Users.EventHandlers.v1;
 
@@ -133,7 +144,7 @@ public class UserAddedEventHandlerIntegrationTests : BaseUserInfrastructureEvent
 	}
 
 	[Fact]
-	public async Task Consume_ShouldThrowUserAlreadyExistsException_WhenIdAlreadyExists()
+	public async Task Consume_ShouldThrowUserAlreadyExistsException_WhenUserAlreadyExists()
 	{
 		// Arrange
 		var newUser = UserBuilderFactory.Create().Build();
@@ -146,7 +157,7 @@ public class UserAddedEventHandlerIntegrationTests : BaseUserInfrastructureEvent
 
 	[Theory]
 	[UserIdDifferentCaseData]
-	public async Task Consume_ShouldThrowUserAlreadyExistsException_WhenIdIsInvalidAndAlreadyExists(
+	public async Task Consume_ShouldThrowUserAlreadyExistsException_WhenUserAlreadyExistsAndIdIsInvalid(
 		IStringTransformer transformer)
 	{
 		// Arrange
@@ -159,7 +170,7 @@ public class UserAddedEventHandlerIntegrationTests : BaseUserInfrastructureEvent
 	}
 
 	[Fact]
-	public async Task Consume_ShouldThrowUserEmailAlreadyExistsException_WhenEmailAlreadyExists()
+	public async Task Consume_ShouldThrowUserEmailAlreadyExistsException_WhenUserEmailAlreadyExists()
 	{
 		// Arrange
 		var newUser = UserBuilderFactory.Create().Build();
@@ -172,7 +183,7 @@ public class UserAddedEventHandlerIntegrationTests : BaseUserInfrastructureEvent
 
 	[Theory]
 	[UserEmailDifferentCaseData]
-	public async Task Consume_ShouldThrowUserEmailAlreadyExistsException_WhenEmailIsInvalidAndAlreadyExists(
+	public async Task Consume_ShouldThrowUserEmailAlreadyExistsException_WhenUserEmailAlreadyExistsAndEmailIsInvalid(
 		IStringTransformer transformer)
 	{
 		// Arrange
@@ -185,7 +196,7 @@ public class UserAddedEventHandlerIntegrationTests : BaseUserInfrastructureEvent
 	}
 
 	[Fact]
-	public async Task Consume_ShouldThrowUserNameAlreadyExistsException_WhenNameAlreadyExists()
+	public async Task Consume_ShouldThrowUserNameAlreadyExistsException_WhenUserNameAlreadyExists()
 	{
 		// Arrange
 		var newUser = UserBuilderFactory.Create().Build();
@@ -198,7 +209,7 @@ public class UserAddedEventHandlerIntegrationTests : BaseUserInfrastructureEvent
 
 	[Theory]
 	[UserNameDifferentCaseData]
-	public async Task Consume_ShouldThrowUserNameAlreadyExistsException_WhenNameIsInvalidAndAlreadyExists(
+	public async Task Consume_ShouldThrowUserNameAlreadyExistsException_WhenUserNameAlreadyExistsAndNameIsInvalid(
 		IStringTransformer transformer)
 	{
 		// Arrange
@@ -215,7 +226,7 @@ public class UserAddedEventHandlerIntegrationTests : BaseUserInfrastructureEvent
 	{
 		// Act
 		await _handler.Consume(_request, CancellationToken);
-		var user = await ServiceScope.GetByIdAsync(User.Id, CancellationToken);
+		var user = await ServiceScope.GetByIdAsync(UserId, CancellationToken);
 
 		// Assert
 		user.ShouldSatisfy(_request);
@@ -224,7 +235,7 @@ public class UserAddedEventHandlerIntegrationTests : BaseUserInfrastructureEvent
 	[Theory]
 	[UserProfileImageNullData]
 	[UserProfileImageEmptyData]
-	public async Task Consume_ShouldAddUser_WhenProfileImageIsValid(
+	public async Task Consume_ShouldAddUser_WhenRequestAndProfileImageAreValid(
 		IStringTransformer transformer)
 	{
 		// Arrange
@@ -232,7 +243,7 @@ public class UserAddedEventHandlerIntegrationTests : BaseUserInfrastructureEvent
 
 		// Act
 		await _handler.Consume(request, CancellationToken);
-		var user = await ServiceScope.GetByIdAsync(User.Id, CancellationToken);
+		var user = await ServiceScope.GetByIdAsync(UserId, CancellationToken);
 
 		// Assert
 		user.ShouldSatisfy(request);

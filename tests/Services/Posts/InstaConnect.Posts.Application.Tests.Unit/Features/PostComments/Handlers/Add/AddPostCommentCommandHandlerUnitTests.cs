@@ -1,3 +1,6 @@
+using InstaConnect.Posts.Application.Features.PostComments.Commands.Add;
+using InstaConnect.Posts.Domain.Features.PostComments.Models.Entities;
+
 namespace InstaConnect.Posts.Application.Tests.Unit.Features.PostComments.Handlers.Add;
 
 public class AddPostCommentCommandHandlerUnitTests : BasePostCommentApplicationCommandUnitTest
@@ -11,7 +14,7 @@ public class AddPostCommentCommandHandlerUnitTests : BasePostCommentApplicationC
 	public AddPostCommentCommandHandlerUnitTests()
 	{
 		_requestBuilderFactory = new();
-		_requestBuilder = _requestBuilderFactory.Create(Post, User);
+		_requestBuilder = _requestBuilderFactory.Create(Post, User, PostComment.PostCommentImages.Count);
 		_request = _requestBuilder.Build();
 
 		_handler = new(Mapper, CommentService);
@@ -30,7 +33,7 @@ public class AddPostCommentCommandHandlerUnitTests : BasePostCommentApplicationC
 	}
 
 	[Fact]
-	public async Task Handle_ShouldCallCommentServiceAddAsync_WhenRequestIsValid()
+	public async Task Handle_ShouldCallTheCommentServiceAddAsync_WhenRequestIsValid()
 	{
 		// Act
 		await _handler.Handle(_request, CancellationToken);

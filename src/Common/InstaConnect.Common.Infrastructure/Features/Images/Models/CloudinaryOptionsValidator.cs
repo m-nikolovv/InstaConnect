@@ -1,7 +1,3 @@
-using FluentValidation;
-
-using InstaConnect.Common.Domain.Features.Validations.Extensions;
-
 namespace InstaConnect.Common.Infrastructure.Features.Images.Models;
 
 public class CloudinaryOptionsValidator : AbstractValidator<CloudinaryOptions>

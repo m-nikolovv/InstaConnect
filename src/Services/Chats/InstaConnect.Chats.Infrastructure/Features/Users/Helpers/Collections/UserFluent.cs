@@ -1,10 +1,3 @@
-using InstaConnect.Chats.Domain.Features.Users.Models.Responses;
-using InstaConnect.Chats.Infrastructure.Features.Users.Extensions;
-using InstaConnect.Common.Domain.Features.ValueObjects.Models;
-using InstaConnect.Common.Infrastructure.Features.Databases.Helpers;
-
-using MongoDB.Driver;
-
 namespace InstaConnect.Chats.Infrastructure.Features.Users.Helpers.Collections;
 
 internal class UserFluent : MongoDbFluent<User>, IUserFluent
@@ -58,7 +51,7 @@ internal class UserFluent : MongoDbFluent<User>, IUserFluent
 						 u.LastName,
 						 u.Email,
 						 u.Name,
-						 u.ProfileImage,
+						 u.ProfileImageUrl,
 						 u.CreatedAtUtc,
 						 u.UpdatedAtUtc));
 		var fluent = Project(projection);

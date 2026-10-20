@@ -1,5 +1,4 @@
 using InstaConnect.Identity.Tests.Features.Users.Assertions;
-using InstaConnect.Identity.Tests.Features.Users.Utilities;
 
 namespace InstaConnect.Identity.Tests.Features.Users.Assertions;
 

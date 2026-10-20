@@ -5,6 +5,7 @@ using FluentAssertions;
 
 using InstaConnect.Common.Presentation.Tests.Features.Extensions;
 using InstaConnect.Common.Presentation.Tests.Features.Utilities;
+using InstaConnect.Common.Tests.Features.Assertions;
 
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;

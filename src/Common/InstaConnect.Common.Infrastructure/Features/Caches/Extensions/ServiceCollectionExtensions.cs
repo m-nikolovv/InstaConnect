@@ -4,9 +4,6 @@ using InstaConnect.Common.Infrastructure.Features.Caches.Abstractions;
 using InstaConnect.Common.Infrastructure.Features.Caches.Helpers;
 using InstaConnect.Common.Infrastructure.Features.Caches.Models;
 
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
-
 namespace InstaConnect.Common.Infrastructure.Features.Caches.Extensions;
 
 public static class ServiceCollectionExtensions

@@ -1,5 +1,5 @@
-using InstaConnect.Common.Domain.Features.Mappers.Abstractions;
-using InstaConnect.Identity.Application.Features.Common.Extensions;
+using InstaConnect.Identity.Domain.Features.EmailConfirmationTokens.Abstractions;
+using InstaConnect.Identity.Tests.Features.EmailConfirmationTokens.Utilities;
 
 namespace InstaConnect.Identity.Application.Tests.Unit.Features.EmailConfirmationTokens.Utilities;
 

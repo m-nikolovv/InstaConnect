@@ -1,86 +1,70 @@
-using InstaConnect.Identity.Domain.Features.Users.Models.Requests;
-using InstaConnect.Identity.Domain.Features.Users.Models.ValueObjects;
-using InstaConnect.Identity.Infrastructure.Features.Users.Helpers.Repositories;
-using InstaConnect.Identity.Infrastructure.Tests.Features.Users.Assertions;
-using InstaConnect.Identity.Infrastructure.Tests.Features.Users.Utilities;
-using InstaConnect.Identity.Infrastructure.Tests.Unit.Features.Users.Utilities;
-using InstaConnect.Identity.Tests.Features.Users.Builders;
-
 namespace InstaConnect.Identity.Infrastructure.Tests.Unit.Features.Users.Repositories;
 
 public class GetUserByIdCommandRepositoryUnitTests : BaseUserInfrastructureCommandUnitTest
 {
-	private readonly UserIdBuilderFactory _idBuilderFactory;
-	private readonly UserIdBuilder _idBuilder;
-	private readonly UserId _id;
-
 	private readonly UserInclude _include;
 
 	private readonly UserCommandRepository _repository;
 
 	public GetUserByIdCommandRepositoryUnitTests()
 	{
-		_idBuilderFactory = new();
-		_idBuilder = _idBuilderFactory.Create(User.Id);
-		_id = _idBuilder.Build();
-
 		_include = IncludeBuilderFactory.Create().WithUserClaims().WithRefreshTokens().WithForgotPasswordTokens().WithEmailConfirmationTokens().Build();
 
 		_repository = new(Collection, IncludeBuilderFactory);
 
-		Collection.SetupAggregateFluent(_id, Fluent);
-		Fluent.SetupApplyIncludes(_id, _include);
-		Fluent.SetupMatch(_id);
-		Fluent.SetupFirstOrDefaultAsync(_id, User, CancellationToken);
+		Collection.SetupAggregateFluent(UserId, Fluent);
+		Fluent.SetupApplyIncludes(UserId, _include);
+		Fluent.SetupMatch(UserId);
+		Fluent.SetupFirstOrDefaultAsync(UserId, User, CancellationToken);
 	}
 
 	[Fact]
-	public async Task GetByIdAsync_ShouldReturnResponse_WhenRequestIsValid()
+	public async Task GetByIdAsync_ShouldReturnResponse_WhenCommandIsValid()
 	{
 		// Act
-		var response = await _repository.GetByIdAsync(_id, _include, CancellationToken);
+		var response = await _repository.GetByIdAsync(UserId, _include, CancellationToken);
 
 		// Assert
-		response.ShouldSatisfy(_id, User);
+		response.ShouldSatisfy(UserId, User);
 	}
 
 	[Fact]
-	public async Task GetByIdAsync_ShouldCallTheCollectionAggregateFluent_WhenRequestIsValid()
+	public async Task GetByIdAsync_ShouldCallTheCollectionAggregateFluent_WhenCommandIsValid()
 	{
 		// Act
-		await _repository.GetByIdAsync(_id, _include, CancellationToken);
+		await _repository.GetByIdAsync(UserId, _include, CancellationToken);
 
 		// Assert
-		Collection.ShouldHaveReceivedOneAggregateFluent(_id);
+		Collection.ShouldHaveReceivedOneAggregateFluent(UserId);
 	}
 
 	[Fact]
-	public async Task GetByIdAsync_ShouldCallTheFluentApplyIncludes_WhenRequestIsValid()
+	public async Task GetByIdAsync_ShouldCallTheFluentApplyIncludes_WhenCommandIsValid()
 	{
 		// Act
-		await _repository.GetByIdAsync(_id, _include, CancellationToken);
+		await _repository.GetByIdAsync(UserId, _include, CancellationToken);
 
 		// Assert
-		Fluent.ShouldHaveReceivedOneApplyIncludes(_id, _include);
+		Fluent.ShouldHaveReceivedOneApplyIncludes(UserId, _include);
 	}
 
 	[Fact]
-	public async Task GetByIdAsync_ShouldCallTheFluentMatch_WhenRequestIsValid()
+	public async Task GetByIdAsync_ShouldCallTheFluentMatch_WhenCommandIsValid()
 	{
 		// Act
-		await _repository.GetByIdAsync(_id, _include, CancellationToken);
+		await _repository.GetByIdAsync(UserId, _include, CancellationToken);
 
 		// Assert
-		Fluent.ShouldHaveReceivedOneMatch(_id);
+		Fluent.ShouldHaveReceivedOneMatch(UserId);
 	}
 
 	[Fact]
-	public async Task GetByIdAsync_ShouldCallTheFluentFirstOrDefaultAsync_WhenRequestIsValid()
+	public async Task GetByIdAsync_ShouldCallTheFluentFirstOrDefaultAsync_WhenCommandIsValid()
 	{
 		// Act
-		await _repository.GetByIdAsync(_id, _include, CancellationToken);
+		await _repository.GetByIdAsync(UserId, _include, CancellationToken);
 
 		// Assert
-		await Fluent.ShouldHaveReceivedOneFirstOrDefaultAsync(_id, CancellationToken);
+		await Fluent.ShouldHaveReceivedOneFirstOrDefaultAsync(UserId, CancellationToken);
 	}
 }

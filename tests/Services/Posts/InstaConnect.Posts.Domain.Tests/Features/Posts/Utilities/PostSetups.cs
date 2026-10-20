@@ -1,5 +1,3 @@
-using Microsoft.Extensions.DependencyInjection;
-
 namespace InstaConnect.Posts.Domain.Tests.Features.Posts.Utilities;
 
 public static class PostSetups

@@ -1,3 +1,7 @@
+using InstaConnect.Chats.Presentation.Features.ChatMessages.Controllers.v1;
+using InstaConnect.Chats.Tests.Features.ChatMessages.Abstractions;
+using InstaConnect.Chats.Tests.Features.ChatMessages.Extensions;
+
 namespace InstaConnect.Chats.Presentation.Tests.Integration.Features.ChatMessages.Utilities;
 
 public abstract class BaseChatMessagePresentationCommandIntegrationTest : BaseChatMessageWebTest
@@ -9,7 +13,7 @@ public abstract class BaseChatMessagePresentationCommandIntegrationTest : BaseCh
 	protected BaseChatMessagePresentationCommandIntegrationTest(ChatsWebApplicationFactory webApplicationFactory) : base(webApplicationFactory)
 	{
 		Controller = ServiceScope.GetChatMessageController();
-		MessageNotificationClient = webApplicationFactory.CreateMessageNotificationClient(ParticipantTwo.Id);
+		MessageNotificationClient = webApplicationFactory.CreateMessageNotificationClient(ParticipantTwoId);
 	}
 
 	public override async Task InitializeAsync()

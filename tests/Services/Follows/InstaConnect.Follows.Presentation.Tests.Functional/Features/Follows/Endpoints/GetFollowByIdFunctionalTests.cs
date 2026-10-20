@@ -114,7 +114,7 @@ public class GetFollowByIdFunctionalTests : BaseFollowPresentationQueryFunctiona
 	}
 
 	[Fact]
-	public async Task GetByIdAsync_ShouldHaveNotFoundStatusCode_WhenUserIdIsInvalid()
+	public async Task GetByIdAsync_ShouldHaveNotFoundStatusCode_WhenFollowNotFound()
 	{
 		// Arrange
 		await ServiceScope.DeleteAsync(Follow, CancellationToken);
@@ -127,7 +127,7 @@ public class GetFollowByIdFunctionalTests : BaseFollowPresentationQueryFunctiona
 	}
 
 	[Fact]
-	public async Task GetByIdAsync_ShouldHaveFollowNotFoundProblemDetails_WhenUserIdIsInvalid()
+	public async Task GetByIdAsync_ShouldHaveFollowNotFoundProblemDetails_WhenFollowNotFound()
 	{
 		// Arrange
 		await ServiceScope.DeleteAsync(Follow, CancellationToken);
@@ -196,7 +196,7 @@ public class GetFollowByIdFunctionalTests : BaseFollowPresentationQueryFunctiona
 	}
 
 	[Fact]
-	public async Task GetByIdAsync_ShouldHaveResponse_WhenRequestIsValid()
+	public async Task GetByIdAsync_ShouldReturnResponse_WhenRequestIsValid()
 	{
 		// Act
 		var response = await ApiClient.GetByIdAsync(_request, CancellationToken);
@@ -207,7 +207,7 @@ public class GetFollowByIdFunctionalTests : BaseFollowPresentationQueryFunctiona
 
 	[Theory]
 	[UserIdDifferentCaseData]
-	public async Task GetByIdAsync_ShouldHaveResponse_WhenRequestAndFollowerIdAreValid(
+	public async Task GetByIdAsync_ShouldReturnResponse_WhenRequestAndFollowerIdAreValid(
 		IStringTransformer transformer)
 	{
 		// Arrange
@@ -222,7 +222,7 @@ public class GetFollowByIdFunctionalTests : BaseFollowPresentationQueryFunctiona
 
 	[Theory]
 	[UserIdDifferentCaseData]
-	public async Task GetByIdAsync_ShouldHaveResponse_WhenRequestAndFollowingIdAreValid(
+	public async Task GetByIdAsync_ShouldReturnResponse_WhenRequestAndFollowingIdAreValid(
 		IStringTransformer transformer)
 	{
 		// Arrange

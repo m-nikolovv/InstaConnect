@@ -1,9 +1,6 @@
-using InstaConnect.Common.Application.Features.Requests.Abstractions;
-using InstaConnect.Posts.Application.Features.Users.Abstractions;
-using InstaConnect.Posts.Application.Tests.Features.PostComments.Utilities;
-using InstaConnect.Posts.Application.Tests.Features.PostLikes.Utilities;
-using InstaConnect.Posts.Application.Tests.Features.Posts.Utilities;
-using InstaConnect.Posts.Application.Tests.Features.Users.Utilities;
+using InstaConnect.Common.Infrastructure.Features.Databases.Helpers;
+using InstaConnect.Posts.Application.Tests.Features.PostCommentImages.Utilities;
+using InstaConnect.Posts.Domain.Features.PostComments.Models.Responses;
 
 namespace InstaConnect.Posts.Application.Tests.Features.PostComments.Utilities;
 
@@ -18,8 +15,10 @@ public static class PostCommentMapper
 			return new(postComment.Id,
 					   postComment.UserId,
 					   postComment.Content,
+					   postComment.Summary,
 					   postComment.User?.ToFullResponse(),
 					   postComment.Post?.ToFullResponse(request),
+					   postComment.PostCommentImages.ToFullResponse(),
 					   postComment.PostCommentLikes.Any(pl => pl.Id.UserId.Matches(request.CurrentUserId)),
 					   postComment.CreatedAtUtc,
 					   postComment.UpdatedAtUtc);
@@ -32,8 +31,10 @@ public static class PostCommentMapper
 			return new(postComment.Id,
 					   postComment.UserId,
 					   postComment.Content,
+					   postComment.Summary,
 					   null,
 					   postComment.Post?.ToFullResponse(request),
+					   postComment.PostCommentImages.ToFullResponse(),
 					   postComment.PostCommentLikes.Any(pl => pl.Id.UserId.Matches(request.CurrentUserId)),
 					   postComment.CreatedAtUtc,
 					   postComment.UpdatedAtUtc);
@@ -46,8 +47,10 @@ public static class PostCommentMapper
 			return new(postComment.Id,
 					   postComment.UserId,
 					   postComment.Content,
+					   postComment.Summary,
 					   postComment.User?.ToFullResponse(),
 					   null,
+					   postComment.PostCommentImages.ToFullResponse(),
 					   postComment.PostCommentLikes.Any(pl => pl.Id.UserId.Matches(request.CurrentUserId)),
 					   postComment.CreatedAtUtc,
 					   postComment.UpdatedAtUtc);

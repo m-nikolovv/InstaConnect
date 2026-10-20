@@ -1,3 +1,5 @@
+using InstaConnect.Follows.Application.Features.Follows.Queries.GetById;
+
 namespace InstaConnect.Follows.Application.Tests.Integration.Features.Follows.Handlers;
 
 public class GetFollowByIdQueryHandlerIntegrationTests : BaseFollowApplicationQueryIntegrationTest
@@ -65,7 +67,7 @@ public class GetFollowByIdQueryHandlerIntegrationTests : BaseFollowApplicationQu
 	}
 
 	[Fact]
-	public async Task SendAsync_ShouldThrowFollowNotFoundException_WhenIdIsInvalid()
+	public async Task SendAsync_ShouldThrowFollowNotFoundException_WhenFollowNotFound()
 	{
 		// Arrange
 		await ServiceScope.DeleteAsync(Follow, CancellationToken);

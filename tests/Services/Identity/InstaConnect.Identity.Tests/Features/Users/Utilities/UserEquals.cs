@@ -1,7 +1,3 @@
-using InstaConnect.Common.Domain.Features.Common.Extensions;
-using InstaConnect.Identity.Domain.Features.Users.Models.ValueObjects;
-using InstaConnect.Identity.Tests.Features.Users.Utilities;
-
 namespace InstaConnect.Identity.Tests.Features.Users.Utilities;
 
 public static class UserEquals
@@ -15,7 +11,7 @@ public static class UserEquals
 				   entity.Email.Matches(user.Email) &&
 				   entity.FirstName == user.FirstName &&
 				   entity.LastName == user.LastName &&
-				   entity.ProfileImage.Matches(user.ProfileImage) &&
+				   entity.ProfileImageUrl.Matches(user.ProfileImageUrl) &&
 				   entity.PasswordHash == user.PasswordHash &&
 				   entity.CreatedAtUtc == user.CreatedAtUtc &&
 				   entity.UpdatedAtUtc == user.UpdatedAtUtc;

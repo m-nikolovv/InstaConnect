@@ -1,8 +1,5 @@
-using InstaConnect.Common.Domain.Features.Requests.Models;
-using InstaConnect.Common.Presentation.Features.Controllers.Utilities;
-using InstaConnect.Common.Presentation.Features.Requests.Abstractions;
 using InstaConnect.Posts.Domain.Features.Posts.Models.Requests;
-using InstaConnect.Posts.Presentation.Features.Users.Abstractions;
+using InstaConnect.Posts.Presentation.Features.Posts.Utilities;
 
 namespace InstaConnect.Posts.Presentation.Features.Posts.Models.Requests;
 

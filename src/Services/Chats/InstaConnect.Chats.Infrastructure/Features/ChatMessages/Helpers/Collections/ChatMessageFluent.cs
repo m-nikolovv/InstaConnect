@@ -1,8 +1,4 @@
-using InstaConnect.Chats.Domain.Features.Users.Models.Responses;
-using InstaConnect.Chats.Infrastructure.Features.ChatMessages.Extensions;
-using InstaConnect.Common.Infrastructure.Features.Databases.Helpers;
-
-using MongoDB.Driver;
+using InstaConnect.Chats.Domain.Features.ChatMessageImages.Models.Responses;
 
 namespace InstaConnect.Chats.Infrastructure.Features.ChatMessages.Helpers.Collections;
 
@@ -52,6 +48,7 @@ internal class ChatMessageFluent : MongoDbFluent<ChatMessage>, IChatMessageFluen
 								   p.Id.Id.ParticipantOneId.Id.ToLower() == currentUserId ? p.Id.Id.ParticipantTwoId : p.Id.Id.ParticipantOneId),
 						p.Id.MessageId),
 					p.Content,
+					p.Summary,
 					p.SenderId,
 					new ChatResponse(
 						new ChatId(
@@ -63,7 +60,7 @@ internal class ChatMessageFluent : MongoDbFluent<ChatMessage>, IChatMessageFluen
 							p.Id.Id.ParticipantOneId.Id.ToLower() == currentUserId ? p.Chat.ParticipantOne!.LastName : p.Chat.ParticipantTwo!.LastName,
 							p.Id.Id.ParticipantOneId.Id.ToLower() == currentUserId ? p.Chat.ParticipantOne!.Email : p.Chat.ParticipantTwo!.Email,
 							p.Id.Id.ParticipantOneId.Id.ToLower() == currentUserId ? p.Chat.ParticipantOne!.Name : p.Chat.ParticipantTwo!.Name,
-							p.Id.Id.ParticipantOneId.Id.ToLower() == currentUserId ? p.Chat.ParticipantOne!.ProfileImage : p.Chat.ParticipantTwo!.ProfileImage,
+							p.Id.Id.ParticipantOneId.Id.ToLower() == currentUserId ? p.Chat.ParticipantOne!.ProfileImageUrl : p.Chat.ParticipantTwo!.ProfileImageUrl,
 							p.Id.Id.ParticipantOneId.Id.ToLower() == currentUserId ? p.Chat.ParticipantOne!.CreatedAtUtc : p.Chat.ParticipantTwo!.CreatedAtUtc,
 							p.Id.Id.ParticipantOneId.Id.ToLower() == currentUserId ? p.Chat.ParticipantOne!.UpdatedAtUtc : p.Chat.ParticipantTwo!.UpdatedAtUtc),
 						new UserResponse(
@@ -72,7 +69,7 @@ internal class ChatMessageFluent : MongoDbFluent<ChatMessage>, IChatMessageFluen
 							p.Id.Id.ParticipantOneId.Id.ToLower() == currentUserId ? p.Chat.ParticipantTwo!.LastName : p.Chat.ParticipantOne!.LastName,
 							p.Id.Id.ParticipantOneId.Id.ToLower() == currentUserId ? p.Chat.ParticipantTwo!.Email : p.Chat.ParticipantOne!.Email,
 							p.Id.Id.ParticipantOneId.Id.ToLower() == currentUserId ? p.Chat.ParticipantTwo!.Name : p.Chat.ParticipantOne!.Name,
-							p.Id.Id.ParticipantOneId.Id.ToLower() == currentUserId ? p.Chat.ParticipantTwo!.ProfileImage : p.Chat.ParticipantOne!.ProfileImage,
+							p.Id.Id.ParticipantOneId.Id.ToLower() == currentUserId ? p.Chat.ParticipantTwo!.ProfileImageUrl : p.Chat.ParticipantOne!.ProfileImageUrl,
 							p.Id.Id.ParticipantOneId.Id.ToLower() == currentUserId ? p.Chat.ParticipantTwo!.CreatedAtUtc : p.Chat.ParticipantOne!.CreatedAtUtc,
 							p.Id.Id.ParticipantOneId.Id.ToLower() == currentUserId ? p.Chat.ParticipantTwo!.UpdatedAtUtc : p.Chat.ParticipantOne!.UpdatedAtUtc),
 						p.Chat.CreatedAtUtc),
@@ -82,9 +79,20 @@ internal class ChatMessageFluent : MongoDbFluent<ChatMessage>, IChatMessageFluen
 						p.Sender.LastName,
 						p.Sender.Email,
 						p.Sender.Name,
-						p.Sender.ProfileImage,
+						p.Sender.ProfileImageUrl,
 						p.Sender.CreatedAtUtc,
 						p.Sender.UpdatedAtUtc),
+					p.ChatMessageImages.Select(
+						pi => new ChatMessageImageResponse(
+							new ChatMessageImageId(
+								new ChatMessageId(
+									new ChatId(
+										p.Id.Id.ParticipantOneId.Id.ToLower() == currentUserId ? pi.Id.Id.Id.ParticipantOneId : pi.Id.Id.Id.ParticipantTwoId,
+										p.Id.Id.ParticipantOneId.Id.ToLower() == currentUserId ? pi.Id.Id.Id.ParticipantTwoId : pi.Id.Id.Id.ParticipantOneId),
+									pi.Id.Id.MessageId),
+								pi.Id.ImageId),
+							pi.Url,
+							pi.CreatedAtUtc)).ToList(),
 					p.CreatedAtUtc,
 					p.UpdatedAtUtc));
 		var fluent = Project(projection);
@@ -103,6 +111,7 @@ internal class ChatMessageFluent : MongoDbFluent<ChatMessage>, IChatMessageFluen
 								   p.Id.Id.ParticipantOneId.Id.ToLower() == currentUserId ? p.Id.Id.ParticipantTwoId : p.Id.Id.ParticipantOneId),
 						p.Id.MessageId),
 					p.Content,
+					p.Summary,
 					p.SenderId,
 					null,
 					new UserResponse(
@@ -111,9 +120,20 @@ internal class ChatMessageFluent : MongoDbFluent<ChatMessage>, IChatMessageFluen
 						p.Sender.LastName,
 						p.Sender.Email,
 						p.Sender.Name,
-						p.Sender.ProfileImage,
+						p.Sender.ProfileImageUrl,
 						p.Sender.CreatedAtUtc,
 						p.Sender.UpdatedAtUtc),
+					p.ChatMessageImages.Select(
+						pi => new ChatMessageImageResponse(
+							new ChatMessageImageId(
+								new ChatMessageId(
+									new ChatId(
+										p.Id.Id.ParticipantOneId.Id.ToLower() == currentUserId ? pi.Id.Id.Id.ParticipantOneId : pi.Id.Id.Id.ParticipantTwoId,
+										p.Id.Id.ParticipantOneId.Id.ToLower() == currentUserId ? pi.Id.Id.Id.ParticipantTwoId : pi.Id.Id.Id.ParticipantOneId),
+									pi.Id.Id.MessageId),
+								pi.Id.ImageId),
+							pi.Url,
+							pi.CreatedAtUtc)).ToList(),
 					p.CreatedAtUtc,
 					p.UpdatedAtUtc));
 		var fluent = Project(projection);
@@ -132,6 +152,7 @@ internal class ChatMessageFluent : MongoDbFluent<ChatMessage>, IChatMessageFluen
 								   p.Id.Id.ParticipantOneId.Id.ToLower() == currentUserId ? p.Id.Id.ParticipantTwoId : p.Id.Id.ParticipantOneId),
 						p.Id.MessageId),
 					p.Content,
+					p.Summary,
 					p.SenderId,
 					new ChatResponse(
 						new ChatId(
@@ -143,7 +164,7 @@ internal class ChatMessageFluent : MongoDbFluent<ChatMessage>, IChatMessageFluen
 							p.Id.Id.ParticipantOneId.Id.ToLower() == currentUserId ? p.Chat.ParticipantOne!.LastName : p.Chat.ParticipantTwo!.LastName,
 							p.Id.Id.ParticipantOneId.Id.ToLower() == currentUserId ? p.Chat.ParticipantOne!.Email : p.Chat.ParticipantTwo!.Email,
 							p.Id.Id.ParticipantOneId.Id.ToLower() == currentUserId ? p.Chat.ParticipantOne!.Name : p.Chat.ParticipantTwo!.Name,
-							p.Id.Id.ParticipantOneId.Id.ToLower() == currentUserId ? p.Chat.ParticipantOne!.ProfileImage : p.Chat.ParticipantTwo!.ProfileImage,
+							p.Id.Id.ParticipantOneId.Id.ToLower() == currentUserId ? p.Chat.ParticipantOne!.ProfileImageUrl : p.Chat.ParticipantTwo!.ProfileImageUrl,
 							p.Id.Id.ParticipantOneId.Id.ToLower() == currentUserId ? p.Chat.ParticipantOne!.CreatedAtUtc : p.Chat.ParticipantTwo!.CreatedAtUtc,
 							p.Id.Id.ParticipantOneId.Id.ToLower() == currentUserId ? p.Chat.ParticipantOne!.UpdatedAtUtc : p.Chat.ParticipantTwo!.UpdatedAtUtc),
 						new UserResponse(
@@ -152,11 +173,22 @@ internal class ChatMessageFluent : MongoDbFluent<ChatMessage>, IChatMessageFluen
 							p.Id.Id.ParticipantOneId.Id.ToLower() == currentUserId ? p.Chat.ParticipantTwo!.LastName : p.Chat.ParticipantOne!.LastName,
 							p.Id.Id.ParticipantOneId.Id.ToLower() == currentUserId ? p.Chat.ParticipantTwo!.Email : p.Chat.ParticipantOne!.Email,
 							p.Id.Id.ParticipantOneId.Id.ToLower() == currentUserId ? p.Chat.ParticipantTwo!.Name : p.Chat.ParticipantOne!.Name,
-							p.Id.Id.ParticipantOneId.Id.ToLower() == currentUserId ? p.Chat.ParticipantTwo!.ProfileImage : p.Chat.ParticipantOne!.ProfileImage,
+							p.Id.Id.ParticipantOneId.Id.ToLower() == currentUserId ? p.Chat.ParticipantTwo!.ProfileImageUrl : p.Chat.ParticipantOne!.ProfileImageUrl,
 							p.Id.Id.ParticipantOneId.Id.ToLower() == currentUserId ? p.Chat.ParticipantTwo!.CreatedAtUtc : p.Chat.ParticipantOne!.CreatedAtUtc,
 							p.Id.Id.ParticipantOneId.Id.ToLower() == currentUserId ? p.Chat.ParticipantTwo!.UpdatedAtUtc : p.Chat.ParticipantOne!.UpdatedAtUtc),
 						p.CreatedAtUtc),
 					null,
+					p.ChatMessageImages.Select(
+						pi => new ChatMessageImageResponse(
+							new ChatMessageImageId(
+								new ChatMessageId(
+									new ChatId(
+										p.Id.Id.ParticipantOneId.Id.ToLower() == currentUserId ? pi.Id.Id.Id.ParticipantOneId : pi.Id.Id.Id.ParticipantTwoId,
+										p.Id.Id.ParticipantOneId.Id.ToLower() == currentUserId ? pi.Id.Id.Id.ParticipantTwoId : pi.Id.Id.Id.ParticipantOneId),
+									pi.Id.Id.MessageId),
+								pi.Id.ImageId),
+							pi.Url,
+							pi.CreatedAtUtc)).ToList(),
 					p.CreatedAtUtc,
 					p.UpdatedAtUtc));
 		var fluent = Project(projection);

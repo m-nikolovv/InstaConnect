@@ -1,5 +1,3 @@
-using InstaConnect.Identity.Events.Features.EmailConfirmationTokens;
-
 namespace InstaConnect.Identity.Domain.Tests.Features.EmailConfirmationTokens.Utilities;
 
 public static class EmailConfirmationTokenDomainMatcher

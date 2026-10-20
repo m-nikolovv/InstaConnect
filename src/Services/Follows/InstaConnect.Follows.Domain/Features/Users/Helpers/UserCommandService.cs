@@ -1,3 +1,5 @@
+using InstaConnect.Follows.Domain.Features.Users.Exceptions;
+
 namespace InstaConnect.Follows.Domain.Features.Users.Helpers;
 
 internal class UserCommandService : IUserCommandService
@@ -42,7 +44,7 @@ internal class UserCommandService : IUserCommandService
 			command.LastName,
 			command.Name,
 			command.Email,
-			command.ProfileImage,
+			command.ProfileImageUrl,
 			command.CreatedAtUtc,
 			command.UpdatedAtUtc);
 
@@ -79,7 +81,7 @@ internal class UserCommandService : IUserCommandService
 			command.FirstName,
 			command.LastName,
 			command.Name,
-			command.ProfileImage,
+			command.ProfileImageUrl,
 			command.UpdatedAtUtc);
 		await _repository.UpdateAsync(user, cancellationToken);
 

@@ -1,5 +1,3 @@
-using InstaConnect.Common.Events.Features.AccessTokens.Models;
-
 namespace InstaConnect.Identity.Tests.Features.UserClaims.Utilities;
 
 public static class UserClaimDataFaker

@@ -1,4 +1,3 @@
-using InstaConnect.Chats.Domain.Features.Users.Models.Requests;
 using InstaConnect.Common.Domain.Features.ValueObjects.Models;
 using InstaConnect.Common.Infrastructure.Tests.Features.Builders;
 

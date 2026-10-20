@@ -8,6 +8,7 @@ ARG BUILD_CONFIGURATION=Release
 WORKDIR /src
 COPY ["Directory.Packages.props", "."]
 COPY ["Directory.Build.props", "."]
+COPY ["Directory.Build.*.props", "./"]
 COPY ["Directory.Build.targets", "."]
 COPY ["src/Services/Identity/InstaConnect.Identity.Presentation/InstaConnect.Identity.Presentation.csproj", "src/Services/Identity/InstaConnect.Identity.Presentation/"]
 COPY ["src/Common/InstaConnect.Common.Presentation/InstaConnect.Common.Presentation.csproj", "src/Common/InstaConnect.Common.Presentation/"]

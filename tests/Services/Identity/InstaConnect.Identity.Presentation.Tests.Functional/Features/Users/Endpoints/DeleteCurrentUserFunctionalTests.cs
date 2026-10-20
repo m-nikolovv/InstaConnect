@@ -103,7 +103,7 @@ public class DeleteCurrentUserFunctionalTests : BaseUserPresentationCommandFunct
 
 	[Theory]
 	[UserIdDifferentCaseData]
-	public async Task DeleteCurrentAsync_ShouldHaveNoContentStatusCode_WhenRequestAndIdIsValid(
+	public async Task DeleteCurrentAsync_ShouldHaveNoContentStatusCode_WhenRequestAndIdAreValid(
 		IStringTransformer transformer)
 	{
 		// Arrange
@@ -121,7 +121,7 @@ public class DeleteCurrentUserFunctionalTests : BaseUserPresentationCommandFunct
 	{
 		// Act
 		await ApiClient.DeleteCurrentAsync(_request, CancellationToken);
-		var user = await ServiceScope.GetByIdAsync(User.Id, CancellationToken);
+		var user = await ServiceScope.GetByIdAsync(UserId, CancellationToken);
 
 		// Assert
 		user.ShouldBeNull();
@@ -129,7 +129,7 @@ public class DeleteCurrentUserFunctionalTests : BaseUserPresentationCommandFunct
 
 	[Theory]
 	[UserIdDifferentCaseData]
-	public async Task DeleteCurrentAsync_ShouldDeleteUser_WhenIdIsValid(
+	public async Task DeleteCurrentAsync_ShouldDeleteUser_WhenRequestAndIdAreValid(
 		IStringTransformer transformer)
 	{
 		// Arrange
@@ -137,7 +137,7 @@ public class DeleteCurrentUserFunctionalTests : BaseUserPresentationCommandFunct
 
 		// Act
 		await ApiClient.DeleteCurrentAsync(request, CancellationToken);
-		var user = await ServiceScope.GetByIdAsync(User.Id, CancellationToken);
+		var user = await ServiceScope.GetByIdAsync(UserId, CancellationToken);
 
 		// Assert
 		user.ShouldBeNull();
@@ -156,7 +156,7 @@ public class DeleteCurrentUserFunctionalTests : BaseUserPresentationCommandFunct
 
 	[Theory]
 	[UserIdDifferentCaseData]
-	public async Task DeleteCurrentAsync_ShouldPublishUserDeletedEvent_WhenIdIsValid(
+	public async Task DeleteCurrentAsync_ShouldPublishUserDeletedEvent_WhenRequestAndIdAreValid(
 		IStringTransformer transformer)
 	{
 		// Arrange

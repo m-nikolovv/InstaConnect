@@ -1,3 +1,5 @@
+using InstaConnect.Follows.Application.Features.Follows.Commands.Delete;
+
 namespace InstaConnect.Follows.Application.Tests.Unit.Features.Follows.Handlers.Delete;
 
 public class DeleteFollowCommandHandlerUnitTests : BaseFollowApplicationCommandUnitTest
@@ -18,7 +20,7 @@ public class DeleteFollowCommandHandlerUnitTests : BaseFollowApplicationCommandU
 	}
 
 	[Fact]
-	public async Task Handle_ShouldCallLikeServiceDeleteAsync_WhenRequestIsValid()
+	public async Task Handle_ShouldCallTheServiceDeleteAsync_WhenRequestIsValid()
 	{
 		// Act
 		await _handler.Handle(_request, CancellationToken);

@@ -1,10 +1,11 @@
 using InstaConnect.Posts.Application.Features.Posts.Commands.Add;
 using InstaConnect.Posts.Application.Features.Posts.Commands.Update;
+using InstaConnect.Posts.Application.Features.Posts.Models;
 using InstaConnect.Posts.Application.Features.Posts.Queries.GetAll;
 using InstaConnect.Posts.Application.Features.Posts.Queries.GetAllForUser;
 using InstaConnect.Posts.Application.Features.Posts.Queries.GetById;
-
-using Mapster;
+using InstaConnect.Posts.Presentation.Features.PostImages.Models.Responses;
+using InstaConnect.Posts.Presentation.Features.Posts.Models.Requests;
 
 namespace InstaConnect.Posts.Presentation.Features.Posts.Mappings;
 
@@ -47,8 +48,9 @@ internal class PostPresentationMappings : IRegister
 		config.NewConfig<AddPostApiRequest, AddPostCommandRequest>()
 			.ConstructUsing(src => new(
 				src.UserId,
-				src.Body.Title,
-				src.Body.Content));
+				src.Form.Title,
+				src.Form.Content,
+				src.Form.Images));
 
 		config.NewConfig<AddPostCommandResponse, AddPostApiResponse>()
 			.ConstructUsing(src => new(src.Response.Adapt<PostIdApiResponse>(config)));
@@ -72,7 +74,9 @@ internal class PostPresentationMappings : IRegister
 					src.UserId,
 					src.Title,
 					src.Content,
+					src.Summary,
 					src.User.Adapt<UserApiResponse>(config),
+					src.PostImages.Adapt<ICollection<PostImageApiResponse>>(config),
 					src.IsLikedByCurrentUser,
 					src.CreatedAtUtc,
 					src.UpdatedAtUtc));

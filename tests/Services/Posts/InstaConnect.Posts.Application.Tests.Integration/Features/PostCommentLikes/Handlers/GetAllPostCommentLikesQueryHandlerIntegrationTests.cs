@@ -1,6 +1,10 @@
-using InstaConnect.Common.Domain.Features.Requests.Models;
-using InstaConnect.Common.Tests.Features.DataAttributes.Enums.Sort;
+using InstaConnect.Posts.Application.Features.PostCommentLikes.Queries.GetAll;
+using InstaConnect.Posts.Domain.Features.PostCommentLikes.Models.Entities;
 using InstaConnect.Posts.Domain.Features.PostCommentLikes.Models.Requests;
+using InstaConnect.Posts.Tests.Features.PostCommentLikes.DataAttributes.Page;
+using InstaConnect.Posts.Tests.Features.PostCommentLikes.DataAttributes.PageSize;
+using InstaConnect.Posts.Tests.Features.PostCommentLikes.DataAttributes.SortOrder;
+using InstaConnect.Posts.Tests.Features.PostCommentLikes.DataAttributes.SortTerm;
 
 namespace InstaConnect.Posts.Application.Tests.Integration.Features.PostCommentLikes.Handlers;
 
@@ -138,7 +142,7 @@ public class GetAllPostCommentLikesQueryHandlerIntegrationTests : BasePostCommen
 	}
 
 	[Fact]
-	public async Task SendAsync_ShouldThrowPostNotFoundException_WhenIdIsInvalid()
+	public async Task SendAsync_ShouldThrowPostNotFoundException_WhenPostNotFound()
 	{
 		// Arrange
 		await ServiceScope.DeleteAsync(Post, CancellationToken);
@@ -148,7 +152,7 @@ public class GetAllPostCommentLikesQueryHandlerIntegrationTests : BasePostCommen
 	}
 
 	[Fact]
-	public async Task SendAsync_ShouldThrowPostCommentNotFoundException_WhenCommentIdIsInvalid()
+	public async Task SendAsync_ShouldThrowPostCommentNotFoundException_WhenPostCommentNotFound()
 	{
 		// Arrange
 		await ServiceScope.DeleteAsync(PostComment, CancellationToken);

@@ -1,4 +1,21 @@
+using InstaConnect.Common.Tests.Features.Assertions;
+using InstaConnect.Common.Tests.Features.DataAttributes.DateTimeOffsets.Base;
+using InstaConnect.Common.Tests.Features.DataAttributes.Strings.Base;
+using InstaConnect.Follows.Infrastructure.Tests.Features.Users.Assertions;
+using InstaConnect.Follows.Infrastructure.Tests.Features.Users.Builders;
+using InstaConnect.Follows.Infrastructure.Tests.Functional.Features.Users.Utilities;
+using InstaConnect.Follows.Tests.Features.Common.Utilities;
 using InstaConnect.Follows.Tests.Features.Users.Assertions;
+using InstaConnect.Follows.Tests.Features.Users.Builders;
+using InstaConnect.Follows.Tests.Features.Users.DataAttributes.Email;
+using InstaConnect.Follows.Tests.Features.Users.DataAttributes.FirstName;
+using InstaConnect.Follows.Tests.Features.Users.DataAttributes.Id;
+using InstaConnect.Follows.Tests.Features.Users.DataAttributes.LastName;
+using InstaConnect.Follows.Tests.Features.Users.DataAttributes.Name;
+using InstaConnect.Follows.Tests.Features.Users.DataAttributes.ProfileImage;
+using InstaConnect.Follows.Tests.Features.Users.DataAttributes.UpdatedAtUtc;
+using InstaConnect.Follows.Tests.Features.Users.Utilities;
+using InstaConnect.Identity.Events.Features.Users;
 
 namespace InstaConnect.Follows.Infrastructure.Tests.Functional.Features.Users.Endpoints;
 
@@ -150,7 +167,7 @@ public class UpdateUserInfrastructureFunctionalTests : BaseUserInfrastructureCom
 	}
 
 	[Fact]
-	public async Task PublishAsync_ShouldFaultUserUpdatedEvent_WhenIdNotFound()
+	public async Task PublishAsync_ShouldFaultUserUpdatedEvent_WhenUserNotFound()
 	{
 		// Arrange
 		await ServiceScope.DeleteAsync(User, CancellationToken);
@@ -164,7 +181,7 @@ public class UpdateUserInfrastructureFunctionalTests : BaseUserInfrastructureCom
 	}
 
 	[Fact]
-	public async Task PublishAsync_ShouldFaultUserUpdatedEvent_WhenEmailAlreadyExists()
+	public async Task PublishAsync_ShouldFaultUserUpdatedEvent_WhenUserEmailAlreadyExists()
 	{
 		// Arrange
 		var newUser = UserBuilderFactory.Create().Build();
@@ -182,7 +199,7 @@ public class UpdateUserInfrastructureFunctionalTests : BaseUserInfrastructureCom
 
 	[Theory]
 	[UserEmailDifferentCaseData]
-	public async Task PublishAsync_ShouldFaultUserUpdatedEvent_WhenEmailIsInvalidAndAlreadyExists(
+	public async Task PublishAsync_ShouldFaultUserUpdatedEvent_WhenUserEmailAlreadyExistsAndEmailIsInvalid(
 		IStringTransformer transformer)
 	{
 		// Arrange
@@ -200,7 +217,7 @@ public class UpdateUserInfrastructureFunctionalTests : BaseUserInfrastructureCom
 	}
 
 	[Fact]
-	public async Task PublishAsync_ShouldFaultUserUpdatedEvent_WhenNameAlreadyExists()
+	public async Task PublishAsync_ShouldFaultUserUpdatedEvent_WhenUserNameAlreadyExists()
 	{
 		// Arrange
 		var newUser = UserBuilderFactory.Create().Build();
@@ -218,7 +235,7 @@ public class UpdateUserInfrastructureFunctionalTests : BaseUserInfrastructureCom
 
 	[Theory]
 	[UserNameDifferentCaseData]
-	public async Task PublishAsync_ShouldFaultUserUpdatedEvent_WhenNameIsInvalidAndAlreadyExists(
+	public async Task PublishAsync_ShouldFaultUserUpdatedEvent_WhenUserNameAlreadyExistsAndNameIsInvalid(
 		IStringTransformer transformer)
 	{
 		// Arrange
@@ -248,7 +265,7 @@ public class UpdateUserInfrastructureFunctionalTests : BaseUserInfrastructureCom
 
 	[Theory]
 	[UserIdDifferentCaseData]
-	public async Task PublishAsync_ShouldConsumeUserUpdatedEvent_WhenIdIsValid(
+	public async Task PublishAsync_ShouldConsumeUserUpdatedEvent_WhenRequestAndIdAreValid(
 		IStringTransformer transformer)
 	{
 		// Arrange
@@ -264,7 +281,7 @@ public class UpdateUserInfrastructureFunctionalTests : BaseUserInfrastructureCom
 
 	[Theory]
 	[UserNameDifferentCaseData]
-	public async Task PublishAsync_ShouldConsumeUserUpdatedEvent_WhenNameIsValid(
+	public async Task PublishAsync_ShouldConsumeUserUpdatedEvent_WhenRequestAndNameAreValid(
 		IStringTransformer transformer)
 	{
 		// Arrange
@@ -310,7 +327,7 @@ public class UpdateUserInfrastructureFunctionalTests : BaseUserInfrastructureCom
 
 	[Theory]
 	[UserEmailDifferentCaseData]
-	public async Task PublishAsync_ShouldConsumeUserUpdatedEvent_WhenEmailIsValid(
+	public async Task PublishAsync_ShouldConsumeUserUpdatedEvent_WhenRequestAndEmailAreValid(
 		IStringTransformer transformer)
 	{
 		// Arrange
@@ -357,7 +374,7 @@ public class UpdateUserInfrastructureFunctionalTests : BaseUserInfrastructureCom
 	[Theory]
 	[UserProfileImageNullData]
 	[UserProfileImageEmptyData]
-	public async Task PublishAsync_ShouldConsumeUserUpdatedEvent_WhenProfileImageIsValid(
+	public async Task PublishAsync_ShouldConsumeUserUpdatedEvent_WhenRequestAndProfileImageAreValid(
 		IStringTransformer transformer)
 	{
 		// Arrange
@@ -376,7 +393,7 @@ public class UpdateUserInfrastructureFunctionalTests : BaseUserInfrastructureCom
 	{
 		// Act
 		await EventPublisher.PublishAsync(_request, CancellationToken);
-		var user = await ServiceScope.GetByIdAsync(User.Id, CancellationToken);
+		var user = await ServiceScope.GetByIdAsync(UserId, CancellationToken);
 
 		// Assert
 		user.ShouldSatisfy(_request);
@@ -384,7 +401,7 @@ public class UpdateUserInfrastructureFunctionalTests : BaseUserInfrastructureCom
 
 	[Theory]
 	[UserIdDifferentCaseData]
-	public async Task PublishAsync_ShouldUpdateUser_WhenIdIsValid(
+	public async Task PublishAsync_ShouldUpdateUser_WhenRequestAndIdAreValid(
 		IStringTransformer transformer)
 	{
 		// Arrange
@@ -392,7 +409,7 @@ public class UpdateUserInfrastructureFunctionalTests : BaseUserInfrastructureCom
 
 		// Act
 		await EventPublisher.PublishAsync(request, CancellationToken);
-		var user = await ServiceScope.GetByIdAsync(User.Id, CancellationToken);
+		var user = await ServiceScope.GetByIdAsync(UserId, CancellationToken);
 
 		// Assert
 		user.ShouldSatisfy(request);
@@ -400,7 +417,7 @@ public class UpdateUserInfrastructureFunctionalTests : BaseUserInfrastructureCom
 
 	[Theory]
 	[UserNameDifferentCaseData]
-	public async Task PublishAsync_ShouldUpdateUser_WhenNameIsValid(
+	public async Task PublishAsync_ShouldUpdateUser_WhenRequestAndNameAreValid(
 		IStringTransformer transformer)
 	{
 		// Arrange
@@ -408,7 +425,7 @@ public class UpdateUserInfrastructureFunctionalTests : BaseUserInfrastructureCom
 
 		// Act
 		await EventPublisher.PublishAsync(request, CancellationToken);
-		var user = await ServiceScope.GetByIdAsync(User.Id, CancellationToken);
+		var user = await ServiceScope.GetByIdAsync(UserId, CancellationToken);
 
 		// Assert
 		user.ShouldSatisfy(request);
@@ -422,7 +439,7 @@ public class UpdateUserInfrastructureFunctionalTests : BaseUserInfrastructureCom
 
 		// Act
 		await EventPublisher.PublishAsync(request, CancellationToken);
-		var user = await ServiceScope.GetByIdAsync(User.Id, CancellationToken);
+		var user = await ServiceScope.GetByIdAsync(UserId, CancellationToken);
 
 		// Assert
 		user.ShouldSatisfy(request);
@@ -438,7 +455,7 @@ public class UpdateUserInfrastructureFunctionalTests : BaseUserInfrastructureCom
 
 		// Act
 		await EventPublisher.PublishAsync(request, CancellationToken);
-		var user = await ServiceScope.GetByIdAsync(User.Id, CancellationToken);
+		var user = await ServiceScope.GetByIdAsync(UserId, CancellationToken);
 
 		// Assert
 		user.ShouldSatisfy(request);
@@ -446,7 +463,7 @@ public class UpdateUserInfrastructureFunctionalTests : BaseUserInfrastructureCom
 
 	[Theory]
 	[UserEmailDifferentCaseData]
-	public async Task PublishAsync_ShouldUpdateUser_WhenEmailIsValid(
+	public async Task PublishAsync_ShouldUpdateUser_WhenRequestAndEmailAreValid(
 		IStringTransformer transformer)
 	{
 		// Arrange
@@ -454,7 +471,7 @@ public class UpdateUserInfrastructureFunctionalTests : BaseUserInfrastructureCom
 
 		// Act
 		await EventPublisher.PublishAsync(request, CancellationToken);
-		var user = await ServiceScope.GetByIdAsync(User.Id, CancellationToken);
+		var user = await ServiceScope.GetByIdAsync(UserId, CancellationToken);
 
 		// Assert
 		user.ShouldSatisfy(request);
@@ -468,7 +485,7 @@ public class UpdateUserInfrastructureFunctionalTests : BaseUserInfrastructureCom
 
 		// Act
 		await EventPublisher.PublishAsync(request, CancellationToken);
-		var user = await ServiceScope.GetByIdAsync(User.Id, CancellationToken);
+		var user = await ServiceScope.GetByIdAsync(UserId, CancellationToken);
 
 		// Assert
 		user.ShouldSatisfy(request);
@@ -484,7 +501,7 @@ public class UpdateUserInfrastructureFunctionalTests : BaseUserInfrastructureCom
 
 		// Act
 		await EventPublisher.PublishAsync(request, CancellationToken);
-		var user = await ServiceScope.GetByIdAsync(User.Id, CancellationToken);
+		var user = await ServiceScope.GetByIdAsync(UserId, CancellationToken);
 
 		// Assert
 		user.ShouldSatisfy(request);
@@ -501,7 +518,7 @@ public class UpdateUserInfrastructureFunctionalTests : BaseUserInfrastructureCom
 
 		// Act
 		await EventPublisher.PublishAsync(request, CancellationToken);
-		var user = await ServiceScope.GetByIdAsync(User.Id, CancellationToken);
+		var user = await ServiceScope.GetByIdAsync(UserId, CancellationToken);
 
 		// Assert
 		user.ShouldSatisfy(request);

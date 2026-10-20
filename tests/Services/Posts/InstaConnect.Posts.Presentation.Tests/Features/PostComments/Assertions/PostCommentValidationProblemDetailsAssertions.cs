@@ -1,7 +1,3 @@
-using InstaConnect.Common.Domain.Features.Requests.Models;
-using InstaConnect.Common.Presentation.Features.Exceptions.Models;
-using InstaConnect.Posts.Domain.Features.PostComments.Models.Requests;
-
 namespace InstaConnect.Posts.Presentation.Tests.Features.PostComments.Assertions;
 
 public static class PostCommentValidationProblemDetailsAssertions
@@ -94,7 +90,7 @@ public static class PostCommentValidationProblemDetailsAssertions
 		{
 			problemDetails.ShouldSatisfyInvalidValidation(
 				request,
-				p => p.Body.Content,
+				p => p.Form.Content,
 				messageTransformer);
 		}
 

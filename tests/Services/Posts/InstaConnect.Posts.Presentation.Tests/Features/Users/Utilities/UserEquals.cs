@@ -1,5 +1,4 @@
 using InstaConnect.Posts.Application.Features.Users.Abstractions;
-using InstaConnect.Posts.Presentation.Features.Users.Abstractions;
 using InstaConnect.Posts.Presentation.Features.Users.Models.Responses;
 
 namespace InstaConnect.Posts.Presentation.Tests.Features.Users.Utilities;
@@ -16,7 +15,7 @@ public static class UserEquals
 				   user.FirstName == response.FirstName &&
 				   user.LastName == response.LastName &&
 				   user.Name.Matches(response.Name) &&
-				   user.ProfileImage.Matches(response.ProfileImageUrl) &&
+				   user.ProfileImageUrl.Matches(response.ProfileImageUrl) &&
 				   user.CreatedAtUtc == response.CreatedAtUtc &&
 				   user.UpdatedAtUtc == response.UpdatedAtUtc;
 		}

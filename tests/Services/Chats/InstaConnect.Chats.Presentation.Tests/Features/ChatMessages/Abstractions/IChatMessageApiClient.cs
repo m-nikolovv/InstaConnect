@@ -1,7 +1,5 @@
 using System.Net;
 
-using InstaConnect.Common.Presentation.Features.Exceptions.Models;
-
 namespace InstaConnect.Chats.Presentation.Tests.Features.ChatMessages.Abstractions;
 
 public interface IChatMessageApiClient

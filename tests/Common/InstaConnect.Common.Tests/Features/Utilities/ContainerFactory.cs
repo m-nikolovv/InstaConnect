@@ -8,7 +8,12 @@ public static class ContainerFactory
 {
 	public static MongoDbContainer GetMongoDbContainer()
 	{
-		return new MongoDbBuilder("mongo:8.0")
+		const string Image = "mongo:latest";
+		const string GlibcTunablesName = "GLIBC_TUNABLES";
+		const string GlibcTunablesValue = "glibc.pthread.rseq=1";
+
+		return new MongoDbBuilder(Image)
+		   .WithEnvironment(GlibcTunablesName, GlibcTunablesValue)
 		   .WithReplicaSet()
 		   .WithCleanUp(true)
 		   .Build();
@@ -16,14 +21,18 @@ public static class ContainerFactory
 
 	public static RabbitMqContainer GetRabbitMqContainer()
 	{
-		return new RabbitMqBuilder("rabbitmq:4.3")
+		const string Image = "rabbitmq:management";
+
+		return new RabbitMqBuilder(Image)
 			.WithCleanUp(true)
 			.Build();
 	}
 
 	public static RedisContainer GetRedisContainer()
 	{
-		return new RedisBuilder("redis:7.4")
+		const string Image = "redis:latest";
+
+		return new RedisBuilder(Image)
 			.WithCleanUp(true)
 			.Build();
 	}

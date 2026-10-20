@@ -1,3 +1,5 @@
+using InstaConnect.Chats.Application.Features.Chats.Commands.Add;
+
 namespace InstaConnect.Chats.Application.Tests.Unit.Features.Chats.Handlers.Add;
 
 public class AddChatCommandHandlerUnitTests : BaseChatApplicationCommandUnitTest
@@ -30,7 +32,7 @@ public class AddChatCommandHandlerUnitTests : BaseChatApplicationCommandUnitTest
 	}
 
 	[Fact]
-	public async Task Handle_ShouldCallServiceAddAsync_WhenRequestIsValid()
+	public async Task Handle_ShouldCallTheServiceAddAsync_WhenRequestIsValid()
 	{
 		// Act
 		await _handler.Handle(_request, CancellationToken);

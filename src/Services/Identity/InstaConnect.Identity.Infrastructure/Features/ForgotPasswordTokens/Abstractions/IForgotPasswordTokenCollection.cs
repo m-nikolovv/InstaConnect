@@ -1,5 +1,3 @@
-using InstaConnect.Common.Infrastructure.Features.Databases.Abstractions;
-
 namespace InstaConnect.Identity.Infrastructure.Features.ForgotPasswordTokens.Abstractions;
 
 public interface IForgotPasswordTokenCollection : IMongoDbCollection<ForgotPasswordToken>

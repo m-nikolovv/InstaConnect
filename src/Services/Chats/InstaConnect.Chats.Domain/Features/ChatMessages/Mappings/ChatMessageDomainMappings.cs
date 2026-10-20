@@ -1,4 +1,4 @@
-using Mapster;
+using InstaConnect.Chats.Domain.Features.ChatMessageImages.Models.Requests;
 
 namespace InstaConnect.Chats.Domain.Features.ChatMessages.Mappings;
 
@@ -13,7 +13,9 @@ internal class ChatMessageDomainMappings : IRegister
 				src.Id.MessageId,
 				src.Sender.Adapt<UserNotificationRequest>(config)!,
 				src.Chat.Adapt<ChatNotificationRequest>(config)!,
+				src.ChatMessageImages.Adapt<ICollection<ChatMessageImageNotificationRequest>>(config),
 				src.Content,
+				src.Summary.Value,
 				src.CreatedAtUtc,
 				src.UpdatedAtUtc));
 

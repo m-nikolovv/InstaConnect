@@ -1,6 +1,4 @@
-using InstaConnect.Identity.Domain.Features.Users.Models.Requests;
 using InstaConnect.Identity.Domain.Features.Users.Models.Responses;
-using InstaConnect.Identity.Domain.Features.Users.Models.ValueObjects;
 
 namespace InstaConnect.Identity.Infrastructure.Tests.Features.Users.Utilities;
 
@@ -15,7 +13,7 @@ public static class UserMapper
 					   user.LastName,
 					   user.Email,
 					   user.Name,
-					   user.ProfileImage,
+					   user.ProfileImageUrl,
 					   user.CreatedAtUtc,
 					   user.UpdatedAtUtc);
 		}

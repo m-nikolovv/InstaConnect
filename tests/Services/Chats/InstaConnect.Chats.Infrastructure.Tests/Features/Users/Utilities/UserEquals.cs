@@ -1,6 +1,7 @@
-using InstaConnect.Chats.Domain.Features.Users.Models.Requests;
+using InstaConnect.Chats.Application.Features.Users.Commands.Add;
+using InstaConnect.Chats.Application.Features.Users.Commands.Delete;
+using InstaConnect.Chats.Application.Features.Users.Commands.Update;
 using InstaConnect.Chats.Domain.Features.Users.Models.Responses;
-using InstaConnect.Common.Domain.Features.ValueObjects.Models;
 
 namespace InstaConnect.Chats.Infrastructure.Tests.Features.Users.Utilities;
 
@@ -51,7 +52,7 @@ public static class UserEquals
 				   user.LastName == response.LastName &&
 				   user.Name.Matches(response.Name) &&
 				   user.Email.Matches(response.Email) &&
-				   user.ProfileImage.Matches(response.ProfileImage) &&
+				   user.ProfileImageUrl.Matches(response.ProfileImageUrl) &&
 				   user.CreatedAtUtc == response.CreatedAtUtc &&
 				   user.UpdatedAtUtc == response.UpdatedAtUtc;
 		}

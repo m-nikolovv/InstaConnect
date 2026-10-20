@@ -1,3 +1,5 @@
+using InstaConnect.Follows.Application.Features.Follows.Queries.GetById;
+
 namespace InstaConnect.Follows.Application.Tests.Unit.Features.Follows.Handlers.GetById;
 
 public class GetFollowByIdQueryHandlerUnitTests : BaseFollowApplicationQueryUnitTest
@@ -30,7 +32,7 @@ public class GetFollowByIdQueryHandlerUnitTests : BaseFollowApplicationQueryUnit
 	}
 
 	[Fact]
-	public async Task Handle_ShouldCallLikeServiceGetByIdAsync_WhenRequestIsValid()
+	public async Task Handle_ShouldCallTheServiceGetByIdAsync_WhenRequestIsValid()
 	{
 		// Act
 		await _handler.Handle(_request, CancellationToken);

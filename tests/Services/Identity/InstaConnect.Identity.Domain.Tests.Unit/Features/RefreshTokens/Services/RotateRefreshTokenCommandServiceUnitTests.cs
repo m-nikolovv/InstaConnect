@@ -1,10 +1,8 @@
 using InstaConnect.Identity.Domain.Features.RefreshTokens.Helpers;
 using InstaConnect.Identity.Domain.Features.RefreshTokens.Models.Entities;
 using InstaConnect.Identity.Domain.Features.RefreshTokens.Models.Requests;
-using InstaConnect.Identity.Domain.Features.Users.Models.Requests;
 using InstaConnect.Identity.Domain.Tests.Features.RefreshTokens.Assertions;
 using InstaConnect.Identity.Domain.Tests.Features.RefreshTokens.Builders;
-using InstaConnect.Identity.Domain.Tests.Features.RefreshTokens.Utilities;
 using InstaConnect.Identity.Domain.Tests.Unit.Features.RefreshTokens.Utilities;
 
 namespace InstaConnect.Identity.Domain.Tests.Unit.Features.RefreshTokens.Services;
@@ -51,7 +49,7 @@ public class RotateRefreshTokenCommandServiceUnitTests : BaseRefreshTokenDomainC
 	}
 
 	[Fact]
-	public async Task RotateAsync_ShouldThrowUserEmailNotConfirmedException_WhenEmailIsNotConfirmed()
+	public async Task RotateAsync_ShouldThrowUserEmailNotConfirmedException_WhenUserEmailNotConfirmed()
 	{
 		// Arrange
 		var unconfirmedUser = UserBuilder.WithUnconfirmedEmail().Build();
@@ -72,7 +70,7 @@ public class RotateRefreshTokenCommandServiceUnitTests : BaseRefreshTokenDomainC
 	}
 
 	[Fact]
-	public async Task RotateAsync_ShouldThrowRefreshTokenExpiredException_WhenRefreshTokenHasExpired()
+	public async Task RotateAsync_ShouldThrowRefreshTokenExpiredException_WhenRefreshTokenExpired()
 	{
 		// Arrange
 		DateTimeProvider.SetupGetOffsetUtcNow(_command, ExpiredDate);

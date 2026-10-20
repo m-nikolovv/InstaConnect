@@ -1,3 +1,8 @@
+using InstaConnect.Identity.Presentation.Features.RefreshTokens.Models.Requests;
+using InstaConnect.Identity.Presentation.Tests.Features.RefreshTokens.Builders;
+using InstaConnect.Identity.Presentation.Tests.Functional.Features.RefreshTokens.Utilities;
+using InstaConnect.Identity.Tests.Features.RefreshTokens.DataAttributes.Value;
+
 namespace InstaConnect.Identity.Presentation.Tests.Functional.Features.RefreshTokens.Endpoints;
 
 public class DeleteCurrentRefreshTokenFunctionalTests : BaseRefreshTokenPresentationCommandFunctionalTest
@@ -157,7 +162,7 @@ public class DeleteCurrentRefreshTokenFunctionalTests : BaseRefreshTokenPresenta
 
 	[Theory]
 	[UserIdDifferentCaseData]
-	public async Task DeleteCurrentAsync_ShouldHaveNoContentStatusCode_WhenRequestAndIdIsValid(
+	public async Task DeleteCurrentAsync_ShouldHaveNoContentStatusCode_WhenRequestAndIdAreValid(
 		IStringTransformer transformer)
 	{
 		// Arrange
@@ -172,7 +177,7 @@ public class DeleteCurrentRefreshTokenFunctionalTests : BaseRefreshTokenPresenta
 
 	[Theory]
 	[RefreshTokenValueDifferentCaseData]
-	public async Task DeleteCurrentAsync_ShouldHaveNoContentStatusCode_WhenRequestAndValueIsValid(
+	public async Task DeleteCurrentAsync_ShouldHaveNoContentStatusCode_WhenRequestAndValueAreValid(
 		IStringTransformer transformer)
 	{
 		// Arrange
@@ -186,11 +191,11 @@ public class DeleteCurrentRefreshTokenFunctionalTests : BaseRefreshTokenPresenta
 	}
 
 	[Fact]
-	public async Task DeleteCurrentAsync_ShouldDeleteCurrentRefreshToken_WhenRequestIsValid()
+	public async Task DeleteCurrentAsync_ShouldDeleteRefreshToken_WhenRequestIsValid()
 	{
 		// Act
 		await RefreshTokenApiClient.DeleteCurrentAsync(_request, CancellationToken);
-		var refreshToken = await ServiceScope.GetByIdAsync(RefreshToken.Id, CancellationToken);
+		var refreshToken = await ServiceScope.GetByIdAsync(RefreshTokenId, CancellationToken);
 
 		// Assert
 		refreshToken.ShouldBeNull();
@@ -198,7 +203,7 @@ public class DeleteCurrentRefreshTokenFunctionalTests : BaseRefreshTokenPresenta
 
 	[Theory]
 	[UserIdDifferentCaseData]
-	public async Task DeleteCurrentAsync_ShouldDeleteCurrentRefreshToken_WhenIdIsValid(
+	public async Task DeleteCurrentAsync_ShouldDeleteRefreshToken_WhenRequestAndIdAreValid(
 		IStringTransformer transformer)
 	{
 		// Arrange
@@ -206,7 +211,7 @@ public class DeleteCurrentRefreshTokenFunctionalTests : BaseRefreshTokenPresenta
 
 		// Act
 		await RefreshTokenApiClient.DeleteCurrentAsync(request, CancellationToken);
-		var refreshToken = await ServiceScope.GetByIdAsync(RefreshToken.Id, CancellationToken);
+		var refreshToken = await ServiceScope.GetByIdAsync(RefreshTokenId, CancellationToken);
 
 		// Assert
 		refreshToken.ShouldBeNull();
@@ -214,7 +219,7 @@ public class DeleteCurrentRefreshTokenFunctionalTests : BaseRefreshTokenPresenta
 
 	[Theory]
 	[RefreshTokenValueDifferentCaseData]
-	public async Task DeleteCurrentAsync_ShouldDeleteCurrentRefreshToken_WhenValueIsValid(
+	public async Task DeleteCurrentAsync_ShouldDeleteRefreshToken_WhenRequestAndValueAreValid(
 		IStringTransformer transformer)
 	{
 		// Arrange
@@ -222,14 +227,14 @@ public class DeleteCurrentRefreshTokenFunctionalTests : BaseRefreshTokenPresenta
 
 		// Act
 		await RefreshTokenApiClient.DeleteCurrentAsync(request, CancellationToken);
-		var refreshToken = await ServiceScope.GetByIdAsync(RefreshToken.Id, CancellationToken);
+		var refreshToken = await ServiceScope.GetByIdAsync(RefreshTokenId, CancellationToken);
 
 		// Assert
 		refreshToken.ShouldBeNull();
 	}
 
 	[Fact]
-	public async Task DeleteAsync_ShouldNotReturnCookieResponse_WhenRequestIsValid()
+	public async Task DeleteCurrentAsync_ShouldNotReturnCookieResponse_WhenRequestIsValid()
 	{
 		// Act
 		var response = await RefreshTokenApiClient.DeleteCurrentCookieResponseAsync(_request, CancellationToken);
@@ -240,7 +245,7 @@ public class DeleteCurrentRefreshTokenFunctionalTests : BaseRefreshTokenPresenta
 
 	[Theory]
 	[UserIdDifferentCaseData]
-	public async Task DeleteAsync_ShouldNotReturnCookieResponse_WhenIdIsValid(IStringTransformer transformer)
+	public async Task DeleteCurrentAsync_ShouldNotReturnCookieResponse_WhenRequestAndIdAreValid(IStringTransformer transformer)
 	{
 		// Arrange
 		var request = _requestBuilder.WithId(transformer).Build();
@@ -254,7 +259,7 @@ public class DeleteCurrentRefreshTokenFunctionalTests : BaseRefreshTokenPresenta
 
 	[Theory]
 	[RefreshTokenValueDifferentCaseData]
-	public async Task DeleteAsync_ShouldNotReturnCookieResponse_WhenValueIsValid(IStringTransformer transformer)
+	public async Task DeleteCurrentAsync_ShouldNotReturnCookieResponse_WhenRequestAndValueAreValid(IStringTransformer transformer)
 	{
 		// Arrange
 		var request = _requestBuilder.WithValue(transformer).Build();

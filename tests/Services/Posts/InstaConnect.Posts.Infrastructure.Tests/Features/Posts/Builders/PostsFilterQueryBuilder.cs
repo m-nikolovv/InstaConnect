@@ -1,6 +1,3 @@
-using InstaConnect.Posts.Domain.Features.Posts.Models.Entities;
-using InstaConnect.Posts.Domain.Features.Posts.Models.Requests;
-
 namespace InstaConnect.Posts.Infrastructure.Tests.Features.Posts.Builders;
 
 public class PostsFilterQueryBuilder

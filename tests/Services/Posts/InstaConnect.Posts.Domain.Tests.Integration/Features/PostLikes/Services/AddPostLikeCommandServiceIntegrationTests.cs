@@ -1,14 +1,4 @@
-using InstaConnect.Common.Tests.Features.DataAttributes.Strings.Base;
-using InstaConnect.Posts.Domain.Features.PostLikes.Models.Requests;
-using InstaConnect.Posts.Domain.Tests.Features.PostLikes.Assertions;
-using InstaConnect.Posts.Domain.Tests.Features.PostLikes.Builders;
-using InstaConnect.Posts.Domain.Tests.Integration.Features.PostLikes.Utilities;
 using InstaConnect.Posts.Tests.Features.PostLikes.Assertions;
-using InstaConnect.Posts.Tests.Features.PostLikes.Utilities;
-using InstaConnect.Posts.Tests.Features.Posts.DataAttributes.Id;
-using InstaConnect.Posts.Tests.Features.Posts.Utilities;
-using InstaConnect.Posts.Tests.Features.Users.DataAttributes.Id;
-using InstaConnect.Posts.Tests.Features.Users.Utilities;
 
 namespace InstaConnect.Posts.Domain.Tests.Integration.Features.PostLikes.Services;
 
@@ -27,7 +17,7 @@ public class AddPostLikeCommandServiceIntegrationTests : BasePostLikeDomainComma
 	}
 
 	[Fact]
-	public async Task AddAsync_ShouldThrowPostNotFoundException_WhenIdIsInvalid()
+	public async Task AddAsync_ShouldThrowPostNotFoundException_WhenPostNotFound()
 	{
 		// Arrange
 		await ServiceScope.DeleteAsync(Post, CancellationToken);
@@ -37,7 +27,7 @@ public class AddPostLikeCommandServiceIntegrationTests : BasePostLikeDomainComma
 	}
 
 	[Fact]
-	public async Task AddAsync_ShouldThrowUserNotFoundException_WhenUserIdIsInvalid()
+	public async Task AddAsync_ShouldThrowUserNotFoundException_WhenUserNotFound()
 	{
 		// Arrange
 		await ServiceScope.DeleteAsync(User, CancellationToken);
@@ -58,7 +48,7 @@ public class AddPostLikeCommandServiceIntegrationTests : BasePostLikeDomainComma
 
 	[Theory]
 	[PostIdDifferentCaseData]
-	public async Task AddAsync_ShouldThrowPostLikeAlreadyExistsException_WhenPostLikeAlreadyExistsAndIdIsValid(
+	public async Task AddAsync_ShouldThrowPostLikeAlreadyExistsException_WhenPostLikeAlreadyExistsAndIdIsInvalid(
 		IStringTransformer transformer)
 	{
 		// Arrange
@@ -71,7 +61,7 @@ public class AddPostLikeCommandServiceIntegrationTests : BasePostLikeDomainComma
 
 	[Theory]
 	[UserIdDifferentCaseData]
-	public async Task AddAsync_ShouldThrowPostLikeAlreadyExistsException_WhenPostLikeAlreadyExistsAndUserIdIsValid(
+	public async Task AddAsync_ShouldThrowPostLikeAlreadyExistsException_WhenPostLikeAlreadyExistsAndUserIdIsInvalid(
 		IStringTransformer transformer)
 	{
 		// Arrange

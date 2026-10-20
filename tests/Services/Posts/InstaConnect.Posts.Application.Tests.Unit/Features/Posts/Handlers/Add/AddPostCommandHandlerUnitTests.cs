@@ -1,3 +1,6 @@
+using InstaConnect.Posts.Application.Features.Posts.Commands.Add;
+using InstaConnect.Posts.Domain.Features.Posts.Models.Entities;
+
 namespace InstaConnect.Posts.Application.Tests.Unit.Features.Posts.Handlers.Add;
 
 public class AddPostCommandHandlerUnitTests : BasePostApplicationCommandUnitTest
@@ -11,7 +14,7 @@ public class AddPostCommandHandlerUnitTests : BasePostApplicationCommandUnitTest
 	public AddPostCommandHandlerUnitTests()
 	{
 		_requestBuilderFactory = new();
-		_requestBuilder = _requestBuilderFactory.Create(User);
+		_requestBuilder = _requestBuilderFactory.Create(User, Post.PostImages.Count);
 		_request = _requestBuilder.Build();
 
 		_handler = new(Mapper, Service);
@@ -30,7 +33,7 @@ public class AddPostCommandHandlerUnitTests : BasePostApplicationCommandUnitTest
 	}
 
 	[Fact]
-	public async Task Handle_ShouldCallServiceAddAsync_WhenRequestIsValid()
+	public async Task Handle_ShouldCallTheServiceAddAsync_WhenRequestIsValid()
 	{
 		// Act
 		await _handler.Handle(_request, CancellationToken);

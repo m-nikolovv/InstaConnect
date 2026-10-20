@@ -1,4 +1,5 @@
 using InstaConnect.Common.Application.Features.Requests.Abstractions;
+using InstaConnect.Common.Tests.Features.Utilities;
 using InstaConnect.Follows.Tests.Features.Follows.Abstractions;
 using InstaConnect.Follows.Tests.Features.Follows.Extensions;
 
@@ -17,7 +18,7 @@ public abstract class BaseFollowApplicationCommandIntegrationTest : BaseFollowWe
 	{
 		Sender = ServiceScope.GetSender();
 		EventClient = webApplicationFactory.CreateEventClient();
-		NotificationClient = webApplicationFactory.CreateNotificationClient(Following.Id);
+		NotificationClient = webApplicationFactory.CreateNotificationClient(FollowingId);
 	}
 
 	public override async Task InitializeAsync()

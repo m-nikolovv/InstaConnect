@@ -3,8 +3,6 @@ using System.Reflection;
 using InstaConnect.Common.Presentation.Features.Emails.Abstractions;
 using InstaConnect.Common.Presentation.Features.Emails.Helpers;
 
-using Microsoft.Extensions.DependencyInjection;
-
 using RazorLight;
 
 namespace InstaConnect.Common.Presentation.Features.Emails.Extensions;

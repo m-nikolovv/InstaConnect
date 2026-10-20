@@ -1,5 +1,3 @@
-using InstaConnect.Common.Application.Features.Requests.Abstractions;
-
 namespace InstaConnect.Posts.Application.Tests.Integration.Features.Posts.Utilities;
 
 public abstract class BasePostApplicationQueryIntegrationTest : BasePostWebTest
@@ -15,6 +13,7 @@ public abstract class BasePostApplicationQueryIntegrationTest : BasePostWebTest
 	{
 		await ServiceScope.AddRangeAsync(Users, CancellationToken);
 		await ServiceScope.AddRangeAsync(PostLikes, CancellationToken);
+		await ServiceScope.AddRangeAsync(PostImages, CancellationToken);
 		await OnInitializeAsync();
 	}
 }

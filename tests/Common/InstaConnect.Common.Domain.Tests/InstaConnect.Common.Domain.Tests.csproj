@@ -4,8 +4,4 @@
     <ProjectReference Include="..\InstaConnect.Common.Tests\InstaConnect.Common.Tests.csproj" />
   </ItemGroup>
 
-  <ItemGroup Label="Common">
-    <Using Include="InstaConnect.Common.Tests.Features.Assertions" />
-  </ItemGroup>
-
 </Project>

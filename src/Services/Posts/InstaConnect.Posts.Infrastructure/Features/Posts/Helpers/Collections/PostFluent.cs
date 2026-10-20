@@ -1,8 +1,4 @@
-using InstaConnect.Common.Infrastructure.Features.Databases.Helpers;
-using InstaConnect.Posts.Domain.Features.Users.Models.Responses;
-using InstaConnect.Posts.Infrastructure.Features.Posts.Extensions;
-
-using MongoDB.Driver;
+using InstaConnect.Posts.Domain.Features.PostImages.Models.Responses;
 
 namespace InstaConnect.Posts.Infrastructure.Features.Posts.Helpers.Collections;
 
@@ -57,15 +53,21 @@ internal class PostFluent : MongoDbFluent<Post>, IPostFluent
 				 p.UserId,
 				 p.Title,
 				 p.Content,
+				 p.Summary,
 				 new UserResponse(
 					 p.User!.Id,
 					 p.User.FirstName,
 					 p.User.LastName,
 					 p.User.Email,
 					 p.User.Name,
-					 p.User.ProfileImage,
+					 p.User.ProfileImageUrl,
 					 p.User.CreatedAtUtc,
 					 p.User.UpdatedAtUtc),
+				 p.PostImages.Select(
+					 pi => new PostImageResponse(
+						 pi.Id,
+						 pi.Url,
+						 pi.CreatedAtUtc)).ToList(),
 				 p.PostLikes.Any(
 					 pl => pl.Id.UserId.Id.ToLower() == currentUserId),
 				 p.CreatedAtUtc,
@@ -84,7 +86,13 @@ internal class PostFluent : MongoDbFluent<Post>, IPostFluent
 				 p.UserId,
 				 p.Title,
 				 p.Content,
+				 p.Summary,
 				 null,
+				 p.PostImages.Select(
+					 pi => new PostImageResponse(
+						 pi.Id,
+						 pi.Url,
+						 pi.CreatedAtUtc)).ToList(),
 				 p.PostLikes.Any(
 					 pl => pl.Id.UserId.Id.ToLower() == currentUserId),
 				 p.CreatedAtUtc,

@@ -1,3 +1,4 @@
+using InstaConnect.Posts.Presentation.Features.Posts.Controllers.v1;
 using InstaConnect.Posts.Tests.Features.Posts.Abstractions;
 using InstaConnect.Posts.Tests.Features.Posts.Extensions;
 

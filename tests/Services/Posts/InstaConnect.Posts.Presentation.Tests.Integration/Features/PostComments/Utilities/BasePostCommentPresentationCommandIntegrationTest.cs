@@ -1,3 +1,7 @@
+using InstaConnect.Posts.Presentation.Features.PostComments.Controllers.v1;
+using InstaConnect.Posts.Tests.Features.PostComments.Abstractions;
+using InstaConnect.Posts.Tests.Features.PostComments.Extensions;
+
 namespace InstaConnect.Posts.Presentation.Tests.Integration.Features.PostComments.Utilities;
 
 public abstract class BasePostCommentPresentationCommandIntegrationTest : BasePostCommentWebTest

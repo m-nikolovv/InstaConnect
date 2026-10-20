@@ -1,4 +1,14 @@
+using InstaConnect.Chats.Infrastructure.Features.Users.EventHandlers;
+using InstaConnect.Chats.Infrastructure.Tests.Features.Users.Builders;
+using InstaConnect.Chats.Infrastructure.Tests.Features.Users.Utilities;
+using InstaConnect.Chats.Tests.Features.Users.DataAttributes.Email;
+using InstaConnect.Chats.Tests.Features.Users.DataAttributes.FirstName;
+using InstaConnect.Chats.Tests.Features.Users.DataAttributes.LastName;
+using InstaConnect.Chats.Tests.Features.Users.DataAttributes.ProfileImage;
+using InstaConnect.Chats.Tests.Features.Users.DataAttributes.UpdatedAtUtc;
 using InstaConnect.Common.Infrastructure.Tests.Features.Utilities;
+using InstaConnect.Common.Tests.Features.DataAttributes.DateTimeOffsets.Base;
+using InstaConnect.Identity.Events.Features.Users;
 
 namespace InstaConnect.Chats.Infrastructure.Tests.Integration.Features.Users.EventHandlers.v1;
 
@@ -126,7 +136,7 @@ public class UserUpdatedEventHandlerIntegrationTests : BaseUserInfrastructureEve
 	}
 
 	[Fact]
-	public async Task Consume_ShouldThrowUserNotFoundException_WhenIdNotFound()
+	public async Task Consume_ShouldThrowUserNotFoundException_WhenUserNotFound()
 	{
 		// Arrange
 		await ServiceScope.DeleteAsync(User, CancellationToken);
@@ -136,7 +146,7 @@ public class UserUpdatedEventHandlerIntegrationTests : BaseUserInfrastructureEve
 	}
 
 	[Fact]
-	public async Task Consume_ShouldThrowUserEmailAlreadyExistsException_WhenEmailAlreadyExists()
+	public async Task Consume_ShouldThrowUserEmailAlreadyExistsException_WhenUserEmailAlreadyExists()
 	{
 		// Arrange
 		var newUser = UserBuilderFactory.Create().Build();
@@ -149,7 +159,7 @@ public class UserUpdatedEventHandlerIntegrationTests : BaseUserInfrastructureEve
 
 	[Theory]
 	[UserEmailDifferentCaseData]
-	public async Task Consume_ShouldThrowUserEmailAlreadyExistsException_WhenEmailIsInvalidAndAlreadyExists(
+	public async Task Consume_ShouldThrowUserEmailAlreadyExistsException_WhenUserEmailAlreadyExistsAndEmailIsInvalid(
 		IStringTransformer transformer)
 	{
 		// Arrange
@@ -162,7 +172,7 @@ public class UserUpdatedEventHandlerIntegrationTests : BaseUserInfrastructureEve
 	}
 
 	[Fact]
-	public async Task Consume_ShouldThrowUserNameAlreadyExistsException_WhenNameAlreadyExists()
+	public async Task Consume_ShouldThrowUserNameAlreadyExistsException_WhenUserNameAlreadyExists()
 	{
 		// Arrange
 		var newUser = UserBuilderFactory.Create().Build();
@@ -175,7 +185,7 @@ public class UserUpdatedEventHandlerIntegrationTests : BaseUserInfrastructureEve
 
 	[Theory]
 	[UserNameDifferentCaseData]
-	public async Task Consume_ShouldThrowUserNameAlreadyExistsException_WhenNameIsInvalidAndAlreadyExists(
+	public async Task Consume_ShouldThrowUserNameAlreadyExistsException_WhenUserNameAlreadyExistsAndNameIsInvalid(
 		IStringTransformer transformer)
 	{
 		// Arrange
@@ -192,7 +202,7 @@ public class UserUpdatedEventHandlerIntegrationTests : BaseUserInfrastructureEve
 	{
 		// Act
 		await _handler.Consume(_request, CancellationToken);
-		var user = await ServiceScope.GetByIdAsync(User.Id, CancellationToken);
+		var user = await ServiceScope.GetByIdAsync(UserId, CancellationToken);
 
 		// Assert
 		user.ShouldSatisfy(_request);
@@ -200,7 +210,7 @@ public class UserUpdatedEventHandlerIntegrationTests : BaseUserInfrastructureEve
 
 	[Theory]
 	[UserIdDifferentCaseData]
-	public async Task Consume_ShouldUpdateUser_WhenIdIsValid(
+	public async Task Consume_ShouldUpdateUser_WhenRequestAndIdAreValid(
 		IStringTransformer transformer)
 	{
 		// Arrange
@@ -208,7 +218,7 @@ public class UserUpdatedEventHandlerIntegrationTests : BaseUserInfrastructureEve
 
 		// Act
 		await _handler.Consume(request, CancellationToken);
-		var user = await ServiceScope.GetByIdAsync(User.Id, CancellationToken);
+		var user = await ServiceScope.GetByIdAsync(UserId, CancellationToken);
 
 		// Assert
 		user.ShouldSatisfy(request);
@@ -216,7 +226,7 @@ public class UserUpdatedEventHandlerIntegrationTests : BaseUserInfrastructureEve
 
 	[Theory]
 	[UserNameDifferentCaseData]
-	public async Task Consume_ShouldUpdateUser_WhenNameIsValid(
+	public async Task Consume_ShouldUpdateUser_WhenRequestAndNameAreValid(
 		IStringTransformer transformer)
 	{
 		// Arrange
@@ -224,7 +234,7 @@ public class UserUpdatedEventHandlerIntegrationTests : BaseUserInfrastructureEve
 
 		// Act
 		await _handler.Consume(request, CancellationToken);
-		var user = await ServiceScope.GetByIdAsync(User.Id, CancellationToken);
+		var user = await ServiceScope.GetByIdAsync(UserId, CancellationToken);
 
 		// Assert
 		user.ShouldSatisfy(request);
@@ -238,7 +248,7 @@ public class UserUpdatedEventHandlerIntegrationTests : BaseUserInfrastructureEve
 
 		// Act
 		await _handler.Consume(request, CancellationToken);
-		var user = await ServiceScope.GetByIdAsync(User.Id, CancellationToken);
+		var user = await ServiceScope.GetByIdAsync(UserId, CancellationToken);
 
 		// Assert
 		user.ShouldSatisfy(request);
@@ -254,7 +264,7 @@ public class UserUpdatedEventHandlerIntegrationTests : BaseUserInfrastructureEve
 
 		// Act
 		await _handler.Consume(request, CancellationToken);
-		var user = await ServiceScope.GetByIdAsync(User.Id, CancellationToken);
+		var user = await ServiceScope.GetByIdAsync(UserId, CancellationToken);
 
 		// Assert
 		user.ShouldSatisfy(request);
@@ -262,7 +272,7 @@ public class UserUpdatedEventHandlerIntegrationTests : BaseUserInfrastructureEve
 
 	[Theory]
 	[UserEmailDifferentCaseData]
-	public async Task Consume_ShouldUpdateUser_WhenEmailIsValid(
+	public async Task Consume_ShouldUpdateUser_WhenRequestAndEmailAreValid(
 		IStringTransformer transformer)
 	{
 		// Arrange
@@ -270,7 +280,7 @@ public class UserUpdatedEventHandlerIntegrationTests : BaseUserInfrastructureEve
 
 		// Act
 		await _handler.Consume(request, CancellationToken);
-		var user = await ServiceScope.GetByIdAsync(User.Id, CancellationToken);
+		var user = await ServiceScope.GetByIdAsync(UserId, CancellationToken);
 
 		// Assert
 		user.ShouldSatisfy(request);
@@ -284,7 +294,7 @@ public class UserUpdatedEventHandlerIntegrationTests : BaseUserInfrastructureEve
 
 		// Act
 		await _handler.Consume(request, CancellationToken);
-		var user = await ServiceScope.GetByIdAsync(User.Id, CancellationToken);
+		var user = await ServiceScope.GetByIdAsync(UserId, CancellationToken);
 
 		// Assert
 		user.ShouldSatisfy(request);
@@ -300,7 +310,7 @@ public class UserUpdatedEventHandlerIntegrationTests : BaseUserInfrastructureEve
 
 		// Act
 		await _handler.Consume(request, CancellationToken);
-		var user = await ServiceScope.GetByIdAsync(User.Id, CancellationToken);
+		var user = await ServiceScope.GetByIdAsync(UserId, CancellationToken);
 
 		// Assert
 		user.ShouldSatisfy(request);
@@ -317,7 +327,7 @@ public class UserUpdatedEventHandlerIntegrationTests : BaseUserInfrastructureEve
 
 		// Act
 		await _handler.Consume(request, CancellationToken);
-		var user = await ServiceScope.GetByIdAsync(User.Id, CancellationToken);
+		var user = await ServiceScope.GetByIdAsync(UserId, CancellationToken);
 
 		// Assert
 		user.ShouldSatisfy(request);

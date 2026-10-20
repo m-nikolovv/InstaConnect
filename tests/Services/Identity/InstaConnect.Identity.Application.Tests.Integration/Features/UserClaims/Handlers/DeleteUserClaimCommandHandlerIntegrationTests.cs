@@ -1,4 +1,9 @@
 using InstaConnect.Common.Events.Features.AccessTokens.Models;
+using InstaConnect.Common.Tests.Features.DataAttributes.Enums.Base;
+using InstaConnect.Identity.Application.Features.UserClaims.Commands.Delete;
+using InstaConnect.Identity.Application.Tests.Features.UserClaims.Builders;
+using InstaConnect.Identity.Application.Tests.Integration.Features.UserClaims.Utilities;
+using InstaConnect.Identity.Tests.Features.UserClaims.DataAttributes.Claim;
 
 namespace InstaConnect.Identity.Application.Tests.Integration.Features.UserClaims.Handlers;
 
@@ -73,7 +78,7 @@ public class DeleteUserClaimCommandHandlerIntegrationTests : BaseUserClaimApplic
 	{
 		// Act
 		await Sender.SendAsync(_request, CancellationToken);
-		var userClaim = await ServiceScope.GetByIdAsync(UserClaim.Id, CancellationToken);
+		var userClaim = await ServiceScope.GetByIdAsync(UserClaimId, CancellationToken);
 
 		// Assert
 		userClaim.ShouldBeNull();
@@ -89,7 +94,7 @@ public class DeleteUserClaimCommandHandlerIntegrationTests : BaseUserClaimApplic
 
 		// Act
 		await Sender.SendAsync(request, CancellationToken);
-		var userClaim = await ServiceScope.GetByIdAsync(UserClaim.Id, CancellationToken);
+		var userClaim = await ServiceScope.GetByIdAsync(UserClaimId, CancellationToken);
 
 		// Assert
 		userClaim.ShouldBeNull();

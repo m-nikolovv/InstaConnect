@@ -1,4 +1,7 @@
 using InstaConnect.Common.Infrastructure.Tests.Features.Utilities;
+using InstaConnect.Identity.Events.Features.Users;
+using InstaConnect.Posts.Infrastructure.Features.Users.EventHandlers;
+using InstaConnect.Posts.Infrastructure.Tests.Features.Users.Builders;
 
 namespace InstaConnect.Posts.Infrastructure.Tests.Unit.Features.Users.EventHandlers.v1;
 

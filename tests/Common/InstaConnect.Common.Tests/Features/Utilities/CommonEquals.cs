@@ -1,7 +1,7 @@
-using InstaConnect.Common.Domain.Features.Entities.Abstractions;
 using InstaConnect.Common.Domain.Features.Requests.Abstractions;
 using InstaConnect.Common.Domain.Features.ValueObjects.Models;
 using InstaConnect.Common.Tests.Features.DataAttributes.Enums.Sort;
+using InstaConnect.Common.Tests.Features.Extensions;
 
 namespace InstaConnect.Common.Tests.Features.Utilities;
 
@@ -33,26 +33,34 @@ public static class CommonEquals
 		}
 	}
 
-	extension(Image? p)
+	extension(Summary p)
+	{
+		public bool Matches(string value)
+		{
+			return p.Value == value;
+		}
+
+		public bool Matches(Summary summary)
+		{
+			return p.Matches(summary.Value);
+		}
+	}
+
+	extension(Url? p)
 	{
 		public bool Matches(string? url)
 		{
-			return p == null || p.Url == url;
+			return p == null || p.Value == url;
 		}
 
-		public bool Matches(Image? image)
+		public bool Matches(Url? url)
 		{
-			return p.Matches(image?.Url);
+			return p.Matches(url?.Value);
 		}
 	}
 
 	extension<TExpected>(ICollection<TExpected> e)
 	{
-		public bool MatchesCollection(ICollection<TExpected> expected)
-		{
-			return e.OrderBy(x => x).SequenceEqual(expected);
-		}
-
 		public bool MatchesCollection<TEntity, TKey>(
 		ICollection<TEntity> entities,
 		Func<TExpected, TKey> expectedKey,
@@ -66,8 +74,7 @@ public static class CommonEquals
 				.ToDictionary(entityKey);
 
 			return e.Count == entitiesByKey.Count &&
-				   e.Any() &&
-				   e.All(e =>
+				   e.AllAndNotEmpty(e =>
 				   entitiesByKey.TryGetValue(expectedKey(e), out var a) &&
 				   matcher(e, a));
 		}
@@ -86,8 +93,7 @@ public static class CommonEquals
 			var entitiesByKey = entities.FilterToDictionary(request, filter, entityKey);
 
 			return e.Count == entitiesByKey.Count &&
-				   e.Any() &&
-				   e.All(e =>
+				   e.AllAndNotEmpty(e =>
 				   entitiesByKey.TryGetValue(expectedKey(e), out var a) &&
 				   matcher(e, a));
 		}
@@ -104,9 +110,8 @@ public static class CommonEquals
 			var sortedEntities = entities.Filter(request, termTransformer, filter);
 
 			return e.Count == sortedEntities.Count &&
-				   e.Any() &&
 				   e.Zip(sortedEntities, (e, a) => matcher(e, a))
-						   .All(match => match);
+						   .AllAndNotEmpty(match => match);
 		}
 	}
 }

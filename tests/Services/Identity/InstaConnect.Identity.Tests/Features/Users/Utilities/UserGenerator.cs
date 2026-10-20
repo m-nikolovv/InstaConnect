@@ -14,7 +14,7 @@ public static class UserGenerator
 								  new(UserDataFaker.GetNameWithPrefix(baseUser.Name.Value)),
 								  baseUser.PasswordHash,
 								  baseUser.IsEmailConfirmed,
-								  baseUser.ProfileImage,
+								  baseUser.ProfileImageUrl,
 								  UserDataFaker.GetCreatedAtUtc(),
 								  UserDataFaker.GetUpdatedAtUtc()))];
 		}

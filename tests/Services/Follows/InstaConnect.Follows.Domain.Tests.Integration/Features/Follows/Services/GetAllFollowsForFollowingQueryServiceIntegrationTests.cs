@@ -1,18 +1,10 @@
 using InstaConnect.Common.Domain.Features.Requests.Models;
 using InstaConnect.Common.Tests.Features.DataAttributes.Enums.Base;
 using InstaConnect.Common.Tests.Features.DataAttributes.Enums.Sort;
-using InstaConnect.Common.Tests.Features.DataAttributes.Strings.Base;
 using InstaConnect.Follows.Domain.Features.Follows.Models.Entities;
-using InstaConnect.Follows.Domain.Features.Follows.Models.Requests;
-using InstaConnect.Follows.Domain.Tests.Features.Follows.Assertions;
-using InstaConnect.Follows.Domain.Tests.Features.Follows.Builders;
-using InstaConnect.Follows.Domain.Tests.Integration.Features.Follows.Utilities;
 using InstaConnect.Follows.Tests.Features.Follows.DataAttributes.SortOrder;
 using InstaConnect.Follows.Tests.Features.Follows.DataAttributes.SortTerm.ForFollowing;
-using InstaConnect.Follows.Tests.Features.Follows.Utilities;
-using InstaConnect.Follows.Tests.Features.Users.DataAttributes.Id;
 using InstaConnect.Follows.Tests.Features.Users.DataAttributes.Name;
-using InstaConnect.Follows.Tests.Features.Users.Utilities;
 
 namespace InstaConnect.Follows.Domain.Tests.Integration.Features.Follows.Services;
 
@@ -36,7 +28,7 @@ public class GetAllFollowsForFollowingQueryServiceIntegrationTests : BaseFollowD
 	}
 
 	[Fact]
-	public async Task GetAllForFollowingAsync_ShouldThrowUserNotFoundException_WhenFollowingIdIsInvalid()
+	public async Task GetAllForFollowingAsync_ShouldThrowFollowingNotFoundException_WhenFollowingNotFound()
 	{
 		// Arrange
 		await ServiceScope.DeleteAsync(Following, CancellationToken);

@@ -11,6 +11,10 @@ public interface IEmailConfirmationTokenCommandRepository
 		EmailConfirmationTokenId id,
 		CancellationToken cancellationToken);
 
+	public Task<ICollection<EmailConfirmationToken>> GetByIdRangeAsync(
+		IEnumerable<EmailConfirmationTokenId> ids,
+		CancellationToken cancellationToken);
+
 	public Task<bool> ExistsByIdAsync(
 		EmailConfirmationTokenId id,
 		CancellationToken cancellationToken);

@@ -1,4 +1,4 @@
-using InstaConnect.Follows.Domain.Features.Users.Models.Responses;
+using InstaConnect.Follows.Domain.Features.Users.Abstractions;
 
 namespace InstaConnect.Follows.Infrastructure.Features.Users.Helpers.Repositories;
 

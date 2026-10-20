@@ -1,4 +1,3 @@
-using InstaConnect.Common.Events.Features.AccessTokens.Models;
 using InstaConnect.Identity.Domain.Features.UserClaims.Models.Requests;
 
 namespace InstaConnect.Identity.Presentation.Features.UserClaims.Utilities;

@@ -1,28 +1,14 @@
-using InstaConnect.Identity.Domain.Features.Users.Models.Requests;
-using InstaConnect.Identity.Domain.Features.Users.Models.ValueObjects;
-using InstaConnect.Identity.Infrastructure.Tests.Features.Users.Assertions;
-using InstaConnect.Identity.Infrastructure.Tests.Integration.Features.Users.Utilities;
 using InstaConnect.Identity.Tests.Features.Users.Builders;
-using InstaConnect.Identity.Tests.Features.Users.DataAttributes.Id;
-using InstaConnect.Identity.Tests.Features.Users.Utilities;
 
 namespace InstaConnect.Identity.Infrastructure.Tests.Integration.Features.Users.Repositories;
 
 public class GetUserByIdCommandRepositoryIntegrationTests : BaseUserInfrastructureCommandIntegrationTest
 {
-	private readonly UserIdBuilderFactory _idBuilderFactory;
-	private readonly UserIdBuilder _idBuilder;
-	private readonly UserId _id;
-
 	private readonly UserInclude _include;
 
 	public GetUserByIdCommandRepositoryIntegrationTests(IdentityWebApplicationFactory webApplicationFactory)
 		: base(webApplicationFactory)
 	{
-		_idBuilderFactory = new();
-		_idBuilder = _idBuilderFactory.Create(User.Id);
-		_id = _idBuilder.Build();
-
 		_include = IncludeBuilderFactory.Create().WithUserClaims().WithRefreshTokens().WithForgotPasswordTokens().WithEmailConfirmationTokens().Build();
 	}
 
@@ -38,7 +24,7 @@ public class GetUserByIdCommandRepositoryIntegrationTests : BaseUserInfrastructu
 		await ServiceScope.DeleteAsync(User, CancellationToken);
 
 		// Act
-		var response = await Repository.GetByIdAsync(_id, _include, CancellationToken);
+		var response = await Repository.GetByIdAsync(UserId, _include, CancellationToken);
 
 		// Assert
 		response.ShouldBeNull();
@@ -48,10 +34,10 @@ public class GetUserByIdCommandRepositoryIntegrationTests : BaseUserInfrastructu
 	public async Task GetByIdAsync_ShouldReturnResponse_WhenCommandIsValid()
 	{
 		// Act
-		var response = await Repository.GetByIdAsync(_id, _include, CancellationToken);
+		var response = await Repository.GetByIdAsync(UserId, _include, CancellationToken);
 
 		// Assert
-		response.ShouldSatisfy(_id, User);
+		response.ShouldSatisfy(UserId, User);
 	}
 
 	[Theory]
@@ -60,7 +46,7 @@ public class GetUserByIdCommandRepositoryIntegrationTests : BaseUserInfrastructu
 		IStringTransformer transformer)
 	{
 		// Arrange
-		var id = _idBuilder.WithId(transformer).Build();
+		var id = UserIdBuilder.WithId(transformer).Build();
 
 		// Act
 		var response = await Repository.GetByIdAsync(id, _include, CancellationToken);

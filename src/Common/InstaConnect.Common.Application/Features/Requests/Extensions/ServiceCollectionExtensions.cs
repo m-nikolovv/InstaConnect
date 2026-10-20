@@ -6,8 +6,6 @@ using InstaConnect.Common.Application.Features.Requests.Abstractions;
 using InstaConnect.Common.Application.Features.Requests.Helpers;
 using InstaConnect.Common.Application.Features.Validations.PipelineBehaviors;
 
-using Microsoft.Extensions.DependencyInjection;
-
 namespace InstaConnect.Common.Application.Features.Requests.Extensions;
 
 public static class ServiceCollectionExtensions

@@ -1,3 +1,11 @@
+using InstaConnect.Common.Tests.Features.DataAttributes.DateTimeOffsets.Base;
+using InstaConnect.Posts.Application.Features.Users.Commands.Update;
+using InstaConnect.Posts.Tests.Features.Users.DataAttributes.Email;
+using InstaConnect.Posts.Tests.Features.Users.DataAttributes.FirstName;
+using InstaConnect.Posts.Tests.Features.Users.DataAttributes.LastName;
+using InstaConnect.Posts.Tests.Features.Users.DataAttributes.ProfileImage;
+using InstaConnect.Posts.Tests.Features.Users.DataAttributes.UpdatedAtUtc;
+
 namespace InstaConnect.Posts.Application.Tests.Unit.Features.Users.Handlers.Update;
 
 public class UpdateUserCommandRequestValidatorUnitTests : BaseUserApplicationCommandUnitTest
@@ -139,7 +147,7 @@ public class UpdateUserCommandRequestValidatorUnitTests : BaseUserApplicationCom
 	}
 
 	[Fact]
-	public void TestValidate_ShouldNotHaveAnyValidationsErrors_WhenRequestIsValid()
+	public void TestValidate_ShouldNotHaveAnyValidationErrors_WhenRequestIsValid()
 	{
 		// Act
 		var response = _requestValidator.TestValidate(_request);
@@ -151,7 +159,7 @@ public class UpdateUserCommandRequestValidatorUnitTests : BaseUserApplicationCom
 	[Theory]
 	[UserProfileImageNullData]
 	[UserProfileImageEmptyData]
-	public void TestValidate_ShouldNotHaveAnyValidationsErrors_WhenRequestAndProfileImageAreValid(
+	public void TestValidate_ShouldNotHaveAnyValidationErrors_WhenRequestAndProfileImageAreValid(
 		IStringTransformer transformer)
 	{
 		// Arrange

@@ -1,3 +1,7 @@
+using InstaConnect.Posts.Tests.Features.PostCommentImages.Utilities;
+using InstaConnect.Posts.Tests.Features.PostComments.DataAttributes.Content;
+using InstaConnect.Posts.Tests.Features.Users.Builders;
+
 namespace InstaConnect.Posts.Presentation.Tests.Functional.Features.PostComments.Endpoints;
 
 public class UpdatePostCommentFunctionalTests : BasePostCommentPresentationCommandFunctionalTest
@@ -17,6 +21,7 @@ public class UpdatePostCommentFunctionalTests : BasePostCommentPresentationComma
 	protected override async Task OnInitializeAsync()
 	{
 		await ServiceScope.AddAsync(PostComment, CancellationToken);
+		await ServiceScope.AddRangeAsync(PostCommentImages, CancellationToken);
 	}
 
 	[Fact]
@@ -164,7 +169,7 @@ public class UpdatePostCommentFunctionalTests : BasePostCommentPresentationComma
 	}
 
 	[Fact]
-	public async Task UpdateAsync_ShouldHaveNotFoundStatusCode_WhenIdIsInvalid()
+	public async Task UpdateAsync_ShouldHaveNotFoundStatusCode_WhenPostNotFound()
 	{
 		// Arrange
 		await ServiceScope.DeleteAsync(Post, CancellationToken);
@@ -177,7 +182,7 @@ public class UpdatePostCommentFunctionalTests : BasePostCommentPresentationComma
 	}
 
 	[Fact]
-	public async Task UpdateAsync_ShouldHavePostNotFoundProblemDetails_WhenIdIsInvalid()
+	public async Task UpdateAsync_ShouldHavePostNotFoundProblemDetails_WhenPostNotFound()
 	{
 		// Arrange
 		await ServiceScope.DeleteAsync(Post, CancellationToken);
@@ -190,7 +195,7 @@ public class UpdatePostCommentFunctionalTests : BasePostCommentPresentationComma
 	}
 
 	[Fact]
-	public async Task UpdateAsync_ShouldHaveNotFoundStatusCode_WhenCommentIdIsInvalid()
+	public async Task UpdateAsync_ShouldHaveNotFoundStatusCode_WhenPostCommentNotFound()
 	{
 		// Arrange
 		await ServiceScope.DeleteAsync(PostComment, CancellationToken);
@@ -203,7 +208,7 @@ public class UpdatePostCommentFunctionalTests : BasePostCommentPresentationComma
 	}
 
 	[Fact]
-	public async Task UpdateAsync_ShouldHavePostCommentNotFoundProblemDetails_WhenCommentIdIsInvalid()
+	public async Task UpdateAsync_ShouldHavePostCommentNotFoundProblemDetails_WhenPostCommentNotFound()
 	{
 		// Arrange
 		await ServiceScope.DeleteAsync(PostComment, CancellationToken);
@@ -216,7 +221,7 @@ public class UpdatePostCommentFunctionalTests : BasePostCommentPresentationComma
 	}
 
 	[Fact]
-	public async Task UpdateAsync_ShouldHaveForbiddenStatusCode_WhenUserIdIsInvalid()
+	public async Task UpdateAsync_ShouldHaveForbiddenStatusCode_WhenPostCommentForbidden()
 	{
 		// Arrange
 		var user = UserBuilderFactory.Create().Build();
@@ -231,7 +236,7 @@ public class UpdatePostCommentFunctionalTests : BasePostCommentPresentationComma
 	}
 
 	[Fact]
-	public async Task UpdateAsync_ShouldHavePostCommentForbiddenProblemDetails_WhenUserIdIsInvalid()
+	public async Task UpdateAsync_ShouldHavePostCommentForbiddenProblemDetails_WhenPostCommentForbidden()
 	{
 		// Arrange
 		var user = UserBuilderFactory.Create().Build();
@@ -301,7 +306,7 @@ public class UpdatePostCommentFunctionalTests : BasePostCommentPresentationComma
 	}
 
 	[Fact]
-	public async Task UpdateAsync_ShouldHaveResponse_WhenRequestIsValid()
+	public async Task UpdateAsync_ShouldReturnResponse_WhenRequestIsValid()
 	{
 		// Act
 		var response = await CommentApiClient.UpdateAsync(_request, CancellationToken);
@@ -312,7 +317,7 @@ public class UpdatePostCommentFunctionalTests : BasePostCommentPresentationComma
 
 	[Theory]
 	[PostIdDifferentCaseData]
-	public async Task UpdateAsync_ShouldHaveResponse_WhenRequestAndIdAreValid(
+	public async Task UpdateAsync_ShouldReturnResponse_WhenRequestAndIdAreValid(
 		IStringTransformer transformer)
 	{
 		// Arrange
@@ -327,7 +332,7 @@ public class UpdatePostCommentFunctionalTests : BasePostCommentPresentationComma
 
 	[Theory]
 	[PostCommentIdDifferentCaseData]
-	public async Task UpdateAsync_ShouldHaveResponse_WhenRequestAndCommentIdAreValid(
+	public async Task UpdateAsync_ShouldReturnResponse_WhenRequestAndCommentIdAreValid(
 		IStringTransformer transformer)
 	{
 		// Arrange
@@ -342,7 +347,7 @@ public class UpdatePostCommentFunctionalTests : BasePostCommentPresentationComma
 
 	[Theory]
 	[UserIdDifferentCaseData]
-	public async Task UpdateAsync_ShouldHaveResponse_WhenRequestAndUserIdAreValid(
+	public async Task UpdateAsync_ShouldReturnResponse_WhenRequestAndUserIdAreValid(
 		IStringTransformer transformer)
 	{
 		// Arrange

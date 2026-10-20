@@ -146,7 +146,7 @@ public class GetPostCommentLikeByIdFunctionalTests : BasePostCommentLikePresenta
 	}
 
 	[Fact]
-	public async Task GetByIdAsync_ShouldHaveNotFoundStatusCode_WhenIdIsInvalid()
+	public async Task GetByIdAsync_ShouldHaveNotFoundStatusCode_WhenPostNotFound()
 	{
 		// Arrange
 		await ServiceScope.DeleteAsync(Post, CancellationToken);
@@ -159,7 +159,7 @@ public class GetPostCommentLikeByIdFunctionalTests : BasePostCommentLikePresenta
 	}
 
 	[Fact]
-	public async Task GetByIdAsync_ShouldHavePostNotFoundProblemDetails_WhenIdIsInvalid()
+	public async Task GetByIdAsync_ShouldHavePostNotFoundProblemDetails_WhenPostNotFound()
 	{
 		// Arrange
 		await ServiceScope.DeleteAsync(Post, CancellationToken);
@@ -172,7 +172,7 @@ public class GetPostCommentLikeByIdFunctionalTests : BasePostCommentLikePresenta
 	}
 
 	[Fact]
-	public async Task GetByIdAsync_ShouldHaveNotFoundStatusCode_WhenCommentIdIsInvalid()
+	public async Task GetByIdAsync_ShouldHaveNotFoundStatusCode_WhenPostCommentNotFound()
 	{
 		// Arrange
 		await ServiceScope.DeleteAsync(PostComment, CancellationToken);
@@ -185,7 +185,7 @@ public class GetPostCommentLikeByIdFunctionalTests : BasePostCommentLikePresenta
 	}
 
 	[Fact]
-	public async Task GetByIdAsync_ShouldHavePostCommentNotFoundProblemDetails_WhenCommentIdIsInvalid()
+	public async Task GetByIdAsync_ShouldHavePostCommentNotFoundProblemDetails_WhenPostCommentNotFound()
 	{
 		// Arrange
 		await ServiceScope.DeleteAsync(PostComment, CancellationToken);
@@ -198,7 +198,7 @@ public class GetPostCommentLikeByIdFunctionalTests : BasePostCommentLikePresenta
 	}
 
 	[Fact]
-	public async Task GetByIdAsync_ShouldHaveNotFoundStatusCode_WhenUserIdIsInvalid()
+	public async Task GetByIdAsync_ShouldHaveNotFoundStatusCode_WhenPostCommentLikeNotFound()
 	{
 		// Arrange
 		await ServiceScope.DeleteAsync(PostCommentLike, CancellationToken);
@@ -211,7 +211,7 @@ public class GetPostCommentLikeByIdFunctionalTests : BasePostCommentLikePresenta
 	}
 
 	[Fact]
-	public async Task GetByIdAsync_ShouldHavePostCommentLikeNotFoundProblemDetails_WhenUserIdIsInvalid()
+	public async Task GetByIdAsync_ShouldHavePostCommentLikeNotFoundProblemDetails_WhenPostCommentLikeNotFound()
 	{
 		// Arrange
 		await ServiceScope.DeleteAsync(PostCommentLike, CancellationToken);
@@ -295,7 +295,7 @@ public class GetPostCommentLikeByIdFunctionalTests : BasePostCommentLikePresenta
 	}
 
 	[Fact]
-	public async Task GetByIdAsync_ShouldHaveResponse_WhenRequestIsValid()
+	public async Task GetByIdAsync_ShouldReturnResponse_WhenRequestIsValid()
 	{
 		// Act
 		var response = await CommentLikeApiClient.GetByIdAsync(_request, CancellationToken);
@@ -306,7 +306,7 @@ public class GetPostCommentLikeByIdFunctionalTests : BasePostCommentLikePresenta
 
 	[Theory]
 	[PostIdDifferentCaseData]
-	public async Task GetByIdAsync_ShouldHaveResponse_WhenRequestAndIdAreValid(
+	public async Task GetByIdAsync_ShouldReturnResponse_WhenRequestAndIdAreValid(
 		IStringTransformer transformer)
 	{
 		// Arrange
@@ -321,7 +321,7 @@ public class GetPostCommentLikeByIdFunctionalTests : BasePostCommentLikePresenta
 
 	[Theory]
 	[PostCommentIdDifferentCaseData]
-	public async Task GetByIdAsync_ShouldHaveResponse_WhenRequestAndCommentIdAreValid(
+	public async Task GetByIdAsync_ShouldReturnResponse_WhenRequestAndCommentIdAreValid(
 		IStringTransformer transformer)
 	{
 		// Arrange
@@ -336,7 +336,7 @@ public class GetPostCommentLikeByIdFunctionalTests : BasePostCommentLikePresenta
 
 	[Theory]
 	[UserIdDifferentCaseData]
-	public async Task GetByIdAsync_ShouldHaveResponse_WhenRequestAndUserIdAreValid(
+	public async Task GetByIdAsync_ShouldReturnResponse_WhenRequestAndUserIdAreValid(
 		IStringTransformer transformer)
 	{
 		// Arrange

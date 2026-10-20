@@ -1,3 +1,12 @@
+using InstaConnect.Common.Tests.Features.DataAttributes.FormFiles.Base;
+using InstaConnect.Identity.Presentation.Features.Users.Models.Forms;
+using InstaConnect.Identity.Tests.Features.Users.DataAttributes.ConfirmPassword;
+using InstaConnect.Identity.Tests.Features.Users.DataAttributes.Email;
+using InstaConnect.Identity.Tests.Features.Users.DataAttributes.FirstName;
+using InstaConnect.Identity.Tests.Features.Users.DataAttributes.LastName;
+using InstaConnect.Identity.Tests.Features.Users.DataAttributes.Password;
+using InstaConnect.Identity.Tests.Features.Users.DataAttributes.ProfileImage;
+
 namespace InstaConnect.Identity.Presentation.Tests.Integration.Features.Users.Controllers;
 
 public class AddUserControllerIntegrationTests : BaseUserPresentationCommandIntegrationTest
@@ -111,7 +120,7 @@ public class AddUserControllerIntegrationTests : BaseUserPresentationCommandInte
 	}
 
 	[Fact]
-	public async Task AddAsync_ShouldThrowUserEmailAlreadyTakenException_WhenRequestIsInvalid()
+	public async Task AddAsync_ShouldThrowUserEmailAlreadyTakenException_WhenUserEmailAlreadyTaken()
 	{
 		// Arrange
 		await ServiceScope.AddAsync(User, CancellationToken);
@@ -123,7 +132,7 @@ public class AddUserControllerIntegrationTests : BaseUserPresentationCommandInte
 
 	[Theory]
 	[UserEmailDifferentCaseData]
-	public async Task AddAsync_ShouldThrowUserEmailAlreadyTakenException_WhenEmailIsInvalid(
+	public async Task AddAsync_ShouldThrowUserEmailAlreadyTakenException_WhenUserEmailAlreadyTakenAndEmailIsInvalid(
 		IStringTransformer transformer)
 	{
 		// Arrange
@@ -135,7 +144,7 @@ public class AddUserControllerIntegrationTests : BaseUserPresentationCommandInte
 	}
 
 	[Fact]
-	public async Task AddAsync_ShouldThrowUserNameAlreadyTakenException_WhenRequestIsInvalid()
+	public async Task AddAsync_ShouldThrowUserNameAlreadyTakenException_WhenUserNameAlreadyTaken()
 	{
 		// Arrange
 		await ServiceScope.AddAsync(User, CancellationToken);
@@ -147,7 +156,7 @@ public class AddUserControllerIntegrationTests : BaseUserPresentationCommandInte
 
 	[Theory]
 	[UserNameDifferentCaseData]
-	public async Task AddAsync_ShouldThrowUserNameAlreadyTakenException_WhenNameIsInvalid(
+	public async Task AddAsync_ShouldThrowUserNameAlreadyTakenException_WhenUserNameAlreadyTakenAndNameIsInvalid(
 		IStringTransformer transformer)
 	{
 		// Arrange
@@ -170,7 +179,7 @@ public class AddUserControllerIntegrationTests : BaseUserPresentationCommandInte
 
 	[Theory]
 	[UserProfileImageNullData]
-	public async Task AddAsync_ShouldReturnOkStatusCode_WhenProfileImageIsValid(
+	public async Task AddAsync_ShouldReturnOkStatusCode_WhenRequestAndProfileImageAreValid(
 		IFormFileTransformer transformer)
 	{
 		// Arrange
@@ -184,7 +193,7 @@ public class AddUserControllerIntegrationTests : BaseUserPresentationCommandInte
 	}
 
 	[Fact]
-	public async Task AddAsync_ShouldReturnOkResponse_WhenRequestIsValid()
+	public async Task AddAsync_ShouldReturnResponse_WhenRequestIsValid()
 	{
 		// Act
 		var response = await Controller.AddAsync(_request, CancellationToken);
@@ -196,7 +205,7 @@ public class AddUserControllerIntegrationTests : BaseUserPresentationCommandInte
 
 	[Theory]
 	[UserProfileImageNullData]
-	public async Task AddAsync_ShouldReturnOkResponse_WhenProfileImageIsValid(
+	public async Task AddAsync_ShouldReturnResponse_WhenRequestAndProfileImageAreValid(
 		IFormFileTransformer transformer)
 	{
 		// Arrange
@@ -223,7 +232,7 @@ public class AddUserControllerIntegrationTests : BaseUserPresentationCommandInte
 
 	[Theory]
 	[UserProfileImageNullData]
-	public async Task AddAsync_ShouldAddUser_WhenProfileImageIsValid(
+	public async Task AddAsync_ShouldAddUser_WhenRequestAndProfileImageAreValid(
 		IFormFileTransformer transformer)
 	{
 		// Arrange
@@ -245,12 +254,12 @@ public class AddUserControllerIntegrationTests : BaseUserPresentationCommandInte
 		var user = await ServiceScope.GetByIdAsync(response, CancellationToken);
 
 		// Assert
-		user.EmailConfirmationTokens.ShouldNotBeEmpty();
+		user.EmailConfirmationTokens.ShouldSatisfy(_request);
 	}
 
 	[Theory]
 	[UserProfileImageNullData]
-	public async Task AddAsync_ShouldAddEmailConfirmationToken_WhenProfileImageIsValid(
+	public async Task AddAsync_ShouldAddEmailConfirmationToken_WhenRequestAndProfileImageAreValid(
 		IFormFileTransformer transformer)
 	{
 		// Arrange
@@ -261,7 +270,7 @@ public class AddUserControllerIntegrationTests : BaseUserPresentationCommandInte
 		var user = await ServiceScope.GetByIdAsync(response, CancellationToken);
 
 		// Assert
-		user.EmailConfirmationTokens.ShouldNotBeEmpty();
+		user.EmailConfirmationTokens.ShouldSatisfy(request);
 	}
 
 	[Fact]

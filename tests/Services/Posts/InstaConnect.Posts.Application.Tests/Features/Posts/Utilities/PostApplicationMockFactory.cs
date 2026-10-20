@@ -1,3 +1,5 @@
+using InstaConnect.Posts.Domain.Features.Posts.Abstractions;
+
 namespace InstaConnect.Posts.Application.Tests.Features.Posts.Utilities;
 
 public static class PostApplicationMockFactory

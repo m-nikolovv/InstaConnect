@@ -1,5 +1,3 @@
-using InstaConnect.Identity.Domain.Features.Common.Helpers;
-
 namespace InstaConnect.Identity.Domain.Tests.Features.Common.Assertions;
 
 public static class IdentityMockAssertions

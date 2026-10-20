@@ -1,3 +1,6 @@
+using InstaConnect.Posts.Tests.Features.PostComments.DataAttributes.Content;
+using InstaConnect.Posts.Tests.Features.Users.Builders;
+
 namespace InstaConnect.Posts.Presentation.Tests.Integration.Features.PostComments.Controllers;
 
 public class UpdatePostCommentControllerIntegrationTests : BasePostCommentPresentationCommandIntegrationTest
@@ -17,6 +20,7 @@ public class UpdatePostCommentControllerIntegrationTests : BasePostCommentPresen
 	protected override async Task OnInitializeAsync()
 	{
 		await ServiceScope.AddAsync(PostComment, CancellationToken);
+		await ServiceScope.AddRangeAsync(PostCommentImages, CancellationToken);
 	}
 
 	[Theory]
@@ -84,7 +88,7 @@ public class UpdatePostCommentControllerIntegrationTests : BasePostCommentPresen
 	}
 
 	[Fact]
-	public async Task UpdateAsync_ShouldThrowPostNotFoundException_WhenIdIsInvalid()
+	public async Task UpdateAsync_ShouldThrowPostNotFoundException_WhenPostNotFound()
 	{
 		// Arrange
 		await ServiceScope.DeleteAsync(Post, CancellationToken);
@@ -94,7 +98,7 @@ public class UpdatePostCommentControllerIntegrationTests : BasePostCommentPresen
 	}
 
 	[Fact]
-	public async Task UpdateAsync_ShouldThrowPostCommentNotFoundException_WhenCommentIdIsInvalid()
+	public async Task UpdateAsync_ShouldThrowPostCommentNotFoundException_WhenPostCommentNotFound()
 	{
 		// Arrange
 		await ServiceScope.DeleteAsync(PostComment, CancellationToken);
@@ -104,7 +108,7 @@ public class UpdatePostCommentControllerIntegrationTests : BasePostCommentPresen
 	}
 
 	[Fact]
-	public async Task UpdateAsync_ShouldThrowPostCommentForbiddenException_WhenUserIdIsInvalid()
+	public async Task UpdateAsync_ShouldThrowPostCommentForbiddenException_WhenPostCommentForbidden()
 	{
 		// Arrange
 		var user = UserBuilderFactory.Create().Build();
@@ -171,7 +175,7 @@ public class UpdatePostCommentControllerIntegrationTests : BasePostCommentPresen
 	}
 
 	[Fact]
-	public async Task UpdateAsync_ShouldReturnOkResponse_WhenRequestIsValid()
+	public async Task UpdateAsync_ShouldReturnResponse_WhenRequestIsValid()
 	{
 		// Act
 		var response = await Controller.UpdateAsync(_request, CancellationToken);
@@ -183,7 +187,7 @@ public class UpdatePostCommentControllerIntegrationTests : BasePostCommentPresen
 
 	[Theory]
 	[PostIdDifferentCaseData]
-	public async Task UpdateAsync_ShouldReturnOkResponse_WhenRequestAndIdAreValid(
+	public async Task UpdateAsync_ShouldReturnResponse_WhenRequestAndIdAreValid(
 		IStringTransformer transformer)
 	{
 		// Arrange
@@ -199,7 +203,7 @@ public class UpdatePostCommentControllerIntegrationTests : BasePostCommentPresen
 
 	[Theory]
 	[PostCommentIdDifferentCaseData]
-	public async Task UpdateAsync_ShouldReturnOkResponse_WhenRequestAndCommentIdAreValid(
+	public async Task UpdateAsync_ShouldReturnResponse_WhenRequestAndCommentIdAreValid(
 		IStringTransformer transformer)
 	{
 		// Arrange
@@ -215,7 +219,7 @@ public class UpdatePostCommentControllerIntegrationTests : BasePostCommentPresen
 
 	[Theory]
 	[UserIdDifferentCaseData]
-	public async Task UpdateAsync_ShouldReturnOkResponse_WhenRequestAndUserIdAreValid(
+	public async Task UpdateAsync_ShouldReturnResponse_WhenRequestAndUserIdAreValid(
 		IStringTransformer transformer)
 	{
 		// Arrange

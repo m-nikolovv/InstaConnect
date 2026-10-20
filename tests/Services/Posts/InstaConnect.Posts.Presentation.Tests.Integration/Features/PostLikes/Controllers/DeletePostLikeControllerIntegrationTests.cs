@@ -52,7 +52,7 @@ public class DeletePostLikeControllerIntegrationTests : BasePostLikePresentation
 	}
 
 	[Fact]
-	public async Task DeleteAsync_ShouldThrowPostNotFoundException_WhenIdIsInvalid()
+	public async Task DeleteAsync_ShouldThrowPostNotFoundException_WhenPostNotFound()
 	{
 		// Arrange
 		await ServiceScope.DeleteAsync(Post, CancellationToken);
@@ -62,7 +62,7 @@ public class DeletePostLikeControllerIntegrationTests : BasePostLikePresentation
 	}
 
 	[Fact]
-	public async Task DeleteAsync_ShouldThrowPostLikeNotFoundException_WhenUserIdIsInvalid()
+	public async Task DeleteAsync_ShouldThrowPostLikeNotFoundException_WhenPostLikeNotFound()
 	{
 		// Arrange
 		await ServiceScope.DeleteAsync(PostLike, CancellationToken);
@@ -116,7 +116,7 @@ public class DeletePostLikeControllerIntegrationTests : BasePostLikePresentation
 	{
 		// Act
 		await Controller.DeleteAsync(_request, CancellationToken);
-		var postLike = await ServiceScope.GetByIdAsync(PostLike.Id, CancellationToken);
+		var postLike = await ServiceScope.GetByIdAsync(PostLikeId, CancellationToken);
 
 		// Assert
 		postLike.ShouldBeNull();
@@ -132,7 +132,7 @@ public class DeletePostLikeControllerIntegrationTests : BasePostLikePresentation
 
 		// Act
 		await Controller.DeleteAsync(request, CancellationToken);
-		var postLike = await ServiceScope.GetByIdAsync(PostLike.Id, CancellationToken);
+		var postLike = await ServiceScope.GetByIdAsync(PostLikeId, CancellationToken);
 
 		// Assert
 		postLike.ShouldBeNull();
@@ -148,7 +148,7 @@ public class DeletePostLikeControllerIntegrationTests : BasePostLikePresentation
 
 		// Act
 		await Controller.DeleteAsync(request, CancellationToken);
-		var postLike = await ServiceScope.GetByIdAsync(PostLike.Id, CancellationToken);
+		var postLike = await ServiceScope.GetByIdAsync(PostLikeId, CancellationToken);
 
 		// Assert
 		postLike.ShouldBeNull();

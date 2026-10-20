@@ -1,4 +1,8 @@
-using InstaConnect.Identity.Tests.Features.EmailConfirmationTokens.Assertions;
+using InstaConnect.Identity.Presentation.Features.EmailConfirmationTokens.Models.Requests;
+using InstaConnect.Identity.Presentation.Tests.Features.EmailConfirmationTokens.Builders;
+using InstaConnect.Identity.Presentation.Tests.Functional.Features.EmailConfirmationTokens.Utilities;
+using InstaConnect.Identity.Tests.Features.EmailConfirmationTokens.Builders;
+using InstaConnect.Identity.Tests.Features.EmailConfirmationTokens.DataAttributes.Value;
 
 namespace InstaConnect.Identity.Presentation.Tests.Functional.Features.EmailConfirmationTokens.Endpoints;
 
@@ -114,7 +118,7 @@ public class VerifyEmailConfirmationTokenFunctionalTests : BaseEmailConfirmation
 	}
 
 	[Fact]
-	public async Task VerifyAsync_ShouldHaveBadRequestStatusCode_WhenEmailIsConfirmed()
+	public async Task VerifyAsync_ShouldHaveBadRequestStatusCode_WhenUserEmailAlreadyConfirmed()
 	{
 		// Arrange
 		var updatedUser = UserBuilder.WithConfirmedEmail().Build();
@@ -128,7 +132,7 @@ public class VerifyEmailConfirmationTokenFunctionalTests : BaseEmailConfirmation
 	}
 
 	[Fact]
-	public async Task VerifyAsync_ShouldHaveUserEmailAlreadyConfirmedProblemDetails_WhenEmailIsConfirmed()
+	public async Task VerifyAsync_ShouldHaveUserEmailAlreadyConfirmedProblemDetails_WhenUserEmailAlreadyConfirmed()
 	{
 		// Arrange
 		var updatedUser = UserBuilder.WithConfirmedEmail().Build();
@@ -168,7 +172,7 @@ public class VerifyEmailConfirmationTokenFunctionalTests : BaseEmailConfirmation
 	}
 
 	[Fact]
-	public async Task VerifyAsync_ShouldHaveBadRequestStatusCode_WhenEmailConfirmationTokenHasExpired()
+	public async Task VerifyAsync_ShouldHaveBadRequestStatusCode_WhenEmailConfirmationTokenExpired()
 	{
 		// Arrange
 		var updatedEmailConfirmationToken = EmailConfirmationTokenBuilder.WithAlreadyExpiresAtUtc().Build();
@@ -182,7 +186,7 @@ public class VerifyEmailConfirmationTokenFunctionalTests : BaseEmailConfirmation
 	}
 
 	[Fact]
-	public async Task VerifyAsync_ShouldHaveEmailConfirmationTokenExpiredProblemDetails_WhenWhenEmailConfirmationTokenHasExpired()
+	public async Task VerifyAsync_ShouldHaveEmailConfirmationTokenExpiredProblemDetails_WhenEmailConfirmationTokenExpired()
 	{
 		// Arrange
 		var updatedEmailConfirmationToken = EmailConfirmationTokenBuilder.WithAlreadyExpiresAtUtc().Build();
@@ -207,7 +211,7 @@ public class VerifyEmailConfirmationTokenFunctionalTests : BaseEmailConfirmation
 
 	[Theory]
 	[UserIdDifferentCaseData]
-	public async Task VerifyAsync_ShouldHaveNoContentStatusCode_WhenRequestAndIdIsValid(
+	public async Task VerifyAsync_ShouldHaveNoContentStatusCode_WhenRequestAndIdAreValid(
 		IStringTransformer transformer)
 	{
 		// Arrange
@@ -222,7 +226,7 @@ public class VerifyEmailConfirmationTokenFunctionalTests : BaseEmailConfirmation
 
 	[Theory]
 	[EmailConfirmationTokenValueDifferentCaseData]
-	public async Task VerifyAsync_ShouldHaveNoContentStatusCode_WhenRequestAndValueIsValid(
+	public async Task VerifyAsync_ShouldHaveNoContentStatusCode_WhenRequestAndValueAreValid(
 		IStringTransformer transformer)
 	{
 		// Arrange
@@ -236,11 +240,11 @@ public class VerifyEmailConfirmationTokenFunctionalTests : BaseEmailConfirmation
 	}
 
 	[Fact]
-	public async Task VerifyAsync_ShouldUpdatedUser_WhenRequestIsValid()
+	public async Task VerifyAsync_ShouldUpdateUser_WhenRequestIsValid()
 	{
 		// Act
 		await EmailConfirmationTokenApiClient.VerifyAsync(_request, CancellationToken);
-		var user = await ServiceScope.GetByIdAsync(User.Id, CancellationToken);
+		var user = await ServiceScope.GetByIdAsync(UserId, CancellationToken);
 
 		// Assert
 		user.ShouldSatisfy(_request);
@@ -248,7 +252,7 @@ public class VerifyEmailConfirmationTokenFunctionalTests : BaseEmailConfirmation
 
 	[Theory]
 	[UserIdDifferentCaseData]
-	public async Task VerifyAsync_ShouldUpdatedUser_WhenRequestAndIdAreValid(
+	public async Task VerifyAsync_ShouldUpdateUser_WhenRequestAndIdAreValid(
 		IStringTransformer transformer)
 	{
 		// Arrange
@@ -256,7 +260,7 @@ public class VerifyEmailConfirmationTokenFunctionalTests : BaseEmailConfirmation
 
 		// Act
 		await EmailConfirmationTokenApiClient.VerifyAsync(request, CancellationToken);
-		var user = await ServiceScope.GetByIdAsync(User.Id, CancellationToken);
+		var user = await ServiceScope.GetByIdAsync(UserId, CancellationToken);
 
 		// Assert
 		user.ShouldSatisfy(_request);
@@ -264,7 +268,7 @@ public class VerifyEmailConfirmationTokenFunctionalTests : BaseEmailConfirmation
 
 	[Theory]
 	[EmailConfirmationTokenValueDifferentCaseData]
-	public async Task VerifyAsync_ShouldUpdatedUser_WhenRequestAndValueAreValid(
+	public async Task VerifyAsync_ShouldUpdateUser_WhenRequestAndValueAreValid(
 		IStringTransformer transformer)
 	{
 		// Arrange
@@ -272,7 +276,7 @@ public class VerifyEmailConfirmationTokenFunctionalTests : BaseEmailConfirmation
 
 		// Act
 		await EmailConfirmationTokenApiClient.VerifyAsync(request, CancellationToken);
-		var user = await ServiceScope.GetByIdAsync(User.Id, CancellationToken);
+		var user = await ServiceScope.GetByIdAsync(UserId, CancellationToken);
 
 		// Assert
 		user.ShouldSatisfy(_request);
@@ -283,7 +287,7 @@ public class VerifyEmailConfirmationTokenFunctionalTests : BaseEmailConfirmation
 	{
 		// Act
 		await EmailConfirmationTokenApiClient.VerifyAsync(_request, CancellationToken);
-		var user = await ServiceScope.GetByIdAsync(User.Id, CancellationToken);
+		var user = await ServiceScope.GetByIdAsync(UserId, CancellationToken);
 
 		// Assert
 		user.EmailConfirmationTokens.ShouldBeEmpty();
@@ -299,7 +303,7 @@ public class VerifyEmailConfirmationTokenFunctionalTests : BaseEmailConfirmation
 
 		// Act
 		await EmailConfirmationTokenApiClient.VerifyAsync(request, CancellationToken);
-		var user = await ServiceScope.GetByIdAsync(User.Id, CancellationToken);
+		var user = await ServiceScope.GetByIdAsync(UserId, CancellationToken);
 
 		// Assert
 		user.EmailConfirmationTokens.ShouldBeEmpty();
@@ -315,7 +319,7 @@ public class VerifyEmailConfirmationTokenFunctionalTests : BaseEmailConfirmation
 
 		// Act
 		await EmailConfirmationTokenApiClient.VerifyAsync(request, CancellationToken);
-		var user = await ServiceScope.GetByIdAsync(User.Id, CancellationToken);
+		var user = await ServiceScope.GetByIdAsync(UserId, CancellationToken);
 
 		// Assert
 		user.EmailConfirmationTokens.ShouldBeEmpty();

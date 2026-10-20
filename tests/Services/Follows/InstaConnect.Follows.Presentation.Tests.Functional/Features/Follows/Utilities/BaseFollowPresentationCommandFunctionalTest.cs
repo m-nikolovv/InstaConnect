@@ -17,7 +17,7 @@ public abstract class BaseFollowPresentationCommandFunctionalTest : BaseFollowWe
 	{
 		ApiClient = webApplicationFactory.CreateApiClient();
 		EventClient = webApplicationFactory.CreateEventClient();
-		NotificationClient = webApplicationFactory.CreateNotificationClient(Following.Id);
+		NotificationClient = webApplicationFactory.CreateNotificationClient(FollowingId);
 	}
 
 	public override async Task InitializeAsync()

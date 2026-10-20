@@ -6,4 +6,9 @@ public class PostLikeBuilderFactory
 	{
 		return new(post, user);
 	}
+
+	public PostLikeBuilder Create(PostLike postLike)
+	{
+		return new(postLike);
+	}
 }

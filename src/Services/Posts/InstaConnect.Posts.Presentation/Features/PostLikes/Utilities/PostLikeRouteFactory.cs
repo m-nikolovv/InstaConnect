@@ -1,4 +1,4 @@
-using InstaConnect.Common.Domain.Features.Common.Extensions;
+using InstaConnect.Posts.Presentation.Features.PostLikes.Models.Requests;
 
 namespace InstaConnect.Posts.Presentation.Features.PostLikes.Utilities;
 

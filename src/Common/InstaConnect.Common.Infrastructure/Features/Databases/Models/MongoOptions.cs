@@ -1,5 +1,3 @@
-using InstaConnect.Common.Domain.Features.Common.Abstractions;
-
 namespace InstaConnect.Common.Infrastructure.Features.Databases.Models;
 
 public record MongoOptions(

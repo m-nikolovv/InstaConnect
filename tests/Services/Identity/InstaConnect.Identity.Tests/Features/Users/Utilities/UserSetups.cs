@@ -1,8 +1,5 @@
 using InstaConnect.Common.Domain.Features.ValueObjects.Models;
 using InstaConnect.Identity.Domain.Features.Users.Abstractions;
-using InstaConnect.Identity.Domain.Features.Users.Models.ValueObjects;
-
-using Microsoft.Extensions.DependencyInjection;
 
 namespace InstaConnect.Identity.Tests.Features.Users.Utilities;
 

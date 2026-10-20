@@ -1,5 +1,3 @@
-using InstaConnect.Posts.Domain.Features.Common.Models.Requests;
-
 namespace InstaConnect.Posts.Domain.Features.Posts.Helpers;
 
 public class PostIncludeDescriptorFactory : IPostIncludeDescriptorFactory
@@ -17,5 +15,10 @@ public class PostIncludeDescriptorFactory : IPostIncludeDescriptorFactory
 	public PostsIncludeDescriptor CreatePostComments()
 	{
 		return new(PostsDestinationType.Post, PostsIncludeType.PostComment);
+	}
+
+	public PostsIncludeDescriptor CreatePostImages()
+	{
+		return new(PostsDestinationType.Post, PostsIncludeType.PostImage);
 	}
 }

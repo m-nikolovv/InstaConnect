@@ -1,9 +1,5 @@
 using InstaConnect.Common.Domain.Features.ValueObjects.Models;
-using InstaConnect.Common.Infrastructure.Features.Databases.Helpers;
-using InstaConnect.Follows.Domain.Features.Users.Models.Responses;
 using InstaConnect.Follows.Infrastructure.Features.Users.Extensions;
-
-using MongoDB.Driver;
 
 namespace InstaConnect.Follows.Infrastructure.Features.Users.Helpers.Collections;
 
@@ -58,7 +54,7 @@ internal class UserFluent : MongoDbFluent<User>, IUserFluent
 				 u.LastName,
 				 u.Email,
 				 u.Name,
-				 u.ProfileImage,
+				 u.ProfileImageUrl,
 				 u.CreatedAtUtc,
 				 u.UpdatedAtUtc));
 		var fluent = Project(projection);

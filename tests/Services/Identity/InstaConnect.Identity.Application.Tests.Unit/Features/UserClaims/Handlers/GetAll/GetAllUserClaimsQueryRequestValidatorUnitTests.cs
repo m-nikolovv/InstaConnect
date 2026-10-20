@@ -1,5 +1,12 @@
 using InstaConnect.Common.Domain.Features.Requests.Models;
+using InstaConnect.Common.Tests.Features.DataAttributes.Enums.Base;
+using InstaConnect.Common.Tests.Features.DataAttributes.Ints.Base;
+using InstaConnect.Identity.Application.Features.UserClaims.Queries.GetAll;
 using InstaConnect.Identity.Domain.Features.UserClaims.Models.Requests;
+using InstaConnect.Identity.Tests.Features.UserClaims.DataAttributes.Page;
+using InstaConnect.Identity.Tests.Features.UserClaims.DataAttributes.PageSize;
+using InstaConnect.Identity.Tests.Features.UserClaims.DataAttributes.SortOrder;
+using InstaConnect.Identity.Tests.Features.UserClaims.DataAttributes.SortTerm;
 
 namespace InstaConnect.Identity.Application.Tests.Unit.Features.UserClaims.Handlers.GetAll;
 
@@ -118,7 +125,7 @@ public class GetAllUserClaimsQueryRequestValidatorUnitTests : BaseUserClaimAppli
 	[Theory]
 	[UserIdNullData]
 	[UserIdEmptyData]
-	public void TestValidate_ShouldNotHaveAnyValidationsErrors_WhenCurrentIdIsValid(
+	public void TestValidate_ShouldNotHaveAnyValidationErrors_WhenCurrentIdIsValid(
 		IStringTransformer transformer)
 	{
 		// Arrange
@@ -132,7 +139,7 @@ public class GetAllUserClaimsQueryRequestValidatorUnitTests : BaseUserClaimAppli
 	}
 
 	[Fact]
-	public void TestValidate_ShouldNotHaveAnyValidationsErrors_WhenRequestIsValid()
+	public void TestValidate_ShouldNotHaveAnyValidationErrors_WhenRequestIsValid()
 	{
 		// Act
 		var response = _requestValidator.TestValidate(_request);

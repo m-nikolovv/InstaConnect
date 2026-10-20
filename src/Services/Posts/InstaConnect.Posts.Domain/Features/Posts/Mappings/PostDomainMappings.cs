@@ -1,6 +1,5 @@
-using InstaConnect.Identity.Events.Features.Users;
-
-using Mapster;
+using InstaConnect.Posts.Events.Features.PostImages;
+using InstaConnect.Posts.Events.Features.Posts;
 
 namespace InstaConnect.Posts.Domain.Features.Posts.Mappings;
 
@@ -23,7 +22,9 @@ internal class PostDomainMappings : IRegister
 				src.UserId.Id,
 				src.Title,
 				src.Content,
+				src.Summary.Value,
 				src.User.Adapt<UserEventRequest>(config)!,
+				src.PostImages.Adapt<ICollection<PostImageEventRequest>>(config),
 				src.CreatedAtUtc,
 				src.UpdatedAtUtc));
 	}

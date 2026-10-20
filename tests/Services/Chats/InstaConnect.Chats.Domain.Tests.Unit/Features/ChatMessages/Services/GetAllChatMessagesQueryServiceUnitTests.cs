@@ -1,10 +1,3 @@
-using InstaConnect.Chats.Domain.Features.ChatMessages.Helpers;
-using InstaConnect.Chats.Domain.Features.ChatMessages.Models.Requests;
-using InstaConnect.Chats.Domain.Tests.Features.ChatMessages.Assertions;
-using InstaConnect.Chats.Domain.Tests.Features.ChatMessages.Builders;
-using InstaConnect.Chats.Domain.Tests.Features.ChatMessages.Utilities;
-using InstaConnect.Chats.Domain.Tests.Unit.Features.ChatMessages.Utilities;
-
 namespace InstaConnect.Chats.Domain.Tests.Unit.Features.ChatMessages.Services;
 
 public class GetAllChatMessagesQueryServiceUnitTests : BaseChatMessageDomainQueryUnitTest
@@ -29,7 +22,7 @@ public class GetAllChatMessagesQueryServiceUnitTests : BaseChatMessageDomainQuer
 	}
 
 	[Fact]
-	public async Task GetAllAsync_ShouldThrowChatNotFoundException_WhenIdIsInvalid()
+	public async Task GetAllAsync_ShouldThrowChatNotFoundException_WhenChatNotFound()
 	{
 		// Arrange
 		Repository.RemoveGetByIdAsync(_query, Chat, CancellationToken);

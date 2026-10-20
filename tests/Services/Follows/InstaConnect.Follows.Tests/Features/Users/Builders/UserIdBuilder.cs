@@ -1,5 +1,5 @@
 using InstaConnect.Common.Tests.Features.DataAttributes.Base;
-using InstaConnect.Follows.Domain.Features.Users.Models.ValueObjects;
+using InstaConnect.Common.Tests.Features.DataAttributes.Strings.Base;
 
 namespace InstaConnect.Follows.Tests.Features.Users.Builders;
 

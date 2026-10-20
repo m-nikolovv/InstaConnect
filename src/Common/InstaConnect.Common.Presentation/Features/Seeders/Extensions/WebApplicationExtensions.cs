@@ -1,8 +1,5 @@
 using InstaConnect.Common.Infrastructure.Features.Seeders.Abstractions;
 
-using Microsoft.AspNetCore.Builder;
-using Microsoft.Extensions.DependencyInjection;
-
 namespace InstaConnect.Common.Presentation.Features.Seeders.Extensions;
 
 public static class WebApplicationExtensions

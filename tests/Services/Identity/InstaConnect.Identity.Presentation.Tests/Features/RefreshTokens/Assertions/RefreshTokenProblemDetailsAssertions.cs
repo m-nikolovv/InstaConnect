@@ -1,4 +1,5 @@
-using InstaConnect.Common.Presentation.Features.Exceptions.Models;
+using InstaConnect.Identity.Domain.Features.RefreshTokens.Models.ValueObjects;
+using InstaConnect.Identity.Domain.Features.RefreshTokens.Utilities;
 
 namespace InstaConnect.Identity.Presentation.Tests.Features.RefreshTokens.Assertions;
 

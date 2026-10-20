@@ -1,5 +1,3 @@
-using System.Linq.Expressions;
-
 namespace InstaConnect.Follows.Infrastructure.Features.Follows.Helpers.SortTermers;
 
 internal class ByFollowingNameSortTermer : IFollowsSortTermer

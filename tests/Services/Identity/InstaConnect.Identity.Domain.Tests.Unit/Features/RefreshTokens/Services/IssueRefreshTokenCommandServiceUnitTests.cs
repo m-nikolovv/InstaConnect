@@ -1,9 +1,7 @@
 using InstaConnect.Identity.Domain.Features.RefreshTokens.Helpers;
 using InstaConnect.Identity.Domain.Features.RefreshTokens.Models.Requests;
-using InstaConnect.Identity.Domain.Features.Users.Models.Requests;
 using InstaConnect.Identity.Domain.Tests.Features.RefreshTokens.Assertions;
 using InstaConnect.Identity.Domain.Tests.Features.RefreshTokens.Builders;
-using InstaConnect.Identity.Domain.Tests.Features.RefreshTokens.Utilities;
 using InstaConnect.Identity.Domain.Tests.Unit.Features.RefreshTokens.Utilities;
 
 namespace InstaConnect.Identity.Domain.Tests.Unit.Features.RefreshTokens.Services;
@@ -34,7 +32,7 @@ public class IssueRefreshTokenCommandServiceUnitTests : BaseRefreshTokenDomainCo
 	}
 
 	[Fact]
-	public async Task IssueAsync_ShouldThrowUserInvalidDetailsException_WhenUserNotFound()
+	public async Task IssueAsync_ShouldThrowUserInvalidDetailsException_WhenUserInvalidDetailsAndNameIsInvalid()
 	{
 		// Arrange
 		Repository.RemoveGetByNameAsync(_command, _include, User, CancellationToken);
@@ -44,7 +42,7 @@ public class IssueRefreshTokenCommandServiceUnitTests : BaseRefreshTokenDomainCo
 	}
 
 	[Fact]
-	public async Task IssueAsync_ShouldThrowUserInvalidDetailsException_WhenPasswordDoesNotMatch()
+	public async Task IssueAsync_ShouldThrowUserInvalidDetailsException_WhenUserInvalidDetailsAndPasswordIsInvalid()
 	{
 		// Arrange
 		PasswordHasher.SetupIsMismatch(_command, User);
@@ -54,7 +52,7 @@ public class IssueRefreshTokenCommandServiceUnitTests : BaseRefreshTokenDomainCo
 	}
 
 	[Fact]
-	public async Task IssueAsync_ShouldThrowUserNameEmailNotConfirmedException_WhenEmailIsNotConfirmed()
+	public async Task IssueAsync_ShouldThrowUserNameEmailNotConfirmedException_WhenUserNameEmailNotConfirmed()
 	{
 		// Arrange
 		var unconfirmedUser = UserBuilder.WithUnconfirmedEmail().Build();

@@ -6,144 +6,63 @@
   </ItemGroup>
 
   <ItemGroup Label="Common">
-    <Using Include="InstaConnect.Common.Tests.Features.Abstractions" />
-    <Using Include="InstaConnect.Common.Tests.Features.Helpers" />
-    <Using Include="InstaConnect.Common.Tests.Features.Assertions" />
-    <Using Include="InstaConnect.Common.Tests.Features.Utilities" />
-    <Using Include="InstaConnect.Common.Tests.Features.DataAttributes.Enums" />
+    <Using Include="InstaConnect.Common.Domain.Features.Requests.Models" />
     <Using Include="InstaConnect.Common.Tests.Features.DataAttributes.Enums.Base" />
-    <Using Include="InstaConnect.Common.Tests.Features.DataAttributes.Strings.Base" />
+    <Using Include="InstaConnect.Common.Tests.Features.DataAttributes.Enums.Sort" />
     <Using Include="InstaConnect.Common.Tests.Features.DataAttributes.Ints.Base" />
-    <Using Include="InstaConnect.Common.Tests.Features.DataAttributes.DateTimeOffsets.Base" />
-    <Using Include="InstaConnect.Common.Presentation.Tests.Features.Assertions" />
     <Using Include="InstaConnect.Posts.Tests.Features.Common.Utilities" />
   </ItemGroup>
 
   <ItemGroup Label="Users">
-    <Using Include="InstaConnect.Identity.Events.Features.Users" />
-    <Using Include="InstaConnect.Posts.Domain.Features.Users.Abstractions" />
-    <Using Include="InstaConnect.Posts.Presentation.Tests.Features.Users.Utilities" />
-    <Using Include="InstaConnect.Posts.Application.Features.Users.Commands.Add" />
-    <Using Include="InstaConnect.Posts.Application.Features.Users.Commands.Update" />
-    <Using Include="InstaConnect.Posts.Application.Features.Users.Commands.Delete" />
     <Using Include="InstaConnect.Posts.Presentation.Tests.Features.Users.Assertions" />
-    <Using Include="InstaConnect.Posts.Tests.Features.Users.Builders" />
-    <Using Include="InstaConnect.Posts.Tests.Features.Users.Utilities" />
     <Using Include="InstaConnect.Posts.Tests.Features.Users.DataAttributes.Id" />
-    <Using Include="InstaConnect.Posts.Tests.Features.Users.DataAttributes.FirstName" />
-    <Using Include="InstaConnect.Posts.Tests.Features.Users.DataAttributes.LastName" />
-    <Using Include="InstaConnect.Posts.Tests.Features.Users.DataAttributes.Name" />
-    <Using Include="InstaConnect.Posts.Tests.Features.Users.DataAttributes.Email" />
-    <Using Include="InstaConnect.Posts.Tests.Features.Users.DataAttributes.ProfileImage" />
-    <Using Include="InstaConnect.Posts.Tests.Features.Users.DataAttributes.CreatedAtUtc" />
-    <Using Include="InstaConnect.Posts.Tests.Features.Users.DataAttributes.UpdatedAtUtc" />
+    <Using Include="InstaConnect.Posts.Tests.Features.Users.Utilities" />
   </ItemGroup>
 
   <ItemGroup Label="Posts">
-    <Using Include="InstaConnect.Posts.Domain.Features.Posts.Abstractions" />
-    <Using Include="InstaConnect.Posts.Domain.Features.Posts.Models.Entities" />
     <Using Include="InstaConnect.Posts.Presentation.Features.Posts.Models.Requests" />
-    <Using Include="InstaConnect.Posts.Presentation.Features.Posts.Models.Responses" />
+    <Using Include="InstaConnect.Posts.Presentation.Tests.Features.Posts.Assertions" />
     <Using Include="InstaConnect.Posts.Presentation.Tests.Features.Posts.Builders" />
     <Using Include="InstaConnect.Posts.Presentation.Tests.Features.Posts.Utilities" />
-    <Using Include="InstaConnect.Posts.Application.Features.Posts.Queries.GetAll" />
-    <Using Include="InstaConnect.Posts.Application.Features.Posts.Queries.GetAllForUser" />
-    <Using Include="InstaConnect.Posts.Application.Features.Posts.Queries.GetById" />
-    <Using Include="InstaConnect.Posts.Application.Features.Posts.Commands.Add" />
-    <Using Include="InstaConnect.Posts.Application.Features.Posts.Commands.Update" />
-    <Using Include="InstaConnect.Posts.Application.Features.Posts.Commands.Delete" />
-    <Using Include="InstaConnect.Posts.Presentation.Features.Posts.Controllers.v1" />
     <Using Include="InstaConnect.Posts.Presentation.Tests.Functional.Features.Posts.Utilities" />
     <Using Include="InstaConnect.Posts.Tests.Features.Posts.Assertions" />
-    <Using Include="InstaConnect.Posts.Presentation.Tests.Features.Posts.Assertions" />
-    <Using Include="InstaConnect.Posts.Tests.Features.Posts.Builders" />
-    <Using Include="InstaConnect.Posts.Tests.Features.Posts.Utilities" />
     <Using Include="InstaConnect.Posts.Tests.Features.Posts.DataAttributes.Id" />
-    <Using Include="InstaConnect.Posts.Tests.Features.Posts.DataAttributes.Title" />
-    <Using Include="InstaConnect.Posts.Tests.Features.Posts.DataAttributes.Content" />
-    <Using Include="InstaConnect.Posts.Tests.Features.Posts.DataAttributes.Page" />
-    <Using Include="InstaConnect.Posts.Tests.Features.Posts.DataAttributes.PageSize" />
-    <Using Include="InstaConnect.Posts.Tests.Features.Posts.DataAttributes.SortOrder" />
-    <Using Include="InstaConnect.Posts.Tests.Features.Posts.DataAttributes.SortTerm" />
-    <Using Include="InstaConnect.Posts.Tests.Features.Posts.DataAttributes.SortTerm.ForUser" />
+    <Using Include="InstaConnect.Posts.Tests.Features.Posts.Utilities" />
   </ItemGroup>
 
   <ItemGroup Label="PostLikes">
-    <Using Include="InstaConnect.Posts.Domain.Features.PostLikes.Abstractions" />
-    <Using Include="InstaConnect.Posts.Domain.Features.PostLikes.Models.Entities" />
     <Using Include="InstaConnect.Posts.Presentation.Features.PostLikes.Models.Requests" />
-    <Using Include="InstaConnect.Posts.Presentation.Features.PostLikes.Models.Responses" />
+    <Using Include="InstaConnect.Posts.Presentation.Tests.Features.PostLikes.Assertions" />
     <Using Include="InstaConnect.Posts.Presentation.Tests.Features.PostLikes.Builders" />
     <Using Include="InstaConnect.Posts.Presentation.Tests.Features.PostLikes.Utilities" />
-    <Using Include="InstaConnect.Posts.Application.Features.PostLikes.Queries.GetAll" />
-    <Using Include="InstaConnect.Posts.Application.Features.PostLikes.Queries.GetAllForUser" />
-    <Using Include="InstaConnect.Posts.Application.Features.PostLikes.Queries.GetById" />
-    <Using Include="InstaConnect.Posts.Application.Features.PostLikes.Commands.Add" />
-    <Using Include="InstaConnect.Posts.Application.Features.PostLikes.Commands.Delete" />
-    <Using Include="InstaConnect.Posts.Presentation.Features.PostLikes.Controllers.v1" />
     <Using Include="InstaConnect.Posts.Presentation.Tests.Functional.Features.PostLikes.Utilities" />
     <Using Include="InstaConnect.Posts.Tests.Features.PostLikes.Assertions" />
-    <Using Include="InstaConnect.Posts.Presentation.Tests.Features.PostLikes.Assertions" />
-    <Using Include="InstaConnect.Posts.Tests.Features.PostLikes.Builders" />
     <Using Include="InstaConnect.Posts.Tests.Features.PostLikes.Utilities" />
-    <Using Include="InstaConnect.Posts.Tests.Features.PostLikes.DataAttributes.Page" />
-    <Using Include="InstaConnect.Posts.Tests.Features.PostLikes.DataAttributes.PageSize" />
-    <Using Include="InstaConnect.Posts.Tests.Features.PostLikes.DataAttributes.SortOrder" />
-    <Using Include="InstaConnect.Posts.Tests.Features.PostLikes.DataAttributes.SortTerm" />
-    <Using Include="InstaConnect.Posts.Tests.Features.PostLikes.DataAttributes.SortTerm.ForUser" />
   </ItemGroup>
 
   <ItemGroup Label="PostComments">
-    <Using Include="InstaConnect.Posts.Domain.Features.PostComments.Abstractions" />
-    <Using Include="InstaConnect.Posts.Domain.Features.PostComments.Models.Entities" />
     <Using Include="InstaConnect.Posts.Presentation.Features.PostComments.Models.Requests" />
-    <Using Include="InstaConnect.Posts.Presentation.Features.PostComments.Models.Responses" />
+    <Using Include="InstaConnect.Posts.Presentation.Tests.Features.PostComments.Assertions" />
     <Using Include="InstaConnect.Posts.Presentation.Tests.Features.PostComments.Builders" />
     <Using Include="InstaConnect.Posts.Presentation.Tests.Features.PostComments.Utilities" />
-    <Using Include="InstaConnect.Posts.Application.Features.PostComments.Queries.GetAll" />
-    <Using Include="InstaConnect.Posts.Application.Features.PostComments.Queries.GetAllForUser" />
-    <Using Include="InstaConnect.Posts.Application.Features.PostComments.Queries.GetById" />
-    <Using Include="InstaConnect.Posts.Application.Features.PostComments.Commands.Add" />
-    <Using Include="InstaConnect.Posts.Application.Features.PostComments.Commands.Update" />
-    <Using Include="InstaConnect.Posts.Application.Features.PostComments.Commands.Delete" />
-    <Using Include="InstaConnect.Posts.Presentation.Features.PostComments.Controllers.v1" />
     <Using Include="InstaConnect.Posts.Presentation.Tests.Functional.Features.PostComments.Utilities" />
     <Using Include="InstaConnect.Posts.Tests.Features.PostComments.Assertions" />
-    <Using Include="InstaConnect.Posts.Presentation.Tests.Features.PostComments.Assertions" />
-    <Using Include="InstaConnect.Posts.Tests.Features.PostComments.Builders" />
-    <Using Include="InstaConnect.Posts.Tests.Features.PostComments.Utilities" />
     <Using Include="InstaConnect.Posts.Tests.Features.PostComments.DataAttributes.Id" />
-    <Using Include="InstaConnect.Posts.Tests.Features.PostComments.DataAttributes.Content" />
-    <Using Include="InstaConnect.Posts.Tests.Features.PostComments.DataAttributes.Page" />
-    <Using Include="InstaConnect.Posts.Tests.Features.PostComments.DataAttributes.PageSize" />
-    <Using Include="InstaConnect.Posts.Tests.Features.PostComments.DataAttributes.SortOrder" />
-    <Using Include="InstaConnect.Posts.Tests.Features.PostComments.DataAttributes.SortTerm" />
-    <Using Include="InstaConnect.Posts.Tests.Features.PostComments.DataAttributes.SortTerm.ForUser" />
+    <Using Include="InstaConnect.Posts.Tests.Features.PostComments.Utilities" />
   </ItemGroup>
 
   <ItemGroup Label="PostCommentLikes">
-    <Using Include="InstaConnect.Posts.Domain.Features.PostCommentLikes.Abstractions" />
-    <Using Include="InstaConnect.Posts.Domain.Features.PostCommentLikes.Models.Entities" />
     <Using Include="InstaConnect.Posts.Presentation.Features.PostCommentLikes.Models.Requests" />
-    <Using Include="InstaConnect.Posts.Presentation.Features.PostCommentLikes.Models.Responses" />
+    <Using Include="InstaConnect.Posts.Presentation.Tests.Features.PostCommentLikes.Assertions" />
     <Using Include="InstaConnect.Posts.Presentation.Tests.Features.PostCommentLikes.Builders" />
     <Using Include="InstaConnect.Posts.Presentation.Tests.Features.PostCommentLikes.Utilities" />
-    <Using Include="InstaConnect.Posts.Application.Features.PostCommentLikes.Queries.GetAll" />
-    <Using Include="InstaConnect.Posts.Application.Features.PostCommentLikes.Queries.GetAllForUser" />
-    <Using Include="InstaConnect.Posts.Application.Features.PostCommentLikes.Queries.GetById" />
-    <Using Include="InstaConnect.Posts.Application.Features.PostCommentLikes.Commands.Add" />
-    <Using Include="InstaConnect.Posts.Application.Features.PostCommentLikes.Commands.Delete" />
-    <Using Include="InstaConnect.Posts.Presentation.Features.PostCommentLikes.Controllers.v1" />
     <Using Include="InstaConnect.Posts.Presentation.Tests.Functional.Features.PostCommentLikes.Utilities" />
     <Using Include="InstaConnect.Posts.Tests.Features.PostCommentLikes.Assertions" />
-    <Using Include="InstaConnect.Posts.Presentation.Tests.Features.PostCommentLikes.Assertions" />
-    <Using Include="InstaConnect.Posts.Tests.Features.PostCommentLikes.Builders" />
     <Using Include="InstaConnect.Posts.Tests.Features.PostCommentLikes.Utilities" />
-    <Using Include="InstaConnect.Posts.Tests.Features.PostCommentLikes.DataAttributes.Page" />
-    <Using Include="InstaConnect.Posts.Tests.Features.PostCommentLikes.DataAttributes.PageSize" />
-    <Using Include="InstaConnect.Posts.Tests.Features.PostCommentLikes.DataAttributes.SortOrder" />
-    <Using Include="InstaConnect.Posts.Tests.Features.PostCommentLikes.DataAttributes.SortTerm" />
-    <Using Include="InstaConnect.Posts.Tests.Features.PostCommentLikes.DataAttributes.SortTerm.ForUser" />
+  </ItemGroup>
+
+  <ItemGroup Label="PostImages">
+    <Using Include="InstaConnect.Posts.Tests.Features.PostImages.Utilities" />
   </ItemGroup>
 
 </Project>

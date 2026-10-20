@@ -1,6 +1,3 @@
-using InstaConnect.Chats.Domain.Features.ChatMessages.Helpers;
-using InstaConnect.Chats.Domain.Tests.Features.ChatMessages.Utilities;
-using InstaConnect.Chats.Domain.Tests.Unit.Features.ChatMessages.Utilities;
 using InstaConnect.Chats.Tests.Features.ChatMessages.Assertions;
 using InstaConnect.Common.Domain.Tests.Features.Assertions;
 
@@ -22,7 +19,7 @@ public class CreateChatMessageFactoryUnitTests : BaseChatMessageDomainCommandUni
 	public void Create_ShouldCreateChatMessage_WhenRequestIsValid()
 	{
 		// Act
-		var response = _factory.Create(ChatMessage.Id.Id, ChatMessage.SenderId, ChatMessage.Content);
+		var response = _factory.Create(ChatMessageId.Id, ChatMessage.SenderId, ChatMessage.Content);
 
 		// Assert
 		response.ShouldSatisfy(ChatMessage);
@@ -32,7 +29,7 @@ public class CreateChatMessageFactoryUnitTests : BaseChatMessageDomainCommandUni
 	public void Create_ShouldCallTheGuidProviderNewStringGuid_WhenRequestIsValid()
 	{
 		// Act
-		_factory.Create(ChatMessage.Id.Id, ChatMessage.SenderId, ChatMessage.Content);
+		_factory.Create(ChatMessageId.Id, ChatMessage.SenderId, ChatMessage.Content);
 
 		// Assert
 		GuidProvider.ShouldHaveReceivedOneNewStringGuid();
@@ -42,7 +39,7 @@ public class CreateChatMessageFactoryUnitTests : BaseChatMessageDomainCommandUni
 	public void Create_ShouldCallTheDateTimeProviderGetOffsetUtcNow_WhenRequestIsValid()
 	{
 		// Act
-		_factory.Create(ChatMessage.Id.Id, ChatMessage.SenderId, ChatMessage.Content);
+		_factory.Create(ChatMessageId.Id, ChatMessage.SenderId, ChatMessage.Content);
 
 		// Assert
 		DateTimeProvider.ShouldHaveReceivedOneGetOffsetUtcNow();

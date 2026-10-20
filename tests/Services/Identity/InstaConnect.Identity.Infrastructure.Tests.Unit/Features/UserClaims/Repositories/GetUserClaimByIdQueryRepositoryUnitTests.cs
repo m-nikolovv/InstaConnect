@@ -1,21 +1,10 @@
 using InstaConnect.Identity.Domain.Features.UserClaims.Models.Requests;
-using InstaConnect.Identity.Domain.Features.UserClaims.Models.ValueObjects;
-using InstaConnect.Identity.Domain.Features.Users.Models.Requests;
-using InstaConnect.Identity.Infrastructure.Features.UserClaims.Helpers.Repositories;
 using InstaConnect.Identity.Infrastructure.Tests.Features.Common.Builders;
-using InstaConnect.Identity.Infrastructure.Tests.Features.UserClaims.Assertions;
-using InstaConnect.Identity.Infrastructure.Tests.Features.UserClaims.Utilities;
-using InstaConnect.Identity.Infrastructure.Tests.Unit.Features.UserClaims.Utilities;
-using InstaConnect.Identity.Tests.Features.UserClaims.Builders;
 
 namespace InstaConnect.Identity.Infrastructure.Tests.Unit.Features.UserClaims.Repositories;
 
 public class GetUserClaimByIdQueryRepositoryUnitTests : BaseUserClaimInfrastructureQueryUnitTest
 {
-	private readonly UserClaimIdBuilderFactory _idBuilderFactory;
-	private readonly UserClaimIdBuilder _idBuilder;
-	private readonly UserClaimId _id;
-
 	private readonly CurrentUserQueryBuilderFactory _currentUserQueryBuilderFactory;
 	private readonly CurrentUserQueryBuilder _currentUserQueryBuilder;
 	private readonly CurrentUserQuery _currentUserQuery;
@@ -26,10 +15,6 @@ public class GetUserClaimByIdQueryRepositoryUnitTests : BaseUserClaimInfrastruct
 
 	public GetUserClaimByIdQueryRepositoryUnitTests()
 	{
-		_idBuilderFactory = new();
-		_idBuilder = _idBuilderFactory.Create(UserClaim.Id);
-		_id = _idBuilder.Build();
-
 		_currentUserQueryBuilderFactory = new();
 		_currentUserQueryBuilder = _currentUserQueryBuilderFactory.Create(User);
 		_currentUserQuery = _currentUserQueryBuilder.Build();
@@ -38,70 +23,70 @@ public class GetUserClaimByIdQueryRepositoryUnitTests : BaseUserClaimInfrastruct
 
 		_repository = new(Collection, IncludeBuilderFactory);
 
-		Collection.SetupAggregateFluent(_id, _currentUserQuery, Fluent);
-		Fluent.SetupApplyIncludes(_id, _currentUserQuery, _include);
-		Fluent.SetupMatch(_id, _currentUserQuery);
-		Fluent.SetupProjectToFullResponse(_id, _currentUserQuery, ResponseFluent);
-		ResponseFluent.SetupFirstOrDefaultAsync(_id, _currentUserQuery, UserClaim, CancellationToken);
+		Collection.SetupAggregateFluent(UserClaimId, _currentUserQuery, Fluent);
+		Fluent.SetupApplyIncludes(UserClaimId, _currentUserQuery, _include);
+		Fluent.SetupMatch(UserClaimId, _currentUserQuery);
+		Fluent.SetupProjectToFullResponse(UserClaimId, _currentUserQuery, ResponseFluent);
+		ResponseFluent.SetupFirstOrDefaultAsync(UserClaimId, _currentUserQuery, UserClaim, CancellationToken);
 	}
 
 	[Fact]
-	public async Task GetByIdAsync_ShouldReturnResponse_WhenRequestIsValid()
+	public async Task GetByIdAsync_ShouldReturnResponse_WhenQueryIsValid()
 	{
 		// Act
-		var response = await _repository.GetByIdAsync(_id, _currentUserQuery, CancellationToken);
+		var response = await _repository.GetByIdAsync(UserClaimId, _currentUserQuery, CancellationToken);
 
 		// Assert
-		response.ShouldSatisfy(_id, _currentUserQuery, UserClaim);
+		response.ShouldSatisfy(UserClaimId, _currentUserQuery, UserClaim);
 	}
 
 	[Fact]
-	public async Task GetByIdAsync_ShouldCallTheCollectionAggregateFluent_WhenRequestIsValid()
+	public async Task GetByIdAsync_ShouldCallTheCollectionAggregateFluent_WhenQueryIsValid()
 	{
 		// Act
-		await _repository.GetByIdAsync(_id, _currentUserQuery, CancellationToken);
+		await _repository.GetByIdAsync(UserClaimId, _currentUserQuery, CancellationToken);
 
 		// Assert
-		Collection.ShouldHaveReceivedOneAggregateFluent(_id, _currentUserQuery);
+		Collection.ShouldHaveReceivedOneAggregateFluent(UserClaimId, _currentUserQuery);
 	}
 
 	[Fact]
-	public async Task GetByIdAsync_ShouldCallTheFluentApplyIncludes_WhenRequestIsValid()
+	public async Task GetByIdAsync_ShouldCallTheFluentApplyIncludes_WhenQueryIsValid()
 	{
 		// Act
-		await _repository.GetByIdAsync(_id, _currentUserQuery, CancellationToken);
+		await _repository.GetByIdAsync(UserClaimId, _currentUserQuery, CancellationToken);
 
 		// Assert
-		Fluent.ShouldHaveReceivedOneApplyIncludes(_id, _currentUserQuery, _include);
+		Fluent.ShouldHaveReceivedOneApplyIncludes(UserClaimId, _currentUserQuery, _include);
 	}
 
 	[Fact]
-	public async Task GetByIdAsync_ShouldCallTheFluentMatch_WhenRequestIsValid()
+	public async Task GetByIdAsync_ShouldCallTheFluentMatch_WhenQueryIsValid()
 	{
 		// Act
-		await _repository.GetByIdAsync(_id, _currentUserQuery, CancellationToken);
+		await _repository.GetByIdAsync(UserClaimId, _currentUserQuery, CancellationToken);
 
 		// Assert
-		Fluent.ShouldHaveReceivedOneMatch(_id, _currentUserQuery);
+		Fluent.ShouldHaveReceivedOneMatch(UserClaimId, _currentUserQuery);
 	}
 
 	[Fact]
-	public async Task GetByIdAsync_ShouldCallTheFluentProjectToFullResponse_WhenRequestIsValid()
+	public async Task GetByIdAsync_ShouldCallTheFluentProjectToFullResponse_WhenQueryIsValid()
 	{
 		// Act
-		await _repository.GetByIdAsync(_id, _currentUserQuery, CancellationToken);
+		await _repository.GetByIdAsync(UserClaimId, _currentUserQuery, CancellationToken);
 
 		// Assert
-		Fluent.ShouldHaveReceivedOneProjectToFullResponse(_id, _currentUserQuery);
+		Fluent.ShouldHaveReceivedOneProjectToFullResponse(UserClaimId, _currentUserQuery);
 	}
 
 	[Fact]
-	public async Task GetByIdAsync_ShouldCallTheResponseFluentFirstOrDefaultAsync_WhenRequestIsValid()
+	public async Task GetByIdAsync_ShouldCallTheResponseFluentFirstOrDefaultAsync_WhenQueryIsValid()
 	{
 		// Act
-		await _repository.GetByIdAsync(_id, _currentUserQuery, CancellationToken);
+		await _repository.GetByIdAsync(UserClaimId, _currentUserQuery, CancellationToken);
 
 		// Assert
-		await ResponseFluent.ShouldHaveReceivedOneFirstOrDefaultAsync(_id, _currentUserQuery, CancellationToken);
+		await ResponseFluent.ShouldHaveReceivedOneFirstOrDefaultAsync(UserClaimId, _currentUserQuery, CancellationToken);
 	}
 }

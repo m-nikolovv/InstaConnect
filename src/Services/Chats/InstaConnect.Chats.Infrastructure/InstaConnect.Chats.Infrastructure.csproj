@@ -6,43 +6,40 @@
   </ItemGroup>
 
   <ItemGroup Label="Common">
-    <Using Include="Microsoft.Extensions.DependencyInjection" />
-    <Using Include="Microsoft.AspNetCore.Hosting" />
-    <Using Include="Microsoft.Extensions.Configuration" />
-    <Using Include="InstaConnect.Common.Domain.Features.Common.Extensions"/>
-    <Using Include="InstaConnect.Common.Infrastructure.Features.Databases.Extensions" />
+    <Using Include="InstaConnect.Chats.Domain.Features.Common.Models.Requests" />
+    <Using Include="InstaConnect.Common.Domain.Features.Common.Extensions" />
+    <Using Include="InstaConnect.Common.Domain.Features.ValueObjects.Models" />
   </ItemGroup>
 
   <ItemGroup Label="Users">
-    <Using Include="InstaConnect.Chats.Domain.Features.Users.Exceptions" />
-    <Using Include="InstaConnect.Chats.Domain.Features.Users.Abstractions" />
     <Using Include="InstaConnect.Chats.Domain.Features.Users.Models.Entities" />
-    <Using Include="InstaConnect.Chats.Domain.Features.Users.Models.ValueObjects" />
     <Using Include="InstaConnect.Chats.Domain.Features.Users.Models.Requests" />
-    <Using Include="InstaConnect.Chats.Application.Features.Users.Models" />
+    <Using Include="InstaConnect.Chats.Domain.Features.Users.Models.Responses" />
+    <Using Include="InstaConnect.Chats.Domain.Features.Users.Models.ValueObjects" />
     <Using Include="InstaConnect.Chats.Infrastructure.Features.Users.Abstractions" />
+    <Using Include="InstaConnect.Chats.Infrastructure.Features.Users.Extensions" />
   </ItemGroup>
 
   <ItemGroup Label="Chats">
-    <Using Include="InstaConnect.Chats.Domain.Features.Chats.Exceptions" />
-    <Using Include="InstaConnect.Chats.Domain.Features.Chats.Abstractions" />
     <Using Include="InstaConnect.Chats.Domain.Features.Chats.Models.Entities" />
-    <Using Include="InstaConnect.Chats.Domain.Features.Chats.Models.ValueObjects" />
     <Using Include="InstaConnect.Chats.Domain.Features.Chats.Models.Requests" />
     <Using Include="InstaConnect.Chats.Domain.Features.Chats.Models.Responses" />
-    <Using Include="InstaConnect.Chats.Application.Features.Chats.Models" />
+    <Using Include="InstaConnect.Chats.Domain.Features.Chats.Models.ValueObjects" />
     <Using Include="InstaConnect.Chats.Infrastructure.Features.Chats.Abstractions" />
   </ItemGroup>
 
   <ItemGroup Label="ChatMessages">
-    <Using Include="InstaConnect.Chats.Domain.Features.ChatMessages.Exceptions" />
-    <Using Include="InstaConnect.Chats.Domain.Features.ChatMessages.Abstractions" />
     <Using Include="InstaConnect.Chats.Domain.Features.ChatMessages.Models.Entities" />
-    <Using Include="InstaConnect.Chats.Domain.Features.ChatMessages.Models.ValueObjects" />
     <Using Include="InstaConnect.Chats.Domain.Features.ChatMessages.Models.Requests" />
     <Using Include="InstaConnect.Chats.Domain.Features.ChatMessages.Models.Responses" />
-    <Using Include="InstaConnect.Chats.Application.Features.ChatMessages.Models" />
+    <Using Include="InstaConnect.Chats.Domain.Features.ChatMessages.Models.ValueObjects" />
     <Using Include="InstaConnect.Chats.Infrastructure.Features.ChatMessages.Abstractions" />
+    <Using Include="InstaConnect.Chats.Infrastructure.Features.ChatMessages.Extensions" />
+  </ItemGroup>
+
+  <ItemGroup Label="ChatMessageImages">
+    <Using Include="InstaConnect.Chats.Domain.Features.ChatMessageImages.Models.Entities" />
+    <Using Include="InstaConnect.Chats.Domain.Features.ChatMessageImages.Models.ValueObjects" />
   </ItemGroup>
 
 </Project>

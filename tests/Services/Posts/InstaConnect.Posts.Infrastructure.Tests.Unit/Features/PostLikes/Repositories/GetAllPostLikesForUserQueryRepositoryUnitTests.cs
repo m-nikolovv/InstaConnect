@@ -1,11 +1,4 @@
-using InstaConnect.Posts.Domain.Features.PostLikes.Models.Requests;
-using InstaConnect.Posts.Domain.Features.Users.Models.Requests;
-using InstaConnect.Posts.Infrastructure.Features.PostLikes.Helpers.Repositories;
-using InstaConnect.Posts.Infrastructure.Tests.Features.Common.Builders;
-using InstaConnect.Posts.Infrastructure.Tests.Features.PostLikes.Assertions;
 using InstaConnect.Posts.Infrastructure.Tests.Features.PostLikes.Builders;
-using InstaConnect.Posts.Infrastructure.Tests.Features.PostLikes.Utilities;
-using InstaConnect.Posts.Infrastructure.Tests.Unit.Features.PostLikes.Utilities;
 
 namespace InstaConnect.Posts.Infrastructure.Tests.Unit.Features.PostLikes.Repositories;
 
@@ -49,7 +42,7 @@ public class GetAllPostLikesForUserQueryRepositoryUnitTests : BasePostLikeInfras
 		_currentUserQueryBuilder = _currentUserQueryBuilderFactory.Create(User);
 		_currentUserQuery = _currentUserQueryBuilder.Build();
 
-		_include = LikeIncludeBuilderFactory.Create().WithPost(IncludeBuilderFactory.Create().WithUser().WithPostLikes().Build()).Build();
+		_include = LikeIncludeBuilderFactory.Create().WithPost(IncludeBuilderFactory.Create().WithUser().WithPostLikes().WithPostImages().Build()).Build();
 
 		_repository = new(Collection, IncludeBuilderFactory, LikeIncludeBuilderFactory);
 
@@ -63,7 +56,7 @@ public class GetAllPostLikesForUserQueryRepositoryUnitTests : BasePostLikeInfras
 	}
 
 	[Fact]
-	public async Task GetAllForUserAsync_ShouldReturnResponse_WhenRequestIsValid()
+	public async Task GetAllForUserAsync_ShouldReturnResponse_WhenQueryIsValid()
 	{
 		// Act
 		var response = await _repository.GetAllForUserAsync(_filterQuery, _sortingQuery, _paginationQuery, _currentUserQuery, CancellationToken);
@@ -73,7 +66,7 @@ public class GetAllPostLikesForUserQueryRepositoryUnitTests : BasePostLikeInfras
 	}
 
 	[Fact]
-	public async Task GetAllForUserAsync_ShouldCallTheCollectionAggregateFluent_WhenRequestIsValid()
+	public async Task GetAllForUserAsync_ShouldCallTheCollectionAggregateFluent_WhenQueryIsValid()
 	{
 		// Act
 		await _repository.GetAllForUserAsync(_filterQuery, _sortingQuery, _paginationQuery, _currentUserQuery, CancellationToken);
@@ -83,7 +76,7 @@ public class GetAllPostLikesForUserQueryRepositoryUnitTests : BasePostLikeInfras
 	}
 
 	[Fact]
-	public async Task GetAllForUserAsync_ShouldCallTheFluentApplyIncludes_WhenRequestIsValid()
+	public async Task GetAllForUserAsync_ShouldCallTheFluentApplyIncludes_WhenQueryIsValid()
 	{
 		// Act
 		await _repository.GetAllForUserAsync(_filterQuery, _sortingQuery, _paginationQuery, _currentUserQuery, CancellationToken);
@@ -93,7 +86,7 @@ public class GetAllPostLikesForUserQueryRepositoryUnitTests : BasePostLikeInfras
 	}
 
 	[Fact]
-	public async Task GetAllForUserAsync_ShouldCallTheFluentMatch_WhenRequestIsValid()
+	public async Task GetAllForUserAsync_ShouldCallTheFluentMatch_WhenQueryIsValid()
 	{
 		// Act
 		await _repository.GetAllForUserAsync(_filterQuery, _sortingQuery, _paginationQuery, _currentUserQuery, CancellationToken);
@@ -103,7 +96,7 @@ public class GetAllPostLikesForUserQueryRepositoryUnitTests : BasePostLikeInfras
 	}
 
 	[Fact]
-	public async Task GetAllForUserAsync_ShouldCallTheFluentProjectToResponseWithoutUser_WhenRequestIsValid()
+	public async Task GetAllForUserAsync_ShouldCallTheFluentProjectToResponseWithoutUser_WhenQueryIsValid()
 	{
 		// Act
 		await _repository.GetAllForUserAsync(_filterQuery, _sortingQuery, _paginationQuery, _currentUserQuery, CancellationToken);
@@ -113,7 +106,7 @@ public class GetAllPostLikesForUserQueryRepositoryUnitTests : BasePostLikeInfras
 	}
 
 	[Fact]
-	public async Task GetAllForUserAsync_ShouldCallTheResponseFluentApplySorting_WhenRequestIsValid()
+	public async Task GetAllForUserAsync_ShouldCallTheResponseFluentApplySorting_WhenQueryIsValid()
 	{
 		// Act
 		await _repository.GetAllForUserAsync(_filterQuery, _sortingQuery, _paginationQuery, _currentUserQuery, CancellationToken);
@@ -123,7 +116,7 @@ public class GetAllPostLikesForUserQueryRepositoryUnitTests : BasePostLikeInfras
 	}
 
 	[Fact]
-	public async Task GetAllForUserAsync_ShouldCallTheResponseFluentApplyPagination_WhenRequestIsValid()
+	public async Task GetAllForUserAsync_ShouldCallTheResponseFluentApplyPagination_WhenQueryIsValid()
 	{
 		// Act
 		await _repository.GetAllForUserAsync(_filterQuery, _sortingQuery, _paginationQuery, _currentUserQuery, CancellationToken);
@@ -133,7 +126,7 @@ public class GetAllPostLikesForUserQueryRepositoryUnitTests : BasePostLikeInfras
 	}
 
 	[Fact]
-	public async Task GetAllForUserAsync_ShouldCallTheResponseFluentToListAsync_WhenRequestIsValid()
+	public async Task GetAllForUserAsync_ShouldCallTheResponseFluentToListAsync_WhenQueryIsValid()
 	{
 		// Act
 		await _repository.GetAllForUserAsync(_filterQuery, _sortingQuery, _paginationQuery, _currentUserQuery, CancellationToken);

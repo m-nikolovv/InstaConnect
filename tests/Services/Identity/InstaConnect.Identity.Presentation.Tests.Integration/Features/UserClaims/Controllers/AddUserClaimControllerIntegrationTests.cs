@@ -1,4 +1,9 @@
 using InstaConnect.Common.Events.Features.AccessTokens.Models;
+using InstaConnect.Common.Tests.Features.DataAttributes.Enums.Base;
+using InstaConnect.Identity.Presentation.Features.UserClaims.Models.Requests;
+using InstaConnect.Identity.Presentation.Tests.Features.UserClaims.Builders;
+using InstaConnect.Identity.Presentation.Tests.Integration.Features.UserClaims.Utilities;
+using InstaConnect.Identity.Tests.Features.UserClaims.DataAttributes.Claim;
 
 namespace InstaConnect.Identity.Presentation.Tests.Integration.Features.UserClaims.Controllers;
 
@@ -67,7 +72,7 @@ public class AddUserClaimControllerIntegrationTests : BaseUserClaimPresentationC
 
 	[Theory]
 	[UserIdDifferentCaseData]
-	public async Task AddAsync_ShouldThrowUserClaimAlreadyExistsException_WhenUserClaimAlreadyExistsAndIdIsValid(
+	public async Task AddAsync_ShouldThrowUserClaimAlreadyExistsException_WhenUserClaimAlreadyExistsAndIdIsInvalid(
 		IStringTransformer transformer)
 	{
 		// Arrange
@@ -104,7 +109,7 @@ public class AddUserClaimControllerIntegrationTests : BaseUserClaimPresentationC
 	}
 
 	[Fact]
-	public async Task AddAsync_ShouldReturnOkResponse_WhenRequestIsValid()
+	public async Task AddAsync_ShouldReturnResponse_WhenRequestIsValid()
 	{
 		// Act
 		var response = await Controller.AddAsync(_request, CancellationToken);
@@ -116,7 +121,7 @@ public class AddUserClaimControllerIntegrationTests : BaseUserClaimPresentationC
 
 	[Theory]
 	[UserIdDifferentCaseData]
-	public async Task AddAsync_ShouldReturnOkResponse_WhenRequestAndIdAreValid(
+	public async Task AddAsync_ShouldReturnResponse_WhenRequestAndIdAreValid(
 		IStringTransformer transformer)
 	{
 		// Arrange

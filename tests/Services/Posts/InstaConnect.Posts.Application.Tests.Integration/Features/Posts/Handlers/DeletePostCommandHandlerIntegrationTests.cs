@@ -1,3 +1,5 @@
+using InstaConnect.Posts.Application.Features.Posts.Commands.Delete;
+
 namespace InstaConnect.Posts.Application.Tests.Integration.Features.Posts.Handlers;
 
 public class DeletePostCommandHandlerIntegrationTests : BasePostApplicationCommandIntegrationTest
@@ -17,6 +19,7 @@ public class DeletePostCommandHandlerIntegrationTests : BasePostApplicationComma
 	protected override async Task OnInitializeAsync()
 	{
 		await ServiceScope.AddAsync(Post, CancellationToken);
+		await ServiceScope.AddRangeAsync(PostImages, CancellationToken);
 	}
 
 	[Theory]
@@ -52,7 +55,7 @@ public class DeletePostCommandHandlerIntegrationTests : BasePostApplicationComma
 	}
 
 	[Fact]
-	public async Task SendAsync_ShouldThrowPostNotFoundException_WhenIdIsInvalid()
+	public async Task SendAsync_ShouldThrowPostNotFoundException_WhenPostNotFound()
 	{
 		// Arrange
 		await ServiceScope.DeleteAsync(Post, CancellationToken);
@@ -62,7 +65,7 @@ public class DeletePostCommandHandlerIntegrationTests : BasePostApplicationComma
 	}
 
 	[Fact]
-	public async Task SendAsync_ShouldThrowPostForbiddenException_WhenUserIdIsInvalid()
+	public async Task SendAsync_ShouldThrowPostForbiddenException_WhenPostForbidden()
 	{
 		// Arrange
 		var user = UserBuilderFactory.Create().Build();
@@ -78,7 +81,7 @@ public class DeletePostCommandHandlerIntegrationTests : BasePostApplicationComma
 	{
 		// Act
 		await Sender.SendAsync(_request, CancellationToken);
-		var post = await ServiceScope.GetByIdAsync(Post.Id, CancellationToken);
+		var post = await ServiceScope.GetByIdAsync(PostId, CancellationToken);
 
 		// Assert
 		post.ShouldBeNull();
@@ -94,7 +97,7 @@ public class DeletePostCommandHandlerIntegrationTests : BasePostApplicationComma
 
 		// Act
 		await Sender.SendAsync(request, CancellationToken);
-		var post = await ServiceScope.GetByIdAsync(Post.Id, CancellationToken);
+		var post = await ServiceScope.GetByIdAsync(PostId, CancellationToken);
 
 		// Assert
 		post.ShouldBeNull();
@@ -110,7 +113,7 @@ public class DeletePostCommandHandlerIntegrationTests : BasePostApplicationComma
 
 		// Act
 		await Sender.SendAsync(request, CancellationToken);
-		var post = await ServiceScope.GetByIdAsync(Post.Id, CancellationToken);
+		var post = await ServiceScope.GetByIdAsync(PostId, CancellationToken);
 
 		// Assert
 		post.ShouldBeNull();

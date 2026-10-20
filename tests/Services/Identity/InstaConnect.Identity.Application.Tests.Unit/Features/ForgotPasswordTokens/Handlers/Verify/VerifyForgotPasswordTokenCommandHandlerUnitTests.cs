@@ -1,3 +1,7 @@
+using InstaConnect.Identity.Application.Features.ForgotPasswordTokens.Commands.Verify;
+using InstaConnect.Identity.Application.Tests.Features.ForgotPasswordTokens.Builders;
+using InstaConnect.Identity.Application.Tests.Unit.Features.ForgotPasswordTokens.Utilities;
+
 namespace InstaConnect.Identity.Application.Tests.Unit.Features.ForgotPasswordTokens.Handlers.Verify;
 
 public class VerifyForgotPasswordTokenCommandHandlerUnitTests : BaseForgotPasswordTokenApplicationCommandUnitTest
@@ -18,7 +22,7 @@ public class VerifyForgotPasswordTokenCommandHandlerUnitTests : BaseForgotPasswo
 	}
 
 	[Fact]
-	public async Task Handle_ShouldCallServiceVerifyAsync_WhenRequestIsValid()
+	public async Task Handle_ShouldCallTheServiceVerifyAsync_WhenRequestIsValid()
 	{
 		// Act
 		await _handler.Handle(_request, CancellationToken);

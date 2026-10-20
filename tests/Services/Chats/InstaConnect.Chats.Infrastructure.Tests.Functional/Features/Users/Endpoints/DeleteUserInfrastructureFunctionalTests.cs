@@ -1,4 +1,13 @@
+using InstaConnect.Chats.Infrastructure.Tests.Features.Users.Assertions;
+using InstaConnect.Chats.Infrastructure.Tests.Features.Users.Builders;
+using InstaConnect.Chats.Infrastructure.Tests.Functional.Features.Users.Utilities;
+using InstaConnect.Chats.Tests.Features.Common.Utilities;
 using InstaConnect.Chats.Tests.Features.Users.Assertions;
+using InstaConnect.Chats.Tests.Features.Users.DataAttributes.Id;
+using InstaConnect.Chats.Tests.Features.Users.Utilities;
+using InstaConnect.Common.Tests.Features.Assertions;
+using InstaConnect.Common.Tests.Features.DataAttributes.Strings.Base;
+using InstaConnect.Identity.Events.Features.Users;
 
 namespace InstaConnect.Chats.Infrastructure.Tests.Functional.Features.Users.Endpoints;
 
@@ -41,7 +50,7 @@ public class DeleteUserInfrastructureFunctionalTests : BaseUserInfrastructureCom
 	}
 
 	[Fact]
-	public async Task PublishAsync_ShouldFaultUserDeletedEvent_WhenIdNotFound()
+	public async Task PublishAsync_ShouldFaultUserDeletedEvent_WhenUserNotFound()
 	{
 		// Arrange
 		await ServiceScope.DeleteAsync(User, CancellationToken);
@@ -67,7 +76,7 @@ public class DeleteUserInfrastructureFunctionalTests : BaseUserInfrastructureCom
 
 	[Theory]
 	[UserIdDifferentCaseData]
-	public async Task PublishAsync_ShouldConsumeUserDeletedEvent_WhenIdIsValid(
+	public async Task PublishAsync_ShouldConsumeUserDeletedEvent_WhenRequestAndIdAreValid(
 		IStringTransformer transformer)
 	{
 		// Arrange
@@ -86,7 +95,7 @@ public class DeleteUserInfrastructureFunctionalTests : BaseUserInfrastructureCom
 	{
 		// Act
 		await EventPublisher.PublishAsync(_request, CancellationToken);
-		var user = await ServiceScope.GetByIdAsync(User.Id, CancellationToken);
+		var user = await ServiceScope.GetByIdAsync(UserId, CancellationToken);
 
 		// Assert
 		user.ShouldBeNull();
@@ -94,7 +103,7 @@ public class DeleteUserInfrastructureFunctionalTests : BaseUserInfrastructureCom
 
 	[Theory]
 	[UserIdDifferentCaseData]
-	public async Task PublishAsync_ShouldDeleteUser_WhenIdIsValid(
+	public async Task PublishAsync_ShouldDeleteUser_WhenRequestAndIdAreValid(
 		IStringTransformer transformer)
 	{
 		// Arrange
@@ -102,7 +111,7 @@ public class DeleteUserInfrastructureFunctionalTests : BaseUserInfrastructureCom
 
 		// Act
 		await EventPublisher.PublishAsync(request, CancellationToken);
-		var user = await ServiceScope.GetByIdAsync(User.Id, CancellationToken);
+		var user = await ServiceScope.GetByIdAsync(UserId, CancellationToken);
 
 		// Assert
 		user.ShouldBeNull();

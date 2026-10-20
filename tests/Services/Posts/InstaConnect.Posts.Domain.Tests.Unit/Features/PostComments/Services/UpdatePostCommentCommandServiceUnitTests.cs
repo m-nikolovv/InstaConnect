@@ -1,11 +1,3 @@
-using InstaConnect.Posts.Domain.Features.PostComments.Helpers;
-using InstaConnect.Posts.Domain.Features.PostComments.Models.Requests;
-using InstaConnect.Posts.Domain.Features.Posts.Models.Requests;
-using InstaConnect.Posts.Domain.Tests.Features.PostComments.Assertions;
-using InstaConnect.Posts.Domain.Tests.Features.PostComments.Builders;
-using InstaConnect.Posts.Domain.Tests.Features.PostComments.Utilities;
-using InstaConnect.Posts.Domain.Tests.Unit.Features.PostComments.Utilities;
-
 namespace InstaConnect.Posts.Domain.Tests.Unit.Features.PostComments.Services;
 
 public class UpdatePostCommentCommandServiceUnitTests : BasePostCommentDomainCommandUnitTest
@@ -26,9 +18,9 @@ public class UpdatePostCommentCommandServiceUnitTests : BasePostCommentDomainCom
 		_command = _commandBuilder.Build();
 
 		_include = IncludeBuilderFactory.Create().WithUser().Build();
-		_commentInclude = CommentIncludeBuilderFactory.Create().WithUser().WithPost(_include).Build();
+		_commentInclude = CommentIncludeBuilderFactory.Create().WithUser().WithPost(_include).WithPostCommentImages().Build();
 
-		_service = new(Mapper, EventPublisher, Repository, DateTimeProvider, Factory, UserRepository, CommentRepository, IncludeBuilderFactory, CommentIncludeBuilderFactory);
+		_service = new(Mapper, ImageHandler, EventPublisher, Repository, DateTimeProvider, Factory, UserRepository, CommentSummarizer, CommentImageFactory, CommentRepository, IncludeBuilderFactory, CommentImageRepository, CommentIncludeBuilderFactory);
 
 		Repository.SetupExistsByIdAsync(_command, CancellationToken);
 		CommentRepository.SetupGetByIdAsync(_command, _commentInclude, PostComment, CancellationToken);
@@ -36,7 +28,7 @@ public class UpdatePostCommentCommandServiceUnitTests : BasePostCommentDomainCom
 	}
 
 	[Fact]
-	public async Task UpdateAsync_ShouldThrowPostNotFoundException_WhenIdIsInvalid()
+	public async Task UpdateAsync_ShouldThrowPostNotFoundException_WhenPostNotFound()
 	{
 		// Arrange
 		Repository.RemoveExistsByIdAsync(_command, CancellationToken);
@@ -46,7 +38,7 @@ public class UpdatePostCommentCommandServiceUnitTests : BasePostCommentDomainCom
 	}
 
 	[Fact]
-	public async Task UpdateAsync_ShouldThrowPostCommentNotFoundException_WhenPostCommentDoesNotExist()
+	public async Task UpdateAsync_ShouldThrowPostCommentNotFoundException_WhenPostCommentNotFound()
 	{
 		// Arrange
 		CommentRepository.RemoveGetByIdAsync(_command, _commentInclude, PostComment, CancellationToken);
@@ -56,7 +48,7 @@ public class UpdatePostCommentCommandServiceUnitTests : BasePostCommentDomainCom
 	}
 
 	[Fact]
-	public async Task UpdateAsync_ShouldThrowPostCommentForbiddenException_WhenUserIdIsInvalid()
+	public async Task UpdateAsync_ShouldThrowPostCommentForbiddenException_WhenPostCommentForbidden()
 	{
 		// Arrange
 		var user = UserBuilderFactory.Create().Build();
@@ -114,6 +106,16 @@ public class UpdatePostCommentCommandServiceUnitTests : BasePostCommentDomainCom
 
 		// Assert
 		await CommentRepository.ShouldHaveReceivedOneUpdateAsync(_command, CancellationToken);
+	}
+
+	[Fact]
+	public async Task UpdateAsync_ShouldCallTheCommentSummarizerSummarizeAsync_WhenCommandIsValid()
+	{
+		// Act
+		await _service.UpdateAsync(_command, CancellationToken);
+
+		// Assert
+		await CommentSummarizer.ShouldHaveReceivedOneSummarizeAsync(_command, CancellationToken);
 	}
 
 	[Fact]

@@ -1,3 +1,6 @@
+using InstaConnect.Posts.Tests.Features.PostCommentImages.Utilities;
+using InstaConnect.Posts.Tests.Features.Users.Builders;
+
 namespace InstaConnect.Posts.Presentation.Tests.Functional.Features.PostComments.Endpoints;
 
 public class DeletePostCommentFunctionalTests : BasePostCommentPresentationCommandFunctionalTest
@@ -17,6 +20,7 @@ public class DeletePostCommentFunctionalTests : BasePostCommentPresentationComma
 	protected override async Task OnInitializeAsync()
 	{
 		await ServiceScope.AddAsync(PostComment, CancellationToken);
+		await ServiceScope.AddRangeAsync(PostCommentImages, CancellationToken);
 	}
 
 	[Fact]
@@ -128,7 +132,7 @@ public class DeletePostCommentFunctionalTests : BasePostCommentPresentationComma
 	}
 
 	[Fact]
-	public async Task DeleteAsync_ShouldHaveNotFoundStatusCode_WhenIdIsInvalid()
+	public async Task DeleteAsync_ShouldHaveNotFoundStatusCode_WhenPostNotFound()
 	{
 		// Arrange
 		await ServiceScope.DeleteAsync(Post, CancellationToken);
@@ -141,7 +145,7 @@ public class DeletePostCommentFunctionalTests : BasePostCommentPresentationComma
 	}
 
 	[Fact]
-	public async Task DeleteAsync_ShouldHavePostNotFoundProblemDetails_WhenIdIsInvalid()
+	public async Task DeleteAsync_ShouldHavePostNotFoundProblemDetails_WhenPostNotFound()
 	{
 		// Arrange
 		await ServiceScope.DeleteAsync(Post, CancellationToken);
@@ -154,7 +158,7 @@ public class DeletePostCommentFunctionalTests : BasePostCommentPresentationComma
 	}
 
 	[Fact]
-	public async Task DeleteAsync_ShouldHaveNotFoundStatusCode_WhenCommentIdIsInvalid()
+	public async Task DeleteAsync_ShouldHaveNotFoundStatusCode_WhenPostCommentNotFound()
 	{
 		// Arrange
 		await ServiceScope.DeleteAsync(PostComment, CancellationToken);
@@ -167,7 +171,7 @@ public class DeletePostCommentFunctionalTests : BasePostCommentPresentationComma
 	}
 
 	[Fact]
-	public async Task DeleteAsync_ShouldHavePostCommentNotFoundProblemDetails_WhenCommentIdIsInvalid()
+	public async Task DeleteAsync_ShouldHavePostCommentNotFoundProblemDetails_WhenPostCommentNotFound()
 	{
 		// Arrange
 		await ServiceScope.DeleteAsync(PostComment, CancellationToken);
@@ -180,7 +184,7 @@ public class DeletePostCommentFunctionalTests : BasePostCommentPresentationComma
 	}
 
 	[Fact]
-	public async Task DeleteAsync_ShouldHaveForbiddenStatusCode_WhenUserIdIsInvalid()
+	public async Task DeleteAsync_ShouldHaveForbiddenStatusCode_WhenPostCommentForbidden()
 	{
 		// Arrange
 		var user = UserBuilderFactory.Create().Build();
@@ -195,7 +199,7 @@ public class DeletePostCommentFunctionalTests : BasePostCommentPresentationComma
 	}
 
 	[Fact]
-	public async Task DeleteAsync_ShouldHavePostCommentForbiddenProblemDetails_WhenUserIdIsInvalid()
+	public async Task DeleteAsync_ShouldHavePostCommentForbiddenProblemDetails_WhenPostCommentForbidden()
 	{
 		// Arrange
 		var user = UserBuilderFactory.Create().Build();
@@ -269,7 +273,7 @@ public class DeletePostCommentFunctionalTests : BasePostCommentPresentationComma
 	{
 		// Act
 		await CommentApiClient.DeleteAsync(_request, CancellationToken);
-		var postComment = await ServiceScope.GetByIdAsync(PostComment.Id, CancellationToken);
+		var postComment = await ServiceScope.GetByIdAsync(PostCommentId, CancellationToken);
 
 		// Assert
 		postComment.ShouldBeNull();
@@ -285,7 +289,7 @@ public class DeletePostCommentFunctionalTests : BasePostCommentPresentationComma
 
 		// Act
 		await CommentApiClient.DeleteAsync(request, CancellationToken);
-		var postComment = await ServiceScope.GetByIdAsync(PostComment.Id, CancellationToken);
+		var postComment = await ServiceScope.GetByIdAsync(PostCommentId, CancellationToken);
 
 		// Assert
 		postComment.ShouldBeNull();
@@ -301,7 +305,7 @@ public class DeletePostCommentFunctionalTests : BasePostCommentPresentationComma
 
 		// Act
 		await CommentApiClient.DeleteAsync(request, CancellationToken);
-		var postComment = await ServiceScope.GetByIdAsync(PostComment.Id, CancellationToken);
+		var postComment = await ServiceScope.GetByIdAsync(PostCommentId, CancellationToken);
 
 		// Assert
 		postComment.ShouldBeNull();
@@ -317,7 +321,7 @@ public class DeletePostCommentFunctionalTests : BasePostCommentPresentationComma
 
 		// Act
 		await CommentApiClient.DeleteAsync(request, CancellationToken);
-		var postComment = await ServiceScope.GetByIdAsync(PostComment.Id, CancellationToken);
+		var postComment = await ServiceScope.GetByIdAsync(PostCommentId, CancellationToken);
 
 		// Assert
 		postComment.ShouldBeNull();

@@ -1,7 +1,3 @@
-using InstaConnect.Identity.Infrastructure.Features.ForgotPasswordTokens.Helpers.Repositories;
-using InstaConnect.Identity.Infrastructure.Tests.Features.ForgotPasswordTokens.Assertions;
-using InstaConnect.Identity.Infrastructure.Tests.Unit.Features.ForgotPasswordTokens.Utilities;
-
 namespace InstaConnect.Identity.Infrastructure.Tests.Unit.Features.ForgotPasswordTokens.Repositories;
 
 public class DeleteRangeForgotPasswordTokensCommandRepositoryUnitTests : BaseForgotPasswordTokenInfrastructureCommandUnitTest
@@ -14,7 +10,7 @@ public class DeleteRangeForgotPasswordTokensCommandRepositoryUnitTests : BaseFor
 	}
 
 	[Fact]
-	public async Task DeleteRangeAsync_ShouldCallTheCollectionDeleteRangeAsync_WhenRequestIsValid()
+	public async Task DeleteRangeAsync_ShouldCallTheCollectionDeleteRangeAsync_WhenCommandIsValid()
 	{
 		// Act
 		await _repository.DeleteRangeAsync(ForgotPasswordTokens, CancellationToken);

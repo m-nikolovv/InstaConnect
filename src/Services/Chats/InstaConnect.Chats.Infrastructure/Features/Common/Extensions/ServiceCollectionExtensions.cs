@@ -1,7 +1,6 @@
-using InstaConnect.Chats.Infrastructure.Features.ChatMessages.Extensions;
+using InstaConnect.Chats.Infrastructure.Features.ChatMessageImages.Extensions;
 using InstaConnect.Chats.Infrastructure.Features.Chats.Extensions;
 using InstaConnect.Chats.Infrastructure.Features.Common.Utilities;
-using InstaConnect.Chats.Infrastructure.Features.Users.Extensions;
 using InstaConnect.Common.Domain.Features.Mappers.Extensions;
 using InstaConnect.Common.Domain.Features.Validations.Extensions;
 using InstaConnect.Common.Infrastructure.Features.AccessTokens.Extensions;
@@ -11,7 +10,12 @@ using InstaConnect.Common.Infrastructure.Features.DateTimes.Extensions;
 using InstaConnect.Common.Infrastructure.Features.Events.Extensions;
 using InstaConnect.Common.Infrastructure.Features.Guids.Extensions;
 using InstaConnect.Common.Infrastructure.Features.Hubs.Extensions;
+using InstaConnect.Common.Infrastructure.Features.Images.Extensions;
+using InstaConnect.Common.Infrastructure.Features.Summarizers.Extensions;
 using InstaConnect.Common.Infrastructure.Features.Telemetries.Extensions;
+
+using Microsoft.AspNetCore.Hosting;
+using Microsoft.Extensions.Configuration;
 
 namespace InstaConnect.Chats.Infrastructure.Features.Common.Extensions;
 
@@ -26,7 +30,8 @@ public static class ServiceCollectionExtensions
 			serviceCollection
 				.AddUserServices()
 				.AddChatServices()
-				.AddChatMessageServices();
+				.AddChatMessageServices()
+				.AddChatMessageImageServices();
 
 			serviceCollection
 				.AddTelemetries(configuration, webHostEnvironment)
@@ -38,6 +43,8 @@ public static class ServiceCollectionExtensions
 				.AddAccessTokens(configuration)
 				.AddCaches(configuration)
 				.AddHubs(configuration)
+				.AddImages(configuration)
+				.AddSummarizers(configuration)
 				.AddGuids()
 				.AddDateTimes()
 				.AddDatabaseSortOrders();

@@ -1,3 +1,11 @@
+using InstaConnect.Common.Tests.Features.DataAttributes.FormFileCollections.Base;
+using InstaConnect.Posts.Application.Features.Posts.Commands.Add;
+using InstaConnect.Posts.Domain.Features.Posts.Models.Entities;
+using InstaConnect.Posts.Tests.Features.PostImages.Assertions;
+using InstaConnect.Posts.Tests.Features.Posts.DataAttributes.Content;
+using InstaConnect.Posts.Tests.Features.Posts.DataAttributes.Images;
+using InstaConnect.Posts.Tests.Features.Posts.DataAttributes.Title;
+
 namespace InstaConnect.Posts.Application.Tests.Integration.Features.Posts.Handlers;
 
 public class AddPostCommandHandlerIntegrationTests : BasePostApplicationCommandIntegrationTest
@@ -10,7 +18,7 @@ public class AddPostCommandHandlerIntegrationTests : BasePostApplicationCommandI
 		: base(webApplicationFactory)
 	{
 		_requestBuilderFactory = new();
-		_requestBuilder = _requestBuilderFactory.Create(User);
+		_requestBuilder = _requestBuilderFactory.Create(User, Post.PostImages.Count);
 		_request = _requestBuilder.Build();
 	}
 
@@ -63,7 +71,7 @@ public class AddPostCommandHandlerIntegrationTests : BasePostApplicationCommandI
 	}
 
 	[Fact]
-	public async Task SendAsync_ShouldThrowUserNotFoundException_WhenUserIdIsInvalid()
+	public async Task SendAsync_ShouldThrowUserNotFoundException_WhenUserNotFound()
 	{
 		// Arrange
 		await ServiceScope.DeleteAsync(User, CancellationToken);
@@ -99,6 +107,22 @@ public class AddPostCommandHandlerIntegrationTests : BasePostApplicationCommandI
 		response.ShouldSatisfy(request, post);
 	}
 
+	[Theory]
+	[PostImagesEmptyData]
+	public async Task SendAsync_ShouldReturnResponse_WhenRequestAndImagesAreValid(
+		IFormFileCollectionTransformer transformer)
+	{
+		// Arrange
+		var request = _requestBuilder.WithImages(transformer).Build();
+
+		// Act
+		var response = await Sender.SendAsync(request, CancellationToken);
+		var post = await ServiceScope.GetByIdAsync(response, CancellationToken);
+
+		// Assert
+		response.ShouldSatisfy(request, post);
+	}
+
 	[Fact]
 	public async Task SendAsync_ShouldAddPost_WhenRequestIsValid()
 	{
@@ -117,6 +141,22 @@ public class AddPostCommandHandlerIntegrationTests : BasePostApplicationCommandI
 	{
 		// Arrange
 		var request = _requestBuilder.WithUserId(transformer).Build();
+
+		// Act
+		var response = await Sender.SendAsync(request, CancellationToken);
+		var post = await ServiceScope.GetByIdAsync(response, CancellationToken);
+
+		// Assert
+		post.ShouldSatisfy(request);
+	}
+
+	[Theory]
+	[PostImagesEmptyData]
+	public async Task SendAsync_ShouldAddPost_WhenRequestAndImagesAreValid(
+		IFormFileCollectionTransformer transformer)
+	{
+		// Arrange
+		var request = _requestBuilder.WithImages(transformer).Build();
 
 		// Act
 		var response = await Sender.SendAsync(request, CancellationToken);
@@ -155,5 +195,66 @@ public class AddPostCommandHandlerIntegrationTests : BasePostApplicationCommandI
 
 		// Assert
 		eventRequest.ShouldSatisfy(request, post);
+	}
+
+	[Theory]
+	[PostImagesEmptyData]
+	public async Task SendAsync_ShouldPublishPostAddedEvent_WhenRequestAndImagesAreValid(
+		IFormFileCollectionTransformer transformer)
+	{
+		// Arrange
+		var request = _requestBuilder.WithImages(transformer).Build();
+
+		// Act
+		var response = await Sender.SendAsync(request, CancellationToken);
+		var post = await ServiceScope.GetByIdAsync(response, CancellationToken);
+
+		var eventRequest = await EventClient.PublishedAddedAsync(CancellationToken);
+
+		// Assert
+		eventRequest.ShouldSatisfy(request, post);
+	}
+
+	[Fact]
+	public async Task SendAsync_ShouldAddPostImages_WhenRequestIsValid()
+	{
+		// Act
+		var response = await Sender.SendAsync(_request, CancellationToken);
+		var post = await ServiceScope.GetByIdAsync(response, CancellationToken);
+
+		// Assert
+		post.PostImages.ShouldSatisfy(_request);
+	}
+
+	[Theory]
+	[UserIdDifferentCaseData]
+	public async Task SendAsync_ShouldAddPostImages_WhenRequestAndUserIdAreValid(
+		IStringTransformer transformer)
+	{
+		// Arrange
+		var request = _requestBuilder.WithUserId(transformer).Build();
+
+		// Act
+		var response = await Sender.SendAsync(request, CancellationToken);
+		var post = await ServiceScope.GetByIdAsync(response, CancellationToken);
+
+		// Assert
+		post.PostImages.ShouldSatisfy(request);
+	}
+
+	[Theory]
+	[PostImagesEmptyData]
+	public async Task SendAsync_ShouldAddPostImages_WhenRequestAndImagesAreValid(
+		IFormFileCollectionTransformer transformer)
+	{
+		// Arrange
+		var request = _requestBuilder.WithImages(transformer).Build();
+
+		// Act
+		var response = await Sender.SendAsync(request, CancellationToken);
+		var post = await ServiceScope.GetByIdAsync(response, CancellationToken);
+
+		// Assert
+		post.PostImages.ShouldBeEmpty();
 	}
 }

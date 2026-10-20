@@ -1,9 +1,5 @@
 using InstaConnect.Chats.Domain.Features.ChatMessages.Models.Requests;
-using InstaConnect.Chats.Infrastructure.Features.ChatMessages.Helpers.Repositories;
-using InstaConnect.Chats.Infrastructure.Tests.Features.ChatMessages.Assertions;
 using InstaConnect.Chats.Infrastructure.Tests.Features.ChatMessages.Builders;
-using InstaConnect.Chats.Infrastructure.Tests.Features.ChatMessages.Utilities;
-using InstaConnect.Chats.Infrastructure.Tests.Unit.Features.ChatMessages.Utilities;
 
 namespace InstaConnect.Chats.Infrastructure.Tests.Unit.Features.ChatMessages.Repositories;
 
@@ -23,7 +19,7 @@ public class GetChatMessagesTotalCountQueryRepositoryUnitTests : BaseChatMessage
 		_filterQueryBuilder = _filterQueryBuilderFactory.Create(ChatMessage);
 		_filterQuery = _filterQueryBuilder.Build();
 
-		_messageInclude = MessageIncludeBuilderFactory.Create().WithSender().Build();
+		_messageInclude = MessageIncludeBuilderFactory.Create().WithSender().WithChatMessageImages().Build();
 
 		_repository = new(Collection, IncludeBuilderFactory, MessageIncludeBuilderFactory);
 
@@ -34,7 +30,7 @@ public class GetChatMessagesTotalCountQueryRepositoryUnitTests : BaseChatMessage
 	}
 
 	[Fact]
-	public async Task GetTotalCountAsync_ShouldReturnResponse_WhenRequestIsValid()
+	public async Task GetTotalCountAsync_ShouldReturnResponse_WhenQueryIsValid()
 	{
 		// Act
 		var response = await _repository.GetTotalCountAsync(_filterQuery, CancellationToken);
@@ -44,7 +40,7 @@ public class GetChatMessagesTotalCountQueryRepositoryUnitTests : BaseChatMessage
 	}
 
 	[Fact]
-	public async Task GetTotalCountAsync_ShouldCallTheCollectionAggregateFluent_WhenRequestIsValid()
+	public async Task GetTotalCountAsync_ShouldCallTheCollectionAggregateFluent_WhenQueryIsValid()
 	{
 		// Act
 		await _repository.GetTotalCountAsync(_filterQuery, CancellationToken);
@@ -54,7 +50,7 @@ public class GetChatMessagesTotalCountQueryRepositoryUnitTests : BaseChatMessage
 	}
 
 	[Fact]
-	public async Task GetTotalCountAsync_ShouldCallTheFluentApplyIncludes_WhenRequestIsValid()
+	public async Task GetTotalCountAsync_ShouldCallTheFluentApplyIncludes_WhenQueryIsValid()
 	{
 		// Act
 		await _repository.GetTotalCountAsync(_filterQuery, CancellationToken);
@@ -64,7 +60,7 @@ public class GetChatMessagesTotalCountQueryRepositoryUnitTests : BaseChatMessage
 	}
 
 	[Fact]
-	public async Task GetTotalCountAsync_ShouldCallTheFluentMatch_WhenRequestIsValid()
+	public async Task GetTotalCountAsync_ShouldCallTheFluentMatch_WhenQueryIsValid()
 	{
 		// Act
 		await _repository.GetTotalCountAsync(_filterQuery, CancellationToken);
@@ -74,7 +70,7 @@ public class GetChatMessagesTotalCountQueryRepositoryUnitTests : BaseChatMessage
 	}
 
 	[Fact]
-	public async Task GetTotalCountAsync_ShouldCallTheFluentGetCountAsync_WhenRequestIsValid()
+	public async Task GetTotalCountAsync_ShouldCallTheFluentGetCountAsync_WhenQueryIsValid()
 	{
 		// Act
 		await _repository.GetTotalCountAsync(_filterQuery, CancellationToken);

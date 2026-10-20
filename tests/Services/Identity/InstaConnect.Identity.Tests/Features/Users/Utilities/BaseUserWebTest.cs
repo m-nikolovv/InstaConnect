@@ -1,9 +1,4 @@
 using InstaConnect.Common.Domain.Features.Images.Abstractions;
-using InstaConnect.Identity.Tests.Features.Common.Utilities;
-
-using Microsoft.Extensions.DependencyInjection;
-
-using Xunit;
 
 namespace InstaConnect.Identity.Tests.Features.Users.Utilities;
 

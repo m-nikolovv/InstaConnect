@@ -1,5 +1,4 @@
 using InstaConnect.Chats.Domain.Features.Chats.Exceptions;
-using InstaConnect.Chats.Domain.Features.Chats.Models.ValueObjects;
 
 namespace InstaConnect.Chats.Tests.Features.Chats.Assertions;
 

@@ -1,11 +1,7 @@
-using InstaConnect.Common.Domain.Features.Common.Extensions;
 using InstaConnect.Common.Domain.Features.Requests.Abstractions;
-using InstaConnect.Common.Tests.Features.DataAttributes.Enums.Sort;
 using InstaConnect.Identity.Events.Features.Users;
-using InstaConnect.Posts.Domain.Tests.Features.Posts.Utilities;
-using InstaConnect.Posts.Domain.Tests.Features.Users.Utilities;
+using InstaConnect.Posts.Domain.Features.PostLikes.Models.Responses;
 using InstaConnect.Posts.Events.Features.PostLikes;
-using InstaConnect.Posts.Events.Features.Posts;
 
 namespace InstaConnect.Posts.Domain.Tests.Features.PostLikes.Utilities;
 
@@ -70,6 +66,7 @@ public static class PostLikeEquals
 				   request.User.Matches(command, entity.User) &&
 				   request.Title == entity.Title &&
 				   request.Content == entity.Content &&
+				   entity.Summary.Matches(request.Summary) &&
 				   request.CreatedAtUtc == entity.CreatedAtUtc &&
 				   request.UpdatedAtUtc == entity.UpdatedAtUtc;
 		}
@@ -82,6 +79,7 @@ public static class PostLikeEquals
 				   request.User.Matches(command, entity.User) &&
 				   request.Title == entity.Title &&
 				   request.Content == entity.Content &&
+				   entity.Summary.Matches(request.Summary) &&
 				   request.CreatedAtUtc == entity.CreatedAtUtc &&
 				   request.UpdatedAtUtc == entity.UpdatedAtUtc;
 		}
@@ -97,7 +95,7 @@ public static class PostLikeEquals
 				   request.Email.EqualsOrdinalIgnoreCase(entity.Email.Value) &&
 				   request.FirstName == entity.FirstName &&
 				   request.LastName == entity.LastName &&
-				   request.ProfileImageUrl == entity.ProfileImage?.Url &&
+				   request.ProfileImageUrl == entity.ProfileImageUrl?.Value &&
 				   request.CreatedAtUtc == entity.CreatedAtUtc &&
 				   request.UpdatedAtUtc == entity.UpdatedAtUtc;
 		}
@@ -110,7 +108,7 @@ public static class PostLikeEquals
 				   request.Email.EqualsOrdinalIgnoreCase(entity.Email.Value) &&
 				   request.FirstName == entity.FirstName &&
 				   request.LastName == entity.LastName &&
-				   request.ProfileImageUrl == entity.ProfileImage?.Url &&
+				   request.ProfileImageUrl == entity.ProfileImageUrl?.Value &&
 				   request.CreatedAtUtc == entity.CreatedAtUtc &&
 				   request.UpdatedAtUtc == entity.UpdatedAtUtc;
 		}

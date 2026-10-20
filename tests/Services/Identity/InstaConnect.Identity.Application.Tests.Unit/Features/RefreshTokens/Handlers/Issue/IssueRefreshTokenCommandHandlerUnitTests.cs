@@ -1,3 +1,6 @@
+using InstaConnect.Identity.Application.Features.RefreshTokens.Commands.Issue;
+using InstaConnect.Identity.Application.Tests.Features.RefreshTokens.Utilities;
+
 namespace InstaConnect.Identity.Application.Tests.Unit.Features.RefreshTokens.Handlers.Issue;
 
 public class IssueRefreshTokenCommandHandlerUnitTests : BaseRefreshTokenApplicationCommandUnitTest
@@ -30,7 +33,7 @@ public class IssueRefreshTokenCommandHandlerUnitTests : BaseRefreshTokenApplicat
 	}
 
 	[Fact]
-	public async Task Handle_ShouldCallServiceIssueAsync_WhenRequestIsValid()
+	public async Task Handle_ShouldCallTheServiceIssueAsync_WhenRequestIsValid()
 	{
 		// Act
 		await _handler.Handle(_request, CancellationToken);

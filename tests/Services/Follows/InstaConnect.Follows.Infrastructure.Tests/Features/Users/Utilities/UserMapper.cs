@@ -1,4 +1,3 @@
-using InstaConnect.Follows.Domain.Features.Users.Models.Requests;
 using InstaConnect.Follows.Domain.Features.Users.Models.Responses;
 
 namespace InstaConnect.Follows.Infrastructure.Tests.Features.Users.Utilities;
@@ -14,7 +13,7 @@ public static class UserMapper
 					   user.LastName,
 					   user.Email,
 					   user.Name,
-					   user.ProfileImage,
+					   user.ProfileImageUrl,
 					   user.CreatedAtUtc,
 					   user.UpdatedAtUtc);
 		}

@@ -1,3 +1,5 @@
+using InstaConnect.Follows.Tests.Features.Users.Builders;
+
 namespace InstaConnect.Follows.Tests.Features.Users.Utilities;
 
 public abstract class BaseUserTest : BaseTest
@@ -6,7 +8,9 @@ public abstract class BaseUserTest : BaseTest
 	protected UserBuilder UserBuilder { get; }
 	protected User User { get; }
 
-	protected CancellationToken CancellationToken { get; }
+	protected UserIdBuilderFactory UserIdBuilderFactory { get; }
+	protected UserIdBuilder UserIdBuilder { get; }
+	protected UserId UserId { get; }
 
 	protected BaseUserTest()
 	{
@@ -14,6 +18,8 @@ public abstract class BaseUserTest : BaseTest
 		UserBuilder = UserBuilderFactory.Create();
 		User = UserBuilder.Build();
 
-		CancellationToken = MockFactory.CreateCancellationToken();
+		UserIdBuilderFactory = new();
+		UserIdBuilder = UserIdBuilderFactory.Create(User.Id);
+		UserId = UserIdBuilder.Build();
 	}
 }

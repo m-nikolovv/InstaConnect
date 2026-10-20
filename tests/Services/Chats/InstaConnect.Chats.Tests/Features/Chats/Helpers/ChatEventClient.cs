@@ -1,5 +1,6 @@
 using InstaConnect.Chats.Events.Features.Chats;
 using InstaConnect.Chats.Tests.Features.Chats.Abstractions;
+using InstaConnect.Common.Tests.Features.Abstractions;
 
 namespace InstaConnect.Chats.Tests.Features.Chats.Helpers;
 

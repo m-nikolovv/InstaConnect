@@ -1,3 +1,5 @@
+using InstaConnect.Identity.Presentation.Features.Users.Controllers.v1;
+
 namespace InstaConnect.Identity.Presentation.Tests.Integration.Features.Users.Utilities;
 
 public abstract class BaseUserPresentationQueryIntegrationTest : BaseUserWebTest

@@ -1,3 +1,7 @@
+using InstaConnect.Posts.Application.Features.PostComments.Commands.Update;
+using InstaConnect.Posts.Tests.Features.PostCommentImages.Utilities;
+using InstaConnect.Posts.Tests.Features.PostComments.DataAttributes.Content;
+
 namespace InstaConnect.Posts.Application.Tests.Integration.Features.PostComments.Handlers;
 
 public class UpdatePostCommentCommandHandlerIntegrationTests : BasePostCommentApplicationCommandIntegrationTest
@@ -17,6 +21,7 @@ public class UpdatePostCommentCommandHandlerIntegrationTests : BasePostCommentAp
 	protected override async Task OnInitializeAsync()
 	{
 		await ServiceScope.AddAsync(PostComment, CancellationToken);
+		await ServiceScope.AddRangeAsync(PostCommentImages, CancellationToken);
 	}
 
 	[Theory]
@@ -84,7 +89,7 @@ public class UpdatePostCommentCommandHandlerIntegrationTests : BasePostCommentAp
 	}
 
 	[Fact]
-	public async Task SendAsync_ShouldThrowPostNotFoundException_WhenIdIsInvalid()
+	public async Task SendAsync_ShouldThrowPostNotFoundException_WhenPostNotFound()
 	{
 		// Arrange
 		await ServiceScope.DeleteAsync(Post, CancellationToken);
@@ -94,7 +99,7 @@ public class UpdatePostCommentCommandHandlerIntegrationTests : BasePostCommentAp
 	}
 
 	[Fact]
-	public async Task SendAsync_ShouldThrowPostCommentNotFoundException_WhenCommentIdIsInvalid()
+	public async Task SendAsync_ShouldThrowPostCommentNotFoundException_WhenPostCommentNotFound()
 	{
 		// Arrange
 		await ServiceScope.DeleteAsync(PostComment, CancellationToken);
@@ -104,7 +109,7 @@ public class UpdatePostCommentCommandHandlerIntegrationTests : BasePostCommentAp
 	}
 
 	[Fact]
-	public async Task SendAsync_ShouldThrowPostCommentForbiddenException_WhenUserIdIsInvalid()
+	public async Task SendAsync_ShouldThrowPostCommentForbiddenException_WhenPostCommentForbidden()
 	{
 		// Arrange
 		var user = UserBuilderFactory.Create().Build();
@@ -220,7 +225,7 @@ public class UpdatePostCommentCommandHandlerIntegrationTests : BasePostCommentAp
 
 	[Theory]
 	[UserIdDifferentCaseData]
-	public async Task SendAsync_ShouldUpdatePostComment_WhenRequestAndUserIdAreValids(
+	public async Task SendAsync_ShouldUpdatePostComment_WhenRequestAndUserIdAreValid(
 		IStringTransformer transformer)
 	{
 		// Arrange
@@ -285,7 +290,7 @@ public class UpdatePostCommentCommandHandlerIntegrationTests : BasePostCommentAp
 
 	[Theory]
 	[UserIdDifferentCaseData]
-	public async Task SendAsync_ShouldPublishUpdatedEvent_WhenRequestAndUserIdAreValids(
+	public async Task SendAsync_ShouldPublishPostCommentUpdatedEvent_WhenRequestAndUserIdAreValid(
 		IStringTransformer transformer)
 	{
 		// Arrange

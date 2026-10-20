@@ -1,5 +1,9 @@
 using InstaConnect.Common.Events.Features.AccessTokens.Models;
-using InstaConnect.Identity.Tests.Features.EmailConfirmationTokens.Assertions;
+using InstaConnect.Common.Tests.Features.DataAttributes.Enums.Base;
+using InstaConnect.Identity.Presentation.Features.UserClaims.Models.Requests;
+using InstaConnect.Identity.Presentation.Tests.Features.UserClaims.Builders;
+using InstaConnect.Identity.Presentation.Tests.Functional.Features.UserClaims.Utilities;
+using InstaConnect.Identity.Tests.Features.UserClaims.DataAttributes.Claim;
 
 namespace InstaConnect.Identity.Presentation.Tests.Functional.Features.UserClaims.Endpoints;
 
@@ -140,7 +144,7 @@ public class AddUserClaimFunctionalTests : BaseUserClaimPresentationCommandFunct
 
 	[Theory]
 	[UserIdDifferentCaseData]
-	public async Task AddAsync_ShouldHaveBadRequestStatusCode_WhenUserClaimAlreadyExistsAndCaseDiffers(
+	public async Task AddAsync_ShouldHaveBadRequestStatusCode_WhenUserClaimAlreadyExistsAndIdIsInvalid(
 		IStringTransformer transformer)
 	{
 		// Arrange
@@ -155,7 +159,7 @@ public class AddUserClaimFunctionalTests : BaseUserClaimPresentationCommandFunct
 	}
 
 	[Fact]
-	public async Task AddAsync_ShouldHaveUserClaimAlreadyTakenProblemDetails_WhenUserClaimAlreadyExists()
+	public async Task AddAsync_ShouldHaveUserClaimAlreadyExistsProblemDetails_WhenUserClaimAlreadyExists()
 	{
 		// Arrange
 		await ServiceScope.AddAsync(UserClaim, CancellationToken);
@@ -169,7 +173,7 @@ public class AddUserClaimFunctionalTests : BaseUserClaimPresentationCommandFunct
 
 	[Theory]
 	[UserIdDifferentCaseData]
-	public async Task AddAsync_ShouldHaveUserClaimAlreadyTakenProblemDetails_WhenUserClaimAlreadyExistsAndCaseDiffers(
+	public async Task AddAsync_ShouldHaveUserClaimAlreadyExistsProblemDetails_WhenUserClaimAlreadyExistsAndIdIsInvalid(
 		IStringTransformer transformer)
 	{
 		// Arrange
@@ -195,7 +199,7 @@ public class AddUserClaimFunctionalTests : BaseUserClaimPresentationCommandFunct
 
 	[Theory]
 	[UserIdDifferentCaseData]
-	public async Task AddAsync_ShouldHaveOkStatusCode_WhenIdIsValid(IStringTransformer transformer)
+	public async Task AddAsync_ShouldHaveOkStatusCode_WhenRequestAndIdAreValid(IStringTransformer transformer)
 	{
 		// Arrange
 		var request = _requestBuilder.WithId(transformer).Build();
@@ -220,7 +224,7 @@ public class AddUserClaimFunctionalTests : BaseUserClaimPresentationCommandFunct
 
 	[Theory]
 	[UserIdDifferentCaseData]
-	public async Task AddAsync_ShouldReturnResponse_WhenIdIsValid(IStringTransformer transformer)
+	public async Task AddAsync_ShouldReturnResponse_WhenRequestAndIdAreValid(IStringTransformer transformer)
 	{
 		// Arrange
 		var request = _requestBuilder.WithId(transformer).Build();
@@ -246,7 +250,7 @@ public class AddUserClaimFunctionalTests : BaseUserClaimPresentationCommandFunct
 
 	[Theory]
 	[UserIdDifferentCaseData]
-	public async Task AddAsync_ShouldAddUserClaim_WhenIdIsValid(IStringTransformer transformer)
+	public async Task AddAsync_ShouldAddUserClaim_WhenRequestAndIdAreValid(IStringTransformer transformer)
 	{
 		// Arrange
 		var request = _requestBuilder.WithId(transformer).Build();
@@ -273,7 +277,7 @@ public class AddUserClaimFunctionalTests : BaseUserClaimPresentationCommandFunct
 
 	[Theory]
 	[UserIdDifferentCaseData]
-	public async Task AddAsync_ShouldPublishUserClaimAddedEvent_WhenRequestAndIdIsValid(IStringTransformer transformer)
+	public async Task AddAsync_ShouldPublishUserClaimAddedEvent_WhenRequestAndIdAreValid(IStringTransformer transformer)
 	{
 		// Arrange
 		var request = _requestBuilder.WithId(transformer).Build();

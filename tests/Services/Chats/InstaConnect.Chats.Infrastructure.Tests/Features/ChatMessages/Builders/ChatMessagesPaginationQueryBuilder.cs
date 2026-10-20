@@ -1,5 +1,5 @@
-using InstaConnect.Chats.Domain.Features.ChatMessages.Models.Requests;
 using InstaConnect.Chats.Tests.Features.ChatMessages.Utilities;
+using InstaConnect.Common.Tests.Features.DataAttributes.Ints.Base;
 
 namespace InstaConnect.Chats.Infrastructure.Tests.Features.ChatMessages.Builders;
 

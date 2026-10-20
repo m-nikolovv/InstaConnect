@@ -1,86 +1,73 @@
 using InstaConnect.Identity.Domain.Features.ForgotPasswordTokens.Models.Requests;
-using InstaConnect.Identity.Domain.Features.ForgotPasswordTokens.Models.ValueObjects;
-using InstaConnect.Identity.Infrastructure.Features.ForgotPasswordTokens.Helpers.Repositories;
-using InstaConnect.Identity.Infrastructure.Tests.Features.ForgotPasswordTokens.Assertions;
 using InstaConnect.Identity.Infrastructure.Tests.Features.ForgotPasswordTokens.Utilities;
-using InstaConnect.Identity.Infrastructure.Tests.Unit.Features.ForgotPasswordTokens.Utilities;
-using InstaConnect.Identity.Tests.Features.ForgotPasswordTokens.Builders;
 
 namespace InstaConnect.Identity.Infrastructure.Tests.Unit.Features.ForgotPasswordTokens.Repositories;
 
 public class GetForgotPasswordTokenByIdCommandRepositoryUnitTests : BaseForgotPasswordTokenInfrastructureCommandUnitTest
 {
-	private readonly ForgotPasswordTokenIdBuilderFactory _idBuilderFactory;
-	private readonly ForgotPasswordTokenIdBuilder _idBuilder;
-	private readonly ForgotPasswordTokenId _id;
-
 	private readonly ForgotPasswordTokenInclude _include;
 
 	private readonly ForgotPasswordTokenCommandRepository _repository;
 
 	public GetForgotPasswordTokenByIdCommandRepositoryUnitTests()
 	{
-		_idBuilderFactory = new();
-		_idBuilder = _idBuilderFactory.Create(ForgotPasswordToken.Id);
-		_id = _idBuilder.Build();
-
 		_include = IncludeBuilderFactory.Create().WithUser().Build();
 
 		_repository = new(Collection, IncludeBuilderFactory);
 
-		Collection.SetupAggregateFluent(_id, Fluent);
-		Fluent.SetupApplyIncludes(_id, _include);
-		Fluent.SetupMatch(_id);
-		Fluent.SetupFirstOrDefaultAsync(_id, ForgotPasswordToken, CancellationToken);
+		Collection.SetupAggregateFluent(ForgotPasswordTokenId, Fluent);
+		Fluent.SetupApplyIncludes(ForgotPasswordTokenId, _include);
+		Fluent.SetupMatch(ForgotPasswordTokenId);
+		Fluent.SetupFirstOrDefaultAsync(ForgotPasswordTokenId, ForgotPasswordToken, CancellationToken);
 	}
 
 	[Fact]
-	public async Task GetByIdAsync_ShouldReturnResponse_WhenRequestIsValid()
+	public async Task GetByIdAsync_ShouldReturnResponse_WhenCommandIsValid()
 	{
 		// Act
-		var response = await _repository.GetByIdAsync(_id, _include, CancellationToken);
+		var response = await _repository.GetByIdAsync(ForgotPasswordTokenId, _include, CancellationToken);
 
 		// Assert
-		response.ShouldSatisfy(_id, ForgotPasswordToken);
+		response.ShouldSatisfy(ForgotPasswordTokenId, ForgotPasswordToken);
 	}
 
 	[Fact]
-	public async Task GetByIdAsync_ShouldCallTheCollectionAggregateFluent_WhenRequestIsValid()
+	public async Task GetByIdAsync_ShouldCallTheCollectionAggregateFluent_WhenCommandIsValid()
 	{
 		// Act
-		await _repository.GetByIdAsync(_id, _include, CancellationToken);
+		await _repository.GetByIdAsync(ForgotPasswordTokenId, _include, CancellationToken);
 
 		// Assert
-		Collection.ShouldHaveReceivedOneAggregateFluent(_id);
+		Collection.ShouldHaveReceivedOneAggregateFluent(ForgotPasswordTokenId);
 	}
 
 	[Fact]
-	public async Task GetByIdAsync_ShouldCallTheFluentApplyIncludes_WhenRequestIsValid()
+	public async Task GetByIdAsync_ShouldCallTheFluentApplyIncludes_WhenCommandIsValid()
 	{
 		// Act
-		await _repository.GetByIdAsync(_id, _include, CancellationToken);
+		await _repository.GetByIdAsync(ForgotPasswordTokenId, _include, CancellationToken);
 
 		// Assert
-		Fluent.ShouldHaveReceivedOneApplyIncludes(_id, _include);
+		Fluent.ShouldHaveReceivedOneApplyIncludes(ForgotPasswordTokenId, _include);
 	}
 
 	[Fact]
-	public async Task GetByIdAsync_ShouldCallTheFluentMatch_WhenRequestIsValid()
+	public async Task GetByIdAsync_ShouldCallTheFluentMatch_WhenCommandIsValid()
 	{
 		// Act
-		await _repository.GetByIdAsync(_id, _include, CancellationToken);
+		await _repository.GetByIdAsync(ForgotPasswordTokenId, _include, CancellationToken);
 
 		// Assert
-		Fluent.ShouldHaveReceivedOneMatch(_id);
+		Fluent.ShouldHaveReceivedOneMatch(ForgotPasswordTokenId);
 	}
 
 	[Fact]
-	public async Task GetByIdAsync_ShouldCallTheFluentFirstOrDefaultAsync_WhenRequestIsValid()
+	public async Task GetByIdAsync_ShouldCallTheFluentFirstOrDefaultAsync_WhenCommandIsValid()
 	{
 		// Act
-		await _repository.GetByIdAsync(_id, _include, CancellationToken);
+		await _repository.GetByIdAsync(ForgotPasswordTokenId, _include, CancellationToken);
 
 		// Assert
-		await Fluent.ShouldHaveReceivedOneFirstOrDefaultAsync(_id, CancellationToken);
+		await Fluent.ShouldHaveReceivedOneFirstOrDefaultAsync(ForgotPasswordTokenId, CancellationToken);
 	}
 }

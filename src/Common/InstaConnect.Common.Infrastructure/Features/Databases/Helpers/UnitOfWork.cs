@@ -1,5 +1,4 @@
 using InstaConnect.Common.Application.Features.Databases.Abstractions;
-using InstaConnect.Common.Infrastructure.Features.Databases.Abstractions;
 
 using MassTransit.MongoDbIntegration;
 

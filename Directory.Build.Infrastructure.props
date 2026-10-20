@@ -1,0 +1,24 @@
+<Project>
+  <ItemGroup Label="Infrastructure" Condition="'$(ProjectLayer)' == 'Infrastructure'">
+    <Using Include="InstaConnect.Common.Infrastructure.Features.Databases.Abstractions" />
+    <Using Include="InstaConnect.Common.Infrastructure.Features.Databases.Extensions" />
+    <Using Include="InstaConnect.Common.Infrastructure.Features.Databases.Helpers" />
+    <Using Include="MongoDB.Driver" />
+    <Using Include="System.Linq.Expressions" />
+  </ItemGroup>
+
+  <ItemGroup Label="Infrastructure.Tests" Condition="'$(ProjectLayer)' == 'Infrastructure.Tests'">
+    <Using Include="InstaConnect.Common.Tests.Features.Assertions" />
+    <Using Include="InstaConnect.Common.Tests.Features.Utilities" />
+  </ItemGroup>
+
+  <ItemGroup Label="Infrastructure.Tests.Integration" Condition="'$(ProjectLayer)' == 'Infrastructure.Tests.Integration'">
+    <Using Include="InstaConnect.Common.Tests.Features.Assertions" />
+    <Using Include="InstaConnect.Common.Tests.Features.DataAttributes.Strings.Base" />
+  </ItemGroup>
+
+  <ItemGroup Label="Infrastructure.Tests.Unit" Condition="'$(ProjectLayer)' == 'Infrastructure.Tests.Unit'">
+    <Using Include="InstaConnect.Common.Infrastructure.Tests.Features.Assertions" />
+    <Using Include="InstaConnect.Common.Tests.Features.Assertions" />
+  </ItemGroup>
+</Project>

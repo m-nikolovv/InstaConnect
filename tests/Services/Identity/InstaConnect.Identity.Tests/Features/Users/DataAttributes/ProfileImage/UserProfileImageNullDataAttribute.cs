@@ -1,3 +1,5 @@
+using InstaConnect.Common.Tests.Features.DataAttributes.FormFiles.Null;
+
 namespace InstaConnect.Identity.Tests.Features.Users.DataAttributes.ProfileImage;
 
 [AttributeUsage(AttributeTargets.Method, AllowMultiple = true, Inherited = true)]

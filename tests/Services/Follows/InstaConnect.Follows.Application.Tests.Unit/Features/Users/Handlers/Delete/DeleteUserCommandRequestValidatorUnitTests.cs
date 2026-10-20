@@ -1,3 +1,5 @@
+using InstaConnect.Follows.Application.Features.Users.Commands.Delete;
+
 namespace InstaConnect.Follows.Application.Tests.Unit.Features.Users.Handlers.Delete;
 
 public class DeleteUserCommandRequestValidatorUnitTests : BaseUserApplicationCommandUnitTest
@@ -36,7 +38,7 @@ public class DeleteUserCommandRequestValidatorUnitTests : BaseUserApplicationCom
 	}
 
 	[Fact]
-	public void TestValidate_ShouldNotHaveAnyValidationsErrors_WhenRequestIsValid()
+	public void TestValidate_ShouldNotHaveAnyValidationErrors_WhenRequestIsValid()
 	{
 		// Act
 		var response = _requestValidator.TestValidate(_request);

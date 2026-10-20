@@ -1,3 +1,5 @@
+using InstaConnect.Identity.Application.Features.Users.Commands.DeleteCurrent;
+
 namespace InstaConnect.Identity.Application.Tests.Unit.Features.Users.Handlers.DeleteCurrent;
 
 public class DeleteCurrentUserCommandRequestValidatorUnitTests : BaseUserApplicationCommandUnitTest
@@ -36,7 +38,7 @@ public class DeleteCurrentUserCommandRequestValidatorUnitTests : BaseUserApplica
 	}
 
 	[Fact]
-	public void TestValidate_ShouldNotHaveAnyValidationsErrors_WhenRequestIsValid()
+	public void TestValidate_ShouldNotHaveAnyValidationErrors_WhenRequestIsValid()
 	{
 		// Act
 		var response = _requestValidator.TestValidate(_request);

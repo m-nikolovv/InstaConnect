@@ -1,6 +1,4 @@
 using InstaConnect.Common.Domain.Features.Exceptions.Exceptions;
-using InstaConnect.Common.Domain.Features.Requests.Models;
-using InstaConnect.Common.Infrastructure.Features.Databases.Abstractions;
 
 namespace InstaConnect.Common.Infrastructure.Features.Databases.Helpers.SortOrders;
 

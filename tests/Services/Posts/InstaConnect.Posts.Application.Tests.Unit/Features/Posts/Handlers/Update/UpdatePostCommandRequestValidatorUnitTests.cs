@@ -1,3 +1,7 @@
+using InstaConnect.Posts.Application.Features.Posts.Commands.Update;
+using InstaConnect.Posts.Tests.Features.Posts.DataAttributes.Content;
+using InstaConnect.Posts.Tests.Features.Posts.DataAttributes.Title;
+
 namespace InstaConnect.Posts.Application.Tests.Unit.Features.Posts.Handlers.Update;
 
 public class UpdatePostCommandRequestValidatorUnitTests : BasePostApplicationCommandUnitTest
@@ -90,7 +94,7 @@ public class UpdatePostCommandRequestValidatorUnitTests : BasePostApplicationCom
 	}
 
 	[Fact]
-	public void TestValidate_ShouldNotHaveAnyValidationsErrors_WhenRequestIsValid()
+	public void TestValidate_ShouldNotHaveAnyValidationErrors_WhenRequestIsValid()
 	{
 		// Act
 		var response = _requestValidator.TestValidate(_request);

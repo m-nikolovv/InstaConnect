@@ -1,3 +1,6 @@
+using InstaConnect.Chats.Domain.Features.Chats.Exceptions;
+using InstaConnect.Chats.Domain.Features.Users.Exceptions;
+using InstaConnect.Chats.Events.Features.Chats;
 using InstaConnect.Common.Domain.Features.Mappers.Abstractions;
 using InstaConnect.Common.Events.Features.Events.Abstractions;
 

@@ -1,3 +1,5 @@
+using InstaConnect.Posts.Application.Features.PostCommentLikes.Queries.GetById;
+
 namespace InstaConnect.Posts.Application.Tests.Unit.Features.PostCommentLikes.Handlers.GetById;
 
 public class GetPostCommentLikeByIdQueryHandlerUnitTests : BasePostCommentLikeApplicationQueryUnitTest
@@ -30,7 +32,7 @@ public class GetPostCommentLikeByIdQueryHandlerUnitTests : BasePostCommentLikeAp
 	}
 
 	[Fact]
-	public async Task Handle_ShouldCallCommentLikeServiceGetByIdAsync_WhenRequestIsValid()
+	public async Task Handle_ShouldCallTheCommentLikeServiceGetByIdAsync_WhenRequestIsValid()
 	{
 		// Act
 		await _handler.Handle(_request, CancellationToken);

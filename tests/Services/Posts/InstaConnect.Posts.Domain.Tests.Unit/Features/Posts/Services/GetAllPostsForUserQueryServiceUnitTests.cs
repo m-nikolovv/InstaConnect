@@ -1,10 +1,3 @@
-using InstaConnect.Posts.Domain.Features.Posts.Helpers;
-using InstaConnect.Posts.Domain.Features.Posts.Models.Requests;
-using InstaConnect.Posts.Domain.Tests.Features.Posts.Assertions;
-using InstaConnect.Posts.Domain.Tests.Features.Posts.Builders;
-using InstaConnect.Posts.Domain.Tests.Features.Posts.Utilities;
-using InstaConnect.Posts.Domain.Tests.Unit.Features.Posts.Utilities;
-
 namespace InstaConnect.Posts.Domain.Tests.Unit.Features.Posts.Services;
 
 public class GetAllPostsForUserQueryServiceUnitTests : BasePostDomainQueryUnitTest
@@ -29,7 +22,7 @@ public class GetAllPostsForUserQueryServiceUnitTests : BasePostDomainQueryUnitTe
 	}
 
 	[Fact]
-	public async Task GetAllForUserAsync_ShouldThrowUserNotFoundException_WhenUserIdIsInvalid()
+	public async Task GetAllForUserAsync_ShouldThrowUserNotFoundException_WhenUserNotFound()
 	{
 		// Arrange
 		UserRepository.RemoveGetByIdAsync(_query, User, CancellationToken);

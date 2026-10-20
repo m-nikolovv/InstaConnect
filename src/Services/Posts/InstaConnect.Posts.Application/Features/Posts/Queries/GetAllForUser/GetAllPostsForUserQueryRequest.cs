@@ -1,6 +1,3 @@
-using InstaConnect.Common.Domain.Features.Requests.Models;
-using InstaConnect.Posts.Application.Features.Users.Abstractions;
-
 namespace InstaConnect.Posts.Application.Features.Posts.Queries.GetAllForUser;
 
 public record GetAllPostsForUserQueryRequest(

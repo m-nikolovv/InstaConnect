@@ -1,3 +1,10 @@
+using InstaConnect.Common.Tests.Features.DataAttributes.FormFiles.Base;
+using InstaConnect.Identity.Domain.Features.EmailConfirmationTokens.Extensions;
+using InstaConnect.Identity.Tests.Features.Users.DataAttributes.Email;
+using InstaConnect.Identity.Tests.Features.Users.DataAttributes.FirstName;
+using InstaConnect.Identity.Tests.Features.Users.DataAttributes.LastName;
+using InstaConnect.Identity.Tests.Features.Users.DataAttributes.ProfileImage;
+
 namespace InstaConnect.Identity.Presentation.Tests.Integration.Features.Users.Controllers;
 
 public class UpdateCurrentUserControllerIntegrationTests : BaseUserPresentationCommandIntegrationTest
@@ -112,10 +119,10 @@ public class UpdateCurrentUserControllerIntegrationTests : BaseUserPresentationC
 	}
 
 	[Fact]
-	public async Task UpdateCurrentAsync_ShouldThrowUserEmailAlreadyTakenException_WhenRequestIsInvalid()
+	public async Task UpdateCurrentAsync_ShouldThrowUserEmailAlreadyTakenException_WhenUserEmailAlreadyTaken()
 	{
 		// Arrange
-		var user = UserBuilderFactory.Create(User.PasswordHash, User.ProfileImage.Url).Build();
+		var user = UserBuilderFactory.Create(User.PasswordHash).Build();
 		await ServiceScope.AddAsync(user, CancellationToken);
 		var request = _requestBuilder.WithEmail(user.Email).Build();
 
@@ -125,11 +132,11 @@ public class UpdateCurrentUserControllerIntegrationTests : BaseUserPresentationC
 
 	[Theory]
 	[UserEmailDifferentCaseData]
-	public async Task UpdateCurrentAsync_ShouldThrowUserEmailAlreadyTakenException_WhenEmailIsInvalid(
+	public async Task UpdateCurrentAsync_ShouldThrowUserEmailAlreadyTakenException_WhenUserEmailAlreadyTakenAndEmailIsInvalid(
 		IStringTransformer transformer)
 	{
 		// Arrange
-		var user = UserBuilderFactory.Create(User.PasswordHash, User.ProfileImage.Url).Build();
+		var user = UserBuilderFactory.Create(User.PasswordHash).Build();
 		await ServiceScope.AddAsync(user, CancellationToken);
 		var request = _requestBuilder.WithEmail(user.Email, transformer).Build();
 
@@ -138,10 +145,10 @@ public class UpdateCurrentUserControllerIntegrationTests : BaseUserPresentationC
 	}
 
 	[Fact]
-	public async Task UpdateCurrentAsync_ShouldThrowUserNameAlreadyTakenException_WhenRequestIsInvalid()
+	public async Task UpdateCurrentAsync_ShouldThrowUserNameAlreadyTakenException_WhenUserNameAlreadyTaken()
 	{
 		// Arrange
-		var user = UserBuilderFactory.Create(User.PasswordHash, User.ProfileImage.Url).Build();
+		var user = UserBuilderFactory.Create(User.PasswordHash).Build();
 		await ServiceScope.AddAsync(user, CancellationToken);
 		var request = _requestBuilder.WithName(user.Name).Build();
 
@@ -151,11 +158,11 @@ public class UpdateCurrentUserControllerIntegrationTests : BaseUserPresentationC
 
 	[Theory]
 	[UserNameDifferentCaseData]
-	public async Task UpdateCurrentAsync_ShouldThrowUserNameAlreadyTakenException_WhenNameIsInvalid(
+	public async Task UpdateCurrentAsync_ShouldThrowUserNameAlreadyTakenException_WhenUserNameAlreadyTakenAndNameIsInvalid(
 		IStringTransformer transformer)
 	{
 		// Arrange
-		var user = UserBuilderFactory.Create(User.PasswordHash, User.ProfileImage.Url).Build();
+		var user = UserBuilderFactory.Create(User.PasswordHash).Build();
 		await ServiceScope.AddAsync(user, CancellationToken);
 		var request = _requestBuilder.WithName(user.Name, transformer).Build();
 
@@ -166,42 +173,53 @@ public class UpdateCurrentUserControllerIntegrationTests : BaseUserPresentationC
 	[Fact]
 	public async Task UpdateCurrentAsync_ShouldReturnOkStatusCode_WhenRequestIsValid()
 	{
+		// Act
 		var response = await Controller.UpdateCurrentAsync(_request, CancellationToken);
 
+		// Assert
 		response.ShouldBeActionResultWithOkStatusCode();
 	}
 
 	[Theory]
 	[UserIdDifferentCaseData]
-	public async Task UpdateCurrentAsync_ShouldReturnOkStatusCode_WhenRequestAndIdIsValid(
+	public async Task UpdateCurrentAsync_ShouldReturnOkStatusCode_WhenRequestAndIdAreValid(
 		IStringTransformer transformer)
 	{
+		// Arrange
 		var request = _requestBuilder.WithId(transformer).Build();
 
+		// Act
 		var response = await Controller.UpdateCurrentAsync(request, CancellationToken);
 
+		// Assert
 		response.ShouldBeActionResultWithOkStatusCode();
 	}
 
 	[Theory]
 	[UserNameDifferentCaseData]
-	public async Task UpdateCurrentAsync_ShouldReturnOkStatusCode_WhenRequestAndNameIsValid(
+	public async Task UpdateCurrentAsync_ShouldReturnOkStatusCode_WhenRequestAndNameAreValid(
 		IStringTransformer transformer)
 	{
+		// Arrange
 		var request = _requestBuilder.WithName(transformer).Build();
 
+		// Act
 		var response = await Controller.UpdateCurrentAsync(request, CancellationToken);
 
+		// Assert
 		response.ShouldBeActionResultWithOkStatusCode();
 	}
 
 	[Fact]
 	public async Task UpdateCurrentAsync_ShouldReturnOkStatusCode_WhenRequestAndNameHasNotChanged()
 	{
+		// Arrange
 		var request = _requestBuilder.WithName(User.Name).Build();
 
+		// Act
 		var response = await Controller.UpdateCurrentAsync(request, CancellationToken);
 
+		// Assert
 		response.ShouldBeActionResultWithOkStatusCode();
 	}
 
@@ -210,32 +228,41 @@ public class UpdateCurrentUserControllerIntegrationTests : BaseUserPresentationC
 	public async Task UpdateCurrentAsync_ShouldReturnOkStatusCode_WhenRequestAndNameIsValidAndHasNotChanged(
 		IStringTransformer transformer)
 	{
+		// Arrange
 		var request = _requestBuilder.WithName(User.Name, transformer).Build();
 
+		// Act
 		var response = await Controller.UpdateCurrentAsync(request, CancellationToken);
 
+		// Assert
 		response.ShouldBeActionResultWithOkStatusCode();
 	}
 
 	[Theory]
 	[UserEmailDifferentCaseData]
-	public async Task UpdateCurrentAsync_ShouldReturnOkStatusCode_WhenRequestAndEmailIsValid(
+	public async Task UpdateCurrentAsync_ShouldReturnOkStatusCode_WhenRequestAndEmailAreValid(
 		IStringTransformer transformer)
 	{
+		// Arrange
 		var request = _requestBuilder.WithEmail(transformer).Build();
 
+		// Act
 		var response = await Controller.UpdateCurrentAsync(request, CancellationToken);
 
+		// Assert
 		response.ShouldBeActionResultWithOkStatusCode();
 	}
 
 	[Fact]
 	public async Task UpdateCurrentAsync_ShouldReturnOkStatusCode_WhenRequestAndEmailHasNotChanged()
 	{
+		// Arrange
 		var request = _requestBuilder.WithEmail(User.Email).Build();
 
+		// Act
 		var response = await Controller.UpdateCurrentAsync(request, CancellationToken);
 
+		// Assert
 		response.ShouldBeActionResultWithOkStatusCode();
 	}
 
@@ -244,68 +271,85 @@ public class UpdateCurrentUserControllerIntegrationTests : BaseUserPresentationC
 	public async Task UpdateCurrentAsync_ShouldReturnOkStatusCode_WhenRequestAndEmailIsValidAndHasNotChanged(
 		IStringTransformer transformer)
 	{
+		// Arrange
 		var request = _requestBuilder.WithEmail(User.Email, transformer).Build();
 
+		// Act
 		var response = await Controller.UpdateCurrentAsync(request, CancellationToken);
 
+		// Assert
 		response.ShouldBeActionResultWithOkStatusCode();
 	}
 
 	[Theory]
 	[UserProfileImageNullData]
-	public async Task UpdateCurrentAsync_ShouldReturnOkStatusCode_WhenRequestAndProfileImageIsValid(
+	public async Task UpdateCurrentAsync_ShouldReturnOkStatusCode_WhenRequestAndProfileImageAreValid(
 		IFormFileTransformer transformer)
 	{
+		// Arrange
 		var request = _requestBuilder.WithProfileImage(transformer).Build();
 
+		// Act
 		var response = await Controller.UpdateCurrentAsync(request, CancellationToken);
 
+		// Assert
 		response.ShouldBeActionResultWithOkStatusCode();
 	}
 
 	[Fact]
 	public async Task UpdateCurrentAsync_ShouldReturnResponse_WhenRequestIsValid()
 	{
+		// Act
 		var response = await Controller.UpdateCurrentAsync(_request, CancellationToken);
 		var user = await ServiceScope.GetByIdAsync(response, CancellationToken);
 
+		// Assert
 		response.ShouldSatisfy(_request, user);
 	}
 
 	[Theory]
 	[UserIdDifferentCaseData]
-	public async Task UpdateCurrentAsync_ShouldReturnResponse_WhenIdIsValid(
+	public async Task UpdateCurrentAsync_ShouldReturnResponse_WhenRequestAndIdAreValid(
 		IStringTransformer transformer)
 	{
+		// Arrange
 		var request = _requestBuilder.WithId(transformer).Build();
 
+		// Act
 		var response = await Controller.UpdateCurrentAsync(request, CancellationToken);
 		var user = await ServiceScope.GetByIdAsync(response, CancellationToken);
 
+		// Assert
 		response.ShouldSatisfy(request, user);
 	}
 
 	[Theory]
 	[UserNameDifferentCaseData]
-	public async Task UpdateCurrentAsync_ShouldReturnResponse_WhenNameIsValid(
+	public async Task UpdateCurrentAsync_ShouldReturnResponse_WhenRequestAndNameAreValid(
 		IStringTransformer transformer)
 	{
+		// Arrange
 		var request = _requestBuilder.WithName(transformer).Build();
 
+		// Act
 		var response = await Controller.UpdateCurrentAsync(request, CancellationToken);
 		var user = await ServiceScope.GetByIdAsync(response, CancellationToken);
 
+		// Assert
 		response.ShouldSatisfy(request, user);
 	}
 
 	[Fact]
 	public async Task UpdateCurrentAsync_ShouldReturnResponse_WhenNameHasNotChanged()
 	{
+		// Arrange
 		var request = _requestBuilder.WithName(User.Name).Build();
 
+		// Act
 		var response = await Controller.UpdateCurrentAsync(request, CancellationToken);
 		var user = await ServiceScope.GetByIdAsync(response, CancellationToken);
 
+		// Assert
 		response.ShouldSatisfy(request, user);
 	}
 
@@ -314,35 +358,44 @@ public class UpdateCurrentUserControllerIntegrationTests : BaseUserPresentationC
 	public async Task UpdateCurrentAsync_ShouldReturnResponse_WhenNameIsValidAndHasNotChanged(
 		IStringTransformer transformer)
 	{
+		// Arrange
 		var request = _requestBuilder.WithName(User.Name, transformer).Build();
 
+		// Act
 		var response = await Controller.UpdateCurrentAsync(request, CancellationToken);
 		var user = await ServiceScope.GetByIdAsync(response, CancellationToken);
 
+		// Assert
 		response.ShouldSatisfy(request, user);
 	}
 
 	[Theory]
 	[UserEmailDifferentCaseData]
-	public async Task UpdateCurrentAsync_ShouldReturnResponse_WhenEmailIsValid(
+	public async Task UpdateCurrentAsync_ShouldReturnResponse_WhenRequestAndEmailAreValid(
 		IStringTransformer transformer)
 	{
+		// Arrange
 		var request = _requestBuilder.WithEmail(transformer).Build();
 
+		// Act
 		var response = await Controller.UpdateCurrentAsync(request, CancellationToken);
 		var user = await ServiceScope.GetByIdAsync(response, CancellationToken);
 
+		// Assert
 		response.ShouldSatisfy(request, user);
 	}
 
 	[Fact]
 	public async Task UpdateCurrentAsync_ShouldReturnResponse_WhenEmailHasNotChanged()
 	{
+		// Arrange
 		var request = _requestBuilder.WithEmail(User.Email).Build();
 
+		// Act
 		var response = await Controller.UpdateCurrentAsync(request, CancellationToken);
 		var user = await ServiceScope.GetByIdAsync(response, CancellationToken);
 
+		// Assert
 		response.ShouldSatisfy(request, user);
 	}
 
@@ -351,11 +404,14 @@ public class UpdateCurrentUserControllerIntegrationTests : BaseUserPresentationC
 	public async Task UpdateCurrentAsync_ShouldReturnResponse_WhenEmailIsValidAndHasNotChanged(
 		IStringTransformer transformer)
 	{
+		// Arrange
 		var request = _requestBuilder.WithEmail(User.Email, transformer).Build();
 
+		// Act
 		var response = await Controller.UpdateCurrentAsync(request, CancellationToken);
 		var user = await ServiceScope.GetByIdAsync(response, CancellationToken);
 
+		// Assert
 		response.ShouldSatisfy(request, user);
 	}
 
@@ -364,57 +420,71 @@ public class UpdateCurrentUserControllerIntegrationTests : BaseUserPresentationC
 	public async Task UpdateCurrentAsync_ShouldReturnResponse_WhenRequestAndProfileImageAreValid(
 		IFormFileTransformer transformer)
 	{
+		// Arrange
 		var request = _requestBuilder.WithProfileImage(transformer).Build();
 
+		// Act
 		var response = await Controller.UpdateCurrentAsync(request, CancellationToken);
 		var user = await ServiceScope.GetByIdAsync(response, CancellationToken);
 
+		// Assert
 		response.ShouldSatisfy(request, user);
 	}
 
 	[Fact]
 	public async Task UpdateCurrentAsync_ShouldUpdateUser_WhenRequestIsValid()
 	{
+		// Act
 		var response = await Controller.UpdateCurrentAsync(_request, CancellationToken);
 		var user = await ServiceScope.GetByIdAsync(response, CancellationToken);
 
+		// Assert
 		user.ShouldSatisfy(_request);
 	}
 
 	[Theory]
 	[UserIdDifferentCaseData]
-	public async Task UpdateCurrentAsync_ShouldUpdateUser_WhenIdIsValid(
+	public async Task UpdateCurrentAsync_ShouldUpdateUser_WhenRequestAndIdAreValid(
 		IStringTransformer transformer)
 	{
+		// Arrange
 		var request = _requestBuilder.WithId(transformer).Build();
 
+		// Act
 		var response = await Controller.UpdateCurrentAsync(request, CancellationToken);
 		var user = await ServiceScope.GetByIdAsync(response, CancellationToken);
 
+		// Assert
 		user.ShouldSatisfy(request);
 	}
 
 	[Theory]
 	[UserNameDifferentCaseData]
-	public async Task UpdateCurrentAsync_ShouldUpdateUser_WhenNameIsValid(
+	public async Task UpdateCurrentAsync_ShouldUpdateUser_WhenRequestAndNameAreValid(
 		IStringTransformer transformer)
 	{
+		// Arrange
 		var request = _requestBuilder.WithName(transformer).Build();
 
+		// Act
 		var response = await Controller.UpdateCurrentAsync(request, CancellationToken);
 		var user = await ServiceScope.GetByIdAsync(response, CancellationToken);
 
+		// Assert
 		user.ShouldSatisfy(request);
 	}
 
 	[Fact]
 	public async Task UpdateCurrentAsync_ShouldUpdateUser_WhenNameHasNotChanged()
 	{
+		// Arrange
 		var request = _requestBuilder.WithName(User.Name).Build();
 
+		// Act
 		var response = await Controller.UpdateCurrentAsync(request, CancellationToken);
 		var user = await ServiceScope.GetByIdAsync(response, CancellationToken);
 
+		// Assert
 		user.ShouldSatisfy(request);
 	}
 
@@ -423,35 +493,44 @@ public class UpdateCurrentUserControllerIntegrationTests : BaseUserPresentationC
 	public async Task UpdateCurrentAsync_ShouldUpdateUser_WhenNameIsValidAndHasNotChanged(
 		IStringTransformer transformer)
 	{
+		// Arrange
 		var request = _requestBuilder.WithName(User.Name, transformer).Build();
 
+		// Act
 		var response = await Controller.UpdateCurrentAsync(request, CancellationToken);
 		var user = await ServiceScope.GetByIdAsync(response, CancellationToken);
 
+		// Assert
 		user.ShouldSatisfy(request);
 	}
 
 	[Theory]
 	[UserEmailDifferentCaseData]
-	public async Task UpdateCurrentAsync_ShouldUpdateUser_WhenEmailIsValid(
+	public async Task UpdateCurrentAsync_ShouldUpdateUser_WhenRequestAndEmailAreValid(
 		IStringTransformer transformer)
 	{
+		// Arrange
 		var request = _requestBuilder.WithEmail(transformer).Build();
 
+		// Act
 		var response = await Controller.UpdateCurrentAsync(request, CancellationToken);
 		var user = await ServiceScope.GetByIdAsync(response, CancellationToken);
 
+		// Assert
 		user.ShouldSatisfy(request);
 	}
 
 	[Fact]
 	public async Task UpdateCurrentAsync_ShouldUpdateUser_WhenEmailHasNotChanged()
 	{
+		// Arrange
 		var request = _requestBuilder.WithEmail(User.Email).Build();
 
+		// Act
 		var response = await Controller.UpdateCurrentAsync(request, CancellationToken);
 		var user = await ServiceScope.GetByIdAsync(response, CancellationToken);
 
+		// Assert
 		user.ShouldSatisfy(request);
 	}
 
@@ -460,11 +539,14 @@ public class UpdateCurrentUserControllerIntegrationTests : BaseUserPresentationC
 	public async Task UpdateCurrentAsync_ShouldUpdateUser_WhenEmailIsValidAndHasNotChanged(
 		IStringTransformer transformer)
 	{
+		// Arrange
 		var request = _requestBuilder.WithEmail(User.Email, transformer).Build();
 
+		// Act
 		var response = await Controller.UpdateCurrentAsync(request, CancellationToken);
 		var user = await ServiceScope.GetByIdAsync(response, CancellationToken);
 
+		// Assert
 		user.ShouldSatisfy(request);
 	}
 
@@ -473,61 +555,75 @@ public class UpdateCurrentUserControllerIntegrationTests : BaseUserPresentationC
 	public async Task UpdateCurrentAsync_ShouldUpdateUser_WhenRequestAndProfileImageAreValid(
 		IFormFileTransformer transformer)
 	{
+		// Arrange
 		var request = _requestBuilder.WithProfileImage(transformer).Build();
 
+		// Act
 		var response = await Controller.UpdateCurrentAsync(request, CancellationToken);
 		var user = await ServiceScope.GetByIdAsync(response, CancellationToken);
 
+		// Assert
 		user.ShouldSatisfy(request);
 	}
 
 	[Fact]
 	public async Task UpdateCurrentAsync_ShouldPublishUserUpdatedEvent_WhenRequestIsValid()
 	{
+		// Act
 		var response = await Controller.UpdateCurrentAsync(_request, CancellationToken);
 		var user = await ServiceScope.GetByIdAsync(response, CancellationToken);
 		var eventRequest = await EventClient.PublishedUpdatedAsync(CancellationToken);
 
+		// Assert
 		eventRequest.ShouldSatisfy(_request, user);
 	}
 
 	[Theory]
 	[UserIdDifferentCaseData]
-	public async Task UpdateCurrentAsync_ShouldPublishUserUpdatedEvent_WhenIdIsValid(
+	public async Task UpdateCurrentAsync_ShouldPublishUserUpdatedEvent_WhenRequestAndIdAreValid(
 		IStringTransformer transformer)
 	{
+		// Arrange
 		var request = _requestBuilder.WithId(transformer).Build();
 
+		// Act
 		var response = await Controller.UpdateCurrentAsync(request, CancellationToken);
 		var user = await ServiceScope.GetByIdAsync(response, CancellationToken);
 		var eventRequest = await EventClient.PublishedUpdatedAsync(CancellationToken);
 
+		// Assert
 		eventRequest.ShouldSatisfy(request, user);
 	}
 
 	[Theory]
 	[UserNameDifferentCaseData]
-	public async Task UpdateCurrentAsync_ShouldPublishUserUpdatedEvent_WhenNameIsValid(
+	public async Task UpdateCurrentAsync_ShouldPublishUserUpdatedEvent_WhenRequestAndNameAreValid(
 		IStringTransformer transformer)
 	{
+		// Arrange
 		var request = _requestBuilder.WithName(transformer).Build();
 
+		// Act
 		var response = await Controller.UpdateCurrentAsync(request, CancellationToken);
 		var user = await ServiceScope.GetByIdAsync(response, CancellationToken);
 		var eventRequest = await EventClient.PublishedUpdatedAsync(CancellationToken);
 
+		// Assert
 		eventRequest.ShouldSatisfy(request, user);
 	}
 
 	[Fact]
 	public async Task UpdateCurrentAsync_ShouldPublishUserUpdatedEvent_WhenNameHasNotChanged()
 	{
+		// Arrange
 		var request = _requestBuilder.WithName(User.Name).Build();
 
+		// Act
 		var response = await Controller.UpdateCurrentAsync(request, CancellationToken);
 		var user = await ServiceScope.GetByIdAsync(response, CancellationToken);
 		var eventRequest = await EventClient.PublishedUpdatedAsync(CancellationToken);
 
+		// Assert
 		eventRequest.ShouldSatisfy(request, user);
 	}
 
@@ -536,38 +632,47 @@ public class UpdateCurrentUserControllerIntegrationTests : BaseUserPresentationC
 	public async Task UpdateCurrentAsync_ShouldPublishUserUpdatedEvent_WhenNameIsValidAndHasNotChanged(
 		IStringTransformer transformer)
 	{
+		// Arrange
 		var request = _requestBuilder.WithName(User.Name, transformer).Build();
 
+		// Act
 		var response = await Controller.UpdateCurrentAsync(request, CancellationToken);
 		var user = await ServiceScope.GetByIdAsync(response, CancellationToken);
 		var eventRequest = await EventClient.PublishedUpdatedAsync(CancellationToken);
 
+		// Assert
 		eventRequest.ShouldSatisfy(request, user);
 	}
 
 	[Theory]
 	[UserEmailDifferentCaseData]
-	public async Task UpdateCurrentAsync_ShouldPublishUserUpdatedEvent_WhenEmailIsValid(
+	public async Task UpdateCurrentAsync_ShouldPublishUserUpdatedEvent_WhenRequestAndEmailAreValid(
 		IStringTransformer transformer)
 	{
+		// Arrange
 		var request = _requestBuilder.WithEmail(transformer).Build();
 
+		// Act
 		var response = await Controller.UpdateCurrentAsync(request, CancellationToken);
 		var user = await ServiceScope.GetByIdAsync(response, CancellationToken);
 		var eventRequest = await EventClient.PublishedUpdatedAsync(CancellationToken);
 
+		// Assert
 		eventRequest.ShouldSatisfy(request, user);
 	}
 
 	[Fact]
 	public async Task UpdateCurrentAsync_ShouldPublishUserUpdatedEvent_WhenEmailHasNotChanged()
 	{
+		// Arrange
 		var request = _requestBuilder.WithEmail(User.Email).Build();
 
+		// Act
 		var response = await Controller.UpdateCurrentAsync(request, CancellationToken);
 		var user = await ServiceScope.GetByIdAsync(response, CancellationToken);
 		var eventRequest = await EventClient.PublishedUpdatedAsync(CancellationToken);
 
+		// Assert
 		eventRequest.ShouldSatisfy(request, user);
 	}
 
@@ -576,12 +681,15 @@ public class UpdateCurrentUserControllerIntegrationTests : BaseUserPresentationC
 	public async Task UpdateCurrentAsync_ShouldPublishUserUpdatedEvent_WhenEmailIsValidAndHasNotChanged(
 		IStringTransformer transformer)
 	{
+		// Arrange
 		var request = _requestBuilder.WithEmail(User.Email, transformer).Build();
 
+		// Act
 		var response = await Controller.UpdateCurrentAsync(request, CancellationToken);
 		var user = await ServiceScope.GetByIdAsync(response, CancellationToken);
 		var eventRequest = await EventClient.PublishedUpdatedAsync(CancellationToken);
 
+		// Assert
 		eventRequest.ShouldSatisfy(request, user);
 	}
 
@@ -590,58 +698,72 @@ public class UpdateCurrentUserControllerIntegrationTests : BaseUserPresentationC
 	public async Task UpdateCurrentAsync_ShouldPublishUserUpdatedEvent_WhenRequestAndProfileImageAreValid(
 		IFormFileTransformer transformer)
 	{
+		// Arrange
 		var request = _requestBuilder.WithProfileImage(transformer).Build();
 
+		// Act
 		var response = await Controller.UpdateCurrentAsync(request, CancellationToken);
 		var user = await ServiceScope.GetByIdAsync(response, CancellationToken);
 		var eventRequest = await EventClient.PublishedUpdatedAsync(CancellationToken);
 
+		// Assert
 		eventRequest.ShouldSatisfy(request, user);
 	}
 
 	[Fact]
 	public async Task UpdateCurrentAsync_ShouldDeleteEmailConfirmationTokens_WhenRequestIsValid()
 	{
+		// Act
 		var response = await Controller.UpdateCurrentAsync(_request, CancellationToken);
 		var user = await ServiceScope.GetByIdAsync(response, CancellationToken);
 
+		// Assert
 		user.EmailConfirmationTokens.ShouldBeEmpty();
 	}
 
 	[Theory]
 	[UserIdDifferentCaseData]
-	public async Task UpdateCurrentAsync_ShouldDeleteEmailConfirmationTokens_WhenIdIsValid(
+	public async Task UpdateCurrentAsync_ShouldDeleteEmailConfirmationTokens_WhenRequestAndIdAreValid(
 		IStringTransformer transformer)
 	{
+		// Arrange
 		var request = _requestBuilder.WithId(transformer).Build();
 
+		// Act
 		var response = await Controller.UpdateCurrentAsync(request, CancellationToken);
 		var user = await ServiceScope.GetByIdAsync(response, CancellationToken);
 
+		// Assert
 		user.EmailConfirmationTokens.ShouldBeEmpty();
 	}
 
 	[Theory]
 	[UserNameDifferentCaseData]
-	public async Task UpdateCurrentAsync_ShouldDeleteEmailConfirmationTokens_WhenNameIsValid(
+	public async Task UpdateCurrentAsync_ShouldDeleteEmailConfirmationTokens_WhenRequestAndNameAreValid(
 		IStringTransformer transformer)
 	{
+		// Arrange
 		var request = _requestBuilder.WithName(transformer).Build();
 
+		// Act
 		var response = await Controller.UpdateCurrentAsync(request, CancellationToken);
 		var user = await ServiceScope.GetByIdAsync(response, CancellationToken);
 
+		// Assert
 		user.EmailConfirmationTokens.ShouldBeEmpty();
 	}
 
 	[Fact]
 	public async Task UpdateCurrentAsync_ShouldDeleteEmailConfirmationTokens_WhenNameHasNotChanged()
 	{
+		// Arrange
 		var request = _requestBuilder.WithName(User.Name).Build();
 
+		// Act
 		var response = await Controller.UpdateCurrentAsync(request, CancellationToken);
 		var user = await ServiceScope.GetByIdAsync(response, CancellationToken);
 
+		// Assert
 		user.EmailConfirmationTokens.ShouldBeEmpty();
 	}
 
@@ -650,24 +772,30 @@ public class UpdateCurrentUserControllerIntegrationTests : BaseUserPresentationC
 	public async Task UpdateCurrentAsync_ShouldDeleteEmailConfirmationTokens_WhenNameIsValidAndHasNotChanged(
 		IStringTransformer transformer)
 	{
+		// Arrange
 		var request = _requestBuilder.WithName(User.Name, transformer).Build();
 
+		// Act
 		var response = await Controller.UpdateCurrentAsync(request, CancellationToken);
 		var user = await ServiceScope.GetByIdAsync(response, CancellationToken);
 
+		// Assert
 		user.EmailConfirmationTokens.ShouldBeEmpty();
 	}
 
 	[Theory]
 	[UserEmailDifferentCaseData]
-	public async Task UpdateCurrentAsync_ShouldDeleteEmailConfirmationTokens_WhenEmailIsValid(
+	public async Task UpdateCurrentAsync_ShouldDeleteEmailConfirmationTokens_WhenRequestAndEmailAreValid(
 		IStringTransformer transformer)
 	{
+		// Arrange
 		var request = _requestBuilder.WithEmail(transformer).Build();
 
+		// Act
 		var response = await Controller.UpdateCurrentAsync(request, CancellationToken);
 		var user = await ServiceScope.GetByIdAsync(response, CancellationToken);
 
+		// Assert
 		user.EmailConfirmationTokens.ShouldBeEmpty();
 	}
 
@@ -676,22 +804,28 @@ public class UpdateCurrentUserControllerIntegrationTests : BaseUserPresentationC
 	public async Task UpdateCurrentAsync_ShouldDeleteEmailConfirmationTokens_WhenRequestAndProfileImageAreValid(
 		IFormFileTransformer transformer)
 	{
+		// Arrange
 		var request = _requestBuilder.WithProfileImage(transformer).Build();
 
+		// Act
 		var response = await Controller.UpdateCurrentAsync(request, CancellationToken);
 		var user = await ServiceScope.GetByIdAsync(response, CancellationToken);
 
+		// Assert
 		user.EmailConfirmationTokens.ShouldBeEmpty();
 	}
 
 	[Fact]
 	public async Task UpdateCurrentAsync_ShouldNotDeleteEmailConfirmationTokens_WhenEmailHasNotChanged()
 	{
+		// Arrange
 		var request = _requestBuilder.WithEmail(User.Email).Build();
 
+		// Act
 		var response = await Controller.UpdateCurrentAsync(request, CancellationToken);
 		var user = await ServiceScope.GetByIdAsync(response, CancellationToken);
 
+		// Assert
 		user.EmailConfirmationTokens.ShouldSatisfy(request);
 	}
 
@@ -700,61 +834,75 @@ public class UpdateCurrentUserControllerIntegrationTests : BaseUserPresentationC
 	public async Task UpdateCurrentAsync_ShouldNotDeleteEmailConfirmationTokens_WhenEmailIsValidAndHasNotChanged(
 		IStringTransformer transformer)
 	{
+		// Arrange
 		var request = _requestBuilder.WithEmail(User.Email, transformer).Build();
 
+		// Act
 		var response = await Controller.UpdateCurrentAsync(request, CancellationToken);
 		var user = await ServiceScope.GetByIdAsync(response, CancellationToken);
 
+		// Assert
 		user.EmailConfirmationTokens.ShouldSatisfy(request);
 	}
 
 	[Fact]
 	public async Task UpdateCurrentAsync_ShouldPublishEmailConfirmationTokenDeletedEvents_WhenRequestIsValid()
 	{
+		// Act
 		var response = await Controller.UpdateCurrentAsync(_request, CancellationToken);
 		var user = await ServiceScope.GetByIdAsync(response, CancellationToken);
 		var eventRequests = await EmailConfirmationTokenEventClient.PublishedDeletedRangeAsync(CancellationToken);
 
+		// Assert
 		eventRequests.ShouldSatisfy(_request, User.EmailConfirmationTokens.AddUser(user));
 	}
 
 	[Theory]
 	[UserIdDifferentCaseData]
-	public async Task UpdateCurrentAsync_ShouldPublishEmailConfirmationTokenDeletedEvents_WhenIdIsValid(
+	public async Task UpdateCurrentAsync_ShouldPublishEmailConfirmationTokenDeletedEvents_WhenRequestAndIdAreValid(
 		IStringTransformer transformer)
 	{
+		// Arrange
 		var request = _requestBuilder.WithId(transformer).Build();
 
+		// Act
 		var response = await Controller.UpdateCurrentAsync(request, CancellationToken);
 		var user = await ServiceScope.GetByIdAsync(response, CancellationToken);
 		var eventRequests = await EmailConfirmationTokenEventClient.PublishedDeletedRangeAsync(CancellationToken);
 
+		// Assert
 		eventRequests.ShouldSatisfy(request, User.EmailConfirmationTokens.AddUser(user));
 	}
 
 	[Theory]
 	[UserNameDifferentCaseData]
-	public async Task UpdateCurrentAsync_ShouldPublishEmailConfirmationTokenDeletedEvents_WhenNameIsValid(
+	public async Task UpdateCurrentAsync_ShouldPublishEmailConfirmationTokenDeletedEvents_WhenRequestAndNameAreValid(
 		IStringTransformer transformer)
 	{
+		// Arrange
 		var request = _requestBuilder.WithName(transformer).Build();
 
+		// Act
 		var response = await Controller.UpdateCurrentAsync(request, CancellationToken);
 		var user = await ServiceScope.GetByIdAsync(response, CancellationToken);
 		var eventRequests = await EmailConfirmationTokenEventClient.PublishedDeletedRangeAsync(CancellationToken);
 
+		// Assert
 		eventRequests.ShouldSatisfy(request, User.EmailConfirmationTokens.AddUser(user));
 	}
 
 	[Fact]
 	public async Task UpdateCurrentAsync_ShouldPublishEmailConfirmationTokenDeletedEvents_WhenNameHasNotChanged()
 	{
+		// Arrange
 		var request = _requestBuilder.WithName(User.Name).Build();
 
+		// Act
 		var response = await Controller.UpdateCurrentAsync(request, CancellationToken);
 		var user = await ServiceScope.GetByIdAsync(response, CancellationToken);
 		var eventRequests = await EmailConfirmationTokenEventClient.PublishedDeletedRangeAsync(CancellationToken);
 
+		// Assert
 		eventRequests.ShouldSatisfy(request, User.EmailConfirmationTokens.AddUser(user));
 	}
 
@@ -763,26 +911,32 @@ public class UpdateCurrentUserControllerIntegrationTests : BaseUserPresentationC
 	public async Task UpdateCurrentAsync_ShouldPublishEmailConfirmationTokenDeletedEvents_WhenNameIsValidAndHasNotChanged(
 		IStringTransformer transformer)
 	{
+		// Arrange
 		var request = _requestBuilder.WithName(User.Name, transformer).Build();
 
+		// Act
 		var response = await Controller.UpdateCurrentAsync(request, CancellationToken);
 		var user = await ServiceScope.GetByIdAsync(response, CancellationToken);
 		var eventRequests = await EmailConfirmationTokenEventClient.PublishedDeletedRangeAsync(CancellationToken);
 
+		// Assert
 		eventRequests.ShouldSatisfy(request, User.EmailConfirmationTokens.AddUser(user));
 	}
 
 	[Theory]
 	[UserEmailDifferentCaseData]
-	public async Task UpdateCurrentAsync_ShouldPublishEmailConfirmationTokenDeletedEvents_WhenEmailIsValid(
+	public async Task UpdateCurrentAsync_ShouldPublishEmailConfirmationTokenDeletedEvents_WhenRequestAndEmailAreValid(
 		IStringTransformer transformer)
 	{
+		// Arrange
 		var request = _requestBuilder.WithEmail(transformer).Build();
 
+		// Act
 		var response = await Controller.UpdateCurrentAsync(request, CancellationToken);
 		var user = await ServiceScope.GetByIdAsync(response, CancellationToken);
 		var eventRequests = await EmailConfirmationTokenEventClient.PublishedDeletedRangeAsync(CancellationToken);
 
+		// Assert
 		eventRequests.ShouldSatisfy(request, User.EmailConfirmationTokens.AddUser(user));
 	}
 
@@ -791,23 +945,29 @@ public class UpdateCurrentUserControllerIntegrationTests : BaseUserPresentationC
 	public async Task UpdateCurrentAsync_ShouldPublishEmailConfirmationTokenDeletedEvents_WhenRequestAndProfileImageAreValid(
 		IFormFileTransformer transformer)
 	{
+		// Arrange
 		var request = _requestBuilder.WithProfileImage(transformer).Build();
 
+		// Act
 		var response = await Controller.UpdateCurrentAsync(request, CancellationToken);
 		var user = await ServiceScope.GetByIdAsync(response, CancellationToken);
 		var eventRequests = await EmailConfirmationTokenEventClient.PublishedDeletedRangeAsync(CancellationToken);
 
+		// Assert
 		eventRequests.ShouldSatisfy(request, User.EmailConfirmationTokens.AddUser(user));
 	}
 
 	[Fact]
 	public async Task UpdateCurrentAsync_ShouldNotPublishEmailConfirmationTokenDeletedEvents_WhenEmailHasNotChanged()
 	{
+		// Arrange
 		var request = _requestBuilder.WithEmail(User.Email).Build();
 
+		// Act
 		await Controller.UpdateCurrentAsync(request, CancellationToken);
 		var eventRequests = await EmailConfirmationTokenEventClient.PublishedDeletedRangeAsync(CancellationToken);
 
+		// Assert
 		eventRequests.ShouldBeEmpty();
 	}
 
@@ -816,11 +976,14 @@ public class UpdateCurrentUserControllerIntegrationTests : BaseUserPresentationC
 	public async Task UpdateCurrentAsync_ShouldNotPublishEmailConfirmationTokenDeletedEvents_WhenEmailIsValidAndHasNotChanged(
 		IStringTransformer transformer)
 	{
+		// Arrange
 		var request = _requestBuilder.WithEmail(User.Email, transformer).Build();
 
+		// Act
 		await Controller.UpdateCurrentAsync(request, CancellationToken);
 		var eventRequests = await EmailConfirmationTokenEventClient.PublishedDeletedRangeAsync(CancellationToken);
 
+		// Assert
 		eventRequests.ShouldBeEmpty();
 	}
 }

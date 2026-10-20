@@ -1,5 +1,3 @@
-using Microsoft.Extensions.DependencyInjection;
-
 namespace InstaConnect.Identity.Domain.Tests.Features.UserClaims.Utilities;
 
 public static class UserClaimDomainSetups

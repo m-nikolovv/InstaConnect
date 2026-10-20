@@ -1,5 +1,4 @@
-using InstaConnect.Common.Presentation.Tests.Features.Extensions;
-using InstaConnect.Posts.Presentation.Tests.Features.Posts.Utilities;
+using InstaConnect.Posts.Presentation.Features.Posts.Controllers.v1;
 
 using Microsoft.Extensions.DependencyInjection;
 

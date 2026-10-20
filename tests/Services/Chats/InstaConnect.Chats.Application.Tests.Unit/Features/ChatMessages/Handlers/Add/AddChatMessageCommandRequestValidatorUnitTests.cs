@@ -1,3 +1,9 @@
+using InstaConnect.Chats.Application.Features.ChatMessages.Commands.Add;
+using InstaConnect.Chats.Domain.Features.ChatMessages.Models.Entities;
+using InstaConnect.Chats.Tests.Features.ChatMessages.DataAttributes.Content;
+using InstaConnect.Chats.Tests.Features.ChatMessages.DataAttributes.Images;
+using InstaConnect.Common.Tests.Features.DataAttributes.FormFileCollections.Base;
+
 namespace InstaConnect.Chats.Application.Tests.Unit.Features.ChatMessages.Handlers.Add;
 
 public class AddChatMessageCommandRequestValidatorUnitTests : BaseChatMessageApplicationCommandUnitTest
@@ -11,7 +17,7 @@ public class AddChatMessageCommandRequestValidatorUnitTests : BaseChatMessageApp
 	public AddChatMessageCommandRequestValidatorUnitTests()
 	{
 		_requestBuilderFactory = new();
-		_requestBuilder = _requestBuilderFactory.Create(Chat);
+		_requestBuilder = _requestBuilderFactory.Create(Chat, ChatMessage.ChatMessageImages.Count);
 		_request = _requestBuilder.Build();
 
 		_requestValidator = new();
@@ -72,10 +78,25 @@ public class AddChatMessageCommandRequestValidatorUnitTests : BaseChatMessageApp
 	}
 
 	[Fact]
-	public void TestValidate_ShouldNotHaveAnyValidationsErrors_WhenRequestIsValid()
+	public void TestValidate_ShouldNotHaveAnyValidationErrors_WhenRequestIsValid()
 	{
 		// Act
 		var response = _requestValidator.TestValidate(_request);
+
+		// Assert
+		response.ShouldNotHaveAnyValidationErrorProperties();
+	}
+
+	[Theory]
+	[ChatMessageImagesEmptyData]
+	public void TestValidate_ShouldNotHaveAnyValidationErrors_WhenRequestAndImagesAreValid(
+		IFormFileCollectionTransformer transformer)
+	{
+		// Arrange
+		var request = _requestBuilder.WithImages(transformer).Build();
+
+		// Act
+		var response = _requestValidator.TestValidate(request);
 
 		// Assert
 		response.ShouldNotHaveAnyValidationErrorProperties();

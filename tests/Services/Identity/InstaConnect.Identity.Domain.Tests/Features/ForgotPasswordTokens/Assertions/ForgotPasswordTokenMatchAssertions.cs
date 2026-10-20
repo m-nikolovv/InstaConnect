@@ -1,4 +1,4 @@
-using InstaConnect.Identity.Domain.Features.Common.Helpers;
+using InstaConnect.Identity.Domain.Features.ForgotPasswordTokens.Models.ValueObjects;
 using InstaConnect.Identity.Domain.Tests.Features.ForgotPasswordTokens.Utilities;
 using InstaConnect.Identity.Events.Features.ForgotPasswordTokens;
 
@@ -19,6 +19,14 @@ public static class ForgotPasswordTokenMatchAssertions
 		public void ShouldSatisfy(VerifyForgotPasswordTokenCommand command, IPasswordHasher passwordHasher)
 		{
 			user.ShouldSatisfy(p => p.Matches(command, passwordHasher));
+		}
+	}
+
+	extension(ICollection<ForgotPasswordToken> forgotPasswordTokens)
+	{
+		public void ShouldSatisfy(AddForgotPasswordTokenCommand command)
+		{
+			forgotPasswordTokens.ShouldSatisfy(p => p.Matches(command));
 		}
 	}
 

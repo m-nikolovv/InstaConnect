@@ -1,6 +1,6 @@
-using InstaConnect.Identity.Events.Features.Users;
-
-using Mapster;
+using InstaConnect.Posts.Events.Features.PostCommentImages;
+using InstaConnect.Posts.Events.Features.PostComments;
+using InstaConnect.Posts.Events.Features.Posts;
 
 namespace InstaConnect.Posts.Domain.Features.PostComments.Mappings;
 
@@ -26,8 +26,10 @@ internal class PostCommentDomainMappings : IRegister
 				src.Id.CommentId,
 				src.UserId.Id,
 				src.Content,
+				src.Summary.Value,
 				src.User.Adapt<UserEventRequest>(config)!,
 				src.Post.Adapt<PostEventRequest>(config)!,
+				src.PostCommentImages.Adapt<ICollection<PostCommentImageEventRequest>>(config),
 				src.CreatedAtUtc,
 				src.UpdatedAtUtc));
 	}

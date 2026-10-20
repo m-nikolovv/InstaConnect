@@ -2,9 +2,6 @@ using InstaConnect.Posts.Domain.Features.PostCommentLikes.Extensions;
 using InstaConnect.Posts.Domain.Features.PostComments.Extensions;
 using InstaConnect.Posts.Domain.Features.PostLikes.Extensions;
 using InstaConnect.Posts.Domain.Features.Posts.Extensions;
-using InstaConnect.Posts.Tests.Features.PostCommentLikes.Utilities;
-using InstaConnect.Posts.Tests.Features.PostComments.Utilities;
-using InstaConnect.Posts.Tests.Features.PostLikes.Utilities;
 
 namespace InstaConnect.Posts.Tests.Features.Users.Utilities;
 

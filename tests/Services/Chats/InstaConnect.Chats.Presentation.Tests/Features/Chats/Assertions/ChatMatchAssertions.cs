@@ -1,6 +1,11 @@
 using InstaConnect.Chats.Events.Features.Chats;
-using InstaConnect.Chats.Presentation.Tests.Features.Chats.Utilities;
+using InstaConnect.Chats.Tests.Features.ChatMessages.Assertions;
+using InstaConnect.Chats.Tests.Features.Chats.Assertions;
+using InstaConnect.Chats.Tests.Features.Users.Assertions;
+using InstaConnect.Common.Tests.Features.Assertions;
 using InstaConnect.Common.Tests.Features.DataAttributes.Enums.Sort;
+
+using Microsoft.AspNetCore.Mvc;
 
 namespace InstaConnect.Chats.Presentation.Tests.Features.Chats.Assertions;
 

@@ -1,4 +1,5 @@
 using InstaConnect.Common.Presentation.Features.Requests.Abstractions;
+using InstaConnect.Follows.Presentation.Features.Users.Models.Responses;
 
 namespace InstaConnect.Follows.Presentation.Features.Follows.Models.Responses;
 

@@ -1,9 +1,5 @@
 using InstaConnect.Common.Domain.Features.ValueObjects.Models;
 using InstaConnect.Common.Infrastructure.Tests.Features.Builders;
-using InstaConnect.Identity.Infrastructure.Features.Users.Helpers.Repositories;
-using InstaConnect.Identity.Infrastructure.Tests.Features.Users.Assertions;
-using InstaConnect.Identity.Infrastructure.Tests.Features.Users.Utilities;
-using InstaConnect.Identity.Infrastructure.Tests.Unit.Features.Users.Utilities;
 
 namespace InstaConnect.Identity.Infrastructure.Tests.Unit.Features.Users.Repositories;
 
@@ -29,7 +25,7 @@ public class UserIsEmailUniqueCommandRepositoryUnitTests : BaseUserInfrastructur
 	}
 
 	[Fact]
-	public async Task IsEmailUniqueAsync_ShouldReturnResponse_WhenRequestIsValid()
+	public async Task IsEmailUniqueAsync_ShouldReturnResponse_WhenCommandIsValid()
 	{
 		// Act
 		var response = await _repository.IsEmailUniqueAsync(_email, CancellationToken);
@@ -39,7 +35,7 @@ public class UserIsEmailUniqueCommandRepositoryUnitTests : BaseUserInfrastructur
 	}
 
 	[Fact]
-	public async Task IsEmailUniqueAsync_ShouldCallTheCollectionAggregateFluent_WhenRequestIsValid()
+	public async Task IsEmailUniqueAsync_ShouldCallTheCollectionAggregateFluent_WhenCommandIsValid()
 	{
 		// Act
 		await _repository.IsEmailUniqueAsync(_email, CancellationToken);
@@ -49,7 +45,7 @@ public class UserIsEmailUniqueCommandRepositoryUnitTests : BaseUserInfrastructur
 	}
 
 	[Fact]
-	public async Task IsEmailUniqueAsync_ShouldCallTheFluentMatch_WhenRequestIsValid()
+	public async Task IsEmailUniqueAsync_ShouldCallTheFluentMatch_WhenCommandIsValid()
 	{
 		// Act
 		await _repository.IsEmailUniqueAsync(_email, CancellationToken);
@@ -59,7 +55,7 @@ public class UserIsEmailUniqueCommandRepositoryUnitTests : BaseUserInfrastructur
 	}
 
 	[Fact]
-	public async Task IsEmailUniqueAsync_ShouldCallTheFluentAnyAsync_WhenRequestIsValid()
+	public async Task IsEmailUniqueAsync_ShouldCallTheFluentAnyAsync_WhenCommandIsValid()
 	{
 		// Act
 		await _repository.IsEmailUniqueAsync(_email, CancellationToken);

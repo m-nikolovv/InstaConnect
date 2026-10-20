@@ -1,3 +1,5 @@
+using InstaConnect.Identity.Application.Features.RefreshTokens.Extensions;
+
 namespace InstaConnect.Identity.Application.Features.RefreshTokens.Commands.Rotate;
 
 public class RotateRefreshTokenCommandRequestValidator : AbstractValidator<RotateRefreshTokenCommandRequest>

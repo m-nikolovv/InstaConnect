@@ -17,7 +17,7 @@ public static class UserMockSetups
 				command.LastName,
 				command.Name,
 				command.Email,
-				command.ProfileImage,
+				command.ProfileImageUrl,
 				command.CreatedAtUtc,
 				command.UpdatedAtUtc,
 				user.To(command));
@@ -29,7 +29,7 @@ public static class UserMockSetups
 			string lastName,
 			Name name,
 			Email email,
-			Image? profileImage,
+			Url? profileImageUrl,
 			DateTimeOffset createdAtUtc,
 			DateTimeOffset updatedAtUtc,
 			User user)
@@ -41,7 +41,7 @@ public static class UserMockSetups
 					lastName,
 					name,
 					email,
-					profileImage,
+					profileImageUrl,
 					createdAtUtc,
 					updatedAtUtc)
 				.ReturnsResponse(user);

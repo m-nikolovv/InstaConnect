@@ -1,3 +1,5 @@
+using InstaConnect.Identity.Domain.Features.ForgotPasswordTokens.Utilities;
+
 namespace InstaConnect.Identity.Application.Features.ForgotPasswordTokens.Extensions;
 
 internal static class RuleBuilderExtensions

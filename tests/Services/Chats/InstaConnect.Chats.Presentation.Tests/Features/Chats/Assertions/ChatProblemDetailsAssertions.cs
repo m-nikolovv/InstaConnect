@@ -1,4 +1,5 @@
-using InstaConnect.Common.Presentation.Features.Exceptions.Models;
+using InstaConnect.Chats.Domain.Features.Chats.Utilities;
+using InstaConnect.Chats.Presentation.Tests.Features.Users.Assertions;
 
 namespace InstaConnect.Chats.Presentation.Tests.Features.Chats.Assertions;
 
@@ -7,7 +8,7 @@ public static class ChatProblemDetailsAssertions
 	extension(ApplicationProblemDetails problemDetails)
 	{
 		public void ShouldSatisfyParticipantOneNotFound(
-		AddChatApiRequest request)
+			AddChatApiRequest request)
 		{
 			problemDetails.ShouldSatisfyUserNotFound(
 				request,
@@ -15,7 +16,7 @@ public static class ChatProblemDetailsAssertions
 		}
 
 		public void ShouldSatisfyParticipantOneNotFound(
-		GetAllChatsApiRequest request)
+			GetAllChatsApiRequest request)
 		{
 			problemDetails.ShouldSatisfyUserNotFound(
 				request,
@@ -23,7 +24,7 @@ public static class ChatProblemDetailsAssertions
 		}
 
 		public void ShouldSatisfyParticipantTwoNotFound(
-		AddChatApiRequest request)
+			AddChatApiRequest request)
 		{
 			problemDetails.ShouldSatisfyUserNotFound(
 				request,
@@ -62,7 +63,7 @@ public static class ChatProblemDetailsAssertions
 			Func<TRequest, string> participantOneIdPropertyExpression,
 			Func<TRequest, string> participantTwoIdPropertyExpression)
 		{
-			problemDetails.ShouldSatisfyNotFound(
+			problemDetails.ShouldSatisfyBadRequest(
 				ChatExceptionErrorMessages.GetAlreadyExistsMessage(new(new(participantOneIdPropertyExpression(request)), new(participantTwoIdPropertyExpression(request)))));
 		}
 	}

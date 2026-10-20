@@ -1,3 +1,5 @@
+using InstaConnect.Follows.Application.Features.Follows.Commands.Add;
+
 namespace InstaConnect.Follows.Application.Tests.Unit.Features.Follows.Handlers.Add;
 
 public class AddFollowCommandRequestValidatorUnitTests : BaseFollowApplicationCommandUnitTest
@@ -54,7 +56,7 @@ public class AddFollowCommandRequestValidatorUnitTests : BaseFollowApplicationCo
 	}
 
 	[Fact]
-	public void TestValidate_ShouldNotHaveAnyValidationsErrors_WhenRequestIsValid()
+	public void TestValidate_ShouldNotHaveAnyValidationErrors_WhenRequestIsValid()
 	{
 		// Act
 		var response = _requestValidator.TestValidate(_request);

@@ -1,7 +1,5 @@
 using InstaConnect.Posts.Application.Features.PostCommentLikes.Models;
-using InstaConnect.Posts.Application.Tests.Features.PostCommentLikes.Utilities;
-
-using Microsoft.Extensions.DependencyInjection;
+using InstaConnect.Posts.Domain.Features.PostCommentLikes.Models.ValueObjects;
 
 namespace InstaConnect.Posts.Application.Tests.Features.PostCommentLikes.Utilities;
 

@@ -13,6 +13,16 @@ public static class ChatMessageDomainMatcher
 		{
 			return Matcher.Is<ChatMessageAddedNotificationRequest>(p => p.Matches(command, chatMessage));
 		}
+
+		public ICollection<Url> IsImages()
+		{
+			return Matcher.Is<ICollection<Url>>(p => p.Matches(command));
+		}
+
+		public ICollection<ChatMessageImage> IsChatMessageImages()
+		{
+			return Matcher.Is<ICollection<ChatMessageImage>>(p => p.Matches(command));
+		}
 	}
 
 	extension(UpdateChatMessageCommand command)

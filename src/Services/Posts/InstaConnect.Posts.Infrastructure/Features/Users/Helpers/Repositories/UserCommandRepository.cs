@@ -1,4 +1,4 @@
-using InstaConnect.Common.Domain.Features.ValueObjects.Models;
+using InstaConnect.Posts.Domain.Features.Users.Abstractions;
 
 namespace InstaConnect.Posts.Infrastructure.Features.Users.Helpers.Repositories;
 

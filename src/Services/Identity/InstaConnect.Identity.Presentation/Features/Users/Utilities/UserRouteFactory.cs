@@ -1,4 +1,4 @@
-using InstaConnect.Common.Domain.Features.Common.Extensions;
+using InstaConnect.Identity.Presentation.Features.Users.Models.Requests;
 
 namespace InstaConnect.Identity.Presentation.Features.Users.Utilities;
 

@@ -1,10 +1,8 @@
 using System.Reflection;
 
-using InstaConnect.Common.Domain.Features.Common.Abstractions;
 using InstaConnect.Common.Domain.Features.Common.Helpers;
 
 using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 using Microsoft.Extensions.Options;
 

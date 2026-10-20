@@ -1,11 +1,5 @@
 using InstaConnect.Chats.Domain.Features.ChatMessages.Models.Requests;
-using InstaConnect.Chats.Domain.Features.Users.Models.Requests;
-using InstaConnect.Chats.Infrastructure.Features.ChatMessages.Helpers.Repositories;
-using InstaConnect.Chats.Infrastructure.Tests.Features.ChatMessages.Assertions;
 using InstaConnect.Chats.Infrastructure.Tests.Features.ChatMessages.Builders;
-using InstaConnect.Chats.Infrastructure.Tests.Features.ChatMessages.Utilities;
-using InstaConnect.Chats.Infrastructure.Tests.Features.Common.Builders;
-using InstaConnect.Chats.Infrastructure.Tests.Unit.Features.ChatMessages.Utilities;
 
 namespace InstaConnect.Chats.Infrastructure.Tests.Unit.Features.ChatMessages.Repositories;
 
@@ -49,7 +43,7 @@ public class GetAllChatMessagesQueryRepositoryUnitTests : BaseChatMessageInfrast
 		_currentUserQueryBuilder = _currentUserQueryBuilderFactory.Create(ParticipantOne);
 		_currentUserQuery = _currentUserQueryBuilder.Build();
 
-		_messageInclude = MessageIncludeBuilderFactory.Create().WithSender().Build();
+		_messageInclude = MessageIncludeBuilderFactory.Create().WithSender().WithChatMessageImages().Build();
 
 		_repository = new(Collection, IncludeBuilderFactory, MessageIncludeBuilderFactory);
 
@@ -63,7 +57,7 @@ public class GetAllChatMessagesQueryRepositoryUnitTests : BaseChatMessageInfrast
 	}
 
 	[Fact]
-	public async Task GetAllAsync_ShouldReturnResponse_WhenRequestIsValid()
+	public async Task GetAllAsync_ShouldReturnResponse_WhenQueryIsValid()
 	{
 		// Act
 		var response = await _repository.GetAllAsync(_filterQuery, _sortingQuery, _paginationQuery, _currentUserQuery, CancellationToken);
@@ -73,7 +67,7 @@ public class GetAllChatMessagesQueryRepositoryUnitTests : BaseChatMessageInfrast
 	}
 
 	[Fact]
-	public async Task GetAllAsync_ShouldCallTheCollectionAggregateFluent_WhenRequestIsValid()
+	public async Task GetAllAsync_ShouldCallTheCollectionAggregateFluent_WhenQueryIsValid()
 	{
 		// Act
 		await _repository.GetAllAsync(_filterQuery, _sortingQuery, _paginationQuery, _currentUserQuery, CancellationToken);
@@ -83,7 +77,7 @@ public class GetAllChatMessagesQueryRepositoryUnitTests : BaseChatMessageInfrast
 	}
 
 	[Fact]
-	public async Task GetAllAsync_ShouldCallTheFluentApplyIncludes_WhenRequestIsValid()
+	public async Task GetAllAsync_ShouldCallTheFluentApplyIncludes_WhenQueryIsValid()
 	{
 		// Act
 		await _repository.GetAllAsync(_filterQuery, _sortingQuery, _paginationQuery, _currentUserQuery, CancellationToken);
@@ -93,7 +87,7 @@ public class GetAllChatMessagesQueryRepositoryUnitTests : BaseChatMessageInfrast
 	}
 
 	[Fact]
-	public async Task GetAllAsync_ShouldCallTheFluentMatch_WhenRequestIsValid()
+	public async Task GetAllAsync_ShouldCallTheFluentMatch_WhenQueryIsValid()
 	{
 		// Act
 		await _repository.GetAllAsync(_filterQuery, _sortingQuery, _paginationQuery, _currentUserQuery, CancellationToken);
@@ -103,7 +97,7 @@ public class GetAllChatMessagesQueryRepositoryUnitTests : BaseChatMessageInfrast
 	}
 
 	[Fact]
-	public async Task GetAllAsync_ShouldCallTheFluentProjectToResponseWithoutChat_WhenRequestIsValid()
+	public async Task GetAllAsync_ShouldCallTheFluentProjectToResponseWithoutChat_WhenQueryIsValid()
 	{
 		// Act
 		await _repository.GetAllAsync(_filterQuery, _sortingQuery, _paginationQuery, _currentUserQuery, CancellationToken);
@@ -113,7 +107,7 @@ public class GetAllChatMessagesQueryRepositoryUnitTests : BaseChatMessageInfrast
 	}
 
 	[Fact]
-	public async Task GetAllAsync_ShouldCallTheResponseFluentApplySorting_WhenRequestIsValid()
+	public async Task GetAllAsync_ShouldCallTheResponseFluentApplySorting_WhenQueryIsValid()
 	{
 		// Act
 		await _repository.GetAllAsync(_filterQuery, _sortingQuery, _paginationQuery, _currentUserQuery, CancellationToken);
@@ -123,7 +117,7 @@ public class GetAllChatMessagesQueryRepositoryUnitTests : BaseChatMessageInfrast
 	}
 
 	[Fact]
-	public async Task GetAllAsync_ShouldCallTheResponseFluentApplyPagination_WhenRequestIsValid()
+	public async Task GetAllAsync_ShouldCallTheResponseFluentApplyPagination_WhenQueryIsValid()
 	{
 		// Act
 		await _repository.GetAllAsync(_filterQuery, _sortingQuery, _paginationQuery, _currentUserQuery, CancellationToken);
@@ -133,7 +127,7 @@ public class GetAllChatMessagesQueryRepositoryUnitTests : BaseChatMessageInfrast
 	}
 
 	[Fact]
-	public async Task GetAllAsync_ShouldCallTheResponseFluentToListAsync_WhenRequestIsValid()
+	public async Task GetAllAsync_ShouldCallTheResponseFluentToListAsync_WhenQueryIsValid()
 	{
 		// Act
 		await _repository.GetAllAsync(_filterQuery, _sortingQuery, _paginationQuery, _currentUserQuery, CancellationToken);

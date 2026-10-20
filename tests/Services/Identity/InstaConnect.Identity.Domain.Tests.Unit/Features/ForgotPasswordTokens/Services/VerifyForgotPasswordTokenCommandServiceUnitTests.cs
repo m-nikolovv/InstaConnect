@@ -1,6 +1,5 @@
 using InstaConnect.Identity.Domain.Features.ForgotPasswordTokens.Helpers;
 using InstaConnect.Identity.Domain.Features.ForgotPasswordTokens.Models.Requests;
-using InstaConnect.Identity.Domain.Features.Users.Models.Requests;
 using InstaConnect.Identity.Domain.Tests.Features.ForgotPasswordTokens.Assertions;
 using InstaConnect.Identity.Domain.Tests.Features.ForgotPasswordTokens.Builders;
 using InstaConnect.Identity.Domain.Tests.Features.ForgotPasswordTokens.Utilities;
@@ -63,7 +62,7 @@ public class VerifyForgotPasswordTokenCommandServiceUnitTests : BaseForgotPasswo
 	}
 
 	[Fact]
-	public async Task VerifyAsync_ShouldThrowForgotPasswordTokenExpiredException_WhenForgotPasswordTokenHasExpired()
+	public async Task VerifyAsync_ShouldThrowForgotPasswordTokenExpiredException_WhenForgotPasswordTokenExpired()
 	{
 		// Arrange
 		DateTimeProvider.SetupGetOffsetUtcNow(_command, ExpiredDate);

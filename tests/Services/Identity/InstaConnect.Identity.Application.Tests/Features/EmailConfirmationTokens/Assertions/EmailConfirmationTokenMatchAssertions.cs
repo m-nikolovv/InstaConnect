@@ -13,6 +13,14 @@ public static class EmailConfirmationTokenMatchAssertions
 		}
 	}
 
+	extension(ICollection<EmailConfirmationToken> emailConfirmationTokens)
+	{
+		public void ShouldSatisfy(AddEmailConfirmationTokenCommandRequest request)
+		{
+			emailConfirmationTokens.ShouldSatisfy(p => p.Matches(request));
+		}
+	}
+
 	extension(ICollection<EmailConfirmationTokenAddedEventRequest> r)
 	{
 		public void ShouldSatisfy(AddEmailConfirmationTokenCommandRequest request, ICollection<EmailConfirmationToken> entities)

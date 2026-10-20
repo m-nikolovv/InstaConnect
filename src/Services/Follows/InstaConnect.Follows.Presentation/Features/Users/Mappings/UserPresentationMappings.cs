@@ -1,4 +1,5 @@
-using Mapster;
+using InstaConnect.Follows.Application.Features.Users.Models;
+using InstaConnect.Follows.Presentation.Features.Users.Models.Responses;
 
 namespace InstaConnect.Follows.Presentation.Features.Users.Mappings;
 

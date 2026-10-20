@@ -1,7 +1,5 @@
 using InstaConnect.Common.Infrastructure.Features.Seeders.Abstractions;
 
-using Microsoft.Extensions.DependencyInjection;
-
 namespace InstaConnect.Common.Infrastructure.Features.Seeders.Extensions;
 
 public static class ServiceCollectionExtensions

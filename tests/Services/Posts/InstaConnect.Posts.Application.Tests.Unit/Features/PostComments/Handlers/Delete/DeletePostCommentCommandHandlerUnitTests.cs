@@ -1,3 +1,5 @@
+using InstaConnect.Posts.Application.Features.PostComments.Commands.Delete;
+
 namespace InstaConnect.Posts.Application.Tests.Unit.Features.PostComments.Handlers.Delete;
 
 public class DeletePostCommentCommandHandlerUnitTests : BasePostCommentApplicationCommandUnitTest
@@ -18,7 +20,7 @@ public class DeletePostCommentCommandHandlerUnitTests : BasePostCommentApplicati
 	}
 
 	[Fact]
-	public async Task Handle_ShouldCallCommentServiceDeleteAsync_WhenRequestIsValid()
+	public async Task Handle_ShouldCallTheCommentServiceDeleteAsync_WhenRequestIsValid()
 	{
 		// Act
 		await _handler.Handle(_request, CancellationToken);

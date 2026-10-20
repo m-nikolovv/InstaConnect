@@ -1,6 +1,3 @@
-using InstaConnect.Posts.Infrastructure.Features.Posts.Helpers.Repositories;
-using InstaConnect.Posts.Infrastructure.Tests.Unit.Features.Posts.Utilities;
-
 namespace InstaConnect.Posts.Infrastructure.Tests.Unit.Features.Posts.Repositories;
 
 public class AddPostCommandRepositoryUnitTests : BasePostInfrastructureCommandUnitTest
@@ -13,7 +10,7 @@ public class AddPostCommandRepositoryUnitTests : BasePostInfrastructureCommandUn
 	}
 
 	[Fact]
-	public async Task AddAsync_ShouldCallTheCollectionAddAsync_WhenRequestIsValid()
+	public async Task AddAsync_ShouldCallTheCollectionAddAsync_WhenCommandIsValid()
 	{
 		// Act
 		await _repository.AddAsync(Post, CancellationToken);

@@ -1,9 +1,7 @@
 using InstaConnect.Identity.Domain.Features.EmailConfirmationTokens.Helpers;
 using InstaConnect.Identity.Domain.Features.EmailConfirmationTokens.Models.Requests;
-using InstaConnect.Identity.Domain.Features.Users.Models.Requests;
 using InstaConnect.Identity.Domain.Tests.Features.EmailConfirmationTokens.Assertions;
 using InstaConnect.Identity.Domain.Tests.Features.EmailConfirmationTokens.Builders;
-using InstaConnect.Identity.Domain.Tests.Features.EmailConfirmationTokens.Utilities;
 using InstaConnect.Identity.Domain.Tests.Unit.Features.EmailConfirmationTokens.Utilities;
 
 namespace InstaConnect.Identity.Domain.Tests.Unit.Features.EmailConfirmationTokens.Services;
@@ -52,7 +50,7 @@ public class VerifyEmailConfirmationTokenCommandServiceUnitTests : BaseEmailConf
 	}
 
 	[Fact]
-	public async Task VerifyAsync_ShouldThrowUserEmailAlreadyConfirmedException_WhenEmailIsConfirmed()
+	public async Task VerifyAsync_ShouldThrowUserEmailAlreadyConfirmedException_WhenUserEmailAlreadyConfirmed()
 	{
 		// Arrange
 		var confirmedUser = UserBuilder.WithConfirmedEmail().Build();
@@ -73,7 +71,7 @@ public class VerifyEmailConfirmationTokenCommandServiceUnitTests : BaseEmailConf
 	}
 
 	[Fact]
-	public async Task VerifyAsync_ShouldThrowEmailConfirmationTokenExpiredException_WhenEmailConfirmationTokenHasExpired()
+	public async Task VerifyAsync_ShouldThrowEmailConfirmationTokenExpiredException_WhenEmailConfirmationTokenExpired()
 	{
 		// Arrange
 		DateTimeProvider.SetupGetOffsetUtcNow(_command, ExpiredDate);

@@ -1,7 +1,5 @@
-using InstaConnect.Common.Domain.Tests.Features.Assertions;
 using InstaConnect.Identity.Domain.Features.RefreshTokens.Helpers;
 using InstaConnect.Identity.Domain.Tests.Features.RefreshTokens.Assertions;
-using InstaConnect.Identity.Domain.Tests.Features.RefreshTokens.Utilities;
 using InstaConnect.Identity.Domain.Tests.Unit.Features.RefreshTokens.Utilities;
 using InstaConnect.Identity.Tests.Features.RefreshTokens.Assertions;
 
@@ -24,7 +22,7 @@ public class CreateRefreshTokenFactoryUnitTests : BaseRefreshTokenDomainCommandU
 	public void Create_ShouldCreateRefreshToken_WhenRequestIsValid()
 	{
 		// Act
-		var response = _factory.Create(RefreshToken.Id.Id);
+		var response = _factory.Create(RefreshTokenId.Id);
 
 		// Assert
 		response.ShouldSatisfy(RefreshToken);
@@ -34,7 +32,7 @@ public class CreateRefreshTokenFactoryUnitTests : BaseRefreshTokenDomainCommandU
 	public void Create_ShouldCallTheGuidProviderNewStringGuid_WhenRequestIsValid()
 	{
 		// Act
-		_factory.Create(RefreshToken.Id.Id);
+		_factory.Create(RefreshTokenId.Id);
 
 		// Assert
 		GuidProvider.ShouldHaveReceivedOneNewStringGuid();
@@ -44,7 +42,7 @@ public class CreateRefreshTokenFactoryUnitTests : BaseRefreshTokenDomainCommandU
 	public void Create_ShouldCallTheDateTimeProviderGetOffsetUtcNowWithLifetime_WhenRequestIsValid()
 	{
 		// Act
-		_factory.Create(RefreshToken.Id.Id);
+		_factory.Create(RefreshTokenId.Id);
 
 		// Assert
 		DateTimeProvider.ShouldHaveReceivedOneGetOffsetUtcNow(RefreshTokenOptions);
@@ -54,7 +52,7 @@ public class CreateRefreshTokenFactoryUnitTests : BaseRefreshTokenDomainCommandU
 	public void Create_ShouldCallTheDateTimeProviderGetOffsetUtcNow_WhenRequestIsValid()
 	{
 		// Act
-		_factory.Create(RefreshToken.Id.Id);
+		_factory.Create(RefreshTokenId.Id);
 
 		// Assert
 		DateTimeProvider.ShouldHaveReceivedOneGetOffsetUtcNow();

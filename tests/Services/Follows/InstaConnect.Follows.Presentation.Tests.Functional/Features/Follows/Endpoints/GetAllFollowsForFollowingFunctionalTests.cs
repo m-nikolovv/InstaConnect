@@ -1,6 +1,14 @@
 using InstaConnect.Common.Domain.Features.Requests.Models;
+using InstaConnect.Common.Tests.Features.DataAttributes.Enums.Base;
 using InstaConnect.Common.Tests.Features.DataAttributes.Enums.Sort;
+using InstaConnect.Common.Tests.Features.DataAttributes.Ints.Base;
+using InstaConnect.Follows.Domain.Features.Follows.Models.Entities;
 using InstaConnect.Follows.Domain.Features.Follows.Models.Requests;
+using InstaConnect.Follows.Tests.Features.Follows.DataAttributes.Page;
+using InstaConnect.Follows.Tests.Features.Follows.DataAttributes.PageSize;
+using InstaConnect.Follows.Tests.Features.Follows.DataAttributes.SortOrder;
+using InstaConnect.Follows.Tests.Features.Follows.DataAttributes.SortTerm.ForFollowing;
+using InstaConnect.Follows.Tests.Features.Users.DataAttributes.Name;
 
 namespace InstaConnect.Follows.Presentation.Tests.Functional.Features.Follows.Endpoints;
 
@@ -57,7 +65,7 @@ public class GetAllFollowsForFollowingFunctionalTests : BaseFollowPresentationQu
 
 	[Theory]
 	[UserNameTooLongData]
-	public async Task GetAllAsync_ShouldHaveBadRequestStatusCode_WhenFollowerNameIsInvalid(
+	public async Task GetAllForFollowingAsync_ShouldHaveBadRequestStatusCode_WhenFollowerNameIsInvalid(
 		IStringTransformer transformer)
 	{
 		// Arrange
@@ -72,7 +80,7 @@ public class GetAllFollowsForFollowingFunctionalTests : BaseFollowPresentationQu
 
 	[Theory]
 	[UserNameTooLongWithMessageData]
-	public async Task GetAllAsync_ShouldHaveBadRequestProblemDetails_WhenFollowerNameIsInvalid(
+	public async Task GetAllForFollowingAsync_ShouldHaveBadRequestProblemDetails_WhenFollowerNameIsInvalid(
 		IStringTransformer transformer, IStringMessageTransformer messageTransformer)
 	{
 		// Arrange
@@ -268,7 +276,7 @@ public class GetAllFollowsForFollowingFunctionalTests : BaseFollowPresentationQu
 	[UserNameNullData]
 	[UserNameEmptyData]
 	[UserNameDifferentCaseData]
-	public async Task GetAllAsync_ShouldHaveOkStatusCode_WhenRequestAndFollowerNameAreValid(
+	public async Task GetAllForFollowingAsync_ShouldHaveOkStatusCode_WhenRequestAndFollowerNameAreValid(
 		IStringTransformer transformer)
 	{
 		// Arrange

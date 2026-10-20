@@ -1,6 +1,3 @@
-using InstaConnect.Follows.Infrastructure.Features.Follows.Helpers.Repositories;
-using InstaConnect.Follows.Infrastructure.Tests.Unit.Features.Follows.Utilities;
-
 namespace InstaConnect.Follows.Infrastructure.Tests.Unit.Features.Follows.Repositories;
 
 public class AddFollowCommandRepositoryUnitTests : BaseFollowInfrastructureCommandUnitTest
@@ -13,7 +10,7 @@ public class AddFollowCommandRepositoryUnitTests : BaseFollowInfrastructureComma
 	}
 
 	[Fact]
-	public async Task AddAsync_ShouldCallTheCollectionAddAsync_WhenRequestIsValid()
+	public async Task AddAsync_ShouldCallTheCollectionAddAsync_WhenCommandIsValid()
 	{
 		// Act
 		await _repository.AddAsync(Follow, CancellationToken);

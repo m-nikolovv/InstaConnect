@@ -1,5 +1,5 @@
-using InstaConnect.Common.Domain.Features.Mappers.Abstractions;
-using InstaConnect.Identity.Application.Features.Common.Extensions;
+using InstaConnect.Identity.Domain.Features.UserClaims.Abstractions;
+using InstaConnect.Identity.Tests.Features.UserClaims.Utilities;
 
 namespace InstaConnect.Identity.Application.Tests.Unit.Features.UserClaims.Utilities;
 

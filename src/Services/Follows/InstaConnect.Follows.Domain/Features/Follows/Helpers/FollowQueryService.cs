@@ -1,3 +1,6 @@
+using InstaConnect.Follows.Domain.Features.Follows.Exceptions;
+using InstaConnect.Follows.Domain.Features.Users.Exceptions;
+
 namespace InstaConnect.Follows.Domain.Features.Follows.Helpers;
 
 internal class FollowQueryService : IFollowQueryService

@@ -1,3 +1,7 @@
+using InstaConnect.Chats.Presentation.Features.Chats.Models.Requests;
+using InstaConnect.Chats.Presentation.Tests.Features.Chats.Builders;
+using InstaConnect.Chats.Presentation.Tests.Integration.Features.Chats.Utilities;
+
 namespace InstaConnect.Chats.Presentation.Tests.Integration.Features.Chats.Controllers;
 
 public class AddChatControllerIntegrationTests : BaseChatPresentationCommandIntegrationTest
@@ -6,12 +10,18 @@ public class AddChatControllerIntegrationTests : BaseChatPresentationCommandInte
 	private readonly AddChatApiRequestBuilder _requestBuilder;
 	private readonly AddChatApiRequest _request;
 
+	private readonly AddChatApiRequestBuilder _invertedRequestBuilder;
+	private readonly AddChatApiRequest _invertedRequest;
+
 	public AddChatControllerIntegrationTests(ChatsWebApplicationFactory webApplicationFactory)
 		: base(webApplicationFactory)
 	{
 		_requestBuilderFactory = new();
 		_requestBuilder = _requestBuilderFactory.Create(ParticipantOne, ParticipantTwo);
 		_request = _requestBuilder.Build();
+
+		_invertedRequestBuilder = _requestBuilderFactory.Create(ParticipantOne, ParticipantTwo).WithParticipantOneId(ParticipantTwoId).WithParticipantTwoId(ParticipantOneId);
+		_invertedRequest = _invertedRequestBuilder.Build();
 	}
 
 	[Theory]
@@ -47,7 +57,7 @@ public class AddChatControllerIntegrationTests : BaseChatPresentationCommandInte
 	}
 
 	[Fact]
-	public async Task AddAsync_ShouldThrowParticipantOneNotFoundException_WhenParticipantOneIdIsInvalid()
+	public async Task AddAsync_ShouldThrowParticipantOneNotFoundException_WhenParticipantOneNotFound()
 	{
 		// Arrange
 		await ServiceScope.DeleteAsync(ParticipantOne, CancellationToken);
@@ -57,7 +67,7 @@ public class AddChatControllerIntegrationTests : BaseChatPresentationCommandInte
 	}
 
 	[Fact]
-	public async Task AddAsync_ShouldThrowParticipantTwoNotFoundException_WhenParticipantTwoIdIsInvalid()
+	public async Task AddAsync_ShouldThrowParticipantTwoNotFoundException_WhenParticipantTwoNotFound()
 	{
 		// Arrange
 		await ServiceScope.DeleteAsync(ParticipantTwo, CancellationToken);
@@ -78,7 +88,7 @@ public class AddChatControllerIntegrationTests : BaseChatPresentationCommandInte
 
 	[Theory]
 	[UserIdDifferentCaseData]
-	public async Task AddAsync_ShouldThrowChatAlreadyExistsException_WhenChatAlreadyExistsAndParticipantOneIdIsValid(
+	public async Task AddAsync_ShouldThrowChatAlreadyExistsException_WhenChatAlreadyExistsAndParticipantOneIdIsInvalid(
 		IStringTransformer transformer)
 	{
 		// Arrange
@@ -91,7 +101,7 @@ public class AddChatControllerIntegrationTests : BaseChatPresentationCommandInte
 
 	[Theory]
 	[UserIdDifferentCaseData]
-	public async Task AddAsync_ShouldThrowChatAlreadyExistsException_WhenChatAlreadyExistsAndParticipantTwoIdIsValid(
+	public async Task AddAsync_ShouldThrowChatAlreadyExistsException_WhenChatAlreadyExistsAndParticipantTwoIdIsInvalid(
 		IStringTransformer transformer)
 	{
 		// Arrange
@@ -107,36 +117,35 @@ public class AddChatControllerIntegrationTests : BaseChatPresentationCommandInte
 	{
 		// Arrange
 		await ServiceScope.AddAsync(Chat, CancellationToken);
-		var request = _requestBuilder.WithParticipantOneId(ParticipantTwo.Id).WithParticipantTwoId(ParticipantOne.Id).Build();
 
 		// Assert
-		await Controller.ShouldThrowChatAlreadyExistsExceptionAsync(request, CancellationToken);
+		await Controller.ShouldThrowChatAlreadyExistsExceptionAsync(_invertedRequest, CancellationToken);
 	}
 
 	[Theory]
 	[UserIdDifferentCaseData]
-	public async Task AddAsync_ShouldThrowChatAlreadyExistsException_WhenInvertedChatAlreadyExistsAndParticipantOneIdIsValid(
+	public async Task AddAsync_ShouldThrowChatAlreadyExistsException_WhenInvertedChatAlreadyExistsAndParticipantOneIdIsInvalid(
 		IStringTransformer transformer)
 	{
 		// Arrange
 		await ServiceScope.AddAsync(Chat, CancellationToken);
-		var request = _requestBuilder.WithParticipantOneId(ParticipantTwo.Id, transformer).WithParticipantTwoId(ParticipantOne.Id).Build();
+		var invertedRequest = _invertedRequestBuilder.WithParticipantOneId(transformer).Build();
 
 		// Assert
-		await Controller.ShouldThrowChatAlreadyExistsExceptionAsync(request, CancellationToken);
+		await Controller.ShouldThrowChatAlreadyExistsExceptionAsync(invertedRequest, CancellationToken);
 	}
 
 	[Theory]
 	[UserIdDifferentCaseData]
-	public async Task AddAsync_ShouldThrowChatAlreadyExistsException_WhenInvertedChatAlreadyExistsAndParticipantTwoIdIsValid(
+	public async Task AddAsync_ShouldThrowChatAlreadyExistsException_WhenInvertedChatAlreadyExistsAndParticipantTwoIdIsInvalid(
 		IStringTransformer transformer)
 	{
 		// Arrange
 		await ServiceScope.AddAsync(Chat, CancellationToken);
-		var request = _requestBuilder.WithParticipantOneId(ParticipantTwo.Id).WithParticipantTwoId(ParticipantOne.Id, transformer).Build();
+		var invertedRequest = _invertedRequestBuilder.WithParticipantTwoId(transformer).Build();
 
 		// Assert
-		await Controller.ShouldThrowChatAlreadyExistsExceptionAsync(request, CancellationToken);
+		await Controller.ShouldThrowChatAlreadyExistsExceptionAsync(invertedRequest, CancellationToken);
 	}
 
 	[Fact]
@@ -180,7 +189,7 @@ public class AddChatControllerIntegrationTests : BaseChatPresentationCommandInte
 	}
 
 	[Fact]
-	public async Task AddAsync_ShouldReturnOkResponse_WhenRequestIsValid()
+	public async Task AddAsync_ShouldReturnResponse_WhenRequestIsValid()
 	{
 		// Act
 		var response = await Controller.AddAsync(_request, CancellationToken);
@@ -192,7 +201,7 @@ public class AddChatControllerIntegrationTests : BaseChatPresentationCommandInte
 
 	[Theory]
 	[UserIdDifferentCaseData]
-	public async Task AddAsync_ShouldReturnOkResponse_WhenRequestAndParticipantOneIdAreValid(
+	public async Task AddAsync_ShouldReturnResponse_WhenRequestAndParticipantOneIdAreValid(
 		IStringTransformer transformer)
 	{
 		// Arrange
@@ -208,7 +217,7 @@ public class AddChatControllerIntegrationTests : BaseChatPresentationCommandInte
 
 	[Theory]
 	[UserIdDifferentCaseData]
-	public async Task AddAsync_ShouldReturnOkResponse_WhenRequestAndParticipantTwoIdAreValid(
+	public async Task AddAsync_ShouldReturnResponse_WhenRequestAndParticipantTwoIdAreValid(
 		IStringTransformer transformer)
 	{
 		// Arrange

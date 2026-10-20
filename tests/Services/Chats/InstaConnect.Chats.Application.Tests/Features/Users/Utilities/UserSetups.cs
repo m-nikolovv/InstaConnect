@@ -1,5 +1,4 @@
 using InstaConnect.Chats.Application.Features.Users.Models;
-using InstaConnect.Chats.Application.Tests.Features.Users.Utilities;
 
 using Microsoft.Extensions.DependencyInjection;
 

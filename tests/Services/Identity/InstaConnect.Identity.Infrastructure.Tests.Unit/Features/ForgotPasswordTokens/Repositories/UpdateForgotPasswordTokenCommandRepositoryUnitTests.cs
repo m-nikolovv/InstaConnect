@@ -1,7 +1,3 @@
-using InstaConnect.Identity.Infrastructure.Features.ForgotPasswordTokens.Helpers.Repositories;
-using InstaConnect.Identity.Infrastructure.Tests.Features.ForgotPasswordTokens.Assertions;
-using InstaConnect.Identity.Infrastructure.Tests.Unit.Features.ForgotPasswordTokens.Utilities;
-
 namespace InstaConnect.Identity.Infrastructure.Tests.Unit.Features.ForgotPasswordTokens.Repositories;
 
 public class UpdateForgotPasswordTokenCommandRepositoryUnitTests : BaseForgotPasswordTokenInfrastructureCommandUnitTest
@@ -14,7 +10,7 @@ public class UpdateForgotPasswordTokenCommandRepositoryUnitTests : BaseForgotPas
 	}
 
 	[Fact]
-	public async Task UpdateAsync_ShouldCallTheCollectionUpdateAsync_WhenRequestIsValid()
+	public async Task UpdateAsync_ShouldCallTheCollectionUpdateAsync_WhenCommandIsValid()
 	{
 		// Act
 		await _repository.UpdateAsync(ForgotPasswordToken, CancellationToken);

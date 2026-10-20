@@ -1,8 +1,6 @@
 using InstaConnect.Common.Domain.Features.DateTimes.Abstractions;
 using InstaConnect.Common.Presentation.Features.Controllers.Abstractions;
 
-using Microsoft.AspNetCore.Http;
-
 using SameSiteMode = Microsoft.AspNetCore.Http.SameSiteMode;
 
 namespace InstaConnect.Common.Presentation.Features.Controllers.Helpers;

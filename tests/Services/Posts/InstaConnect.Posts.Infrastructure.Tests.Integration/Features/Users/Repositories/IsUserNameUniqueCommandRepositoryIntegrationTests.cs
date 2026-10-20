@@ -30,7 +30,7 @@ public class IsUserNameUniqueCommandRepositoryIntegrationTests : BaseUserInfrast
 
 		// Act
 		var response = await Repository.IsNameUniqueAsync(_name, CancellationToken);
-		var user = await ServiceScope.GetByIdAsync(User.Id, CancellationToken);
+		var user = await ServiceScope.GetByIdAsync(UserId, CancellationToken);
 
 		// Assert
 		response.ShouldSatisfy(_name, user);
@@ -41,7 +41,7 @@ public class IsUserNameUniqueCommandRepositoryIntegrationTests : BaseUserInfrast
 	{
 		// Act
 		var response = await Repository.IsNameUniqueAsync(_name, CancellationToken);
-		var user = await ServiceScope.GetByIdAsync(User.Id, CancellationToken);
+		var user = await ServiceScope.GetByIdAsync(UserId, CancellationToken);
 
 		// Assert
 		response.ShouldSatisfy(_name, user);
@@ -57,7 +57,7 @@ public class IsUserNameUniqueCommandRepositoryIntegrationTests : BaseUserInfrast
 
 		// Act
 		var response = await Repository.IsNameUniqueAsync(name, CancellationToken);
-		var user = await ServiceScope.GetByIdAsync(User.Id, CancellationToken);
+		var user = await ServiceScope.GetByIdAsync(UserId, CancellationToken);
 
 		// Assert
 		response.ShouldSatisfy(name, user);

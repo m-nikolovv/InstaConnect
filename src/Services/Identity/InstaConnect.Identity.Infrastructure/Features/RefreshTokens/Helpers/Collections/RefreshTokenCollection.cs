@@ -1,9 +1,3 @@
-using InstaConnect.Common.Infrastructure.Features.Databases.Abstractions;
-using InstaConnect.Common.Infrastructure.Features.Databases.Helpers;
-using InstaConnect.Identity.Infrastructure.Features.RefreshTokens.Extensions;
-
-using MongoDB.Driver;
-
 namespace InstaConnect.Identity.Infrastructure.Features.RefreshTokens.Helpers.Collections;
 
 internal class RefreshTokenCollection : MongoDbCollection<RefreshToken>, IRefreshTokenCollection

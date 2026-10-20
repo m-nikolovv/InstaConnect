@@ -1,4 +1,5 @@
-using InstaConnect.Chats.Domain.Tests.Features.Chats.Utilities;
+using InstaConnect.Chats.Domain.Features.ChatMessageImages.Abstractions;
+using InstaConnect.Chats.Domain.Features.ChatMessages.Models.Responses;
 using InstaConnect.Common.Domain.Features.DateTimes.Abstractions;
 using InstaConnect.Common.Domain.Features.Guids.Abstractions;
 
@@ -301,6 +302,29 @@ public static class ChatMessageMockSetups
 			service
 				.UpdateAsync(command, cancellationToken)
 				.ReturnsTaskResponse(id);
+		}
+	}
+
+	extension(IChatMessageImageFactory factory)
+	{
+		public void SetupCreateRange(
+			AddChatMessageCommand command,
+			ChatMessage chatMessage)
+		{
+			factory.SetupCreateRange(
+				chatMessage.Id,
+				command.IsImages(),
+				chatMessage.ChatMessageImages.To(command));
+		}
+
+		public void SetupCreateRange(
+			ChatMessageId id,
+			ICollection<Url> urls,
+			ICollection<ChatMessageImage> chatMessageImages)
+		{
+			factory
+				.CreateRange(id, urls)
+				.ReturnsResponse(chatMessageImages);
 		}
 	}
 }

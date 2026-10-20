@@ -1,3 +1,6 @@
+using InstaConnect.Chats.Domain.Features.ChatMessages.Abstractions;
+using InstaConnect.Chats.Domain.Features.Chats.Abstractions;
+
 namespace InstaConnect.Chats.Infrastructure.Features.ChatMessages.Helpers.Repositories;
 
 internal class ChatMessageQueryRepository : IChatMessageQueryRepository
@@ -23,7 +26,7 @@ internal class ChatMessageQueryRepository : IChatMessageQueryRepository
 		CurrentUserQuery currentUser,
 		CancellationToken cancellationToken)
 	{
-		var messageInclude = _messageIncludeBuilderFactory.Create().WithSender().Build();
+		var messageInclude = _messageIncludeBuilderFactory.Create().WithSender().WithChatMessageImages().Build();
 
 		return await _collection
 			.AggregateFluent()
@@ -39,7 +42,7 @@ internal class ChatMessageQueryRepository : IChatMessageQueryRepository
 		ChatMessagesFilterQuery filter,
 		CancellationToken cancellationToken)
 	{
-		var messageInclude = _messageIncludeBuilderFactory.Create().WithSender().Build();
+		var messageInclude = _messageIncludeBuilderFactory.Create().WithSender().WithChatMessageImages().Build();
 
 		return await _collection
 			.AggregateFluent()
@@ -54,7 +57,7 @@ internal class ChatMessageQueryRepository : IChatMessageQueryRepository
 		CancellationToken cancellationToken)
 	{
 		var include = _includeBuilderFactory.Create().WithParticipantOne().WithParticipantTwo().Build();
-		var messageInclude = _messageIncludeBuilderFactory.Create().WithSender().WithChat(include).Build();
+		var messageInclude = _messageIncludeBuilderFactory.Create().WithSender().WithChat(include).WithChatMessageImages().Build();
 
 		return await _collection
 			.AggregateFluent()

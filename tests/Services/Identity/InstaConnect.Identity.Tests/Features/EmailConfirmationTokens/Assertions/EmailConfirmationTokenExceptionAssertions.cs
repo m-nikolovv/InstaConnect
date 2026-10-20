@@ -1,5 +1,4 @@
 using InstaConnect.Identity.Domain.Features.EmailConfirmationTokens.Exceptions;
-using InstaConnect.Identity.Domain.Features.EmailConfirmationTokens.Models.ValueObjects;
 
 namespace InstaConnect.Identity.Tests.Features.EmailConfirmationTokens.Assertions;
 

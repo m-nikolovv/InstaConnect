@@ -1,3 +1,5 @@
+using InstaConnect.Follows.Presentation.Tests.Features.Follows.Utilities;
+
 namespace InstaConnect.Follows.Presentation.Tests.Functional.Features.Follows.Endpoints;
 
 public class AddFollowFunctionalTests : BaseFollowPresentationCommandFunctionalTest
@@ -91,7 +93,7 @@ public class AddFollowFunctionalTests : BaseFollowPresentationCommandFunctionalT
 	}
 
 	[Fact]
-	public async Task AddAsync_ShouldHaveNotFoundStatusCode_WhenFollowerIdIsInvalid()
+	public async Task AddAsync_ShouldHaveNotFoundStatusCode_WhenFollowerNotFound()
 	{
 		// Arrange
 		await ServiceScope.DeleteAsync(Follower, CancellationToken);
@@ -104,7 +106,7 @@ public class AddFollowFunctionalTests : BaseFollowPresentationCommandFunctionalT
 	}
 
 	[Fact]
-	public async Task AddAsync_ShouldHaveFollowerNotFoundProblemDetails_WhenFollowerIdIsInvalid()
+	public async Task AddAsync_ShouldHaveFollowerNotFoundProblemDetails_WhenFollowerNotFound()
 	{
 		// Arrange
 		await ServiceScope.DeleteAsync(Follower, CancellationToken);
@@ -117,7 +119,7 @@ public class AddFollowFunctionalTests : BaseFollowPresentationCommandFunctionalT
 	}
 
 	[Fact]
-	public async Task AddAsync_ShouldHaveNotFoundStatusCode_WhenFollowingIdIsInvalid()
+	public async Task AddAsync_ShouldHaveNotFoundStatusCode_WhenFollowingNotFound()
 	{
 		// Arrange
 		await ServiceScope.DeleteAsync(Following, CancellationToken);
@@ -130,7 +132,7 @@ public class AddFollowFunctionalTests : BaseFollowPresentationCommandFunctionalT
 	}
 
 	[Fact]
-	public async Task AddAsync_ShouldHaveFollowingNotFoundProblemDetails_WhenFollowingIdIsInvalid()
+	public async Task AddAsync_ShouldHaveFollowingNotFoundProblemDetails_WhenFollowingNotFound()
 	{
 		// Arrange
 		await ServiceScope.DeleteAsync(Following, CancellationToken);
@@ -157,7 +159,7 @@ public class AddFollowFunctionalTests : BaseFollowPresentationCommandFunctionalT
 
 	[Theory]
 	[UserIdDifferentCaseData]
-	public async Task AddAsync_ShouldHaveBadRequestStatusCode_WhenFollowAlreadyExistsAndFollowerIdIsValid(
+	public async Task AddAsync_ShouldHaveBadRequestStatusCode_WhenFollowAlreadyExistsAndFollowerIdIsInvalid(
 		IStringTransformer transformer)
 	{
 		// Arrange
@@ -173,7 +175,7 @@ public class AddFollowFunctionalTests : BaseFollowPresentationCommandFunctionalT
 
 	[Theory]
 	[UserIdDifferentCaseData]
-	public async Task AddAsync_ShouldHaveBadRequestStatusCode_WhenFollowAlreadyExistsAndFollowingIdIsValid(
+	public async Task AddAsync_ShouldHaveBadRequestStatusCode_WhenFollowAlreadyExistsAndFollowingIdIsInvalid(
 		IStringTransformer transformer)
 	{
 		// Arrange
@@ -202,7 +204,7 @@ public class AddFollowFunctionalTests : BaseFollowPresentationCommandFunctionalT
 
 	[Theory]
 	[UserIdDifferentCaseData]
-	public async Task AddAsync_ShouldHaveFollowAlreadyExistsProblemDetails_WhenFollowAlreadyExistsAndFollowerIdIsValid(
+	public async Task AddAsync_ShouldHaveFollowAlreadyExistsProblemDetails_WhenFollowAlreadyExistsAndFollowerIdIsInvalid(
 		IStringTransformer transformer)
 	{
 		// Arrange
@@ -218,7 +220,7 @@ public class AddFollowFunctionalTests : BaseFollowPresentationCommandFunctionalT
 
 	[Theory]
 	[UserIdDifferentCaseData]
-	public async Task AddAsync_ShouldHaveFollowAlreadyExistsProblemDetails_WhenFollowAlreadyExistsAndFollowingIdIsValid(
+	public async Task AddAsync_ShouldHaveFollowAlreadyExistsProblemDetails_WhenFollowAlreadyExistsAndFollowingIdIsInvalid(
 		IStringTransformer transformer)
 	{
 		// Arrange

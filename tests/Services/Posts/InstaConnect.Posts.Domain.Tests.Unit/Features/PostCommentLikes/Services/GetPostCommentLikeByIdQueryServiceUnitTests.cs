@@ -1,10 +1,3 @@
-using InstaConnect.Posts.Domain.Features.PostCommentLikes.Helpers;
-using InstaConnect.Posts.Domain.Features.PostCommentLikes.Models.Requests;
-using InstaConnect.Posts.Domain.Tests.Features.PostCommentLikes.Assertions;
-using InstaConnect.Posts.Domain.Tests.Features.PostCommentLikes.Builders;
-using InstaConnect.Posts.Domain.Tests.Features.PostCommentLikes.Utilities;
-using InstaConnect.Posts.Domain.Tests.Unit.Features.PostCommentLikes.Utilities;
-
 namespace InstaConnect.Posts.Domain.Tests.Unit.Features.PostCommentLikes.Services;
 
 public class GetPostCommentLikeByIdQueryServiceUnitTests : BasePostCommentLikeDomainQueryUnitTest
@@ -29,7 +22,7 @@ public class GetPostCommentLikeByIdQueryServiceUnitTests : BasePostCommentLikeDo
 	}
 
 	[Fact]
-	public async Task GetByIdAsync_ShouldThrowPostNotFoundException_WhenIdIsInvalid()
+	public async Task GetByIdAsync_ShouldThrowPostNotFoundException_WhenPostNotFound()
 	{
 		// Arrange
 		Repository.RemoveExistsByIdAsync(_query, CancellationToken);
@@ -39,7 +32,7 @@ public class GetPostCommentLikeByIdQueryServiceUnitTests : BasePostCommentLikeDo
 	}
 
 	[Fact]
-	public async Task GetByIdAsync_ShouldThrowPostCommentNotFoundException_WhenCommentIdIsInvalid()
+	public async Task GetByIdAsync_ShouldThrowPostCommentNotFoundException_WhenPostCommentNotFound()
 	{
 		// Arrange
 		CommentRepository.RemoveExistsByIdAsync(_query, CancellationToken);
@@ -49,7 +42,7 @@ public class GetPostCommentLikeByIdQueryServiceUnitTests : BasePostCommentLikeDo
 	}
 
 	[Fact]
-	public async Task GetByIdAsync_ShouldThrowPostCommentLikeNotFoundException_WhenUserIdIsInvalid()
+	public async Task GetByIdAsync_ShouldThrowPostCommentLikeNotFoundException_WhenPostCommentLikeNotFound()
 	{
 		// Arrange
 		CommentLikeRepository.RemoveGetByIdAsync(_query, PostCommentLike, CancellationToken);

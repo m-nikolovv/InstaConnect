@@ -47,7 +47,7 @@ public class AddPostLikeControllerIntegrationTests : BasePostLikePresentationCom
 	}
 
 	[Fact]
-	public async Task AddAsync_ShouldThrowPostNotFoundException_WhenIdIsInvalid()
+	public async Task AddAsync_ShouldThrowPostNotFoundException_WhenPostNotFound()
 	{
 		// Arrange
 		await ServiceScope.DeleteAsync(Post, CancellationToken);
@@ -57,7 +57,7 @@ public class AddPostLikeControllerIntegrationTests : BasePostLikePresentationCom
 	}
 
 	[Fact]
-	public async Task AddAsync_ShouldThrowUserNotFoundException_WhenUserIdIsInvalid()
+	public async Task AddAsync_ShouldThrowUserNotFoundException_WhenUserNotFound()
 	{
 		// Arrange
 		await ServiceScope.DeleteAsync(User, CancellationToken);
@@ -78,7 +78,7 @@ public class AddPostLikeControllerIntegrationTests : BasePostLikePresentationCom
 
 	[Theory]
 	[PostIdDifferentCaseData]
-	public async Task AddAsync_ShouldThrowPostLikeAlreadyExistsException_WhenPostLikeAlreadyExistsAndIdIsValid(
+	public async Task AddAsync_ShouldThrowPostLikeAlreadyExistsException_WhenPostLikeAlreadyExistsAndIdIsInvalid(
 		IStringTransformer transformer)
 	{
 		// Arrange
@@ -91,7 +91,7 @@ public class AddPostLikeControllerIntegrationTests : BasePostLikePresentationCom
 
 	[Theory]
 	[UserIdDifferentCaseData]
-	public async Task AddAsync_ShouldThrowPostLikeAlreadyExistsException_WhenPostLikeAlreadyExistsAndUserIdIsValid(
+	public async Task AddAsync_ShouldThrowPostLikeAlreadyExistsException_WhenPostLikeAlreadyExistsAndUserIdIsInvalid(
 		IStringTransformer transformer)
 	{
 		// Arrange
@@ -143,7 +143,7 @@ public class AddPostLikeControllerIntegrationTests : BasePostLikePresentationCom
 	}
 
 	[Fact]
-	public async Task AddAsync_ShouldReturnOkResponse_WhenRequestIsValid()
+	public async Task AddAsync_ShouldReturnResponse_WhenRequestIsValid()
 	{
 		// Act
 		var response = await Controller.AddAsync(_request, CancellationToken);
@@ -155,7 +155,7 @@ public class AddPostLikeControllerIntegrationTests : BasePostLikePresentationCom
 
 	[Theory]
 	[PostIdDifferentCaseData]
-	public async Task AddAsync_ShouldReturnOkResponse_WhenRequestAndIdAreValid(
+	public async Task AddAsync_ShouldReturnResponse_WhenRequestAndIdAreValid(
 		IStringTransformer transformer)
 	{
 		// Arrange
@@ -171,7 +171,7 @@ public class AddPostLikeControllerIntegrationTests : BasePostLikePresentationCom
 
 	[Theory]
 	[UserIdDifferentCaseData]
-	public async Task AddAsync_ShouldReturnOkResponse_WhenRequestAndUserIdAreValid(
+	public async Task AddAsync_ShouldReturnResponse_WhenRequestAndUserIdAreValid(
 		IStringTransformer transformer)
 	{
 		// Arrange

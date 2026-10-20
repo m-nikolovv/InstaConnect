@@ -1,3 +1,5 @@
+using InstaConnect.Posts.Application.Features.PostComments.Queries.GetAllForUser;
+
 namespace InstaConnect.Posts.Application.Tests.Unit.Features.PostComments.Handlers.GetAllForUser;
 
 public class GetAllPostCommentsForUserQueryHandlerUnitTests : BasePostCommentApplicationQueryUnitTest
@@ -30,7 +32,7 @@ public class GetAllPostCommentsForUserQueryHandlerUnitTests : BasePostCommentApp
 	}
 
 	[Fact]
-	public async Task Handle_ShouldCallPostCommentServiceGetAllForUserAsync_WhenRequestIsValid()
+	public async Task Handle_ShouldCallTheCommentServiceGetAllForUserAsync_WhenRequestIsValid()
 	{
 		// Act
 		await _handler.Handle(_request, CancellationToken);

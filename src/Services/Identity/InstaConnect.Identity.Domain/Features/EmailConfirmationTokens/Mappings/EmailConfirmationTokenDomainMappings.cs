@@ -1,4 +1,4 @@
-using Mapster;
+using InstaConnect.Identity.Events.Features.EmailConfirmationTokens;
 
 namespace InstaConnect.Identity.Domain.Features.EmailConfirmationTokens.Mappings;
 

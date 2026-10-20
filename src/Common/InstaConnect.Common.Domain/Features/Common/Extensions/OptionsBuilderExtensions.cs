@@ -1,9 +1,5 @@
-using FluentValidation;
-
-using InstaConnect.Common.Domain.Features.Common.Abstractions;
 using InstaConnect.Common.Domain.Features.Common.Helpers;
 
-using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
 
 namespace InstaConnect.Common.Domain.Features.Common.Extensions;

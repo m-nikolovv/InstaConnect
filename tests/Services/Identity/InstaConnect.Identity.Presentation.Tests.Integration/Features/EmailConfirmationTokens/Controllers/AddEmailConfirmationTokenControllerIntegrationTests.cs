@@ -1,3 +1,7 @@
+using InstaConnect.Identity.Presentation.Features.EmailConfirmationTokens.Models.Requests;
+using InstaConnect.Identity.Presentation.Tests.Features.EmailConfirmationTokens.Builders;
+using InstaConnect.Identity.Presentation.Tests.Integration.Features.EmailConfirmationTokens.Utilities;
+
 namespace InstaConnect.Identity.Presentation.Tests.Integration.Features.EmailConfirmationTokens.Controllers;
 
 public class AddEmailConfirmationTokenControllerIntegrationTests : BaseEmailConfirmationTokenPresentationCommandIntegrationTest
@@ -31,7 +35,7 @@ public class AddEmailConfirmationTokenControllerIntegrationTests : BaseEmailConf
 	}
 
 	[Fact]
-	public async Task AddAsync_ShouldThrowUserNameNotFoundException_WhenUserNotFound()
+	public async Task AddAsync_ShouldThrowUserNameNotFoundException_WhenUserNameNotFound()
 	{
 		// Arrange
 		await ServiceScope.DeleteAsync(User, CancellationToken);
@@ -41,7 +45,7 @@ public class AddEmailConfirmationTokenControllerIntegrationTests : BaseEmailConf
 	}
 
 	[Fact]
-	public async Task AddAsync_ShouldThrowUserNameEmailAlreadyConfirmedException_WhenEmailIsConfirmed()
+	public async Task AddAsync_ShouldThrowUserNameEmailAlreadyConfirmedException_WhenUserNameEmailAlreadyConfirmed()
 	{
 		// Arrange
 		var updatedUser = UserBuilder.WithConfirmedEmail().Build();
@@ -63,7 +67,7 @@ public class AddEmailConfirmationTokenControllerIntegrationTests : BaseEmailConf
 
 	[Theory]
 	[UserNameDifferentCaseData]
-	public async Task AddAsync_ShouldReturnNoContentStatusCode_WhenNameIsValid(
+	public async Task AddAsync_ShouldReturnNoContentStatusCode_WhenRequestAndNameAreValid(
 		IStringTransformer transformer)
 	{
 		// Arrange
@@ -81,15 +85,15 @@ public class AddEmailConfirmationTokenControllerIntegrationTests : BaseEmailConf
 	{
 		// Act
 		await Controller.AddAsync(_request, CancellationToken);
-		var user = await ServiceScope.GetByIdAsync(User.Id, CancellationToken);
+		var user = await ServiceScope.GetByIdAsync(UserId, CancellationToken);
 
 		// Assert
-		user.EmailConfirmationTokens.ShouldNotBeEmpty();
+		user.EmailConfirmationTokens.ShouldSatisfy(_request);
 	}
 
 	[Theory]
 	[UserNameDifferentCaseData]
-	public async Task AddAsync_ShouldAddEmailConfirmationToken_WhenNameIsValid(
+	public async Task AddAsync_ShouldAddEmailConfirmationToken_WhenRequestAndNameAreValid(
 		IStringTransformer transformer)
 	{
 		// Arrange
@@ -97,10 +101,10 @@ public class AddEmailConfirmationTokenControllerIntegrationTests : BaseEmailConf
 
 		// Act
 		await Controller.AddAsync(request, CancellationToken);
-		var user = await ServiceScope.GetByIdAsync(User.Id, CancellationToken);
+		var user = await ServiceScope.GetByIdAsync(UserId, CancellationToken);
 
 		// Assert
-		user.EmailConfirmationTokens.ShouldNotBeEmpty();
+		user.EmailConfirmationTokens.ShouldSatisfy(request);
 	}
 
 	[Fact]
@@ -108,7 +112,7 @@ public class AddEmailConfirmationTokenControllerIntegrationTests : BaseEmailConf
 	{
 		// Act
 		await Controller.AddAsync(_request, CancellationToken);
-		var user = await ServiceScope.GetByIdAsync(User.Id, CancellationToken);
+		var user = await ServiceScope.GetByIdAsync(UserId, CancellationToken);
 		var eventRequests = await EventClient.PublishedAddedRangeAsync(CancellationToken);
 
 		// Assert
@@ -125,7 +129,7 @@ public class AddEmailConfirmationTokenControllerIntegrationTests : BaseEmailConf
 
 		// Act
 		await Controller.AddAsync(request, CancellationToken);
-		var user = await ServiceScope.GetByIdAsync(User.Id, CancellationToken);
+		var user = await ServiceScope.GetByIdAsync(UserId, CancellationToken);
 		var eventRequests = await EventClient.PublishedAddedRangeAsync(CancellationToken);
 
 		// Assert

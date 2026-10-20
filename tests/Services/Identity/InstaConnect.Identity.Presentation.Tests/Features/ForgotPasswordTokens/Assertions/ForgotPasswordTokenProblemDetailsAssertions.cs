@@ -1,4 +1,5 @@
-using InstaConnect.Common.Presentation.Features.Exceptions.Models;
+using InstaConnect.Identity.Domain.Features.ForgotPasswordTokens.Models.ValueObjects;
+using InstaConnect.Identity.Domain.Features.ForgotPasswordTokens.Utilities;
 
 namespace InstaConnect.Identity.Presentation.Tests.Features.ForgotPasswordTokens.Assertions;
 

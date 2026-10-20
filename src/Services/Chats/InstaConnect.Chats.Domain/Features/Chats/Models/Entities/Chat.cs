@@ -47,4 +47,11 @@ public class Chat : IEntityWithId<ChatId>
 
 		return this;
 	}
+
+	public Chat AddChatMessages(ICollection<ChatMessage> chatMessages)
+	{
+		ChatMessages.AddRange(chatMessages);
+
+		return this;
+	}
 }

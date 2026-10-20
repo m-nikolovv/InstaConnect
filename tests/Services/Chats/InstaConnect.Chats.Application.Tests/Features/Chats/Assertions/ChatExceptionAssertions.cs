@@ -1,14 +1,12 @@
-using InstaConnect.Common.Application.Features.Requests.Abstractions;
-
 namespace InstaConnect.Chats.Application.Tests.Features.Chats.Assertions;
 
 public static class ChatExceptionAssertions
 {
 	extension(IApplicationSender sender)
 	{
-		public async Task ShouldThrowParticipantOneNotFoundExceptionForAsync(
-		GetAllChatsQueryRequest request,
-		CancellationToken cancellationToken)
+		public async Task ShouldThrowParticipantOneNotFoundExceptionAsync(
+			GetAllChatsQueryRequest request,
+			CancellationToken cancellationToken)
 		{
 			var func = () => sender.SendAsync(request, cancellationToken);
 
@@ -18,9 +16,9 @@ public static class ChatExceptionAssertions
 				cancellationToken);
 		}
 
-		public async Task ShouldThrowParticipantOneNotFoundExceptionForAsync(
-		AddChatCommandRequest request,
-		CancellationToken cancellationToken)
+		public async Task ShouldThrowParticipantOneNotFoundExceptionAsync(
+			AddChatCommandRequest request,
+			CancellationToken cancellationToken)
 		{
 			var func = () => sender.SendAsync(request, cancellationToken);
 
@@ -30,9 +28,9 @@ public static class ChatExceptionAssertions
 				cancellationToken);
 		}
 
-		public async Task ShouldThrowParticipantTwoNotFoundExceptionForAsync(
-		AddChatCommandRequest request,
-		CancellationToken cancellationToken)
+		public async Task ShouldThrowParticipantTwoNotFoundExceptionAsync(
+			AddChatCommandRequest request,
+			CancellationToken cancellationToken)
 		{
 			var func = () => sender.SendAsync(request, cancellationToken);
 

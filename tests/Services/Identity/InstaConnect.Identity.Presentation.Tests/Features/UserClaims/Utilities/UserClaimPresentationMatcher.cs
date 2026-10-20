@@ -1,3 +1,7 @@
+using InstaConnect.Identity.Application.Features.UserClaims.Commands.Add;
+using InstaConnect.Identity.Application.Features.UserClaims.Commands.Delete;
+using InstaConnect.Identity.Application.Features.UserClaims.Queries.GetAll;
+
 namespace InstaConnect.Identity.Presentation.Tests.Features.UserClaims.Utilities;
 
 public static class UserClaimPresentationMatcher

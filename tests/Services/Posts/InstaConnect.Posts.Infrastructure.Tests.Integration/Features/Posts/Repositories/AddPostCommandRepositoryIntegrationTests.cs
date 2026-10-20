@@ -1,8 +1,3 @@
-using InstaConnect.Posts.Infrastructure.Tests.Features.Posts.Assertions;
-using InstaConnect.Posts.Infrastructure.Tests.Integration.Features.Posts.Utilities;
-using InstaConnect.Posts.Tests.Features.Posts.Assertions;
-using InstaConnect.Posts.Tests.Features.Posts.Utilities;
-
 namespace InstaConnect.Posts.Infrastructure.Tests.Integration.Features.Posts.Repositories;
 
 public class AddPostCommandRepositoryIntegrationTests : BasePostInfrastructureCommandIntegrationTest
@@ -17,7 +12,7 @@ public class AddPostCommandRepositoryIntegrationTests : BasePostInfrastructureCo
 	{
 		// Act
 		await Repository.AddAsync(Post, CancellationToken);
-		var post = await ServiceScope.GetByIdAsync(Post.Id, CancellationToken);
+		var post = await ServiceScope.GetByIdAsync(PostId, CancellationToken);
 
 		// Assert
 		post.ShouldSatisfy(Post);

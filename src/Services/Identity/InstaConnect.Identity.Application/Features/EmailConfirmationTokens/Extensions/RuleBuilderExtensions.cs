@@ -1,3 +1,5 @@
+using InstaConnect.Identity.Domain.Features.EmailConfirmationTokens.Utilities;
+
 namespace InstaConnect.Identity.Application.Features.EmailConfirmationTokens.Extensions;
 
 internal static class RuleBuilderExtensions

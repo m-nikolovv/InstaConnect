@@ -1,70 +1,57 @@
-using InstaConnect.Identity.Domain.Features.EmailConfirmationTokens.Models.ValueObjects;
-using InstaConnect.Identity.Infrastructure.Features.EmailConfirmationTokens.Helpers.Repositories;
-using InstaConnect.Identity.Infrastructure.Tests.Features.EmailConfirmationTokens.Assertions;
 using InstaConnect.Identity.Infrastructure.Tests.Features.EmailConfirmationTokens.Utilities;
-using InstaConnect.Identity.Infrastructure.Tests.Unit.Features.EmailConfirmationTokens.Utilities;
-using InstaConnect.Identity.Tests.Features.EmailConfirmationTokens.Builders;
 
 namespace InstaConnect.Identity.Infrastructure.Tests.Unit.Features.EmailConfirmationTokens.Repositories;
 
 public class EmailConfirmationTokenExistsByIdCommandRepositoryUnitTests : BaseEmailConfirmationTokenInfrastructureCommandUnitTest
 {
-	private readonly EmailConfirmationTokenIdBuilderFactory _idBuilderFactory;
-	private readonly EmailConfirmationTokenIdBuilder _idBuilder;
-	private readonly EmailConfirmationTokenId _id;
-
 	private readonly EmailConfirmationTokenCommandRepository _repository;
 
 	public EmailConfirmationTokenExistsByIdCommandRepositoryUnitTests()
 	{
-		_idBuilderFactory = new();
-		_idBuilder = _idBuilderFactory.Create(EmailConfirmationToken.Id);
-		_id = _idBuilder.Build();
-
 		_repository = new(Collection, IncludeBuilderFactory);
 
-		Collection.SetupAggregateFluent(_id, Fluent);
-		Fluent.SetupMatch(_id);
-		Fluent.SetupAnyAsync(_id, EmailConfirmationToken, CancellationToken);
+		Collection.SetupAggregateFluent(EmailConfirmationTokenId, Fluent);
+		Fluent.SetupMatch(EmailConfirmationTokenId);
+		Fluent.SetupAnyAsync(EmailConfirmationTokenId, EmailConfirmationToken, CancellationToken);
 	}
 
 	[Fact]
-	public async Task ExistsByIdAsync_ShouldReturnResponse_WhenRequestIsValid()
+	public async Task ExistsByIdAsync_ShouldReturnResponse_WhenCommandIsValid()
 	{
 		// Act
-		var response = await _repository.ExistsByIdAsync(_id, CancellationToken);
+		var response = await _repository.ExistsByIdAsync(EmailConfirmationTokenId, CancellationToken);
 
 		// Assert
-		response.ShouldSatisfy(_id, EmailConfirmationToken);
+		response.ShouldSatisfy(EmailConfirmationTokenId, EmailConfirmationToken);
 	}
 
 	[Fact]
-	public async Task ExistsByIdAsync_ShouldCallTheCollectionAggregateFluent_WhenRequestIsValid()
+	public async Task ExistsByIdAsync_ShouldCallTheCollectionAggregateFluent_WhenCommandIsValid()
 	{
 		// Act
-		await _repository.ExistsByIdAsync(_id, CancellationToken);
+		await _repository.ExistsByIdAsync(EmailConfirmationTokenId, CancellationToken);
 
 		// Assert
-		Collection.ShouldHaveReceivedOneAggregateFluent(_id);
+		Collection.ShouldHaveReceivedOneAggregateFluent(EmailConfirmationTokenId);
 	}
 
 	[Fact]
-	public async Task ExistsByIdAsync_ShouldCallTheFluentMatch_WhenRequestIsValid()
+	public async Task ExistsByIdAsync_ShouldCallTheFluentMatch_WhenCommandIsValid()
 	{
 		// Act
-		await _repository.ExistsByIdAsync(_id, CancellationToken);
+		await _repository.ExistsByIdAsync(EmailConfirmationTokenId, CancellationToken);
 
 		// Assert
-		Fluent.ShouldHaveReceivedOneMatch(_id);
+		Fluent.ShouldHaveReceivedOneMatch(EmailConfirmationTokenId);
 	}
 
 	[Fact]
-	public async Task ExistsByIdAsync_ShouldCallTheFluentAnyAsync_WhenRequestIsValid()
+	public async Task ExistsByIdAsync_ShouldCallTheFluentAnyAsync_WhenCommandIsValid()
 	{
 		// Act
-		await _repository.ExistsByIdAsync(_id, CancellationToken);
+		await _repository.ExistsByIdAsync(EmailConfirmationTokenId, CancellationToken);
 
 		// Assert
-		await Fluent.ShouldHaveReceivedOneAnyAsync(_id, CancellationToken);
+		await Fluent.ShouldHaveReceivedOneAnyAsync(EmailConfirmationTokenId, CancellationToken);
 	}
 }

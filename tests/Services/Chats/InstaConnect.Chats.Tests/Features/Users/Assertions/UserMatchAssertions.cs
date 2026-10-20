@@ -1,5 +1,5 @@
+using InstaConnect.Chats.Tests.Features.ChatMessages.Assertions;
 using InstaConnect.Chats.Tests.Features.Users.Assertions;
-using InstaConnect.Chats.Tests.Features.Users.Utilities;
 
 namespace InstaConnect.Chats.Tests.Features.Users.Assertions;
 

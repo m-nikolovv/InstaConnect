@@ -1,5 +1,3 @@
-using InstaConnect.Common.Infrastructure.Features.Databases.Abstractions;
-
 namespace InstaConnect.Identity.Infrastructure.Features.RefreshTokens.Abstractions;
 
 public interface IRefreshTokenCollection : IMongoDbCollection<RefreshToken>

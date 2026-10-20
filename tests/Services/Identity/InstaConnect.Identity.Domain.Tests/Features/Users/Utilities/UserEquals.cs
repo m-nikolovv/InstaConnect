@@ -1,9 +1,6 @@
-using InstaConnect.Common.Domain.Features.Common.Extensions;
 using InstaConnect.Common.Tests.Features.DataAttributes.Enums.Sort;
 using InstaConnect.Common.Tests.Features.Extensions;
 using InstaConnect.Identity.Domain.Tests.Features.EmailConfirmationTokens.Utilities;
-using InstaConnect.Identity.Events.Features.EmailConfirmationTokens;
-using InstaConnect.Identity.Events.Features.Users;
 
 namespace InstaConnect.Identity.Domain.Tests.Features.Users.Utilities;
 
@@ -31,7 +28,7 @@ public static class UserEquals
 				   user.Email.Matches(command.Email) &&
 				   user.FirstName == command.FirstName &&
 				   user.LastName == command.LastName &&
-				   user.ProfileImage.Matches(command.ProfileImage?.GetUrl()) &&
+				   user.ProfileImageUrl.Matches(command.ProfileImage?.GetUrlValue()) &&
 				   user.PasswordHash.IsNotNullOrEmptyOrWhiteSpace() &&
 				   user.IsEmailNotConfirmed &&
 				   user.CreatedAtUtc != default &&
@@ -45,7 +42,7 @@ public static class UserEquals
 				   user.Email.Matches(command.Email) &&
 				   user.FirstName == command.FirstName &&
 				   user.LastName == command.LastName &&
-				   (command.ProfileImage == null || user.ProfileImage.Matches(command.ProfileImage.GetUrl())) &&
+				   (command.ProfileImage == null || user.ProfileImageUrl.Matches(command.ProfileImage.GetUrlValue())) &&
 				   user.PasswordHash.IsNotNullOrEmptyOrWhiteSpace() &&
 				   user.CreatedAtUtc != default &&
 				   user.UpdatedAtUtc != default;
@@ -58,7 +55,7 @@ public static class UserEquals
 				   user.Email.Value.IsNotNullOrEmptyOrWhiteSpace() &&
 				   user.FirstName.IsNotNullOrEmptyOrWhiteSpace() &&
 				   user.LastName.IsNotNullOrEmptyOrWhiteSpace() &&
-				   (user.ProfileImage == null || user.ProfileImage.Url.IsNotNullOrEmptyOrWhiteSpace()) &&
+				   (user.ProfileImageUrl == null || user.ProfileImageUrl.Value.IsNotNullOrEmptyOrWhiteSpace()) &&
 				   user.PasswordHash.IsNotNullOrEmptyOrWhiteSpace() &&
 				   user.IsEmailConfirmed &&
 				   user.CreatedAtUtc != default &&
@@ -84,7 +81,7 @@ public static class UserEquals
 				   user.LastName == response.LastName &&
 				   user.Name.Matches(response.Name) &&
 				   user.Email.Matches(response.Email) &&
-				   user.ProfileImage.Matches(response.ProfileImage) &&
+				   user.ProfileImageUrl.Matches(response.ProfileImageUrl) &&
 				   user.CreatedAtUtc == response.CreatedAtUtc &&
 				   user.UpdatedAtUtc == response.UpdatedAtUtc;
 		}
@@ -158,7 +155,7 @@ public static class UserEquals
 				   request.Email.EqualsOrdinalIgnoreCase(command.Email.Value) &&
 				   request.FirstName == command.FirstName &&
 				   request.LastName == command.LastName &&
-				   request.ProfileImageUrl == command.ProfileImage?.GetUrl() &&
+				   request.ProfileImageUrl == command.ProfileImage?.GetUrlValue() &&
 				   request.CreatedAtUtc == entity.CreatedAtUtc &&
 				   request.UpdatedAtUtc == entity.UpdatedAtUtc;
 		}
@@ -171,7 +168,7 @@ public static class UserEquals
 				   request.Email.EqualsOrdinalIgnoreCase(command.Email.Value) &&
 				   request.FirstName == command.FirstName &&
 				   request.LastName == command.LastName &&
-				   (command.ProfileImage == null || request.ProfileImageUrl == command.ProfileImage.GetUrl()) &&
+				   (command.ProfileImage == null || request.ProfileImageUrl == command.ProfileImage.GetUrlValue()) &&
 				   request.CreatedAtUtc == entity.CreatedAtUtc &&
 				   request.UpdatedAtUtc == entity.UpdatedAtUtc;
 		}
@@ -184,7 +181,7 @@ public static class UserEquals
 				   request.Email.EqualsOrdinalIgnoreCase(entity.Email.Value) &&
 				   request.FirstName == entity.FirstName &&
 				   request.LastName == entity.LastName &&
-				   request.ProfileImageUrl == entity.ProfileImage?.Url &&
+				   request.ProfileImageUrl == entity.ProfileImageUrl?.Value &&
 				   request.CreatedAtUtc == entity.CreatedAtUtc &&
 				   request.UpdatedAtUtc == entity.UpdatedAtUtc;
 		}
@@ -211,9 +208,14 @@ public static class UserEquals
 
 	extension(ICollection<EmailConfirmationToken> emailConfirmationTokens)
 	{
+		public bool Matches(AddUserCommand command)
+		{
+			return emailConfirmationTokens.AllAndNotEmpty(emailConfirmationToken => emailConfirmationToken.Matches(command));
+		}
+
 		public bool Matches(UpdateUserCommand command)
 		{
-			return emailConfirmationTokens.All(emailConfirmationToken => emailConfirmationToken.Matches(command));
+			return emailConfirmationTokens.AllAndNotEmpty(emailConfirmationToken => emailConfirmationToken.Matches(command));
 		}
 	}
 

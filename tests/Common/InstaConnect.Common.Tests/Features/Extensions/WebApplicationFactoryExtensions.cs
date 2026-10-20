@@ -1,7 +1,6 @@
 using System.Security.Claims;
 
 using InstaConnect.Common.Domain.Features.AccessTokens.Utilities;
-using InstaConnect.Common.Tests.Features.Utilities;
 
 using Microsoft.AspNetCore.Http.Connections;
 using Microsoft.AspNetCore.Mvc.Testing;

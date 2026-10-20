@@ -1,3 +1,5 @@
+using InstaConnect.Common.Domain.Features.Guids.Abstractions;
+
 namespace InstaConnect.Posts.Domain.Features.PostComments.Helpers;
 
 internal class PostCommentFactory : IPostCommentFactory
@@ -20,6 +22,7 @@ internal class PostCommentFactory : IPostCommentFactory
 		var postComment = new PostComment(
 			new(id, commentId),
 			content,
+			new(string.Empty),
 			userId,
 			utcNow,
 			utcNow);

@@ -1,3 +1,5 @@
+using InstaConnect.Identity.Domain.Features.RefreshTokens.Utilities;
+
 namespace InstaConnect.Identity.Application.Features.RefreshTokens.Extensions;
 
 internal static class RuleBuilderExtensions

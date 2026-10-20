@@ -1,5 +1,3 @@
-using InstaConnect.Chats.Tests.Features.Chats.Utilities;
-
 namespace InstaConnect.Chats.Tests.Features.ChatMessages.Utilities;
 
 public static class ChatMessageReference

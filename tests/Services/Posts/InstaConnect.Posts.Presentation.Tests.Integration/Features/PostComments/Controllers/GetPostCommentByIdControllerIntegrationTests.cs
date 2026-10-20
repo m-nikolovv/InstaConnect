@@ -65,7 +65,7 @@ public class GetPostCommentByIdControllerIntegrationTests : BasePostCommentPrese
 	}
 
 	[Fact]
-	public async Task GetByIdAsync_ShouldThrowPostNotFoundException_WhenIdIsInvalid()
+	public async Task GetByIdAsync_ShouldThrowPostNotFoundException_WhenPostNotFound()
 	{
 		// Arrange
 		await ServiceScope.DeleteAsync(Post, CancellationToken);
@@ -75,7 +75,7 @@ public class GetPostCommentByIdControllerIntegrationTests : BasePostCommentPrese
 	}
 
 	[Fact]
-	public async Task GetByIdAsync_ShouldThrowPostCommentNotFoundException_WhenCommentIdIsInvalid()
+	public async Task GetByIdAsync_ShouldThrowPostCommentNotFoundException_WhenPostCommentNotFound()
 	{
 		// Arrange
 		await ServiceScope.DeleteAsync(PostComment, CancellationToken);

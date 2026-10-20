@@ -1,17 +1,9 @@
 using InstaConnect.Common.Tests.Features.DataAttributes.FormFiles.Base;
-using InstaConnect.Common.Tests.Features.DataAttributes.Strings.Base;
-using InstaConnect.Identity.Domain.Features.Users.Models.Requests;
 using InstaConnect.Identity.Domain.Tests.Features.EmailConfirmationTokens.Assertions;
-using InstaConnect.Identity.Domain.Tests.Features.Users.Assertions;
-using InstaConnect.Identity.Domain.Tests.Features.Users.Builders;
-using InstaConnect.Identity.Domain.Tests.Integration.Features.Users.Utilities;
 using InstaConnect.Identity.Tests.Features.EmailConfirmationTokens.Assertions;
-using InstaConnect.Identity.Tests.Features.EmailConfirmationTokens.Utilities;
 using InstaConnect.Identity.Tests.Features.Users.Assertions;
 using InstaConnect.Identity.Tests.Features.Users.DataAttributes.Email;
-using InstaConnect.Identity.Tests.Features.Users.DataAttributes.Name;
 using InstaConnect.Identity.Tests.Features.Users.DataAttributes.ProfileImage;
-using InstaConnect.Identity.Tests.Features.Users.Utilities;
 
 namespace InstaConnect.Identity.Domain.Tests.Integration.Features.Users.Services;
 
@@ -30,7 +22,7 @@ public class AddUserCommandServiceIntegrationTests : BaseUserDomainCommandIntegr
 	}
 
 	[Fact]
-	public async Task AddAsync_ShouldThrowUserEmailAlreadyTakenException_WhenEmailIsNotUnique()
+	public async Task AddAsync_ShouldThrowUserEmailAlreadyTakenException_WhenUserEmailAlreadyTaken()
 	{
 		// Arrange
 		await ServiceScope.AddAsync(User, CancellationToken);
@@ -42,7 +34,7 @@ public class AddUserCommandServiceIntegrationTests : BaseUserDomainCommandIntegr
 
 	[Theory]
 	[UserEmailDifferentCaseData]
-	public async Task AddAsync_ShouldThrowUserEmailAlreadyTakenException_WhenEmailIsNotUniqueAndDifferentCase(
+	public async Task AddAsync_ShouldThrowUserEmailAlreadyTakenException_WhenUserEmailAlreadyTakenAndEmailIsInvalid(
 		IStringTransformer transformer)
 	{
 		// Arrange
@@ -54,7 +46,7 @@ public class AddUserCommandServiceIntegrationTests : BaseUserDomainCommandIntegr
 	}
 
 	[Fact]
-	public async Task AddAsync_ShouldThrowUserNameAlreadyTakenException_WhenNameIsNotUnique()
+	public async Task AddAsync_ShouldThrowUserNameAlreadyTakenException_WhenUserNameAlreadyTaken()
 	{
 		// Arrange
 		await ServiceScope.AddAsync(User, CancellationToken);
@@ -66,7 +58,7 @@ public class AddUserCommandServiceIntegrationTests : BaseUserDomainCommandIntegr
 
 	[Theory]
 	[UserNameDifferentCaseData]
-	public async Task AddAsync_ShouldThrowUserNameAlreadyTakenException_WhenNameIsNotUniqueAndDifferentCase(
+	public async Task AddAsync_ShouldThrowUserNameAlreadyTakenException_WhenUserNameAlreadyTakenAndNameIsInvalid(
 		IStringTransformer transformer)
 	{
 		// Arrange
@@ -90,7 +82,7 @@ public class AddUserCommandServiceIntegrationTests : BaseUserDomainCommandIntegr
 
 	[Theory]
 	[UserProfileImageNullData]
-	public async Task AddAsync_ShouldReturnResponse_WhenProfileImageIsValid(
+	public async Task AddAsync_ShouldReturnResponse_WhenCommandAndProfileImageAreValid(
 		IFormFileTransformer transformer)
 	{
 		// Arrange
@@ -117,7 +109,7 @@ public class AddUserCommandServiceIntegrationTests : BaseUserDomainCommandIntegr
 
 	[Theory]
 	[UserProfileImageNullData]
-	public async Task AddAsync_ShouldAddUser_WhenProfileImageIsValid(
+	public async Task AddAsync_ShouldAddUser_WhenCommandAndProfileImageAreValid(
 		IFormFileTransformer transformer)
 	{
 		// Arrange
@@ -139,12 +131,12 @@ public class AddUserCommandServiceIntegrationTests : BaseUserDomainCommandIntegr
 		var user = await ServiceScope.GetByIdAsync(response, CancellationToken);
 
 		// Assert
-		user.EmailConfirmationTokens.ShouldNotBeEmpty();
+		user.EmailConfirmationTokens.ShouldSatisfy(_command);
 	}
 
 	[Theory]
 	[UserProfileImageNullData]
-	public async Task AddAsync_ShouldAddEmailConfirmationToken_WhenProfileImageIsValid(
+	public async Task AddAsync_ShouldAddEmailConfirmationToken_WhenCommandAndProfileImageAreValid(
 		IFormFileTransformer transformer)
 	{
 		// Arrange
@@ -155,7 +147,7 @@ public class AddUserCommandServiceIntegrationTests : BaseUserDomainCommandIntegr
 		var user = await ServiceScope.GetByIdAsync(response, CancellationToken);
 
 		// Assert
-		user.EmailConfirmationTokens.ShouldNotBeEmpty();
+		user.EmailConfirmationTokens.ShouldSatisfy(command);
 	}
 
 	[Fact]
@@ -172,7 +164,7 @@ public class AddUserCommandServiceIntegrationTests : BaseUserDomainCommandIntegr
 
 	[Theory]
 	[UserProfileImageNullData]
-	public async Task AddAsync_ShouldPublishUserAddedEvent_WhenProfileImageIsValid(
+	public async Task AddAsync_ShouldPublishUserAddedEvent_WhenCommandAndProfileImageAreValid(
 		IFormFileTransformer transformer)
 	{
 		// Arrange
@@ -201,7 +193,7 @@ public class AddUserCommandServiceIntegrationTests : BaseUserDomainCommandIntegr
 
 	[Theory]
 	[UserProfileImageNullData]
-	public async Task AddAsync_ShouldPublishEmailConfirmationTokenAddedEvent_WhenProfileImageIsValid(
+	public async Task AddAsync_ShouldPublishEmailConfirmationTokenAddedEvent_WhenCommandAndProfileImageAreValid(
 		IFormFileTransformer transformer)
 	{
 		// Arrange

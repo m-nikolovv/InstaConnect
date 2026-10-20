@@ -1,0 +1,43 @@
+namespace InstaConnect.Posts.Tests.Features.PostImages.Builders;
+
+public class PostImageBuilder
+{
+	private readonly string _id;
+	private readonly Post _post;
+	private readonly string _imageId;
+	private readonly string _url;
+	private readonly DateTimeOffset _createdAtUtc;
+
+	public PostImageBuilder(Post post)
+	{
+		_id = post.Id.Id;
+		_post = post;
+		_imageId = PostImageDataFaker.GetImageId();
+		_url = PostImageDataFaker.GetUrl();
+		_createdAtUtc = PostImageDataFaker.GetCreatedAtUtc();
+	}
+
+	public PostImageBuilder(PostImage postImage)
+	{
+		_id = postImage.Id.Id.Id;
+		_post = postImage.Post!;
+		_imageId = postImage.Id.ImageId;
+		_url = postImage.Url.Value;
+		_createdAtUtc = postImage.CreatedAtUtc;
+	}
+
+	public PostImage Build()
+	{
+		var postImage = new PostImage(
+				new(
+					new(_id),
+					_imageId),
+				new(_url),
+				_createdAtUtc);
+
+		_post.AddPostImage(postImage);
+		postImage.AddPost(_post);
+
+		return postImage;
+	}
+}

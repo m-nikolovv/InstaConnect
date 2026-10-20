@@ -1,7 +1,3 @@
-using InstaConnect.Common.Domain.Features.Requests.Abstractions;
-
-using InstaConnect.Follows.Domain.Features.Users.Models.Responses;
-
 namespace InstaConnect.Follows.Domain.Features.Follows.Models.Responses;
 
 public record FollowCollectionResponse(

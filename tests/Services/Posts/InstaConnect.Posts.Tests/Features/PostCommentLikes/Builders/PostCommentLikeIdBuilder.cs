@@ -1,9 +1,3 @@
-using InstaConnect.Common.Tests.Features.DataAttributes.Base;
-using InstaConnect.Posts.Domain.Features.PostCommentLikes.Models.ValueObjects;
-using InstaConnect.Posts.Domain.Features.PostComments.Models.ValueObjects;
-using InstaConnect.Posts.Domain.Features.Posts.Models.ValueObjects;
-using InstaConnect.Posts.Domain.Features.Users.Models.ValueObjects;
-
 namespace InstaConnect.Posts.Tests.Features.PostCommentLikes.Builders;
 
 public class PostCommentLikeIdBuilder

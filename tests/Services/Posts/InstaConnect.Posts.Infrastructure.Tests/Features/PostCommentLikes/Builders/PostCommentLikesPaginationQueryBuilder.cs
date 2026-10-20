@@ -1,4 +1,4 @@
-using InstaConnect.Posts.Domain.Features.PostCommentLikes.Models.Requests;
+using InstaConnect.Common.Tests.Features.DataAttributes.Ints.Base;
 using InstaConnect.Posts.Tests.Features.PostCommentLikes.Utilities;
 
 namespace InstaConnect.Posts.Infrastructure.Tests.Features.PostCommentLikes.Builders;

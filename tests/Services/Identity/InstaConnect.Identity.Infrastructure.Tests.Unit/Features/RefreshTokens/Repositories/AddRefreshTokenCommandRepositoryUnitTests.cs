@@ -13,7 +13,7 @@ public class AddRefreshTokenCommandRepositoryUnitTests : BaseRefreshTokenInfrast
 	}
 
 	[Fact]
-	public async Task AddAsync_ShouldCallTheCollectionAddAsync_WhenRequestIsValid()
+	public async Task AddAsync_ShouldCallTheCollectionAddAsync_WhenCommandIsValid()
 	{
 		// Act
 		await _repository.AddAsync(RefreshToken, CancellationToken);

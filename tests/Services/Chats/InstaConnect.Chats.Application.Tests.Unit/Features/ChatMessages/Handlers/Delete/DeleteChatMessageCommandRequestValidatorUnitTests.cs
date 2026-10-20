@@ -1,3 +1,6 @@
+using InstaConnect.Chats.Application.Features.ChatMessages.Commands.Delete;
+using InstaConnect.Chats.Tests.Features.ChatMessages.DataAttributes.Id;
+
 namespace InstaConnect.Chats.Application.Tests.Unit.Features.ChatMessages.Handlers.Delete;
 
 public class DeleteChatMessageCommandRequestValidatorUnitTests : BaseChatMessageApplicationCommandUnitTest
@@ -72,7 +75,7 @@ public class DeleteChatMessageCommandRequestValidatorUnitTests : BaseChatMessage
 	}
 
 	[Fact]
-	public void TestValidate_ShouldNotHaveAnyValidationsErrors_WhenRequestIsValid()
+	public void TestValidate_ShouldNotHaveAnyValidationErrors_WhenRequestIsValid()
 	{
 		// Act
 		var response = _requestValidator.TestValidate(_request);

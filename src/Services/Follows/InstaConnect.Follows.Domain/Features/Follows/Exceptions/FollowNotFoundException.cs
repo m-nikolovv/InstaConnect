@@ -1,4 +1,4 @@
-using InstaConnect.Common.Domain.Features.Exceptions.Exceptions;
+using InstaConnect.Follows.Domain.Features.Follows.Utilities;
 
 namespace InstaConnect.Follows.Domain.Features.Follows.Exceptions;
 

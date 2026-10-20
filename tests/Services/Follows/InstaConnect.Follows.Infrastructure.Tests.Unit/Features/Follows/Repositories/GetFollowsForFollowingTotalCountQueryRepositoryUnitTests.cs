@@ -1,9 +1,4 @@
-using InstaConnect.Follows.Domain.Features.Follows.Models.Requests;
-using InstaConnect.Follows.Infrastructure.Features.Follows.Helpers.Repositories;
-using InstaConnect.Follows.Infrastructure.Tests.Features.Follows.Assertions;
 using InstaConnect.Follows.Infrastructure.Tests.Features.Follows.Builders;
-using InstaConnect.Follows.Infrastructure.Tests.Features.Follows.Utilities;
-using InstaConnect.Follows.Infrastructure.Tests.Unit.Features.Follows.Utilities;
 
 namespace InstaConnect.Follows.Infrastructure.Tests.Unit.Features.Follows.Repositories;
 
@@ -34,7 +29,7 @@ public class GetFollowsForFollowingTotalCountQueryRepositoryUnitTests : BaseFoll
 	}
 
 	[Fact]
-	public async Task GetTotalCountForFollowingAsync_ShouldReturnResponse_WhenRequestIsValid()
+	public async Task GetTotalCountForFollowingAsync_ShouldReturnResponse_WhenQueryIsValid()
 	{
 		// Act
 		var response = await _repository.GetTotalCountForFollowingAsync(_filterQuery, CancellationToken);
@@ -44,7 +39,7 @@ public class GetFollowsForFollowingTotalCountQueryRepositoryUnitTests : BaseFoll
 	}
 
 	[Fact]
-	public async Task GetTotalCountForFollowingAsync_ShouldCallTheCollectionAggregateFluent_WhenRequestIsValid()
+	public async Task GetTotalCountForFollowingAsync_ShouldCallTheCollectionAggregateFluent_WhenQueryIsValid()
 	{
 		// Act
 		await _repository.GetTotalCountForFollowingAsync(_filterQuery, CancellationToken);
@@ -54,7 +49,7 @@ public class GetFollowsForFollowingTotalCountQueryRepositoryUnitTests : BaseFoll
 	}
 
 	[Fact]
-	public async Task GetTotalCountForFollowingAsync_ShouldCallTheFluentApplyIncludes_WhenRequestIsValid()
+	public async Task GetTotalCountForFollowingAsync_ShouldCallTheFluentApplyIncludes_WhenQueryIsValid()
 	{
 		// Act
 		await _repository.GetTotalCountForFollowingAsync(_filterQuery, CancellationToken);
@@ -64,7 +59,7 @@ public class GetFollowsForFollowingTotalCountQueryRepositoryUnitTests : BaseFoll
 	}
 
 	[Fact]
-	public async Task GetTotalCountForFollowingAsync_ShouldCallTheFluentMatch_WhenRequestIsValid()
+	public async Task GetTotalCountForFollowingAsync_ShouldCallTheFluentMatch_WhenQueryIsValid()
 	{
 		// Act
 		await _repository.GetTotalCountForFollowingAsync(_filterQuery, CancellationToken);
@@ -74,7 +69,7 @@ public class GetFollowsForFollowingTotalCountQueryRepositoryUnitTests : BaseFoll
 	}
 
 	[Fact]
-	public async Task GetTotalCountForFollowingAsync_ShouldCallTheFluentGetCountAsync_WhenRequestIsValid()
+	public async Task GetTotalCountForFollowingAsync_ShouldCallTheFluentGetCountAsync_WhenQueryIsValid()
 	{
 		// Act
 		await _repository.GetTotalCountForFollowingAsync(_filterQuery, CancellationToken);

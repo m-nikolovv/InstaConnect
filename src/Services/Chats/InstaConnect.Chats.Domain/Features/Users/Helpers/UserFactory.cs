@@ -8,7 +8,7 @@ internal class UserFactory : IUserFactory
 		string lastName,
 		Name name,
 		Email email,
-		Image? profileImage,
+		Url? profileImageUrl,
 		DateTimeOffset createdAtUtc,
 		DateTimeOffset updatedAtUtc)
 	{
@@ -18,7 +18,7 @@ internal class UserFactory : IUserFactory
 			lastName,
 			email,
 			name,
-			profileImage,
+			profileImageUrl,
 			createdAtUtc,
 			updatedAtUtc);
 

@@ -1,7 +1,3 @@
-using InstaConnect.Identity.Infrastructure.Features.EmailConfirmationTokens.Helpers.Repositories;
-using InstaConnect.Identity.Infrastructure.Tests.Features.EmailConfirmationTokens.Assertions;
-using InstaConnect.Identity.Infrastructure.Tests.Unit.Features.EmailConfirmationTokens.Utilities;
-
 namespace InstaConnect.Identity.Infrastructure.Tests.Unit.Features.EmailConfirmationTokens.Repositories;
 
 public class UpdateEmailConfirmationTokenCommandRepositoryUnitTests : BaseEmailConfirmationTokenInfrastructureCommandUnitTest
@@ -14,7 +10,7 @@ public class UpdateEmailConfirmationTokenCommandRepositoryUnitTests : BaseEmailC
 	}
 
 	[Fact]
-	public async Task UpdateAsync_ShouldCallTheCollectionUpdateAsync_WhenRequestIsValid()
+	public async Task UpdateAsync_ShouldCallTheCollectionUpdateAsync_WhenCommandIsValid()
 	{
 		// Act
 		await _repository.UpdateAsync(EmailConfirmationToken, CancellationToken);

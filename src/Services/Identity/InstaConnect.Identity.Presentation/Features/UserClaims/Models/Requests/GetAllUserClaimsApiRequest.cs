@@ -1,8 +1,7 @@
 using InstaConnect.Common.Domain.Features.Requests.Models;
-using InstaConnect.Common.Presentation.Features.Controllers.Utilities;
 using InstaConnect.Common.Presentation.Features.Requests.Abstractions;
 using InstaConnect.Identity.Domain.Features.UserClaims.Models.Requests;
-using InstaConnect.Identity.Presentation.Features.Users.Abstractions;
+using InstaConnect.Identity.Presentation.Features.UserClaims.Utilities;
 
 namespace InstaConnect.Identity.Presentation.Features.UserClaims.Models.Requests;
 

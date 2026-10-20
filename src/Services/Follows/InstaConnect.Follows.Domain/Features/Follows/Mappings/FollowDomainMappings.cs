@@ -1,6 +1,5 @@
+using InstaConnect.Follows.Events.Features.Follows;
 using InstaConnect.Identity.Events.Features.Users;
-
-using Mapster;
 
 namespace InstaConnect.Follows.Domain.Features.Follows.Mappings;
 

@@ -1,5 +1,13 @@
 using InstaConnect.Common.Domain.Features.Requests.Models;
+using InstaConnect.Common.Tests.Features.DataAttributes.Enums.Base;
+using InstaConnect.Common.Tests.Features.DataAttributes.Ints.Base;
+using InstaConnect.Follows.Application.Features.Follows.Queries.GetAll;
 using InstaConnect.Follows.Domain.Features.Follows.Models.Requests;
+using InstaConnect.Follows.Tests.Features.Follows.DataAttributes.Page;
+using InstaConnect.Follows.Tests.Features.Follows.DataAttributes.PageSize;
+using InstaConnect.Follows.Tests.Features.Follows.DataAttributes.SortOrder;
+using InstaConnect.Follows.Tests.Features.Follows.DataAttributes.SortTerm;
+using InstaConnect.Follows.Tests.Features.Users.DataAttributes.Name;
 
 namespace InstaConnect.Follows.Application.Tests.Unit.Features.Follows.Handlers.GetAll;
 
@@ -133,7 +141,7 @@ public class GetAllFollowsQueryRequestValidatorUnitTests : BaseFollowApplication
 	[Theory]
 	[UserNameEmptyData]
 	[UserNameNullData]
-	public void TestValidate_ShouldNotHaveAnyValidationsErrors_WhenFollowingNameIsValid(
+	public void TestValidate_ShouldNotHaveAnyValidationErrors_WhenFollowingNameIsValid(
 		IStringTransformer transformer)
 	{
 		// Arrange
@@ -149,7 +157,7 @@ public class GetAllFollowsQueryRequestValidatorUnitTests : BaseFollowApplication
 	[Theory]
 	[UserIdNullData]
 	[UserIdEmptyData]
-	public void TestValidate_ShouldNotHaveAnyValidationsErrors_WhenCurrentUserIdIsValid(
+	public void TestValidate_ShouldNotHaveAnyValidationErrors_WhenCurrentUserIdIsValid(
 		IStringTransformer transformer)
 	{
 		// Arrange
@@ -163,7 +171,7 @@ public class GetAllFollowsQueryRequestValidatorUnitTests : BaseFollowApplication
 	}
 
 	[Fact]
-	public void TestValidate_ShouldNotHaveAnyValidationsErrors_WhenRequestIsValid()
+	public void TestValidate_ShouldNotHaveAnyValidationErrors_WhenRequestIsValid()
 	{
 		// Act
 		var response = _requestValidator.TestValidate(_request);

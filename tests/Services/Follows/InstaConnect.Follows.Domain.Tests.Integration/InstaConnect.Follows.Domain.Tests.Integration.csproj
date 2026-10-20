@@ -5,10 +5,20 @@
   </ItemGroup>
 
   <ItemGroup Label="Common">
-    <Using Include="InstaConnect.Common.Tests.Features.Abstractions" />
-    <Using Include="InstaConnect.Common.Tests.Features.Assertions" />
-    <Using Include="InstaConnect.Common.Tests.Features.Utilities" />
     <Using Include="InstaConnect.Follows.Tests.Features.Common.Utilities" />
+  </ItemGroup>
+
+  <ItemGroup Label="Follows">
+    <Using Include="InstaConnect.Follows.Domain.Features.Follows.Models.Requests" />
+    <Using Include="InstaConnect.Follows.Domain.Tests.Features.Follows.Assertions" />
+    <Using Include="InstaConnect.Follows.Domain.Tests.Features.Follows.Builders" />
+    <Using Include="InstaConnect.Follows.Domain.Tests.Integration.Features.Follows.Utilities" />
+    <Using Include="InstaConnect.Follows.Tests.Features.Follows.Utilities" />
+  </ItemGroup>
+
+  <ItemGroup Label="Users">
+    <Using Include="InstaConnect.Follows.Tests.Features.Users.DataAttributes.Id" />
+    <Using Include="InstaConnect.Follows.Tests.Features.Users.Utilities" />
   </ItemGroup>
 
 </Project>

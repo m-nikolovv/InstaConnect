@@ -1,3 +1,5 @@
+using InstaConnect.Posts.Domain.Features.PostCommentLikes.Abstractions;
+
 namespace InstaConnect.Posts.Infrastructure.Features.PostCommentLikes.Helpers.Repositories;
 
 internal class PostCommentLikeCommandRepository : IPostCommentLikeCommandRepository

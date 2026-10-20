@@ -12,6 +12,11 @@ public static class PostCommentDataFaker
 		return DataFaker.GetAverageString(PostCommentConfigurations.ContentMaxLength, PostCommentConfigurations.ContentMinLength);
 	}
 
+	public static string GetSummary()
+	{
+		return DataFaker.GetAverageString(PostCommentConfigurations.SummaryMaxLength, PostCommentConfigurations.SummaryMinLength);
+	}
+
 	public static DateTimeOffset GetCreatedAtUtc()
 	{
 		return DataFaker.GetSoonDate();

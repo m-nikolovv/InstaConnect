@@ -1,3 +1,5 @@
+using InstaConnect.Follows.Domain.Features.Follows.Utilities;
+
 namespace InstaConnect.Follows.Application.Features.Follows.Extensions;
 
 internal static class RuleBuilderExtensions

@@ -2,8 +2,6 @@ using HealthChecks.UI.Client;
 
 using InstaConnect.Common.Presentation.Features.Controllers.Utilities;
 
-using Microsoft.AspNetCore.Builder;
-
 namespace InstaConnect.Common.Presentation.Features.Controllers.Extensions;
 
 public static class WebApplicationExtensions

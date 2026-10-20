@@ -1,6 +1,5 @@
-using InstaConnect.Common.Domain.Features.Common.Extensions;
-using InstaConnect.Identity.Events.Features.EmailConfirmationTokens;
-using InstaConnect.Identity.Events.Features.Users;
+using InstaConnect.Common.Tests.Features.Extensions;
+using InstaConnect.Identity.Domain.Features.EmailConfirmationTokens.Models.ValueObjects;
 
 namespace InstaConnect.Identity.Domain.Tests.Features.EmailConfirmationTokens.Utilities;
 
@@ -35,9 +34,14 @@ public static class EmailConfirmationTokenEquals
 
 	extension(ICollection<EmailConfirmationToken> emailConfirmationTokens)
 	{
+		public bool Matches(AddEmailConfirmationTokenCommand command)
+		{
+			return emailConfirmationTokens.AllAndNotEmpty(emailConfirmationToken => emailConfirmationToken.Matches(command));
+		}
+
 		public bool Matches(VerifyEmailConfirmationTokenCommand command)
 		{
-			return emailConfirmationTokens.All(emailConfirmationToken => emailConfirmationToken.Matches(command));
+			return emailConfirmationTokens.AllAndNotEmpty(emailConfirmationToken => emailConfirmationToken.Matches(command));
 		}
 	}
 
@@ -50,7 +54,7 @@ public static class EmailConfirmationTokenEquals
 				   user.Email.Value.IsNotNullOrEmptyOrWhiteSpace() &&
 				   user.FirstName.IsNotNullOrEmptyOrWhiteSpace() &&
 				   user.LastName.IsNotNullOrEmptyOrWhiteSpace() &&
-				   (user.ProfileImage == null || user.ProfileImage.Url.IsNotNullOrEmptyOrWhiteSpace()) &&
+				   (user.ProfileImageUrl == null || user.ProfileImageUrl.Value.IsNotNullOrEmptyOrWhiteSpace()) &&
 				   user.PasswordHash.IsNotNullOrEmptyOrWhiteSpace() &&
 				   user.IsEmailConfirmed &&
 				   user.CreatedAtUtc != default &&
@@ -91,7 +95,7 @@ public static class EmailConfirmationTokenEquals
 				   request.Email.EqualsOrdinalIgnoreCase(entity.Email.Value) &&
 				   request.FirstName == entity.FirstName &&
 				   request.LastName == entity.LastName &&
-				   request.ProfileImageUrl == entity.ProfileImage?.Url &&
+				   request.ProfileImageUrl == entity.ProfileImageUrl?.Value &&
 				   request.CreatedAtUtc == entity.CreatedAtUtc &&
 				   request.UpdatedAtUtc == entity.UpdatedAtUtc;
 		}
@@ -104,7 +108,7 @@ public static class EmailConfirmationTokenEquals
 				   request.Email.EqualsOrdinalIgnoreCase(entity.Email.Value) &&
 				   request.FirstName == entity.FirstName &&
 				   request.LastName == entity.LastName &&
-				   request.ProfileImageUrl == entity.ProfileImage?.Url &&
+				   request.ProfileImageUrl == entity.ProfileImageUrl?.Value &&
 				   request.CreatedAtUtc == entity.CreatedAtUtc &&
 				   request.UpdatedAtUtc == entity.UpdatedAtUtc;
 		}

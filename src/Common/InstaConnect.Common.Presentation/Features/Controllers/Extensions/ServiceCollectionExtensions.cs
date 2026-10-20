@@ -12,11 +12,8 @@ using InstaConnect.Common.Presentation.Features.Controllers.Models;
 using InstaConnect.Common.Presentation.Features.Controllers.Utilities;
 
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
 
 namespace InstaConnect.Common.Presentation.Features.Controllers.Extensions;
 

@@ -1,4 +1,7 @@
-using InstaConnect.Identity.Tests.Features.EmailConfirmationTokens.Assertions;
+using InstaConnect.Identity.Presentation.Features.RefreshTokens.Models.Requests;
+using InstaConnect.Identity.Presentation.Tests.Features.RefreshTokens.Builders;
+using InstaConnect.Identity.Presentation.Tests.Functional.Features.RefreshTokens.Utilities;
+using InstaConnect.Identity.Tests.Features.Users.DataAttributes.Password;
 
 namespace InstaConnect.Identity.Presentation.Tests.Functional.Features.RefreshTokens.Endpoints;
 
@@ -85,7 +88,7 @@ public class IssueRefreshTokenFunctionalTests : BaseRefreshTokenPresentationComm
 	}
 
 	[Fact]
-	public async Task IssueAsync_ShouldHaveBadRequestStatusCode_WhenUserNotFound()
+	public async Task IssueAsync_ShouldHaveBadRequestStatusCode_WhenUserInvalidDetailsAndNameIsInvalid()
 	{
 		// Arrange
 		await ServiceScope.DeleteAsync(User, CancellationToken);
@@ -98,7 +101,7 @@ public class IssueRefreshTokenFunctionalTests : BaseRefreshTokenPresentationComm
 	}
 
 	[Fact]
-	public async Task IssueAsync_ShouldHaveUserInvalidDetailsProblemDetails_WhenUserNotFound()
+	public async Task IssueAsync_ShouldHaveUserInvalidDetailsProblemDetails_WhenUserInvalidDetailsAndNameIsInvalid()
 	{
 		// Arrange
 		await ServiceScope.DeleteAsync(User, CancellationToken);
@@ -111,7 +114,7 @@ public class IssueRefreshTokenFunctionalTests : BaseRefreshTokenPresentationComm
 	}
 
 	[Fact]
-	public async Task IssueAsync_ShouldHaveBadRequestStatusCode_WhenPasswordDoesNotMatch()
+	public async Task IssueAsync_ShouldHaveBadRequestStatusCode_WhenUserInvalidDetailsAndPasswordIsInvalid()
 	{
 		// Arrange
 		var updatedUser = UserBuilder.WithPasswordHash(PasswordHasher.Hash(NewPassword)).Build();
@@ -125,7 +128,7 @@ public class IssueRefreshTokenFunctionalTests : BaseRefreshTokenPresentationComm
 	}
 
 	[Fact]
-	public async Task IssueAsync_ShouldHaveUserInvalidDetailsProblemDetails_WhenPasswordDoesNotMatch()
+	public async Task IssueAsync_ShouldHaveUserInvalidDetailsProblemDetails_WhenUserInvalidDetailsAndPasswordIsInvalid()
 	{
 		// Arrange
 		var updatedUser = UserBuilder.WithPasswordHash(PasswordHasher.Hash(NewPassword)).Build();
@@ -139,7 +142,7 @@ public class IssueRefreshTokenFunctionalTests : BaseRefreshTokenPresentationComm
 	}
 
 	[Fact]
-	public async Task IssueAsync_ShouldHaveBadRequestStatusCode_WhenEmailIsNotConfirmed()
+	public async Task IssueAsync_ShouldHaveBadRequestStatusCode_WhenUserNameEmailNotConfirmed()
 	{
 		// Arrange
 		var updatedUser = UserBuilder.WithUnconfirmedEmail().Build();
@@ -153,7 +156,7 @@ public class IssueRefreshTokenFunctionalTests : BaseRefreshTokenPresentationComm
 	}
 
 	[Fact]
-	public async Task IssueAsync_ShouldHaveUserNameEmailNotConfirmedProblemDetails_WhenEmailIsNotConfirmed()
+	public async Task IssueAsync_ShouldHaveUserNameEmailNotConfirmedProblemDetails_WhenUserNameEmailNotConfirmed()
 	{
 		// Arrange
 		var updatedUser = UserBuilder.WithUnconfirmedEmail().Build();
@@ -178,7 +181,7 @@ public class IssueRefreshTokenFunctionalTests : BaseRefreshTokenPresentationComm
 
 	[Theory]
 	[UserNameDifferentCaseData]
-	public async Task IssueAsync_ShouldHaveOkStatusCode_WhenNameIsValid(IStringTransformer transformer)
+	public async Task IssueAsync_ShouldHaveOkStatusCode_WhenRequestAndNameAreValid(IStringTransformer transformer)
 	{
 		// Arrange
 		var request = _requestBuilder.WithName(transformer).Build();
@@ -202,7 +205,7 @@ public class IssueRefreshTokenFunctionalTests : BaseRefreshTokenPresentationComm
 
 	[Theory]
 	[UserNameDifferentCaseData]
-	public async Task IssueAsync_ShouldReturnResponse_WhenNameIsValid(IStringTransformer transformer)
+	public async Task IssueAsync_ShouldReturnResponse_WhenRequestAndNameAreValid(IStringTransformer transformer)
 	{
 		// Arrange
 		var request = _requestBuilder.WithName(transformer).Build();
@@ -219,25 +222,25 @@ public class IssueRefreshTokenFunctionalTests : BaseRefreshTokenPresentationComm
 	{
 		// Act
 		await RefreshTokenApiClient.IssueAsync(_request, CancellationToken);
-		var user = await ServiceScope.GetByIdAsync(User.Id, CancellationToken);
+		var user = await ServiceScope.GetByIdAsync(UserId, CancellationToken);
 
 		// Assert
-		user.RefreshTokens.ShouldNotBeEmpty();
+		user.RefreshTokens.ShouldSatisfy(_request);
 	}
 
 	[Theory]
 	[UserNameDifferentCaseData]
-	public async Task IssueAsync_ShouldIssueRefreshToken_WhenNameIsValid(IStringTransformer transformer)
+	public async Task IssueAsync_ShouldAddRefreshToken_WhenRequestAndNameAreValid(IStringTransformer transformer)
 	{
 		// Arrange
 		var request = _requestBuilder.WithName(transformer).Build();
 
 		// Act
 		await RefreshTokenApiClient.IssueAsync(request, CancellationToken);
-		var user = await ServiceScope.GetByIdAsync(User.Id, CancellationToken);
+		var user = await ServiceScope.GetByIdAsync(UserId, CancellationToken);
 
 		// Assert
-		user.RefreshTokens.ShouldNotBeEmpty();
+		user.RefreshTokens.ShouldSatisfy(request);
 	}
 
 	[Fact]
@@ -253,7 +256,7 @@ public class IssueRefreshTokenFunctionalTests : BaseRefreshTokenPresentationComm
 
 	[Theory]
 	[UserNameDifferentCaseData]
-	public async Task IssueAsync_ShouldReturnCookieResponse_WhenNameIsValid(IStringTransformer transformer)
+	public async Task IssueAsync_ShouldReturnCookieResponse_WhenRequestAndNameAreValid(IStringTransformer transformer)
 	{
 		// Arrange
 		var request = _requestBuilder.WithName(transformer).Build();

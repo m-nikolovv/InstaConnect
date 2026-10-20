@@ -1,3 +1,8 @@
+using InstaConnect.Identity.Application.Features.RefreshTokens.Commands.DeleteCurrent;
+using InstaConnect.Identity.Application.Tests.Features.RefreshTokens.Builders;
+using InstaConnect.Identity.Application.Tests.Integration.Features.RefreshTokens.Utilities;
+using InstaConnect.Identity.Tests.Features.RefreshTokens.DataAttributes.Value;
+
 namespace InstaConnect.Identity.Application.Tests.Integration.Features.RefreshTokens.Handlers;
 
 public class DeleteCurrentRefreshTokenCommandHandlerIntegrationTests : BaseRefreshTokenApplicationCommandIntegrationTest
@@ -74,7 +79,7 @@ public class DeleteCurrentRefreshTokenCommandHandlerIntegrationTests : BaseRefre
 	{
 		// Act
 		await Sender.SendAsync(_request, CancellationToken);
-		var refreshToken = await ServiceScope.GetByIdAsync(RefreshToken.Id, CancellationToken);
+		var refreshToken = await ServiceScope.GetByIdAsync(RefreshTokenId, CancellationToken);
 
 		// Assert
 		refreshToken.ShouldBeNull();
@@ -90,7 +95,7 @@ public class DeleteCurrentRefreshTokenCommandHandlerIntegrationTests : BaseRefre
 
 		// Act
 		await Sender.SendAsync(request, CancellationToken);
-		var refreshToken = await ServiceScope.GetByIdAsync(RefreshToken.Id, CancellationToken);
+		var refreshToken = await ServiceScope.GetByIdAsync(RefreshTokenId, CancellationToken);
 
 		// Assert
 		refreshToken.ShouldBeNull();
@@ -106,7 +111,7 @@ public class DeleteCurrentRefreshTokenCommandHandlerIntegrationTests : BaseRefre
 
 		// Act
 		await Sender.SendAsync(request, CancellationToken);
-		var refreshToken = await ServiceScope.GetByIdAsync(RefreshToken.Id, CancellationToken);
+		var refreshToken = await ServiceScope.GetByIdAsync(RefreshTokenId, CancellationToken);
 
 		// Assert
 		refreshToken.ShouldBeNull();

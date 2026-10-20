@@ -1,3 +1,5 @@
+using InstaConnect.Follows.Application.Features.Follows.Commands.Delete;
+
 namespace InstaConnect.Follows.Application.Tests.Integration.Features.Follows.Handlers;
 
 public class DeleteFollowCommandHandlerIntegrationTests : BaseFollowApplicationCommandIntegrationTest
@@ -52,7 +54,7 @@ public class DeleteFollowCommandHandlerIntegrationTests : BaseFollowApplicationC
 	}
 
 	[Fact]
-	public async Task SendAsync_ShouldThrowFollowNotFoundException_WhenIdIsInvalid()
+	public async Task SendAsync_ShouldThrowFollowNotFoundException_WhenFollowNotFound()
 	{
 		// Arrange
 		await ServiceScope.DeleteAsync(Follow, CancellationToken);
@@ -66,7 +68,7 @@ public class DeleteFollowCommandHandlerIntegrationTests : BaseFollowApplicationC
 	{
 		// Act
 		await Sender.SendAsync(_request, CancellationToken);
-		var follow = await ServiceScope.GetByIdAsync(Follow.Id, CancellationToken);
+		var follow = await ServiceScope.GetByIdAsync(FollowId, CancellationToken);
 
 		// Assert
 		follow.ShouldBeNull();
@@ -82,7 +84,7 @@ public class DeleteFollowCommandHandlerIntegrationTests : BaseFollowApplicationC
 
 		// Act
 		await Sender.SendAsync(request, CancellationToken);
-		var follow = await ServiceScope.GetByIdAsync(Follow.Id, CancellationToken);
+		var follow = await ServiceScope.GetByIdAsync(FollowId, CancellationToken);
 
 		// Assert
 		follow.ShouldBeNull();
@@ -98,7 +100,7 @@ public class DeleteFollowCommandHandlerIntegrationTests : BaseFollowApplicationC
 
 		// Act
 		await Sender.SendAsync(request, CancellationToken);
-		var follow = await ServiceScope.GetByIdAsync(Follow.Id, CancellationToken);
+		var follow = await ServiceScope.GetByIdAsync(FollowId, CancellationToken);
 
 		// Assert
 		follow.ShouldBeNull();

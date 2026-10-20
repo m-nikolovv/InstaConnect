@@ -1,10 +1,3 @@
-using InstaConnect.Posts.Domain.Features.PostComments.Helpers;
-using InstaConnect.Posts.Domain.Features.PostComments.Models.Requests;
-using InstaConnect.Posts.Domain.Tests.Features.PostComments.Assertions;
-using InstaConnect.Posts.Domain.Tests.Features.PostComments.Builders;
-using InstaConnect.Posts.Domain.Tests.Features.PostComments.Utilities;
-using InstaConnect.Posts.Domain.Tests.Unit.Features.PostComments.Utilities;
-
 namespace InstaConnect.Posts.Domain.Tests.Unit.Features.PostComments.Services;
 
 public class GetAllPostCommentsForUserQueryServiceUnitTests : BasePostCommentDomainQueryUnitTest
@@ -29,7 +22,7 @@ public class GetAllPostCommentsForUserQueryServiceUnitTests : BasePostCommentDom
 	}
 
 	[Fact]
-	public async Task GetAllForUserAsync_ShouldThrowUserNotFoundException_WhenUserIdIsInvalid()
+	public async Task GetAllForUserAsync_ShouldThrowUserNotFoundException_WhenUserNotFound()
 	{
 		// Arrange
 		UserRepository.RemoveGetByIdAsync(_query, User, CancellationToken);

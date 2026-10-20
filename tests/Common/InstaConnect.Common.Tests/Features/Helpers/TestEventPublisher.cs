@@ -1,5 +1,4 @@
 using InstaConnect.Common.Events.Features.Events.Abstractions;
-using InstaConnect.Common.Tests.Features.Abstractions;
 
 namespace InstaConnect.Common.Tests.Features.Helpers;
 

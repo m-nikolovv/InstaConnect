@@ -1,6 +1,8 @@
 using InstaConnect.Common.Domain.Features.Mappers.Abstractions;
 using InstaConnect.Common.Events.Features.Events.Abstractions;
 using InstaConnect.Identity.Domain.Features.Common.Helpers;
+using InstaConnect.Identity.Domain.Features.ForgotPasswordTokens.Exceptions;
+using InstaConnect.Identity.Events.Features.ForgotPasswordTokens;
 
 namespace InstaConnect.Identity.Domain.Features.ForgotPasswordTokens.Helpers;
 

@@ -1,13 +1,4 @@
-using InstaConnect.Common.Tests.Features.DataAttributes.Strings.Base;
-using InstaConnect.Posts.Domain.Features.Posts.Models.Requests;
-using InstaConnect.Posts.Domain.Tests.Features.Posts.Assertions;
-using InstaConnect.Posts.Domain.Tests.Features.Posts.Builders;
-using InstaConnect.Posts.Domain.Tests.Integration.Features.Posts.Utilities;
 using InstaConnect.Posts.Tests.Features.Posts.Assertions;
-using InstaConnect.Posts.Tests.Features.Posts.DataAttributes.Id;
-using InstaConnect.Posts.Tests.Features.Posts.Utilities;
-using InstaConnect.Posts.Tests.Features.Users.DataAttributes.Id;
-using InstaConnect.Posts.Tests.Features.Users.Utilities;
 
 namespace InstaConnect.Posts.Domain.Tests.Integration.Features.Posts.Services;
 
@@ -28,10 +19,11 @@ public class DeletePostCommandServiceIntegrationTests : BasePostDomainCommandInt
 	protected override async Task OnInitializeAsync()
 	{
 		await ServiceScope.AddAsync(Post, CancellationToken);
+		await ServiceScope.AddRangeAsync(PostImages, CancellationToken);
 	}
 
 	[Fact]
-	public async Task DeleteAsync_ShouldThrowPostNotFoundException_WhenIdIsInvalid()
+	public async Task DeleteAsync_ShouldThrowPostNotFoundException_WhenPostNotFound()
 	{
 		// Arrange
 		await ServiceScope.DeleteAsync(Post, CancellationToken);
@@ -41,7 +33,7 @@ public class DeletePostCommandServiceIntegrationTests : BasePostDomainCommandInt
 	}
 
 	[Fact]
-	public async Task DeleteAsync_ShouldThrowPostForbiddenException_WhenUserIdIsInvalid()
+	public async Task DeleteAsync_ShouldThrowPostForbiddenException_WhenPostForbidden()
 	{
 		// Arrange
 		var user = UserBuilderFactory.Create().Build();
@@ -57,7 +49,7 @@ public class DeletePostCommandServiceIntegrationTests : BasePostDomainCommandInt
 	{
 		// Act
 		await Service.DeleteAsync(_command, CancellationToken);
-		var post = await ServiceScope.GetByIdAsync(Post.Id, CancellationToken);
+		var post = await ServiceScope.GetByIdAsync(PostId, CancellationToken);
 
 		// Assert
 		post.ShouldBeNull();
@@ -73,7 +65,7 @@ public class DeletePostCommandServiceIntegrationTests : BasePostDomainCommandInt
 
 		// Act
 		await Service.DeleteAsync(command, CancellationToken);
-		var post = await ServiceScope.GetByIdAsync(Post.Id, CancellationToken);
+		var post = await ServiceScope.GetByIdAsync(PostId, CancellationToken);
 
 		// Assert
 		post.ShouldBeNull();
@@ -89,7 +81,7 @@ public class DeletePostCommandServiceIntegrationTests : BasePostDomainCommandInt
 
 		// Act
 		await Service.DeleteAsync(command, CancellationToken);
-		var post = await ServiceScope.GetByIdAsync(Post.Id, CancellationToken);
+		var post = await ServiceScope.GetByIdAsync(PostId, CancellationToken);
 
 		// Assert
 		post.ShouldBeNull();

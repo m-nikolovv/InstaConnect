@@ -1,7 +1,3 @@
-using InstaConnect.Common.Domain.Features.Common.Extensions;
-using InstaConnect.Posts.Domain.Features.Posts.Models.ValueObjects;
-using InstaConnect.Posts.Tests.Features.Users.Utilities;
-
 namespace InstaConnect.Posts.Tests.Features.Posts.Utilities;
 
 public static class PostEquals

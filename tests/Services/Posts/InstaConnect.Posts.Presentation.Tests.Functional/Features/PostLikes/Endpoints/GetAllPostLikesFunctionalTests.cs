@@ -1,6 +1,10 @@
-using InstaConnect.Common.Domain.Features.Requests.Models;
-using InstaConnect.Common.Tests.Features.DataAttributes.Enums.Sort;
+using InstaConnect.Posts.Domain.Features.PostLikes.Models.Entities;
 using InstaConnect.Posts.Domain.Features.PostLikes.Models.Requests;
+using InstaConnect.Posts.Tests.Features.PostLikes.DataAttributes.Page;
+using InstaConnect.Posts.Tests.Features.PostLikes.DataAttributes.PageSize;
+using InstaConnect.Posts.Tests.Features.PostLikes.DataAttributes.SortOrder;
+using InstaConnect.Posts.Tests.Features.PostLikes.DataAttributes.SortTerm;
+using InstaConnect.Posts.Tests.Features.Users.DataAttributes.Name;
 
 namespace InstaConnect.Posts.Presentation.Tests.Functional.Features.PostLikes.Endpoints;
 
@@ -242,7 +246,7 @@ public class GetAllPostLikesFunctionalTests : BasePostLikePresentationQueryFunct
 	}
 
 	[Fact]
-	public async Task GetAllAsync_ShouldHaveNotFoundStatusCode_WhenIdIsInvalid()
+	public async Task GetAllAsync_ShouldHaveNotFoundStatusCode_WhenPostNotFound()
 	{
 		// Arrange
 		await ServiceScope.DeleteAsync(Post, CancellationToken);
@@ -255,7 +259,7 @@ public class GetAllPostLikesFunctionalTests : BasePostLikePresentationQueryFunct
 	}
 
 	[Fact]
-	public async Task GetAllAsync_ShouldHavePostNotFoundProblemDetails_WhenIdIsInvalid()
+	public async Task GetAllAsync_ShouldHavePostNotFoundProblemDetails_WhenPostNotFound()
 	{
 		// Arrange
 		await ServiceScope.DeleteAsync(Post, CancellationToken);

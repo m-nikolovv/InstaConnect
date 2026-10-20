@@ -1,3 +1,6 @@
+using InstaConnect.Posts.Application.Features.PostComments.Commands.Delete;
+using InstaConnect.Posts.Tests.Features.PostCommentImages.Utilities;
+
 namespace InstaConnect.Posts.Application.Tests.Integration.Features.PostComments.Handlers;
 
 public class DeletePostCommentCommandHandlerIntegrationTests : BasePostCommentApplicationCommandIntegrationTest
@@ -17,6 +20,7 @@ public class DeletePostCommentCommandHandlerIntegrationTests : BasePostCommentAp
 	protected override async Task OnInitializeAsync()
 	{
 		await ServiceScope.AddAsync(PostComment, CancellationToken);
+		await ServiceScope.AddRangeAsync(PostCommentImages, CancellationToken);
 	}
 
 	[Theory]
@@ -68,7 +72,7 @@ public class DeletePostCommentCommandHandlerIntegrationTests : BasePostCommentAp
 	}
 
 	[Fact]
-	public async Task SendAsync_ShouldThrowPostNotFoundException_WhenIdIsInvalid()
+	public async Task SendAsync_ShouldThrowPostNotFoundException_WhenPostNotFound()
 	{
 		// Arrange
 		await ServiceScope.DeleteAsync(Post, CancellationToken);
@@ -78,7 +82,7 @@ public class DeletePostCommentCommandHandlerIntegrationTests : BasePostCommentAp
 	}
 
 	[Fact]
-	public async Task SendAsync_ShouldThrowPostCommentNotFoundException_WhenCommentIdIsInvalid()
+	public async Task SendAsync_ShouldThrowPostCommentNotFoundException_WhenPostCommentNotFound()
 	{
 		// Arrange
 		await ServiceScope.DeleteAsync(PostComment, CancellationToken);
@@ -88,7 +92,7 @@ public class DeletePostCommentCommandHandlerIntegrationTests : BasePostCommentAp
 	}
 
 	[Fact]
-	public async Task SendAsync_ShouldThrowPostCommentForbiddenException_WhenUserIdIsInvalid()
+	public async Task SendAsync_ShouldThrowPostCommentForbiddenException_WhenPostCommentForbidden()
 	{
 		// Arrange
 		var user = UserBuilderFactory.Create().Build();
@@ -104,7 +108,7 @@ public class DeletePostCommentCommandHandlerIntegrationTests : BasePostCommentAp
 	{
 		// Act
 		await Sender.SendAsync(_request, CancellationToken);
-		var postComment = await ServiceScope.GetByIdAsync(PostComment.Id, CancellationToken);
+		var postComment = await ServiceScope.GetByIdAsync(PostCommentId, CancellationToken);
 
 		// Assert
 		postComment.ShouldBeNull();
@@ -120,7 +124,7 @@ public class DeletePostCommentCommandHandlerIntegrationTests : BasePostCommentAp
 
 		// Act
 		await Sender.SendAsync(request, CancellationToken);
-		var postComment = await ServiceScope.GetByIdAsync(PostComment.Id, CancellationToken);
+		var postComment = await ServiceScope.GetByIdAsync(PostCommentId, CancellationToken);
 
 		// Assert
 		postComment.ShouldBeNull();
@@ -136,7 +140,7 @@ public class DeletePostCommentCommandHandlerIntegrationTests : BasePostCommentAp
 
 		// Act
 		await Sender.SendAsync(request, CancellationToken);
-		var postComment = await ServiceScope.GetByIdAsync(PostComment.Id, CancellationToken);
+		var postComment = await ServiceScope.GetByIdAsync(PostCommentId, CancellationToken);
 
 		// Assert
 		postComment.ShouldBeNull();
@@ -152,7 +156,7 @@ public class DeletePostCommentCommandHandlerIntegrationTests : BasePostCommentAp
 
 		// Act
 		await Sender.SendAsync(request, CancellationToken);
-		var postComment = await ServiceScope.GetByIdAsync(PostComment.Id, CancellationToken);
+		var postComment = await ServiceScope.GetByIdAsync(PostCommentId, CancellationToken);
 
 		// Assert
 		postComment.ShouldBeNull();

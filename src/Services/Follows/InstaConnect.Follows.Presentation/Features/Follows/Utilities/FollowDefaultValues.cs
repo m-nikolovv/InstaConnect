@@ -1,5 +1,3 @@
-using InstaConnect.Follows.Domain.Features.Follows.Models.Requests;
-
 namespace InstaConnect.Follows.Presentation.Features.Follows.Utilities;
 
 public static class FollowDefaultValues

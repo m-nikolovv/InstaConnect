@@ -1,3 +1,5 @@
+using InstaConnect.Identity.Domain.Features.ForgotPasswordTokens.Models.Requests;
+
 namespace InstaConnect.Identity.Application.Tests.Features.ForgotPasswordTokens.Utilities;
 
 public static class ForgotPasswordTokenApplicationMatcher

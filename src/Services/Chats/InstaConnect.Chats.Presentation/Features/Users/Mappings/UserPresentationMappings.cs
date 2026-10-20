@@ -1,4 +1,4 @@
-using Mapster;
+using InstaConnect.Chats.Application.Features.Users.Models;
 
 namespace InstaConnect.Chats.Presentation.Features.Users.Mappings;
 

@@ -1,4 +1,3 @@
-using InstaConnect.Common.Domain.Features.Requests.Models;
 using InstaConnect.Common.Events.Features.AccessTokens.Models;
 
 namespace InstaConnect.Identity.Application.Tests.Features.UserClaims.Assertions;

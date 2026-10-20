@@ -1,7 +1,6 @@
 using InstaConnect.Identity.Application.Features.EmailConfirmationTokens.Commands.Add;
 using InstaConnect.Identity.Application.Features.EmailConfirmationTokens.Commands.Verify;
-
-using Mapster;
+using InstaConnect.Identity.Domain.Features.EmailConfirmationTokens.Models.Requests;
 
 namespace InstaConnect.Identity.Application.Features.EmailConfirmationTokens.Mappings;
 

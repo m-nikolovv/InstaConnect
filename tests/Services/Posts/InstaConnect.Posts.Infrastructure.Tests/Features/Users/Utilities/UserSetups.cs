@@ -1,3 +1,5 @@
+using InstaConnect.Posts.Infrastructure.Features.Users.EventHandlers;
+
 using Microsoft.Extensions.DependencyInjection;
 
 namespace InstaConnect.Posts.Infrastructure.Tests.Features.Users.Utilities;

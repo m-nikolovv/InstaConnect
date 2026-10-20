@@ -1,6 +1,3 @@
-using InstaConnect.Identity.Domain.Features.RefreshTokens.Models.ValueObjects;
-using InstaConnect.Identity.Tests.Features.RefreshTokens.Utilities;
-
 namespace InstaConnect.Identity.Tests.Features.RefreshTokens.Builders;
 
 public class RefreshTokenBuilder
@@ -18,6 +15,15 @@ public class RefreshTokenBuilder
 		_value = RefreshTokenDataFaker.GetValue();
 		_expiresAtUtc = RefreshTokenDataFaker.GetExpiresAtUtc();
 		_createdAtUtc = RefreshTokenDataFaker.GetCreatedAtUtc();
+	}
+
+	public RefreshTokenBuilder(RefreshToken refreshToken)
+	{
+		_id = refreshToken.Id.Id.Id;
+		_user = refreshToken.User!;
+		_value = refreshToken.Id.Value;
+		_expiresAtUtc = refreshToken.ExpiresAtUtc;
+		_createdAtUtc = refreshToken.CreatedAtUtc;
 	}
 
 	public RefreshTokenBuilder WithValue(RefreshTokenId value)

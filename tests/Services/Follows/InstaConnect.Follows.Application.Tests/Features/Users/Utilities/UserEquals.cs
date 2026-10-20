@@ -1,6 +1,7 @@
 using InstaConnect.Follows.Application.Features.Users.Abstractions;
 using InstaConnect.Follows.Application.Features.Users.Models;
-using InstaConnect.Follows.Application.Tests.Features.Users.Utilities;
+using InstaConnect.Follows.Domain.Features.Users.Abstractions;
+using InstaConnect.Follows.Domain.Features.Users.Models.Requests;
 
 namespace InstaConnect.Follows.Application.Tests.Features.Users.Utilities;
 
@@ -35,7 +36,7 @@ public static class UserEquals
 				   user.LastName == request.LastName &&
 				   user.Name.Matches(request.Name) &&
 				   user.Email.Matches(request.Email) &&
-				   user.ProfileImage.Matches(request.ProfileImageUrl) &&
+				   user.ProfileImageUrl.Matches(request.ProfileImageUrl) &&
 				   user.CreatedAtUtc == request.CreatedAtUtc &&
 				   user.UpdatedAtUtc == request.UpdatedAtUtc;
 		}
@@ -47,7 +48,7 @@ public static class UserEquals
 				   user.LastName == request.LastName &&
 				   user.Name.Matches(request.Name) &&
 				   user.Email.Matches(request.Email) &&
-				   user.ProfileImage.Matches(request.ProfileImageUrl) &&
+				   user.ProfileImageUrl.Matches(request.ProfileImageUrl) &&
 				   user.CreatedAtUtc != default &&
 				   user.UpdatedAtUtc == request.UpdatedAtUtc;
 		}
@@ -62,7 +63,7 @@ public static class UserEquals
 				   command.Name.Matches(request.Name) &&
 				   command.FirstName == request.FirstName &&
 				   command.LastName == request.LastName &&
-				   command.ProfileImage.Matches(request.ProfileImageUrl) &&
+				   command.ProfileImageUrl.Matches(request.ProfileImageUrl) &&
 				   command.CreatedAtUtc == request.CreatedAtUtc &&
 				   command.UpdatedAtUtc == request.UpdatedAtUtc;
 		}
@@ -77,7 +78,7 @@ public static class UserEquals
 				   command.Name.Matches(request.Name) &&
 				   command.FirstName == request.FirstName &&
 				   command.LastName == request.LastName &&
-				   command.ProfileImage.Matches(request.ProfileImageUrl) &&
+				   command.ProfileImageUrl.Matches(request.ProfileImageUrl) &&
 				   command.UpdatedAtUtc == request.UpdatedAtUtc;
 		}
 	}
@@ -108,7 +109,7 @@ public static class UserEquals
 				   user.FirstName == response.FirstName &&
 				   user.LastName == response.LastName &&
 				   user.Name.Matches(response.Name) &&
-				   user.ProfileImage.Matches(response.ProfileImageUrl) &&
+				   user.ProfileImageUrl.Matches(response.ProfileImageUrl) &&
 				   user.CreatedAtUtc == response.CreatedAtUtc &&
 				   user.UpdatedAtUtc == response.UpdatedAtUtc;
 		}

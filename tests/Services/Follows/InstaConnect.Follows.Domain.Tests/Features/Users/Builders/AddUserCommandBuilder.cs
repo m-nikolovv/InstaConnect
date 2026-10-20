@@ -1,4 +1,5 @@
 using InstaConnect.Common.Domain.Features.ValueObjects.Models;
+using InstaConnect.Common.Tests.Features.DataAttributes.DateTimeOffsets.Base;
 
 namespace InstaConnect.Follows.Domain.Tests.Features.Users.Builders;
 
@@ -110,7 +111,7 @@ public class AddUserCommandBuilder
 			_lastName,
 			new(_name),
 			new(_email),
-			new(_profileImage),
+			_profileImage == null ? null : new(_profileImage),
 			_createdAtUtc,
 			_updatedAtUtc);
 	}

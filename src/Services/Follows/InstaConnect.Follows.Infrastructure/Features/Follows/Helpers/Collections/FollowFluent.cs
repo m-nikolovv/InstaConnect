@@ -1,8 +1,4 @@
-using InstaConnect.Common.Infrastructure.Features.Databases.Helpers;
-using InstaConnect.Follows.Domain.Features.Users.Models.Responses;
 using InstaConnect.Follows.Infrastructure.Features.Follows.Extensions;
-
-using MongoDB.Driver;
 
 namespace InstaConnect.Follows.Infrastructure.Features.Follows.Helpers.Collections;
 
@@ -60,7 +56,7 @@ internal class FollowFluent : MongoDbFluent<Follow>, IFollowFluent
 					 p.Follower.LastName,
 					 p.Follower.Email,
 					 p.Follower.Name,
-					 p.Follower.ProfileImage,
+					 p.Follower.ProfileImageUrl,
 					 p.Follower.CreatedAtUtc,
 					 p.Follower.UpdatedAtUtc),
 				 new UserResponse(
@@ -69,7 +65,7 @@ internal class FollowFluent : MongoDbFluent<Follow>, IFollowFluent
 					 p.Following.LastName,
 					 p.Following.Email,
 					 p.Following.Name,
-					 p.Following.ProfileImage,
+					 p.Following.ProfileImageUrl,
 					 p.Following.CreatedAtUtc,
 					 p.Following.UpdatedAtUtc),
 				 p.Id.FollowerId.Id.ToLower() == currentUserId,
@@ -92,7 +88,7 @@ internal class FollowFluent : MongoDbFluent<Follow>, IFollowFluent
 					 p.Following.LastName,
 					 p.Following.Email,
 					 p.Following.Name,
-					 p.Following.ProfileImage,
+					 p.Following.ProfileImageUrl,
 					 p.Following.CreatedAtUtc,
 					 p.Following.UpdatedAtUtc),
 				 p.Id.FollowerId.Id.ToLower() == currentUserId,
@@ -114,7 +110,7 @@ internal class FollowFluent : MongoDbFluent<Follow>, IFollowFluent
 					 p.Follower.LastName,
 					 p.Follower.Email,
 					 p.Follower.Name,
-					 p.Follower.ProfileImage,
+					 p.Follower.ProfileImageUrl,
 					 p.Follower.CreatedAtUtc,
 					 p.Follower.UpdatedAtUtc),
 				 null,

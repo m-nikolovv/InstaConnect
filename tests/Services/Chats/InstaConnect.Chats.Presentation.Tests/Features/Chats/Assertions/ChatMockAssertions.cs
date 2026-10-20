@@ -1,4 +1,3 @@
-using InstaConnect.Chats.Presentation.Tests.Features.Chats.Utilities;
 using InstaConnect.Common.Application.Features.Requests.Abstractions;
 using InstaConnect.Common.Application.Tests.Features.Assertions;
 

@@ -1,13 +1,10 @@
-using InstaConnect.Common.Tests.Features.DataAttributes.Strings.Base;
 using InstaConnect.Follows.Domain.Features.Users.Models.Requests;
 using InstaConnect.Follows.Domain.Tests.Features.Users.Assertions;
 using InstaConnect.Follows.Domain.Tests.Features.Users.Builders;
 using InstaConnect.Follows.Domain.Tests.Integration.Features.Users.Utilities;
 using InstaConnect.Follows.Tests.Features.Users.DataAttributes.Email;
-using InstaConnect.Follows.Tests.Features.Users.DataAttributes.Id;
 using InstaConnect.Follows.Tests.Features.Users.DataAttributes.Name;
 using InstaConnect.Follows.Tests.Features.Users.DataAttributes.ProfileImage;
-using InstaConnect.Follows.Tests.Features.Users.Utilities;
 
 namespace InstaConnect.Follows.Domain.Tests.Integration.Features.Users.Services;
 
@@ -26,11 +23,11 @@ public class AddUserCommandServiceIntegrationTests : BaseUserDomainCommandIntegr
 	}
 
 	[Fact]
-	public async Task AddAsync_ShouldThrowUserAlreadyExistsException_WhenCommandIsInvalid()
+	public async Task AddAsync_ShouldThrowUserAlreadyExistsException_WhenUserAlreadyExists()
 	{
 		// Arrange
 		await ServiceScope.AddAsync(User, CancellationToken);
-		var command = _commandBuilder.WithId(User.Id).Build();
+		var command = _commandBuilder.WithId(UserId).Build();
 
 		// Assert
 		await UserService.ShouldThrowUserAlreadyExistsExceptionAsync(command, CancellationToken);
@@ -38,19 +35,19 @@ public class AddUserCommandServiceIntegrationTests : BaseUserDomainCommandIntegr
 
 	[Theory]
 	[UserIdDifferentCaseData]
-	public async Task AddAsync_ShouldThrowUserAlreadyExistsException_WhenIdIsInvalid(
+	public async Task AddAsync_ShouldThrowUserAlreadyExistsException_WhenUserAlreadyExistsAndIdIsInvalid(
 		IStringTransformer transformer)
 	{
 		// Arrange
 		await ServiceScope.AddAsync(User, CancellationToken);
-		var command = _commandBuilder.WithId(User.Id, transformer).Build();
+		var command = _commandBuilder.WithId(UserId, transformer).Build();
 
 		// Assert
 		await UserService.ShouldThrowUserAlreadyExistsExceptionAsync(command, CancellationToken);
 	}
 
 	[Fact]
-	public async Task AddAsync_ShouldThrowUserEmailAlreadyExistsException_WhenCommandIsInvalid()
+	public async Task AddAsync_ShouldThrowUserEmailAlreadyExistsException_WhenUserEmailAlreadyExists()
 	{
 		// Arrange
 		await ServiceScope.AddAsync(User, CancellationToken);
@@ -62,7 +59,7 @@ public class AddUserCommandServiceIntegrationTests : BaseUserDomainCommandIntegr
 
 	[Theory]
 	[UserEmailDifferentCaseData]
-	public async Task AddAsync_ShouldThrowUserEmailAlreadyExistsException_WhenEmailIsInvalid(
+	public async Task AddAsync_ShouldThrowUserEmailAlreadyExistsException_WhenUserEmailAlreadyExistsAndEmailIsInvalid(
 		IStringTransformer transformer)
 	{
 		// Arrange
@@ -74,7 +71,7 @@ public class AddUserCommandServiceIntegrationTests : BaseUserDomainCommandIntegr
 	}
 
 	[Fact]
-	public async Task AddAsync_ShouldThrowUserNameAlreadyExistsException_WhenCommandIsInvalid()
+	public async Task AddAsync_ShouldThrowUserNameAlreadyExistsException_WhenUserNameAlreadyExists()
 	{
 		// Arrange
 		await ServiceScope.AddAsync(User, CancellationToken);
@@ -86,7 +83,7 @@ public class AddUserCommandServiceIntegrationTests : BaseUserDomainCommandIntegr
 
 	[Theory]
 	[UserNameDifferentCaseData]
-	public async Task AddAsync_ShouldThrowUserNameAlreadyExistsException_WhenNameIsInvalid(
+	public async Task AddAsync_ShouldThrowUserNameAlreadyExistsException_WhenUserNameAlreadyExistsAndNameIsInvalid(
 		IStringTransformer transformer)
 	{
 		// Arrange
@@ -111,7 +108,7 @@ public class AddUserCommandServiceIntegrationTests : BaseUserDomainCommandIntegr
 	[Theory]
 	[UserProfileImageNullData]
 	[UserProfileImageEmptyData]
-	public async Task AddAsync_ShouldReturnResponse_WhenProfileImageIsValid(
+	public async Task AddAsync_ShouldReturnResponse_WhenCommandAndProfileImageAreValid(
 		IStringTransformer transformer)
 	{
 		// Arrange
@@ -139,7 +136,7 @@ public class AddUserCommandServiceIntegrationTests : BaseUserDomainCommandIntegr
 	[Theory]
 	[UserProfileImageNullData]
 	[UserProfileImageEmptyData]
-	public async Task AddAsync_ShouldAddUser_WhenProfileImageIsValid(
+	public async Task AddAsync_ShouldAddUser_WhenCommandAndProfileImageAreValid(
 		IStringTransformer transformer)
 	{
 		// Arrange

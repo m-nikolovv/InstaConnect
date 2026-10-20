@@ -1,5 +1,3 @@
-using MongoDB.Driver;
-
 namespace InstaConnect.Identity.Infrastructure.Features.UserClaims.Abstractions;
 
 public interface IUserClaimResponseFluentFactory

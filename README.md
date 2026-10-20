@@ -26,6 +26,7 @@ Each service follows Clean Architecture, split into `Domain`, `Application`, `In
 - [Docker Desktop](https://www.docker.com/products/docker-desktop/)
 - [.NET SDK](https://dotnet.microsoft.com/download) matching [global.json](global.json) (only needed to build or test outside Docker)
 - A [Cloudinary](https://cloudinary.com/) account
+- An [Anthropic](https://platform.claude.com/) API key
 - A [SendGrid](https://sendgrid.com/) account
 
 ## Getting Started

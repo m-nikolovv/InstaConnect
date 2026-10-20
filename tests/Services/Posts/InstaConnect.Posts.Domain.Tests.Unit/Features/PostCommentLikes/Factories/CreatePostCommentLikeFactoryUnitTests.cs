@@ -1,8 +1,3 @@
-using InstaConnect.Common.Domain.Tests.Features.Assertions;
-using InstaConnect.Posts.Domain.Features.PostCommentLikes.Helpers;
-using InstaConnect.Posts.Domain.Tests.Features.PostCommentLikes.Utilities;
-using InstaConnect.Posts.Domain.Tests.Features.Posts.Utilities;
-using InstaConnect.Posts.Domain.Tests.Unit.Features.PostCommentLikes.Utilities;
 using InstaConnect.Posts.Tests.Features.PostCommentLikes.Assertions;
 
 namespace InstaConnect.Posts.Domain.Tests.Unit.Features.PostCommentLikes.Factories;
@@ -22,7 +17,7 @@ public class CreatePostCommentLikeFactoryUnitTests : BasePostCommentLikeDomainCo
 	public void Create_ShouldCreatePostCommentLike_WhenRequestIsValid()
 	{
 		// Act
-		var response = _factory.Create(PostCommentLike.Id.CommentId, PostCommentLike.Id.UserId);
+		var response = _factory.Create(PostCommentLikeId.CommentId, PostCommentLikeId.UserId);
 
 		// Assert
 		response.ShouldSatisfy(PostCommentLike);
@@ -32,7 +27,7 @@ public class CreatePostCommentLikeFactoryUnitTests : BasePostCommentLikeDomainCo
 	public void Create_ShouldCallTheDateTimeProviderGetOffsetUtcNow_WhenRequestIsValid()
 	{
 		// Act
-		_factory.Create(PostCommentLike.Id.CommentId, PostCommentLike.Id.UserId);
+		_factory.Create(PostCommentLikeId.CommentId, PostCommentLikeId.UserId);
 
 		// Assert
 		DateTimeProvider.ShouldHaveReceivedOneGetOffsetUtcNow();

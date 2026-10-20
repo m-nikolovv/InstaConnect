@@ -1,9 +1,5 @@
-using InstaConnect.Posts.Domain.Features.PostComments.Models.Entities;
-using InstaConnect.Posts.Domain.Features.PostComments.Models.Requests;
 using InstaConnect.Posts.Domain.Features.PostComments.Models.Responses;
-using InstaConnect.Posts.Domain.Features.Users.Models.Requests;
-using InstaConnect.Posts.Infrastructure.Tests.Features.Posts.Utilities;
-using InstaConnect.Posts.Infrastructure.Tests.Features.Users.Utilities;
+using InstaConnect.Posts.Infrastructure.Tests.Features.PostCommentImages.Utilities;
 
 namespace InstaConnect.Posts.Infrastructure.Tests.Features.PostComments.Utilities;
 
@@ -16,8 +12,10 @@ public static class PostCommentMapper
 			return new(postComment.Id,
 					   postComment.UserId,
 					   postComment.Content,
+					   postComment.Summary,
 					   postComment.User?.ToFullResponse(),
 					   postComment.Post?.ToFullResponse(query),
+					   postComment.PostCommentImages.ToFullResponse(),
 					   postComment.PostCommentLikes.Any(pl => pl.Id.UserId.Matches(query.Id)),
 					   postComment.CreatedAtUtc,
 					   postComment.UpdatedAtUtc);
@@ -28,8 +26,10 @@ public static class PostCommentMapper
 			return new(postComment.Id,
 					   postComment.UserId,
 					   postComment.Content,
+					   postComment.Summary,
 					   null,
 					   postComment.Post?.ToFullResponse(query),
+					   postComment.PostCommentImages.ToFullResponse(),
 					   postComment.PostCommentLikes.Any(pl => pl.Id.UserId.Matches(query.Id)),
 					   postComment.CreatedAtUtc,
 					   postComment.UpdatedAtUtc);
@@ -40,8 +40,10 @@ public static class PostCommentMapper
 			return new(postComment.Id,
 					   postComment.UserId,
 					   postComment.Content,
+					   postComment.Summary,
 					   postComment.User?.ToFullResponse(),
 					   null,
+					   postComment.PostCommentImages.ToFullResponse(),
 					   postComment.PostCommentLikes.Any(pl => pl.Id.UserId.Matches(query.Id)),
 					   postComment.CreatedAtUtc,
 					   postComment.UpdatedAtUtc);

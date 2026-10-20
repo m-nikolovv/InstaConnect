@@ -1,5 +1,3 @@
-using InstaConnect.Posts.Domain.Features.Common.Models.Requests;
-
 namespace InstaConnect.Posts.Domain.Features.Users.Abstractions;
 
 public interface IUserIncludeDescriptorFactory

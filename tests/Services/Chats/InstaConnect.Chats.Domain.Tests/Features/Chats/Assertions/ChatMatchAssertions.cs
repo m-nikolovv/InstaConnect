@@ -1,4 +1,3 @@
-using InstaConnect.Chats.Domain.Tests.Features.Chats.Utilities;
 using InstaConnect.Chats.Events.Features.Chats;
 using InstaConnect.Common.Tests.Features.DataAttributes.Enums.Sort;
 

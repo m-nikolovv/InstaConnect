@@ -1,7 +1,9 @@
 using InstaConnect.Common.Domain.Features.Mappers.Extensions;
 using InstaConnect.Common.Domain.Features.Validations.Extensions;
+using InstaConnect.Posts.Domain.Features.PostCommentImages.Extensions;
 using InstaConnect.Posts.Domain.Features.PostCommentLikes.Extensions;
 using InstaConnect.Posts.Domain.Features.PostComments.Extensions;
+using InstaConnect.Posts.Domain.Features.PostImages.Extensions;
 using InstaConnect.Posts.Domain.Features.PostLikes.Extensions;
 using InstaConnect.Posts.Domain.Features.Posts.Extensions;
 using InstaConnect.Posts.Domain.Features.Users.Extensions;
@@ -18,6 +20,8 @@ public static class ServiceCollectionExtensions
 				.AddUserServices()
 				.AddPostServices()
 				.AddPostLikeServices()
+				.AddPostImageServices()
+				.AddPostCommentImageServices()
 				.AddPostCommentServices()
 				.AddPostCommentLikeServices();
 

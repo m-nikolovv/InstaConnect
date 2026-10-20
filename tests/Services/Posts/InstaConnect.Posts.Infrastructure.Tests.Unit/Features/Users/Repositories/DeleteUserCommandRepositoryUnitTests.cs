@@ -1,5 +1,3 @@
-using InstaConnect.Posts.Infrastructure.Features.Users.Helpers.Repositories;
-
 namespace InstaConnect.Posts.Infrastructure.Tests.Unit.Features.Users.Repositories;
 
 public class DeleteUserCommandRepositoryUnitTests : BaseUserInfrastructureCommandUnitTest
@@ -12,7 +10,7 @@ public class DeleteUserCommandRepositoryUnitTests : BaseUserInfrastructureComman
 	}
 
 	[Fact]
-	public async Task DeleteAsync_ShouldCallTheCollectionDeleteAsync_WhenRequestIsValid()
+	public async Task DeleteAsync_ShouldCallTheCollectionDeleteAsync_WhenCommandIsValid()
 	{
 		// Act
 		await _repository.DeleteAsync(User, CancellationToken);

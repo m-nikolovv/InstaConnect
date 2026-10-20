@@ -3,8 +3,8 @@ using InstaConnect.Follows.Application.Features.Follows.Commands.Delete;
 using InstaConnect.Follows.Application.Features.Follows.Queries.GetAll;
 using InstaConnect.Follows.Application.Features.Follows.Queries.GetAllForFollowing;
 using InstaConnect.Follows.Application.Features.Follows.Queries.GetById;
-
-using Mapster;
+using InstaConnect.Follows.Domain.Features.Follows.Models.Responses;
+using InstaConnect.Follows.Domain.Features.Follows.Models.ValueObjects;
 
 namespace InstaConnect.Follows.Application.Features.Follows.Mappings;
 

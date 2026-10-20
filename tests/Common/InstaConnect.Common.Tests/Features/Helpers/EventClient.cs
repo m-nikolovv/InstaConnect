@@ -1,5 +1,4 @@
 using InstaConnect.Common.Events.Features.Events.Abstractions;
-using InstaConnect.Common.Tests.Features.Abstractions;
 
 using MassTransit;
 using MassTransit.Testing;

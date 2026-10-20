@@ -1,3 +1,5 @@
+using InstaConnect.Posts.Tests.Features.Users.Builders;
+
 namespace InstaConnect.Posts.Presentation.Tests.Integration.Features.Posts.Controllers;
 
 public class DeletePostControllerIntegrationTests : BasePostPresentationCommandIntegrationTest
@@ -17,6 +19,7 @@ public class DeletePostControllerIntegrationTests : BasePostPresentationCommandI
 	protected override async Task OnInitializeAsync()
 	{
 		await ServiceScope.AddAsync(Post, CancellationToken);
+		await ServiceScope.AddRangeAsync(PostImages, CancellationToken);
 	}
 
 	[Theory]
@@ -52,7 +55,7 @@ public class DeletePostControllerIntegrationTests : BasePostPresentationCommandI
 	}
 
 	[Fact]
-	public async Task DeleteAsync_ShouldThrowPostNotFoundException_WhenIdIsInvalid()
+	public async Task DeleteAsync_ShouldThrowPostNotFoundException_WhenPostNotFound()
 	{
 		// Arrange
 		await ServiceScope.DeleteAsync(Post, CancellationToken);
@@ -62,7 +65,7 @@ public class DeletePostControllerIntegrationTests : BasePostPresentationCommandI
 	}
 
 	[Fact]
-	public async Task DeleteAsync_ShouldThrowPostForbiddenException_WhenUserIdIsInvalid()
+	public async Task DeleteAsync_ShouldThrowPostForbiddenException_WhenPostForbidden()
 	{
 		// Arrange
 		var user = UserBuilderFactory.Create().Build();
@@ -118,7 +121,7 @@ public class DeletePostControllerIntegrationTests : BasePostPresentationCommandI
 	{
 		// Act
 		await Controller.DeleteAsync(_request, CancellationToken);
-		var post = await ServiceScope.GetByIdAsync(Post.Id, CancellationToken);
+		var post = await ServiceScope.GetByIdAsync(PostId, CancellationToken);
 
 		// Assert
 		post.ShouldBeNull();
@@ -134,7 +137,7 @@ public class DeletePostControllerIntegrationTests : BasePostPresentationCommandI
 
 		// Act
 		await Controller.DeleteAsync(request, CancellationToken);
-		var post = await ServiceScope.GetByIdAsync(Post.Id, CancellationToken);
+		var post = await ServiceScope.GetByIdAsync(PostId, CancellationToken);
 
 		// Assert
 		post.ShouldBeNull();
@@ -150,7 +153,7 @@ public class DeletePostControllerIntegrationTests : BasePostPresentationCommandI
 
 		// Act
 		await Controller.DeleteAsync(request, CancellationToken);
-		var post = await ServiceScope.GetByIdAsync(Post.Id, CancellationToken);
+		var post = await ServiceScope.GetByIdAsync(PostId, CancellationToken);
 
 		// Assert
 		post.ShouldBeNull();

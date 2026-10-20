@@ -1,5 +1,3 @@
-using InstaConnect.Posts.Application.Tests.Features.Users.Utilities;
-
 namespace InstaConnect.Posts.Application.Tests.Features.Users.Assertions;
 
 public static class UserMatchAssertions

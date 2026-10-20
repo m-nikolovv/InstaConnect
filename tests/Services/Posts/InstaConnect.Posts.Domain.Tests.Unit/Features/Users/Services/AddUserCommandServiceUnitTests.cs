@@ -2,7 +2,6 @@ using InstaConnect.Posts.Domain.Features.Users.Helpers;
 using InstaConnect.Posts.Domain.Features.Users.Models.Requests;
 using InstaConnect.Posts.Domain.Tests.Features.Users.Assertions;
 using InstaConnect.Posts.Domain.Tests.Features.Users.Builders;
-using InstaConnect.Posts.Domain.Tests.Features.Users.Utilities;
 using InstaConnect.Posts.Domain.Tests.Unit.Features.Users.Utilities;
 
 namespace InstaConnect.Posts.Domain.Tests.Unit.Features.Users.Services;
@@ -29,10 +28,10 @@ public class AddUserCommandServiceUnitTests : BaseUserDomainCommandUnitTest
 	}
 
 	[Fact]
-	public async Task AddAsync_ShouldThrowUserAlreadyExistsException_WhenCommandIsInvalid()
+	public async Task AddAsync_ShouldThrowUserAlreadyExistsException_WhenUserAlreadyExists()
 	{
 		// Arrange
-		var command = _commandBuilder.WithId(User.Id).Build();
+		var command = _commandBuilder.WithId(UserId).Build();
 		UserRepository.SetupExistsByIdAsync(command, User, CancellationToken);
 
 		// Assert
@@ -40,7 +39,7 @@ public class AddUserCommandServiceUnitTests : BaseUserDomainCommandUnitTest
 	}
 
 	[Fact]
-	public async Task AddAsync_ShouldThrowUserEmailAlreadyExistsException_WhenCommandIsInvalid()
+	public async Task AddAsync_ShouldThrowUserEmailAlreadyExistsException_WhenUserEmailAlreadyExists()
 	{
 		// Arrange
 		var command = _commandBuilder.WithEmail(User.Email).Build();
@@ -51,7 +50,7 @@ public class AddUserCommandServiceUnitTests : BaseUserDomainCommandUnitTest
 	}
 
 	[Fact]
-	public async Task AddAsync_ShouldThrowUserNameAlreadyExistsException_WhenCommandIsInvalid()
+	public async Task AddAsync_ShouldThrowUserNameAlreadyExistsException_WhenUserNameAlreadyExists()
 	{
 		// Arrange
 		var command = _commandBuilder.WithName(User.Name).Build();
@@ -92,7 +91,7 @@ public class AddUserCommandServiceUnitTests : BaseUserDomainCommandUnitTest
 	}
 
 	[Fact]
-	public async Task AddAsync_ShouldCallTheUserRepositoryGetByIdAsync_WhenCommandIsValid()
+	public async Task AddAsync_ShouldCallTheUserRepositoryExistsByIdAsync_WhenCommandIsValid()
 	{
 		// Act
 		await _service.AddAsync(_command, CancellationToken);
@@ -102,7 +101,7 @@ public class AddUserCommandServiceUnitTests : BaseUserDomainCommandUnitTest
 	}
 
 	[Fact]
-	public async Task AddAsync_ShouldCallTheUserRepositoryGetByNameAsync_WhenCommandIsValid()
+	public async Task AddAsync_ShouldCallTheUserRepositoryIsNameUniqueAsync_WhenCommandIsValid()
 	{
 		// Act
 		await _service.AddAsync(_command, CancellationToken);
@@ -112,7 +111,7 @@ public class AddUserCommandServiceUnitTests : BaseUserDomainCommandUnitTest
 	}
 
 	[Fact]
-	public async Task AddAsync_ShouldCallTheUserRepositoryGetByEmailAsync_WhenCommandIsValid()
+	public async Task AddAsync_ShouldCallTheUserRepositoryIsEmailUniqueAsync_WhenCommandIsValid()
 	{
 		// Act
 		await _service.AddAsync(_command, CancellationToken);

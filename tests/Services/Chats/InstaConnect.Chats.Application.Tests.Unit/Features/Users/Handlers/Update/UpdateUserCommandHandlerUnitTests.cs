@@ -1,3 +1,5 @@
+using InstaConnect.Chats.Application.Features.Users.Commands.Update;
+
 namespace InstaConnect.Chats.Application.Tests.Unit.Features.Users.Handlers.Update;
 
 public class UpdateUserCommandHandlerUnitTests : BaseUserApplicationCommandUnitTest
@@ -30,7 +32,7 @@ public class UpdateUserCommandHandlerUnitTests : BaseUserApplicationCommandUnitT
 	}
 
 	[Fact]
-	public async Task Handle_ShouldCallUserServiceUpdateAsync_WhenRequestIsValid()
+	public async Task Handle_ShouldCallTheUserServiceUpdateAsync_WhenRequestIsValid()
 	{
 		// Act
 		await _handler.Handle(_request, CancellationToken);

@@ -1,5 +1,3 @@
-using InstaConnect.Chats.Domain.Tests.Features.Users.Utilities;
-
 namespace InstaConnect.Chats.Domain.Tests.Features.Users.Assertions;
 
 public static class UserMatchAssertions

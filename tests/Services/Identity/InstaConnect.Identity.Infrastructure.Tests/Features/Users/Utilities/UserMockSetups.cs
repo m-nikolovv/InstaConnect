@@ -1,6 +1,4 @@
 using InstaConnect.Common.Domain.Features.ValueObjects.Models;
-using InstaConnect.Identity.Domain.Features.Users.Models.Requests;
-using InstaConnect.Identity.Domain.Features.Users.Models.ValueObjects;
 using InstaConnect.Identity.Infrastructure.Features.Users.Abstractions;
 
 namespace InstaConnect.Identity.Infrastructure.Tests.Features.Users.Utilities;

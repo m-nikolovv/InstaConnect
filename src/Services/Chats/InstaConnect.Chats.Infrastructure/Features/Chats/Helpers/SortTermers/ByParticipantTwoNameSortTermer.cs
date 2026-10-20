@@ -1,5 +1,3 @@
-using System.Linq.Expressions;
-
 namespace InstaConnect.Chats.Infrastructure.Features.Chats.Helpers.SortTermers;
 
 internal class ByParticipantTwoNameSortTermer : IChatsSortTermer

@@ -1,3 +1,6 @@
+using InstaConnect.Chats.Application.Features.ChatMessages.Commands.Add;
+using InstaConnect.Chats.Domain.Features.ChatMessages.Models.Entities;
+
 namespace InstaConnect.Chats.Application.Tests.Unit.Features.ChatMessages.Handlers.Add;
 
 public class AddChatMessageCommandHandlerUnitTests : BaseChatMessageApplicationCommandUnitTest
@@ -11,12 +14,12 @@ public class AddChatMessageCommandHandlerUnitTests : BaseChatMessageApplicationC
 	public AddChatMessageCommandHandlerUnitTests()
 	{
 		_requestBuilderFactory = new();
-		_requestBuilder = _requestBuilderFactory.Create(Chat);
+		_requestBuilder = _requestBuilderFactory.Create(Chat, ChatMessage.ChatMessageImages.Count);
 		_request = _requestBuilder.Build();
 
-		_handler = new(Mapper, CommentService);
+		_handler = new(Mapper, MessageService);
 
-		CommentService.SetupAddAsync(_request, ChatMessage, CancellationToken);
+		MessageService.SetupAddAsync(_request, ChatMessage, CancellationToken);
 	}
 
 	[Fact]
@@ -30,12 +33,12 @@ public class AddChatMessageCommandHandlerUnitTests : BaseChatMessageApplicationC
 	}
 
 	[Fact]
-	public async Task Handle_ShouldCallCommentServiceAddAsync_WhenRequestIsValid()
+	public async Task Handle_ShouldCallTheMessageServiceAddAsync_WhenRequestIsValid()
 	{
 		// Act
 		await _handler.Handle(_request, CancellationToken);
 
 		// Assert
-		await CommentService.ShouldHaveReceivedOneAddAsync(_request, CancellationToken);
+		await MessageService.ShouldHaveReceivedOneAddAsync(_request, CancellationToken);
 	}
 }

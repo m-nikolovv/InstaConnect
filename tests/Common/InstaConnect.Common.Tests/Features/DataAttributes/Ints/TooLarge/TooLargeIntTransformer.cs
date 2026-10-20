@@ -1,5 +1,3 @@
-using InstaConnect.Common.Tests.Features.DataAttributes.Ints.Base;
-
 namespace InstaConnect.Common.Tests.Features.DataAttributes.Ints.TooLarge;
 
 internal class TooLargeIntTransformer : IIntTransformer

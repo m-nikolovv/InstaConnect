@@ -1,10 +1,3 @@
-using InstaConnect.Common.Domain.Features.Exceptions.Exceptions;
-using InstaConnect.Common.Domain.Features.Exceptions.Models;
-using InstaConnect.Common.Presentation.Features.Exceptions.Abstractions;
-using InstaConnect.Common.Presentation.Features.Exceptions.Models;
-
-using Microsoft.AspNetCore.Http;
-
 namespace InstaConnect.Common.Presentation.Features.Exceptions.Helpers.Statuses;
 
 internal class BadRequestExceptionStatus : IBaseExceptionStatus

@@ -1,19 +1,10 @@
-using InstaConnect.Follows.Domain.Features.Follows.Models.ValueObjects;
-using InstaConnect.Follows.Domain.Features.Users.Models.Requests;
 using InstaConnect.Follows.Infrastructure.Tests.Features.Common.Builders;
-using InstaConnect.Follows.Infrastructure.Tests.Features.Follows.Assertions;
-using InstaConnect.Follows.Infrastructure.Tests.Integration.Features.Follows.Utilities;
 using InstaConnect.Follows.Tests.Features.Follows.Builders;
-using InstaConnect.Follows.Tests.Features.Follows.Utilities;
 
 namespace InstaConnect.Follows.Infrastructure.Tests.Integration.Features.Follows.Repositories;
 
 public class GetFollowByIdQueryRepositoryIntegrationTests : BaseFollowInfrastructureQueryIntegrationTest
 {
-	private readonly FollowIdBuilderFactory _idBuilderFactory;
-	private readonly FollowIdBuilder _idBuilder;
-	private readonly FollowId _id;
-
 	private readonly CurrentUserQueryBuilderFactory _currentUserQueryBuilderFactory;
 	private readonly CurrentUserQueryBuilder _currentUserQueryBuilder;
 	private readonly CurrentUserQuery _currentUserQuery;
@@ -21,10 +12,6 @@ public class GetFollowByIdQueryRepositoryIntegrationTests : BaseFollowInfrastruc
 	public GetFollowByIdQueryRepositoryIntegrationTests(FollowsWebApplicationFactory webApplicationFactory)
 		: base(webApplicationFactory)
 	{
-		_idBuilderFactory = new();
-		_idBuilder = _idBuilderFactory.Create(Follow.Id);
-		_id = _idBuilder.Build();
-
 		_currentUserQueryBuilderFactory = new();
 		_currentUserQueryBuilder = _currentUserQueryBuilderFactory.Create(Follower);
 		_currentUserQuery = _currentUserQueryBuilder.Build();
@@ -42,7 +29,7 @@ public class GetFollowByIdQueryRepositoryIntegrationTests : BaseFollowInfrastruc
 		await ServiceScope.DeleteAsync(Follow, CancellationToken);
 
 		// Act
-		var response = await Repository.GetByIdAsync(_id, _currentUserQuery, CancellationToken);
+		var response = await Repository.GetByIdAsync(FollowId, _currentUserQuery, CancellationToken);
 
 		// Assert
 		response.ShouldBeNull();
@@ -52,10 +39,10 @@ public class GetFollowByIdQueryRepositoryIntegrationTests : BaseFollowInfrastruc
 	public async Task GetByIdAsync_ShouldReturnResponse_WhenQueryIsValid()
 	{
 		// Act
-		var response = await Repository.GetByIdAsync(_id, _currentUserQuery, CancellationToken);
+		var response = await Repository.GetByIdAsync(FollowId, _currentUserQuery, CancellationToken);
 
 		// Assert
-		response.ShouldSatisfy(_id, _currentUserQuery, Follow);
+		response.ShouldSatisfy(FollowId, _currentUserQuery, Follow);
 	}
 
 	[Theory]
@@ -64,7 +51,7 @@ public class GetFollowByIdQueryRepositoryIntegrationTests : BaseFollowInfrastruc
 		IStringTransformer transformer)
 	{
 		// Arrange
-		var id = _idBuilder.WithFollowerId(transformer).Build();
+		var id = FollowIdBuilder.WithFollowerId(transformer).Build();
 
 		// Act
 		var response = await Repository.GetByIdAsync(id, _currentUserQuery, CancellationToken);
@@ -79,7 +66,7 @@ public class GetFollowByIdQueryRepositoryIntegrationTests : BaseFollowInfrastruc
 		IStringTransformer transformer)
 	{
 		// Arrange
-		var id = _idBuilder.WithFollowingId(transformer).Build();
+		var id = FollowIdBuilder.WithFollowingId(transformer).Build();
 
 		// Act
 		var response = await Repository.GetByIdAsync(id, _currentUserQuery, CancellationToken);
@@ -99,9 +86,9 @@ public class GetFollowByIdQueryRepositoryIntegrationTests : BaseFollowInfrastruc
 		var currentUserQuery = _currentUserQueryBuilder.WithCurrentUserId(transformer).Build();
 
 		// Act
-		var response = await Repository.GetByIdAsync(_id, currentUserQuery, CancellationToken);
+		var response = await Repository.GetByIdAsync(FollowId, currentUserQuery, CancellationToken);
 
 		// Assert
-		response.ShouldSatisfy(_id, currentUserQuery, Follow);
+		response.ShouldSatisfy(FollowId, currentUserQuery, Follow);
 	}
 }

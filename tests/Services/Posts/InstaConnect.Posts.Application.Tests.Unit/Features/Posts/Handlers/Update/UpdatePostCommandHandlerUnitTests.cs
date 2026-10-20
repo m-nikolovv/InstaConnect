@@ -1,3 +1,5 @@
+using InstaConnect.Posts.Application.Features.Posts.Commands.Update;
+
 namespace InstaConnect.Posts.Application.Tests.Unit.Features.Posts.Handlers.Update;
 
 public class UpdatePostCommandHandlerUnitTests : BasePostApplicationCommandUnitTest
@@ -30,7 +32,7 @@ public class UpdatePostCommandHandlerUnitTests : BasePostApplicationCommandUnitT
 	}
 
 	[Fact]
-	public async Task Handle_ShouldCallServiceUpdateAsync_WhenRequestIsValid()
+	public async Task Handle_ShouldCallTheServiceUpdateAsync_WhenRequestIsValid()
 	{
 		// Act
 		await _handler.Handle(_request, CancellationToken);

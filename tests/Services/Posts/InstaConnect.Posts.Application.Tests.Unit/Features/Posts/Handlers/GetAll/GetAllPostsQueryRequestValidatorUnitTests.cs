@@ -1,5 +1,10 @@
-using InstaConnect.Common.Domain.Features.Requests.Models;
+using InstaConnect.Posts.Application.Features.Posts.Queries.GetAll;
 using InstaConnect.Posts.Domain.Features.Posts.Models.Requests;
+using InstaConnect.Posts.Tests.Features.Posts.DataAttributes.Page;
+using InstaConnect.Posts.Tests.Features.Posts.DataAttributes.PageSize;
+using InstaConnect.Posts.Tests.Features.Posts.DataAttributes.SortOrder;
+using InstaConnect.Posts.Tests.Features.Posts.DataAttributes.SortTerm;
+using InstaConnect.Posts.Tests.Features.Posts.DataAttributes.Title;
 
 namespace InstaConnect.Posts.Application.Tests.Unit.Features.Posts.Handlers.GetAll;
 
@@ -130,7 +135,7 @@ public class GetAllPostsQueryRequestValidatorUnitTests : BasePostApplicationQuer
 	[Theory]
 	[UserNameEmptyData]
 	[UserNameNullData]
-	public void TestValidate_ShouldNotHaveAnyValidationsErrors_WhenUserNameIsValid(
+	public void TestValidate_ShouldNotHaveAnyValidationErrors_WhenUserNameIsValid(
 		IStringTransformer transformer)
 	{
 		// Arrange
@@ -146,7 +151,7 @@ public class GetAllPostsQueryRequestValidatorUnitTests : BasePostApplicationQuer
 	[Theory]
 	[PostTitleEmptyData]
 	[PostTitleNullData]
-	public void TestValidate_ShouldNotHaveAnyValidationsErrors_WhenTitleIsValid(
+	public void TestValidate_ShouldNotHaveAnyValidationErrors_WhenTitleIsValid(
 		IStringTransformer transformer)
 	{
 		// Arrange
@@ -162,7 +167,7 @@ public class GetAllPostsQueryRequestValidatorUnitTests : BasePostApplicationQuer
 	[Theory]
 	[UserIdNullData]
 	[UserIdEmptyData]
-	public void TestValidate_ShouldNotHaveAnyValidationsErrors_WhenCurrentUserIdIsValid(
+	public void TestValidate_ShouldNotHaveAnyValidationErrors_WhenCurrentUserIdIsValid(
 		IStringTransformer transformer)
 	{
 		// Arrange
@@ -176,7 +181,7 @@ public class GetAllPostsQueryRequestValidatorUnitTests : BasePostApplicationQuer
 	}
 
 	[Fact]
-	public void TestValidate_ShouldNotHaveAnyValidationsErrors_WhenRequestIsValid()
+	public void TestValidate_ShouldNotHaveAnyValidationErrors_WhenRequestIsValid()
 	{
 		// Act
 		var response = _requestValidator.TestValidate(_request);

@@ -2,7 +2,6 @@ using InstaConnect.Posts.Domain.Features.Users.Helpers;
 using InstaConnect.Posts.Domain.Features.Users.Models.Requests;
 using InstaConnect.Posts.Domain.Tests.Features.Users.Assertions;
 using InstaConnect.Posts.Domain.Tests.Features.Users.Builders;
-using InstaConnect.Posts.Domain.Tests.Features.Users.Utilities;
 using InstaConnect.Posts.Domain.Tests.Unit.Features.Users.Utilities;
 
 namespace InstaConnect.Posts.Domain.Tests.Unit.Features.Users.Services;
@@ -27,7 +26,7 @@ public class DeleteUserCommandServiceUnitTests : BaseUserDomainCommandUnitTest
 	}
 
 	[Fact]
-	public async Task DeleteAsync_ShouldThrowUserNotFoundException_WhenCommandIsInvalid()
+	public async Task DeleteAsync_ShouldThrowUserNotFoundException_WhenUserNotFound()
 	{
 		// Arrange
 		UserRepository.RemoveGetByIdAsync(_command, User, CancellationToken);

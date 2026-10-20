@@ -1,3 +1,5 @@
+using InstaConnect.Identity.Domain.Features.Users.Abstractions;
+
 namespace InstaConnect.Identity.Infrastructure.Features.Users.Helpers.Repositories;
 
 internal class UserQueryRepository : IUserQueryRepository

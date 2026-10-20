@@ -1,3 +1,9 @@
+using InstaConnect.Identity.Application.Features.RefreshTokens.Commands.Rotate;
+using InstaConnect.Identity.Application.Tests.Features.RefreshTokens.Builders;
+using InstaConnect.Identity.Application.Tests.Integration.Features.RefreshTokens.Utilities;
+using InstaConnect.Identity.Tests.Features.RefreshTokens.Builders;
+using InstaConnect.Identity.Tests.Features.RefreshTokens.DataAttributes.Value;
+
 namespace InstaConnect.Identity.Application.Tests.Integration.Features.RefreshTokens.Handlers;
 
 public class RotateRefreshTokenCommandHandlerIntegrationTests : BaseRefreshTokenApplicationCommandIntegrationTest
@@ -70,7 +76,7 @@ public class RotateRefreshTokenCommandHandlerIntegrationTests : BaseRefreshToken
 	}
 
 	[Fact]
-	public async Task SendAsync_ShouldThrowRefreshTokenExpiredException_WhenRefreshTokenHasExpired()
+	public async Task SendAsync_ShouldThrowRefreshTokenExpiredException_WhenRefreshTokenExpired()
 	{
 		// Arrange
 		var updatedRefreshToken = RefreshTokenBuilder.WithAlreadyExpiresAtUtc().Build();
@@ -85,7 +91,7 @@ public class RotateRefreshTokenCommandHandlerIntegrationTests : BaseRefreshToken
 	{
 		// Act
 		await Sender.SendAsync(_request, CancellationToken);
-		var refreshToken = await ServiceScope.GetByIdAsync(RefreshToken.Id, CancellationToken);
+		var refreshToken = await ServiceScope.GetByIdAsync(RefreshTokenId, CancellationToken);
 
 		// Assert
 		refreshToken.ShouldBeNull();
@@ -101,7 +107,7 @@ public class RotateRefreshTokenCommandHandlerIntegrationTests : BaseRefreshToken
 
 		// Act
 		await Sender.SendAsync(request, CancellationToken);
-		var refreshToken = await ServiceScope.GetByIdAsync(RefreshToken.Id, CancellationToken);
+		var refreshToken = await ServiceScope.GetByIdAsync(RefreshTokenId, CancellationToken);
 
 		// Assert
 		refreshToken.ShouldBeNull();
@@ -117,7 +123,7 @@ public class RotateRefreshTokenCommandHandlerIntegrationTests : BaseRefreshToken
 
 		// Act
 		await Sender.SendAsync(request, CancellationToken);
-		var refreshToken = await ServiceScope.GetByIdAsync(RefreshToken.Id, CancellationToken);
+		var refreshToken = await ServiceScope.GetByIdAsync(RefreshTokenId, CancellationToken);
 
 		// Assert
 		refreshToken.ShouldBeNull();

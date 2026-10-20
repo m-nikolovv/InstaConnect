@@ -1,3 +1,5 @@
+using InstaConnect.Chats.Infrastructure.Features.Users.EventHandlers;
+
 namespace InstaConnect.Chats.Infrastructure.Tests.Features.Users.Assertions;
 
 public static class UserExceptionAssertions

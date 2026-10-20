@@ -1,5 +1,7 @@
 using InstaConnect.Chats.Presentation.Tests.Features.ChatMessages.Abstractions;
 using InstaConnect.Chats.Presentation.Tests.Features.ChatMessages.Extensions;
+using InstaConnect.Chats.Tests.Features.ChatMessages.Abstractions;
+using InstaConnect.Chats.Tests.Features.ChatMessages.Extensions;
 
 namespace InstaConnect.Chats.Presentation.Tests.Functional.Features.ChatMessages.Utilities;
 
@@ -12,7 +14,7 @@ public abstract class BaseChatMessagePresentationCommandFunctionalTest : BaseCha
 	protected BaseChatMessagePresentationCommandFunctionalTest(ChatsWebApplicationFactory webApplicationFactory) : base(webApplicationFactory)
 	{
 		ApiClient = webApplicationFactory.CreateMessageApiClient();
-		MessageNotificationClient = webApplicationFactory.CreateMessageNotificationClient(ParticipantTwo.Id);
+		MessageNotificationClient = webApplicationFactory.CreateMessageNotificationClient(ParticipantTwoId);
 	}
 
 	public override async Task InitializeAsync()

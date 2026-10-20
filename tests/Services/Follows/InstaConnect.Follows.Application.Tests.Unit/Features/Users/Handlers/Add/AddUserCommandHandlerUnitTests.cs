@@ -1,3 +1,6 @@
+using InstaConnect.Follows.Application.Features.Users.Commands.Add;
+using InstaConnect.Follows.Application.Tests.Features.Users.Utilities;
+
 namespace InstaConnect.Follows.Application.Tests.Unit.Features.Users.Handlers.Add;
 
 public class AddUserCommandHandlerUnitTests : BaseUserApplicationCommandUnitTest
@@ -30,7 +33,7 @@ public class AddUserCommandHandlerUnitTests : BaseUserApplicationCommandUnitTest
 	}
 
 	[Fact]
-	public async Task Handle_ShouldCallUserServiceAddAsync_WhenRequestIsValid()
+	public async Task Handle_ShouldCallTheUserServiceAddAsync_WhenRequestIsValid()
 	{
 		// Act
 		await _handler.Handle(_request, CancellationToken);

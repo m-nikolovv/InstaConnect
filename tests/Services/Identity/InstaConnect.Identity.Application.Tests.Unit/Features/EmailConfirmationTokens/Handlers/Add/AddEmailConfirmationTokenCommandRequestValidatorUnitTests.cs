@@ -1,3 +1,7 @@
+using InstaConnect.Identity.Application.Features.EmailConfirmationTokens.Commands.Add;
+using InstaConnect.Identity.Application.Tests.Features.EmailConfirmationTokens.Builders;
+using InstaConnect.Identity.Application.Tests.Unit.Features.EmailConfirmationTokens.Utilities;
+
 namespace InstaConnect.Identity.Application.Tests.Unit.Features.EmailConfirmationTokens.Handlers.Add;
 
 public class AddEmailConfirmationTokenCommandRequestValidatorUnitTests : BaseEmailConfirmationTokenApplicationCommandUnitTest
@@ -36,7 +40,7 @@ public class AddEmailConfirmationTokenCommandRequestValidatorUnitTests : BaseEma
 	}
 
 	[Fact]
-	public void TestValidate_ShouldNotHaveAnyValidationsErrors_WhenRequestIsValid()
+	public void TestValidate_ShouldNotHaveAnyValidationErrors_WhenRequestIsValid()
 	{
 		// Act
 		var response = _requestValidator.TestValidate(_request);

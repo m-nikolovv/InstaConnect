@@ -1,10 +1,11 @@
 using InstaConnect.Posts.Application.Features.PostCommentLikes.Commands.Add;
 using InstaConnect.Posts.Application.Features.PostCommentLikes.Commands.Delete;
+using InstaConnect.Posts.Application.Features.PostCommentLikes.Models;
 using InstaConnect.Posts.Application.Features.PostCommentLikes.Queries.GetAll;
 using InstaConnect.Posts.Application.Features.PostCommentLikes.Queries.GetAllForUser;
 using InstaConnect.Posts.Application.Features.PostCommentLikes.Queries.GetById;
-
-using Mapster;
+using InstaConnect.Posts.Presentation.Features.PostCommentLikes.Models.Requests;
+using InstaConnect.Posts.Presentation.Features.PostCommentLikes.Models.Responses;
 
 namespace InstaConnect.Posts.Presentation.Features.PostCommentLikes.Mappings;
 
