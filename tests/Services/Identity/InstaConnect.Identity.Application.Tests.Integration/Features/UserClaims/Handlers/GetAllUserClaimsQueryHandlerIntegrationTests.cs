@@ -1,7 +1,3 @@
-using InstaConnect.Common.Domain.Features.Requests.Models;
-using InstaConnect.Common.Tests.Features.DataAttributes.Enums.Base;
-using InstaConnect.Common.Tests.Features.DataAttributes.Enums.Sort;
-using InstaConnect.Common.Tests.Features.DataAttributes.Ints.Base;
 using InstaConnect.Identity.Application.Features.UserClaims.Queries.GetAll;
 using InstaConnect.Identity.Application.Tests.Features.UserClaims.Builders;
 using InstaConnect.Identity.Application.Tests.Integration.Features.UserClaims.Utilities;

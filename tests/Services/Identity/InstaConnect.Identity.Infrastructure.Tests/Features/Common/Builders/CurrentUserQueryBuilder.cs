@@ -1,6 +1,3 @@
-using InstaConnect.Common.Tests.Features.DataAttributes.Base;
-using InstaConnect.Common.Tests.Features.DataAttributes.Strings.Base;
-
 namespace InstaConnect.Identity.Infrastructure.Tests.Features.Common.Builders;
 
 public class CurrentUserQueryBuilder

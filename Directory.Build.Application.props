@@ -3,26 +3,48 @@
     <Using Include="FluentValidation" />
     <Using Include="InstaConnect.Common.Application.Features.Requests.Abstractions" />
     <Using Include="InstaConnect.Common.Domain.Features.Mappers.Abstractions" />
+    <Using Include="InstaConnect.Common.Domain.Features.Requests.Models" />
     <Using Include="InstaConnect.Common.Domain.Features.Validations.Extensions" />
   </ItemGroup>
 
   <ItemGroup Label="Application.Tests" Condition="'$(ProjectLayer)' == 'Application.Tests'">
+    <Using Include="FluentValidation.TestHelper" />
     <Using Include="InstaConnect.Common.Application.Features.Requests.Abstractions" />
+    <Using Include="InstaConnect.Common.Application.Tests.Features.Assertions" />
     <Using Include="InstaConnect.Common.Application.Tests.Features.Utilities" />
+    <Using Include="InstaConnect.Common.Domain.Features.Common.Extensions" />
+    <Using Include="InstaConnect.Common.Domain.Features.Requests.Models" />
+    <Using Include="InstaConnect.Common.Domain.Features.ValueObjects.Models" />
+    <Using Include="InstaConnect.Common.Tests.Features.Assertions" />
     <Using Include="InstaConnect.Common.Tests.Features.DataAttributes.Base" />
+    <Using Include="InstaConnect.Common.Tests.Features.DataAttributes.Enums.Base" />
+    <Using Include="InstaConnect.Common.Tests.Features.DataAttributes.Enums.Sort" />
+    <Using Include="InstaConnect.Common.Tests.Features.DataAttributes.Ints.Base" />
     <Using Include="InstaConnect.Common.Tests.Features.DataAttributes.Strings.Base" />
     <Using Include="InstaConnect.Common.Tests.Features.Utilities" />
+    <Using Include="Microsoft.Extensions.DependencyInjection" />
   </ItemGroup>
 
   <ItemGroup Label="Application.Tests.Integration" Condition="'$(ProjectLayer)' == 'Application.Tests.Integration'">
+    <Using Include="InstaConnect.Common.Application.Features.Requests.Abstractions" />
+    <Using Include="InstaConnect.Common.Domain.Features.Requests.Models" />
     <Using Include="InstaConnect.Common.Tests.Features.Assertions" />
+    <Using Include="InstaConnect.Common.Tests.Features.DataAttributes.Enums.Base" />
+    <Using Include="InstaConnect.Common.Tests.Features.DataAttributes.Enums.Sort" />
+    <Using Include="InstaConnect.Common.Tests.Features.DataAttributes.Ints.Base" />
     <Using Include="InstaConnect.Common.Tests.Features.DataAttributes.Strings.Base" />
+    <Using Include="InstaConnect.Common.Tests.Features.Utilities" />
   </ItemGroup>
 
   <ItemGroup Label="Application.Tests.Unit" Condition="'$(ProjectLayer)' == 'Application.Tests.Unit'">
     <Using Include="FluentValidation.TestHelper" />
     <Using Include="InstaConnect.Common.Application.Tests.Features.Assertions" />
+    <Using Include="InstaConnect.Common.Domain.Features.Mappers.Abstractions" />
+    <Using Include="InstaConnect.Common.Domain.Features.Requests.Models" />
     <Using Include="InstaConnect.Common.Tests.Features.Assertions" />
+    <Using Include="InstaConnect.Common.Tests.Features.DataAttributes.Enums.Base" />
+    <Using Include="InstaConnect.Common.Tests.Features.DataAttributes.Ints.Base" />
     <Using Include="InstaConnect.Common.Tests.Features.DataAttributes.Strings.Base" />
+    <Using Include="InstaConnect.Common.Tests.Features.Utilities" />
   </ItemGroup>
 </Project>

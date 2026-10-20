@@ -1,4 +1,3 @@
-using InstaConnect.Common.Infrastructure.Features.AccessTokens.Abstractions;
 using InstaConnect.Identity.Presentation.Tests.Features.Users.Abstractions;
 using InstaConnect.Identity.Presentation.Tests.Features.Users.Extensions;
 

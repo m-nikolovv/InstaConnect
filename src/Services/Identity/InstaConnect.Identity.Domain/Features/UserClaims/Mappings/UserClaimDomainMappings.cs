@@ -1,4 +1,3 @@
-using InstaConnect.Common.Domain.Features.Common.Extensions;
 using InstaConnect.Identity.Events.Features.UserClaims;
 
 namespace InstaConnect.Identity.Domain.Features.UserClaims.Mappings;

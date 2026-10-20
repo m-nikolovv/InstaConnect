@@ -1,7 +1,5 @@
 using InstaConnect.Chats.Application.Features.Users.Models;
 
-using Microsoft.Extensions.DependencyInjection;
-
 namespace InstaConnect.Chats.Application.Tests.Features.Users.Utilities;
 
 public static class UserSetups

@@ -5,12 +5,9 @@ using InstaConnect.Chats.Domain.Features.Common.Extensions;
 using InstaConnect.Chats.Domain.Tests.Features.ChatMessageImages.Utilities;
 using InstaConnect.Chats.Tests.Features.ChatMessages.Utilities;
 using InstaConnect.Chats.Tests.Features.Chats.Utilities;
-using InstaConnect.Common.Domain.Features.DateTimes.Abstractions;
 using InstaConnect.Common.Domain.Features.Guids.Abstractions;
 using InstaConnect.Common.Domain.Features.Images.Abstractions;
 using InstaConnect.Common.Domain.Features.Mappers.Abstractions;
-using InstaConnect.Common.Domain.Tests.Features.Utilities;
-using InstaConnect.Common.Tests.Features.Utilities;
 
 namespace InstaConnect.Chats.Domain.Tests.Unit.Features.ChatMessages.Utilities;
 

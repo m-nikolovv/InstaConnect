@@ -1,7 +1,6 @@
 using InstaConnect.Chats.Infrastructure.Features.Users.Abstractions;
 using InstaConnect.Common.Application.Features.Requests.Abstractions;
 using InstaConnect.Common.Application.Tests.Features.Assertions;
-using InstaConnect.Common.Infrastructure.Tests.Features.Assertions;
 
 namespace InstaConnect.Chats.Infrastructure.Tests.Features.Users.Assertions;
 

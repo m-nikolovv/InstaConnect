@@ -7,13 +7,6 @@
     <ProjectReference Include="..\InstaConnect.Chats.Tests\InstaConnect.Chats.Tests.csproj" />
   </ItemGroup>
 
-  <ItemGroup Label="Common">
-    <Using Include="InstaConnect.Common.Domain.Features.ValueObjects.Models" />
-    <Using Include="InstaConnect.Common.Infrastructure.Tests.Features.Utilities" />
-    <Using Include="InstaConnect.Common.Tests.Features.DataAttributes.Base" />
-    <Using Include="InstaConnect.Common.Tests.Features.DataAttributes.Strings.Base" />
-  </ItemGroup>
-
   <ItemGroup Label="Users">
     <Using Include="InstaConnect.Chats.Domain.Features.Users.Models.Entities" />
     <Using Include="InstaConnect.Chats.Domain.Features.Users.Models.Requests" />

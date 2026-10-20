@@ -3,9 +3,7 @@ using InstaConnect.Chats.Domain.Features.ChatMessages.Models.Responses;
 using InstaConnect.Chats.Domain.Tests.Features.ChatMessageImages.Utilities;
 using InstaConnect.Chats.Domain.Tests.Features.ChatMessages.Extensions;
 using InstaConnect.Chats.Tests.Features.ChatMessages.Extensions;
-using InstaConnect.Common.Domain.Features.Common.Extensions;
 using InstaConnect.Common.Domain.Features.Requests.Abstractions;
-using InstaConnect.Common.Tests.Features.DataAttributes.Enums.Sort;
 using InstaConnect.Common.Tests.Features.Extensions;
 
 namespace InstaConnect.Chats.Domain.Tests.Features.ChatMessages.Utilities;

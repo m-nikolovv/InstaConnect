@@ -6,12 +6,7 @@
   </ItemGroup>
 
   <ItemGroup Label="Common">
-    <Using Include="InstaConnect.Common.Domain.Features.Common.Extensions" />
-    <Using Include="InstaConnect.Common.Domain.Features.DateTimes.Abstractions" />
-    <Using Include="InstaConnect.Common.Domain.Tests.Features.Assertions" />
-    <Using Include="InstaConnect.Common.Tests.Features.Assertions" />
     <Using Include="InstaConnect.Identity.Domain.Features.Common.Helpers" />
-    <Using Include="Microsoft.Extensions.DependencyInjection" />
     <Using Include="Microsoft.Extensions.Options" />
   </ItemGroup>
 

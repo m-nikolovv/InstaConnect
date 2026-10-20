@@ -1,7 +1,5 @@
 using InstaConnect.Posts.Presentation.Features.Posts.Controllers.v1;
 
-using Microsoft.Extensions.DependencyInjection;
-
 namespace InstaConnect.Posts.Presentation.Tests.Features.Posts.Utilities;
 
 public static class PostSetups

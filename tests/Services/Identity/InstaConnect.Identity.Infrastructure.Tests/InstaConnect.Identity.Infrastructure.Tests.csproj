@@ -6,11 +6,6 @@
     <ProjectReference Include="..\InstaConnect.Identity.Tests\InstaConnect.Identity.Tests.csproj" />
   </ItemGroup>
 
-  <ItemGroup Label="Common">
-    <Using Include="InstaConnect.Common.Infrastructure.Tests.Features.Assertions" />
-    <Using Include="InstaConnect.Common.Infrastructure.Tests.Features.Utilities" />
-  </ItemGroup>
-
   <ItemGroup Label="Users">
     <Using Include="InstaConnect.Identity.Domain.Features.Users.Models.Entities" />
     <Using Include="InstaConnect.Identity.Domain.Features.Users.Models.Requests" />

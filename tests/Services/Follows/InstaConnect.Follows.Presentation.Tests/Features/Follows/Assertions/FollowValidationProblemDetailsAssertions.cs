@@ -1,8 +1,3 @@
-using InstaConnect.Common.Domain.Features.Requests.Models;
-using InstaConnect.Common.Presentation.Tests.Features.Assertions;
-using InstaConnect.Common.Tests.Features.DataAttributes.Enums.Base;
-using InstaConnect.Common.Tests.Features.DataAttributes.Ints.Base;
-
 namespace InstaConnect.Follows.Presentation.Tests.Features.Follows.Assertions;
 
 public static class FollowValidationProblemDetailsAssertions

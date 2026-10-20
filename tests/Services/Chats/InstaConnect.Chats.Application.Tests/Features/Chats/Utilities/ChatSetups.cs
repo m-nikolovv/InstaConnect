@@ -1,8 +1,6 @@
 using InstaConnect.Chats.Application.Features.Chats.Models;
 using InstaConnect.Chats.Domain.Features.Chats.Models.ValueObjects;
 
-using Microsoft.Extensions.DependencyInjection;
-
 namespace InstaConnect.Chats.Application.Tests.Features.Chats.Utilities;
 
 public static class ChatSetups

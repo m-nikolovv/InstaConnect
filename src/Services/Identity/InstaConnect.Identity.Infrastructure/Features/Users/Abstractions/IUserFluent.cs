@@ -1,5 +1,3 @@
-using InstaConnect.Common.Domain.Features.ValueObjects.Models;
-
 namespace InstaConnect.Identity.Infrastructure.Features.Users.Abstractions;
 
 public interface IUserFluent : IMongoDbFluent<User>

@@ -7,8 +7,6 @@
 
   <ItemGroup Label="Common">
     <Using Include="InstaConnect.Chats.Tests.Features.Common.Utilities" />
-    <Using Include="InstaConnect.Common.Application.Features.Requests.Abstractions" />
-    <Using Include="InstaConnect.Common.Tests.Features.Utilities" />
   </ItemGroup>
 
   <ItemGroup Label="Users">

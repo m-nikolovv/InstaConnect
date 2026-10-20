@@ -1,5 +1,3 @@
-using InstaConnect.Common.Domain.Features.Databases.Abstractions;
-
 namespace InstaConnect.Follows.Infrastructure.Features.Follows.Helpers.Collections;
 
 internal class FollowResponseFluentFactory : IFollowResponseFluentFactory

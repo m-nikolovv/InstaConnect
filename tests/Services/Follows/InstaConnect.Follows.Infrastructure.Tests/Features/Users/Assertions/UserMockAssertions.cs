@@ -1,6 +1,5 @@
 using InstaConnect.Common.Application.Features.Requests.Abstractions;
 using InstaConnect.Common.Application.Tests.Features.Assertions;
-using InstaConnect.Common.Infrastructure.Tests.Features.Assertions;
 using InstaConnect.Follows.Infrastructure.Features.Users.Abstractions;
 using InstaConnect.Follows.Infrastructure.Tests.Features.Users.Utilities;
 

@@ -11,10 +11,8 @@
   </ItemGroup>
 
   <ItemGroup Label="Common">
-    <Using Include="InstaConnect.Common.Domain.Features.Common.Extensions" />
     <Using Include="InstaConnect.Identity.Domain.Features.Common.Models.Requests" />
     <Using Include="InstaConnect.Identity.Infrastructure.Features.Common.Extensions" />
-    <Using Include="MongoDB.Bson.Serialization" />
   </ItemGroup>
 
   <ItemGroup Label="Users">

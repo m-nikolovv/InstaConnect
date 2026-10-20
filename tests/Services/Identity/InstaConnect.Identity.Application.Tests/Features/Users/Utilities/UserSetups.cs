@@ -1,7 +1,5 @@
 using InstaConnect.Identity.Application.Features.Users.Models;
 
-using Microsoft.Extensions.DependencyInjection;
-
 namespace InstaConnect.Identity.Application.Tests.Features.Users.Utilities;
 
 public static class UserSetups

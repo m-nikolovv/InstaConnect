@@ -1,5 +1,3 @@
-using InstaConnect.Common.Presentation.Features.Requests.Abstractions;
-using InstaConnect.Common.Tests.Features.DataAttributes.Enums.Sort;
 using InstaConnect.Common.Tests.Features.Extensions;
 using InstaConnect.Identity.Application.Features.Users.Abstractions;
 using InstaConnect.Identity.Application.Features.Users.Commands.Add;
@@ -229,7 +227,6 @@ public static class UserEquals
 		}
 	}
 
-
 	extension(GetUserDetailsByIdApiResponse response)
 	{
 		public bool Matches(GetUserDetailsByIdApiRequest request, User user)
@@ -245,7 +242,6 @@ public static class UserEquals
 			return response.Response.MatchesFull(user);
 		}
 	}
-
 
 	extension(GetCurrentUserDetailsByIdApiResponse response)
 	{
@@ -395,8 +391,6 @@ public static class UserEquals
 														  matchesFilter);
 		}
 	}
-
-
 
 	extension(EmailConfirmationTokenAddedEventRequest r)
 	{

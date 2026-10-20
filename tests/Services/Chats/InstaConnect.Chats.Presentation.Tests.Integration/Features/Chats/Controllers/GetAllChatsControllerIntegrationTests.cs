@@ -8,10 +8,6 @@ using InstaConnect.Chats.Tests.Features.Chats.DataAttributes.PageSize;
 using InstaConnect.Chats.Tests.Features.Chats.DataAttributes.SortOrder;
 using InstaConnect.Chats.Tests.Features.Chats.DataAttributes.SortTerm;
 using InstaConnect.Chats.Tests.Features.Users.DataAttributes.Name;
-using InstaConnect.Common.Domain.Features.Requests.Models;
-using InstaConnect.Common.Tests.Features.DataAttributes.Enums.Base;
-using InstaConnect.Common.Tests.Features.DataAttributes.Enums.Sort;
-using InstaConnect.Common.Tests.Features.DataAttributes.Ints.Base;
 
 namespace InstaConnect.Chats.Presentation.Tests.Integration.Features.Chats.Controllers;
 

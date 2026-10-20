@@ -1,4 +1,3 @@
-using InstaConnect.Common.Tests.Features.Assertions;
 using InstaConnect.Follows.Presentation.Tests.Features.Follows.Utilities;
 
 namespace InstaConnect.Follows.Presentation.Tests.Unit.Features.Follows.Controllers.v1;

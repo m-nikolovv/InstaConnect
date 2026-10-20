@@ -8,15 +8,8 @@
   </ItemGroup>
 
   <ItemGroup Label="Common">
-    <Using Include="InstaConnect.Common.Domain.Features.Common.Extensions" />
-    <Using Include="InstaConnect.Common.Tests.Features.Assertions" />
     <Using Include="InstaConnect.Common.Tests.Features.DataAttributes.Base" />
-    <Using Include="InstaConnect.Common.Tests.Features.DataAttributes.Ints.TooLarge" />
-    <Using Include="InstaConnect.Common.Tests.Features.DataAttributes.Ints.TooSmall" />
-    <Using Include="InstaConnect.Common.Tests.Features.DataAttributes.Strings.Base" />
-    <Using Include="InstaConnect.Common.Tests.Features.DataAttributes.Strings.DifferentCase" />
     <Using Include="InstaConnect.Posts.Tests.Features.Common.Utilities" />
-    <Using Include="Xunit" />
   </ItemGroup>
 
   <ItemGroup Label="Users">

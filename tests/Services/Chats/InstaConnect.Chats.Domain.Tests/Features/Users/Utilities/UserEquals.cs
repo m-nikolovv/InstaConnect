@@ -1,5 +1,4 @@
 using InstaConnect.Chats.Domain.Features.Users.Models.Responses;
-using InstaConnect.Common.Domain.Features.Common.Extensions;
 
 namespace InstaConnect.Chats.Domain.Tests.Features.Users.Utilities;
 

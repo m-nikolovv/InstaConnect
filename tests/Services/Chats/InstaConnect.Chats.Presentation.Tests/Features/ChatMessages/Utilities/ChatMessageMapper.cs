@@ -6,7 +6,6 @@ using InstaConnect.Chats.Application.Features.ChatMessages.Queries.GetById;
 using InstaConnect.Chats.Presentation.Tests.Features.ChatMessageImages.Utilities;
 using InstaConnect.Chats.Presentation.Tests.Features.Users.Utilities;
 using InstaConnect.Common.Infrastructure.Features.Databases.Helpers;
-using InstaConnect.Common.Presentation.Features.Requests.Abstractions;
 
 namespace InstaConnect.Chats.Presentation.Tests.Features.ChatMessages.Utilities;
 
@@ -83,7 +82,6 @@ public static class ChatMessageMapper
 			return new(chatMessage.ToFullQueryResponse());
 		}
 	}
-
 
 	extension(ICollection<ChatMessage> chatMessages)
 	{

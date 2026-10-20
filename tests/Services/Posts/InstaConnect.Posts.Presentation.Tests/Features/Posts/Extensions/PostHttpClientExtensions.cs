@@ -1,5 +1,3 @@
-using System.Net.Http.Json;
-
 using InstaConnect.Posts.Presentation.Features.Posts.Utilities;
 
 namespace InstaConnect.Posts.Presentation.Tests.Features.Posts.Extensions;

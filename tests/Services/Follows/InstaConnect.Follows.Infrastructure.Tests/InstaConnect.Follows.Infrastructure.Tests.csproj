@@ -7,12 +7,6 @@
     <ProjectReference Include="..\InstaConnect.Follows.Tests\InstaConnect.Follows.Tests.csproj" />
   </ItemGroup>
 
-  <ItemGroup Label="Common">
-    <Using Include="InstaConnect.Common.Domain.Features.ValueObjects.Models" />
-    <Using Include="InstaConnect.Common.Tests.Features.DataAttributes.Base" />
-    <Using Include="InstaConnect.Common.Tests.Features.DataAttributes.Strings.Base" />
-  </ItemGroup>
-
   <ItemGroup Label="Users">
     <Using Include="InstaConnect.Follows.Domain.Features.Users.Models.Entities" />
     <Using Include="InstaConnect.Follows.Domain.Features.Users.Models.Requests" />

@@ -1,5 +1,3 @@
-using InstaConnect.Common.Domain.Features.DateTimes.Abstractions;
-
 namespace InstaConnect.Chats.Domain.Tests.Features.Chats.Utilities;
 
 public static class ChatMockSetups

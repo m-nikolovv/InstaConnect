@@ -1,26 +1,46 @@
 <Project>
   <ItemGroup Label="Domain" Condition="'$(ProjectLayer)' == 'Domain'">
     <Using Include="InstaConnect.Common.Domain.Features.Common.Extensions" />
+    <Using Include="InstaConnect.Common.Domain.Features.Databases.Abstractions" />
     <Using Include="InstaConnect.Common.Domain.Features.Databases.Models" />
+    <Using Include="InstaConnect.Common.Domain.Features.DateTimes.Abstractions" />
     <Using Include="InstaConnect.Common.Domain.Features.Entities.Abstractions" />
     <Using Include="InstaConnect.Common.Domain.Features.Exceptions.Exceptions" />
     <Using Include="InstaConnect.Common.Domain.Features.Requests.Abstractions" />
+    <Using Include="InstaConnect.Common.Domain.Features.Requests.Models" />
     <Using Include="InstaConnect.Common.Domain.Features.ValueObjects.Models" />
   </ItemGroup>
 
   <ItemGroup Label="Domain.Tests" Condition="'$(ProjectLayer)' == 'Domain.Tests'">
+    <Using Include="InstaConnect.Common.Domain.Features.Common.Extensions" />
+    <Using Include="InstaConnect.Common.Domain.Features.DateTimes.Abstractions" />
+    <Using Include="InstaConnect.Common.Domain.Features.Requests.Models" />
+    <Using Include="InstaConnect.Common.Domain.Features.ValueObjects.Models" />
+    <Using Include="InstaConnect.Common.Domain.Tests.Features.Assertions" />
     <Using Include="InstaConnect.Common.Domain.Tests.Features.Utilities" />
+    <Using Include="InstaConnect.Common.Tests.Features.Assertions" />
     <Using Include="InstaConnect.Common.Tests.Features.DataAttributes.Base" />
+    <Using Include="InstaConnect.Common.Tests.Features.DataAttributes.Enums.Base" />
+    <Using Include="InstaConnect.Common.Tests.Features.DataAttributes.Enums.Sort" />
+    <Using Include="InstaConnect.Common.Tests.Features.DataAttributes.Ints.Base" />
     <Using Include="InstaConnect.Common.Tests.Features.DataAttributes.Strings.Base" />
     <Using Include="InstaConnect.Common.Tests.Features.Utilities" />
+    <Using Include="Microsoft.Extensions.DependencyInjection" />
   </ItemGroup>
 
   <ItemGroup Label="Domain.Tests.Integration" Condition="'$(ProjectLayer)' == 'Domain.Tests.Integration'">
+    <Using Include="InstaConnect.Common.Domain.Features.Requests.Models" />
     <Using Include="InstaConnect.Common.Tests.Features.Assertions" />
+    <Using Include="InstaConnect.Common.Tests.Features.DataAttributes.Enums.Base" />
+    <Using Include="InstaConnect.Common.Tests.Features.DataAttributes.Enums.Sort" />
     <Using Include="InstaConnect.Common.Tests.Features.DataAttributes.Strings.Base" />
   </ItemGroup>
 
   <ItemGroup Label="Domain.Tests.Unit" Condition="'$(ProjectLayer)' == 'Domain.Tests.Unit'">
+    <Using Include="InstaConnect.Common.Domain.Features.DateTimes.Abstractions" />
+    <Using Include="InstaConnect.Common.Domain.Tests.Features.Assertions" />
+    <Using Include="InstaConnect.Common.Domain.Tests.Features.Utilities" />
     <Using Include="InstaConnect.Common.Tests.Features.Assertions" />
+    <Using Include="InstaConnect.Common.Tests.Features.Utilities" />
   </ItemGroup>
 </Project>

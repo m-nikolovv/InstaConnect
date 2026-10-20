@@ -10,9 +10,6 @@ using InstaConnect.Chats.Presentation.Tests.Features.ChatMessageImages.Utilities
 using InstaConnect.Chats.Presentation.Tests.Features.ChatMessages.Extensions;
 using InstaConnect.Chats.Presentation.Tests.Features.Users.Utilities;
 using InstaConnect.Chats.Tests.Features.ChatMessages.Extensions;
-using InstaConnect.Common.Domain.Features.Common.Extensions;
-using InstaConnect.Common.Presentation.Features.Requests.Abstractions;
-using InstaConnect.Common.Tests.Features.DataAttributes.Enums.Sort;
 using InstaConnect.Common.Tests.Features.Extensions;
 
 namespace InstaConnect.Chats.Presentation.Tests.Features.ChatMessages.Utilities;

@@ -10,17 +10,6 @@
     <ProjectReference Include="..\InstaConnect.Posts.Infrastructure\InstaConnect.Posts.Infrastructure.csproj" />
   </ItemGroup>
 
-  <ItemGroup Label="Common">
-    <Using Include="Asp.Versioning" />
-    <Using Include="InstaConnect.Common.Application.Features.Requests.Abstractions" />
-    <Using Include="InstaConnect.Common.Domain.Features.Common.Extensions" />
-    <Using Include="InstaConnect.Common.Domain.Features.Mappers.Abstractions" />
-    <Using Include="InstaConnect.Common.Domain.Features.Requests.Models" />
-    <Using Include="InstaConnect.Common.Presentation.Features.Controllers.Utilities" />
-    <Using Include="InstaConnect.Common.Presentation.Features.Requests.Abstractions" />
-    <Using Include="Microsoft.AspNetCore.RateLimiting" />
-  </ItemGroup>
-
   <ItemGroup Label="Users">
     <Using Include="InstaConnect.Posts.Presentation.Features.Users.Abstractions" />
     <Using Include="InstaConnect.Posts.Presentation.Features.Users.Models.Responses" />

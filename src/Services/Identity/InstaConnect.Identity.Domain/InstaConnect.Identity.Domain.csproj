@@ -6,7 +6,6 @@
   </ItemGroup>
 
   <ItemGroup Label="Common">
-    <Using Include="InstaConnect.Common.Domain.Features.DateTimes.Abstractions" />
     <Using Include="InstaConnect.Common.Domain.Features.AccessTokens.Models" />
     <Using Include="InstaConnect.Identity.Domain.Features.Common.Models.Requests" />
   </ItemGroup>

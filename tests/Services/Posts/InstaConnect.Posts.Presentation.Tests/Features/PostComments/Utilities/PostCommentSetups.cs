@@ -1,7 +1,5 @@
 using InstaConnect.Posts.Presentation.Features.PostComments.Controllers.v1;
 
-using Microsoft.Extensions.DependencyInjection;
-
 namespace InstaConnect.Posts.Presentation.Tests.Features.PostComments.Utilities;
 
 public static class PostCommentSetups

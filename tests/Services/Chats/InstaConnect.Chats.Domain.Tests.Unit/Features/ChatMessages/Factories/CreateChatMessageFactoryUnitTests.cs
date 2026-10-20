@@ -1,5 +1,4 @@
 using InstaConnect.Chats.Tests.Features.ChatMessages.Assertions;
-using InstaConnect.Common.Domain.Tests.Features.Assertions;
 
 namespace InstaConnect.Chats.Domain.Tests.Unit.Features.ChatMessages.Factories;
 

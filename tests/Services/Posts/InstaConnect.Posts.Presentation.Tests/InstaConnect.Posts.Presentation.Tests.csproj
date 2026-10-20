@@ -6,23 +6,6 @@
     <ProjectReference Include="..\InstaConnect.Posts.Tests\InstaConnect.Posts.Tests.csproj" />
   </ItemGroup>
 
-  <ItemGroup Label="Common">
-    <Using Include="InstaConnect.Common.Application.Features.Requests.Abstractions" />
-    <Using Include="InstaConnect.Common.Domain.Features.Common.Extensions" />
-    <Using Include="InstaConnect.Common.Domain.Features.Requests.Models" />
-    <Using Include="InstaConnect.Common.Infrastructure.Features.AccessTokens.Abstractions" />
-    <Using Include="InstaConnect.Common.Presentation.Features.Requests.Abstractions" />
-    <Using Include="InstaConnect.Common.Presentation.Tests.Features.Assertions" />
-    <Using Include="InstaConnect.Common.Presentation.Tests.Features.Extensions" />
-    <Using Include="InstaConnect.Common.Presentation.Tests.Features.Utilities" />
-    <Using Include="InstaConnect.Common.Tests.Features.Assertions" />
-    <Using Include="InstaConnect.Common.Tests.Features.DataAttributes.Enums.Base" />
-    <Using Include="InstaConnect.Common.Tests.Features.DataAttributes.Enums.Sort" />
-    <Using Include="InstaConnect.Common.Tests.Features.DataAttributes.Ints.Base" />
-    <Using Include="Microsoft.AspNetCore.Mvc" />
-    <Using Include="System.Net" />
-  </ItemGroup>
-
   <ItemGroup Label="Users">
     <Using Include="InstaConnect.Posts.Domain.Features.Users.Models.Entities" />
     <Using Include="InstaConnect.Posts.Domain.Features.Users.Models.ValueObjects" />
