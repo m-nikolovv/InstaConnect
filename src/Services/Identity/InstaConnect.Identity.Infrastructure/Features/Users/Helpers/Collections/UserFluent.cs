@@ -1,5 +1,3 @@
-using InstaConnect.Common.Domain.Features.ValueObjects.Models;
-
 namespace InstaConnect.Identity.Infrastructure.Features.Users.Helpers.Collections;
 
 internal class UserFluent : MongoDbFluent<User>, IUserFluent

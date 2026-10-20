@@ -1,7 +1,3 @@
-using FluentValidation.TestHelper;
-
-using InstaConnect.Common.Application.Tests.Features.Assertions;
-
 namespace InstaConnect.Chats.Application.Tests.Features.Chats.Assertions;
 
 public static class ChatValidationAssertions

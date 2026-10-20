@@ -1,5 +1,4 @@
-using InstaConnect.Common.Events.Features.AccessTokens.Models;
-using InstaConnect.Common.Tests.Features.DataAttributes.Enums.Base;
+using InstaConnect.Common.Domain.Features.AccessTokens.Models;
 
 namespace InstaConnect.Identity.Domain.Tests.Features.UserClaims.Builders;
 

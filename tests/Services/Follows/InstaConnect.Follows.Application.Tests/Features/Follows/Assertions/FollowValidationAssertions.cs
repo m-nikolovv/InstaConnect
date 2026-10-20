@@ -1,10 +1,3 @@
-using FluentValidation.TestHelper;
-
-using InstaConnect.Common.Application.Tests.Features.Assertions;
-using InstaConnect.Common.Domain.Features.Requests.Models;
-using InstaConnect.Common.Tests.Features.DataAttributes.Enums.Base;
-using InstaConnect.Common.Tests.Features.DataAttributes.Ints.Base;
-
 namespace InstaConnect.Follows.Application.Tests.Features.Follows.Assertions;
 
 public static class FollowValidationAssertions

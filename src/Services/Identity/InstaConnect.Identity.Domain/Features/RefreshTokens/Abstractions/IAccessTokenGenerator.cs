@@ -1,5 +1,3 @@
-using InstaConnect.Common.Domain.Features.AccessTokens.Models;
-
 namespace InstaConnect.Identity.Domain.Features.RefreshTokens.Abstractions;
 
 public interface IAccessTokenGenerator

@@ -7,8 +7,6 @@
 
   <ItemGroup Label="Common">
     <Using Include="InstaConnect.Chats.Application.Features.Common.Extensions" />
-    <Using Include="InstaConnect.Common.Domain.Features.Mappers.Abstractions" />
-    <Using Include="InstaConnect.Common.Tests.Features.Utilities" />
   </ItemGroup>
 
   <ItemGroup Label="Users">

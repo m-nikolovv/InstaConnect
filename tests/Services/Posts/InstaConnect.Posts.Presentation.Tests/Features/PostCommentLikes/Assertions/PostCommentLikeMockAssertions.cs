@@ -1,5 +1,3 @@
-using InstaConnect.Common.Application.Tests.Features.Assertions;
-
 namespace InstaConnect.Posts.Presentation.Tests.Features.PostCommentLikes.Assertions;
 
 public static class PostCommentLikeMockAssertions

@@ -1,4 +1,3 @@
-using InstaConnect.Common.Tests.Features.DataAttributes.Enums.Sort;
 using InstaConnect.Identity.Domain.Features.Common.Helpers;
 using InstaConnect.Identity.Events.Features.EmailConfirmationTokens;
 
@@ -36,7 +35,6 @@ public static class UserMatchAssertions
 		}
 	}
 
-
 	extension(GetCurrentUserByIdApiResponse response)
 	{
 		public void ShouldSatisfy(
@@ -56,7 +54,6 @@ public static class UserMatchAssertions
 			response.ShouldSatisfy(p => p.Matches(request, user));
 		}
 	}
-
 
 	extension(GetCurrentUserDetailsByIdApiResponse response)
 	{

@@ -1,7 +1,6 @@
 using InstaConnect.Chats.Presentation.Features.ChatMessages.Extensions;
 using InstaConnect.Chats.Presentation.Features.Chats.Extensions;
 using InstaConnect.Chats.Presentation.Features.Users.Extensions;
-using InstaConnect.Common.Domain.Features.Common.Extensions;
 using InstaConnect.Common.Domain.Features.Mappers.Extensions;
 using InstaConnect.Common.Domain.Features.Validations.Extensions;
 using InstaConnect.Common.Presentation.Features.Common.Extensions;

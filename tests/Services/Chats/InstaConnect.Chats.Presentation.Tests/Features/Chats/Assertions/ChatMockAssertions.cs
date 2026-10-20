@@ -1,6 +1,3 @@
-using InstaConnect.Common.Application.Features.Requests.Abstractions;
-using InstaConnect.Common.Application.Tests.Features.Assertions;
-
 namespace InstaConnect.Chats.Presentation.Tests.Features.Chats.Assertions;
 
 public static class ChatMockAssertions

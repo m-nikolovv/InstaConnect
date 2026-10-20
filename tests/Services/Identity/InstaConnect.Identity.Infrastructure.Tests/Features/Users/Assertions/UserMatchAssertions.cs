@@ -1,5 +1,3 @@
-using InstaConnect.Common.Domain.Features.ValueObjects.Models;
-using InstaConnect.Common.Tests.Features.DataAttributes.Enums.Sort;
 using InstaConnect.Identity.Domain.Features.Users.Models.Responses;
 using InstaConnect.Identity.Infrastructure.Tests.Features.Users.Utilities;
 

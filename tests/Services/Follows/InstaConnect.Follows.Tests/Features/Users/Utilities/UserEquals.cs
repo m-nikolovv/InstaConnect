@@ -1,4 +1,3 @@
-using InstaConnect.Common.Domain.Features.Common.Extensions;
 using InstaConnect.Identity.Events.Features.Users;
 
 namespace InstaConnect.Follows.Tests.Features.Users.Utilities;

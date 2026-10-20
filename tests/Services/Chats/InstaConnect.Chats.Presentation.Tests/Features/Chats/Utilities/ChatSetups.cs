@@ -1,9 +1,6 @@
 using InstaConnect.Chats.Domain.Features.Chats.Models.ValueObjects;
 using InstaConnect.Chats.Presentation.Features.Chats.Controllers.v1;
 
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.DependencyInjection;
-
 namespace InstaConnect.Chats.Presentation.Tests.Features.Chats.Utilities;
 
 public static class ChatSetups

@@ -2,9 +2,6 @@ using InstaConnect.Chats.Domain.Features.Chats.Models.Requests;
 using InstaConnect.Chats.Presentation.Features.Chats.Utilities;
 using InstaConnect.Chats.Presentation.Features.Users.Abstractions;
 using InstaConnect.Chats.Presentation.Features.Users.Utilities;
-using InstaConnect.Common.Domain.Features.Requests.Models;
-using InstaConnect.Common.Presentation.Features.Controllers.Utilities;
-using InstaConnect.Common.Presentation.Features.Requests.Abstractions;
 
 namespace InstaConnect.Chats.Presentation.Features.Chats.Models.Requests;
 

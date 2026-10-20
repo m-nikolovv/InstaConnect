@@ -2,8 +2,6 @@ using InstaConnect.Identity.Application.Features.RefreshTokens.Models;
 using InstaConnect.Identity.Application.Tests.Features.RefreshTokens.Utilities;
 using InstaConnect.Identity.Domain.Features.RefreshTokens.Models.ValueObjects;
 
-using Microsoft.Extensions.DependencyInjection;
-
 namespace InstaConnect.Identity.Application.Tests.Features.RefreshTokens.Utilities;
 
 public static class RefreshTokenSetups

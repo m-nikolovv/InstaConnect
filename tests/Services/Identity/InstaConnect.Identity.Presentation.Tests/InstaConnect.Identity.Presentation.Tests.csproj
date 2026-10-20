@@ -7,23 +7,9 @@
   </ItemGroup>
 
   <ItemGroup Label="Common">
-    <Using Include="InstaConnect.Common.Application.Features.Requests.Abstractions" />
-    <Using Include="InstaConnect.Common.Application.Tests.Features.Assertions" />
-    <Using Include="InstaConnect.Common.Domain.Features.Common.Extensions" />
-    <Using Include="InstaConnect.Common.Domain.Features.Requests.Models" />
     <Using Include="InstaConnect.Common.Domain.Features.ValueObjects.Models" />
-    <Using Include="InstaConnect.Common.Events.Features.AccessTokens.Models" />
-    <Using Include="InstaConnect.Common.Presentation.Tests.Features.Assertions" />
-    <Using Include="InstaConnect.Common.Presentation.Tests.Features.Extensions" />
-    <Using Include="InstaConnect.Common.Presentation.Tests.Features.Utilities" />
-    <Using Include="InstaConnect.Common.Tests.Features.Assertions" />
-    <Using Include="InstaConnect.Common.Tests.Features.DataAttributes.Enums.Base" />
-    <Using Include="InstaConnect.Common.Tests.Features.DataAttributes.Ints.Base" />
+    <Using Include="InstaConnect.Common.Domain.Features.AccessTokens.Models" />
     <Using Include="InstaConnect.Identity.Tests.Features.Common.Utilities" />
-    <Using Include="Microsoft.AspNetCore.Mvc" />
-    <Using Include="Microsoft.Extensions.DependencyInjection" />
-    <Using Include="System.Net" />
-    <Using Include="System.Net.Http.Json" />
   </ItemGroup>
 
   <ItemGroup Label="Users">

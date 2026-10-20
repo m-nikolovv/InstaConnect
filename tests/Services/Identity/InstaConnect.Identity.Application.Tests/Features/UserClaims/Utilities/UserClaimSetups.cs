@@ -1,8 +1,6 @@
 using InstaConnect.Identity.Application.Features.UserClaims.Models;
 using InstaConnect.Identity.Domain.Features.UserClaims.Models.ValueObjects;
 
-using Microsoft.Extensions.DependencyInjection;
-
 namespace InstaConnect.Identity.Application.Tests.Features.UserClaims.Utilities;
 
 public static class UserClaimSetups

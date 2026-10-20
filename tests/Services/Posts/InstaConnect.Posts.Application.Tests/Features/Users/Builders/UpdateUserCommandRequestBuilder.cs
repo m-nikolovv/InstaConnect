@@ -1,4 +1,3 @@
-using InstaConnect.Common.Domain.Features.ValueObjects.Models;
 using InstaConnect.Common.Tests.Features.DataAttributes.DateTimeOffsets.Base;
 
 namespace InstaConnect.Posts.Application.Tests.Features.Users.Builders;

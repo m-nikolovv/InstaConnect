@@ -3,8 +3,6 @@ using InstaConnect.Chats.Domain.Features.ChatMessageImages.Models.Entities;
 using InstaConnect.Chats.Domain.Tests.Unit.Features.ChatMessageImages.Utilities;
 using InstaConnect.Chats.Tests.Features.ChatMessageImages.Assertions;
 using InstaConnect.Common.Domain.Features.ValueObjects.Models;
-using InstaConnect.Common.Domain.Tests.Features.Assertions;
-using InstaConnect.Common.Domain.Tests.Features.Utilities;
 
 namespace InstaConnect.Chats.Domain.Tests.Unit.Features.ChatMessageImages.Factories;
 

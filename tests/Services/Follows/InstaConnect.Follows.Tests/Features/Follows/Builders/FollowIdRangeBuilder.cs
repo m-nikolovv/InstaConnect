@@ -1,5 +1,3 @@
-using InstaConnect.Common.Tests.Features.DataAttributes.Strings.Base;
-
 namespace InstaConnect.Follows.Tests.Features.Follows.Builders;
 
 public class FollowIdRangeBuilder

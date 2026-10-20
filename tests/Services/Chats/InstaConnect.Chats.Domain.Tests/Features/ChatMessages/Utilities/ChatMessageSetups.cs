@@ -1,5 +1,3 @@
-using Microsoft.Extensions.DependencyInjection;
-
 namespace InstaConnect.Chats.Domain.Tests.Features.ChatMessages.Utilities;
 
 public static class ChatMessageDomainSetups

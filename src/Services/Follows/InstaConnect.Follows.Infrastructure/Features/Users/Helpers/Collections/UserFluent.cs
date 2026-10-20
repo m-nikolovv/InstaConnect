@@ -1,4 +1,3 @@
-using InstaConnect.Common.Domain.Features.ValueObjects.Models;
 using InstaConnect.Follows.Infrastructure.Features.Users.Extensions;
 
 namespace InstaConnect.Follows.Infrastructure.Features.Users.Helpers.Collections;

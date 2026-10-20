@@ -7,8 +7,6 @@
 
   <ItemGroup Label="Common">
     <Using Include="InstaConnect.Chats.Domain.Features.Common.Models.Requests" />
-    <Using Include="InstaConnect.Common.Domain.Features.Common.Extensions" />
-    <Using Include="InstaConnect.Common.Domain.Features.ValueObjects.Models" />
   </ItemGroup>
 
   <ItemGroup Label="Users">

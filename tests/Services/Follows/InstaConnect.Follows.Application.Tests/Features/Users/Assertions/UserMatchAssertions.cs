@@ -1,4 +1,3 @@
-using InstaConnect.Common.Tests.Features.Assertions;
 using InstaConnect.Follows.Tests.Features.Follows.Assertions;
 using InstaConnect.Follows.Tests.Features.Users.Assertions;
 

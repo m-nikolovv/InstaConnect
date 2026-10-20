@@ -1,4 +1,3 @@
-using InstaConnect.Common.Tests.Features.DataAttributes.Enums.Sort;
 using InstaConnect.Identity.Application.Tests.Features.UserClaims.Utilities;
 using InstaConnect.Identity.Events.Features.UserClaims;
 

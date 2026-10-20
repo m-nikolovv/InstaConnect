@@ -10,8 +10,6 @@ using Testcontainers.MongoDb;
 using Testcontainers.RabbitMq;
 using Testcontainers.Redis;
 
-using Xunit;
-
 namespace InstaConnect.Follows.Tests.Features.Common.Utilities;
 
 public class FollowsWebApplicationFactory : WebApplicationFactory<Program>, IAsyncLifetime

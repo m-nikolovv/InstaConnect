@@ -1,9 +1,9 @@
 using System.Text.Json.Serialization;
 using System.Threading.RateLimiting;
 
+using InstaConnect.Common.Domain.Features.AccessTokens.Models;
 using InstaConnect.Common.Domain.Features.AccessTokens.Utilities;
 using InstaConnect.Common.Domain.Features.Common.Extensions;
-using InstaConnect.Common.Events.Features.AccessTokens.Models;
 using InstaConnect.Common.Presentation.Features.Controllers.Abstractions;
 using InstaConnect.Common.Presentation.Features.Controllers.Helpers;
 using InstaConnect.Common.Presentation.Features.Controllers.Helpers.FromClaim;

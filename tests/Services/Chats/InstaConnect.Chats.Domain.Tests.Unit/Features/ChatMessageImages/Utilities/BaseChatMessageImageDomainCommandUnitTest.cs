@@ -1,9 +1,7 @@
 using InstaConnect.Chats.Domain.Features.ChatMessageImages.Abstractions;
 using InstaConnect.Chats.Domain.Tests.Features.ChatMessageImages.Utilities;
 using InstaConnect.Chats.Tests.Features.ChatMessageImages.Utilities;
-using InstaConnect.Common.Domain.Features.DateTimes.Abstractions;
 using InstaConnect.Common.Domain.Features.Guids.Abstractions;
-using InstaConnect.Common.Domain.Tests.Features.Utilities;
 
 namespace InstaConnect.Chats.Domain.Tests.Unit.Features.ChatMessageImages.Utilities;
 

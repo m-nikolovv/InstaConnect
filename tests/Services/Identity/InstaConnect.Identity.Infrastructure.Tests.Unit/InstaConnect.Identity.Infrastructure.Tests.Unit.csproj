@@ -6,7 +6,6 @@
   </ItemGroup>
 
   <ItemGroup Label="Common">
-    <Using Include="InstaConnect.Common.Tests.Features.Utilities" />
     <Using Include="InstaConnect.Identity.Tests.Features.Common.Utilities" />
   </ItemGroup>
 

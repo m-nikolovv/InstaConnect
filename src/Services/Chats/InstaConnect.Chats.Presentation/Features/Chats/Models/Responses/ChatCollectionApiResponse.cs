@@ -1,5 +1,3 @@
-using InstaConnect.Common.Presentation.Features.Requests.Abstractions;
-
 namespace InstaConnect.Chats.Presentation.Features.Chats.Models.Responses;
 
 public record ChatCollectionApiResponse(

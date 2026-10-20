@@ -1,7 +1,3 @@
-using System.Net.Http.Json;
-
-using InstaConnect.Common.Infrastructure.Features.AccessTokens.Abstractions;
-using InstaConnect.Common.Presentation.Tests.Features.Extensions;
 using InstaConnect.Follows.Presentation.Features.Follows.Utilities;
 
 namespace InstaConnect.Follows.Presentation.Tests.Features.Follows.Extensions;

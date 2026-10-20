@@ -1,5 +1,4 @@
 using InstaConnect.Common.Domain.Features.Guids.Abstractions;
-using InstaConnect.Common.Domain.Features.ValueObjects.Models;
 using InstaConnect.Identity.Domain.Tests.Features.EmailConfirmationTokens.Utilities;
 
 namespace InstaConnect.Identity.Domain.Tests.Features.Users.Utilities;
