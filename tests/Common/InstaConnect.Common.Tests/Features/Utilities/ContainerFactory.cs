@@ -8,7 +8,7 @@ public static class ContainerFactory
 {
 	public static MongoDbContainer GetMongoDbContainer()
 	{
-		const string Image = "mongo:8.0.32";
+		const string Image = "mongo:8.0";
 		const string Username = "instaconnect";
 		const string Password = "instaconnect";
 
