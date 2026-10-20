@@ -1,10 +1,11 @@
 using InstaConnect.Posts.Application.Features.Posts.Commands.Add;
 using InstaConnect.Posts.Application.Features.Posts.Commands.Update;
+using InstaConnect.Posts.Application.Features.Posts.Models;
 using InstaConnect.Posts.Application.Features.Posts.Queries.GetAll;
 using InstaConnect.Posts.Application.Features.Posts.Queries.GetAllForUser;
 using InstaConnect.Posts.Application.Features.Posts.Queries.GetById;
-
-using Mapster;
+using InstaConnect.Posts.Presentation.Features.PostImages.Models.Responses;
+using InstaConnect.Posts.Presentation.Features.Posts.Models.Requests;
 
 namespace InstaConnect.Posts.Presentation.Features.Posts.Mappings;
 

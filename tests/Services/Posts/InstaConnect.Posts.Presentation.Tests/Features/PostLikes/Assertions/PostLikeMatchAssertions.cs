@@ -1,6 +1,4 @@
-using InstaConnect.Common.Tests.Features.DataAttributes.Enums.Sort;
 using InstaConnect.Posts.Events.Features.PostLikes;
-using InstaConnect.Posts.Presentation.Tests.Features.PostLikes.Utilities;
 
 namespace InstaConnect.Posts.Presentation.Tests.Features.PostLikes.Assertions;
 

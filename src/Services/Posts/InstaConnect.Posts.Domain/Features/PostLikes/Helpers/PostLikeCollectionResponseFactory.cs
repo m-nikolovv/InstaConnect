@@ -1,6 +1,3 @@
-using InstaConnect.Common.Domain.Features.Databases.Abstractions;
-using InstaConnect.Posts.Domain.Features.Users.Models.Responses;
-
 namespace InstaConnect.Posts.Domain.Features.PostLikes.Helpers;
 
 internal class PostLikeCollectionResponseFactory : IPostLikeCollectionResponseFactory

@@ -1,13 +1,10 @@
 using InstaConnect.Chats.Application.Features.ChatMessages.Models;
-using InstaConnect.Chats.Application.Features.Users.Abstractions;
 using InstaConnect.Chats.Application.Tests.Features.ChatMessageImages.Utilities;
 using InstaConnect.Chats.Application.Tests.Features.ChatMessages.Extensions;
-using InstaConnect.Chats.Application.Tests.Features.ChatMessages.Utilities;
-using InstaConnect.Chats.Application.Tests.Features.Chats.Utilities;
-using InstaConnect.Chats.Application.Tests.Features.Users.Utilities;
+using InstaConnect.Chats.Domain.Features.ChatMessageImages.Models.Entities;
 using InstaConnect.Chats.Domain.Features.ChatMessageImages.Models.Requests;
+using InstaConnect.Chats.Domain.Features.Users.Models.Requests;
 using InstaConnect.Chats.Tests.Features.ChatMessages.Extensions;
-using InstaConnect.Common.Application.Features.Requests.Abstractions;
 using InstaConnect.Common.Domain.Features.Common.Extensions;
 using InstaConnect.Common.Tests.Features.DataAttributes.Enums.Sort;
 using InstaConnect.Common.Tests.Features.Extensions;

@@ -24,13 +24,22 @@
     <PackageReference Include="Serilog.Sinks.OpenTelemetry" />
   </ItemGroup>
 
-
   <ItemGroup>
     <ProjectReference Include="..\InstaConnect.Common.Application\InstaConnect.Common.Application.csproj" />
   </ItemGroup>
 
   <ItemGroup Label="Common">
+    <Using Include="FluentValidation" />
+    <Using Include="InstaConnect.Common.Domain.Features.Common.Abstractions" />
     <Using Include="InstaConnect.Common.Domain.Features.Common.Extensions" />
+    <Using Include="InstaConnect.Common.Domain.Features.Databases.Abstractions" />
+    <Using Include="InstaConnect.Common.Domain.Features.Entities.Abstractions" />
+    <Using Include="InstaConnect.Common.Domain.Features.Requests.Models" />
+    <Using Include="InstaConnect.Common.Domain.Features.Validations.Extensions" />
+    <Using Include="InstaConnect.Common.Infrastructure.Features.Databases.Abstractions" />
+    <Using Include="Microsoft.Extensions.Configuration" />
+    <Using Include="MongoDB.Driver" />
+    <Using Include="System.Linq.Expressions" />
   </ItemGroup>
 
 </Project>

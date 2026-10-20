@@ -1,4 +1,5 @@
-using InstaConnect.Chats.Application.Tests.Features.ChatMessages.Utilities;
+using InstaConnect.Chats.Domain.Features.ChatMessageImages.Models.Entities;
+using InstaConnect.Chats.Tests.Features.ChatMessages.Assertions;
 using InstaConnect.Common.Tests.Features.DataAttributes.Enums.Sort;
 
 namespace InstaConnect.Chats.Application.Tests.Features.ChatMessages.Assertions;

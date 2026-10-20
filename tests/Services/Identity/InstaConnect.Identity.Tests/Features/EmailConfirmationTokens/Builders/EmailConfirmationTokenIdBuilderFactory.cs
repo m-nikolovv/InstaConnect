@@ -1,5 +1,3 @@
-using InstaConnect.Identity.Domain.Features.EmailConfirmationTokens.Models.ValueObjects;
-
 namespace InstaConnect.Identity.Tests.Features.EmailConfirmationTokens.Builders;
 
 public class EmailConfirmationTokenIdBuilderFactory

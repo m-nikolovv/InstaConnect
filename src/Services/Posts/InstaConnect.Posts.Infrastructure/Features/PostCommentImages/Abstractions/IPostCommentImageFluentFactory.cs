@@ -1,5 +1,3 @@
-using MongoDB.Driver;
-
 namespace InstaConnect.Posts.Infrastructure.Features.PostCommentImages.Abstractions;
 
 public interface IPostCommentImageFluentFactory

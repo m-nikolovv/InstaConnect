@@ -1,6 +1,4 @@
-using InstaConnect.Common.Domain.Features.Common.Extensions;
 using InstaConnect.Identity.Infrastructure.Features.Common.Models.Options;
-using InstaConnect.Identity.Tests.Features.Common.Utilities;
 
 using Microsoft.AspNetCore.Hosting;
 

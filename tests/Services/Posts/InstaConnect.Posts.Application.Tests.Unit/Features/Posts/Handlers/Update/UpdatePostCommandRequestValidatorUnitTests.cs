@@ -1,3 +1,7 @@
+using InstaConnect.Posts.Application.Features.Posts.Commands.Update;
+using InstaConnect.Posts.Tests.Features.Posts.DataAttributes.Content;
+using InstaConnect.Posts.Tests.Features.Posts.DataAttributes.Title;
+
 namespace InstaConnect.Posts.Application.Tests.Unit.Features.Posts.Handlers.Update;
 
 public class UpdatePostCommandRequestValidatorUnitTests : BasePostApplicationCommandUnitTest

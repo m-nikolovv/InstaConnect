@@ -1,5 +1,4 @@
 using InstaConnect.Follows.Domain.Features.Follows.Abstractions;
-using InstaConnect.Follows.Tests.Features.Follows.Utilities;
 
 namespace InstaConnect.Follows.Infrastructure.Tests.Integration.Features.Follows.Utilities;
 

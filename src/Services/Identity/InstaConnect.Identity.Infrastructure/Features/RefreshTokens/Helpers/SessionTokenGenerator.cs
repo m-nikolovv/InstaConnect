@@ -1,3 +1,6 @@
+using InstaConnect.Identity.Domain.Features.RefreshTokens.Abstractions;
+using InstaConnect.Identity.Domain.Features.RefreshTokens.Models.Responses;
+
 namespace InstaConnect.Identity.Infrastructure.Features.RefreshTokens.Helpers;
 
 internal class SessionTokenGenerator : ISessionTokenGenerator

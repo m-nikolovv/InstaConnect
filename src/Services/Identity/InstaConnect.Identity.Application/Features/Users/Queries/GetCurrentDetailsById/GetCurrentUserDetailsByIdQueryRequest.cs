@@ -1,5 +1,4 @@
 using InstaConnect.Common.Application.Features.Caches.Abstractions;
-using InstaConnect.Identity.Application.Features.Users.Abstractions;
 using InstaConnect.Identity.Application.Features.Users.Utilities;
 
 namespace InstaConnect.Identity.Application.Features.Users.Queries.GetCurrentDetailsById;

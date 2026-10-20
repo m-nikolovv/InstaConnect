@@ -1,4 +1,4 @@
-using InstaConnect.Common.Domain.Features.Mappers.Abstractions;
+using InstaConnect.Identity.Domain.Features.UserClaims.Abstractions;
 
 namespace InstaConnect.Identity.Application.Features.UserClaims.Commands.Add;
 

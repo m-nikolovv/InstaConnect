@@ -1,5 +1,3 @@
-using MongoDB.Driver;
-
 namespace InstaConnect.Identity.Infrastructure.Features.UserClaims.Helpers.Collections;
 
 internal class UserClaimFluentFactory : IUserClaimFluentFactory

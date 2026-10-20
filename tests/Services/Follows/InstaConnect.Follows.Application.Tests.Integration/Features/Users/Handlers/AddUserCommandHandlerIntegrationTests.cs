@@ -1,3 +1,15 @@
+using InstaConnect.Common.Tests.Features.DataAttributes.DateTimeOffsets.Base;
+using InstaConnect.Follows.Application.Features.Users.Commands.Add;
+using InstaConnect.Follows.Application.Tests.Features.Users.Builders;
+using InstaConnect.Follows.Application.Tests.Integration.Features.Users.Utilities;
+using InstaConnect.Follows.Domain.Features.Users.Models.Entities;
+using InstaConnect.Follows.Tests.Features.Users.DataAttributes.CreatedAtUtc;
+using InstaConnect.Follows.Tests.Features.Users.DataAttributes.Email;
+using InstaConnect.Follows.Tests.Features.Users.DataAttributes.FirstName;
+using InstaConnect.Follows.Tests.Features.Users.DataAttributes.LastName;
+using InstaConnect.Follows.Tests.Features.Users.DataAttributes.Name;
+using InstaConnect.Follows.Tests.Features.Users.DataAttributes.ProfileImage;
+
 namespace InstaConnect.Follows.Application.Tests.Integration.Features.Users.Handlers;
 
 public class AddUserCommandHandlerIntegrationTests : BaseUserApplicationCommandIntegrationTest

@@ -1,3 +1,5 @@
+using InstaConnect.Posts.Domain.Features.PostImages.Utilities;
+
 using Microsoft.AspNetCore.Http;
 
 namespace InstaConnect.Posts.Tests.Features.PostImages.Utilities;

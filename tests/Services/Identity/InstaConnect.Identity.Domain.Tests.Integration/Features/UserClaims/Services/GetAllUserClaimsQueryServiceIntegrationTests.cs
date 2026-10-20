@@ -1,7 +1,6 @@
 using InstaConnect.Common.Domain.Features.Requests.Models;
 using InstaConnect.Common.Tests.Features.DataAttributes.Enums.Base;
 using InstaConnect.Common.Tests.Features.DataAttributes.Enums.Sort;
-using InstaConnect.Common.Tests.Features.DataAttributes.Strings.Base;
 using InstaConnect.Identity.Domain.Features.UserClaims.Models.Entities;
 using InstaConnect.Identity.Domain.Features.UserClaims.Models.Requests;
 using InstaConnect.Identity.Domain.Tests.Features.UserClaims.Assertions;
@@ -9,9 +8,6 @@ using InstaConnect.Identity.Domain.Tests.Features.UserClaims.Builders;
 using InstaConnect.Identity.Domain.Tests.Integration.Features.UserClaims.Utilities;
 using InstaConnect.Identity.Tests.Features.UserClaims.DataAttributes.SortOrder;
 using InstaConnect.Identity.Tests.Features.UserClaims.DataAttributes.SortTerm;
-using InstaConnect.Identity.Tests.Features.UserClaims.Utilities;
-using InstaConnect.Identity.Tests.Features.Users.DataAttributes.Id;
-using InstaConnect.Identity.Tests.Features.Users.Utilities;
 
 namespace InstaConnect.Identity.Domain.Tests.Integration.Features.UserClaims.Services;
 

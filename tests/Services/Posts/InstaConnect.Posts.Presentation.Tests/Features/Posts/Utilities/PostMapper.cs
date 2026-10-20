@@ -1,8 +1,11 @@
-using InstaConnect.Common.Presentation.Features.Requests.Abstractions;
-using InstaConnect.Posts.Presentation.Features.Users.Abstractions;
+using InstaConnect.Common.Infrastructure.Features.Databases.Helpers;
+using InstaConnect.Posts.Application.Features.Posts.Commands.Add;
+using InstaConnect.Posts.Application.Features.Posts.Commands.Update;
+using InstaConnect.Posts.Application.Features.Posts.Models;
+using InstaConnect.Posts.Application.Features.Posts.Queries.GetAll;
+using InstaConnect.Posts.Application.Features.Posts.Queries.GetAllForUser;
+using InstaConnect.Posts.Application.Features.Posts.Queries.GetById;
 using InstaConnect.Posts.Presentation.Tests.Features.PostImages.Utilities;
-using InstaConnect.Posts.Presentation.Tests.Features.Posts.Utilities;
-using InstaConnect.Posts.Presentation.Tests.Features.Users.Utilities;
 
 namespace InstaConnect.Posts.Presentation.Tests.Features.Posts.Utilities;
 

@@ -1,6 +1,3 @@
-using InstaConnect.Chats.Domain.Features.Users.Models.Requests;
-using InstaConnect.Chats.Infrastructure.Features.Users.Helpers.Repositories;
-
 namespace InstaConnect.Chats.Infrastructure.Tests.Unit.Features.Users.Repositories;
 
 public class GetUserByIdCommandRepositoryUnitTests : BaseUserInfrastructureCommandUnitTest

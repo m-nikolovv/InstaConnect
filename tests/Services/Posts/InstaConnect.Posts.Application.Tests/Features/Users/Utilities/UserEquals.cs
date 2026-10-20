@@ -1,7 +1,6 @@
-using InstaConnect.Common.Domain.Features.Common.Extensions;
-using InstaConnect.Posts.Application.Features.Users.Abstractions;
 using InstaConnect.Posts.Application.Features.Users.Models;
-using InstaConnect.Posts.Application.Tests.Features.Users.Utilities;
+using InstaConnect.Posts.Domain.Features.Users.Abstractions;
+using InstaConnect.Posts.Domain.Features.Users.Models.Requests;
 
 namespace InstaConnect.Posts.Application.Tests.Features.Users.Utilities;
 

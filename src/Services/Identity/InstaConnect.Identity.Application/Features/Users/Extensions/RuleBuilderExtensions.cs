@@ -1,3 +1,5 @@
+using InstaConnect.Identity.Domain.Features.Users.Utilities;
+
 namespace InstaConnect.Identity.Application.Features.Users.Extensions;
 
 internal static class RuleBuilderExtensions

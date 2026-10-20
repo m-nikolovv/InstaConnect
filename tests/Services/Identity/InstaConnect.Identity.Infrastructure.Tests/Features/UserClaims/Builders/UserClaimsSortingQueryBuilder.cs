@@ -1,5 +1,5 @@
 using InstaConnect.Common.Domain.Features.Requests.Models;
-using InstaConnect.Identity.Domain.Features.UserClaims.Models.Requests;
+using InstaConnect.Common.Tests.Features.DataAttributes.Enums.Base;
 using InstaConnect.Identity.Tests.Features.UserClaims.Utilities;
 
 namespace InstaConnect.Identity.Infrastructure.Tests.Features.UserClaims.Builders;

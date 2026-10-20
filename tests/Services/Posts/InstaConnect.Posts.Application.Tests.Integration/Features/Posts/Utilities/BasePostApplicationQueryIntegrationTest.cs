@@ -1,6 +1,3 @@
-using InstaConnect.Common.Application.Features.Requests.Abstractions;
-using InstaConnect.Posts.Tests.Features.PostImages.Utilities;
-
 namespace InstaConnect.Posts.Application.Tests.Integration.Features.Posts.Utilities;
 
 public abstract class BasePostApplicationQueryIntegrationTest : BasePostWebTest

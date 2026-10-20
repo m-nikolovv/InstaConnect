@@ -1,3 +1,5 @@
+using InstaConnect.Follows.Application.Features.Follows.Queries.GetById;
+
 namespace InstaConnect.Follows.Application.Tests.Integration.Features.Follows.Handlers;
 
 public class GetFollowByIdQueryHandlerIntegrationTests : BaseFollowApplicationQueryIntegrationTest

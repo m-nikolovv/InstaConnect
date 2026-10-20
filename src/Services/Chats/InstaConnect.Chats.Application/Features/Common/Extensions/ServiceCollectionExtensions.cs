@@ -1,3 +1,4 @@
+using InstaConnect.Chats.Application.Features.Chats.Extensions;
 using InstaConnect.Common.Application.Features.Common.Extensions;
 using InstaConnect.Common.Application.Features.Requests.Extensions;
 using InstaConnect.Common.Domain.Features.Mappers.Extensions;

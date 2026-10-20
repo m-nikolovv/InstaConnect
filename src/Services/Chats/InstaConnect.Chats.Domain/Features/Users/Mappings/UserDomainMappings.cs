@@ -1,7 +1,5 @@
 using InstaConnect.Identity.Events.Features.Users;
 
-using Mapster;
-
 namespace InstaConnect.Chats.Domain.Features.Users.Mappings;
 
 internal class UserDomainMappings : IRegister

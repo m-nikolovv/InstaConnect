@@ -1,5 +1,3 @@
-using InstaConnect.Common.Domain.Features.Mappers.Abstractions;
-
 namespace InstaConnect.Identity.Application.Features.Users.Queries.GetDetailsById;
 
 internal class GetUserDetailsByIdQueryHandler : IQueryHandler<GetUserDetailsByIdQueryRequest, GetUserDetailsByIdQueryResponse>

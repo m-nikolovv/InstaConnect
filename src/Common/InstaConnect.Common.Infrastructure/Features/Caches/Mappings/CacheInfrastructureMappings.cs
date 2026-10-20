@@ -1,7 +1,5 @@
 using InstaConnect.Common.Application.Features.Caches.Models;
 
-using Mapster;
-
 using Microsoft.Extensions.Caching.Distributed;
 
 namespace InstaConnect.Common.Infrastructure.Features.Caches.Mappings;

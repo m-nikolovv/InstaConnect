@@ -1,5 +1,3 @@
-using System.Linq.Expressions;
-
 using NSubstitute;
 
 namespace InstaConnect.Common.Tests.Features.Utilities;

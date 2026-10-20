@@ -1,8 +1,6 @@
 using InstaConnect.Common.Tests.Features.DataAttributes.Enums.Sort;
-using InstaConnect.Identity.Application.Tests.Features.Users.Utilities;
 using InstaConnect.Identity.Domain.Features.Common.Helpers;
 using InstaConnect.Identity.Events.Features.EmailConfirmationTokens;
-using InstaConnect.Identity.Events.Features.Users;
 
 namespace InstaConnect.Identity.Application.Tests.Features.Users.Assertions;
 

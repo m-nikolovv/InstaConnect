@@ -1,5 +1,5 @@
-using InstaConnect.Chats.Domain.Tests.Features.Chats.Utilities;
-using InstaConnect.Chats.Domain.Tests.Features.Users.Utilities;
+using InstaConnect.Chats.Domain.Features.ChatMessages.Models.Responses;
+using InstaConnect.Chats.Domain.Tests.Features.ChatMessageImages.Utilities;
 using InstaConnect.Common.Tests.Features.Extensions;
 
 namespace InstaConnect.Chats.Domain.Tests.Features.ChatMessages.Utilities;

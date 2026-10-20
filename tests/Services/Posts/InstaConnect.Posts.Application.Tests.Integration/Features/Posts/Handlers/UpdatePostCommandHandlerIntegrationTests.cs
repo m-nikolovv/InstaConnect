@@ -1,4 +1,6 @@
-using InstaConnect.Posts.Tests.Features.PostImages.Utilities;
+using InstaConnect.Posts.Application.Features.Posts.Commands.Update;
+using InstaConnect.Posts.Tests.Features.Posts.DataAttributes.Content;
+using InstaConnect.Posts.Tests.Features.Posts.DataAttributes.Title;
 
 namespace InstaConnect.Posts.Application.Tests.Integration.Features.Posts.Handlers;
 

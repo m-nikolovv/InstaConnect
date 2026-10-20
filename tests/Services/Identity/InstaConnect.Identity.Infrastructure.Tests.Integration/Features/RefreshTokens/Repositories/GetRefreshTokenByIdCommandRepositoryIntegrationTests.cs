@@ -3,8 +3,6 @@ using InstaConnect.Identity.Infrastructure.Tests.Features.RefreshTokens.Assertio
 using InstaConnect.Identity.Infrastructure.Tests.Integration.Features.RefreshTokens.Utilities;
 using InstaConnect.Identity.Tests.Features.RefreshTokens.Builders;
 using InstaConnect.Identity.Tests.Features.RefreshTokens.DataAttributes.Value;
-using InstaConnect.Identity.Tests.Features.RefreshTokens.Utilities;
-using InstaConnect.Identity.Tests.Features.Users.DataAttributes.Id;
 
 namespace InstaConnect.Identity.Infrastructure.Tests.Integration.Features.RefreshTokens.Repositories;
 

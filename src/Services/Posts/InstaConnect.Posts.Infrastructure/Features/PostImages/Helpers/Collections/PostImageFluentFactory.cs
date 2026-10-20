@@ -1,4 +1,4 @@
-using MongoDB.Driver;
+using InstaConnect.Posts.Infrastructure.Features.PostImages.Abstractions;
 
 namespace InstaConnect.Posts.Infrastructure.Features.PostImages.Helpers.Collections;
 

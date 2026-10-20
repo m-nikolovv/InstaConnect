@@ -1,8 +1,4 @@
-using InstaConnect.Chats.Domain.Features.Users.Models.Responses;
-using InstaConnect.Chats.Infrastructure.Features.ChatMessages.Extensions;
-using InstaConnect.Common.Infrastructure.Features.Databases.Helpers;
-
-using MongoDB.Driver;
+using InstaConnect.Chats.Domain.Features.ChatMessageImages.Models.Responses;
 
 namespace InstaConnect.Chats.Infrastructure.Features.ChatMessages.Helpers.Collections;
 

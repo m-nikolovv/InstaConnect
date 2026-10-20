@@ -1,9 +1,6 @@
-using InstaConnect.Common.Domain.Features.Common.Extensions;
-using InstaConnect.Posts.Domain.Features.PostImages.Models.Entities;
 using InstaConnect.Posts.Domain.Features.PostImages.Models.Responses;
 using InstaConnect.Posts.Domain.Features.PostImages.Models.ValueObjects;
 using InstaConnect.Posts.Tests.Features.PostImages.Utilities;
-using InstaConnect.Posts.Tests.Features.Posts.Utilities;
 
 namespace InstaConnect.Posts.Infrastructure.Tests.Features.PostImages.Utilities;
 

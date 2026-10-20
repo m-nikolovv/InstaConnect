@@ -1,3 +1,5 @@
+using InstaConnect.Identity.Application.Features.Users.Queries.GetAll;
+
 namespace InstaConnect.Identity.Application.Tests.Unit.Features.Users.Handlers.GetAll;
 
 public class GetAllUsersQueryHandlerUnitTests : BaseUserApplicationQueryUnitTest

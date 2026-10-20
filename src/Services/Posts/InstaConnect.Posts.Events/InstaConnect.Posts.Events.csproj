@@ -5,8 +5,4 @@
     <ProjectReference Include="..\..\Identity\InstaConnect.Identity.Events\InstaConnect.Identity.Events.csproj" />
   </ItemGroup>
 
-  <ItemGroup Label="Common">
-    <Using Include="InstaConnect.Common.Events.Features.Events.Abstractions" />
-  </ItemGroup>
-
 </Project>

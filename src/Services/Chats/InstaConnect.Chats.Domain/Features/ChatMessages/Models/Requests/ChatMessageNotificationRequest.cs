@@ -1,3 +1,5 @@
+using InstaConnect.Chats.Domain.Features.ChatMessageImages.Models.Requests;
+
 namespace InstaConnect.Chats.Domain.Features.ChatMessages.Models.Requests;
 
 public record ChatMessageNotificationRequest(

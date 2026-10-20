@@ -1,5 +1,3 @@
-using InstaConnect.Follows.Infrastructure.Features.Users.Helpers.Repositories;
-
 namespace InstaConnect.Follows.Infrastructure.Tests.Unit.Features.Users.Repositories;
 
 public class UserExistsByIdQueryRepositoryUnitTests : BaseUserInfrastructureQueryUnitTest

@@ -1,5 +1,3 @@
-using MongoDB.Bson.Serialization;
-
 namespace InstaConnect.Posts.Infrastructure.Features.PostImages.Extensions;
 
 internal static class ServiceCollectionExtensions

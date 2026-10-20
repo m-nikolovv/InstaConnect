@@ -1,7 +1,3 @@
-using InstaConnect.Common.Tests.Features.DataAttributes.Enums.Sort;
-using InstaConnect.Posts.Domain.Tests.Features.Posts.Utilities;
-using InstaConnect.Posts.Events.Features.Posts;
-
 namespace InstaConnect.Posts.Domain.Tests.Features.Posts.Assertions;
 
 public static class PostMatchAssertions

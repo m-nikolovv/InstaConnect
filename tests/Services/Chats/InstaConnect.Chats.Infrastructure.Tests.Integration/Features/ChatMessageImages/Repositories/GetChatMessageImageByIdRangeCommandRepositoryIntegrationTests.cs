@@ -1,7 +1,5 @@
-using InstaConnect.Chats.Infrastructure.Tests.Integration.Features.ChatMessageImages.Utilities;
 using InstaConnect.Chats.Tests.Features.ChatMessageImages.Assertions;
 using InstaConnect.Chats.Tests.Features.ChatMessageImages.DataAttributes.ImageId;
-using InstaConnect.Chats.Tests.Features.ChatMessageImages.Utilities;
 
 namespace InstaConnect.Chats.Infrastructure.Tests.Integration.Features.ChatMessageImages.Repositories;
 

@@ -1,5 +1,3 @@
-using InstaConnect.Chats.Domain.Features.Chats.Models.ValueObjects;
-
 namespace InstaConnect.Chats.Tests.Features.Chats.Builders;
 
 public class ChatIdRangeBuilder

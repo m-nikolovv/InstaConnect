@@ -1,7 +1,3 @@
-using InstaConnect.Posts.Tests.Features.Posts.Utilities;
-
-using Microsoft.Extensions.DependencyInjection;
-
 namespace InstaConnect.Posts.Tests.Features.Posts.Extensions;
 
 public static class ServiceCollectionExtensions

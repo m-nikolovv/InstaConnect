@@ -1,4 +1,15 @@
 using InstaConnect.Common.Infrastructure.Tests.Features.Utilities;
+using InstaConnect.Common.Tests.Features.DataAttributes.DateTimeOffsets.Base;
+using InstaConnect.Follows.Infrastructure.Features.Users.EventHandlers;
+using InstaConnect.Follows.Infrastructure.Tests.Features.Users.Builders;
+using InstaConnect.Follows.Infrastructure.Tests.Features.Users.Utilities;
+using InstaConnect.Follows.Tests.Features.Users.DataAttributes.CreatedAtUtc;
+using InstaConnect.Follows.Tests.Features.Users.DataAttributes.Email;
+using InstaConnect.Follows.Tests.Features.Users.DataAttributes.FirstName;
+using InstaConnect.Follows.Tests.Features.Users.DataAttributes.LastName;
+using InstaConnect.Follows.Tests.Features.Users.DataAttributes.ProfileImage;
+using InstaConnect.Follows.Tests.Features.Users.DataAttributes.UpdatedAtUtc;
+using InstaConnect.Identity.Events.Features.Users;
 
 namespace InstaConnect.Follows.Infrastructure.Tests.Integration.Features.Users.EventHandlers.v1;
 

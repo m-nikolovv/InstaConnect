@@ -1,5 +1,3 @@
-using Microsoft.AspNetCore.Mvc.ModelBinding;
-
 namespace InstaConnect.Common.Presentation.Features.Controllers.Helpers.FromClaim;
 
 [AttributeUsage(AttributeTargets.Parameter | AttributeTargets.Property, AllowMultiple = false)]

@@ -1,6 +1,3 @@
-using InstaConnect.Common.Application.Features.Requests.Abstractions;
-using InstaConnect.Common.Domain.Features.Mappers.Abstractions;
-using InstaConnect.Common.Presentation.Features.Controllers.Utilities;
 using InstaConnect.Identity.Application.Features.Users.Commands.Add;
 using InstaConnect.Identity.Application.Features.Users.Commands.Delete;
 using InstaConnect.Identity.Application.Features.Users.Commands.DeleteCurrent;
@@ -10,6 +7,10 @@ using InstaConnect.Identity.Application.Features.Users.Queries.GetById;
 using InstaConnect.Identity.Application.Features.Users.Queries.GetCurrentById;
 using InstaConnect.Identity.Application.Features.Users.Queries.GetCurrentDetailsById;
 using InstaConnect.Identity.Application.Features.Users.Queries.GetDetailsById;
+using InstaConnect.Identity.Presentation.Features.Users.Models.Requests;
+using InstaConnect.Identity.Presentation.Features.Users.Utilities;
+
+using Microsoft.AspNetCore.Authorization;
 
 namespace InstaConnect.Identity.Presentation.Features.Users.Controllers.v1;
 

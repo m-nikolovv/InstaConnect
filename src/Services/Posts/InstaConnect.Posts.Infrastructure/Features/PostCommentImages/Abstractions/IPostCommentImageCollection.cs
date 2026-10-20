@@ -1,5 +1,3 @@
-using InstaConnect.Common.Infrastructure.Features.Databases.Abstractions;
-
 namespace InstaConnect.Posts.Infrastructure.Features.PostCommentImages.Abstractions;
 
 public interface IPostCommentImageCollection : IMongoDbCollection<PostCommentImage>

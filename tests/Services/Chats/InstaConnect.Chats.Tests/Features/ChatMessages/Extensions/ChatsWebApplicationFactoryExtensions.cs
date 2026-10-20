@@ -1,10 +1,8 @@
-using InstaConnect.Chats.Domain.Features.Users.Models.ValueObjects;
 using InstaConnect.Chats.Presentation.Features.ChatMessages.Models.Options;
-using InstaConnect.Chats.Tests.Features.Common.Utilities;
-using InstaConnect.Common.Domain.Features.Common.Extensions;
+using InstaConnect.Chats.Tests.Features.ChatMessages.Abstractions;
+using InstaConnect.Chats.Tests.Features.ChatMessages.Helpers;
 using InstaConnect.Common.Tests.Features.Extensions;
 
-using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
 
 namespace InstaConnect.Chats.Tests.Features.ChatMessages.Extensions;

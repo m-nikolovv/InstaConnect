@@ -1,7 +1,6 @@
-using InstaConnect.Common.Infrastructure.Features.Databases.Helpers;
+using InstaConnect.Identity.Domain.Features.ForgotPasswordTokens.Models.Requests;
+using InstaConnect.Identity.Domain.Features.ForgotPasswordTokens.Models.ValueObjects;
 using InstaConnect.Identity.Infrastructure.Features.ForgotPasswordTokens.Extensions;
-
-using MongoDB.Driver;
 
 namespace InstaConnect.Identity.Infrastructure.Features.ForgotPasswordTokens.Helpers.Collections;
 

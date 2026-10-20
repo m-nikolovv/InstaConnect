@@ -1,4 +1,4 @@
-using InstaConnect.Posts.Tests.Features.PostImages.Utilities;
+using InstaConnect.Posts.Application.Features.Posts.Commands.Delete;
 
 namespace InstaConnect.Posts.Application.Tests.Integration.Features.Posts.Handlers;
 

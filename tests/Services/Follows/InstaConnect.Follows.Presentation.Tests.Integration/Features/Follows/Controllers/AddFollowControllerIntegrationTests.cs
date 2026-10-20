@@ -1,3 +1,5 @@
+using InstaConnect.Follows.Presentation.Tests.Features.Follows.Utilities;
+
 namespace InstaConnect.Follows.Presentation.Tests.Integration.Features.Follows.Controllers;
 
 public class AddFollowControllerIntegrationTests : BaseFollowPresentationCommandIntegrationTest

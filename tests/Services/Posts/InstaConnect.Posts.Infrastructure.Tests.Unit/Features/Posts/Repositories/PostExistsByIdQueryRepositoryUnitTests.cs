@@ -1,7 +1,3 @@
-using InstaConnect.Posts.Infrastructure.Features.Posts.Helpers.Repositories;
-using InstaConnect.Posts.Infrastructure.Tests.Features.Posts.Assertions;
-using InstaConnect.Posts.Infrastructure.Tests.Features.Posts.Utilities;
-using InstaConnect.Posts.Infrastructure.Tests.Unit.Features.Posts.Utilities;
 using InstaConnect.Posts.Tests.Features.Posts.Assertions;
 
 namespace InstaConnect.Posts.Infrastructure.Tests.Unit.Features.Posts.Repositories;

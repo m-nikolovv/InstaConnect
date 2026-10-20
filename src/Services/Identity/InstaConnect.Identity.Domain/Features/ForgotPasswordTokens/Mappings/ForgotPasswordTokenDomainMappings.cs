@@ -1,4 +1,4 @@
-using Mapster;
+using InstaConnect.Identity.Events.Features.ForgotPasswordTokens;
 
 namespace InstaConnect.Identity.Domain.Features.ForgotPasswordTokens.Mappings;
 

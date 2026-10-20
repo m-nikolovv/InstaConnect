@@ -3,8 +3,6 @@ using Anthropic;
 using InstaConnect.Common.Infrastructure.Features.Summarizers.Models;
 
 using Microsoft.Extensions.AI;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
 
 namespace InstaConnect.Common.Infrastructure.Features.Summarizers.Extensions;
 

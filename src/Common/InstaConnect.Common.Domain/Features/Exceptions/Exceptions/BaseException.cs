@@ -1,5 +1,3 @@
-using InstaConnect.Common.Domain.Features.Exceptions.Models;
-
 namespace InstaConnect.Common.Domain.Features.Exceptions.Exceptions;
 
 public class BaseException : Exception

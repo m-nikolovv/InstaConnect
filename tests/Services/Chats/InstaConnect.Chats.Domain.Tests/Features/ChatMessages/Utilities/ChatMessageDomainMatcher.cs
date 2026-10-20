@@ -1,5 +1,3 @@
-using InstaConnect.Common.Domain.Features.ValueObjects.Models;
-
 namespace InstaConnect.Chats.Domain.Tests.Features.ChatMessages.Utilities;
 
 public static class ChatMessageDomainMatcher

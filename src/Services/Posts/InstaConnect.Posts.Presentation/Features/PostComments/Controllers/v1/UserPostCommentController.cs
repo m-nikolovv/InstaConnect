@@ -1,7 +1,6 @@
-using InstaConnect.Common.Application.Features.Requests.Abstractions;
-using InstaConnect.Common.Domain.Features.Mappers.Abstractions;
-using InstaConnect.Common.Presentation.Features.Controllers.Utilities;
 using InstaConnect.Posts.Application.Features.PostComments.Queries.GetAllForUser;
+using InstaConnect.Posts.Presentation.Features.PostComments.Models.Requests;
+using InstaConnect.Posts.Presentation.Features.PostComments.Utilities;
 
 namespace InstaConnect.Posts.Presentation.Features.PostComments.Controllers.v1;
 

@@ -1,10 +1,6 @@
-using InstaConnect.Common.Application.Features.Requests.Abstractions;
-using InstaConnect.Posts.Application.Features.Users.Abstractions;
+using InstaConnect.Common.Infrastructure.Features.Databases.Helpers;
 using InstaConnect.Posts.Application.Tests.Features.PostCommentImages.Utilities;
-using InstaConnect.Posts.Application.Tests.Features.PostComments.Utilities;
-using InstaConnect.Posts.Application.Tests.Features.PostLikes.Utilities;
-using InstaConnect.Posts.Application.Tests.Features.Posts.Utilities;
-using InstaConnect.Posts.Application.Tests.Features.Users.Utilities;
+using InstaConnect.Posts.Domain.Features.PostComments.Models.Responses;
 
 namespace InstaConnect.Posts.Application.Tests.Features.PostComments.Utilities;
 

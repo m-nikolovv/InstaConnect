@@ -1,5 +1,3 @@
-using InstaConnect.Chats.Domain.Features.Common.Models.Requests;
-
 namespace InstaConnect.Chats.Infrastructure.Features.Chats.Helpers.Includers;
 
 internal class ChatIncluderFactory : IChatIncluderFactory

@@ -1,4 +1,6 @@
-using InstaConnect.Follows.Application.Tests.Features.Users.Utilities;
+using InstaConnect.Common.Tests.Features.Assertions;
+using InstaConnect.Follows.Tests.Features.Follows.Assertions;
+using InstaConnect.Follows.Tests.Features.Users.Assertions;
 
 namespace InstaConnect.Follows.Application.Tests.Features.Users.Assertions;
 

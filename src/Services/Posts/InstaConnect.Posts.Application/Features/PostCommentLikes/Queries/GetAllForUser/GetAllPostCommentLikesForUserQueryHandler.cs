@@ -1,5 +1,3 @@
-using InstaConnect.Common.Domain.Features.Mappers.Abstractions;
-
 namespace InstaConnect.Posts.Application.Features.PostCommentLikes.Queries.GetAllForUser;
 
 internal class GetAllPostCommentLikesForUserQueryHandler : IQueryHandler<GetAllPostCommentLikesForUserQueryRequest, GetAllPostCommentLikesForUserQueryResponse>

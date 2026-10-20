@@ -1,5 +1,3 @@
-using InstaConnect.Identity.Tests.Features.Users.Assertions;
-
 namespace InstaConnect.Identity.Domain.Tests.Features.Users.Assertions;
 
 public static class UserExceptionAssertions

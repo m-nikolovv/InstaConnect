@@ -1,5 +1,8 @@
 using InstaConnect.Common.Tests.Features.DataAttributes.FormFileCollections.Base;
+using InstaConnect.Posts.Domain.Features.Posts.Models.Entities;
+using InstaConnect.Posts.Tests.Features.Posts.DataAttributes.Content;
 using InstaConnect.Posts.Tests.Features.Posts.DataAttributes.Images;
+using InstaConnect.Posts.Tests.Features.Posts.DataAttributes.Title;
 
 namespace InstaConnect.Posts.Presentation.Tests.Functional.Features.Posts.Endpoints;
 

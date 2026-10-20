@@ -1,11 +1,12 @@
+using InstaConnect.Posts.Application.Features.PostCommentImages.Models;
 using InstaConnect.Posts.Application.Features.PostComments.Commands.Add;
 using InstaConnect.Posts.Application.Features.PostComments.Commands.Delete;
 using InstaConnect.Posts.Application.Features.PostComments.Commands.Update;
 using InstaConnect.Posts.Application.Features.PostComments.Queries.GetAll;
 using InstaConnect.Posts.Application.Features.PostComments.Queries.GetAllForUser;
 using InstaConnect.Posts.Application.Features.PostComments.Queries.GetById;
-
-using Mapster;
+using InstaConnect.Posts.Domain.Features.PostComments.Models.Responses;
+using InstaConnect.Posts.Domain.Features.PostComments.Models.ValueObjects;
 
 namespace InstaConnect.Posts.Application.Features.PostComments.Mappings;
 

@@ -1,4 +1,4 @@
-using InstaConnect.Identity.Presentation.Tests.Features.RefreshTokens.Models;
+using InstaConnect.Identity.Presentation.Features.RefreshTokens.Models.Responses;
 using InstaConnect.Identity.Presentation.Tests.Features.RefreshTokens.Utilities;
 using InstaConnect.Identity.Presentation.Tests.Features.UserClaims.Utilities;
 

@@ -1,8 +1,6 @@
 using InstaConnect.Common.Application.Features.Databases.Abstractions;
 using InstaConnect.Common.Application.Features.Requests.Abstractions;
 
-using MediatR;
-
 namespace InstaConnect.Common.Application.Features.Databases.PipelineBehaviors;
 
 internal sealed class UnitOfWorkPipelineBehavior<TRequest, TResponse>

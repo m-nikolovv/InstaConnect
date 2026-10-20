@@ -1,3 +1,5 @@
+using InstaConnect.Follows.Domain.Features.Follows.Abstractions;
+
 namespace InstaConnect.Follows.Infrastructure.Features.Follows.Helpers.Repositories;
 
 internal class FollowCommandRepository : IFollowCommandRepository

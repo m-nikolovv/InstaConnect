@@ -1,5 +1,4 @@
 using InstaConnect.Chats.Domain.Features.Chats.Helpers;
-using InstaConnect.Chats.Domain.Tests.Features.Chats.Utilities;
 using InstaConnect.Chats.Domain.Tests.Unit.Features.Chats.Utilities;
 using InstaConnect.Chats.Tests.Features.Chats.Assertions;
 using InstaConnect.Common.Domain.Tests.Features.Assertions;

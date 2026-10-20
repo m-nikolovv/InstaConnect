@@ -1,3 +1,5 @@
+using InstaConnect.Posts.Application.Features.Posts.Commands.Delete;
+
 namespace InstaConnect.Posts.Application.Tests.Unit.Features.Posts.Handlers.Delete;
 
 public class DeletePostCommandRequestValidatorUnitTests : BasePostApplicationCommandUnitTest

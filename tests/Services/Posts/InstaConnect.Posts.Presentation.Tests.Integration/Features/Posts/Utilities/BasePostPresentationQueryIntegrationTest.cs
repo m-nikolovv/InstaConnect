@@ -1,3 +1,5 @@
+using InstaConnect.Posts.Presentation.Features.Posts.Controllers.v1;
+
 namespace InstaConnect.Posts.Presentation.Tests.Integration.Features.Posts.Utilities;
 
 public abstract class BasePostPresentationQueryIntegrationTest : BasePostWebTest

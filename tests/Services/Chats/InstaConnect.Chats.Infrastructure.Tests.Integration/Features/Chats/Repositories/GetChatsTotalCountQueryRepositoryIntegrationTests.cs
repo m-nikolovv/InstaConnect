@@ -1,8 +1,5 @@
 using InstaConnect.Chats.Domain.Features.Chats.Models.Requests;
-using InstaConnect.Chats.Infrastructure.Tests.Features.Chats.Assertions;
 using InstaConnect.Chats.Infrastructure.Tests.Features.Chats.Builders;
-using InstaConnect.Chats.Infrastructure.Tests.Integration.Features.Chats.Utilities;
-using InstaConnect.Chats.Tests.Features.Chats.Utilities;
 
 namespace InstaConnect.Chats.Infrastructure.Tests.Integration.Features.Chats.Repositories;
 

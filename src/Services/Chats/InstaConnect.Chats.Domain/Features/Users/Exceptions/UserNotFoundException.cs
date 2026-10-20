@@ -1,4 +1,4 @@
-using InstaConnect.Common.Domain.Features.Exceptions.Exceptions;
+using InstaConnect.Chats.Domain.Features.Users.Utilities;
 
 namespace InstaConnect.Chats.Domain.Features.Users.Exceptions;
 

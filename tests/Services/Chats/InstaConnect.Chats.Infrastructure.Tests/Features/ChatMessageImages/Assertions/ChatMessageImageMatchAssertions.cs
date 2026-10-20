@@ -1,4 +1,3 @@
-using InstaConnect.Chats.Domain.Features.ChatMessageImages.Models.Entities;
 using InstaConnect.Chats.Domain.Features.ChatMessageImages.Models.ValueObjects;
 using InstaConnect.Chats.Infrastructure.Tests.Features.ChatMessageImages.Utilities;
 

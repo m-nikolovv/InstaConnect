@@ -1,6 +1,3 @@
-using InstaConnect.Posts.Infrastructure.Features.Posts.Helpers.Repositories;
-using InstaConnect.Posts.Infrastructure.Tests.Unit.Features.Posts.Utilities;
-
 namespace InstaConnect.Posts.Infrastructure.Tests.Unit.Features.Posts.Repositories;
 
 public class AddPostCommandRepositoryUnitTests : BasePostInfrastructureCommandUnitTest

@@ -1,4 +1,4 @@
-using InstaConnect.Chats.Domain.Features.Users.Models.Requests;
+using InstaConnect.Chats.Tests.Features.Users.DataAttributes.Email;
 using InstaConnect.Common.Domain.Features.ValueObjects.Models;
 using InstaConnect.Common.Infrastructure.Tests.Features.Builders;
 

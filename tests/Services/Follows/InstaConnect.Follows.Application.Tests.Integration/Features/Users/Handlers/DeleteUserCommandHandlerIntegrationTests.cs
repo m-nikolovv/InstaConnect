@@ -1,3 +1,7 @@
+using InstaConnect.Follows.Application.Features.Users.Commands.Delete;
+using InstaConnect.Follows.Application.Tests.Features.Users.Builders;
+using InstaConnect.Follows.Application.Tests.Integration.Features.Users.Utilities;
+
 namespace InstaConnect.Follows.Application.Tests.Integration.Features.Users.Handlers;
 
 public class DeleteUserCommandHandlerIntegrationTests : BaseUserApplicationCommandIntegrationTest

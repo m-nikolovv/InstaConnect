@@ -1,4 +1,4 @@
-using InstaConnect.Common.Tests.Features.DataAttributes.Enums.Sort;
+using InstaConnect.Posts.Domain.Features.PostCommentLikes.Models.Responses;
 using InstaConnect.Posts.Domain.Tests.Features.PostCommentLikes.Utilities;
 using InstaConnect.Posts.Events.Features.PostCommentLikes;
 

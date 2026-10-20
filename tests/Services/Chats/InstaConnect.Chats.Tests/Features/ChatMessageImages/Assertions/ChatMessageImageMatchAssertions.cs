@@ -1,4 +1,5 @@
 using InstaConnect.Chats.Tests.Features.ChatMessageImages.Utilities;
+using InstaConnect.Chats.Tests.Features.ChatMessages.Assertions;
 
 namespace InstaConnect.Chats.Tests.Features.ChatMessageImages.Assertions;
 

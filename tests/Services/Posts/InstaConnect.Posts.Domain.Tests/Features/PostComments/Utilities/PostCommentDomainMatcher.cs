@@ -1,5 +1,3 @@
-using InstaConnect.Common.Domain.Features.ValueObjects.Models;
-
 using InstaConnect.Posts.Events.Features.PostComments;
 
 namespace InstaConnect.Posts.Domain.Tests.Features.PostComments.Utilities;

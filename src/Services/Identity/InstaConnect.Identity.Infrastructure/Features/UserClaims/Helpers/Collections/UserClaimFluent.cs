@@ -1,7 +1,4 @@
-using InstaConnect.Common.Infrastructure.Features.Databases.Helpers;
 using InstaConnect.Identity.Infrastructure.Features.UserClaims.Extensions;
-
-using MongoDB.Driver;
 
 namespace InstaConnect.Identity.Infrastructure.Features.UserClaims.Helpers.Collections;
 

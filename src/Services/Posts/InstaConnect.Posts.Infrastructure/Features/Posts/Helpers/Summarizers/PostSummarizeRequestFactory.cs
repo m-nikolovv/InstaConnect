@@ -1,7 +1,5 @@
 using InstaConnect.Posts.Domain.Features.Posts.Utilities;
 
-using Microsoft.Extensions.AI;
-
 namespace InstaConnect.Posts.Infrastructure.Features.Posts.Helpers.Summarizers;
 
 internal class PostSummarizeRequestFactory : IPostSummarizeRequestFactory

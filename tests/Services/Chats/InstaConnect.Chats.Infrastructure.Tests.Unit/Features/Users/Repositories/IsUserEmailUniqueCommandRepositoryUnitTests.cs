@@ -1,4 +1,4 @@
-using InstaConnect.Chats.Infrastructure.Features.Users.Helpers.Repositories;
+using InstaConnect.Chats.Domain.Features.Users.Models.Entities;
 using InstaConnect.Common.Domain.Features.ValueObjects.Models;
 using InstaConnect.Common.Infrastructure.Tests.Features.Builders;
 

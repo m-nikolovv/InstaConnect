@@ -1,4 +1,5 @@
-using InstaConnect.Common.Infrastructure.Features.Databases.Abstractions;
+using InstaConnect.Identity.Domain.Features.RefreshTokens.Models.Requests;
+using InstaConnect.Identity.Domain.Features.RefreshTokens.Models.ValueObjects;
 
 namespace InstaConnect.Identity.Infrastructure.Features.RefreshTokens.Abstractions;
 

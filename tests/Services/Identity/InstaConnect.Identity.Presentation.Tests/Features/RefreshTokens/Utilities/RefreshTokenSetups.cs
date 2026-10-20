@@ -1,6 +1,5 @@
-using InstaConnect.Identity.Presentation.Tests.Features.RefreshTokens.Models;
-
-using Microsoft.Extensions.DependencyInjection;
+using InstaConnect.Identity.Domain.Features.RefreshTokens.Models.ValueObjects;
+using InstaConnect.Identity.Presentation.Features.RefreshTokens.Controllers.v1;
 
 namespace InstaConnect.Identity.Presentation.Tests.Features.RefreshTokens.Utilities;
 

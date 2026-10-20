@@ -1,3 +1,6 @@
+using InstaConnect.Common.Domain.Features.Guids.Abstractions;
+using InstaConnect.Posts.Domain.Features.PostCommentImages.Abstractions;
+
 namespace InstaConnect.Posts.Domain.Features.PostCommentImages.Helpers;
 
 internal class PostCommentImageFactory : IPostCommentImageFactory

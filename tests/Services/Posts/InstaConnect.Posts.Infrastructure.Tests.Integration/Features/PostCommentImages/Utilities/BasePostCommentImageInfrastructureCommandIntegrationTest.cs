@@ -1,7 +1,4 @@
 using InstaConnect.Posts.Domain.Features.PostCommentImages.Abstractions;
-using InstaConnect.Posts.Tests.Features.PostCommentImages.Utilities;
-using InstaConnect.Posts.Tests.Features.PostComments.Utilities;
-using InstaConnect.Posts.Tests.Features.Posts.Utilities;
 
 namespace InstaConnect.Posts.Infrastructure.Tests.Integration.Features.PostCommentImages.Utilities;
 

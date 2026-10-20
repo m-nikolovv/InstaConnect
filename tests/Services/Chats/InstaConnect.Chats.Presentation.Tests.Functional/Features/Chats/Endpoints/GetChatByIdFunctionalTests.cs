@@ -1,3 +1,7 @@
+using InstaConnect.Chats.Presentation.Features.Chats.Models.Requests;
+using InstaConnect.Chats.Presentation.Tests.Features.Chats.Builders;
+using InstaConnect.Chats.Presentation.Tests.Functional.Features.Chats.Utilities;
+
 namespace InstaConnect.Chats.Presentation.Tests.Functional.Features.Chats.Endpoints;
 
 public class GetChatByIdFunctionalTests : BaseChatPresentationQueryFunctionalTest

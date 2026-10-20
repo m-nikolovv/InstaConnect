@@ -1,3 +1,5 @@
+using InstaConnect.Identity.Application.Features.UserClaims.Commands.Add;
+
 namespace InstaConnect.Identity.Application.Tests.Unit.Features.UserClaims.Handlers.Add;
 
 public class AddUserClaimCommandHandlerUnitTests : BaseUserClaimApplicationCommandUnitTest

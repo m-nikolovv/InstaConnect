@@ -21,45 +21,29 @@
   </ItemGroup>
 
   <ItemGroup Label="Common">
-    <Using Include="MassTransit" />
-    <Using Include="Microsoft.AspNetCore.Mvc" />
-    <Using Include="Microsoft.AspNetCore.Authorization" />
-    <Using Include="Microsoft.Extensions.DependencyInjection" />
-    <Using Include="Microsoft.Extensions.Configuration" />
-    <Using Include="Microsoft.AspNetCore.RateLimiting" />
     <Using Include="Asp.Versioning" />
-    <Using Include="InstaConnect.Common.Presentation.Features.Controllers.Helpers.FromClaim" />
-    <Using Include="InstaConnect.Common.Presentation.Features.Controllers.Helpers.FromCookie" />
+    <Using Include="InstaConnect.Common.Application.Features.Requests.Abstractions" />
+    <Using Include="InstaConnect.Common.Domain.Features.Common.Extensions" />
+    <Using Include="InstaConnect.Common.Domain.Features.Mappers.Abstractions" />
+    <Using Include="InstaConnect.Common.Events.Features.AccessTokens.Models" />
+    <Using Include="InstaConnect.Common.Presentation.Features.Controllers.Utilities" />
+    <Using Include="Microsoft.AspNetCore.RateLimiting" />
   </ItemGroup>
 
   <ItemGroup Label="Users">
-    <Using Include="InstaConnect.Identity.Application.Features.Users.Models" />
-    <Using Include="InstaConnect.Identity.Presentation.Features.Users.Utilities" />
-    <Using Include="InstaConnect.Identity.Presentation.Features.Users.Models.Requests" />
+    <Using Include="InstaConnect.Identity.Presentation.Features.Users.Abstractions" />
     <Using Include="InstaConnect.Identity.Presentation.Features.Users.Models.Responses" />
   </ItemGroup>
 
-  <ItemGroup Label="UserClaims">
-    <Using Include="InstaConnect.Identity.Application.Features.UserClaims.Models" />
-    <Using Include="InstaConnect.Identity.Presentation.Features.UserClaims.Utilities" />
-    <Using Include="InstaConnect.Identity.Presentation.Features.UserClaims.Models.Requests" />
-    <Using Include="InstaConnect.Identity.Presentation.Features.UserClaims.Models.Responses" />
-  </ItemGroup>
-
   <ItemGroup Label="RefreshTokens">
-    <Using Include="InstaConnect.Identity.Application.Features.RefreshTokens.Models" />
-    <Using Include="InstaConnect.Identity.Presentation.Features.RefreshTokens.Utilities" />
     <Using Include="InstaConnect.Identity.Presentation.Features.RefreshTokens.Models.Requests" />
-    <Using Include="InstaConnect.Identity.Presentation.Features.RefreshTokens.Models.Responses" />
   </ItemGroup>
 
   <ItemGroup Label="ForgotPasswordTokens">
-    <Using Include="InstaConnect.Identity.Presentation.Features.ForgotPasswordTokens.Utilities" />
     <Using Include="InstaConnect.Identity.Presentation.Features.ForgotPasswordTokens.Models.Requests" />
   </ItemGroup>
 
   <ItemGroup Label="EmailConfirmationTokens">
-    <Using Include="InstaConnect.Identity.Presentation.Features.EmailConfirmationTokens.Utilities" />
     <Using Include="InstaConnect.Identity.Presentation.Features.EmailConfirmationTokens.Models.Requests" />
   </ItemGroup>
 

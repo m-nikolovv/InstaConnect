@@ -1,3 +1,5 @@
+using InstaConnect.Posts.Presentation.Features.PostCommentImages.Models.Responses;
+
 namespace InstaConnect.Posts.Presentation.Features.PostComments.Models.Responses;
 
 public record PostCommentApiResponse(

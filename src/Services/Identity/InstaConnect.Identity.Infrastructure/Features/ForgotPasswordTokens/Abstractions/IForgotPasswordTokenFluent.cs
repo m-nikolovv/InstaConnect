@@ -1,4 +1,5 @@
-using InstaConnect.Common.Infrastructure.Features.Databases.Abstractions;
+using InstaConnect.Identity.Domain.Features.ForgotPasswordTokens.Models.Requests;
+using InstaConnect.Identity.Domain.Features.ForgotPasswordTokens.Models.ValueObjects;
 
 namespace InstaConnect.Identity.Infrastructure.Features.ForgotPasswordTokens.Abstractions;
 

@@ -1,4 +1,4 @@
-using InstaConnect.Common.Domain.Features.Exceptions.Exceptions;
+using InstaConnect.Identity.Domain.Features.RefreshTokens.Utilities;
 
 namespace InstaConnect.Identity.Domain.Features.RefreshTokens.Exceptions;
 

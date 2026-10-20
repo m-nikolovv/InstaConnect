@@ -1,6 +1,5 @@
 using InstaConnect.Posts.Tests.Features.PostLikes.Assertions;
 using InstaConnect.Posts.Tests.Features.Posts.Assertions;
-using InstaConnect.Posts.Tests.Features.Users.Assertions;
 
 namespace InstaConnect.Posts.Domain.Tests.Features.PostLikes.Assertions;
 

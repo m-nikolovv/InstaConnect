@@ -1,5 +1,5 @@
+using InstaConnect.Chats.Domain.Features.ChatMessages.Abstractions;
 using InstaConnect.Common.Domain.Features.Mappers.Abstractions;
-using InstaConnect.Common.Domain.Features.ValueObjects.Models;
 
 using Microsoft.Extensions.AI;
 

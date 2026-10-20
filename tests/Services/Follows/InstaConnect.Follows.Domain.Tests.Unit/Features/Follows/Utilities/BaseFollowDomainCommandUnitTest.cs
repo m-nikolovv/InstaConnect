@@ -2,11 +2,10 @@ using InstaConnect.Common.Domain.Features.DateTimes.Abstractions;
 using InstaConnect.Common.Domain.Features.Mappers.Abstractions;
 using InstaConnect.Common.Domain.Tests.Features.Utilities;
 using InstaConnect.Common.Events.Features.Events.Abstractions;
+using InstaConnect.Common.Tests.Features.Utilities;
 using InstaConnect.Follows.Domain.Features.Common.Extensions;
 using InstaConnect.Follows.Domain.Features.Follows.Abstractions;
 using InstaConnect.Follows.Domain.Features.Users.Abstractions;
-using InstaConnect.Follows.Domain.Tests.Features.Follows.Utilities;
-using InstaConnect.Follows.Domain.Tests.Features.Users.Utilities;
 using InstaConnect.Follows.Tests.Features.Follows.Utilities;
 
 namespace InstaConnect.Follows.Domain.Tests.Unit.Features.Follows.Utilities;

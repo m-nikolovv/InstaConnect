@@ -1,5 +1,3 @@
-using InstaConnect.Follows.Domain.Features.Users.Models.ValueObjects;
-
 namespace InstaConnect.Follows.Tests.Features.Users.Builders;
 
 public class UserIdRangeBuilderFactory

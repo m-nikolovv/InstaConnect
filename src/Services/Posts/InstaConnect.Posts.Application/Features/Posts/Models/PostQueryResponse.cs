@@ -1,3 +1,5 @@
+using InstaConnect.Posts.Application.Features.PostImages.Models;
+
 namespace InstaConnect.Posts.Application.Features.Posts.Models;
 
 public record PostQueryResponse(

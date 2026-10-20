@@ -1,3 +1,4 @@
+using InstaConnect.Common.Domain.Tests.Features.Assertions;
 using InstaConnect.Common.Events.Features.Events.Abstractions;
 using InstaConnect.Posts.Domain.Tests.Features.PostLikes.Utilities;
 using InstaConnect.Posts.Domain.Tests.Features.Posts.Assertions;

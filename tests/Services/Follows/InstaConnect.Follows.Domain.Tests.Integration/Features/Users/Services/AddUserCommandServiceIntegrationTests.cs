@@ -1,13 +1,10 @@
-using InstaConnect.Common.Tests.Features.DataAttributes.Strings.Base;
 using InstaConnect.Follows.Domain.Features.Users.Models.Requests;
 using InstaConnect.Follows.Domain.Tests.Features.Users.Assertions;
 using InstaConnect.Follows.Domain.Tests.Features.Users.Builders;
 using InstaConnect.Follows.Domain.Tests.Integration.Features.Users.Utilities;
 using InstaConnect.Follows.Tests.Features.Users.DataAttributes.Email;
-using InstaConnect.Follows.Tests.Features.Users.DataAttributes.Id;
 using InstaConnect.Follows.Tests.Features.Users.DataAttributes.Name;
 using InstaConnect.Follows.Tests.Features.Users.DataAttributes.ProfileImage;
-using InstaConnect.Follows.Tests.Features.Users.Utilities;
 
 namespace InstaConnect.Follows.Domain.Tests.Integration.Features.Users.Services;
 

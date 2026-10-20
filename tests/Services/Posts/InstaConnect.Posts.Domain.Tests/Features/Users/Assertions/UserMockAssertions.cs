@@ -1,6 +1,3 @@
-using InstaConnect.Common.Domain.Features.ValueObjects.Models;
-using InstaConnect.Posts.Domain.Tests.Features.Users.Utilities;
-
 namespace InstaConnect.Posts.Domain.Tests.Features.Users.Assertions;
 
 public static class UserMockAssertions

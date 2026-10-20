@@ -1,3 +1,5 @@
+using InstaConnect.Posts.Application.Features.Users.Commands.Update;
+
 namespace InstaConnect.Posts.Application.Tests.Unit.Features.Users.Handlers.Update;
 
 public class UpdateUserCommandHandlerUnitTests : BaseUserApplicationCommandUnitTest

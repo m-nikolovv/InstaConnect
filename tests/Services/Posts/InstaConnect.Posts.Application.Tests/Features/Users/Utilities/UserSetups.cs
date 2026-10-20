@@ -1,7 +1,4 @@
 using InstaConnect.Posts.Application.Features.Users.Models;
-using InstaConnect.Posts.Application.Tests.Features.Users.Utilities;
-
-using Microsoft.Extensions.DependencyInjection;
 
 namespace InstaConnect.Posts.Application.Tests.Features.Users.Utilities;
 

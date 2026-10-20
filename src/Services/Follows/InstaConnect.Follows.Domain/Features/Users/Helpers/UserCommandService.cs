@@ -1,3 +1,5 @@
+using InstaConnect.Follows.Domain.Features.Users.Exceptions;
+
 namespace InstaConnect.Follows.Domain.Features.Users.Helpers;
 
 internal class UserCommandService : IUserCommandService

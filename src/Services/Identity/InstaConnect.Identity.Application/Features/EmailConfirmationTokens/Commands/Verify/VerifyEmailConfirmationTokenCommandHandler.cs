@@ -1,4 +1,5 @@
-using InstaConnect.Common.Domain.Features.Mappers.Abstractions;
+using InstaConnect.Identity.Domain.Features.EmailConfirmationTokens.Abstractions;
+using InstaConnect.Identity.Domain.Features.EmailConfirmationTokens.Models.Requests;
 
 namespace InstaConnect.Identity.Application.Features.EmailConfirmationTokens.Commands.Verify;
 

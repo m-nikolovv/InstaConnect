@@ -1,4 +1,4 @@
-using InstaConnect.Common.Infrastructure.Features.Databases.Abstractions;
+using InstaConnect.Posts.Domain.Features.PostCommentImages.Models.ValueObjects;
 
 namespace InstaConnect.Posts.Infrastructure.Features.PostCommentImages.Abstractions;
 

@@ -1,8 +1,6 @@
-using InstaConnect.Common.Infrastructure.Features.Databases.Helpers;
-using InstaConnect.Posts.Domain.Features.Users.Models.Responses;
+using InstaConnect.Posts.Domain.Features.PostCommentImages.Models.Responses;
+using InstaConnect.Posts.Domain.Features.PostImages.Models.Responses;
 using InstaConnect.Posts.Infrastructure.Features.PostCommentLikes.Extensions;
-
-using MongoDB.Driver;
 
 namespace InstaConnect.Posts.Infrastructure.Features.PostCommentLikes.Helpers.Collections;
 

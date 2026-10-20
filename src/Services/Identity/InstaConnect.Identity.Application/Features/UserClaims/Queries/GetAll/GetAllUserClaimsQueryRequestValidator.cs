@@ -1,3 +1,5 @@
+using InstaConnect.Identity.Application.Features.UserClaims.Extensions;
+
 namespace InstaConnect.Identity.Application.Features.UserClaims.Queries.GetAll;
 
 public class GetAllUserClaimsQueryRequestValidator : AbstractValidator<GetAllUserClaimsQueryRequest>

@@ -1,12 +1,9 @@
-using InstaConnect.Common.Application.Features.Requests.Abstractions;
-using InstaConnect.Common.Domain.Features.Common.Extensions;
 using InstaConnect.Common.Tests.Features.DataAttributes.Enums.Sort;
 using InstaConnect.Identity.Application.Features.UserClaims.Models;
 using InstaConnect.Identity.Application.Features.Users.Abstractions;
 using InstaConnect.Identity.Application.Tests.Features.UserClaims.Utilities;
-using InstaConnect.Identity.Application.Tests.Features.Users.Utilities;
+using InstaConnect.Identity.Domain.Features.UserClaims.Models.ValueObjects;
 using InstaConnect.Identity.Events.Features.UserClaims;
-using InstaConnect.Identity.Events.Features.Users;
 
 namespace InstaConnect.Identity.Application.Tests.Features.UserClaims.Utilities;
 

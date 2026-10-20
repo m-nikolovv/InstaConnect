@@ -2,8 +2,10 @@ using InstaConnect.Common.Application.Features.AccessTokens.Models;
 using InstaConnect.Identity.Application.Features.RefreshTokens.Commands.DeleteCurrent;
 using InstaConnect.Identity.Application.Features.RefreshTokens.Commands.Issue;
 using InstaConnect.Identity.Application.Features.RefreshTokens.Commands.Rotate;
-
-using Mapster;
+using InstaConnect.Identity.Application.Features.RefreshTokens.Models;
+using InstaConnect.Identity.Domain.Features.RefreshTokens.Models.Requests;
+using InstaConnect.Identity.Domain.Features.RefreshTokens.Models.Responses;
+using InstaConnect.Identity.Domain.Features.RefreshTokens.Models.ValueObjects;
 
 namespace InstaConnect.Identity.Application.Features.RefreshTokens.Mappings;
 

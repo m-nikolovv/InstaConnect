@@ -1,7 +1,5 @@
 using System.Net;
 
-using InstaConnect.Common.Presentation.Features.Exceptions.Models;
-
 namespace InstaConnect.Follows.Presentation.Tests.Features.Follows.Abstractions;
 
 public interface IFollowApiClient

@@ -1,7 +1,3 @@
-using InstaConnect.Common.Tests.Features.Extensions;
-using InstaConnect.Posts.Domain.Features.Users.Models.Responses;
-using InstaConnect.Posts.Domain.Tests.Features.Posts.Utilities;
-using InstaConnect.Posts.Domain.Tests.Features.Users.Utilities;
 using InstaConnect.Posts.Tests.Features.PostImages.Utilities;
 
 namespace InstaConnect.Posts.Domain.Tests.Features.Posts.Utilities;

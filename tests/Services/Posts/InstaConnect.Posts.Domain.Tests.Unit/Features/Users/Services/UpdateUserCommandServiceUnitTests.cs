@@ -3,7 +3,6 @@ using InstaConnect.Posts.Domain.Features.Users.Helpers;
 using InstaConnect.Posts.Domain.Features.Users.Models.Requests;
 using InstaConnect.Posts.Domain.Tests.Features.Users.Assertions;
 using InstaConnect.Posts.Domain.Tests.Features.Users.Builders;
-using InstaConnect.Posts.Domain.Tests.Features.Users.Utilities;
 using InstaConnect.Posts.Domain.Tests.Unit.Features.Users.Utilities;
 using InstaConnect.Posts.Tests.Features.Users.DataAttributes.Email;
 using InstaConnect.Posts.Tests.Features.Users.DataAttributes.Name;

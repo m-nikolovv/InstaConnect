@@ -1,3 +1,5 @@
+using InstaConnect.Posts.Domain.Features.PostComments.Models.Entities;
+
 namespace InstaConnect.Posts.Presentation.Tests.Unit.Features.PostComments.Controllers.v1;
 
 public class AddPostCommentControllerUnitTests : BasePostCommentPresentationCommandUnitTest

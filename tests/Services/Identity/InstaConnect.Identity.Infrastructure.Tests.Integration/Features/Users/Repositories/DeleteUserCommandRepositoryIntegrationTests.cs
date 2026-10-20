@@ -1,6 +1,3 @@
-using InstaConnect.Identity.Infrastructure.Tests.Integration.Features.Users.Utilities;
-using InstaConnect.Identity.Tests.Features.Users.Utilities;
-
 namespace InstaConnect.Identity.Infrastructure.Tests.Integration.Features.Users.Repositories;
 
 public class DeleteUserCommandRepositoryIntegrationTests : BaseUserInfrastructureCommandIntegrationTest

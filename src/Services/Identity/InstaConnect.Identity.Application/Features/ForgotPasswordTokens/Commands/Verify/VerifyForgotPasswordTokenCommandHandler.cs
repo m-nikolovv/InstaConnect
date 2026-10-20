@@ -1,4 +1,5 @@
-using InstaConnect.Common.Domain.Features.Mappers.Abstractions;
+using InstaConnect.Identity.Domain.Features.ForgotPasswordTokens.Abstractions;
+using InstaConnect.Identity.Domain.Features.ForgotPasswordTokens.Models.Requests;
 
 namespace InstaConnect.Identity.Application.Features.ForgotPasswordTokens.Commands.Verify;
 

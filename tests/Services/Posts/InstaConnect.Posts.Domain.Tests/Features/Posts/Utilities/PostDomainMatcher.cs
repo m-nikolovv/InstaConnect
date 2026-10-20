@@ -1,6 +1,3 @@
-using InstaConnect.Common.Domain.Features.ValueObjects.Models;
-using InstaConnect.Posts.Events.Features.Posts;
-
 namespace InstaConnect.Posts.Domain.Tests.Features.Posts.Utilities;
 
 public static class PostDomainMatcher

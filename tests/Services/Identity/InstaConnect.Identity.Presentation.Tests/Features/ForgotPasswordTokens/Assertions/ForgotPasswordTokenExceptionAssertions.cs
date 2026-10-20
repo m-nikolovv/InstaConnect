@@ -1,3 +1,5 @@
+using InstaConnect.Identity.Presentation.Features.ForgotPasswordTokens.Controllers.v1;
+
 namespace InstaConnect.Identity.Presentation.Tests.Features.ForgotPasswordTokens.Assertions;
 
 public static class ForgotPasswordTokenExceptionAssertions

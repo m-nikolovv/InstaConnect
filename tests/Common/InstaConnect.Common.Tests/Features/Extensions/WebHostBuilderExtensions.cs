@@ -8,7 +8,6 @@ using InstaConnect.Common.Infrastructure.Features.Summarizers.Models;
 using InstaConnect.Common.Infrastructure.Features.Telemetries.Models;
 using InstaConnect.Common.Presentation.Features.Common.Models;
 using InstaConnect.Common.Presentation.Features.Controllers.Models;
-using InstaConnect.Common.Tests.Features.Utilities;
 
 using Microsoft.AspNetCore.Hosting;
 

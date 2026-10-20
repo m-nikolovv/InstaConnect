@@ -1,5 +1,3 @@
-using InstaConnect.Common.Events.Features.AccessTokens.Models;
-
 namespace InstaConnect.Identity.Tests.Features.UserClaims.DataAttributes.Claim;
 
 [AttributeUsage(AttributeTargets.Method, AllowMultiple = true, Inherited = true)]

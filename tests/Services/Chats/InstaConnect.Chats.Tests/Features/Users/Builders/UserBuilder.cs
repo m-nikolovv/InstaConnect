@@ -1,6 +1,3 @@
-using InstaConnect.Chats.Domain.Features.Users.Models.ValueObjects;
-using InstaConnect.Chats.Tests.Features.Users.Utilities;
-
 namespace InstaConnect.Chats.Tests.Features.Users.Builders;
 
 public class UserBuilder

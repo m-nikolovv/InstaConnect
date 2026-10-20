@@ -1,9 +1,4 @@
-using InstaConnect.Posts.Infrastructure.Tests.Features.PostLikes.Assertions;
-using InstaConnect.Posts.Infrastructure.Tests.Integration.Features.PostLikes.Utilities;
 using InstaConnect.Posts.Tests.Features.PostLikes.Builders;
-using InstaConnect.Posts.Tests.Features.PostLikes.Utilities;
-using InstaConnect.Posts.Tests.Features.Posts.DataAttributes.Id;
-using InstaConnect.Posts.Tests.Features.Posts.Utilities;
 
 namespace InstaConnect.Posts.Infrastructure.Tests.Integration.Features.PostLikes.Repositories;
 

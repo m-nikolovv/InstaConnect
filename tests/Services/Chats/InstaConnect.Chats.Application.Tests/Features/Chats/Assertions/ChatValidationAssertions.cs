@@ -1,4 +1,6 @@
-using InstaConnect.Common.Domain.Features.Requests.Models;
+using FluentValidation.TestHelper;
+
+using InstaConnect.Common.Application.Tests.Features.Assertions;
 
 namespace InstaConnect.Chats.Application.Tests.Features.Chats.Assertions;
 

@@ -1,3 +1,5 @@
+using InstaConnect.Chats.Application.Features.ChatMessages.Commands.Update;
+
 namespace InstaConnect.Chats.Application.Tests.Unit.Features.ChatMessages.Handlers.Update;
 
 public class UpdateChatMessageCommandHandlerUnitTests : BaseChatMessageApplicationCommandUnitTest

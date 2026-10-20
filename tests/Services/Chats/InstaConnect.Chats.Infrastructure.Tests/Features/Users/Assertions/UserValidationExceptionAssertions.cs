@@ -1,3 +1,6 @@
+using InstaConnect.Chats.Infrastructure.Features.Users.EventHandlers;
+using InstaConnect.Common.Tests.Features.DataAttributes.DateTimeOffsets.Base;
+
 namespace InstaConnect.Chats.Infrastructure.Tests.Features.Users.Assertions;
 
 public static class UserValidationExceptionAssertions

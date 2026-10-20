@@ -1,6 +1,10 @@
-using InstaConnect.Common.Domain.Features.Requests.Models;
-using InstaConnect.Common.Tests.Features.DataAttributes.Enums.Sort;
+using InstaConnect.Posts.Application.Features.PostLikes.Queries.GetAll;
+using InstaConnect.Posts.Domain.Features.PostLikes.Models.Entities;
 using InstaConnect.Posts.Domain.Features.PostLikes.Models.Requests;
+using InstaConnect.Posts.Tests.Features.PostLikes.DataAttributes.Page;
+using InstaConnect.Posts.Tests.Features.PostLikes.DataAttributes.PageSize;
+using InstaConnect.Posts.Tests.Features.PostLikes.DataAttributes.SortOrder;
+using InstaConnect.Posts.Tests.Features.PostLikes.DataAttributes.SortTerm;
 
 namespace InstaConnect.Posts.Application.Tests.Integration.Features.PostLikes.Handlers;
 

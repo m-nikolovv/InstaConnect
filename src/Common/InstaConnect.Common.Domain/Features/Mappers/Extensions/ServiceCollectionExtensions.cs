@@ -3,10 +3,6 @@ using System.Reflection;
 using InstaConnect.Common.Domain.Features.Mappers.Abstractions;
 using InstaConnect.Common.Domain.Features.Mappers.Helpers;
 
-using Mapster;
-
-using Microsoft.Extensions.DependencyInjection;
-
 namespace InstaConnect.Common.Domain.Features.Mappers.Extensions;
 
 public static class ServiceCollectionExtensions

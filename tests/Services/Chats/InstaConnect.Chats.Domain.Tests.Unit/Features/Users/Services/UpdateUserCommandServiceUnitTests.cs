@@ -2,7 +2,6 @@ using InstaConnect.Chats.Domain.Features.Users.Helpers;
 using InstaConnect.Chats.Domain.Features.Users.Models.Requests;
 using InstaConnect.Chats.Domain.Tests.Features.Users.Assertions;
 using InstaConnect.Chats.Domain.Tests.Features.Users.Builders;
-using InstaConnect.Chats.Domain.Tests.Features.Users.Utilities;
 using InstaConnect.Chats.Domain.Tests.Unit.Features.Users.Utilities;
 using InstaConnect.Chats.Tests.Features.Users.DataAttributes.Email;
 using InstaConnect.Chats.Tests.Features.Users.DataAttributes.Name;

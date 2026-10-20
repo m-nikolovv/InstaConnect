@@ -1,5 +1,3 @@
-using InstaConnect.Identity.Domain.Features.Common.Models.Requests;
-
 namespace InstaConnect.Identity.Infrastructure.Features.RefreshTokens.Helpers.Includers;
 
 internal class RefreshTokenIncluderFactory : IRefreshTokenIncluderFactory

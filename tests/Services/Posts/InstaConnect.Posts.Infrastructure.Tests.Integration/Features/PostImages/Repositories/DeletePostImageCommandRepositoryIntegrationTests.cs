@@ -1,6 +1,3 @@
-using InstaConnect.Posts.Infrastructure.Tests.Integration.Features.PostImages.Utilities;
-using InstaConnect.Posts.Tests.Features.PostImages.Utilities;
-
 namespace InstaConnect.Posts.Infrastructure.Tests.Integration.Features.PostImages.Repositories;
 
 public class DeletePostImageCommandRepositoryIntegrationTests : BasePostImageInfrastructureCommandIntegrationTest

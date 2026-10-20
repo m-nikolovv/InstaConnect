@@ -1,5 +1,6 @@
-using InstaConnect.Common.Domain.Features.ValueObjects.Models;
-using InstaConnect.Posts.Domain.Features.Users.Models.Requests;
+using InstaConnect.Posts.Application.Features.Users.Commands.Add;
+using InstaConnect.Posts.Application.Features.Users.Commands.Delete;
+using InstaConnect.Posts.Application.Features.Users.Commands.Update;
 using InstaConnect.Posts.Domain.Features.Users.Models.Responses;
 
 namespace InstaConnect.Posts.Infrastructure.Tests.Features.Users.Utilities;

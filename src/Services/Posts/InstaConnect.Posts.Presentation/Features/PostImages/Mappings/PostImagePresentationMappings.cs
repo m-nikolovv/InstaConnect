@@ -1,4 +1,5 @@
-using Mapster;
+using InstaConnect.Posts.Application.Features.PostImages.Models;
+using InstaConnect.Posts.Presentation.Features.PostImages.Models.Responses;
 
 namespace InstaConnect.Posts.Presentation.Features.PostImages.Mappings;
 

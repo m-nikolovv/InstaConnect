@@ -1,8 +1,5 @@
+using InstaConnect.Chats.Infrastructure.Features.ChatMessageImages.Abstractions;
 using InstaConnect.Chats.Infrastructure.Features.ChatMessageImages.Extensions;
-using InstaConnect.Common.Infrastructure.Features.Databases.Abstractions;
-using InstaConnect.Common.Infrastructure.Features.Databases.Helpers;
-
-using MongoDB.Driver;
 
 namespace InstaConnect.Chats.Infrastructure.Features.ChatMessageImages.Helpers.Collections;
 

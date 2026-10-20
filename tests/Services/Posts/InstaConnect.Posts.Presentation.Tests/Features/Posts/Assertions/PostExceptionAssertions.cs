@@ -1,3 +1,5 @@
+using InstaConnect.Posts.Presentation.Features.Posts.Controllers.v1;
+
 namespace InstaConnect.Posts.Presentation.Tests.Features.Posts.Assertions;
 
 public static class PostExceptionAssertions

@@ -1,3 +1,5 @@
+using InstaConnect.Posts.Presentation.Features.PostComments.Controllers.v1;
+
 namespace InstaConnect.Posts.Presentation.Tests.Features.PostComments.Assertions;
 
 public static class PostCommentExceptionAssertions

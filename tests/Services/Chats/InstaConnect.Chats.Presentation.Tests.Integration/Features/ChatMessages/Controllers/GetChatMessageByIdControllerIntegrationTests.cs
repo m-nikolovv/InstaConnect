@@ -1,3 +1,5 @@
+using InstaConnect.Chats.Tests.Features.ChatMessages.DataAttributes.Id;
+
 namespace InstaConnect.Chats.Presentation.Tests.Integration.Features.ChatMessages.Controllers;
 
 public class GetChatMessageByIdControllerIntegrationTests : BaseChatMessagePresentationQueryIntegrationTest

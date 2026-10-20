@@ -8,10 +8,19 @@
     <PackageReference Include="Serilog.AspNetCore" />
   </ItemGroup>
 
-
   <ItemGroup>
     <ProjectReference Include="..\InstaConnect.Common.Application\InstaConnect.Common.Application.csproj" />
     <ProjectReference Include="..\InstaConnect.Common.Infrastructure\InstaConnect.Common.Infrastructure.csproj" />
+  </ItemGroup>
+
+  <ItemGroup Label="Common">
+    <Using Include="InstaConnect.Common.Domain.Features.Exceptions.Exceptions" />
+    <Using Include="InstaConnect.Common.Domain.Features.Exceptions.Models" />
+    <Using Include="InstaConnect.Common.Presentation.Features.Exceptions.Abstractions" />
+    <Using Include="InstaConnect.Common.Presentation.Features.Exceptions.Models" />
+    <Using Include="Microsoft.AspNetCore.Builder" />
+    <Using Include="Microsoft.AspNetCore.Http" />
+    <Using Include="Microsoft.AspNetCore.Mvc.ModelBinding" />
   </ItemGroup>
 
 </Project>

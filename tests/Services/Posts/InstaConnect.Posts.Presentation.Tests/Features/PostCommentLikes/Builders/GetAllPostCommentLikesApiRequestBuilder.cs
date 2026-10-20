@@ -1,6 +1,3 @@
-using InstaConnect.Common.Domain.Features.Requests.Models;
-using InstaConnect.Posts.Domain.Features.PostCommentLikes.Models.Requests;
-
 namespace InstaConnect.Posts.Presentation.Tests.Features.PostCommentLikes.Builders;
 
 public class GetAllPostCommentLikesApiRequestBuilder

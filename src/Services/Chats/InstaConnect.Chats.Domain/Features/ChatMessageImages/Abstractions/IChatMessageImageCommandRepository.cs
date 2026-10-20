@@ -1,3 +1,5 @@
+using InstaConnect.Chats.Domain.Features.ChatMessageImages.Models.ValueObjects;
+
 namespace InstaConnect.Chats.Domain.Features.ChatMessageImages.Abstractions;
 
 public interface IChatMessageImageCommandRepository

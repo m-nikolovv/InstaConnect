@@ -1,6 +1,5 @@
 using InstaConnect.Identity.Domain.Features.ForgotPasswordTokens.Helpers;
 using InstaConnect.Identity.Domain.Features.ForgotPasswordTokens.Models.Requests;
-using InstaConnect.Identity.Domain.Features.Users.Models.Requests;
 using InstaConnect.Identity.Domain.Tests.Features.ForgotPasswordTokens.Assertions;
 using InstaConnect.Identity.Domain.Tests.Features.ForgotPasswordTokens.Builders;
 using InstaConnect.Identity.Domain.Tests.Features.ForgotPasswordTokens.Utilities;

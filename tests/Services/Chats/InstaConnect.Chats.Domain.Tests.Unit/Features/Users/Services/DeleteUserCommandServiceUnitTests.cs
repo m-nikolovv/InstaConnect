@@ -2,7 +2,6 @@ using InstaConnect.Chats.Domain.Features.Users.Helpers;
 using InstaConnect.Chats.Domain.Features.Users.Models.Requests;
 using InstaConnect.Chats.Domain.Tests.Features.Users.Assertions;
 using InstaConnect.Chats.Domain.Tests.Features.Users.Builders;
-using InstaConnect.Chats.Domain.Tests.Features.Users.Utilities;
 using InstaConnect.Chats.Domain.Tests.Unit.Features.Users.Utilities;
 
 namespace InstaConnect.Chats.Domain.Tests.Unit.Features.Users.Services;

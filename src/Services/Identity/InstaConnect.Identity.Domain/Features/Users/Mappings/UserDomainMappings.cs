@@ -1,5 +1,3 @@
-using Mapster;
-
 namespace InstaConnect.Identity.Domain.Features.Users.Mappings;
 
 internal class UserDomainMappings : IRegister

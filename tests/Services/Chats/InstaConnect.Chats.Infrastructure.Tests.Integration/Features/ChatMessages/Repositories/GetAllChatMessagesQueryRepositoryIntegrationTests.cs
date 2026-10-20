@@ -1,16 +1,10 @@
 using InstaConnect.Chats.Domain.Features.ChatMessages.Models.Entities;
 using InstaConnect.Chats.Domain.Features.ChatMessages.Models.Requests;
-using InstaConnect.Chats.Domain.Features.Users.Models.Requests;
-using InstaConnect.Chats.Infrastructure.Tests.Features.ChatMessages.Assertions;
 using InstaConnect.Chats.Infrastructure.Tests.Features.ChatMessages.Builders;
-using InstaConnect.Chats.Infrastructure.Tests.Features.Common.Builders;
-using InstaConnect.Chats.Infrastructure.Tests.Integration.Features.ChatMessages.Utilities;
-using InstaConnect.Chats.Tests.Features.ChatMessageImages.Utilities;
 using InstaConnect.Chats.Tests.Features.ChatMessages.DataAttributes.SortOrder;
 using InstaConnect.Chats.Tests.Features.ChatMessages.DataAttributes.SortTerm;
-using InstaConnect.Chats.Tests.Features.ChatMessages.Utilities;
-using InstaConnect.Chats.Tests.Features.Chats.Utilities;
 using InstaConnect.Common.Domain.Features.Requests.Models;
+using InstaConnect.Common.Tests.Features.DataAttributes.Enums.Base;
 using InstaConnect.Common.Tests.Features.DataAttributes.Enums.Sort;
 
 namespace InstaConnect.Chats.Infrastructure.Tests.Integration.Features.ChatMessages.Repositories;

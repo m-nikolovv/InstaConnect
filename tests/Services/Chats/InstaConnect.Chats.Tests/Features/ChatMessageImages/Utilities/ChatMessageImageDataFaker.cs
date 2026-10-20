@@ -1,3 +1,5 @@
+using InstaConnect.Chats.Domain.Features.ChatMessageImages.Utilities;
+
 using Microsoft.AspNetCore.Http;
 
 namespace InstaConnect.Chats.Tests.Features.ChatMessageImages.Utilities;

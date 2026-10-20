@@ -1,4 +1,6 @@
 using InstaConnect.Common.Tests.Features.DataAttributes.FormFileCollections.Base;
+using InstaConnect.Posts.Domain.Features.PostComments.Models.Entities;
+using InstaConnect.Posts.Tests.Features.PostComments.DataAttributes.Content;
 using InstaConnect.Posts.Tests.Features.PostComments.DataAttributes.Images;
 
 namespace InstaConnect.Posts.Presentation.Tests.Functional.Features.PostComments.Endpoints;

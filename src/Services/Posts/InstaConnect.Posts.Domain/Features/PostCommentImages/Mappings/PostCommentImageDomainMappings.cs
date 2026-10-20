@@ -1,4 +1,4 @@
-using Mapster;
+using InstaConnect.Posts.Events.Features.PostCommentImages;
 
 namespace InstaConnect.Posts.Domain.Features.PostCommentImages.Mappings;
 

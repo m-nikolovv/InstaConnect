@@ -1,3 +1,5 @@
+using InstaConnect.Posts.Domain.Features.PostComments.Abstractions;
+
 namespace InstaConnect.Posts.Infrastructure.Features.PostComments.Helpers.Repositories;
 
 internal class PostCommentQueryRepository : IPostCommentQueryRepository

@@ -1,12 +1,8 @@
-using InstaConnect.Common.Domain.Features.Common.Extensions;
 using InstaConnect.Common.Domain.Features.Requests.Abstractions;
-using InstaConnect.Common.Tests.Features.DataAttributes.Enums.Sort;
 using InstaConnect.Identity.Events.Features.Users;
-using InstaConnect.Posts.Domain.Tests.Features.PostComments.Utilities;
-using InstaConnect.Posts.Domain.Tests.Features.Users.Utilities;
+using InstaConnect.Posts.Domain.Features.PostCommentLikes.Models.Responses;
 using InstaConnect.Posts.Events.Features.PostCommentLikes;
 using InstaConnect.Posts.Events.Features.PostComments;
-using InstaConnect.Posts.Events.Features.Posts;
 
 namespace InstaConnect.Posts.Domain.Tests.Features.PostCommentLikes.Utilities;
 

@@ -1,3 +1,16 @@
+using InstaConnect.Chats.Application.Features.Users.Commands.Update;
+using InstaConnect.Chats.Application.Tests.Features.Users.Builders;
+using InstaConnect.Chats.Application.Tests.Integration.Features.Users.Utilities;
+using InstaConnect.Chats.Domain.Features.Users.Models.Entities;
+using InstaConnect.Chats.Tests.Features.Users.Builders;
+using InstaConnect.Chats.Tests.Features.Users.DataAttributes.Email;
+using InstaConnect.Chats.Tests.Features.Users.DataAttributes.FirstName;
+using InstaConnect.Chats.Tests.Features.Users.DataAttributes.LastName;
+using InstaConnect.Chats.Tests.Features.Users.DataAttributes.Name;
+using InstaConnect.Chats.Tests.Features.Users.DataAttributes.ProfileImage;
+using InstaConnect.Chats.Tests.Features.Users.DataAttributes.UpdatedAtUtc;
+using InstaConnect.Common.Tests.Features.DataAttributes.DateTimeOffsets.Base;
+
 namespace InstaConnect.Chats.Application.Tests.Integration.Features.Users.Handlers;
 
 public class UpdateUserCommandHandlerIntegrationTests : BaseUserApplicationCommandIntegrationTest

@@ -1,6 +1,10 @@
-using InstaConnect.Common.Domain.Features.Requests.Models;
-using InstaConnect.Common.Tests.Features.DataAttributes.Enums.Sort;
+using InstaConnect.Posts.Domain.Features.Posts.Models.Entities;
 using InstaConnect.Posts.Domain.Features.Posts.Models.Requests;
+using InstaConnect.Posts.Tests.Features.Posts.DataAttributes.Page;
+using InstaConnect.Posts.Tests.Features.Posts.DataAttributes.PageSize;
+using InstaConnect.Posts.Tests.Features.Posts.DataAttributes.SortOrder;
+using InstaConnect.Posts.Tests.Features.Posts.DataAttributes.SortTerm.ForUser;
+using InstaConnect.Posts.Tests.Features.Posts.DataAttributes.Title;
 
 namespace InstaConnect.Posts.Presentation.Tests.Functional.Features.Posts.Endpoints;
 

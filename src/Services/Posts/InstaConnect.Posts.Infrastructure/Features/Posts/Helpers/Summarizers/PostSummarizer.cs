@@ -1,8 +1,3 @@
-using InstaConnect.Common.Domain.Features.Mappers.Abstractions;
-using InstaConnect.Common.Domain.Features.ValueObjects.Models;
-
-using Microsoft.Extensions.AI;
-
 namespace InstaConnect.Posts.Infrastructure.Features.Posts.Helpers.Summarizers;
 
 internal class PostSummarizer : IPostSummarizer

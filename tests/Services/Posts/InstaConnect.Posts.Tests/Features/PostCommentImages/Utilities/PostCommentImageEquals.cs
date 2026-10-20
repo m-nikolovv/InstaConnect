@@ -1,8 +1,3 @@
-using InstaConnect.Common.Domain.Features.Common.Extensions;
-using InstaConnect.Posts.Domain.Features.PostCommentImages.Models.ValueObjects;
-using InstaConnect.Posts.Domain.Features.PostComments.Models.ValueObjects;
-using InstaConnect.Posts.Tests.Features.PostComments.Utilities;
-
 namespace InstaConnect.Posts.Tests.Features.PostCommentImages.Utilities;
 
 public static class PostCommentImageEquals

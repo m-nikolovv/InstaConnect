@@ -11,11 +11,11 @@ using InstaConnect.Common.Infrastructure.Features.Telemetries.Extensions;
 using InstaConnect.Posts.Infrastructure.Features.Common.Utilities;
 using InstaConnect.Posts.Infrastructure.Features.PostCommentImages.Extensions;
 using InstaConnect.Posts.Infrastructure.Features.PostCommentLikes.Extensions;
-using InstaConnect.Posts.Infrastructure.Features.PostComments.Extensions;
 using InstaConnect.Posts.Infrastructure.Features.PostImages.Extensions;
 using InstaConnect.Posts.Infrastructure.Features.PostLikes.Extensions;
-using InstaConnect.Posts.Infrastructure.Features.Posts.Extensions;
-using InstaConnect.Posts.Infrastructure.Features.Users.Extensions;
+
+using Microsoft.AspNetCore.Hosting;
+using Microsoft.Extensions.Configuration;
 
 namespace InstaConnect.Posts.Infrastructure.Features.Common.Extensions;
 

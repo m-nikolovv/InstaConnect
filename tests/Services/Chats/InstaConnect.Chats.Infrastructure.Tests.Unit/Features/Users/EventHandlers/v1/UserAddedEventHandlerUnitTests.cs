@@ -1,4 +1,7 @@
+using InstaConnect.Chats.Infrastructure.Features.Users.EventHandlers;
+using InstaConnect.Chats.Infrastructure.Tests.Features.Users.Builders;
 using InstaConnect.Common.Infrastructure.Tests.Features.Utilities;
+using InstaConnect.Identity.Events.Features.Users;
 
 namespace InstaConnect.Chats.Infrastructure.Tests.Unit.Features.Users.EventHandlers.v1;
 

@@ -1,3 +1,5 @@
+using InstaConnect.Identity.Application.Features.Users.Queries.GetById;
+
 namespace InstaConnect.Identity.Application.Tests.Unit.Features.Users.Handlers.GetById;
 
 public class GetUserByIdQueryRequestValidatorUnitTests : BaseUserApplicationQueryUnitTest

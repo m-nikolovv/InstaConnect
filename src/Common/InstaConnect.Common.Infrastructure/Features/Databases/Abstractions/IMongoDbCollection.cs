@@ -1,5 +1,3 @@
-using InstaConnect.Common.Domain.Features.Entities.Abstractions;
-
 namespace InstaConnect.Common.Infrastructure.Features.Databases.Abstractions;
 
 public interface IMongoDbCollection<in TEntity> where TEntity : IEntity

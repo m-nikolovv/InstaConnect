@@ -1,6 +1,4 @@
-using InstaConnect.Common.Domain.Features.Requests.Models;
-
-using InstaConnect.Posts.Domain.Features.Posts.Models.Requests;
+using InstaConnect.Posts.Presentation.Features.Posts.Controllers.v1;
 
 namespace InstaConnect.Posts.Presentation.Tests.Features.Posts.Assertions;
 

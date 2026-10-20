@@ -1,11 +1,3 @@
-using InstaConnect.Common.Tests.Features.DataAttributes.Strings.Base;
-using InstaConnect.Identity.Domain.Features.Users.Models.Requests;
-using InstaConnect.Identity.Domain.Tests.Features.Users.Assertions;
-using InstaConnect.Identity.Domain.Tests.Features.Users.Builders;
-using InstaConnect.Identity.Domain.Tests.Integration.Features.Users.Utilities;
-using InstaConnect.Identity.Tests.Features.Users.DataAttributes.Id;
-using InstaConnect.Identity.Tests.Features.Users.Utilities;
-
 namespace InstaConnect.Identity.Domain.Tests.Integration.Features.Users.Services;
 
 public class GetUserByIdQueryServiceIntegrationTests : BaseUserDomainQueryIntegrationTest

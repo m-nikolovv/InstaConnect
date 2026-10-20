@@ -1,3 +1,7 @@
+using InstaConnect.Chats.Presentation.Features.ChatMessages.Controllers.v1;
+using InstaConnect.Chats.Tests.Features.ChatMessages.Abstractions;
+using InstaConnect.Chats.Tests.Features.ChatMessages.Extensions;
+
 namespace InstaConnect.Chats.Presentation.Tests.Integration.Features.ChatMessages.Utilities;
 
 public abstract class BaseChatMessagePresentationCommandIntegrationTest : BaseChatMessageWebTest

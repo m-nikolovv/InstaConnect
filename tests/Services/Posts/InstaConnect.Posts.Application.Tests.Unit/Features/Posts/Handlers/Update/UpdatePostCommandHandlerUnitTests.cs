@@ -1,3 +1,5 @@
+using InstaConnect.Posts.Application.Features.Posts.Commands.Update;
+
 namespace InstaConnect.Posts.Application.Tests.Unit.Features.Posts.Handlers.Update;
 
 public class UpdatePostCommandHandlerUnitTests : BasePostApplicationCommandUnitTest

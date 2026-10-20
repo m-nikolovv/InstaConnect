@@ -1,7 +1,5 @@
 using InstaConnect.Common.Domain.Features.ValueObjects.Models;
 
-using Mapster;
-
 using Microsoft.Extensions.AI;
 
 namespace InstaConnect.Common.Infrastructure.Features.Summarizers.Mappings;

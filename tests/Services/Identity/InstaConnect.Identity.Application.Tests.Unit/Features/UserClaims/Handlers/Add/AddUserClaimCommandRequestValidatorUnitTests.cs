@@ -1,4 +1,7 @@
 using InstaConnect.Common.Events.Features.AccessTokens.Models;
+using InstaConnect.Common.Tests.Features.DataAttributes.Enums.Base;
+using InstaConnect.Identity.Application.Features.UserClaims.Commands.Add;
+using InstaConnect.Identity.Tests.Features.UserClaims.DataAttributes.Claim;
 
 namespace InstaConnect.Identity.Application.Tests.Unit.Features.UserClaims.Handlers.Add;
 

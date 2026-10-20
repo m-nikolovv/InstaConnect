@@ -1,5 +1,6 @@
 using InstaConnect.Common.Domain.Features.Entities.Abstractions;
 using InstaConnect.Common.Infrastructure.Features.Databases.Abstractions;
+using InstaConnect.Common.Tests.Features.Assertions;
 
 namespace InstaConnect.Common.Infrastructure.Tests.Features.Assertions;
 

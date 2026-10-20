@@ -1,3 +1,7 @@
+using InstaConnect.Posts.Tests.Features.Posts.DataAttributes.Content;
+using InstaConnect.Posts.Tests.Features.Posts.DataAttributes.Title;
+using InstaConnect.Posts.Tests.Features.Users.Builders;
+
 namespace InstaConnect.Posts.Presentation.Tests.Integration.Features.Posts.Controllers;
 
 public class UpdatePostControllerIntegrationTests : BasePostPresentationCommandIntegrationTest

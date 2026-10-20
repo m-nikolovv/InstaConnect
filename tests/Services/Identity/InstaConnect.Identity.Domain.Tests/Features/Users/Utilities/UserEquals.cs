@@ -1,9 +1,6 @@
-using InstaConnect.Common.Domain.Features.Common.Extensions;
 using InstaConnect.Common.Tests.Features.DataAttributes.Enums.Sort;
 using InstaConnect.Common.Tests.Features.Extensions;
 using InstaConnect.Identity.Domain.Tests.Features.EmailConfirmationTokens.Utilities;
-using InstaConnect.Identity.Events.Features.EmailConfirmationTokens;
-using InstaConnect.Identity.Events.Features.Users;
 
 namespace InstaConnect.Identity.Domain.Tests.Features.Users.Utilities;
 

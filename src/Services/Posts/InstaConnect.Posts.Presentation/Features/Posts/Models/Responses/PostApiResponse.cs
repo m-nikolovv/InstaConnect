@@ -1,3 +1,5 @@
+using InstaConnect.Posts.Presentation.Features.PostImages.Models.Responses;
+
 namespace InstaConnect.Posts.Presentation.Features.Posts.Models.Responses;
 
 public record PostApiResponse(

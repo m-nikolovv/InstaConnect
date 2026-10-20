@@ -1,5 +1,3 @@
-using Mapster;
-
 namespace InstaConnect.Identity.Infrastructure.Features.EmailConfirmationTokens.Mappings;
 
 internal class EmailConfirmationTokenInfrastructureMappings : IRegister

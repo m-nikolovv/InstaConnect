@@ -1,4 +1,5 @@
 using InstaConnect.Chats.Infrastructure.Features.Common.Extensions;
+using InstaConnect.Chats.Tests.Features.ChatMessages.Extensions;
 using InstaConnect.Chats.Tests.Features.Common.Extensions;
 using InstaConnect.Common.Tests.Features.Extensions;
 
@@ -9,8 +10,6 @@ using Microsoft.AspNetCore.TestHost;
 using Testcontainers.MongoDb;
 using Testcontainers.RabbitMq;
 using Testcontainers.Redis;
-
-using Xunit;
 
 namespace InstaConnect.Chats.Tests.Features.Common.Utilities;
 

@@ -1,3 +1,5 @@
+using InstaConnect.Chats.Application.Features.Chats.Extensions;
+
 namespace InstaConnect.Chats.Application.Features.Chats.Queries.GetAll;
 
 public class GetAllChatsQueryRequestValidator : AbstractValidator<GetAllChatsQueryRequest>

@@ -1,9 +1,3 @@
-using InstaConnect.Chats.Tests.Features.Common.Utilities;
-
-using Microsoft.Extensions.DependencyInjection;
-
-using Xunit;
-
 namespace InstaConnect.Chats.Tests.Features.ChatMessageImages.Utilities;
 
 public abstract class BaseChatMessageImageWebTest : BaseChatMessageImageTest, IClassFixture<ChatsWebApplicationFactory>

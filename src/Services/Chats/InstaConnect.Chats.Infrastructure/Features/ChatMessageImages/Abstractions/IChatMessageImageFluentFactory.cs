@@ -1,5 +1,3 @@
-using MongoDB.Driver;
-
 namespace InstaConnect.Chats.Infrastructure.Features.ChatMessageImages.Abstractions;
 
 public interface IChatMessageImageFluentFactory

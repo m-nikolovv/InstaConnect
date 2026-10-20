@@ -1,5 +1,3 @@
-using System.Linq.Expressions;
-
 namespace InstaConnect.Posts.Infrastructure.Features.Posts.Helpers.SortTermers;
 
 internal class ByUserNameSortTermer : IPostsSortTermer

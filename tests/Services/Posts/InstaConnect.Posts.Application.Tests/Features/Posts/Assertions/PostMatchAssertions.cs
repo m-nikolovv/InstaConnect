@@ -1,5 +1,4 @@
-using InstaConnect.Common.Tests.Features.DataAttributes.Enums.Sort;
-using InstaConnect.Posts.Application.Tests.Features.Posts.Utilities;
+using InstaConnect.Posts.Domain.Features.PostImages.Models.Entities;
 using InstaConnect.Posts.Events.Features.Posts;
 
 namespace InstaConnect.Posts.Application.Tests.Features.Posts.Assertions;

@@ -1,5 +1,3 @@
-using InstaConnect.Follows.Domain.Features.Users.Models.Requests;
-
 namespace InstaConnect.Follows.Infrastructure.Tests.Integration.Features.Users.Repositories;
 
 public class GetUserByIdCommandRepositoryIntegrationTests : BaseUserInfrastructureCommandIntegrationTest

@@ -1,5 +1,3 @@
-using System.Linq.Expressions;
-
 using FluentAssertions;
 
 namespace InstaConnect.Common.Tests.Features.Assertions;

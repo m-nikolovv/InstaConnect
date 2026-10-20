@@ -1,8 +1,8 @@
 using InstaConnect.Chats.Application.Features.Chats.Commands.Add;
+using InstaConnect.Chats.Application.Features.Chats.Models;
 using InstaConnect.Chats.Application.Features.Chats.Queries.GetAll;
 using InstaConnect.Chats.Application.Features.Chats.Queries.GetById;
-
-using Mapster;
+using InstaConnect.Chats.Presentation.Features.Chats.Models.Requests;
 
 namespace InstaConnect.Chats.Presentation.Features.Chats.Mappings;
 

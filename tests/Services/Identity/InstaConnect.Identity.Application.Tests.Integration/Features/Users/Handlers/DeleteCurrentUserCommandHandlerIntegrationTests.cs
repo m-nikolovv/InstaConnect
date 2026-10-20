@@ -1,3 +1,5 @@
+using InstaConnect.Identity.Application.Features.Users.Commands.DeleteCurrent;
+
 namespace InstaConnect.Identity.Application.Tests.Integration.Features.Users.Handlers;
 
 public class DeleteCurrentUserCommandHandlerIntegrationTests : BaseUserApplicationCommandIntegrationTest

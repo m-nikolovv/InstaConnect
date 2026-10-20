@@ -1,10 +1,8 @@
-using InstaConnect.Common.Domain.Features.Common.Extensions;
 using InstaConnect.Common.Tests.Features.Extensions;
 using InstaConnect.Identity.Application.Tests.Features.ForgotPasswordTokens.Utilities;
-using InstaConnect.Identity.Application.Tests.Features.Users.Utilities;
 using InstaConnect.Identity.Domain.Features.Common.Helpers;
+using InstaConnect.Identity.Domain.Features.ForgotPasswordTokens.Models.Requests;
 using InstaConnect.Identity.Events.Features.ForgotPasswordTokens;
-using InstaConnect.Identity.Events.Features.Users;
 
 namespace InstaConnect.Identity.Application.Tests.Features.ForgotPasswordTokens.Utilities;
 

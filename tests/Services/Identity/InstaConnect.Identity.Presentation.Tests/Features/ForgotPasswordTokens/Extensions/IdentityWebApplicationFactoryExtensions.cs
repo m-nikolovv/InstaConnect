@@ -1,6 +1,5 @@
 using InstaConnect.Identity.Presentation.Tests.Features.ForgotPasswordTokens.Abstractions;
 using InstaConnect.Identity.Presentation.Tests.Features.ForgotPasswordTokens.Helpers;
-using InstaConnect.Identity.Tests.Features.Common.Utilities;
 
 namespace InstaConnect.Identity.Presentation.Tests.Features.ForgotPasswordTokens.Extensions;
 

@@ -1,9 +1,3 @@
-using InstaConnect.Common.Infrastructure.Features.Databases.Abstractions;
-using InstaConnect.Common.Infrastructure.Features.Databases.Helpers;
-using InstaConnect.Identity.Infrastructure.Features.Users.Extensions;
-
-using MongoDB.Driver;
-
 namespace InstaConnect.Identity.Infrastructure.Features.Users.Helpers.Collections;
 
 internal class UserCollection : MongoDbCollection<User>, IUserCollection

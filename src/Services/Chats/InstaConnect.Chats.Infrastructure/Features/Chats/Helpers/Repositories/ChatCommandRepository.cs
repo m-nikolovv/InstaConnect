@@ -1,3 +1,5 @@
+using InstaConnect.Chats.Domain.Features.Chats.Abstractions;
+
 namespace InstaConnect.Chats.Infrastructure.Features.Chats.Helpers.Repositories;
 
 internal class ChatCommandRepository : IChatCommandRepository

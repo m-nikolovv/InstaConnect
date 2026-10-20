@@ -1,6 +1,10 @@
 using InstaConnect.Common.Application.Features.Common.Extensions;
 using InstaConnect.Common.Application.Features.Requests.Extensions;
 using InstaConnect.Common.Domain.Features.Mappers.Extensions;
+using InstaConnect.Identity.Application.Features.EmailConfirmationTokens.Extensions;
+using InstaConnect.Identity.Application.Features.ForgotPasswordTokens.Extensions;
+using InstaConnect.Identity.Application.Features.RefreshTokens.Extensions;
+using InstaConnect.Identity.Application.Features.UserClaims.Extensions;
 
 namespace InstaConnect.Identity.Application.Features.Common.Extensions;
 

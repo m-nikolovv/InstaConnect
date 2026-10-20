@@ -1,3 +1,5 @@
+using InstaConnect.Follows.Application.Features.Follows.Commands.Delete;
+
 namespace InstaConnect.Follows.Application.Tests.Integration.Features.Follows.Handlers;
 
 public class DeleteFollowCommandHandlerIntegrationTests : BaseFollowApplicationCommandIntegrationTest

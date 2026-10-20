@@ -1,5 +1,3 @@
-using InstaConnect.Common.Infrastructure.Features.Databases.Abstractions;
-
 namespace InstaConnect.Chats.Infrastructure.Features.ChatMessageImages.Abstractions;
 
 public interface IChatMessageImageFluent : IMongoDbFluent<ChatMessageImage>

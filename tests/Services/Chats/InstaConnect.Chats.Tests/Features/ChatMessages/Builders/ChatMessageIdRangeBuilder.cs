@@ -1,5 +1,3 @@
-using InstaConnect.Chats.Domain.Features.ChatMessages.Models.ValueObjects;
-
 namespace InstaConnect.Chats.Tests.Features.ChatMessages.Builders;
 
 public class ChatMessageIdRangeBuilder

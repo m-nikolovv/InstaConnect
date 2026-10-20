@@ -1,7 +1,3 @@
-using InstaConnect.Chats.Domain.Features.ChatMessageImages.Models.ValueObjects;
-using InstaConnect.Chats.Domain.Features.ChatMessages.Models.ValueObjects;
-using InstaConnect.Common.Domain.Features.Common.Extensions;
-
 namespace InstaConnect.Chats.Tests.Features.ChatMessageImages.Utilities;
 
 public static class ChatMessageImageEquals

@@ -1,4 +1,5 @@
-using Mapster;
+using InstaConnect.Chats.Application.Features.ChatMessageImages.Models;
+using InstaConnect.Chats.Presentation.Features.ChatMessageImages.Models.Responses;
 
 namespace InstaConnect.Chats.Presentation.Features.ChatMessageImages.Mappings;
 

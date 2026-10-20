@@ -1,3 +1,5 @@
+using InstaConnect.Follows.Infrastructure.Features.Users.EventHandlers;
+
 using Microsoft.Extensions.DependencyInjection;
 
 namespace InstaConnect.Follows.Infrastructure.Tests.Features.Users.Utilities;

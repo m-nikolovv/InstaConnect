@@ -1,4 +1,3 @@
-using InstaConnect.Common.Tests.Features.Extensions;
 using InstaConnect.Posts.Tests.Features.Posts.Extensions;
 
 namespace InstaConnect.Posts.Domain.Tests.Features.Posts.Extensions;

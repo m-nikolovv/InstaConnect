@@ -1,20 +1,13 @@
 using System.Reflection;
 
 using InstaConnect.Common.Application.Features.Databases.Abstractions;
-using InstaConnect.Common.Domain.Features.Databases.Abstractions;
-using InstaConnect.Common.Domain.Features.Entities.Abstractions;
 using InstaConnect.Common.Infrastructure.Features.Common.Extensions;
-using InstaConnect.Common.Infrastructure.Features.Databases.Abstractions;
 using InstaConnect.Common.Infrastructure.Features.Databases.Helpers;
 using InstaConnect.Common.Infrastructure.Features.Databases.Helpers.Conventions;
 using InstaConnect.Common.Infrastructure.Features.Databases.Helpers.SortOrders;
 using InstaConnect.Common.Infrastructure.Features.Databases.Models;
 
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
-
 using MongoDB.Bson.Serialization.Conventions;
-using MongoDB.Driver;
 
 namespace InstaConnect.Common.Infrastructure.Features.Databases.Extensions;
 

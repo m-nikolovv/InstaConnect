@@ -1,6 +1,6 @@
 using InstaConnect.Common.Domain.Features.ValueObjects.Models;
 using InstaConnect.Common.Infrastructure.Tests.Features.Builders;
-using InstaConnect.Posts.Infrastructure.Features.Users.Helpers.Repositories;
+using InstaConnect.Posts.Domain.Features.Users.Models.Entities;
 
 namespace InstaConnect.Posts.Infrastructure.Tests.Unit.Features.Users.Repositories;
 

@@ -1,4 +1,4 @@
-using MongoDB.Driver;
+using InstaConnect.Chats.Infrastructure.Features.ChatMessageImages.Abstractions;
 
 namespace InstaConnect.Chats.Infrastructure.Features.ChatMessageImages.Helpers.Collections;
 

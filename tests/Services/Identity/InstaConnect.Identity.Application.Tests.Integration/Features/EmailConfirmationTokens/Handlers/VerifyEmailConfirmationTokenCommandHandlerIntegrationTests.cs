@@ -1,3 +1,10 @@
+using InstaConnect.Identity.Application.Features.EmailConfirmationTokens.Commands.Verify;
+using InstaConnect.Identity.Application.Tests.Features.EmailConfirmationTokens.Builders;
+using InstaConnect.Identity.Application.Tests.Integration.Features.EmailConfirmationTokens.Utilities;
+using InstaConnect.Identity.Tests.Features.EmailConfirmationTokens.Builders;
+using InstaConnect.Identity.Tests.Features.EmailConfirmationTokens.DataAttributes.Value;
+using InstaConnect.Identity.Tests.Features.Users.Builders;
+
 namespace InstaConnect.Identity.Application.Tests.Integration.Features.EmailConfirmationTokens.Handlers;
 
 public class VerifyEmailConfirmationTokenCommandHandlerIntegrationTests : BaseEmailConfirmationTokenApplicationCommandIntegrationTest

@@ -1,9 +1,9 @@
 using InstaConnect.Follows.Application.Features.Users.Commands.Add;
 using InstaConnect.Follows.Application.Features.Users.Commands.Delete;
 using InstaConnect.Follows.Application.Features.Users.Commands.Update;
+using InstaConnect.Follows.Domain.Features.Users.Models.Requests;
 using InstaConnect.Follows.Domain.Features.Users.Models.Responses;
-
-using Mapster;
+using InstaConnect.Follows.Domain.Features.Users.Models.ValueObjects;
 
 namespace InstaConnect.Follows.Application.Features.Users.Mappings;
 

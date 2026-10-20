@@ -1,14 +1,16 @@
-using InstaConnect.Common.Domain.Features.Common.Extensions;
-using InstaConnect.Common.Presentation.Features.Requests.Abstractions;
-using InstaConnect.Common.Tests.Features.DataAttributes.Enums.Sort;
 using InstaConnect.Common.Tests.Features.Extensions;
-using InstaConnect.Posts.Domain.Features.Posts.Models.Requests;
+using InstaConnect.Identity.Events.Features.Users;
+using InstaConnect.Posts.Application.Features.Posts.Commands.Add;
+using InstaConnect.Posts.Application.Features.Posts.Commands.Delete;
+using InstaConnect.Posts.Application.Features.Posts.Commands.Update;
+using InstaConnect.Posts.Application.Features.Posts.Queries.GetAll;
+using InstaConnect.Posts.Application.Features.Posts.Queries.GetAllForUser;
+using InstaConnect.Posts.Application.Features.Posts.Queries.GetById;
+using InstaConnect.Posts.Domain.Features.PostImages.Models.Entities;
 using InstaConnect.Posts.Events.Features.PostImages;
 using InstaConnect.Posts.Events.Features.Posts;
-using InstaConnect.Posts.Presentation.Features.Users.Abstractions;
 using InstaConnect.Posts.Presentation.Tests.Features.PostImages.Utilities;
 using InstaConnect.Posts.Presentation.Tests.Features.Posts.Extensions;
-using InstaConnect.Posts.Presentation.Tests.Features.Users.Utilities;
 using InstaConnect.Posts.Tests.Features.Posts.Extensions;
 
 namespace InstaConnect.Posts.Presentation.Tests.Features.Posts.Utilities;

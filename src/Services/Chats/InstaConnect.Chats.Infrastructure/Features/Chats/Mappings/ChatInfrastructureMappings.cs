@@ -1,5 +1,3 @@
-using Mapster;
-
 namespace InstaConnect.Chats.Infrastructure.Features.Chats.Mappings;
 
 internal class ChatInfrastructureMappings : IRegister

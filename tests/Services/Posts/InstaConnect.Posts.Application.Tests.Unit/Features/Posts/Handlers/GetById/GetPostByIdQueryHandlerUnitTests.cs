@@ -1,3 +1,5 @@
+using InstaConnect.Posts.Application.Features.Posts.Queries.GetById;
+
 namespace InstaConnect.Posts.Application.Tests.Unit.Features.Posts.Handlers.GetById;
 
 public class GetPostByIdQueryHandlerUnitTests : BasePostApplicationQueryUnitTest

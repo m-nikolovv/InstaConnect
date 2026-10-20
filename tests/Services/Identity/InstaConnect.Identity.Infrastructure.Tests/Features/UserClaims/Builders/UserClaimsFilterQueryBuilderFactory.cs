@@ -1,5 +1,3 @@
-using InstaConnect.Identity.Domain.Features.UserClaims.Models.Entities;
-
 namespace InstaConnect.Identity.Infrastructure.Tests.Features.UserClaims.Builders;
 
 public class UserClaimsFilterQueryBuilderFactory

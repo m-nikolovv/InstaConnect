@@ -1,5 +1,3 @@
-using System.Linq.Expressions;
-
 using FluentAssertions;
 
 using InstaConnect.Common.Domain.Features.Exceptions.Exceptions;

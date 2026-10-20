@@ -1,3 +1,6 @@
+using InstaConnect.Chats.Application.Features.ChatMessages.Commands.Add;
+using InstaConnect.Chats.Domain.Features.ChatMessages.Models.Entities;
+
 namespace InstaConnect.Chats.Application.Tests.Unit.Features.ChatMessages.Handlers.Add;
 
 public class AddChatMessageCommandHandlerUnitTests : BaseChatMessageApplicationCommandUnitTest

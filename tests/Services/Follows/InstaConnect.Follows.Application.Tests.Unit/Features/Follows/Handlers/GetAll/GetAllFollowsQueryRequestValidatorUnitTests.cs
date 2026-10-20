@@ -1,5 +1,13 @@
 using InstaConnect.Common.Domain.Features.Requests.Models;
+using InstaConnect.Common.Tests.Features.DataAttributes.Enums.Base;
+using InstaConnect.Common.Tests.Features.DataAttributes.Ints.Base;
+using InstaConnect.Follows.Application.Features.Follows.Queries.GetAll;
 using InstaConnect.Follows.Domain.Features.Follows.Models.Requests;
+using InstaConnect.Follows.Tests.Features.Follows.DataAttributes.Page;
+using InstaConnect.Follows.Tests.Features.Follows.DataAttributes.PageSize;
+using InstaConnect.Follows.Tests.Features.Follows.DataAttributes.SortOrder;
+using InstaConnect.Follows.Tests.Features.Follows.DataAttributes.SortTerm;
+using InstaConnect.Follows.Tests.Features.Users.DataAttributes.Name;
 
 namespace InstaConnect.Follows.Application.Tests.Unit.Features.Follows.Handlers.GetAll;
 

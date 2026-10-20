@@ -1,7 +1,3 @@
-using InstaConnect.Common.Domain.Features.Requests.Models;
-using InstaConnect.Common.Presentation.Features.Exceptions.Models;
-using InstaConnect.Posts.Domain.Features.Posts.Models.Requests;
-
 namespace InstaConnect.Posts.Presentation.Tests.Features.Posts.Assertions;
 
 public static class PostValidationProblemDetailsAssertions

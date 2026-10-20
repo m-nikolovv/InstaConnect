@@ -1,4 +1,5 @@
-using InstaConnect.Common.Domain.Features.Mappers.Abstractions;
+using InstaConnect.Chats.Domain.Features.Users.Abstractions;
+using InstaConnect.Chats.Domain.Features.Users.Models.Requests;
 
 namespace InstaConnect.Chats.Application.Features.Users.Commands.Add;
 

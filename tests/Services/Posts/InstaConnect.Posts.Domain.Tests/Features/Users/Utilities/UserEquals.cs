@@ -1,7 +1,3 @@
-using InstaConnect.Common.Domain.Features.Common.Extensions;
-using InstaConnect.Posts.Domain.Features.Users.Models.Responses;
-using InstaConnect.Posts.Domain.Tests.Features.Users.Utilities;
-
 namespace InstaConnect.Posts.Domain.Tests.Features.Users.Utilities;
 
 public static class UserEquals

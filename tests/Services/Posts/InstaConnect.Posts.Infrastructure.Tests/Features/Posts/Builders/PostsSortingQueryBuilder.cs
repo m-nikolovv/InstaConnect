@@ -1,7 +1,3 @@
-using InstaConnect.Common.Domain.Features.Requests.Models;
-using InstaConnect.Posts.Domain.Features.Posts.Models.Requests;
-using InstaConnect.Posts.Tests.Features.Posts.Utilities;
-
 namespace InstaConnect.Posts.Infrastructure.Tests.Features.Posts.Builders;
 
 public class PostsSortingQueryBuilder

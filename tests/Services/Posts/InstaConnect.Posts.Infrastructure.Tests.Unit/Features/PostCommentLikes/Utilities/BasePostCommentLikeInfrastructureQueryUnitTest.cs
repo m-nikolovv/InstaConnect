@@ -1,11 +1,8 @@
 using InstaConnect.Posts.Domain.Features.PostCommentLikes.Abstractions;
 using InstaConnect.Posts.Domain.Features.PostComments.Abstractions;
-using InstaConnect.Posts.Domain.Features.Posts.Abstractions;
 using InstaConnect.Posts.Infrastructure.Features.PostCommentLikes.Abstractions;
-using InstaConnect.Posts.Infrastructure.Tests.Features.PostCommentLikes.Utilities;
 using InstaConnect.Posts.Tests.Features.PostCommentLikes.Utilities;
 using InstaConnect.Posts.Tests.Features.PostComments.Utilities;
-using InstaConnect.Posts.Tests.Features.Posts.Utilities;
 
 namespace InstaConnect.Posts.Infrastructure.Tests.Unit.Features.PostCommentLikes.Utilities;
 

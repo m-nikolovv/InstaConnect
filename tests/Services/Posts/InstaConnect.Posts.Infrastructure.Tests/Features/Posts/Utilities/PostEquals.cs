@@ -1,14 +1,6 @@
-using InstaConnect.Common.Domain.Features.Common.Extensions;
-using InstaConnect.Common.Tests.Features.DataAttributes.Enums.Sort;
-using InstaConnect.Posts.Domain.Features.Posts.Models.Entities;
-using InstaConnect.Posts.Domain.Features.Posts.Models.Requests;
 using InstaConnect.Posts.Domain.Features.Posts.Models.Responses;
-using InstaConnect.Posts.Domain.Features.Posts.Models.ValueObjects;
-using InstaConnect.Posts.Domain.Features.Users.Models.Requests;
 using InstaConnect.Posts.Infrastructure.Tests.Features.PostImages.Utilities;
-using InstaConnect.Posts.Infrastructure.Tests.Features.Users.Utilities;
 using InstaConnect.Posts.Tests.Features.PostImages.Utilities;
-using InstaConnect.Posts.Tests.Features.Posts.Utilities;
 
 namespace InstaConnect.Posts.Infrastructure.Tests.Features.Posts.Utilities;
 

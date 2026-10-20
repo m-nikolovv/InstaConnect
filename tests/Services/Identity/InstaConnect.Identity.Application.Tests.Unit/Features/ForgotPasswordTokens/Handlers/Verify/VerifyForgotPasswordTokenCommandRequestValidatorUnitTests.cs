@@ -1,3 +1,10 @@
+using InstaConnect.Identity.Application.Features.ForgotPasswordTokens.Commands.Verify;
+using InstaConnect.Identity.Application.Tests.Features.ForgotPasswordTokens.Builders;
+using InstaConnect.Identity.Application.Tests.Unit.Features.ForgotPasswordTokens.Utilities;
+using InstaConnect.Identity.Tests.Features.ForgotPasswordTokens.DataAttributes.Value;
+using InstaConnect.Identity.Tests.Features.Users.DataAttributes.ConfirmPassword;
+using InstaConnect.Identity.Tests.Features.Users.DataAttributes.Password;
+
 namespace InstaConnect.Identity.Application.Tests.Unit.Features.ForgotPasswordTokens.Handlers.Verify;
 
 public class VerifyForgotPasswordTokenCommandRequestValidatorUnitTests : BaseForgotPasswordTokenApplicationCommandUnitTest

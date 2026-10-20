@@ -1,6 +1,7 @@
-using InstaConnect.Chats.Domain.Features.Users.Models.Requests;
+using InstaConnect.Chats.Application.Features.Users.Commands.Add;
+using InstaConnect.Chats.Application.Features.Users.Commands.Delete;
+using InstaConnect.Chats.Application.Features.Users.Commands.Update;
 using InstaConnect.Chats.Domain.Features.Users.Models.Responses;
-using InstaConnect.Common.Domain.Features.ValueObjects.Models;
 
 namespace InstaConnect.Chats.Infrastructure.Tests.Features.Users.Utilities;
 

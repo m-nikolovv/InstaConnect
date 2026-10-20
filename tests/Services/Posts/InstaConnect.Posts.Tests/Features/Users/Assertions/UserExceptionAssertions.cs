@@ -1,6 +1,5 @@
 using InstaConnect.Common.Domain.Features.ValueObjects.Models;
 using InstaConnect.Posts.Domain.Features.Users.Exceptions;
-using InstaConnect.Posts.Domain.Features.Users.Models.ValueObjects;
 
 namespace InstaConnect.Posts.Tests.Features.Users.Assertions;
 

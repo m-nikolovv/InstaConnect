@@ -1,7 +1,6 @@
 using InstaConnect.Common.Domain.Features.Common.Extensions;
 
 using Microsoft.AspNetCore.Mvc.ApplicationModels;
-using Microsoft.AspNetCore.Mvc.ModelBinding;
 
 namespace InstaConnect.Common.Presentation.Features.Controllers.Helpers;
 

@@ -1,9 +1,3 @@
-using System.Linq.Expressions;
-
-using InstaConnect.Chats.Infrastructure.Features.ChatMessages.Extensions;
-
-using MongoDB.Driver;
-
 namespace InstaConnect.Chats.Infrastructure.Features.ChatMessageImages.Extensions;
 
 internal static class ChatMessageImageFilterExtensions

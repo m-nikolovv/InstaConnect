@@ -1,3 +1,5 @@
+using InstaConnect.Posts.Domain.Features.PostImages.Models.ValueObjects;
+
 namespace InstaConnect.Posts.Domain.Features.PostImages.Abstractions;
 
 public interface IPostImageCommandRepository

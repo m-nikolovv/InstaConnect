@@ -1,6 +1,3 @@
-using InstaConnect.Identity.Infrastructure.Tests.Integration.Features.UserClaims.Utilities;
-using InstaConnect.Identity.Tests.Features.UserClaims.Utilities;
-
 namespace InstaConnect.Identity.Infrastructure.Tests.Integration.Features.UserClaims.Repositories;
 
 public class DeleteUserClaimCommandRepositoryIntegrationTests : BaseUserClaimInfrastructureCommandIntegrationTest

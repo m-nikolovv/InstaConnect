@@ -1,3 +1,5 @@
+using InstaConnect.Posts.Domain.Features.PostComments.Exceptions;
+
 namespace InstaConnect.Posts.Domain.Features.PostComments.Helpers;
 
 internal class PostCommentQueryService : IPostCommentQueryService

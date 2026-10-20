@@ -1,5 +1,3 @@
-using InstaConnect.Common.Domain.Features.Common.Extensions;
-
 namespace InstaConnect.Common.Domain.Features.Common.Utilities;
 
 public static class CommonOptionsErrorMessages

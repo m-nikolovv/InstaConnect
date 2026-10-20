@@ -1,7 +1,3 @@
-using InstaConnect.Chats.Domain.Features.Chats.Models.Entities;
-using InstaConnect.Chats.Domain.Features.Chats.Models.Requests;
-using InstaConnect.Common.Domain.Features.ValueObjects.Models;
-
 namespace InstaConnect.Chats.Infrastructure.Tests.Features.Chats.Builders;
 
 public class ChatsFilterQueryBuilder

@@ -1,9 +1,5 @@
-using InstaConnect.Posts.Domain.Features.Posts.Models.Requests;
-using InstaConnect.Posts.Infrastructure.Tests.Features.Posts.Assertions;
 using InstaConnect.Posts.Infrastructure.Tests.Features.Posts.Builders;
-using InstaConnect.Posts.Infrastructure.Tests.Integration.Features.Posts.Utilities;
 using InstaConnect.Posts.Tests.Features.Posts.DataAttributes.Title;
-using InstaConnect.Posts.Tests.Features.Posts.Utilities;
 
 namespace InstaConnect.Posts.Infrastructure.Tests.Integration.Features.Posts.Repositories;
 

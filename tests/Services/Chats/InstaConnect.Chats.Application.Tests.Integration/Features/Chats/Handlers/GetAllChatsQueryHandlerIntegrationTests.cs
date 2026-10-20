@@ -1,6 +1,17 @@
+using InstaConnect.Chats.Application.Features.Chats.Queries.GetAll;
+using InstaConnect.Chats.Application.Tests.Features.Chats.Builders;
+using InstaConnect.Chats.Application.Tests.Integration.Features.Chats.Utilities;
+using InstaConnect.Chats.Domain.Features.Chats.Models.Entities;
 using InstaConnect.Chats.Domain.Features.Chats.Models.Requests;
+using InstaConnect.Chats.Tests.Features.Chats.DataAttributes.Page;
+using InstaConnect.Chats.Tests.Features.Chats.DataAttributes.PageSize;
+using InstaConnect.Chats.Tests.Features.Chats.DataAttributes.SortOrder;
+using InstaConnect.Chats.Tests.Features.Chats.DataAttributes.SortTerm;
+using InstaConnect.Chats.Tests.Features.Users.DataAttributes.Name;
 using InstaConnect.Common.Domain.Features.Requests.Models;
+using InstaConnect.Common.Tests.Features.DataAttributes.Enums.Base;
 using InstaConnect.Common.Tests.Features.DataAttributes.Enums.Sort;
+using InstaConnect.Common.Tests.Features.DataAttributes.Ints.Base;
 
 namespace InstaConnect.Chats.Application.Tests.Integration.Features.Chats.Handlers;
 

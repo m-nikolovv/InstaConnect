@@ -1,3 +1,7 @@
+using InstaConnect.Identity.Presentation.Features.EmailConfirmationTokens.Models.Requests;
+using InstaConnect.Identity.Presentation.Tests.Features.EmailConfirmationTokens.Builders;
+using InstaConnect.Identity.Presentation.Tests.Integration.Features.EmailConfirmationTokens.Utilities;
+
 namespace InstaConnect.Identity.Presentation.Tests.Integration.Features.EmailConfirmationTokens.Controllers;
 
 public class AddEmailConfirmationTokenControllerIntegrationTests : BaseEmailConfirmationTokenPresentationCommandIntegrationTest

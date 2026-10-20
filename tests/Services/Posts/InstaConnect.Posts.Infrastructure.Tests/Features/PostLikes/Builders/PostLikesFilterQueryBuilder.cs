@@ -1,7 +1,3 @@
-using InstaConnect.Posts.Domain.Features.PostLikes.Models.Entities;
-using InstaConnect.Posts.Domain.Features.PostLikes.Models.Requests;
-using InstaConnect.Posts.Domain.Features.Posts.Models.ValueObjects;
-
 namespace InstaConnect.Posts.Infrastructure.Tests.Features.PostLikes.Builders;
 
 public class PostLikesFilterQueryBuilder

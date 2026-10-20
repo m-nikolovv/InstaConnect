@@ -1,7 +1,3 @@
-using InstaConnect.Posts.Domain.Features.Posts.Models.Entities;
-using InstaConnect.Posts.Domain.Features.Posts.Models.Requests;
-using InstaConnect.Posts.Domain.Features.Posts.Models.ValueObjects;
-using InstaConnect.Posts.Domain.Features.Users.Models.Requests;
 using InstaConnect.Posts.Infrastructure.Features.Posts.Abstractions;
 
 namespace InstaConnect.Posts.Infrastructure.Tests.Features.Posts.Utilities;

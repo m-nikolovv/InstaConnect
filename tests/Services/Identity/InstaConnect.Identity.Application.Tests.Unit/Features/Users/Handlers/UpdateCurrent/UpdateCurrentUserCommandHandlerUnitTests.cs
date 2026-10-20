@@ -1,3 +1,5 @@
+using InstaConnect.Identity.Application.Features.Users.Commands.UpdateCurrent;
+
 namespace InstaConnect.Identity.Application.Tests.Unit.Features.Users.Handlers.UpdateCurrent;
 
 public class UpdateCurrentUserCommandHandlerUnitTests : BaseUserApplicationCommandUnitTest

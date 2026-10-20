@@ -1,3 +1,5 @@
+using InstaConnect.Chats.Domain.Features.ChatMessages.Exceptions;
+
 namespace InstaConnect.Chats.Infrastructure.Features.ChatMessages.Helpers.SortTermers;
 
 internal class ChatMessagesSortTermerFactory : IChatMessagesSortTermerFactory

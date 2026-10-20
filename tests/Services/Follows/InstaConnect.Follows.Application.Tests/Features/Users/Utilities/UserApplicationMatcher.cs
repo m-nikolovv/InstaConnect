@@ -1,3 +1,5 @@
+using InstaConnect.Follows.Domain.Features.Users.Models.Requests;
+
 namespace InstaConnect.Follows.Application.Tests.Features.Users.Utilities;
 
 public static class UserApplicationMatcher

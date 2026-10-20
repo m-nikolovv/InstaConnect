@@ -1,8 +1,3 @@
-using InstaConnect.Follows.Domain.Features.Follows.Models.ValueObjects;
-using InstaConnect.Follows.Domain.Features.Users.Models.ValueObjects;
-using InstaConnect.Follows.Tests.Features.Follows.Utilities;
-using InstaConnect.Follows.Tests.Features.Users.Utilities;
-
 namespace InstaConnect.Follows.Tests.Features.Follows.Utilities;
 
 public static class FollowEquals

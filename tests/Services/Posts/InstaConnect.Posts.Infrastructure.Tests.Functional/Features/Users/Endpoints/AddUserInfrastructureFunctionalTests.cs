@@ -1,4 +1,22 @@
+using InstaConnect.Common.Tests.Features.Assertions;
+using InstaConnect.Common.Tests.Features.DataAttributes.DateTimeOffsets.Base;
+using InstaConnect.Common.Tests.Features.DataAttributes.Strings.Base;
+using InstaConnect.Identity.Events.Features.Users;
+using InstaConnect.Posts.Infrastructure.Tests.Features.Users.Assertions;
+using InstaConnect.Posts.Infrastructure.Tests.Features.Users.Builders;
+using InstaConnect.Posts.Infrastructure.Tests.Functional.Features.Users.Utilities;
+using InstaConnect.Posts.Tests.Features.Common.Utilities;
 using InstaConnect.Posts.Tests.Features.Users.Assertions;
+using InstaConnect.Posts.Tests.Features.Users.Builders;
+using InstaConnect.Posts.Tests.Features.Users.DataAttributes.CreatedAtUtc;
+using InstaConnect.Posts.Tests.Features.Users.DataAttributes.Email;
+using InstaConnect.Posts.Tests.Features.Users.DataAttributes.FirstName;
+using InstaConnect.Posts.Tests.Features.Users.DataAttributes.Id;
+using InstaConnect.Posts.Tests.Features.Users.DataAttributes.LastName;
+using InstaConnect.Posts.Tests.Features.Users.DataAttributes.Name;
+using InstaConnect.Posts.Tests.Features.Users.DataAttributes.ProfileImage;
+using InstaConnect.Posts.Tests.Features.Users.DataAttributes.UpdatedAtUtc;
+using InstaConnect.Posts.Tests.Features.Users.Utilities;
 
 namespace InstaConnect.Posts.Infrastructure.Tests.Functional.Features.Users.Endpoints;
 

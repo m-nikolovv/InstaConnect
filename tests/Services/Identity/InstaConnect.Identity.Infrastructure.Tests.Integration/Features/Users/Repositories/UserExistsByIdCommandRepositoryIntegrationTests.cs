@@ -1,8 +1,4 @@
-using InstaConnect.Identity.Infrastructure.Tests.Features.Users.Assertions;
-using InstaConnect.Identity.Infrastructure.Tests.Integration.Features.Users.Utilities;
 using InstaConnect.Identity.Tests.Features.Users.Builders;
-using InstaConnect.Identity.Tests.Features.Users.DataAttributes.Id;
-using InstaConnect.Identity.Tests.Features.Users.Utilities;
 
 namespace InstaConnect.Identity.Infrastructure.Tests.Integration.Features.Users.Repositories;
 

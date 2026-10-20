@@ -1,3 +1,12 @@
+using InstaConnect.Common.Tests.Features.DataAttributes.DateTimeOffsets.Base;
+using InstaConnect.Follows.Application.Features.Users.Commands.Update;
+using InstaConnect.Follows.Tests.Features.Users.DataAttributes.Email;
+using InstaConnect.Follows.Tests.Features.Users.DataAttributes.FirstName;
+using InstaConnect.Follows.Tests.Features.Users.DataAttributes.LastName;
+using InstaConnect.Follows.Tests.Features.Users.DataAttributes.Name;
+using InstaConnect.Follows.Tests.Features.Users.DataAttributes.ProfileImage;
+using InstaConnect.Follows.Tests.Features.Users.DataAttributes.UpdatedAtUtc;
+
 namespace InstaConnect.Follows.Application.Tests.Unit.Features.Users.Handlers.Update;
 
 public class UpdateUserCommandRequestValidatorUnitTests : BaseUserApplicationCommandUnitTest

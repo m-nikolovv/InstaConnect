@@ -1,12 +1,3 @@
-using InstaConnect.Common.Tests.Features.DataAttributes.Strings.Base;
-using InstaConnect.Follows.Domain.Features.Follows.Models.Requests;
-using InstaConnect.Follows.Domain.Tests.Features.Follows.Assertions;
-using InstaConnect.Follows.Domain.Tests.Features.Follows.Builders;
-using InstaConnect.Follows.Domain.Tests.Integration.Features.Follows.Utilities;
-using InstaConnect.Follows.Tests.Features.Follows.Utilities;
-using InstaConnect.Follows.Tests.Features.Users.DataAttributes.Id;
-using InstaConnect.Follows.Tests.Features.Users.Utilities;
-
 namespace InstaConnect.Follows.Domain.Tests.Integration.Features.Follows.Services;
 
 public class GetFollowByIdQueryServiceIntegrationTests : BaseFollowDomainQueryIntegrationTest

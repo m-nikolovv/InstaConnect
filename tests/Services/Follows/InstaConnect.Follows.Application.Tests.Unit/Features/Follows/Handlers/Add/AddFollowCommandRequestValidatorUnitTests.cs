@@ -1,3 +1,5 @@
+using InstaConnect.Follows.Application.Features.Follows.Commands.Add;
+
 namespace InstaConnect.Follows.Application.Tests.Unit.Features.Follows.Handlers.Add;
 
 public class AddFollowCommandRequestValidatorUnitTests : BaseFollowApplicationCommandUnitTest

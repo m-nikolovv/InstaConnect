@@ -2,7 +2,6 @@ using InstaConnect.Follows.Domain.Features.Users.Helpers;
 using InstaConnect.Follows.Domain.Features.Users.Models.Requests;
 using InstaConnect.Follows.Domain.Tests.Features.Users.Assertions;
 using InstaConnect.Follows.Domain.Tests.Features.Users.Builders;
-using InstaConnect.Follows.Domain.Tests.Features.Users.Utilities;
 using InstaConnect.Follows.Domain.Tests.Unit.Features.Users.Utilities;
 
 namespace InstaConnect.Follows.Domain.Tests.Unit.Features.Users.Services;

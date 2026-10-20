@@ -1,9 +1,6 @@
 using System.Net.Http.Json;
 
-using InstaConnect.Common.Infrastructure.Features.AccessTokens.Abstractions;
-using InstaConnect.Common.Presentation.Tests.Features.Extensions;
 using InstaConnect.Posts.Presentation.Features.Posts.Utilities;
-using InstaConnect.Posts.Presentation.Tests.Features.Posts.Utilities;
 
 namespace InstaConnect.Posts.Presentation.Tests.Features.Posts.Extensions;
 

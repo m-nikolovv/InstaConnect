@@ -1,5 +1,3 @@
-using InstaConnect.Common.Application.Features.Requests.Abstractions;
-
 namespace InstaConnect.Identity.Application.Tests.Integration.Features.RefreshTokens.Utilities;
 
 public abstract class BaseRefreshTokenApplicationCommandIntegrationTest : BaseRefreshTokenWebTest

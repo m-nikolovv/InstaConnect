@@ -1,8 +1,9 @@
 using InstaConnect.Identity.Application.Features.UserClaims.Commands.Add;
 using InstaConnect.Identity.Application.Features.UserClaims.Commands.Delete;
+using InstaConnect.Identity.Application.Features.UserClaims.Models;
 using InstaConnect.Identity.Application.Features.UserClaims.Queries.GetAll;
-
-using Mapster;
+using InstaConnect.Identity.Domain.Features.UserClaims.Models.Responses;
+using InstaConnect.Identity.Domain.Features.UserClaims.Models.ValueObjects;
 
 namespace InstaConnect.Identity.Application.Features.UserClaims.Mappings;
 

@@ -1,5 +1,3 @@
-using InstaConnect.Common.Domain.Features.Mappers.Abstractions;
-
 namespace InstaConnect.Chats.Application.Features.ChatMessages.Queries.GetAll;
 
 internal class GetAllChatMessagesQueryHandler : IQueryHandler<GetAllChatMessagesQueryRequest, GetAllChatMessagesQueryResponse>

@@ -1,3 +1,5 @@
+using InstaConnect.Chats.Domain.Features.Users.Exceptions;
+
 namespace InstaConnect.Chats.Domain.Features.Users.Helpers;
 
 internal class UserCommandService : IUserCommandService

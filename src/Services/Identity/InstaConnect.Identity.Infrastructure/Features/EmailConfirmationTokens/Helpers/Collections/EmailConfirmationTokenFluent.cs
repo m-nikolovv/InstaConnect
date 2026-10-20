@@ -1,7 +1,6 @@
-using InstaConnect.Common.Infrastructure.Features.Databases.Helpers;
+using InstaConnect.Identity.Domain.Features.EmailConfirmationTokens.Models.Requests;
+using InstaConnect.Identity.Domain.Features.EmailConfirmationTokens.Models.ValueObjects;
 using InstaConnect.Identity.Infrastructure.Features.EmailConfirmationTokens.Extensions;
-
-using MongoDB.Driver;
 
 namespace InstaConnect.Identity.Infrastructure.Features.EmailConfirmationTokens.Helpers.Collections;
 

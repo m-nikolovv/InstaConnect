@@ -1,3 +1,5 @@
+using InstaConnect.Common.Domain.Features.Guids.Abstractions;
+
 namespace InstaConnect.Posts.Domain.Features.Posts.Helpers;
 
 internal class PostFactory : IPostFactory

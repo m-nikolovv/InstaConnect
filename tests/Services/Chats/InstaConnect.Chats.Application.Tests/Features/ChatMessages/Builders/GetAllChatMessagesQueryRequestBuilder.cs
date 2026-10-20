@@ -1,5 +1,3 @@
-using InstaConnect.Common.Domain.Features.Requests.Models;
-
 namespace InstaConnect.Chats.Application.Tests.Features.ChatMessages.Builders;
 
 public class GetAllChatMessagesQueryRequestBuilder

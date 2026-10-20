@@ -1,5 +1,9 @@
 using InstaConnect.Common.Events.Features.AccessTokens.Models;
-using InstaConnect.Identity.Tests.Features.EmailConfirmationTokens.Assertions;
+using InstaConnect.Common.Tests.Features.DataAttributes.Enums.Base;
+using InstaConnect.Identity.Presentation.Features.UserClaims.Models.Requests;
+using InstaConnect.Identity.Presentation.Tests.Features.UserClaims.Builders;
+using InstaConnect.Identity.Presentation.Tests.Functional.Features.UserClaims.Utilities;
+using InstaConnect.Identity.Tests.Features.UserClaims.DataAttributes.Claim;
 
 namespace InstaConnect.Identity.Presentation.Tests.Functional.Features.UserClaims.Endpoints;
 

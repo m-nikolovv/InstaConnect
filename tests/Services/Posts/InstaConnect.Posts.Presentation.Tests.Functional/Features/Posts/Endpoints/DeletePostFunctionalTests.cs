@@ -1,4 +1,4 @@
-using InstaConnect.Posts.Tests.Features.PostImages.Utilities;
+using InstaConnect.Posts.Tests.Features.Users.Builders;
 
 namespace InstaConnect.Posts.Presentation.Tests.Functional.Features.Posts.Endpoints;
 

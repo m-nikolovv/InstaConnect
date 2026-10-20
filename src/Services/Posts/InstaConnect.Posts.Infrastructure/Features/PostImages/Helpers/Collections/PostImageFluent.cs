@@ -1,7 +1,6 @@
-using InstaConnect.Common.Infrastructure.Features.Databases.Helpers;
+using InstaConnect.Posts.Domain.Features.PostImages.Models.ValueObjects;
+using InstaConnect.Posts.Infrastructure.Features.PostImages.Abstractions;
 using InstaConnect.Posts.Infrastructure.Features.PostImages.Extensions;
-
-using MongoDB.Driver;
 
 namespace InstaConnect.Posts.Infrastructure.Features.PostImages.Helpers.Collections;
 

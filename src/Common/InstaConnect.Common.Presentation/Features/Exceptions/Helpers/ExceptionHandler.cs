@@ -1,7 +1,4 @@
-using InstaConnect.Common.Presentation.Features.Exceptions.Abstractions;
-
 using Microsoft.AspNetCore.Diagnostics;
-using Microsoft.AspNetCore.Http;
 
 namespace InstaConnect.Common.Presentation.Features.Exceptions.Helpers;
 

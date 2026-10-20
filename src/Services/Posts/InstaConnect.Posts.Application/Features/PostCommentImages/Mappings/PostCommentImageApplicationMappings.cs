@@ -1,4 +1,5 @@
-using Mapster;
+using InstaConnect.Posts.Application.Features.PostCommentImages.Models;
+using InstaConnect.Posts.Domain.Features.PostCommentImages.Models.Responses;
 
 namespace InstaConnect.Posts.Application.Features.PostCommentImages.Mappings;
 

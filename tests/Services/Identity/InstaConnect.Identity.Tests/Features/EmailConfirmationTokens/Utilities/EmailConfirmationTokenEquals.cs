@@ -1,9 +1,3 @@
-using InstaConnect.Common.Domain.Features.Common.Extensions;
-using InstaConnect.Identity.Domain.Features.EmailConfirmationTokens.Models.ValueObjects;
-using InstaConnect.Identity.Domain.Features.Users.Models.ValueObjects;
-using InstaConnect.Identity.Tests.Features.EmailConfirmationTokens.Utilities;
-using InstaConnect.Identity.Tests.Features.Users.Utilities;
-
 namespace InstaConnect.Identity.Tests.Features.EmailConfirmationTokens.Utilities;
 
 public static class EmailConfirmationTokenEquals

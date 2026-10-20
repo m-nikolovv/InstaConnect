@@ -1,7 +1,4 @@
 using InstaConnect.Chats.Domain.Features.ChatMessageImages.Abstractions;
-using InstaConnect.Chats.Domain.Features.ChatMessageImages.Models.ValueObjects;
-
-using Microsoft.Extensions.DependencyInjection;
 
 namespace InstaConnect.Chats.Tests.Features.ChatMessageImages.Utilities;
 

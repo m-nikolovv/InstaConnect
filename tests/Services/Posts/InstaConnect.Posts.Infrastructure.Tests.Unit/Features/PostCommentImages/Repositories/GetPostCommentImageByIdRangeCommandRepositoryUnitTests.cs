@@ -1,7 +1,5 @@
-using InstaConnect.Posts.Infrastructure.Features.PostCommentImages.Helpers.Repositories;
 using InstaConnect.Posts.Infrastructure.Tests.Features.PostCommentImages.Assertions;
 using InstaConnect.Posts.Infrastructure.Tests.Features.PostCommentImages.Utilities;
-using InstaConnect.Posts.Infrastructure.Tests.Unit.Features.PostCommentImages.Utilities;
 
 namespace InstaConnect.Posts.Infrastructure.Tests.Unit.Features.PostCommentImages.Repositories;
 

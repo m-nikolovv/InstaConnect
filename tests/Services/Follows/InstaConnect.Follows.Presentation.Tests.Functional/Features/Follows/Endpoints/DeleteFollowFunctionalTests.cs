@@ -1,3 +1,5 @@
+using InstaConnect.Follows.Presentation.Tests.Features.Follows.Utilities;
+
 namespace InstaConnect.Follows.Presentation.Tests.Functional.Features.Follows.Endpoints;
 
 public class DeleteFollowFunctionalTests : BaseFollowPresentationCommandFunctionalTest

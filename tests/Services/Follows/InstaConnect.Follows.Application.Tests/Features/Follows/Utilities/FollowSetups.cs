@@ -1,4 +1,5 @@
 using InstaConnect.Follows.Application.Features.Follows.Models;
+using InstaConnect.Follows.Domain.Features.Follows.Models.ValueObjects;
 
 using Microsoft.Extensions.DependencyInjection;
 

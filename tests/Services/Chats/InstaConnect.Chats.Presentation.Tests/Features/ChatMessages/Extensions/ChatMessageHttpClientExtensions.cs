@@ -1,9 +1,7 @@
 using System.Net.Http.Json;
 
 using InstaConnect.Chats.Presentation.Features.ChatMessages.Utilities;
-using InstaConnect.Chats.Presentation.Tests.Features.ChatMessages.Utilities;
 using InstaConnect.Common.Infrastructure.Features.AccessTokens.Abstractions;
-using InstaConnect.Common.Presentation.Tests.Features.Extensions;
 
 namespace InstaConnect.Chats.Presentation.Tests.Features.ChatMessages.Extensions;
 

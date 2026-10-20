@@ -1,7 +1,4 @@
 using InstaConnect.Identity.Domain.Features.ForgotPasswordTokens.Models.Options;
-using InstaConnect.Identity.Infrastructure.Features.Common.Extensions;
-
-using MongoDB.Bson.Serialization;
 
 namespace InstaConnect.Identity.Infrastructure.Features.ForgotPasswordTokens.Extensions;
 

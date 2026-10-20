@@ -1,3 +1,7 @@
+using InstaConnect.Chats.Presentation.Features.Chats.Controllers.v1;
+using InstaConnect.Chats.Tests.Features.Chats.Assertions;
+using InstaConnect.Chats.Tests.Features.Users.Assertions;
+
 namespace InstaConnect.Chats.Presentation.Tests.Features.Chats.Assertions;
 
 public static class ChatExceptionAssertions

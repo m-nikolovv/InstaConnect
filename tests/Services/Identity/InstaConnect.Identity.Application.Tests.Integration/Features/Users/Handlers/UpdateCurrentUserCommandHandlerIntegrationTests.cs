@@ -1,4 +1,11 @@
+using InstaConnect.Common.Tests.Features.DataAttributes.FormFiles.Base;
+using InstaConnect.Identity.Application.Features.Users.Commands.UpdateCurrent;
 using InstaConnect.Identity.Domain.Features.EmailConfirmationTokens.Extensions;
+using InstaConnect.Identity.Tests.Features.Users.Builders;
+using InstaConnect.Identity.Tests.Features.Users.DataAttributes.Email;
+using InstaConnect.Identity.Tests.Features.Users.DataAttributes.FirstName;
+using InstaConnect.Identity.Tests.Features.Users.DataAttributes.LastName;
+using InstaConnect.Identity.Tests.Features.Users.DataAttributes.ProfileImage;
 
 namespace InstaConnect.Identity.Application.Tests.Integration.Features.Users.Handlers;
 

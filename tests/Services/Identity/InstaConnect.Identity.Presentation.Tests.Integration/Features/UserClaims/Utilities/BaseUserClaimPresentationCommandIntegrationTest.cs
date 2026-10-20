@@ -1,3 +1,7 @@
+using InstaConnect.Identity.Presentation.Features.UserClaims.Controllers.v1;
+using InstaConnect.Identity.Tests.Features.UserClaims.Abstractions;
+using InstaConnect.Identity.Tests.Features.UserClaims.Extensions;
+
 namespace InstaConnect.Identity.Presentation.Tests.Integration.Features.UserClaims.Utilities;
 
 public abstract class BaseUserClaimPresentationCommandIntegrationTest : BaseUserClaimWebTest

@@ -1,3 +1,5 @@
+using InstaConnect.Chats.Domain.Features.ChatMessages.Models.Entities;
+
 namespace InstaConnect.Chats.Presentation.Tests.Unit.Features.ChatMessages.Controllers.v1;
 
 public class AddChatMessageControllerUnitTests : BaseChatMessagePresentationCommandUnitTest

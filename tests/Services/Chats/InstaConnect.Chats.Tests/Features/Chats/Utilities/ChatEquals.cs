@@ -1,7 +1,3 @@
-using InstaConnect.Chats.Domain.Features.Chats.Models.ValueObjects;
-using InstaConnect.Chats.Domain.Features.Users.Models.ValueObjects;
-using InstaConnect.Common.Domain.Features.Common.Extensions;
-
 namespace InstaConnect.Chats.Tests.Features.Chats.Utilities;
 
 public static class ChatEquals

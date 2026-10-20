@@ -1,3 +1,5 @@
+using InstaConnect.Posts.Application.Features.Users.Commands.Add;
+
 namespace InstaConnect.Posts.Application.Tests.Unit.Features.Users.Handlers.Add;
 
 public class AddUserCommandHandlerUnitTests : BaseUserApplicationCommandUnitTest

@@ -1,5 +1,3 @@
-using InstaConnect.Common.Domain.Features.Common.Abstractions;
-
 namespace InstaConnect.Common.Infrastructure.Features.AccessTokens.Models;
 
 public record AccessTokenOptions(

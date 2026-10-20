@@ -1,7 +1,5 @@
 using InstaConnect.Posts.Domain.Features.PostComments.Utilities;
 
-using Microsoft.Extensions.AI;
-
 namespace InstaConnect.Posts.Infrastructure.Features.PostComments.Helpers.Summarizers;
 
 internal class PostCommentSummarizeRequestFactory : IPostCommentSummarizeRequestFactory

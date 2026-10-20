@@ -1,3 +1,5 @@
+using InstaConnect.Posts.Domain.Features.PostComments.Utilities;
+
 namespace InstaConnect.Posts.Application.Features.PostComments.Extensions;
 
 internal static class RuleBuilderExtensions

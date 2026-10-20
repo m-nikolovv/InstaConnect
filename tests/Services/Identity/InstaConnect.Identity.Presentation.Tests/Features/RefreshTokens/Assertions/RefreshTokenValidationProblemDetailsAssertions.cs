@@ -1,5 +1,3 @@
-using InstaConnect.Common.Presentation.Features.Exceptions.Models;
-
 namespace InstaConnect.Identity.Presentation.Tests.Features.RefreshTokens.Assertions;
 
 public static class RefreshTokenValidationProblemDetailsAssertions

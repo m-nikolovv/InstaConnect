@@ -1,3 +1,5 @@
+using InstaConnect.Identity.Domain.Features.Users.Exceptions;
+
 namespace InstaConnect.Identity.Infrastructure.Features.Users.Helpers.SortTermers;
 
 internal class UsersSortTermerFactory : IUsersSortTermerFactory

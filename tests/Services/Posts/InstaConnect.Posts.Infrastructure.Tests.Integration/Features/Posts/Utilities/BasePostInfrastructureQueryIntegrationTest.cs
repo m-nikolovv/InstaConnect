@@ -1,7 +1,4 @@
 using InstaConnect.Posts.Domain.Features.Posts.Abstractions;
-using InstaConnect.Posts.Tests.Features.PostImages.Utilities;
-using InstaConnect.Posts.Tests.Features.PostLikes.Utilities;
-using InstaConnect.Posts.Tests.Features.Posts.Utilities;
 
 namespace InstaConnect.Posts.Infrastructure.Tests.Integration.Features.Posts.Utilities;
 

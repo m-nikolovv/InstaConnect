@@ -1,7 +1,3 @@
-using InstaConnect.Chats.Domain.Features.Chats.Models.Requests;
-using InstaConnect.Common.Domain.Features.Requests.Models;
-using InstaConnect.Common.Presentation.Features.Exceptions.Models;
-
 namespace InstaConnect.Chats.Presentation.Tests.Features.Chats.Assertions;
 
 public static class ChatValidationProblemDetailsAssertions

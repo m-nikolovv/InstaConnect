@@ -1,3 +1,5 @@
+using InstaConnect.Chats.Domain.Features.Users.Abstractions;
+
 namespace InstaConnect.Chats.Application.Tests.Features.Users.Utilities;
 
 public static class UserApplicationMockFactory

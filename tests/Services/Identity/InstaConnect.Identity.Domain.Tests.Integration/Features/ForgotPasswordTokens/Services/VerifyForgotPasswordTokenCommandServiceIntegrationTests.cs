@@ -1,4 +1,3 @@
-using InstaConnect.Common.Tests.Features.DataAttributes.Strings.Base;
 using InstaConnect.Identity.Domain.Features.ForgotPasswordTokens.Models.Requests;
 using InstaConnect.Identity.Domain.Tests.Features.ForgotPasswordTokens.Assertions;
 using InstaConnect.Identity.Domain.Tests.Features.ForgotPasswordTokens.Builders;
@@ -6,8 +5,6 @@ using InstaConnect.Identity.Domain.Tests.Integration.Features.ForgotPasswordToke
 using InstaConnect.Identity.Tests.Features.ForgotPasswordTokens.Assertions;
 using InstaConnect.Identity.Tests.Features.ForgotPasswordTokens.DataAttributes.Value;
 using InstaConnect.Identity.Tests.Features.ForgotPasswordTokens.Utilities;
-using InstaConnect.Identity.Tests.Features.Users.DataAttributes.Id;
-using InstaConnect.Identity.Tests.Features.Users.Utilities;
 
 namespace InstaConnect.Identity.Domain.Tests.Integration.Features.ForgotPasswordTokens.Services;
 

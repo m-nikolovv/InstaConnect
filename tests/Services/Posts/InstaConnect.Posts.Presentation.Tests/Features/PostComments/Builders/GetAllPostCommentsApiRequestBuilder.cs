@@ -1,6 +1,3 @@
-using InstaConnect.Common.Domain.Features.Requests.Models;
-using InstaConnect.Posts.Domain.Features.PostComments.Models.Requests;
-
 namespace InstaConnect.Posts.Presentation.Tests.Features.PostComments.Builders;
 
 public class GetAllPostCommentsApiRequestBuilder

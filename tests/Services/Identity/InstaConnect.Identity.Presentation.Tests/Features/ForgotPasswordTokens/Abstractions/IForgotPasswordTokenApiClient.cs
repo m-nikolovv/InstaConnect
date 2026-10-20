@@ -1,7 +1,3 @@
-using System.Net;
-
-using InstaConnect.Common.Presentation.Features.Exceptions.Models;
-
 namespace InstaConnect.Identity.Presentation.Tests.Features.ForgotPasswordTokens.Abstractions;
 
 public interface IForgotPasswordTokenApiClient

@@ -1,6 +1,3 @@
-using InstaConnect.Common.Application.Features.Requests.Abstractions;
-using InstaConnect.Common.Domain.Features.Requests.Models;
-
 namespace InstaConnect.Chats.Application.Tests.Features.ChatMessages.Assertions;
 
 public static class ChatMessageValidationExceptionAssertions

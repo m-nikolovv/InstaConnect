@@ -1,5 +1,3 @@
-using InstaConnect.Posts.Presentation.Features.Users.Abstractions;
-
 namespace InstaConnect.Posts.Presentation.Features.PostLikes.Models.Requests;
 
 public record GetPostLikeByIdApiRequest(

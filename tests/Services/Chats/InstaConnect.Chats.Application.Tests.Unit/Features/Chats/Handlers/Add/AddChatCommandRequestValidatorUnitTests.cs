@@ -1,3 +1,5 @@
+using InstaConnect.Chats.Application.Features.Chats.Commands.Add;
+
 namespace InstaConnect.Chats.Application.Tests.Unit.Features.Chats.Handlers.Add;
 
 public class AddChatCommandRequestValidatorUnitTests : BaseChatApplicationCommandUnitTest

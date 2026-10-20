@@ -1,4 +1,3 @@
-using InstaConnect.Chats.Domain.Tests.Features.Users.Utilities;
 using InstaConnect.Common.Domain.Features.DateTimes.Abstractions;
 
 namespace InstaConnect.Chats.Domain.Tests.Features.Chats.Utilities;

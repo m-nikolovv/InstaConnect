@@ -1,3 +1,5 @@
+using InstaConnect.Posts.Domain.Features.Users.Models.Requests;
+
 namespace InstaConnect.Posts.Application.Tests.Features.Users.Utilities;
 
 public static class UserApplicationMatcher

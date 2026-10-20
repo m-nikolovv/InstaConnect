@@ -1,9 +1,4 @@
-using InstaConnect.Posts.Domain.Features.PostLikes.Models.Entities;
-using InstaConnect.Posts.Domain.Features.PostLikes.Models.Requests;
 using InstaConnect.Posts.Domain.Features.PostLikes.Models.Responses;
-using InstaConnect.Posts.Domain.Features.Users.Models.Requests;
-using InstaConnect.Posts.Infrastructure.Tests.Features.Posts.Utilities;
-using InstaConnect.Posts.Infrastructure.Tests.Features.Users.Utilities;
 
 namespace InstaConnect.Posts.Infrastructure.Tests.Features.PostLikes.Utilities;
 

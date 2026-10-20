@@ -1,3 +1,5 @@
+using InstaConnect.Posts.Domain.Features.PostCommentLikes.Utilities;
+
 namespace InstaConnect.Posts.Application.Features.PostCommentLikes.Extensions;
 
 internal static class RuleBuilderExtensions

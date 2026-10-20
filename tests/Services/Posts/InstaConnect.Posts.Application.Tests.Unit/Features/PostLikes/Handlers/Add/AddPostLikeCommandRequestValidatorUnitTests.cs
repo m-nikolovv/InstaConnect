@@ -1,3 +1,5 @@
+using InstaConnect.Posts.Application.Features.PostLikes.Commands.Add;
+
 namespace InstaConnect.Posts.Application.Tests.Unit.Features.PostLikes.Handlers.Add;
 
 public class AddPostLikeCommandRequestValidatorUnitTests : BasePostLikeApplicationCommandUnitTest

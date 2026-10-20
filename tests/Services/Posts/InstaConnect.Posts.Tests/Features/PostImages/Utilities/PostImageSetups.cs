@@ -1,7 +1,4 @@
 using InstaConnect.Posts.Domain.Features.PostImages.Abstractions;
-using InstaConnect.Posts.Domain.Features.PostImages.Models.ValueObjects;
-
-using Microsoft.Extensions.DependencyInjection;
 
 namespace InstaConnect.Posts.Tests.Features.PostImages.Utilities;
 

@@ -1,9 +1,5 @@
-using InstaConnect.Identity.Domain.Features.Common.Helpers;
-using InstaConnect.Identity.Domain.Features.EmailConfirmationTokens.Models.ValueObjects;
-using InstaConnect.Identity.Domain.Features.ForgotPasswordTokens.Models.ValueObjects;
-using InstaConnect.Identity.Domain.Features.Users.Models.ValueObjects;
-using InstaConnect.Identity.Tests.Features.EmailConfirmationTokens.Utilities;
-using InstaConnect.Identity.Tests.Features.ForgotPasswordTokens.Utilities;
+using InstaConnect.Identity.Tests.Features.EmailConfirmationTokens.Builders;
+using InstaConnect.Identity.Tests.Features.ForgotPasswordTokens.Builders;
 
 namespace InstaConnect.Identity.Tests.Features.Users.Utilities;
 

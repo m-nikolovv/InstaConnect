@@ -1,5 +1,4 @@
-using InstaConnect.Posts.Domain.Features.Posts.Models.Requests;
-using InstaConnect.Posts.Tests.Features.Posts.Utilities;
+using InstaConnect.Common.Tests.Features.DataAttributes.Ints.Base;
 
 namespace InstaConnect.Posts.Infrastructure.Tests.Features.Posts.Builders;
 

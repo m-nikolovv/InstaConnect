@@ -1,6 +1,3 @@
-using InstaConnect.Common.Domain.Features.Databases.Models;
-using InstaConnect.Identity.Domain.Features.Common.Models.Requests;
-
 namespace InstaConnect.Identity.Domain.Features.EmailConfirmationTokens.Models.Requests;
 
 public record EmailConfirmationTokenInclude(ICollection<IdentityIncludeDescriptor> Descriptors)

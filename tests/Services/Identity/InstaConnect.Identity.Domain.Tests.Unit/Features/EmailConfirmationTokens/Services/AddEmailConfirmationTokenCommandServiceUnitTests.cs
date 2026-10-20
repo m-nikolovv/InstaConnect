@@ -2,7 +2,6 @@ using InstaConnect.Identity.Domain.Features.EmailConfirmationTokens.Helpers;
 using InstaConnect.Identity.Domain.Features.EmailConfirmationTokens.Models.Requests;
 using InstaConnect.Identity.Domain.Tests.Features.EmailConfirmationTokens.Assertions;
 using InstaConnect.Identity.Domain.Tests.Features.EmailConfirmationTokens.Builders;
-using InstaConnect.Identity.Domain.Tests.Features.EmailConfirmationTokens.Utilities;
 using InstaConnect.Identity.Domain.Tests.Unit.Features.EmailConfirmationTokens.Utilities;
 
 namespace InstaConnect.Identity.Domain.Tests.Unit.Features.EmailConfirmationTokens.Services;

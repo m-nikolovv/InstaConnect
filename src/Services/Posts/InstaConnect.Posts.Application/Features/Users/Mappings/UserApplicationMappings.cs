@@ -1,9 +1,9 @@
 using InstaConnect.Posts.Application.Features.Users.Commands.Add;
 using InstaConnect.Posts.Application.Features.Users.Commands.Delete;
 using InstaConnect.Posts.Application.Features.Users.Commands.Update;
+using InstaConnect.Posts.Domain.Features.Users.Models.Requests;
 using InstaConnect.Posts.Domain.Features.Users.Models.Responses;
-
-using Mapster;
+using InstaConnect.Posts.Domain.Features.Users.Models.ValueObjects;
 
 namespace InstaConnect.Posts.Application.Features.Users.Mappings;
 

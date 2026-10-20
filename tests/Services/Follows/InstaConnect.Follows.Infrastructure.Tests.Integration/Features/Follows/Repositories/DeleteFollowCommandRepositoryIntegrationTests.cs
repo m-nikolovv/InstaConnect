@@ -1,6 +1,3 @@
-using InstaConnect.Follows.Infrastructure.Tests.Integration.Features.Follows.Utilities;
-using InstaConnect.Follows.Tests.Features.Follows.Utilities;
-
 namespace InstaConnect.Follows.Infrastructure.Tests.Integration.Features.Follows.Repositories;
 
 public class DeleteFollowCommandRepositoryIntegrationTests : BaseFollowInfrastructureCommandIntegrationTest

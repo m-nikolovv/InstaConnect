@@ -1,9 +1,5 @@
-using InstaConnect.Follows.Domain.Features.Users.Models.Requests;
 using InstaConnect.Follows.Infrastructure.Tests.Features.Common.Builders;
-using InstaConnect.Follows.Infrastructure.Tests.Features.Follows.Assertions;
-using InstaConnect.Follows.Infrastructure.Tests.Integration.Features.Follows.Utilities;
 using InstaConnect.Follows.Tests.Features.Follows.Builders;
-using InstaConnect.Follows.Tests.Features.Follows.Utilities;
 
 namespace InstaConnect.Follows.Infrastructure.Tests.Integration.Features.Follows.Repositories;
 

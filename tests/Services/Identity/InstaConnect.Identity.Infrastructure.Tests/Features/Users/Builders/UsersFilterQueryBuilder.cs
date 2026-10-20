@@ -1,4 +1,4 @@
-using InstaConnect.Identity.Domain.Features.Users.Models.Requests;
+using InstaConnect.Common.Tests.Features.DataAttributes.Strings.Base;
 
 namespace InstaConnect.Identity.Infrastructure.Tests.Features.Users.Builders;
 

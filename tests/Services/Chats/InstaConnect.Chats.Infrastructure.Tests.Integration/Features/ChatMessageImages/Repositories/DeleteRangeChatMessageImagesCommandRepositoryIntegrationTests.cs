@@ -1,6 +1,3 @@
-using InstaConnect.Chats.Infrastructure.Tests.Integration.Features.ChatMessageImages.Utilities;
-using InstaConnect.Chats.Tests.Features.ChatMessageImages.Utilities;
-
 namespace InstaConnect.Chats.Infrastructure.Tests.Integration.Features.ChatMessageImages.Repositories;
 
 public class DeleteRangeChatMessageImagesCommandRepositoryIntegrationTests : BaseChatMessageImageInfrastructureCommandIntegrationTest

@@ -1,5 +1,3 @@
-using InstaConnect.Identity.Domain.Features.Common.Models.Requests;
-
 namespace InstaConnect.Identity.Infrastructure.Features.EmailConfirmationTokens.Helpers.Includers;
 
 internal class EmailConfirmationTokenIncluderFactory : IEmailConfirmationTokenIncluderFactory

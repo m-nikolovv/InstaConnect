@@ -1,3 +1,5 @@
+using InstaConnect.Identity.Domain.Features.UserClaims.Abstractions;
+
 namespace InstaConnect.Identity.Application.Tests.Features.UserClaims.Utilities;
 
 public static class UserClaimApplicationMockFactory

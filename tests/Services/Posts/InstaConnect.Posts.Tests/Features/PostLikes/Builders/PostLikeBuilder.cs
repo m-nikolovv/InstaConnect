@@ -1,5 +1,3 @@
-using InstaConnect.Posts.Tests.Features.PostLikes.Utilities;
-
 namespace InstaConnect.Posts.Tests.Features.PostLikes.Builders;
 
 public class PostLikeBuilder

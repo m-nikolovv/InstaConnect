@@ -1,4 +1,15 @@
+using InstaConnect.Chats.Infrastructure.Features.Users.EventHandlers;
+using InstaConnect.Chats.Infrastructure.Tests.Features.Users.Builders;
+using InstaConnect.Chats.Infrastructure.Tests.Features.Users.Utilities;
+using InstaConnect.Chats.Tests.Features.Users.DataAttributes.CreatedAtUtc;
+using InstaConnect.Chats.Tests.Features.Users.DataAttributes.Email;
+using InstaConnect.Chats.Tests.Features.Users.DataAttributes.FirstName;
+using InstaConnect.Chats.Tests.Features.Users.DataAttributes.LastName;
+using InstaConnect.Chats.Tests.Features.Users.DataAttributes.ProfileImage;
+using InstaConnect.Chats.Tests.Features.Users.DataAttributes.UpdatedAtUtc;
 using InstaConnect.Common.Infrastructure.Tests.Features.Utilities;
+using InstaConnect.Common.Tests.Features.DataAttributes.DateTimeOffsets.Base;
+using InstaConnect.Identity.Events.Features.Users;
 
 namespace InstaConnect.Chats.Infrastructure.Tests.Integration.Features.Users.EventHandlers.v1;
 

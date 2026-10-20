@@ -1,5 +1,3 @@
-using InstaConnect.Posts.Tests.Features.PostImages.Utilities;
-
 namespace InstaConnect.Posts.Tests.Features.PostImages.Builders;
 
 public class PostImageBuilder

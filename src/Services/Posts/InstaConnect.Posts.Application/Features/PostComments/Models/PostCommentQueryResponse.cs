@@ -1,3 +1,5 @@
+using InstaConnect.Posts.Application.Features.PostCommentImages.Models;
+
 namespace InstaConnect.Posts.Application.Features.PostComments.Models;
 
 public record PostCommentQueryResponse(

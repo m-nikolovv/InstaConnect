@@ -1,5 +1,3 @@
-using InstaConnect.Common.Domain.Features.Mappers.Abstractions;
-
 namespace InstaConnect.Posts.Application.Features.PostComments.Queries.GetById;
 
 internal class GetPostCommentByIdQueryHandler : IQueryHandler<GetPostCommentByIdQueryRequest, GetPostCommentByIdQueryResponse>

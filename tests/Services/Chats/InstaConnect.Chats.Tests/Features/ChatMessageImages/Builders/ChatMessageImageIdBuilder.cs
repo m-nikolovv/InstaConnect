@@ -1,5 +1,3 @@
-using InstaConnect.Chats.Domain.Features.ChatMessageImages.Models.ValueObjects;
-
 namespace InstaConnect.Chats.Tests.Features.ChatMessageImages.Builders;
 
 public class ChatMessageImageIdBuilder

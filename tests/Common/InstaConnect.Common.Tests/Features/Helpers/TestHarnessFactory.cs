@@ -1,6 +1,3 @@
-using System.Reflection;
-
-using InstaConnect.Common.Tests.Features.Abstractions;
 using InstaConnect.Common.Tests.Features.Extensions;
 
 using MassTransit.Testing;

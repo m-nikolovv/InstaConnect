@@ -1,3 +1,12 @@
+using InstaConnect.Chats.Application.Features.Users.Commands.Update;
+using InstaConnect.Chats.Tests.Features.Users.DataAttributes.Email;
+using InstaConnect.Chats.Tests.Features.Users.DataAttributes.FirstName;
+using InstaConnect.Chats.Tests.Features.Users.DataAttributes.LastName;
+using InstaConnect.Chats.Tests.Features.Users.DataAttributes.Name;
+using InstaConnect.Chats.Tests.Features.Users.DataAttributes.ProfileImage;
+using InstaConnect.Chats.Tests.Features.Users.DataAttributes.UpdatedAtUtc;
+using InstaConnect.Common.Tests.Features.DataAttributes.DateTimeOffsets.Base;
+
 namespace InstaConnect.Chats.Application.Tests.Unit.Features.Users.Handlers.Update;
 
 public class UpdateUserCommandRequestValidatorUnitTests : BaseUserApplicationCommandUnitTest

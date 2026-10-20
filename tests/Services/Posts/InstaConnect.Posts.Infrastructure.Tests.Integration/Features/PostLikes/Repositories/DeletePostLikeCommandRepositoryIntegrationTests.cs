@@ -1,7 +1,3 @@
-using InstaConnect.Posts.Infrastructure.Tests.Integration.Features.PostLikes.Utilities;
-using InstaConnect.Posts.Tests.Features.PostLikes.Utilities;
-using InstaConnect.Posts.Tests.Features.Posts.Utilities;
-
 namespace InstaConnect.Posts.Infrastructure.Tests.Integration.Features.PostLikes.Repositories;
 
 public class DeletePostLikeCommandRepositoryIntegrationTests : BasePostLikeInfrastructureCommandIntegrationTest

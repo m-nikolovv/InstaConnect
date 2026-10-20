@@ -1,5 +1,3 @@
-using InstaConnect.Follows.Domain.Features.Common.Models.Requests;
-
 namespace InstaConnect.Follows.Infrastructure.Features.Users.Helpers.Includers;
 
 internal class UserIncluderFactory : IUserIncluderFactory

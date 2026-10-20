@@ -1,5 +1,3 @@
-using InstaConnect.Common.Domain.Features.Mappers.Abstractions;
-
 namespace InstaConnect.Posts.Application.Features.PostComments.Commands.Update;
 
 public class UpdatePostCommentCommandHandler : ICommandHandler<UpdatePostCommentCommandRequest, UpdatePostCommentCommandResponse>

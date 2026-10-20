@@ -1,5 +1,3 @@
-using InstaConnect.Common.Domain.Features.Mappers.Abstractions;
-
 namespace InstaConnect.Follows.Application.Features.Follows.Commands.Delete;
 
 internal class DeleteFollowCommandHandler : ICommandHandler<DeleteFollowCommandRequest>

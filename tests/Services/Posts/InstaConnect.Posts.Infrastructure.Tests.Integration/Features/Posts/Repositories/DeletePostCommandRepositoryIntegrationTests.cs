@@ -1,6 +1,3 @@
-using InstaConnect.Posts.Infrastructure.Tests.Integration.Features.Posts.Utilities;
-using InstaConnect.Posts.Tests.Features.Posts.Utilities;
-
 namespace InstaConnect.Posts.Infrastructure.Tests.Integration.Features.Posts.Repositories;
 
 public class DeletePostCommandRepositoryIntegrationTests : BasePostInfrastructureCommandIntegrationTest

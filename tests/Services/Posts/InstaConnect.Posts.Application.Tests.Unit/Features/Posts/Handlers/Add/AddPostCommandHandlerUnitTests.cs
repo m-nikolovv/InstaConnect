@@ -1,3 +1,6 @@
+using InstaConnect.Posts.Application.Features.Posts.Commands.Add;
+using InstaConnect.Posts.Domain.Features.Posts.Models.Entities;
+
 namespace InstaConnect.Posts.Application.Tests.Unit.Features.Posts.Handlers.Add;
 
 public class AddPostCommandHandlerUnitTests : BasePostApplicationCommandUnitTest

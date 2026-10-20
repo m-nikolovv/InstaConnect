@@ -1,3 +1,5 @@
+using InstaConnect.Follows.Domain.Features.Follows.Abstractions;
+
 namespace InstaConnect.Follows.Application.Tests.Features.Follows.Utilities;
 
 public static class FollowApplicationMockFactory

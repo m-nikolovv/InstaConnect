@@ -6,17 +6,35 @@
   </ItemGroup>
 
   <ItemGroup Label="Common">
-    <Using Include="InstaConnect.Common.Tests.Features.Abstractions" />
-    <Using Include="InstaConnect.Common.Tests.Features.Helpers" />
-    <Using Include="InstaConnect.Common.Tests.Features.Assertions" />
     <Using Include="InstaConnect.Common.Tests.Features.Utilities" />
-    <Using Include="InstaConnect.Common.Tests.Features.DataAttributes.Enums" />
-    <Using Include="InstaConnect.Common.Tests.Features.DataAttributes.Enums.Base" />
-    <Using Include="InstaConnect.Common.Tests.Features.DataAttributes.Strings.Base" />
-    <Using Include="InstaConnect.Common.Tests.Features.DataAttributes.Ints.Base" />
-    <Using Include="InstaConnect.Common.Tests.Features.DataAttributes.DateTimeOffsets.Base" />
-    <Using Include="InstaConnect.Common.Infrastructure.Tests.Features.Assertions" />
     <Using Include="InstaConnect.Identity.Tests.Features.Common.Utilities" />
+  </ItemGroup>
+
+  <ItemGroup Label="EmailConfirmationTokens">
+    <Using Include="InstaConnect.Identity.Infrastructure.Features.EmailConfirmationTokens.Helpers.Repositories" />
+    <Using Include="InstaConnect.Identity.Infrastructure.Tests.Features.EmailConfirmationTokens.Assertions" />
+    <Using Include="InstaConnect.Identity.Infrastructure.Tests.Unit.Features.EmailConfirmationTokens.Utilities" />
+  </ItemGroup>
+
+  <ItemGroup Label="ForgotPasswordTokens">
+    <Using Include="InstaConnect.Identity.Infrastructure.Features.ForgotPasswordTokens.Helpers.Repositories" />
+    <Using Include="InstaConnect.Identity.Infrastructure.Tests.Features.ForgotPasswordTokens.Assertions" />
+    <Using Include="InstaConnect.Identity.Infrastructure.Tests.Unit.Features.ForgotPasswordTokens.Utilities" />
+  </ItemGroup>
+
+  <ItemGroup Label="UserClaims">
+    <Using Include="InstaConnect.Identity.Infrastructure.Features.UserClaims.Helpers.Repositories" />
+    <Using Include="InstaConnect.Identity.Infrastructure.Tests.Features.UserClaims.Assertions" />
+    <Using Include="InstaConnect.Identity.Infrastructure.Tests.Features.UserClaims.Utilities" />
+    <Using Include="InstaConnect.Identity.Infrastructure.Tests.Unit.Features.UserClaims.Utilities" />
+  </ItemGroup>
+
+  <ItemGroup Label="Users">
+    <Using Include="InstaConnect.Identity.Domain.Features.Users.Models.Requests" />
+    <Using Include="InstaConnect.Identity.Infrastructure.Features.Users.Helpers.Repositories" />
+    <Using Include="InstaConnect.Identity.Infrastructure.Tests.Features.Users.Assertions" />
+    <Using Include="InstaConnect.Identity.Infrastructure.Tests.Features.Users.Utilities" />
+    <Using Include="InstaConnect.Identity.Infrastructure.Tests.Unit.Features.Users.Utilities" />
   </ItemGroup>
 
 </Project>

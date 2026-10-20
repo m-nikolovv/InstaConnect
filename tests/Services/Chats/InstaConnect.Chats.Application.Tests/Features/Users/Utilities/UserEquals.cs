@@ -1,6 +1,6 @@
-using InstaConnect.Chats.Application.Features.Users.Abstractions;
 using InstaConnect.Chats.Application.Features.Users.Models;
-using InstaConnect.Chats.Application.Tests.Features.Users.Utilities;
+using InstaConnect.Chats.Domain.Features.Users.Abstractions;
+using InstaConnect.Chats.Domain.Features.Users.Models.Requests;
 
 namespace InstaConnect.Chats.Application.Tests.Features.Users.Utilities;
 

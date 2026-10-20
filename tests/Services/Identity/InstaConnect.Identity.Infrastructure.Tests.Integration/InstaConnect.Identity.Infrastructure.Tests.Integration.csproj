@@ -6,16 +6,35 @@
   </ItemGroup>
 
   <ItemGroup Label="Common">
-    <Using Include="InstaConnect.Common.Tests.Features.Abstractions" />
-    <Using Include="InstaConnect.Common.Tests.Features.Helpers" />
-    <Using Include="InstaConnect.Common.Tests.Features.Assertions" />
-    <Using Include="InstaConnect.Common.Tests.Features.Utilities" />
-    <Using Include="InstaConnect.Common.Tests.Features.DataAttributes.Enums" />
-    <Using Include="InstaConnect.Common.Tests.Features.DataAttributes.Enums.Base" />
-    <Using Include="InstaConnect.Common.Tests.Features.DataAttributes.Strings.Base" />
-    <Using Include="InstaConnect.Common.Tests.Features.DataAttributes.Ints.Base" />
-    <Using Include="InstaConnect.Common.Tests.Features.DataAttributes.DateTimeOffsets.Base" />
     <Using Include="InstaConnect.Identity.Tests.Features.Common.Utilities" />
+  </ItemGroup>
+
+  <ItemGroup Label="EmailConfirmationTokens">
+    <Using Include="InstaConnect.Identity.Infrastructure.Tests.Integration.Features.EmailConfirmationTokens.Utilities" />
+    <Using Include="InstaConnect.Identity.Tests.Features.EmailConfirmationTokens.Utilities" />
+  </ItemGroup>
+
+  <ItemGroup Label="ForgotPasswordTokens">
+    <Using Include="InstaConnect.Identity.Infrastructure.Tests.Integration.Features.ForgotPasswordTokens.Utilities" />
+    <Using Include="InstaConnect.Identity.Tests.Features.ForgotPasswordTokens.Utilities" />
+  </ItemGroup>
+
+  <ItemGroup Label="RefreshTokens">
+    <Using Include="InstaConnect.Identity.Tests.Features.RefreshTokens.Utilities" />
+  </ItemGroup>
+
+  <ItemGroup Label="UserClaims">
+    <Using Include="InstaConnect.Identity.Infrastructure.Tests.Features.UserClaims.Assertions" />
+    <Using Include="InstaConnect.Identity.Infrastructure.Tests.Integration.Features.UserClaims.Utilities" />
+    <Using Include="InstaConnect.Identity.Tests.Features.UserClaims.Utilities" />
+  </ItemGroup>
+
+  <ItemGroup Label="Users">
+    <Using Include="InstaConnect.Identity.Domain.Features.Users.Models.Requests" />
+    <Using Include="InstaConnect.Identity.Infrastructure.Tests.Features.Users.Assertions" />
+    <Using Include="InstaConnect.Identity.Infrastructure.Tests.Integration.Features.Users.Utilities" />
+    <Using Include="InstaConnect.Identity.Tests.Features.Users.DataAttributes.Id" />
+    <Using Include="InstaConnect.Identity.Tests.Features.Users.Utilities" />
   </ItemGroup>
 
 </Project>

@@ -1,3 +1,7 @@
+using InstaConnect.Chats.Domain.Features.ChatMessages.Models.Entities;
+using InstaConnect.Chats.Presentation.Tests.Features.ChatMessages.Utilities;
+using InstaConnect.Chats.Presentation.Tests.Features.Chats.Utilities;
+using InstaConnect.Chats.Tests.Features.ChatMessages.DataAttributes.Content;
 using InstaConnect.Chats.Tests.Features.ChatMessages.DataAttributes.Images;
 using InstaConnect.Common.Tests.Features.DataAttributes.FormFileCollections.Base;
 

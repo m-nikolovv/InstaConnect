@@ -1,3 +1,5 @@
+using InstaConnect.Chats.Presentation.Features.ChatMessageImages.Models.Responses;
+
 namespace InstaConnect.Chats.Presentation.Features.ChatMessages.Models.Responses;
 
 public record ChatMessageApiResponse(

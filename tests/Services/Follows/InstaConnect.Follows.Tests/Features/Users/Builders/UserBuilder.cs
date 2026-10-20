@@ -1,6 +1,3 @@
-using InstaConnect.Follows.Domain.Features.Users.Models.ValueObjects;
-using InstaConnect.Follows.Tests.Features.Users.Utilities;
-
 namespace InstaConnect.Follows.Tests.Features.Users.Builders;
 
 public class UserBuilder

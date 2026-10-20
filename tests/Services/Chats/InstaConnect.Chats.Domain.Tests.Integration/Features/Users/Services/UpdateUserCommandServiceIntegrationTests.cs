@@ -3,11 +3,8 @@ using InstaConnect.Chats.Domain.Tests.Features.Users.Assertions;
 using InstaConnect.Chats.Domain.Tests.Features.Users.Builders;
 using InstaConnect.Chats.Domain.Tests.Integration.Features.Users.Utilities;
 using InstaConnect.Chats.Tests.Features.Users.DataAttributes.Email;
-using InstaConnect.Chats.Tests.Features.Users.DataAttributes.Id;
 using InstaConnect.Chats.Tests.Features.Users.DataAttributes.Name;
 using InstaConnect.Chats.Tests.Features.Users.DataAttributes.ProfileImage;
-using InstaConnect.Chats.Tests.Features.Users.Utilities;
-using InstaConnect.Common.Tests.Features.DataAttributes.Strings.Base;
 
 namespace InstaConnect.Chats.Domain.Tests.Integration.Features.Users.Services;
 

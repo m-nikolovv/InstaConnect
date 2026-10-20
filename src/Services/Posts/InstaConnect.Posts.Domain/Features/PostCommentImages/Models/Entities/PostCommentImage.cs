@@ -1,3 +1,5 @@
+using InstaConnect.Posts.Domain.Features.PostCommentImages.Models.ValueObjects;
+
 namespace InstaConnect.Posts.Domain.Features.PostCommentImages.Models.Entities;
 
 public class PostCommentImage : IEntityWithId<PostCommentImageId>

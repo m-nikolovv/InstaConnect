@@ -1,3 +1,5 @@
+using InstaConnect.Identity.Presentation.Features.EmailConfirmationTokens.Controllers.v1;
+
 namespace InstaConnect.Identity.Presentation.Tests.Features.EmailConfirmationTokens.Assertions;
 
 public static class EmailConfirmationTokenExceptionAssertions

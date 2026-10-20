@@ -1,4 +1,22 @@
+using InstaConnect.Common.Tests.Features.Assertions;
+using InstaConnect.Common.Tests.Features.DataAttributes.DateTimeOffsets.Base;
+using InstaConnect.Common.Tests.Features.DataAttributes.Strings.Base;
+using InstaConnect.Follows.Infrastructure.Tests.Features.Users.Assertions;
+using InstaConnect.Follows.Infrastructure.Tests.Features.Users.Builders;
+using InstaConnect.Follows.Infrastructure.Tests.Functional.Features.Users.Utilities;
+using InstaConnect.Follows.Tests.Features.Common.Utilities;
 using InstaConnect.Follows.Tests.Features.Users.Assertions;
+using InstaConnect.Follows.Tests.Features.Users.Builders;
+using InstaConnect.Follows.Tests.Features.Users.DataAttributes.CreatedAtUtc;
+using InstaConnect.Follows.Tests.Features.Users.DataAttributes.Email;
+using InstaConnect.Follows.Tests.Features.Users.DataAttributes.FirstName;
+using InstaConnect.Follows.Tests.Features.Users.DataAttributes.Id;
+using InstaConnect.Follows.Tests.Features.Users.DataAttributes.LastName;
+using InstaConnect.Follows.Tests.Features.Users.DataAttributes.Name;
+using InstaConnect.Follows.Tests.Features.Users.DataAttributes.ProfileImage;
+using InstaConnect.Follows.Tests.Features.Users.DataAttributes.UpdatedAtUtc;
+using InstaConnect.Follows.Tests.Features.Users.Utilities;
+using InstaConnect.Identity.Events.Features.Users;
 
 namespace InstaConnect.Follows.Infrastructure.Tests.Functional.Features.Users.Endpoints;
 

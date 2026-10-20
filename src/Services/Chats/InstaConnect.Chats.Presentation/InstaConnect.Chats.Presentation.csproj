@@ -10,41 +10,16 @@
     <ProjectReference Include="..\InstaConnect.Chats.Infrastructure\InstaConnect.Chats.Infrastructure.csproj" />
   </ItemGroup>
 
-  <ItemGroup Label="Common">
-    <Using Include="MassTransit" />
-    <Using Include="Microsoft.AspNetCore.Mvc" />
-    <Using Include="Microsoft.AspNetCore.Authorization" />
-    <Using Include="Microsoft.Extensions.DependencyInjection" />
-    <Using Include="Microsoft.Extensions.Configuration" />
-    <Using Include="Microsoft.AspNetCore.RateLimiting" />
-    <Using Include="Asp.Versioning" />
-    <Using Include="InstaConnect.Common.Presentation.Features.Controllers.Helpers.FromClaim" />
-    <Using Include="InstaConnect.Common.Presentation.Features.Controllers.Helpers.FromCookie" />
-  </ItemGroup>
-
   <ItemGroup Label="Users">
-    <Using Include="InstaConnect.Identity.Events.Features.Users" />
-    <Using Include="InstaConnect.Chats.Application.Features.Users.Models" />
     <Using Include="InstaConnect.Chats.Presentation.Features.Users.Models.Responses" />
   </ItemGroup>
 
   <ItemGroup Label="Chats">
-    <Using Include="InstaConnect.Chats.Application.Features.Chats.Models" />
-    <Using Include="InstaConnect.Chats.Presentation.Features.Chats.Utilities" />
-    <Using Include="InstaConnect.Chats.Presentation.Features.Chats.Models.Requests" />
     <Using Include="InstaConnect.Chats.Presentation.Features.Chats.Models.Responses" />
   </ItemGroup>
 
   <ItemGroup Label="ChatMessages">
-    <Using Include="InstaConnect.Chats.Application.Features.ChatMessages.Models" />
-    <Using Include="InstaConnect.Chats.Presentation.Features.ChatMessages.Utilities" />
-    <Using Include="InstaConnect.Chats.Presentation.Features.ChatMessages.Models.Requests" />
-    <Using Include="InstaConnect.Chats.Presentation.Features.ChatMessages.Models.Responses" />
-  </ItemGroup>
-
-  <ItemGroup Label="ChatMessageImages">
-    <Using Include="InstaConnect.Chats.Application.Features.ChatMessageImages.Models" />
-    <Using Include="InstaConnect.Chats.Presentation.Features.ChatMessageImages.Models.Responses" />
+    <Using Include="InstaConnect.Chats.Domain.Features.ChatMessages.Models.Requests" />
   </ItemGroup>
 
 </Project>

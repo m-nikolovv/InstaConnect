@@ -1,5 +1,7 @@
 using InstaConnect.Chats.Presentation.Tests.Features.ChatMessages.Abstractions;
 using InstaConnect.Chats.Presentation.Tests.Features.ChatMessages.Extensions;
+using InstaConnect.Chats.Tests.Features.ChatMessages.Abstractions;
+using InstaConnect.Chats.Tests.Features.ChatMessages.Extensions;
 
 namespace InstaConnect.Chats.Presentation.Tests.Functional.Features.ChatMessages.Utilities;
 

@@ -1,3 +1,5 @@
+using InstaConnect.Identity.Application.Features.RefreshTokens.Commands.DeleteCurrent;
+
 namespace InstaConnect.Identity.Application.Tests.Unit.Features.RefreshTokens.Handlers.DeleteCurrent;
 
 public class DeleteCurrentRefreshTokenCommandHandlerUnitTests : BaseRefreshTokenApplicationCommandUnitTest

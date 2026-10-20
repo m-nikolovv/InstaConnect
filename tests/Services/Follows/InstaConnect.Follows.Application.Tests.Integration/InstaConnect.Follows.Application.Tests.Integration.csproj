@@ -6,61 +6,24 @@
   </ItemGroup>
 
   <ItemGroup Label="Common">
-    <Using Include="InstaConnect.Common.Tests.Features.Abstractions" />
-    <Using Include="InstaConnect.Common.Tests.Features.Assertions" />
-    <Using Include="InstaConnect.Common.Tests.Features.Utilities" />
-    <Using Include="InstaConnect.Common.Tests.Features.DataAttributes.Enums" />
-    <Using Include="InstaConnect.Common.Tests.Features.DataAttributes.Enums.Base" />
-    <Using Include="InstaConnect.Common.Tests.Features.DataAttributes.Strings.Base" />
-    <Using Include="InstaConnect.Common.Tests.Features.DataAttributes.Ints.Base" />
-    <Using Include="InstaConnect.Common.Tests.Features.DataAttributes.DateTimeOffsets.Base" />
-    <Using Include="InstaConnect.Common.Application.Tests.Features.Assertions" />
     <Using Include="InstaConnect.Follows.Tests.Features.Common.Utilities" />
   </ItemGroup>
 
   <ItemGroup Label="Users">
-    <Using Include="InstaConnect.Follows.Domain.Features.Users.Abstractions" />
-    <Using Include="InstaConnect.Follows.Domain.Features.Users.Models.Entities" />
-    <Using Include="InstaConnect.Follows.Application.Tests.Features.Users.Builders" />
-    <Using Include="InstaConnect.Follows.Application.Tests.Features.Users.Utilities" />
-    <Using Include="InstaConnect.Follows.Application.Features.Users.Commands.Add" />
-    <Using Include="InstaConnect.Follows.Application.Features.Users.Commands.Update" />
-    <Using Include="InstaConnect.Follows.Application.Features.Users.Commands.Delete" />
-    <Using Include="InstaConnect.Follows.Application.Tests.Integration.Features.Users.Utilities" />
     <Using Include="InstaConnect.Follows.Application.Tests.Features.Users.Assertions" />
+    <Using Include="InstaConnect.Follows.Application.Tests.Features.Users.Utilities" />
     <Using Include="InstaConnect.Follows.Tests.Features.Users.Assertions" />
-    <Using Include="InstaConnect.Follows.Tests.Features.Users.Builders" />
-    <Using Include="InstaConnect.Follows.Tests.Features.Users.Utilities" />
     <Using Include="InstaConnect.Follows.Tests.Features.Users.DataAttributes.Id" />
-    <Using Include="InstaConnect.Follows.Tests.Features.Users.DataAttributes.FirstName" />
-    <Using Include="InstaConnect.Follows.Tests.Features.Users.DataAttributes.LastName" />
-    <Using Include="InstaConnect.Follows.Tests.Features.Users.DataAttributes.Name" />
-    <Using Include="InstaConnect.Follows.Tests.Features.Users.DataAttributes.Email" />
-    <Using Include="InstaConnect.Follows.Tests.Features.Users.DataAttributes.ProfileImage" />
-    <Using Include="InstaConnect.Follows.Tests.Features.Users.DataAttributes.CreatedAtUtc" />
-    <Using Include="InstaConnect.Follows.Tests.Features.Users.DataAttributes.UpdatedAtUtc" />
+    <Using Include="InstaConnect.Follows.Tests.Features.Users.Utilities" />
   </ItemGroup>
 
   <ItemGroup Label="Follows">
-    <Using Include="InstaConnect.Follows.Domain.Features.Follows.Abstractions" />
-    <Using Include="InstaConnect.Follows.Domain.Features.Follows.Models.Entities" />
+    <Using Include="InstaConnect.Follows.Application.Tests.Features.Follows.Assertions" />
     <Using Include="InstaConnect.Follows.Application.Tests.Features.Follows.Builders" />
     <Using Include="InstaConnect.Follows.Application.Tests.Features.Follows.Utilities" />
-    <Using Include="InstaConnect.Follows.Application.Features.Follows.Queries.GetAll" />
-    <Using Include="InstaConnect.Follows.Application.Features.Follows.Queries.GetAllForFollowing" />
-    <Using Include="InstaConnect.Follows.Application.Features.Follows.Queries.GetById" />
-    <Using Include="InstaConnect.Follows.Application.Features.Follows.Commands.Add" />
-    <Using Include="InstaConnect.Follows.Application.Features.Follows.Commands.Delete" />
     <Using Include="InstaConnect.Follows.Application.Tests.Integration.Features.Follows.Utilities" />
-    <Using Include="InstaConnect.Follows.Application.Tests.Features.Follows.Assertions" />
     <Using Include="InstaConnect.Follows.Tests.Features.Follows.Assertions" />
-    <Using Include="InstaConnect.Follows.Tests.Features.Follows.Builders" />
     <Using Include="InstaConnect.Follows.Tests.Features.Follows.Utilities" />
-    <Using Include="InstaConnect.Follows.Tests.Features.Follows.DataAttributes.Page" />
-    <Using Include="InstaConnect.Follows.Tests.Features.Follows.DataAttributes.PageSize" />
-    <Using Include="InstaConnect.Follows.Tests.Features.Follows.DataAttributes.SortOrder" />
-    <Using Include="InstaConnect.Follows.Tests.Features.Follows.DataAttributes.SortTerm" />
-    <Using Include="InstaConnect.Follows.Tests.Features.Follows.DataAttributes.SortTerm.ForFollowing" />
   </ItemGroup>
 
 </Project>

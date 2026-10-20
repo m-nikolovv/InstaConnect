@@ -7,8 +7,8 @@ using InstaConnect.Identity.Application.Features.Users.Queries.GetById;
 using InstaConnect.Identity.Application.Features.Users.Queries.GetCurrentById;
 using InstaConnect.Identity.Application.Features.Users.Queries.GetCurrentDetailsById;
 using InstaConnect.Identity.Application.Features.Users.Queries.GetDetailsById;
-
-using Mapster;
+using InstaConnect.Identity.Domain.Features.Users.Models.Responses;
+using InstaConnect.Identity.Domain.Features.Users.Models.ValueObjects;
 
 namespace InstaConnect.Identity.Application.Features.Users.Mappings;
 

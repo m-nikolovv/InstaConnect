@@ -1,10 +1,7 @@
-using InstaConnect.Chats.Domain.Features.ChatMessageImages.Models.ValueObjects;
-using InstaConnect.Chats.Domain.Features.ChatMessages.Models.ValueObjects;
-using InstaConnect.Chats.Domain.Features.Chats.Models.ValueObjects;
-using InstaConnect.Chats.Domain.Features.Users.Models.ValueObjects;
 using InstaConnect.Chats.Tests.Features.ChatMessageImages.Builders;
-using InstaConnect.Chats.Tests.Features.Chats.Utilities;
-using InstaConnect.Chats.Tests.Features.Users.Utilities;
+using InstaConnect.Chats.Tests.Features.ChatMessages.Builders;
+using InstaConnect.Chats.Tests.Features.Chats.Builders;
+using InstaConnect.Chats.Tests.Features.Users.Builders;
 
 namespace InstaConnect.Chats.Tests.Features.ChatMessageImages.Utilities;
 

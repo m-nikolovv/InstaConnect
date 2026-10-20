@@ -21,8 +21,20 @@
   </ItemGroup>
 
   <ItemGroup Label="Common">
-    <Using Include="InstaConnect.Common.Tests.Features.DataAttributes.Base" />
     <Using Include="InstaConnect.Common.Domain.Features.Common.Extensions" />
+    <Using Include="InstaConnect.Common.Domain.Features.Entities.Abstractions" />
+    <Using Include="InstaConnect.Common.Domain.Features.Validations.Utilities" />
+    <Using Include="InstaConnect.Common.Tests.Features.Abstractions" />
+    <Using Include="InstaConnect.Common.Tests.Features.DataAttributes.Base" />
+    <Using Include="InstaConnect.Common.Tests.Features.DataAttributes.Booleans.Base" />
+    <Using Include="InstaConnect.Common.Tests.Features.DataAttributes.Enums.Base" />
+    <Using Include="InstaConnect.Common.Tests.Features.DataAttributes.Ints.Base" />
+    <Using Include="InstaConnect.Common.Tests.Features.DataAttributes.Strings.Base" />
+    <Using Include="InstaConnect.Common.Tests.Features.Utilities" />
+    <Using Include="Microsoft.AspNetCore.Http" />
+    <Using Include="System.Linq.Expressions" />
+    <Using Include="System.Reflection" />
+    <Using Include="Xunit.Sdk" />
   </ItemGroup>
 
 </Project>

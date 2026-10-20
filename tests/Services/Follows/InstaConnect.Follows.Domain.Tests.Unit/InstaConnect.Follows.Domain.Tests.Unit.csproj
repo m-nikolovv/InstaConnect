@@ -4,11 +4,17 @@
     <ProjectReference Include="..\InstaConnect.Follows.Domain.Tests\InstaConnect.Follows.Domain.Tests.csproj" />
   </ItemGroup>
 
-  <ItemGroup Label="Common">
-    <Using Include="InstaConnect.Common.Tests.Features.Abstractions" />
-    <Using Include="InstaConnect.Common.Tests.Features.Assertions" />
-    <Using Include="InstaConnect.Common.Tests.Features.Utilities" />
-    <Using Include="InstaConnect.Follows.Tests.Features.Common.Utilities" />
+  <ItemGroup Label="Follows">
+    <Using Include="InstaConnect.Follows.Domain.Features.Follows.Helpers" />
+    <Using Include="InstaConnect.Follows.Domain.Features.Follows.Models.Requests" />
+    <Using Include="InstaConnect.Follows.Domain.Tests.Features.Follows.Assertions" />
+    <Using Include="InstaConnect.Follows.Domain.Tests.Features.Follows.Builders" />
+    <Using Include="InstaConnect.Follows.Domain.Tests.Features.Follows.Utilities" />
+    <Using Include="InstaConnect.Follows.Domain.Tests.Unit.Features.Follows.Utilities" />
+  </ItemGroup>
+
+  <ItemGroup Label="Users">
+    <Using Include="InstaConnect.Follows.Domain.Tests.Features.Users.Utilities" />
   </ItemGroup>
 
 </Project>

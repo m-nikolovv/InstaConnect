@@ -1,4 +1,5 @@
-using InstaConnect.Common.Domain.Features.Mappers.Abstractions;
+using InstaConnect.Identity.Domain.Features.RefreshTokens.Abstractions;
+using InstaConnect.Identity.Domain.Features.RefreshTokens.Models.Requests;
 
 namespace InstaConnect.Identity.Application.Features.RefreshTokens.Commands.Rotate;
 

@@ -3,8 +3,6 @@ using InstaConnect.Chats.Application.Features.Users.Commands.Delete;
 using InstaConnect.Chats.Application.Features.Users.Commands.Update;
 using InstaConnect.Identity.Events.Features.Users;
 
-using Mapster;
-
 namespace InstaConnect.Chats.Infrastructure.Features.Users.Mappings;
 
 internal class UserInfrastructureMappings : IRegister

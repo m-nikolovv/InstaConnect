@@ -1,5 +1,3 @@
-using InstaConnect.Identity.Domain.Features.Users.Models.ValueObjects;
-
 namespace InstaConnect.Identity.Tests.Features.Users.Builders;
 
 public class UserIdBuilderFactory

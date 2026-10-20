@@ -1,14 +1,20 @@
-using InstaConnect.Common.Domain.Features.Common.Extensions;
 using InstaConnect.Common.Presentation.Features.Requests.Abstractions;
 using InstaConnect.Common.Tests.Features.DataAttributes.Enums.Sort;
 using InstaConnect.Common.Tests.Features.Extensions;
 using InstaConnect.Identity.Application.Features.Users.Abstractions;
+using InstaConnect.Identity.Application.Features.Users.Commands.Add;
+using InstaConnect.Identity.Application.Features.Users.Commands.Delete;
+using InstaConnect.Identity.Application.Features.Users.Commands.DeleteCurrent;
+using InstaConnect.Identity.Application.Features.Users.Commands.UpdateCurrent;
+using InstaConnect.Identity.Application.Features.Users.Queries.GetAll;
+using InstaConnect.Identity.Application.Features.Users.Queries.GetById;
+using InstaConnect.Identity.Application.Features.Users.Queries.GetCurrentById;
+using InstaConnect.Identity.Application.Features.Users.Queries.GetCurrentDetailsById;
+using InstaConnect.Identity.Application.Features.Users.Queries.GetDetailsById;
 using InstaConnect.Identity.Domain.Features.Common.Helpers;
 using InstaConnect.Identity.Domain.Features.Users.Models.Requests;
 using InstaConnect.Identity.Events.Features.EmailConfirmationTokens;
-using InstaConnect.Identity.Events.Features.Users;
 using InstaConnect.Identity.Presentation.Features.Users.Abstractions;
-using InstaConnect.Identity.Presentation.Tests.Features.Users.Utilities;
 
 namespace InstaConnect.Identity.Presentation.Tests.Features.Users.Utilities;
 

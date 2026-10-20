@@ -1,6 +1,6 @@
-using InstaConnect.Identity.Events.Features.Users;
-
-using Mapster;
+using InstaConnect.Posts.Events.Features.PostCommentImages;
+using InstaConnect.Posts.Events.Features.PostComments;
+using InstaConnect.Posts.Events.Features.Posts;
 
 namespace InstaConnect.Posts.Domain.Features.PostComments.Mappings;
 

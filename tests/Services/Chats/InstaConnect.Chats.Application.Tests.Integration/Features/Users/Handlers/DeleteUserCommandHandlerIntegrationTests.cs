@@ -1,3 +1,7 @@
+using InstaConnect.Chats.Application.Features.Users.Commands.Delete;
+using InstaConnect.Chats.Application.Tests.Features.Users.Builders;
+using InstaConnect.Chats.Application.Tests.Integration.Features.Users.Utilities;
+
 namespace InstaConnect.Chats.Application.Tests.Integration.Features.Users.Handlers;
 
 public class DeleteUserCommandHandlerIntegrationTests : BaseUserApplicationCommandIntegrationTest

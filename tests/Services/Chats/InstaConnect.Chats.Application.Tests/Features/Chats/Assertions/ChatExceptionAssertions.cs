@@ -1,5 +1,3 @@
-using InstaConnect.Common.Application.Features.Requests.Abstractions;
-
 namespace InstaConnect.Chats.Application.Tests.Features.Chats.Assertions;
 
 public static class ChatExceptionAssertions

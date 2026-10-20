@@ -10,8 +10,6 @@ using Microsoft.AspNetCore.TestHost;
 using Testcontainers.MongoDb;
 using Testcontainers.RabbitMq;
 
-using Xunit;
-
 namespace InstaConnect.Posts.Tests.Features.Common.Utilities;
 
 public class PostsWebApplicationFactory : WebApplicationFactory<Program>, IAsyncLifetime

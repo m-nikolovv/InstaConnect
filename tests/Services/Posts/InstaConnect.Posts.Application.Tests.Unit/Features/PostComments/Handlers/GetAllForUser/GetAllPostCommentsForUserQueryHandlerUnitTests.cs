@@ -1,3 +1,5 @@
+using InstaConnect.Posts.Application.Features.PostComments.Queries.GetAllForUser;
+
 namespace InstaConnect.Posts.Application.Tests.Unit.Features.PostComments.Handlers.GetAllForUser;
 
 public class GetAllPostCommentsForUserQueryHandlerUnitTests : BasePostCommentApplicationQueryUnitTest

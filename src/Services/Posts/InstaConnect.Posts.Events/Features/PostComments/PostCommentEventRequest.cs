@@ -1,4 +1,3 @@
-using InstaConnect.Identity.Events.Features.Users;
 using InstaConnect.Posts.Events.Features.PostCommentImages;
 using InstaConnect.Posts.Events.Features.Posts;
 

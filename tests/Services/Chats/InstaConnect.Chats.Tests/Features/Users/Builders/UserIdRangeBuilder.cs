@@ -1,5 +1,3 @@
-using InstaConnect.Chats.Domain.Features.Users.Models.ValueObjects;
-
 namespace InstaConnect.Chats.Tests.Features.Users.Builders;
 
 public class UserIdRangeBuilder

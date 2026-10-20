@@ -12,6 +12,9 @@ using InstaConnect.Follows.Infrastructure.Features.Common.Utilities;
 using InstaConnect.Follows.Infrastructure.Features.Follows.Extensions;
 using InstaConnect.Follows.Infrastructure.Features.Users.Extensions;
 
+using Microsoft.AspNetCore.Hosting;
+using Microsoft.Extensions.Configuration;
+
 namespace InstaConnect.Follows.Infrastructure.Features.Common.Extensions;
 
 public static class ServiceCollectionExtensions

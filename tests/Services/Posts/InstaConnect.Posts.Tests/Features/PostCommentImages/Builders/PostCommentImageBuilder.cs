@@ -1,5 +1,3 @@
-using InstaConnect.Posts.Tests.Features.PostCommentImages.Utilities;
-
 namespace InstaConnect.Posts.Tests.Features.PostCommentImages.Builders;
 
 public class PostCommentImageBuilder

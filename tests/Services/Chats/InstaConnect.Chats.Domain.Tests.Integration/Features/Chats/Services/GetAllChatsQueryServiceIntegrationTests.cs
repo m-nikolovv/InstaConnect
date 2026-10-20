@@ -5,14 +5,10 @@ using InstaConnect.Chats.Domain.Tests.Features.Chats.Builders;
 using InstaConnect.Chats.Domain.Tests.Integration.Features.Chats.Utilities;
 using InstaConnect.Chats.Tests.Features.Chats.DataAttributes.SortOrder;
 using InstaConnect.Chats.Tests.Features.Chats.DataAttributes.SortTerm;
-using InstaConnect.Chats.Tests.Features.Chats.Utilities;
-using InstaConnect.Chats.Tests.Features.Users.DataAttributes.Id;
 using InstaConnect.Chats.Tests.Features.Users.DataAttributes.Name;
-using InstaConnect.Chats.Tests.Features.Users.Utilities;
 using InstaConnect.Common.Domain.Features.Requests.Models;
 using InstaConnect.Common.Tests.Features.DataAttributes.Enums.Base;
 using InstaConnect.Common.Tests.Features.DataAttributes.Enums.Sort;
-using InstaConnect.Common.Tests.Features.DataAttributes.Strings.Base;
 
 namespace InstaConnect.Chats.Domain.Tests.Integration.Features.Chats.Services;
 

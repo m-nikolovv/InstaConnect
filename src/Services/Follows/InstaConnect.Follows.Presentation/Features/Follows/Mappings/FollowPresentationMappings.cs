@@ -1,10 +1,12 @@
 using InstaConnect.Follows.Application.Features.Follows.Commands.Add;
 using InstaConnect.Follows.Application.Features.Follows.Commands.Delete;
+using InstaConnect.Follows.Application.Features.Follows.Models;
 using InstaConnect.Follows.Application.Features.Follows.Queries.GetAll;
 using InstaConnect.Follows.Application.Features.Follows.Queries.GetAllForFollowing;
 using InstaConnect.Follows.Application.Features.Follows.Queries.GetById;
-
-using Mapster;
+using InstaConnect.Follows.Presentation.Features.Follows.Models.Requests;
+using InstaConnect.Follows.Presentation.Features.Follows.Models.Responses;
+using InstaConnect.Follows.Presentation.Features.Users.Models.Responses;
 
 namespace InstaConnect.Follows.Presentation.Features.Follows.Mappings;
 

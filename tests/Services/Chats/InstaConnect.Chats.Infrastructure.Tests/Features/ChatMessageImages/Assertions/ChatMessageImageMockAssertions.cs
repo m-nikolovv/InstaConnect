@@ -1,6 +1,6 @@
-using InstaConnect.Chats.Domain.Features.ChatMessageImages.Models.Entities;
 using InstaConnect.Chats.Domain.Features.ChatMessageImages.Models.ValueObjects;
 using InstaConnect.Chats.Infrastructure.Features.ChatMessageImages.Abstractions;
+using InstaConnect.Common.Infrastructure.Tests.Features.Assertions;
 
 namespace InstaConnect.Chats.Infrastructure.Tests.Features.ChatMessageImages.Assertions;
 

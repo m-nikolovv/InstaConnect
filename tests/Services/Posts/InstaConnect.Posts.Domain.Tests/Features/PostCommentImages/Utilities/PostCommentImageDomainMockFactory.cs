@@ -1,3 +1,5 @@
+using InstaConnect.Posts.Domain.Features.PostCommentImages.Abstractions;
+
 namespace InstaConnect.Posts.Domain.Tests.Features.PostCommentImages.Utilities;
 
 public static class PostCommentImageDomainMockFactory

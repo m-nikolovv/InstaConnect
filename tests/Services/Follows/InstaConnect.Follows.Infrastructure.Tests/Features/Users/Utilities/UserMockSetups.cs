@@ -1,5 +1,4 @@
-using InstaConnect.Common.Domain.Features.ValueObjects.Models;
-using InstaConnect.Follows.Domain.Features.Users.Models.Requests;
+using InstaConnect.Common.Infrastructure.Tests.Features.Utilities;
 using InstaConnect.Follows.Infrastructure.Features.Users.Abstractions;
 
 namespace InstaConnect.Follows.Infrastructure.Tests.Features.Users.Utilities;

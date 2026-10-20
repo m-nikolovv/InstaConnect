@@ -1,4 +1,4 @@
-using Mapster;
+using InstaConnect.Chats.Domain.Features.ChatMessageImages.Models.Requests;
 
 namespace InstaConnect.Chats.Domain.Features.ChatMessages.Mappings;
 

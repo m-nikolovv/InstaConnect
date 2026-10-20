@@ -1,5 +1,6 @@
-using InstaConnect.Common.Domain.Features.Mappers.Abstractions;
-using InstaConnect.Identity.Application.Features.Common.Extensions;
+using InstaConnect.Identity.Application.Tests.Features.RefreshTokens.Utilities;
+using InstaConnect.Identity.Domain.Features.RefreshTokens.Abstractions;
+using InstaConnect.Identity.Tests.Features.RefreshTokens.Utilities;
 
 namespace InstaConnect.Identity.Application.Tests.Unit.Features.RefreshTokens.Utilities;
 

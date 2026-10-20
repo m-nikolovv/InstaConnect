@@ -1,3 +1,5 @@
+using InstaConnect.Chats.Application.Features.ChatMessages.Queries.GetAll;
+
 namespace InstaConnect.Chats.Application.Tests.Unit.Features.ChatMessages.Handlers.GetAll;
 
 public class GetAllChatMessagesQueryHandlerUnitTests : BaseChatMessageApplicationQueryUnitTest

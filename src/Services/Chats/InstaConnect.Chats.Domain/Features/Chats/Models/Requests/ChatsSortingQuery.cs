@@ -1,4 +1,3 @@
-using InstaConnect.Common.Domain.Features.Requests.Abstractions;
 using InstaConnect.Common.Domain.Features.Requests.Models;
 
 namespace InstaConnect.Chats.Domain.Features.Chats.Models.Requests;

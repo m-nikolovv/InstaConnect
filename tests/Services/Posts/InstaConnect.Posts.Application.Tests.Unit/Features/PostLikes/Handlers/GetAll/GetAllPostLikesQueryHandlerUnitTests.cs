@@ -1,3 +1,5 @@
+using InstaConnect.Posts.Application.Features.PostLikes.Queries.GetAll;
+
 namespace InstaConnect.Posts.Application.Tests.Unit.Features.PostLikes.Handlers.GetAll;
 
 public class GetAllPostLikesQueryHandlerUnitTests : BasePostLikeApplicationQueryUnitTest

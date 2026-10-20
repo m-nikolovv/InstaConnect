@@ -1,3 +1,5 @@
+using InstaConnect.Posts.Domain.Features.Posts.Models.Entities;
+
 namespace InstaConnect.Posts.Presentation.Tests.Unit.Features.Posts.Controllers.v1;
 
 public class AddPostControllerUnitTests : BasePostPresentationCommandUnitTest

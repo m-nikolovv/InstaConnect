@@ -1,5 +1,3 @@
-using Microsoft.AspNetCore.Mvc.ModelBinding;
-
 namespace InstaConnect.Common.Presentation.Features.Controllers.Helpers.FromCookie;
 
 public class FromCookieValueProviderFactory : IValueProviderFactory

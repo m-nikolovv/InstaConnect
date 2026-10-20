@@ -1,4 +1,4 @@
-using InstaConnect.Follows.Domain.Features.Users.Models.ValueObjects;
+using InstaConnect.Follows.Tests.Features.Users.Builders;
 
 namespace InstaConnect.Follows.Tests.Features.Users.Utilities;
 

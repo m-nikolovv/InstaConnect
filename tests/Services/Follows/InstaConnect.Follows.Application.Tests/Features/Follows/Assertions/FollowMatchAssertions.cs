@@ -1,6 +1,9 @@
+using InstaConnect.Common.Tests.Features.Assertions;
 using InstaConnect.Common.Tests.Features.DataAttributes.Enums.Sort;
 using InstaConnect.Follows.Application.Tests.Features.Follows.Utilities;
 using InstaConnect.Follows.Events.Features.Follows;
+using InstaConnect.Follows.Tests.Features.Follows.Assertions;
+using InstaConnect.Follows.Tests.Features.Users.Assertions;
 
 namespace InstaConnect.Follows.Application.Tests.Features.Follows.Assertions;
 

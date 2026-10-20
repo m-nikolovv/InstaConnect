@@ -1,7 +1,9 @@
-using InstaConnect.Common.Presentation.Features.Requests.Abstractions;
-using InstaConnect.Posts.Presentation.Features.Users.Abstractions;
-using InstaConnect.Posts.Presentation.Tests.Features.Posts.Utilities;
-using InstaConnect.Posts.Presentation.Tests.Features.Users.Utilities;
+using InstaConnect.Common.Infrastructure.Features.Databases.Helpers;
+using InstaConnect.Posts.Application.Features.PostLikes.Commands.Add;
+using InstaConnect.Posts.Application.Features.PostLikes.Models;
+using InstaConnect.Posts.Application.Features.PostLikes.Queries.GetAll;
+using InstaConnect.Posts.Application.Features.PostLikes.Queries.GetAllForUser;
+using InstaConnect.Posts.Application.Features.PostLikes.Queries.GetById;
 
 namespace InstaConnect.Posts.Presentation.Tests.Features.PostLikes.Utilities;
 

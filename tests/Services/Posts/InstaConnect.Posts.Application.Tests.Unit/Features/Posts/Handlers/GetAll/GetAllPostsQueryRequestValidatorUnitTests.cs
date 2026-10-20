@@ -1,5 +1,10 @@
-using InstaConnect.Common.Domain.Features.Requests.Models;
+using InstaConnect.Posts.Application.Features.Posts.Queries.GetAll;
 using InstaConnect.Posts.Domain.Features.Posts.Models.Requests;
+using InstaConnect.Posts.Tests.Features.Posts.DataAttributes.Page;
+using InstaConnect.Posts.Tests.Features.Posts.DataAttributes.PageSize;
+using InstaConnect.Posts.Tests.Features.Posts.DataAttributes.SortOrder;
+using InstaConnect.Posts.Tests.Features.Posts.DataAttributes.SortTerm;
+using InstaConnect.Posts.Tests.Features.Posts.DataAttributes.Title;
 
 namespace InstaConnect.Posts.Application.Tests.Unit.Features.Posts.Handlers.GetAll;
 

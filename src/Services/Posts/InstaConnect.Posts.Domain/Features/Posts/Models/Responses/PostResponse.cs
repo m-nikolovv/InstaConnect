@@ -1,4 +1,4 @@
-using InstaConnect.Posts.Domain.Features.Users.Models.Responses;
+using InstaConnect.Posts.Domain.Features.PostImages.Models.Responses;
 
 namespace InstaConnect.Posts.Domain.Features.Posts.Models.Responses;
 

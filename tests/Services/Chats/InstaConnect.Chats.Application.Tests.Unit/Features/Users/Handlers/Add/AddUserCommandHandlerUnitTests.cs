@@ -1,3 +1,5 @@
+using InstaConnect.Chats.Application.Features.Users.Commands.Add;
+
 namespace InstaConnect.Chats.Application.Tests.Unit.Features.Users.Handlers.Add;
 
 public class AddUserCommandHandlerUnitTests : BaseUserApplicationCommandUnitTest

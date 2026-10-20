@@ -1,4 +1,4 @@
-using InstaConnect.Posts.Domain.Features.Users.Models.Responses;
+using InstaConnect.Posts.Domain.Features.PostCommentImages.Models.Responses;
 
 namespace InstaConnect.Posts.Domain.Features.PostComments.Models.Responses;
 

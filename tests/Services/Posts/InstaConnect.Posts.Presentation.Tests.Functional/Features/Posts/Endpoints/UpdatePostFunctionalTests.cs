@@ -1,4 +1,6 @@
-using InstaConnect.Posts.Tests.Features.PostImages.Utilities;
+using InstaConnect.Posts.Tests.Features.Posts.DataAttributes.Content;
+using InstaConnect.Posts.Tests.Features.Posts.DataAttributes.Title;
+using InstaConnect.Posts.Tests.Features.Users.Builders;
 
 namespace InstaConnect.Posts.Presentation.Tests.Functional.Features.Posts.Endpoints;
 

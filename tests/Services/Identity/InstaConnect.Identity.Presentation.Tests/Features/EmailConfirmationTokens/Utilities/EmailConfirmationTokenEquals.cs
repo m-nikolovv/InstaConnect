@@ -1,9 +1,8 @@
-using InstaConnect.Common.Domain.Features.Common.Extensions;
 using InstaConnect.Common.Tests.Features.Extensions;
+using InstaConnect.Identity.Application.Features.EmailConfirmationTokens.Commands.Add;
+using InstaConnect.Identity.Application.Features.EmailConfirmationTokens.Commands.Verify;
 using InstaConnect.Identity.Events.Features.EmailConfirmationTokens;
-using InstaConnect.Identity.Events.Features.Users;
 using InstaConnect.Identity.Presentation.Tests.Features.EmailConfirmationTokens.Utilities;
-using InstaConnect.Identity.Presentation.Tests.Features.Users.Utilities;
 
 namespace InstaConnect.Identity.Presentation.Tests.Features.EmailConfirmationTokens.Utilities;
 

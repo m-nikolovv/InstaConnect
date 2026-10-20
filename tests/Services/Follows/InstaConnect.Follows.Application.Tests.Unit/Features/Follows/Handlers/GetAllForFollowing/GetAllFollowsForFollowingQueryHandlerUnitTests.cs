@@ -1,3 +1,5 @@
+using InstaConnect.Follows.Application.Features.Follows.Queries.GetAllForFollowing;
+
 namespace InstaConnect.Follows.Application.Tests.Unit.Features.Follows.Handlers.GetAllForFollowing;
 
 public class GetAllFollowsForFollowingQueryHandlerUnitTests : BaseFollowApplicationQueryUnitTest

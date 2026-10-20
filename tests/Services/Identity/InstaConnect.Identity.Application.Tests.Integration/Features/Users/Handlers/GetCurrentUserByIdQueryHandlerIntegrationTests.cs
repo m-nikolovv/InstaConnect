@@ -1,3 +1,5 @@
+using InstaConnect.Identity.Application.Features.Users.Queries.GetCurrentById;
+
 namespace InstaConnect.Identity.Application.Tests.Integration.Features.Users.Handlers;
 
 public class GetCurrentUserByIdQueryHandlerIntegrationTests : BaseUserApplicationQueryIntegrationTest

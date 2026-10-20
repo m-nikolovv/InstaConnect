@@ -1,8 +1,4 @@
-using System.Linq.Expressions;
-
 using InstaConnect.Follows.Infrastructure.Features.Users.Extensions;
-
-using MongoDB.Driver;
 
 namespace InstaConnect.Follows.Infrastructure.Features.Follows.Extensions;
 

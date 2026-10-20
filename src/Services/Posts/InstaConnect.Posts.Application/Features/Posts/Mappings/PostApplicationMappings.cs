@@ -1,11 +1,12 @@
+using InstaConnect.Posts.Application.Features.PostImages.Models;
 using InstaConnect.Posts.Application.Features.Posts.Commands.Add;
 using InstaConnect.Posts.Application.Features.Posts.Commands.Delete;
 using InstaConnect.Posts.Application.Features.Posts.Commands.Update;
 using InstaConnect.Posts.Application.Features.Posts.Queries.GetAll;
 using InstaConnect.Posts.Application.Features.Posts.Queries.GetAllForUser;
 using InstaConnect.Posts.Application.Features.Posts.Queries.GetById;
-
-using Mapster;
+using InstaConnect.Posts.Domain.Features.Posts.Models.Responses;
+using InstaConnect.Posts.Domain.Features.Posts.Models.ValueObjects;
 
 namespace InstaConnect.Posts.Application.Features.Posts.Mappings;
 

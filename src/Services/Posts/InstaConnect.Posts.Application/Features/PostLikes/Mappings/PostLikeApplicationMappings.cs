@@ -3,8 +3,8 @@ using InstaConnect.Posts.Application.Features.PostLikes.Commands.Delete;
 using InstaConnect.Posts.Application.Features.PostLikes.Queries.GetAll;
 using InstaConnect.Posts.Application.Features.PostLikes.Queries.GetAllForUser;
 using InstaConnect.Posts.Application.Features.PostLikes.Queries.GetById;
-
-using Mapster;
+using InstaConnect.Posts.Domain.Features.PostLikes.Models.Responses;
+using InstaConnect.Posts.Domain.Features.PostLikes.Models.ValueObjects;
 
 namespace InstaConnect.Posts.Application.Features.PostLikes.Mappings;
 

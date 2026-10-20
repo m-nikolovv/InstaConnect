@@ -1,11 +1,6 @@
-using System.Net;
-using System.Net.Http.Json;
-
-using InstaConnect.Common.Presentation.Features.Exceptions.Models;
-using InstaConnect.Common.Presentation.Tests.Features.Extensions;
+using InstaConnect.Identity.Presentation.Features.RefreshTokens.Models.Responses;
 using InstaConnect.Identity.Presentation.Tests.Features.RefreshTokens.Abstractions;
 using InstaConnect.Identity.Presentation.Tests.Features.RefreshTokens.Extensions;
-using InstaConnect.Identity.Presentation.Tests.Features.RefreshTokens.Models;
 
 namespace InstaConnect.Identity.Presentation.Tests.Features.RefreshTokens.Helpers;
 

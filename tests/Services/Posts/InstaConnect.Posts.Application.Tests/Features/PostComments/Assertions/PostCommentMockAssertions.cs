@@ -1,4 +1,4 @@
-using InstaConnect.Posts.Application.Tests.Features.PostComments.Utilities;
+using InstaConnect.Posts.Domain.Features.PostComments.Abstractions;
 using InstaConnect.Posts.Domain.Tests.Features.PostComments.Assertions;
 
 namespace InstaConnect.Posts.Application.Tests.Features.PostComments.Assertions;

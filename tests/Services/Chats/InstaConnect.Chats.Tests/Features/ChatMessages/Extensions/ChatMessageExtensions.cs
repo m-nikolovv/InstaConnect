@@ -1,5 +1,3 @@
-using InstaConnect.Common.Domain.Features.Common.Extensions;
-
 namespace InstaConnect.Chats.Tests.Features.ChatMessages.Extensions;
 
 public static class ChatMessageExtensions

@@ -1,3 +1,4 @@
+using InstaConnect.Posts.Domain.Features.PostCommentImages.Models.Entities;
 using InstaConnect.Posts.Domain.Features.PostCommentImages.Models.Responses;
 
 namespace InstaConnect.Posts.Application.Tests.Features.PostCommentImages.Utilities;

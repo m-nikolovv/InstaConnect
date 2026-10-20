@@ -1,9 +1,3 @@
-using InstaConnect.Chats.Infrastructure.Features.Users.Extensions;
-using InstaConnect.Common.Infrastructure.Features.Databases.Abstractions;
-using InstaConnect.Common.Infrastructure.Features.Databases.Helpers;
-
-using MongoDB.Driver;
-
 namespace InstaConnect.Chats.Infrastructure.Features.Users.Helpers.Collections;
 
 internal class UserCollection : MongoDbCollection<User>, IUserCollection

@@ -1,5 +1,3 @@
-using InstaConnect.Common.Domain.Features.Common.Extensions;
-
 namespace InstaConnect.Posts.Tests.Features.PostComments.Extensions;
 
 public static class PostCommentExtensions

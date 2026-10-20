@@ -1,4 +1,13 @@
+using InstaConnect.Common.Infrastructure.Features.Databases.Helpers;
 using InstaConnect.Common.Presentation.Features.Requests.Abstractions;
+using InstaConnect.Identity.Application.Features.Users.Commands.Add;
+using InstaConnect.Identity.Application.Features.Users.Commands.UpdateCurrent;
+using InstaConnect.Identity.Application.Features.Users.Models;
+using InstaConnect.Identity.Application.Features.Users.Queries.GetAll;
+using InstaConnect.Identity.Application.Features.Users.Queries.GetById;
+using InstaConnect.Identity.Application.Features.Users.Queries.GetCurrentById;
+using InstaConnect.Identity.Application.Features.Users.Queries.GetCurrentDetailsById;
+using InstaConnect.Identity.Application.Features.Users.Queries.GetDetailsById;
 using InstaConnect.Identity.Presentation.Features.Users.Abstractions;
 
 namespace InstaConnect.Identity.Presentation.Tests.Features.Users.Utilities;

@@ -1,9 +1,11 @@
-using InstaConnect.Common.Application.Features.Requests.Abstractions;
-using InstaConnect.Common.Domain.Features.Mappers.Abstractions;
-using InstaConnect.Common.Presentation.Features.Controllers.Utilities;
 using InstaConnect.Identity.Application.Features.UserClaims.Commands.Add;
 using InstaConnect.Identity.Application.Features.UserClaims.Commands.Delete;
 using InstaConnect.Identity.Application.Features.UserClaims.Queries.GetAll;
+using InstaConnect.Identity.Presentation.Features.UserClaims.Models.Requests;
+using InstaConnect.Identity.Presentation.Features.UserClaims.Models.Responses;
+using InstaConnect.Identity.Presentation.Features.UserClaims.Utilities;
+
+using Microsoft.AspNetCore.Authorization;
 
 namespace InstaConnect.Identity.Presentation.Features.UserClaims.Controllers.v1;
 

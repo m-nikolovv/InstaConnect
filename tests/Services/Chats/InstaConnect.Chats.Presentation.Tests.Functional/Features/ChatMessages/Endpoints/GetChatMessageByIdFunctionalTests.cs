@@ -1,3 +1,5 @@
+using InstaConnect.Chats.Tests.Features.ChatMessages.DataAttributes.Id;
+
 namespace InstaConnect.Chats.Presentation.Tests.Functional.Features.ChatMessages.Endpoints;
 
 public class GetChatMessageByIdFunctionalTests : BaseChatMessagePresentationQueryFunctionalTest

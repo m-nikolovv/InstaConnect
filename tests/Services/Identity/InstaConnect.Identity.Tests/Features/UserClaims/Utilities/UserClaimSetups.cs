@@ -1,7 +1,4 @@
 using InstaConnect.Identity.Domain.Features.UserClaims.Abstractions;
-using InstaConnect.Identity.Domain.Features.UserClaims.Models.ValueObjects;
-
-using Microsoft.Extensions.DependencyInjection;
 
 namespace InstaConnect.Identity.Tests.Features.UserClaims.Utilities;
 

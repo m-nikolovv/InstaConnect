@@ -1,11 +1,12 @@
 using InstaConnect.Chats.Application.Features.ChatMessages.Commands.Add;
 using InstaConnect.Chats.Application.Features.ChatMessages.Commands.Delete;
 using InstaConnect.Chats.Application.Features.ChatMessages.Commands.Update;
+using InstaConnect.Chats.Application.Features.ChatMessages.Models;
 using InstaConnect.Chats.Application.Features.ChatMessages.Queries.GetAll;
 using InstaConnect.Chats.Application.Features.ChatMessages.Queries.GetById;
-using InstaConnect.Chats.Domain.Features.ChatMessages.Models.Requests;
-
-using Mapster;
+using InstaConnect.Chats.Presentation.Features.ChatMessageImages.Models.Responses;
+using InstaConnect.Chats.Presentation.Features.ChatMessages.Models.Requests;
+using InstaConnect.Chats.Presentation.Features.ChatMessages.Models.Responses;
 
 using Microsoft.AspNetCore.SignalR;
 

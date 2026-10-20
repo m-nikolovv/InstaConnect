@@ -1,5 +1,3 @@
-using InstaConnect.Common.Domain.Features.Common.Extensions;
-
 namespace InstaConnect.Identity.Presentation.Features.EmailConfirmationTokens.Utilities;
 
 public static class EmailConfirmationTokenRouteFactory

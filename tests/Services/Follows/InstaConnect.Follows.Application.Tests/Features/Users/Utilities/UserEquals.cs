@@ -1,6 +1,7 @@
 using InstaConnect.Follows.Application.Features.Users.Abstractions;
 using InstaConnect.Follows.Application.Features.Users.Models;
-using InstaConnect.Follows.Application.Tests.Features.Users.Utilities;
+using InstaConnect.Follows.Domain.Features.Users.Abstractions;
+using InstaConnect.Follows.Domain.Features.Users.Models.Requests;
 
 namespace InstaConnect.Follows.Application.Tests.Features.Users.Utilities;
 

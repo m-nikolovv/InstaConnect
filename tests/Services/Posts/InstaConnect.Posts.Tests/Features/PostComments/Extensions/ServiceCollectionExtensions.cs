@@ -1,7 +1,3 @@
-using InstaConnect.Posts.Tests.Features.PostComments.Utilities;
-
-using Microsoft.Extensions.DependencyInjection;
-
 namespace InstaConnect.Posts.Tests.Features.PostComments.Extensions;
 
 public static class ServiceCollectionExtensions

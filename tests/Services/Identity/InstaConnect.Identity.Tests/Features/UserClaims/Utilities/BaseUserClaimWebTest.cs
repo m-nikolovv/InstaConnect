@@ -1,9 +1,3 @@
-using InstaConnect.Identity.Tests.Features.Common.Utilities;
-
-using Microsoft.Extensions.DependencyInjection;
-
-using Xunit;
-
 namespace InstaConnect.Identity.Tests.Features.UserClaims.Utilities;
 
 public abstract class BaseUserClaimWebTest : BaseUserClaimTest, IClassFixture<IdentityWebApplicationFactory>
