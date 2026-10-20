@@ -1,10 +1,5 @@
-using System.Linq.Expressions;
-
+using InstaConnect.Identity.Domain.Features.EmailConfirmationTokens.Models.ValueObjects;
 using InstaConnect.Identity.Infrastructure.Features.EmailConfirmationTokens.Extensions;
-using InstaConnect.Identity.Infrastructure.Features.RefreshTokens.Extensions;
-using InstaConnect.Identity.Infrastructure.Features.Users.Extensions;
-
-using MongoDB.Driver;
 
 namespace InstaConnect.Identity.Infrastructure.Features.EmailConfirmationTokens.Extensions;
 

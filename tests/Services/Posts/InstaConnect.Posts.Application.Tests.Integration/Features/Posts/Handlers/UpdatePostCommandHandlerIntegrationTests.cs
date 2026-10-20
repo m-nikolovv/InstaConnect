@@ -1,3 +1,7 @@
+using InstaConnect.Posts.Application.Features.Posts.Commands.Update;
+using InstaConnect.Posts.Tests.Features.Posts.DataAttributes.Content;
+using InstaConnect.Posts.Tests.Features.Posts.DataAttributes.Title;
+
 namespace InstaConnect.Posts.Application.Tests.Integration.Features.Posts.Handlers;
 
 public class UpdatePostCommandHandlerIntegrationTests : BasePostApplicationCommandIntegrationTest
@@ -17,6 +21,7 @@ public class UpdatePostCommandHandlerIntegrationTests : BasePostApplicationComma
 	protected override async Task OnInitializeAsync()
 	{
 		await ServiceScope.AddAsync(Post, CancellationToken);
+		await ServiceScope.AddRangeAsync(PostImages, CancellationToken);
 	}
 
 	[Theory]
@@ -84,7 +89,7 @@ public class UpdatePostCommandHandlerIntegrationTests : BasePostApplicationComma
 	}
 
 	[Fact]
-	public async Task SendAsync_ShouldThrowPostNotFoundException_WhenIdIsInvalid()
+	public async Task SendAsync_ShouldThrowPostNotFoundException_WhenPostNotFound()
 	{
 		// Arrange
 		await ServiceScope.DeleteAsync(Post, CancellationToken);
@@ -94,7 +99,7 @@ public class UpdatePostCommandHandlerIntegrationTests : BasePostApplicationComma
 	}
 
 	[Fact]
-	public async Task SendAsync_ShouldThrowPostForbiddenException_WhenUserIdIsInvalid()
+	public async Task SendAsync_ShouldThrowPostForbiddenException_WhenPostForbidden()
 	{
 		// Arrange
 		var user = UserBuilderFactory.Create().Build();
@@ -177,7 +182,7 @@ public class UpdatePostCommandHandlerIntegrationTests : BasePostApplicationComma
 
 	[Theory]
 	[UserIdDifferentCaseData]
-	public async Task SendAsync_ShouldUpdatePost_WhenRequestAndUserIdAreValids(
+	public async Task SendAsync_ShouldUpdatePost_WhenRequestAndUserIdAreValid(
 		IStringTransformer transformer)
 	{
 		// Arrange
@@ -224,7 +229,7 @@ public class UpdatePostCommandHandlerIntegrationTests : BasePostApplicationComma
 
 	[Theory]
 	[UserIdDifferentCaseData]
-	public async Task SendAsync_ShouldPublishPostUpdatedEvent_WhenRequestAndUserIdAreValids(
+	public async Task SendAsync_ShouldPublishPostUpdatedEvent_WhenRequestAndUserIdAreValid(
 		IStringTransformer transformer)
 	{
 		// Arrange

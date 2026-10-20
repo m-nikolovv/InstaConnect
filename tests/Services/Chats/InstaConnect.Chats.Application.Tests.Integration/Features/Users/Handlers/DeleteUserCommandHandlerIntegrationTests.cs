@@ -1,3 +1,7 @@
+using InstaConnect.Chats.Application.Features.Users.Commands.Delete;
+using InstaConnect.Chats.Application.Tests.Features.Users.Builders;
+using InstaConnect.Chats.Application.Tests.Integration.Features.Users.Utilities;
+
 namespace InstaConnect.Chats.Application.Tests.Integration.Features.Users.Handlers;
 
 public class DeleteUserCommandHandlerIntegrationTests : BaseUserApplicationCommandIntegrationTest
@@ -35,7 +39,7 @@ public class DeleteUserCommandHandlerIntegrationTests : BaseUserApplicationComma
 	}
 
 	[Fact]
-	public async Task SendAsync_ShouldThrowUserNotFoundException_WhenRequestIsInvalid()
+	public async Task SendAsync_ShouldThrowUserNotFoundException_WhenUserNotFound()
 	{
 		// Arrange
 		await ServiceScope.DeleteAsync(User, CancellationToken);
@@ -49,7 +53,7 @@ public class DeleteUserCommandHandlerIntegrationTests : BaseUserApplicationComma
 	{
 		// Act
 		await Sender.SendAsync(_request, CancellationToken);
-		var user = await ServiceScope.GetByIdAsync(User.Id, CancellationToken);
+		var user = await ServiceScope.GetByIdAsync(UserId, CancellationToken);
 
 		// Assert
 		user.ShouldBeNull();
@@ -57,7 +61,7 @@ public class DeleteUserCommandHandlerIntegrationTests : BaseUserApplicationComma
 
 	[Theory]
 	[UserIdDifferentCaseData]
-	public async Task SendAsync_ShouldDeleteUser_WhenIdIsValid(
+	public async Task SendAsync_ShouldDeleteUser_WhenRequestAndIdAreValid(
 		IStringTransformer transformer)
 	{
 		// Arrange
@@ -65,7 +69,7 @@ public class DeleteUserCommandHandlerIntegrationTests : BaseUserApplicationComma
 
 		// Act
 		await Sender.SendAsync(request, CancellationToken);
-		var user = await ServiceScope.GetByIdAsync(User.Id, CancellationToken);
+		var user = await ServiceScope.GetByIdAsync(UserId, CancellationToken);
 
 		// Assert
 		user.ShouldBeNull();

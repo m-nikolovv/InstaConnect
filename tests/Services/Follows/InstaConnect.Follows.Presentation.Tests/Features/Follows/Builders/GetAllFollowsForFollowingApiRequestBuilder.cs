@@ -1,5 +1,6 @@
 using InstaConnect.Common.Domain.Features.Requests.Models;
-using InstaConnect.Follows.Domain.Features.Follows.Models.Requests;
+using InstaConnect.Common.Tests.Features.DataAttributes.Enums.Base;
+using InstaConnect.Common.Tests.Features.DataAttributes.Ints.Base;
 
 namespace InstaConnect.Follows.Presentation.Tests.Features.Follows.Builders;
 

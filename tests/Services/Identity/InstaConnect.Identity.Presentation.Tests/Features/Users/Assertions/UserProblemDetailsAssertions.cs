@@ -1,4 +1,4 @@
-using InstaConnect.Common.Presentation.Features.Exceptions.Models;
+using InstaConnect.Identity.Domain.Features.Users.Utilities;
 
 namespace InstaConnect.Identity.Presentation.Tests.Features.Users.Assertions;
 

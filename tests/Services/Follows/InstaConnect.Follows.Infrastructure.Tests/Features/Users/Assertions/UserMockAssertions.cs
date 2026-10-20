@@ -1,7 +1,6 @@
 using InstaConnect.Common.Application.Features.Requests.Abstractions;
 using InstaConnect.Common.Application.Tests.Features.Assertions;
-using InstaConnect.Common.Domain.Features.ValueObjects.Models;
-using InstaConnect.Follows.Domain.Features.Users.Models.Requests;
+using InstaConnect.Common.Infrastructure.Tests.Features.Assertions;
 using InstaConnect.Follows.Infrastructure.Features.Users.Abstractions;
 using InstaConnect.Follows.Infrastructure.Tests.Features.Users.Utilities;
 

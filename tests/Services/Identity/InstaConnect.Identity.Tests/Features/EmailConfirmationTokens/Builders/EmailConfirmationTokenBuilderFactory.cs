@@ -6,4 +6,9 @@ public class EmailConfirmationTokenBuilderFactory
 	{
 		return new(user);
 	}
+
+	public EmailConfirmationTokenBuilder Create(EmailConfirmationToken emailConfirmationToken)
+	{
+		return new(emailConfirmationToken);
+	}
 }

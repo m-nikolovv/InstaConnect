@@ -1,5 +1,5 @@
+using InstaConnect.Common.Tests.Features.Assertions;
 using InstaConnect.Follows.Domain.Features.Follows.Exceptions;
-using InstaConnect.Follows.Domain.Features.Follows.Models.ValueObjects;
 
 namespace InstaConnect.Follows.Tests.Features.Follows.Assertions;
 

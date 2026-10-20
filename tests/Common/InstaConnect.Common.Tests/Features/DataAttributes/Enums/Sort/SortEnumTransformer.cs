@@ -1,5 +1,3 @@
-using InstaConnect.Common.Tests.Features.DataAttributes.Enums.Base;
-
 namespace InstaConnect.Common.Tests.Features.DataAttributes.Enums.Sort;
 
 internal class SortEnumTransformer<TEnum> : IEnumTransformer<TEnum>

@@ -1,3 +1,10 @@
+using InstaConnect.Common.Tests.Features.DataAttributes.FormFiles.Base;
+using InstaConnect.Identity.Application.Features.Users.Commands.UpdateCurrent;
+using InstaConnect.Identity.Tests.Features.Users.DataAttributes.Email;
+using InstaConnect.Identity.Tests.Features.Users.DataAttributes.FirstName;
+using InstaConnect.Identity.Tests.Features.Users.DataAttributes.LastName;
+using InstaConnect.Identity.Tests.Features.Users.DataAttributes.ProfileImage;
+
 namespace InstaConnect.Identity.Application.Tests.Unit.Features.Users.Handlers.UpdateCurrent;
 
 public class UpdateCurrentUserCommandRequestValidatorUnitTests : BaseUserApplicationCommandUnitTest
@@ -109,7 +116,7 @@ public class UpdateCurrentUserCommandRequestValidatorUnitTests : BaseUserApplica
 	}
 
 	[Fact]
-	public void TestValidate_ShouldNotHaveAnyValidationsErrors_WhenRequestIsValid()
+	public void TestValidate_ShouldNotHaveAnyValidationErrors_WhenRequestIsValid()
 	{
 		// Act
 		var response = _requestValidator.TestValidate(_request);
@@ -120,7 +127,7 @@ public class UpdateCurrentUserCommandRequestValidatorUnitTests : BaseUserApplica
 
 	[Theory]
 	[UserProfileImageNullData]
-	public void TestValidate_ShouldNotHaveAnyValidationsErrors_WhenRequestAndProfileImageAreValid(
+	public void TestValidate_ShouldNotHaveAnyValidationErrors_WhenRequestAndProfileImageAreValid(
 		IFormFileTransformer transformer)
 	{
 		// Arrange

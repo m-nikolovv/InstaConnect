@@ -5,11 +5,52 @@
   </ItemGroup>
 
   <ItemGroup Label="Common">
-    <Using Include="InstaConnect.Common.Tests.Features.Abstractions" />
-    <Using Include="InstaConnect.Common.Tests.Features.Helpers" />
-    <Using Include="InstaConnect.Common.Tests.Features.Assertions" />
-    <Using Include="InstaConnect.Common.Tests.Features.Utilities" />
-    <Using Include="InstaConnect.Posts.Tests.Features.Common.Utilities" />
+    <Using Include="InstaConnect.Common.Domain.Features.DateTimes.Abstractions" />
+    <Using Include="InstaConnect.Common.Domain.Tests.Features.Assertions" />
+    <Using Include="InstaConnect.Common.Domain.Tests.Features.Utilities" />
+  </ItemGroup>
+
+  <ItemGroup Label="PostCommentLikes">
+    <Using Include="InstaConnect.Posts.Domain.Features.PostCommentLikes.Helpers" />
+    <Using Include="InstaConnect.Posts.Domain.Features.PostCommentLikes.Models.Requests" />
+    <Using Include="InstaConnect.Posts.Domain.Tests.Features.PostCommentLikes.Assertions" />
+    <Using Include="InstaConnect.Posts.Domain.Tests.Features.PostCommentLikes.Builders" />
+    <Using Include="InstaConnect.Posts.Domain.Tests.Features.PostCommentLikes.Utilities" />
+    <Using Include="InstaConnect.Posts.Domain.Tests.Unit.Features.PostCommentLikes.Utilities" />
+  </ItemGroup>
+
+  <ItemGroup Label="PostComments">
+    <Using Include="InstaConnect.Posts.Domain.Features.PostComments.Helpers" />
+    <Using Include="InstaConnect.Posts.Domain.Features.PostComments.Models.Requests" />
+    <Using Include="InstaConnect.Posts.Domain.Tests.Features.PostComments.Assertions" />
+    <Using Include="InstaConnect.Posts.Domain.Tests.Features.PostComments.Builders" />
+    <Using Include="InstaConnect.Posts.Domain.Tests.Features.PostComments.Utilities" />
+    <Using Include="InstaConnect.Posts.Domain.Tests.Unit.Features.PostComments.Utilities" />
+  </ItemGroup>
+
+  <ItemGroup Label="PostLikes">
+    <Using Include="InstaConnect.Posts.Domain.Features.PostLikes.Helpers" />
+    <Using Include="InstaConnect.Posts.Domain.Features.PostLikes.Models.Requests" />
+    <Using Include="InstaConnect.Posts.Domain.Tests.Features.PostLikes.Assertions" />
+    <Using Include="InstaConnect.Posts.Domain.Tests.Features.PostLikes.Builders" />
+    <Using Include="InstaConnect.Posts.Domain.Tests.Features.PostLikes.Utilities" />
+    <Using Include="InstaConnect.Posts.Domain.Tests.Unit.Features.PostLikes.Utilities" />
+  </ItemGroup>
+
+  <ItemGroup Label="Posts">
+    <Using Include="InstaConnect.Posts.Domain.Features.Posts.Abstractions" />
+    <Using Include="InstaConnect.Posts.Domain.Features.Posts.Helpers" />
+    <Using Include="InstaConnect.Posts.Domain.Features.Posts.Models.Requests" />
+    <Using Include="InstaConnect.Posts.Domain.Tests.Features.Posts.Assertions" />
+    <Using Include="InstaConnect.Posts.Domain.Tests.Features.Posts.Builders" />
+    <Using Include="InstaConnect.Posts.Domain.Tests.Features.Posts.Utilities" />
+    <Using Include="InstaConnect.Posts.Domain.Tests.Unit.Features.Posts.Utilities" />
+    <Using Include="InstaConnect.Posts.Tests.Features.Posts.Utilities" />
+  </ItemGroup>
+
+  <ItemGroup Label="Users">
+    <Using Include="InstaConnect.Posts.Domain.Features.Users.Abstractions" />
+    <Using Include="InstaConnect.Posts.Domain.Tests.Features.Users.Utilities" />
   </ItemGroup>
 
 </Project>

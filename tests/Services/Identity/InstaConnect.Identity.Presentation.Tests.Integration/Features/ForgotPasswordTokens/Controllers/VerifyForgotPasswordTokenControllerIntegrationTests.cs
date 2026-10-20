@@ -1,3 +1,12 @@
+using InstaConnect.Identity.Presentation.Features.ForgotPasswordTokens.Models.Bodies;
+using InstaConnect.Identity.Presentation.Features.ForgotPasswordTokens.Models.Requests;
+using InstaConnect.Identity.Presentation.Tests.Features.ForgotPasswordTokens.Builders;
+using InstaConnect.Identity.Presentation.Tests.Integration.Features.ForgotPasswordTokens.Utilities;
+using InstaConnect.Identity.Tests.Features.ForgotPasswordTokens.Builders;
+using InstaConnect.Identity.Tests.Features.ForgotPasswordTokens.DataAttributes.Value;
+using InstaConnect.Identity.Tests.Features.Users.DataAttributes.ConfirmPassword;
+using InstaConnect.Identity.Tests.Features.Users.DataAttributes.Password;
+
 namespace InstaConnect.Identity.Presentation.Tests.Integration.Features.ForgotPasswordTokens.Controllers;
 
 public class VerifyForgotPasswordTokenControllerIntegrationTests : BaseForgotPasswordTokenPresentationCommandIntegrationTest
@@ -103,7 +112,7 @@ public class VerifyForgotPasswordTokenControllerIntegrationTests : BaseForgotPas
 	}
 
 	[Fact]
-	public async Task VerifyAsync_ShouldThrowForgotPasswordExpiredException_WhenForgotPasswordTokenHasExpired()
+	public async Task VerifyAsync_ShouldThrowForgotPasswordTokenExpiredException_WhenForgotPasswordTokenExpired()
 	{
 		// Arrange
 		var updatedForgotPasswordToken = ForgotPasswordTokenBuilder.WithAlreadyExpiresAtUtc().Build();
@@ -125,7 +134,7 @@ public class VerifyForgotPasswordTokenControllerIntegrationTests : BaseForgotPas
 
 	[Theory]
 	[UserIdDifferentCaseData]
-	public async Task VerifyAsync_ShouldReturnNoContentStatusCode_WhenRequestAndIdIsValid(
+	public async Task VerifyAsync_ShouldReturnNoContentStatusCode_WhenRequestAndIdAreValid(
 		IStringTransformer transformer)
 	{
 		// Arrange
@@ -140,7 +149,7 @@ public class VerifyForgotPasswordTokenControllerIntegrationTests : BaseForgotPas
 
 	[Theory]
 	[ForgotPasswordTokenValueDifferentCaseData]
-	public async Task VerifyAsync_ShouldReturnNoContentStatusCode_WhenRequestAndValueIsValid(
+	public async Task VerifyAsync_ShouldReturnNoContentStatusCode_WhenRequestAndValueAreValid(
 		IStringTransformer transformer)
 	{
 		// Arrange
@@ -154,11 +163,11 @@ public class VerifyForgotPasswordTokenControllerIntegrationTests : BaseForgotPas
 	}
 
 	[Fact]
-	public async Task VerifyAsync_ShouldUpdatedUser_WhenRequestIsValid()
+	public async Task VerifyAsync_ShouldUpdateUser_WhenRequestIsValid()
 	{
 		// Act
 		await Controller.VerifyAsync(_request, CancellationToken);
-		var user = await ServiceScope.GetByIdAsync(User.Id, CancellationToken);
+		var user = await ServiceScope.GetByIdAsync(UserId, CancellationToken);
 
 		// Assert
 		user.ShouldSatisfy(_request, PasswordHasher);
@@ -166,7 +175,7 @@ public class VerifyForgotPasswordTokenControllerIntegrationTests : BaseForgotPas
 
 	[Theory]
 	[UserIdDifferentCaseData]
-	public async Task VerifyAsync_ShouldUpdatedUser_WhenRequestAndIdAreValid(
+	public async Task VerifyAsync_ShouldUpdateUser_WhenRequestAndIdAreValid(
 		IStringTransformer transformer)
 	{
 		// Arrange
@@ -174,7 +183,7 @@ public class VerifyForgotPasswordTokenControllerIntegrationTests : BaseForgotPas
 
 		// Act
 		await Controller.VerifyAsync(request, CancellationToken);
-		var user = await ServiceScope.GetByIdAsync(User.Id, CancellationToken);
+		var user = await ServiceScope.GetByIdAsync(UserId, CancellationToken);
 
 		// Assert
 		user.ShouldSatisfy(request, PasswordHasher);
@@ -182,7 +191,7 @@ public class VerifyForgotPasswordTokenControllerIntegrationTests : BaseForgotPas
 
 	[Theory]
 	[ForgotPasswordTokenValueDifferentCaseData]
-	public async Task VerifyAsync_ShouldUpdatedUser_WhenRequestAndValueAreValid(
+	public async Task VerifyAsync_ShouldUpdateUser_WhenRequestAndValueAreValid(
 		IStringTransformer transformer)
 	{
 		// Arrange
@@ -190,7 +199,7 @@ public class VerifyForgotPasswordTokenControllerIntegrationTests : BaseForgotPas
 
 		// Act
 		await Controller.VerifyAsync(request, CancellationToken);
-		var user = await ServiceScope.GetByIdAsync(User.Id, CancellationToken);
+		var user = await ServiceScope.GetByIdAsync(UserId, CancellationToken);
 
 		// Assert
 		user.ShouldSatisfy(request, PasswordHasher);
@@ -201,7 +210,7 @@ public class VerifyForgotPasswordTokenControllerIntegrationTests : BaseForgotPas
 	{
 		// Act
 		await Controller.VerifyAsync(_request, CancellationToken);
-		var user = await ServiceScope.GetByIdAsync(User.Id, CancellationToken);
+		var user = await ServiceScope.GetByIdAsync(UserId, CancellationToken);
 
 		// Assert
 		user.ForgotPasswordTokens.ShouldBeEmpty();
@@ -217,7 +226,7 @@ public class VerifyForgotPasswordTokenControllerIntegrationTests : BaseForgotPas
 
 		// Act
 		await Controller.VerifyAsync(request, CancellationToken);
-		var user = await ServiceScope.GetByIdAsync(User.Id, CancellationToken);
+		var user = await ServiceScope.GetByIdAsync(UserId, CancellationToken);
 
 		// Assert
 		user.ForgotPasswordTokens.ShouldBeEmpty();
@@ -233,7 +242,7 @@ public class VerifyForgotPasswordTokenControllerIntegrationTests : BaseForgotPas
 
 		// Act
 		await Controller.VerifyAsync(request, CancellationToken);
-		var user = await ServiceScope.GetByIdAsync(User.Id, CancellationToken);
+		var user = await ServiceScope.GetByIdAsync(UserId, CancellationToken);
 
 		// Assert
 		user.ForgotPasswordTokens.ShouldBeEmpty();

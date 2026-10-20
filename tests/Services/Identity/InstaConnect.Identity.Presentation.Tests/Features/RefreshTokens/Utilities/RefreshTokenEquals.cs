@@ -1,7 +1,10 @@
-using InstaConnect.Common.Domain.Features.Common.Extensions;
-using InstaConnect.Identity.Presentation.Tests.Features.RefreshTokens.Models;
+using InstaConnect.Common.Tests.Features.Extensions;
+using InstaConnect.Identity.Application.Features.RefreshTokens.Commands.DeleteCurrent;
+using InstaConnect.Identity.Application.Features.RefreshTokens.Commands.Issue;
+using InstaConnect.Identity.Application.Features.RefreshTokens.Commands.Rotate;
+using InstaConnect.Identity.Domain.Features.RefreshTokens.Models.ValueObjects;
+using InstaConnect.Identity.Presentation.Features.RefreshTokens.Models.Responses;
 using InstaConnect.Identity.Presentation.Tests.Features.RefreshTokens.Utilities;
-using InstaConnect.Identity.Presentation.Tests.Features.Users.Utilities;
 
 namespace InstaConnect.Identity.Presentation.Tests.Features.RefreshTokens.Utilities;
 
@@ -85,6 +88,19 @@ public static class RefreshTokenEquals
 				   refreshToken.Id.Value.IsNotNullOrEmptyOrWhiteSpace() &&
 				   refreshToken.CreatedAtUtc != default &&
 				   refreshToken.ExpiresAtUtc != default;
+		}
+	}
+
+	extension(ICollection<RefreshToken> refreshTokens)
+	{
+		public bool Matches(IssueRefreshTokenApiRequest request)
+		{
+			return refreshTokens.AllAndNotEmpty(refreshToken => refreshToken.Matches(request));
+		}
+
+		public bool Matches(RotateRefreshTokenApiRequest request)
+		{
+			return refreshTokens.AllAndNotEmpty(refreshToken => refreshToken.Matches(request));
 		}
 	}
 

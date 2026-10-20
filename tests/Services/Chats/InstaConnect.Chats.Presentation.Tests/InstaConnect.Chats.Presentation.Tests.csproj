@@ -7,68 +7,40 @@
   </ItemGroup>
 
   <ItemGroup Label="Common">
-    <Using Include="Microsoft.AspNetCore.Mvc" />
-    <Using Include="InstaConnect.Common.Infrastructure.Features.Databases.Helpers" />
-    <Using Include="InstaConnect.Common.Tests.Features.Abstractions" />
-    <Using Include="InstaConnect.Common.Tests.Features.Assertions" />
-    <Using Include="InstaConnect.Common.Tests.Features.Utilities" />
-    <Using Include="InstaConnect.Common.Tests.Features.DataAttributes.Base" />
-    <Using Include="InstaConnect.Common.Tests.Features.DataAttributes.Enums.Base" />
-    <Using Include="InstaConnect.Common.Tests.Features.DataAttributes.Strings.Base" />
-    <Using Include="InstaConnect.Common.Tests.Features.DataAttributes.Ints.Base" />
-    <Using Include="InstaConnect.Common.Tests.Features.DataAttributes.DateTimeOffsets.Base" />
+    <Using Include="InstaConnect.Common.Domain.Features.Requests.Models" />
     <Using Include="InstaConnect.Common.Presentation.Tests.Features.Assertions" />
+    <Using Include="InstaConnect.Common.Presentation.Tests.Features.Extensions" />
     <Using Include="InstaConnect.Common.Presentation.Tests.Features.Utilities" />
+    <Using Include="InstaConnect.Common.Tests.Features.DataAttributes.Enums.Base" />
+    <Using Include="InstaConnect.Common.Tests.Features.DataAttributes.Ints.Base" />
   </ItemGroup>
 
   <ItemGroup Label="Users">
-    <Using Include="InstaConnect.Identity.Events.Features.Users" />
     <Using Include="InstaConnect.Chats.Domain.Features.Users.Models.Entities" />
     <Using Include="InstaConnect.Chats.Domain.Features.Users.Models.ValueObjects" />
-    <Using Include="InstaConnect.Chats.Domain.Features.Users.Utilities" />
-    <Using Include="InstaConnect.Chats.Presentation.Tests.Features.Users.Assertions" />
-    <Using Include="InstaConnect.Chats.Tests.Features.Users.Assertions" />
-    <Using Include="InstaConnect.Chats.Tests.Features.Users.Builders" />
+    <Using Include="InstaConnect.Chats.Presentation.Features.Users.Abstractions" />
     <Using Include="InstaConnect.Chats.Tests.Features.Users.Utilities" />
-    <Using Include="InstaConnect.Chats.Application.Features.Users.Commands.Add" />
-    <Using Include="InstaConnect.Chats.Application.Features.Users.Commands.Update" />
-    <Using Include="InstaConnect.Chats.Application.Features.Users.Commands.Delete" />
   </ItemGroup>
 
   <ItemGroup Label="Chats">
     <Using Include="InstaConnect.Chats.Domain.Features.Chats.Models.Entities" />
-    <Using Include="InstaConnect.Chats.Domain.Features.Chats.Models.ValueObjects" />
-    <Using Include="InstaConnect.Chats.Domain.Features.Chats.Utilities" />
+    <Using Include="InstaConnect.Chats.Domain.Features.Chats.Models.Requests" />
     <Using Include="InstaConnect.Chats.Presentation.Features.Chats.Models.Requests" />
     <Using Include="InstaConnect.Chats.Presentation.Features.Chats.Models.Responses" />
-    <Using Include="InstaConnect.Chats.Presentation.Features.Chats.Controllers.v1" />
-    <Using Include="InstaConnect.Chats.Tests.Features.Chats.Assertions" />
-    <Using Include="InstaConnect.Chats.Tests.Features.Chats.Builders" />
-    <Using Include="InstaConnect.Chats.Tests.Features.Chats.Utilities" />
     <Using Include="InstaConnect.Chats.Presentation.Tests.Features.Chats.Assertions" />
-    <Using Include="InstaConnect.Chats.Application.Features.Chats.Models" />
-    <Using Include="InstaConnect.Chats.Application.Features.Chats.Queries.GetAll" />
-    <Using Include="InstaConnect.Chats.Application.Features.Chats.Queries.GetById" />
-    <Using Include="InstaConnect.Chats.Application.Features.Chats.Commands.Add" />
+    <Using Include="InstaConnect.Chats.Presentation.Tests.Features.Chats.Utilities" />
+    <Using Include="InstaConnect.Chats.Tests.Features.Chats.Utilities" />
   </ItemGroup>
 
   <ItemGroup Label="ChatMessages">
     <Using Include="InstaConnect.Chats.Domain.Features.ChatMessages.Models.Entities" />
+    <Using Include="InstaConnect.Chats.Domain.Features.ChatMessages.Models.Requests" />
     <Using Include="InstaConnect.Chats.Domain.Features.ChatMessages.Models.ValueObjects" />
-    <Using Include="InstaConnect.Chats.Domain.Features.ChatMessages.Utilities" />
     <Using Include="InstaConnect.Chats.Presentation.Features.ChatMessages.Models.Requests" />
     <Using Include="InstaConnect.Chats.Presentation.Features.ChatMessages.Models.Responses" />
-    <Using Include="InstaConnect.Chats.Presentation.Features.ChatMessages.Controllers.v1" />
-    <Using Include="InstaConnect.Chats.Tests.Features.ChatMessages.Builders" />
-    <Using Include="InstaConnect.Chats.Tests.Features.ChatMessages.Utilities" />
-    <Using Include="InstaConnect.Chats.Tests.Features.ChatMessages.Assertions" />
     <Using Include="InstaConnect.Chats.Presentation.Tests.Features.ChatMessages.Assertions" />
-    <Using Include="InstaConnect.Chats.Application.Features.ChatMessages.Models" />
-    <Using Include="InstaConnect.Chats.Application.Features.ChatMessages.Queries.GetAll" />
-    <Using Include="InstaConnect.Chats.Application.Features.ChatMessages.Queries.GetById" />
-    <Using Include="InstaConnect.Chats.Application.Features.ChatMessages.Commands.Add" />
-    <Using Include="InstaConnect.Chats.Application.Features.ChatMessages.Commands.Update" />
-    <Using Include="InstaConnect.Chats.Application.Features.ChatMessages.Commands.Delete" />
+    <Using Include="InstaConnect.Chats.Presentation.Tests.Features.ChatMessages.Utilities" />
+    <Using Include="InstaConnect.Chats.Tests.Features.ChatMessages.Utilities" />
   </ItemGroup>
 
 </Project>

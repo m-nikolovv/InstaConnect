@@ -2,6 +2,8 @@ using InstaConnect.Common.Application.Features.Requests.Abstractions;
 using InstaConnect.Common.Events.Features.AccessTokens.Models;
 using InstaConnect.Identity.Application.Features.UserClaims.Commands.Add;
 using InstaConnect.Identity.Application.Features.Users.Commands.Add;
+using InstaConnect.Identity.Domain.Features.Users.Abstractions;
+using InstaConnect.Identity.Infrastructure.Features.Common.Abstractions;
 using InstaConnect.Identity.Infrastructure.Features.Common.Models.Options;
 
 using Microsoft.Extensions.Options;

@@ -1,10 +1,3 @@
-using InstaConnect.Chats.Domain.Features.ChatMessages.Helpers;
-using InstaConnect.Chats.Domain.Features.ChatMessages.Models.Requests;
-using InstaConnect.Chats.Domain.Tests.Features.ChatMessages.Assertions;
-using InstaConnect.Chats.Domain.Tests.Features.ChatMessages.Builders;
-using InstaConnect.Chats.Domain.Tests.Features.ChatMessages.Utilities;
-using InstaConnect.Chats.Domain.Tests.Unit.Features.ChatMessages.Utilities;
-
 namespace InstaConnect.Chats.Domain.Tests.Unit.Features.ChatMessages.Services;
 
 public class GetChatMessageByIdQueryServiceUnitTests : BaseChatMessageDomainQueryUnitTest
@@ -28,7 +21,7 @@ public class GetChatMessageByIdQueryServiceUnitTests : BaseChatMessageDomainQuer
 	}
 
 	[Fact]
-	public async Task GetByIdAsync_ShouldThrowChatNotFoundException_WhenIdIsInvalid()
+	public async Task GetByIdAsync_ShouldThrowChatNotFoundException_WhenChatNotFound()
 	{
 		// Arrange
 		Repository.RemoveExistsByIdAsync(_query, CancellationToken);
@@ -38,7 +31,7 @@ public class GetChatMessageByIdQueryServiceUnitTests : BaseChatMessageDomainQuer
 	}
 
 	[Fact]
-	public async Task GetByIdAsync_ShouldThrowChatMessageNotFoundException_WhenChatMessageDoesNotExist()
+	public async Task GetByIdAsync_ShouldThrowChatMessageNotFoundException_WhenChatMessageNotFound()
 	{
 		// Arrange
 		MessageRepository.RemoveGetByIdAsync(_query, ChatMessage, CancellationToken);

@@ -1,5 +1,3 @@
-using Mapster;
-
 namespace InstaConnect.Identity.Domain.Features.Users.Mappings;
 
 internal class UserDomainMappings : IRegister
@@ -22,7 +20,7 @@ internal class UserDomainMappings : IRegister
 				src.Email.Value,
 				src.FirstName,
 				src.LastName,
-				src.ProfileImage == null ? null : src.ProfileImage.Url,
+				src.ProfileImageUrl == null ? null : src.ProfileImageUrl.Value,
 				src.CreatedAtUtc,
 				src.UpdatedAtUtc));
 	}

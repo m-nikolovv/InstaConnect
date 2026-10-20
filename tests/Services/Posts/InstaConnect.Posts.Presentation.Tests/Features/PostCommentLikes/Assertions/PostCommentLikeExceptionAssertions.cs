@@ -1,3 +1,5 @@
+using InstaConnect.Posts.Presentation.Features.PostCommentLikes.Controllers.v1;
+
 namespace InstaConnect.Posts.Presentation.Tests.Features.PostCommentLikes.Assertions;
 
 public static class PostCommentLikeExceptionAssertions

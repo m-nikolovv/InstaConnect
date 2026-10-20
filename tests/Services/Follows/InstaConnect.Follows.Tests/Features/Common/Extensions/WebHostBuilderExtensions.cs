@@ -1,5 +1,4 @@
 using InstaConnect.Common.Domain.Features.Common.Extensions;
-
 using InstaConnect.Follows.Presentation.Features.Follows.Models.Options;
 using InstaConnect.Follows.Tests.Features.Common.Utilities;
 

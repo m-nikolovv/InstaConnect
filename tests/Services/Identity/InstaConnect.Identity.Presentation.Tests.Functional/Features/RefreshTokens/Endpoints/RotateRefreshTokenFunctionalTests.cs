@@ -1,4 +1,8 @@
-using InstaConnect.Identity.Tests.Features.EmailConfirmationTokens.Assertions;
+using InstaConnect.Identity.Presentation.Features.RefreshTokens.Models.Requests;
+using InstaConnect.Identity.Presentation.Tests.Features.RefreshTokens.Builders;
+using InstaConnect.Identity.Presentation.Tests.Functional.Features.RefreshTokens.Utilities;
+using InstaConnect.Identity.Tests.Features.RefreshTokens.Builders;
+using InstaConnect.Identity.Tests.Features.RefreshTokens.DataAttributes.Value;
 
 namespace InstaConnect.Identity.Presentation.Tests.Functional.Features.RefreshTokens.Endpoints;
 
@@ -122,7 +126,7 @@ public class RotateRefreshTokenFunctionalTests : BaseRefreshTokenPresentationCom
 	}
 
 	[Fact]
-	public async Task RotateAsync_ShouldHaveBadRequestStatusCode_WhenEmailIsNotConfirmed()
+	public async Task RotateAsync_ShouldHaveBadRequestStatusCode_WhenUserEmailNotConfirmed()
 	{
 		// Arrange
 		var updatedUser = UserBuilder.WithUnconfirmedEmail().Build();
@@ -136,7 +140,7 @@ public class RotateRefreshTokenFunctionalTests : BaseRefreshTokenPresentationCom
 	}
 
 	[Fact]
-	public async Task RotateAsync_ShouldHaveUserEmailNotConfirmedProblemDetails_WhenEmailIsNotConfirmed()
+	public async Task RotateAsync_ShouldHaveUserEmailNotConfirmedProblemDetails_WhenUserEmailNotConfirmed()
 	{
 		// Arrange
 		var updatedUser = UserBuilder.WithUnconfirmedEmail().Build();
@@ -176,7 +180,7 @@ public class RotateRefreshTokenFunctionalTests : BaseRefreshTokenPresentationCom
 	}
 
 	[Fact]
-	public async Task RotateAsync_ShouldHaveBadRequestStatusCode_WhenRefreshTokenHasExpired()
+	public async Task RotateAsync_ShouldHaveBadRequestStatusCode_WhenRefreshTokenExpired()
 	{
 		// Arrange
 		var updatedRefreshToken = RefreshTokenBuilder.WithAlreadyExpiresAtUtc().Build();
@@ -190,7 +194,7 @@ public class RotateRefreshTokenFunctionalTests : BaseRefreshTokenPresentationCom
 	}
 
 	[Fact]
-	public async Task RotateAsync_ShouldHaveRefreshTokenExpiredProblemDetails_WhenRefreshTokenHasExpired()
+	public async Task RotateAsync_ShouldHaveRefreshTokenExpiredProblemDetails_WhenRefreshTokenExpired()
 	{
 		// Arrange
 		var updatedRefreshToken = RefreshTokenBuilder.WithAlreadyExpiresAtUtc().Build();
@@ -215,7 +219,7 @@ public class RotateRefreshTokenFunctionalTests : BaseRefreshTokenPresentationCom
 
 	[Theory]
 	[UserIdDifferentCaseData]
-	public async Task RotateAsync_ShouldHaveOkStatusCode_WhenIdIsValid(IStringTransformer transformer)
+	public async Task RotateAsync_ShouldHaveOkStatusCode_WhenRequestAndIdAreValid(IStringTransformer transformer)
 	{
 		// Arrange
 		var request = _requestBuilder.WithId(transformer).Build();
@@ -229,7 +233,7 @@ public class RotateRefreshTokenFunctionalTests : BaseRefreshTokenPresentationCom
 
 	[Theory]
 	[RefreshTokenValueDifferentCaseData]
-	public async Task RotateAsync_ShouldHaveOkStatusCode_WhenValueIsValid(IStringTransformer transformer)
+	public async Task RotateAsync_ShouldHaveOkStatusCode_WhenRequestAndValueAreValid(IStringTransformer transformer)
 	{
 		// Arrange
 		var request = _requestBuilder.WithValue(transformer).Build();
@@ -253,7 +257,7 @@ public class RotateRefreshTokenFunctionalTests : BaseRefreshTokenPresentationCom
 
 	[Theory]
 	[UserIdDifferentCaseData]
-	public async Task RotateAsync_ShouldReturnResponse_WhenIdIsValid(IStringTransformer transformer)
+	public async Task RotateAsync_ShouldReturnResponse_WhenRequestAndIdAreValid(IStringTransformer transformer)
 	{
 		// Arrange
 		var request = _requestBuilder.WithId(transformer).Build();
@@ -267,7 +271,7 @@ public class RotateRefreshTokenFunctionalTests : BaseRefreshTokenPresentationCom
 
 	[Theory]
 	[RefreshTokenValueDifferentCaseData]
-	public async Task RotateAsync_ShouldReturnResponse_WhenValueIsValid(IStringTransformer transformer)
+	public async Task RotateAsync_ShouldReturnResponse_WhenRequestAndValueAreValid(IStringTransformer transformer)
 	{
 		// Arrange
 		var request = _requestBuilder.WithValue(transformer).Build();
@@ -284,40 +288,40 @@ public class RotateRefreshTokenFunctionalTests : BaseRefreshTokenPresentationCom
 	{
 		// Act
 		await RefreshTokenApiClient.RotateAsync(_request, CancellationToken);
-		var user = await ServiceScope.GetByIdAsync(User.Id, CancellationToken);
+		var user = await ServiceScope.GetByIdAsync(UserId, CancellationToken);
 
 		// Assert
-		user.RefreshTokens.ShouldNotBeEmpty();
+		user.RefreshTokens.ShouldSatisfy(_request);
 	}
 
 	[Theory]
 	[UserIdDifferentCaseData]
-	public async Task RotateAsync_ShouldRotateRefreshToken_WhenIdIsValid(IStringTransformer transformer)
+	public async Task RotateAsync_ShouldAddRefreshToken_WhenRequestAndIdAreValid(IStringTransformer transformer)
 	{
 		// Arrange
 		var request = _requestBuilder.WithId(transformer).Build();
 
 		// Act
 		await RefreshTokenApiClient.RotateAsync(request, CancellationToken);
-		var user = await ServiceScope.GetByIdAsync(User.Id, CancellationToken);
+		var user = await ServiceScope.GetByIdAsync(UserId, CancellationToken);
 
 		// Assert
-		user.RefreshTokens.ShouldNotBeEmpty();
+		user.RefreshTokens.ShouldSatisfy(request);
 	}
 
 	[Theory]
 	[RefreshTokenValueDifferentCaseData]
-	public async Task RotateAsync_ShouldRotateRefreshToken_WhenValueIsValid(IStringTransformer transformer)
+	public async Task RotateAsync_ShouldAddRefreshToken_WhenRequestAndValueAreValid(IStringTransformer transformer)
 	{
 		// Arrange
 		var request = _requestBuilder.WithValue(transformer).Build();
 
 		// Act
 		await RefreshTokenApiClient.RotateAsync(request, CancellationToken);
-		var user = await ServiceScope.GetByIdAsync(User.Id, CancellationToken);
+		var user = await ServiceScope.GetByIdAsync(UserId, CancellationToken);
 
 		// Assert
-		user.RefreshTokens.ShouldNotBeEmpty();
+		user.RefreshTokens.ShouldSatisfy(request);
 	}
 
 	[Fact]
@@ -333,7 +337,7 @@ public class RotateRefreshTokenFunctionalTests : BaseRefreshTokenPresentationCom
 
 	[Theory]
 	[UserIdDifferentCaseData]
-	public async Task RotateAsync_ShouldReturnCookieResponse_WhenIdIsValid(IStringTransformer transformer)
+	public async Task RotateAsync_ShouldReturnCookieResponse_WhenRequestAndIdAreValid(IStringTransformer transformer)
 	{
 		// Arrange
 		var request = _requestBuilder.WithId(transformer).Build();
@@ -348,7 +352,7 @@ public class RotateRefreshTokenFunctionalTests : BaseRefreshTokenPresentationCom
 
 	[Theory]
 	[RefreshTokenValueDifferentCaseData]
-	public async Task RotateAsync_ShouldReturnCookieResponse_WhenValueIsValid(IStringTransformer transformer)
+	public async Task RotateAsync_ShouldReturnCookieResponse_WhenRequestAndValueAreValid(IStringTransformer transformer)
 	{
 		// Arrange
 		var request = _requestBuilder.WithValue(transformer).Build();

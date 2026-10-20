@@ -1,3 +1,5 @@
+using InstaConnect.Identity.Domain.Features.UserClaims.Abstractions;
+
 namespace InstaConnect.Identity.Infrastructure.Features.UserClaims.Helpers.Repositories;
 
 internal class UserClaimCommandRepository : IUserClaimCommandRepository

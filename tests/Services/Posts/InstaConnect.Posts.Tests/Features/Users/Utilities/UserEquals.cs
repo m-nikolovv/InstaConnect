@@ -1,6 +1,4 @@
-using InstaConnect.Common.Domain.Features.Common.Extensions;
 using InstaConnect.Identity.Events.Features.Users;
-using InstaConnect.Posts.Domain.Features.Users.Models.ValueObjects;
 
 namespace InstaConnect.Posts.Tests.Features.Users.Utilities;
 
@@ -31,7 +29,7 @@ public static class UserEquals
 				   entity.Email.Matches(request.Email) &&
 				   entity.FirstName == request.FirstName &&
 				   entity.LastName == request.LastName &&
-				   entity.ProfileImage.Matches(request.ProfileImageUrl) &&
+				   entity.ProfileImageUrl.Matches(request.ProfileImageUrl) &&
 				   entity.CreatedAtUtc == request.CreatedAtUtc &&
 				   entity.UpdatedAtUtc == request.UpdatedAtUtc;
 		}
@@ -46,7 +44,7 @@ public static class UserEquals
 				   entity.FirstName == u.FirstName &&
 				   entity.LastName == u.LastName &&
 				   entity.Name.Matches(u.Name) &&
-				   entity.ProfileImage.Matches(u.ProfileImage) &&
+				   entity.ProfileImageUrl.Matches(u.ProfileImageUrl) &&
 				   entity.CreatedAtUtc == u.CreatedAtUtc &&
 				   entity.UpdatedAtUtc == u.UpdatedAtUtc;
 		}

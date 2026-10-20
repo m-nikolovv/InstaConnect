@@ -1,6 +1,3 @@
-using InstaConnect.Common.Infrastructure.Features.Databases.Abstractions;
-using InstaConnect.Posts.Domain.Features.Common.Models.Requests;
-
 namespace InstaConnect.Posts.Infrastructure.Features.Posts.Abstractions;
 
 public interface IPostIncluder : IIncluder<Post, PostsIncludeType, PostsDestinationType>;

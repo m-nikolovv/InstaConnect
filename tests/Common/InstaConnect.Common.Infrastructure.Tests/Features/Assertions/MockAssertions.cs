@@ -1,5 +1,6 @@
 using InstaConnect.Common.Domain.Features.Entities.Abstractions;
 using InstaConnect.Common.Infrastructure.Features.Databases.Abstractions;
+using InstaConnect.Common.Tests.Features.Assertions;
 
 namespace InstaConnect.Common.Infrastructure.Tests.Features.Assertions;
 
@@ -13,6 +14,13 @@ public static class MockAssertions
 			CancellationToken cancellationToken)
 		{
 			await collection.ShouldHaveReceivedOne().AddAsync(entity, cancellationToken);
+		}
+
+		public async Task ShouldHaveReceivedOneAddRangeAsync(
+			ICollection<TEntity> entities,
+			CancellationToken cancellationToken)
+		{
+			await collection.ShouldHaveReceivedOne().AddRangeAsync(entities, cancellationToken);
 		}
 	}
 
@@ -32,6 +40,11 @@ public static class MockAssertions
 		public async Task ShouldHaveReceivedOneFirstOrDefaultAsync(CancellationToken cancellationToken)
 		{
 			await fluent.ShouldHaveReceivedOne().FirstOrDefaultAsync(cancellationToken);
+		}
+
+		public async Task ShouldHaveReceivedOneToListAsync(CancellationToken cancellationToken)
+		{
+			await fluent.ShouldHaveReceivedOne().ToListAsync(cancellationToken);
 		}
 	}
 

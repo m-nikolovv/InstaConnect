@@ -1,3 +1,7 @@
+using InstaConnect.Identity.Presentation.Features.ForgotPasswordTokens.Models.Requests;
+using InstaConnect.Identity.Presentation.Tests.Features.ForgotPasswordTokens.Builders;
+using InstaConnect.Identity.Presentation.Tests.Functional.Features.ForgotPasswordTokens.Utilities;
+
 namespace InstaConnect.Identity.Presentation.Tests.Functional.Features.ForgotPasswordTokens.Endpoints;
 
 public class AddForgotPasswordTokenFunctionalTests : BaseForgotPasswordTokenPresentationCommandFunctionalTest
@@ -47,7 +51,7 @@ public class AddForgotPasswordTokenFunctionalTests : BaseForgotPasswordTokenPres
 	}
 
 	[Fact]
-	public async Task AddAsync_ShouldHaveNotFoundStatusCode_WhenUserNotFound()
+	public async Task AddAsync_ShouldHaveNotFoundStatusCode_WhenUserNameNotFound()
 	{
 		// Arrange
 		await ServiceScope.DeleteAsync(User, CancellationToken);
@@ -60,7 +64,7 @@ public class AddForgotPasswordTokenFunctionalTests : BaseForgotPasswordTokenPres
 	}
 
 	[Fact]
-	public async Task AddAsync_ShouldHaveUserNameNotFoundProblemDetails_WhenUserNotFound()
+	public async Task AddAsync_ShouldHaveUserNameNotFoundProblemDetails_WhenUserNameNotFound()
 	{
 		// Arrange
 		await ServiceScope.DeleteAsync(User, CancellationToken);
@@ -84,7 +88,7 @@ public class AddForgotPasswordTokenFunctionalTests : BaseForgotPasswordTokenPres
 
 	[Theory]
 	[UserNameDifferentCaseData]
-	public async Task AddAsync_ShouldHaveOkStatusCode_WhenNameIsValid(IStringTransformer transformer)
+	public async Task AddAsync_ShouldHaveOkStatusCode_WhenRequestAndNameAreValid(IStringTransformer transformer)
 	{
 		// Arrange
 		var request = _requestBuilder.WithName(transformer).Build();
@@ -101,25 +105,25 @@ public class AddForgotPasswordTokenFunctionalTests : BaseForgotPasswordTokenPres
 	{
 		// Act
 		await ForgotPasswordTokenApiClient.AddAsync(_request, CancellationToken);
-		var user = await ServiceScope.GetByIdAsync(User.Id, CancellationToken);
+		var user = await ServiceScope.GetByIdAsync(UserId, CancellationToken);
 
 		// Assert
-		user.ForgotPasswordTokens.ShouldNotBeEmpty();
+		user.ForgotPasswordTokens.ShouldSatisfy(_request);
 	}
 
 	[Theory]
 	[UserNameDifferentCaseData]
-	public async Task AddAsync_ShouldAddForgotPasswordToken_WhenNameIsValid(IStringTransformer transformer)
+	public async Task AddAsync_ShouldAddForgotPasswordToken_WhenRequestAndNameAreValid(IStringTransformer transformer)
 	{
 		// Arrange
 		var request = _requestBuilder.WithName(transformer).Build();
 
 		// Act
 		await ForgotPasswordTokenApiClient.AddAsync(request, CancellationToken);
-		var user = await ServiceScope.GetByIdAsync(User.Id, CancellationToken);
+		var user = await ServiceScope.GetByIdAsync(UserId, CancellationToken);
 
 		// Assert
-		user.ForgotPasswordTokens.ShouldNotBeEmpty();
+		user.ForgotPasswordTokens.ShouldSatisfy(request);
 	}
 
 	[Fact]
@@ -127,7 +131,7 @@ public class AddForgotPasswordTokenFunctionalTests : BaseForgotPasswordTokenPres
 	{
 		// Act
 		await ForgotPasswordTokenApiClient.AddAsync(_request, CancellationToken);
-		var user = await ServiceScope.GetByIdAsync(User.Id, CancellationToken);
+		var user = await ServiceScope.GetByIdAsync(UserId, CancellationToken);
 		var eventRequests = await ForgotPasswordTokenEventClient.PublishedAddedRangeAsync(CancellationToken);
 
 		// Assert
@@ -144,7 +148,7 @@ public class AddForgotPasswordTokenFunctionalTests : BaseForgotPasswordTokenPres
 
 		// Act
 		await ForgotPasswordTokenApiClient.AddAsync(request, CancellationToken);
-		var user = await ServiceScope.GetByIdAsync(User.Id, CancellationToken);
+		var user = await ServiceScope.GetByIdAsync(UserId, CancellationToken);
 		var eventRequests = await ForgotPasswordTokenEventClient.PublishedAddedRangeAsync(CancellationToken);
 
 		// Assert

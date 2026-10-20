@@ -1,4 +1,4 @@
-using InstaConnect.Identity.Presentation.Tests.Features.RefreshTokens.Models;
+using InstaConnect.Identity.Presentation.Features.RefreshTokens.Models.Responses;
 using InstaConnect.Identity.Presentation.Tests.Features.RefreshTokens.Utilities;
 using InstaConnect.Identity.Presentation.Tests.Features.UserClaims.Utilities;
 
@@ -50,6 +50,19 @@ public static class RefreshTokenMatchAssertions
 		public void ShouldSatisfy(RotateRefreshTokenApiRequest request)
 		{
 			refreshToken.ShouldSatisfy(p => p.Matches(request));
+		}
+	}
+
+	extension(ICollection<RefreshToken> refreshTokens)
+	{
+		public void ShouldSatisfy(IssueRefreshTokenApiRequest request)
+		{
+			refreshTokens.ShouldSatisfy(p => p.Matches(request));
+		}
+
+		public void ShouldSatisfy(RotateRefreshTokenApiRequest request)
+		{
+			refreshTokens.ShouldSatisfy(p => p.Matches(request));
 		}
 	}
 

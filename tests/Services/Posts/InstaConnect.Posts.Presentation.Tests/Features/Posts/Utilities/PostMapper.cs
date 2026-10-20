@@ -1,7 +1,11 @@
-using InstaConnect.Common.Presentation.Features.Requests.Abstractions;
-using InstaConnect.Posts.Presentation.Features.Users.Abstractions;
-using InstaConnect.Posts.Presentation.Tests.Features.Posts.Utilities;
-using InstaConnect.Posts.Presentation.Tests.Features.Users.Utilities;
+using InstaConnect.Common.Infrastructure.Features.Databases.Helpers;
+using InstaConnect.Posts.Application.Features.Posts.Commands.Add;
+using InstaConnect.Posts.Application.Features.Posts.Commands.Update;
+using InstaConnect.Posts.Application.Features.Posts.Models;
+using InstaConnect.Posts.Application.Features.Posts.Queries.GetAll;
+using InstaConnect.Posts.Application.Features.Posts.Queries.GetAllForUser;
+using InstaConnect.Posts.Application.Features.Posts.Queries.GetById;
+using InstaConnect.Posts.Presentation.Tests.Features.PostImages.Utilities;
 
 namespace InstaConnect.Posts.Presentation.Tests.Features.Posts.Utilities;
 
@@ -23,7 +27,9 @@ public static class PostMapper
 					   post.UserId.Id,
 					   post.Title,
 					   post.Content,
+					   post.Summary.Value,
 					   post.User?.ToFullQueryResponse(),
+					   post.PostImages.ToFullQueryResponse(),
 					   post.PostLikes.Any(pl => pl.Id.UserId.Matches(request.CurrentUserId)),
 					   post.CreatedAtUtc,
 					   post.UpdatedAtUtc);
@@ -37,7 +43,9 @@ public static class PostMapper
 					   post.UserId.Id,
 					   post.Title,
 					   post.Content,
+					   post.Summary.Value,
 					   null,
+					   post.PostImages.ToFullQueryResponse(),
 					   post.PostLikes.Any(pl => pl.Id.UserId.Matches(request.CurrentUserId)),
 					   post.CreatedAtUtc,
 					   post.UpdatedAtUtc);

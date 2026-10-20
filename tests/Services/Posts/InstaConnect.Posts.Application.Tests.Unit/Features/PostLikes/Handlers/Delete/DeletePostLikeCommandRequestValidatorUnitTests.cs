@@ -1,3 +1,5 @@
+using InstaConnect.Posts.Application.Features.PostLikes.Commands.Delete;
+
 namespace InstaConnect.Posts.Application.Tests.Unit.Features.PostLikes.Handlers.Delete;
 
 public class DeletePostLikeCommandRequestValidatorUnitTests : BasePostLikeApplicationCommandUnitTest
@@ -54,7 +56,7 @@ public class DeletePostLikeCommandRequestValidatorUnitTests : BasePostLikeApplic
 	}
 
 	[Fact]
-	public void TestValidate_ShouldNotHaveAnyValidationsErrors_WhenRequestIsValid()
+	public void TestValidate_ShouldNotHaveAnyValidationErrors_WhenRequestIsValid()
 	{
 		// Act
 		var response = _requestValidator.TestValidate(_request);

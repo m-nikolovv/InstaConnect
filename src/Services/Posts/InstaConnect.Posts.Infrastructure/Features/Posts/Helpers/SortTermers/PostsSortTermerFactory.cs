@@ -1,3 +1,5 @@
+using InstaConnect.Posts.Domain.Features.Posts.Exceptions;
+
 namespace InstaConnect.Posts.Infrastructure.Features.Posts.Helpers.SortTermers;
 
 internal class PostsSortTermerFactory : IPostsSortTermerFactory

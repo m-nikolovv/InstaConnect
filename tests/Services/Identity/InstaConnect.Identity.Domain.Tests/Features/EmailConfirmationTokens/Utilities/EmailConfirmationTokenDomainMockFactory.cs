@@ -1,7 +1,5 @@
 using InstaConnect.Identity.Domain.Features.EmailConfirmationTokens.Models.Options;
 
-using Microsoft.Extensions.Options;
-
 namespace InstaConnect.Identity.Domain.Tests.Features.EmailConfirmationTokens.Utilities;
 
 public static class EmailConfirmationTokenDomainMockFactory

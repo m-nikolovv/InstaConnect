@@ -1,20 +1,6 @@
-using InstaConnect.Common.Domain.Features.Requests.Models;
-using InstaConnect.Common.Tests.Features.DataAttributes.Enums.Base;
-using InstaConnect.Common.Tests.Features.DataAttributes.Enums.Sort;
-using InstaConnect.Common.Tests.Features.DataAttributes.Strings.Base;
 using InstaConnect.Posts.Domain.Features.PostLikes.Models.Entities;
-using InstaConnect.Posts.Domain.Features.PostLikes.Models.Requests;
-using InstaConnect.Posts.Domain.Tests.Features.PostLikes.Assertions;
-using InstaConnect.Posts.Domain.Tests.Features.PostLikes.Builders;
-using InstaConnect.Posts.Domain.Tests.Integration.Features.PostLikes.Utilities;
 using InstaConnect.Posts.Tests.Features.PostLikes.DataAttributes.SortOrder;
 using InstaConnect.Posts.Tests.Features.PostLikes.DataAttributes.SortTerm;
-using InstaConnect.Posts.Tests.Features.PostLikes.Utilities;
-using InstaConnect.Posts.Tests.Features.Posts.DataAttributes.Id;
-using InstaConnect.Posts.Tests.Features.Posts.Utilities;
-using InstaConnect.Posts.Tests.Features.Users.DataAttributes.Id;
-using InstaConnect.Posts.Tests.Features.Users.DataAttributes.Name;
-using InstaConnect.Posts.Tests.Features.Users.Utilities;
 
 namespace InstaConnect.Posts.Domain.Tests.Integration.Features.PostLikes.Services;
 
@@ -38,7 +24,7 @@ public class GetAllPostLikesQueryServiceIntegrationTests : BasePostLikeDomainQue
 	}
 
 	[Fact]
-	public async Task GetAllAsync_ShouldThrowPostNotFoundException_WhenIdIsInvalid()
+	public async Task GetAllAsync_ShouldThrowPostNotFoundException_WhenPostNotFound()
 	{
 		// Arrange
 		await ServiceScope.DeleteAsync(Post, CancellationToken);

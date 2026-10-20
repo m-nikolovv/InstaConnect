@@ -1,14 +1,20 @@
-using InstaConnect.Common.Domain.Features.Common.Extensions;
 using InstaConnect.Common.Presentation.Features.Requests.Abstractions;
 using InstaConnect.Common.Tests.Features.DataAttributes.Enums.Sort;
 using InstaConnect.Common.Tests.Features.Extensions;
 using InstaConnect.Identity.Application.Features.Users.Abstractions;
+using InstaConnect.Identity.Application.Features.Users.Commands.Add;
+using InstaConnect.Identity.Application.Features.Users.Commands.Delete;
+using InstaConnect.Identity.Application.Features.Users.Commands.DeleteCurrent;
+using InstaConnect.Identity.Application.Features.Users.Commands.UpdateCurrent;
+using InstaConnect.Identity.Application.Features.Users.Queries.GetAll;
+using InstaConnect.Identity.Application.Features.Users.Queries.GetById;
+using InstaConnect.Identity.Application.Features.Users.Queries.GetCurrentById;
+using InstaConnect.Identity.Application.Features.Users.Queries.GetCurrentDetailsById;
+using InstaConnect.Identity.Application.Features.Users.Queries.GetDetailsById;
 using InstaConnect.Identity.Domain.Features.Common.Helpers;
 using InstaConnect.Identity.Domain.Features.Users.Models.Requests;
 using InstaConnect.Identity.Events.Features.EmailConfirmationTokens;
-using InstaConnect.Identity.Events.Features.Users;
 using InstaConnect.Identity.Presentation.Features.Users.Abstractions;
-using InstaConnect.Identity.Presentation.Tests.Features.Users.Utilities;
 
 namespace InstaConnect.Identity.Presentation.Tests.Features.Users.Utilities;
 
@@ -53,7 +59,7 @@ public static class UserEquals
 				   r.Email.EqualsOrdinalIgnoreCase(request.Form.Email) &&
 				   r.FirstName == request.Form.FirstName &&
 				   r.LastName == request.Form.LastName &&
-				   r.ProfileImageUrl == request.Form.ProfileImage?.GetUrl() &&
+				   r.ProfileImageUrl == request.Form.ProfileImage?.GetUrlValue() &&
 				   r.CreatedAtUtc == entity.CreatedAtUtc &&
 				   r.UpdatedAtUtc == entity.UpdatedAtUtc;
 		}
@@ -66,7 +72,7 @@ public static class UserEquals
 				   r.Email.EqualsOrdinalIgnoreCase(request.Form.Email) &&
 				   r.FirstName == request.Form.FirstName &&
 				   r.LastName == request.Form.LastName &&
-				   (request.Form.ProfileImage == null || r.ProfileImageUrl == request.Form.ProfileImage.GetUrl()) &&
+				   (request.Form.ProfileImage == null || r.ProfileImageUrl == request.Form.ProfileImage.GetUrlValue()) &&
 				   r.CreatedAtUtc == entity.CreatedAtUtc &&
 				   r.UpdatedAtUtc == entity.UpdatedAtUtc;
 		}
@@ -79,7 +85,7 @@ public static class UserEquals
 				   r.Email.EqualsOrdinalIgnoreCase(entity.Email.Value) &&
 				   r.FirstName == entity.FirstName &&
 				   r.LastName == entity.LastName &&
-				   r.ProfileImageUrl == entity.ProfileImage?.Url &&
+				   r.ProfileImageUrl == entity.ProfileImageUrl?.Value &&
 				   r.CreatedAtUtc == entity.CreatedAtUtc &&
 				   r.UpdatedAtUtc == entity.UpdatedAtUtc;
 		}
@@ -92,7 +98,7 @@ public static class UserEquals
 				   r.Email.EqualsOrdinalIgnoreCase(entity.Email.Value) &&
 				   r.FirstName == entity.FirstName &&
 				   r.LastName == entity.LastName &&
-				   r.ProfileImageUrl == entity.ProfileImage?.Url &&
+				   r.ProfileImageUrl == entity.ProfileImageUrl?.Value &&
 				   r.CreatedAtUtc == entity.CreatedAtUtc &&
 				   r.UpdatedAtUtc == entity.UpdatedAtUtc;
 		}
@@ -285,7 +291,7 @@ public static class UserEquals
 				   user.LastName == request.Form.LastName &&
 				   user.Name.Matches(request.Form.Name) &&
 				   user.Email.Matches(request.Form.Email) &&
-				   user.ProfileImage.Matches(request.Form.ProfileImage?.GetUrl()) &&
+				   user.ProfileImageUrl.Matches(request.Form.ProfileImage?.GetUrlValue()) &&
 				   passwordHasher.IsMatch(request.Form.Password, user.PasswordHash) &&
 				   user.IsEmailNotConfirmed &&
 				   user.CreatedAtUtc != default &&
@@ -299,7 +305,7 @@ public static class UserEquals
 				   user.LastName == request.Form.LastName &&
 				   user.Name.Matches(request.Form.Name) &&
 				   user.Email.Matches(request.Form.Email) &&
-				   (request.Form.ProfileImage == null || user.ProfileImage.Matches(request.Form.ProfileImage.GetUrl())) &&
+				   (request.Form.ProfileImage == null || user.ProfileImageUrl.Matches(request.Form.ProfileImage.GetUrlValue())) &&
 				   user.PasswordHash.IsNotNullOrEmptyOrWhiteSpace() &&
 				   user.CreatedAtUtc != default &&
 				   user.UpdatedAtUtc != default;
@@ -332,7 +338,7 @@ public static class UserEquals
 				   user.FirstName == response.FirstName &&
 				   user.LastName == response.LastName &&
 				   user.Name.Matches(response.Name) &&
-				   user.ProfileImage.Matches(response.ProfileImageUrl) &&
+				   user.ProfileImageUrl.Matches(response.ProfileImageUrl) &&
 				   user.CreatedAtUtc == response.CreatedAtUtc &&
 				   user.UpdatedAtUtc == response.UpdatedAtUtc;
 		}
@@ -349,7 +355,7 @@ public static class UserEquals
 				   user.LastName == response.LastName &&
 				   user.Name.Matches(response.Name) &&
 				   user.Email.Matches(response.Email) &&
-				   user.ProfileImage.Matches(response.ProfileImageUrl) &&
+				   user.ProfileImageUrl.Matches(response.ProfileImageUrl) &&
 				   user.CreatedAtUtc == response.CreatedAtUtc &&
 				   user.UpdatedAtUtc == response.UpdatedAtUtc;
 		}
@@ -453,11 +459,27 @@ public static class UserEquals
 		}
 	}
 
+	extension(EmailConfirmationToken entity)
+	{
+		public bool Matches(AddUserApiRequest request)
+		{
+			return entity.Id.Id.Id.IsNotNullOrEmptyOrWhiteSpace() &&
+				   entity.Id.Value.IsNotNullOrEmptyOrWhiteSpace() &&
+				   entity.CreatedAtUtc != default &&
+				   entity.ExpiresAtUtc != default;
+		}
+	}
+
 	extension(ICollection<EmailConfirmationToken> entities)
 	{
+		public bool Matches(AddUserApiRequest request)
+		{
+			return entities.AllAndNotEmpty(entity => entity.Matches(request));
+		}
+
 		public bool Matches(UpdateCurrentUserApiRequest request)
 		{
-			return entities.All(entity => entity.Id.Id.Matches(request.Id));
+			return entities.AllAndNotEmpty(entity => entity.Id.Id.Matches(request.Id));
 		}
 	}
 

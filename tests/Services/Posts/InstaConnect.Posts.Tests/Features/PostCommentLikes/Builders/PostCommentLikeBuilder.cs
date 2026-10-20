@@ -1,5 +1,3 @@
-using InstaConnect.Posts.Tests.Features.PostCommentLikes.Utilities;
-
 namespace InstaConnect.Posts.Tests.Features.PostCommentLikes.Builders;
 
 public class PostCommentLikeBuilder
@@ -19,6 +17,16 @@ public class PostCommentLikeBuilder
 		_userId = user.Id.Id;
 		_user = user;
 		_createdAtUtc = PostCommentLikeDataFaker.GetCreatedAtUtc();
+	}
+
+	public PostCommentLikeBuilder(PostCommentLike postCommentLike)
+	{
+		_id = postCommentLike.Id.CommentId.Id.Id;
+		_commentId = postCommentLike.Id.CommentId.CommentId;
+		_postComment = postCommentLike.PostComment!;
+		_userId = postCommentLike.Id.UserId.Id;
+		_user = postCommentLike.User!;
+		_createdAtUtc = postCommentLike.CreatedAtUtc;
 	}
 
 	public PostCommentLike Build()

@@ -5,32 +5,15 @@
     <ProjectReference Include="..\InstaConnect.Follows.Domain\InstaConnect.Follows.Domain.csproj" />
   </ItemGroup>
 
-  <ItemGroup Label="Common">
-    <Using Include="FluentValidation" />
-    <Using Include="Microsoft.Extensions.DependencyInjection" />
-    <Using Include="InstaConnect.Common.Application.Features.Requests.Abstractions"/>
-    <Using Include="InstaConnect.Common.Domain.Features.Validations.Extensions" />
-  </ItemGroup>
-
   <ItemGroup Label="Users">
-    <Using Include="InstaConnect.Follows.Domain.Features.Users.Utilities" />
-    <Using Include="InstaConnect.Follows.Domain.Features.Users.Abstractions" />
-    <Using Include="InstaConnect.Follows.Domain.Features.Users.Models.Entities" />
-    <Using Include="InstaConnect.Follows.Domain.Features.Users.Models.ValueObjects" />
-    <Using Include="InstaConnect.Follows.Domain.Features.Users.Models.Requests" />
-    <Using Include="InstaConnect.Follows.Application.Features.Users.Models" />
     <Using Include="InstaConnect.Follows.Application.Features.Users.Extensions" />
+    <Using Include="InstaConnect.Follows.Application.Features.Users.Models" />
   </ItemGroup>
 
   <ItemGroup Label="Follows">
-    <Using Include="InstaConnect.Follows.Domain.Features.Follows.Utilities" />
-    <Using Include="InstaConnect.Follows.Domain.Features.Follows.Abstractions" />
-    <Using Include="InstaConnect.Follows.Domain.Features.Follows.Models.Entities" />
-    <Using Include="InstaConnect.Follows.Domain.Features.Follows.Models.ValueObjects" />
-    <Using Include="InstaConnect.Follows.Domain.Features.Follows.Models.Requests" />
-    <Using Include="InstaConnect.Follows.Domain.Features.Follows.Models.Responses" />
     <Using Include="InstaConnect.Follows.Application.Features.Follows.Models" />
-    <Using Include="InstaConnect.Follows.Application.Features.Follows.Extensions" />
+    <Using Include="InstaConnect.Follows.Domain.Features.Follows.Abstractions" />
+    <Using Include="InstaConnect.Follows.Domain.Features.Follows.Models.Requests" />
   </ItemGroup>
 
 </Project>

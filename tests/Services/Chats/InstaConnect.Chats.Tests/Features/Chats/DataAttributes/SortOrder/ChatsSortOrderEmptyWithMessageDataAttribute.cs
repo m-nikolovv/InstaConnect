@@ -1,5 +1,3 @@
-using InstaConnect.Common.Domain.Features.Requests.Models;
-
 namespace InstaConnect.Chats.Tests.Features.Chats.DataAttributes.SortOrder;
 
 [AttributeUsage(AttributeTargets.Method, AllowMultiple = true, Inherited = true)]

@@ -1,9 +1,7 @@
 using InstaConnect.Common.Domain.Features.Common.Extensions;
 using InstaConnect.Common.Domain.Features.ValueObjects.Models;
 using InstaConnect.Common.Tests.Features.DataAttributes.Enums.Sort;
-using InstaConnect.Identity.Domain.Features.Users.Models.Requests;
 using InstaConnect.Identity.Domain.Features.Users.Models.Responses;
-using InstaConnect.Identity.Domain.Features.Users.Models.ValueObjects;
 using InstaConnect.Identity.Tests.Features.Users.Utilities;
 
 namespace InstaConnect.Identity.Infrastructure.Tests.Features.Users.Utilities;
@@ -52,7 +50,7 @@ public static class UserEquals
 				   user.LastName == response.LastName &&
 				   user.Name.Matches(response.Name) &&
 				   user.Email.Matches(response.Email) &&
-				   user.ProfileImage.Matches(response.ProfileImage) &&
+				   user.ProfileImageUrl.Matches(response.ProfileImageUrl) &&
 				   user.CreatedAtUtc == response.CreatedAtUtc &&
 				   user.UpdatedAtUtc == response.UpdatedAtUtc;
 		}

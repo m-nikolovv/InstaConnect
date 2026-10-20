@@ -1,7 +1,6 @@
 using System.Net;
 
 using InstaConnect.Common.Infrastructure.Features.AccessTokens.Abstractions;
-using InstaConnect.Common.Presentation.Features.Exceptions.Models;
 using InstaConnect.Common.Presentation.Tests.Features.Extensions;
 using InstaConnect.Follows.Presentation.Tests.Features.Follows.Abstractions;
 using InstaConnect.Follows.Presentation.Tests.Features.Follows.Extensions;

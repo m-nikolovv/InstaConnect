@@ -1,7 +1,5 @@
 using InstaConnect.Posts.Application.Features.Users.Models;
 
-using Mapster;
-
 namespace InstaConnect.Posts.Presentation.Features.Users.Mappings;
 
 internal class UserPresentationMappings : IRegister

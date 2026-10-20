@@ -6,4 +6,9 @@ public class UserClaimBuilderFactory
 	{
 		return new(user);
 	}
+
+	public UserClaimBuilder Create(UserClaim userClaim)
+	{
+		return new(userClaim);
+	}
 }

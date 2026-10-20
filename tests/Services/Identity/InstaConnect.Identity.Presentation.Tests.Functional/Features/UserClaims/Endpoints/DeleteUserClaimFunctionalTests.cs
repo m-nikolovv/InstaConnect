@@ -1,4 +1,9 @@
 using InstaConnect.Common.Events.Features.AccessTokens.Models;
+using InstaConnect.Common.Tests.Features.DataAttributes.Enums.Base;
+using InstaConnect.Identity.Presentation.Features.UserClaims.Models.Requests;
+using InstaConnect.Identity.Presentation.Tests.Features.UserClaims.Builders;
+using InstaConnect.Identity.Presentation.Tests.Functional.Features.UserClaims.Utilities;
+using InstaConnect.Identity.Tests.Features.UserClaims.DataAttributes.Claim;
 
 namespace InstaConnect.Identity.Presentation.Tests.Functional.Features.UserClaims.Endpoints;
 
@@ -76,7 +81,7 @@ public class DeleteUserClaimFunctionalTests : BaseUserClaimPresentationCommandFu
 
 	[Theory]
 	[UserClaimClaimEmptyData]
-	public async Task AddAsync_ShouldHaveBadRequestStatusCode_WhenClaimIsInvalid(IEnumTransformer<ApplicationClaims> transformer)
+	public async Task DeleteAsync_ShouldHaveBadRequestStatusCode_WhenClaimIsInvalid(IEnumTransformer<ApplicationClaims> transformer)
 	{
 		// Arrange
 		var request = _requestBuilder.WithClaim(transformer).Build();
@@ -90,7 +95,7 @@ public class DeleteUserClaimFunctionalTests : BaseUserClaimPresentationCommandFu
 
 	[Theory]
 	[UserClaimClaimEmptyWithMessageData]
-	public async Task AddAsync_ShouldHaveBadRequestProblemDetails_WhenClaimIsInvalid(
+	public async Task DeleteAsync_ShouldHaveBadRequestProblemDetails_WhenClaimIsInvalid(
 		IEnumTransformer<ApplicationClaims> transformer,
 		IEnumMessageTransformer<ApplicationClaims> messageTransformer)
 	{
@@ -168,7 +173,7 @@ public class DeleteUserClaimFunctionalTests : BaseUserClaimPresentationCommandFu
 
 	[Theory]
 	[UserIdDifferentCaseData]
-	public async Task DeleteAsync_ShouldHaveNoContentStatusCode_WhenRequestAndIdIsValid(
+	public async Task DeleteAsync_ShouldHaveNoContentStatusCode_WhenRequestAndIdAreValid(
 		IStringTransformer transformer)
 	{
 		// Arrange
@@ -186,7 +191,7 @@ public class DeleteUserClaimFunctionalTests : BaseUserClaimPresentationCommandFu
 	{
 		// Act
 		await ClaimApiClient.DeleteAsync(_request, CancellationToken);
-		var userClaim = await ServiceScope.GetByIdAsync(UserClaim.Id, CancellationToken);
+		var userClaim = await ServiceScope.GetByIdAsync(UserClaimId, CancellationToken);
 
 		// Assert
 		userClaim.ShouldBeNull();
@@ -194,7 +199,7 @@ public class DeleteUserClaimFunctionalTests : BaseUserClaimPresentationCommandFu
 
 	[Theory]
 	[UserIdDifferentCaseData]
-	public async Task DeleteAsync_ShouldDeleteUserClaim_WhenIdIsValid(
+	public async Task DeleteAsync_ShouldDeleteUserClaim_WhenRequestAndIdAreValid(
 		IStringTransformer transformer)
 	{
 		// Arrange
@@ -202,7 +207,7 @@ public class DeleteUserClaimFunctionalTests : BaseUserClaimPresentationCommandFu
 
 		// Act
 		await ClaimApiClient.DeleteAsync(request, CancellationToken);
-		var userClaim = await ServiceScope.GetByIdAsync(UserClaim.Id, CancellationToken);
+		var userClaim = await ServiceScope.GetByIdAsync(UserClaimId, CancellationToken);
 
 		// Assert
 		userClaim.ShouldBeNull();
@@ -221,7 +226,7 @@ public class DeleteUserClaimFunctionalTests : BaseUserClaimPresentationCommandFu
 
 	[Theory]
 	[UserIdDifferentCaseData]
-	public async Task DeleteAsync_ShouldPublishUserClaimDeletedEvent_WhenIdIsValid(
+	public async Task DeleteAsync_ShouldPublishUserClaimDeletedEvent_WhenRequestAndIdAreValid(
 		IStringTransformer transformer)
 	{
 		// Arrange

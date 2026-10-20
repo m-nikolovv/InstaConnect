@@ -1,3 +1,7 @@
+using InstaConnect.Identity.Application.Features.ForgotPasswordTokens.Commands.Add;
+using InstaConnect.Identity.Application.Tests.Features.ForgotPasswordTokens.Builders;
+using InstaConnect.Identity.Application.Tests.Unit.Features.ForgotPasswordTokens.Utilities;
+
 namespace InstaConnect.Identity.Application.Tests.Unit.Features.ForgotPasswordTokens.Handlers.Add;
 
 public class AddForgotPasswordTokenCommandRequestValidatorUnitTests : BaseForgotPasswordTokenApplicationCommandUnitTest
@@ -36,7 +40,7 @@ public class AddForgotPasswordTokenCommandRequestValidatorUnitTests : BaseForgot
 	}
 
 	[Fact]
-	public void TestValidate_ShouldNotHaveAnyValidationsErrors_WhenRequestIsValid()
+	public void TestValidate_ShouldNotHaveAnyValidationErrors_WhenRequestIsValid()
 	{
 		// Act
 		var response = _requestValidator.TestValidate(_request);

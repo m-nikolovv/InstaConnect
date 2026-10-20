@@ -1,5 +1,5 @@
-using InstaConnect.Chats.Domain.Features.ChatMessages.Models.Requests;
-using InstaConnect.Common.Domain.Features.Requests.Models;
+using InstaConnect.Chats.Presentation.Features.ChatMessages.Controllers.v1;
+using InstaConnect.Common.Tests.Features.Assertions;
 
 namespace InstaConnect.Chats.Presentation.Tests.Features.ChatMessages.Assertions;
 
@@ -128,7 +128,7 @@ public static class ChatMessageValidationExceptionAssertions
 
 			await func.ShouldThrowInvalidValidationExceptionAsync(
 				request,
-				r => r.Body.Content,
+				r => r.Form.Content,
 				messageTransformer,
 				cancellationToken);
 		}

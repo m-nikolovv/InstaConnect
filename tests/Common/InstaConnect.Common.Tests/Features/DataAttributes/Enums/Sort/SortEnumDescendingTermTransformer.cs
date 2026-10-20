@@ -1,5 +1,3 @@
-using InstaConnect.Common.Domain.Features.Entities.Abstractions;
-
 namespace InstaConnect.Common.Tests.Features.DataAttributes.Enums.Sort;
 
 internal class SortEnumDescendingTermTransformer<T, TValue> : ISortEnumTermTransformer<T>

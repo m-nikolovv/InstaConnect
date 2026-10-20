@@ -1,5 +1,9 @@
-using InstaConnect.Common.Domain.Features.Requests.Models;
+using InstaConnect.Posts.Application.Features.PostCommentLikes.Queries.GetAll;
 using InstaConnect.Posts.Domain.Features.PostCommentLikes.Models.Requests;
+using InstaConnect.Posts.Tests.Features.PostCommentLikes.DataAttributes.Page;
+using InstaConnect.Posts.Tests.Features.PostCommentLikes.DataAttributes.PageSize;
+using InstaConnect.Posts.Tests.Features.PostCommentLikes.DataAttributes.SortOrder;
+using InstaConnect.Posts.Tests.Features.PostCommentLikes.DataAttributes.SortTerm;
 
 namespace InstaConnect.Posts.Application.Tests.Unit.Features.PostCommentLikes.Handlers.GetAll;
 
@@ -153,7 +157,7 @@ public class GetAllPostCommentLikesQueryRequestValidatorUnitTests : BasePostComm
 	[Theory]
 	[UserNameEmptyData]
 	[UserNameNullData]
-	public void TestValidate_ShouldNotHaveAnyValidationsErrors_WhenUserNameIsValid(
+	public void TestValidate_ShouldNotHaveAnyValidationErrors_WhenUserNameIsValid(
 		IStringTransformer transformer)
 	{
 		// Arrange
@@ -169,7 +173,7 @@ public class GetAllPostCommentLikesQueryRequestValidatorUnitTests : BasePostComm
 	[Theory]
 	[UserIdNullData]
 	[UserIdEmptyData]
-	public void TestValidate_ShouldNotHaveAnyValidationsErrors_WhenCurrentUserIdIsValid(
+	public void TestValidate_ShouldNotHaveAnyValidationErrors_WhenCurrentUserIdIsValid(
 		IStringTransformer transformer)
 	{
 		// Arrange
@@ -183,7 +187,7 @@ public class GetAllPostCommentLikesQueryRequestValidatorUnitTests : BasePostComm
 	}
 
 	[Fact]
-	public void TestValidate_ShouldNotHaveAnyValidationsErrors_WhenRequestIsValid()
+	public void TestValidate_ShouldNotHaveAnyValidationErrors_WhenRequestIsValid()
 	{
 		// Act
 		var response = _requestValidator.TestValidate(_request);

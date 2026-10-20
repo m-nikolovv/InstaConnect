@@ -1,8 +1,6 @@
 using InstaConnect.Chats.Tests.Features.Chats.Abstractions;
 using InstaConnect.Chats.Tests.Features.Chats.Extensions;
 
-using InstaConnect.Common.Application.Features.Requests.Abstractions;
-
 namespace InstaConnect.Chats.Application.Tests.Integration.Features.Chats.Utilities;
 
 public abstract class BaseChatApplicationCommandIntegrationTest : BaseChatWebTest

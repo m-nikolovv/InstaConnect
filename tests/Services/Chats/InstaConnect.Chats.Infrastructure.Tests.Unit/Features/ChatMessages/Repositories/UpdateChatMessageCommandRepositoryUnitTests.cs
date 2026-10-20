@@ -1,7 +1,3 @@
-using InstaConnect.Chats.Infrastructure.Features.ChatMessages.Helpers.Repositories;
-using InstaConnect.Chats.Infrastructure.Tests.Features.ChatMessages.Assertions;
-using InstaConnect.Chats.Infrastructure.Tests.Unit.Features.ChatMessages.Utilities;
-
 namespace InstaConnect.Chats.Infrastructure.Tests.Unit.Features.ChatMessages.Repositories;
 
 public class UpdateChatMessageCommandRepositoryUnitTests : BaseChatMessageInfrastructureCommandUnitTest
@@ -14,7 +10,7 @@ public class UpdateChatMessageCommandRepositoryUnitTests : BaseChatMessageInfras
 	}
 
 	[Fact]
-	public async Task UpdateAsync_ShouldCallTheCollectionUpdateAsync_WhenRequestIsValid()
+	public async Task UpdateAsync_ShouldCallTheCollectionUpdateAsync_WhenCommandIsValid()
 	{
 		// Act
 		await _repository.UpdateAsync(ChatMessage, CancellationToken);

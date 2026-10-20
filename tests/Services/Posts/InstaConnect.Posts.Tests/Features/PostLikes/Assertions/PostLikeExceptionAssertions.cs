@@ -1,5 +1,4 @@
 using InstaConnect.Posts.Domain.Features.PostLikes.Exceptions;
-using InstaConnect.Posts.Domain.Features.PostLikes.Models.ValueObjects;
 
 namespace InstaConnect.Posts.Tests.Features.PostLikes.Assertions;
 

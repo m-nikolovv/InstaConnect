@@ -1,11 +1,5 @@
-using InstaConnect.Follows.Domain.Features.Follows.Models.Requests;
-using InstaConnect.Follows.Domain.Features.Users.Models.Requests;
-using InstaConnect.Follows.Infrastructure.Features.Follows.Helpers.Repositories;
 using InstaConnect.Follows.Infrastructure.Tests.Features.Common.Builders;
-using InstaConnect.Follows.Infrastructure.Tests.Features.Follows.Assertions;
 using InstaConnect.Follows.Infrastructure.Tests.Features.Follows.Builders;
-using InstaConnect.Follows.Infrastructure.Tests.Features.Follows.Utilities;
-using InstaConnect.Follows.Infrastructure.Tests.Unit.Features.Follows.Utilities;
 
 namespace InstaConnect.Follows.Infrastructure.Tests.Unit.Features.Follows.Repositories;
 
@@ -63,7 +57,7 @@ public class GetAllFollowsQueryRepositoryUnitTests : BaseFollowInfrastructureQue
 	}
 
 	[Fact]
-	public async Task GetAllAsync_ShouldReturnResponse_WhenRequestIsValid()
+	public async Task GetAllAsync_ShouldReturnResponse_WhenQueryIsValid()
 	{
 		// Act
 		var response = await _repository.GetAllAsync(_filterQuery, _sortingQuery, _paginationQuery, _currentUserQuery, CancellationToken);
@@ -73,7 +67,7 @@ public class GetAllFollowsQueryRepositoryUnitTests : BaseFollowInfrastructureQue
 	}
 
 	[Fact]
-	public async Task GetAllAsync_ShouldCallTheCollectionAggregateFluent_WhenRequestIsValid()
+	public async Task GetAllAsync_ShouldCallTheCollectionAggregateFluent_WhenQueryIsValid()
 	{
 		// Act
 		await _repository.GetAllAsync(_filterQuery, _sortingQuery, _paginationQuery, _currentUserQuery, CancellationToken);
@@ -83,7 +77,7 @@ public class GetAllFollowsQueryRepositoryUnitTests : BaseFollowInfrastructureQue
 	}
 
 	[Fact]
-	public async Task GetAllAsync_ShouldCallTheFluentApplyIncludes_WhenRequestIsValid()
+	public async Task GetAllAsync_ShouldCallTheFluentApplyIncludes_WhenQueryIsValid()
 	{
 		// Act
 		await _repository.GetAllAsync(_filterQuery, _sortingQuery, _paginationQuery, _currentUserQuery, CancellationToken);
@@ -93,7 +87,7 @@ public class GetAllFollowsQueryRepositoryUnitTests : BaseFollowInfrastructureQue
 	}
 
 	[Fact]
-	public async Task GetAllAsync_ShouldCallTheFluentMatch_WhenRequestIsValid()
+	public async Task GetAllAsync_ShouldCallTheFluentMatch_WhenQueryIsValid()
 	{
 		// Act
 		await _repository.GetAllAsync(_filterQuery, _sortingQuery, _paginationQuery, _currentUserQuery, CancellationToken);
@@ -103,7 +97,7 @@ public class GetAllFollowsQueryRepositoryUnitTests : BaseFollowInfrastructureQue
 	}
 
 	[Fact]
-	public async Task GetAllAsync_ShouldCallTheFluentProjectToResponseWithoutFollower_WhenRequestIsValid()
+	public async Task GetAllAsync_ShouldCallTheFluentProjectToResponseWithoutFollower_WhenQueryIsValid()
 	{
 		// Act
 		await _repository.GetAllAsync(_filterQuery, _sortingQuery, _paginationQuery, _currentUserQuery, CancellationToken);
@@ -113,7 +107,7 @@ public class GetAllFollowsQueryRepositoryUnitTests : BaseFollowInfrastructureQue
 	}
 
 	[Fact]
-	public async Task GetAllAsync_ShouldCallTheResponseFluentApplySorting_WhenRequestIsValid()
+	public async Task GetAllAsync_ShouldCallTheResponseFluentApplySorting_WhenQueryIsValid()
 	{
 		// Act
 		await _repository.GetAllAsync(_filterQuery, _sortingQuery, _paginationQuery, _currentUserQuery, CancellationToken);
@@ -123,7 +117,7 @@ public class GetAllFollowsQueryRepositoryUnitTests : BaseFollowInfrastructureQue
 	}
 
 	[Fact]
-	public async Task GetAllAsync_ShouldCallTheResponseFluentApplyPagination_WhenRequestIsValid()
+	public async Task GetAllAsync_ShouldCallTheResponseFluentApplyPagination_WhenQueryIsValid()
 	{
 		// Act
 		await _repository.GetAllAsync(_filterQuery, _sortingQuery, _paginationQuery, _currentUserQuery, CancellationToken);
@@ -133,7 +127,7 @@ public class GetAllFollowsQueryRepositoryUnitTests : BaseFollowInfrastructureQue
 	}
 
 	[Fact]
-	public async Task GetAllAsync_ShouldCallTheResponseFluentToListAsync_WhenRequestIsValid()
+	public async Task GetAllAsync_ShouldCallTheResponseFluentToListAsync_WhenQueryIsValid()
 	{
 		// Act
 		await _repository.GetAllAsync(_filterQuery, _sortingQuery, _paginationQuery, _currentUserQuery, CancellationToken);

@@ -1,5 +1,3 @@
-using InstaConnect.Common.Application.Features.Requests.Abstractions;
-
 namespace InstaConnect.Chats.Application.Tests.Integration.Features.ChatMessages.Utilities;
 
 public abstract class BaseChatMessageApplicationQueryIntegrationTest : BaseChatMessageWebTest

@@ -1,8 +1,6 @@
-using InstaConnect.Chats.Application.Features.Users.Abstractions;
-using InstaConnect.Chats.Application.Tests.Features.ChatMessages.Utilities;
-using InstaConnect.Chats.Application.Tests.Features.Chats.Utilities;
-using InstaConnect.Chats.Application.Tests.Features.Users.Utilities;
-using InstaConnect.Common.Application.Features.Requests.Abstractions;
+using InstaConnect.Chats.Application.Tests.Features.ChatMessageImages.Utilities;
+using InstaConnect.Chats.Domain.Features.ChatMessages.Models.Responses;
+using InstaConnect.Common.Infrastructure.Features.Databases.Helpers;
 
 namespace InstaConnect.Chats.Application.Tests.Features.ChatMessages.Utilities;
 
@@ -14,9 +12,11 @@ public static class ChatMessageMapper
 		{
 			return new(chatMessage.Id,
 					   chatMessage.Content,
+					   chatMessage.Summary,
 					   chatMessage.SenderId,
 					   chatMessage.Chat?.ToFullResponse(),
 					   chatMessage.Sender?.ToFullResponse(),
+					   chatMessage.ChatMessageImages.ToFullResponse(),
 					   chatMessage.CreatedAtUtc,
 					   chatMessage.UpdatedAtUtc);
 		}
@@ -25,9 +25,11 @@ public static class ChatMessageMapper
 		{
 			return new(chatMessage.Id,
 					   chatMessage.Content,
+					   chatMessage.Summary,
 					   chatMessage.SenderId,
 					   chatMessage.Chat?.ToFullResponse(),
 					   null,
+					   chatMessage.ChatMessageImages.ToFullResponse(),
 					   chatMessage.CreatedAtUtc,
 					   chatMessage.UpdatedAtUtc);
 		}
@@ -36,9 +38,11 @@ public static class ChatMessageMapper
 		{
 			return new(chatMessage.Id,
 					   chatMessage.Content,
+					   chatMessage.Summary,
 					   chatMessage.SenderId,
 					   null,
 					   chatMessage.Sender?.ToFullResponse(),
+					   chatMessage.ChatMessageImages.ToFullResponse(),
 					   chatMessage.CreatedAtUtc,
 					   chatMessage.UpdatedAtUtc);
 		}

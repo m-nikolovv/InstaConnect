@@ -1,8 +1,8 @@
-using InstaConnect.Posts.Presentation.Features.Posts.Models.Bodies;
+using InstaConnect.Posts.Presentation.Features.Posts.Models.Forms;
 
 namespace InstaConnect.Posts.Presentation.Features.Posts.Models.Requests;
 
 public record AddPostApiRequest(
 	[UserIdFromClaim] string UserId,
-	[FromBody] AddPostApiBody Body
+	[FromForm(Name = "")] AddPostApiForm Form
 );

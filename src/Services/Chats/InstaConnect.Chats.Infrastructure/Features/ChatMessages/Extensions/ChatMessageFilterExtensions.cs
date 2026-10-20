@@ -1,10 +1,4 @@
-using System.Linq.Expressions;
-
-using InstaConnect.Chats.Infrastructure.Features.ChatMessages.Extensions;
 using InstaConnect.Chats.Infrastructure.Features.Chats.Extensions;
-using InstaConnect.Chats.Infrastructure.Features.Users.Extensions;
-
-using MongoDB.Driver;
 
 namespace InstaConnect.Chats.Infrastructure.Features.ChatMessages.Extensions;
 

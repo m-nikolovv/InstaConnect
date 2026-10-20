@@ -1,5 +1,3 @@
-using InstaConnect.Chats.Domain.Features.Common.Models.Requests;
-
 namespace InstaConnect.Chats.Domain.Features.ChatMessages.Helpers;
 
 public class ChatMessageIncludeBuilder
@@ -41,6 +39,13 @@ public class ChatMessageIncludeBuilder
 	{
 		_descriptors.Add(_descriptorFactory.CreateChat());
 		_descriptors.AddRange(include.Descriptors);
+
+		return this;
+	}
+
+	public ChatMessageIncludeBuilder WithChatMessageImages()
+	{
+		_descriptors.Add(_descriptorFactory.CreateChatMessageImages());
 
 		return this;
 	}

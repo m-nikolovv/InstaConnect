@@ -1,5 +1,3 @@
-using InstaConnect.Common.Domain.Features.Exceptions.Exceptions;
-
 namespace InstaConnect.Identity.Domain.Features.Users.Exceptions;
 
 public class UserNameEmailAlreadyConfirmedException : BadRequestException

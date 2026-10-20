@@ -1,3 +1,5 @@
+using InstaConnect.Follows.Application.Features.Follows.Queries.GetAll;
+
 namespace InstaConnect.Follows.Application.Tests.Unit.Features.Follows.Handlers.GetAll;
 
 public class GetAllFollowsQueryHandlerUnitTests : BaseFollowApplicationQueryUnitTest
@@ -30,7 +32,7 @@ public class GetAllFollowsQueryHandlerUnitTests : BaseFollowApplicationQueryUnit
 	}
 
 	[Fact]
-	public async Task Handle_ShouldCallLikeServiceGetAllAsync_WhenRequestIsValid()
+	public async Task Handle_ShouldCallTheServiceGetAllAsync_WhenRequestIsValid()
 	{
 		// Act
 		await _handler.Handle(_request, CancellationToken);

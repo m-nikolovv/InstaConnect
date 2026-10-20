@@ -91,7 +91,7 @@ public class AddPostLikeFunctionalTests : BasePostLikePresentationCommandFunctio
 	}
 
 	[Fact]
-	public async Task AddAsync_ShouldHaveNotFoundStatusCode_WhenIdIsInvalid()
+	public async Task AddAsync_ShouldHaveNotFoundStatusCode_WhenPostNotFound()
 	{
 		// Arrange
 		await ServiceScope.DeleteAsync(Post, CancellationToken);
@@ -104,7 +104,7 @@ public class AddPostLikeFunctionalTests : BasePostLikePresentationCommandFunctio
 	}
 
 	[Fact]
-	public async Task AddAsync_ShouldHavePostNotFoundProblemDetails_WhenIdIsInvalid()
+	public async Task AddAsync_ShouldHavePostNotFoundProblemDetails_WhenPostNotFound()
 	{
 		// Arrange
 		await ServiceScope.DeleteAsync(Post, CancellationToken);
@@ -117,7 +117,7 @@ public class AddPostLikeFunctionalTests : BasePostLikePresentationCommandFunctio
 	}
 
 	[Fact]
-	public async Task AddAsync_ShouldHaveNotFoundStatusCode_WhenUserIdIsInvalid()
+	public async Task AddAsync_ShouldHaveNotFoundStatusCode_WhenUserNotFound()
 	{
 		// Arrange
 		await ServiceScope.DeleteAsync(User, CancellationToken);
@@ -130,7 +130,7 @@ public class AddPostLikeFunctionalTests : BasePostLikePresentationCommandFunctio
 	}
 
 	[Fact]
-	public async Task AddAsync_ShouldHaveUserNotFoundProblemDetails_WhenUserIdIsInvalid()
+	public async Task AddAsync_ShouldHaveUserNotFoundProblemDetails_WhenUserNotFound()
 	{
 		// Arrange
 		await ServiceScope.DeleteAsync(User, CancellationToken);
@@ -157,7 +157,7 @@ public class AddPostLikeFunctionalTests : BasePostLikePresentationCommandFunctio
 
 	[Theory]
 	[PostIdDifferentCaseData]
-	public async Task AddAsync_ShouldHaveBadRequestStatusCode_WhenPostLikeAlreadyExistsAndIdIsValid(
+	public async Task AddAsync_ShouldHaveBadRequestStatusCode_WhenPostLikeAlreadyExistsAndIdIsInvalid(
 		IStringTransformer transformer)
 	{
 		// Arrange
@@ -173,7 +173,7 @@ public class AddPostLikeFunctionalTests : BasePostLikePresentationCommandFunctio
 
 	[Theory]
 	[UserIdDifferentCaseData]
-	public async Task AddAsync_ShouldHaveBadRequestStatusCode_WhenPostLikeAlreadyExistsAndUserIdIsValid(
+	public async Task AddAsync_ShouldHaveBadRequestStatusCode_WhenPostLikeAlreadyExistsAndUserIdIsInvalid(
 		IStringTransformer transformer)
 	{
 		// Arrange
@@ -202,7 +202,7 @@ public class AddPostLikeFunctionalTests : BasePostLikePresentationCommandFunctio
 
 	[Theory]
 	[PostIdDifferentCaseData]
-	public async Task AddAsync_ShouldHavePostLikeAlreadyExistsProblemDetails_WhenPostLikeAlreadyExistsAndIdIsValid(
+	public async Task AddAsync_ShouldHavePostLikeAlreadyExistsProblemDetails_WhenPostLikeAlreadyExistsAndIdIsInvalid(
 		IStringTransformer transformer)
 	{
 		// Arrange
@@ -218,7 +218,7 @@ public class AddPostLikeFunctionalTests : BasePostLikePresentationCommandFunctio
 
 	[Theory]
 	[UserIdDifferentCaseData]
-	public async Task AddAsync_ShouldHavePostLikeAlreadyExistsProblemDetails_WhenPostLikeAlreadyExistsAndUserIdIsValid(
+	public async Task AddAsync_ShouldHavePostLikeAlreadyExistsProblemDetails_WhenPostLikeAlreadyExistsAndUserIdIsInvalid(
 		IStringTransformer transformer)
 	{
 		// Arrange

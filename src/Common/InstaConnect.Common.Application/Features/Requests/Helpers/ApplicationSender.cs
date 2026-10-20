@@ -1,7 +1,5 @@
 using InstaConnect.Common.Application.Features.Requests.Abstractions;
 
-using MediatR;
-
 namespace InstaConnect.Common.Application.Features.Requests.Helpers;
 
 internal class ApplicationSender : IApplicationSender

@@ -1,11 +1,3 @@
-using InstaConnect.Posts.Domain.Features.PostLikes.Helpers;
-using InstaConnect.Posts.Domain.Features.PostLikes.Models.Requests;
-using InstaConnect.Posts.Domain.Features.Posts.Models.Requests;
-using InstaConnect.Posts.Domain.Tests.Features.PostLikes.Assertions;
-using InstaConnect.Posts.Domain.Tests.Features.PostLikes.Builders;
-using InstaConnect.Posts.Domain.Tests.Features.PostLikes.Utilities;
-using InstaConnect.Posts.Domain.Tests.Unit.Features.PostLikes.Utilities;
-
 namespace InstaConnect.Posts.Domain.Tests.Unit.Features.PostLikes.Services;
 
 public class DeletePostLikeCommandServiceUnitTests : BasePostLikeDomainCommandUnitTest
@@ -35,7 +27,7 @@ public class DeletePostLikeCommandServiceUnitTests : BasePostLikeDomainCommandUn
 	}
 
 	[Fact]
-	public async Task DeleteAsync_ShouldThrowPostNotFoundException_WhenIdIsInvalid()
+	public async Task DeleteAsync_ShouldThrowPostNotFoundException_WhenPostNotFound()
 	{
 		// Arrange
 		Repository.RemoveExistsByIdAsync(_command, CancellationToken);
@@ -45,7 +37,7 @@ public class DeletePostLikeCommandServiceUnitTests : BasePostLikeDomainCommandUn
 	}
 
 	[Fact]
-	public async Task DeleteAsync_ShouldThrowPostLikeNotFoundException_WhenUserIdIsInvalid()
+	public async Task DeleteAsync_ShouldThrowPostLikeNotFoundException_WhenPostLikeNotFound()
 	{
 		// Arrange
 		LikeRepository.RemoveGetByIdAsync(_command, _likeInclude, PostLike, CancellationToken);

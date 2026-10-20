@@ -6,4 +6,9 @@ public class FollowBuilderFactory
 	{
 		return new(follower, following);
 	}
+
+	public FollowBuilder Create(Follow follow)
+	{
+		return new(follow);
+	}
 }

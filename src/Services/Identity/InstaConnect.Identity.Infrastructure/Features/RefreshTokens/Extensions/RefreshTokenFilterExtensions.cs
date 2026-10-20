@@ -1,9 +1,4 @@
-using System.Linq.Expressions;
-
-using InstaConnect.Identity.Infrastructure.Features.RefreshTokens.Extensions;
-using InstaConnect.Identity.Infrastructure.Features.Users.Extensions;
-
-using MongoDB.Driver;
+using InstaConnect.Identity.Domain.Features.RefreshTokens.Models.ValueObjects;
 
 namespace InstaConnect.Identity.Infrastructure.Features.RefreshTokens.Extensions;
 

@@ -1,3 +1,5 @@
+using InstaConnect.Identity.Domain.Features.UserClaims.Exceptions;
+
 namespace InstaConnect.Identity.Infrastructure.Features.UserClaims.Helpers.SortTermers;
 
 internal class UserClaimsSortTermerFactory : IUserClaimsSortTermerFactory

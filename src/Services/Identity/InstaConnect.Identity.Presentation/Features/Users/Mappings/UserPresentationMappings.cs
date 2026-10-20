@@ -2,13 +2,13 @@ using InstaConnect.Identity.Application.Features.Users.Commands.Add;
 using InstaConnect.Identity.Application.Features.Users.Commands.Delete;
 using InstaConnect.Identity.Application.Features.Users.Commands.DeleteCurrent;
 using InstaConnect.Identity.Application.Features.Users.Commands.UpdateCurrent;
+using InstaConnect.Identity.Application.Features.Users.Models;
 using InstaConnect.Identity.Application.Features.Users.Queries.GetAll;
 using InstaConnect.Identity.Application.Features.Users.Queries.GetById;
 using InstaConnect.Identity.Application.Features.Users.Queries.GetCurrentById;
 using InstaConnect.Identity.Application.Features.Users.Queries.GetCurrentDetailsById;
 using InstaConnect.Identity.Application.Features.Users.Queries.GetDetailsById;
-
-using Mapster;
+using InstaConnect.Identity.Presentation.Features.Users.Models.Requests;
 
 namespace InstaConnect.Identity.Presentation.Features.Users.Mappings;
 

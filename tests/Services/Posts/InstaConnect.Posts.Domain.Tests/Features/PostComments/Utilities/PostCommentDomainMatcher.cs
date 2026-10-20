@@ -15,6 +15,16 @@ public static class PostCommentDomainMatcher
 		{
 			return Matcher.Is<PostCommentAddedEventRequest>(p => p.Matches(command, postComment));
 		}
+
+		public ICollection<Url> IsImages()
+		{
+			return Matcher.Is<ICollection<Url>>(p => p.Matches(command));
+		}
+
+		public ICollection<PostCommentImage> IsPostCommentImages()
+		{
+			return Matcher.Is<ICollection<PostCommentImage>>(p => p.Matches(command));
+		}
 	}
 
 	extension(UpdatePostCommentCommand command)

@@ -1,5 +1,5 @@
-using InstaConnect.Chats.Application.Features.Common.Extensions;
-using InstaConnect.Common.Domain.Features.Mappers.Abstractions;
+using InstaConnect.Chats.Domain.Features.ChatMessages.Abstractions;
+using InstaConnect.Chats.Tests.Features.ChatMessages.Utilities;
 
 namespace InstaConnect.Chats.Application.Tests.Unit.Features.ChatMessages.Utilities;
 
@@ -7,11 +7,11 @@ public abstract class BaseChatMessageApplicationCommandUnitTest : BaseChatMessag
 {
 	protected IApplicationMapper Mapper { get; }
 
-	protected IChatMessageCommandService CommentService { get; }
+	protected IChatMessageCommandService MessageService { get; }
 
 	protected BaseChatMessageApplicationCommandUnitTest()
 	{
 		Mapper = MockFactory.CreateMapper(ChatsApplicationReference.Assembly);
-		CommentService = ChatMessageApplicationMockFactory.CreateCommandService();
+		MessageService = ChatMessageApplicationMockFactory.CreateCommandService();
 	}
 }

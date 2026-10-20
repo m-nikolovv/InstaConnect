@@ -1,3 +1,7 @@
+using InstaConnect.Posts.Tests.Features.Posts.DataAttributes.Content;
+using InstaConnect.Posts.Tests.Features.Posts.DataAttributes.Title;
+using InstaConnect.Posts.Tests.Features.Users.Builders;
+
 namespace InstaConnect.Posts.Presentation.Tests.Functional.Features.Posts.Endpoints;
 
 public class UpdatePostFunctionalTests : BasePostPresentationCommandFunctionalTest
@@ -17,6 +21,7 @@ public class UpdatePostFunctionalTests : BasePostPresentationCommandFunctionalTe
 	protected override async Task OnInitializeAsync()
 	{
 		await ServiceScope.AddAsync(Post, CancellationToken);
+		await ServiceScope.AddRangeAsync(PostImages, CancellationToken);
 	}
 
 	[Fact]
@@ -168,7 +173,7 @@ public class UpdatePostFunctionalTests : BasePostPresentationCommandFunctionalTe
 	}
 
 	[Fact]
-	public async Task UpdateAsync_ShouldHaveNotFoundStatusCode_WhenIdIsInvalid()
+	public async Task UpdateAsync_ShouldHaveNotFoundStatusCode_WhenPostNotFound()
 	{
 		// Arrange
 		await ServiceScope.DeleteAsync(Post, CancellationToken);
@@ -181,7 +186,7 @@ public class UpdatePostFunctionalTests : BasePostPresentationCommandFunctionalTe
 	}
 
 	[Fact]
-	public async Task UpdateAsync_ShouldHavePostNotFoundProblemDetails_WhenIdIsInvalid()
+	public async Task UpdateAsync_ShouldHavePostNotFoundProblemDetails_WhenPostNotFound()
 	{
 		// Arrange
 		await ServiceScope.DeleteAsync(Post, CancellationToken);
@@ -194,7 +199,7 @@ public class UpdatePostFunctionalTests : BasePostPresentationCommandFunctionalTe
 	}
 
 	[Fact]
-	public async Task UpdateAsync_ShouldHaveForbiddenStatusCode_WhenUserIdIsInvalid()
+	public async Task UpdateAsync_ShouldHaveForbiddenStatusCode_WhenPostForbidden()
 	{
 		// Arrange
 		var user = UserBuilderFactory.Create().Build();
@@ -209,7 +214,7 @@ public class UpdatePostFunctionalTests : BasePostPresentationCommandFunctionalTe
 	}
 
 	[Fact]
-	public async Task UpdateAsync_ShouldHavePostForbiddenProblemDetails_WhenUserIdIsInvalid()
+	public async Task UpdateAsync_ShouldHavePostForbiddenProblemDetails_WhenPostForbidden()
 	{
 		// Arrange
 		var user = UserBuilderFactory.Create().Build();
@@ -264,7 +269,7 @@ public class UpdatePostFunctionalTests : BasePostPresentationCommandFunctionalTe
 	}
 
 	[Fact]
-	public async Task UpdateAsync_ShouldHaveResponse_WhenRequestIsValid()
+	public async Task UpdateAsync_ShouldReturnResponse_WhenRequestIsValid()
 	{
 		// Act
 		var response = await ApiClient.UpdateAsync(_request, CancellationToken);
@@ -275,7 +280,7 @@ public class UpdatePostFunctionalTests : BasePostPresentationCommandFunctionalTe
 
 	[Theory]
 	[PostIdDifferentCaseData]
-	public async Task UpdateAsync_ShouldHaveResponse_WhenRequestAndIdAreValid(
+	public async Task UpdateAsync_ShouldReturnResponse_WhenRequestAndIdAreValid(
 		IStringTransformer transformer)
 	{
 		// Arrange
@@ -290,7 +295,7 @@ public class UpdatePostFunctionalTests : BasePostPresentationCommandFunctionalTe
 
 	[Theory]
 	[UserIdDifferentCaseData]
-	public async Task UpdateAsync_ShouldHaveResponse_WhenRequestAndUserIdAreValid(
+	public async Task UpdateAsync_ShouldReturnResponse_WhenRequestAndUserIdAreValid(
 		IStringTransformer transformer)
 	{
 		// Arrange

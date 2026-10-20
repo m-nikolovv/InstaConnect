@@ -1,7 +1,4 @@
-using InstaConnect.Common.Infrastructure.Features.Databases.Helpers;
 using InstaConnect.Identity.Infrastructure.Features.UserClaims.Extensions;
-
-using MongoDB.Driver;
 
 namespace InstaConnect.Identity.Infrastructure.Features.UserClaims.Helpers.Collections;
 
@@ -51,7 +48,7 @@ internal class UserClaimFluent : MongoDbFluent<UserClaim>, IUserClaimFluent
 					uc.User.LastName,
 					uc.User.Email,
 					uc.User.Name,
-					uc.User.ProfileImage,
+					uc.User.ProfileImageUrl,
 					uc.User.CreatedAtUtc,
 					uc.User.UpdatedAtUtc),
 				uc.CreatedAtUtc));

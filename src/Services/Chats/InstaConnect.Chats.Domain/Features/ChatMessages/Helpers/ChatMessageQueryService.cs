@@ -1,3 +1,6 @@
+using InstaConnect.Chats.Domain.Features.ChatMessages.Exceptions;
+using InstaConnect.Chats.Domain.Features.Chats.Exceptions;
+
 namespace InstaConnect.Chats.Domain.Features.ChatMessages.Helpers;
 
 internal class ChatMessageQueryService : IChatMessageQueryService

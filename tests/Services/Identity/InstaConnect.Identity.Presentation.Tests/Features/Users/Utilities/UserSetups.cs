@@ -1,6 +1,6 @@
-using InstaConnect.Common.Presentation.Tests.Features.Extensions;
-
-using Microsoft.Extensions.DependencyInjection;
+using InstaConnect.Identity.Application.Features.Users.Queries.GetCurrentById;
+using InstaConnect.Identity.Application.Features.Users.Queries.GetCurrentDetailsById;
+using InstaConnect.Identity.Presentation.Features.Users.Controllers.v1;
 
 namespace InstaConnect.Identity.Presentation.Tests.Features.Users.Utilities;
 

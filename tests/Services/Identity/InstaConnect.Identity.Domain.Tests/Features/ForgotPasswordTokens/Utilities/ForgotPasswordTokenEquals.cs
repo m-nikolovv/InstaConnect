@@ -1,7 +1,6 @@
-using InstaConnect.Common.Domain.Features.Common.Extensions;
-using InstaConnect.Identity.Domain.Features.Common.Helpers;
+using InstaConnect.Common.Tests.Features.Extensions;
+using InstaConnect.Identity.Domain.Features.ForgotPasswordTokens.Models.ValueObjects;
 using InstaConnect.Identity.Events.Features.ForgotPasswordTokens;
-using InstaConnect.Identity.Events.Features.Users;
 
 namespace InstaConnect.Identity.Domain.Tests.Features.ForgotPasswordTokens.Utilities;
 
@@ -24,7 +23,7 @@ public static class ForgotPasswordTokenEquals
 				   user.Email.Value.IsNotNullOrEmptyOrWhiteSpace() &&
 				   user.FirstName.IsNotNullOrEmptyOrWhiteSpace() &&
 				   user.LastName.IsNotNullOrEmptyOrWhiteSpace() &&
-				   (user.ProfileImage == null || user.ProfileImage.Url.IsNotNullOrEmptyOrWhiteSpace()) &&
+				   (user.ProfileImageUrl == null || user.ProfileImageUrl.Value.IsNotNullOrEmptyOrWhiteSpace()) &&
 				   passwordHasher.IsMatch(command.Password, user.PasswordHash) &&
 				   user.IsEmailConfirmed &&
 				   user.CreatedAtUtc != default &&
@@ -65,7 +64,7 @@ public static class ForgotPasswordTokenEquals
 				   request.Email.EqualsOrdinalIgnoreCase(entity.Email.Value) &&
 				   request.FirstName == entity.FirstName &&
 				   request.LastName == entity.LastName &&
-				   request.ProfileImageUrl == entity.ProfileImage?.Url &&
+				   request.ProfileImageUrl == entity.ProfileImageUrl?.Value &&
 				   request.CreatedAtUtc == entity.CreatedAtUtc &&
 				   request.UpdatedAtUtc == entity.UpdatedAtUtc;
 		}
@@ -78,7 +77,7 @@ public static class ForgotPasswordTokenEquals
 				   request.Email.EqualsOrdinalIgnoreCase(entity.Email.Value) &&
 				   request.FirstName == entity.FirstName &&
 				   request.LastName == entity.LastName &&
-				   request.ProfileImageUrl == entity.ProfileImage?.Url &&
+				   request.ProfileImageUrl == entity.ProfileImageUrl?.Value &&
 				   request.CreatedAtUtc == entity.CreatedAtUtc &&
 				   request.UpdatedAtUtc == entity.UpdatedAtUtc;
 		}
@@ -105,9 +104,14 @@ public static class ForgotPasswordTokenEquals
 
 	extension(ICollection<ForgotPasswordToken> forgotPasswordTokens)
 	{
+		public bool Matches(AddForgotPasswordTokenCommand command)
+		{
+			return forgotPasswordTokens.AllAndNotEmpty(forgotPasswordToken => forgotPasswordToken.Matches(command));
+		}
+
 		public bool Matches(VerifyForgotPasswordTokenCommand command)
 		{
-			return forgotPasswordTokens.All(forgotPasswordToken => forgotPasswordToken.Matches(command));
+			return forgotPasswordTokens.AllAndNotEmpty(forgotPasswordToken => forgotPasswordToken.Matches(command));
 		}
 	}
 

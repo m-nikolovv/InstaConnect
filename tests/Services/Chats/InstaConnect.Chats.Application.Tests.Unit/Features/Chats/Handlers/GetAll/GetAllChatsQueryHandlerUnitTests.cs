@@ -1,3 +1,5 @@
+using InstaConnect.Chats.Application.Features.Chats.Queries.GetAll;
+
 namespace InstaConnect.Chats.Application.Tests.Unit.Features.Chats.Handlers.GetAll;
 
 public class GetAllChatsQueryHandlerUnitTests : BaseChatApplicationQueryUnitTest
@@ -30,7 +32,7 @@ public class GetAllChatsQueryHandlerUnitTests : BaseChatApplicationQueryUnitTest
 	}
 
 	[Fact]
-	public async Task Handle_ShouldCallServiceGetAllAsync_WhenRequestIsValid()
+	public async Task Handle_ShouldCallTheServiceGetAllAsync_WhenRequestIsValid()
 	{
 		// Act
 		await _handler.Handle(_request, CancellationToken);

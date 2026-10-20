@@ -1,10 +1,4 @@
 using InstaConnect.Common.Tests.Features.DataAttributes.FormFiles.Base;
-using InstaConnect.Identity.Domain.Features.Users.Helpers;
-using InstaConnect.Identity.Domain.Features.Users.Models.Requests;
-using InstaConnect.Identity.Domain.Tests.Features.Users.Assertions;
-using InstaConnect.Identity.Domain.Tests.Features.Users.Builders;
-using InstaConnect.Identity.Domain.Tests.Features.Users.Utilities;
-using InstaConnect.Identity.Domain.Tests.Unit.Features.Users.Utilities;
 using InstaConnect.Identity.Tests.Features.Users.DataAttributes.ProfileImage;
 
 namespace InstaConnect.Identity.Domain.Tests.Unit.Features.Users.Services;
@@ -42,7 +36,7 @@ public class AddUserCommandServiceUnitTests : BaseUserDomainCommandUnitTest
 	}
 
 	[Fact]
-	public async Task AddAsync_ShouldThrowUserEmailAlreadyTakenException_WhenEmailIsInvalid()
+	public async Task AddAsync_ShouldThrowUserEmailAlreadyTakenException_WhenUserEmailAlreadyTaken()
 	{
 		// Arrange
 		Repository.RemoveIsEmailUniqueAsync(_command, CancellationToken);
@@ -52,7 +46,7 @@ public class AddUserCommandServiceUnitTests : BaseUserDomainCommandUnitTest
 	}
 
 	[Fact]
-	public async Task AddAsync_ShouldThrowUserNameAlreadyTakenException_WhenNameIsInvalid()
+	public async Task AddAsync_ShouldThrowUserNameAlreadyTakenException_WhenUserNameAlreadyTaken()
 	{
 		// Arrange
 		Repository.RemoveIsNameUniqueAsync(_command, CancellationToken);
@@ -73,7 +67,7 @@ public class AddUserCommandServiceUnitTests : BaseUserDomainCommandUnitTest
 
 	[Theory]
 	[UserProfileImageNullData]
-	public async Task AddAsync_ShouldReturnResponse_WhenProfileImageIsValid(
+	public async Task AddAsync_ShouldReturnResponse_WhenCommandAndProfileImageAreValid(
 		IFormFileTransformer transformer)
 	{
 		// Arrange
@@ -98,7 +92,7 @@ public class AddUserCommandServiceUnitTests : BaseUserDomainCommandUnitTest
 
 	[Theory]
 	[UserProfileImageNullData]
-	public async Task AddAsync_ShouldCallTheRepositoryIsEmailUniqueAsync_WhenProfileImageIsValid(
+	public async Task AddAsync_ShouldCallTheRepositoryIsEmailUniqueAsync_WhenCommandAndProfileImageAreValid(
 		IFormFileTransformer transformer)
 	{
 		// Arrange
@@ -123,7 +117,7 @@ public class AddUserCommandServiceUnitTests : BaseUserDomainCommandUnitTest
 
 	[Theory]
 	[UserProfileImageNullData]
-	public async Task AddAsync_ShouldCallTheRepositoryIsNameUniqueAsync_WhenProfileImageIsValid(
+	public async Task AddAsync_ShouldCallTheRepositoryIsNameUniqueAsync_WhenCommandAndProfileImageAreValid(
 		IFormFileTransformer transformer)
 	{
 		// Arrange
@@ -148,7 +142,7 @@ public class AddUserCommandServiceUnitTests : BaseUserDomainCommandUnitTest
 
 	[Theory]
 	[UserProfileImageNullData]
-	public async Task AddAsync_ShouldCallTheFactoryCreate_WhenProfileImageIsValid(
+	public async Task AddAsync_ShouldCallTheFactoryCreate_WhenCommandAndProfileImageAreValid(
 		IFormFileTransformer transformer)
 	{
 		// Arrange
@@ -173,7 +167,7 @@ public class AddUserCommandServiceUnitTests : BaseUserDomainCommandUnitTest
 
 	[Theory]
 	[UserProfileImageNullData]
-	public async Task AddAsync_ShouldCallTheImageHandlerUploadAsync_WhenProfileImageIsValid(
+	public async Task AddAsync_ShouldNotCallTheImageHandlerUploadAsync_WhenCommandAndProfileImageAreValid(
 		IFormFileTransformer transformer)
 	{
 		// Arrange
@@ -198,7 +192,7 @@ public class AddUserCommandServiceUnitTests : BaseUserDomainCommandUnitTest
 
 	[Theory]
 	[UserProfileImageNullData]
-	public async Task AddAsync_ShouldCallTheRepositoryAddAsync_WhenProfileImageIsValid(
+	public async Task AddAsync_ShouldCallTheRepositoryAddAsync_WhenCommandAndProfileImageAreValid(
 		IFormFileTransformer transformer)
 	{
 		// Arrange
@@ -223,7 +217,7 @@ public class AddUserCommandServiceUnitTests : BaseUserDomainCommandUnitTest
 
 	[Theory]
 	[UserProfileImageNullData]
-	public async Task AddAsync_ShouldCallTheEventPublisherPublishAsyncForUserAdded_WhenProfileImageIsValid(
+	public async Task AddAsync_ShouldCallTheEventPublisherPublishAsyncForUserAdded_WhenCommandAndProfileImageAreValid(
 		IFormFileTransformer transformer)
 	{
 		// Arrange
@@ -248,7 +242,7 @@ public class AddUserCommandServiceUnitTests : BaseUserDomainCommandUnitTest
 
 	[Theory]
 	[UserProfileImageNullData]
-	public async Task AddAsync_ShouldCallTheEmailConfirmationTokenFactoryCreate_WhenProfileImageIsValid(
+	public async Task AddAsync_ShouldCallTheEmailConfirmationTokenFactoryCreate_WhenCommandAndProfileImageAreValid(
 		IFormFileTransformer transformer)
 	{
 		// Arrange
@@ -273,7 +267,7 @@ public class AddUserCommandServiceUnitTests : BaseUserDomainCommandUnitTest
 
 	[Theory]
 	[UserProfileImageNullData]
-	public async Task AddAsync_ShouldCallTheEmailConfirmationTokenRepositoryAddAsync_WhenProfileImageIsValid(
+	public async Task AddAsync_ShouldCallTheEmailConfirmationTokenRepositoryAddAsync_WhenCommandAndProfileImageAreValid(
 		IFormFileTransformer transformer)
 	{
 		// Arrange
@@ -298,7 +292,7 @@ public class AddUserCommandServiceUnitTests : BaseUserDomainCommandUnitTest
 
 	[Theory]
 	[UserProfileImageNullData]
-	public async Task AddAsync_ShouldCallTheEventPublisherPublishAsyncForEmailConfirmationTokenAdded_WhenProfileImageIsValid(
+	public async Task AddAsync_ShouldCallTheEventPublisherPublishAsyncForEmailConfirmationTokenAdded_WhenCommandAndProfileImageAreValid(
 		IFormFileTransformer transformer)
 	{
 		// Arrange
@@ -323,7 +317,7 @@ public class AddUserCommandServiceUnitTests : BaseUserDomainCommandUnitTest
 
 	[Theory]
 	[UserProfileImageNullData]
-	public async Task AddAsync_ShouldCallTheEmailConfirmationTokenEmailSenderSendAsync_WhenProfileImageIsValid(
+	public async Task AddAsync_ShouldCallTheEmailConfirmationTokenEmailSenderSendAsync_WhenCommandAndProfileImageAreValid(
 		IFormFileTransformer transformer)
 	{
 		// Arrange

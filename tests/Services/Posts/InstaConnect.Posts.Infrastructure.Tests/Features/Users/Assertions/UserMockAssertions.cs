@@ -1,9 +1,6 @@
 using InstaConnect.Common.Application.Features.Requests.Abstractions;
 using InstaConnect.Common.Application.Tests.Features.Assertions;
-using InstaConnect.Common.Domain.Features.ValueObjects.Models;
-using InstaConnect.Posts.Domain.Features.Users.Models.Requests;
 using InstaConnect.Posts.Infrastructure.Features.Users.Abstractions;
-using InstaConnect.Posts.Infrastructure.Tests.Features.Users.Utilities;
 
 namespace InstaConnect.Posts.Infrastructure.Tests.Features.Users.Assertions;
 

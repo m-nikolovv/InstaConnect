@@ -1,8 +1,6 @@
-using InstaConnect.Common.Domain.Features.Common.Extensions;
 using InstaConnect.Common.Tests.Features.DataAttributes.Enums.Sort;
-using InstaConnect.Identity.Domain.Tests.Features.Users.Utilities;
+using InstaConnect.Identity.Domain.Features.UserClaims.Models.Responses;
 using InstaConnect.Identity.Events.Features.UserClaims;
-using InstaConnect.Identity.Events.Features.Users;
 
 namespace InstaConnect.Identity.Domain.Tests.Features.UserClaims.Utilities;
 
@@ -65,7 +63,7 @@ public static class UserClaimEquals
 				   request.Email.EqualsOrdinalIgnoreCase(entity.Email.Value) &&
 				   request.FirstName == entity.FirstName &&
 				   request.LastName == entity.LastName &&
-				   request.ProfileImageUrl == entity.ProfileImage?.Url &&
+				   request.ProfileImageUrl == entity.ProfileImageUrl?.Value &&
 				   request.CreatedAtUtc == entity.CreatedAtUtc &&
 				   request.UpdatedAtUtc == entity.UpdatedAtUtc;
 		}
@@ -78,7 +76,7 @@ public static class UserClaimEquals
 				   request.Email.EqualsOrdinalIgnoreCase(entity.Email.Value) &&
 				   request.FirstName == entity.FirstName &&
 				   request.LastName == entity.LastName &&
-				   request.ProfileImageUrl == entity.ProfileImage?.Url &&
+				   request.ProfileImageUrl == entity.ProfileImageUrl?.Value &&
 				   request.CreatedAtUtc == entity.CreatedAtUtc &&
 				   request.UpdatedAtUtc == entity.UpdatedAtUtc;
 		}

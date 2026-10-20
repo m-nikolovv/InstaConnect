@@ -1,12 +1,4 @@
-using InstaConnect.Common.Tests.Features.DataAttributes.Strings.Base;
-using InstaConnect.Follows.Domain.Features.Follows.Models.Requests;
-using InstaConnect.Follows.Domain.Tests.Features.Follows.Assertions;
-using InstaConnect.Follows.Domain.Tests.Features.Follows.Builders;
-using InstaConnect.Follows.Domain.Tests.Integration.Features.Follows.Utilities;
 using InstaConnect.Follows.Tests.Features.Follows.Assertions;
-using InstaConnect.Follows.Tests.Features.Follows.Utilities;
-using InstaConnect.Follows.Tests.Features.Users.DataAttributes.Id;
-using InstaConnect.Follows.Tests.Features.Users.Utilities;
 
 namespace InstaConnect.Follows.Domain.Tests.Integration.Features.Follows.Services;
 
@@ -25,7 +17,7 @@ public class AddFollowCommandServiceIntegrationTests : BaseFollowDomainCommandIn
 	}
 
 	[Fact]
-	public async Task AddAsync_ShouldThrowUserNotFoundException_WhenFollowerIdIsInvalid()
+	public async Task AddAsync_ShouldThrowFollowerNotFoundException_WhenFollowerNotFound()
 	{
 		// Arrange
 		await ServiceScope.DeleteAsync(Follower, CancellationToken);
@@ -35,7 +27,7 @@ public class AddFollowCommandServiceIntegrationTests : BaseFollowDomainCommandIn
 	}
 
 	[Fact]
-	public async Task AddAsync_ShouldThrowUserNotFoundException_WhenFollowingIdIsInvalid()
+	public async Task AddAsync_ShouldThrowFollowingNotFoundException_WhenFollowingNotFound()
 	{
 		// Arrange
 		await ServiceScope.DeleteAsync(Following, CancellationToken);
@@ -56,7 +48,7 @@ public class AddFollowCommandServiceIntegrationTests : BaseFollowDomainCommandIn
 
 	[Theory]
 	[UserIdDifferentCaseData]
-	public async Task AddAsync_ShouldThrowFollowAlreadyExistsException_WhenFollowAlreadyExistsAndFollowerIdIsValid(
+	public async Task AddAsync_ShouldThrowFollowAlreadyExistsException_WhenFollowAlreadyExistsAndFollowerIdIsInvalid(
 		IStringTransformer transformer)
 	{
 		// Arrange
@@ -69,7 +61,7 @@ public class AddFollowCommandServiceIntegrationTests : BaseFollowDomainCommandIn
 
 	[Theory]
 	[UserIdDifferentCaseData]
-	public async Task AddAsync_ShouldThrowFollowAlreadyExistsException_WhenFollowAlreadyExistsAndFollowingIdIsValid(
+	public async Task AddAsync_ShouldThrowFollowAlreadyExistsException_WhenFollowAlreadyExistsAndFollowingIdIsInvalid(
 		IStringTransformer transformer)
 	{
 		// Arrange

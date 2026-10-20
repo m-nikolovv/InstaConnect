@@ -1,4 +1,4 @@
-using InstaConnect.Common.Domain.Features.Exceptions.Exceptions;
+using InstaConnect.Posts.Domain.Features.PostCommentLikes.Utilities;
 
 namespace InstaConnect.Posts.Domain.Features.PostCommentLikes.Exceptions;
 

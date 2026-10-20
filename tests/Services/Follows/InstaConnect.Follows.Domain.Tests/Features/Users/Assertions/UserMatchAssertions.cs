@@ -1,4 +1,4 @@
-using InstaConnect.Follows.Domain.Tests.Features.Users.Utilities;
+using InstaConnect.Common.Tests.Features.Assertions;
 
 namespace InstaConnect.Follows.Domain.Tests.Features.Users.Assertions;
 

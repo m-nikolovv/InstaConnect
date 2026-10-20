@@ -18,12 +18,12 @@ public class CreateUserFactoryUnitTests : BaseUserDomainCommandUnitTest
 	{
 		// Act
 		var response = _factory.Create(
-			User.Id,
+			UserId,
 			User.FirstName,
 			User.LastName,
 			User.Name,
 			User.Email,
-			User.ProfileImage,
+			User.ProfileImageUrl,
 			User.CreatedAtUtc,
 			User.UpdatedAtUtc);
 

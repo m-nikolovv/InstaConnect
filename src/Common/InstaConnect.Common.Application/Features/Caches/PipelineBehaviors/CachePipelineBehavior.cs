@@ -1,8 +1,6 @@
 using InstaConnect.Common.Application.Features.Caches.Abstractions;
 using InstaConnect.Common.Application.Features.Requests.Abstractions;
 
-using MediatR;
-
 using Microsoft.Extensions.Logging;
 
 namespace InstaConnect.Common.Application.Features.Caches.PipelineBehaviors;

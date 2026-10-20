@@ -1,3 +1,4 @@
+using InstaConnect.Common.Tests.Features.Abstractions;
 using InstaConnect.Follows.Infrastructure.Tests.Features.Users.Abstractions;
 
 namespace InstaConnect.Follows.Infrastructure.Tests.Features.Users.Helpers;

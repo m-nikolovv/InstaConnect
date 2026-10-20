@@ -11,49 +11,27 @@
   </ItemGroup>
 
   <ItemGroup Label="Common">
-    <Using Include="MassTransit" />
-    <Using Include="Microsoft.AspNetCore.Mvc" />
-    <Using Include="Microsoft.AspNetCore.Authorization" />
-    <Using Include="Microsoft.Extensions.DependencyInjection" />
-    <Using Include="Microsoft.Extensions.Configuration" />
-    <Using Include="Microsoft.AspNetCore.RateLimiting" />
     <Using Include="Asp.Versioning" />
-    <Using Include="InstaConnect.Common.Presentation.Features.Controllers.Helpers.FromClaim" />
-    <Using Include="InstaConnect.Common.Presentation.Features.Controllers.Helpers.FromCookie" />
+    <Using Include="InstaConnect.Common.Application.Features.Requests.Abstractions" />
+    <Using Include="InstaConnect.Common.Domain.Features.Common.Extensions" />
+    <Using Include="InstaConnect.Common.Domain.Features.Mappers.Abstractions" />
+    <Using Include="InstaConnect.Common.Domain.Features.Requests.Models" />
+    <Using Include="InstaConnect.Common.Presentation.Features.Controllers.Utilities" />
+    <Using Include="InstaConnect.Common.Presentation.Features.Requests.Abstractions" />
+    <Using Include="Microsoft.AspNetCore.RateLimiting" />
   </ItemGroup>
 
   <ItemGroup Label="Users">
-    <Using Include="InstaConnect.Identity.Events.Features.Users" />
-    <Using Include="InstaConnect.Posts.Presentation.Features.Users.Models" />
+    <Using Include="InstaConnect.Posts.Presentation.Features.Users.Abstractions" />
     <Using Include="InstaConnect.Posts.Presentation.Features.Users.Models.Responses" />
   </ItemGroup>
 
   <ItemGroup Label="Posts">
-    <Using Include="InstaConnect.Posts.Presentation.Features.Posts.Utilities" />
-    <Using Include="InstaConnect.Posts.Application.Features.Posts.Models" />
-    <Using Include="InstaConnect.Posts.Presentation.Features.Posts.Models.Requests" />
     <Using Include="InstaConnect.Posts.Presentation.Features.Posts.Models.Responses" />
   </ItemGroup>
 
-  <ItemGroup Label="PostLikes">
-    <Using Include="InstaConnect.Posts.Presentation.Features.PostLikes.Utilities" />
-    <Using Include="InstaConnect.Posts.Application.Features.PostLikes.Models" />
-    <Using Include="InstaConnect.Posts.Presentation.Features.PostLikes.Models.Requests" />
-    <Using Include="InstaConnect.Posts.Presentation.Features.PostLikes.Models.Responses" />
-  </ItemGroup>
-
   <ItemGroup Label="PostComments">
-    <Using Include="InstaConnect.Posts.Presentation.Features.PostComments.Utilities" />
-    <Using Include="InstaConnect.Posts.Application.Features.PostComments.Models" />
-    <Using Include="InstaConnect.Posts.Presentation.Features.PostComments.Models.Requests" />
     <Using Include="InstaConnect.Posts.Presentation.Features.PostComments.Models.Responses" />
-  </ItemGroup>
-
-  <ItemGroup Label="PostCommentLikes">
-    <Using Include="InstaConnect.Posts.Presentation.Features.PostCommentLikes.Utilities" />
-    <Using Include="InstaConnect.Posts.Application.Features.PostCommentLikes.Models" />
-    <Using Include="InstaConnect.Posts.Presentation.Features.PostCommentLikes.Models.Requests" />
-    <Using Include="InstaConnect.Posts.Presentation.Features.PostCommentLikes.Models.Responses" />
   </ItemGroup>
 
 </Project>

@@ -1,9 +1,11 @@
-using InstaConnect.Common.Presentation.Features.Requests.Abstractions;
-using InstaConnect.Posts.Presentation.Features.Users.Abstractions;
-using InstaConnect.Posts.Presentation.Tests.Features.PostComments.Utilities;
-using InstaConnect.Posts.Presentation.Tests.Features.PostLikes.Utilities;
-using InstaConnect.Posts.Presentation.Tests.Features.Posts.Utilities;
-using InstaConnect.Posts.Presentation.Tests.Features.Users.Utilities;
+using InstaConnect.Common.Infrastructure.Features.Databases.Helpers;
+using InstaConnect.Posts.Application.Features.PostComments.Commands.Add;
+using InstaConnect.Posts.Application.Features.PostComments.Commands.Update;
+using InstaConnect.Posts.Application.Features.PostComments.Models;
+using InstaConnect.Posts.Application.Features.PostComments.Queries.GetAll;
+using InstaConnect.Posts.Application.Features.PostComments.Queries.GetAllForUser;
+using InstaConnect.Posts.Application.Features.PostComments.Queries.GetById;
+using InstaConnect.Posts.Presentation.Tests.Features.PostCommentImages.Utilities;
 
 namespace InstaConnect.Posts.Presentation.Tests.Features.PostComments.Utilities;
 
@@ -25,8 +27,10 @@ public static class PostCommentMapper
 					   postComment.Id.CommentId,
 					   postComment.UserId.Id,
 					   postComment.Content,
+					   postComment.Summary.Value,
 					   postComment.User?.ToFullQueryResponse(),
 					   postComment.Post?.ToFullQueryResponse(request),
+					   postComment.PostCommentImages.ToFullQueryResponse(),
 					   postComment.PostCommentLikes.Any(pl => pl.Id.UserId.Matches(request.CurrentUserId)),
 					   postComment.CreatedAtUtc,
 					   postComment.UpdatedAtUtc);
@@ -40,8 +44,10 @@ public static class PostCommentMapper
 					   postComment.Id.CommentId,
 					   postComment.UserId.Id,
 					   postComment.Content,
+					   postComment.Summary.Value,
 					   null,
 					   postComment.Post?.ToFullQueryResponse(request),
+					   postComment.PostCommentImages.ToFullQueryResponse(),
 					   postComment.PostCommentLikes.Any(pl => pl.Id.UserId.Matches(request.CurrentUserId)),
 					   postComment.CreatedAtUtc,
 					   postComment.UpdatedAtUtc);
@@ -55,8 +61,10 @@ public static class PostCommentMapper
 					   postComment.Id.CommentId,
 					   postComment.UserId.Id,
 					   postComment.Content,
+					   postComment.Summary.Value,
 					   postComment.User?.ToFullQueryResponse(),
 					   null,
+					   postComment.PostCommentImages.ToFullQueryResponse(),
 					   postComment.PostCommentLikes.Any(pl => pl.Id.UserId.Matches(request.CurrentUserId)),
 					   postComment.CreatedAtUtc,
 					   postComment.UpdatedAtUtc);

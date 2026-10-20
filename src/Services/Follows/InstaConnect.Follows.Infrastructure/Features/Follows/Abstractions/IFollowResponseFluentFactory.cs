@@ -1,5 +1,3 @@
-using MongoDB.Driver;
-
 namespace InstaConnect.Follows.Infrastructure.Features.Follows.Abstractions;
 
 public interface IFollowResponseFluentFactory

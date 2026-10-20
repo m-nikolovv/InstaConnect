@@ -1,6 +1,4 @@
-using InstaConnect.Common.Domain.Features.Requests.Models;
-
-using InstaConnect.Posts.Domain.Features.Posts.Models.Requests;
+using InstaConnect.Posts.Presentation.Features.Posts.Controllers.v1;
 
 namespace InstaConnect.Posts.Presentation.Tests.Features.Posts.Assertions;
 
@@ -129,7 +127,7 @@ public static class PostValidationExceptionAssertions
 
 			await func.ShouldThrowInvalidValidationExceptionAsync(
 				request,
-				r => r.Body.Title,
+				r => r.Form.Title,
 				messageTransformer,
 				cancellationToken);
 		}
@@ -171,7 +169,7 @@ public static class PostValidationExceptionAssertions
 
 			await func.ShouldThrowInvalidValidationExceptionAsync(
 				request,
-				r => r.Body.Content,
+				r => r.Form.Content,
 				messageTransformer,
 				cancellationToken);
 		}

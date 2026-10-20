@@ -1,5 +1,4 @@
 using InstaConnect.Follows.Application.Features.Users.Models;
-using InstaConnect.Follows.Application.Tests.Features.Users.Utilities;
 
 using Microsoft.Extensions.DependencyInjection;
 

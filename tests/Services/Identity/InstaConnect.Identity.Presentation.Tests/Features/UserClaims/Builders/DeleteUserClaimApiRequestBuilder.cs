@@ -1,5 +1,3 @@
-using InstaConnect.Common.Events.Features.AccessTokens.Models;
-
 namespace InstaConnect.Identity.Presentation.Tests.Features.UserClaims.Builders;
 
 public class DeleteUserClaimApiRequestBuilder

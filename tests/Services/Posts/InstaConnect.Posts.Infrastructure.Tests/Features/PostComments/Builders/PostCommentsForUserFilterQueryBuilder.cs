@@ -1,6 +1,3 @@
-using InstaConnect.Posts.Domain.Features.PostComments.Models.Entities;
-using InstaConnect.Posts.Domain.Features.PostComments.Models.Requests;
-
 namespace InstaConnect.Posts.Infrastructure.Tests.Features.PostComments.Builders;
 
 public class PostCommentsForUserFilterQueryBuilder

@@ -7,40 +7,19 @@
     <ProjectReference Include="..\..\..\Common\InstaConnect.Common.Tests\InstaConnect.Common.Tests.csproj" />
   </ItemGroup>
 
-  <ItemGroup Label="Common">
-    <Using Include="InstaConnect.Common.Tests.Features.Abstractions" />
-    <Using Include="InstaConnect.Common.Tests.Features.Assertions" />
-    <Using Include="InstaConnect.Common.Tests.Features.Utilities" />
-    <Using Include="InstaConnect.Common.Tests.Features.DataAttributes.DateTimeOffsets.Base" />
-    <Using Include="InstaConnect.Common.Tests.Features.DataAttributes.DateTimeOffsets.Empty" />
-    <Using Include="InstaConnect.Common.Tests.Features.DataAttributes.Ints.Base" />
-    <Using Include="InstaConnect.Common.Tests.Features.DataAttributes.Ints.Empty" />
-    <Using Include="InstaConnect.Common.Tests.Features.DataAttributes.Ints.TooSmall" />
-    <Using Include="InstaConnect.Common.Tests.Features.DataAttributes.Ints.TooLarge" />
-    <Using Include="InstaConnect.Common.Tests.Features.DataAttributes.Strings.Base" />
-    <Using Include="InstaConnect.Common.Tests.Features.DataAttributes.Strings.DifferentCase" />
-    <Using Include="InstaConnect.Common.Tests.Features.DataAttributes.Strings.Empty" />
-    <Using Include="InstaConnect.Common.Tests.Features.DataAttributes.Strings.TooShort" />
-    <Using Include="InstaConnect.Common.Tests.Features.DataAttributes.Strings.TooLong" />
-    <Using Include="InstaConnect.Common.Tests.Features.DataAttributes.Strings.Null" />
-    <Using Include="InstaConnect.Common.Tests.Features.DataAttributes.Strings.InvalidEmail" />
-    <Using Include="InstaConnect.Common.Tests.Features.DataAttributes.Enums.Base" />
-    <Using Include="InstaConnect.Common.Tests.Features.DataAttributes.Enums.Empty" />
-    <Using Include="InstaConnect.Common.Tests.Features.DataAttributes.Enums.Sort" />
-  </ItemGroup>
-
   <ItemGroup Label="Users">
-    <Using Include="InstaConnect.Follows.Domain.Features.Users.Utilities" />
     <Using Include="InstaConnect.Follows.Domain.Features.Users.Models.Entities" />
-    <Using Include="InstaConnect.Follows.Domain.Features.Users.Models.Requests" />
-    <Using Include="InstaConnect.Follows.Tests.Features.Users.Builders" />
+    <Using Include="InstaConnect.Follows.Domain.Features.Users.Models.ValueObjects" />
+    <Using Include="InstaConnect.Follows.Domain.Features.Users.Utilities" />
+    <Using Include="InstaConnect.Follows.Tests.Features.Users.Utilities" />
   </ItemGroup>
 
   <ItemGroup Label="Follows">
-    <Using Include="InstaConnect.Follows.Domain.Features.Follows.Utilities" />
     <Using Include="InstaConnect.Follows.Domain.Features.Follows.Models.Entities" />
     <Using Include="InstaConnect.Follows.Domain.Features.Follows.Models.Requests" />
-    <Using Include="InstaConnect.Follows.Tests.Features.Follows.Builders" />
+    <Using Include="InstaConnect.Follows.Domain.Features.Follows.Models.ValueObjects" />
+    <Using Include="InstaConnect.Follows.Domain.Features.Follows.Utilities" />
+    <Using Include="InstaConnect.Follows.Tests.Features.Follows.Utilities" />
   </ItemGroup>
 
 </Project>

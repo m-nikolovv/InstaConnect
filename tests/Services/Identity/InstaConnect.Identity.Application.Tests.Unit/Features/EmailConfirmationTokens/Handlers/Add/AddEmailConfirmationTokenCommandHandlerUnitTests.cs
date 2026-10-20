@@ -1,3 +1,7 @@
+using InstaConnect.Identity.Application.Features.EmailConfirmationTokens.Commands.Add;
+using InstaConnect.Identity.Application.Tests.Features.EmailConfirmationTokens.Builders;
+using InstaConnect.Identity.Application.Tests.Unit.Features.EmailConfirmationTokens.Utilities;
+
 namespace InstaConnect.Identity.Application.Tests.Unit.Features.EmailConfirmationTokens.Handlers.Add;
 
 public class AddEmailConfirmationTokenCommandHandlerUnitTests : BaseEmailConfirmationTokenApplicationCommandUnitTest
@@ -20,7 +24,7 @@ public class AddEmailConfirmationTokenCommandHandlerUnitTests : BaseEmailConfirm
 	}
 
 	[Fact]
-	public async Task Handle_ShouldCallServiceAddAsync_WhenRequestIsValid()
+	public async Task Handle_ShouldCallTheServiceAddAsync_WhenRequestIsValid()
 	{
 		// Act
 		await _handler.Handle(_request, CancellationToken);

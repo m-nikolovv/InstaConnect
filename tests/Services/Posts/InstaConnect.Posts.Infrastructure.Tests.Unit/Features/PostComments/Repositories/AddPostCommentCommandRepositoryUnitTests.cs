@@ -1,6 +1,3 @@
-using InstaConnect.Posts.Infrastructure.Features.PostComments.Helpers.Repositories;
-using InstaConnect.Posts.Infrastructure.Tests.Unit.Features.PostComments.Utilities;
-
 namespace InstaConnect.Posts.Infrastructure.Tests.Unit.Features.PostComments.Repositories;
 
 public class AddPostCommentCommandRepositoryUnitTests : BasePostCommentInfrastructureCommandUnitTest
@@ -13,7 +10,7 @@ public class AddPostCommentCommandRepositoryUnitTests : BasePostCommentInfrastru
 	}
 
 	[Fact]
-	public async Task AddAsync_ShouldCallTheCollectionAddAsync_WhenRequestIsValid()
+	public async Task AddAsync_ShouldCallTheCollectionAddAsync_WhenCommandIsValid()
 	{
 		// Act
 		await _repository.AddAsync(PostComment, CancellationToken);

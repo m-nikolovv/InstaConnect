@@ -1,6 +1,3 @@
-using InstaConnect.Common.Application.Features.Requests.Abstractions;
-using InstaConnect.Common.Domain.Features.Requests.Models;
-
 namespace InstaConnect.Posts.Application.Tests.Features.Posts.Assertions;
 
 public static class PostValidationExceptionAssertions

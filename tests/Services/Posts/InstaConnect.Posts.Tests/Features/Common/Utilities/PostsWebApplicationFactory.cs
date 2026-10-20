@@ -1,5 +1,7 @@
 using InstaConnect.Common.Tests.Features.Extensions;
 using InstaConnect.Posts.Infrastructure.Features.Common.Extensions;
+using InstaConnect.Posts.Tests.Features.PostComments.Extensions;
+using InstaConnect.Posts.Tests.Features.Posts.Extensions;
 
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc.Testing;
@@ -7,8 +9,6 @@ using Microsoft.AspNetCore.TestHost;
 
 using Testcontainers.MongoDb;
 using Testcontainers.RabbitMq;
-
-using Xunit;
 
 namespace InstaConnect.Posts.Tests.Features.Common.Utilities;
 
@@ -25,11 +25,19 @@ public class PostsWebApplicationFactory : WebApplicationFactory<Program>, IAsync
 
 	protected override void ConfigureWebHost(IWebHostBuilder builder)
 	{
-		builder.ConfigureTestServices(serviceCollection => serviceCollection.AddTestEventClient(_rabbitMqContainer.GetConnectionString(), PostsInfrastructureReference.Assembly));
+		builder.ConfigureTestServices(serviceCollection =>
+		{
+			serviceCollection.AddMockImageHandler();
+			serviceCollection.AddPostMockSummarizer();
+			serviceCollection.AddPostCommentMockSummarizer();
+			serviceCollection.AddTestEventClient(_rabbitMqContainer.GetConnectionString(), PostsInfrastructureReference.Assembly);
+		});
 
 		builder.UpdateMongoConfiguration(_mongoDbContainer.GetConnectionString());
 		builder.UpdateRabbitMqConfiguration(_rabbitMqContainer.GetConnectionString());
 		builder.UpdateAccessTokenConfiguration();
+		builder.UpdateCloudinaryConfiguration();
+		builder.UpdateAnthropicConfiguration();
 		builder.UpdateOpenTelemetryConfiguration();
 		builder.UpdateCorsConfiguration();
 		builder.UpdateMainConfiguration();

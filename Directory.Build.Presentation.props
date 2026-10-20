@@ -1,0 +1,29 @@
+<Project>
+  <ItemGroup Label="Presentation" Condition="'$(ProjectLayer)' == 'Presentation'">
+    <Using Include="InstaConnect.Common.Presentation.Features.Controllers.Helpers.FromClaim" />
+    <Using Include="Microsoft.AspNetCore.Mvc" />
+  </ItemGroup>
+
+  <ItemGroup Label="Presentation.Tests" Condition="'$(ProjectLayer)' == 'Presentation.Tests'">
+    <Using Include="InstaConnect.Common.Presentation.Features.Exceptions.Models" />
+    <Using Include="InstaConnect.Common.Tests.Features.DataAttributes.Base" />
+    <Using Include="InstaConnect.Common.Tests.Features.DataAttributes.Strings.Base" />
+    <Using Include="InstaConnect.Common.Tests.Features.Utilities" />
+  </ItemGroup>
+
+  <ItemGroup Label="Presentation.Tests.Functional" Condition="'$(ProjectLayer)' == 'Presentation.Tests.Functional'">
+    <Using Include="InstaConnect.Common.Presentation.Tests.Features.Assertions" />
+    <Using Include="InstaConnect.Common.Tests.Features.Assertions" />
+    <Using Include="InstaConnect.Common.Tests.Features.DataAttributes.Strings.Base" />
+  </ItemGroup>
+
+  <ItemGroup Label="Presentation.Tests.Integration" Condition="'$(ProjectLayer)' == 'Presentation.Tests.Integration'">
+    <Using Include="InstaConnect.Common.Presentation.Tests.Features.Assertions" />
+    <Using Include="InstaConnect.Common.Tests.Features.Assertions" />
+    <Using Include="InstaConnect.Common.Tests.Features.DataAttributes.Strings.Base" />
+  </ItemGroup>
+
+  <ItemGroup Label="Presentation.Tests.Unit" Condition="'$(ProjectLayer)' == 'Presentation.Tests.Unit'">
+    <Using Include="InstaConnect.Common.Presentation.Tests.Features.Assertions" />
+  </ItemGroup>
+</Project>

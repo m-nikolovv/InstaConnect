@@ -1,3 +1,5 @@
+using InstaConnect.Identity.Application.Features.Users.Commands.UpdateCurrent;
+
 namespace InstaConnect.Identity.Application.Tests.Unit.Features.Users.Handlers.UpdateCurrent;
 
 public class UpdateCurrentUserCommandHandlerUnitTests : BaseUserApplicationCommandUnitTest
@@ -30,7 +32,7 @@ public class UpdateCurrentUserCommandHandlerUnitTests : BaseUserApplicationComma
 	}
 
 	[Fact]
-	public async Task Handle_ShouldCallServiceUpdateAsync_WhenRequestIsValid()
+	public async Task Handle_ShouldCallTheServiceUpdateAsync_WhenRequestIsValid()
 	{
 		// Act
 		await _handler.Handle(_request, CancellationToken);

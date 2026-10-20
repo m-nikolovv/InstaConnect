@@ -1,3 +1,8 @@
+using InstaConnect.Identity.Application.Features.RefreshTokens.Commands.Rotate;
+using InstaConnect.Identity.Application.Tests.Features.RefreshTokens.Utilities;
+using InstaConnect.Identity.Domain.Features.RefreshTokens.Models.Entities;
+using InstaConnect.Identity.Tests.Features.RefreshTokens.Builders;
+
 namespace InstaConnect.Identity.Application.Tests.Unit.Features.RefreshTokens.Handlers.Rotate;
 
 public class RotateRefreshTokenCommandHandlerUnitTests : BaseRefreshTokenApplicationCommandUnitTest
@@ -34,7 +39,7 @@ public class RotateRefreshTokenCommandHandlerUnitTests : BaseRefreshTokenApplica
 	}
 
 	[Fact]
-	public async Task Handle_ShouldCallServiceRotateAsync_WhenRequestIsValid()
+	public async Task Handle_ShouldCallTheServiceRotateAsync_WhenRequestIsValid()
 	{
 		// Act
 		await _handler.Handle(_request, CancellationToken);

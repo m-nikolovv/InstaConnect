@@ -1,10 +1,5 @@
 using System.Net.Mime;
 
-using InstaConnect.Common.Presentation.Features.Exceptions.Abstractions;
-using InstaConnect.Common.Presentation.Features.Exceptions.Models;
-
-using Microsoft.AspNetCore.Http;
-
 namespace InstaConnect.Common.Presentation.Features.Exceptions.Helpers;
 
 public class ApplicationProblemDetailsService : IApplicationProblemDetailsService

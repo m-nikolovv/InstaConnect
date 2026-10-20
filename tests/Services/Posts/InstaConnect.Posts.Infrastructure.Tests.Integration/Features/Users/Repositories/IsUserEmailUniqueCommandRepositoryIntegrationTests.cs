@@ -1,5 +1,6 @@
 using InstaConnect.Common.Domain.Features.ValueObjects.Models;
 using InstaConnect.Common.Infrastructure.Tests.Features.Builders;
+using InstaConnect.Posts.Tests.Features.Users.DataAttributes.Email;
 
 namespace InstaConnect.Posts.Infrastructure.Tests.Integration.Features.Users.Repositories;
 
@@ -30,7 +31,7 @@ public class IsUserEmailUniqueCommandRepositoryIntegrationTests : BaseUserInfras
 
 		// Act
 		var response = await Repository.IsEmailUniqueAsync(_email, CancellationToken);
-		var user = await ServiceScope.GetByIdAsync(User.Id, CancellationToken);
+		var user = await ServiceScope.GetByIdAsync(UserId, CancellationToken);
 
 		// Assert
 		response.ShouldSatisfy(_email, user);
@@ -41,7 +42,7 @@ public class IsUserEmailUniqueCommandRepositoryIntegrationTests : BaseUserInfras
 	{
 		// Act
 		var response = await Repository.IsEmailUniqueAsync(_email, CancellationToken);
-		var user = await ServiceScope.GetByIdAsync(User.Id, CancellationToken);
+		var user = await ServiceScope.GetByIdAsync(UserId, CancellationToken);
 
 		// Assert
 		response.ShouldSatisfy(_email, user);
@@ -57,7 +58,7 @@ public class IsUserEmailUniqueCommandRepositoryIntegrationTests : BaseUserInfras
 
 		// Act
 		var response = await Repository.IsEmailUniqueAsync(email, CancellationToken);
-		var user = await ServiceScope.GetByIdAsync(User.Id, CancellationToken);
+		var user = await ServiceScope.GetByIdAsync(UserId, CancellationToken);
 
 		// Assert
 		response.ShouldSatisfy(email, user);

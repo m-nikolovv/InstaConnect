@@ -1,3 +1,7 @@
+using InstaConnect.Identity.Application.Features.ForgotPasswordTokens.Commands.Add;
+using InstaConnect.Identity.Application.Tests.Features.ForgotPasswordTokens.Builders;
+using InstaConnect.Identity.Application.Tests.Unit.Features.ForgotPasswordTokens.Utilities;
+
 namespace InstaConnect.Identity.Application.Tests.Unit.Features.ForgotPasswordTokens.Handlers.Add;
 
 public class AddForgotPasswordTokenCommandHandlerUnitTests : BaseForgotPasswordTokenApplicationCommandUnitTest
@@ -20,7 +24,7 @@ public class AddForgotPasswordTokenCommandHandlerUnitTests : BaseForgotPasswordT
 	}
 
 	[Fact]
-	public async Task Handle_ShouldCallServiceAddAsync_WhenRequestIsValid()
+	public async Task Handle_ShouldCallTheServiceAddAsync_WhenRequestIsValid()
 	{
 		// Act
 		await _handler.Handle(_request, CancellationToken);

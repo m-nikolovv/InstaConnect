@@ -1,6 +1,3 @@
-using InstaConnect.Chats.Infrastructure.Tests.Integration.Features.Chats.Utilities;
-using InstaConnect.Chats.Tests.Features.Chats.Utilities;
-
 namespace InstaConnect.Chats.Infrastructure.Tests.Integration.Features.Chats.Repositories;
 
 public class DeleteChatCommandRepositoryIntegrationTests : BaseChatInfrastructureCommandIntegrationTest
@@ -20,7 +17,7 @@ public class DeleteChatCommandRepositoryIntegrationTests : BaseChatInfrastructur
 	{
 		// Act
 		await Repository.DeleteAsync(Chat, CancellationToken);
-		var chat = await ServiceScope.GetByIdAsync(Chat.Id, CancellationToken);
+		var chat = await ServiceScope.GetByIdAsync(ChatId, CancellationToken);
 
 		// Assert
 		chat.ShouldBeNull();

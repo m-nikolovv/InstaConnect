@@ -1,4 +1,5 @@
-using InstaConnect.Common.Domain.Features.Mappers.Abstractions;
+using InstaConnect.Follows.Domain.Features.Users.Abstractions;
+using InstaConnect.Follows.Domain.Features.Users.Models.Requests;
 
 namespace InstaConnect.Follows.Application.Features.Users.Commands.Delete;
 

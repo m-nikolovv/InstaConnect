@@ -1,3 +1,7 @@
+using InstaConnect.Chats.Presentation.Features.Chats.Controllers.v1;
+using InstaConnect.Chats.Tests.Features.Chats.Assertions;
+using InstaConnect.Chats.Tests.Features.Users.Assertions;
+
 namespace InstaConnect.Chats.Presentation.Tests.Features.Chats.Assertions;
 
 public static class ChatExceptionAssertions
@@ -13,6 +17,18 @@ public static class ChatExceptionAssertions
 			await func.ShouldThrowUserNotFoundExceptionAsync(
 				request,
 				r => r.ParticipantOneId,
+				cancellationToken);
+		}
+
+		public async Task ShouldThrowParticipantOneNotFoundExceptionAsync(
+			GetAllChatsApiRequest request,
+			CancellationToken cancellationToken)
+		{
+			var func = () => controller.GetAllAsync(request, cancellationToken);
+
+			await func.ShouldThrowUserNotFoundExceptionAsync(
+				request,
+				r => r.CurrentUserId,
 				cancellationToken);
 		}
 

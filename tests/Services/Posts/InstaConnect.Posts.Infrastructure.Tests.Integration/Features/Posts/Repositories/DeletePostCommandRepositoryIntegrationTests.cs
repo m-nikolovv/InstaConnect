@@ -1,6 +1,3 @@
-using InstaConnect.Posts.Infrastructure.Tests.Integration.Features.Posts.Utilities;
-using InstaConnect.Posts.Tests.Features.Posts.Utilities;
-
 namespace InstaConnect.Posts.Infrastructure.Tests.Integration.Features.Posts.Repositories;
 
 public class DeletePostCommandRepositoryIntegrationTests : BasePostInfrastructureCommandIntegrationTest
@@ -20,7 +17,7 @@ public class DeletePostCommandRepositoryIntegrationTests : BasePostInfrastructur
 	{
 		// Act
 		await Repository.DeleteAsync(Post, CancellationToken);
-		var post = await ServiceScope.GetByIdAsync(Post.Id, CancellationToken);
+		var post = await ServiceScope.GetByIdAsync(PostId, CancellationToken);
 
 		// Assert
 		post.ShouldBeNull();

@@ -1,3 +1,5 @@
+using InstaConnect.Identity.Application.Features.UserClaims.Queries.GetAll;
+
 namespace InstaConnect.Identity.Application.Tests.Unit.Features.UserClaims.Handlers.GetAll;
 
 public class GetAllUserClaimsQueryHandlerUnitTests : BaseUserClaimApplicationQueryUnitTest
@@ -30,7 +32,7 @@ public class GetAllUserClaimsQueryHandlerUnitTests : BaseUserClaimApplicationQue
 	}
 
 	[Fact]
-	public async Task Handle_ShouldCallServiceGetAllAsync_WhenRequestIsValid()
+	public async Task Handle_ShouldCallTheServiceGetAllAsync_WhenRequestIsValid()
 	{
 		// Act
 		await _handler.Handle(_request, CancellationToken);

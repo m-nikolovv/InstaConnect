@@ -1,4 +1,5 @@
 using InstaConnect.Common.Domain.Features.ValueObjects.Models;
+using InstaConnect.Identity.Domain.Features.Users.Abstractions;
 
 namespace InstaConnect.Identity.Infrastructure.Features.Users.Helpers.Repositories;
 

@@ -1,5 +1,11 @@
+using InstaConnect.Common.Tests.Features.DataAttributes.FormFiles.Base;
 using InstaConnect.Identity.Presentation.Features.Users.Models.Forms;
-using InstaConnect.Identity.Tests.Features.EmailConfirmationTokens.Assertions;
+using InstaConnect.Identity.Tests.Features.Users.DataAttributes.ConfirmPassword;
+using InstaConnect.Identity.Tests.Features.Users.DataAttributes.Email;
+using InstaConnect.Identity.Tests.Features.Users.DataAttributes.FirstName;
+using InstaConnect.Identity.Tests.Features.Users.DataAttributes.LastName;
+using InstaConnect.Identity.Tests.Features.Users.DataAttributes.Password;
+using InstaConnect.Identity.Tests.Features.Users.DataAttributes.ProfileImage;
 
 namespace InstaConnect.Identity.Presentation.Tests.Functional.Features.Users.Endpoints;
 
@@ -232,7 +238,7 @@ public class AddUserFunctionalTests : BaseUserPresentationCommandFunctionalTest
 	}
 
 	[Fact]
-	public async Task AddAsync_ShouldHaveBadRequestStatusCode_WhenEmailAlreadyExists()
+	public async Task AddAsync_ShouldHaveBadRequestStatusCode_WhenUserEmailAlreadyTaken()
 	{
 		// Arrange
 		await ServiceScope.AddAsync(User, CancellationToken);
@@ -247,7 +253,7 @@ public class AddUserFunctionalTests : BaseUserPresentationCommandFunctionalTest
 
 	[Theory]
 	[UserEmailDifferentCaseData]
-	public async Task AddAsync_ShouldHaveBadRequestStatusCode_WhenEmailAlreadyExistsAndCaseDiffers(
+	public async Task AddAsync_ShouldHaveBadRequestStatusCode_WhenUserEmailAlreadyTakenAndEmailIsInvalid(
 		IStringTransformer transformer)
 	{
 		// Arrange
@@ -262,7 +268,7 @@ public class AddUserFunctionalTests : BaseUserPresentationCommandFunctionalTest
 	}
 
 	[Fact]
-	public async Task AddAsync_ShouldHaveUserEmailAlreadyTakenProblemDetails_WhenEmailAlreadyExists()
+	public async Task AddAsync_ShouldHaveUserEmailAlreadyTakenProblemDetails_WhenUserEmailAlreadyTaken()
 	{
 		// Arrange
 		await ServiceScope.AddAsync(User, CancellationToken);
@@ -277,7 +283,7 @@ public class AddUserFunctionalTests : BaseUserPresentationCommandFunctionalTest
 
 	[Theory]
 	[UserEmailDifferentCaseData]
-	public async Task AddAsync_ShouldHaveUserEmailAlreadyTakenProblemDetails_WhenEmailAlreadyExistsAndCaseDiffers(
+	public async Task AddAsync_ShouldHaveUserEmailAlreadyTakenProblemDetails_WhenUserEmailAlreadyTakenAndEmailIsInvalid(
 		IStringTransformer transformer)
 	{
 		// Arrange
@@ -292,7 +298,7 @@ public class AddUserFunctionalTests : BaseUserPresentationCommandFunctionalTest
 	}
 
 	[Fact]
-	public async Task AddAsync_ShouldHaveBadRequestStatusCode_WhenUserNameAlreadyExists()
+	public async Task AddAsync_ShouldHaveBadRequestStatusCode_WhenUserNameAlreadyTaken()
 	{
 		// Arrange
 		await ServiceScope.AddAsync(User, CancellationToken);
@@ -307,7 +313,7 @@ public class AddUserFunctionalTests : BaseUserPresentationCommandFunctionalTest
 
 	[Theory]
 	[UserNameDifferentCaseData]
-	public async Task AddAsync_ShouldHaveBadRequestStatusCode_WhenUserNameAlreadyExistsAndCaseDiffers(
+	public async Task AddAsync_ShouldHaveBadRequestStatusCode_WhenUserNameAlreadyTakenAndNameIsInvalid(
 		IStringTransformer transformer)
 	{
 		// Arrange
@@ -322,7 +328,7 @@ public class AddUserFunctionalTests : BaseUserPresentationCommandFunctionalTest
 	}
 
 	[Fact]
-	public async Task AddAsync_ShouldHaveUserNameAlreadyTakenProblemDetails_WhenUserNameAlreadyExists()
+	public async Task AddAsync_ShouldHaveUserNameAlreadyTakenProblemDetails_WhenUserNameAlreadyTaken()
 	{
 		// Arrange
 		await ServiceScope.AddAsync(User, CancellationToken);
@@ -337,7 +343,7 @@ public class AddUserFunctionalTests : BaseUserPresentationCommandFunctionalTest
 
 	[Theory]
 	[UserNameDifferentCaseData]
-	public async Task AddAsync_ShouldHaveUserNameAlreadyTakenProblemDetails_WhenUserNameAlreadyExistsAndCaseDiffers(
+	public async Task AddAsync_ShouldHaveUserNameAlreadyTakenProblemDetails_WhenUserNameAlreadyTakenAndNameIsInvalid(
 		IStringTransformer transformer)
 	{
 		// Arrange
@@ -363,7 +369,7 @@ public class AddUserFunctionalTests : BaseUserPresentationCommandFunctionalTest
 
 	[Theory]
 	[UserProfileImageNullData]
-	public async Task AddAsync_ShouldHaveOkStatusCode_WhenProfileImageIsValid(IFormFileTransformer transformer)
+	public async Task AddAsync_ShouldHaveOkStatusCode_WhenRequestAndProfileImageAreValid(IFormFileTransformer transformer)
 	{
 		// Arrange
 		var request = _requestBuilder.WithProfileImage(transformer).Build();
@@ -388,7 +394,7 @@ public class AddUserFunctionalTests : BaseUserPresentationCommandFunctionalTest
 
 	[Theory]
 	[UserProfileImageNullData]
-	public async Task AddAsync_ShouldReturnResponse_WhenProfileImageIsValid(IFormFileTransformer transformer)
+	public async Task AddAsync_ShouldReturnResponse_WhenRequestAndProfileImageAreValid(IFormFileTransformer transformer)
 	{
 		// Arrange
 		var request = _requestBuilder.WithProfileImage(transformer).Build();
@@ -414,7 +420,7 @@ public class AddUserFunctionalTests : BaseUserPresentationCommandFunctionalTest
 
 	[Theory]
 	[UserProfileImageNullData]
-	public async Task AddAsync_ShouldAddUser_WhenProfileImageIsValid(IFormFileTransformer transformer)
+	public async Task AddAsync_ShouldAddUser_WhenRequestAndProfileImageAreValid(IFormFileTransformer transformer)
 	{
 		// Arrange
 		var request = _requestBuilder.WithProfileImage(transformer).Build();
@@ -435,12 +441,12 @@ public class AddUserFunctionalTests : BaseUserPresentationCommandFunctionalTest
 		var user = await ServiceScope.GetByIdAsync(response, CancellationToken);
 
 		// Assert
-		user.EmailConfirmationTokens.ShouldNotBeEmpty();
+		user.EmailConfirmationTokens.ShouldSatisfy(_request);
 	}
 
 	[Theory]
 	[UserProfileImageNullData]
-	public async Task AddAsync_ShouldAddEmailConfirmationToken_WhenProfileImageIsValid(IFormFileTransformer transformer)
+	public async Task AddAsync_ShouldAddEmailConfirmationToken_WhenRequestAndProfileImageAreValid(IFormFileTransformer transformer)
 	{
 		// Arrange
 		var request = _requestBuilder.WithProfileImage(transformer).Build();
@@ -450,7 +456,7 @@ public class AddUserFunctionalTests : BaseUserPresentationCommandFunctionalTest
 		var user = await ServiceScope.GetByIdAsync(response, CancellationToken);
 
 		// Assert
-		user.EmailConfirmationTokens.ShouldNotBeEmpty();
+		user.EmailConfirmationTokens.ShouldSatisfy(request);
 	}
 
 	[Fact]

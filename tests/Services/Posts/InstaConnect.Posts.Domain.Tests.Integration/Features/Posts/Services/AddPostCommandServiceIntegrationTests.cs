@@ -1,12 +1,6 @@
-using InstaConnect.Common.Tests.Features.DataAttributes.Strings.Base;
-using InstaConnect.Posts.Domain.Features.Posts.Models.Requests;
-using InstaConnect.Posts.Domain.Tests.Features.Posts.Assertions;
-using InstaConnect.Posts.Domain.Tests.Features.Posts.Builders;
-using InstaConnect.Posts.Domain.Tests.Integration.Features.Posts.Utilities;
+using InstaConnect.Common.Tests.Features.DataAttributes.FormFileCollections.Base;
 using InstaConnect.Posts.Tests.Features.Posts.Assertions;
-using InstaConnect.Posts.Tests.Features.Posts.Utilities;
-using InstaConnect.Posts.Tests.Features.Users.DataAttributes.Id;
-using InstaConnect.Posts.Tests.Features.Users.Utilities;
+using InstaConnect.Posts.Tests.Features.Posts.DataAttributes.Images;
 
 namespace InstaConnect.Posts.Domain.Tests.Integration.Features.Posts.Services;
 
@@ -20,12 +14,12 @@ public class AddPostCommandServiceIntegrationTests : BasePostDomainCommandIntegr
 		: base(webApplicationFactory)
 	{
 		_commandBuilderFactory = new();
-		_commandBuilder = _commandBuilderFactory.Create(User);
+		_commandBuilder = _commandBuilderFactory.Create(User, Post.PostImages.Count);
 		_command = _commandBuilder.Build();
 	}
 
 	[Fact]
-	public async Task AddAsync_ShouldThrowUserNotFoundException_WhenUserIdIsInvalid()
+	public async Task AddAsync_ShouldThrowUserNotFoundException_WhenUserNotFound()
 	{
 		// Arrange
 		await ServiceScope.DeleteAsync(User, CancellationToken);
@@ -61,6 +55,22 @@ public class AddPostCommandServiceIntegrationTests : BasePostDomainCommandIntegr
 		response.ShouldSatisfy(command, post);
 	}
 
+	[Theory]
+	[PostImagesEmptyData]
+	public async Task AddAsync_ShouldReturnResponse_WhenCommandAndImagesAreValid(
+		IFormFileCollectionTransformer transformer)
+	{
+		// Arrange
+		var command = _commandBuilder.WithImages(transformer).Build();
+
+		// Act
+		var response = await Service.AddAsync(command, CancellationToken);
+		var post = await ServiceScope.GetByIdAsync(response, CancellationToken);
+
+		// Assert
+		response.ShouldSatisfy(command, post);
+	}
+
 	[Fact]
 	public async Task AddAsync_ShouldAddPost_WhenCommandIsValid()
 	{
@@ -79,6 +89,22 @@ public class AddPostCommandServiceIntegrationTests : BasePostDomainCommandIntegr
 	{
 		// Arrange
 		var command = _commandBuilder.WithUserId(transformer).Build();
+
+		// Act
+		var response = await Service.AddAsync(command, CancellationToken);
+		var post = await ServiceScope.GetByIdAsync(response, CancellationToken);
+
+		// Assert
+		post.ShouldSatisfy(command);
+	}
+
+	[Theory]
+	[PostImagesEmptyData]
+	public async Task AddAsync_ShouldAddPost_WhenCommandAndImagesAreValid(
+		IFormFileCollectionTransformer transformer)
+	{
+		// Arrange
+		var command = _commandBuilder.WithImages(transformer).Build();
 
 		// Act
 		var response = await Service.AddAsync(command, CancellationToken);
@@ -117,5 +143,66 @@ public class AddPostCommandServiceIntegrationTests : BasePostDomainCommandIntegr
 
 		// Assert
 		eventRequest.ShouldSatisfy(command, post);
+	}
+
+	[Theory]
+	[PostImagesEmptyData]
+	public async Task AddAsync_ShouldPublishPostAddedEvent_WhenCommandAndImagesAreValid(
+		IFormFileCollectionTransformer transformer)
+	{
+		// Arrange
+		var command = _commandBuilder.WithImages(transformer).Build();
+
+		// Act
+		var response = await Service.AddAsync(command, CancellationToken);
+		var post = await ServiceScope.GetByIdAsync(response, CancellationToken);
+
+		var eventRequest = await EventClient.PublishedAddedAsync(CancellationToken);
+
+		// Assert
+		eventRequest.ShouldSatisfy(command, post);
+	}
+
+	[Fact]
+	public async Task AddAsync_ShouldAddPostImages_WhenCommandIsValid()
+	{
+		// Act
+		var response = await Service.AddAsync(_command, CancellationToken);
+		var post = await ServiceScope.GetByIdAsync(response, CancellationToken);
+
+		// Assert
+		post.PostImages.ShouldSatisfy(_command);
+	}
+
+	[Theory]
+	[UserIdDifferentCaseData]
+	public async Task AddAsync_ShouldAddPostImages_WhenCommandAndUserIdAreValid(
+		IStringTransformer transformer)
+	{
+		// Arrange
+		var command = _commandBuilder.WithUserId(transformer).Build();
+
+		// Act
+		var response = await Service.AddAsync(command, CancellationToken);
+		var post = await ServiceScope.GetByIdAsync(response, CancellationToken);
+
+		// Assert
+		post.PostImages.ShouldSatisfy(command);
+	}
+
+	[Theory]
+	[PostImagesEmptyData]
+	public async Task AddAsync_ShouldAddPostImages_WhenCommandAndImagesAreValid(
+		IFormFileCollectionTransformer transformer)
+	{
+		// Arrange
+		var command = _commandBuilder.WithImages(transformer).Build();
+
+		// Act
+		var response = await Service.AddAsync(command, CancellationToken);
+		var post = await ServiceScope.GetByIdAsync(response, CancellationToken);
+
+		// Assert
+		post.PostImages.ShouldBeEmpty();
 	}
 }

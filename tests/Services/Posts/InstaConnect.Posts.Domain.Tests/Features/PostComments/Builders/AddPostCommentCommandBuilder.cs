@@ -1,3 +1,8 @@
+using InstaConnect.Common.Tests.Features.DataAttributes.FormFileCollections.Base;
+using InstaConnect.Posts.Tests.Features.PostCommentImages.Utilities;
+
+using Microsoft.AspNetCore.Http;
+
 namespace InstaConnect.Posts.Domain.Tests.Features.PostComments.Builders;
 
 public class AddPostCommentCommandBuilder
@@ -5,12 +10,14 @@ public class AddPostCommentCommandBuilder
 	private string _id;
 	private string _content;
 	private string _userId;
+	private ICollection<IFormFile> _images;
 
-	public AddPostCommentCommandBuilder(Post post, User user)
+	public AddPostCommentCommandBuilder(Post post, User user, int numberOfImages)
 	{
 		_id = post.Id.Id;
 		_content = PostCommentDataFaker.GetContent();
 		_userId = user.Id.Id;
+		_images = PostCommentImageDataFaker.GetImages(numberOfImages);
 	}
 
 	public AddPostCommentCommandBuilder WithId(PostId id, IStringTransformer? transformer = null)
@@ -48,11 +55,19 @@ public class AddPostCommentCommandBuilder
 		return this;
 	}
 
+	public AddPostCommentCommandBuilder WithImages(IFormFileCollectionTransformer transformer)
+	{
+		_images = transformer.Transform(_images);
+
+		return this;
+	}
+
 	public AddPostCommentCommand Build()
 	{
 		return new(
 			new(_id),
 			_content,
-			new(_userId));
+			new(_userId),
+			_images);
 	}
 }

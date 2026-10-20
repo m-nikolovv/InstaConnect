@@ -1,5 +1,3 @@
-using System.Linq.Expressions;
-
 using FluentAssertions;
 
 namespace InstaConnect.Common.Tests.Features.Assertions;
@@ -47,11 +45,6 @@ public static class MatchAssertions
 		public void ShouldBeEmpty()
 		{
 			obj.Should().BeEmpty();
-		}
-
-		public void ShouldNotBeEmpty()
-		{
-			obj.Should().NotBeEmpty();
 		}
 	}
 }

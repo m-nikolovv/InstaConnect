@@ -1,6 +1,4 @@
-using InstaConnect.Posts.Domain.Features.Users.Models.Responses;
-using InstaConnect.Posts.Domain.Tests.Features.Posts.Utilities;
-using InstaConnect.Posts.Domain.Tests.Features.Users.Utilities;
+using InstaConnect.Posts.Tests.Features.PostImages.Utilities;
 
 namespace InstaConnect.Posts.Domain.Tests.Features.Posts.Utilities;
 
@@ -25,7 +23,9 @@ public static class PostMapper
 					   post.UserId,
 					   post.Title,
 					   post.Content,
+					   post.Summary,
 					   post.User?.ToFullResponse(),
+					   post.PostImages.ToFullResponse(),
 					   post.PostLikes.Any(pl => pl.Id.UserId.Matches(request.CurrentUser.Id)),
 					   post.CreatedAtUtc,
 					   post.UpdatedAtUtc);
@@ -39,7 +39,9 @@ public static class PostMapper
 					   post.UserId,
 					   post.Title,
 					   post.Content,
+					   post.Summary,
 					   null,
+					   post.PostImages.ToFullResponse(),
 					   post.PostLikes.Any(pl => pl.Id.UserId.Matches(request.CurrentUser.Id)),
 					   post.CreatedAtUtc,
 					   post.UpdatedAtUtc);
@@ -50,6 +52,7 @@ public static class PostMapper
 			return new(post.Id,
 					   command.Title,
 					   command.Content,
+					   new(string.Empty),
 					   command.UserId,
 					   post.CreatedAtUtc,
 					   post.UpdatedAtUtc);
@@ -98,6 +101,17 @@ public static class PostMapper
 			GetAllPostsForUserQuery query)
 		{
 			return posts.Count(post => post.MatchesFilter(query.Filter));
+		}
+	}
+
+	extension(ICollection<PostImage> postImages)
+	{
+		public ICollection<PostImage> To(AddPostCommand command)
+		{
+			return [.. postImages.Zip(command.Images, (postImage, formFile) => new PostImage(
+				postImage.Id,
+				formFile.GetUrl(),
+				postImage.CreatedAtUtc))];
 		}
 	}
 }

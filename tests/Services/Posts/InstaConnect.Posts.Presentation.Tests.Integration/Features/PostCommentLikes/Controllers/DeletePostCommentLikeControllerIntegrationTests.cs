@@ -68,7 +68,7 @@ public class DeletePostCommentLikeControllerIntegrationTests : BasePostCommentLi
 	}
 
 	[Fact]
-	public async Task DeleteAsync_ShouldThrowPostNotFoundException_WhenIdIsInvalid()
+	public async Task DeleteAsync_ShouldThrowPostNotFoundException_WhenPostNotFound()
 	{
 		// Arrange
 		await ServiceScope.DeleteAsync(Post, CancellationToken);
@@ -78,7 +78,7 @@ public class DeletePostCommentLikeControllerIntegrationTests : BasePostCommentLi
 	}
 
 	[Fact]
-	public async Task DeleteAsync_ShouldThrowPostCommentNotFoundException_WhenCommentIdIsInvalid()
+	public async Task DeleteAsync_ShouldThrowPostCommentNotFoundException_WhenPostCommentNotFound()
 	{
 		// Arrange
 		await ServiceScope.DeleteAsync(PostComment, CancellationToken);
@@ -88,7 +88,7 @@ public class DeletePostCommentLikeControllerIntegrationTests : BasePostCommentLi
 	}
 
 	[Fact]
-	public async Task DeleteAsync_ShouldThrowPostCommentLikeNotFoundException_WhenUserIdIsInvalid()
+	public async Task DeleteAsync_ShouldThrowPostCommentLikeNotFoundException_WhenPostCommentLikeNotFound()
 	{
 		// Arrange
 		await ServiceScope.DeleteAsync(PostCommentLike, CancellationToken);
@@ -157,7 +157,7 @@ public class DeletePostCommentLikeControllerIntegrationTests : BasePostCommentLi
 	{
 		// Act
 		await Controller.DeleteAsync(_request, CancellationToken);
-		var postCommentLike = await ServiceScope.GetByIdAsync(PostCommentLike.Id, CancellationToken);
+		var postCommentLike = await ServiceScope.GetByIdAsync(PostCommentLikeId, CancellationToken);
 
 		// Assert
 		postCommentLike.ShouldBeNull();
@@ -173,7 +173,7 @@ public class DeletePostCommentLikeControllerIntegrationTests : BasePostCommentLi
 
 		// Act
 		await Controller.DeleteAsync(request, CancellationToken);
-		var postCommentLike = await ServiceScope.GetByIdAsync(PostCommentLike.Id, CancellationToken);
+		var postCommentLike = await ServiceScope.GetByIdAsync(PostCommentLikeId, CancellationToken);
 
 		// Assert
 		postCommentLike.ShouldBeNull();
@@ -189,7 +189,7 @@ public class DeletePostCommentLikeControllerIntegrationTests : BasePostCommentLi
 
 		// Act
 		await Controller.DeleteAsync(request, CancellationToken);
-		var postCommentLike = await ServiceScope.GetByIdAsync(PostCommentLike.Id, CancellationToken);
+		var postCommentLike = await ServiceScope.GetByIdAsync(PostCommentLikeId, CancellationToken);
 
 		// Assert
 		postCommentLike.ShouldBeNull();
@@ -205,7 +205,7 @@ public class DeletePostCommentLikeControllerIntegrationTests : BasePostCommentLi
 
 		// Act
 		await Controller.DeleteAsync(request, CancellationToken);
-		var postCommentLike = await ServiceScope.GetByIdAsync(PostCommentLike.Id, CancellationToken);
+		var postCommentLike = await ServiceScope.GetByIdAsync(PostCommentLikeId, CancellationToken);
 
 		// Assert
 		postCommentLike.ShouldBeNull();

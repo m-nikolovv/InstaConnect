@@ -1,5 +1,3 @@
-using InstaConnect.Common.Tests.Features.DataAttributes.Booleans.Base;
-
 namespace InstaConnect.Common.Tests.Features.DataAttributes.Booleans.True;
 
 [AttributeUsage(AttributeTargets.Method, AllowMultiple = true, Inherited = true)]

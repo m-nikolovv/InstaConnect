@@ -1,5 +1,4 @@
 using InstaConnect.Chats.Domain.Features.Users.Models.Responses;
-using InstaConnect.Chats.Domain.Tests.Features.Users.Utilities;
 using InstaConnect.Common.Domain.Features.Common.Extensions;
 
 namespace InstaConnect.Chats.Domain.Tests.Features.Users.Utilities;
@@ -32,7 +31,7 @@ public static class UserEquals
 				   u.LastName == command.LastName &&
 				   u.Name.Matches(command.Name) &&
 				   u.Email.Matches(command.Email) &&
-				   u.ProfileImage.Matches(command.ProfileImage) &&
+				   u.ProfileImageUrl.Matches(command.ProfileImageUrl) &&
 				   u.CreatedAtUtc == command.CreatedAtUtc &&
 				   u.UpdatedAtUtc == command.UpdatedAtUtc;
 		}
@@ -44,7 +43,7 @@ public static class UserEquals
 				   u.LastName == command.LastName &&
 				   u.Name.Matches(command.Name) &&
 				   u.Email.Matches(command.Email) &&
-				   u.ProfileImage.Matches(command.ProfileImage) &&
+				   u.ProfileImageUrl.Matches(command.ProfileImageUrl) &&
 				   u.CreatedAtUtc != default &&
 				   u.UpdatedAtUtc == command.UpdatedAtUtc;
 		}
@@ -56,7 +55,7 @@ public static class UserEquals
 				   u.Email.Value.IsNotNullOrEmptyOrWhiteSpace() &&
 				   u.FirstName.IsNotNullOrEmptyOrWhiteSpace() &&
 				   u.LastName.IsNotNullOrEmptyOrWhiteSpace() &&
-				   (u.ProfileImage == null || u.ProfileImage.Url.IsNotNullOrEmptyOrWhiteSpace()) &&
+				   (u.ProfileImageUrl == null || u.ProfileImageUrl.Value.IsNotNullOrEmptyOrWhiteSpace()) &&
 				   u.CreatedAtUtc != default &&
 				   u.UpdatedAtUtc != default;
 		}
@@ -73,7 +72,7 @@ public static class UserEquals
 				   user.LastName == response.LastName &&
 				   user.Name.Matches(response.Name) &&
 				   user.Email.Matches(response.Email) &&
-				   user.ProfileImage.Matches(response.ProfileImage) &&
+				   user.ProfileImageUrl.Matches(response.ProfileImageUrl) &&
 				   user.CreatedAtUtc == response.CreatedAtUtc &&
 				   user.UpdatedAtUtc == response.UpdatedAtUtc;
 		}

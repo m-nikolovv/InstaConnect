@@ -3,8 +3,6 @@ using InstaConnect.Posts.Application.Features.Users.Commands.Add;
 using InstaConnect.Posts.Application.Features.Users.Commands.Delete;
 using InstaConnect.Posts.Application.Features.Users.Commands.Update;
 
-using Mapster;
-
 namespace InstaConnect.Posts.Infrastructure.Features.Users.Mappings;
 
 internal class UserInfrastructureMappings : IRegister

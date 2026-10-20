@@ -1,7 +1,4 @@
-using InstaConnect.Common.Tests.Features.Extensions;
-using InstaConnect.Identity.Infrastructure.Tests.Integration.Features.Users.Utilities;
 using InstaConnect.Identity.Tests.Features.Users.Assertions;
-using InstaConnect.Identity.Tests.Features.Users.Utilities;
 
 namespace InstaConnect.Identity.Infrastructure.Tests.Integration.Features.Users.Repositories;
 
@@ -21,11 +18,11 @@ public class UpdateUserCommandRepositoryIntegrationTests : BaseUserInfrastructur
 	public async Task UpdateAsync_ShouldUpdateUser_WhenCommandIsValid()
 	{
 		// Arrange
-		var updatedUser = UserBuilderFactory.Create(PasswordHasher.Hash(Password), ProfileImage.GetUrl()).WithId(User.Id).Build();
+		var updatedUser = UserBuilderFactory.Create(PasswordHasher.Hash(Password)).WithId(UserId).Build();
 
 		// Act
 		await Repository.UpdateAsync(updatedUser, CancellationToken);
-		var user = await ServiceScope.GetByIdAsync(User.Id, CancellationToken);
+		var user = await ServiceScope.GetByIdAsync(UserId, CancellationToken);
 
 		// Assert
 		user.ShouldSatisfy(updatedUser);

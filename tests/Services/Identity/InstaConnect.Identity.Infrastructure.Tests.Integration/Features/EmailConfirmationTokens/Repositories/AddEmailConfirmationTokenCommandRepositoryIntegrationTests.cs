@@ -1,6 +1,4 @@
-using InstaConnect.Identity.Infrastructure.Tests.Integration.Features.EmailConfirmationTokens.Utilities;
 using InstaConnect.Identity.Tests.Features.EmailConfirmationTokens.Assertions;
-using InstaConnect.Identity.Tests.Features.EmailConfirmationTokens.Utilities;
 
 namespace InstaConnect.Identity.Infrastructure.Tests.Integration.Features.EmailConfirmationTokens.Repositories;
 
@@ -16,7 +14,7 @@ public class AddEmailConfirmationTokenCommandRepositoryIntegrationTests : BaseEm
 	{
 		// Act
 		await Repository.AddAsync(EmailConfirmationToken, CancellationToken);
-		var emailConfirmationToken = await ServiceScope.GetByIdAsync(EmailConfirmationToken.Id, CancellationToken);
+		var emailConfirmationToken = await ServiceScope.GetByIdAsync(EmailConfirmationTokenId, CancellationToken);
 
 		// Assert
 		emailConfirmationToken.ShouldSatisfy(EmailConfirmationToken);

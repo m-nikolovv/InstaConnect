@@ -1,4 +1,8 @@
 using InstaConnect.Common.Infrastructure.Tests.Features.Utilities;
+using InstaConnect.Follows.Infrastructure.Features.Users.EventHandlers;
+using InstaConnect.Follows.Infrastructure.Tests.Features.Users.Builders;
+using InstaConnect.Follows.Infrastructure.Tests.Features.Users.Utilities;
+using InstaConnect.Identity.Events.Features.Users;
 
 namespace InstaConnect.Follows.Infrastructure.Tests.Integration.Features.Users.EventHandlers.v1;
 
@@ -41,7 +45,7 @@ public class UserDeletedEventHandlerIntegrationTests : BaseUserInfrastructureEve
 	}
 
 	[Fact]
-	public async Task Consume_ShouldThrowUserNotFoundException_WhenIdNotFound()
+	public async Task Consume_ShouldThrowUserNotFoundException_WhenUserNotFound()
 	{
 		// Arrange
 		await ServiceScope.DeleteAsync(User, CancellationToken);
@@ -55,7 +59,7 @@ public class UserDeletedEventHandlerIntegrationTests : BaseUserInfrastructureEve
 	{
 		// Act
 		await _handler.Consume(_request, CancellationToken);
-		var user = await ServiceScope.GetByIdAsync(User.Id, CancellationToken);
+		var user = await ServiceScope.GetByIdAsync(UserId, CancellationToken);
 
 		// Assert
 		user.ShouldBeNull();
@@ -63,7 +67,7 @@ public class UserDeletedEventHandlerIntegrationTests : BaseUserInfrastructureEve
 
 	[Theory]
 	[UserIdDifferentCaseData]
-	public async Task Consume_ShouldDeleteUser_WhenIdIsValid(
+	public async Task Consume_ShouldDeleteUser_WhenRequestAndIdAreValid(
 		IStringTransformer transformer)
 	{
 		// Arrange
@@ -71,7 +75,7 @@ public class UserDeletedEventHandlerIntegrationTests : BaseUserInfrastructureEve
 
 		// Act
 		await _handler.Consume(request, CancellationToken);
-		var user = await ServiceScope.GetByIdAsync(User.Id, CancellationToken);
+		var user = await ServiceScope.GetByIdAsync(UserId, CancellationToken);
 
 		// Assert
 		user.ShouldBeNull();

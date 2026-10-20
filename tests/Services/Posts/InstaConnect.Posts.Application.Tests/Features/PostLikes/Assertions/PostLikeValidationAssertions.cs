@@ -1,5 +1,3 @@
-using InstaConnect.Common.Domain.Features.Requests.Models;
-
 namespace InstaConnect.Posts.Application.Tests.Features.PostLikes.Assertions;
 
 public static class PostLikeValidationAssertions

@@ -1,8 +1,3 @@
-using InstaConnect.Common.Domain.Features.Databases.Abstractions;
-using InstaConnect.Common.Infrastructure.Features.Databases.Abstractions;
-
-using MongoDB.Driver;
-
 namespace InstaConnect.Posts.Infrastructure.Features.PostCommentLikes.Helpers.Collections;
 
 internal class PostCommentLikeResponseFluentFactory : IPostCommentLikeResponseFluentFactory

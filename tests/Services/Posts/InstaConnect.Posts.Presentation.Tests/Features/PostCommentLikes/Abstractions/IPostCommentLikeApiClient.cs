@@ -1,7 +1,3 @@
-using System.Net;
-
-using InstaConnect.Common.Presentation.Features.Exceptions.Models;
-
 namespace InstaConnect.Posts.Presentation.Tests.Features.PostCommentLikes.Abstractions;
 
 public interface IPostCommentLikeApiClient

@@ -1,5 +1,3 @@
-using InstaConnect.Chats.Domain.Features.Users.Models.Requests;
-
 namespace InstaConnect.Chats.Infrastructure.Tests.Features.Common.Builders;
 
 public class CurrentUserQueryBuilder

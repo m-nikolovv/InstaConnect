@@ -1,5 +1,3 @@
-using InstaConnect.Posts.Tests.Features.Posts.Utilities;
-
 namespace InstaConnect.Posts.Tests.Features.PostLikes.Utilities;
 
 public static class PostLikeReference

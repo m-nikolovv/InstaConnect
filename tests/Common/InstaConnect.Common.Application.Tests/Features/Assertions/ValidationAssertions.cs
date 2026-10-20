@@ -3,6 +3,7 @@ using System.Linq.Expressions;
 using FluentValidation.TestHelper;
 
 using InstaConnect.Common.Application.Tests.Features.Utilities;
+using InstaConnect.Common.Tests.Features.Assertions;
 using InstaConnect.Common.Tests.Features.DataAttributes.Base;
 
 namespace InstaConnect.Common.Application.Tests.Features.Assertions;

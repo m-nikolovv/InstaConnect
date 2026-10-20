@@ -1,3 +1,5 @@
+using InstaConnect.Chats.Application.Features.Users.Commands.Delete;
+
 namespace InstaConnect.Chats.Application.Tests.Unit.Features.Users.Handlers.Delete;
 
 public class DeleteUserCommandHandlerUnitTests : BaseUserApplicationCommandUnitTest
@@ -18,7 +20,7 @@ public class DeleteUserCommandHandlerUnitTests : BaseUserApplicationCommandUnitT
 	}
 
 	[Fact]
-	public async Task Handle_ShouldCallUserServiceDeleteAsync_WhenRequestIsValid()
+	public async Task Handle_ShouldCallTheUserServiceDeleteAsync_WhenRequestIsValid()
 	{
 		// Act
 		await _handler.Handle(_request, CancellationToken);

@@ -1,5 +1,3 @@
-using InstaConnect.Posts.Tests.Features.PostLikes.Utilities;
-
 namespace InstaConnect.Posts.Tests.Features.PostLikes.Builders;
 
 public class PostLikeBuilder
@@ -17,6 +15,15 @@ public class PostLikeBuilder
 		_userId = user.Id.Id;
 		_user = user;
 		_createdAtUtc = PostLikeDataFaker.GetCreatedAtUtc();
+	}
+
+	public PostLikeBuilder(PostLike postLike)
+	{
+		_id = postLike.Id.Id.Id;
+		_post = postLike.Post!;
+		_userId = postLike.Id.UserId.Id;
+		_user = postLike.User!;
+		_createdAtUtc = postLike.CreatedAtUtc;
 	}
 
 	public PostLike Build()

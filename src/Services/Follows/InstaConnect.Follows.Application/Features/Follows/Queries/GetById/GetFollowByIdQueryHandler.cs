@@ -1,5 +1,3 @@
-using InstaConnect.Common.Domain.Features.Mappers.Abstractions;
-
 namespace InstaConnect.Follows.Application.Features.Follows.Queries.GetById;
 
 internal class GetFollowByIdQueryHandler : IQueryHandler<GetFollowByIdQueryRequest, GetFollowByIdQueryResponse>

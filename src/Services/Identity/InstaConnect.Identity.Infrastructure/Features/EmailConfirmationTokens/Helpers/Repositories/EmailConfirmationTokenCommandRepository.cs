@@ -1,3 +1,7 @@
+using InstaConnect.Identity.Domain.Features.EmailConfirmationTokens.Abstractions;
+using InstaConnect.Identity.Domain.Features.EmailConfirmationTokens.Models.Requests;
+using InstaConnect.Identity.Domain.Features.EmailConfirmationTokens.Models.ValueObjects;
+
 namespace InstaConnect.Identity.Infrastructure.Features.EmailConfirmationTokens.Helpers.Repositories;
 
 internal class EmailConfirmationTokenCommandRepository : IEmailConfirmationTokenCommandRepository
@@ -32,6 +36,16 @@ internal class EmailConfirmationTokenCommandRepository : IEmailConfirmationToken
 		var include = _includeBuilderFactory.Create().Build();
 
 		return await GetByIdAsync(id, include, cancellationToken);
+	}
+
+	public async Task<ICollection<EmailConfirmationToken>> GetByIdRangeAsync(
+		IEnumerable<EmailConfirmationTokenId> ids,
+		CancellationToken cancellationToken)
+	{
+		return await _collection
+			.AggregateFluent()
+			.Match(ids)
+			.ToListAsync(cancellationToken);
 	}
 
 	public async Task<bool> ExistsByIdAsync(

@@ -1,3 +1,5 @@
+using InstaConnect.Posts.Tests.Features.Users.Builders;
+
 namespace InstaConnect.Posts.Presentation.Tests.Functional.Features.Posts.Endpoints;
 
 public class DeletePostFunctionalTests : BasePostPresentationCommandFunctionalTest
@@ -17,6 +19,7 @@ public class DeletePostFunctionalTests : BasePostPresentationCommandFunctionalTe
 	protected override async Task OnInitializeAsync()
 	{
 		await ServiceScope.AddAsync(Post, CancellationToken);
+		await ServiceScope.AddRangeAsync(PostImages, CancellationToken);
 	}
 
 	[Fact]
@@ -96,7 +99,7 @@ public class DeletePostFunctionalTests : BasePostPresentationCommandFunctionalTe
 	}
 
 	[Fact]
-	public async Task DeleteAsync_ShouldHaveNotFoundStatusCode_WhenIdIsInvalid()
+	public async Task DeleteAsync_ShouldHaveNotFoundStatusCode_WhenPostNotFound()
 	{
 		// Arrange
 		await ServiceScope.DeleteAsync(Post, CancellationToken);
@@ -109,7 +112,7 @@ public class DeletePostFunctionalTests : BasePostPresentationCommandFunctionalTe
 	}
 
 	[Fact]
-	public async Task DeleteAsync_ShouldHavePostNotFoundProblemDetails_WhenIdIsInvalid()
+	public async Task DeleteAsync_ShouldHavePostNotFoundProblemDetails_WhenPostNotFound()
 	{
 		// Arrange
 		await ServiceScope.DeleteAsync(Post, CancellationToken);
@@ -122,7 +125,7 @@ public class DeletePostFunctionalTests : BasePostPresentationCommandFunctionalTe
 	}
 
 	[Fact]
-	public async Task DeleteAsync_ShouldHaveForbiddenStatusCode_WhenUserIdIsInvalid()
+	public async Task DeleteAsync_ShouldHaveForbiddenStatusCode_WhenPostForbidden()
 	{
 		// Arrange
 		var user = UserBuilderFactory.Create().Build();
@@ -137,7 +140,7 @@ public class DeletePostFunctionalTests : BasePostPresentationCommandFunctionalTe
 	}
 
 	[Fact]
-	public async Task DeleteAsync_ShouldHavePostForbiddenProblemDetails_WhenUserIdIsInvalid()
+	public async Task DeleteAsync_ShouldHavePostForbiddenProblemDetails_WhenPostForbidden()
 	{
 		// Arrange
 		var user = UserBuilderFactory.Create().Build();
@@ -196,7 +199,7 @@ public class DeletePostFunctionalTests : BasePostPresentationCommandFunctionalTe
 	{
 		// Act
 		await ApiClient.DeleteAsync(_request, CancellationToken);
-		var post = await ServiceScope.GetByIdAsync(Post.Id, CancellationToken);
+		var post = await ServiceScope.GetByIdAsync(PostId, CancellationToken);
 
 		// Assert
 		post.ShouldBeNull();
@@ -212,7 +215,7 @@ public class DeletePostFunctionalTests : BasePostPresentationCommandFunctionalTe
 
 		// Act
 		await ApiClient.DeleteAsync(request, CancellationToken);
-		var post = await ServiceScope.GetByIdAsync(Post.Id, CancellationToken);
+		var post = await ServiceScope.GetByIdAsync(PostId, CancellationToken);
 
 		// Assert
 		post.ShouldBeNull();
@@ -228,7 +231,7 @@ public class DeletePostFunctionalTests : BasePostPresentationCommandFunctionalTe
 
 		// Act
 		await ApiClient.DeleteAsync(request, CancellationToken);
-		var post = await ServiceScope.GetByIdAsync(Post.Id, CancellationToken);
+		var post = await ServiceScope.GetByIdAsync(PostId, CancellationToken);
 
 		// Assert
 		post.ShouldBeNull();

@@ -1,3 +1,9 @@
+using InstaConnect.Common.Tests.Features.DataAttributes.FormFileCollections.Base;
+using InstaConnect.Posts.Domain.Features.Posts.Models.Entities;
+using InstaConnect.Posts.Tests.Features.Posts.DataAttributes.Content;
+using InstaConnect.Posts.Tests.Features.Posts.DataAttributes.Images;
+using InstaConnect.Posts.Tests.Features.Posts.DataAttributes.Title;
+
 namespace InstaConnect.Posts.Presentation.Tests.Functional.Features.Posts.Endpoints;
 
 public class AddPostFunctionalTests : BasePostPresentationCommandFunctionalTest
@@ -10,7 +16,7 @@ public class AddPostFunctionalTests : BasePostPresentationCommandFunctionalTest
 		: base(webApplicationFactory)
 	{
 		_requestBuilderFactory = new();
-		_requestBuilder = _requestBuilderFactory.Create(User);
+		_requestBuilder = _requestBuilderFactory.Create(User, Post.PostImages.Count);
 		_request = _requestBuilder.Build();
 	}
 
@@ -131,7 +137,7 @@ public class AddPostFunctionalTests : BasePostPresentationCommandFunctionalTest
 	}
 
 	[Fact]
-	public async Task AddAsync_ShouldHaveNotFoundStatusCode_WhenUserIdIsInvalid()
+	public async Task AddAsync_ShouldHaveNotFoundStatusCode_WhenUserNotFound()
 	{
 		// Arrange
 		await ServiceScope.DeleteAsync(User, CancellationToken);
@@ -144,7 +150,7 @@ public class AddPostFunctionalTests : BasePostPresentationCommandFunctionalTest
 	}
 
 	[Fact]
-	public async Task AddAsync_ShouldHaveUserNotFoundProblemDetails_WhenUserIdIsInvalid()
+	public async Task AddAsync_ShouldHaveUserNotFoundProblemDetails_WhenUserNotFound()
 	{
 		// Arrange
 		await ServiceScope.DeleteAsync(User, CancellationToken);
@@ -181,6 +187,21 @@ public class AddPostFunctionalTests : BasePostPresentationCommandFunctionalTest
 		response.ShouldBeOk();
 	}
 
+	[Theory]
+	[PostImagesEmptyData]
+	public async Task AddAsync_ShouldHaveOkStatusCode_WhenRequestAndImagesAreValid(
+		IFormFileCollectionTransformer transformer)
+	{
+		// Arrange
+		var request = _requestBuilder.WithImages(transformer).Build();
+
+		// Act
+		var response = await ApiClient.AddStatusCodeAsync(request, CancellationToken);
+
+		// Assert
+		response.ShouldBeOk();
+	}
+
 	[Fact]
 	public async Task AddAsync_ShouldReturnResponse_WhenRequestIsValid()
 	{
@@ -208,6 +229,22 @@ public class AddPostFunctionalTests : BasePostPresentationCommandFunctionalTest
 		response.ShouldSatisfy(request, post);
 	}
 
+	[Theory]
+	[PostImagesEmptyData]
+	public async Task AddAsync_ShouldReturnResponse_WhenRequestAndImagesAreValid(
+		IFormFileCollectionTransformer transformer)
+	{
+		// Arrange
+		var request = _requestBuilder.WithImages(transformer).Build();
+
+		// Act
+		var response = await ApiClient.AddAsync(request, CancellationToken);
+		var post = await ServiceScope.GetByIdAsync(response, CancellationToken);
+
+		// Assert
+		response.ShouldSatisfy(request, post);
+	}
+
 	[Fact]
 	public async Task AddAsync_ShouldAddPost_WhenRequestIsValid()
 	{
@@ -226,6 +263,22 @@ public class AddPostFunctionalTests : BasePostPresentationCommandFunctionalTest
 	{
 		// Arrange
 		var request = _requestBuilder.WithUserId(transformer).Build();
+
+		// Act
+		var response = await ApiClient.AddAsync(request, CancellationToken);
+		var post = await ServiceScope.GetByIdAsync(response, CancellationToken);
+
+		// Assert
+		post.ShouldSatisfy(request);
+	}
+
+	[Theory]
+	[PostImagesEmptyData]
+	public async Task AddAsync_ShouldAddPost_WhenRequestAndImagesAreValid(
+		IFormFileCollectionTransformer transformer)
+	{
+		// Arrange
+		var request = _requestBuilder.WithImages(transformer).Build();
 
 		// Act
 		var response = await ApiClient.AddAsync(request, CancellationToken);
@@ -264,5 +317,66 @@ public class AddPostFunctionalTests : BasePostPresentationCommandFunctionalTest
 
 		// Assert
 		eventRequest.ShouldSatisfy(request, post);
+	}
+
+	[Theory]
+	[PostImagesEmptyData]
+	public async Task AddAsync_ShouldPublishPostAddedEvent_WhenRequestAndImagesAreValid(
+		IFormFileCollectionTransformer transformer)
+	{
+		// Arrange
+		var request = _requestBuilder.WithImages(transformer).Build();
+
+		// Act
+		var response = await ApiClient.AddAsync(request, CancellationToken);
+		var post = await ServiceScope.GetByIdAsync(response, CancellationToken);
+
+		var eventRequest = await EventClient.PublishedAddedAsync(CancellationToken);
+
+		// Assert
+		eventRequest.ShouldSatisfy(request, post);
+	}
+
+	[Fact]
+	public async Task AddAsync_ShouldAddPostImages_WhenRequestIsValid()
+	{
+		// Act
+		var response = await ApiClient.AddAsync(_request, CancellationToken);
+		var post = await ServiceScope.GetByIdAsync(response, CancellationToken);
+
+		// Assert
+		post.PostImages.ShouldSatisfy(_request);
+	}
+
+	[Theory]
+	[UserIdDifferentCaseData]
+	public async Task AddAsync_ShouldAddPostImages_WhenRequestAndUserIdAreValid(
+		IStringTransformer transformer)
+	{
+		// Arrange
+		var request = _requestBuilder.WithUserId(transformer).Build();
+
+		// Act
+		var response = await ApiClient.AddAsync(request, CancellationToken);
+		var post = await ServiceScope.GetByIdAsync(response, CancellationToken);
+
+		// Assert
+		post.PostImages.ShouldSatisfy(request);
+	}
+
+	[Theory]
+	[PostImagesEmptyData]
+	public async Task AddAsync_ShouldAddPostImages_WhenRequestAndImagesAreValid(
+		IFormFileCollectionTransformer transformer)
+	{
+		// Arrange
+		var request = _requestBuilder.WithImages(transformer).Build();
+
+		// Act
+		var response = await ApiClient.AddAsync(request, CancellationToken);
+		var post = await ServiceScope.GetByIdAsync(response, CancellationToken);
+
+		// Assert
+		post.PostImages.ShouldBeEmpty();
 	}
 }

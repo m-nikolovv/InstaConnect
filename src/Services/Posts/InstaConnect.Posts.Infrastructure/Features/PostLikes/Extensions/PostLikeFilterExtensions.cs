@@ -1,10 +1,3 @@
-using System.Linq.Expressions;
-
-using InstaConnect.Posts.Infrastructure.Features.Posts.Extensions;
-using InstaConnect.Posts.Infrastructure.Features.Users.Extensions;
-
-using MongoDB.Driver;
-
 namespace InstaConnect.Posts.Infrastructure.Features.PostLikes.Extensions;
 
 internal static class PostLikeFilterExtensions

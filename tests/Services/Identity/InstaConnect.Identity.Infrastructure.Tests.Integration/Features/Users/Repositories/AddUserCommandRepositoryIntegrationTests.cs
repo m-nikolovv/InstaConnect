@@ -1,6 +1,4 @@
-using InstaConnect.Identity.Infrastructure.Tests.Integration.Features.Users.Utilities;
 using InstaConnect.Identity.Tests.Features.Users.Assertions;
-using InstaConnect.Identity.Tests.Features.Users.Utilities;
 
 namespace InstaConnect.Identity.Infrastructure.Tests.Integration.Features.Users.Repositories;
 
@@ -16,7 +14,7 @@ public class AddUserCommandRepositoryIntegrationTests : BaseUserInfrastructureCo
 	{
 		// Act
 		await Repository.AddAsync(User, CancellationToken);
-		var user = await ServiceScope.GetByIdAsync(User.Id, CancellationToken);
+		var user = await ServiceScope.GetByIdAsync(UserId, CancellationToken);
 
 		// Assert
 		user.ShouldSatisfy(User);

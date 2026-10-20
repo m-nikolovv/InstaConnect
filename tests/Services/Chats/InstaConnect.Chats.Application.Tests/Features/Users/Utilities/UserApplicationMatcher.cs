@@ -1,3 +1,5 @@
+using InstaConnect.Chats.Domain.Features.Users.Models.Requests;
+
 namespace InstaConnect.Chats.Application.Tests.Features.Users.Utilities;
 
 public static class UserApplicationMatcher

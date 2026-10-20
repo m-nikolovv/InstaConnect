@@ -1,7 +1,3 @@
-using InstaConnect.Identity.Infrastructure.Features.EmailConfirmationTokens.Helpers.Repositories;
-using InstaConnect.Identity.Infrastructure.Tests.Features.EmailConfirmationTokens.Assertions;
-using InstaConnect.Identity.Infrastructure.Tests.Unit.Features.EmailConfirmationTokens.Utilities;
-
 namespace InstaConnect.Identity.Infrastructure.Tests.Unit.Features.EmailConfirmationTokens.Repositories;
 
 public class DeleteEmailConfirmationTokenCommandRepositoryUnitTests : BaseEmailConfirmationTokenInfrastructureCommandUnitTest
@@ -14,7 +10,7 @@ public class DeleteEmailConfirmationTokenCommandRepositoryUnitTests : BaseEmailC
 	}
 
 	[Fact]
-	public async Task DeleteAsync_ShouldCallTheCollectionDeleteAsync_WhenRequestIsValid()
+	public async Task DeleteAsync_ShouldCallTheCollectionDeleteAsync_WhenCommandIsValid()
 	{
 		// Act
 		await _repository.DeleteAsync(EmailConfirmationToken, CancellationToken);

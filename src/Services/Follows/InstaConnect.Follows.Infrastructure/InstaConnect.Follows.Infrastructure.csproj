@@ -6,31 +6,22 @@
   </ItemGroup>
 
   <ItemGroup Label="Common">
-    <Using Include="Microsoft.Extensions.DependencyInjection" />
-    <Using Include="Microsoft.AspNetCore.Hosting" />
-    <Using Include="Microsoft.Extensions.Configuration" />
-    <Using Include="InstaConnect.Common.Domain.Features.Common.Extensions"/>
-    <Using Include="InstaConnect.Common.Infrastructure.Features.Databases.Extensions" />
+    <Using Include="InstaConnect.Follows.Domain.Features.Common.Models.Requests" />
   </ItemGroup>
 
   <ItemGroup Label="Users">
-    <Using Include="InstaConnect.Follows.Domain.Features.Users.Exceptions" />
-    <Using Include="InstaConnect.Follows.Domain.Features.Users.Abstractions" />
     <Using Include="InstaConnect.Follows.Domain.Features.Users.Models.Entities" />
-    <Using Include="InstaConnect.Follows.Domain.Features.Users.Models.ValueObjects" />
     <Using Include="InstaConnect.Follows.Domain.Features.Users.Models.Requests" />
-    <Using Include="InstaConnect.Follows.Application.Features.Users.Models" />
+    <Using Include="InstaConnect.Follows.Domain.Features.Users.Models.Responses" />
+    <Using Include="InstaConnect.Follows.Domain.Features.Users.Models.ValueObjects" />
     <Using Include="InstaConnect.Follows.Infrastructure.Features.Users.Abstractions" />
   </ItemGroup>
 
   <ItemGroup Label="Follows">
-    <Using Include="InstaConnect.Follows.Domain.Features.Follows.Exceptions" />
-    <Using Include="InstaConnect.Follows.Domain.Features.Follows.Abstractions" />
     <Using Include="InstaConnect.Follows.Domain.Features.Follows.Models.Entities" />
-    <Using Include="InstaConnect.Follows.Domain.Features.Follows.Models.ValueObjects" />
     <Using Include="InstaConnect.Follows.Domain.Features.Follows.Models.Requests" />
     <Using Include="InstaConnect.Follows.Domain.Features.Follows.Models.Responses" />
-    <Using Include="InstaConnect.Follows.Application.Features.Follows.Models" />
+    <Using Include="InstaConnect.Follows.Domain.Features.Follows.Models.ValueObjects" />
     <Using Include="InstaConnect.Follows.Infrastructure.Features.Follows.Abstractions" />
   </ItemGroup>
 

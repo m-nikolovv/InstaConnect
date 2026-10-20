@@ -1,3 +1,5 @@
+using InstaConnect.Identity.Application.Features.RefreshTokens.Commands.DeleteCurrent;
+
 namespace InstaConnect.Identity.Application.Tests.Unit.Features.RefreshTokens.Handlers.DeleteCurrent;
 
 public class DeleteCurrentRefreshTokenCommandHandlerUnitTests : BaseRefreshTokenApplicationCommandUnitTest
@@ -18,7 +20,7 @@ public class DeleteCurrentRefreshTokenCommandHandlerUnitTests : BaseRefreshToken
 	}
 
 	[Fact]
-	public async Task Handle_ShouldCallServiceDeleteAsync_WhenRequestIsValid()
+	public async Task Handle_ShouldCallTheServiceDeleteAsync_WhenRequestIsValid()
 	{
 		// Act
 		await _handler.Handle(_request, CancellationToken);

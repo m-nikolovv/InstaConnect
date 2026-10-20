@@ -19,7 +19,7 @@ public class User : IEntityWithId<UserId>
 		string lastName,
 		Email email,
 		Name name,
-		Image? profileImage,
+		Url? profileImageUrl,
 		DateTimeOffset createdAtUtc,
 		DateTimeOffset updatedAtUtc)
 	{
@@ -28,7 +28,7 @@ public class User : IEntityWithId<UserId>
 		LastName = lastName;
 		Email = email;
 		Name = name;
-		ProfileImage = profileImage;
+		ProfileImageUrl = profileImageUrl;
 		FollowFollowers = [];
 		FollowFollowings = [];
 		CreatedAtUtc = createdAtUtc;
@@ -45,7 +45,7 @@ public class User : IEntityWithId<UserId>
 
 	public Name Name { get; private set; }
 
-	public Image? ProfileImage { get; private set; }
+	public Url? ProfileImageUrl { get; private set; }
 
 	public ICollection<Follow> FollowFollowers { get; private set; }
 
@@ -60,14 +60,14 @@ public class User : IEntityWithId<UserId>
 		string firstName,
 		string lastName,
 		Name name,
-		Image? profileImage,
+		Url? profileImageUrl,
 		DateTimeOffset updatedAtUtc)
 	{
 		Email = email;
 		FirstName = firstName;
 		LastName = lastName;
 		Name = name;
-		ProfileImage = profileImage;
+		ProfileImageUrl = profileImageUrl;
 		UpdatedAtUtc = updatedAtUtc;
 	}
 
@@ -78,9 +78,23 @@ public class User : IEntityWithId<UserId>
 		return this;
 	}
 
+	public User AddFollowFollowers(ICollection<Follow> followFollowers)
+	{
+		FollowFollowers.AddRange(followFollowers);
+
+		return this;
+	}
+
 	public User AddFollowFollowing(Follow followFollowing)
 	{
 		FollowFollowings.Add(followFollowing);
+
+		return this;
+	}
+
+	public User AddFollowFollowings(ICollection<Follow> followFollowings)
+	{
+		FollowFollowings.AddRange(followFollowings);
 
 		return this;
 	}

@@ -1,7 +1,4 @@
 using InstaConnect.Common.Tests.Features.DataAttributes.Enums.Sort;
-using InstaConnect.Identity.Domain.Tests.Features.Users.Utilities;
-using InstaConnect.Identity.Events.Features.EmailConfirmationTokens;
-using InstaConnect.Identity.Events.Features.Users;
 
 namespace InstaConnect.Identity.Domain.Tests.Features.Users.Assertions;
 
@@ -61,6 +58,11 @@ public static class UserMatchAssertions
 
 	extension(ICollection<EmailConfirmationToken> emailConfirmationTokens)
 	{
+		public void ShouldSatisfy(AddUserCommand command)
+		{
+			emailConfirmationTokens.ShouldSatisfy(p => p.Matches(command));
+		}
+
 		public void ShouldSatisfy(UpdateUserCommand command)
 		{
 			emailConfirmationTokens.ShouldSatisfy(p => p.Matches(command));

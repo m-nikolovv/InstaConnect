@@ -1,6 +1,7 @@
 using System.Threading.Channels;
 
 using InstaConnect.Chats.Presentation.Features.ChatMessages.Abstractions;
+using InstaConnect.Chats.Tests.Features.ChatMessages.Abstractions;
 
 using Microsoft.AspNetCore.SignalR.Client;
 

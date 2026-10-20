@@ -1,3 +1,5 @@
+using InstaConnect.Chats.Presentation.Features.ChatMessageImages.Models.Responses;
+
 namespace InstaConnect.Chats.Presentation.Features.ChatMessages.Models.Responses;
 
 public record ChatMessageApiResponse(
@@ -6,7 +8,9 @@ public record ChatMessageApiResponse(
 	string MessageId,
 	string SenderId,
 	string Content,
+	string Summary,
 	ChatApiResponse? Chat,
 	UserApiResponse? Sender,
+	ICollection<ChatMessageImageApiResponse> ChatMessageImages,
 	DateTimeOffset CreatedAtUtc,
 	DateTimeOffset UpdatedAtUtc);

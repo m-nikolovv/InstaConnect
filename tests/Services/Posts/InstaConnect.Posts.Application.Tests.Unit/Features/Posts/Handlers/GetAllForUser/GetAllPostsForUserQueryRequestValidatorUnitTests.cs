@@ -1,5 +1,10 @@
-using InstaConnect.Common.Domain.Features.Requests.Models;
+using InstaConnect.Posts.Application.Features.Posts.Queries.GetAllForUser;
 using InstaConnect.Posts.Domain.Features.Posts.Models.Requests;
+using InstaConnect.Posts.Tests.Features.Posts.DataAttributes.Page;
+using InstaConnect.Posts.Tests.Features.Posts.DataAttributes.PageSize;
+using InstaConnect.Posts.Tests.Features.Posts.DataAttributes.SortOrder;
+using InstaConnect.Posts.Tests.Features.Posts.DataAttributes.SortTerm.ForUser;
+using InstaConnect.Posts.Tests.Features.Posts.DataAttributes.Title;
 
 namespace InstaConnect.Posts.Application.Tests.Unit.Features.Posts.Handlers.GetAllForUser;
 
@@ -133,7 +138,7 @@ public class GetAllPostsForUserQueryRequestValidatorUnitTests : BasePostApplicat
 	[Theory]
 	[PostTitleEmptyData]
 	[PostTitleNullData]
-	public void TestValidate_ShouldNotHaveAnyValidationsErrors_WhenTitleIsValid(
+	public void TestValidate_ShouldNotHaveAnyValidationErrors_WhenTitleIsValid(
 		IStringTransformer transformer)
 	{
 		// Arrange
@@ -149,7 +154,7 @@ public class GetAllPostsForUserQueryRequestValidatorUnitTests : BasePostApplicat
 	[Theory]
 	[UserIdNullData]
 	[UserIdEmptyData]
-	public void TestValidate_ShouldNotHaveAnyValidationsErrors_WhenCurrentUserIdIsValid(
+	public void TestValidate_ShouldNotHaveAnyValidationErrors_WhenCurrentUserIdIsValid(
 		IStringTransformer transformer)
 	{
 		// Arrange
@@ -163,7 +168,7 @@ public class GetAllPostsForUserQueryRequestValidatorUnitTests : BasePostApplicat
 	}
 
 	[Fact]
-	public void TestValidate_ShouldNotHaveAnyValidationsErrors_WhenRequestIsValid()
+	public void TestValidate_ShouldNotHaveAnyValidationErrors_WhenRequestIsValid()
 	{
 		// Act
 		var response = _requestValidator.TestValidate(_request);

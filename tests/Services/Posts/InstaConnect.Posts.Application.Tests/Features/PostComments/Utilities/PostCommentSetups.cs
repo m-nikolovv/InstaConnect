@@ -1,7 +1,4 @@
 using InstaConnect.Posts.Application.Features.PostComments.Models;
-using InstaConnect.Posts.Application.Tests.Features.PostComments.Utilities;
-
-using Microsoft.Extensions.DependencyInjection;
 
 namespace InstaConnect.Posts.Application.Tests.Features.PostComments.Utilities;
 

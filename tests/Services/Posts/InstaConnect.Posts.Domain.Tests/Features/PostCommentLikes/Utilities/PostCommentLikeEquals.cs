@@ -1,12 +1,8 @@
-using InstaConnect.Common.Domain.Features.Common.Extensions;
 using InstaConnect.Common.Domain.Features.Requests.Abstractions;
-using InstaConnect.Common.Tests.Features.DataAttributes.Enums.Sort;
 using InstaConnect.Identity.Events.Features.Users;
-using InstaConnect.Posts.Domain.Tests.Features.PostComments.Utilities;
-using InstaConnect.Posts.Domain.Tests.Features.Users.Utilities;
+using InstaConnect.Posts.Domain.Features.PostCommentLikes.Models.Responses;
 using InstaConnect.Posts.Events.Features.PostCommentLikes;
 using InstaConnect.Posts.Events.Features.PostComments;
-using InstaConnect.Posts.Events.Features.Posts;
 
 namespace InstaConnect.Posts.Domain.Tests.Features.PostCommentLikes.Utilities;
 
@@ -71,6 +67,7 @@ public static class PostCommentLikeEquals
 				   request.CommentId.EqualsOrdinalIgnoreCase(command.CommentId.CommentId) &&
 				   request.UserId.EqualsOrdinalIgnoreCase(command.UserId.Id) &&
 				   request.Content == entity.Content &&
+				   entity.Summary.Matches(request.Summary) &&
 				   request.User.Matches(command, entity.User) &&
 				   request.Post.Matches(command, entity.Post) &&
 				   request.CreatedAtUtc == entity.CreatedAtUtc &&
@@ -83,6 +80,7 @@ public static class PostCommentLikeEquals
 				   request.CommentId.EqualsOrdinalIgnoreCase(command.Id.CommentId.CommentId) &&
 				   request.UserId.EqualsOrdinalIgnoreCase(command.Id.UserId.Id) &&
 				   request.Content == entity.Content &&
+				   entity.Summary.Matches(request.Summary) &&
 				   request.User.Matches(command, entity.User) &&
 				   request.Post.Matches(command, entity.Post) &&
 				   request.CreatedAtUtc == entity.CreatedAtUtc &&
@@ -100,6 +98,7 @@ public static class PostCommentLikeEquals
 				   request.User.Matches(command, entity.User) &&
 				   request.Title == entity.Title &&
 				   request.Content == entity.Content &&
+				   entity.Summary.Matches(request.Summary) &&
 				   request.CreatedAtUtc == entity.CreatedAtUtc &&
 				   request.UpdatedAtUtc == entity.UpdatedAtUtc;
 		}
@@ -111,6 +110,7 @@ public static class PostCommentLikeEquals
 				   request.User.Matches(command, entity.User) &&
 				   request.Title == entity.Title &&
 				   request.Content == entity.Content &&
+				   entity.Summary.Matches(request.Summary) &&
 				   request.CreatedAtUtc == entity.CreatedAtUtc &&
 				   request.UpdatedAtUtc == entity.UpdatedAtUtc;
 		}
@@ -126,7 +126,7 @@ public static class PostCommentLikeEquals
 				   request.Email.EqualsOrdinalIgnoreCase(entity.Email.Value) &&
 				   request.FirstName == entity.FirstName &&
 				   request.LastName == entity.LastName &&
-				   request.ProfileImageUrl == entity.ProfileImage?.Url &&
+				   request.ProfileImageUrl == entity.ProfileImageUrl?.Value &&
 				   request.CreatedAtUtc == entity.CreatedAtUtc &&
 				   request.UpdatedAtUtc == entity.UpdatedAtUtc;
 		}
@@ -138,7 +138,7 @@ public static class PostCommentLikeEquals
 				   request.Email.EqualsOrdinalIgnoreCase(entity.Email.Value) &&
 				   request.FirstName == entity.FirstName &&
 				   request.LastName == entity.LastName &&
-				   request.ProfileImageUrl == entity.ProfileImage?.Url &&
+				   request.ProfileImageUrl == entity.ProfileImageUrl?.Value &&
 				   request.CreatedAtUtc == entity.CreatedAtUtc &&
 				   request.UpdatedAtUtc == entity.UpdatedAtUtc;
 		}

@@ -1,23 +1,12 @@
-using InstaConnect.Follows.Domain.Features.Follows.Models.ValueObjects;
-using InstaConnect.Follows.Infrastructure.Tests.Features.Follows.Assertions;
-using InstaConnect.Follows.Infrastructure.Tests.Integration.Features.Follows.Utilities;
 using InstaConnect.Follows.Tests.Features.Follows.Builders;
-using InstaConnect.Follows.Tests.Features.Follows.Utilities;
 
 namespace InstaConnect.Follows.Infrastructure.Tests.Integration.Features.Follows.Repositories;
 
 public class FollowExistsByIdCommandRepositoryIntegrationTests : BaseFollowInfrastructureCommandIntegrationTest
 {
-	private readonly FollowIdBuilderFactory _idBuilderFactory;
-	private readonly FollowIdBuilder _idBuilder;
-	private readonly FollowId _id;
-
 	public FollowExistsByIdCommandRepositoryIntegrationTests(FollowsWebApplicationFactory webApplicationFactory)
 		: base(webApplicationFactory)
 	{
-		_idBuilderFactory = new();
-		_idBuilder = _idBuilderFactory.Create(Follow.Id);
-		_id = _idBuilder.Build();
 	}
 
 	protected override async Task OnInitializeAsync()
@@ -32,22 +21,22 @@ public class FollowExistsByIdCommandRepositoryIntegrationTests : BaseFollowInfra
 		await ServiceScope.DeleteAsync(Follow, CancellationToken);
 
 		// Act
-		var response = await Repository.ExistsByIdAsync(_id, CancellationToken);
-		var follow = await ServiceScope.GetByIdAsync(_id, CancellationToken);
+		var response = await Repository.ExistsByIdAsync(FollowId, CancellationToken);
+		var follow = await ServiceScope.GetByIdAsync(FollowId, CancellationToken);
 
 		// Assert
-		response.ShouldSatisfy(_id, follow);
+		response.ShouldSatisfy(FollowId, follow);
 	}
 
 	[Fact]
 	public async Task ExistsByIdAsync_ShouldReturnResponse_WhenCommandIsValid()
 	{
 		// Act
-		var response = await Repository.ExistsByIdAsync(_id, CancellationToken);
-		var follow = await ServiceScope.GetByIdAsync(_id, CancellationToken);
+		var response = await Repository.ExistsByIdAsync(FollowId, CancellationToken);
+		var follow = await ServiceScope.GetByIdAsync(FollowId, CancellationToken);
 
 		// Assert
-		response.ShouldSatisfy(_id, follow);
+		response.ShouldSatisfy(FollowId, follow);
 	}
 
 	[Theory]
@@ -56,11 +45,11 @@ public class FollowExistsByIdCommandRepositoryIntegrationTests : BaseFollowInfra
 		IStringTransformer transformer)
 	{
 		// Arrange
-		var id = _idBuilder.WithFollowerId(transformer).Build();
+		var id = FollowIdBuilder.WithFollowerId(transformer).Build();
 
 		// Act
 		var response = await Repository.ExistsByIdAsync(id, CancellationToken);
-		var follow = await ServiceScope.GetByIdAsync(_id, CancellationToken);
+		var follow = await ServiceScope.GetByIdAsync(FollowId, CancellationToken);
 
 		// Assert
 		response.ShouldSatisfy(id, follow);
@@ -72,11 +61,11 @@ public class FollowExistsByIdCommandRepositoryIntegrationTests : BaseFollowInfra
 		IStringTransformer transformer)
 	{
 		// Arrange
-		var id = _idBuilder.WithFollowingId(transformer).Build();
+		var id = FollowIdBuilder.WithFollowingId(transformer).Build();
 
 		// Act
 		var response = await Repository.ExistsByIdAsync(id, CancellationToken);
-		var follow = await ServiceScope.GetByIdAsync(_id, CancellationToken);
+		var follow = await ServiceScope.GetByIdAsync(FollowId, CancellationToken);
 
 		// Assert
 		response.ShouldSatisfy(id, follow);

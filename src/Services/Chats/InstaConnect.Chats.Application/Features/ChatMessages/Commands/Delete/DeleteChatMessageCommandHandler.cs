@@ -1,5 +1,3 @@
-using InstaConnect.Common.Domain.Features.Mappers.Abstractions;
-
 namespace InstaConnect.Chats.Application.Features.ChatMessages.Commands.Delete;
 
 internal class DeleteChatMessageCommandHandler : ICommandHandler<DeleteChatMessageCommandRequest>

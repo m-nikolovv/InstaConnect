@@ -1,4 +1,5 @@
-using InstaConnect.Common.Domain.Features.Mappers.Abstractions;
+using InstaConnect.Posts.Domain.Features.Users.Abstractions;
+using InstaConnect.Posts.Domain.Features.Users.Models.Requests;
 
 namespace InstaConnect.Posts.Application.Features.Users.Commands.Update;
 

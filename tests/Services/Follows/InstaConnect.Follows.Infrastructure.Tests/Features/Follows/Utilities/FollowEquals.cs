@@ -1,10 +1,6 @@
 using InstaConnect.Common.Domain.Features.Common.Extensions;
 using InstaConnect.Common.Tests.Features.DataAttributes.Enums.Sort;
-using InstaConnect.Follows.Domain.Features.Follows.Models.Entities;
-using InstaConnect.Follows.Domain.Features.Follows.Models.Requests;
 using InstaConnect.Follows.Domain.Features.Follows.Models.Responses;
-using InstaConnect.Follows.Domain.Features.Follows.Models.ValueObjects;
-using InstaConnect.Follows.Domain.Features.Users.Models.Requests;
 using InstaConnect.Follows.Infrastructure.Tests.Features.Users.Utilities;
 using InstaConnect.Follows.Tests.Features.Follows.Utilities;
 

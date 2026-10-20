@@ -1,70 +1,55 @@
-using InstaConnect.Chats.Domain.Features.Chats.Models.ValueObjects;
-using InstaConnect.Chats.Infrastructure.Features.Chats.Helpers.Repositories;
-using InstaConnect.Chats.Infrastructure.Tests.Features.Chats.Assertions;
-using InstaConnect.Chats.Infrastructure.Tests.Features.Chats.Utilities;
-using InstaConnect.Chats.Infrastructure.Tests.Unit.Features.Chats.Utilities;
-using InstaConnect.Chats.Tests.Features.Chats.Builders;
-
 namespace InstaConnect.Chats.Infrastructure.Tests.Unit.Features.Chats.Repositories;
 
 public class ChatExistsByIdCommandRepositoryUnitTests : BaseChatInfrastructureCommandUnitTest
 {
-	private readonly ChatIdBuilderFactory _idBuilderFactory;
-	private readonly ChatIdBuilder _idBuilder;
-	private readonly ChatId _id;
-
 	private readonly ChatCommandRepository _repository;
 
 	public ChatExistsByIdCommandRepositoryUnitTests()
 	{
-		_idBuilderFactory = new();
-		_idBuilder = _idBuilderFactory.Create(Chat.Id);
-		_id = _idBuilder.Build();
-
 		_repository = new(Collection, IncludeBuilderFactory);
 
-		Collection.SetupAggregateFluent(_id, Fluent);
-		Fluent.SetupMatch(_id);
-		Fluent.SetupAnyAsync(_id, Chat, CancellationToken);
+		Collection.SetupAggregateFluent(ChatId, Fluent);
+		Fluent.SetupMatch(ChatId);
+		Fluent.SetupAnyAsync(ChatId, Chat, CancellationToken);
 	}
 
 	[Fact]
-	public async Task ExistsByIdAsync_ShouldReturnResponse_WhenRequestIsValid()
+	public async Task ExistsByIdAsync_ShouldReturnResponse_WhenCommandIsValid()
 	{
 		// Act
-		var response = await _repository.ExistsByIdAsync(_id, CancellationToken);
+		var response = await _repository.ExistsByIdAsync(ChatId, CancellationToken);
 
 		// Assert
-		response.ShouldSatisfy(_id, Chat);
+		response.ShouldSatisfy(ChatId, Chat);
 	}
 
 	[Fact]
-	public async Task ExistsByIdAsync_ShouldCallTheCollectionAggregateFluent_WhenRequestIsValid()
+	public async Task ExistsByIdAsync_ShouldCallTheCollectionAggregateFluent_WhenCommandIsValid()
 	{
 		// Act
-		await _repository.ExistsByIdAsync(_id, CancellationToken);
+		await _repository.ExistsByIdAsync(ChatId, CancellationToken);
 
 		// Assert
-		Collection.ShouldHaveReceivedOneAggregateFluent(_id);
+		Collection.ShouldHaveReceivedOneAggregateFluent(ChatId);
 	}
 
 	[Fact]
-	public async Task ExistsByIdAsync_ShouldCallTheFluentMatch_WhenRequestIsValid()
+	public async Task ExistsByIdAsync_ShouldCallTheFluentMatch_WhenCommandIsValid()
 	{
 		// Act
-		await _repository.ExistsByIdAsync(_id, CancellationToken);
+		await _repository.ExistsByIdAsync(ChatId, CancellationToken);
 
 		// Assert
-		Fluent.ShouldHaveReceivedOneMatch(_id);
+		Fluent.ShouldHaveReceivedOneMatch(ChatId);
 	}
 
 	[Fact]
-	public async Task ExistsByIdAsync_ShouldCallTheFluentAnyAsync_WhenRequestIsValid()
+	public async Task ExistsByIdAsync_ShouldCallTheFluentAnyAsync_WhenCommandIsValid()
 	{
 		// Act
-		await _repository.ExistsByIdAsync(_id, CancellationToken);
+		await _repository.ExistsByIdAsync(ChatId, CancellationToken);
 
 		// Assert
-		await Fluent.ShouldHaveReceivedOneAnyAsync(_id, CancellationToken);
+		await Fluent.ShouldHaveReceivedOneAnyAsync(ChatId, CancellationToken);
 	}
 }

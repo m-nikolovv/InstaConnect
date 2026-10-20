@@ -113,7 +113,7 @@ public class GetCurrentUserDetailsByIdFunctionalTests : BaseUserPresentationQuer
 	}
 
 	[Fact]
-	public async Task GetCurrentDetailsByIdAsync_ShouldHaveResponse_WhenRequestIsValid()
+	public async Task GetCurrentDetailsByIdAsync_ShouldReturnResponse_WhenRequestIsValid()
 	{
 		// Act
 		var response = await ApiClient.GetCurrentDetailsByIdAsync(_request, CancellationToken);
@@ -124,7 +124,7 @@ public class GetCurrentUserDetailsByIdFunctionalTests : BaseUserPresentationQuer
 
 	[Theory]
 	[UserIdDifferentCaseData]
-	public async Task GetCurrentDetailsByIdAsync_ShouldHaveResponse_WhenRequestAndCurrentIdAreValid(
+	public async Task GetCurrentDetailsByIdAsync_ShouldReturnResponse_WhenRequestAndCurrentIdAreValid(
 		IStringTransformer transformer)
 	{
 		// Arrange

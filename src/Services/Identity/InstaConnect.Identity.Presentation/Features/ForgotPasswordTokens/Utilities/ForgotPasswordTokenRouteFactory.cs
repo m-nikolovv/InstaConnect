@@ -1,5 +1,3 @@
-using InstaConnect.Common.Domain.Features.Common.Extensions;
-
 namespace InstaConnect.Identity.Presentation.Features.ForgotPasswordTokens.Utilities;
 
 public static class ForgotPasswordTokenRouteFactory

@@ -1,5 +1,3 @@
-using InstaConnect.Posts.Presentation.Features.Users.Abstractions;
-
 namespace InstaConnect.Posts.Presentation.Features.PostComments.Models.Requests;
 
 public record GetPostCommentByIdApiRequest(

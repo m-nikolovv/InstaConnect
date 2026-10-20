@@ -1,4 +1,5 @@
 using InstaConnect.Identity.Application.Features.UserClaims.Models;
+using InstaConnect.Identity.Domain.Features.UserClaims.Models.ValueObjects;
 
 using Microsoft.Extensions.DependencyInjection;
 

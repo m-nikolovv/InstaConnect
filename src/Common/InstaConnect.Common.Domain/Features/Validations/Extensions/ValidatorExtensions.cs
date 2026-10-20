@@ -1,4 +1,3 @@
-using FluentValidation;
 using FluentValidation.Results;
 
 namespace InstaConnect.Common.Domain.Features.Validations.Extensions;

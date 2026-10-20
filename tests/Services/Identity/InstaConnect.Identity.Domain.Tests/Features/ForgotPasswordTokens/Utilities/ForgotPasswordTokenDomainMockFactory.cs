@@ -1,7 +1,5 @@
 using InstaConnect.Identity.Domain.Features.ForgotPasswordTokens.Models.Options;
 
-using Microsoft.Extensions.Options;
-
 namespace InstaConnect.Identity.Domain.Tests.Features.ForgotPasswordTokens.Utilities;
 
 public static class ForgotPasswordTokenDomainMockFactory

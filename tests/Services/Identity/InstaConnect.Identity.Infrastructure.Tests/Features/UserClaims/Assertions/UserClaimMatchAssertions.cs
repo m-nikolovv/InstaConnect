@@ -1,9 +1,5 @@
 using InstaConnect.Common.Tests.Features.DataAttributes.Enums.Sort;
-using InstaConnect.Identity.Domain.Features.UserClaims.Models.Entities;
-using InstaConnect.Identity.Domain.Features.UserClaims.Models.Requests;
 using InstaConnect.Identity.Domain.Features.UserClaims.Models.Responses;
-using InstaConnect.Identity.Domain.Features.UserClaims.Models.ValueObjects;
-using InstaConnect.Identity.Domain.Features.Users.Models.Requests;
 using InstaConnect.Identity.Infrastructure.Tests.Features.UserClaims.Utilities;
 
 namespace InstaConnect.Identity.Infrastructure.Tests.Features.UserClaims.Assertions;

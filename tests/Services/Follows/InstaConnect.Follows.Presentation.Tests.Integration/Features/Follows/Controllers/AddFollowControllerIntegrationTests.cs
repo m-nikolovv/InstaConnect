@@ -1,3 +1,5 @@
+using InstaConnect.Follows.Presentation.Tests.Features.Follows.Utilities;
+
 namespace InstaConnect.Follows.Presentation.Tests.Integration.Features.Follows.Controllers;
 
 public class AddFollowControllerIntegrationTests : BaseFollowPresentationCommandIntegrationTest
@@ -47,7 +49,7 @@ public class AddFollowControllerIntegrationTests : BaseFollowPresentationCommand
 	}
 
 	[Fact]
-	public async Task AddAsync_ShouldThrowFollowerNotFoundException_WhenIdIsInvalid()
+	public async Task AddAsync_ShouldThrowFollowerNotFoundException_WhenFollowerNotFound()
 	{
 		// Arrange
 		await ServiceScope.DeleteAsync(Follower, CancellationToken);
@@ -57,7 +59,7 @@ public class AddFollowControllerIntegrationTests : BaseFollowPresentationCommand
 	}
 
 	[Fact]
-	public async Task AddAsync_ShouldThrowFollowingNotFoundException_WhenIdIsInvalid()
+	public async Task AddAsync_ShouldThrowFollowingNotFoundException_WhenFollowingNotFound()
 	{
 		// Arrange
 		await ServiceScope.DeleteAsync(Following, CancellationToken);
@@ -78,7 +80,7 @@ public class AddFollowControllerIntegrationTests : BaseFollowPresentationCommand
 
 	[Theory]
 	[UserIdDifferentCaseData]
-	public async Task AddAsync_ShouldThrowFollowAlreadyExistsException_WhenFollowAlreadyExistsAndFollowerIdIsValid(
+	public async Task AddAsync_ShouldThrowFollowAlreadyExistsException_WhenFollowAlreadyExistsAndFollowerIdIsInvalid(
 		IStringTransformer transformer)
 	{
 		// Arrange
@@ -91,7 +93,7 @@ public class AddFollowControllerIntegrationTests : BaseFollowPresentationCommand
 
 	[Theory]
 	[UserIdDifferentCaseData]
-	public async Task AddAsync_ShouldThrowFollowAlreadyExistsException_WhenFollowAlreadyExistsAndFollowingIdIsValid(
+	public async Task AddAsync_ShouldThrowFollowAlreadyExistsException_WhenFollowAlreadyExistsAndFollowingIdIsInvalid(
 		IStringTransformer transformer)
 	{
 		// Arrange
@@ -143,7 +145,7 @@ public class AddFollowControllerIntegrationTests : BaseFollowPresentationCommand
 	}
 
 	[Fact]
-	public async Task AddAsync_ShouldReturnOkResponse_WhenRequestIsValid()
+	public async Task AddAsync_ShouldReturnResponse_WhenRequestIsValid()
 	{
 		// Act
 		var response = await Controller.AddAsync(_request, CancellationToken);
@@ -155,7 +157,7 @@ public class AddFollowControllerIntegrationTests : BaseFollowPresentationCommand
 
 	[Theory]
 	[UserIdDifferentCaseData]
-	public async Task AddAsync_ShouldReturnOkResponse_WhenRequestAndFollowerIdAreValid(
+	public async Task AddAsync_ShouldReturnResponse_WhenRequestAndFollowerIdAreValid(
 		IStringTransformer transformer)
 	{
 		// Arrange
@@ -171,7 +173,7 @@ public class AddFollowControllerIntegrationTests : BaseFollowPresentationCommand
 
 	[Theory]
 	[UserIdDifferentCaseData]
-	public async Task AddAsync_ShouldReturnOkResponse_WhenRequestAndFollowingIdAreValid(
+	public async Task AddAsync_ShouldReturnResponse_WhenRequestAndFollowingIdAreValid(
 		IStringTransformer transformer)
 	{
 		// Arrange

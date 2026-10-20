@@ -1,9 +1,4 @@
-using InstaConnect.Posts.Domain.Features.PostComments.Models.Requests;
-using InstaConnect.Posts.Infrastructure.Features.PostComments.Helpers.Repositories;
-using InstaConnect.Posts.Infrastructure.Tests.Features.PostComments.Assertions;
 using InstaConnect.Posts.Infrastructure.Tests.Features.PostComments.Builders;
-using InstaConnect.Posts.Infrastructure.Tests.Features.PostComments.Utilities;
-using InstaConnect.Posts.Infrastructure.Tests.Unit.Features.PostComments.Utilities;
 
 namespace InstaConnect.Posts.Infrastructure.Tests.Unit.Features.PostComments.Repositories;
 
@@ -23,7 +18,7 @@ public class GetPostCommentsTotalCountQueryRepositoryUnitTests : BasePostComment
 		_filterQueryBuilder = _filterQueryBuilderFactory.Create(PostComment);
 		_filterQuery = _filterQueryBuilder.Build();
 
-		_include = CommentIncludeBuilderFactory.Create().WithUser().WithPostCommentLikes().Build();
+		_include = CommentIncludeBuilderFactory.Create().WithUser().WithPostCommentLikes().WithPostCommentImages().Build();
 
 		_repository = new(Collection, IncludeBuilderFactory, CommentIncludeBuilderFactory);
 
@@ -34,7 +29,7 @@ public class GetPostCommentsTotalCountQueryRepositoryUnitTests : BasePostComment
 	}
 
 	[Fact]
-	public async Task GetTotalCountAsync_ShouldReturnResponse_WhenRequestIsValid()
+	public async Task GetTotalCountAsync_ShouldReturnResponse_WhenQueryIsValid()
 	{
 		// Act
 		var response = await _repository.GetTotalCountAsync(_filterQuery, CancellationToken);
@@ -44,7 +39,7 @@ public class GetPostCommentsTotalCountQueryRepositoryUnitTests : BasePostComment
 	}
 
 	[Fact]
-	public async Task GetTotalCountAsync_ShouldCallTheCollectionAggregateFluent_WhenRequestIsValid()
+	public async Task GetTotalCountAsync_ShouldCallTheCollectionAggregateFluent_WhenQueryIsValid()
 	{
 		// Act
 		await _repository.GetTotalCountAsync(_filterQuery, CancellationToken);
@@ -54,7 +49,7 @@ public class GetPostCommentsTotalCountQueryRepositoryUnitTests : BasePostComment
 	}
 
 	[Fact]
-	public async Task GetTotalCountAsync_ShouldCallTheFluentApplyIncludes_WhenRequestIsValid()
+	public async Task GetTotalCountAsync_ShouldCallTheFluentApplyIncludes_WhenQueryIsValid()
 	{
 		// Act
 		await _repository.GetTotalCountAsync(_filterQuery, CancellationToken);
@@ -64,7 +59,7 @@ public class GetPostCommentsTotalCountQueryRepositoryUnitTests : BasePostComment
 	}
 
 	[Fact]
-	public async Task GetTotalCountAsync_ShouldCallTheFluentMatch_WhenRequestIsValid()
+	public async Task GetTotalCountAsync_ShouldCallTheFluentMatch_WhenQueryIsValid()
 	{
 		// Act
 		await _repository.GetTotalCountAsync(_filterQuery, CancellationToken);
@@ -74,7 +69,7 @@ public class GetPostCommentsTotalCountQueryRepositoryUnitTests : BasePostComment
 	}
 
 	[Fact]
-	public async Task GetTotalCountAsync_ShouldCallTheFluentGetCountAsync_WhenRequestIsValid()
+	public async Task GetTotalCountAsync_ShouldCallTheFluentGetCountAsync_WhenQueryIsValid()
 	{
 		// Act
 		await _repository.GetTotalCountAsync(_filterQuery, CancellationToken);

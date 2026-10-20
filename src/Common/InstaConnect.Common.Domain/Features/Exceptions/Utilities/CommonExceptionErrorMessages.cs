@@ -1,4 +1,3 @@
-using InstaConnect.Common.Domain.Features.Common.Extensions;
 using InstaConnect.Common.Domain.Features.Requests.Models;
 
 namespace InstaConnect.Common.Domain.Features.Exceptions.Utilities;

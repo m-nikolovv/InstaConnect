@@ -1,7 +1,3 @@
-using FluentValidation;
-
-using InstaConnect.Common.Domain.Features.Validations.Extensions;
-
 namespace InstaConnect.Common.Infrastructure.Features.Emails.Models;
 
 public class SendGridOptionsValidator : AbstractValidator<SendGridOptions>

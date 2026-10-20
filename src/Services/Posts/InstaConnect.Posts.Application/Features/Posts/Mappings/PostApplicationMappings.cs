@@ -1,11 +1,12 @@
+using InstaConnect.Posts.Application.Features.PostImages.Models;
 using InstaConnect.Posts.Application.Features.Posts.Commands.Add;
 using InstaConnect.Posts.Application.Features.Posts.Commands.Delete;
 using InstaConnect.Posts.Application.Features.Posts.Commands.Update;
 using InstaConnect.Posts.Application.Features.Posts.Queries.GetAll;
 using InstaConnect.Posts.Application.Features.Posts.Queries.GetAllForUser;
 using InstaConnect.Posts.Application.Features.Posts.Queries.GetById;
-
-using Mapster;
+using InstaConnect.Posts.Domain.Features.Posts.Models.Responses;
+using InstaConnect.Posts.Domain.Features.Posts.Models.ValueObjects;
 
 namespace InstaConnect.Posts.Application.Features.Posts.Mappings;
 
@@ -72,7 +73,9 @@ internal class PostApplicationMappings : IRegister
 					src.UserId.Id,
 					src.Title,
 					src.Content,
+					src.Summary.Value,
 					src.User.Adapt<UserQueryResponse>(config),
+					src.PostImages.Adapt<ICollection<PostImageQueryResponse>>(config),
 					src.IsLikedByCurrentUser,
 					src.CreatedAtUtc,
 					src.UpdatedAtUtc));
@@ -81,7 +84,8 @@ internal class PostApplicationMappings : IRegister
 			.ConstructUsing(src => new(
 				new(src.UserId),
 				src.Title,
-				src.Content));
+				src.Content,
+				src.Images));
 
 		config.NewConfig<PostId, AddPostCommandResponse>()
 			.ConstructUsing(src => new(src.Adapt<PostIdCommandResponse>(config)));

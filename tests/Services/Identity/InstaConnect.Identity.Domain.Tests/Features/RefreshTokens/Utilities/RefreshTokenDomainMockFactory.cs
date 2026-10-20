@@ -1,7 +1,5 @@
 using InstaConnect.Identity.Domain.Features.RefreshTokens.Models.Options;
 
-using Microsoft.Extensions.Options;
-
 namespace InstaConnect.Identity.Domain.Tests.Features.RefreshTokens.Utilities;
 
 public static class RefreshTokenDomainMockFactory

@@ -1,3 +1,5 @@
+using InstaConnect.Posts.Domain.Features.PostLikes.Exceptions;
+
 namespace InstaConnect.Posts.Domain.Features.PostLikes.Helpers;
 
 internal class PostLikeQueryService : IPostLikeQueryService

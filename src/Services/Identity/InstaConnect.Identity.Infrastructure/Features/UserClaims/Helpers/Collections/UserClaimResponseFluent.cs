@@ -1,8 +1,4 @@
 using InstaConnect.Common.Domain.Features.Databases.Abstractions;
-using InstaConnect.Common.Infrastructure.Features.Databases.Abstractions;
-using InstaConnect.Common.Infrastructure.Features.Databases.Helpers;
-
-using MongoDB.Driver;
 
 namespace InstaConnect.Identity.Infrastructure.Features.UserClaims.Helpers.Collections;
 

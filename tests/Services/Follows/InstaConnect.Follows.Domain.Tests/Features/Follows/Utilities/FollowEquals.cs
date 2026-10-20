@@ -1,7 +1,7 @@
 using InstaConnect.Common.Domain.Features.Common.Extensions;
 using InstaConnect.Common.Domain.Features.Requests.Abstractions;
 using InstaConnect.Common.Tests.Features.DataAttributes.Enums.Sort;
-using InstaConnect.Follows.Domain.Tests.Features.Users.Utilities;
+using InstaConnect.Follows.Domain.Features.Follows.Models.Responses;
 using InstaConnect.Follows.Events.Features.Follows;
 using InstaConnect.Identity.Events.Features.Users;
 
@@ -68,7 +68,7 @@ public static class FollowEquals
 				   request.Email.EqualsOrdinalIgnoreCase(entity.Email.Value) &&
 				   request.FirstName == entity.FirstName &&
 				   request.LastName == entity.LastName &&
-				   request.ProfileImageUrl == entity.ProfileImage?.Url &&
+				   request.ProfileImageUrl == entity.ProfileImageUrl?.Value &&
 				   request.CreatedAtUtc == entity.CreatedAtUtc &&
 				   request.UpdatedAtUtc == entity.UpdatedAtUtc;
 		}
@@ -81,7 +81,7 @@ public static class FollowEquals
 				   request.Email.EqualsOrdinalIgnoreCase(entity.Email.Value) &&
 				   request.FirstName == entity.FirstName &&
 				   request.LastName == entity.LastName &&
-				   request.ProfileImageUrl == entity.ProfileImage?.Url &&
+				   request.ProfileImageUrl == entity.ProfileImageUrl?.Value &&
 				   request.CreatedAtUtc == entity.CreatedAtUtc &&
 				   request.UpdatedAtUtc == entity.UpdatedAtUtc;
 		}
@@ -94,7 +94,7 @@ public static class FollowEquals
 				   request.Email.EqualsOrdinalIgnoreCase(entity.Email.Value) &&
 				   request.FirstName == entity.FirstName &&
 				   request.LastName == entity.LastName &&
-				   request.ProfileImageUrl == entity.ProfileImage?.Url &&
+				   request.ProfileImageUrl == entity.ProfileImageUrl?.Value &&
 				   request.CreatedAtUtc == entity.CreatedAtUtc &&
 				   request.UpdatedAtUtc == entity.UpdatedAtUtc;
 		}
@@ -107,7 +107,7 @@ public static class FollowEquals
 				   request.Email.EqualsOrdinalIgnoreCase(entity.Email.Value) &&
 				   request.FirstName == entity.FirstName &&
 				   request.LastName == entity.LastName &&
-				   request.ProfileImageUrl == entity.ProfileImage?.Url &&
+				   request.ProfileImageUrl == entity.ProfileImageUrl?.Value &&
 				   request.CreatedAtUtc == entity.CreatedAtUtc &&
 				   request.UpdatedAtUtc == entity.UpdatedAtUtc;
 		}
@@ -144,7 +144,7 @@ public static class FollowEquals
 				   request.Email.EqualsOrdinalIgnoreCase(entity.Email.Value) &&
 				   request.FirstName == entity.FirstName &&
 				   request.LastName == entity.LastName &&
-				   request.ProfileImageUrl == entity.ProfileImage?.Url &&
+				   request.ProfileImageUrl == entity.ProfileImageUrl?.Value &&
 				   request.CreatedAtUtc == entity.CreatedAtUtc &&
 				   request.UpdatedAtUtc == entity.UpdatedAtUtc;
 		}
@@ -157,7 +157,7 @@ public static class FollowEquals
 				   request.Email.EqualsOrdinalIgnoreCase(entity.Email.Value) &&
 				   request.FirstName == entity.FirstName &&
 				   request.LastName == entity.LastName &&
-				   request.ProfileImageUrl == entity.ProfileImage?.Url &&
+				   request.ProfileImageUrl == entity.ProfileImageUrl?.Value &&
 				   request.CreatedAtUtc == entity.CreatedAtUtc &&
 				   request.UpdatedAtUtc == entity.UpdatedAtUtc;
 		}

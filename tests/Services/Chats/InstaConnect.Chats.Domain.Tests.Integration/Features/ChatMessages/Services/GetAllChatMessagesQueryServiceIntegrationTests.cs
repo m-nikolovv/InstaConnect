@@ -1,18 +1,10 @@
 using InstaConnect.Chats.Domain.Features.ChatMessages.Models.Entities;
-using InstaConnect.Chats.Domain.Features.ChatMessages.Models.Requests;
-using InstaConnect.Chats.Domain.Tests.Features.ChatMessages.Assertions;
-using InstaConnect.Chats.Domain.Tests.Features.ChatMessages.Builders;
-using InstaConnect.Chats.Domain.Tests.Integration.Features.ChatMessages.Utilities;
+using InstaConnect.Chats.Tests.Features.ChatMessageImages.Utilities;
 using InstaConnect.Chats.Tests.Features.ChatMessages.DataAttributes.SortOrder;
 using InstaConnect.Chats.Tests.Features.ChatMessages.DataAttributes.SortTerm;
-using InstaConnect.Chats.Tests.Features.ChatMessages.Utilities;
-using InstaConnect.Chats.Tests.Features.Chats.Utilities;
-using InstaConnect.Chats.Tests.Features.Users.DataAttributes.Id;
-using InstaConnect.Chats.Tests.Features.Users.Utilities;
 using InstaConnect.Common.Domain.Features.Requests.Models;
 using InstaConnect.Common.Tests.Features.DataAttributes.Enums.Base;
 using InstaConnect.Common.Tests.Features.DataAttributes.Enums.Sort;
-using InstaConnect.Common.Tests.Features.DataAttributes.Strings.Base;
 
 namespace InstaConnect.Chats.Domain.Tests.Integration.Features.ChatMessages.Services;
 
@@ -22,21 +14,28 @@ public class GetAllChatMessagesQueryServiceIntegrationTests : BaseChatMessageDom
 	private readonly GetAllChatMessagesQueryBuilder _queryBuilder;
 	private readonly GetAllChatMessagesQuery _query;
 
+	private readonly GetAllChatMessagesQueryBuilder _invertedQueryBuilder;
+	private readonly GetAllChatMessagesQuery _invertedQuery;
+
 	public GetAllChatMessagesQueryServiceIntegrationTests(ChatsWebApplicationFactory webApplicationFactory)
 		: base(webApplicationFactory)
 	{
 		_queryBuilderFactory = new();
 		_queryBuilder = _queryBuilderFactory.Create(ChatMessage);
 		_query = _queryBuilder.Build();
+
+		_invertedQueryBuilder = _queryBuilderFactory.Create(ChatMessage).WithCurrentUserId(ParticipantTwoId).WithParticipantTwoId(ParticipantOneId);
+		_invertedQuery = _invertedQueryBuilder.Build();
 	}
 
 	protected override async Task OnInitializeAsync()
 	{
 		await ServiceScope.AddRangeAsync(ChatMessages, CancellationToken);
+		await ServiceScope.AddRangeAsync(ChatMessageImages, CancellationToken);
 	}
 
 	[Fact]
-	public async Task GetAllAsync_ShouldThrowChatNotFoundException_WhenIdIsInvalid()
+	public async Task GetAllAsync_ShouldThrowChatNotFoundException_WhenChatNotFound()
 	{
 		// Arrange
 		await ServiceScope.DeleteAsync(Chat, CancellationToken);
@@ -119,14 +118,11 @@ public class GetAllChatMessagesQueryServiceIntegrationTests : BaseChatMessageDom
 	[Fact]
 	public async Task GetAllAsync_ShouldReturnInvertedResponse_WhenQueryIsValid()
 	{
-		// Arrange
-		var query = _queryBuilder.WithParticipantTwoId(ParticipantOne.Id).WithCurrentUserId(ParticipantTwo.Id).Build();
-
 		// Act
-		var response = await Service.GetAllAsync(query, CancellationToken);
+		var response = await Service.GetAllAsync(_invertedQuery, CancellationToken);
 
 		// Assert
-		response.ShouldSatisfyInverted(query, Chat, ChatMessages);
+		response.ShouldSatisfyInverted(_invertedQuery, Chat, ChatMessages);
 	}
 
 	[Theory]
@@ -135,13 +131,13 @@ public class GetAllChatMessagesQueryServiceIntegrationTests : BaseChatMessageDom
 		IStringTransformer transformer)
 	{
 		// Arrange
-		var query = _queryBuilder.WithParticipantTwoId(ParticipantOne.Id, transformer).WithCurrentUserId(ParticipantTwo.Id).Build();
+		var invertedQuery = _invertedQueryBuilder.WithParticipantTwoId(transformer).Build();
 
 		// Act
-		var response = await Service.GetAllAsync(query, CancellationToken);
+		var response = await Service.GetAllAsync(invertedQuery, CancellationToken);
 
 		// Assert
-		response.ShouldSatisfyInverted(query, Chat, ChatMessages);
+		response.ShouldSatisfyInverted(invertedQuery, Chat, ChatMessages);
 	}
 
 	[Theory]
@@ -151,13 +147,13 @@ public class GetAllChatMessagesQueryServiceIntegrationTests : BaseChatMessageDom
 		IEnumTransformer<CommonSortOrder> transformer, ISortEnumTermTransformer<ChatMessage> termTransformer)
 	{
 		// Arrange
-		var query = _queryBuilder.WithParticipantTwoId(ParticipantOne.Id).WithCurrentUserId(ParticipantTwo.Id).WithSortOrder(transformer).Build();
+		var invertedQuery = _invertedQueryBuilder.WithSortOrder(transformer).Build();
 
 		// Act
-		var response = await Service.GetAllAsync(query, CancellationToken);
+		var response = await Service.GetAllAsync(invertedQuery, CancellationToken);
 
 		// Assert
-		response.ShouldSatisfyInverted(query, Chat, ChatMessages, termTransformer);
+		response.ShouldSatisfyInverted(invertedQuery, Chat, ChatMessages, termTransformer);
 	}
 
 	[Theory]
@@ -166,13 +162,13 @@ public class GetAllChatMessagesQueryServiceIntegrationTests : BaseChatMessageDom
 		IEnumTransformer<ChatMessagesSortTerm> transformer, ISortEnumTermTransformer<ChatMessage> termTransformer)
 	{
 		// Arrange
-		var query = _queryBuilder.WithParticipantTwoId(ParticipantOne.Id).WithCurrentUserId(ParticipantTwo.Id).WithSortTerm(transformer).Build();
+		var invertedQuery = _invertedQueryBuilder.WithSortTerm(transformer).Build();
 
 		// Act
-		var response = await Service.GetAllAsync(query, CancellationToken);
+		var response = await Service.GetAllAsync(invertedQuery, CancellationToken);
 
 		// Assert
-		response.ShouldSatisfyInverted(query, Chat, ChatMessages, termTransformer);
+		response.ShouldSatisfyInverted(invertedQuery, Chat, ChatMessages, termTransformer);
 	}
 
 	[Theory]
@@ -181,12 +177,12 @@ public class GetAllChatMessagesQueryServiceIntegrationTests : BaseChatMessageDom
 		IStringTransformer transformer)
 	{
 		// Arrange
-		var query = _queryBuilder.WithParticipantTwoId(ParticipantOne.Id).WithCurrentUserId(ParticipantTwo.Id, transformer).Build();
+		var invertedQuery = _invertedQueryBuilder.WithCurrentUserId(transformer).Build();
 
 		// Act
-		var response = await Service.GetAllAsync(query, CancellationToken);
+		var response = await Service.GetAllAsync(invertedQuery, CancellationToken);
 
 		// Assert
-		response.ShouldSatisfyInverted(query, Chat, ChatMessages);
+		response.ShouldSatisfyInverted(invertedQuery, Chat, ChatMessages);
 	}
 }

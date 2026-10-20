@@ -1,3 +1,7 @@
+using InstaConnect.Chats.Application.Features.Users.Commands.Add;
+using InstaConnect.Chats.Application.Features.Users.Commands.Delete;
+using InstaConnect.Chats.Application.Features.Users.Commands.Update;
+
 namespace InstaConnect.Chats.Infrastructure.Tests.Features.Users.Utilities;
 
 public static class UserInfrastructureMatcher

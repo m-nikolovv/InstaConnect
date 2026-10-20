@@ -1,9 +1,5 @@
 using InstaConnect.Identity.Domain.Features.UserClaims.Models.Requests;
-using InstaConnect.Identity.Infrastructure.Features.UserClaims.Helpers.Repositories;
-using InstaConnect.Identity.Infrastructure.Tests.Features.UserClaims.Assertions;
 using InstaConnect.Identity.Infrastructure.Tests.Features.UserClaims.Builders;
-using InstaConnect.Identity.Infrastructure.Tests.Features.UserClaims.Utilities;
-using InstaConnect.Identity.Infrastructure.Tests.Unit.Features.UserClaims.Utilities;
 
 namespace InstaConnect.Identity.Infrastructure.Tests.Unit.Features.UserClaims.Repositories;
 
@@ -29,7 +25,7 @@ public class GetUserClaimsTotalCountQueryRepositoryUnitTests : BaseUserClaimInfr
 	}
 
 	[Fact]
-	public async Task GetTotalCountAsync_ShouldReturnResponse_WhenRequestIsValid()
+	public async Task GetTotalCountAsync_ShouldReturnResponse_WhenQueryIsValid()
 	{
 		// Act
 		var response = await _repository.GetTotalCountAsync(_filterQuery, CancellationToken);
@@ -39,7 +35,7 @@ public class GetUserClaimsTotalCountQueryRepositoryUnitTests : BaseUserClaimInfr
 	}
 
 	[Fact]
-	public async Task GetTotalCountAsync_ShouldCallTheCollectionAggregateFluent_WhenRequestIsValid()
+	public async Task GetTotalCountAsync_ShouldCallTheCollectionAggregateFluent_WhenQueryIsValid()
 	{
 		// Act
 		await _repository.GetTotalCountAsync(_filterQuery, CancellationToken);
@@ -49,7 +45,7 @@ public class GetUserClaimsTotalCountQueryRepositoryUnitTests : BaseUserClaimInfr
 	}
 
 	[Fact]
-	public async Task GetTotalCountAsync_ShouldCallTheFluentMatch_WhenRequestIsValid()
+	public async Task GetTotalCountAsync_ShouldCallTheFluentMatch_WhenQueryIsValid()
 	{
 		// Act
 		await _repository.GetTotalCountAsync(_filterQuery, CancellationToken);
@@ -59,7 +55,7 @@ public class GetUserClaimsTotalCountQueryRepositoryUnitTests : BaseUserClaimInfr
 	}
 
 	[Fact]
-	public async Task GetTotalCountAsync_ShouldCallTheFluentGetCountAsync_WhenRequestIsValid()
+	public async Task GetTotalCountAsync_ShouldCallTheFluentGetCountAsync_WhenQueryIsValid()
 	{
 		// Act
 		await _repository.GetTotalCountAsync(_filterQuery, CancellationToken);

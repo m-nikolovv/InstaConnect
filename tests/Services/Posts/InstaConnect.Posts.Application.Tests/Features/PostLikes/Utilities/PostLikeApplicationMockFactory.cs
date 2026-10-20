@@ -1,3 +1,5 @@
+using InstaConnect.Posts.Domain.Features.PostLikes.Abstractions;
+
 namespace InstaConnect.Posts.Application.Tests.Features.PostLikes.Utilities;
 
 public static class PostLikeApplicationMockFactory

@@ -1,7 +1,6 @@
-using InstaConnect.Common.Infrastructure.Features.Databases.Helpers;
+using InstaConnect.Identity.Domain.Features.ForgotPasswordTokens.Models.Requests;
+using InstaConnect.Identity.Domain.Features.ForgotPasswordTokens.Models.ValueObjects;
 using InstaConnect.Identity.Infrastructure.Features.ForgotPasswordTokens.Extensions;
-
-using MongoDB.Driver;
 
 namespace InstaConnect.Identity.Infrastructure.Features.ForgotPasswordTokens.Helpers.Collections;
 
@@ -24,6 +23,13 @@ internal class ForgotPasswordTokenFluent : MongoDbFluent<ForgotPasswordToken>, I
 	}
 
 	public IForgotPasswordTokenFluent Match(ForgotPasswordTokenId filter)
+	{
+		Match(filter.GetFilter());
+
+		return this;
+	}
+
+	public IForgotPasswordTokenFluent Match(IEnumerable<ForgotPasswordTokenId> filter)
 	{
 		Match(filter.GetFilter());
 

@@ -1,6 +1,3 @@
-using InstaConnect.Common.Domain.Features.Requests.Models;
-using InstaConnect.Posts.Domain.Features.Posts.Models.Requests;
-
 namespace InstaConnect.Posts.Presentation.Tests.Features.Posts.Builders;
 
 public class GetAllPostsForUserApiRequestBuilder

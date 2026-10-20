@@ -66,6 +66,11 @@ public static class UserDataFaker
 		return DataFaker.GetFormFile();
 	}
 
+	public static string GetProfileImageUrl()
+	{
+		return DataFaker.GetUrl();
+	}
+
 	public static DateTimeOffset GetCreatedAtUtc()
 	{
 		return DataFaker.GetSoonDate();

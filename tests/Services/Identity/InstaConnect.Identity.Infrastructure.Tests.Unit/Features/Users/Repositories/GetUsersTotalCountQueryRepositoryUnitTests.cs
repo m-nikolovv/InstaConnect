@@ -1,9 +1,4 @@
-using InstaConnect.Identity.Domain.Features.Users.Models.Requests;
-using InstaConnect.Identity.Infrastructure.Features.Users.Helpers.Repositories;
-using InstaConnect.Identity.Infrastructure.Tests.Features.Users.Assertions;
 using InstaConnect.Identity.Infrastructure.Tests.Features.Users.Builders;
-using InstaConnect.Identity.Infrastructure.Tests.Features.Users.Utilities;
-using InstaConnect.Identity.Infrastructure.Tests.Unit.Features.Users.Utilities;
 
 namespace InstaConnect.Identity.Infrastructure.Tests.Unit.Features.Users.Repositories;
 
@@ -29,7 +24,7 @@ public class GetUsersTotalCountQueryRepositoryUnitTests : BaseUserInfrastructure
 	}
 
 	[Fact]
-	public async Task GetTotalCountAsync_ShouldReturnResponse_WhenRequestIsValid()
+	public async Task GetTotalCountAsync_ShouldReturnResponse_WhenQueryIsValid()
 	{
 		// Act
 		var response = await _repository.GetTotalCountAsync(_filterQuery, CancellationToken);
@@ -39,7 +34,7 @@ public class GetUsersTotalCountQueryRepositoryUnitTests : BaseUserInfrastructure
 	}
 
 	[Fact]
-	public async Task GetTotalCountAsync_ShouldCallTheCollectionAggregateFluent_WhenRequestIsValid()
+	public async Task GetTotalCountAsync_ShouldCallTheCollectionAggregateFluent_WhenQueryIsValid()
 	{
 		// Act
 		await _repository.GetTotalCountAsync(_filterQuery, CancellationToken);
@@ -49,7 +44,7 @@ public class GetUsersTotalCountQueryRepositoryUnitTests : BaseUserInfrastructure
 	}
 
 	[Fact]
-	public async Task GetTotalCountAsync_ShouldCallTheFluentMatch_WhenRequestIsValid()
+	public async Task GetTotalCountAsync_ShouldCallTheFluentMatch_WhenQueryIsValid()
 	{
 		// Act
 		await _repository.GetTotalCountAsync(_filterQuery, CancellationToken);
@@ -59,7 +54,7 @@ public class GetUsersTotalCountQueryRepositoryUnitTests : BaseUserInfrastructure
 	}
 
 	[Fact]
-	public async Task GetTotalCountAsync_ShouldCallTheFluentGetCountAsync_WhenRequestIsValid()
+	public async Task GetTotalCountAsync_ShouldCallTheFluentGetCountAsync_WhenQueryIsValid()
 	{
 		// Act
 		await _repository.GetTotalCountAsync(_filterQuery, CancellationToken);

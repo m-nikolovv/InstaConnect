@@ -1,4 +1,4 @@
-using InstaConnect.Common.Domain.Features.ValueObjects.Models;
+using InstaConnect.Common.Tests.Features.DataAttributes.DateTimeOffsets.Base;
 
 namespace InstaConnect.Posts.Infrastructure.Tests.Features.Users.Builders;
 
@@ -20,7 +20,7 @@ public class UserAddedEventRequestBuilder
 		_firstName = user.FirstName;
 		_lastName = user.LastName;
 		_email = user.Email.Value;
-		_profileImage = user.ProfileImage?.Url;
+		_profileImage = user.ProfileImageUrl?.Value;
 		_createdAtUtc = user.CreatedAtUtc;
 		_updatedAtUtc = user.UpdatedAtUtc;
 	}

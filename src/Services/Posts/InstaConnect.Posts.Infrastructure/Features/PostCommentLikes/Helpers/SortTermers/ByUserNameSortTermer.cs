@@ -1,5 +1,3 @@
-using System.Linq.Expressions;
-
 namespace InstaConnect.Posts.Infrastructure.Features.PostCommentLikes.Helpers.SortTermers;
 
 internal class ByUserNameSortTermer : IPostCommentLikesSortTermer

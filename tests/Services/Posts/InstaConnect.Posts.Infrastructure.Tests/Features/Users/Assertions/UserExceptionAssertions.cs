@@ -1,3 +1,5 @@
+using InstaConnect.Posts.Infrastructure.Features.Users.EventHandlers;
+
 namespace InstaConnect.Posts.Infrastructure.Tests.Features.Users.Assertions;
 
 public static class UserExceptionAssertions

@@ -1,3 +1,10 @@
+using InstaConnect.Posts.Application.Features.Posts.Commands.Add;
+using InstaConnect.Posts.Application.Features.Posts.Commands.Delete;
+using InstaConnect.Posts.Application.Features.Posts.Commands.Update;
+using InstaConnect.Posts.Application.Features.Posts.Queries.GetAll;
+using InstaConnect.Posts.Application.Features.Posts.Queries.GetAllForUser;
+using InstaConnect.Posts.Application.Features.Posts.Queries.GetById;
+
 namespace InstaConnect.Posts.Presentation.Tests.Features.Posts.Utilities;
 
 public static class PostPresentationMatcher

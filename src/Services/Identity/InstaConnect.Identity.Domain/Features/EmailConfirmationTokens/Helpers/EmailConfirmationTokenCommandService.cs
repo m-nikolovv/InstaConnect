@@ -1,5 +1,7 @@
 using InstaConnect.Common.Domain.Features.Mappers.Abstractions;
 using InstaConnect.Common.Events.Features.Events.Abstractions;
+using InstaConnect.Identity.Domain.Features.EmailConfirmationTokens.Exceptions;
+using InstaConnect.Identity.Events.Features.EmailConfirmationTokens;
 
 namespace InstaConnect.Identity.Domain.Features.EmailConfirmationTokens.Helpers;
 

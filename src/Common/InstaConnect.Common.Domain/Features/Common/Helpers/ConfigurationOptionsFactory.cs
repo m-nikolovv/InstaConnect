@@ -1,6 +1,3 @@
-using InstaConnect.Common.Domain.Features.Common.Abstractions;
-using InstaConnect.Common.Domain.Features.Common.Extensions;
-
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Options;
 

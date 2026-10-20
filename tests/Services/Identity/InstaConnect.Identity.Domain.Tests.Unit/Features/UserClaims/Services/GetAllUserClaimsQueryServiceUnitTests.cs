@@ -2,7 +2,6 @@ using InstaConnect.Identity.Domain.Features.UserClaims.Helpers;
 using InstaConnect.Identity.Domain.Features.UserClaims.Models.Requests;
 using InstaConnect.Identity.Domain.Tests.Features.UserClaims.Assertions;
 using InstaConnect.Identity.Domain.Tests.Features.UserClaims.Builders;
-using InstaConnect.Identity.Domain.Tests.Features.UserClaims.Utilities;
 using InstaConnect.Identity.Domain.Tests.Unit.Features.UserClaims.Utilities;
 
 namespace InstaConnect.Identity.Domain.Tests.Unit.Features.UserClaims.Services;
@@ -29,7 +28,7 @@ public class GetAllUserClaimsQueryServiceUnitTests : BaseUserClaimDomainQueryUni
 	}
 
 	[Fact]
-	public async Task GetAllAsync_ShouldThrowUserNotFoundException_WhenUserIdIsInvalid()
+	public async Task GetAllAsync_ShouldThrowUserNotFoundException_WhenUserNotFound()
 	{
 		// Arrange
 		Repository.RemoveGetByIdAsync(_query, User, CancellationToken);

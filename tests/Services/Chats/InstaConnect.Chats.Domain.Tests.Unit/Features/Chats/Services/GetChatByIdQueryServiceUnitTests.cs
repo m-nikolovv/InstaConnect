@@ -1,8 +1,6 @@
 using InstaConnect.Chats.Domain.Features.Chats.Helpers;
-using InstaConnect.Chats.Domain.Features.Chats.Models.Requests;
 using InstaConnect.Chats.Domain.Tests.Features.Chats.Assertions;
 using InstaConnect.Chats.Domain.Tests.Features.Chats.Builders;
-using InstaConnect.Chats.Domain.Tests.Features.Chats.Utilities;
 using InstaConnect.Chats.Domain.Tests.Unit.Features.Chats.Utilities;
 
 namespace InstaConnect.Chats.Domain.Tests.Unit.Features.Chats.Services;
@@ -27,7 +25,7 @@ public class GetChatByIdQueryServiceUnitTests : BaseChatDomainQueryUnitTest
 	}
 
 	[Fact]
-	public async Task GetByIdAsync_ShouldThrowChatNotFoundException_WhenIdIsInvalid()
+	public async Task GetByIdAsync_ShouldThrowChatNotFoundException_WhenChatNotFound()
 	{
 		// Arrange
 		Repository.RemoveGetByIdAsync(_query, Chat, CancellationToken);

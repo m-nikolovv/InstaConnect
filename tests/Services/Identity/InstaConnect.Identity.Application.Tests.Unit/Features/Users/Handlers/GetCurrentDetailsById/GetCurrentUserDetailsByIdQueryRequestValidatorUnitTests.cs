@@ -1,3 +1,5 @@
+using InstaConnect.Identity.Application.Features.Users.Queries.GetCurrentDetailsById;
+
 namespace InstaConnect.Identity.Application.Tests.Unit.Features.Users.Handlers.GetCurrentDetailsById;
 
 public class GetCurrentUserDetailsByIdQueryRequestValidatorUnitTests : BaseUserApplicationQueryUnitTest
@@ -36,7 +38,7 @@ public class GetCurrentUserDetailsByIdQueryRequestValidatorUnitTests : BaseUserA
 	}
 
 	[Fact]
-	public void TestValidate_ShouldNotHaveAnyValidationsErrors_WhenRequestIsValid()
+	public void TestValidate_ShouldNotHaveAnyValidationErrors_WhenRequestIsValid()
 	{
 		// Act
 		var response = _requestValidator.TestValidate(_request);

@@ -1,10 +1,3 @@
-using InstaConnect.Posts.Domain.Features.Posts.Helpers;
-using InstaConnect.Posts.Domain.Features.Posts.Models.Requests;
-using InstaConnect.Posts.Domain.Tests.Features.Posts.Assertions;
-using InstaConnect.Posts.Domain.Tests.Features.Posts.Builders;
-using InstaConnect.Posts.Domain.Tests.Features.Posts.Utilities;
-using InstaConnect.Posts.Domain.Tests.Unit.Features.Posts.Utilities;
-
 namespace InstaConnect.Posts.Domain.Tests.Unit.Features.Posts.Services;
 
 public class UpdatePostCommandServiceUnitTests : BasePostDomainCommandUnitTest
@@ -23,16 +16,16 @@ public class UpdatePostCommandServiceUnitTests : BasePostDomainCommandUnitTest
 		_commandBuilder = _commandBuilderFactory.Create(Post);
 		_command = _commandBuilder.Build();
 
-		_include = IncludeBuilderFactory.Create().WithUser().Build();
+		_include = IncludeBuilderFactory.Create().WithUser().WithPostImages().Build();
 
-		_service = new(Factory, Mapper, EventPublisher, Repository, DateTimeProvider, UserRepository, IncludeBuilderFactory);
+		_service = new(Factory, Mapper, Summarizer, ImageHandler, EventPublisher, ImageFactory, Repository, DateTimeProvider, UserRepository, ImageRepository, IncludeBuilderFactory);
 
 		Repository.SetupGetByIdAsync(_command, _include, Post, CancellationToken);
 		DateTimeProvider.SetupGetOffsetUtcNow(_command, Post);
 	}
 
 	[Fact]
-	public async Task UpdateAsync_ShouldThrowPostNotFoundException_WhenIdIsInvalid()
+	public async Task UpdateAsync_ShouldThrowPostNotFoundException_WhenPostNotFound()
 	{
 		// Arrange
 		Repository.RemoveGetByIdAsync(_command, _include, Post, CancellationToken);
@@ -42,7 +35,7 @@ public class UpdatePostCommandServiceUnitTests : BasePostDomainCommandUnitTest
 	}
 
 	[Fact]
-	public async Task UpdateAsync_ShouldThrowPostForbiddenException_WhenUserIdIsInvalid()
+	public async Task UpdateAsync_ShouldThrowPostForbiddenException_WhenPostForbidden()
 	{
 		// Arrange
 		var user = UserBuilderFactory.Create().Build();
@@ -80,6 +73,16 @@ public class UpdatePostCommandServiceUnitTests : BasePostDomainCommandUnitTest
 
 		// Assert
 		await Repository.ShouldHaveReceivedOneUpdateAsync(_command, CancellationToken);
+	}
+
+	[Fact]
+	public async Task UpdateAsync_ShouldCallTheSummarizerSummarizeAsync_WhenCommandIsValid()
+	{
+		// Act
+		await _service.UpdateAsync(_command, CancellationToken);
+
+		// Assert
+		await Summarizer.ShouldHaveReceivedOneSummarizeAsync(_command, CancellationToken);
 	}
 
 	[Fact]

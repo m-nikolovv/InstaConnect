@@ -14,6 +14,7 @@ public static class PostGenerator
 						new(PostDataFaker.GetId()),
 						PostDataFaker.GetTitleWithPrefix(basePost.Title),
 						PostDataFaker.GetContent(),
+						new(PostDataFaker.GetSummary()),
 						user.Id,
 						PostDataFaker.GetCreatedAtUtc(),
 						PostDataFaker.GetUpdatedAtUtc());

@@ -1,3 +1,7 @@
+using InstaConnect.Posts.Presentation.Features.PostLikes.Controllers.v1;
+using InstaConnect.Posts.Tests.Features.PostLikes.Abstractions;
+using InstaConnect.Posts.Tests.Features.PostLikes.Extensions;
+
 namespace InstaConnect.Posts.Presentation.Tests.Integration.Features.PostLikes.Utilities;
 
 public abstract class BasePostLikePresentationCommandIntegrationTest : BasePostLikeWebTest

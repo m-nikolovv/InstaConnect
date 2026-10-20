@@ -1,5 +1,3 @@
-using InstaConnect.Common.Domain.Features.Requests.Abstractions;
-
 namespace InstaConnect.Identity.Domain.Features.Users.Models.Requests;
 
 public record UsersPaginationQuery(

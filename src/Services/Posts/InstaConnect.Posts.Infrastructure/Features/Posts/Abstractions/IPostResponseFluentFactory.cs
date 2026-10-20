@@ -1,5 +1,3 @@
-using MongoDB.Driver;
-
 namespace InstaConnect.Posts.Infrastructure.Features.Posts.Abstractions;
 
 public interface IPostResponseFluentFactory

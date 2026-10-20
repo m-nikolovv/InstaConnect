@@ -1,9 +1,10 @@
-using InstaConnect.Common.Domain.Features.Common.Extensions;
+using InstaConnect.Common.Tests.Features.Extensions;
+using InstaConnect.Identity.Application.Features.ForgotPasswordTokens.Commands.Add;
+using InstaConnect.Identity.Application.Features.ForgotPasswordTokens.Commands.Verify;
 using InstaConnect.Identity.Domain.Features.Common.Helpers;
+using InstaConnect.Identity.Domain.Features.ForgotPasswordTokens.Models.Entities;
 using InstaConnect.Identity.Events.Features.ForgotPasswordTokens;
-using InstaConnect.Identity.Events.Features.Users;
 using InstaConnect.Identity.Presentation.Tests.Features.ForgotPasswordTokens.Utilities;
-using InstaConnect.Identity.Presentation.Tests.Features.Users.Utilities;
 
 namespace InstaConnect.Identity.Presentation.Tests.Features.ForgotPasswordTokens.Utilities;
 
@@ -38,11 +39,30 @@ public static class ForgotPasswordTokenEquals
 				   user.Email.Value.IsNotNullOrEmptyOrWhiteSpace() &&
 				   user.FirstName.IsNotNullOrEmptyOrWhiteSpace() &&
 				   user.LastName.IsNotNullOrEmptyOrWhiteSpace() &&
-				   (user.ProfileImage == null || user.ProfileImage.Url.IsNotNullOrEmptyOrWhiteSpace()) &&
+				   (user.ProfileImageUrl == null || user.ProfileImageUrl.Value.IsNotNullOrEmptyOrWhiteSpace()) &&
 				   passwordHasher.IsMatch(request.Body.Password, user.PasswordHash) &&
 				   user.IsEmailConfirmed &&
 				   user.CreatedAtUtc != default &&
 				   user.UpdatedAtUtc != default;
+		}
+	}
+
+	extension(ForgotPasswordToken entity)
+	{
+		public bool Matches(AddForgotPasswordTokenApiRequest request)
+		{
+			return entity.Id.Id.Id.IsNotNullOrEmptyOrWhiteSpace() &&
+				   entity.Id.Value.IsNotNullOrEmptyOrWhiteSpace() &&
+				   entity.CreatedAtUtc != default &&
+				   entity.ExpiresAtUtc != default;
+		}
+	}
+
+	extension(ICollection<ForgotPasswordToken> entities)
+	{
+		public bool Matches(AddForgotPasswordTokenApiRequest request)
+		{
+			return entities.AllAndNotEmpty(entity => entity.Matches(request));
 		}
 	}
 
@@ -79,7 +99,7 @@ public static class ForgotPasswordTokenEquals
 				   r.Email.EqualsOrdinalIgnoreCase(entity.Email.Value) &&
 				   r.FirstName == entity.FirstName &&
 				   r.LastName == entity.LastName &&
-				   r.ProfileImageUrl == entity.ProfileImage?.Url &&
+				   r.ProfileImageUrl == entity.ProfileImageUrl?.Value &&
 				   r.CreatedAtUtc == entity.CreatedAtUtc &&
 				   r.UpdatedAtUtc == entity.UpdatedAtUtc;
 		}
@@ -92,7 +112,7 @@ public static class ForgotPasswordTokenEquals
 				   r.Email.EqualsOrdinalIgnoreCase(entity.Email.Value) &&
 				   r.FirstName == entity.FirstName &&
 				   r.LastName == entity.LastName &&
-				   r.ProfileImageUrl == entity.ProfileImage?.Url &&
+				   r.ProfileImageUrl == entity.ProfileImageUrl?.Value &&
 				   r.CreatedAtUtc == entity.CreatedAtUtc &&
 				   r.UpdatedAtUtc == entity.UpdatedAtUtc;
 		}

@@ -1,11 +1,7 @@
-using InstaConnect.Identity.Domain.Features.Users.Models.Requests;
-using InstaConnect.Identity.Infrastructure.Tests.Features.Users.Assertions;
 using InstaConnect.Identity.Infrastructure.Tests.Features.Users.Builders;
-using InstaConnect.Identity.Infrastructure.Tests.Integration.Features.Users.Utilities;
 using InstaConnect.Identity.Tests.Features.Users.DataAttributes.FirstName;
 using InstaConnect.Identity.Tests.Features.Users.DataAttributes.LastName;
 using InstaConnect.Identity.Tests.Features.Users.DataAttributes.Name;
-using InstaConnect.Identity.Tests.Features.Users.Utilities;
 
 namespace InstaConnect.Identity.Infrastructure.Tests.Integration.Features.Users.Repositories;
 

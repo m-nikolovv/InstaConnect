@@ -1,3 +1,6 @@
+using InstaConnect.Common.Domain.Features.DateTimes.Abstractions;
+using InstaConnect.Common.Domain.Features.Guids.Abstractions;
+
 namespace InstaConnect.Chats.Domain.Features.ChatMessages.Helpers;
 
 internal class ChatMessageFactory : IChatMessageFactory
@@ -21,6 +24,7 @@ internal class ChatMessageFactory : IChatMessageFactory
 			new(id, messageId),
 			senderId,
 			content,
+			new(string.Empty),
 			utcNow,
 			utcNow);
 

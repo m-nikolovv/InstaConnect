@@ -1,10 +1,5 @@
-using InstaConnect.Identity.Domain.Features.Users.Models.Requests;
-using InstaConnect.Identity.Infrastructure.Features.Users.Helpers.Repositories;
 using InstaConnect.Identity.Infrastructure.Tests.Features.Common.Builders;
-using InstaConnect.Identity.Infrastructure.Tests.Features.Users.Assertions;
 using InstaConnect.Identity.Infrastructure.Tests.Features.Users.Builders;
-using InstaConnect.Identity.Infrastructure.Tests.Features.Users.Utilities;
-using InstaConnect.Identity.Infrastructure.Tests.Unit.Features.Users.Utilities;
 
 namespace InstaConnect.Identity.Infrastructure.Tests.Unit.Features.Users.Repositories;
 
@@ -57,7 +52,7 @@ public class GetAllUsersQueryRepositoryUnitTests : BaseUserInfrastructureQueryUn
 	}
 
 	[Fact]
-	public async Task GetAllAsync_ShouldReturnResponse_WhenRequestIsValid()
+	public async Task GetAllAsync_ShouldReturnResponse_WhenQueryIsValid()
 	{
 		// Act
 		var response = await _repository.GetAllAsync(_filterQuery, _sortingQuery, _paginationQuery, _currentUserQuery, CancellationToken);
@@ -67,7 +62,7 @@ public class GetAllUsersQueryRepositoryUnitTests : BaseUserInfrastructureQueryUn
 	}
 
 	[Fact]
-	public async Task GetAllAsync_ShouldCallTheCollectionAggregateFluent_WhenRequestIsValid()
+	public async Task GetAllAsync_ShouldCallTheCollectionAggregateFluent_WhenQueryIsValid()
 	{
 		// Act
 		await _repository.GetAllAsync(_filterQuery, _sortingQuery, _paginationQuery, _currentUserQuery, CancellationToken);
@@ -77,7 +72,7 @@ public class GetAllUsersQueryRepositoryUnitTests : BaseUserInfrastructureQueryUn
 	}
 
 	[Fact]
-	public async Task GetAllAsync_ShouldCallTheFluentMatch_WhenRequestIsValid()
+	public async Task GetAllAsync_ShouldCallTheFluentMatch_WhenQueryIsValid()
 	{
 		// Act
 		await _repository.GetAllAsync(_filterQuery, _sortingQuery, _paginationQuery, _currentUserQuery, CancellationToken);
@@ -87,7 +82,7 @@ public class GetAllUsersQueryRepositoryUnitTests : BaseUserInfrastructureQueryUn
 	}
 
 	[Fact]
-	public async Task GetAllAsync_ShouldCallTheFluentProjectToFullResponse_WhenRequestIsValid()
+	public async Task GetAllAsync_ShouldCallTheFluentProjectToFullResponse_WhenQueryIsValid()
 	{
 		// Act
 		await _repository.GetAllAsync(_filterQuery, _sortingQuery, _paginationQuery, _currentUserQuery, CancellationToken);
@@ -97,7 +92,7 @@ public class GetAllUsersQueryRepositoryUnitTests : BaseUserInfrastructureQueryUn
 	}
 
 	[Fact]
-	public async Task GetAllAsync_ShouldCallTheResponseFluentApplySorting_WhenRequestIsValid()
+	public async Task GetAllAsync_ShouldCallTheResponseFluentApplySorting_WhenQueryIsValid()
 	{
 		// Act
 		await _repository.GetAllAsync(_filterQuery, _sortingQuery, _paginationQuery, _currentUserQuery, CancellationToken);
@@ -107,7 +102,7 @@ public class GetAllUsersQueryRepositoryUnitTests : BaseUserInfrastructureQueryUn
 	}
 
 	[Fact]
-	public async Task GetAllAsync_ShouldCallTheResponseFluentApplyPagination_WhenRequestIsValid()
+	public async Task GetAllAsync_ShouldCallTheResponseFluentApplyPagination_WhenQueryIsValid()
 	{
 		// Act
 		await _repository.GetAllAsync(_filterQuery, _sortingQuery, _paginationQuery, _currentUserQuery, CancellationToken);
@@ -117,7 +112,7 @@ public class GetAllUsersQueryRepositoryUnitTests : BaseUserInfrastructureQueryUn
 	}
 
 	[Fact]
-	public async Task GetAllAsync_ShouldCallTheResponseFluentToListAsync_WhenRequestIsValid()
+	public async Task GetAllAsync_ShouldCallTheResponseFluentToListAsync_WhenQueryIsValid()
 	{
 		// Act
 		await _repository.GetAllAsync(_filterQuery, _sortingQuery, _paginationQuery, _currentUserQuery, CancellationToken);

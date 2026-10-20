@@ -1,3 +1,5 @@
+using InstaConnect.Identity.Domain.Features.Users.Abstractions;
+
 namespace InstaConnect.Identity.Application.Tests.Features.Users.Utilities;
 
 public static class UserApplicationMockFactory

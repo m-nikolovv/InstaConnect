@@ -1,3 +1,4 @@
+using InstaConnect.Common.Tests.Features.Abstractions;
 using InstaConnect.Identity.Events.Features.UserClaims;
 using InstaConnect.Identity.Tests.Features.UserClaims.Abstractions;
 

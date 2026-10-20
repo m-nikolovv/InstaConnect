@@ -1,9 +1,3 @@
-using InstaConnect.Chats.Infrastructure.Features.ChatMessages.Extensions;
-using InstaConnect.Common.Infrastructure.Features.Databases.Abstractions;
-using InstaConnect.Common.Infrastructure.Features.Databases.Helpers;
-
-using MongoDB.Driver;
-
 namespace InstaConnect.Chats.Infrastructure.Features.ChatMessages.Helpers.Collections;
 
 internal class ChatMessageCollection : MongoDbCollection<ChatMessage>, IChatMessageCollection

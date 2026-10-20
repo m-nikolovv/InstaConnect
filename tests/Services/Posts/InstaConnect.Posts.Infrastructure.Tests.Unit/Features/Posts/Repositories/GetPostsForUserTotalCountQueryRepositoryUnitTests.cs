@@ -1,9 +1,4 @@
-using InstaConnect.Posts.Domain.Features.Posts.Models.Requests;
-using InstaConnect.Posts.Infrastructure.Features.Posts.Helpers.Repositories;
-using InstaConnect.Posts.Infrastructure.Tests.Features.Posts.Assertions;
 using InstaConnect.Posts.Infrastructure.Tests.Features.Posts.Builders;
-using InstaConnect.Posts.Infrastructure.Tests.Features.Posts.Utilities;
-using InstaConnect.Posts.Infrastructure.Tests.Unit.Features.Posts.Utilities;
 
 namespace InstaConnect.Posts.Infrastructure.Tests.Unit.Features.Posts.Repositories;
 
@@ -23,7 +18,7 @@ public class GetPostsForUserTotalCountQueryRepositoryUnitTests : BasePostInfrast
 		_filterQueryBuilder = _filterQueryBuilderFactory.Create(Post);
 		_filterQuery = _filterQueryBuilder.Build();
 
-		_include = IncludeBuilderFactory.Create().WithPostLikes().Build();
+		_include = IncludeBuilderFactory.Create().WithPostLikes().WithPostImages().Build();
 
 		_repository = new(Collection, IncludeBuilderFactory);
 
@@ -34,50 +29,50 @@ public class GetPostsForUserTotalCountQueryRepositoryUnitTests : BasePostInfrast
 	}
 
 	[Fact]
-	public async Task GetForUserTotalCountAsync_ShouldReturnResponse_WhenRequestIsValid()
+	public async Task GetTotalCountForUserAsync_ShouldReturnResponse_WhenQueryIsValid()
 	{
 		// Act
-		var response = await _repository.GetForUserTotalCountAsync(_filterQuery, CancellationToken);
+		var response = await _repository.GetTotalCountForUserAsync(_filterQuery, CancellationToken);
 
 		// Assert
 		response.ShouldSatisfy(_filterQuery, Posts);
 	}
 
 	[Fact]
-	public async Task GetForUserTotalCountAsync_ShouldCallTheCollectionAggregateFluent_WhenRequestIsValid()
+	public async Task GetTotalCountForUserAsync_ShouldCallTheCollectionAggregateFluent_WhenQueryIsValid()
 	{
 		// Act
-		await _repository.GetForUserTotalCountAsync(_filterQuery, CancellationToken);
+		await _repository.GetTotalCountForUserAsync(_filterQuery, CancellationToken);
 
 		// Assert
 		Collection.ShouldHaveReceivedOneAggregateFluent(_filterQuery);
 	}
 
 	[Fact]
-	public async Task GetForUserTotalCountAsync_ShouldCallTheFluentApplyIncludes_WhenRequestIsValid()
+	public async Task GetTotalCountForUserAsync_ShouldCallTheFluentApplyIncludes_WhenQueryIsValid()
 	{
 		// Act
-		await _repository.GetForUserTotalCountAsync(_filterQuery, CancellationToken);
+		await _repository.GetTotalCountForUserAsync(_filterQuery, CancellationToken);
 
 		// Assert
 		Fluent.ShouldHaveReceivedOneApplyIncludes(_filterQuery, _include);
 	}
 
 	[Fact]
-	public async Task GetForUserTotalCountAsync_ShouldCallTheFluentMatch_WhenRequestIsValid()
+	public async Task GetTotalCountForUserAsync_ShouldCallTheFluentMatch_WhenQueryIsValid()
 	{
 		// Act
-		await _repository.GetForUserTotalCountAsync(_filterQuery, CancellationToken);
+		await _repository.GetTotalCountForUserAsync(_filterQuery, CancellationToken);
 
 		// Assert
 		Fluent.ShouldHaveReceivedOneMatch(_filterQuery);
 	}
 
 	[Fact]
-	public async Task GetForUserTotalCountAsync_ShouldCallTheFluentGetCountAsync_WhenRequestIsValid()
+	public async Task GetTotalCountForUserAsync_ShouldCallTheFluentGetCountAsync_WhenQueryIsValid()
 	{
 		// Act
-		await _repository.GetForUserTotalCountAsync(_filterQuery, CancellationToken);
+		await _repository.GetTotalCountForUserAsync(_filterQuery, CancellationToken);
 
 		// Assert
 		await Fluent.ShouldHaveReceivedOneGetCountAsync(_filterQuery, CancellationToken);

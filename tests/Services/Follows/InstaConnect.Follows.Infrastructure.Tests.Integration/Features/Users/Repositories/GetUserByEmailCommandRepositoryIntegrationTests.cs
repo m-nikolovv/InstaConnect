@@ -1,6 +1,6 @@
 using InstaConnect.Common.Domain.Features.ValueObjects.Models;
 using InstaConnect.Common.Infrastructure.Tests.Features.Builders;
-using InstaConnect.Follows.Domain.Features.Users.Models.Requests;
+using InstaConnect.Follows.Tests.Features.Users.DataAttributes.Email;
 
 namespace InstaConnect.Follows.Infrastructure.Tests.Integration.Features.Users.Repositories;
 

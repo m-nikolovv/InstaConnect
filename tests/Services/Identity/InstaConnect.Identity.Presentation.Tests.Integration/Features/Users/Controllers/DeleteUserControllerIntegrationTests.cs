@@ -57,7 +57,7 @@ public class DeleteUserControllerIntegrationTests : BaseUserPresentationCommandI
 
 	[Theory]
 	[UserIdDifferentCaseData]
-	public async Task DeleteAsync_ShouldReturnNoContentStatusCode_WhenRequestAndIdIsValid(
+	public async Task DeleteAsync_ShouldReturnNoContentStatusCode_WhenRequestAndIdAreValid(
 		IStringTransformer transformer)
 	{
 		// Arrange
@@ -75,7 +75,7 @@ public class DeleteUserControllerIntegrationTests : BaseUserPresentationCommandI
 	{
 		// Act
 		await Controller.DeleteAsync(_request, CancellationToken);
-		var user = await ServiceScope.GetByIdAsync(User.Id, CancellationToken);
+		var user = await ServiceScope.GetByIdAsync(UserId, CancellationToken);
 
 		// Assert
 		user.ShouldBeNull();
@@ -83,7 +83,7 @@ public class DeleteUserControllerIntegrationTests : BaseUserPresentationCommandI
 
 	[Theory]
 	[UserIdDifferentCaseData]
-	public async Task DeleteAsync_ShouldDeleteUser_WhenIdIsValid(
+	public async Task DeleteAsync_ShouldDeleteUser_WhenRequestAndIdAreValid(
 		IStringTransformer transformer)
 	{
 		// Arrange
@@ -91,7 +91,7 @@ public class DeleteUserControllerIntegrationTests : BaseUserPresentationCommandI
 
 		// Act
 		await Controller.DeleteAsync(request, CancellationToken);
-		var user = await ServiceScope.GetByIdAsync(User.Id, CancellationToken);
+		var user = await ServiceScope.GetByIdAsync(UserId, CancellationToken);
 
 		// Assert
 		user.ShouldBeNull();
@@ -110,7 +110,7 @@ public class DeleteUserControllerIntegrationTests : BaseUserPresentationCommandI
 
 	[Theory]
 	[UserIdDifferentCaseData]
-	public async Task DeleteAsync_ShouldPublishUserDeletedEvent_WhenIdIsValid(
+	public async Task DeleteAsync_ShouldPublishUserDeletedEvent_WhenRequestAndIdAreValid(
 		IStringTransformer transformer)
 	{
 		// Arrange

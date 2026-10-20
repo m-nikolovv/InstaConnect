@@ -35,5 +35,15 @@ public static class FormMapper
 
 			return multipart;
 		}
+
+		public MultipartFormDataContent AddFiles(ICollection<IFormFile> files, string name)
+		{
+			foreach (var file in files)
+			{
+				multipart.AddFile(file, name);
+			}
+
+			return multipart;
+		}
 	}
 }

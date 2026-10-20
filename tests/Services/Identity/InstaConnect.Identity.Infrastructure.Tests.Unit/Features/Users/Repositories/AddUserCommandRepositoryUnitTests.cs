@@ -1,6 +1,3 @@
-using InstaConnect.Identity.Infrastructure.Features.Users.Helpers.Repositories;
-using InstaConnect.Identity.Infrastructure.Tests.Unit.Features.Users.Utilities;
-
 namespace InstaConnect.Identity.Infrastructure.Tests.Unit.Features.Users.Repositories;
 
 public class AddUserCommandRepositoryUnitTests : BaseUserInfrastructureCommandUnitTest
@@ -13,7 +10,7 @@ public class AddUserCommandRepositoryUnitTests : BaseUserInfrastructureCommandUn
 	}
 
 	[Fact]
-	public async Task AddAsync_ShouldCallTheCollectionAddAsync_WhenRequestIsValid()
+	public async Task AddAsync_ShouldCallTheCollectionAddAsync_WhenCommandIsValid()
 	{
 		// Act
 		await _repository.AddAsync(User, CancellationToken);

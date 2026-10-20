@@ -1,6 +1,5 @@
-using InstaConnect.Common.Domain.Features.Requests.Models;
-
 using InstaConnect.Identity.Domain.Features.Users.Models.Requests;
+using InstaConnect.Identity.Presentation.Features.Users.Controllers.v1;
 
 namespace InstaConnect.Identity.Presentation.Tests.Features.Users.Assertions;
 

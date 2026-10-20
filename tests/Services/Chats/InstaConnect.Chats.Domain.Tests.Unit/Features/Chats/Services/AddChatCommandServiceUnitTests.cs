@@ -1,8 +1,6 @@
 using InstaConnect.Chats.Domain.Features.Chats.Helpers;
-using InstaConnect.Chats.Domain.Features.Chats.Models.Requests;
 using InstaConnect.Chats.Domain.Tests.Features.Chats.Assertions;
 using InstaConnect.Chats.Domain.Tests.Features.Chats.Builders;
-using InstaConnect.Chats.Domain.Tests.Features.Chats.Utilities;
 using InstaConnect.Chats.Domain.Tests.Unit.Features.Chats.Utilities;
 
 namespace InstaConnect.Chats.Domain.Tests.Unit.Features.Chats.Services;
@@ -30,7 +28,7 @@ public class AddChatCommandServiceUnitTests : BaseChatDomainCommandUnitTest
 	}
 
 	[Fact]
-	public async Task AddAsync_ShouldThrowUserNotFoundException_WhenParticipantOneIdIsInvalid()
+	public async Task AddAsync_ShouldThrowParticipantOneNotFoundException_WhenParticipantOneNotFound()
 	{
 		// Arrange
 		UserRepository.RemoveGetParticipantOneByIdAsync(_command, ParticipantOne, CancellationToken);
@@ -40,7 +38,7 @@ public class AddChatCommandServiceUnitTests : BaseChatDomainCommandUnitTest
 	}
 
 	[Fact]
-	public async Task AddAsync_ShouldThrowUserNotFoundException_WhenParticipantTwoIdIsInvalid()
+	public async Task AddAsync_ShouldThrowParticipantTwoNotFoundException_WhenParticipantTwoNotFound()
 	{
 		// Arrange
 		UserRepository.RemoveGetParticipantTwoByIdAsync(_command, ParticipantTwo, CancellationToken);

@@ -16,6 +16,13 @@ public static class ForgotPasswordTokenMockSetups
 			collection.SetupAggregateFluent(fluent);
 		}
 
+		public void SetupAggregateFluent(
+			ICollection<ForgotPasswordTokenId> ids,
+			IForgotPasswordTokenFluent fluent)
+		{
+			collection.SetupAggregateFluent(fluent);
+		}
+
 		public void SetupAggregateFluent(IForgotPasswordTokenFluent fluent)
 		{
 			collection.AggregateFluent().ReturnsResponse(fluent);
@@ -49,12 +56,25 @@ public static class ForgotPasswordTokenMockSetups
 			fluent.Match(id).ReturnsResponse(fluent);
 		}
 
+		public void SetupMatch(ICollection<ForgotPasswordTokenId> ids)
+		{
+			fluent.Match(ids).ReturnsResponse(fluent);
+		}
+
 		public void SetupFirstOrDefaultAsync(
 			ForgotPasswordTokenId id,
 			ForgotPasswordToken forgotPasswordToken,
 			CancellationToken cancellationToken)
 		{
 			fluent.SetupFirstOrDefaultAsync(forgotPasswordToken, cancellationToken);
+		}
+
+		public void SetupToListAsync(
+			ICollection<ForgotPasswordTokenId> ids,
+			ICollection<ForgotPasswordToken> forgotPasswordTokens,
+			CancellationToken cancellationToken)
+		{
+			fluent.SetupToListAsync(forgotPasswordTokens, cancellationToken);
 		}
 	}
 }

@@ -5,10 +5,24 @@
   </ItemGroup>
 
   <ItemGroup Label="Common">
-    <Using Include="InstaConnect.Common.Tests.Features.Abstractions" />
-    <Using Include="InstaConnect.Common.Tests.Features.Assertions" />
-    <Using Include="InstaConnect.Common.Tests.Features.Utilities" />
     <Using Include="InstaConnect.Chats.Tests.Features.Common.Utilities" />
+  </ItemGroup>
+
+  <ItemGroup Label="ChatMessages">
+    <Using Include="InstaConnect.Chats.Domain.Features.ChatMessages.Models.Requests" />
+    <Using Include="InstaConnect.Chats.Domain.Tests.Features.ChatMessages.Assertions" />
+    <Using Include="InstaConnect.Chats.Domain.Tests.Features.ChatMessages.Builders" />
+    <Using Include="InstaConnect.Chats.Domain.Tests.Integration.Features.ChatMessages.Utilities" />
+    <Using Include="InstaConnect.Chats.Tests.Features.ChatMessages.Utilities" />
+  </ItemGroup>
+
+  <ItemGroup Label="Chats">
+    <Using Include="InstaConnect.Chats.Tests.Features.Chats.Utilities" />
+  </ItemGroup>
+
+  <ItemGroup Label="Users">
+    <Using Include="InstaConnect.Chats.Tests.Features.Users.DataAttributes.Id" />
+    <Using Include="InstaConnect.Chats.Tests.Features.Users.Utilities" />
   </ItemGroup>
 
 </Project>

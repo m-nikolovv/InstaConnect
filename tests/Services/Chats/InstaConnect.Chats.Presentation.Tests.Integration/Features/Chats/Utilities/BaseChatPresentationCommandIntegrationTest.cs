@@ -1,3 +1,7 @@
+using InstaConnect.Chats.Presentation.Features.Chats.Controllers.v1;
+using InstaConnect.Chats.Tests.Features.Chats.Abstractions;
+using InstaConnect.Chats.Tests.Features.Chats.Extensions;
+
 namespace InstaConnect.Chats.Presentation.Tests.Integration.Features.Chats.Utilities;
 
 public abstract class BaseChatPresentationCommandIntegrationTest : BaseChatWebTest

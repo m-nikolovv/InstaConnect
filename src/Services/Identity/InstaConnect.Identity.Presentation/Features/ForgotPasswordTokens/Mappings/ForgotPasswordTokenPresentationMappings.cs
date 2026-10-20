@@ -1,8 +1,6 @@
 using InstaConnect.Identity.Application.Features.ForgotPasswordTokens.Commands.Add;
 using InstaConnect.Identity.Application.Features.ForgotPasswordTokens.Commands.Verify;
 
-using Mapster;
-
 namespace InstaConnect.Identity.Presentation.Features.ForgotPasswordTokens.Mappings;
 
 internal class ForgotPasswordTokenPresentationMappings : IRegister

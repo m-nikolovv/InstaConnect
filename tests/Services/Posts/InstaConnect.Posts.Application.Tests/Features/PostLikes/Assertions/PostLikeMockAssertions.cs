@@ -1,4 +1,4 @@
-using InstaConnect.Posts.Application.Tests.Features.PostLikes.Utilities;
+using InstaConnect.Posts.Domain.Features.PostLikes.Abstractions;
 using InstaConnect.Posts.Domain.Tests.Features.PostLikes.Assertions;
 
 namespace InstaConnect.Posts.Application.Tests.Features.PostLikes.Assertions;

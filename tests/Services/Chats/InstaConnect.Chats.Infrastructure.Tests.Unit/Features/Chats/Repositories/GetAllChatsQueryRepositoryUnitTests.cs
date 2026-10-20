@@ -1,11 +1,4 @@
-using InstaConnect.Chats.Domain.Features.Chats.Models.Requests;
-using InstaConnect.Chats.Domain.Features.Users.Models.Requests;
-using InstaConnect.Chats.Infrastructure.Features.Chats.Helpers.Repositories;
-using InstaConnect.Chats.Infrastructure.Tests.Features.Chats.Assertions;
 using InstaConnect.Chats.Infrastructure.Tests.Features.Chats.Builders;
-using InstaConnect.Chats.Infrastructure.Tests.Features.Chats.Utilities;
-using InstaConnect.Chats.Infrastructure.Tests.Features.Common.Builders;
-using InstaConnect.Chats.Infrastructure.Tests.Unit.Features.Chats.Utilities;
 
 namespace InstaConnect.Chats.Infrastructure.Tests.Unit.Features.Chats.Repositories;
 
@@ -63,7 +56,7 @@ public class GetAllChatsQueryRepositoryUnitTests : BaseChatInfrastructureQueryUn
 	}
 
 	[Fact]
-	public async Task GetAllAsync_ShouldReturnResponse_WhenRequestIsValid()
+	public async Task GetAllAsync_ShouldReturnResponse_WhenQueryIsValid()
 	{
 		// Act
 		var response = await _repository.GetAllAsync(_filterQuery, _sortingQuery, _paginationQuery, _currentUserQuery, CancellationToken);
@@ -73,7 +66,7 @@ public class GetAllChatsQueryRepositoryUnitTests : BaseChatInfrastructureQueryUn
 	}
 
 	[Fact]
-	public async Task GetAllAsync_ShouldCallTheCollectionAggregateFluent_WhenRequestIsValid()
+	public async Task GetAllAsync_ShouldCallTheCollectionAggregateFluent_WhenQueryIsValid()
 	{
 		// Act
 		await _repository.GetAllAsync(_filterQuery, _sortingQuery, _paginationQuery, _currentUserQuery, CancellationToken);
@@ -83,7 +76,7 @@ public class GetAllChatsQueryRepositoryUnitTests : BaseChatInfrastructureQueryUn
 	}
 
 	[Fact]
-	public async Task GetAllAsync_ShouldCallTheFluentApplyIncludes_WhenRequestIsValid()
+	public async Task GetAllAsync_ShouldCallTheFluentApplyIncludes_WhenQueryIsValid()
 	{
 		// Act
 		await _repository.GetAllAsync(_filterQuery, _sortingQuery, _paginationQuery, _currentUserQuery, CancellationToken);
@@ -93,7 +86,7 @@ public class GetAllChatsQueryRepositoryUnitTests : BaseChatInfrastructureQueryUn
 	}
 
 	[Fact]
-	public async Task GetAllAsync_ShouldCallTheFluentMatch_WhenRequestIsValid()
+	public async Task GetAllAsync_ShouldCallTheFluentMatch_WhenQueryIsValid()
 	{
 		// Act
 		await _repository.GetAllAsync(_filterQuery, _sortingQuery, _paginationQuery, _currentUserQuery, CancellationToken);
@@ -103,7 +96,7 @@ public class GetAllChatsQueryRepositoryUnitTests : BaseChatInfrastructureQueryUn
 	}
 
 	[Fact]
-	public async Task GetAllAsync_ShouldCallTheFluentProjectToResponseWithoutParticipantOne_WhenRequestIsValid()
+	public async Task GetAllAsync_ShouldCallTheFluentProjectToResponseWithoutParticipantOne_WhenQueryIsValid()
 	{
 		// Act
 		await _repository.GetAllAsync(_filterQuery, _sortingQuery, _paginationQuery, _currentUserQuery, CancellationToken);
@@ -113,7 +106,7 @@ public class GetAllChatsQueryRepositoryUnitTests : BaseChatInfrastructureQueryUn
 	}
 
 	[Fact]
-	public async Task GetAllAsync_ShouldCallTheResponseFluentApplySorting_WhenRequestIsValid()
+	public async Task GetAllAsync_ShouldCallTheResponseFluentApplySorting_WhenQueryIsValid()
 	{
 		// Act
 		await _repository.GetAllAsync(_filterQuery, _sortingQuery, _paginationQuery, _currentUserQuery, CancellationToken);
@@ -123,7 +116,7 @@ public class GetAllChatsQueryRepositoryUnitTests : BaseChatInfrastructureQueryUn
 	}
 
 	[Fact]
-	public async Task GetAllAsync_ShouldCallTheResponseFluentApplyPagination_WhenRequestIsValid()
+	public async Task GetAllAsync_ShouldCallTheResponseFluentApplyPagination_WhenQueryIsValid()
 	{
 		// Act
 		await _repository.GetAllAsync(_filterQuery, _sortingQuery, _paginationQuery, _currentUserQuery, CancellationToken);
@@ -133,7 +126,7 @@ public class GetAllChatsQueryRepositoryUnitTests : BaseChatInfrastructureQueryUn
 	}
 
 	[Fact]
-	public async Task GetAllAsync_ShouldCallTheResponseFluentToListAsync_WhenRequestIsValid()
+	public async Task GetAllAsync_ShouldCallTheResponseFluentToListAsync_WhenQueryIsValid()
 	{
 		// Act
 		await _repository.GetAllAsync(_filterQuery, _sortingQuery, _paginationQuery, _currentUserQuery, CancellationToken);

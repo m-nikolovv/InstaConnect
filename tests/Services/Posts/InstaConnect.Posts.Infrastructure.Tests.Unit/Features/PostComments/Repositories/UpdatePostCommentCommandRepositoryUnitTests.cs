@@ -1,7 +1,3 @@
-using InstaConnect.Posts.Infrastructure.Features.PostComments.Helpers.Repositories;
-using InstaConnect.Posts.Infrastructure.Tests.Features.PostComments.Assertions;
-using InstaConnect.Posts.Infrastructure.Tests.Unit.Features.PostComments.Utilities;
-
 namespace InstaConnect.Posts.Infrastructure.Tests.Unit.Features.PostComments.Repositories;
 
 public class UpdatePostCommentCommandRepositoryUnitTests : BasePostCommentInfrastructureCommandUnitTest
@@ -14,7 +10,7 @@ public class UpdatePostCommentCommandRepositoryUnitTests : BasePostCommentInfras
 	}
 
 	[Fact]
-	public async Task UpdateAsync_ShouldCallTheCollectionUpdateAsync_WhenRequestIsValid()
+	public async Task UpdateAsync_ShouldCallTheCollectionUpdateAsync_WhenCommandIsValid()
 	{
 		// Act
 		await _repository.UpdateAsync(PostComment, CancellationToken);

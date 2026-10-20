@@ -1,7 +1,4 @@
 using InstaConnect.Chats.Presentation.Features.ChatMessages.Models.Options;
-using InstaConnect.Chats.Tests.Features.Common.Utilities;
-
-using InstaConnect.Common.Domain.Features.Common.Extensions;
 
 using Microsoft.AspNetCore.Hosting;
 

@@ -1,3 +1,5 @@
+using InstaConnect.Posts.Application.Features.PostLikes.Commands.Delete;
+
 namespace InstaConnect.Posts.Application.Tests.Integration.Features.PostLikes.Handlers;
 
 public class DeletePostLikeCommandHandlerIntegrationTests : BasePostLikeApplicationCommandIntegrationTest
@@ -52,7 +54,7 @@ public class DeletePostLikeCommandHandlerIntegrationTests : BasePostLikeApplicat
 	}
 
 	[Fact]
-	public async Task SendAsync_ShouldThrowPostNotFoundException_WhenIdIsInvalid()
+	public async Task SendAsync_ShouldThrowPostNotFoundException_WhenPostNotFound()
 	{
 		// Arrange
 		await ServiceScope.DeleteAsync(Post, CancellationToken);
@@ -62,7 +64,7 @@ public class DeletePostLikeCommandHandlerIntegrationTests : BasePostLikeApplicat
 	}
 
 	[Fact]
-	public async Task SendAsync_ShouldThrowPostLikeNotFoundException_WhenUserIdIsInvalid()
+	public async Task SendAsync_ShouldThrowPostLikeNotFoundException_WhenPostLikeNotFound()
 	{
 		// Arrange
 		await ServiceScope.DeleteAsync(PostLike, CancellationToken);
@@ -76,7 +78,7 @@ public class DeletePostLikeCommandHandlerIntegrationTests : BasePostLikeApplicat
 	{
 		// Act
 		await Sender.SendAsync(_request, CancellationToken);
-		var postLike = await ServiceScope.GetByIdAsync(PostLike.Id, CancellationToken);
+		var postLike = await ServiceScope.GetByIdAsync(PostLikeId, CancellationToken);
 
 		// Assert
 		postLike.ShouldBeNull();
@@ -92,7 +94,7 @@ public class DeletePostLikeCommandHandlerIntegrationTests : BasePostLikeApplicat
 
 		// Act
 		await Sender.SendAsync(request, CancellationToken);
-		var postLike = await ServiceScope.GetByIdAsync(PostLike.Id, CancellationToken);
+		var postLike = await ServiceScope.GetByIdAsync(PostLikeId, CancellationToken);
 
 		// Assert
 		postLike.ShouldBeNull();
@@ -108,7 +110,7 @@ public class DeletePostLikeCommandHandlerIntegrationTests : BasePostLikeApplicat
 
 		// Act
 		await Sender.SendAsync(request, CancellationToken);
-		var postLike = await ServiceScope.GetByIdAsync(PostLike.Id, CancellationToken);
+		var postLike = await ServiceScope.GetByIdAsync(PostLikeId, CancellationToken);
 
 		// Assert
 		postLike.ShouldBeNull();

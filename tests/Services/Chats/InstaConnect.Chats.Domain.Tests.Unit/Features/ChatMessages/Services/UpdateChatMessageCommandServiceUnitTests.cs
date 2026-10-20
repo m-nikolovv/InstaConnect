@@ -1,11 +1,3 @@
-using InstaConnect.Chats.Domain.Features.ChatMessages.Helpers;
-using InstaConnect.Chats.Domain.Features.ChatMessages.Models.Requests;
-using InstaConnect.Chats.Domain.Features.Chats.Models.Requests;
-using InstaConnect.Chats.Domain.Tests.Features.ChatMessages.Assertions;
-using InstaConnect.Chats.Domain.Tests.Features.ChatMessages.Builders;
-using InstaConnect.Chats.Domain.Tests.Features.ChatMessages.Utilities;
-using InstaConnect.Chats.Domain.Tests.Unit.Features.ChatMessages.Utilities;
-
 namespace InstaConnect.Chats.Domain.Tests.Unit.Features.ChatMessages.Services;
 
 public class UpdateChatMessageCommandServiceUnitTests : BaseChatMessageDomainCommandUnitTest
@@ -13,6 +5,9 @@ public class UpdateChatMessageCommandServiceUnitTests : BaseChatMessageDomainCom
 	private readonly UpdateChatMessageCommandBuilderFactory _commandBuilderFactory;
 	private readonly UpdateChatMessageCommandBuilder _commandBuilder;
 	private readonly UpdateChatMessageCommand _command;
+
+	private readonly UpdateChatMessageCommandBuilder _invertedCommandBuilder;
+	private readonly UpdateChatMessageCommand _invertedCommand;
 
 	private readonly ChatInclude _include;
 	private readonly ChatMessageInclude _messageInclude;
@@ -25,10 +20,13 @@ public class UpdateChatMessageCommandServiceUnitTests : BaseChatMessageDomainCom
 		_commandBuilder = _commandBuilderFactory.Create(ChatMessage);
 		_command = _commandBuilder.Build();
 
-		_include = IncludeBuilderFactory.Create().WithParticipantOne().WithParticipantTwo().Build();
-		_messageInclude = MessageIncludeBuilderFactory.Create().WithSender().WithChat(_include).Build();
+		_invertedCommandBuilder = _commandBuilderFactory.Create(ChatMessage).WithParticipantOneId(ParticipantTwoId).WithParticipantTwoId(ParticipantOneId);
+		_invertedCommand = _invertedCommandBuilder.Build();
 
-		_service = new(Mapper, Repository, DateTimeProvider, Factory, MessageRepository, IncludeBuilderFactory, NotificationService, MessageIncludeBuilderFactory);
+		_include = IncludeBuilderFactory.Create().WithParticipantOne().WithParticipantTwo().Build();
+		_messageInclude = MessageIncludeBuilderFactory.Create().WithSender().WithChat(_include).WithChatMessageImages().Build();
+
+		_service = new(Mapper, ImageHandler, Repository, DateTimeProvider, Factory, MessageSummarizer, MessageImageFactory, MessageRepository, IncludeBuilderFactory, MessageImageRepository, NotificationService, MessageIncludeBuilderFactory);
 
 		Repository.SetupExistsByIdAsync(_command, CancellationToken);
 		MessageRepository.SetupGetByIdAsync(_command, _messageInclude, ChatMessage, CancellationToken);
@@ -36,7 +34,7 @@ public class UpdateChatMessageCommandServiceUnitTests : BaseChatMessageDomainCom
 	}
 
 	[Fact]
-	public async Task UpdateAsync_ShouldThrowChatNotFoundException_WhenIdIsInvalid()
+	public async Task UpdateAsync_ShouldThrowChatNotFoundException_WhenChatNotFound()
 	{
 		// Arrange
 		Repository.RemoveExistsByIdAsync(_command, CancellationToken);
@@ -46,7 +44,7 @@ public class UpdateChatMessageCommandServiceUnitTests : BaseChatMessageDomainCom
 	}
 
 	[Fact]
-	public async Task UpdateAsync_ShouldThrowChatMessageNotFoundException_WhenChatMessageDoesNotExist()
+	public async Task UpdateAsync_ShouldThrowChatMessageNotFoundException_WhenChatMessageNotFound()
 	{
 		// Arrange
 		MessageRepository.RemoveGetByIdAsync(_command, _messageInclude, ChatMessage, CancellationToken);
@@ -56,15 +54,14 @@ public class UpdateChatMessageCommandServiceUnitTests : BaseChatMessageDomainCom
 	}
 
 	[Fact]
-	public async Task UpdateAsync_ShouldThrowChatMessageForbiddenException_WhenParticipantOneIdIsInvalid()
+	public async Task UpdateAsync_ShouldThrowChatMessageForbiddenException_WhenChatMessageForbidden()
 	{
 		// Arrange
-		var command = _commandBuilder.WithParticipantOneId(ParticipantTwo.Id).WithParticipantTwoId(ParticipantOne.Id).Build();
-		Repository.SetupExistsByIdAsync(command, CancellationToken);
-		MessageRepository.SetupGetByIdAsync(command, _messageInclude, ChatMessage, CancellationToken);
+		Repository.SetupExistsByIdAsync(_invertedCommand, CancellationToken);
+		MessageRepository.SetupGetByIdAsync(_invertedCommand, _messageInclude, ChatMessage, CancellationToken);
 
 		// Assert
-		await _service.ShouldThrowChatMessageForbiddenExceptionAsync(command, CancellationToken);
+		await _service.ShouldThrowChatMessageForbiddenExceptionAsync(_invertedCommand, CancellationToken);
 	}
 
 	[Fact]
@@ -115,6 +112,16 @@ public class UpdateChatMessageCommandServiceUnitTests : BaseChatMessageDomainCom
 
 		// Assert
 		await MessageRepository.ShouldHaveReceivedOneUpdateAsync(_command, CancellationToken);
+	}
+
+	[Fact]
+	public async Task UpdateAsync_ShouldCallTheMessageSummarizerSummarizeAsync_WhenCommandIsValid()
+	{
+		// Act
+		await _service.UpdateAsync(_command, CancellationToken);
+
+		// Assert
+		await MessageSummarizer.ShouldHaveReceivedOneSummarizeAsync(_command, CancellationToken);
 	}
 
 	[Fact]

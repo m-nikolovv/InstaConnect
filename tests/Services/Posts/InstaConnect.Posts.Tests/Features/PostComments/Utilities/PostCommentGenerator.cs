@@ -14,6 +14,7 @@ public static class PostCommentGenerator
 														 post.Id,
 														 PostCommentDataFaker.GetId()),
 														 PostCommentDataFaker.GetContent(),
+														 new(PostCommentDataFaker.GetSummary()),
 														 user.Id,
 														 PostCommentDataFaker.GetCreatedAtUtc(),
 														 PostCommentDataFaker.GetUpdatedAtUtc());

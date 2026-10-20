@@ -1,6 +1,10 @@
-using InstaConnect.Common.Domain.Features.Requests.Models;
-using InstaConnect.Common.Tests.Features.DataAttributes.Enums.Sort;
+using InstaConnect.Posts.Domain.Features.PostComments.Models.Entities;
 using InstaConnect.Posts.Domain.Features.PostComments.Models.Requests;
+using InstaConnect.Posts.Tests.Features.PostComments.DataAttributes.Page;
+using InstaConnect.Posts.Tests.Features.PostComments.DataAttributes.PageSize;
+using InstaConnect.Posts.Tests.Features.PostComments.DataAttributes.SortOrder;
+using InstaConnect.Posts.Tests.Features.PostComments.DataAttributes.SortTerm;
+using InstaConnect.Posts.Tests.Features.Users.DataAttributes.Name;
 
 namespace InstaConnect.Posts.Presentation.Tests.Functional.Features.PostComments.Endpoints;
 
@@ -242,7 +246,7 @@ public class GetAllPostCommentsFunctionalTests : BasePostCommentPresentationQuer
 	}
 
 	[Fact]
-	public async Task GetAllAsync_ShouldHaveNotFoundStatusCode_WhenIdIsInvalid()
+	public async Task GetAllAsync_ShouldHaveNotFoundStatusCode_WhenPostNotFound()
 	{
 		// Arrange
 		await ServiceScope.DeleteAsync(Post, CancellationToken);

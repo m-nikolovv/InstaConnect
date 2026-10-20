@@ -1,5 +1,3 @@
-using InstaConnect.Common.Domain.Features.Common.Extensions;
-
 namespace InstaConnect.Common.Domain.Features.Validations.Utilities;
 
 public static class CommonValidationErrorMessages

@@ -1,6 +1,3 @@
-using InstaConnect.Posts.Domain.Features.PostCommentLikes.Models.Entities;
-using InstaConnect.Posts.Domain.Features.PostCommentLikes.Models.Requests;
-
 namespace InstaConnect.Posts.Infrastructure.Tests.Features.PostCommentLikes.Builders;
 
 public class PostCommentLikesForUserFilterQueryBuilder

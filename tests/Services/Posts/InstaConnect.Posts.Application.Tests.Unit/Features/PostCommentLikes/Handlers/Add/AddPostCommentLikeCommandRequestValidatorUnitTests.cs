@@ -1,3 +1,5 @@
+using InstaConnect.Posts.Application.Features.PostCommentLikes.Commands.Add;
+
 namespace InstaConnect.Posts.Application.Tests.Unit.Features.PostCommentLikes.Handlers.Add;
 
 public class AddPostCommentLikeCommandRequestValidatorUnitTests : BasePostCommentLikeApplicationCommandUnitTest
@@ -72,7 +74,7 @@ public class AddPostCommentLikeCommandRequestValidatorUnitTests : BasePostCommen
 	}
 
 	[Fact]
-	public void TestValidate_ShouldNotHaveAnyValidationsErrors_WhenRequestIsValid()
+	public void TestValidate_ShouldNotHaveAnyValidationErrors_WhenRequestIsValid()
 	{
 		// Act
 		var response = _requestValidator.TestValidate(_request);

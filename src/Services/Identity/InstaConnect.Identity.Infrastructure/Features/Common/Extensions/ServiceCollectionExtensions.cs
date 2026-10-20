@@ -13,14 +13,16 @@ using InstaConnect.Common.Infrastructure.Features.Images.Extensions;
 using InstaConnect.Common.Infrastructure.Features.Seeders.Extensions;
 using InstaConnect.Common.Infrastructure.Features.Telemetries.Extensions;
 using InstaConnect.Identity.Domain.Features.Common.Helpers;
+using InstaConnect.Identity.Infrastructure.Features.Common.Abstractions;
 using InstaConnect.Identity.Infrastructure.Features.Common.Helpers;
 using InstaConnect.Identity.Infrastructure.Features.Common.Models.Options;
 using InstaConnect.Identity.Infrastructure.Features.Common.Utilities;
 using InstaConnect.Identity.Infrastructure.Features.EmailConfirmationTokens.Extensions;
 using InstaConnect.Identity.Infrastructure.Features.ForgotPasswordTokens.Extensions;
-using InstaConnect.Identity.Infrastructure.Features.RefreshTokens.Extensions;
 using InstaConnect.Identity.Infrastructure.Features.UserClaims.Extensions;
-using InstaConnect.Identity.Infrastructure.Features.Users.Extensions;
+
+using Microsoft.AspNetCore.Hosting;
+using Microsoft.Extensions.Configuration;
 
 namespace InstaConnect.Identity.Infrastructure.Features.Common.Extensions;
 

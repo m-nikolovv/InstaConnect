@@ -1,16 +1,4 @@
-using InstaConnect.Common.Tests.Features.DataAttributes.Strings.Base;
-using InstaConnect.Posts.Domain.Features.PostCommentLikes.Models.Requests;
-using InstaConnect.Posts.Domain.Tests.Features.PostCommentLikes.Assertions;
-using InstaConnect.Posts.Domain.Tests.Features.PostCommentLikes.Builders;
-using InstaConnect.Posts.Domain.Tests.Integration.Features.PostCommentLikes.Utilities;
 using InstaConnect.Posts.Tests.Features.PostCommentLikes.Assertions;
-using InstaConnect.Posts.Tests.Features.PostCommentLikes.Utilities;
-using InstaConnect.Posts.Tests.Features.PostComments.DataAttributes.Id;
-using InstaConnect.Posts.Tests.Features.PostComments.Utilities;
-using InstaConnect.Posts.Tests.Features.Posts.DataAttributes.Id;
-using InstaConnect.Posts.Tests.Features.Posts.Utilities;
-using InstaConnect.Posts.Tests.Features.Users.DataAttributes.Id;
-using InstaConnect.Posts.Tests.Features.Users.Utilities;
 
 namespace InstaConnect.Posts.Domain.Tests.Integration.Features.PostCommentLikes.Services;
 
@@ -29,7 +17,7 @@ public class AddPostCommentLikeCommandServiceIntegrationTests : BasePostCommentL
 	}
 
 	[Fact]
-	public async Task AddAsync_ShouldThrowPostNotFoundException_WhenIdIsInvalid()
+	public async Task AddAsync_ShouldThrowPostNotFoundException_WhenPostNotFound()
 	{
 		// Arrange
 		await ServiceScope.DeleteAsync(Post, CancellationToken);
@@ -39,7 +27,7 @@ public class AddPostCommentLikeCommandServiceIntegrationTests : BasePostCommentL
 	}
 
 	[Fact]
-	public async Task AddAsync_ShouldThrowPostCommentNotFoundException_WhenCommentIdIsInvalid()
+	public async Task AddAsync_ShouldThrowPostCommentNotFoundException_WhenPostCommentNotFound()
 	{
 		// Arrange
 		await ServiceScope.DeleteAsync(PostComment, CancellationToken);
@@ -49,7 +37,7 @@ public class AddPostCommentLikeCommandServiceIntegrationTests : BasePostCommentL
 	}
 
 	[Fact]
-	public async Task AddAsync_ShouldThrowUserNotFoundException_WhenUserIdIsInvalid()
+	public async Task AddAsync_ShouldThrowUserNotFoundException_WhenUserNotFound()
 	{
 		// Arrange
 		await ServiceScope.DeleteAsync(User, CancellationToken);
@@ -70,7 +58,7 @@ public class AddPostCommentLikeCommandServiceIntegrationTests : BasePostCommentL
 
 	[Theory]
 	[PostIdDifferentCaseData]
-	public async Task AddAsync_ShouldThrowPostCommentLikeAlreadyExistsException_WhenPostCommentLikeAlreadyExistsAndIdIsValid(
+	public async Task AddAsync_ShouldThrowPostCommentLikeAlreadyExistsException_WhenPostCommentLikeAlreadyExistsAndIdIsInvalid(
 		IStringTransformer transformer)
 	{
 		// Arrange
@@ -83,7 +71,7 @@ public class AddPostCommentLikeCommandServiceIntegrationTests : BasePostCommentL
 
 	[Theory]
 	[PostCommentIdDifferentCaseData]
-	public async Task AddAsync_ShouldThrowPostCommentLikeAlreadyExistsException_WhenPostCommentLikeAlreadyExistsAndCommentIdIsValid(
+	public async Task AddAsync_ShouldThrowPostCommentLikeAlreadyExistsException_WhenPostCommentLikeAlreadyExistsAndCommentIdIsInvalid(
 		IStringTransformer transformer)
 	{
 		// Arrange
@@ -96,7 +84,7 @@ public class AddPostCommentLikeCommandServiceIntegrationTests : BasePostCommentL
 
 	[Theory]
 	[UserIdDifferentCaseData]
-	public async Task AddAsync_ShouldThrowPostCommentLikeAlreadyExistsException_WhenPostCommentLikeAlreadyExistsAndUserIdIsValid(
+	public async Task AddAsync_ShouldThrowPostCommentLikeAlreadyExistsException_WhenPostCommentLikeAlreadyExistsAndUserIdIsInvalid(
 		IStringTransformer transformer)
 	{
 		// Arrange

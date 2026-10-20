@@ -1,5 +1,6 @@
-using InstaConnect.Common.Application.Features.Requests.Abstractions;
+using InstaConnect.Common.Infrastructure.Features.Databases.Helpers;
 using InstaConnect.Identity.Application.Features.Users.Abstractions;
+using InstaConnect.Identity.Domain.Features.Users.Models.Responses;
 
 namespace InstaConnect.Identity.Application.Tests.Features.Users.Utilities;
 
@@ -14,7 +15,7 @@ public static class UserMapper
 					   user.LastName,
 					   user.Email,
 					   user.Name,
-					   user.ProfileImage,
+					   user.ProfileImageUrl,
 					   user.CreatedAtUtc,
 					   user.UpdatedAtUtc);
 		}

@@ -1,9 +1,9 @@
 using InstaConnect.Posts.Application.Features.Users.Commands.Add;
 using InstaConnect.Posts.Application.Features.Users.Commands.Delete;
 using InstaConnect.Posts.Application.Features.Users.Commands.Update;
+using InstaConnect.Posts.Domain.Features.Users.Models.Requests;
 using InstaConnect.Posts.Domain.Features.Users.Models.Responses;
-
-using Mapster;
+using InstaConnect.Posts.Domain.Features.Users.Models.ValueObjects;
 
 namespace InstaConnect.Posts.Application.Features.Users.Mappings;
 
@@ -18,7 +18,7 @@ internal class UserApplicationMappings : IRegister
 				src.LastName,
 				new(src.Name),
 				new(src.Email),
-				new(src.ProfileImageUrl),
+				src.ProfileImageUrl == null ? null : new(src.ProfileImageUrl),
 				src.CreatedAtUtc,
 				src.UpdatedAtUtc));
 
@@ -32,7 +32,7 @@ internal class UserApplicationMappings : IRegister
 				src.LastName,
 				new(src.Name),
 				new(src.Email),
-				new(src.ProfileImageUrl),
+				src.ProfileImageUrl == null ? null : new(src.ProfileImageUrl),
 				src.UpdatedAtUtc));
 
 		config.NewConfig<UserId, UpdateUserCommandResponse>()
@@ -51,7 +51,7 @@ internal class UserApplicationMappings : IRegister
 				src.FirstName,
 				src.LastName,
 				src.Name.Value,
-				src.ProfileImage == null ? null : src.ProfileImage.Url,
+				src.ProfileImageUrl == null ? null : src.ProfileImageUrl.Value,
 				src.CreatedAtUtc,
 				src.UpdatedAtUtc));
 	}

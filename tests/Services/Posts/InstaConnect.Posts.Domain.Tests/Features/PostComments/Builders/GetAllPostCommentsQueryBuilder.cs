@@ -1,5 +1,3 @@
-using InstaConnect.Common.Domain.Features.Requests.Models;
-
 namespace InstaConnect.Posts.Domain.Tests.Features.PostComments.Builders;
 
 public class GetAllPostCommentsQueryBuilder

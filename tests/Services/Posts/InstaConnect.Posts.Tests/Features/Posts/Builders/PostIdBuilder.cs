@@ -1,6 +1,3 @@
-using InstaConnect.Common.Tests.Features.DataAttributes.Base;
-using InstaConnect.Posts.Domain.Features.Posts.Models.ValueObjects;
-
 namespace InstaConnect.Posts.Tests.Features.Posts.Builders;
 
 public class PostIdBuilder

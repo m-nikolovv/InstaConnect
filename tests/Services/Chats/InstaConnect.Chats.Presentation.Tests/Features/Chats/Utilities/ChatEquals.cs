@@ -1,10 +1,13 @@
-using InstaConnect.Chats.Domain.Features.Chats.Models.Requests;
+using InstaConnect.Chats.Application.Features.Chats.Commands.Add;
+using InstaConnect.Chats.Application.Features.Chats.Queries.GetAll;
+using InstaConnect.Chats.Application.Features.Chats.Queries.GetById;
+using InstaConnect.Chats.Domain.Features.Chats.Models.ValueObjects;
 using InstaConnect.Chats.Events.Features.Chats;
-using InstaConnect.Chats.Presentation.Features.Users.Abstractions;
 using InstaConnect.Chats.Presentation.Tests.Features.Users.Utilities;
 using InstaConnect.Common.Domain.Features.Common.Extensions;
 using InstaConnect.Common.Presentation.Features.Requests.Abstractions;
 using InstaConnect.Common.Tests.Features.DataAttributes.Enums.Sort;
+using InstaConnect.Identity.Events.Features.Users;
 
 namespace InstaConnect.Chats.Presentation.Tests.Features.Chats.Utilities;
 
@@ -41,7 +44,7 @@ public static class ChatEquals
 				   r.Email.EqualsOrdinalIgnoreCase(entity.Email.Value) &&
 				   r.FirstName == entity.FirstName &&
 				   r.LastName == entity.LastName &&
-				   r.ProfileImageUrl == entity.ProfileImage?.Url &&
+				   r.ProfileImageUrl == entity.ProfileImageUrl?.Value &&
 				   r.CreatedAtUtc == entity.CreatedAtUtc &&
 				   r.UpdatedAtUtc == entity.UpdatedAtUtc;
 		}
@@ -54,7 +57,7 @@ public static class ChatEquals
 				   r.Email.EqualsOrdinalIgnoreCase(entity.Email.Value) &&
 				   r.FirstName == entity.FirstName &&
 				   r.LastName == entity.LastName &&
-				   r.ProfileImageUrl == entity.ProfileImage?.Url &&
+				   r.ProfileImageUrl == entity.ProfileImageUrl?.Value &&
 				   r.CreatedAtUtc == entity.CreatedAtUtc &&
 				   r.UpdatedAtUtc == entity.UpdatedAtUtc;
 		}

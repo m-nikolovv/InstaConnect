@@ -3,8 +3,6 @@ using FluentValidation;
 using InstaConnect.Common.Domain.Features.Exceptions.Exceptions;
 using InstaConnect.Common.Domain.Features.Validations.Extensions;
 
-using MediatR;
-
 namespace InstaConnect.Common.Application.Features.Validations.PipelineBehaviors;
 
 internal sealed class ValidationPipelineBehavior<TRequest, TResponse>

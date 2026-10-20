@@ -1,3 +1,5 @@
+using InstaConnect.Follows.Domain.Features.Follows.Exceptions;
+
 namespace InstaConnect.Follows.Infrastructure.Features.Follows.Helpers.SortTermers.ForFollowing;
 
 internal class FollowsForFollowingSortTermerFactory : IFollowsForFollowingSortTermerFactory

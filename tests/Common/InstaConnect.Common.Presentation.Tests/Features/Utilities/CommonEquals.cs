@@ -6,6 +6,7 @@ using InstaConnect.Common.Presentation.Features.AccessTokens.Models.Responses;
 using InstaConnect.Common.Presentation.Features.Exceptions.Models;
 using InstaConnect.Common.Presentation.Features.Requests.Abstractions;
 using InstaConnect.Common.Tests.Features.DataAttributes.Enums.Sort;
+using InstaConnect.Common.Tests.Features.Extensions;
 
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Net.Http.Headers;
@@ -45,7 +46,7 @@ public static class CommonEquals
 		{
 			return d.Status == statusCode &&
 				   detail.EqualsOrdinalIgnoreCase(d.Detail) &&
-				   d.Errors!.All(e => e == errorMessage);
+				   d.Errors!.AllAndNotEmpty(e => e == errorMessage);
 		}
 	}
 
@@ -81,8 +82,7 @@ public static class CommonEquals
 			var entitiesByKey = entities.FilterToDictionary(request, filter, entityKey);
 
 			return expected.Count == entitiesByKey.Count &&
-				   expected.Any() &&
-				   expected.All(e =>
+				   expected.AllAndNotEmpty(e =>
 				   entitiesByKey.TryGetValue(expectedKey(e), out var a) &&
 				   matcher(e, a));
 		}
@@ -99,9 +99,8 @@ public static class CommonEquals
 			var sortedEntities = entities.Filter(request, termTransformer, filter);
 
 			return expected.Count == sortedEntities.Count &&
-				   expected.Any() &&
 				   expected.Zip(sortedEntities, (e, a) => matcher(e, a))
-						   .All(match => match);
+						   .AllAndNotEmpty(match => match);
 		}
 	}
 

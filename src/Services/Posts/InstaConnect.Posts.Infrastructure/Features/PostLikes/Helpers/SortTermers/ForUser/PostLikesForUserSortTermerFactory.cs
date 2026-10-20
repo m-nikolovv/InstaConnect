@@ -1,3 +1,5 @@
+using InstaConnect.Posts.Domain.Features.PostLikes.Exceptions;
+
 namespace InstaConnect.Posts.Infrastructure.Features.PostLikes.Helpers.SortTermers.ForUser;
 
 internal class PostLikesForUserSortTermerFactory : IPostLikesForUserSortTermerFactory

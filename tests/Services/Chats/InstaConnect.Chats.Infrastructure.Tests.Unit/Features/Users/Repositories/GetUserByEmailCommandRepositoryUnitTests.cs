@@ -1,5 +1,4 @@
-using InstaConnect.Chats.Domain.Features.Users.Models.Requests;
-using InstaConnect.Chats.Infrastructure.Features.Users.Helpers.Repositories;
+using InstaConnect.Chats.Domain.Features.Users.Models.Entities;
 using InstaConnect.Common.Domain.Features.ValueObjects.Models;
 using InstaConnect.Common.Infrastructure.Tests.Features.Builders;
 
@@ -32,7 +31,7 @@ public class GetUserByEmailCommandRepositoryUnitTests : BaseUserInfrastructureCo
 	}
 
 	[Fact]
-	public async Task GetByEmailAsync_ShouldReturnResponse_WhenRequestIsValid()
+	public async Task GetByEmailAsync_ShouldReturnResponse_WhenCommandIsValid()
 	{
 		// Act
 		var response = await _repository.GetByEmailAsync(_email, _include, CancellationToken);
@@ -42,7 +41,7 @@ public class GetUserByEmailCommandRepositoryUnitTests : BaseUserInfrastructureCo
 	}
 
 	[Fact]
-	public async Task GetByEmailAsync_ShouldCallTheCollectionAggregateFluent_WhenRequestIsValid()
+	public async Task GetByEmailAsync_ShouldCallTheCollectionAggregateFluent_WhenCommandIsValid()
 	{
 		// Act
 		await _repository.GetByEmailAsync(_email, _include, CancellationToken);
@@ -52,7 +51,7 @@ public class GetUserByEmailCommandRepositoryUnitTests : BaseUserInfrastructureCo
 	}
 
 	[Fact]
-	public async Task GetByEmailAsync_ShouldCallTheFluentApplyIncludes_WhenRequestIsValid()
+	public async Task GetByEmailAsync_ShouldCallTheFluentApplyIncludes_WhenCommandIsValid()
 	{
 		// Act
 		await _repository.GetByEmailAsync(_email, _include, CancellationToken);
@@ -62,7 +61,7 @@ public class GetUserByEmailCommandRepositoryUnitTests : BaseUserInfrastructureCo
 	}
 
 	[Fact]
-	public async Task GetByEmailAsync_ShouldCallTheFluentMatch_WhenRequestIsValid()
+	public async Task GetByEmailAsync_ShouldCallTheFluentMatch_WhenCommandIsValid()
 	{
 		// Act
 		await _repository.GetByEmailAsync(_email, _include, CancellationToken);
@@ -72,7 +71,7 @@ public class GetUserByEmailCommandRepositoryUnitTests : BaseUserInfrastructureCo
 	}
 
 	[Fact]
-	public async Task GetByEmailAsync_ShouldCallTheFluentFirstOrDefaultAsync_WhenRequestIsValid()
+	public async Task GetByEmailAsync_ShouldCallTheFluentFirstOrDefaultAsync_WhenCommandIsValid()
 	{
 		// Act
 		await _repository.GetByEmailAsync(_email, _include, CancellationToken);

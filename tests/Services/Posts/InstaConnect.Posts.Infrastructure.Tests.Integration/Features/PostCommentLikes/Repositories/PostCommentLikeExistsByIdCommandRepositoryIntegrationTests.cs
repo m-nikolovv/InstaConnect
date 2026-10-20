@@ -1,27 +1,12 @@
-using InstaConnect.Posts.Domain.Features.PostCommentLikes.Models.ValueObjects;
-using InstaConnect.Posts.Infrastructure.Tests.Features.PostCommentLikes.Assertions;
-using InstaConnect.Posts.Infrastructure.Tests.Integration.Features.PostCommentLikes.Utilities;
 using InstaConnect.Posts.Tests.Features.PostCommentLikes.Builders;
-using InstaConnect.Posts.Tests.Features.PostCommentLikes.Utilities;
-using InstaConnect.Posts.Tests.Features.PostComments.DataAttributes.Id;
-using InstaConnect.Posts.Tests.Features.PostComments.Utilities;
-using InstaConnect.Posts.Tests.Features.Posts.DataAttributes.Id;
-using InstaConnect.Posts.Tests.Features.Posts.Utilities;
 
 namespace InstaConnect.Posts.Infrastructure.Tests.Integration.Features.PostCommentLikes.Repositories;
 
 public class PostCommentLikeExistsByIdCommandRepositoryIntegrationTests : BasePostCommentLikeInfrastructureCommandIntegrationTest
 {
-	private readonly PostCommentLikeIdBuilderFactory _idBuilderFactory;
-	private readonly PostCommentLikeIdBuilder _idBuilder;
-	private readonly PostCommentLikeId _id;
-
 	public PostCommentLikeExistsByIdCommandRepositoryIntegrationTests(PostsWebApplicationFactory webApplicationFactory)
 		: base(webApplicationFactory)
 	{
-		_idBuilderFactory = new();
-		_idBuilder = _idBuilderFactory.Create(PostCommentLike.Id);
-		_id = _idBuilder.Build();
 	}
 
 	protected override async Task OnInitializeAsync()
@@ -36,22 +21,22 @@ public class PostCommentLikeExistsByIdCommandRepositoryIntegrationTests : BasePo
 		await ServiceScope.DeleteAsync(PostCommentLike, CancellationToken);
 
 		// Act
-		var response = await Repository.ExistsByIdAsync(_id, CancellationToken);
-		var postCommentLike = await ServiceScope.GetByIdAsync(_id, CancellationToken);
+		var response = await Repository.ExistsByIdAsync(PostCommentLikeId, CancellationToken);
+		var postCommentLike = await ServiceScope.GetByIdAsync(PostCommentLikeId, CancellationToken);
 
 		// Assert
-		response.ShouldSatisfy(_id, postCommentLike);
+		response.ShouldSatisfy(PostCommentLikeId, postCommentLike);
 	}
 
 	[Fact]
 	public async Task ExistsByIdAsync_ShouldReturnResponse_WhenCommandIsValid()
 	{
 		// Act
-		var response = await Repository.ExistsByIdAsync(_id, CancellationToken);
-		var postCommentLike = await ServiceScope.GetByIdAsync(_id, CancellationToken);
+		var response = await Repository.ExistsByIdAsync(PostCommentLikeId, CancellationToken);
+		var postCommentLike = await ServiceScope.GetByIdAsync(PostCommentLikeId, CancellationToken);
 
 		// Assert
-		response.ShouldSatisfy(_id, postCommentLike);
+		response.ShouldSatisfy(PostCommentLikeId, postCommentLike);
 	}
 
 	[Theory]
@@ -60,11 +45,11 @@ public class PostCommentLikeExistsByIdCommandRepositoryIntegrationTests : BasePo
 		IStringTransformer transformer)
 	{
 		// Arrange
-		var id = _idBuilder.WithId(transformer).Build();
+		var id = PostCommentLikeIdBuilder.WithId(transformer).Build();
 
 		// Act
 		var response = await Repository.ExistsByIdAsync(id, CancellationToken);
-		var postCommentLike = await ServiceScope.GetByIdAsync(_id, CancellationToken);
+		var postCommentLike = await ServiceScope.GetByIdAsync(PostCommentLikeId, CancellationToken);
 
 		// Assert
 		response.ShouldSatisfy(id, postCommentLike);
@@ -76,11 +61,11 @@ public class PostCommentLikeExistsByIdCommandRepositoryIntegrationTests : BasePo
 		IStringTransformer transformer)
 	{
 		// Arrange
-		var id = _idBuilder.WithCommentId(transformer).Build();
+		var id = PostCommentLikeIdBuilder.WithCommentId(transformer).Build();
 
 		// Act
 		var response = await Repository.ExistsByIdAsync(id, CancellationToken);
-		var postCommentLike = await ServiceScope.GetByIdAsync(_id, CancellationToken);
+		var postCommentLike = await ServiceScope.GetByIdAsync(PostCommentLikeId, CancellationToken);
 
 		// Assert
 		response.ShouldSatisfy(id, postCommentLike);
@@ -92,11 +77,11 @@ public class PostCommentLikeExistsByIdCommandRepositoryIntegrationTests : BasePo
 		IStringTransformer transformer)
 	{
 		// Arrange
-		var id = _idBuilder.WithUserId(transformer).Build();
+		var id = PostCommentLikeIdBuilder.WithUserId(transformer).Build();
 
 		// Act
 		var response = await Repository.ExistsByIdAsync(id, CancellationToken);
-		var postCommentLike = await ServiceScope.GetByIdAsync(_id, CancellationToken);
+		var postCommentLike = await ServiceScope.GetByIdAsync(PostCommentLikeId, CancellationToken);
 
 		// Assert
 		response.ShouldSatisfy(id, postCommentLike);

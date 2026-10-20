@@ -1,6 +1,11 @@
+using InstaConnect.Identity.Presentation.Features.RefreshTokens.Models.Requests;
+using InstaConnect.Identity.Presentation.Tests.Features.RefreshTokens.Builders;
+using InstaConnect.Identity.Presentation.Tests.Integration.Features.RefreshTokens.Utilities;
+using InstaConnect.Identity.Tests.Features.Users.DataAttributes.Password;
+
 namespace InstaConnect.Identity.Presentation.Tests.Integration.Features.RefreshTokens.Controllers;
 
-public class IssueRefreshTokenControllerIntegrationTests : BaseRefreshTokenPresentationIntegrationTest
+public class IssueRefreshTokenControllerIntegrationTests : BaseRefreshTokenPresentationCommandIntegrationTest
 {
 	private readonly IssueRefreshTokenApiRequestBuilderFactory _requestBuilderFactory;
 	private readonly IssueRefreshTokenApiRequestBuilder _requestBuilder;
@@ -47,7 +52,7 @@ public class IssueRefreshTokenControllerIntegrationTests : BaseRefreshTokenPrese
 	}
 
 	[Fact]
-	public async Task IssueAsync_ShouldThrowUserInvalidDetailsException_WhenUserNotFound()
+	public async Task IssueAsync_ShouldThrowUserInvalidDetailsException_WhenUserInvalidDetailsAndNameIsInvalid()
 	{
 		// Arrange
 		await ServiceScope.DeleteAsync(User, CancellationToken);
@@ -57,7 +62,7 @@ public class IssueRefreshTokenControllerIntegrationTests : BaseRefreshTokenPrese
 	}
 
 	[Fact]
-	public async Task IssueAsync_ShouldThrowUserInvalidDetailsException_WhenPasswordDoesNotMatch()
+	public async Task IssueAsync_ShouldThrowUserInvalidDetailsException_WhenUserInvalidDetailsAndPasswordIsInvalid()
 	{
 		// Arrange
 		var updatedUser = UserBuilder.WithPasswordHash(PasswordHasher.Hash(NewPassword)).Build();
@@ -68,7 +73,7 @@ public class IssueRefreshTokenControllerIntegrationTests : BaseRefreshTokenPrese
 	}
 
 	[Fact]
-	public async Task IssueAsync_ShouldThrowUserNameEmailNotConfirmedException_WhenEmailIsNotConfirmed()
+	public async Task IssueAsync_ShouldThrowUserNameEmailNotConfirmedException_WhenUserNameEmailNotConfirmed()
 	{
 		// Arrange
 		var updatedUser = UserBuilder.WithUnconfirmedEmail().Build();
@@ -90,7 +95,7 @@ public class IssueRefreshTokenControllerIntegrationTests : BaseRefreshTokenPrese
 
 	[Theory]
 	[UserNameDifferentCaseData]
-	public async Task IssueAsync_ShouldReturnOkStatusCode_WhenNameIsValid(
+	public async Task IssueAsync_ShouldReturnOkStatusCode_WhenRequestAndNameAreValid(
 		IStringTransformer transformer)
 	{
 		// Arrange
@@ -115,7 +120,7 @@ public class IssueRefreshTokenControllerIntegrationTests : BaseRefreshTokenPrese
 
 	[Theory]
 	[UserNameDifferentCaseData]
-	public async Task IssueAsync_ShouldReturnResponse_WhenNameIsValid(
+	public async Task IssueAsync_ShouldReturnResponse_WhenRequestAndNameAreValid(
 		IStringTransformer transformer)
 	{
 		// Arrange
@@ -133,15 +138,15 @@ public class IssueRefreshTokenControllerIntegrationTests : BaseRefreshTokenPrese
 	{
 		// Act
 		await Controller.IssueAsync(_request, CancellationToken);
-		var user = await ServiceScope.GetByIdAsync(User.Id, CancellationToken);
+		var user = await ServiceScope.GetByIdAsync(UserId, CancellationToken);
 
 		// Assert
-		user.RefreshTokens.ShouldNotBeEmpty();
+		user.RefreshTokens.ShouldSatisfy(_request);
 	}
 
 	[Theory]
 	[UserNameDifferentCaseData]
-	public async Task IssueAsync_ShouldIssueRefreshToken_WhenNameIsValid(
+	public async Task IssueAsync_ShouldAddRefreshToken_WhenRequestAndNameAreValid(
 		IStringTransformer transformer)
 	{
 		// Arrange
@@ -149,9 +154,9 @@ public class IssueRefreshTokenControllerIntegrationTests : BaseRefreshTokenPrese
 
 		// Act
 		await Controller.IssueAsync(request, CancellationToken);
-		var user = await ServiceScope.GetByIdAsync(User.Id, CancellationToken);
+		var user = await ServiceScope.GetByIdAsync(UserId, CancellationToken);
 
 		// Assert
-		user.RefreshTokens.ShouldNotBeEmpty();
+		user.RefreshTokens.ShouldSatisfy(request);
 	}
 }

@@ -3,7 +3,7 @@ networks:
 
 services:
   observability:
-    image: grafana/otel-lgtm:0.36.0
+    image: grafana/otel-lgtm:latest
     container_name: observability
     hostname: observability
     ports:
@@ -23,7 +23,7 @@ services:
       - instaconnect
 
   mongo:
-    image: mongo:8.0
+    image: mongo:latest
     container_name: mongo
     hostname: mongo
     restart: unless-stopped
@@ -57,7 +57,7 @@ services:
       - instaconnect
 
   redis:
-    image: redis:7.4
+    image: redis:latest
     container_name: redis
     hostname: redis
     restart: always
@@ -77,7 +77,7 @@ services:
       - instaconnect
 
   rabbitmq:
-    image: rabbitmq:4.3-management
+    image: rabbitmq:management
     container_name: rabbitmq
     hostname: rabbitmq
     environment:
@@ -152,6 +152,11 @@ services:
       MongoConfiguration__Name: "instaconnect_posts"
       MongoConfiguration__ConnectionString: "mongodb://${MONGO_USERNAME}:${MONGO_PASSWORD}@mongo:27017/instaconnect_posts?replicaSet=rs0&authSource=admin"
       RabbitMqConfiguration__ConnectionString: "amqp://${RABBITMQ_USERNAME}:${RABBITMQ_PASSWORD}@rabbitmq:5672/"
+      CloudinaryConfiguration__CloudName: ${CLOUDINARY_CLOUD_NAME}
+      CloudinaryConfiguration__ApiKey: ${CLOUDINARY_API_KEY}
+      CloudinaryConfiguration__ApiSecret: ${CLOUDINARY_API_SECRET}
+      AnthropicConfiguration__ApiKey: ${ANTHROPIC_API_KEY}
+      AnthropicConfiguration__Model: ${ANTHROPIC_MODEL}
     healthcheck:
       test: ["CMD-SHELL", "wget --spider --tries=1 --no-verbose http://127.0.0.1:80/healthz || exit 1"]
       interval: 15s
@@ -183,6 +188,11 @@ services:
       MongoConfiguration__ConnectionString: "mongodb://${MONGO_USERNAME}:${MONGO_PASSWORD}@mongo:27017/instaconnect_chats?replicaSet=rs0&authSource=admin"
       RabbitMqConfiguration__ConnectionString: "amqp://${RABBITMQ_USERNAME}:${RABBITMQ_PASSWORD}@rabbitmq:5672/"
       RedisConfiguration__ConnectionString: "redis:6379,password=${REDIS_PASSWORD},abortConnect=False"
+      CloudinaryConfiguration__CloudName: ${CLOUDINARY_CLOUD_NAME}
+      CloudinaryConfiguration__ApiKey: ${CLOUDINARY_API_KEY}
+      CloudinaryConfiguration__ApiSecret: ${CLOUDINARY_API_SECRET}
+      AnthropicConfiguration__ApiKey: ${ANTHROPIC_API_KEY}
+      AnthropicConfiguration__Model: ${ANTHROPIC_MODEL}
     healthcheck:
       test: ["CMD-SHELL", "wget --spider --tries=1 --no-verbose http://127.0.0.1:80/healthz || exit 1"]
       interval: 15s
@@ -231,7 +241,7 @@ services:
       - instaconnect
 
   gateway-svc:
-    image: nginx:1.30-alpine
+    image: nginx:alpine
     container_name: gateway-svc
     hostname: gateway-svc
     ports:

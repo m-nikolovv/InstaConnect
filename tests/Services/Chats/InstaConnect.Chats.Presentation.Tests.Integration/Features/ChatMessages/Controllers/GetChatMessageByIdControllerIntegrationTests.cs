@@ -1,3 +1,5 @@
+using InstaConnect.Chats.Tests.Features.ChatMessages.DataAttributes.Id;
+
 namespace InstaConnect.Chats.Presentation.Tests.Integration.Features.ChatMessages.Controllers;
 
 public class GetChatMessageByIdControllerIntegrationTests : BaseChatMessagePresentationQueryIntegrationTest
@@ -6,17 +8,24 @@ public class GetChatMessageByIdControllerIntegrationTests : BaseChatMessagePrese
 	private readonly GetChatMessageByIdApiRequestBuilder _requestBuilder;
 	private readonly GetChatMessageByIdApiRequest _request;
 
+	private readonly GetChatMessageByIdApiRequestBuilder _invertedRequestBuilder;
+	private readonly GetChatMessageByIdApiRequest _invertedRequest;
+
 	public GetChatMessageByIdControllerIntegrationTests(ChatsWebApplicationFactory webApplicationFactory)
 		: base(webApplicationFactory)
 	{
 		_requestBuilderFactory = new();
 		_requestBuilder = _requestBuilderFactory.Create(ChatMessage);
 		_request = _requestBuilder.Build();
+
+		_invertedRequestBuilder = _requestBuilderFactory.Create(ChatMessage).WithCurrentUserId(ParticipantTwoId).WithParticipantTwoId(ParticipantOneId);
+		_invertedRequest = _invertedRequestBuilder.Build();
 	}
 
 	protected override async Task OnInitializeAsync()
 	{
 		await ServiceScope.AddAsync(ChatMessage, CancellationToken);
+		await ServiceScope.AddRangeAsync(ChatMessageImages, CancellationToken);
 	}
 
 	[Theory]
@@ -68,7 +77,7 @@ public class GetChatMessageByIdControllerIntegrationTests : BaseChatMessagePrese
 	}
 
 	[Fact]
-	public async Task GetByIdAsync_ShouldThrowChatNotFoundException_WhenIdIsInvalid()
+	public async Task GetByIdAsync_ShouldThrowChatNotFoundException_WhenChatNotFound()
 	{
 		// Arrange
 		await ServiceScope.DeleteAsync(Chat, CancellationToken);
@@ -78,7 +87,7 @@ public class GetChatMessageByIdControllerIntegrationTests : BaseChatMessagePrese
 	}
 
 	[Fact]
-	public async Task GetByIdAsync_ShouldThrowChatMessageNotFoundException_WhenMessageIdIsInvalid()
+	public async Task GetByIdAsync_ShouldThrowChatMessageNotFoundException_WhenChatMessageNotFound()
 	{
 		// Arrange
 		await ServiceScope.DeleteAsync(ChatMessage, CancellationToken);
@@ -145,11 +154,8 @@ public class GetChatMessageByIdControllerIntegrationTests : BaseChatMessagePrese
 	[Fact]
 	public async Task GetByIdAsync_ShouldReturnInvertedOkStatusCode_WhenRequestIsValid()
 	{
-		// Arrange
-		var request = _requestBuilder.WithParticipantTwoId(ParticipantOne.Id).WithCurrentUserId(ParticipantTwo.Id).Build();
-
 		// Act
-		var response = await Controller.GetByIdAsync(request, CancellationToken);
+		var response = await Controller.GetByIdAsync(_invertedRequest, CancellationToken);
 
 		// Assert
 		response.ShouldBeActionResultWithOkStatusCode();
@@ -161,10 +167,10 @@ public class GetChatMessageByIdControllerIntegrationTests : BaseChatMessagePrese
 		IStringTransformer transformer)
 	{
 		// Arrange
-		var request = _requestBuilder.WithParticipantTwoId(ParticipantOne.Id, transformer).WithCurrentUserId(ParticipantTwo.Id).Build();
+		var invertedRequest = _invertedRequestBuilder.WithParticipantTwoId(transformer).Build();
 
 		// Act
-		var response = await Controller.GetByIdAsync(request, CancellationToken);
+		var response = await Controller.GetByIdAsync(invertedRequest, CancellationToken);
 
 		// Assert
 		response.ShouldBeActionResultWithOkStatusCode();
@@ -176,10 +182,10 @@ public class GetChatMessageByIdControllerIntegrationTests : BaseChatMessagePrese
 		IStringTransformer transformer)
 	{
 		// Arrange
-		var request = _requestBuilder.WithParticipantTwoId(ParticipantOne.Id).WithCurrentUserId(ParticipantTwo.Id).WithMessageId(transformer).Build();
+		var invertedRequest = _invertedRequestBuilder.WithMessageId(transformer).Build();
 
 		// Act
-		var response = await Controller.GetByIdAsync(request, CancellationToken);
+		var response = await Controller.GetByIdAsync(invertedRequest, CancellationToken);
 
 		// Assert
 		response.ShouldBeActionResultWithOkStatusCode();
@@ -191,10 +197,10 @@ public class GetChatMessageByIdControllerIntegrationTests : BaseChatMessagePrese
 		IStringTransformer transformer)
 	{
 		// Arrange
-		var request = _requestBuilder.WithParticipantTwoId(ParticipantOne.Id).WithCurrentUserId(ParticipantTwo.Id, transformer).Build();
+		var invertedRequest = _invertedRequestBuilder.WithCurrentUserId(transformer).Build();
 
 		// Act
-		var response = await Controller.GetByIdAsync(request, CancellationToken);
+		var response = await Controller.GetByIdAsync(invertedRequest, CancellationToken);
 
 		// Assert
 		response.ShouldBeActionResultWithOkStatusCode();
@@ -258,14 +264,11 @@ public class GetChatMessageByIdControllerIntegrationTests : BaseChatMessagePrese
 	[Fact]
 	public async Task GetByIdAsync_ShouldReturnInvertedResponse_WhenRequestIsValid()
 	{
-		// Arrange
-		var request = _requestBuilder.WithParticipantTwoId(ParticipantOne.Id).WithCurrentUserId(ParticipantTwo.Id).Build();
-
 		// Act
-		var response = await Controller.GetByIdAsync(request, CancellationToken);
+		var response = await Controller.GetByIdAsync(_invertedRequest, CancellationToken);
 
 		// Assert
-		response.ShouldSatisfyInverted(request, ChatMessage);
+		response.ShouldSatisfyInverted(_invertedRequest, ChatMessage);
 	}
 
 	[Theory]
@@ -274,13 +277,13 @@ public class GetChatMessageByIdControllerIntegrationTests : BaseChatMessagePrese
 		IStringTransformer transformer)
 	{
 		// Arrange
-		var request = _requestBuilder.WithParticipantTwoId(ParticipantOne.Id, transformer).WithCurrentUserId(ParticipantTwo.Id).Build();
+		var invertedRequest = _invertedRequestBuilder.WithParticipantTwoId(transformer).Build();
 
 		// Act
-		var response = await Controller.GetByIdAsync(request, CancellationToken);
+		var response = await Controller.GetByIdAsync(invertedRequest, CancellationToken);
 
 		// Assert
-		response.ShouldSatisfyInverted(request, ChatMessage);
+		response.ShouldSatisfyInverted(invertedRequest, ChatMessage);
 	}
 
 	[Theory]
@@ -289,13 +292,13 @@ public class GetChatMessageByIdControllerIntegrationTests : BaseChatMessagePrese
 		IStringTransformer transformer)
 	{
 		// Arrange
-		var request = _requestBuilder.WithParticipantTwoId(ParticipantOne.Id).WithCurrentUserId(ParticipantTwo.Id).WithMessageId(transformer).Build();
+		var invertedRequest = _invertedRequestBuilder.WithMessageId(transformer).Build();
 
 		// Act
-		var response = await Controller.GetByIdAsync(request, CancellationToken);
+		var response = await Controller.GetByIdAsync(invertedRequest, CancellationToken);
 
 		// Assert
-		response.ShouldSatisfyInverted(request, ChatMessage);
+		response.ShouldSatisfyInverted(invertedRequest, ChatMessage);
 	}
 
 	[Theory]
@@ -304,12 +307,12 @@ public class GetChatMessageByIdControllerIntegrationTests : BaseChatMessagePrese
 		IStringTransformer transformer)
 	{
 		// Arrange
-		var request = _requestBuilder.WithParticipantTwoId(ParticipantOne.Id).WithCurrentUserId(ParticipantTwo.Id, transformer).Build();
+		var invertedRequest = _invertedRequestBuilder.WithCurrentUserId(transformer).Build();
 
 		// Act
-		var response = await Controller.GetByIdAsync(request, CancellationToken);
+		var response = await Controller.GetByIdAsync(invertedRequest, CancellationToken);
 
 		// Assert
-		response.ShouldSatisfyInverted(request, ChatMessage);
+		response.ShouldSatisfyInverted(invertedRequest, ChatMessage);
 	}
 }

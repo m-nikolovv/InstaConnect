@@ -1,7 +1,3 @@
-using InstaConnect.Posts.Infrastructure.Features.PostCommentLikes.Helpers.Repositories;
-using InstaConnect.Posts.Infrastructure.Tests.Features.PostCommentLikes.Assertions;
-using InstaConnect.Posts.Infrastructure.Tests.Unit.Features.PostCommentLikes.Utilities;
-
 namespace InstaConnect.Posts.Infrastructure.Tests.Unit.Features.PostCommentLikes.Repositories;
 
 public class DeletePostCommentLikeCommandRepositoryUnitTests : BasePostCommentLikeInfrastructureCommandUnitTest
@@ -14,7 +10,7 @@ public class DeletePostCommentLikeCommandRepositoryUnitTests : BasePostCommentLi
 	}
 
 	[Fact]
-	public async Task DeleteAsync_ShouldCallTheCollectionDeleteAsync_WhenRequestIsValid()
+	public async Task DeleteAsync_ShouldCallTheCollectionDeleteAsync_WhenCommandIsValid()
 	{
 		// Act
 		await _repository.DeleteAsync(PostCommentLike, CancellationToken);

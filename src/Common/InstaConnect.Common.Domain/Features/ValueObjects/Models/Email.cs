@@ -1,6 +1,3 @@
-using InstaConnect.Common.Domain.Features.Common.Extensions;
-using InstaConnect.Common.Domain.Features.ValueObjects.Abstractions;
-
 namespace InstaConnect.Common.Domain.Features.ValueObjects.Models;
 
 public record Email(string Value) : IValueObject

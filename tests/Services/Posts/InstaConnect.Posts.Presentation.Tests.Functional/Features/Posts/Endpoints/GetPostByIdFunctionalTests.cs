@@ -82,7 +82,7 @@ public class GetPostByIdFunctionalTests : BasePostPresentationQueryFunctionalTes
 	}
 
 	[Fact]
-	public async Task GetByIdAsync_ShouldHaveNotFoundStatusCode_WhenIdIsInvalid()
+	public async Task GetByIdAsync_ShouldHaveNotFoundStatusCode_WhenPostNotFound()
 	{
 		// Arrange
 		await ServiceScope.DeleteAsync(Post, CancellationToken);
@@ -95,7 +95,7 @@ public class GetPostByIdFunctionalTests : BasePostPresentationQueryFunctionalTes
 	}
 
 	[Fact]
-	public async Task GetByIdAsync_ShouldHavePostNotFoundProblemDetails_WhenIdIsInvalid()
+	public async Task GetByIdAsync_ShouldHavePostNotFoundProblemDetails_WhenPostNotFound()
 	{
 		// Arrange
 		await ServiceScope.DeleteAsync(Post, CancellationToken);
@@ -149,7 +149,7 @@ public class GetPostByIdFunctionalTests : BasePostPresentationQueryFunctionalTes
 	}
 
 	[Fact]
-	public async Task GetByIdAsync_ShouldHaveResponse_WhenRequestIsValid()
+	public async Task GetByIdAsync_ShouldReturnResponse_WhenRequestIsValid()
 	{
 		// Act
 		var response = await ApiClient.GetByIdAsync(_request, CancellationToken);
@@ -160,7 +160,7 @@ public class GetPostByIdFunctionalTests : BasePostPresentationQueryFunctionalTes
 
 	[Theory]
 	[PostIdDifferentCaseData]
-	public async Task GetByIdAsync_ShouldHaveResponse_WhenRequestAndIdAreValid(
+	public async Task GetByIdAsync_ShouldReturnResponse_WhenRequestAndIdAreValid(
 		IStringTransformer transformer)
 	{
 		// Arrange

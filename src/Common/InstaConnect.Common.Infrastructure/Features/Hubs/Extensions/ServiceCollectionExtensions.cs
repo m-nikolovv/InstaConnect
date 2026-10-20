@@ -1,8 +1,5 @@
 using InstaConnect.Common.Infrastructure.Features.Caches.Models;
 
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
-
 namespace InstaConnect.Common.Infrastructure.Features.Hubs.Extensions;
 
 public static class ServiceCollectionExtensions

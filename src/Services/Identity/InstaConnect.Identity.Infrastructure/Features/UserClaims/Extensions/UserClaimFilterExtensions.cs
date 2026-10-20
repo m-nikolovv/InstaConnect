@@ -1,9 +1,4 @@
-using System.Linq.Expressions;
-
 using InstaConnect.Identity.Infrastructure.Features.UserClaims.Extensions;
-using InstaConnect.Identity.Infrastructure.Features.Users.Extensions;
-
-using MongoDB.Driver;
 
 namespace InstaConnect.Identity.Infrastructure.Features.UserClaims.Extensions;
 

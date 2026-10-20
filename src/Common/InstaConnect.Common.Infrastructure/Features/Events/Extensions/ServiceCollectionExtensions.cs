@@ -6,11 +6,6 @@ using InstaConnect.Common.Infrastructure.Features.Events.Models;
 
 using MassTransit;
 
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
-
-using MongoDB.Driver;
-
 namespace InstaConnect.Common.Infrastructure.Features.Events.Extensions;
 
 public static class ServiceCollectionExtensions

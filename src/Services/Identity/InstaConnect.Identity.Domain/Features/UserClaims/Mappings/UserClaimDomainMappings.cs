@@ -1,7 +1,5 @@
 using InstaConnect.Identity.Events.Features.UserClaims;
 
-using Mapster;
-
 namespace InstaConnect.Identity.Domain.Features.UserClaims.Mappings;
 
 internal class UserClaimDomainMappings : IRegister

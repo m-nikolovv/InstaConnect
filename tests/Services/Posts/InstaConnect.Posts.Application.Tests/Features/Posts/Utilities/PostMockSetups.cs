@@ -1,3 +1,4 @@
+using InstaConnect.Posts.Domain.Features.Posts.Abstractions;
 using InstaConnect.Posts.Domain.Tests.Features.Posts.Utilities;
 
 namespace InstaConnect.Posts.Application.Tests.Features.Posts.Utilities;

@@ -1,9 +1,4 @@
-using InstaConnect.Chats.Domain.Features.Chats.Models.Requests;
-using InstaConnect.Chats.Infrastructure.Features.Chats.Helpers.Repositories;
-using InstaConnect.Chats.Infrastructure.Tests.Features.Chats.Assertions;
 using InstaConnect.Chats.Infrastructure.Tests.Features.Chats.Builders;
-using InstaConnect.Chats.Infrastructure.Tests.Features.Chats.Utilities;
-using InstaConnect.Chats.Infrastructure.Tests.Unit.Features.Chats.Utilities;
 
 namespace InstaConnect.Chats.Infrastructure.Tests.Unit.Features.Chats.Repositories;
 
@@ -34,7 +29,7 @@ public class GetChatsTotalCountQueryRepositoryUnitTests : BaseChatInfrastructure
 	}
 
 	[Fact]
-	public async Task GetTotalCountAsync_ShouldReturnResponse_WhenRequestIsValid()
+	public async Task GetTotalCountAsync_ShouldReturnResponse_WhenQueryIsValid()
 	{
 		// Act
 		var response = await _repository.GetTotalCountAsync(_filterQuery, CancellationToken);
@@ -44,7 +39,7 @@ public class GetChatsTotalCountQueryRepositoryUnitTests : BaseChatInfrastructure
 	}
 
 	[Fact]
-	public async Task GetTotalCountAsync_ShouldCallTheCollectionAggregateFluent_WhenRequestIsValid()
+	public async Task GetTotalCountAsync_ShouldCallTheCollectionAggregateFluent_WhenQueryIsValid()
 	{
 		// Act
 		await _repository.GetTotalCountAsync(_filterQuery, CancellationToken);
@@ -54,7 +49,7 @@ public class GetChatsTotalCountQueryRepositoryUnitTests : BaseChatInfrastructure
 	}
 
 	[Fact]
-	public async Task GetTotalCountAsync_ShouldCallTheFluentApplyIncludes_WhenRequestIsValid()
+	public async Task GetTotalCountAsync_ShouldCallTheFluentApplyIncludes_WhenQueryIsValid()
 	{
 		// Act
 		await _repository.GetTotalCountAsync(_filterQuery, CancellationToken);
@@ -64,7 +59,7 @@ public class GetChatsTotalCountQueryRepositoryUnitTests : BaseChatInfrastructure
 	}
 
 	[Fact]
-	public async Task GetTotalCountAsync_ShouldCallTheFluentMatch_WhenRequestIsValid()
+	public async Task GetTotalCountAsync_ShouldCallTheFluentMatch_WhenQueryIsValid()
 	{
 		// Act
 		await _repository.GetTotalCountAsync(_filterQuery, CancellationToken);
@@ -74,7 +69,7 @@ public class GetChatsTotalCountQueryRepositoryUnitTests : BaseChatInfrastructure
 	}
 
 	[Fact]
-	public async Task GetTotalCountAsync_ShouldCallTheFluentGetCountAsync_WhenRequestIsValid()
+	public async Task GetTotalCountAsync_ShouldCallTheFluentGetCountAsync_WhenQueryIsValid()
 	{
 		// Act
 		await _repository.GetTotalCountAsync(_filterQuery, CancellationToken);

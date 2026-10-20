@@ -1,5 +1,4 @@
 using InstaConnect.Common.Tests.Features.Extensions;
-using InstaConnect.Identity.Domain.Features.Common.Helpers;
 
 namespace InstaConnect.Identity.Tests.Features.Common.Utilities;
 

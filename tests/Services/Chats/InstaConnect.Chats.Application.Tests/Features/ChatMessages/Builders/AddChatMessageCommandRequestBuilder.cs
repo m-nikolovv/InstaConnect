@@ -1,3 +1,8 @@
+using InstaConnect.Chats.Tests.Features.ChatMessageImages.Utilities;
+using InstaConnect.Common.Tests.Features.DataAttributes.FormFileCollections.Base;
+
+using Microsoft.AspNetCore.Http;
+
 namespace InstaConnect.Chats.Application.Tests.Features.ChatMessages.Builders;
 
 public class AddChatMessageCommandRequestBuilder
@@ -5,12 +10,14 @@ public class AddChatMessageCommandRequestBuilder
 	private string _participantOneId;
 	private string _participantTwoId;
 	private string _content;
+	private ICollection<IFormFile> _images;
 
-	public AddChatMessageCommandRequestBuilder(Chat chat)
+	public AddChatMessageCommandRequestBuilder(Chat chat, int numberOfImages)
 	{
 		_participantOneId = chat.Id.ParticipantOneId.Id;
 		_participantTwoId = chat.Id.ParticipantTwoId.Id;
 		_content = ChatMessageDataFaker.GetContent();
+		_images = ChatMessageImageDataFaker.GetImages(numberOfImages);
 	}
 
 	public AddChatMessageCommandRequestBuilder WithParticipantOneId(UserId participantOneId, IStringTransformer? transformer = null)
@@ -48,8 +55,15 @@ public class AddChatMessageCommandRequestBuilder
 		return this;
 	}
 
+	public AddChatMessageCommandRequestBuilder WithImages(IFormFileCollectionTransformer transformer)
+	{
+		_images = transformer.Transform(_images);
+
+		return this;
+	}
+
 	public AddChatMessageCommandRequest Build()
 	{
-		return new(_participantOneId, _participantTwoId, _content);
+		return new(_participantOneId, _participantTwoId, _content, _images);
 	}
 }

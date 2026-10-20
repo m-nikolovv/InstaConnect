@@ -1,12 +1,13 @@
-using InstaConnect.Common.Domain.Features.Common.Extensions;
 using InstaConnect.Common.Presentation.Features.Requests.Abstractions;
 using InstaConnect.Common.Tests.Features.DataAttributes.Enums.Sort;
+using InstaConnect.Identity.Application.Features.UserClaims.Commands.Add;
+using InstaConnect.Identity.Application.Features.UserClaims.Commands.Delete;
+using InstaConnect.Identity.Application.Features.UserClaims.Queries.GetAll;
 using InstaConnect.Identity.Domain.Features.UserClaims.Models.Requests;
+using InstaConnect.Identity.Domain.Features.UserClaims.Models.ValueObjects;
 using InstaConnect.Identity.Events.Features.UserClaims;
-using InstaConnect.Identity.Events.Features.Users;
 using InstaConnect.Identity.Presentation.Features.Users.Abstractions;
 using InstaConnect.Identity.Presentation.Tests.Features.UserClaims.Utilities;
-using InstaConnect.Identity.Presentation.Tests.Features.Users.Utilities;
 
 using MongoDB.Driver;
 
@@ -61,7 +62,7 @@ public static class UserClaimEquals
 				   r.Email.EqualsOrdinalIgnoreCase(entity.Email.Value) &&
 				   r.FirstName == entity.FirstName &&
 				   r.LastName == entity.LastName &&
-				   r.ProfileImageUrl == entity.ProfileImage?.Url &&
+				   r.ProfileImageUrl == entity.ProfileImageUrl?.Value &&
 				   r.CreatedAtUtc == entity.CreatedAtUtc &&
 				   r.UpdatedAtUtc == entity.UpdatedAtUtc;
 		}
@@ -74,7 +75,7 @@ public static class UserClaimEquals
 				   r.Email.EqualsOrdinalIgnoreCase(entity.Email.Value) &&
 				   r.FirstName == entity.FirstName &&
 				   r.LastName == entity.LastName &&
-				   r.ProfileImageUrl == entity.ProfileImage?.Url &&
+				   r.ProfileImageUrl == entity.ProfileImageUrl?.Value &&
 				   r.CreatedAtUtc == entity.CreatedAtUtc &&
 				   r.UpdatedAtUtc == entity.UpdatedAtUtc;
 		}

@@ -1,9 +1,4 @@
-using InstaConnect.Posts.Domain.Features.PostLikes.Models.Requests;
-using InstaConnect.Posts.Infrastructure.Features.PostLikes.Helpers.Repositories;
-using InstaConnect.Posts.Infrastructure.Tests.Features.PostLikes.Assertions;
 using InstaConnect.Posts.Infrastructure.Tests.Features.PostLikes.Builders;
-using InstaConnect.Posts.Infrastructure.Tests.Features.PostLikes.Utilities;
-using InstaConnect.Posts.Infrastructure.Tests.Unit.Features.PostLikes.Utilities;
 
 namespace InstaConnect.Posts.Infrastructure.Tests.Unit.Features.PostLikes.Repositories;
 
@@ -34,7 +29,7 @@ public class GetPostLikesTotalCountQueryRepositoryUnitTests : BasePostLikeInfras
 	}
 
 	[Fact]
-	public async Task GetTotalCountAsync_ShouldReturnResponse_WhenRequestIsValid()
+	public async Task GetTotalCountAsync_ShouldReturnResponse_WhenQueryIsValid()
 	{
 		// Act
 		var response = await _repository.GetTotalCountAsync(_filterQuery, CancellationToken);
@@ -44,7 +39,7 @@ public class GetPostLikesTotalCountQueryRepositoryUnitTests : BasePostLikeInfras
 	}
 
 	[Fact]
-	public async Task GetTotalCountAsync_ShouldCallTheCollectionAggregateFluent_WhenRequestIsValid()
+	public async Task GetTotalCountAsync_ShouldCallTheCollectionAggregateFluent_WhenQueryIsValid()
 	{
 		// Act
 		await _repository.GetTotalCountAsync(_filterQuery, CancellationToken);
@@ -54,7 +49,7 @@ public class GetPostLikesTotalCountQueryRepositoryUnitTests : BasePostLikeInfras
 	}
 
 	[Fact]
-	public async Task GetTotalCountAsync_ShouldCallTheFluentApplyIncludes_WhenRequestIsValid()
+	public async Task GetTotalCountAsync_ShouldCallTheFluentApplyIncludes_WhenQueryIsValid()
 	{
 		// Act
 		await _repository.GetTotalCountAsync(_filterQuery, CancellationToken);
@@ -64,7 +59,7 @@ public class GetPostLikesTotalCountQueryRepositoryUnitTests : BasePostLikeInfras
 	}
 
 	[Fact]
-	public async Task GetTotalCountAsync_ShouldCallTheFluentMatch_WhenRequestIsValid()
+	public async Task GetTotalCountAsync_ShouldCallTheFluentMatch_WhenQueryIsValid()
 	{
 		// Act
 		await _repository.GetTotalCountAsync(_filterQuery, CancellationToken);
@@ -74,7 +69,7 @@ public class GetPostLikesTotalCountQueryRepositoryUnitTests : BasePostLikeInfras
 	}
 
 	[Fact]
-	public async Task GetTotalCountAsync_ShouldCallTheFluentGetCountAsync_WhenRequestIsValid()
+	public async Task GetTotalCountAsync_ShouldCallTheFluentGetCountAsync_WhenQueryIsValid()
 	{
 		// Act
 		await _repository.GetTotalCountAsync(_filterQuery, CancellationToken);

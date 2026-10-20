@@ -13,6 +13,7 @@ public static class ChatMessageGenerator
 						 new(chat.Id, ChatMessageDataFaker.GetId()),
 						 chat.Id.ParticipantOneId,
 						 ChatMessageDataFaker.GetContent(),
+						 new(ChatMessageDataFaker.GetSummary()),
 						 ChatMessageDataFaker.GetCreatedAtUtc(),
 						 ChatMessageDataFaker.GetUpdatedAtUtc()
 					 );
@@ -31,6 +32,7 @@ public static class ChatMessageGenerator
 						 new(chat.Id, ChatMessageDataFaker.GetId()),
 						 chat.Id.ParticipantTwoId,
 						 ChatMessageDataFaker.GetContent(),
+						 new(ChatMessageDataFaker.GetSummary()),
 						 ChatMessageDataFaker.GetCreatedAtUtc(),
 						 ChatMessageDataFaker.GetUpdatedAtUtc()
 					 );

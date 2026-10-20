@@ -1,3 +1,5 @@
+using InstaConnect.Posts.Application.Features.PostLikes.Commands.Delete;
+
 namespace InstaConnect.Posts.Application.Tests.Unit.Features.PostLikes.Handlers.Delete;
 
 public class DeletePostLikeCommandHandlerUnitTests : BasePostLikeApplicationCommandUnitTest
@@ -18,7 +20,7 @@ public class DeletePostLikeCommandHandlerUnitTests : BasePostLikeApplicationComm
 	}
 
 	[Fact]
-	public async Task Handle_ShouldCallLikeServiceDeleteAsync_WhenRequestIsValid()
+	public async Task Handle_ShouldCallTheLikeServiceDeleteAsync_WhenRequestIsValid()
 	{
 		// Act
 		await _handler.Handle(_request, CancellationToken);

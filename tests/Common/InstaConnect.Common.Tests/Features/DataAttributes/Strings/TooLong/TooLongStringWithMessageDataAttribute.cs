@@ -1,5 +1,3 @@
-using InstaConnect.Common.Tests.Features.DataAttributes.Strings.Base;
-
 namespace InstaConnect.Common.Tests.Features.DataAttributes.Strings.TooLong;
 
 [AttributeUsage(AttributeTargets.Method, AllowMultiple = true, Inherited = true)]

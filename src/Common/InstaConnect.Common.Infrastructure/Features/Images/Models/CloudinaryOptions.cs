@@ -1,5 +1,3 @@
-using InstaConnect.Common.Domain.Features.Common.Abstractions;
-
 namespace InstaConnect.Common.Infrastructure.Features.Images.Models;
 
 public record CloudinaryOptions(

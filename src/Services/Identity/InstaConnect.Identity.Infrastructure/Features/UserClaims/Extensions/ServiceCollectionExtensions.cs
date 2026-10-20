@@ -1,7 +1,3 @@
-using InstaConnect.Identity.Infrastructure.Features.Common.Extensions;
-
-using MongoDB.Bson.Serialization;
-
 namespace InstaConnect.Identity.Infrastructure.Features.UserClaims.Extensions;
 
 internal static class ServiceCollectionExtensions

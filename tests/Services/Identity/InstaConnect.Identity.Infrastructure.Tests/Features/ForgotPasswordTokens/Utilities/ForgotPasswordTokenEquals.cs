@@ -16,6 +16,16 @@ public static class ForgotPasswordTokenEquals
 		}
 	}
 
+	extension(ICollection<ForgotPasswordToken> p)
+	{
+		public bool Matches(
+			ICollection<ForgotPasswordTokenId> ids,
+			ICollection<ForgotPasswordToken> forgotPasswordTokens)
+		{
+			return p.Matches(forgotPasswordTokens);
+		}
+	}
+
 	extension(bool response)
 	{
 		public bool Matches(ForgotPasswordTokenId id, ForgotPasswordToken? forgotPasswordToken)

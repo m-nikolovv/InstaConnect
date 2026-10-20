@@ -4,9 +4,6 @@ using InstaConnect.Common.Domain.Features.Images.Abstractions;
 using InstaConnect.Common.Infrastructure.Features.Images.Helpers;
 using InstaConnect.Common.Infrastructure.Features.Images.Models;
 
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
-
 namespace InstaConnect.Common.Infrastructure.Features.Images.Extensions;
 
 public static class ServiceCollectionExtensions

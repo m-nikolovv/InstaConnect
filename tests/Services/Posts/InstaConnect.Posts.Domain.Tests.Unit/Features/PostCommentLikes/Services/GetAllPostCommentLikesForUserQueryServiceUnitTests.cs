@@ -1,10 +1,3 @@
-using InstaConnect.Posts.Domain.Features.PostCommentLikes.Helpers;
-using InstaConnect.Posts.Domain.Features.PostCommentLikes.Models.Requests;
-using InstaConnect.Posts.Domain.Tests.Features.PostCommentLikes.Assertions;
-using InstaConnect.Posts.Domain.Tests.Features.PostCommentLikes.Builders;
-using InstaConnect.Posts.Domain.Tests.Features.PostCommentLikes.Utilities;
-using InstaConnect.Posts.Domain.Tests.Unit.Features.PostCommentLikes.Utilities;
-
 namespace InstaConnect.Posts.Domain.Tests.Unit.Features.PostCommentLikes.Services;
 
 public class GetAllPostCommentLikesForUserQueryServiceUnitTests : BasePostCommentLikeDomainQueryUnitTest
@@ -29,7 +22,7 @@ public class GetAllPostCommentLikesForUserQueryServiceUnitTests : BasePostCommen
 	}
 
 	[Fact]
-	public async Task GetAllForUserAsync_ShouldThrowUserNotFoundException_WhenUserIdIsInvalid()
+	public async Task GetAllForUserAsync_ShouldThrowUserNotFoundException_WhenUserNotFound()
 	{
 		// Arrange
 		UserRepository.RemoveGetByIdAsync(_query, User, CancellationToken);

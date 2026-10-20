@@ -1,6 +1,5 @@
-using InstaConnect.Identity.Events.Features.Users;
-
-using Mapster;
+using InstaConnect.Posts.Events.Features.PostLikes;
+using InstaConnect.Posts.Events.Features.Posts;
 
 namespace InstaConnect.Posts.Domain.Features.PostLikes.Mappings;
 

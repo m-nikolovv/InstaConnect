@@ -1,6 +1,6 @@
 using InstaConnect.Common.Domain.Features.ValueObjects.Models;
 using InstaConnect.Common.Infrastructure.Tests.Features.Builders;
-using InstaConnect.Posts.Infrastructure.Features.Users.Helpers.Repositories;
+using InstaConnect.Posts.Domain.Features.Users.Models.Entities;
 
 namespace InstaConnect.Posts.Infrastructure.Tests.Unit.Features.Users.Repositories;
 
@@ -26,7 +26,7 @@ public class IsUserEmailUniqueCommandRepositoryUnitTests : BaseUserInfrastructur
 	}
 
 	[Fact]
-	public async Task IsEmailUniqueAsync_ShouldReturnResponse_WhenRequestIsValid()
+	public async Task IsEmailUniqueAsync_ShouldReturnResponse_WhenCommandIsValid()
 	{
 		// Act
 		var response = await _repository.IsEmailUniqueAsync(_email, CancellationToken);
@@ -36,7 +36,7 @@ public class IsUserEmailUniqueCommandRepositoryUnitTests : BaseUserInfrastructur
 	}
 
 	[Fact]
-	public async Task IsEmailUniqueAsync_ShouldCallTheCollectionAggregateFluent_WhenRequestIsValid()
+	public async Task IsEmailUniqueAsync_ShouldCallTheCollectionAggregateFluent_WhenCommandIsValid()
 	{
 		// Act
 		await _repository.IsEmailUniqueAsync(_email, CancellationToken);
@@ -46,7 +46,7 @@ public class IsUserEmailUniqueCommandRepositoryUnitTests : BaseUserInfrastructur
 	}
 
 	[Fact]
-	public async Task IsEmailUniqueAsync_ShouldCallTheFluentMatch_WhenRequestIsValid()
+	public async Task IsEmailUniqueAsync_ShouldCallTheFluentMatch_WhenCommandIsValid()
 	{
 		// Act
 		await _repository.IsEmailUniqueAsync(_email, CancellationToken);
@@ -56,7 +56,7 @@ public class IsUserEmailUniqueCommandRepositoryUnitTests : BaseUserInfrastructur
 	}
 
 	[Fact]
-	public async Task IsEmailUniqueAsync_ShouldCallTheFluentAnyAsync_WhenRequestIsValid()
+	public async Task IsEmailUniqueAsync_ShouldCallTheFluentAnyAsync_WhenCommandIsValid()
 	{
 		// Act
 		await _repository.IsEmailUniqueAsync(_email, CancellationToken);

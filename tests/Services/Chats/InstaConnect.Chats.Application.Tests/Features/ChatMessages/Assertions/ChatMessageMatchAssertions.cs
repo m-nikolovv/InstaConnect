@@ -1,4 +1,5 @@
-using InstaConnect.Chats.Application.Tests.Features.ChatMessages.Utilities;
+using InstaConnect.Chats.Domain.Features.ChatMessageImages.Models.Entities;
+using InstaConnect.Chats.Tests.Features.ChatMessages.Assertions;
 using InstaConnect.Common.Tests.Features.DataAttributes.Enums.Sort;
 
 namespace InstaConnect.Chats.Application.Tests.Features.ChatMessages.Assertions;
@@ -77,6 +78,19 @@ public static class ChatMessageMatchAssertions
 		public void ShouldSatisfyInverted(UpdateChatMessageCommandRequest request)
 		{
 			chatMessage.ShouldSatisfy(p => p.MatchesInverted(request));
+		}
+	}
+
+	extension(ICollection<ChatMessageImage> chatMessageImages)
+	{
+		public void ShouldSatisfy(AddChatMessageCommandRequest request)
+		{
+			chatMessageImages.ShouldSatisfy(p => p.Matches(request));
+		}
+
+		public void ShouldSatisfyInverted(AddChatMessageCommandRequest request)
+		{
+			chatMessageImages.ShouldSatisfy(p => p.MatchesInverted(request));
 		}
 	}
 

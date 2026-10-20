@@ -1,7 +1,3 @@
-using InstaConnect.Identity.Infrastructure.Features.Common.Extensions;
-
-using MongoDB.Bson.Serialization;
-
 namespace InstaConnect.Identity.Infrastructure.Features.Users.Extensions;
 
 internal static class ServiceCollectionExtensions
@@ -28,7 +24,7 @@ internal static class ServiceCollectionExtensions
 				cm.MapMember(c => c.Email);
 				cm.MapMember(c => c.PasswordHash);
 				cm.MapMember(c => c.IsEmailConfirmed);
-				cm.MapMember(c => c.ProfileImage);
+				cm.MapMember(c => c.ProfileImageUrl);
 				cm.MapMember(c => c.CreatedAtUtc);
 				cm.MapMember(c => c.UpdatedAtUtc);
 
@@ -45,7 +41,7 @@ internal static class ServiceCollectionExtensions
 					c.Name,
 					c.PasswordHash,
 					c.IsEmailConfirmed,
-					c.ProfileImage,
+					c.ProfileImageUrl,
 					c.CreatedAtUtc,
 					c.UpdatedAtUtc));
 

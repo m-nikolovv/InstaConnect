@@ -1,5 +1,3 @@
-using MongoDB.Driver;
-
 namespace InstaConnect.Identity.Infrastructure.Features.ForgotPasswordTokens.Helpers.Collections;
 
 internal class ForgotPasswordTokenFluentFactory : IForgotPasswordTokenFluentFactory

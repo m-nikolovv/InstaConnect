@@ -1,9 +1,5 @@
 using InstaConnect.Common.Domain.Features.ValueObjects.Models;
 using InstaConnect.Common.Infrastructure.Tests.Features.Builders;
-using InstaConnect.Identity.Infrastructure.Features.Users.Helpers.Repositories;
-using InstaConnect.Identity.Infrastructure.Tests.Features.Users.Assertions;
-using InstaConnect.Identity.Infrastructure.Tests.Features.Users.Utilities;
-using InstaConnect.Identity.Infrastructure.Tests.Unit.Features.Users.Utilities;
 
 namespace InstaConnect.Identity.Infrastructure.Tests.Unit.Features.Users.Repositories;
 
@@ -29,7 +25,7 @@ public class UserIsNameUniqueCommandRepositoryUnitTests : BaseUserInfrastructure
 	}
 
 	[Fact]
-	public async Task IsNameUniqueAsync_ShouldReturnResponse_WhenRequestIsValid()
+	public async Task IsNameUniqueAsync_ShouldReturnResponse_WhenCommandIsValid()
 	{
 		// Act
 		var response = await _repository.IsNameUniqueAsync(_name, CancellationToken);
@@ -39,7 +35,7 @@ public class UserIsNameUniqueCommandRepositoryUnitTests : BaseUserInfrastructure
 	}
 
 	[Fact]
-	public async Task IsNameUniqueAsync_ShouldCallTheCollectionAggregateFluent_WhenRequestIsValid()
+	public async Task IsNameUniqueAsync_ShouldCallTheCollectionAggregateFluent_WhenCommandIsValid()
 	{
 		// Act
 		await _repository.IsNameUniqueAsync(_name, CancellationToken);
@@ -49,7 +45,7 @@ public class UserIsNameUniqueCommandRepositoryUnitTests : BaseUserInfrastructure
 	}
 
 	[Fact]
-	public async Task IsNameUniqueAsync_ShouldCallTheFluentMatch_WhenRequestIsValid()
+	public async Task IsNameUniqueAsync_ShouldCallTheFluentMatch_WhenCommandIsValid()
 	{
 		// Act
 		await _repository.IsNameUniqueAsync(_name, CancellationToken);
@@ -59,7 +55,7 @@ public class UserIsNameUniqueCommandRepositoryUnitTests : BaseUserInfrastructure
 	}
 
 	[Fact]
-	public async Task IsNameUniqueAsync_ShouldCallTheFluentAnyAsync_WhenRequestIsValid()
+	public async Task IsNameUniqueAsync_ShouldCallTheFluentAnyAsync_WhenCommandIsValid()
 	{
 		// Act
 		await _repository.IsNameUniqueAsync(_name, CancellationToken);

@@ -6,4 +6,9 @@ public class ChatMessageBuilderFactory
 	{
 		return new(chat);
 	}
+
+	public ChatMessageBuilder Create(ChatMessage chatMessage)
+	{
+		return new(chatMessage);
+	}
 }

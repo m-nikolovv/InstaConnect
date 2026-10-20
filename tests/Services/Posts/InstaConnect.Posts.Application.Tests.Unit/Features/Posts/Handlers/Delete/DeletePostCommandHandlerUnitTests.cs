@@ -1,3 +1,5 @@
+using InstaConnect.Posts.Application.Features.Posts.Commands.Delete;
+
 namespace InstaConnect.Posts.Application.Tests.Unit.Features.Posts.Handlers.Delete;
 
 public class DeletePostCommandHandlerUnitTests : BasePostApplicationCommandUnitTest
@@ -18,7 +20,7 @@ public class DeletePostCommandHandlerUnitTests : BasePostApplicationCommandUnitT
 	}
 
 	[Fact]
-	public async Task Handle_ShouldCallServiceDeleteAsync_WhenRequestIsValid()
+	public async Task Handle_ShouldCallTheServiceDeleteAsync_WhenRequestIsValid()
 	{
 		// Act
 		await _handler.Handle(_request, CancellationToken);

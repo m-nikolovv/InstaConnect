@@ -1,70 +1,55 @@
-using InstaConnect.Posts.Domain.Features.PostCommentLikes.Models.ValueObjects;
-using InstaConnect.Posts.Infrastructure.Features.PostCommentLikes.Helpers.Repositories;
-using InstaConnect.Posts.Infrastructure.Tests.Features.PostCommentLikes.Assertions;
-using InstaConnect.Posts.Infrastructure.Tests.Features.PostCommentLikes.Utilities;
-using InstaConnect.Posts.Infrastructure.Tests.Unit.Features.PostCommentLikes.Utilities;
-using InstaConnect.Posts.Tests.Features.PostCommentLikes.Builders;
-
 namespace InstaConnect.Posts.Infrastructure.Tests.Unit.Features.PostCommentLikes.Repositories;
 
 public class PostCommentLikeExistsByIdQueryRepositoryUnitTests : BasePostCommentLikeInfrastructureQueryUnitTest
 {
-	private readonly PostCommentLikeIdBuilderFactory _idBuilderFactory;
-	private readonly PostCommentLikeIdBuilder _idBuilder;
-	private readonly PostCommentLikeId _id;
-
 	private readonly PostCommentLikeQueryRepository _repository;
 
 	public PostCommentLikeExistsByIdQueryRepositoryUnitTests()
 	{
-		_idBuilderFactory = new();
-		_idBuilder = _idBuilderFactory.Create(PostCommentLike.Id);
-		_id = _idBuilder.Build();
-
 		_repository = new(Collection, IncludeBuilderFactory, CommentIncludeBuilderFactory, CommentLikeIncludeBuilderFactory);
 
-		Collection.SetupAggregateFluent(_id, Fluent);
-		Fluent.SetupMatch(_id);
-		Fluent.SetupAnyAsync(_id, PostCommentLike, CancellationToken);
+		Collection.SetupAggregateFluent(PostCommentLikeId, Fluent);
+		Fluent.SetupMatch(PostCommentLikeId);
+		Fluent.SetupAnyAsync(PostCommentLikeId, PostCommentLike, CancellationToken);
 	}
 
 	[Fact]
-	public async Task ExistsByIdAsync_ShouldReturnResponse_WhenRequestIsValid()
+	public async Task ExistsByIdAsync_ShouldReturnResponse_WhenQueryIsValid()
 	{
 		// Act
-		var response = await _repository.ExistsByIdAsync(_id, CancellationToken);
+		var response = await _repository.ExistsByIdAsync(PostCommentLikeId, CancellationToken);
 
 		// Assert
-		response.ShouldSatisfy(_id, PostCommentLike);
+		response.ShouldSatisfy(PostCommentLikeId, PostCommentLike);
 	}
 
 	[Fact]
-	public async Task ExistsByIdAsync_ShouldCallTheCollectionAggregateFluent_WhenRequestIsValid()
+	public async Task ExistsByIdAsync_ShouldCallTheCollectionAggregateFluent_WhenQueryIsValid()
 	{
 		// Act
-		await _repository.ExistsByIdAsync(_id, CancellationToken);
+		await _repository.ExistsByIdAsync(PostCommentLikeId, CancellationToken);
 
 		// Assert
-		Collection.ShouldHaveReceivedOneAggregateFluent(_id);
+		Collection.ShouldHaveReceivedOneAggregateFluent(PostCommentLikeId);
 	}
 
 	[Fact]
-	public async Task ExistsByIdAsync_ShouldCallTheFluentMatch_WhenRequestIsValid()
+	public async Task ExistsByIdAsync_ShouldCallTheFluentMatch_WhenQueryIsValid()
 	{
 		// Act
-		await _repository.ExistsByIdAsync(_id, CancellationToken);
+		await _repository.ExistsByIdAsync(PostCommentLikeId, CancellationToken);
 
 		// Assert
-		Fluent.ShouldHaveReceivedOneMatch(_id);
+		Fluent.ShouldHaveReceivedOneMatch(PostCommentLikeId);
 	}
 
 	[Fact]
-	public async Task ExistsByIdAsync_ShouldCallTheFluentAnyAsync_WhenRequestIsValid()
+	public async Task ExistsByIdAsync_ShouldCallTheFluentAnyAsync_WhenQueryIsValid()
 	{
 		// Act
-		await _repository.ExistsByIdAsync(_id, CancellationToken);
+		await _repository.ExistsByIdAsync(PostCommentLikeId, CancellationToken);
 
 		// Assert
-		await Fluent.ShouldHaveReceivedOneAnyAsync(_id, CancellationToken);
+		await Fluent.ShouldHaveReceivedOneAnyAsync(PostCommentLikeId, CancellationToken);
 	}
 }

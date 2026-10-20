@@ -29,6 +29,13 @@ public static class MockSetups
 		{
 			fluent.FirstOrDefaultAsync(cancellationToken).ReturnsTaskResponse(entity);
 		}
+
+		public void SetupToListAsync(
+			ICollection<TEntity> entities,
+			CancellationToken cancellationToken)
+		{
+			fluent.ToListAsync(cancellationToken).ReturnsTaskResponse(entities);
+		}
 	}
 
 	extension<TEntity>(IMongoDbResponseFluent<TEntity> fluent)

@@ -1,3 +1,5 @@
+using InstaConnect.Identity.Application.Features.ForgotPasswordTokens.Extensions;
+
 namespace InstaConnect.Identity.Application.Features.ForgotPasswordTokens.Commands.Verify;
 
 public class VerifyForgotPasswordTokenCommandRequestValidator : AbstractValidator<VerifyForgotPasswordTokenCommandRequest>

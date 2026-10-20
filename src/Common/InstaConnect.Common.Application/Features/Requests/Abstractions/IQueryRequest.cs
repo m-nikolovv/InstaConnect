@@ -1,5 +1,3 @@
-using MediatR;
-
 namespace InstaConnect.Common.Application.Features.Requests.Abstractions;
 
 public interface IQuery : IBaseRequest;

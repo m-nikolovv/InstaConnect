@@ -1,6 +1,3 @@
-using InstaConnect.Identity.Domain.Features.EmailConfirmationTokens.Models.ValueObjects;
-using InstaConnect.Identity.Tests.Features.EmailConfirmationTokens.Utilities;
-
 namespace InstaConnect.Identity.Tests.Features.EmailConfirmationTokens.Builders;
 
 public class EmailConfirmationTokenBuilder
@@ -18,6 +15,15 @@ public class EmailConfirmationTokenBuilder
 		_value = EmailConfirmationTokenDataFaker.GetValue();
 		_expiresAtUtc = EmailConfirmationTokenDataFaker.GetExpiresAtUtc();
 		_createdAtUtc = EmailConfirmationTokenDataFaker.GetCreatedAtUtc();
+	}
+
+	public EmailConfirmationTokenBuilder(EmailConfirmationToken emailConfirmationToken)
+	{
+		_id = emailConfirmationToken.Id.Id.Id;
+		_user = emailConfirmationToken.User!;
+		_value = emailConfirmationToken.Id.Value;
+		_expiresAtUtc = emailConfirmationToken.ExpiresAtUtc;
+		_createdAtUtc = emailConfirmationToken.CreatedAtUtc;
 	}
 
 	public EmailConfirmationTokenBuilder WithValue(EmailConfirmationTokenId value)

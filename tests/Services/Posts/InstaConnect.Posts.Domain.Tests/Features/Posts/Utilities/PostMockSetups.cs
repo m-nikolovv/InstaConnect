@@ -1,6 +1,5 @@
-using InstaConnect.Common.Domain.Features.DateTimes.Abstractions;
 using InstaConnect.Common.Domain.Features.Guids.Abstractions;
-using InstaConnect.Posts.Domain.Tests.Features.Users.Utilities;
+using InstaConnect.Posts.Domain.Features.PostImages.Abstractions;
 
 namespace InstaConnect.Posts.Domain.Tests.Features.Posts.Utilities;
 
@@ -127,7 +126,7 @@ public static class PostMockSetups
 			CancellationToken cancellationToken)
 		{
 			service
-				.GetForUserTotalCountAsync(filter, cancellationToken)
+				.GetTotalCountForUserAsync(filter, cancellationToken)
 				.ReturnsTaskResponse(totalCount);
 		}
 
@@ -330,6 +329,29 @@ public static class PostMockSetups
 			service
 				.UpdateAsync(command, cancellationToken)
 				.ReturnsTaskResponse(id);
+		}
+	}
+
+	extension(IPostImageFactory factory)
+	{
+		public void SetupCreateRange(
+			AddPostCommand command,
+			Post post)
+		{
+			factory.SetupCreateRange(
+				post.Id,
+				command.IsImages(),
+				post.PostImages.To(command));
+		}
+
+		public void SetupCreateRange(
+			PostId id,
+			ICollection<Url> urls,
+			ICollection<PostImage> postImages)
+		{
+			factory
+				.CreateRange(id, urls)
+				.ReturnsResponse(postImages);
 		}
 	}
 }

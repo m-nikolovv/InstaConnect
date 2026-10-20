@@ -1,9 +1,6 @@
-using InstaConnect.Common.Domain.Features.DateTimes.Abstractions;
 using InstaConnect.Common.Domain.Features.Guids.Abstractions;
 using InstaConnect.Identity.Domain.Features.EmailConfirmationTokens.Models.Options;
-using InstaConnect.Identity.Domain.Tests.Features.Users.Utilities;
-
-using Microsoft.Extensions.Options;
+using InstaConnect.Identity.Domain.Features.EmailConfirmationTokens.Models.ValueObjects;
 
 namespace InstaConnect.Identity.Domain.Tests.Features.EmailConfirmationTokens.Utilities;
 

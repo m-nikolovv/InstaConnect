@@ -9,4 +9,8 @@
     <ProjectReference Include="..\InstaConnect.Common.Domain\InstaConnect.Common.Domain.csproj" />
   </ItemGroup>
 
+  <ItemGroup Label="Common">
+    <Using Include="MediatR" />
+  </ItemGroup>
+
 </Project>

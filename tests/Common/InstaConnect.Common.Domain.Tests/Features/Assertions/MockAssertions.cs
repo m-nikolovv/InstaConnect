@@ -2,6 +2,7 @@ using InstaConnect.Common.Domain.Features.DateTimes.Abstractions;
 using InstaConnect.Common.Domain.Features.Guids.Abstractions;
 using InstaConnect.Common.Domain.Features.Images.Abstractions;
 using InstaConnect.Common.Events.Features.Events.Abstractions;
+using InstaConnect.Common.Tests.Features.Assertions;
 
 using Microsoft.AspNetCore.Http;
 
@@ -66,11 +67,25 @@ public static class MockAssertions
 			await imageHandler.ShouldHaveReceivedOne().UploadAsync(formFile, cancellationToken);
 		}
 
+		public async Task ShouldHaveReceivedOneUploadRangeAsync(
+			ICollection<IFormFile> formFiles,
+			CancellationToken cancellationToken)
+		{
+			await imageHandler.ShouldHaveReceivedOne().UploadRangeAsync(formFiles, cancellationToken);
+		}
+
 		public async Task ShouldHaveReceivedZeroUploadAsync(
 			IFormFile formFile,
 			CancellationToken cancellationToken)
 		{
 			await imageHandler.ShouldHaveReceivedZero().UploadAsync(formFile, cancellationToken);
+		}
+
+		public async Task ShouldHaveReceivedZeroUploadRangeAsync(
+			ICollection<IFormFile> formFiles,
+			CancellationToken cancellationToken)
+		{
+			await imageHandler.ShouldHaveReceivedZero().UploadRangeAsync(formFiles, cancellationToken);
 		}
 	}
 }

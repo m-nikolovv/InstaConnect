@@ -1,3 +1,5 @@
+using InstaConnect.Identity.Application.Features.Users.Queries.GetById;
+
 namespace InstaConnect.Identity.Application.Tests.Unit.Features.Users.Handlers.GetById;
 
 public class GetUserByIdQueryRequestValidatorUnitTests : BaseUserApplicationQueryUnitTest
@@ -53,7 +55,7 @@ public class GetUserByIdQueryRequestValidatorUnitTests : BaseUserApplicationQuer
 	[Theory]
 	[UserIdNullData]
 	[UserIdEmptyData]
-	public void TestValidate_ShouldNotHaveAnyValidationsErrors_WhenCurrentIdIsValid(
+	public void TestValidate_ShouldNotHaveAnyValidationErrors_WhenCurrentIdIsValid(
 		IStringTransformer transformer)
 	{
 		// Arrange
@@ -67,7 +69,7 @@ public class GetUserByIdQueryRequestValidatorUnitTests : BaseUserApplicationQuer
 	}
 
 	[Fact]
-	public void TestValidate_ShouldNotHaveAnyValidationsErrors_WhenRequestIsValid()
+	public void TestValidate_ShouldNotHaveAnyValidationErrors_WhenRequestIsValid()
 	{
 		// Act
 		var response = _requestValidator.TestValidate(_request);

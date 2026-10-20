@@ -6,64 +6,65 @@
   </ItemGroup>
 
   <ItemGroup Label="Common">
-    <Using Include="Microsoft.Extensions.DependencyInjection" />
-    <Using Include="Microsoft.AspNetCore.Hosting" />
-    <Using Include="Microsoft.Extensions.Configuration" />
     <Using Include="InstaConnect.Common.Domain.Features.Common.Extensions" />
-    <Using Include="InstaConnect.Common.Infrastructure.Features.Databases.Extensions" />
+    <Using Include="InstaConnect.Common.Domain.Features.Databases.Abstractions" />
+    <Using Include="InstaConnect.Common.Domain.Features.Mappers.Abstractions" />
+    <Using Include="InstaConnect.Common.Domain.Features.ValueObjects.Models" />
+    <Using Include="InstaConnect.Posts.Domain.Features.Common.Models.Requests" />
+    <Using Include="InstaConnect.Posts.Infrastructure.Features.Common.Extensions" />
+    <Using Include="Microsoft.Extensions.AI" />
+    <Using Include="MongoDB.Bson.Serialization" />
   </ItemGroup>
 
   <ItemGroup Label="Users">
-    <Using Include="InstaConnect.Posts.Domain.Features.Users.Exceptions" />
-    <Using Include="InstaConnect.Posts.Domain.Features.Users.Abstractions" />
     <Using Include="InstaConnect.Posts.Domain.Features.Users.Models.Entities" />
-    <Using Include="InstaConnect.Posts.Domain.Features.Users.Models.ValueObjects" />
     <Using Include="InstaConnect.Posts.Domain.Features.Users.Models.Requests" />
-    <Using Include="InstaConnect.Posts.Application.Features.Users.Models" />
+    <Using Include="InstaConnect.Posts.Domain.Features.Users.Models.Responses" />
+    <Using Include="InstaConnect.Posts.Domain.Features.Users.Models.ValueObjects" />
     <Using Include="InstaConnect.Posts.Infrastructure.Features.Users.Abstractions" />
+    <Using Include="InstaConnect.Posts.Infrastructure.Features.Users.Extensions" />
   </ItemGroup>
 
   <ItemGroup Label="Posts">
-    <Using Include="InstaConnect.Posts.Domain.Features.Posts.Exceptions" />
     <Using Include="InstaConnect.Posts.Domain.Features.Posts.Abstractions" />
     <Using Include="InstaConnect.Posts.Domain.Features.Posts.Models.Entities" />
-    <Using Include="InstaConnect.Posts.Domain.Features.Posts.Models.ValueObjects" />
     <Using Include="InstaConnect.Posts.Domain.Features.Posts.Models.Requests" />
     <Using Include="InstaConnect.Posts.Domain.Features.Posts.Models.Responses" />
-    <Using Include="InstaConnect.Posts.Application.Features.Posts.Models" />
+    <Using Include="InstaConnect.Posts.Domain.Features.Posts.Models.ValueObjects" />
     <Using Include="InstaConnect.Posts.Infrastructure.Features.Posts.Abstractions" />
+    <Using Include="InstaConnect.Posts.Infrastructure.Features.Posts.Extensions" />
   </ItemGroup>
 
   <ItemGroup Label="PostLikes">
-    <Using Include="InstaConnect.Posts.Domain.Features.PostLikes.Exceptions" />
-    <Using Include="InstaConnect.Posts.Domain.Features.PostLikes.Abstractions" />
     <Using Include="InstaConnect.Posts.Domain.Features.PostLikes.Models.Entities" />
-    <Using Include="InstaConnect.Posts.Domain.Features.PostLikes.Models.ValueObjects" />
     <Using Include="InstaConnect.Posts.Domain.Features.PostLikes.Models.Requests" />
     <Using Include="InstaConnect.Posts.Domain.Features.PostLikes.Models.Responses" />
-    <Using Include="InstaConnect.Posts.Application.Features.PostLikes.Models" />
+    <Using Include="InstaConnect.Posts.Domain.Features.PostLikes.Models.ValueObjects" />
     <Using Include="InstaConnect.Posts.Infrastructure.Features.PostLikes.Abstractions" />
   </ItemGroup>
 
   <ItemGroup Label="PostComments">
-    <Using Include="InstaConnect.Posts.Domain.Features.PostComments.Exceptions" />
-    <Using Include="InstaConnect.Posts.Domain.Features.PostComments.Abstractions" />
     <Using Include="InstaConnect.Posts.Domain.Features.PostComments.Models.Entities" />
-    <Using Include="InstaConnect.Posts.Domain.Features.PostComments.Models.ValueObjects" />
     <Using Include="InstaConnect.Posts.Domain.Features.PostComments.Models.Requests" />
     <Using Include="InstaConnect.Posts.Domain.Features.PostComments.Models.Responses" />
-    <Using Include="InstaConnect.Posts.Application.Features.PostComments.Models" />
+    <Using Include="InstaConnect.Posts.Domain.Features.PostComments.Models.ValueObjects" />
     <Using Include="InstaConnect.Posts.Infrastructure.Features.PostComments.Abstractions" />
+    <Using Include="InstaConnect.Posts.Infrastructure.Features.PostComments.Extensions" />
+  </ItemGroup>
+
+  <ItemGroup Label="PostImages">
+    <Using Include="InstaConnect.Posts.Domain.Features.PostImages.Models.Entities" />
+  </ItemGroup>
+
+  <ItemGroup Label="PostCommentImages">
+    <Using Include="InstaConnect.Posts.Domain.Features.PostCommentImages.Models.Entities" />
   </ItemGroup>
 
   <ItemGroup Label="PostCommentLikes">
-    <Using Include="InstaConnect.Posts.Domain.Features.PostCommentLikes.Exceptions" />
-    <Using Include="InstaConnect.Posts.Domain.Features.PostCommentLikes.Abstractions" />
     <Using Include="InstaConnect.Posts.Domain.Features.PostCommentLikes.Models.Entities" />
-    <Using Include="InstaConnect.Posts.Domain.Features.PostCommentLikes.Models.ValueObjects" />
     <Using Include="InstaConnect.Posts.Domain.Features.PostCommentLikes.Models.Requests" />
     <Using Include="InstaConnect.Posts.Domain.Features.PostCommentLikes.Models.Responses" />
-    <Using Include="InstaConnect.Posts.Application.Features.PostCommentLikes.Models" />
+    <Using Include="InstaConnect.Posts.Domain.Features.PostCommentLikes.Models.ValueObjects" />
     <Using Include="InstaConnect.Posts.Infrastructure.Features.PostCommentLikes.Abstractions" />
   </ItemGroup>
 

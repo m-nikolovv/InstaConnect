@@ -1,6 +1,5 @@
 using InstaConnect.Identity.Infrastructure.Tests.Integration.Features.RefreshTokens.Utilities;
 using InstaConnect.Identity.Tests.Features.RefreshTokens.Assertions;
-using InstaConnect.Identity.Tests.Features.RefreshTokens.Utilities;
 
 namespace InstaConnect.Identity.Infrastructure.Tests.Integration.Features.RefreshTokens.Repositories;
 
@@ -16,7 +15,7 @@ public class AddRefreshTokenCommandRepositoryIntegrationTests : BaseRefreshToken
 	{
 		// Act
 		await Repository.AddAsync(RefreshToken, CancellationToken);
-		var refreshToken = await ServiceScope.GetByIdAsync(RefreshToken.Id, CancellationToken);
+		var refreshToken = await ServiceScope.GetByIdAsync(RefreshTokenId, CancellationToken);
 
 		// Assert
 		refreshToken.ShouldSatisfy(RefreshToken);

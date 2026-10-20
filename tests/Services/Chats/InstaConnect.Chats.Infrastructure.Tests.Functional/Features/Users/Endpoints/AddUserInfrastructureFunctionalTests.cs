@@ -1,4 +1,22 @@
+using InstaConnect.Chats.Infrastructure.Tests.Features.Users.Assertions;
+using InstaConnect.Chats.Infrastructure.Tests.Features.Users.Builders;
+using InstaConnect.Chats.Infrastructure.Tests.Functional.Features.Users.Utilities;
+using InstaConnect.Chats.Tests.Features.Common.Utilities;
 using InstaConnect.Chats.Tests.Features.Users.Assertions;
+using InstaConnect.Chats.Tests.Features.Users.Builders;
+using InstaConnect.Chats.Tests.Features.Users.DataAttributes.CreatedAtUtc;
+using InstaConnect.Chats.Tests.Features.Users.DataAttributes.Email;
+using InstaConnect.Chats.Tests.Features.Users.DataAttributes.FirstName;
+using InstaConnect.Chats.Tests.Features.Users.DataAttributes.Id;
+using InstaConnect.Chats.Tests.Features.Users.DataAttributes.LastName;
+using InstaConnect.Chats.Tests.Features.Users.DataAttributes.Name;
+using InstaConnect.Chats.Tests.Features.Users.DataAttributes.ProfileImage;
+using InstaConnect.Chats.Tests.Features.Users.DataAttributes.UpdatedAtUtc;
+using InstaConnect.Chats.Tests.Features.Users.Utilities;
+using InstaConnect.Common.Tests.Features.Assertions;
+using InstaConnect.Common.Tests.Features.DataAttributes.DateTimeOffsets.Base;
+using InstaConnect.Common.Tests.Features.DataAttributes.Strings.Base;
+using InstaConnect.Identity.Events.Features.Users;
 
 namespace InstaConnect.Chats.Infrastructure.Tests.Functional.Features.Users.Endpoints;
 
@@ -161,7 +179,7 @@ public class AddUserInfrastructureFunctionalTests : BaseUserInfrastructureComman
 	}
 
 	[Fact]
-	public async Task PublishAsync_ShouldFaultUserAddedEvent_WhenIdAlreadyExists()
+	public async Task PublishAsync_ShouldFaultUserAddedEvent_WhenUserAlreadyExists()
 	{
 		// Arrange
 		var newUser = UserBuilderFactory.Create().Build();
@@ -178,7 +196,7 @@ public class AddUserInfrastructureFunctionalTests : BaseUserInfrastructureComman
 
 	[Theory]
 	[UserIdDifferentCaseData]
-	public async Task PublishAsync_ShouldFaultUserAddedEvent_WhenIdIsInvalidAndAlreadyExists(
+	public async Task PublishAsync_ShouldFaultUserAddedEvent_WhenUserAlreadyExistsAndIdIsInvalid(
 		IStringTransformer transformer)
 	{
 		// Arrange
@@ -195,7 +213,7 @@ public class AddUserInfrastructureFunctionalTests : BaseUserInfrastructureComman
 	}
 
 	[Fact]
-	public async Task PublishAsync_ShouldFaultUserAddedEvent_WhenEmailAlreadyExists()
+	public async Task PublishAsync_ShouldFaultUserAddedEvent_WhenUserEmailAlreadyExists()
 	{
 		// Arrange
 		var newUser = UserBuilderFactory.Create().Build();
@@ -212,7 +230,7 @@ public class AddUserInfrastructureFunctionalTests : BaseUserInfrastructureComman
 
 	[Theory]
 	[UserEmailDifferentCaseData]
-	public async Task PublishAsync_ShouldFaultUserAddedEvent_WhenEmailIsInvalidAndAlreadyExists(
+	public async Task PublishAsync_ShouldFaultUserAddedEvent_WhenUserEmailAlreadyExistsAndEmailIsInvalid(
 		IStringTransformer transformer)
 	{
 		// Arrange
@@ -229,7 +247,7 @@ public class AddUserInfrastructureFunctionalTests : BaseUserInfrastructureComman
 	}
 
 	[Fact]
-	public async Task PublishAsync_ShouldFaultUserAddedEvent_WhenNameAlreadyExists()
+	public async Task PublishAsync_ShouldFaultUserAddedEvent_WhenUserNameAlreadyExists()
 	{
 		// Arrange
 		var newUser = UserBuilderFactory.Create().Build();
@@ -246,7 +264,7 @@ public class AddUserInfrastructureFunctionalTests : BaseUserInfrastructureComman
 
 	[Theory]
 	[UserNameDifferentCaseData]
-	public async Task PublishAsync_ShouldFaultUserAddedEvent_WhenNameIsInvalidAndAlreadyExists(
+	public async Task PublishAsync_ShouldFaultUserAddedEvent_WhenUserNameAlreadyExistsAndNameIsInvalid(
 		IStringTransformer transformer)
 	{
 		// Arrange
@@ -276,7 +294,7 @@ public class AddUserInfrastructureFunctionalTests : BaseUserInfrastructureComman
 	[Theory]
 	[UserProfileImageNullData]
 	[UserProfileImageEmptyData]
-	public async Task PublishAsync_ShouldConsumeUserAddedEvent_WhenProfileImageIsValid(
+	public async Task PublishAsync_ShouldConsumeUserAddedEvent_WhenRequestAndProfileImageAreValid(
 		IStringTransformer transformer)
 	{
 		// Arrange
@@ -295,7 +313,7 @@ public class AddUserInfrastructureFunctionalTests : BaseUserInfrastructureComman
 	{
 		// Act
 		await EventPublisher.PublishAsync(_request, CancellationToken);
-		var user = await ServiceScope.GetByIdAsync(User.Id, CancellationToken);
+		var user = await ServiceScope.GetByIdAsync(UserId, CancellationToken);
 
 		// Assert
 		user.ShouldSatisfy(_request);
@@ -304,7 +322,7 @@ public class AddUserInfrastructureFunctionalTests : BaseUserInfrastructureComman
 	[Theory]
 	[UserProfileImageNullData]
 	[UserProfileImageEmptyData]
-	public async Task PublishAsync_ShouldAddUser_WhenProfileImageIsValid(
+	public async Task PublishAsync_ShouldAddUser_WhenRequestAndProfileImageAreValid(
 		IStringTransformer transformer)
 	{
 		// Arrange
@@ -312,7 +330,7 @@ public class AddUserInfrastructureFunctionalTests : BaseUserInfrastructureComman
 
 		// Act
 		await EventPublisher.PublishAsync(request, CancellationToken);
-		var user = await ServiceScope.GetByIdAsync(User.Id, CancellationToken);
+		var user = await ServiceScope.GetByIdAsync(UserId, CancellationToken);
 
 		// Assert
 		user.ShouldSatisfy(request);

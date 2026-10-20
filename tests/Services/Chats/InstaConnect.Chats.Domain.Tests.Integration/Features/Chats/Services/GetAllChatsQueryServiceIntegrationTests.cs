@@ -5,14 +5,10 @@ using InstaConnect.Chats.Domain.Tests.Features.Chats.Builders;
 using InstaConnect.Chats.Domain.Tests.Integration.Features.Chats.Utilities;
 using InstaConnect.Chats.Tests.Features.Chats.DataAttributes.SortOrder;
 using InstaConnect.Chats.Tests.Features.Chats.DataAttributes.SortTerm;
-using InstaConnect.Chats.Tests.Features.Chats.Utilities;
-using InstaConnect.Chats.Tests.Features.Users.DataAttributes.Id;
 using InstaConnect.Chats.Tests.Features.Users.DataAttributes.Name;
-using InstaConnect.Chats.Tests.Features.Users.Utilities;
 using InstaConnect.Common.Domain.Features.Requests.Models;
 using InstaConnect.Common.Tests.Features.DataAttributes.Enums.Base;
 using InstaConnect.Common.Tests.Features.DataAttributes.Enums.Sort;
-using InstaConnect.Common.Tests.Features.DataAttributes.Strings.Base;
 
 namespace InstaConnect.Chats.Domain.Tests.Integration.Features.Chats.Services;
 
@@ -22,12 +18,18 @@ public class GetAllChatsQueryServiceIntegrationTests : BaseChatDomainQueryIntegr
 	private readonly GetAllChatsQueryBuilder _queryBuilder;
 	private readonly GetAllChatsQuery _query;
 
+	private readonly GetAllChatsQueryBuilder _invertedQueryBuilder;
+	private readonly GetAllChatsQuery _invertedQuery;
+
 	public GetAllChatsQueryServiceIntegrationTests(ChatsWebApplicationFactory webApplicationFactory)
 		: base(webApplicationFactory)
 	{
 		_queryBuilderFactory = new();
 		_queryBuilder = _queryBuilderFactory.Create(Chat);
 		_query = _queryBuilder.Build();
+
+		_invertedQueryBuilder = _queryBuilderFactory.Create(Chat).WithCurrentUserId(ParticipantTwoId).WithParticipantTwoName(ParticipantOne.Name);
+		_invertedQuery = _invertedQueryBuilder.Build();
 	}
 
 	protected override async Task OnInitializeAsync()
@@ -36,7 +38,7 @@ public class GetAllChatsQueryServiceIntegrationTests : BaseChatDomainQueryIntegr
 	}
 
 	[Fact]
-	public async Task GetAllAsync_ShouldThrowUserNotFoundException_WhenParticipantOneIdIsInvalid()
+	public async Task GetAllAsync_ShouldThrowParticipantOneNotFoundException_WhenParticipantOneNotFound()
 	{
 		// Arrange
 		await ServiceScope.DeleteAsync(ParticipantOne, CancellationToken);
@@ -122,14 +124,11 @@ public class GetAllChatsQueryServiceIntegrationTests : BaseChatDomainQueryIntegr
 	[Fact]
 	public async Task GetAllAsync_ShouldReturnInvertedResponse_WhenQueryIsValid()
 	{
-		// Arrange
-		var query = _queryBuilder.WithParticipantTwoName(ParticipantOne.Name).WithCurrentUserId(ParticipantTwo.Id).Build();
-
 		// Act
-		var response = await Service.GetAllAsync(query, CancellationToken);
+		var response = await Service.GetAllAsync(_invertedQuery, CancellationToken);
 
 		// Assert
-		response.ShouldSatisfyInverted(query, ParticipantTwo, Chats);
+		response.ShouldSatisfyInverted(_invertedQuery, ParticipantTwo, Chats);
 	}
 
 	[Theory]
@@ -140,13 +139,13 @@ public class GetAllChatsQueryServiceIntegrationTests : BaseChatDomainQueryIntegr
 		IStringTransformer transformer)
 	{
 		// Arrange
-		var query = _queryBuilder.WithParticipantTwoName(ParticipantOne.Name, transformer).WithCurrentUserId(ParticipantTwo.Id).Build();
+		var invertedQuery = _invertedQueryBuilder.WithParticipantTwoName(transformer).Build();
 
 		// Act
-		var response = await Service.GetAllAsync(query, CancellationToken);
+		var response = await Service.GetAllAsync(invertedQuery, CancellationToken);
 
 		// Assert
-		response.ShouldSatisfyInverted(query, ParticipantTwo, Chats);
+		response.ShouldSatisfyInverted(invertedQuery, ParticipantTwo, Chats);
 	}
 
 	[Theory]
@@ -155,13 +154,13 @@ public class GetAllChatsQueryServiceIntegrationTests : BaseChatDomainQueryIntegr
 		IStringTransformer transformer)
 	{
 		// Arrange
-		var query = _queryBuilder.WithParticipantTwoName(ParticipantOne.Name).WithCurrentUserId(ParticipantTwo.Id, transformer).Build();
+		var invertedQuery = _invertedQueryBuilder.WithCurrentUserId(transformer).Build();
 
 		// Act
-		var response = await Service.GetAllAsync(query, CancellationToken);
+		var response = await Service.GetAllAsync(invertedQuery, CancellationToken);
 
 		// Assert
-		response.ShouldSatisfyInverted(query, ParticipantTwo, Chats);
+		response.ShouldSatisfyInverted(invertedQuery, ParticipantTwo, Chats);
 	}
 
 	[Theory]
@@ -171,13 +170,13 @@ public class GetAllChatsQueryServiceIntegrationTests : BaseChatDomainQueryIntegr
 		IEnumTransformer<CommonSortOrder> transformer, ISortEnumTermTransformer<Chat> termTransformer)
 	{
 		// Arrange
-		var query = _queryBuilder.WithParticipantTwoName(ParticipantOne.Name).WithCurrentUserId(ParticipantTwo.Id).WithSortOrder(transformer).Build();
+		var invertedQuery = _invertedQueryBuilder.WithSortOrder(transformer).Build();
 
 		// Act
-		var response = await Service.GetAllAsync(query, CancellationToken);
+		var response = await Service.GetAllAsync(invertedQuery, CancellationToken);
 
 		// Assert
-		response.ShouldSatisfyInverted(query, ParticipantTwo, Chats, termTransformer);
+		response.ShouldSatisfyInverted(invertedQuery, ParticipantTwo, Chats, termTransformer);
 	}
 
 	[Theory]
@@ -187,12 +186,12 @@ public class GetAllChatsQueryServiceIntegrationTests : BaseChatDomainQueryIntegr
 		IEnumTransformer<ChatsSortTerm> transformer, ISortEnumTermTransformer<Chat> termTransformer)
 	{
 		// Arrange
-		var query = _queryBuilder.WithParticipantTwoName(ParticipantOne.Name).WithCurrentUserId(ParticipantTwo.Id).WithSortTerm(transformer).Build();
+		var invertedQuery = _invertedQueryBuilder.WithSortTerm(transformer).Build();
 
 		// Act
-		var response = await Service.GetAllAsync(query, CancellationToken);
+		var response = await Service.GetAllAsync(invertedQuery, CancellationToken);
 
 		// Assert
-		response.ShouldSatisfyInverted(query, ParticipantTwo, Chats, termTransformer);
+		response.ShouldSatisfyInverted(invertedQuery, ParticipantTwo, Chats, termTransformer);
 	}
 }

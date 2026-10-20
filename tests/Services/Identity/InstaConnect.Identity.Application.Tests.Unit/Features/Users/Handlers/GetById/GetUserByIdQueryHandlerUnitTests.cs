@@ -1,3 +1,5 @@
+using InstaConnect.Identity.Application.Features.Users.Queries.GetById;
+
 namespace InstaConnect.Identity.Application.Tests.Unit.Features.Users.Handlers.GetById;
 
 public class GetUserByIdQueryHandlerUnitTests : BaseUserApplicationQueryUnitTest
@@ -30,7 +32,7 @@ public class GetUserByIdQueryHandlerUnitTests : BaseUserApplicationQueryUnitTest
 	}
 
 	[Fact]
-	public async Task Handle_ShouldCallServiceGetByIdAsync_WhenRequestIsValid()
+	public async Task Handle_ShouldCallTheServiceGetByIdAsync_WhenRequestIsValid()
 	{
 		// Act
 		await _handler.Handle(_request, CancellationToken);

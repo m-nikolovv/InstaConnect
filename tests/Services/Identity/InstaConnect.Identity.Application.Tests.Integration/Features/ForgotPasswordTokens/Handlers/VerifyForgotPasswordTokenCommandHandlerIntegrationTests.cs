@@ -1,3 +1,11 @@
+using InstaConnect.Identity.Application.Features.ForgotPasswordTokens.Commands.Verify;
+using InstaConnect.Identity.Application.Tests.Features.ForgotPasswordTokens.Builders;
+using InstaConnect.Identity.Application.Tests.Integration.Features.ForgotPasswordTokens.Utilities;
+using InstaConnect.Identity.Tests.Features.ForgotPasswordTokens.Builders;
+using InstaConnect.Identity.Tests.Features.ForgotPasswordTokens.DataAttributes.Value;
+using InstaConnect.Identity.Tests.Features.Users.DataAttributes.ConfirmPassword;
+using InstaConnect.Identity.Tests.Features.Users.DataAttributes.Password;
+
 namespace InstaConnect.Identity.Application.Tests.Integration.Features.ForgotPasswordTokens.Handlers;
 
 public class VerifyForgotPasswordTokenCommandHandlerIntegrationTests : BaseForgotPasswordTokenApplicationCommandIntegrationTest
@@ -99,7 +107,7 @@ public class VerifyForgotPasswordTokenCommandHandlerIntegrationTests : BaseForgo
 	}
 
 	[Fact]
-	public async Task SendAsync_ShouldThrowForgotPasswordExpiredException_WhenForgotPasswordTokenHasExpired()
+	public async Task SendAsync_ShouldThrowForgotPasswordTokenExpiredException_WhenForgotPasswordTokenExpired()
 	{
 		// Arrange
 		var updatedForgotPasswordToken = ForgotPasswordTokenBuilder.WithAlreadyExpiresAtUtc().Build();
@@ -110,11 +118,11 @@ public class VerifyForgotPasswordTokenCommandHandlerIntegrationTests : BaseForgo
 	}
 
 	[Fact]
-	public async Task SendAsync_ShouldUpdatedUser_WhenRequestIsValid()
+	public async Task SendAsync_ShouldUpdateUser_WhenRequestIsValid()
 	{
 		// Act
 		await Sender.SendAsync(_request, CancellationToken);
-		var user = await ServiceScope.GetByIdAsync(User.Id, CancellationToken);
+		var user = await ServiceScope.GetByIdAsync(UserId, CancellationToken);
 
 		// Assert
 		user.ShouldSatisfy(_request, PasswordHasher);
@@ -122,7 +130,7 @@ public class VerifyForgotPasswordTokenCommandHandlerIntegrationTests : BaseForgo
 
 	[Theory]
 	[UserIdDifferentCaseData]
-	public async Task SendAsync_ShouldUpdatedUser_WhenRequestAndIdAreValid(
+	public async Task SendAsync_ShouldUpdateUser_WhenRequestAndIdAreValid(
 		IStringTransformer transformer)
 	{
 		// Arrange
@@ -130,7 +138,7 @@ public class VerifyForgotPasswordTokenCommandHandlerIntegrationTests : BaseForgo
 
 		// Act
 		await Sender.SendAsync(request, CancellationToken);
-		var user = await ServiceScope.GetByIdAsync(User.Id, CancellationToken);
+		var user = await ServiceScope.GetByIdAsync(UserId, CancellationToken);
 
 		// Assert
 		user.ShouldSatisfy(_request, PasswordHasher);
@@ -138,7 +146,7 @@ public class VerifyForgotPasswordTokenCommandHandlerIntegrationTests : BaseForgo
 
 	[Theory]
 	[ForgotPasswordTokenValueDifferentCaseData]
-	public async Task SendAsync_ShouldUpdatedUser_WhenRequestAndValueAreValid(
+	public async Task SendAsync_ShouldUpdateUser_WhenRequestAndValueAreValid(
 		IStringTransformer transformer)
 	{
 		// Arrange
@@ -146,7 +154,7 @@ public class VerifyForgotPasswordTokenCommandHandlerIntegrationTests : BaseForgo
 
 		// Act
 		await Sender.SendAsync(request, CancellationToken);
-		var user = await ServiceScope.GetByIdAsync(User.Id, CancellationToken);
+		var user = await ServiceScope.GetByIdAsync(UserId, CancellationToken);
 
 		// Assert
 		user.ShouldSatisfy(_request, PasswordHasher);
@@ -157,7 +165,7 @@ public class VerifyForgotPasswordTokenCommandHandlerIntegrationTests : BaseForgo
 	{
 		// Act
 		await Sender.SendAsync(_request, CancellationToken);
-		var user = await ServiceScope.GetByIdAsync(User.Id, CancellationToken);
+		var user = await ServiceScope.GetByIdAsync(UserId, CancellationToken);
 
 		// Assert
 		user.ForgotPasswordTokens.ShouldBeEmpty();
@@ -173,7 +181,7 @@ public class VerifyForgotPasswordTokenCommandHandlerIntegrationTests : BaseForgo
 
 		// Act
 		await Sender.SendAsync(request, CancellationToken);
-		var user = await ServiceScope.GetByIdAsync(User.Id, CancellationToken);
+		var user = await ServiceScope.GetByIdAsync(UserId, CancellationToken);
 
 		// Assert
 		user.ForgotPasswordTokens.ShouldBeEmpty();
@@ -189,7 +197,7 @@ public class VerifyForgotPasswordTokenCommandHandlerIntegrationTests : BaseForgo
 
 		// Act
 		await Sender.SendAsync(request, CancellationToken);
-		var user = await ServiceScope.GetByIdAsync(User.Id, CancellationToken);
+		var user = await ServiceScope.GetByIdAsync(UserId, CancellationToken);
 
 		// Assert
 		user.ForgotPasswordTokens.ShouldBeEmpty();

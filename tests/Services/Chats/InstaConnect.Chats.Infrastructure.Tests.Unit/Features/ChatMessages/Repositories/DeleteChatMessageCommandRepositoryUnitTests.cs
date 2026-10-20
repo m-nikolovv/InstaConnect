@@ -1,7 +1,3 @@
-using InstaConnect.Chats.Infrastructure.Features.ChatMessages.Helpers.Repositories;
-using InstaConnect.Chats.Infrastructure.Tests.Features.ChatMessages.Assertions;
-using InstaConnect.Chats.Infrastructure.Tests.Unit.Features.ChatMessages.Utilities;
-
 namespace InstaConnect.Chats.Infrastructure.Tests.Unit.Features.ChatMessages.Repositories;
 
 public class DeleteChatMessageCommandRepositoryUnitTests : BaseChatMessageInfrastructureCommandUnitTest
@@ -14,7 +10,7 @@ public class DeleteChatMessageCommandRepositoryUnitTests : BaseChatMessageInfras
 	}
 
 	[Fact]
-	public async Task DeleteAsync_ShouldCallTheCollectionDeleteAsync_WhenRequestIsValid()
+	public async Task DeleteAsync_ShouldCallTheCollectionDeleteAsync_WhenCommandIsValid()
 	{
 		// Act
 		await _repository.DeleteAsync(ChatMessage, CancellationToken);

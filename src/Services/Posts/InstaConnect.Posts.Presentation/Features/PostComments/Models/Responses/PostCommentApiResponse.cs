@@ -1,3 +1,5 @@
+using InstaConnect.Posts.Presentation.Features.PostCommentImages.Models.Responses;
+
 namespace InstaConnect.Posts.Presentation.Features.PostComments.Models.Responses;
 
 public record PostCommentApiResponse(
@@ -5,8 +7,10 @@ public record PostCommentApiResponse(
 	string CommentId,
 	string UserId,
 	string Content,
+	string Summary,
 	UserApiResponse? User,
 	PostApiResponse? Post,
+	ICollection<PostCommentImageApiResponse> PostCommentImages,
 	bool IsLikedByCurrentUser,
 	DateTimeOffset CreatedAtUtc,
 	DateTimeOffset UpdatedAtUtc);

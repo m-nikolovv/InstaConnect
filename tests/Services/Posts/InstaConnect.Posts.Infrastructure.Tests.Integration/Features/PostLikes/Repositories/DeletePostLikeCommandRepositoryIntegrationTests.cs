@@ -1,7 +1,3 @@
-using InstaConnect.Posts.Infrastructure.Tests.Integration.Features.PostLikes.Utilities;
-using InstaConnect.Posts.Tests.Features.PostLikes.Utilities;
-using InstaConnect.Posts.Tests.Features.Posts.Utilities;
-
 namespace InstaConnect.Posts.Infrastructure.Tests.Integration.Features.PostLikes.Repositories;
 
 public class DeletePostLikeCommandRepositoryIntegrationTests : BasePostLikeInfrastructureCommandIntegrationTest
@@ -21,7 +17,7 @@ public class DeletePostLikeCommandRepositoryIntegrationTests : BasePostLikeInfra
 	{
 		// Act
 		await Repository.DeleteAsync(PostLike, CancellationToken);
-		var postLike = await ServiceScope.GetByIdAsync(PostLike.Id, CancellationToken);
+		var postLike = await ServiceScope.GetByIdAsync(PostLikeId, CancellationToken);
 
 		// Assert
 		postLike.ShouldBeNull();

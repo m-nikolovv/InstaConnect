@@ -1,3 +1,5 @@
+using InstaConnect.Posts.Application.Features.PostCommentLikes.Commands.Add;
+
 namespace InstaConnect.Posts.Application.Tests.Integration.Features.PostCommentLikes.Handlers;
 
 public class AddPostCommentLikeCommandHandlerIntegrationTests : BasePostCommentLikeApplicationCommandIntegrationTest
@@ -63,7 +65,7 @@ public class AddPostCommentLikeCommandHandlerIntegrationTests : BasePostCommentL
 	}
 
 	[Fact]
-	public async Task SendAsync_ShouldThrowPostNotFoundException_WhenIdIsInvalid()
+	public async Task SendAsync_ShouldThrowPostNotFoundException_WhenPostNotFound()
 	{
 		// Arrange
 		await ServiceScope.DeleteAsync(Post, CancellationToken);
@@ -73,7 +75,7 @@ public class AddPostCommentLikeCommandHandlerIntegrationTests : BasePostCommentL
 	}
 
 	[Fact]
-	public async Task SendAsync_ShouldThrowPostCommentNotFoundException_WhenCommentIdIsInvalid()
+	public async Task SendAsync_ShouldThrowPostCommentNotFoundException_WhenPostCommentNotFound()
 	{
 		// Arrange
 		await ServiceScope.DeleteAsync(PostComment, CancellationToken);
@@ -83,7 +85,7 @@ public class AddPostCommentLikeCommandHandlerIntegrationTests : BasePostCommentL
 	}
 
 	[Fact]
-	public async Task SendAsync_ShouldThrowUserNotFoundException_WhenUserIdIsInvalid()
+	public async Task SendAsync_ShouldThrowUserNotFoundException_WhenUserNotFound()
 	{
 		// Arrange
 		await ServiceScope.DeleteAsync(User, CancellationToken);
@@ -104,7 +106,7 @@ public class AddPostCommentLikeCommandHandlerIntegrationTests : BasePostCommentL
 
 	[Theory]
 	[PostIdDifferentCaseData]
-	public async Task SendAsync_ShouldThrowPostCommentLikeAlreadyExistsException_WhenPostCommentLikeAlreadyExistsAndIdIsValid(
+	public async Task SendAsync_ShouldThrowPostCommentLikeAlreadyExistsException_WhenPostCommentLikeAlreadyExistsAndIdIsInvalid(
 		IStringTransformer transformer)
 	{
 		// Arrange
@@ -117,7 +119,7 @@ public class AddPostCommentLikeCommandHandlerIntegrationTests : BasePostCommentL
 
 	[Theory]
 	[PostCommentIdDifferentCaseData]
-	public async Task SendAsync_ShouldThrowPostCommentLikeAlreadyExistsException_WhenPostCommentLikeAlreadyExistsAndCommentIdIsValid(
+	public async Task SendAsync_ShouldThrowPostCommentLikeAlreadyExistsException_WhenPostCommentLikeAlreadyExistsAndCommentIdIsInvalid(
 		IStringTransformer transformer)
 	{
 		// Arrange
@@ -130,7 +132,7 @@ public class AddPostCommentLikeCommandHandlerIntegrationTests : BasePostCommentL
 
 	[Theory]
 	[UserIdDifferentCaseData]
-	public async Task SendAsync_ShouldThrowPostCommentLikeAlreadyExistsException_WhenPostCommentLikeAlreadyExistsAndUserIdIsValid(
+	public async Task SendAsync_ShouldThrowPostCommentLikeAlreadyExistsException_WhenPostCommentLikeAlreadyExistsAndUserIdIsInvalid(
 		IStringTransformer transformer)
 	{
 		// Arrange
@@ -274,7 +276,7 @@ public class AddPostCommentLikeCommandHandlerIntegrationTests : BasePostCommentL
 
 	[Theory]
 	[PostIdDifferentCaseData]
-	public async Task SendAsync_ShouldPublishPostCommentLikeAddedEvent_WhenRequestAnIdAreValid(
+	public async Task SendAsync_ShouldPublishPostCommentLikeAddedEvent_WhenRequestAndIdAreValid(
 		IStringTransformer transformer)
 	{
 		// Arrange
@@ -292,7 +294,7 @@ public class AddPostCommentLikeCommandHandlerIntegrationTests : BasePostCommentL
 
 	[Theory]
 	[PostCommentIdDifferentCaseData]
-	public async Task SendAsync_ShouldPublishPostCommentLikeAddedEvent_WhenRequestAnCommentIdAreValid(
+	public async Task SendAsync_ShouldPublishPostCommentLikeAddedEvent_WhenRequestAndCommentIdAreValid(
 		IStringTransformer transformer)
 	{
 		// Arrange

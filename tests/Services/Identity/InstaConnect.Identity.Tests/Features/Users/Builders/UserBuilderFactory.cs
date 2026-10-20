@@ -2,8 +2,13 @@ namespace InstaConnect.Identity.Tests.Features.Users.Builders;
 
 public class UserBuilderFactory
 {
-	public UserBuilder Create(string passwordHash, string? profileImage)
+	public UserBuilder Create(string passwordHash)
 	{
-		return new(passwordHash, profileImage);
+		return new(passwordHash);
+	}
+
+	public UserBuilder Create(User user)
+	{
+		return new(user);
 	}
 }

@@ -1,9 +1,9 @@
-using InstaConnect.Posts.Presentation.Features.PostComments.Models.Bodies;
+using InstaConnect.Posts.Presentation.Features.PostComments.Models.Forms;
 
 namespace InstaConnect.Posts.Presentation.Features.PostComments.Models.Requests;
 
 public record AddPostCommentApiRequest(
 	[FromRoute] string Id,
 	[UserIdFromClaim] string UserId,
-	[FromBody] AddPostCommentApiBody Body
+	[FromForm(Name = "")] AddPostCommentApiForm Form
 );

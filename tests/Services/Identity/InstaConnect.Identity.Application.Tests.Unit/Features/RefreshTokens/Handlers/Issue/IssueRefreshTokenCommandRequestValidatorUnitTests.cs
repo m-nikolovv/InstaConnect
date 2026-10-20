@@ -1,3 +1,6 @@
+using InstaConnect.Identity.Application.Features.RefreshTokens.Commands.Issue;
+using InstaConnect.Identity.Tests.Features.Users.DataAttributes.Password;
+
 namespace InstaConnect.Identity.Application.Tests.Unit.Features.RefreshTokens.Handlers.Issue;
 
 public class IssueRefreshTokenCommandRequestValidatorUnitTests : BaseRefreshTokenApplicationCommandUnitTest
@@ -54,7 +57,7 @@ public class IssueRefreshTokenCommandRequestValidatorUnitTests : BaseRefreshToke
 	}
 
 	[Fact]
-	public void TestValidate_ShouldNotHaveAnyValidationsErrors_WhenRequestIsValid()
+	public void TestValidate_ShouldNotHaveAnyValidationErrors_WhenRequestIsValid()
 	{
 		// Act
 		var response = _requestValidator.TestValidate(_request);

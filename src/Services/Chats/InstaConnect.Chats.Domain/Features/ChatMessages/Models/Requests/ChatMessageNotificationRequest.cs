@@ -1,3 +1,5 @@
+using InstaConnect.Chats.Domain.Features.ChatMessageImages.Models.Requests;
+
 namespace InstaConnect.Chats.Domain.Features.ChatMessages.Models.Requests;
 
 public record ChatMessageNotificationRequest(
@@ -6,6 +8,8 @@ public record ChatMessageNotificationRequest(
 	string MessageId,
 	UserNotificationRequest Sender,
 	ChatNotificationRequest Chat,
+	ICollection<ChatMessageImageNotificationRequest> ChatMessageImages,
 	string Content,
+	string Summary,
 	DateTimeOffset CreatedAtUtc,
 	DateTimeOffset UpdatedAtUtc);

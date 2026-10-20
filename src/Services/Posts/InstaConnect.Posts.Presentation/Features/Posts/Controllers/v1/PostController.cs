@@ -1,11 +1,12 @@
-using InstaConnect.Common.Application.Features.Requests.Abstractions;
-using InstaConnect.Common.Domain.Features.Mappers.Abstractions;
-using InstaConnect.Common.Presentation.Features.Controllers.Utilities;
 using InstaConnect.Posts.Application.Features.Posts.Commands.Add;
 using InstaConnect.Posts.Application.Features.Posts.Commands.Delete;
 using InstaConnect.Posts.Application.Features.Posts.Commands.Update;
 using InstaConnect.Posts.Application.Features.Posts.Queries.GetAll;
 using InstaConnect.Posts.Application.Features.Posts.Queries.GetById;
+using InstaConnect.Posts.Presentation.Features.Posts.Models.Requests;
+using InstaConnect.Posts.Presentation.Features.Posts.Utilities;
+
+using Microsoft.AspNetCore.Authorization;
 
 namespace InstaConnect.Posts.Presentation.Features.Posts.Controllers.v1;
 

@@ -1,6 +1,4 @@
-using InstaConnect.Follows.Infrastructure.Tests.Integration.Features.Follows.Utilities;
 using InstaConnect.Follows.Tests.Features.Follows.Assertions;
-using InstaConnect.Follows.Tests.Features.Follows.Utilities;
 
 namespace InstaConnect.Follows.Infrastructure.Tests.Integration.Features.Follows.Repositories;
 
@@ -16,7 +14,7 @@ public class AddFollowCommandRepositoryIntegrationTests : BaseFollowInfrastructu
 	{
 		// Act
 		await Repository.AddAsync(Follow, CancellationToken);
-		var follow = await ServiceScope.GetByIdAsync(Follow.Id, CancellationToken);
+		var follow = await ServiceScope.GetByIdAsync(FollowId, CancellationToken);
 
 		// Assert
 		follow.ShouldSatisfy(Follow);

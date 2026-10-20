@@ -1,3 +1,5 @@
+using InstaConnect.Posts.Domain.Features.PostComments.Abstractions;
+
 namespace InstaConnect.Posts.Infrastructure.Features.PostComments.Helpers.Repositories;
 
 internal class PostCommentQueryRepository : IPostCommentQueryRepository
@@ -23,7 +25,7 @@ internal class PostCommentQueryRepository : IPostCommentQueryRepository
 		CurrentUserQuery currentUser,
 		CancellationToken cancellationToken)
 	{
-		var commentInclude = _commentIncludeBuilderFactory.Create().WithUser().WithPostCommentLikes().Build();
+		var commentInclude = _commentIncludeBuilderFactory.Create().WithUser().WithPostCommentLikes().WithPostCommentImages().Build();
 
 		return await _collection
 			.AggregateFluent()
@@ -42,8 +44,8 @@ internal class PostCommentQueryRepository : IPostCommentQueryRepository
 		CurrentUserQuery currentUser,
 		CancellationToken cancellationToken)
 	{
-		var include = _includeBuilderFactory.Create().WithUser().WithPostLikes().Build();
-		var commentInclude = _commentIncludeBuilderFactory.Create().WithPost(include).WithPostCommentLikes().Build();
+		var include = _includeBuilderFactory.Create().WithUser().WithPostLikes().WithPostImages().Build();
+		var commentInclude = _commentIncludeBuilderFactory.Create().WithPost(include).WithPostCommentLikes().WithPostCommentImages().Build();
 
 		return await _collection
 			.AggregateFluent()
@@ -59,7 +61,7 @@ internal class PostCommentQueryRepository : IPostCommentQueryRepository
 		PostCommentsFilterQuery filter,
 		CancellationToken cancellationToken)
 	{
-		var commentInclude = _commentIncludeBuilderFactory.Create().WithUser().WithPostCommentLikes().Build();
+		var commentInclude = _commentIncludeBuilderFactory.Create().WithUser().WithPostCommentLikes().WithPostCommentImages().Build();
 
 		return await _collection
 			.AggregateFluent()
@@ -72,8 +74,8 @@ internal class PostCommentQueryRepository : IPostCommentQueryRepository
 		PostCommentsForUserFilterQuery filter,
 		CancellationToken cancellationToken)
 	{
-		var include = _includeBuilderFactory.Create().WithUser().WithPostLikes().Build();
-		var commentInclude = _commentIncludeBuilderFactory.Create().WithPost(include).WithPostCommentLikes().Build();
+		var include = _includeBuilderFactory.Create().WithUser().WithPostLikes().WithPostImages().Build();
+		var commentInclude = _commentIncludeBuilderFactory.Create().WithPost(include).WithPostCommentLikes().WithPostCommentImages().Build();
 
 		return await _collection
 			.AggregateFluent()
@@ -87,8 +89,8 @@ internal class PostCommentQueryRepository : IPostCommentQueryRepository
 		CurrentUserQuery currentUser,
 		CancellationToken cancellationToken)
 	{
-		var include = _includeBuilderFactory.Create().WithUser().WithPostLikes().Build();
-		var commentInclude = _commentIncludeBuilderFactory.Create().WithUser().WithPostCommentLikes().WithPost(include).Build();
+		var include = _includeBuilderFactory.Create().WithUser().WithPostLikes().WithPostImages().Build();
+		var commentInclude = _commentIncludeBuilderFactory.Create().WithUser().WithPostCommentLikes().WithPost(include).WithPostCommentImages().Build();
 
 		return await _collection
 			.AggregateFluent()

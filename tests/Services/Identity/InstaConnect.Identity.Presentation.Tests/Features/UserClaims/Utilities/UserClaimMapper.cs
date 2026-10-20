@@ -1,6 +1,9 @@
+using InstaConnect.Common.Infrastructure.Features.Databases.Helpers;
 using InstaConnect.Common.Presentation.Features.Requests.Abstractions;
+using InstaConnect.Identity.Application.Features.UserClaims.Commands.Add;
+using InstaConnect.Identity.Application.Features.UserClaims.Models;
+using InstaConnect.Identity.Application.Features.UserClaims.Queries.GetAll;
 using InstaConnect.Identity.Presentation.Features.Users.Abstractions;
-using InstaConnect.Identity.Presentation.Tests.Features.Users.Utilities;
 
 namespace InstaConnect.Identity.Presentation.Tests.Features.UserClaims.Utilities;
 

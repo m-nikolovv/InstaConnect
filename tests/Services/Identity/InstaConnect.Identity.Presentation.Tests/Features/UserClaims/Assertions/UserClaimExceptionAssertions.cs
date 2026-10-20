@@ -1,3 +1,5 @@
+using InstaConnect.Identity.Presentation.Features.UserClaims.Controllers.v1;
+
 namespace InstaConnect.Identity.Presentation.Tests.Features.UserClaims.Assertions;
 
 public static class UserClaimExceptionAssertions

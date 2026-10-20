@@ -8,6 +8,9 @@ public static class ChatMessageConfigurations
 	public const int ContentMinLength = 3;
 	public const int ContentMaxLength = 500;
 
+	public const int SummaryMinLength = 7;
+	public const int SummaryMaxLength = 500;
+
 	public const int PageMinValue = 1;
 	public const int PageMaxValue = 100;
 

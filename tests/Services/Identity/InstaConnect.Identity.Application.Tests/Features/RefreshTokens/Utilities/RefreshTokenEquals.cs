@@ -1,6 +1,7 @@
-using InstaConnect.Common.Domain.Features.Common.Extensions;
 using InstaConnect.Identity.Application.Features.RefreshTokens.Models;
 using InstaConnect.Identity.Application.Tests.Features.RefreshTokens.Utilities;
+using InstaConnect.Identity.Domain.Features.RefreshTokens.Models.Requests;
+using InstaConnect.Identity.Domain.Features.RefreshTokens.Models.ValueObjects;
 
 namespace InstaConnect.Identity.Application.Tests.Features.RefreshTokens.Utilities;
 

@@ -1,5 +1,9 @@
-using InstaConnect.Common.Domain.Features.Requests.Models;
+using InstaConnect.Posts.Application.Features.PostComments.Queries.GetAllForUser;
 using InstaConnect.Posts.Domain.Features.PostComments.Models.Requests;
+using InstaConnect.Posts.Tests.Features.PostComments.DataAttributes.Page;
+using InstaConnect.Posts.Tests.Features.PostComments.DataAttributes.PageSize;
+using InstaConnect.Posts.Tests.Features.PostComments.DataAttributes.SortOrder;
+using InstaConnect.Posts.Tests.Features.PostComments.DataAttributes.SortTerm.ForUser;
 
 namespace InstaConnect.Posts.Application.Tests.Unit.Features.PostComments.Handlers.GetAllForUser;
 
@@ -118,7 +122,7 @@ public class GetAllPostCommentsForUserQueryRequestValidatorUnitTests : BasePostC
 	[Theory]
 	[UserIdNullData]
 	[UserIdEmptyData]
-	public void TestValidate_ShouldNotHaveAnyValidationsErrors_WhenCurrentUserIdIsValid(
+	public void TestValidate_ShouldNotHaveAnyValidationErrors_WhenCurrentUserIdIsValid(
 		IStringTransformer transformer)
 	{
 		// Arrange
@@ -132,7 +136,7 @@ public class GetAllPostCommentsForUserQueryRequestValidatorUnitTests : BasePostC
 	}
 
 	[Fact]
-	public void TestValidate_ShouldNotHaveAnyValidationsErrors_WhenRequestIsValid()
+	public void TestValidate_ShouldNotHaveAnyValidationErrors_WhenRequestIsValid()
 	{
 		// Act
 		var response = _requestValidator.TestValidate(_request);

@@ -25,7 +25,7 @@ public class User : IEntityWithId<UserId>
 		Name name,
 		string passwordHash,
 		bool isEmailConfirmed,
-		Image? profileImage,
+		Url? profileImageUrl,
 		DateTimeOffset createdAtUtc,
 		DateTimeOffset updatedAtUtc)
 	{
@@ -36,7 +36,7 @@ public class User : IEntityWithId<UserId>
 		Name = name;
 		PasswordHash = passwordHash;
 		IsEmailConfirmed = isEmailConfirmed;
-		ProfileImage = profileImage;
+		ProfileImageUrl = profileImageUrl;
 		UserClaims = [];
 		RefreshTokens = [];
 		ForgotPasswordTokens = [];
@@ -53,7 +53,7 @@ public class User : IEntityWithId<UserId>
 		Name name,
 		string passwordHash,
 		bool isEmailConfirmed,
-		Image? profileImage,
+		Url? profileImageUrl,
 		DateTimeOffset createdAtUtc,
 		DateTimeOffset updatedAtUtc,
 		ICollection<UserClaim> userClaims,
@@ -68,7 +68,7 @@ public class User : IEntityWithId<UserId>
 		Name = name;
 		PasswordHash = passwordHash;
 		IsEmailConfirmed = isEmailConfirmed;
-		ProfileImage = profileImage;
+		ProfileImageUrl = profileImageUrl;
 		CreatedAtUtc = createdAtUtc;
 		UpdatedAtUtc = updatedAtUtc;
 		UserClaims = userClaims;
@@ -91,7 +91,7 @@ public class User : IEntityWithId<UserId>
 
 	public bool IsEmailConfirmed { get; private set; }
 
-	public Image? ProfileImage { get; private set; }
+	public Url? ProfileImageUrl { get; private set; }
 
 	public ICollection<UserClaim> UserClaims { get; private set; }
 
@@ -113,9 +113,9 @@ public class User : IEntityWithId<UserId>
 		IsEmailConfirmed = false;
 	}
 
-	public void UpdateProfileImage(Image? profileImage)
+	public void UpdateProfileImage(Url? profileImageUrl)
 	{
-		ProfileImage = profileImage;
+		ProfileImageUrl = profileImageUrl;
 	}
 
 	public void ConfirmEmail()
@@ -147,9 +147,23 @@ public class User : IEntityWithId<UserId>
 		return this;
 	}
 
+	public User AddUserClaims(ICollection<UserClaim> userClaims)
+	{
+		UserClaims.AddRange(userClaims);
+
+		return this;
+	}
+
 	public User AddRefreshToken(RefreshToken refreshToken)
 	{
 		RefreshTokens.Add(refreshToken);
+
+		return this;
+	}
+
+	public User AddRefreshTokens(ICollection<RefreshToken> refreshTokens)
+	{
+		RefreshTokens.AddRange(refreshTokens);
 
 		return this;
 	}
@@ -161,9 +175,23 @@ public class User : IEntityWithId<UserId>
 		return this;
 	}
 
+	public User AddForgotPasswordTokens(ICollection<ForgotPasswordToken> forgotPasswordTokens)
+	{
+		ForgotPasswordTokens.AddRange(forgotPasswordTokens);
+
+		return this;
+	}
+
 	public User AddEmailConfirmationToken(EmailConfirmationToken emailConfirmationToken)
 	{
 		EmailConfirmationTokens.Add(emailConfirmationToken);
+
+		return this;
+	}
+
+	public User AddEmailConfirmationTokens(ICollection<EmailConfirmationToken> emailConfirmationTokens)
+	{
+		EmailConfirmationTokens.AddRange(emailConfirmationTokens);
 
 		return this;
 	}

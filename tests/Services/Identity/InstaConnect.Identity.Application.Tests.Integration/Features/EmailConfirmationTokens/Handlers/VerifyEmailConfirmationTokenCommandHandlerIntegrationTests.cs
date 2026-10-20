@@ -1,3 +1,10 @@
+using InstaConnect.Identity.Application.Features.EmailConfirmationTokens.Commands.Verify;
+using InstaConnect.Identity.Application.Tests.Features.EmailConfirmationTokens.Builders;
+using InstaConnect.Identity.Application.Tests.Integration.Features.EmailConfirmationTokens.Utilities;
+using InstaConnect.Identity.Tests.Features.EmailConfirmationTokens.Builders;
+using InstaConnect.Identity.Tests.Features.EmailConfirmationTokens.DataAttributes.Value;
+using InstaConnect.Identity.Tests.Features.Users.Builders;
+
 namespace InstaConnect.Identity.Application.Tests.Integration.Features.EmailConfirmationTokens.Handlers;
 
 public class VerifyEmailConfirmationTokenCommandHandlerIntegrationTests : BaseEmailConfirmationTokenApplicationCommandIntegrationTest
@@ -70,7 +77,7 @@ public class VerifyEmailConfirmationTokenCommandHandlerIntegrationTests : BaseEm
 	}
 
 	[Fact]
-	public async Task SendAsync_ShouldThrowUserEmailAlreadyConfirmedException_WhenEmailIsConfirmed()
+	public async Task SendAsync_ShouldThrowUserEmailAlreadyConfirmedException_WhenUserEmailAlreadyConfirmed()
 	{
 		// Arrange
 		var updatedUser = UserBuilder.WithConfirmedEmail().Build();
@@ -81,7 +88,7 @@ public class VerifyEmailConfirmationTokenCommandHandlerIntegrationTests : BaseEm
 	}
 
 	[Fact]
-	public async Task SendAsync_ShouldThrowEmailConfirmationTokenExpiredException_WhenEmailConfirmationTokenHasExpired()
+	public async Task SendAsync_ShouldThrowEmailConfirmationTokenExpiredException_WhenEmailConfirmationTokenExpired()
 	{
 		// Arrange
 		var updatedEmailConfirmationToken = EmailConfirmationTokenBuilder.WithAlreadyExpiresAtUtc().Build();
@@ -92,11 +99,11 @@ public class VerifyEmailConfirmationTokenCommandHandlerIntegrationTests : BaseEm
 	}
 
 	[Fact]
-	public async Task SendAsync_ShouldUpdatedUser_WhenRequestIsValid()
+	public async Task SendAsync_ShouldUpdateUser_WhenRequestIsValid()
 	{
 		// Act
 		await Sender.SendAsync(_request, CancellationToken);
-		var user = await ServiceScope.GetByIdAsync(User.Id, CancellationToken);
+		var user = await ServiceScope.GetByIdAsync(UserId, CancellationToken);
 
 		// Assert
 		user.ShouldSatisfy(_request);
@@ -104,7 +111,7 @@ public class VerifyEmailConfirmationTokenCommandHandlerIntegrationTests : BaseEm
 
 	[Theory]
 	[UserIdDifferentCaseData]
-	public async Task SendAsync_ShouldUpdatedUser_WhenRequestAndIdAreValid(
+	public async Task SendAsync_ShouldUpdateUser_WhenRequestAndIdAreValid(
 		IStringTransformer transformer)
 	{
 		// Arrange
@@ -112,7 +119,7 @@ public class VerifyEmailConfirmationTokenCommandHandlerIntegrationTests : BaseEm
 
 		// Act
 		await Sender.SendAsync(request, CancellationToken);
-		var user = await ServiceScope.GetByIdAsync(User.Id, CancellationToken);
+		var user = await ServiceScope.GetByIdAsync(UserId, CancellationToken);
 
 		// Assert
 		user.ShouldSatisfy(_request);
@@ -120,7 +127,7 @@ public class VerifyEmailConfirmationTokenCommandHandlerIntegrationTests : BaseEm
 
 	[Theory]
 	[EmailConfirmationTokenValueDifferentCaseData]
-	public async Task SendAsync_ShouldUpdatedUser_WhenRequestAndValueAreValid(
+	public async Task SendAsync_ShouldUpdateUser_WhenRequestAndValueAreValid(
 		IStringTransformer transformer)
 	{
 		// Arrange
@@ -128,7 +135,7 @@ public class VerifyEmailConfirmationTokenCommandHandlerIntegrationTests : BaseEm
 
 		// Act
 		await Sender.SendAsync(request, CancellationToken);
-		var user = await ServiceScope.GetByIdAsync(User.Id, CancellationToken);
+		var user = await ServiceScope.GetByIdAsync(UserId, CancellationToken);
 
 		// Assert
 		user.ShouldSatisfy(_request);
@@ -139,7 +146,7 @@ public class VerifyEmailConfirmationTokenCommandHandlerIntegrationTests : BaseEm
 	{
 		// Act
 		await Sender.SendAsync(_request, CancellationToken);
-		var user = await ServiceScope.GetByIdAsync(User.Id, CancellationToken);
+		var user = await ServiceScope.GetByIdAsync(UserId, CancellationToken);
 
 		// Assert
 		user.EmailConfirmationTokens.ShouldBeEmpty();
@@ -155,7 +162,7 @@ public class VerifyEmailConfirmationTokenCommandHandlerIntegrationTests : BaseEm
 
 		// Act
 		await Sender.SendAsync(request, CancellationToken);
-		var user = await ServiceScope.GetByIdAsync(User.Id, CancellationToken);
+		var user = await ServiceScope.GetByIdAsync(UserId, CancellationToken);
 
 		// Assert
 		user.EmailConfirmationTokens.ShouldBeEmpty();
@@ -171,7 +178,7 @@ public class VerifyEmailConfirmationTokenCommandHandlerIntegrationTests : BaseEm
 
 		// Act
 		await Sender.SendAsync(request, CancellationToken);
-		var user = await ServiceScope.GetByIdAsync(User.Id, CancellationToken);
+		var user = await ServiceScope.GetByIdAsync(UserId, CancellationToken);
 
 		// Assert
 		user.EmailConfirmationTokens.ShouldBeEmpty();

@@ -1,5 +1,3 @@
-using Mapster;
-
 namespace InstaConnect.Posts.Infrastructure.Features.Posts.Mappings;
 
 internal class PostInfrastructureMappings : IRegister

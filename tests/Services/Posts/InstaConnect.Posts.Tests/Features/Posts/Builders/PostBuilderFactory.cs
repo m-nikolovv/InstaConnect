@@ -6,4 +6,9 @@ public class PostBuilderFactory
 	{
 		return new(user);
 	}
+
+	public PostBuilder Create(Post post)
+	{
+		return new(post);
+	}
 }

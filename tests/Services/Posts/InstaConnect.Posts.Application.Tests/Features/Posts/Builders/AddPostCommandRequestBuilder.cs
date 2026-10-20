@@ -1,3 +1,8 @@
+using InstaConnect.Common.Tests.Features.DataAttributes.FormFileCollections.Base;
+using InstaConnect.Posts.Tests.Features.PostImages.Utilities;
+
+using Microsoft.AspNetCore.Http;
+
 namespace InstaConnect.Posts.Application.Tests.Features.Posts.Builders;
 
 public class AddPostCommandRequestBuilder
@@ -5,12 +10,14 @@ public class AddPostCommandRequestBuilder
 	private string _userId;
 	private string _title;
 	private string _content;
+	private ICollection<IFormFile> _images;
 
-	public AddPostCommandRequestBuilder(User user)
+	public AddPostCommandRequestBuilder(User user, int numberOfImages)
 	{
 		_userId = user.Id.Id;
 		_title = PostDataFaker.GetTitle();
 		_content = PostDataFaker.GetContent();
+		_images = PostImageDataFaker.GetImages(numberOfImages);
 	}
 
 	public AddPostCommandRequestBuilder WithUserId(UserId userId, IStringTransformer? transformer = null)
@@ -41,8 +48,15 @@ public class AddPostCommandRequestBuilder
 		return this;
 	}
 
+	public AddPostCommandRequestBuilder WithImages(IFormFileCollectionTransformer transformer)
+	{
+		_images = transformer.Transform(_images);
+
+		return this;
+	}
+
 	public AddPostCommandRequest Build()
 	{
-		return new(_userId, _title, _content);
+		return new(_userId, _title, _content, _images);
 	}
 }

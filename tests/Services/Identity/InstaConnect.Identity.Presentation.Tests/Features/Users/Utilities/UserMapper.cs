@@ -1,4 +1,13 @@
+using InstaConnect.Common.Infrastructure.Features.Databases.Helpers;
 using InstaConnect.Common.Presentation.Features.Requests.Abstractions;
+using InstaConnect.Identity.Application.Features.Users.Commands.Add;
+using InstaConnect.Identity.Application.Features.Users.Commands.UpdateCurrent;
+using InstaConnect.Identity.Application.Features.Users.Models;
+using InstaConnect.Identity.Application.Features.Users.Queries.GetAll;
+using InstaConnect.Identity.Application.Features.Users.Queries.GetById;
+using InstaConnect.Identity.Application.Features.Users.Queries.GetCurrentById;
+using InstaConnect.Identity.Application.Features.Users.Queries.GetCurrentDetailsById;
+using InstaConnect.Identity.Application.Features.Users.Queries.GetDetailsById;
 using InstaConnect.Identity.Presentation.Features.Users.Abstractions;
 
 namespace InstaConnect.Identity.Presentation.Tests.Features.Users.Utilities;
@@ -19,7 +28,7 @@ public static class UserMapper
 					   user.FirstName,
 					   user.LastName,
 					   user.Name.Value,
-					   user.ProfileImage?.Url,
+					   user.ProfileImageUrl?.Value,
 					   user.CreatedAtUtc,
 					   user.UpdatedAtUtc);
 		}
@@ -31,7 +40,7 @@ public static class UserMapper
 					   user.LastName,
 					   user.Name.Value,
 					   user.Email.Value,
-					   user.ProfileImage?.Url,
+					   user.ProfileImageUrl?.Value,
 					   user.CreatedAtUtc,
 					   user.UpdatedAtUtc);
 		}

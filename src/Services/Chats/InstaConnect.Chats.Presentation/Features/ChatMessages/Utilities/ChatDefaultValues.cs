@@ -1,5 +1,3 @@
-using InstaConnect.Chats.Domain.Features.ChatMessages.Models.Requests;
-
 namespace InstaConnect.Chats.Presentation.Features.ChatMessages.Utilities;
 
 public static class ChatMessageDefaultValues

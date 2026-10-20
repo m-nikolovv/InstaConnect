@@ -1,3 +1,4 @@
+using InstaConnect.Identity.Presentation.Features.Users.Controllers.v1;
 using InstaConnect.Identity.Tests.Features.EmailConfirmationTokens.Abstractions;
 using InstaConnect.Identity.Tests.Features.EmailConfirmationTokens.Extensions;
 using InstaConnect.Identity.Tests.Features.Users.Abstractions;

@@ -1,3 +1,5 @@
+using InstaConnect.Posts.Application.Features.PostCommentLikes.Commands.Add;
+
 namespace InstaConnect.Posts.Application.Tests.Unit.Features.PostCommentLikes.Handlers.Add;
 
 public class AddPostCommentLikeCommandHandlerUnitTests : BasePostCommentLikeApplicationCommandUnitTest
@@ -30,7 +32,7 @@ public class AddPostCommentLikeCommandHandlerUnitTests : BasePostCommentLikeAppl
 	}
 
 	[Fact]
-	public async Task Handle_ShouldCallCommentLikeServiceAddAsync_WhenRequestIsValid()
+	public async Task Handle_ShouldCallTheCommentLikeServiceAddAsync_WhenRequestIsValid()
 	{
 		// Act
 		await _handler.Handle(_request, CancellationToken);

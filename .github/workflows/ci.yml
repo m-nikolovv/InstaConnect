@@ -145,31 +145,19 @@ jobs:
           cat "$SOLUTION_FILTER"
 
       - name: Restore dependencies
-        run: dotnet restore "$SOLUTION_FILTER"
+        run: dotnet restore "$SOLUTION_FILTER" -p:NuGetAudit=false
 
       - name: Build
         run: dotnet build "$SOLUTION_FILTER" --configuration Release --no-restore
 
-      - name: Pull test container images
+      - name: Use Docker Hub mirror
         if: matrix.suite != 'Unit'
         run: |
-          mapfile -t IMAGES < <(grep -oP 'Builder\("\K[^"]+' tests/Common/InstaConnect.Common.Tests/Features/Utilities/ContainerFactory.cs)
-          for IMAGE in "${IMAGES[@]}"; do
-            for ATTEMPT in 1 2 3 4 5; do
-              if docker pull --quiet "mirror.gcr.io/library/$IMAGE"; then
-                docker tag "mirror.gcr.io/library/$IMAGE" "$IMAGE"
-                break
-              fi
-              if docker pull --quiet "$IMAGE"; then
-                break
-              fi
-              if [ "$ATTEMPT" -eq 5 ]; then
-                echo "::error::Failed to pull $IMAGE"
-                exit 1
-              fi
-              sleep $((ATTEMPT * 10))
-            done
-          done
+          DAEMON_CONFIG=/etc/docker/daemon.json
+          if [ -s "$DAEMON_CONFIG" ]; then CONFIG=$(cat "$DAEMON_CONFIG"); else CONFIG='{}'; fi
+          echo "$CONFIG" | jq '."registry-mirrors" = ["https://mirror.gcr.io"]' | sudo tee "$DAEMON_CONFIG" > /dev/null
+          sudo systemctl restart docker
+          docker info --format 'Registry mirrors: {{.RegistryConfig.Mirrors}}'
 
       - name: Run tests
         env:

@@ -1,5 +1,5 @@
-using InstaConnect.Common.Domain.Features.Mappers.Abstractions;
-using InstaConnect.Posts.Application.Features.Common.Extensions;
+using InstaConnect.Posts.Domain.Features.Posts.Abstractions;
+using InstaConnect.Posts.Tests.Features.Posts.Utilities;
 
 namespace InstaConnect.Posts.Application.Tests.Unit.Features.Posts.Utilities;
 

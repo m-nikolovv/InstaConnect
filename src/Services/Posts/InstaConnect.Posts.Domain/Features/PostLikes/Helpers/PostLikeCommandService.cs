@@ -1,5 +1,7 @@
 using InstaConnect.Common.Domain.Features.Mappers.Abstractions;
 using InstaConnect.Common.Events.Features.Events.Abstractions;
+using InstaConnect.Posts.Domain.Features.PostLikes.Exceptions;
+using InstaConnect.Posts.Events.Features.PostLikes;
 
 namespace InstaConnect.Posts.Domain.Features.PostLikes.Helpers;
 

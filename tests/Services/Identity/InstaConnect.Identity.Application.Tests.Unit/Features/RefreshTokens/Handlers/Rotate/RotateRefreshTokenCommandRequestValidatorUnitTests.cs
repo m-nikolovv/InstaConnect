@@ -1,3 +1,6 @@
+using InstaConnect.Identity.Application.Features.RefreshTokens.Commands.Rotate;
+using InstaConnect.Identity.Tests.Features.RefreshTokens.DataAttributes.Value;
+
 namespace InstaConnect.Identity.Application.Tests.Unit.Features.RefreshTokens.Handlers.Rotate;
 
 public class RotateRefreshTokenCommandRequestValidatorUnitTests : BaseRefreshTokenApplicationCommandUnitTest
@@ -54,7 +57,7 @@ public class RotateRefreshTokenCommandRequestValidatorUnitTests : BaseRefreshTok
 	}
 
 	[Fact]
-	public void TestValidate_ShouldNotHaveAnyValidationsErrors_WhenRequestIsValid()
+	public void TestValidate_ShouldNotHaveAnyValidationErrors_WhenRequestIsValid()
 	{
 		// Act
 		var response = _requestValidator.TestValidate(_request);

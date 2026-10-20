@@ -1,5 +1,4 @@
 using InstaConnect.Identity.Domain.Features.Users.Abstractions;
-using InstaConnect.Identity.Tests.Features.Users.Utilities;
 
 namespace InstaConnect.Identity.Infrastructure.Tests.Integration.Features.Users.Utilities;
 

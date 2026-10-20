@@ -1,3 +1,5 @@
+using InstaConnect.Posts.Application.Features.PostLikes.Commands.Add;
+
 namespace InstaConnect.Posts.Application.Tests.Integration.Features.PostLikes.Handlers;
 
 public class AddPostLikeCommandHandlerIntegrationTests : BasePostLikeApplicationCommandIntegrationTest
@@ -47,7 +49,7 @@ public class AddPostLikeCommandHandlerIntegrationTests : BasePostLikeApplication
 	}
 
 	[Fact]
-	public async Task SendAsync_ShouldThrowPostNotFoundException_WhenIdIsInvalid()
+	public async Task SendAsync_ShouldThrowPostNotFoundException_WhenPostNotFound()
 	{
 		// Arrange
 		await ServiceScope.DeleteAsync(Post, CancellationToken);
@@ -57,7 +59,7 @@ public class AddPostLikeCommandHandlerIntegrationTests : BasePostLikeApplication
 	}
 
 	[Fact]
-	public async Task SendAsync_ShouldThrowUserNotFoundException_WhenUserIdIsInvalid()
+	public async Task SendAsync_ShouldThrowUserNotFoundException_WhenUserNotFound()
 	{
 		// Arrange
 		await ServiceScope.DeleteAsync(User, CancellationToken);
@@ -78,7 +80,7 @@ public class AddPostLikeCommandHandlerIntegrationTests : BasePostLikeApplication
 
 	[Theory]
 	[PostIdDifferentCaseData]
-	public async Task SendAsync_ShouldThrowPostLikeAlreadyExistsException_WhenPostLikeAlreadyExistsAndIdIsValid(
+	public async Task SendAsync_ShouldThrowPostLikeAlreadyExistsException_WhenPostLikeAlreadyExistsAndIdIsInvalid(
 		IStringTransformer transformer)
 	{
 		// Arrange
@@ -91,7 +93,7 @@ public class AddPostLikeCommandHandlerIntegrationTests : BasePostLikeApplication
 
 	[Theory]
 	[UserIdDifferentCaseData]
-	public async Task SendAsync_ShouldThrowPostLikeAlreadyExistsException_WhenPostLikeAlreadyExistsAndUserIdIsValid(
+	public async Task SendAsync_ShouldThrowPostLikeAlreadyExistsException_WhenPostLikeAlreadyExistsAndUserIdIsInvalid(
 		IStringTransformer transformer)
 	{
 		// Arrange
@@ -203,7 +205,7 @@ public class AddPostLikeCommandHandlerIntegrationTests : BasePostLikeApplication
 
 	[Theory]
 	[PostIdDifferentCaseData]
-	public async Task SendAsync_ShouldPublishPostLikeAddedEvent_WhenRequestAnIdAreValid(
+	public async Task SendAsync_ShouldPublishPostLikeAddedEvent_WhenRequestAndIdAreValid(
 		IStringTransformer transformer)
 	{
 		// Arrange

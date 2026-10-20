@@ -1,6 +1,4 @@
 using InstaConnect.Posts.Domain.Features.Posts.Abstractions;
-using InstaConnect.Posts.Tests.Features.PostLikes.Utilities;
-using InstaConnect.Posts.Tests.Features.Posts.Utilities;
 
 namespace InstaConnect.Posts.Infrastructure.Tests.Integration.Features.Posts.Utilities;
 
@@ -19,6 +17,7 @@ public abstract class BasePostInfrastructureQueryIntegrationTest : BasePostWebTe
 	{
 		await ServiceScope.AddRangeAsync(Users, CancellationToken);
 		await ServiceScope.AddRangeAsync(PostLikes, CancellationToken);
+		await ServiceScope.AddRangeAsync(PostImages, CancellationToken);
 		await OnInitializeAsync();
 	}
 }

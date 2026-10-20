@@ -1,10 +1,3 @@
-using InstaConnect.Posts.Domain.Features.PostLikes.Helpers;
-using InstaConnect.Posts.Domain.Features.PostLikes.Models.Requests;
-using InstaConnect.Posts.Domain.Tests.Features.PostLikes.Assertions;
-using InstaConnect.Posts.Domain.Tests.Features.PostLikes.Builders;
-using InstaConnect.Posts.Domain.Tests.Features.PostLikes.Utilities;
-using InstaConnect.Posts.Domain.Tests.Unit.Features.PostLikes.Utilities;
-
 namespace InstaConnect.Posts.Domain.Tests.Unit.Features.PostLikes.Services;
 
 public class GetPostLikeByIdQueryServiceUnitTests : BasePostLikeDomainQueryUnitTest
@@ -28,7 +21,7 @@ public class GetPostLikeByIdQueryServiceUnitTests : BasePostLikeDomainQueryUnitT
 	}
 
 	[Fact]
-	public async Task GetByIdAsync_ShouldThrowPostNotFoundException_WhenIdIsInvalid()
+	public async Task GetByIdAsync_ShouldThrowPostNotFoundException_WhenPostNotFound()
 	{
 		// Arrange
 		Repository.RemoveExistsByIdAsync(_query, CancellationToken);
@@ -38,7 +31,7 @@ public class GetPostLikeByIdQueryServiceUnitTests : BasePostLikeDomainQueryUnitT
 	}
 
 	[Fact]
-	public async Task GetByIdAsync_ShouldThrowPostLikeNotFoundException_WhenUserIdIsInvalid()
+	public async Task GetByIdAsync_ShouldThrowPostLikeNotFoundException_WhenPostLikeNotFound()
 	{
 		// Arrange
 		LikeRepository.RemoveGetByIdAsync(_query, PostLike, CancellationToken);

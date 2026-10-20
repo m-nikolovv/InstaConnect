@@ -1,7 +1,14 @@
 using InstaConnect.Common.Domain.Features.Requests.Models;
+using InstaConnect.Common.Tests.Features.DataAttributes.Enums.Base;
 using InstaConnect.Common.Tests.Features.DataAttributes.Enums.Sort;
-
+using InstaConnect.Common.Tests.Features.DataAttributes.Ints.Base;
+using InstaConnect.Follows.Domain.Features.Follows.Models.Entities;
 using InstaConnect.Follows.Domain.Features.Follows.Models.Requests;
+using InstaConnect.Follows.Tests.Features.Follows.DataAttributes.Page;
+using InstaConnect.Follows.Tests.Features.Follows.DataAttributes.PageSize;
+using InstaConnect.Follows.Tests.Features.Follows.DataAttributes.SortOrder;
+using InstaConnect.Follows.Tests.Features.Follows.DataAttributes.SortTerm;
+using InstaConnect.Follows.Tests.Features.Users.DataAttributes.Name;
 
 namespace InstaConnect.Follows.Presentation.Tests.Integration.Features.Follows.Controllers;
 
@@ -121,7 +128,7 @@ public class GetAllFollowsControllerIntegrationTests : BaseFollowPresentationQue
 	}
 
 	[Fact]
-	public async Task GetAllAsync_ShouldThrowFollowerNotFoundException_WhenIdIsInvalid()
+	public async Task GetAllAsync_ShouldThrowFollowerNotFoundException_WhenFollowerNotFound()
 	{
 		// Arrange
 		await ServiceScope.DeleteAsync(Follower, CancellationToken);

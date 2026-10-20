@@ -1,6 +1,3 @@
-using InstaConnect.Common.Events.Features.AccessTokens.Models;
-using InstaConnect.Identity.Domain.Features.UserClaims.Models.ValueObjects;
-
 namespace InstaConnect.Identity.Tests.Features.UserClaims.Builders;
 
 public class UserClaimIdBuilder

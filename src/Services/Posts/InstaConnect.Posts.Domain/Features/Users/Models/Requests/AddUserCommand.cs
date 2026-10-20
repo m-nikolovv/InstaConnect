@@ -6,6 +6,6 @@ public record AddUserCommand(
 	string LastName,
 	Name Name,
 	Email Email,
-	Image? ProfileImage,
+	Url? ProfileImageUrl,
 	DateTimeOffset CreatedAtUtc,
 	DateTimeOffset UpdatedAtUtc);

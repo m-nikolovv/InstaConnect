@@ -1,7 +1,4 @@
-using InstaConnect.Chats.Domain.Features.Chats.Models.Entities;
-using InstaConnect.Chats.Domain.Features.Chats.Models.Requests;
 using InstaConnect.Chats.Domain.Features.Chats.Models.Responses;
-using InstaConnect.Chats.Infrastructure.Tests.Features.Users.Utilities;
 
 namespace InstaConnect.Chats.Infrastructure.Tests.Features.Chats.Utilities;
 

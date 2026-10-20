@@ -1,7 +1,4 @@
 using InstaConnect.Common.Domain.Features.Databases.Abstractions;
-using InstaConnect.Common.Infrastructure.Features.Databases.Abstractions;
-
-using MongoDB.Driver;
 
 namespace InstaConnect.Chats.Infrastructure.Features.ChatMessages.Helpers.Collections;
 

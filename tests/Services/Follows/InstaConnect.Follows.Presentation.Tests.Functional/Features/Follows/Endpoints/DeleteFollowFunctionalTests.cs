@@ -1,3 +1,5 @@
+using InstaConnect.Follows.Presentation.Tests.Features.Follows.Utilities;
+
 namespace InstaConnect.Follows.Presentation.Tests.Functional.Features.Follows.Endpoints;
 
 public class DeleteFollowFunctionalTests : BaseFollowPresentationCommandFunctionalTest
@@ -96,7 +98,7 @@ public class DeleteFollowFunctionalTests : BaseFollowPresentationCommandFunction
 	}
 
 	[Fact]
-	public async Task DeleteAsync_ShouldHaveNotFoundStatusCode_WhenIdIsInvalid()
+	public async Task DeleteAsync_ShouldHaveNotFoundStatusCode_WhenFollowNotFound()
 	{
 		// Arrange
 		await ServiceScope.DeleteAsync(Follow, CancellationToken);
@@ -109,7 +111,7 @@ public class DeleteFollowFunctionalTests : BaseFollowPresentationCommandFunction
 	}
 
 	[Fact]
-	public async Task DeleteAsync_ShouldHaveFollowNotFoundProblemDetails_WhenIdIsInvalid()
+	public async Task DeleteAsync_ShouldHaveFollowNotFoundProblemDetails_WhenFollowNotFound()
 	{
 		// Arrange
 		await ServiceScope.DeleteAsync(Follow, CancellationToken);
@@ -166,7 +168,7 @@ public class DeleteFollowFunctionalTests : BaseFollowPresentationCommandFunction
 	{
 		// Act
 		await ApiClient.DeleteAsync(_request, CancellationToken);
-		var follow = await ServiceScope.GetByIdAsync(Follow.Id, CancellationToken);
+		var follow = await ServiceScope.GetByIdAsync(FollowId, CancellationToken);
 
 		// Assert
 		follow.ShouldBeNull();
@@ -182,7 +184,7 @@ public class DeleteFollowFunctionalTests : BaseFollowPresentationCommandFunction
 
 		// Act
 		await ApiClient.DeleteAsync(request, CancellationToken);
-		var follow = await ServiceScope.GetByIdAsync(Follow.Id, CancellationToken);
+		var follow = await ServiceScope.GetByIdAsync(FollowId, CancellationToken);
 
 		// Assert
 		follow.ShouldBeNull();
@@ -198,7 +200,7 @@ public class DeleteFollowFunctionalTests : BaseFollowPresentationCommandFunction
 
 		// Act
 		await ApiClient.DeleteAsync(request, CancellationToken);
-		var follow = await ServiceScope.GetByIdAsync(Follow.Id, CancellationToken);
+		var follow = await ServiceScope.GetByIdAsync(FollowId, CancellationToken);
 
 		// Assert
 		follow.ShouldBeNull();

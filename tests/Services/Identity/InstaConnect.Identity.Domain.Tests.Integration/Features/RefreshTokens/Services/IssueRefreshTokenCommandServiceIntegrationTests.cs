@@ -1,11 +1,8 @@
-using InstaConnect.Common.Tests.Features.DataAttributes.Strings.Base;
 using InstaConnect.Identity.Domain.Features.RefreshTokens.Models.Requests;
 using InstaConnect.Identity.Domain.Tests.Features.RefreshTokens.Assertions;
 using InstaConnect.Identity.Domain.Tests.Features.RefreshTokens.Builders;
 using InstaConnect.Identity.Domain.Tests.Integration.Features.RefreshTokens.Utilities;
 using InstaConnect.Identity.Tests.Features.RefreshTokens.Utilities;
-using InstaConnect.Identity.Tests.Features.Users.DataAttributes.Name;
-using InstaConnect.Identity.Tests.Features.Users.Utilities;
 
 namespace InstaConnect.Identity.Domain.Tests.Integration.Features.RefreshTokens.Services;
 
@@ -24,7 +21,7 @@ public class IssueRefreshTokenCommandServiceIntegrationTests : BaseRefreshTokenD
 	}
 
 	[Fact]
-	public async Task IssueAsync_ShouldThrowUserInvalidDetailsException_WhenUserNotFound()
+	public async Task IssueAsync_ShouldThrowUserInvalidDetailsException_WhenUserInvalidDetailsAndNameIsInvalid()
 	{
 		// Arrange
 		await ServiceScope.DeleteAsync(User, CancellationToken);
@@ -34,7 +31,7 @@ public class IssueRefreshTokenCommandServiceIntegrationTests : BaseRefreshTokenD
 	}
 
 	[Fact]
-	public async Task IssueAsync_ShouldThrowUserInvalidDetailsException_WhenPasswordDoesNotMatch()
+	public async Task IssueAsync_ShouldThrowUserInvalidDetailsException_WhenUserInvalidDetailsAndPasswordIsInvalid()
 	{
 		// Arrange
 		var updatedUser = UserBuilder.WithPasswordHash(PasswordHasher.Hash(NewPassword)).Build();
@@ -45,7 +42,7 @@ public class IssueRefreshTokenCommandServiceIntegrationTests : BaseRefreshTokenD
 	}
 
 	[Fact]
-	public async Task IssueAsync_ShouldThrowUserNameEmailNotConfirmedException_WhenEmailIsNotConfirmed()
+	public async Task IssueAsync_ShouldThrowUserNameEmailNotConfirmedException_WhenUserNameEmailNotConfirmed()
 	{
 		// Arrange
 		var updatedUser = UserBuilder.WithUnconfirmedEmail().Build();

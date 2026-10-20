@@ -1,7 +1,5 @@
 using InstaConnect.Identity.Events.Features.Users;
 
-using Mapster;
-
 namespace InstaConnect.Follows.Domain.Features.Users.Mappings;
 
 internal class UserDomainMappings : IRegister
@@ -15,7 +13,7 @@ internal class UserDomainMappings : IRegister
 				src.Email.Value,
 				src.FirstName,
 				src.LastName,
-				src.ProfileImage == null ? null : src.ProfileImage.Url,
+				src.ProfileImageUrl == null ? null : src.ProfileImageUrl.Value,
 				src.CreatedAtUtc,
 				src.UpdatedAtUtc));
 
@@ -26,7 +24,7 @@ internal class UserDomainMappings : IRegister
 				src.Email.Value,
 				src.FirstName,
 				src.LastName,
-				src.ProfileImage == null ? null : src.ProfileImage.Url,
+				src.ProfileImageUrl == null ? null : src.ProfileImageUrl.Value,
 				src.CreatedAtUtc,
 				src.UpdatedAtUtc));
 	}

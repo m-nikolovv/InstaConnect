@@ -1,3 +1,5 @@
+using InstaConnect.Chats.Infrastructure.Features.Users.EventHandlers;
+
 using Microsoft.Extensions.DependencyInjection;
 
 namespace InstaConnect.Chats.Infrastructure.Tests.Features.Users.Utilities;

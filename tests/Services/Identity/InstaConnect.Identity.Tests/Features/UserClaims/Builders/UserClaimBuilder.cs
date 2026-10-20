@@ -1,6 +1,3 @@
-using InstaConnect.Common.Events.Features.AccessTokens.Models;
-using InstaConnect.Identity.Tests.Features.UserClaims.Utilities;
-
 namespace InstaConnect.Identity.Tests.Features.UserClaims.Builders;
 
 public class UserClaimBuilder
@@ -16,6 +13,14 @@ public class UserClaimBuilder
 		_user = user;
 		_claim = UserClaimDataFaker.GetClaim();
 		_createdAtUtc = UserClaimDataFaker.GetCreatedAtUtc();
+	}
+
+	public UserClaimBuilder(UserClaim userClaim)
+	{
+		_id = userClaim.Id.Id.Id;
+		_user = userClaim.User!;
+		_claim = userClaim.Id.Claim;
+		_createdAtUtc = userClaim.CreatedAtUtc;
 	}
 
 	public UserClaim Build()

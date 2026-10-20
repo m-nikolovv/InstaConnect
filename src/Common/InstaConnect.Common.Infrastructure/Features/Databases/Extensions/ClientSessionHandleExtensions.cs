@@ -1,5 +1,3 @@
-using MongoDB.Driver;
-
 namespace InstaConnect.Common.Infrastructure.Features.Databases.Extensions;
 
 public static class ClientSessionHandleExtensions

@@ -3,6 +3,7 @@ using System.Security.Claims;
 using InstaConnect.Common.Domain.Features.AccessTokens.Models;
 using InstaConnect.Common.Domain.Features.AccessTokens.Utilities;
 using InstaConnect.Common.Infrastructure.Features.AccessTokens.Abstractions;
+using InstaConnect.Identity.Domain.Features.RefreshTokens.Abstractions;
 
 namespace InstaConnect.Identity.Infrastructure.Features.RefreshTokens.Helpers;
 

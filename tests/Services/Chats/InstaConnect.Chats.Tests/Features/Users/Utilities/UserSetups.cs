@@ -1,9 +1,5 @@
 using InstaConnect.Chats.Domain.Features.Users.Abstractions;
-using InstaConnect.Chats.Domain.Features.Users.Models.ValueObjects;
-using InstaConnect.Chats.Tests.Features.Chats.Utilities;
 using InstaConnect.Common.Domain.Features.ValueObjects.Models;
-
-using Microsoft.Extensions.DependencyInjection;
 
 namespace InstaConnect.Chats.Tests.Features.Users.Utilities;
 

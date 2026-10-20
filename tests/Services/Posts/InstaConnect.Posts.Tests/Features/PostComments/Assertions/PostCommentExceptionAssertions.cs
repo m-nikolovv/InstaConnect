@@ -1,6 +1,4 @@
 using InstaConnect.Posts.Domain.Features.PostComments.Exceptions;
-using InstaConnect.Posts.Domain.Features.PostComments.Models.ValueObjects;
-using InstaConnect.Posts.Domain.Features.Users.Models.ValueObjects;
 
 namespace InstaConnect.Posts.Tests.Features.PostComments.Assertions;
 

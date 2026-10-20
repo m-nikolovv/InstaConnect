@@ -1,6 +1,8 @@
 using InstaConnect.Common.Presentation.Tests.Features.Extensions;
-using InstaConnect.Follows.Presentation.Tests.Features.Follows.Utilities;
+using InstaConnect.Follows.Domain.Features.Follows.Models.ValueObjects;
+using InstaConnect.Follows.Presentation.Features.Follows.Controllers.v1;
 
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace InstaConnect.Follows.Presentation.Tests.Features.Follows.Utilities;

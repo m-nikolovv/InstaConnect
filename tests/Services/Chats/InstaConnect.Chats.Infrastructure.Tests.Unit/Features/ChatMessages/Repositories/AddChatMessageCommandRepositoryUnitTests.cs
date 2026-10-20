@@ -1,6 +1,3 @@
-using InstaConnect.Chats.Infrastructure.Features.ChatMessages.Helpers.Repositories;
-using InstaConnect.Chats.Infrastructure.Tests.Unit.Features.ChatMessages.Utilities;
-
 namespace InstaConnect.Chats.Infrastructure.Tests.Unit.Features.ChatMessages.Repositories;
 
 public class AddChatMessageCommandRepositoryUnitTests : BaseChatMessageInfrastructureCommandUnitTest
@@ -13,7 +10,7 @@ public class AddChatMessageCommandRepositoryUnitTests : BaseChatMessageInfrastru
 	}
 
 	[Fact]
-	public async Task AddAsync_ShouldCallTheCollectionAddAsync_WhenRequestIsValid()
+	public async Task AddAsync_ShouldCallTheCollectionAddAsync_WhenCommandIsValid()
 	{
 		// Act
 		await _repository.AddAsync(ChatMessage, CancellationToken);

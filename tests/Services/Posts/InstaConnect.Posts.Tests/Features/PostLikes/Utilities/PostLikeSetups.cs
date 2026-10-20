@@ -1,8 +1,4 @@
 using InstaConnect.Posts.Domain.Features.PostLikes.Abstractions;
-using InstaConnect.Posts.Domain.Features.PostLikes.Models.ValueObjects;
-using InstaConnect.Posts.Tests.Features.Posts.Utilities;
-
-using Microsoft.Extensions.DependencyInjection;
 
 namespace InstaConnect.Posts.Tests.Features.PostLikes.Utilities;
 

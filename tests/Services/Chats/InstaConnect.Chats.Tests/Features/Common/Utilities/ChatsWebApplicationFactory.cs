@@ -1,4 +1,5 @@
 using InstaConnect.Chats.Infrastructure.Features.Common.Extensions;
+using InstaConnect.Chats.Tests.Features.ChatMessages.Extensions;
 using InstaConnect.Chats.Tests.Features.Common.Extensions;
 using InstaConnect.Common.Tests.Features.Extensions;
 
@@ -9,8 +10,6 @@ using Microsoft.AspNetCore.TestHost;
 using Testcontainers.MongoDb;
 using Testcontainers.RabbitMq;
 using Testcontainers.Redis;
-
-using Xunit;
 
 namespace InstaConnect.Chats.Tests.Features.Common.Utilities;
 
@@ -29,12 +28,19 @@ public class ChatsWebApplicationFactory : WebApplicationFactory<Program>, IAsync
 
 	protected override void ConfigureWebHost(IWebHostBuilder builder)
 	{
-		builder.ConfigureTestServices(serviceCollection => serviceCollection.AddTestEventClient(_rabbitMqContainer.GetConnectionString(), ChatsInfrastructureReference.Assembly));
+		builder.ConfigureTestServices(serviceCollection =>
+		{
+			serviceCollection.AddMockImageHandler();
+			serviceCollection.AddChatMessageMockSummarizer();
+			serviceCollection.AddTestEventClient(_rabbitMqContainer.GetConnectionString(), ChatsInfrastructureReference.Assembly);
+		});
 
 		builder.UpdateRedisConfiguration(_redisContainer.GetConnectionString());
 		builder.UpdateMongoConfiguration(_mongoDbContainer.GetConnectionString());
 		builder.UpdateRabbitMqConfiguration(_rabbitMqContainer.GetConnectionString());
 		builder.UpdateAccessTokenConfiguration();
+		builder.UpdateCloudinaryConfiguration();
+		builder.UpdateAnthropicConfiguration();
 		builder.UpdateOpenTelemetryConfiguration();
 		builder.UpdateCorsConfiguration();
 		builder.UpdateMainConfiguration();

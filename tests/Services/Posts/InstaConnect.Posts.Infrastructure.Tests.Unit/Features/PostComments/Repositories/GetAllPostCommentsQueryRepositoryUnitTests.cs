@@ -1,11 +1,4 @@
-using InstaConnect.Posts.Domain.Features.PostComments.Models.Requests;
-using InstaConnect.Posts.Domain.Features.Users.Models.Requests;
-using InstaConnect.Posts.Infrastructure.Features.PostComments.Helpers.Repositories;
-using InstaConnect.Posts.Infrastructure.Tests.Features.Common.Builders;
-using InstaConnect.Posts.Infrastructure.Tests.Features.PostComments.Assertions;
 using InstaConnect.Posts.Infrastructure.Tests.Features.PostComments.Builders;
-using InstaConnect.Posts.Infrastructure.Tests.Features.PostComments.Utilities;
-using InstaConnect.Posts.Infrastructure.Tests.Unit.Features.PostComments.Utilities;
 
 namespace InstaConnect.Posts.Infrastructure.Tests.Unit.Features.PostComments.Repositories;
 
@@ -49,7 +42,7 @@ public class GetAllPostCommentsQueryRepositoryUnitTests : BasePostCommentInfrast
 		_currentUserQueryBuilder = _currentUserQueryBuilderFactory.Create(User);
 		_currentUserQuery = _currentUserQueryBuilder.Build();
 
-		_include = CommentIncludeBuilderFactory.Create().WithUser().WithPostCommentLikes().Build();
+		_include = CommentIncludeBuilderFactory.Create().WithUser().WithPostCommentLikes().WithPostCommentImages().Build();
 
 		_repository = new(Collection, IncludeBuilderFactory, CommentIncludeBuilderFactory);
 
@@ -63,7 +56,7 @@ public class GetAllPostCommentsQueryRepositoryUnitTests : BasePostCommentInfrast
 	}
 
 	[Fact]
-	public async Task GetAllAsync_ShouldReturnResponse_WhenRequestIsValid()
+	public async Task GetAllAsync_ShouldReturnResponse_WhenQueryIsValid()
 	{
 		// Act
 		var response = await _repository.GetAllAsync(_filterQuery, _sortingQuery, _paginationQuery, _currentUserQuery, CancellationToken);
@@ -73,7 +66,7 @@ public class GetAllPostCommentsQueryRepositoryUnitTests : BasePostCommentInfrast
 	}
 
 	[Fact]
-	public async Task GetAllAsync_ShouldCallTheCollectionAggregateFluent_WhenRequestIsValid()
+	public async Task GetAllAsync_ShouldCallTheCollectionAggregateFluent_WhenQueryIsValid()
 	{
 		// Act
 		await _repository.GetAllAsync(_filterQuery, _sortingQuery, _paginationQuery, _currentUserQuery, CancellationToken);
@@ -83,7 +76,7 @@ public class GetAllPostCommentsQueryRepositoryUnitTests : BasePostCommentInfrast
 	}
 
 	[Fact]
-	public async Task GetAllAsync_ShouldCallTheFluentApplyIncludes_WhenRequestIsValid()
+	public async Task GetAllAsync_ShouldCallTheFluentApplyIncludes_WhenQueryIsValid()
 	{
 		// Act
 		await _repository.GetAllAsync(_filterQuery, _sortingQuery, _paginationQuery, _currentUserQuery, CancellationToken);
@@ -93,7 +86,7 @@ public class GetAllPostCommentsQueryRepositoryUnitTests : BasePostCommentInfrast
 	}
 
 	[Fact]
-	public async Task GetAllAsync_ShouldCallTheFluentMatch_WhenRequestIsValid()
+	public async Task GetAllAsync_ShouldCallTheFluentMatch_WhenQueryIsValid()
 	{
 		// Act
 		await _repository.GetAllAsync(_filterQuery, _sortingQuery, _paginationQuery, _currentUserQuery, CancellationToken);
@@ -103,7 +96,7 @@ public class GetAllPostCommentsQueryRepositoryUnitTests : BasePostCommentInfrast
 	}
 
 	[Fact]
-	public async Task GetAllAsync_ShouldCallTheFluentProjectToResponseWithoutPost_WhenRequestIsValid()
+	public async Task GetAllAsync_ShouldCallTheFluentProjectToResponseWithoutPost_WhenQueryIsValid()
 	{
 		// Act
 		await _repository.GetAllAsync(_filterQuery, _sortingQuery, _paginationQuery, _currentUserQuery, CancellationToken);
@@ -113,7 +106,7 @@ public class GetAllPostCommentsQueryRepositoryUnitTests : BasePostCommentInfrast
 	}
 
 	[Fact]
-	public async Task GetAllAsync_ShouldCallTheResponseFluentApplySorting_WhenRequestIsValid()
+	public async Task GetAllAsync_ShouldCallTheResponseFluentApplySorting_WhenQueryIsValid()
 	{
 		// Act
 		await _repository.GetAllAsync(_filterQuery, _sortingQuery, _paginationQuery, _currentUserQuery, CancellationToken);
@@ -123,7 +116,7 @@ public class GetAllPostCommentsQueryRepositoryUnitTests : BasePostCommentInfrast
 	}
 
 	[Fact]
-	public async Task GetAllAsync_ShouldCallTheResponseFluentApplyPagination_WhenRequestIsValid()
+	public async Task GetAllAsync_ShouldCallTheResponseFluentApplyPagination_WhenQueryIsValid()
 	{
 		// Act
 		await _repository.GetAllAsync(_filterQuery, _sortingQuery, _paginationQuery, _currentUserQuery, CancellationToken);
@@ -133,7 +126,7 @@ public class GetAllPostCommentsQueryRepositoryUnitTests : BasePostCommentInfrast
 	}
 
 	[Fact]
-	public async Task GetAllAsync_ShouldCallTheResponseFluentToListAsync_WhenRequestIsValid()
+	public async Task GetAllAsync_ShouldCallTheResponseFluentToListAsync_WhenQueryIsValid()
 	{
 		// Act
 		await _repository.GetAllAsync(_filterQuery, _sortingQuery, _paginationQuery, _currentUserQuery, CancellationToken);

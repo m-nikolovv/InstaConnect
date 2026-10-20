@@ -1,3 +1,5 @@
+using InstaConnect.Posts.Application.Features.Posts.Queries.GetAll;
+
 namespace InstaConnect.Posts.Application.Tests.Unit.Features.Posts.Handlers.GetAll;
 
 public class GetAllPostsQueryHandlerUnitTests : BasePostApplicationQueryUnitTest
@@ -30,7 +32,7 @@ public class GetAllPostsQueryHandlerUnitTests : BasePostApplicationQueryUnitTest
 	}
 
 	[Fact]
-	public async Task Handle_ShouldCallServiceGetAllAsync_WhenRequestIsValid()
+	public async Task Handle_ShouldCallTheServiceGetAllAsync_WhenRequestIsValid()
 	{
 		// Act
 		await _handler.Handle(_request, CancellationToken);

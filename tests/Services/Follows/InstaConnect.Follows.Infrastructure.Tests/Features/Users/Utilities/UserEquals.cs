@@ -1,5 +1,6 @@
-using InstaConnect.Common.Domain.Features.ValueObjects.Models;
-using InstaConnect.Follows.Domain.Features.Users.Models.Requests;
+using InstaConnect.Follows.Application.Features.Users.Commands.Add;
+using InstaConnect.Follows.Application.Features.Users.Commands.Delete;
+using InstaConnect.Follows.Application.Features.Users.Commands.Update;
 using InstaConnect.Follows.Domain.Features.Users.Models.Responses;
 
 namespace InstaConnect.Follows.Infrastructure.Tests.Features.Users.Utilities;
@@ -51,7 +52,7 @@ public static class UserEquals
 				   user.LastName == response.LastName &&
 				   user.Name.Matches(response.Name) &&
 				   user.Email.Matches(response.Email) &&
-				   user.ProfileImage.Matches(response.ProfileImage) &&
+				   user.ProfileImageUrl.Matches(response.ProfileImageUrl) &&
 				   user.CreatedAtUtc == response.CreatedAtUtc &&
 				   user.UpdatedAtUtc == response.UpdatedAtUtc;
 		}

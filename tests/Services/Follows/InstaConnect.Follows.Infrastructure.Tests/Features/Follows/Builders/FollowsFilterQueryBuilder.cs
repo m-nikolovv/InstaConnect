@@ -1,6 +1,3 @@
-using InstaConnect.Follows.Domain.Features.Follows.Models.Entities;
-using InstaConnect.Follows.Domain.Features.Follows.Models.Requests;
-
 namespace InstaConnect.Follows.Infrastructure.Tests.Features.Follows.Builders;
 
 public class FollowsFilterQueryBuilder

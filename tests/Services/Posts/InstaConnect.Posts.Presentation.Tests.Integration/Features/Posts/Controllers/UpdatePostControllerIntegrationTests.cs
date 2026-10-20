@@ -1,3 +1,7 @@
+using InstaConnect.Posts.Tests.Features.Posts.DataAttributes.Content;
+using InstaConnect.Posts.Tests.Features.Posts.DataAttributes.Title;
+using InstaConnect.Posts.Tests.Features.Users.Builders;
+
 namespace InstaConnect.Posts.Presentation.Tests.Integration.Features.Posts.Controllers;
 
 public class UpdatePostControllerIntegrationTests : BasePostPresentationCommandIntegrationTest
@@ -17,6 +21,7 @@ public class UpdatePostControllerIntegrationTests : BasePostPresentationCommandI
 	protected override async Task OnInitializeAsync()
 	{
 		await ServiceScope.AddAsync(Post, CancellationToken);
+		await ServiceScope.AddRangeAsync(PostImages, CancellationToken);
 	}
 
 	[Theory]
@@ -84,7 +89,7 @@ public class UpdatePostControllerIntegrationTests : BasePostPresentationCommandI
 	}
 
 	[Fact]
-	public async Task UpdateAsync_ShouldThrowPostNotFoundException_WhenIdIsInvalid()
+	public async Task UpdateAsync_ShouldThrowPostNotFoundException_WhenPostNotFound()
 	{
 		// Arrange
 		await ServiceScope.DeleteAsync(Post, CancellationToken);
@@ -94,7 +99,7 @@ public class UpdatePostControllerIntegrationTests : BasePostPresentationCommandI
 	}
 
 	[Fact]
-	public async Task UpdateAsync_ShouldThrowPostForbiddenException_WhenUserIdIsInvalid()
+	public async Task UpdateAsync_ShouldThrowPostForbiddenException_WhenPostForbidden()
 	{
 		// Arrange
 		var user = UserBuilderFactory.Create().Build();
@@ -146,7 +151,7 @@ public class UpdatePostControllerIntegrationTests : BasePostPresentationCommandI
 	}
 
 	[Fact]
-	public async Task UpdateAsync_ShouldReturnOkResponse_WhenRequestIsValid()
+	public async Task UpdateAsync_ShouldReturnResponse_WhenRequestIsValid()
 	{
 		// Act
 		var response = await Controller.UpdateAsync(_request, CancellationToken);
@@ -158,7 +163,7 @@ public class UpdatePostControllerIntegrationTests : BasePostPresentationCommandI
 
 	[Theory]
 	[PostIdDifferentCaseData]
-	public async Task UpdateAsync_ShouldReturnOkResponse_WhenRequestAndIdAreValid(
+	public async Task UpdateAsync_ShouldReturnResponse_WhenRequestAndIdAreValid(
 		IStringTransformer transformer)
 	{
 		// Arrange
@@ -174,7 +179,7 @@ public class UpdatePostControllerIntegrationTests : BasePostPresentationCommandI
 
 	[Theory]
 	[UserIdDifferentCaseData]
-	public async Task UpdateAsync_ShouldReturnOkResponse_WhenRequestAndUserIdAreValid(
+	public async Task UpdateAsync_ShouldReturnResponse_WhenRequestAndUserIdAreValid(
 		IStringTransformer transformer)
 	{
 		// Arrange

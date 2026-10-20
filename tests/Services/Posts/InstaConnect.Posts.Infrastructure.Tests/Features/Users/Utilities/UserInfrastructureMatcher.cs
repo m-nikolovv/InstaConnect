@@ -1,3 +1,7 @@
+using InstaConnect.Posts.Application.Features.Users.Commands.Add;
+using InstaConnect.Posts.Application.Features.Users.Commands.Delete;
+using InstaConnect.Posts.Application.Features.Users.Commands.Update;
+
 namespace InstaConnect.Posts.Infrastructure.Tests.Features.Users.Utilities;
 
 public static class UserInfrastructureMatcher

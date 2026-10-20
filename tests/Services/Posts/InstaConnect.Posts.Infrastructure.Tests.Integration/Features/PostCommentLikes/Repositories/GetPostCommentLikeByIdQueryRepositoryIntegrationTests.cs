@@ -1,24 +1,9 @@
-using InstaConnect.Posts.Domain.Features.PostCommentLikes.Models.ValueObjects;
-using InstaConnect.Posts.Domain.Features.Users.Models.Requests;
-using InstaConnect.Posts.Infrastructure.Tests.Features.Common.Builders;
-using InstaConnect.Posts.Infrastructure.Tests.Features.PostCommentLikes.Assertions;
-using InstaConnect.Posts.Infrastructure.Tests.Integration.Features.PostCommentLikes.Utilities;
 using InstaConnect.Posts.Tests.Features.PostCommentLikes.Builders;
-using InstaConnect.Posts.Tests.Features.PostCommentLikes.Utilities;
-using InstaConnect.Posts.Tests.Features.PostComments.DataAttributes.Id;
-using InstaConnect.Posts.Tests.Features.PostComments.Utilities;
-using InstaConnect.Posts.Tests.Features.PostLikes.Utilities;
-using InstaConnect.Posts.Tests.Features.Posts.DataAttributes.Id;
-using InstaConnect.Posts.Tests.Features.Posts.Utilities;
 
 namespace InstaConnect.Posts.Infrastructure.Tests.Integration.Features.PostCommentLikes.Repositories;
 
 public class GetPostCommentLikeByIdQueryRepositoryIntegrationTests : BasePostCommentLikeInfrastructureQueryIntegrationTest
 {
-	private readonly PostCommentLikeIdBuilderFactory _idBuilderFactory;
-	private readonly PostCommentLikeIdBuilder _idBuilder;
-	private readonly PostCommentLikeId _id;
-
 	private readonly CurrentUserQueryBuilderFactory _currentUserQueryBuilderFactory;
 	private readonly CurrentUserQueryBuilder _currentUserQueryBuilder;
 	private readonly CurrentUserQuery _currentUserQuery;
@@ -26,10 +11,6 @@ public class GetPostCommentLikeByIdQueryRepositoryIntegrationTests : BasePostCom
 	public GetPostCommentLikeByIdQueryRepositoryIntegrationTests(PostsWebApplicationFactory webApplicationFactory)
 		: base(webApplicationFactory)
 	{
-		_idBuilderFactory = new();
-		_idBuilder = _idBuilderFactory.Create(PostCommentLike.Id);
-		_id = _idBuilder.Build();
-
 		_currentUserQueryBuilderFactory = new();
 		_currentUserQueryBuilder = _currentUserQueryBuilderFactory.Create(User);
 		_currentUserQuery = _currentUserQueryBuilder.Build();
@@ -47,7 +28,7 @@ public class GetPostCommentLikeByIdQueryRepositoryIntegrationTests : BasePostCom
 		await ServiceScope.DeleteAsync(PostCommentLike, CancellationToken);
 
 		// Act
-		var response = await Repository.GetByIdAsync(_id, _currentUserQuery, CancellationToken);
+		var response = await Repository.GetByIdAsync(PostCommentLikeId, _currentUserQuery, CancellationToken);
 
 		// Assert
 		response.ShouldBeNull();
@@ -57,10 +38,10 @@ public class GetPostCommentLikeByIdQueryRepositoryIntegrationTests : BasePostCom
 	public async Task GetByIdAsync_ShouldReturnResponse_WhenQueryIsValid()
 	{
 		// Act
-		var response = await Repository.GetByIdAsync(_id, _currentUserQuery, CancellationToken);
+		var response = await Repository.GetByIdAsync(PostCommentLikeId, _currentUserQuery, CancellationToken);
 
 		// Assert
-		response.ShouldSatisfy(_id, _currentUserQuery, PostCommentLike);
+		response.ShouldSatisfy(PostCommentLikeId, _currentUserQuery, PostCommentLike);
 	}
 
 	[Theory]
@@ -69,7 +50,7 @@ public class GetPostCommentLikeByIdQueryRepositoryIntegrationTests : BasePostCom
 		IStringTransformer transformer)
 	{
 		// Arrange
-		var id = _idBuilder.WithId(transformer).Build();
+		var id = PostCommentLikeIdBuilder.WithId(transformer).Build();
 
 		// Act
 		var response = await Repository.GetByIdAsync(id, _currentUserQuery, CancellationToken);
@@ -84,7 +65,7 @@ public class GetPostCommentLikeByIdQueryRepositoryIntegrationTests : BasePostCom
 		IStringTransformer transformer)
 	{
 		// Arrange
-		var id = _idBuilder.WithCommentId(transformer).Build();
+		var id = PostCommentLikeIdBuilder.WithCommentId(transformer).Build();
 
 		// Act
 		var response = await Repository.GetByIdAsync(id, _currentUserQuery, CancellationToken);
@@ -99,7 +80,7 @@ public class GetPostCommentLikeByIdQueryRepositoryIntegrationTests : BasePostCom
 		IStringTransformer transformer)
 	{
 		// Arrange
-		var id = _idBuilder.WithUserId(transformer).Build();
+		var id = PostCommentLikeIdBuilder.WithUserId(transformer).Build();
 
 		// Act
 		var response = await Repository.GetByIdAsync(id, _currentUserQuery, CancellationToken);
@@ -119,9 +100,9 @@ public class GetPostCommentLikeByIdQueryRepositoryIntegrationTests : BasePostCom
 		var currentUserQuery = _currentUserQueryBuilder.WithCurrentUserId(transformer).Build();
 
 		// Act
-		var response = await Repository.GetByIdAsync(_id, currentUserQuery, CancellationToken);
+		var response = await Repository.GetByIdAsync(PostCommentLikeId, currentUserQuery, CancellationToken);
 
 		// Assert
-		response.ShouldSatisfy(_id, currentUserQuery, PostCommentLike);
+		response.ShouldSatisfy(PostCommentLikeId, currentUserQuery, PostCommentLike);
 	}
 }
