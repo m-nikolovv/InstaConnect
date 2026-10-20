@@ -186,7 +186,7 @@ public class RotateRefreshTokenControllerIntegrationTests : BaseRefreshTokenPres
 
 	[Theory]
 	[UserIdDifferentCaseData]
-	public async Task RotateAsync_ShouldRotateRefreshToken_WhenRequestAndIdAreValid(
+	public async Task RotateAsync_ShouldAddRefreshToken_WhenRequestAndIdAreValid(
 		IStringTransformer transformer)
 	{
 		// Arrange
@@ -202,7 +202,7 @@ public class RotateRefreshTokenControllerIntegrationTests : BaseRefreshTokenPres
 
 	[Theory]
 	[RefreshTokenValueDifferentCaseData]
-	public async Task RotateAsync_ShouldRotateRefreshToken_WhenRequestAndValueAreValid(
+	public async Task RotateAsync_ShouldAddRefreshToken_WhenRequestAndValueAreValid(
 		IStringTransformer transformer)
 	{
 		// Arrange

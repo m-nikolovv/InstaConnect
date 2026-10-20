@@ -141,7 +141,7 @@ public class IssueRefreshTokenControllerIntegrationTests : BaseRefreshTokenPrese
 
 	[Theory]
 	[UserNameDifferentCaseData]
-	public async Task IssueAsync_ShouldIssueRefreshToken_WhenRequestAndNameAreValid(
+	public async Task IssueAsync_ShouldAddRefreshToken_WhenRequestAndNameAreValid(
 		IStringTransformer transformer)
 	{
 		// Arrange

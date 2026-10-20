@@ -227,7 +227,7 @@ public class IssueRefreshTokenFunctionalTests : BaseRefreshTokenPresentationComm
 
 	[Theory]
 	[UserNameDifferentCaseData]
-	public async Task IssueAsync_ShouldIssueRefreshToken_WhenRequestAndNameAreValid(IStringTransformer transformer)
+	public async Task IssueAsync_ShouldAddRefreshToken_WhenRequestAndNameAreValid(IStringTransformer transformer)
 	{
 		// Arrange
 		var request = _requestBuilder.WithName(transformer).Build();
