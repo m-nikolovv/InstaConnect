@@ -42,7 +42,7 @@ public class GetAllChatsQueryServiceIntegrationTests : BaseChatDomainQueryIntegr
 	}
 
 	[Fact]
-	public async Task GetAllAsync_ShouldThrowUserNotFoundException_WhenUserNotFound()
+	public async Task GetAllAsync_ShouldThrowParticipantOneNotFoundException_WhenParticipantOneNotFound()
 	{
 		// Arrange
 		await ServiceScope.DeleteAsync(ParticipantOne, CancellationToken);

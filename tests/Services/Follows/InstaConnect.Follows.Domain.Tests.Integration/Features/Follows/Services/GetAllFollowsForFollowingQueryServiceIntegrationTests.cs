@@ -36,7 +36,7 @@ public class GetAllFollowsForFollowingQueryServiceIntegrationTests : BaseFollowD
 	}
 
 	[Fact]
-	public async Task GetAllForFollowingAsync_ShouldThrowUserNotFoundException_WhenUserNotFound()
+	public async Task GetAllForFollowingAsync_ShouldThrowFollowingNotFoundException_WhenFollowingNotFound()
 	{
 		// Arrange
 		await ServiceScope.DeleteAsync(Following, CancellationToken);

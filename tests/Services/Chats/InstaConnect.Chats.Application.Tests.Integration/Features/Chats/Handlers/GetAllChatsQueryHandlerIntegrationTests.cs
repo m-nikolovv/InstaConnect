@@ -113,6 +113,16 @@ public class GetAllChatsQueryHandlerIntegrationTests : BaseChatApplicationQueryI
 	}
 
 	[Fact]
+	public async Task SendAsync_ShouldThrowParticipantOneNotFoundException_WhenParticipantOneNotFound()
+	{
+		// Arrange
+		await ServiceScope.DeleteAsync(ParticipantOne, CancellationToken);
+
+		// Assert
+		await Sender.ShouldThrowParticipantOneNotFoundExceptionAsync(_request, CancellationToken);
+	}
+
+	[Fact]
 	public async Task SendAsync_ShouldReturnResponse_WhenRequestIsValid()
 	{
 		// Act

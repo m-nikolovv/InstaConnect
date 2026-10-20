@@ -30,7 +30,7 @@ public class AddChatCommandServiceUnitTests : BaseChatDomainCommandUnitTest
 	}
 
 	[Fact]
-	public async Task AddAsync_ShouldThrowUserNotFoundException_WhenUserNotFoundAndParticipantOneIdIsInvalid()
+	public async Task AddAsync_ShouldThrowParticipantOneNotFoundException_WhenParticipantOneNotFound()
 	{
 		// Arrange
 		UserRepository.RemoveGetParticipantOneByIdAsync(_command, ParticipantOne, CancellationToken);
@@ -40,7 +40,7 @@ public class AddChatCommandServiceUnitTests : BaseChatDomainCommandUnitTest
 	}
 
 	[Fact]
-	public async Task AddAsync_ShouldThrowUserNotFoundException_WhenUserNotFoundAndParticipantTwoIdIsInvalid()
+	public async Task AddAsync_ShouldThrowParticipantTwoNotFoundException_WhenParticipantTwoNotFound()
 	{
 		// Arrange
 		UserRepository.RemoveGetParticipantTwoByIdAsync(_command, ParticipantTwo, CancellationToken);

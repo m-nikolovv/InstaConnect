@@ -7,7 +7,7 @@ public static class ChatProblemDetailsAssertions
 	extension(ApplicationProblemDetails problemDetails)
 	{
 		public void ShouldSatisfyParticipantOneNotFound(
-		AddChatApiRequest request)
+			AddChatApiRequest request)
 		{
 			problemDetails.ShouldSatisfyUserNotFound(
 				request,
@@ -15,7 +15,7 @@ public static class ChatProblemDetailsAssertions
 		}
 
 		public void ShouldSatisfyParticipantOneNotFound(
-		GetAllChatsApiRequest request)
+			GetAllChatsApiRequest request)
 		{
 			problemDetails.ShouldSatisfyUserNotFound(
 				request,
@@ -23,7 +23,7 @@ public static class ChatProblemDetailsAssertions
 		}
 
 		public void ShouldSatisfyParticipantTwoNotFound(
-		AddChatApiRequest request)
+			AddChatApiRequest request)
 		{
 			problemDetails.ShouldSatisfyUserNotFound(
 				request,

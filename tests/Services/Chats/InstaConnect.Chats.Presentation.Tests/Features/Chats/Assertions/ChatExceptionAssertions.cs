@@ -16,6 +16,18 @@ public static class ChatExceptionAssertions
 				cancellationToken);
 		}
 
+		public async Task ShouldThrowParticipantOneNotFoundExceptionAsync(
+			GetAllChatsApiRequest request,
+			CancellationToken cancellationToken)
+		{
+			var func = () => controller.GetAllAsync(request, cancellationToken);
+
+			await func.ShouldThrowUserNotFoundExceptionAsync(
+				request,
+				r => r.CurrentUserId,
+				cancellationToken);
+		}
+
 		public async Task ShouldThrowParticipantTwoNotFoundExceptionAsync(
 			AddChatApiRequest request,
 			CancellationToken cancellationToken)

@@ -30,7 +30,7 @@ public class AddFollowCommandServiceUnitTests : BaseFollowDomainCommandUnitTest
 	}
 
 	[Fact]
-	public async Task AddAsync_ShouldThrowUserNotFoundException_WhenUserNotFoundAndFollowerIdIsInvalid()
+	public async Task AddAsync_ShouldThrowFollowerNotFoundException_WhenFollowerNotFound()
 	{
 		// Arrange
 		UserRepository.RemoveGetFollowerByIdAsync(_command, Follower, CancellationToken);
@@ -40,7 +40,7 @@ public class AddFollowCommandServiceUnitTests : BaseFollowDomainCommandUnitTest
 	}
 
 	[Fact]
-	public async Task AddAsync_ShouldThrowUserNotFoundException_WhenUserNotFoundAndFollowingIdIsInvalid()
+	public async Task AddAsync_ShouldThrowFollowingNotFoundException_WhenFollowingNotFound()
 	{
 		// Arrange
 		UserRepository.RemoveGetFollowingByIdAsync(_command, Following, CancellationToken);

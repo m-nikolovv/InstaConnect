@@ -25,7 +25,7 @@ public class AddFollowCommandServiceIntegrationTests : BaseFollowDomainCommandIn
 	}
 
 	[Fact]
-	public async Task AddAsync_ShouldThrowUserNotFoundException_WhenUserNotFoundAndFollowerIdIsInvalid()
+	public async Task AddAsync_ShouldThrowFollowerNotFoundException_WhenFollowerNotFound()
 	{
 		// Arrange
 		await ServiceScope.DeleteAsync(Follower, CancellationToken);
@@ -35,7 +35,7 @@ public class AddFollowCommandServiceIntegrationTests : BaseFollowDomainCommandIn
 	}
 
 	[Fact]
-	public async Task AddAsync_ShouldThrowUserNotFoundException_WhenUserNotFoundAndFollowingIdIsInvalid()
+	public async Task AddAsync_ShouldThrowFollowingNotFoundException_WhenFollowingNotFound()
 	{
 		// Arrange
 		await ServiceScope.DeleteAsync(Following, CancellationToken);

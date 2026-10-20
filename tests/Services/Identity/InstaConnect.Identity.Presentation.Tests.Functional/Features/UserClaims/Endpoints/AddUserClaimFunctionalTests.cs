@@ -126,7 +126,7 @@ public class AddUserClaimFunctionalTests : BaseUserClaimPresentationCommandFunct
 	}
 
 	[Fact]
-	public async Task AddAsync_ShouldHaveBadRequestStatusCode_WhenUserClaimAlreadyTaken()
+	public async Task AddAsync_ShouldHaveBadRequestStatusCode_WhenUserClaimAlreadyExists()
 	{
 		// Arrange
 		await ServiceScope.AddAsync(UserClaim, CancellationToken);
@@ -140,7 +140,7 @@ public class AddUserClaimFunctionalTests : BaseUserClaimPresentationCommandFunct
 
 	[Theory]
 	[UserIdDifferentCaseData]
-	public async Task AddAsync_ShouldHaveBadRequestStatusCode_WhenUserClaimAlreadyTakenAndIdIsInvalid(
+	public async Task AddAsync_ShouldHaveBadRequestStatusCode_WhenUserClaimAlreadyExistsAndIdIsInvalid(
 		IStringTransformer transformer)
 	{
 		// Arrange
@@ -155,7 +155,7 @@ public class AddUserClaimFunctionalTests : BaseUserClaimPresentationCommandFunct
 	}
 
 	[Fact]
-	public async Task AddAsync_ShouldHaveUserClaimAlreadyTakenProblemDetails_WhenUserClaimAlreadyTaken()
+	public async Task AddAsync_ShouldHaveUserClaimAlreadyExistsProblemDetails_WhenUserClaimAlreadyExists()
 	{
 		// Arrange
 		await ServiceScope.AddAsync(UserClaim, CancellationToken);
@@ -169,7 +169,7 @@ public class AddUserClaimFunctionalTests : BaseUserClaimPresentationCommandFunct
 
 	[Theory]
 	[UserIdDifferentCaseData]
-	public async Task AddAsync_ShouldHaveUserClaimAlreadyTakenProblemDetails_WhenUserClaimAlreadyTakenAndIdIsInvalid(
+	public async Task AddAsync_ShouldHaveUserClaimAlreadyExistsProblemDetails_WhenUserClaimAlreadyExistsAndIdIsInvalid(
 		IStringTransformer transformer)
 	{
 		// Arrange

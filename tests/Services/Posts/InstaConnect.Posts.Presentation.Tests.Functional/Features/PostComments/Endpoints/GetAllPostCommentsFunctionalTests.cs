@@ -242,7 +242,7 @@ public class GetAllPostCommentsFunctionalTests : BasePostCommentPresentationQuer
 	}
 
 	[Fact]
-	public async Task GetAllAsync_ShouldHaveNotFoundStatusCode_WhenIdIsInvalid()
+	public async Task GetAllAsync_ShouldHaveNotFoundStatusCode_WhenPostNotFound()
 	{
 		// Arrange
 		await ServiceScope.DeleteAsync(Post, CancellationToken);

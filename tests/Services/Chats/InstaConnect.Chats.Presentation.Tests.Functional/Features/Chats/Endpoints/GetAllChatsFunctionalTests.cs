@@ -228,6 +228,32 @@ public class GetAllChatsFunctionalTests : BaseChatPresentationQueryFunctionalTes
 	}
 
 	[Fact]
+	public async Task GetAllAsync_ShouldHaveNotFoundStatusCode_WhenParticipantOneNotFound()
+	{
+		// Arrange
+		await ServiceScope.DeleteAsync(ParticipantOne, CancellationToken);
+
+		// Act
+		var response = await ApiClient.GetAllStatusCodeAsync(_request, CancellationToken);
+
+		// Assert
+		response.ShouldBeNotFound();
+	}
+
+	[Fact]
+	public async Task GetAllAsync_ShouldHaveParticipantOneNotFoundProblemDetails_WhenParticipantOneNotFound()
+	{
+		// Arrange
+		await ServiceScope.DeleteAsync(ParticipantOne, CancellationToken);
+
+		// Act
+		var response = await ApiClient.GetAllProblemDetailsAsync(_request, CancellationToken);
+
+		// Assert
+		response.ShouldSatisfyParticipantOneNotFound(_request);
+	}
+
+	[Fact]
 	public async Task GetAllAsync_ShouldHaveOkStatusCode_WhenRequestIsValid()
 	{
 		// Act

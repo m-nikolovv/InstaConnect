@@ -186,7 +186,7 @@ public class DeleteCurrentRefreshTokenFunctionalTests : BaseRefreshTokenPresenta
 	}
 
 	[Fact]
-	public async Task DeleteCurrentAsync_ShouldDeleteCurrentRefreshToken_WhenRequestIsValid()
+	public async Task DeleteCurrentAsync_ShouldDeleteRefreshToken_WhenRequestIsValid()
 	{
 		// Act
 		await RefreshTokenApiClient.DeleteCurrentAsync(_request, CancellationToken);
@@ -198,7 +198,7 @@ public class DeleteCurrentRefreshTokenFunctionalTests : BaseRefreshTokenPresenta
 
 	[Theory]
 	[UserIdDifferentCaseData]
-	public async Task DeleteCurrentAsync_ShouldDeleteCurrentRefreshToken_WhenRequestAndIdAreValid(
+	public async Task DeleteCurrentAsync_ShouldDeleteRefreshToken_WhenRequestAndIdAreValid(
 		IStringTransformer transformer)
 	{
 		// Arrange
@@ -214,7 +214,7 @@ public class DeleteCurrentRefreshTokenFunctionalTests : BaseRefreshTokenPresenta
 
 	[Theory]
 	[RefreshTokenValueDifferentCaseData]
-	public async Task DeleteCurrentAsync_ShouldDeleteCurrentRefreshToken_WhenRequestAndValueAreValid(
+	public async Task DeleteCurrentAsync_ShouldDeleteRefreshToken_WhenRequestAndValueAreValid(
 		IStringTransformer transformer)
 	{
 		// Arrange

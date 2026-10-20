@@ -233,7 +233,7 @@ public class GetAllChatMessagesFunctionalTests : BaseChatMessagePresentationQuer
 	}
 
 	[Fact]
-	public async Task GetAllAsync_ShouldHaveNotFoundStatusCode_WhenIdIsInvalid()
+	public async Task GetAllAsync_ShouldHaveNotFoundStatusCode_WhenChatNotFound()
 	{
 		// Arrange
 		await ServiceScope.DeleteAsync(Chat, CancellationToken);

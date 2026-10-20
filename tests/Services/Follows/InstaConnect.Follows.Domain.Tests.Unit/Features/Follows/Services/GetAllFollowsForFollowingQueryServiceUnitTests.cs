@@ -29,7 +29,7 @@ public class GetAllFollowsForFollowingQueryServiceUnitTests : BaseFollowDomainQu
 	}
 
 	[Fact]
-	public async Task GetAllForFollowingAsync_ShouldThrowUserNotFoundException_WhenUserNotFound()
+	public async Task GetAllForFollowingAsync_ShouldThrowFollowingNotFoundException_WhenFollowingNotFound()
 	{
 		// Arrange
 		UserRepository.RemoveGetByIdAsync(_query, Following, CancellationToken);

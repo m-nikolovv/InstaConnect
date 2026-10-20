@@ -59,7 +59,7 @@ public class AddChatCommandHandlerIntegrationTests : BaseChatApplicationCommandI
 		await ServiceScope.DeleteAsync(ParticipantOne, CancellationToken);
 
 		// Assert
-		await Sender.ShouldThrowParticipantOneNotFoundExceptionForAsync(_request, CancellationToken);
+		await Sender.ShouldThrowParticipantOneNotFoundExceptionAsync(_request, CancellationToken);
 	}
 
 	[Fact]
@@ -69,7 +69,7 @@ public class AddChatCommandHandlerIntegrationTests : BaseChatApplicationCommandI
 		await ServiceScope.DeleteAsync(ParticipantTwo, CancellationToken);
 
 		// Assert
-		await Sender.ShouldThrowParticipantTwoNotFoundExceptionForAsync(_request, CancellationToken);
+		await Sender.ShouldThrowParticipantTwoNotFoundExceptionAsync(_request, CancellationToken);
 	}
 
 	[Fact]

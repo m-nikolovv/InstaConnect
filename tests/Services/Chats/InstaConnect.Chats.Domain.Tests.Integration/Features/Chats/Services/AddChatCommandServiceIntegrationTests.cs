@@ -31,7 +31,7 @@ public class AddChatCommandServiceIntegrationTests : BaseChatDomainCommandIntegr
 	}
 
 	[Fact]
-	public async Task AddAsync_ShouldThrowUserNotFoundException_WhenUserNotFoundAndParticipantOneIdIsInvalid()
+	public async Task AddAsync_ShouldThrowParticipantOneNotFoundException_WhenParticipantOneNotFound()
 	{
 		// Arrange
 		await ServiceScope.DeleteAsync(ParticipantOne, CancellationToken);
@@ -41,7 +41,7 @@ public class AddChatCommandServiceIntegrationTests : BaseChatDomainCommandIntegr
 	}
 
 	[Fact]
-	public async Task AddAsync_ShouldThrowUserNotFoundException_WhenUserNotFoundAndParticipantTwoIdIsInvalid()
+	public async Task AddAsync_ShouldThrowParticipantTwoNotFoundException_WhenParticipantTwoNotFound()
 	{
 		// Arrange
 		await ServiceScope.DeleteAsync(ParticipantTwo, CancellationToken);

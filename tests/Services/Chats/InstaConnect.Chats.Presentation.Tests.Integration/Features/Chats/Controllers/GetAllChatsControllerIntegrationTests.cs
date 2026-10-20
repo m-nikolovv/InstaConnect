@@ -113,6 +113,16 @@ public class GetAllChatsControllerIntegrationTests : BaseChatPresentationQueryIn
 	}
 
 	[Fact]
+	public async Task GetAllAsync_ShouldThrowParticipantOneNotFoundException_WhenParticipantOneNotFound()
+	{
+		// Arrange
+		await ServiceScope.DeleteAsync(ParticipantOne, CancellationToken);
+
+		// Assert
+		await Controller.ShouldThrowParticipantOneNotFoundExceptionAsync(_request, CancellationToken);
+	}
+
+	[Fact]
 	public async Task GetAllAsync_ShouldReturnOkStatusCode_WhenRequestIsValid()
 	{
 		// Act
