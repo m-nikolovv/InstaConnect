@@ -31,7 +31,7 @@ public static class UserClaimEquals
 		{
 			return entity != null &&
 				   r.Id.EqualsOrdinalIgnoreCase(request.Id) &&
-				   r.Claim == request.Claim &&
+				   r.Claim == request.Claim.GetName() &&
 				   r.User.Matches(request, entity.User) &&
 				   r.CreatedAtUtc == entity.CreatedAtUtc;
 		}
@@ -40,7 +40,7 @@ public static class UserClaimEquals
 		{
 			return entity != null &&
 				   r.Id.EqualsOrdinalIgnoreCase(request.Id) &&
-				   r.Claim == request.Claim &&
+				   r.Claim == request.Claim.GetName() &&
 				   r.User.Matches(request, entity.User) &&
 				   r.CreatedAtUtc == entity.CreatedAtUtc;
 		}

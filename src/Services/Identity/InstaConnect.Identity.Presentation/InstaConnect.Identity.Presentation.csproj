@@ -25,7 +25,7 @@
     <Using Include="InstaConnect.Common.Application.Features.Requests.Abstractions" />
     <Using Include="InstaConnect.Common.Domain.Features.Common.Extensions" />
     <Using Include="InstaConnect.Common.Domain.Features.Mappers.Abstractions" />
-    <Using Include="InstaConnect.Common.Events.Features.AccessTokens.Models" />
+    <Using Include="InstaConnect.Common.Domain.Features.AccessTokens.Models" />
     <Using Include="InstaConnect.Common.Presentation.Features.Controllers.Utilities" />
     <Using Include="Microsoft.AspNetCore.RateLimiting" />
   </ItemGroup>

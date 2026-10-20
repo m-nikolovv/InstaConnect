@@ -9,7 +9,7 @@
 
   <ItemGroup Label="Common">
     <Using Include="InstaConnect.Common.Domain.Features.Common.Extensions" />
-    <Using Include="InstaConnect.Common.Events.Features.AccessTokens.Models" />
+    <Using Include="InstaConnect.Common.Domain.Features.AccessTokens.Models" />
     <Using Include="InstaConnect.Common.Tests.Features.Assertions" />
     <Using Include="InstaConnect.Common.Tests.Features.DataAttributes.Ints.TooLarge" />
     <Using Include="InstaConnect.Common.Tests.Features.DataAttributes.Ints.TooSmall" />
