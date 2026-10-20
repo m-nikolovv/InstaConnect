@@ -222,7 +222,7 @@ public class GetPostLikeByIdFunctionalTests : BasePostLikePresentationQueryFunct
 	}
 
 	[Fact]
-	public async Task GetByIdAsync_ShouldHaveResponse_WhenRequestIsValid()
+	public async Task GetByIdAsync_ShouldReturnResponse_WhenRequestIsValid()
 	{
 		// Act
 		var response = await LikeApiClient.GetByIdAsync(_request, CancellationToken);
@@ -233,7 +233,7 @@ public class GetPostLikeByIdFunctionalTests : BasePostLikePresentationQueryFunct
 
 	[Theory]
 	[PostIdDifferentCaseData]
-	public async Task GetByIdAsync_ShouldHaveResponse_WhenRequestAndIdAreValid(
+	public async Task GetByIdAsync_ShouldReturnResponse_WhenRequestAndIdAreValid(
 		IStringTransformer transformer)
 	{
 		// Arrange
@@ -248,7 +248,7 @@ public class GetPostLikeByIdFunctionalTests : BasePostLikePresentationQueryFunct
 
 	[Theory]
 	[UserIdDifferentCaseData]
-	public async Task GetByIdAsync_ShouldHaveResponse_WhenRequestAndUserIdAreValid(
+	public async Task GetByIdAsync_ShouldReturnResponse_WhenRequestAndUserIdAreValid(
 		IStringTransformer transformer)
 	{
 		// Arrange

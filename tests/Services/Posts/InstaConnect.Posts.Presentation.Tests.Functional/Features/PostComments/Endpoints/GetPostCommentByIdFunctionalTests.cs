@@ -222,7 +222,7 @@ public class GetPostCommentByIdFunctionalTests : BasePostCommentPresentationQuer
 	}
 
 	[Fact]
-	public async Task GetByIdAsync_ShouldHaveResponse_WhenRequestIsValid()
+	public async Task GetByIdAsync_ShouldReturnResponse_WhenRequestIsValid()
 	{
 		// Act
 		var response = await CommentApiClient.GetByIdAsync(_request, CancellationToken);
@@ -233,7 +233,7 @@ public class GetPostCommentByIdFunctionalTests : BasePostCommentPresentationQuer
 
 	[Theory]
 	[PostIdDifferentCaseData]
-	public async Task GetByIdAsync_ShouldHaveResponse_WhenRequestAndIdAreValid(
+	public async Task GetByIdAsync_ShouldReturnResponse_WhenRequestAndIdAreValid(
 		IStringTransformer transformer)
 	{
 		// Arrange
@@ -248,7 +248,7 @@ public class GetPostCommentByIdFunctionalTests : BasePostCommentPresentationQuer
 
 	[Theory]
 	[PostCommentIdDifferentCaseData]
-	public async Task GetByIdAsync_ShouldHaveResponse_WhenRequestAndCommentIdAreValid(
+	public async Task GetByIdAsync_ShouldReturnResponse_WhenRequestAndCommentIdAreValid(
 		IStringTransformer transformer)
 	{
 		// Arrange

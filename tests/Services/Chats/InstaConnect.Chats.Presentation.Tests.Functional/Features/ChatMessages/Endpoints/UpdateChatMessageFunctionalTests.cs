@@ -298,7 +298,7 @@ public class UpdateChatMessageFunctionalTests : BaseChatMessagePresentationComma
 	}
 
 	[Fact]
-	public async Task UpdateAsync_ShouldHaveResponse_WhenRequestIsValid()
+	public async Task UpdateAsync_ShouldReturnResponse_WhenRequestIsValid()
 	{
 		// Act
 		var response = await ApiClient.UpdateAsync(_request, CancellationToken);
@@ -341,7 +341,7 @@ public class UpdateChatMessageFunctionalTests : BaseChatMessagePresentationComma
 
 	[Theory]
 	[ChatMessageIdDifferentCaseData]
-	public async Task UpdateAsync_ShouldHaveResponse_WhenRequestAndMessageIdAreValid(
+	public async Task UpdateAsync_ShouldReturnResponse_WhenRequestAndMessageIdAreValid(
 		IStringTransformer transformer)
 	{
 		// Arrange
@@ -538,7 +538,7 @@ public class UpdateChatMessageFunctionalTests : BaseChatMessagePresentationComma
 	}
 
 	[Fact]
-	public async Task UpdateAsync_ShouldHaveInvertedResponse_WhenRequestIsValid()
+	public async Task UpdateAsync_ShouldReturnInvertedResponse_WhenRequestIsValid()
 	{
 		// Arrange
 		await ServiceScope.UpdateAsync(InvertedChatMessage, CancellationToken);
@@ -586,7 +586,7 @@ public class UpdateChatMessageFunctionalTests : BaseChatMessagePresentationComma
 
 	[Theory]
 	[ChatMessageIdDifferentCaseData]
-	public async Task UpdateAsync_ShouldHaveInvertedResponse_WhenRequestAndMessageIdAreValid(
+	public async Task UpdateAsync_ShouldReturnInvertedResponse_WhenRequestAndMessageIdAreValid(
 		IStringTransformer transformer)
 	{
 		// Arrange

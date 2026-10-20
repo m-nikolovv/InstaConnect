@@ -14,7 +14,7 @@ public class DeleteRangeForgotPasswordTokensCommandRepositoryUnitTests : BaseFor
 	}
 
 	[Fact]
-	public async Task DeleteRangeAsync_ShouldCallTheCollectionDeleteRangeAsync_WhenRequestIsValid()
+	public async Task DeleteRangeAsync_ShouldCallTheCollectionDeleteRangeAsync_WhenCommandIsValid()
 	{
 		// Act
 		await _repository.DeleteRangeAsync(ForgotPasswordTokens, CancellationToken);

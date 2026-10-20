@@ -41,7 +41,7 @@ public class GetAllChatsFunctionalTests : BaseChatPresentationQueryFunctionalTes
 
 	[Theory]
 	[UserNameTooLongData]
-	public async Task GetAllAsync_ShouldHaveBadRequestStatusCode_WhenUserNameIsInvalid(
+	public async Task GetAllAsync_ShouldHaveBadRequestStatusCode_WhenParticipantTwoNameIsInvalid(
 		IStringTransformer transformer)
 	{
 		// Arrange

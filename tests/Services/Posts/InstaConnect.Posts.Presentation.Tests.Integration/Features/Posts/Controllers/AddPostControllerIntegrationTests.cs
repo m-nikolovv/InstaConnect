@@ -116,7 +116,7 @@ public class AddPostControllerIntegrationTests : BasePostPresentationCommandInte
 	}
 
 	[Fact]
-	public async Task AddAsync_ShouldReturnOkResponse_WhenRequestIsValid()
+	public async Task AddAsync_ShouldReturnResponse_WhenRequestIsValid()
 	{
 		// Act
 		var response = await Controller.AddAsync(_request, CancellationToken);
@@ -128,7 +128,7 @@ public class AddPostControllerIntegrationTests : BasePostPresentationCommandInte
 
 	[Theory]
 	[UserIdDifferentCaseData]
-	public async Task AddAsync_ShouldReturnOkResponse_WhenRequestAndUserIdAreValid(
+	public async Task AddAsync_ShouldReturnResponse_WhenRequestAndUserIdAreValid(
 		IStringTransformer transformer)
 	{
 		// Arrange
@@ -144,7 +144,7 @@ public class AddPostControllerIntegrationTests : BasePostPresentationCommandInte
 
 	[Theory]
 	[PostImagesEmptyData]
-	public async Task AddAsync_ShouldReturnOkResponse_WhenRequestAndImagesAreValid(
+	public async Task AddAsync_ShouldReturnResponse_WhenRequestAndImagesAreValid(
 		IFormFileCollectionTransformer transformer)
 	{
 		// Arrange

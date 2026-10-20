@@ -13,7 +13,7 @@ public class AddForgotPasswordTokenCommandRepositoryUnitTests : BaseForgotPasswo
 	}
 
 	[Fact]
-	public async Task AddAsync_ShouldCallTheCollectionAddAsync_WhenRequestIsValid()
+	public async Task AddAsync_ShouldCallTheCollectionAddAsync_WhenCommandIsValid()
 	{
 		// Act
 		await _repository.AddAsync(ForgotPasswordToken, CancellationToken);

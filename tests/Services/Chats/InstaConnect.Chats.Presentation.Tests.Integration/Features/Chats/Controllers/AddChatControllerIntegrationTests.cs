@@ -185,7 +185,7 @@ public class AddChatControllerIntegrationTests : BaseChatPresentationCommandInte
 	}
 
 	[Fact]
-	public async Task AddAsync_ShouldReturnOkResponse_WhenRequestIsValid()
+	public async Task AddAsync_ShouldReturnResponse_WhenRequestIsValid()
 	{
 		// Act
 		var response = await Controller.AddAsync(_request, CancellationToken);
@@ -197,7 +197,7 @@ public class AddChatControllerIntegrationTests : BaseChatPresentationCommandInte
 
 	[Theory]
 	[UserIdDifferentCaseData]
-	public async Task AddAsync_ShouldReturnOkResponse_WhenRequestAndParticipantOneIdAreValid(
+	public async Task AddAsync_ShouldReturnResponse_WhenRequestAndParticipantOneIdAreValid(
 		IStringTransformer transformer)
 	{
 		// Arrange
@@ -213,7 +213,7 @@ public class AddChatControllerIntegrationTests : BaseChatPresentationCommandInte
 
 	[Theory]
 	[UserIdDifferentCaseData]
-	public async Task AddAsync_ShouldReturnOkResponse_WhenRequestAndParticipantTwoIdAreValid(
+	public async Task AddAsync_ShouldReturnResponse_WhenRequestAndParticipantTwoIdAreValid(
 		IStringTransformer transformer)
 	{
 		// Arrange

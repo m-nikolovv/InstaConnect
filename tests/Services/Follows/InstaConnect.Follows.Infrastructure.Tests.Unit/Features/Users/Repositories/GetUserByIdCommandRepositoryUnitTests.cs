@@ -22,7 +22,7 @@ public class GetUserByIdCommandRepositoryUnitTests : BaseUserInfrastructureComma
 	}
 
 	[Fact]
-	public async Task GetByIdAsync_ShouldReturnResponse_WhenRequestIsValid()
+	public async Task GetByIdAsync_ShouldReturnResponse_WhenCommandIsValid()
 	{
 		// Act
 		var response = await _repository.GetByIdAsync(UserId, _include, CancellationToken);
@@ -32,7 +32,7 @@ public class GetUserByIdCommandRepositoryUnitTests : BaseUserInfrastructureComma
 	}
 
 	[Fact]
-	public async Task GetByIdAsync_ShouldCallTheCollectionAggregateFluent_WhenRequestIsValid()
+	public async Task GetByIdAsync_ShouldCallTheCollectionAggregateFluent_WhenCommandIsValid()
 	{
 		// Act
 		await _repository.GetByIdAsync(UserId, _include, CancellationToken);
@@ -42,7 +42,7 @@ public class GetUserByIdCommandRepositoryUnitTests : BaseUserInfrastructureComma
 	}
 
 	[Fact]
-	public async Task GetByIdAsync_ShouldCallTheFluentApplyIncludes_WhenRequestIsValid()
+	public async Task GetByIdAsync_ShouldCallTheFluentApplyIncludes_WhenCommandIsValid()
 	{
 		// Act
 		await _repository.GetByIdAsync(UserId, _include, CancellationToken);
@@ -52,7 +52,7 @@ public class GetUserByIdCommandRepositoryUnitTests : BaseUserInfrastructureComma
 	}
 
 	[Fact]
-	public async Task GetByIdAsync_ShouldCallTheFluentMatch_WhenRequestIsValid()
+	public async Task GetByIdAsync_ShouldCallTheFluentMatch_WhenCommandIsValid()
 	{
 		// Act
 		await _repository.GetByIdAsync(UserId, _include, CancellationToken);
@@ -62,7 +62,7 @@ public class GetUserByIdCommandRepositoryUnitTests : BaseUserInfrastructureComma
 	}
 
 	[Fact]
-	public async Task GetByIdAsync_ShouldCallTheFluentFirstOrDefaultAsync_WhenRequestIsValid()
+	public async Task GetByIdAsync_ShouldCallTheFluentFirstOrDefaultAsync_WhenCommandIsValid()
 	{
 		// Act
 		await _repository.GetByIdAsync(UserId, _include, CancellationToken);

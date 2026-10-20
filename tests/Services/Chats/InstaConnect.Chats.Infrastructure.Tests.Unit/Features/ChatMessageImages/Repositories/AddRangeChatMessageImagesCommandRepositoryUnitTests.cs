@@ -13,7 +13,7 @@ public class AddRangeChatMessageImagesCommandRepositoryUnitTests : BaseChatMessa
 	}
 
 	[Fact]
-	public async Task AddRangeAsync_ShouldCallTheCollectionAddRangeAsync_WhenRequestIsValid()
+	public async Task AddRangeAsync_ShouldCallTheCollectionAddRangeAsync_WhenCommandIsValid()
 	{
 		// Act
 		await _repository.AddRangeAsync(ChatMessageImages, CancellationToken);

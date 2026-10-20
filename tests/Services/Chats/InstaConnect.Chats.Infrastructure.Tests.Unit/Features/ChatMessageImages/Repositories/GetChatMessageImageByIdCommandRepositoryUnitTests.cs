@@ -19,7 +19,7 @@ public class GetChatMessageImageByIdCommandRepositoryUnitTests : BaseChatMessage
 	}
 
 	[Fact]
-	public async Task GetByIdAsync_ShouldReturnResponse_WhenRequestIsValid()
+	public async Task GetByIdAsync_ShouldReturnResponse_WhenCommandIsValid()
 	{
 		// Act
 		var response = await _repository.GetByIdAsync(ChatMessageImageId, CancellationToken);
@@ -29,7 +29,7 @@ public class GetChatMessageImageByIdCommandRepositoryUnitTests : BaseChatMessage
 	}
 
 	[Fact]
-	public async Task GetByIdAsync_ShouldCallTheCollectionAggregateFluent_WhenRequestIsValid()
+	public async Task GetByIdAsync_ShouldCallTheCollectionAggregateFluent_WhenCommandIsValid()
 	{
 		// Act
 		await _repository.GetByIdAsync(ChatMessageImageId, CancellationToken);
@@ -39,7 +39,7 @@ public class GetChatMessageImageByIdCommandRepositoryUnitTests : BaseChatMessage
 	}
 
 	[Fact]
-	public async Task GetByIdAsync_ShouldCallTheFluentMatch_WhenRequestIsValid()
+	public async Task GetByIdAsync_ShouldCallTheFluentMatch_WhenCommandIsValid()
 	{
 		// Act
 		await _repository.GetByIdAsync(ChatMessageImageId, CancellationToken);
@@ -49,7 +49,7 @@ public class GetChatMessageImageByIdCommandRepositoryUnitTests : BaseChatMessage
 	}
 
 	[Fact]
-	public async Task GetByIdAsync_ShouldCallTheFluentFirstOrDefaultAsync_WhenRequestIsValid()
+	public async Task GetByIdAsync_ShouldCallTheFluentFirstOrDefaultAsync_WhenCommandIsValid()
 	{
 		// Act
 		await _repository.GetByIdAsync(ChatMessageImageId, CancellationToken);

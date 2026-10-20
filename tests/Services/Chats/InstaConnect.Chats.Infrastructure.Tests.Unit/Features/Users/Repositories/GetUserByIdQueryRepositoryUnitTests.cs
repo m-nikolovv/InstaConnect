@@ -27,7 +27,7 @@ public class GetUserByIdQueryRepositoryUnitTests : BaseUserInfrastructureQueryUn
 	}
 
 	[Fact]
-	public async Task GetByIdAsync_ShouldReturnResponse_WhenRequestIsValid()
+	public async Task GetByIdAsync_ShouldReturnResponse_WhenQueryIsValid()
 	{
 		// Act
 		var response = await _repository.GetByIdAsync(UserId, _currentUserQuery, CancellationToken);
@@ -37,7 +37,7 @@ public class GetUserByIdQueryRepositoryUnitTests : BaseUserInfrastructureQueryUn
 	}
 
 	[Fact]
-	public async Task GetByIdAsync_ShouldCallTheCollectionAggregateFluent_WhenRequestIsValid()
+	public async Task GetByIdAsync_ShouldCallTheCollectionAggregateFluent_WhenQueryIsValid()
 	{
 		// Act
 		await _repository.GetByIdAsync(UserId, _currentUserQuery, CancellationToken);
@@ -47,7 +47,7 @@ public class GetUserByIdQueryRepositoryUnitTests : BaseUserInfrastructureQueryUn
 	}
 
 	[Fact]
-	public async Task GetByIdAsync_ShouldCallTheFluentMatch_WhenRequestIsValid()
+	public async Task GetByIdAsync_ShouldCallTheFluentMatch_WhenQueryIsValid()
 	{
 		// Act
 		await _repository.GetByIdAsync(UserId, _currentUserQuery, CancellationToken);
@@ -57,7 +57,7 @@ public class GetUserByIdQueryRepositoryUnitTests : BaseUserInfrastructureQueryUn
 	}
 
 	[Fact]
-	public async Task GetByIdAsync_ShouldCallTheFluentProjectToFullResponse_WhenRequestIsValid()
+	public async Task GetByIdAsync_ShouldCallTheFluentProjectToFullResponse_WhenQueryIsValid()
 	{
 		// Act
 		await _repository.GetByIdAsync(UserId, _currentUserQuery, CancellationToken);
@@ -67,7 +67,7 @@ public class GetUserByIdQueryRepositoryUnitTests : BaseUserInfrastructureQueryUn
 	}
 
 	[Fact]
-	public async Task GetByIdAsync_ShouldCallTheResponseFluentFirstOrDefaultAsync_WhenRequestIsValid()
+	public async Task GetByIdAsync_ShouldCallTheResponseFluentFirstOrDefaultAsync_WhenQueryIsValid()
 	{
 		// Act
 		await _repository.GetByIdAsync(UserId, _currentUserQuery, CancellationToken);

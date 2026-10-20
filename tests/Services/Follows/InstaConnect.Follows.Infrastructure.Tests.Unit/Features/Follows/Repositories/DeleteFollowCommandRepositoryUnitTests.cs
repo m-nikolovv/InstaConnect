@@ -14,7 +14,7 @@ public class DeleteFollowCommandRepositoryUnitTests : BaseFollowInfrastructureCo
 	}
 
 	[Fact]
-	public async Task DeleteAsync_ShouldCallTheCollectionDeleteAsync_WhenRequestIsValid()
+	public async Task DeleteAsync_ShouldCallTheCollectionDeleteAsync_WhenCommandIsValid()
 	{
 		// Act
 		await _repository.DeleteAsync(Follow, CancellationToken);

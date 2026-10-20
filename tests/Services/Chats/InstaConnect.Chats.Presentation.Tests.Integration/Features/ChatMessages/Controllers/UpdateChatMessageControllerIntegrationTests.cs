@@ -236,7 +236,7 @@ public class UpdateChatMessageControllerIntegrationTests : BaseChatMessagePresen
 	}
 
 	[Fact]
-	public async Task UpdateAsync_ShouldReturnOkResponse_WhenRequestIsValid()
+	public async Task UpdateAsync_ShouldReturnResponse_WhenRequestIsValid()
 	{
 		// Act
 		var response = await Controller.UpdateAsync(_request, CancellationToken);
@@ -248,7 +248,7 @@ public class UpdateChatMessageControllerIntegrationTests : BaseChatMessagePresen
 
 	[Theory]
 	[UserIdDifferentCaseData]
-	public async Task UpdateAsync_ShouldReturnOkResponse_WhenRequestAndParticipantOneIdAreValid(
+	public async Task UpdateAsync_ShouldReturnResponse_WhenRequestAndParticipantOneIdAreValid(
 		IStringTransformer transformer)
 	{
 		// Arrange
@@ -264,7 +264,7 @@ public class UpdateChatMessageControllerIntegrationTests : BaseChatMessagePresen
 
 	[Theory]
 	[UserIdDifferentCaseData]
-	public async Task UpdateAsync_ShouldReturnOkResponse_WhenRequestAndParticipantTwoIdAreValid(
+	public async Task UpdateAsync_ShouldReturnResponse_WhenRequestAndParticipantTwoIdAreValid(
 		IStringTransformer transformer)
 	{
 		// Arrange
@@ -280,7 +280,7 @@ public class UpdateChatMessageControllerIntegrationTests : BaseChatMessagePresen
 
 	[Theory]
 	[ChatMessageIdDifferentCaseData]
-	public async Task UpdateAsync_ShouldReturnOkResponse_WhenRequestAndMessageIdAreValid(
+	public async Task UpdateAsync_ShouldReturnResponse_WhenRequestAndMessageIdAreValid(
 		IStringTransformer transformer)
 	{
 		// Arrange
@@ -295,7 +295,7 @@ public class UpdateChatMessageControllerIntegrationTests : BaseChatMessagePresen
 	}
 
 	[Fact]
-	public async Task UpdateAsync_ShouldReturnInvertedOkResponse_WhenRequestIsValid()
+	public async Task UpdateAsync_ShouldReturnInvertedResponse_WhenRequestIsValid()
 	{
 		// Arrange
 		await ServiceScope.UpdateAsync(InvertedChatMessage, CancellationToken);
@@ -310,7 +310,7 @@ public class UpdateChatMessageControllerIntegrationTests : BaseChatMessagePresen
 
 	[Theory]
 	[UserIdDifferentCaseData]
-	public async Task UpdateAsync_ShouldReturnInvertedOkResponse_WhenRequestAndParticipantOneIdAreValid(
+	public async Task UpdateAsync_ShouldReturnInvertedResponse_WhenRequestAndParticipantOneIdAreValid(
 		IStringTransformer transformer)
 	{
 		// Arrange
@@ -327,7 +327,7 @@ public class UpdateChatMessageControllerIntegrationTests : BaseChatMessagePresen
 
 	[Theory]
 	[UserIdDifferentCaseData]
-	public async Task UpdateAsync_ShouldReturnInvertedOkResponse_WhenRequestAndParticipantTwoIdAreValid(
+	public async Task UpdateAsync_ShouldReturnInvertedResponse_WhenRequestAndParticipantTwoIdAreValid(
 		IStringTransformer transformer)
 	{
 		// Arrange
@@ -344,7 +344,7 @@ public class UpdateChatMessageControllerIntegrationTests : BaseChatMessagePresen
 
 	[Theory]
 	[ChatMessageIdDifferentCaseData]
-	public async Task UpdateAsync_ShouldReturnInvertedOkResponse_WhenRequestAndMessageIdAreValid(
+	public async Task UpdateAsync_ShouldReturnInvertedResponse_WhenRequestAndMessageIdAreValid(
 		IStringTransformer transformer)
 	{
 		// Arrange

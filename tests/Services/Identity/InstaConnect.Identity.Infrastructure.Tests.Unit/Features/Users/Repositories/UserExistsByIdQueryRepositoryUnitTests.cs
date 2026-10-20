@@ -19,7 +19,7 @@ public class UserExistsByIdQueryRepositoryUnitTests : BaseUserInfrastructureQuer
 	}
 
 	[Fact]
-	public async Task ExistsByIdAsync_ShouldReturnResponse_WhenRequestIsValid()
+	public async Task ExistsByIdAsync_ShouldReturnResponse_WhenQueryIsValid()
 	{
 		// Act
 		var response = await _repository.ExistsByIdAsync(UserId, CancellationToken);
@@ -29,7 +29,7 @@ public class UserExistsByIdQueryRepositoryUnitTests : BaseUserInfrastructureQuer
 	}
 
 	[Fact]
-	public async Task ExistsByIdAsync_ShouldCallTheCollectionAggregateFluent_WhenRequestIsValid()
+	public async Task ExistsByIdAsync_ShouldCallTheCollectionAggregateFluent_WhenQueryIsValid()
 	{
 		// Act
 		await _repository.ExistsByIdAsync(UserId, CancellationToken);
@@ -39,7 +39,7 @@ public class UserExistsByIdQueryRepositoryUnitTests : BaseUserInfrastructureQuer
 	}
 
 	[Fact]
-	public async Task ExistsByIdAsync_ShouldCallTheFluentMatch_WhenRequestIsValid()
+	public async Task ExistsByIdAsync_ShouldCallTheFluentMatch_WhenQueryIsValid()
 	{
 		// Act
 		await _repository.ExistsByIdAsync(UserId, CancellationToken);
@@ -49,7 +49,7 @@ public class UserExistsByIdQueryRepositoryUnitTests : BaseUserInfrastructureQuer
 	}
 
 	[Fact]
-	public async Task ExistsByIdAsync_ShouldCallTheFluentAnyAsync_WhenRequestIsValid()
+	public async Task ExistsByIdAsync_ShouldCallTheFluentAnyAsync_WhenQueryIsValid()
 	{
 		// Act
 		await _repository.ExistsByIdAsync(UserId, CancellationToken);

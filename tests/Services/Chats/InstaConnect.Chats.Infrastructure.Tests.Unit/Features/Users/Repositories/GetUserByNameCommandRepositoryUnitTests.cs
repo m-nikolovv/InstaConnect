@@ -32,7 +32,7 @@ public class GetUserByNameCommandRepositoryUnitTests : BaseUserInfrastructureCom
 	}
 
 	[Fact]
-	public async Task GetByNameAsync_ShouldReturnResponse_WhenRequestIsValid()
+	public async Task GetByNameAsync_ShouldReturnResponse_WhenCommandIsValid()
 	{
 		// Act
 		var response = await _repository.GetByNameAsync(_name, _include, CancellationToken);
@@ -42,7 +42,7 @@ public class GetUserByNameCommandRepositoryUnitTests : BaseUserInfrastructureCom
 	}
 
 	[Fact]
-	public async Task GetByNameAsync_ShouldCallTheCollectionAggregateFluent_WhenRequestIsValid()
+	public async Task GetByNameAsync_ShouldCallTheCollectionAggregateFluent_WhenCommandIsValid()
 	{
 		// Act
 		await _repository.GetByNameAsync(_name, _include, CancellationToken);
@@ -52,7 +52,7 @@ public class GetUserByNameCommandRepositoryUnitTests : BaseUserInfrastructureCom
 	}
 
 	[Fact]
-	public async Task GetByNameAsync_ShouldCallTheFluentApplyIncludes_WhenRequestIsValid()
+	public async Task GetByNameAsync_ShouldCallTheFluentApplyIncludes_WhenCommandIsValid()
 	{
 		// Act
 		await _repository.GetByNameAsync(_name, _include, CancellationToken);
@@ -62,7 +62,7 @@ public class GetUserByNameCommandRepositoryUnitTests : BaseUserInfrastructureCom
 	}
 
 	[Fact]
-	public async Task GetByNameAsync_ShouldCallTheFluentMatch_WhenRequestIsValid()
+	public async Task GetByNameAsync_ShouldCallTheFluentMatch_WhenCommandIsValid()
 	{
 		// Act
 		await _repository.GetByNameAsync(_name, _include, CancellationToken);
@@ -72,7 +72,7 @@ public class GetUserByNameCommandRepositoryUnitTests : BaseUserInfrastructureCom
 	}
 
 	[Fact]
-	public async Task GetByNameAsync_ShouldCallTheFluentFirstOrDefaultAsync_WhenRequestIsValid()
+	public async Task GetByNameAsync_ShouldCallTheFluentFirstOrDefaultAsync_WhenCommandIsValid()
 	{
 		// Act
 		await _repository.GetByNameAsync(_name, _include, CancellationToken);

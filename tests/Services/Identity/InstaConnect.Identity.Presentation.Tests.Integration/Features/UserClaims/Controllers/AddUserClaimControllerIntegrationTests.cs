@@ -104,7 +104,7 @@ public class AddUserClaimControllerIntegrationTests : BaseUserClaimPresentationC
 	}
 
 	[Fact]
-	public async Task AddAsync_ShouldReturnOkResponse_WhenRequestIsValid()
+	public async Task AddAsync_ShouldReturnResponse_WhenRequestIsValid()
 	{
 		// Act
 		var response = await Controller.AddAsync(_request, CancellationToken);
@@ -116,7 +116,7 @@ public class AddUserClaimControllerIntegrationTests : BaseUserClaimPresentationC
 
 	[Theory]
 	[UserIdDifferentCaseData]
-	public async Task AddAsync_ShouldReturnOkResponse_WhenRequestAndIdAreValid(
+	public async Task AddAsync_ShouldReturnResponse_WhenRequestAndIdAreValid(
 		IStringTransformer transformer)
 	{
 		// Arrange

@@ -73,7 +73,7 @@ public class GetAllUserClaimsQueryServiceIntegrationTests : BaseUserClaimDomainQ
 	[UserIdNullData]
 	[UserIdEmptyData]
 	[UserIdDifferentCaseData]
-	public async Task GetAllAsync_ShouldReturnResponse_WhenQueryAndCurrentIdAreValid(
+	public async Task GetAllAsync_ShouldReturnResponse_WhenQueryAndCurrentUserIdAreValid(
 		IStringTransformer transformer)
 	{
 		// Arrange

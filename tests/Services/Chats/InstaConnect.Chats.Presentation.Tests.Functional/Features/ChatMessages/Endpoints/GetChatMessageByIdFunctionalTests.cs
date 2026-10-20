@@ -242,7 +242,7 @@ public class GetChatMessageByIdFunctionalTests : BaseChatMessagePresentationQuer
 	}
 
 	[Fact]
-	public async Task GetByIdAsync_ShouldHaveResponse_WhenRequestIsValid()
+	public async Task GetByIdAsync_ShouldReturnResponse_WhenRequestIsValid()
 	{
 		// Act
 		var response = await ApiClient.GetByIdAsync(_request, CancellationToken);
@@ -253,7 +253,7 @@ public class GetChatMessageByIdFunctionalTests : BaseChatMessagePresentationQuer
 
 	[Theory]
 	[UserIdDifferentCaseData]
-	public async Task GetByIdAsync_ShouldHaveResponse_WhenRequestAndParticipantTwoIdAreValid(
+	public async Task GetByIdAsync_ShouldReturnResponse_WhenRequestAndParticipantTwoIdAreValid(
 		IStringTransformer transformer)
 	{
 		// Arrange
@@ -268,7 +268,7 @@ public class GetChatMessageByIdFunctionalTests : BaseChatMessagePresentationQuer
 
 	[Theory]
 	[ChatMessageIdDifferentCaseData]
-	public async Task GetByIdAsync_ShouldHaveResponse_WhenRequestAndMessageIdAreValid(
+	public async Task GetByIdAsync_ShouldReturnResponse_WhenRequestAndMessageIdAreValid(
 		IStringTransformer transformer)
 	{
 		// Arrange
@@ -352,7 +352,7 @@ public class GetChatMessageByIdFunctionalTests : BaseChatMessagePresentationQuer
 	}
 
 	[Fact]
-	public async Task GetByIdAsync_ShouldHaveInvertedResponse_WhenRequestIsValid()
+	public async Task GetByIdAsync_ShouldReturnInvertedResponse_WhenRequestIsValid()
 	{
 		// Act
 		var response = await ApiClient.GetByIdAsync(_invertedRequest, CancellationToken);
@@ -363,7 +363,7 @@ public class GetChatMessageByIdFunctionalTests : BaseChatMessagePresentationQuer
 
 	[Theory]
 	[UserIdDifferentCaseData]
-	public async Task GetByIdAsync_ShouldHaveInvertedResponse_WhenRequestAndParticipantTwoIdAreValid(
+	public async Task GetByIdAsync_ShouldReturnInvertedResponse_WhenRequestAndParticipantTwoIdAreValid(
 		IStringTransformer transformer)
 	{
 		// Arrange
@@ -378,7 +378,7 @@ public class GetChatMessageByIdFunctionalTests : BaseChatMessagePresentationQuer
 
 	[Theory]
 	[ChatMessageIdDifferentCaseData]
-	public async Task GetByIdAsync_ShouldHaveInvertedResponse_WhenRequestAndMessageIdAreValid(
+	public async Task GetByIdAsync_ShouldReturnInvertedResponse_WhenRequestAndMessageIdAreValid(
 		IStringTransformer transformer)
 	{
 		// Arrange

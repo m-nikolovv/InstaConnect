@@ -184,7 +184,7 @@ public class AddUserControllerIntegrationTests : BaseUserPresentationCommandInte
 	}
 
 	[Fact]
-	public async Task AddAsync_ShouldReturnOkResponse_WhenRequestIsValid()
+	public async Task AddAsync_ShouldReturnResponse_WhenRequestIsValid()
 	{
 		// Act
 		var response = await Controller.AddAsync(_request, CancellationToken);
@@ -196,7 +196,7 @@ public class AddUserControllerIntegrationTests : BaseUserPresentationCommandInte
 
 	[Theory]
 	[UserProfileImageNullData]
-	public async Task AddAsync_ShouldReturnOkResponse_WhenProfileImageIsValid(
+	public async Task AddAsync_ShouldReturnResponse_WhenProfileImageIsValid(
 		IFormFileTransformer transformer)
 	{
 		// Arrange

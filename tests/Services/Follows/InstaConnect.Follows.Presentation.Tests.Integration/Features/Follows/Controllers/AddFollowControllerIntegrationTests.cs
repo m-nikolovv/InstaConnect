@@ -143,7 +143,7 @@ public class AddFollowControllerIntegrationTests : BaseFollowPresentationCommand
 	}
 
 	[Fact]
-	public async Task AddAsync_ShouldReturnOkResponse_WhenRequestIsValid()
+	public async Task AddAsync_ShouldReturnResponse_WhenRequestIsValid()
 	{
 		// Act
 		var response = await Controller.AddAsync(_request, CancellationToken);
@@ -155,7 +155,7 @@ public class AddFollowControllerIntegrationTests : BaseFollowPresentationCommand
 
 	[Theory]
 	[UserIdDifferentCaseData]
-	public async Task AddAsync_ShouldReturnOkResponse_WhenRequestAndFollowerIdAreValid(
+	public async Task AddAsync_ShouldReturnResponse_WhenRequestAndFollowerIdAreValid(
 		IStringTransformer transformer)
 	{
 		// Arrange
@@ -171,7 +171,7 @@ public class AddFollowControllerIntegrationTests : BaseFollowPresentationCommand
 
 	[Theory]
 	[UserIdDifferentCaseData]
-	public async Task AddAsync_ShouldReturnOkResponse_WhenRequestAndFollowingIdAreValid(
+	public async Task AddAsync_ShouldReturnResponse_WhenRequestAndFollowingIdAreValid(
 		IStringTransformer transformer)
 	{
 		// Arrange

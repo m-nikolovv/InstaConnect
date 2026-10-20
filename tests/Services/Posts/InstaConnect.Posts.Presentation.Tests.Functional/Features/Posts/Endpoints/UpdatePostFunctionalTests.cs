@@ -267,7 +267,7 @@ public class UpdatePostFunctionalTests : BasePostPresentationCommandFunctionalTe
 	}
 
 	[Fact]
-	public async Task UpdateAsync_ShouldHaveResponse_WhenRequestIsValid()
+	public async Task UpdateAsync_ShouldReturnResponse_WhenRequestIsValid()
 	{
 		// Act
 		var response = await ApiClient.UpdateAsync(_request, CancellationToken);
@@ -278,7 +278,7 @@ public class UpdatePostFunctionalTests : BasePostPresentationCommandFunctionalTe
 
 	[Theory]
 	[PostIdDifferentCaseData]
-	public async Task UpdateAsync_ShouldHaveResponse_WhenRequestAndIdAreValid(
+	public async Task UpdateAsync_ShouldReturnResponse_WhenRequestAndIdAreValid(
 		IStringTransformer transformer)
 	{
 		// Arrange
@@ -293,7 +293,7 @@ public class UpdatePostFunctionalTests : BasePostPresentationCommandFunctionalTe
 
 	[Theory]
 	[UserIdDifferentCaseData]
-	public async Task UpdateAsync_ShouldHaveResponse_WhenRequestAndUserIdAreValid(
+	public async Task UpdateAsync_ShouldReturnResponse_WhenRequestAndUserIdAreValid(
 		IStringTransformer transformer)
 	{
 		// Arrange

@@ -168,7 +168,7 @@ public class GetChatByIdFunctionalTests : BaseChatPresentationQueryFunctionalTes
 	}
 
 	[Fact]
-	public async Task GetByIdAsync_ShouldHaveResponse_WhenRequestIsValid()
+	public async Task GetByIdAsync_ShouldReturnResponse_WhenRequestIsValid()
 	{
 		// Act
 		var response = await ApiClient.GetByIdAsync(_request, CancellationToken);
@@ -179,7 +179,7 @@ public class GetChatByIdFunctionalTests : BaseChatPresentationQueryFunctionalTes
 
 	[Theory]
 	[UserIdDifferentCaseData]
-	public async Task GetByIdAsync_ShouldHaveResponse_WhenRequestAndParticipantTwoIdAreValid(
+	public async Task GetByIdAsync_ShouldReturnResponse_WhenRequestAndParticipantTwoIdAreValid(
 		IStringTransformer transformer)
 	{
 		// Arrange
@@ -248,7 +248,7 @@ public class GetChatByIdFunctionalTests : BaseChatPresentationQueryFunctionalTes
 	}
 
 	[Fact]
-	public async Task GetByIdAsync_ShouldHaveInvertedResponse_WhenRequestIsValid()
+	public async Task GetByIdAsync_ShouldReturnInvertedResponse_WhenRequestIsValid()
 	{
 		// Act
 		var response = await ApiClient.GetByIdAsync(_invertedRequest, CancellationToken);
@@ -259,7 +259,7 @@ public class GetChatByIdFunctionalTests : BaseChatPresentationQueryFunctionalTes
 
 	[Theory]
 	[UserIdDifferentCaseData]
-	public async Task GetByIdAsync_ShouldHaveInvertedResponse_WhenRequestAndParticipantTwoIdAreValid(
+	public async Task GetByIdAsync_ShouldReturnInvertedResponse_WhenRequestAndParticipantTwoIdAreValid(
 		IStringTransformer transformer)
 	{
 		// Arrange

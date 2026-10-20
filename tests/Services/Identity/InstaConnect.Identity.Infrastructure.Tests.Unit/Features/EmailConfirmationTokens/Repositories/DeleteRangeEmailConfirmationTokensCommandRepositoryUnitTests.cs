@@ -14,7 +14,7 @@ public class DeleteRangeEmailConfirmationTokensCommandRepositoryUnitTests : Base
 	}
 
 	[Fact]
-	public async Task DeleteRangeAsync_ShouldCallTheCollectionDeleteRangeAsync_WhenRequestIsValid()
+	public async Task DeleteRangeAsync_ShouldCallTheCollectionDeleteRangeAsync_WhenCommandIsValid()
 	{
 		// Act
 		await _repository.DeleteRangeAsync(EmailConfirmationTokens, CancellationToken);

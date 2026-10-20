@@ -197,7 +197,7 @@ public class AddPostCommentLikeControllerIntegrationTests : BasePostCommentLikeP
 	}
 
 	[Fact]
-	public async Task AddAsync_ShouldReturnOkResponse_WhenRequestIsValid()
+	public async Task AddAsync_ShouldReturnResponse_WhenRequestIsValid()
 	{
 		// Act
 		var response = await Controller.AddAsync(_request, CancellationToken);
@@ -209,7 +209,7 @@ public class AddPostCommentLikeControllerIntegrationTests : BasePostCommentLikeP
 
 	[Theory]
 	[PostIdDifferentCaseData]
-	public async Task AddAsync_ShouldReturnOkResponse_WhenRequestAndIdAreValid(
+	public async Task AddAsync_ShouldReturnResponse_WhenRequestAndIdAreValid(
 		IStringTransformer transformer)
 	{
 		// Arrange
@@ -225,7 +225,7 @@ public class AddPostCommentLikeControllerIntegrationTests : BasePostCommentLikeP
 
 	[Theory]
 	[PostCommentIdDifferentCaseData]
-	public async Task AddAsync_ShouldReturnOkResponse_WhenRequestAndCommentIdAreValid(
+	public async Task AddAsync_ShouldReturnResponse_WhenRequestAndCommentIdAreValid(
 		IStringTransformer transformer)
 	{
 		// Arrange
@@ -241,7 +241,7 @@ public class AddPostCommentLikeControllerIntegrationTests : BasePostCommentLikeP
 
 	[Theory]
 	[UserIdDifferentCaseData]
-	public async Task AddAsync_ShouldReturnOkResponse_WhenRequestAndUserIdAreValid(
+	public async Task AddAsync_ShouldReturnResponse_WhenRequestAndUserIdAreValid(
 		IStringTransformer transformer)
 	{
 		// Arrange

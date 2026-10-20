@@ -63,7 +63,7 @@ public class GetAllFollowsForFollowingQueryRepositoryUnitTests : BaseFollowInfra
 	}
 
 	[Fact]
-	public async Task GetAllForFollowingAsync_ShouldReturnResponse_WhenRequestIsValid()
+	public async Task GetAllForFollowingAsync_ShouldReturnResponse_WhenQueryIsValid()
 	{
 		// Act
 		var response = await _repository.GetAllForFollowingAsync(_filterQuery, _sortingQuery, _paginationQuery, _currentUserQuery, CancellationToken);
@@ -73,7 +73,7 @@ public class GetAllFollowsForFollowingQueryRepositoryUnitTests : BaseFollowInfra
 	}
 
 	[Fact]
-	public async Task GetAllForFollowingAsync_ShouldCallTheCollectionAggregateFluent_WhenRequestIsValid()
+	public async Task GetAllForFollowingAsync_ShouldCallTheCollectionAggregateFluent_WhenQueryIsValid()
 	{
 		// Act
 		await _repository.GetAllForFollowingAsync(_filterQuery, _sortingQuery, _paginationQuery, _currentUserQuery, CancellationToken);
@@ -83,7 +83,7 @@ public class GetAllFollowsForFollowingQueryRepositoryUnitTests : BaseFollowInfra
 	}
 
 	[Fact]
-	public async Task GetAllForFollowingAsync_ShouldCallTheFluentApplyIncludes_WhenRequestIsValid()
+	public async Task GetAllForFollowingAsync_ShouldCallTheFluentApplyIncludes_WhenQueryIsValid()
 	{
 		// Act
 		await _repository.GetAllForFollowingAsync(_filterQuery, _sortingQuery, _paginationQuery, _currentUserQuery, CancellationToken);
@@ -93,7 +93,7 @@ public class GetAllFollowsForFollowingQueryRepositoryUnitTests : BaseFollowInfra
 	}
 
 	[Fact]
-	public async Task GetAllForFollowingAsync_ShouldCallTheFluentMatch_WhenRequestIsValid()
+	public async Task GetAllForFollowingAsync_ShouldCallTheFluentMatch_WhenQueryIsValid()
 	{
 		// Act
 		await _repository.GetAllForFollowingAsync(_filterQuery, _sortingQuery, _paginationQuery, _currentUserQuery, CancellationToken);
@@ -103,7 +103,7 @@ public class GetAllFollowsForFollowingQueryRepositoryUnitTests : BaseFollowInfra
 	}
 
 	[Fact]
-	public async Task GetAllForFollowingAsync_ShouldCallTheFluentProjectToResponseWithoutFollowing_WhenRequestIsValid()
+	public async Task GetAllForFollowingAsync_ShouldCallTheFluentProjectToResponseWithoutFollowing_WhenQueryIsValid()
 	{
 		// Act
 		await _repository.GetAllForFollowingAsync(_filterQuery, _sortingQuery, _paginationQuery, _currentUserQuery, CancellationToken);
@@ -113,7 +113,7 @@ public class GetAllFollowsForFollowingQueryRepositoryUnitTests : BaseFollowInfra
 	}
 
 	[Fact]
-	public async Task GetAllForFollowingAsync_ShouldCallTheResponseFluentApplySorting_WhenRequestIsValid()
+	public async Task GetAllForFollowingAsync_ShouldCallTheResponseFluentApplySorting_WhenQueryIsValid()
 	{
 		// Act
 		await _repository.GetAllForFollowingAsync(_filterQuery, _sortingQuery, _paginationQuery, _currentUserQuery, CancellationToken);
@@ -123,7 +123,7 @@ public class GetAllFollowsForFollowingQueryRepositoryUnitTests : BaseFollowInfra
 	}
 
 	[Fact]
-	public async Task GetAllForFollowingAsync_ShouldCallTheResponseFluentApplyPagination_WhenRequestIsValid()
+	public async Task GetAllForFollowingAsync_ShouldCallTheResponseFluentApplyPagination_WhenQueryIsValid()
 	{
 		// Act
 		await _repository.GetAllForFollowingAsync(_filterQuery, _sortingQuery, _paginationQuery, _currentUserQuery, CancellationToken);
@@ -133,7 +133,7 @@ public class GetAllFollowsForFollowingQueryRepositoryUnitTests : BaseFollowInfra
 	}
 
 	[Fact]
-	public async Task GetAllForFollowingAsync_ShouldCallTheResponseFluentToListAsync_WhenRequestIsValid()
+	public async Task GetAllForFollowingAsync_ShouldCallTheResponseFluentToListAsync_WhenQueryIsValid()
 	{
 		// Act
 		await _repository.GetAllForFollowingAsync(_filterQuery, _sortingQuery, _paginationQuery, _currentUserQuery, CancellationToken);

@@ -328,7 +328,7 @@ public class GetAllChatMessagesFunctionalTests : BaseChatMessagePresentationQuer
 
 	[Theory]
 	[UserIdDifferentCaseData]
-	public async Task GetAllAsync_ShouldHaveResponse_WhenRequestAndParticipantTwoIdAreValid(
+	public async Task GetAllAsync_ShouldReturnResponse_WhenRequestAndParticipantTwoIdAreValid(
 		IStringTransformer transformer)
 	{
 		// Arrange
@@ -470,7 +470,7 @@ public class GetAllChatMessagesFunctionalTests : BaseChatMessagePresentationQuer
 
 	[Theory]
 	[UserIdDifferentCaseData]
-	public async Task GetAllAsync_ShouldHaveInvertedResponse_WhenRequestAndParticipantTwoIdAreValid(
+	public async Task GetAllAsync_ShouldReturnInvertedResponse_WhenRequestAndParticipantTwoIdAreValid(
 		IStringTransformer transformer)
 	{
 		// Arrange

@@ -34,7 +34,7 @@ public class GetFollowsForFollowingTotalCountQueryRepositoryUnitTests : BaseFoll
 	}
 
 	[Fact]
-	public async Task GetTotalCountForFollowingAsync_ShouldReturnResponse_WhenRequestIsValid()
+	public async Task GetTotalCountForFollowingAsync_ShouldReturnResponse_WhenQueryIsValid()
 	{
 		// Act
 		var response = await _repository.GetTotalCountForFollowingAsync(_filterQuery, CancellationToken);
@@ -44,7 +44,7 @@ public class GetFollowsForFollowingTotalCountQueryRepositoryUnitTests : BaseFoll
 	}
 
 	[Fact]
-	public async Task GetTotalCountForFollowingAsync_ShouldCallTheCollectionAggregateFluent_WhenRequestIsValid()
+	public async Task GetTotalCountForFollowingAsync_ShouldCallTheCollectionAggregateFluent_WhenQueryIsValid()
 	{
 		// Act
 		await _repository.GetTotalCountForFollowingAsync(_filterQuery, CancellationToken);
@@ -54,7 +54,7 @@ public class GetFollowsForFollowingTotalCountQueryRepositoryUnitTests : BaseFoll
 	}
 
 	[Fact]
-	public async Task GetTotalCountForFollowingAsync_ShouldCallTheFluentApplyIncludes_WhenRequestIsValid()
+	public async Task GetTotalCountForFollowingAsync_ShouldCallTheFluentApplyIncludes_WhenQueryIsValid()
 	{
 		// Act
 		await _repository.GetTotalCountForFollowingAsync(_filterQuery, CancellationToken);
@@ -64,7 +64,7 @@ public class GetFollowsForFollowingTotalCountQueryRepositoryUnitTests : BaseFoll
 	}
 
 	[Fact]
-	public async Task GetTotalCountForFollowingAsync_ShouldCallTheFluentMatch_WhenRequestIsValid()
+	public async Task GetTotalCountForFollowingAsync_ShouldCallTheFluentMatch_WhenQueryIsValid()
 	{
 		// Act
 		await _repository.GetTotalCountForFollowingAsync(_filterQuery, CancellationToken);
@@ -74,7 +74,7 @@ public class GetFollowsForFollowingTotalCountQueryRepositoryUnitTests : BaseFoll
 	}
 
 	[Fact]
-	public async Task GetTotalCountForFollowingAsync_ShouldCallTheFluentGetCountAsync_WhenRequestIsValid()
+	public async Task GetTotalCountForFollowingAsync_ShouldCallTheFluentGetCountAsync_WhenQueryIsValid()
 	{
 		// Act
 		await _repository.GetTotalCountForFollowingAsync(_filterQuery, CancellationToken);

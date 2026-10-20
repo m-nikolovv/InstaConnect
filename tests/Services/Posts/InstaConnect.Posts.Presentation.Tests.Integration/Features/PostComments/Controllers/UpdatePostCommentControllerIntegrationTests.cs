@@ -172,7 +172,7 @@ public class UpdatePostCommentControllerIntegrationTests : BasePostCommentPresen
 	}
 
 	[Fact]
-	public async Task UpdateAsync_ShouldReturnOkResponse_WhenRequestIsValid()
+	public async Task UpdateAsync_ShouldReturnResponse_WhenRequestIsValid()
 	{
 		// Act
 		var response = await Controller.UpdateAsync(_request, CancellationToken);
@@ -184,7 +184,7 @@ public class UpdatePostCommentControllerIntegrationTests : BasePostCommentPresen
 
 	[Theory]
 	[PostIdDifferentCaseData]
-	public async Task UpdateAsync_ShouldReturnOkResponse_WhenRequestAndIdAreValid(
+	public async Task UpdateAsync_ShouldReturnResponse_WhenRequestAndIdAreValid(
 		IStringTransformer transformer)
 	{
 		// Arrange
@@ -200,7 +200,7 @@ public class UpdatePostCommentControllerIntegrationTests : BasePostCommentPresen
 
 	[Theory]
 	[PostCommentIdDifferentCaseData]
-	public async Task UpdateAsync_ShouldReturnOkResponse_WhenRequestAndCommentIdAreValid(
+	public async Task UpdateAsync_ShouldReturnResponse_WhenRequestAndCommentIdAreValid(
 		IStringTransformer transformer)
 	{
 		// Arrange
@@ -216,7 +216,7 @@ public class UpdatePostCommentControllerIntegrationTests : BasePostCommentPresen
 
 	[Theory]
 	[UserIdDifferentCaseData]
-	public async Task UpdateAsync_ShouldReturnOkResponse_WhenRequestAndUserIdAreValid(
+	public async Task UpdateAsync_ShouldReturnResponse_WhenRequestAndUserIdAreValid(
 		IStringTransformer transformer)
 	{
 		// Arrange

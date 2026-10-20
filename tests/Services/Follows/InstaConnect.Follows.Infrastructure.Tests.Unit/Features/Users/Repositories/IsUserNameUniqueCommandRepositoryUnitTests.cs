@@ -26,7 +26,7 @@ public class IsUserNameUniqueCommandRepositoryUnitTests : BaseUserInfrastructure
 	}
 
 	[Fact]
-	public async Task IsNameUniqueAsync_ShouldReturnResponse_WhenRequestIsValid()
+	public async Task IsNameUniqueAsync_ShouldReturnResponse_WhenCommandIsValid()
 	{
 		// Act
 		var response = await _repository.IsNameUniqueAsync(_name, CancellationToken);
@@ -36,7 +36,7 @@ public class IsUserNameUniqueCommandRepositoryUnitTests : BaseUserInfrastructure
 	}
 
 	[Fact]
-	public async Task IsNameUniqueAsync_ShouldCallTheCollectionAggregateFluent_WhenRequestIsValid()
+	public async Task IsNameUniqueAsync_ShouldCallTheCollectionAggregateFluent_WhenCommandIsValid()
 	{
 		// Act
 		await _repository.IsNameUniqueAsync(_name, CancellationToken);
@@ -46,7 +46,7 @@ public class IsUserNameUniqueCommandRepositoryUnitTests : BaseUserInfrastructure
 	}
 
 	[Fact]
-	public async Task IsNameUniqueAsync_ShouldCallTheFluentMatch_WhenRequestIsValid()
+	public async Task IsNameUniqueAsync_ShouldCallTheFluentMatch_WhenCommandIsValid()
 	{
 		// Act
 		await _repository.IsNameUniqueAsync(_name, CancellationToken);
@@ -56,7 +56,7 @@ public class IsUserNameUniqueCommandRepositoryUnitTests : BaseUserInfrastructure
 	}
 
 	[Fact]
-	public async Task IsNameUniqueAsync_ShouldCallTheFluentAnyAsync_WhenRequestIsValid()
+	public async Task IsNameUniqueAsync_ShouldCallTheFluentAnyAsync_WhenCommandIsValid()
 	{
 		// Act
 		await _repository.IsNameUniqueAsync(_name, CancellationToken);

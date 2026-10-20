@@ -14,7 +14,7 @@ public class UpdateChatMessageCommandRepositoryUnitTests : BaseChatMessageInfras
 	}
 
 	[Fact]
-	public async Task UpdateAsync_ShouldCallTheCollectionUpdateAsync_WhenRequestIsValid()
+	public async Task UpdateAsync_ShouldCallTheCollectionUpdateAsync_WhenCommandIsValid()
 	{
 		// Act
 		await _repository.UpdateAsync(ChatMessage, CancellationToken);

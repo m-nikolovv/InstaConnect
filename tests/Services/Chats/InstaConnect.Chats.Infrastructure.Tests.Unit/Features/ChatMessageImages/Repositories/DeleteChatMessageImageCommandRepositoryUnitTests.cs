@@ -14,7 +14,7 @@ public class DeleteChatMessageImageCommandRepositoryUnitTests : BaseChatMessageI
 	}
 
 	[Fact]
-	public async Task DeleteAsync_ShouldCallTheCollectionDeleteAsync_WhenRequestIsValid()
+	public async Task DeleteAsync_ShouldCallTheCollectionDeleteAsync_WhenCommandIsValid()
 	{
 		// Act
 		await _repository.DeleteAsync(ChatMessageImage, CancellationToken);

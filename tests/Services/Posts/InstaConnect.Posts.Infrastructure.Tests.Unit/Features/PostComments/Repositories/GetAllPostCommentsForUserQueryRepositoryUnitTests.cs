@@ -63,7 +63,7 @@ public class GetAllPostCommentsForUserQueryRepositoryUnitTests : BasePostComment
 	}
 
 	[Fact]
-	public async Task GetAllForUserAsync_ShouldReturnResponse_WhenRequestIsValid()
+	public async Task GetAllForUserAsync_ShouldReturnResponse_WhenQueryIsValid()
 	{
 		// Act
 		var response = await _repository.GetAllForUserAsync(_filterQuery, _sortingQuery, _paginationQuery, _currentUserQuery, CancellationToken);
@@ -73,7 +73,7 @@ public class GetAllPostCommentsForUserQueryRepositoryUnitTests : BasePostComment
 	}
 
 	[Fact]
-	public async Task GetAllForUserAsync_ShouldCallTheCollectionAggregateFluent_WhenRequestIsValid()
+	public async Task GetAllForUserAsync_ShouldCallTheCollectionAggregateFluent_WhenQueryIsValid()
 	{
 		// Act
 		await _repository.GetAllForUserAsync(_filterQuery, _sortingQuery, _paginationQuery, _currentUserQuery, CancellationToken);
@@ -83,7 +83,7 @@ public class GetAllPostCommentsForUserQueryRepositoryUnitTests : BasePostComment
 	}
 
 	[Fact]
-	public async Task GetAllForUserAsync_ShouldCallTheFluentApplyIncludes_WhenRequestIsValid()
+	public async Task GetAllForUserAsync_ShouldCallTheFluentApplyIncludes_WhenQueryIsValid()
 	{
 		// Act
 		await _repository.GetAllForUserAsync(_filterQuery, _sortingQuery, _paginationQuery, _currentUserQuery, CancellationToken);
@@ -93,7 +93,7 @@ public class GetAllPostCommentsForUserQueryRepositoryUnitTests : BasePostComment
 	}
 
 	[Fact]
-	public async Task GetAllForUserAsync_ShouldCallTheFluentMatch_WhenRequestIsValid()
+	public async Task GetAllForUserAsync_ShouldCallTheFluentMatch_WhenQueryIsValid()
 	{
 		// Act
 		await _repository.GetAllForUserAsync(_filterQuery, _sortingQuery, _paginationQuery, _currentUserQuery, CancellationToken);
@@ -103,7 +103,7 @@ public class GetAllPostCommentsForUserQueryRepositoryUnitTests : BasePostComment
 	}
 
 	[Fact]
-	public async Task GetAllForUserAsync_ShouldCallTheFluentProjectToResponseWithoutUser_WhenRequestIsValid()
+	public async Task GetAllForUserAsync_ShouldCallTheFluentProjectToResponseWithoutUser_WhenQueryIsValid()
 	{
 		// Act
 		await _repository.GetAllForUserAsync(_filterQuery, _sortingQuery, _paginationQuery, _currentUserQuery, CancellationToken);
@@ -113,7 +113,7 @@ public class GetAllPostCommentsForUserQueryRepositoryUnitTests : BasePostComment
 	}
 
 	[Fact]
-	public async Task GetAllForUserAsync_ShouldCallTheResponseFluentApplySorting_WhenRequestIsValid()
+	public async Task GetAllForUserAsync_ShouldCallTheResponseFluentApplySorting_WhenQueryIsValid()
 	{
 		// Act
 		await _repository.GetAllForUserAsync(_filterQuery, _sortingQuery, _paginationQuery, _currentUserQuery, CancellationToken);
@@ -123,7 +123,7 @@ public class GetAllPostCommentsForUserQueryRepositoryUnitTests : BasePostComment
 	}
 
 	[Fact]
-	public async Task GetAllForUserAsync_ShouldCallTheResponseFluentApplyPagination_WhenRequestIsValid()
+	public async Task GetAllForUserAsync_ShouldCallTheResponseFluentApplyPagination_WhenQueryIsValid()
 	{
 		// Act
 		await _repository.GetAllForUserAsync(_filterQuery, _sortingQuery, _paginationQuery, _currentUserQuery, CancellationToken);
@@ -133,7 +133,7 @@ public class GetAllPostCommentsForUserQueryRepositoryUnitTests : BasePostComment
 	}
 
 	[Fact]
-	public async Task GetAllForUserAsync_ShouldCallTheResponseFluentToListAsync_WhenRequestIsValid()
+	public async Task GetAllForUserAsync_ShouldCallTheResponseFluentToListAsync_WhenQueryIsValid()
 	{
 		// Act
 		await _repository.GetAllForUserAsync(_filterQuery, _sortingQuery, _paginationQuery, _currentUserQuery, CancellationToken);

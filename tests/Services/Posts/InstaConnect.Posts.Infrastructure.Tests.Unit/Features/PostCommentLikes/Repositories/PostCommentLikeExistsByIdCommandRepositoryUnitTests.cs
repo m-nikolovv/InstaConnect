@@ -19,7 +19,7 @@ public class PostCommentLikeExistsByIdCommandRepositoryUnitTests : BasePostComme
 	}
 
 	[Fact]
-	public async Task ExistsByIdAsync_ShouldReturnResponse_WhenRequestIsValid()
+	public async Task ExistsByIdAsync_ShouldReturnResponse_WhenCommandIsValid()
 	{
 		// Act
 		var response = await _repository.ExistsByIdAsync(PostCommentLikeId, CancellationToken);
@@ -29,7 +29,7 @@ public class PostCommentLikeExistsByIdCommandRepositoryUnitTests : BasePostComme
 	}
 
 	[Fact]
-	public async Task ExistsByIdAsync_ShouldCallTheCollectionAggregateFluent_WhenRequestIsValid()
+	public async Task ExistsByIdAsync_ShouldCallTheCollectionAggregateFluent_WhenCommandIsValid()
 	{
 		// Act
 		await _repository.ExistsByIdAsync(PostCommentLikeId, CancellationToken);
@@ -39,7 +39,7 @@ public class PostCommentLikeExistsByIdCommandRepositoryUnitTests : BasePostComme
 	}
 
 	[Fact]
-	public async Task ExistsByIdAsync_ShouldCallTheFluentMatch_WhenRequestIsValid()
+	public async Task ExistsByIdAsync_ShouldCallTheFluentMatch_WhenCommandIsValid()
 	{
 		// Act
 		await _repository.ExistsByIdAsync(PostCommentLikeId, CancellationToken);
@@ -49,7 +49,7 @@ public class PostCommentLikeExistsByIdCommandRepositoryUnitTests : BasePostComme
 	}
 
 	[Fact]
-	public async Task ExistsByIdAsync_ShouldCallTheFluentAnyAsync_WhenRequestIsValid()
+	public async Task ExistsByIdAsync_ShouldCallTheFluentAnyAsync_WhenCommandIsValid()
 	{
 		// Act
 		await _repository.ExistsByIdAsync(PostCommentLikeId, CancellationToken);

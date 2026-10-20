@@ -14,7 +14,7 @@ public class DeleteRangeChatMessageImagesCommandRepositoryUnitTests : BaseChatMe
 	}
 
 	[Fact]
-	public async Task DeleteRangeAsync_ShouldCallTheCollectionDeleteRangeAsync_WhenRequestIsValid()
+	public async Task DeleteRangeAsync_ShouldCallTheCollectionDeleteRangeAsync_WhenCommandIsValid()
 	{
 		// Act
 		await _repository.DeleteRangeAsync(ChatMessageImages, CancellationToken);

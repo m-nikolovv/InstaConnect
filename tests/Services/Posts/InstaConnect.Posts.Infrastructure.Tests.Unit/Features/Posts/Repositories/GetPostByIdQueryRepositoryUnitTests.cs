@@ -36,7 +36,7 @@ public class GetPostByIdQueryRepositoryUnitTests : BasePostInfrastructureQueryUn
 	}
 
 	[Fact]
-	public async Task GetByIdAsync_ShouldReturnResponse_WhenRequestIsValid()
+	public async Task GetByIdAsync_ShouldReturnResponse_WhenQueryIsValid()
 	{
 		// Act
 		var response = await _repository.GetByIdAsync(PostId, _currentUserQuery, CancellationToken);
@@ -46,7 +46,7 @@ public class GetPostByIdQueryRepositoryUnitTests : BasePostInfrastructureQueryUn
 	}
 
 	[Fact]
-	public async Task GetByIdAsync_ShouldCallTheCollectionAggregateFluent_WhenRequestIsValid()
+	public async Task GetByIdAsync_ShouldCallTheCollectionAggregateFluent_WhenQueryIsValid()
 	{
 		// Act
 		await _repository.GetByIdAsync(PostId, _currentUserQuery, CancellationToken);
@@ -56,7 +56,7 @@ public class GetPostByIdQueryRepositoryUnitTests : BasePostInfrastructureQueryUn
 	}
 
 	[Fact]
-	public async Task GetByIdAsync_ShouldCallTheFluentApplyIncludes_WhenRequestIsValid()
+	public async Task GetByIdAsync_ShouldCallTheFluentApplyIncludes_WhenQueryIsValid()
 	{
 		// Act
 		await _repository.GetByIdAsync(PostId, _currentUserQuery, CancellationToken);
@@ -66,7 +66,7 @@ public class GetPostByIdQueryRepositoryUnitTests : BasePostInfrastructureQueryUn
 	}
 
 	[Fact]
-	public async Task GetByIdAsync_ShouldCallTheFluentMatch_WhenRequestIsValid()
+	public async Task GetByIdAsync_ShouldCallTheFluentMatch_WhenQueryIsValid()
 	{
 		// Act
 		await _repository.GetByIdAsync(PostId, _currentUserQuery, CancellationToken);
@@ -76,7 +76,7 @@ public class GetPostByIdQueryRepositoryUnitTests : BasePostInfrastructureQueryUn
 	}
 
 	[Fact]
-	public async Task GetByIdAsync_ShouldCallTheFluentProjectToFullResponse_WhenRequestIsValid()
+	public async Task GetByIdAsync_ShouldCallTheFluentProjectToFullResponse_WhenQueryIsValid()
 	{
 		// Act
 		await _repository.GetByIdAsync(PostId, _currentUserQuery, CancellationToken);
@@ -86,7 +86,7 @@ public class GetPostByIdQueryRepositoryUnitTests : BasePostInfrastructureQueryUn
 	}
 
 	[Fact]
-	public async Task GetByIdAsync_ShouldCallTheResponseFluentFirstOrDefaultAsync_WhenRequestIsValid()
+	public async Task GetByIdAsync_ShouldCallTheResponseFluentFirstOrDefaultAsync_WhenQueryIsValid()
 	{
 		// Act
 		await _repository.GetByIdAsync(PostId, _currentUserQuery, CancellationToken);

@@ -19,7 +19,7 @@ public class GetForgotPasswordTokenByIdRangeCommandRepositoryUnitTests : BaseFor
 	}
 
 	[Fact]
-	public async Task GetByIdRangeAsync_ShouldReturnResponse_WhenRequestIsValid()
+	public async Task GetByIdRangeAsync_ShouldReturnResponse_WhenCommandIsValid()
 	{
 		// Act
 		var response = await _repository.GetByIdRangeAsync(ForgotPasswordTokenIds, CancellationToken);
@@ -29,7 +29,7 @@ public class GetForgotPasswordTokenByIdRangeCommandRepositoryUnitTests : BaseFor
 	}
 
 	[Fact]
-	public async Task GetByIdRangeAsync_ShouldCallTheCollectionAggregateFluent_WhenRequestIsValid()
+	public async Task GetByIdRangeAsync_ShouldCallTheCollectionAggregateFluent_WhenCommandIsValid()
 	{
 		// Act
 		await _repository.GetByIdRangeAsync(ForgotPasswordTokenIds, CancellationToken);
@@ -39,7 +39,7 @@ public class GetForgotPasswordTokenByIdRangeCommandRepositoryUnitTests : BaseFor
 	}
 
 	[Fact]
-	public async Task GetByIdRangeAsync_ShouldCallTheFluentMatch_WhenRequestIsValid()
+	public async Task GetByIdRangeAsync_ShouldCallTheFluentMatch_WhenCommandIsValid()
 	{
 		// Act
 		await _repository.GetByIdRangeAsync(ForgotPasswordTokenIds, CancellationToken);
@@ -49,7 +49,7 @@ public class GetForgotPasswordTokenByIdRangeCommandRepositoryUnitTests : BaseFor
 	}
 
 	[Fact]
-	public async Task GetByIdRangeAsync_ShouldCallTheFluentToListAsync_WhenRequestIsValid()
+	public async Task GetByIdRangeAsync_ShouldCallTheFluentToListAsync_WhenCommandIsValid()
 	{
 		// Act
 		await _repository.GetByIdRangeAsync(ForgotPasswordTokenIds, CancellationToken);

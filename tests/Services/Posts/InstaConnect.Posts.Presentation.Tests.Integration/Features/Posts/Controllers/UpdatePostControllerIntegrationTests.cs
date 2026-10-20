@@ -147,7 +147,7 @@ public class UpdatePostControllerIntegrationTests : BasePostPresentationCommandI
 	}
 
 	[Fact]
-	public async Task UpdateAsync_ShouldReturnOkResponse_WhenRequestIsValid()
+	public async Task UpdateAsync_ShouldReturnResponse_WhenRequestIsValid()
 	{
 		// Act
 		var response = await Controller.UpdateAsync(_request, CancellationToken);
@@ -159,7 +159,7 @@ public class UpdatePostControllerIntegrationTests : BasePostPresentationCommandI
 
 	[Theory]
 	[PostIdDifferentCaseData]
-	public async Task UpdateAsync_ShouldReturnOkResponse_WhenRequestAndIdAreValid(
+	public async Task UpdateAsync_ShouldReturnResponse_WhenRequestAndIdAreValid(
 		IStringTransformer transformer)
 	{
 		// Arrange
@@ -175,7 +175,7 @@ public class UpdatePostControllerIntegrationTests : BasePostPresentationCommandI
 
 	[Theory]
 	[UserIdDifferentCaseData]
-	public async Task UpdateAsync_ShouldReturnOkResponse_WhenRequestAndUserIdAreValid(
+	public async Task UpdateAsync_ShouldReturnResponse_WhenRequestAndUserIdAreValid(
 		IStringTransformer transformer)
 	{
 		// Arrange

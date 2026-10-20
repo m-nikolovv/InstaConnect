@@ -13,7 +13,7 @@ public class AddPostCommentLikeCommandRepositoryUnitTests : BasePostCommentLikeI
 	}
 
 	[Fact]
-	public async Task AddAsync_ShouldCallTheCollectionAddAsync_WhenRequestIsValid()
+	public async Task AddAsync_ShouldCallTheCollectionAddAsync_WhenCommandIsValid()
 	{
 		// Act
 		await _repository.AddAsync(PostCommentLike, CancellationToken);

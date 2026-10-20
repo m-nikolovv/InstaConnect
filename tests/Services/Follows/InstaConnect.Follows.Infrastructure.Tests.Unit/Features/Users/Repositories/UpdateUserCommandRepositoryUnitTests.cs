@@ -12,7 +12,7 @@ public class UpdateUserCommandRepositoryUnitTests : BaseUserInfrastructureComman
 	}
 
 	[Fact]
-	public async Task UpdateAsync_ShouldCallTheCollectionUpdateAsync_WhenRequestIsValid()
+	public async Task UpdateAsync_ShouldCallTheCollectionUpdateAsync_WhenCommandIsValid()
 	{
 		// Act
 		await _repository.UpdateAsync(User, CancellationToken);

@@ -192,7 +192,7 @@ public class AddChatMessageControllerIntegrationTests : BaseChatMessagePresentat
 	}
 
 	[Fact]
-	public async Task AddAsync_ShouldReturnOkResponse_WhenRequestIsValid()
+	public async Task AddAsync_ShouldReturnResponse_WhenRequestIsValid()
 	{
 		// Act
 		var response = await Controller.AddAsync(_request, CancellationToken);
@@ -204,7 +204,7 @@ public class AddChatMessageControllerIntegrationTests : BaseChatMessagePresentat
 
 	[Theory]
 	[UserIdDifferentCaseData]
-	public async Task AddAsync_ShouldReturnOkResponse_WhenRequestAndParticipantOneIdAreValid(
+	public async Task AddAsync_ShouldReturnResponse_WhenRequestAndParticipantOneIdAreValid(
 		IStringTransformer transformer)
 	{
 		// Arrange
@@ -220,7 +220,7 @@ public class AddChatMessageControllerIntegrationTests : BaseChatMessagePresentat
 
 	[Theory]
 	[UserIdDifferentCaseData]
-	public async Task AddAsync_ShouldReturnOkResponse_WhenRequestAndParticipantTwoIdAreValid(
+	public async Task AddAsync_ShouldReturnResponse_WhenRequestAndParticipantTwoIdAreValid(
 		IStringTransformer transformer)
 	{
 		// Arrange
@@ -236,7 +236,7 @@ public class AddChatMessageControllerIntegrationTests : BaseChatMessagePresentat
 
 	[Theory]
 	[ChatMessageImagesEmptyData]
-	public async Task AddAsync_ShouldReturnOkResponse_WhenRequestAndImagesAreValid(
+	public async Task AddAsync_ShouldReturnResponse_WhenRequestAndImagesAreValid(
 		IFormFileCollectionTransformer transformer)
 	{
 		// Arrange
@@ -251,7 +251,7 @@ public class AddChatMessageControllerIntegrationTests : BaseChatMessagePresentat
 	}
 
 	[Fact]
-	public async Task AddAsync_ShouldReturnInvertedOkResponse_WhenRequestIsValid()
+	public async Task AddAsync_ShouldReturnInvertedResponse_WhenRequestIsValid()
 	{
 		// Act
 		var response = await Controller.AddAsync(_invertedRequest, CancellationToken);
@@ -263,7 +263,7 @@ public class AddChatMessageControllerIntegrationTests : BaseChatMessagePresentat
 
 	[Theory]
 	[UserIdDifferentCaseData]
-	public async Task AddAsync_ShouldReturnInvertedOkResponse_WhenRequestAndParticipantOneIdAreValid(
+	public async Task AddAsync_ShouldReturnInvertedResponse_WhenRequestAndParticipantOneIdAreValid(
 		IStringTransformer transformer)
 	{
 		// Arrange
@@ -279,7 +279,7 @@ public class AddChatMessageControllerIntegrationTests : BaseChatMessagePresentat
 
 	[Theory]
 	[UserIdDifferentCaseData]
-	public async Task AddAsync_ShouldReturnInvertedOkResponse_WhenRequestAndParticipantTwoIdAreValid(
+	public async Task AddAsync_ShouldReturnInvertedResponse_WhenRequestAndParticipantTwoIdAreValid(
 		IStringTransformer transformer)
 	{
 		// Arrange
@@ -295,7 +295,7 @@ public class AddChatMessageControllerIntegrationTests : BaseChatMessagePresentat
 
 	[Theory]
 	[ChatMessageImagesEmptyData]
-	public async Task AddAsync_ShouldReturnInvertedOkResponse_WhenRequestAndImagesAreValid(
+	public async Task AddAsync_ShouldReturnInvertedResponse_WhenRequestAndImagesAreValid(
 		IFormFileCollectionTransformer transformer)
 	{
 		// Arrange

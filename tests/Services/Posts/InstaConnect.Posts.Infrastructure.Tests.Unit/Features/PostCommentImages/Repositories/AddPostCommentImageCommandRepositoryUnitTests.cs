@@ -13,7 +13,7 @@ public class AddPostCommentImageCommandRepositoryUnitTests : BasePostCommentImag
 	}
 
 	[Fact]
-	public async Task AddAsync_ShouldCallTheCollectionAddAsync_WhenRequestIsValid()
+	public async Task AddAsync_ShouldCallTheCollectionAddAsync_WhenCommandIsValid()
 	{
 		// Act
 		await _repository.AddAsync(PostCommentImage, CancellationToken);
