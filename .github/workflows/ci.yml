@@ -188,6 +188,22 @@ jobs:
           --results-directory ./test-results
           --blame-hang-timeout 3m
 
+      - name: Diagnose MongoDB container
+        if: failure() && matrix.suite != 'Unit'
+        run: |
+          IMAGE=$(grep -oP 'const string Image = "\K[^"]+' tests/Common/InstaConnect.Common.Tests/Features/Utilities/ContainerFactory.cs | grep '^mongo:')
+          echo "Kernel: $(uname -r)"
+          docker version --format 'Docker: {{.Server.Version}}'
+          docker run -d --name mongo-diagnostics "$IMAGE" --replSet rs0 --bind_ip_all
+          sleep 15
+          docker ps -a --filter name=mongo-diagnostics
+          echo "::group::Container logs"
+          docker logs mongo-diagnostics 2>&1 | tail -100
+          echo "::endgroup::"
+          docker exec mongo-diagnostics /bin/sh -c "command -v mongosh || command -v mongo" || echo "exec failed with exit code $?"
+          docker inspect mongo-diagnostics --format 'State: {{.State.Status}} ExitCode: {{.State.ExitCode}} OOMKilled: {{.State.OOMKilled}}'
+          docker rm -f mongo-diagnostics
+
       - name: Upload test results
         if: always()
         uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2

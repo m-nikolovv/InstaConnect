@@ -9,12 +9,11 @@ public static class ContainerFactory
 	public static MongoDbContainer GetMongoDbContainer()
 	{
 		const string Image = "mongo:8.0";
-		const string Username = "instaconnect";
-		const string Password = "instaconnect";
+		const string GlibcTunablesName = "GLIBC_TUNABLES";
+		const string GlibcTunablesValue = "glibc.pthread.rseq=1";
 
 		return new MongoDbBuilder(Image)
-		   .WithUsername(Username)
-		   .WithPassword(Password)
+		   .WithEnvironment(GlibcTunablesName, GlibcTunablesValue)
 		   .WithReplicaSet()
 		   .WithCleanUp(true)
 		   .Build();
@@ -22,7 +21,7 @@ public static class ContainerFactory
 
 	public static RabbitMqContainer GetRabbitMqContainer()
 	{
-		const string Image = "rabbitmq:4.3";
+		const string Image = "rabbitmq:4.3-management";
 
 		return new RabbitMqBuilder(Image)
 			.WithCleanUp(true)
