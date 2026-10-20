@@ -1,4 +1,4 @@
-using InstaConnect.Common.Events.Features.AccessTokens.Models;
+using InstaConnect.Common.Domain.Features.AccessTokens.Models;
 using InstaConnect.Common.Events.Features.Events.Abstractions;
 using InstaConnect.Identity.Domain.Tests.Features.UserClaims.Utilities;
 using InstaConnect.Identity.Domain.Tests.Features.Users.Assertions;

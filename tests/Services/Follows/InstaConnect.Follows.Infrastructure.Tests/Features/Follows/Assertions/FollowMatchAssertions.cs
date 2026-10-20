@@ -1,4 +1,3 @@
-using InstaConnect.Common.Tests.Features.DataAttributes.Enums.Sort;
 using InstaConnect.Follows.Domain.Features.Follows.Models.Responses;
 using InstaConnect.Follows.Infrastructure.Tests.Features.Follows.Utilities;
 using InstaConnect.Follows.Tests.Features.Users.Assertions;

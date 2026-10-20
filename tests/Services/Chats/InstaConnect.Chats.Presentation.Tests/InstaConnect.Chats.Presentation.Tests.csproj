@@ -6,15 +6,6 @@
     <ProjectReference Include="..\InstaConnect.Chats.Tests\InstaConnect.Chats.Tests.csproj" />
   </ItemGroup>
 
-  <ItemGroup Label="Common">
-    <Using Include="InstaConnect.Common.Domain.Features.Requests.Models" />
-    <Using Include="InstaConnect.Common.Presentation.Tests.Features.Assertions" />
-    <Using Include="InstaConnect.Common.Presentation.Tests.Features.Extensions" />
-    <Using Include="InstaConnect.Common.Presentation.Tests.Features.Utilities" />
-    <Using Include="InstaConnect.Common.Tests.Features.DataAttributes.Enums.Base" />
-    <Using Include="InstaConnect.Common.Tests.Features.DataAttributes.Ints.Base" />
-  </ItemGroup>
-
   <ItemGroup Label="Users">
     <Using Include="InstaConnect.Chats.Domain.Features.Users.Models.Entities" />
     <Using Include="InstaConnect.Chats.Domain.Features.Users.Models.ValueObjects" />

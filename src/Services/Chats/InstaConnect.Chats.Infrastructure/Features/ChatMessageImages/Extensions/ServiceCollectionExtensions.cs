@@ -1,5 +1,3 @@
-using MongoDB.Bson.Serialization;
-
 namespace InstaConnect.Chats.Infrastructure.Features.ChatMessageImages.Extensions;
 
 internal static class ServiceCollectionExtensions

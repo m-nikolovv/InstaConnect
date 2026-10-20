@@ -6,9 +6,6 @@
   </ItemGroup>
 
   <ItemGroup Label="Common">
-    <Using Include="InstaConnect.Common.Domain.Features.Databases.Abstractions" />
-    <Using Include="InstaConnect.Common.Domain.Features.DateTimes.Abstractions" />
-    <Using Include="InstaConnect.Common.Domain.Features.Requests.Models" />
     <Using Include="InstaConnect.Posts.Domain.Features.Common.Models.Requests" />
   </ItemGroup>
 

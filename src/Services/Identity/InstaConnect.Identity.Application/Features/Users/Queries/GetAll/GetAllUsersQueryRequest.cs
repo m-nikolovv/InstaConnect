@@ -1,5 +1,3 @@
-using InstaConnect.Common.Domain.Features.Requests.Models;
-
 namespace InstaConnect.Identity.Application.Features.Users.Queries.GetAll;
 
 public record GetAllUsersQueryRequest(

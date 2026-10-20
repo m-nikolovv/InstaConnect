@@ -6,12 +6,6 @@
   </ItemGroup>
 
   <ItemGroup Label="Common">
-    <Using Include="InstaConnect.Common.Application.Features.Requests.Abstractions" />
-    <Using Include="InstaConnect.Common.Domain.Features.Requests.Models" />
-    <Using Include="InstaConnect.Common.Tests.Features.DataAttributes.Enums.Base" />
-    <Using Include="InstaConnect.Common.Tests.Features.DataAttributes.Enums.Sort" />
-    <Using Include="InstaConnect.Common.Tests.Features.DataAttributes.Ints.Base" />
-    <Using Include="InstaConnect.Common.Tests.Features.Utilities" />
     <Using Include="InstaConnect.Posts.Tests.Features.Common.Utilities" />
   </ItemGroup>
 

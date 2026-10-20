@@ -2,9 +2,6 @@ using InstaConnect.Chats.Domain.Features.ChatMessages.Models.Entities;
 using InstaConnect.Chats.Tests.Features.ChatMessageImages.Utilities;
 using InstaConnect.Chats.Tests.Features.ChatMessages.DataAttributes.SortOrder;
 using InstaConnect.Chats.Tests.Features.ChatMessages.DataAttributes.SortTerm;
-using InstaConnect.Common.Domain.Features.Requests.Models;
-using InstaConnect.Common.Tests.Features.DataAttributes.Enums.Base;
-using InstaConnect.Common.Tests.Features.DataAttributes.Enums.Sort;
 
 namespace InstaConnect.Chats.Domain.Tests.Integration.Features.ChatMessages.Services;
 

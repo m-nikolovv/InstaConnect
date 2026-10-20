@@ -1,7 +1,3 @@
-using FluentValidation.TestHelper;
-
-using InstaConnect.Common.Application.Tests.Features.Assertions;
-
 namespace InstaConnect.Chats.Application.Tests.Features.ChatMessages.Assertions;
 
 public static class ChatMessageValidationAssertions
@@ -82,7 +78,6 @@ public static class ChatMessageValidationAssertions
 			response.ShouldHaveValidationErrorForProperty(request, p => p.CurrentUserId, messageTransformer);
 		}
 	}
-
 
 	extension(TestValidationResult<GetAllChatMessagesQueryRequest> response)
 	{

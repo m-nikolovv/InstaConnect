@@ -6,14 +6,10 @@
   </ItemGroup>
 
   <ItemGroup Label="Common">
-    <Using Include="InstaConnect.Common.Domain.Features.Common.Extensions" />
-    <Using Include="InstaConnect.Common.Domain.Features.Databases.Abstractions" />
     <Using Include="InstaConnect.Common.Domain.Features.Mappers.Abstractions" />
-    <Using Include="InstaConnect.Common.Domain.Features.ValueObjects.Models" />
     <Using Include="InstaConnect.Posts.Domain.Features.Common.Models.Requests" />
     <Using Include="InstaConnect.Posts.Infrastructure.Features.Common.Extensions" />
     <Using Include="Microsoft.Extensions.AI" />
-    <Using Include="MongoDB.Bson.Serialization" />
   </ItemGroup>
 
   <ItemGroup Label="Users">

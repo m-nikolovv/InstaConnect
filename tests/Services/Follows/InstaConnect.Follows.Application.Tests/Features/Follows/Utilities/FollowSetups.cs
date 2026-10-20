@@ -1,8 +1,6 @@
 using InstaConnect.Follows.Application.Features.Follows.Models;
 using InstaConnect.Follows.Domain.Features.Follows.Models.ValueObjects;
 
-using Microsoft.Extensions.DependencyInjection;
-
 namespace InstaConnect.Follows.Application.Tests.Features.Follows.Utilities;
 
 public static class FollowSetups

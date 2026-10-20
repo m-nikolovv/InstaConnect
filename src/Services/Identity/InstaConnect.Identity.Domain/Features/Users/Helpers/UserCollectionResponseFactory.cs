@@ -1,5 +1,3 @@
-using InstaConnect.Common.Domain.Features.Databases.Abstractions;
-
 namespace InstaConnect.Identity.Domain.Features.Users.Helpers;
 
 internal class UserCollectionResponseFactory : IUserCollectionResponseFactory

@@ -1,7 +1,5 @@
 using InstaConnect.Follows.Application.Features.Users.Models;
 
-using Microsoft.Extensions.DependencyInjection;
-
 namespace InstaConnect.Follows.Application.Tests.Features.Users.Utilities;
 
 public static class UserSetups

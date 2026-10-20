@@ -15,7 +15,7 @@ internal class UserClaimDomainMappings : IRegister
 		config.NewConfig<UserClaim, UserClaimEventRequest>()
 			.ConstructUsing(src => new(
 				src.Id.Id.Id,
-				src.Id.Claim,
+				src.Id.Claim.GetName(),
 				src.User.Adapt<UserEventRequest>(config)!,
 				src.CreatedAtUtc));
 	}

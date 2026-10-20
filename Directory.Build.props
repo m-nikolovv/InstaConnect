@@ -69,14 +69,21 @@
   </ItemGroup>
 
   <ItemGroup Label="Tests" Condition="'$(ProjectLayer)' == 'Tests'">
+    <Using Include="InstaConnect.Common.Domain.Features.Common.Extensions" />
     <Using Include="InstaConnect.Common.Domain.Features.Requests.Models" />
+    <Using Include="InstaConnect.Common.Tests.Features.Assertions" />
     <Using Include="InstaConnect.Common.Tests.Features.DataAttributes.Enums.Empty" />
     <Using Include="InstaConnect.Common.Tests.Features.DataAttributes.Enums.Sort" />
+    <Using Include="InstaConnect.Common.Tests.Features.DataAttributes.Ints.TooLarge" />
+    <Using Include="InstaConnect.Common.Tests.Features.DataAttributes.Ints.TooSmall" />
+    <Using Include="InstaConnect.Common.Tests.Features.DataAttributes.Strings.Base" />
+    <Using Include="InstaConnect.Common.Tests.Features.DataAttributes.Strings.DifferentCase" />
     <Using Include="InstaConnect.Common.Tests.Features.DataAttributes.Strings.Empty" />
     <Using Include="InstaConnect.Common.Tests.Features.DataAttributes.Strings.Null" />
     <Using Include="InstaConnect.Common.Tests.Features.DataAttributes.Strings.TooLong" />
     <Using Include="InstaConnect.Common.Tests.Features.DataAttributes.Strings.TooShort" />
     <Using Include="InstaConnect.Common.Tests.Features.Utilities" />
     <Using Include="Microsoft.Extensions.DependencyInjection" />
+    <Using Include="Xunit" />
   </ItemGroup>
 </Project>

@@ -1,4 +1,3 @@
-using InstaConnect.Common.Tests.Features.Assertions;
 using InstaConnect.Follows.Domain.Features.Follows.Exceptions;
 
 namespace InstaConnect.Follows.Tests.Features.Follows.Assertions;

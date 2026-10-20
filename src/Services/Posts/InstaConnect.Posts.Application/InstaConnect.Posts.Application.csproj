@@ -5,10 +5,6 @@
     <ProjectReference Include="..\InstaConnect.Posts.Domain\InstaConnect.Posts.Domain.csproj" />
   </ItemGroup>
 
-  <ItemGroup Label="Common">
-    <Using Include="InstaConnect.Common.Domain.Features.Requests.Models" />
-  </ItemGroup>
-
   <ItemGroup Label="Users">
     <Using Include="InstaConnect.Posts.Application.Features.Users.Abstractions" />
     <Using Include="InstaConnect.Posts.Application.Features.Users.Extensions" />

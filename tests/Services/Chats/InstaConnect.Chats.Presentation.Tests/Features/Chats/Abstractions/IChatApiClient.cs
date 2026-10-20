@@ -1,5 +1,3 @@
-using System.Net;
-
 namespace InstaConnect.Chats.Presentation.Tests.Features.Chats.Abstractions;
 
 public interface IChatApiClient

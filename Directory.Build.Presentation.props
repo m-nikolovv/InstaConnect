@@ -1,29 +1,66 @@
 <Project>
   <ItemGroup Label="Presentation" Condition="'$(ProjectLayer)' == 'Presentation'">
+    <Using Include="Asp.Versioning" />
+    <Using Include="InstaConnect.Common.Application.Features.Requests.Abstractions" />
+    <Using Include="InstaConnect.Common.Domain.Features.Common.Extensions" />
+    <Using Include="InstaConnect.Common.Domain.Features.Mappers.Abstractions" />
+    <Using Include="InstaConnect.Common.Domain.Features.Requests.Models" />
     <Using Include="InstaConnect.Common.Presentation.Features.Controllers.Helpers.FromClaim" />
+    <Using Include="InstaConnect.Common.Presentation.Features.Controllers.Utilities" />
+    <Using Include="InstaConnect.Common.Presentation.Features.Requests.Abstractions" />
     <Using Include="Microsoft.AspNetCore.Mvc" />
+    <Using Include="Microsoft.AspNetCore.RateLimiting" />
   </ItemGroup>
 
   <ItemGroup Label="Presentation.Tests" Condition="'$(ProjectLayer)' == 'Presentation.Tests'">
+    <Using Include="InstaConnect.Common.Application.Features.Requests.Abstractions" />
+    <Using Include="InstaConnect.Common.Application.Tests.Features.Assertions" />
+    <Using Include="InstaConnect.Common.Domain.Features.Common.Extensions" />
+    <Using Include="InstaConnect.Common.Domain.Features.Requests.Models" />
+    <Using Include="InstaConnect.Common.Infrastructure.Features.AccessTokens.Abstractions" />
     <Using Include="InstaConnect.Common.Presentation.Features.Exceptions.Models" />
+    <Using Include="InstaConnect.Common.Presentation.Features.Requests.Abstractions" />
+    <Using Include="InstaConnect.Common.Presentation.Tests.Features.Assertions" />
+    <Using Include="InstaConnect.Common.Presentation.Tests.Features.Extensions" />
+    <Using Include="InstaConnect.Common.Presentation.Tests.Features.Utilities" />
+    <Using Include="InstaConnect.Common.Tests.Features.Assertions" />
     <Using Include="InstaConnect.Common.Tests.Features.DataAttributes.Base" />
+    <Using Include="InstaConnect.Common.Tests.Features.DataAttributes.Enums.Base" />
+    <Using Include="InstaConnect.Common.Tests.Features.DataAttributes.Enums.Sort" />
+    <Using Include="InstaConnect.Common.Tests.Features.DataAttributes.Ints.Base" />
     <Using Include="InstaConnect.Common.Tests.Features.DataAttributes.Strings.Base" />
     <Using Include="InstaConnect.Common.Tests.Features.Utilities" />
+    <Using Include="Microsoft.AspNetCore.Mvc" />
+    <Using Include="Microsoft.Extensions.DependencyInjection" />
+    <Using Include="System.Net" />
+    <Using Include="System.Net.Http.Json" />
   </ItemGroup>
 
   <ItemGroup Label="Presentation.Tests.Functional" Condition="'$(ProjectLayer)' == 'Presentation.Tests.Functional'">
+    <Using Include="InstaConnect.Common.Domain.Features.Requests.Models" />
     <Using Include="InstaConnect.Common.Presentation.Tests.Features.Assertions" />
     <Using Include="InstaConnect.Common.Tests.Features.Assertions" />
+    <Using Include="InstaConnect.Common.Tests.Features.DataAttributes.Enums.Base" />
+    <Using Include="InstaConnect.Common.Tests.Features.DataAttributes.Enums.Sort" />
+    <Using Include="InstaConnect.Common.Tests.Features.DataAttributes.Ints.Base" />
     <Using Include="InstaConnect.Common.Tests.Features.DataAttributes.Strings.Base" />
   </ItemGroup>
 
   <ItemGroup Label="Presentation.Tests.Integration" Condition="'$(ProjectLayer)' == 'Presentation.Tests.Integration'">
+    <Using Include="InstaConnect.Common.Domain.Features.Requests.Models" />
     <Using Include="InstaConnect.Common.Presentation.Tests.Features.Assertions" />
     <Using Include="InstaConnect.Common.Tests.Features.Assertions" />
+    <Using Include="InstaConnect.Common.Tests.Features.DataAttributes.Enums.Base" />
+    <Using Include="InstaConnect.Common.Tests.Features.DataAttributes.Enums.Sort" />
+    <Using Include="InstaConnect.Common.Tests.Features.DataAttributes.Ints.Base" />
     <Using Include="InstaConnect.Common.Tests.Features.DataAttributes.Strings.Base" />
   </ItemGroup>
 
   <ItemGroup Label="Presentation.Tests.Unit" Condition="'$(ProjectLayer)' == 'Presentation.Tests.Unit'">
+    <Using Include="InstaConnect.Common.Application.Features.Requests.Abstractions" />
+    <Using Include="InstaConnect.Common.Domain.Features.Mappers.Abstractions" />
     <Using Include="InstaConnect.Common.Presentation.Tests.Features.Assertions" />
+    <Using Include="InstaConnect.Common.Tests.Features.Assertions" />
+    <Using Include="InstaConnect.Common.Tests.Features.Utilities" />
   </ItemGroup>
 </Project>

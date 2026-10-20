@@ -1,4 +1,3 @@
-using InstaConnect.Common.Tests.Features.DataAttributes.Enums.Sort;
 using InstaConnect.Identity.Domain.Features.UserClaims.Models.Responses;
 using InstaConnect.Identity.Events.Features.UserClaims;
 
@@ -38,7 +37,7 @@ public static class UserClaimEquals
 		{
 			return entity != null &&
 				   request.Id.EqualsOrdinalIgnoreCase(command.Id.Id) &&
-				   request.Claim == command.Claim &&
+				   request.Claim == command.Claim.GetName() &&
 				   request.User.Matches(command, entity.User) &&
 				   request.CreatedAtUtc == entity.CreatedAtUtc;
 		}
@@ -47,7 +46,7 @@ public static class UserClaimEquals
 		{
 			return entity != null &&
 				   request.Id.EqualsOrdinalIgnoreCase(command.Id.Id.Id) &&
-				   request.Claim == command.Id.Claim &&
+				   request.Claim == command.Id.Claim.GetName() &&
 				   request.User.Matches(command, entity.User) &&
 				   request.CreatedAtUtc == entity.CreatedAtUtc;
 		}

@@ -1,5 +1,4 @@
 using InstaConnect.Chats.Presentation.Features.Chats.Controllers.v1;
-using InstaConnect.Common.Tests.Features.Assertions;
 
 namespace InstaConnect.Chats.Presentation.Tests.Features.Chats.Assertions;
 

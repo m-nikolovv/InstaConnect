@@ -4,7 +4,6 @@ using InstaConnect.Chats.Application.Features.Chats.Queries.GetAll;
 using InstaConnect.Chats.Application.Features.Chats.Queries.GetById;
 using InstaConnect.Chats.Presentation.Tests.Features.Users.Utilities;
 using InstaConnect.Common.Infrastructure.Features.Databases.Helpers;
-using InstaConnect.Common.Presentation.Features.Requests.Abstractions;
 
 namespace InstaConnect.Chats.Presentation.Tests.Features.Chats.Utilities;
 

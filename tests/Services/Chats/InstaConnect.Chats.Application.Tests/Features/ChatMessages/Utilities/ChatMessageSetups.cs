@@ -1,7 +1,5 @@
 using InstaConnect.Chats.Application.Features.ChatMessages.Models;
 
-using Microsoft.Extensions.DependencyInjection;
-
 namespace InstaConnect.Chats.Application.Tests.Features.ChatMessages.Utilities;
 
 public static class ChatMessageSetups

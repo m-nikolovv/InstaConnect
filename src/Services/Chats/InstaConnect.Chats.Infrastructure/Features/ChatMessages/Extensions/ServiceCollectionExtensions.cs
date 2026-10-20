@@ -1,7 +1,5 @@
 using InstaConnect.Chats.Infrastructure.Features.Common.Extensions;
 
-using MongoDB.Bson.Serialization;
-
 namespace InstaConnect.Chats.Infrastructure.Features.ChatMessages.Extensions;
 
 internal static class ServiceCollectionExtensions

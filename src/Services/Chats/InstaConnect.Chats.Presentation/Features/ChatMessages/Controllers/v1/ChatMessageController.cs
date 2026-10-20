@@ -1,5 +1,3 @@
-using Asp.Versioning;
-
 using InstaConnect.Chats.Application.Features.ChatMessages.Commands.Add;
 using InstaConnect.Chats.Application.Features.ChatMessages.Commands.Delete;
 using InstaConnect.Chats.Application.Features.ChatMessages.Commands.Update;
@@ -8,12 +6,8 @@ using InstaConnect.Chats.Application.Features.ChatMessages.Queries.GetById;
 using InstaConnect.Chats.Presentation.Features.ChatMessages.Models.Requests;
 using InstaConnect.Chats.Presentation.Features.ChatMessages.Models.Responses;
 using InstaConnect.Chats.Presentation.Features.ChatMessages.Utilities;
-using InstaConnect.Common.Application.Features.Requests.Abstractions;
-using InstaConnect.Common.Domain.Features.Mappers.Abstractions;
-using InstaConnect.Common.Presentation.Features.Controllers.Utilities;
 
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.RateLimiting;
 
 namespace InstaConnect.Chats.Presentation.Features.ChatMessages.Controllers.v1;
 

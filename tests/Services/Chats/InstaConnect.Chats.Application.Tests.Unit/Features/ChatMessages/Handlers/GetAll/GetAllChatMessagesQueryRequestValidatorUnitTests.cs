@@ -4,9 +4,6 @@ using InstaConnect.Chats.Tests.Features.ChatMessages.DataAttributes.Page;
 using InstaConnect.Chats.Tests.Features.ChatMessages.DataAttributes.PageSize;
 using InstaConnect.Chats.Tests.Features.ChatMessages.DataAttributes.SortOrder;
 using InstaConnect.Chats.Tests.Features.ChatMessages.DataAttributes.SortTerm;
-using InstaConnect.Common.Domain.Features.Requests.Models;
-using InstaConnect.Common.Tests.Features.DataAttributes.Enums.Base;
-using InstaConnect.Common.Tests.Features.DataAttributes.Ints.Base;
 
 namespace InstaConnect.Chats.Application.Tests.Unit.Features.ChatMessages.Handlers.GetAll;
 

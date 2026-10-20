@@ -1,5 +1,4 @@
 using InstaConnect.Common.Domain.Features.Images.Abstractions;
-using InstaConnect.Common.Domain.Tests.Features.Assertions;
 using InstaConnect.Common.Events.Features.Events.Abstractions;
 using InstaConnect.Posts.Domain.Features.PostCommentImages.Abstractions;
 using InstaConnect.Posts.Domain.Tests.Features.Posts.Assertions;

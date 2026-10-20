@@ -1,5 +1,4 @@
-using InstaConnect.Common.Events.Features.AccessTokens.Models;
-using InstaConnect.Common.Tests.Features.DataAttributes.Enums.Base;
+using InstaConnect.Common.Domain.Features.AccessTokens.Models;
 using InstaConnect.Identity.Application.Features.UserClaims.Commands.Delete;
 using InstaConnect.Identity.Application.Tests.Features.UserClaims.Builders;
 using InstaConnect.Identity.Application.Tests.Integration.Features.UserClaims.Utilities;

@@ -1,6 +1,3 @@
-using InstaConnect.Common.Domain.Features.Common.Extensions;
-using InstaConnect.Common.Domain.Features.ValueObjects.Models;
-
 namespace InstaConnect.Follows.Infrastructure.Features.Users.Extensions;
 
 internal static class UserFilterExtensions

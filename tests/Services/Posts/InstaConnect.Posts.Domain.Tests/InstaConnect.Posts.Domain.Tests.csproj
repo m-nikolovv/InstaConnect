@@ -6,16 +6,7 @@
   </ItemGroup>
 
   <ItemGroup Label="Common">
-    <Using Include="InstaConnect.Common.Domain.Features.Common.Extensions" />
-    <Using Include="InstaConnect.Common.Domain.Features.DateTimes.Abstractions" />
-    <Using Include="InstaConnect.Common.Domain.Features.Requests.Models" />
-    <Using Include="InstaConnect.Common.Domain.Features.ValueObjects.Models" />
-    <Using Include="InstaConnect.Common.Tests.Features.Assertions" />
-    <Using Include="InstaConnect.Common.Tests.Features.DataAttributes.Enums.Base" />
-    <Using Include="InstaConnect.Common.Tests.Features.DataAttributes.Enums.Sort" />
-    <Using Include="InstaConnect.Common.Tests.Features.DataAttributes.Ints.Base" />
     <Using Include="InstaConnect.Common.Tests.Features.Extensions" />
-    <Using Include="Microsoft.Extensions.DependencyInjection" />
   </ItemGroup>
 
   <ItemGroup Label="Users">

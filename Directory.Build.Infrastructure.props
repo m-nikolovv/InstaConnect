@@ -1,24 +1,41 @@
 <Project>
   <ItemGroup Label="Infrastructure" Condition="'$(ProjectLayer)' == 'Infrastructure'">
+    <Using Include="InstaConnect.Common.Domain.Features.Common.Extensions" />
+    <Using Include="InstaConnect.Common.Domain.Features.Databases.Abstractions" />
+    <Using Include="InstaConnect.Common.Domain.Features.ValueObjects.Models" />
     <Using Include="InstaConnect.Common.Infrastructure.Features.Databases.Abstractions" />
     <Using Include="InstaConnect.Common.Infrastructure.Features.Databases.Extensions" />
     <Using Include="InstaConnect.Common.Infrastructure.Features.Databases.Helpers" />
+    <Using Include="MongoDB.Bson.Serialization" />
     <Using Include="MongoDB.Driver" />
     <Using Include="System.Linq.Expressions" />
   </ItemGroup>
 
   <ItemGroup Label="Infrastructure.Tests" Condition="'$(ProjectLayer)' == 'Infrastructure.Tests'">
+    <Using Include="InstaConnect.Common.Domain.Features.Common.Extensions" />
+    <Using Include="InstaConnect.Common.Domain.Features.Requests.Models" />
+    <Using Include="InstaConnect.Common.Domain.Features.ValueObjects.Models" />
+    <Using Include="InstaConnect.Common.Infrastructure.Tests.Features.Assertions" />
+    <Using Include="InstaConnect.Common.Infrastructure.Tests.Features.Utilities" />
     <Using Include="InstaConnect.Common.Tests.Features.Assertions" />
+    <Using Include="InstaConnect.Common.Tests.Features.DataAttributes.Base" />
+    <Using Include="InstaConnect.Common.Tests.Features.DataAttributes.Enums.Base" />
+    <Using Include="InstaConnect.Common.Tests.Features.DataAttributes.Enums.Sort" />
+    <Using Include="InstaConnect.Common.Tests.Features.DataAttributes.Strings.Base" />
     <Using Include="InstaConnect.Common.Tests.Features.Utilities" />
   </ItemGroup>
 
   <ItemGroup Label="Infrastructure.Tests.Integration" Condition="'$(ProjectLayer)' == 'Infrastructure.Tests.Integration'">
+    <Using Include="InstaConnect.Common.Domain.Features.Requests.Models" />
     <Using Include="InstaConnect.Common.Tests.Features.Assertions" />
+    <Using Include="InstaConnect.Common.Tests.Features.DataAttributes.Enums.Base" />
+    <Using Include="InstaConnect.Common.Tests.Features.DataAttributes.Enums.Sort" />
     <Using Include="InstaConnect.Common.Tests.Features.DataAttributes.Strings.Base" />
   </ItemGroup>
 
   <ItemGroup Label="Infrastructure.Tests.Unit" Condition="'$(ProjectLayer)' == 'Infrastructure.Tests.Unit'">
     <Using Include="InstaConnect.Common.Infrastructure.Tests.Features.Assertions" />
     <Using Include="InstaConnect.Common.Tests.Features.Assertions" />
+    <Using Include="InstaConnect.Common.Tests.Features.Utilities" />
   </ItemGroup>
 </Project>

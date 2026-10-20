@@ -1,4 +1,3 @@
-using InstaConnect.Common.Domain.Tests.Features.Assertions;
 using InstaConnect.Common.Events.Features.Events.Abstractions;
 
 namespace InstaConnect.Chats.Domain.Tests.Features.Chats.Assertions;

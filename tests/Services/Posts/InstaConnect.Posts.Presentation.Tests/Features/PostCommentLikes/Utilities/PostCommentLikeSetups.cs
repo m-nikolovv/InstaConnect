@@ -1,8 +1,6 @@
 using InstaConnect.Posts.Domain.Features.PostCommentLikes.Models.ValueObjects;
 using InstaConnect.Posts.Presentation.Features.PostCommentLikes.Controllers.v1;
 
-using Microsoft.Extensions.DependencyInjection;
-
 namespace InstaConnect.Posts.Presentation.Tests.Features.PostCommentLikes.Utilities;
 
 public static class PostCommentLikeSetups

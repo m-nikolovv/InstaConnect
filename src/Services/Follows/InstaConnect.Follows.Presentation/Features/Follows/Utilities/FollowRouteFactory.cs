@@ -1,4 +1,3 @@
-using InstaConnect.Common.Domain.Features.Common.Extensions;
 using InstaConnect.Follows.Presentation.Features.Follows.Models.Requests;
 
 namespace InstaConnect.Follows.Presentation.Features.Follows.Utilities;

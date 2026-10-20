@@ -1,5 +1,3 @@
-using InstaConnect.Common.Tests.Features.DataAttributes.Enums.Sort;
-
 namespace InstaConnect.Identity.Domain.Tests.Features.Users.Assertions;
 
 public static class UserMatchAssertions

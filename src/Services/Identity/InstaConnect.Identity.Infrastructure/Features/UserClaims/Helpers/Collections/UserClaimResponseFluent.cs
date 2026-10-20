@@ -1,5 +1,3 @@
-using InstaConnect.Common.Domain.Features.Databases.Abstractions;
-
 namespace InstaConnect.Identity.Infrastructure.Features.UserClaims.Helpers.Collections;
 
 internal class UserClaimResponseFluent :

@@ -1,7 +1,5 @@
 using InstaConnect.Follows.Tests.Features.Common.Utilities;
 
-using Xunit;
-
 namespace InstaConnect.Follows.Tests.Features.Follows.Utilities;
 
 public abstract class BaseFollowWebTest : BaseFollowTest, IClassFixture<FollowsWebApplicationFactory>

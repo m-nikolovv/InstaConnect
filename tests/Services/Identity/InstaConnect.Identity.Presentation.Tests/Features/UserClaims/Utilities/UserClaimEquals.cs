@@ -1,5 +1,3 @@
-using InstaConnect.Common.Presentation.Features.Requests.Abstractions;
-using InstaConnect.Common.Tests.Features.DataAttributes.Enums.Sort;
 using InstaConnect.Identity.Application.Features.UserClaims.Commands.Add;
 using InstaConnect.Identity.Application.Features.UserClaims.Commands.Delete;
 using InstaConnect.Identity.Application.Features.UserClaims.Queries.GetAll;
@@ -37,7 +35,7 @@ public static class UserClaimEquals
 		{
 			return entity != null &&
 				   r.Id.EqualsOrdinalIgnoreCase(request.Id) &&
-				   r.Claim == request.Body.Claim &&
+				   r.Claim == request.Body.Claim.GetName() &&
 				   r.User.Matches(request, entity.User) &&
 				   r.CreatedAtUtc == entity.CreatedAtUtc;
 		}
@@ -46,7 +44,7 @@ public static class UserClaimEquals
 		{
 			return entity != null &&
 				   r.Id.EqualsOrdinalIgnoreCase(request.Id) &&
-				   r.Claim == request.Claim &&
+				   r.Claim == request.Claim.GetName() &&
 				   r.User.Matches(request, entity.User) &&
 				   r.CreatedAtUtc == entity.CreatedAtUtc;
 		}

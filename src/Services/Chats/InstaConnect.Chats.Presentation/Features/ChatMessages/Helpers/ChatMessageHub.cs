@@ -1,6 +1,5 @@
 using InstaConnect.Chats.Presentation.Features.ChatMessages.Abstractions;
 using InstaConnect.Chats.Presentation.Features.ChatMessages.Models.Requests;
-using InstaConnect.Common.Domain.Features.Mappers.Abstractions;
 
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.SignalR;

@@ -1,5 +1,3 @@
-using Microsoft.Extensions.DependencyInjection;
-
 namespace InstaConnect.Follows.Domain.Tests.Features.Follows.Utilities;
 
 public static class FollowDomainSetups

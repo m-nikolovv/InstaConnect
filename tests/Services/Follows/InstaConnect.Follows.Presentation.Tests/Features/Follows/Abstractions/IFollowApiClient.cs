@@ -1,5 +1,3 @@
-using System.Net;
-
 namespace InstaConnect.Follows.Presentation.Tests.Features.Follows.Abstractions;
 
 public interface IFollowApiClient

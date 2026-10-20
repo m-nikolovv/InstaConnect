@@ -1,8 +1,6 @@
 using InstaConnect.Chats.Domain.Tests.Features.ChatMessageImages.Utilities;
 using InstaConnect.Chats.Events.Features.Chats;
-using InstaConnect.Common.Domain.Features.Common.Extensions;
 using InstaConnect.Common.Domain.Features.Requests.Abstractions;
-using InstaConnect.Common.Tests.Features.DataAttributes.Enums.Sort;
 using InstaConnect.Identity.Events.Features.Users;
 
 namespace InstaConnect.Chats.Domain.Tests.Features.Chats.Utilities;

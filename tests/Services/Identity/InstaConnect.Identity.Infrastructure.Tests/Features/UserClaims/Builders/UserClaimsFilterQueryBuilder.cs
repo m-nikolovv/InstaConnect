@@ -1,5 +1,3 @@
-using InstaConnect.Common.Tests.Features.DataAttributes.Strings.Base;
-
 namespace InstaConnect.Identity.Infrastructure.Tests.Features.UserClaims.Builders;
 
 public class UserClaimsFilterQueryBuilder

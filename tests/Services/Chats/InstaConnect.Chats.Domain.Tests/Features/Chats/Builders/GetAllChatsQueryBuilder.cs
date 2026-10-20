@@ -1,7 +1,3 @@
-using InstaConnect.Common.Domain.Features.Requests.Models;
-using InstaConnect.Common.Tests.Features.DataAttributes.Enums.Base;
-using InstaConnect.Common.Tests.Features.DataAttributes.Ints.Base;
-
 namespace InstaConnect.Chats.Domain.Tests.Features.Chats.Builders;
 
 public class GetAllChatsQueryBuilder

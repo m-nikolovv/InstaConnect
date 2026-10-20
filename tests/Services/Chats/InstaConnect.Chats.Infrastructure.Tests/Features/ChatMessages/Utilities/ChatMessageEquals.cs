@@ -3,7 +3,6 @@ using InstaConnect.Chats.Domain.Features.ChatMessages.Models.ValueObjects;
 using InstaConnect.Chats.Infrastructure.Tests.Features.ChatMessageImages.Utilities;
 using InstaConnect.Chats.Infrastructure.Tests.Features.Chats.Utilities;
 using InstaConnect.Chats.Tests.Features.ChatMessages.Utilities;
-using InstaConnect.Common.Tests.Features.DataAttributes.Enums.Sort;
 
 namespace InstaConnect.Chats.Infrastructure.Tests.Features.ChatMessages.Utilities;
 
