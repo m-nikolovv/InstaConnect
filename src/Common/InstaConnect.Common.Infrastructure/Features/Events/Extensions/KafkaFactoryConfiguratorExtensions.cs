@@ -16,6 +16,7 @@ public static class KafkaFactoryConfiguratorExtensions
 			where TEventHandler : class, IEventHandler<TEvent>
 		{
 			const string GroupIdFormat = "{0}-{1}";
+			const int RetryLimit = 5;
 
 			var topicName = KebabCaseEndpointNameFormatter.Instance.Message<TEvent>();
 
@@ -26,6 +27,16 @@ public static class KafkaFactoryConfiguratorExtensions
 				{
 					endpointConfigurator.AutoOffsetReset = AutoOffsetReset.Earliest;
 					endpointConfigurator.CreateIfMissing();
+
+					endpointConfigurator.UseMessageRetry(retryConfigurator =>
+					{
+						retryConfigurator.Exponential(RetryLimit, TimeSpan.FromMilliseconds(200), TimeSpan.FromSeconds(10), TimeSpan.FromMilliseconds(200));
+						retryConfigurator.Handle<MongoException>();
+						retryConfigurator.Handle<TimeoutException>();
+					});
+
+					endpointConfigurator.UseMongoDbOutbox(context);
+
 					endpointConfigurator.ConfigureConsumer<TEventHandler>(context);
 				});
 
