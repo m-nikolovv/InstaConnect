@@ -11,13 +11,17 @@ public static class KafkaFactoryConfiguratorExtensions
 {
 	extension(IKafkaFactoryConfigurator kafkaConfigurator)
 	{
-		public IKafkaFactoryConfigurator MapEventHandler<TEvent, TEventHandler>(IRiderRegistrationContext context, string groupId)
+		public IKafkaFactoryConfigurator MapEventHandler<TEvent, TEventHandler>(IRiderRegistrationContext context, string prefix)
 			where TEvent : class, IEventRequest
 			where TEventHandler : class, IEventHandler<TEvent>
 		{
+			const string GroupIdFormat = "{0}-{1}";
+
+			var topicName = KebabCaseEndpointNameFormatter.Instance.Message<TEvent>();
+
 			kafkaConfigurator.TopicEndpoint<TEvent>(
-				KebabCaseEndpointNameFormatter.Instance.Message<TEvent>(),
-				groupId,
+				topicName,
+				GroupIdFormat.FormatCurrentCulture(prefix, topicName),
 				endpointConfigurator =>
 				{
 					endpointConfigurator.AutoOffsetReset = AutoOffsetReset.Earliest;

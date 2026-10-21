@@ -42,7 +42,7 @@ public static class ServiceCollectionExtensions
 				.AddValidations(PostsInfrastructureReference.Assembly, CommonInfrastructureReference.Assembly)
 				.AddServicesWithMatchingInterfacesExceptFluents(PostsInfrastructureReference.Assembly)
 				.AddDatabases(configuration)
-				.AddEvents(configuration, (context, kafkaConfigurator) => kafkaConfigurator.MapUserEventHandler(context, PostsEventHandlerUtilities.GroupId), PostsInfrastructureReference.Assembly)
+				.AddEvents(configuration, (context, kafkaConfigurator) => kafkaConfigurator.MapUserEventHandler(context, PostsEventHandlerUtilities.Prefix), PostsInfrastructureReference.Assembly)
 				.AddAccessTokens(configuration)
 				.AddImages(configuration)
 				.AddSummarizers(configuration)

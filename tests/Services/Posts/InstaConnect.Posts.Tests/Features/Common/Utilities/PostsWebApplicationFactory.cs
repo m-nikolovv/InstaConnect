@@ -31,7 +31,7 @@ public class PostsWebApplicationFactory : WebApplicationFactory<Program>, IAsync
 			serviceCollection.AddMockImageHandler();
 			serviceCollection.AddPostMockSummarizer();
 			serviceCollection.AddPostCommentMockSummarizer();
-			serviceCollection.AddTestEventClient((context, kafkaConfigurator) => kafkaConfigurator.MapUserEventHandler(context, PostsEventHandlerUtilities.GroupId.GetTest()), PostsInfrastructureReference.Assembly);
+			serviceCollection.AddTestEventClient((context, kafkaConfigurator) => kafkaConfigurator.MapUserEventHandler(context, PostsEventHandlerUtilities.Prefix.GetTest()), PostsInfrastructureReference.Assembly);
 		});
 
 		builder.UpdateKafkaConfiguration(_kafkaContainer.GetBootstrapServers());
