@@ -10,7 +10,7 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services
 	.AddDomain()
 	.AddApplication()
-	.AddInfrastructure(builder.Configuration, builder.Environment, IdentityPresentationReference.Assembly)
+	.AddInfrastructure(builder.Configuration, builder.Environment)
 	.AddPresentation(builder.Configuration);
 
 builder.Host.UseTelemetries();

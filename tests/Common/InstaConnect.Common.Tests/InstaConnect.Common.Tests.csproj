@@ -9,7 +9,7 @@
     <PackageReference Include="xunit" />
     <PackageReference Include="xunit.extensibility.core" />
     <PackageReference Include="Testcontainers.MongoDb" />
-    <PackageReference Include="Testcontainers.RabbitMq" />
+    <PackageReference Include="Testcontainers.Kafka" />
     <PackageReference Include="Testcontainers.Redis" />
   </ItemGroup>
 

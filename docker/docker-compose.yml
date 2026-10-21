@@ -76,23 +76,53 @@ services:
     networks:
       - instaconnect
 
-  rabbitmq:
-    image: rabbitmq:management
-    container_name: rabbitmq
-    hostname: rabbitmq
+  kafka:
+    image: apache/kafka:latest
+    container_name: kafka
+    hostname: kafka
+    restart: unless-stopped
     environment:
-      RABBITMQ_DEFAULT_USER: ${RABBITMQ_USERNAME}
-      RABBITMQ_DEFAULT_PASS: ${RABBITMQ_PASSWORD}
+      CLUSTER_ID: ${KAFKA_CLUSTER_ID}
+      KAFKA_NODE_ID: 1
+      KAFKA_PROCESS_ROLES: broker,controller
+      KAFKA_LISTENERS: INTERNAL://:9092,CONTROLLER://:9093,EXTERNAL://:9094
+      KAFKA_ADVERTISED_LISTENERS: INTERNAL://kafka:9092,EXTERNAL://localhost:9094
+      KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: INTERNAL:SASL_PLAINTEXT,CONTROLLER:PLAINTEXT,EXTERNAL:SASL_PLAINTEXT
+      KAFKA_CONTROLLER_LISTENER_NAMES: CONTROLLER
+      KAFKA_CONTROLLER_QUORUM_VOTERS: 1@kafka:9093
+      KAFKA_INTER_BROKER_LISTENER_NAME: INTERNAL
+      KAFKA_SASL_ENABLED_MECHANISMS: PLAIN
+      KAFKA_SASL_MECHANISM_INTER_BROKER_PROTOCOL: PLAIN
+      KAFKA_LISTENER_NAME_INTERNAL_PLAIN_SASL_JAAS_CONFIG: >-
+        org.apache.kafka.common.security.plain.PlainLoginModule required
+        username="${KAFKA_USERNAME}" password="${KAFKA_PASSWORD}" user_${KAFKA_USERNAME}="${KAFKA_PASSWORD}";
+      KAFKA_LISTENER_NAME_EXTERNAL_PLAIN_SASL_JAAS_CONFIG: >-
+        org.apache.kafka.common.security.plain.PlainLoginModule required
+        user_${KAFKA_USERNAME}="${KAFKA_PASSWORD}";
+      KAFKA_LOG_DIRS: /var/lib/kafka/data
+      KAFKA_NUM_PARTITIONS: 1
+      KAFKA_DEFAULT_REPLICATION_FACTOR: 1
+      KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
+      KAFKA_TRANSACTION_STATE_LOG_REPLICATION_FACTOR: 1
+      KAFKA_TRANSACTION_STATE_LOG_MIN_ISR: 1
+      KAFKA_MIN_INSYNC_REPLICAS: 1
+      KAFKA_AUTO_CREATE_TOPICS_ENABLE: "true"
+      KAFKA_GROUP_INITIAL_REBALANCE_DELAY_MS: 0
+      KAFKA_LOG_RETENTION_HOURS: 168
+      KAFKA_HEAP_OPTS: "-Xms512m -Xmx512m"
     ports:
-      - "15672:15672"
-      - "5672:5672"
+      - "9094:9094"
     volumes:
-      - ./.containers/rabbitmq/data:/var/lib/rabbitmq
-      - ./.containers/rabbitmq/log:/var/log/rabbitmq
+      - ./.containers/kafka/data:/var/lib/kafka/data
     healthcheck:
-      test: ["CMD", "rabbitmq-diagnostics", "check_port_connectivity"]
+      test:
+        - CMD-SHELL
+        - >-
+          printf 'security.protocol=SASL_PLAINTEXT\nsasl.mechanism=PLAIN\nsasl.jaas.config=org.apache.kafka.common.security.plain.PlainLoginModule required username="%s" password="%s";\n'
+          "${KAFKA_USERNAME}" "${KAFKA_PASSWORD}" > /tmp/healthcheck.properties &&
+          /opt/kafka/bin/kafka-broker-api-versions.sh --bootstrap-server kafka:9092 --command-config /tmp/healthcheck.properties > /dev/null 2>&1
       interval: 10s
-      timeout: 5s
+      timeout: 15s
       retries: 10
       start_period: 30s
     networks:
@@ -115,7 +145,9 @@ services:
       AccessTokenConfiguration__SecurityKey: "${ACCESS_TOKEN_SECURITY_KEY}"
       MongoConfiguration__Name: "instaconnect_identity"
       MongoConfiguration__ConnectionString: "mongodb://${MONGO_USERNAME}:${MONGO_PASSWORD}@mongo:27017/instaconnect_identity?replicaSet=rs0&authSource=admin"
-      RabbitMqConfiguration__ConnectionString: "amqp://${RABBITMQ_USERNAME}:${RABBITMQ_PASSWORD}@rabbitmq:5672/"
+      KafkaConfiguration__ConnectionString: "kafka:9092"
+      KafkaConfiguration__Username: "${KAFKA_USERNAME}"
+      KafkaConfiguration__Password: "${KAFKA_PASSWORD}"
       RedisConfiguration__ConnectionString: "redis:6379,password=${REDIS_PASSWORD},abortConnect=False"
       CloudinaryConfiguration__CloudName: ${CLOUDINARY_CLOUD_NAME}
       CloudinaryConfiguration__ApiKey: ${CLOUDINARY_API_KEY}
@@ -131,7 +163,7 @@ services:
         condition: service_healthy
       mongo:
         condition: service_healthy
-      rabbitmq:
+      kafka:
         condition: service_healthy
       redis:
         condition: service_healthy
@@ -151,7 +183,9 @@ services:
       AccessTokenConfiguration__SecurityKey: "${ACCESS_TOKEN_SECURITY_KEY}"
       MongoConfiguration__Name: "instaconnect_posts"
       MongoConfiguration__ConnectionString: "mongodb://${MONGO_USERNAME}:${MONGO_PASSWORD}@mongo:27017/instaconnect_posts?replicaSet=rs0&authSource=admin"
-      RabbitMqConfiguration__ConnectionString: "amqp://${RABBITMQ_USERNAME}:${RABBITMQ_PASSWORD}@rabbitmq:5672/"
+      KafkaConfiguration__ConnectionString: "kafka:9092"
+      KafkaConfiguration__Username: "${KAFKA_USERNAME}"
+      KafkaConfiguration__Password: "${KAFKA_PASSWORD}"
       CloudinaryConfiguration__CloudName: ${CLOUDINARY_CLOUD_NAME}
       CloudinaryConfiguration__ApiKey: ${CLOUDINARY_API_KEY}
       CloudinaryConfiguration__ApiSecret: ${CLOUDINARY_API_SECRET}
@@ -168,7 +202,7 @@ services:
         condition: service_healthy
       mongo:
         condition: service_healthy
-      rabbitmq:
+      kafka:
         condition: service_healthy
     networks:
       - instaconnect
@@ -186,7 +220,9 @@ services:
       AccessTokenConfiguration__SecurityKey: "${ACCESS_TOKEN_SECURITY_KEY}"
       MongoConfiguration__Name: "instaconnect_chats"
       MongoConfiguration__ConnectionString: "mongodb://${MONGO_USERNAME}:${MONGO_PASSWORD}@mongo:27017/instaconnect_chats?replicaSet=rs0&authSource=admin"
-      RabbitMqConfiguration__ConnectionString: "amqp://${RABBITMQ_USERNAME}:${RABBITMQ_PASSWORD}@rabbitmq:5672/"
+      KafkaConfiguration__ConnectionString: "kafka:9092"
+      KafkaConfiguration__Username: "${KAFKA_USERNAME}"
+      KafkaConfiguration__Password: "${KAFKA_PASSWORD}"
       RedisConfiguration__ConnectionString: "redis:6379,password=${REDIS_PASSWORD},abortConnect=False"
       CloudinaryConfiguration__CloudName: ${CLOUDINARY_CLOUD_NAME}
       CloudinaryConfiguration__ApiKey: ${CLOUDINARY_API_KEY}
@@ -204,7 +240,7 @@ services:
         condition: service_healthy
       mongo:
         condition: service_healthy
-      rabbitmq:
+      kafka:
         condition: service_healthy
     networks:
       - instaconnect
@@ -222,7 +258,9 @@ services:
       AccessTokenConfiguration__SecurityKey: "${ACCESS_TOKEN_SECURITY_KEY}"
       MongoConfiguration__Name: "instaconnect_follows"
       MongoConfiguration__ConnectionString: "mongodb://${MONGO_USERNAME}:${MONGO_PASSWORD}@mongo:27017/instaconnect_follows?replicaSet=rs0&authSource=admin"
-      RabbitMqConfiguration__ConnectionString: "amqp://${RABBITMQ_USERNAME}:${RABBITMQ_PASSWORD}@rabbitmq:5672/"
+      KafkaConfiguration__ConnectionString: "kafka:9092"
+      KafkaConfiguration__Username: "${KAFKA_USERNAME}"
+      KafkaConfiguration__Password: "${KAFKA_PASSWORD}"
       RedisConfiguration__ConnectionString: "redis:6379,password=${REDIS_PASSWORD},abortConnect=False"
     healthcheck:
       test: ["CMD-SHELL", "wget --spider --tries=1 --no-verbose http://127.0.0.1:80/healthz || exit 1"]
@@ -235,7 +273,7 @@ services:
         condition: service_healthy
       mongo:
         condition: service_healthy
-      rabbitmq:
+      kafka:
         condition: service_healthy
     networks:
       - instaconnect

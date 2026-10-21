@@ -1,5 +1,7 @@
+using InstaConnect.Common.Infrastructure.Features.Events.Models;
 using InstaConnect.Common.Tests.Features.Extensions;
 
+using MassTransit;
 using MassTransit.Testing;
 
 using Microsoft.Extensions.DependencyInjection;
@@ -8,19 +10,24 @@ namespace InstaConnect.Common.Tests.Features.Helpers;
 
 public class TestHarnessFactory : ITestHarnessFactory
 {
-	private readonly string _connectionString;
-	private readonly Assembly[] _currentAssemblies;
+	private readonly KafkaOptions _kafkaOptions;
+	private readonly Action<IRiderRegistrationContext, IKafkaFactoryConfigurator>? _mapEventHandlers;
+	private readonly Assembly[] _assemblies;
 
-	public TestHarnessFactory(string connectionString, Assembly[] currentAssemblies)
+	public TestHarnessFactory(
+		KafkaOptions kafkaOptions,
+		Action<IRiderRegistrationContext, IKafkaFactoryConfigurator>? mapEventHandlers,
+		Assembly[] assemblies)
 	{
-		_connectionString = connectionString;
-		_currentAssemblies = currentAssemblies;
+		_kafkaOptions = kafkaOptions;
+		_mapEventHandlers = mapEventHandlers;
+		_assemblies = assemblies;
 	}
 
 	public ITestHarness Create()
 	{
 		return new ServiceCollection()
-				.AddMassTransitTestEventClient(_connectionString, _currentAssemblies)
+				.AddMassTransitTestEventClient(_kafkaOptions, _mapEventHandlers, _assemblies)
 				.BuildServiceProvider(true)
 				.GetTestHarness();
 	}

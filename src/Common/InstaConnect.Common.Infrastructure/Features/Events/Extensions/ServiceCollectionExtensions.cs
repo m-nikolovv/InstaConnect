@@ -12,33 +12,19 @@ public static class ServiceCollectionExtensions
 {
 	extension(IServiceCollection serviceCollection)
 	{
-		public IServiceCollection AddEvents(IConfiguration configuration, string prefix, params Assembly[] currentAssemblies)
+		public IServiceCollection AddEvents(
+			IConfiguration configuration,
+			Action<IRiderRegistrationContext, IKafkaFactoryConfigurator>? mapEventHandlers,
+			params Assembly[] assemblies)
 		{
-			serviceCollection.AddValidatedOptions<RabbitMqOptions>(RabbitMqOptions.SectionName);
-			var options = configuration.GetOptions<RabbitMqOptions>(RabbitMqOptions.SectionName);
+			serviceCollection.AddValidatedOptions<KafkaOptions>(KafkaOptions.SectionName);
+			var options = configuration.GetOptions<KafkaOptions>(KafkaOptions.SectionName);
 
 			serviceCollection.AddMassTransit(busConfigurator =>
 			{
-				busConfigurator.SetKebabCaseEndpointNameFormatterWithPrefix(prefix);
+				busConfigurator.AddMongoDbOutbox();
 
-				busConfigurator.AddConsumers(currentAssemblies);
-
-				busConfigurator.AddMongoDbOutbox(o =>
-				{
-					o.ClientFactory(provider => provider.GetRequiredService<IMongoClient>());
-					o.DatabaseFactory(provider => provider.GetRequiredService<IMongoDatabase>());
-
-					o.UseBusOutbox();
-				});
-
-				busConfigurator.AddConfigureEndpointsCallback((context, name, cfg) => cfg.UseMongoDbOutbox(context));
-
-				busConfigurator.UsingRabbitMq((context, configurator) =>
-				{
-					configurator.Host(options.ConnectionString);
-
-					configurator.ConfigureEndpoints(context);
-				});
+				busConfigurator.AddKafka(options, mapEventHandlers, assemblies);
 			});
 
 			serviceCollection.AddScoped<IEventPublisher, EventPublisher>();

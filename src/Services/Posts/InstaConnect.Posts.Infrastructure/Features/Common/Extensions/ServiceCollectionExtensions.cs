@@ -8,7 +8,6 @@ using InstaConnect.Common.Infrastructure.Features.Guids.Extensions;
 using InstaConnect.Common.Infrastructure.Features.Images.Extensions;
 using InstaConnect.Common.Infrastructure.Features.Summarizers.Extensions;
 using InstaConnect.Common.Infrastructure.Features.Telemetries.Extensions;
-using InstaConnect.Posts.Infrastructure.Features.Common.Utilities;
 using InstaConnect.Posts.Infrastructure.Features.PostCommentImages.Extensions;
 using InstaConnect.Posts.Infrastructure.Features.PostCommentLikes.Extensions;
 using InstaConnect.Posts.Infrastructure.Features.PostImages.Extensions;
@@ -42,7 +41,7 @@ public static class ServiceCollectionExtensions
 				.AddValidations(PostsInfrastructureReference.Assembly, CommonInfrastructureReference.Assembly)
 				.AddServicesWithMatchingInterfacesExceptFluents(PostsInfrastructureReference.Assembly)
 				.AddDatabases(configuration)
-				.AddEvents(configuration, PostsEventHandlerUtilities.Prefix, PostsInfrastructureReference.Assembly)
+				.AddEvents(configuration, (context, kafkaConfigurator) => kafkaConfigurator.MapUserEventHandler(context), PostsInfrastructureReference.Assembly)
 				.AddAccessTokens(configuration)
 				.AddImages(configuration)
 				.AddSummarizers(configuration)

@@ -6,23 +6,23 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc.Testing;
 using Microsoft.AspNetCore.TestHost;
 
+using Testcontainers.Kafka;
 using Testcontainers.MongoDb;
-using Testcontainers.RabbitMq;
 using Testcontainers.Redis;
 
 namespace InstaConnect.Identity.Tests.Features.Common.Utilities;
 
 public class IdentityWebApplicationFactory : WebApplicationFactory<Program>, IAsyncLifetime
 {
+	private readonly KafkaContainer _kafkaContainer;
 	private readonly RedisContainer _redisContainer;
 	private readonly MongoDbContainer _mongoDbContainer;
-	private readonly RabbitMqContainer _rabbitMqContainer;
 
 	public IdentityWebApplicationFactory()
 	{
+		_kafkaContainer = ContainerFactory.GetKafkaContainer();
 		_redisContainer = ContainerFactory.GetRedisContainer();
 		_mongoDbContainer = ContainerFactory.GetMongoDbContainer();
-		_rabbitMqContainer = ContainerFactory.GetRabbitMqContainer();
 	}
 
 	protected override void ConfigureWebHost(IWebHostBuilder builder)
@@ -31,12 +31,12 @@ public class IdentityWebApplicationFactory : WebApplicationFactory<Program>, IAs
 		{
 			serviceCollection.AddMockImageHandler();
 			serviceCollection.AddMockEmailSender();
-			serviceCollection.AddTestEventClient(_rabbitMqContainer.GetConnectionString(), IdentityInfrastructureReference.Assembly);
+			serviceCollection.AddTestEventClient(null, IdentityInfrastructureReference.Assembly);
 		});
 
-		builder.UpdateMongoConfiguration(_mongoDbContainer.GetConnectionString());
-		builder.UpdateRabbitMqConfiguration(_rabbitMqContainer.GetConnectionString());
+		builder.UpdateKafkaConfiguration(_kafkaContainer.GetBootstrapServers());
 		builder.UpdateRedisConfiguration(_redisContainer.GetConnectionString());
+		builder.UpdateMongoConfiguration(_mongoDbContainer.GetConnectionString());
 		builder.UpdateAccessTokenConfiguration();
 		builder.UpdateOpenTelemetryConfiguration();
 		builder.UpdateCloudinaryConfiguration();
@@ -48,15 +48,15 @@ public class IdentityWebApplicationFactory : WebApplicationFactory<Program>, IAs
 
 	public async Task InitializeAsync()
 	{
+		await _kafkaContainer.StartAsync();
 		await _redisContainer.StartAsync();
 		await _mongoDbContainer.StartAsync();
-		await _rabbitMqContainer.StartAsync();
 	}
 
 	public new async Task DisposeAsync()
 	{
+		await _kafkaContainer.DisposeAsync().AsTask();
 		await _redisContainer.DisposeAsync().AsTask();
 		await _mongoDbContainer.DisposeAsync().AsTask();
-		await _rabbitMqContainer.DisposeAsync().AsTask();
 	}
 }

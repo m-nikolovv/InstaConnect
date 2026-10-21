@@ -1,4 +1,5 @@
 using InstaConnect.Common.Events.Features.Events.Abstractions;
+using InstaConnect.Common.Infrastructure.Features.Events.Extensions;
 
 using MassTransit;
 
@@ -6,17 +7,17 @@ namespace InstaConnect.Common.Infrastructure.Features.Events.Helpers;
 
 public class EventPublisher : IEventPublisher
 {
-	private readonly IPublishEndpoint _publishEndpoint;
+	private readonly IServiceProvider _serviceProvider;
 
-	public EventPublisher(IPublishEndpoint publishEndpoint)
+	public EventPublisher(IServiceProvider serviceProvider)
 	{
-		_publishEndpoint = publishEndpoint;
+		_serviceProvider = serviceProvider;
 	}
 
 	public async Task PublishAsync<TEvent>(TEvent message, CancellationToken cancellationToken)
 		where TEvent : class, IEventRequest
 	{
-		await _publishEndpoint.Publish(message, cancellationToken);
+		await _serviceProvider.GetRequiredService<ITopicProducerProvider>().GetEventProducer<TEvent>().Produce(message, cancellationToken);
 	}
 
 	public async Task PublishAsync<TEvent>(ICollection<TEvent> messages, CancellationToken cancellationToken)

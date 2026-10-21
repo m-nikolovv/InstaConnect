@@ -8,7 +8,7 @@ A microservices-based social media platform for connecting and sharing content.
 
 ## Architecture
 
-InstaConnect is made up of four independently deployable services behind an nginx gateway. Services communicate asynchronously through RabbitMQ events.
+InstaConnect is made up of four independently deployable services behind an nginx gateway. Services communicate asynchronously through Kafka events.
 
 | Service | Responsibility | Gateway route |
 |---|---|---|
@@ -19,7 +19,7 @@ InstaConnect is made up of four independently deployable services behind an ngin
 
 Each service follows Clean Architecture, split into `Domain`, `Application`, `Infrastructure`, `Presentation` and `Events` projects, with code organised by feature. Shared building blocks live in `src/Common`.
 
-**Tech stack:** ASP.NET Core, MediatR, FluentValidation, Mapster, MassTransit + RabbitMQ, MongoDB, Redis, SignalR, OpenTelemetry + Serilog (Grafana LGTM), xUnit, NSubstitute, FluentAssertions, Testcontainers.
+**Tech stack:** ASP.NET Core, MediatR, FluentValidation, Mapster, MassTransit + Kafka, MongoDB, Redis, SignalR, OpenTelemetry + Serilog (Grafana LGTM), xUnit, NSubstitute, FluentAssertions, Testcontainers.
 
 ## Prerequisites
 
@@ -54,7 +54,6 @@ Each service follows Clean Architecture, split into `Domain`, `Application`, `In
 |---|---|
 | API gateway | http://localhost |
 | Grafana (logs, traces, metrics) | http://localhost:3000 |
-| RabbitMQ management | http://localhost:15672 |
 
 ## Development
 
