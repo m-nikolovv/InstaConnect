@@ -7,17 +7,17 @@ namespace InstaConnect.Common.Infrastructure.Features.Events.Helpers;
 
 public class EventPublisher : IEventPublisher
 {
-	private readonly IServiceProvider _serviceProvider;
+	private readonly ITopicProducerProvider _topicProducerProvider;
 
-	public EventPublisher(IServiceProvider serviceProvider)
+	public EventPublisher(ITopicProducerProvider topicProducerProvider)
 	{
-		_serviceProvider = serviceProvider;
+		_topicProducerProvider = topicProducerProvider;
 	}
 
 	public async Task PublishAsync<TEvent>(TEvent message, CancellationToken cancellationToken)
 		where TEvent : class, IEventRequest
 	{
-		await _serviceProvider.GetRequiredService<ITopicProducerProvider>().GetEventProducer<TEvent>().Produce(message, cancellationToken);
+		await _topicProducerProvider.GetEventProducer<TEvent>().Produce(message, cancellationToken);
 	}
 
 	public async Task PublishAsync<TEvent>(ICollection<TEvent> messages, CancellationToken cancellationToken)
