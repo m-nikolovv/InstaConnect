@@ -54,6 +54,7 @@ Each service follows Clean Architecture, split into `Domain`, `Application`, `In
 |---|---|
 | API gateway | http://localhost |
 | Grafana (logs, traces, metrics) | http://localhost:3000 |
+| Kafka (SASL/PLAIN, for local tools) | localhost:9094 |
 
 ## Development
 
