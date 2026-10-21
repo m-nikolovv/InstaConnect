@@ -1,5 +1,6 @@
 using InstaConnect.Common.Tests.Features.Extensions;
 using InstaConnect.Posts.Infrastructure.Features.Common.Extensions;
+using InstaConnect.Posts.Infrastructure.Features.Common.Utilities;
 using InstaConnect.Posts.Tests.Features.PostComments.Extensions;
 using InstaConnect.Posts.Tests.Features.Posts.Extensions;
 
@@ -30,7 +31,7 @@ public class PostsWebApplicationFactory : WebApplicationFactory<Program>, IAsync
 			serviceCollection.AddMockImageHandler();
 			serviceCollection.AddPostMockSummarizer();
 			serviceCollection.AddPostCommentMockSummarizer();
-			serviceCollection.AddTestEventClient((context, kafkaConfigurator) => kafkaConfigurator.MapUserEventHandler(context), PostsInfrastructureReference.Assembly);
+			serviceCollection.AddTestEventClient((context, kafkaConfigurator) => kafkaConfigurator.MapUserEventHandler(context, PostsEventHandlerUtilities.GroupId.GetTest()), PostsInfrastructureReference.Assembly);
 		});
 
 		builder.UpdateKafkaConfiguration(_kafkaContainer.GetBootstrapServers());

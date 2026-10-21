@@ -1,5 +1,6 @@
 using InstaConnect.Chats.Infrastructure.Features.ChatMessageImages.Extensions;
 using InstaConnect.Chats.Infrastructure.Features.Chats.Extensions;
+using InstaConnect.Chats.Infrastructure.Features.Common.Utilities;
 using InstaConnect.Common.Domain.Features.Mappers.Extensions;
 using InstaConnect.Common.Domain.Features.Validations.Extensions;
 using InstaConnect.Common.Infrastructure.Features.AccessTokens.Extensions;
@@ -38,7 +39,7 @@ public static class ServiceCollectionExtensions
 				.AddValidations(ChatsInfrastructureReference.Assembly, CommonInfrastructureReference.Assembly)
 				.AddServicesWithMatchingInterfacesExceptFluents(ChatsInfrastructureReference.Assembly)
 				.AddDatabases(configuration)
-				.AddEvents(configuration, (context, kafkaConfigurator) => kafkaConfigurator.MapUserEventHandler(context), ChatsInfrastructureReference.Assembly)
+				.AddEvents(configuration, (context, kafkaConfigurator) => kafkaConfigurator.MapUserEventHandler(context, ChatsEventHandlerUtilities.GroupId), ChatsInfrastructureReference.Assembly)
 				.AddAccessTokens(configuration)
 				.AddCaches(configuration)
 				.AddHubs(configuration)

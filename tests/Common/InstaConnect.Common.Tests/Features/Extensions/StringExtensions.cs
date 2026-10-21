@@ -10,5 +10,12 @@ public static class StringExtensions
 
 			return Format.FormatCurrentCulture(str);
 		}
+
+		public string GetTest()
+		{
+			const string Format = "test-{0}";
+
+			return Format.FormatCurrentCulture(str);
+		}
 	}
 }

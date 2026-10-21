@@ -1,4 +1,5 @@
 using InstaConnect.Chats.Infrastructure.Features.Common.Extensions;
+using InstaConnect.Chats.Infrastructure.Features.Common.Utilities;
 using InstaConnect.Chats.Tests.Features.ChatMessages.Extensions;
 using InstaConnect.Chats.Tests.Features.Common.Extensions;
 using InstaConnect.Common.Tests.Features.Extensions;
@@ -32,7 +33,7 @@ public class ChatsWebApplicationFactory : WebApplicationFactory<Program>, IAsync
 		{
 			serviceCollection.AddMockImageHandler();
 			serviceCollection.AddChatMessageMockSummarizer();
-			serviceCollection.AddTestEventClient((context, kafkaConfigurator) => kafkaConfigurator.MapUserEventHandler(context), ChatsInfrastructureReference.Assembly);
+			serviceCollection.AddTestEventClient((context, kafkaConfigurator) => kafkaConfigurator.MapUserEventHandler(context, ChatsEventHandlerUtilities.GroupId.GetTest()), ChatsInfrastructureReference.Assembly);
 		});
 
 		builder.UpdateKafkaConfiguration(_kafkaContainer.GetBootstrapServers());

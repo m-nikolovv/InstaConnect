@@ -1,5 +1,6 @@
 using InstaConnect.Common.Tests.Features.Extensions;
 using InstaConnect.Follows.Infrastructure.Features.Common.Extensions;
+using InstaConnect.Follows.Infrastructure.Features.Common.Utilities;
 using InstaConnect.Follows.Tests.Features.Common.Extensions;
 
 using Microsoft.AspNetCore.Hosting;
@@ -27,7 +28,7 @@ public class FollowsWebApplicationFactory : WebApplicationFactory<Program>, IAsy
 
 	protected override void ConfigureWebHost(IWebHostBuilder builder)
 	{
-		builder.ConfigureTestServices(serviceCollection => serviceCollection.AddTestEventClient((context, kafkaConfigurator) => kafkaConfigurator.MapUserEventHandler(context), FollowsInfrastructureReference.Assembly));
+		builder.ConfigureTestServices(serviceCollection => serviceCollection.AddTestEventClient((context, kafkaConfigurator) => kafkaConfigurator.MapUserEventHandler(context, FollowsEventHandlerUtilities.GroupId.GetTest()), FollowsInfrastructureReference.Assembly));
 
 		builder.UpdateKafkaConfiguration(_kafkaContainer.GetBootstrapServers());
 		builder.UpdateRedisConfiguration(_redisContainer.GetConnectionString());
