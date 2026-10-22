@@ -27,7 +27,7 @@ public static class BusRegistrationConfiguratorExtensions
 
 		public IBusRegistrationConfigurator AddKafka(
 			KafkaOptions options,
-			Action<IRiderRegistrationContext, IKafkaFactoryConfigurator>? mapEventHandlers,
+			Action<IRiderRegistrationContext, IKafkaFactoryConfigurator, IDictionary<string, KafkaConsumerOptions>>? mapEventHandlers,
 			params Assembly[] assemblies)
 		{
 			busConfigurator.UsingInMemory();
@@ -46,7 +46,7 @@ public static class BusRegistrationConfiguratorExtensions
 						saslConfigurator.Password = options.Password;
 					}));
 
-					mapEventHandlers?.Invoke(context, kafkaConfigurator);
+					mapEventHandlers?.Invoke(context, kafkaConfigurator, options.Consumers);
 				});
 			});
 

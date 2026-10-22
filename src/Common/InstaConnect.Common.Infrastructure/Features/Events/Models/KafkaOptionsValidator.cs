@@ -12,5 +12,8 @@ public class KafkaOptionsValidator : AbstractValidator<KafkaOptions>
 
 		RuleFor(o => o.Password)
 			.NotEmptyWithMessage();
+
+		RuleForEach(o => o.Consumers.Values)
+			.SetValidator(new KafkaConsumerOptionsValidator());
 	}
 }

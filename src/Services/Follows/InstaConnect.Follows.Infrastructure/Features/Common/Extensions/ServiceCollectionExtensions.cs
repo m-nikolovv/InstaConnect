@@ -8,6 +8,7 @@ using InstaConnect.Common.Infrastructure.Features.Events.Extensions;
 using InstaConnect.Common.Infrastructure.Features.Guids.Extensions;
 using InstaConnect.Common.Infrastructure.Features.Hubs.Extensions;
 using InstaConnect.Common.Infrastructure.Features.Telemetries.Extensions;
+using InstaConnect.Follows.Events.Features.Common.Extensions;
 using InstaConnect.Follows.Infrastructure.Features.Common.Utilities;
 using InstaConnect.Follows.Infrastructure.Features.Follows.Extensions;
 using InstaConnect.Follows.Infrastructure.Features.Users.Extensions;
@@ -35,7 +36,7 @@ public static class ServiceCollectionExtensions
 				.AddValidations(FollowsInfrastructureReference.Assembly, CommonInfrastructureReference.Assembly)
 				.AddServicesWithMatchingInterfacesExceptFluents(FollowsInfrastructureReference.Assembly)
 				.AddDatabases(configuration)
-				.AddEvents(configuration, (context, kafkaConfigurator) => kafkaConfigurator.MapUserEventHandler(context, FollowsEventHandlerUtilities.Prefix), FollowsInfrastructureReference.Assembly)
+				.AddEvents(configuration, (context, kafkaConfigurator, consumerOptions) => kafkaConfigurator.MapUserEventHandler(context, FollowsEventHandlerUtilities.Prefix, consumerOptions), FollowsInfrastructureReference.Assembly, FollowsEventsReference.Assembly)
 				.AddAccessTokens(configuration)
 				.AddCaches(configuration)
 				.AddHubs(configuration)

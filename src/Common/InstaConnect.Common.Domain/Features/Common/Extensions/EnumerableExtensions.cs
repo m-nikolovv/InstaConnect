@@ -8,7 +8,10 @@ public static class EnumerableExtensions
 		{
 			return !enumerable.Any();
 		}
+	}
 
+	extension(IEnumerable<string> enumerable)
+	{
 		public string JoinWith(string separator)
 		{
 			return string.Join(separator, enumerable);
@@ -21,7 +24,12 @@ public static class EnumerableExtensions
 
 		public string JoinWithSemicolon()
 		{
-			return enumerable.JoinWith("; ");
+			return enumerable.JoinWith(";");
+		}
+
+		public string JoinWithColon()
+		{
+			return enumerable.JoinWith(":");
 		}
 	}
 }

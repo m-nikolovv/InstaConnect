@@ -11,6 +11,7 @@ using InstaConnect.Common.Infrastructure.Features.Images.Extensions;
 using InstaConnect.Common.Infrastructure.Features.Seeders.Extensions;
 using InstaConnect.Common.Infrastructure.Features.Telemetries.Extensions;
 using InstaConnect.Identity.Domain.Features.Common.Helpers;
+using InstaConnect.Identity.Events.Features.Common.Extensions;
 using InstaConnect.Identity.Infrastructure.Features.Common.Abstractions;
 using InstaConnect.Identity.Infrastructure.Features.Common.Helpers;
 using InstaConnect.Identity.Infrastructure.Features.Common.Models.Options;
@@ -52,7 +53,7 @@ public static class ServiceCollectionExtensions
 				.AddDatabases(configuration)
 				.AddSeeders<IIdentityDatabaseSeeder>()
 				.AddImages(configuration)
-				.AddEvents(configuration, null, IdentityInfrastructureReference.Assembly)
+				.AddEvents(configuration, null, IdentityInfrastructureReference.Assembly, IdentityEventsReference.Assembly)
 				.AddAccessTokens(configuration)
 				.AddGuids()
 				.AddDateTimes()

@@ -1,4 +1,5 @@
 using InstaConnect.Common.Infrastructure.Features.Events.Extensions;
+using InstaConnect.Common.Infrastructure.Features.Events.Models;
 using InstaConnect.Follows.Infrastructure.Features.Users.EventHandlers;
 using InstaConnect.Identity.Events.Features.Users;
 
@@ -10,12 +11,12 @@ public static class KafkaFactoryConfiguratorExtensions
 {
 	extension(IKafkaFactoryConfigurator kafkaConfigurator)
 	{
-		public IKafkaFactoryConfigurator MapUserEventHandler(IRiderRegistrationContext context, string prefix)
+		public IKafkaFactoryConfigurator MapUserEventHandler(IRiderRegistrationContext context, string prefix, IDictionary<string, KafkaConsumerOptions> consumerOptions)
 		{
 			kafkaConfigurator
-					.MapEventHandler<UserAddedEventRequest, UserAddedEventHandler>(context, prefix)
-					.MapEventHandler<UserUpdatedEventRequest, UserUpdatedEventHandler>(context, prefix)
-					.MapEventHandler<UserDeletedEventRequest, UserDeletedEventHandler>(context, prefix);
+					.MapEventHandler<UserAddedEventRequest, UserAddedEventHandler>(context, prefix, consumerOptions)
+					.MapEventHandler<UserUpdatedEventRequest, UserUpdatedEventHandler>(context, prefix, consumerOptions)
+					.MapEventHandler<UserDeletedEventRequest, UserDeletedEventHandler>(context, prefix, consumerOptions);
 
 			return kafkaConfigurator;
 		}

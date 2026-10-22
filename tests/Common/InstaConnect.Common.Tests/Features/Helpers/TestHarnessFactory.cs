@@ -11,12 +11,12 @@ namespace InstaConnect.Common.Tests.Features.Helpers;
 public class TestHarnessFactory : ITestHarnessFactory
 {
 	private readonly KafkaOptions _kafkaOptions;
-	private readonly Action<IRiderRegistrationContext, IKafkaFactoryConfigurator>? _mapEventHandlers;
+	private readonly Action<IRiderRegistrationContext, IKafkaFactoryConfigurator, IDictionary<string, KafkaConsumerOptions>>? _mapEventHandlers;
 	private readonly Assembly[] _assemblies;
 
 	public TestHarnessFactory(
 		KafkaOptions kafkaOptions,
-		Action<IRiderRegistrationContext, IKafkaFactoryConfigurator>? mapEventHandlers,
+		Action<IRiderRegistrationContext, IKafkaFactoryConfigurator, IDictionary<string, KafkaConsumerOptions>>? mapEventHandlers,
 		Assembly[] assemblies)
 	{
 		_kafkaOptions = kafkaOptions;

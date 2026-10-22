@@ -130,8 +130,8 @@ services:
 
   identity-svc:
     image: ${DOCKER_REGISTRY-}identity-svc
-    container_name: identity-svc
-    hostname: identity-svc
+    deploy:
+      replicas: ${IDENTITY_REPLICAS:-1}
     build:
       context: ..
       dockerfile: src/Services/Identity/InstaConnect.Identity.Presentation/Dockerfile
@@ -172,8 +172,8 @@ services:
 
   posts-svc:
     image: ${DOCKER_REGISTRY-}posts-svc
-    container_name: posts-svc
-    hostname: posts-svc
+    deploy:
+      replicas: ${POSTS_REPLICAS:-1}
     build:
       context: ..
       dockerfile: src/Services/Posts/InstaConnect.Posts.Presentation/Dockerfile
@@ -209,8 +209,8 @@ services:
 
   chats-svc:
     image: ${DOCKER_REGISTRY-}chats-svc
-    container_name: chats-svc
-    hostname: chats-svc
+    deploy:
+      replicas: ${CHATS_REPLICAS:-1}
     build:
       context: ..
       dockerfile: src/Services/Chats/InstaConnect.Chats.Presentation/Dockerfile
@@ -247,8 +247,8 @@ services:
 
   follows-svc:
     image: ${DOCKER_REGISTRY-}follows-svc
-    container_name: follows-svc
-    hostname: follows-svc
+    deploy:
+      replicas: ${FOLLOWS_REPLICAS:-1}
     build:
       context: ..
       dockerfile: src/Services/Follows/InstaConnect.Follows.Presentation/Dockerfile

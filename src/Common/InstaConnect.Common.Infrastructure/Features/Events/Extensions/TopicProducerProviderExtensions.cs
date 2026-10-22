@@ -8,14 +8,14 @@ public static class TopicProducerProviderExtensions
 {
 	extension(ITopicProducerProvider topicProducerProvider)
 	{
-		public ITopicProducer<TEvent> GetEventProducer<TEvent>()
+		public ITopicProducer<TEvent> GetEventProducer<TEvent>(IEventKeySelector<TEvent> keySelector)
 			where TEvent : class, IEventRequest
 		{
 			const string TopicAddressFormat = "topic:{0}";
 
 			var topicAddress = new Uri(TopicAddressFormat.FormatCurrentCulture(KebabCaseEndpointNameFormatter.Instance.Message<TEvent>()));
 
-			return topicProducerProvider.GetProducer<TEvent>(topicAddress);
+			return topicProducerProvider.GetProducer<string, TEvent>(topicAddress, context => keySelector.GetKey(context.Message));
 		}
 	}
 }

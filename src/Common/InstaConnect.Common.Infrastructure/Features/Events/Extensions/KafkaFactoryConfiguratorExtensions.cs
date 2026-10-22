@@ -2,6 +2,7 @@ using Confluent.Kafka;
 
 using InstaConnect.Common.Events.Features.Events.Abstractions;
 using InstaConnect.Common.Infrastructure.Features.Events.Abstractions;
+using InstaConnect.Common.Infrastructure.Features.Events.Models;
 
 using MassTransit;
 
@@ -11,14 +12,17 @@ public static class KafkaFactoryConfiguratorExtensions
 {
 	extension(IKafkaFactoryConfigurator kafkaConfigurator)
 	{
-		public IKafkaFactoryConfigurator MapEventHandler<TEvent, TEventHandler>(IRiderRegistrationContext context, string prefix)
+		public IKafkaFactoryConfigurator MapEventHandler<TEvent, TEventHandler>(
+			IRiderRegistrationContext context,
+			string prefix,
+			IDictionary<string, KafkaConsumerOptions> consumerOptions)
 			where TEvent : class, IEventRequest
 			where TEventHandler : class, IEventHandler<TEvent>
 		{
 			const string GroupIdFormat = "{0}-{1}";
-			const int RetryLimit = 5;
 
 			var topicName = KebabCaseEndpointNameFormatter.Instance.Message<TEvent>();
+			var topicConsumerOptions = consumerOptions[topicName];
 
 			kafkaConfigurator.TopicEndpoint<TEvent>(
 				topicName,
@@ -26,11 +30,20 @@ public static class KafkaFactoryConfiguratorExtensions
 				endpointConfigurator =>
 				{
 					endpointConfigurator.AutoOffsetReset = AutoOffsetReset.Earliest;
-					endpointConfigurator.CreateIfMissing();
+					endpointConfigurator.CreateIfMissing(topicOptions =>
+					{
+						topicOptions.NumPartitions = topicConsumerOptions.PartitionCount;
+						topicOptions.ReplicationFactor = topicConsumerOptions.ReplicationFactor;
+					});
 
 					endpointConfigurator.UseMessageRetry(retryConfigurator =>
 					{
-						retryConfigurator.Exponential(RetryLimit, TimeSpan.FromMilliseconds(200), TimeSpan.FromSeconds(10), TimeSpan.FromMilliseconds(200));
+						retryConfigurator.Exponential(
+							topicConsumerOptions.RetryLimit,
+							topicConsumerOptions.RetryMinInterval,
+							topicConsumerOptions.RetryMaxInterval,
+							topicConsumerOptions.RetryIntervalDelta);
+
 						retryConfigurator.Handle<MongoException>();
 						retryConfigurator.Handle<TimeoutException>();
 					});

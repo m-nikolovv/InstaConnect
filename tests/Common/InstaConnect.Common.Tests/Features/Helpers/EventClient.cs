@@ -23,7 +23,11 @@ public class EventClient : IEventClient
 	public async Task PublishAsync<TRequest>(TRequest message, CancellationToken cancellationToken)
 		where TRequest : class, IEventRequest
 	{
-		await _testHarness.Scope.ServiceProvider.GetRequiredService<ITopicProducerProvider>().GetEventProducer<TRequest>().Produce(message, cancellationToken);
+		var serviceProvider = _testHarness.Scope.ServiceProvider;
+		var keySelector = serviceProvider.GetRequiredService<IEventKeySelector<TRequest>>();
+		var producer = serviceProvider.GetRequiredService<ITopicProducerProvider>().GetEventProducer(keySelector);
+
+		await producer.Produce(message, cancellationToken);
 		await _testHarness.InactivityTask;
 	}
 

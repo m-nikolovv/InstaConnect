@@ -32,17 +32,27 @@ public static class ServiceCollectionExtensions
 			return serviceCollection;
 		}
 
-		public IServiceCollection AddImplementationsOf<TInterface>(Assembly assembly)
+		public IServiceCollection AddImplementationsOf<TInterface>(params Assembly[] assemblies)
 			where TInterface : class
 		{
-			var implementations = assembly
-				.DefinedTypes
-				.Where(type => type is { IsAbstract: false, IsInterface: false } &&
-							   type.IsAssignableTo(typeof(TInterface)))
-				.Select(type => ServiceDescriptor.Transient(typeof(TInterface), type))
-				.ToArray();
+			serviceCollection
+				.Scan(selector => selector
+					.FromAssemblies(assemblies)
+					.AddClasses(classes => classes.AssignableTo<TInterface>(), false)
+					.As<TInterface>()
+					.WithTransientLifetime());
 
-			serviceCollection.TryAddEnumerable(implementations);
+			return serviceCollection;
+		}
+
+		public IServiceCollection AddImplementationsOf(Type genericInterface, params Assembly[] assemblies)
+		{
+			serviceCollection
+				.Scan(selector => selector
+					.FromAssemblies(assemblies)
+					.AddClasses(classes => classes.AssignableTo(genericInterface), false)
+					.AsImplementedInterfaces()
+					.WithTransientLifetime());
 
 			return serviceCollection;
 		}

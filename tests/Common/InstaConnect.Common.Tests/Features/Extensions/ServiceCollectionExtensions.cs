@@ -15,7 +15,7 @@ public static class ServiceCollectionExtensions
 	extension(IServiceCollection serviceCollection)
 	{
 		public IServiceCollection AddTestEventClient(
-			Action<IRiderRegistrationContext, IKafkaFactoryConfigurator>? mapEventHandlers,
+			Action<IRiderRegistrationContext, IKafkaFactoryConfigurator, IDictionary<string, KafkaConsumerOptions>>? mapEventHandlers,
 			params Assembly[] assemblies)
 		{
 			serviceCollection.AddSingleton<ITestHarnessFactory>(sp =>
@@ -42,9 +42,11 @@ public static class ServiceCollectionExtensions
 
 		internal IServiceCollection AddMassTransitTestEventClient(
 			KafkaOptions options,
-			Action<IRiderRegistrationContext, IKafkaFactoryConfigurator>? mapEventHandlers,
+			Action<IRiderRegistrationContext, IKafkaFactoryConfigurator, IDictionary<string, KafkaConsumerOptions>>? mapEventHandlers,
 			params Assembly[] assemblies)
 		{
+			serviceCollection.AddImplementationsOf(typeof(IEventKeySelector<>), assemblies);
+
 			serviceCollection.AddMassTransitTestHarness(busConfigurator =>
 				busConfigurator.AddKafka(options, mapEventHandlers, assemblies));
 
