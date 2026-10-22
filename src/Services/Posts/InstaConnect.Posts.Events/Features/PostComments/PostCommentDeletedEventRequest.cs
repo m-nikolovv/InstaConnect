@@ -3,5 +3,5 @@ namespace InstaConnect.Posts.Events.Features.PostComments;
 public record PostCommentDeletedEventRequest(PostCommentEventRequest PostComment)
 	: IEventRequest
 {
-	public string Key => CommonEventKeyUtilities.GetKey(PostComment.CommentId);
+	public string Id => CommonEventKeyUtilities.GetKey(PostComment.CommentId);
 }

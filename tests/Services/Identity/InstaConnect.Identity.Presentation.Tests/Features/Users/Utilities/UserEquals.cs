@@ -22,7 +22,8 @@ public static class UserEquals
 	{
 		public bool Matches(AddUserApiRequest request, User entity)
 		{
-			return r.User.Matches(request, entity);
+			return r.MatchesId(entity.Id.Id) &&
+				   r.User.Matches(request, entity);
 		}
 	}
 
@@ -30,7 +31,8 @@ public static class UserEquals
 	{
 		public bool Matches(UpdateCurrentUserApiRequest request, User entity)
 		{
-			return r.User.Matches(request, entity);
+			return r.MatchesId(request.Id) &&
+				   r.User.Matches(request, entity);
 		}
 	}
 
@@ -38,7 +40,8 @@ public static class UserEquals
 	{
 		public bool Matches(DeleteUserApiRequest request, User entity)
 		{
-			return r.User.Matches(request, entity);
+			return r.MatchesId(request.Id) &&
+				   r.User.Matches(request, entity);
 		}
 
 		public bool Matches(DeleteCurrentUserApiRequest request, User entity)
@@ -396,7 +399,8 @@ public static class UserEquals
 	{
 		public bool Matches(AddUserApiRequest request, EmailConfirmationToken entity)
 		{
-			return r.EmailConfirmationToken.Matches(request, entity);
+			return r.MatchesId(entity.Id.Value) &&
+				   r.EmailConfirmationToken.Matches(request, entity);
 		}
 	}
 
@@ -438,7 +442,8 @@ public static class UserEquals
 	{
 		public bool Matches(UpdateCurrentUserApiRequest request, EmailConfirmationToken entity)
 		{
-			return r.EmailConfirmationToken.Matches(request, entity);
+			return r.MatchesId(entity.Id.Value) &&
+				   r.EmailConfirmationToken.Matches(request, entity);
 		}
 	}
 

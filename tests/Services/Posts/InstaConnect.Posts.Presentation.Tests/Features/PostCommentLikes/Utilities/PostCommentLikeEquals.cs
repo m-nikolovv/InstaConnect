@@ -17,7 +17,8 @@ public static class PostCommentLikeEquals
 	{
 		public bool Matches(AddPostCommentLikeApiRequest command, PostCommentLike entity)
 		{
-			return r.PostCommentLike.Matches(command, entity);
+			return r.MatchesId(command.CommentId, command.UserId) &&
+				   r.PostCommentLike.Matches(command, entity);
 		}
 	}
 
@@ -25,7 +26,8 @@ public static class PostCommentLikeEquals
 	{
 		public bool Matches(DeletePostCommentLikeApiRequest command, PostCommentLike entity)
 		{
-			return r.PostCommentLike.Matches(command, entity);
+			return r.MatchesId(command.CommentId, command.UserId) &&
+				   r.PostCommentLike.Matches(command, entity);
 		}
 	}
 

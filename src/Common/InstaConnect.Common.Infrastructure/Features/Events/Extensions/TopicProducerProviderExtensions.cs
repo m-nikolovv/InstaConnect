@@ -15,7 +15,7 @@ public static class TopicProducerProviderExtensions
 
 			var topicAddress = new Uri(TopicAddressFormat.FormatCurrentCulture(KebabCaseEndpointNameFormatter.Instance.Message<TEvent>()));
 
-			return topicProducerProvider.GetProducer<string, TEvent>(topicAddress, context => context.Message.Key);
+			return topicProducerProvider.GetProducer<string, TEvent>(topicAddress, context => context.Message.Id);
 		}
 	}
 }

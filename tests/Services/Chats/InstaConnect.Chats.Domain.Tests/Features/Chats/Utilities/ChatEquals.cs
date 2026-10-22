@@ -21,7 +21,8 @@ public static class ChatEquals
 	{
 		public bool Matches(AddChatCommand command, Chat entity)
 		{
-			return request.Chat.Matches(command, entity);
+			return request.MatchesId(command.ParticipantOneId.Id, command.ParticipantTwoId.Id) &&
+				   request.Chat.Matches(command, entity);
 		}
 	}
 

@@ -2,5 +2,5 @@ namespace InstaConnect.Identity.Events.Features.EmailConfirmationTokens;
 
 public record EmailConfirmationTokenDeletedEventRequest(EmailConfirmationTokenEventRequest EmailConfirmationToken) : IEventRequest
 {
-	public string Key => CommonEventKeyUtilities.GetKey(EmailConfirmationToken.Value);
+	public string Id => CommonEventKeyUtilities.GetKey(EmailConfirmationToken.Value);
 }

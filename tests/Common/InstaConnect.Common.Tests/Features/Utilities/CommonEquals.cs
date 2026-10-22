@@ -1,5 +1,7 @@
 using InstaConnect.Common.Domain.Features.Requests.Abstractions;
 using InstaConnect.Common.Domain.Features.ValueObjects.Models;
+using InstaConnect.Common.Events.Features.Events.Abstractions;
+using InstaConnect.Common.Events.Features.Events.Utilities;
 using InstaConnect.Common.Tests.Features.DataAttributes.Enums.Sort;
 using InstaConnect.Common.Tests.Features.Extensions;
 
@@ -112,6 +114,14 @@ public static class CommonEquals
 			return e.Count == sortedEntities.Count &&
 				   e.Zip(sortedEntities, (e, a) => matcher(e, a))
 						   .AllAndNotEmpty(match => match);
+		}
+	}
+
+	extension(IEventRequest p)
+	{
+		public bool MatchesId(params string[] values)
+		{
+			return p.Id.EqualsOrdinalIgnoreCase(CommonEventKeyUtilities.GetKey(values));
 		}
 	}
 }

@@ -22,7 +22,8 @@ public static class PostCommentLikeEquals
 	{
 		public bool Matches(AddPostCommentLikeCommand command, PostCommentLike entity)
 		{
-			return request.PostCommentLike.Matches(command, entity);
+			return request.MatchesId(command.CommentId.CommentId, command.UserId.Id) &&
+				   request.PostCommentLike.Matches(command, entity);
 		}
 	}
 
@@ -30,7 +31,8 @@ public static class PostCommentLikeEquals
 	{
 		public bool Matches(DeletePostCommentLikeCommand command, PostCommentLike entity)
 		{
-			return request.PostCommentLike.Matches(command, entity);
+			return request.MatchesId(command.Id.CommentId.CommentId, command.Id.UserId.Id) &&
+				   request.PostCommentLike.Matches(command, entity);
 		}
 	}
 

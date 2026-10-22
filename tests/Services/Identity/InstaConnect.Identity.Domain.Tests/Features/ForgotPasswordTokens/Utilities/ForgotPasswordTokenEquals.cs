@@ -119,7 +119,8 @@ public static class ForgotPasswordTokenEquals
 	{
 		public bool Matches(AddForgotPasswordTokenCommand command, ForgotPasswordToken entity)
 		{
-			return request.ForgotPasswordToken.Matches(command, entity);
+			return request.MatchesId(entity.Id.Value) &&
+				   request.ForgotPasswordToken.Matches(command, entity);
 		}
 	}
 
@@ -138,7 +139,8 @@ public static class ForgotPasswordTokenEquals
 	{
 		public bool Matches(VerifyForgotPasswordTokenCommand command, ForgotPasswordToken entity)
 		{
-			return request.ForgotPasswordToken.Matches(command, entity);
+			return request.MatchesId(command.Id.Value) &&
+				   request.ForgotPasswordToken.Matches(command, entity);
 		}
 	}
 
