@@ -1,7 +1,5 @@
 using System.Reflection;
 
-using Confluent.Kafka;
-
 using InstaConnect.Common.Infrastructure.Features.Events.Models;
 
 using MassTransit;
@@ -43,8 +41,8 @@ public static class BusRegistrationConfiguratorExtensions
 				{
 					kafkaConfigurator.Host(options.ConnectionString, hostConfigurator => hostConfigurator.UseSasl(saslConfigurator =>
 					{
-						saslConfigurator.Mechanism = SaslMechanism.Plain;
-						saslConfigurator.SecurityProtocol = SecurityProtocol.SaslPlaintext;
+						saslConfigurator.Mechanism = options.SaslMechanism;
+						saslConfigurator.SecurityProtocol = options.SecurityProtocol;
 						saslConfigurator.Username = options.Username;
 						saslConfigurator.Password = options.Password;
 					}));

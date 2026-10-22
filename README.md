@@ -69,6 +69,12 @@ Tests are split into `*.Tests.Unit`, `*.Tests.Integration` and `*.Tests.Function
 
 See [CONTRIBUTING.md](.github/CONTRIBUTING.md) for the contribution workflow.
 
+### Kafka topics
+
+Topics are created on first use. A consumer creates its topics with the `PartitionCount` and `ReplicationFactor` set under `KafkaConfiguration:Consumers` in its `appsettings.json`; a topic created by a producer first gets the broker defaults (`KAFKA_NUM_PARTITIONS`, `KAFKA_DEFAULT_REPLICATION_FACTOR` in `docker-compose.yml`). Keep both in sync. An existing topic is never changed, so raising its partition count means running `kafka-topics.sh --alter --partitions <n>`, which moves existing keys to new partitions.
+
+The connection is set with `KafkaConfiguration:SecurityProtocol` and `SaslMechanism`; use `SaslSsl` to enable TLS.
+
 ## Project Structure
 
 ```text
