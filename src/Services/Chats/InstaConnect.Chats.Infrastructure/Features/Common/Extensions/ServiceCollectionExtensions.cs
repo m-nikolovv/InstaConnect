@@ -39,7 +39,7 @@ public static class ServiceCollectionExtensions
 				.AddValidations(ChatsInfrastructureReference.Assembly, CommonInfrastructureReference.Assembly)
 				.AddServicesWithMatchingInterfacesExceptFluents(ChatsInfrastructureReference.Assembly)
 				.AddDatabases(configuration)
-				.AddEvents(configuration, (context, kafkaConfigurator, consumerOptions) => kafkaConfigurator.MapUserEventHandler(context, ChatsEventHandlerUtilities.Prefix, consumerOptions), ChatsInfrastructureReference.Assembly)
+				.AddEvents(configuration, riderConfigurator => riderConfigurator.MapChatEventProducer(), (context, kafkaConfigurator, consumerOptions) => kafkaConfigurator.MapUserEventHandler(context, ChatsEventHandlerUtilities.Prefix, consumerOptions), ChatsInfrastructureReference.Assembly)
 				.AddAccessTokens(configuration)
 				.AddCaches(configuration)
 				.AddHubs(configuration)

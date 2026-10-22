@@ -14,8 +14,7 @@ public static class ChatEquals
 	{
 		public bool Matches(AddChatApiRequest request, Chat entity)
 		{
-			return r.MatchesId(request.ParticipantOneId, request.Body.ParticipantTwoId) &&
-				   r.Chat.Matches(request, entity);
+			return r.Chat.Matches(request, entity);
 		}
 	}
 

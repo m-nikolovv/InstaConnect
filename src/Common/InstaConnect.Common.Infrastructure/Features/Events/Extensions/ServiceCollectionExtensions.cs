@@ -14,6 +14,7 @@ public static class ServiceCollectionExtensions
 	{
 		public IServiceCollection AddEvents(
 			IConfiguration configuration,
+			Action<IRiderRegistrationConfigurator>? mapEventProducers,
 			Action<IRiderRegistrationContext, IKafkaFactoryConfigurator, IDictionary<string, KafkaConsumerOptions>>? mapEventHandlers,
 			params Assembly[] assemblies)
 		{
@@ -24,7 +25,7 @@ public static class ServiceCollectionExtensions
 			{
 				busConfigurator.AddMongoDbOutbox();
 
-				busConfigurator.AddKafka(options, mapEventHandlers, assemblies);
+				busConfigurator.AddKafka(options, mapEventProducers, mapEventHandlers, assemblies);
 			});
 
 			serviceCollection.AddScoped<IEventPublisher, EventPublisher>();

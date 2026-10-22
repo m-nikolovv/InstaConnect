@@ -17,8 +17,7 @@ public static class UserClaimEquals
 	{
 		public bool Matches(AddUserClaimApiRequest request, UserClaim entity)
 		{
-			return r.MatchesId(request.Id, request.Body.Claim.GetName()) &&
-				   r.UserClaim.Matches(request, entity);
+			return r.UserClaim.Matches(request, entity);
 		}
 	}
 
@@ -26,8 +25,7 @@ public static class UserClaimEquals
 	{
 		public bool Matches(DeleteUserClaimApiRequest request, UserClaim entity)
 		{
-			return r.MatchesId(request.Id, request.Claim.GetName()) &&
-				   r.UserClaim.Matches(request, entity);
+			return r.UserClaim.Matches(request, entity);
 		}
 	}
 

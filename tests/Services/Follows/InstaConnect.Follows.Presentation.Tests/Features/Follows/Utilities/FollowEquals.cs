@@ -19,8 +19,7 @@ public static class FollowEquals
 	{
 		public bool Matches(AddFollowApiRequest request, Follow entity)
 		{
-			return r.MatchesId(request.FollowerId, request.Body.FollowingId) &&
-				   r.Follow.Matches(request, entity);
+			return r.Follow.Matches(request, entity);
 		}
 	}
 
@@ -28,8 +27,7 @@ public static class FollowEquals
 	{
 		public bool Matches(DeleteFollowApiRequest request, Follow entity)
 		{
-			return r.MatchesId(request.FollowerId, request.FollowingId) &&
-				   r.Follow.Matches(request, entity);
+			return r.Follow.Matches(request, entity);
 		}
 	}
 

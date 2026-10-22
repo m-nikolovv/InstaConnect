@@ -52,7 +52,7 @@ public static class ServiceCollectionExtensions
 				.AddDatabases(configuration)
 				.AddSeeders<IIdentityDatabaseSeeder>()
 				.AddImages(configuration)
-				.AddEvents(configuration, null, IdentityInfrastructureReference.Assembly)
+				.AddEvents(configuration, riderConfigurator => riderConfigurator.MapUserEventProducer().MapUserClaimEventProducer().MapEmailConfirmationTokenEventProducer().MapForgotPasswordTokenEventProducer(), null, IdentityInfrastructureReference.Assembly)
 				.AddAccessTokens(configuration)
 				.AddGuids()
 				.AddDateTimes()

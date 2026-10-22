@@ -21,8 +21,7 @@ public static class FollowEquals
 	{
 		public bool Matches(AddFollowCommand command, Follow entity)
 		{
-			return r.MatchesId(command.FollowerId.Id, command.FollowingId.Id) &&
-				   r.Follow.Matches(command, entity);
+			return r.Follow.Matches(command, entity);
 		}
 	}
 
@@ -30,8 +29,7 @@ public static class FollowEquals
 	{
 		public bool Matches(DeleteFollowCommand command, Follow entity)
 		{
-			return r.MatchesId(command.Id.FollowerId.Id, command.Id.FollowingId.Id) &&
-				   r.Follow.Matches(command, entity);
+			return r.Follow.Matches(command, entity);
 		}
 	}
 

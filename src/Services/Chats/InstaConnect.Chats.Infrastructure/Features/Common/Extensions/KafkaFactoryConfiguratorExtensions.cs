@@ -14,9 +14,9 @@ public static class KafkaFactoryConfiguratorExtensions
 		public IKafkaFactoryConfigurator MapUserEventHandler(IRiderRegistrationContext context, string prefix, IDictionary<string, KafkaConsumerOptions> consumerOptions)
 		{
 			kafkaConfigurator
-					.MapEventHandler<UserAddedEventRequest, UserAddedEventHandler>(context, prefix, consumerOptions)
-					.MapEventHandler<UserUpdatedEventRequest, UserUpdatedEventHandler>(context, prefix, consumerOptions)
-					.MapEventHandler<UserDeletedEventRequest, UserDeletedEventHandler>(context, prefix, consumerOptions);
+				.MapEventHandler<UserAddedEventRequest, UserAddedEventHandler>(context, prefix, consumerOptions)
+				.MapEventHandler<UserUpdatedEventRequest, UserUpdatedEventHandler>(context, prefix, consumerOptions)
+				.MapEventHandler<UserDeletedEventRequest, UserDeletedEventHandler>(context, prefix, consumerOptions);
 
 			return kafkaConfigurator;
 		}

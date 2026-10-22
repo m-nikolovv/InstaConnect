@@ -31,7 +31,7 @@ public class IdentityWebApplicationFactory : WebApplicationFactory<Program>, IAs
 		{
 			serviceCollection.AddMockImageHandler();
 			serviceCollection.AddMockEmailSender();
-			serviceCollection.AddTestEventClient(null, IdentityInfrastructureReference.Assembly);
+			serviceCollection.AddTestEventClient(riderConfigurator => riderConfigurator.MapUserEventProducer().MapUserClaimEventProducer().MapEmailConfirmationTokenEventProducer().MapForgotPasswordTokenEventProducer(), null, IdentityInfrastructureReference.Assembly);
 		});
 
 		builder.UpdateKafkaConfiguration(_kafkaContainer.GetBootstrapServers());

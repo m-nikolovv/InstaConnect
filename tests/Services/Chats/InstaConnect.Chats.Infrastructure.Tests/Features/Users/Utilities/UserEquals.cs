@@ -88,8 +88,7 @@ public static class UserEquals
 	{
 		public bool Matches(UserAddedEventRequest request)
 		{
-			return r.MatchesId(request.Id) &&
-				   r.User.Matches(request.User);
+			return r.User.Matches(request.User);
 		}
 	}
 
@@ -97,8 +96,7 @@ public static class UserEquals
 	{
 		public bool Matches(UserUpdatedEventRequest request)
 		{
-			return r.MatchesId(request.Id) &&
-				   r.User.Matches(request.User);
+			return r.User.Matches(request.User);
 		}
 	}
 
@@ -106,8 +104,7 @@ public static class UserEquals
 	{
 		public bool Matches(UserDeletedEventRequest request)
 		{
-			return r.MatchesId(request.Id) &&
-				   r.User.Matches(request.User);
+			return r.User.Matches(request.User);
 		}
 	}
 

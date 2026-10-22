@@ -45,18 +45,6 @@ public static class ServiceCollectionExtensions
 			return serviceCollection;
 		}
 
-		public IServiceCollection AddImplementationsOf(Type genericInterface, params Assembly[] assemblies)
-		{
-			serviceCollection
-				.Scan(selector => selector
-					.FromAssemblies(assemblies)
-					.AddClasses(classes => classes.AssignableTo(genericInterface), false)
-					.AsImplementedInterfaces()
-					.WithTransientLifetime());
-
-			return serviceCollection;
-		}
-
 		public IServiceCollection AddValidatedOptions<TOptions>(string sectionName)
 			where TOptions : class, IApplicationOptions
 		{

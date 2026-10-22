@@ -120,8 +120,7 @@ public static class PostEquals
 	{
 		public bool Matches(AddPostCommand command, Post post)
 		{
-			return p.MatchesId(post.Id.Id) &&
-				   p.Post.Matches(command, post);
+			return p.Post.Matches(command, post);
 		}
 	}
 
@@ -129,8 +128,7 @@ public static class PostEquals
 	{
 		public bool Matches(UpdatePostCommand command, Post post)
 		{
-			return p.MatchesId(command.Id.Id) &&
-				   p.Post.Matches(command, post);
+			return p.Post.Matches(command, post);
 		}
 	}
 
@@ -138,8 +136,7 @@ public static class PostEquals
 	{
 		public bool Matches(DeletePostCommand command, Post post)
 		{
-			return p.MatchesId(command.Id.Id) &&
-				   p.Post.Matches(command, post);
+			return p.Post.Matches(command, post);
 		}
 	}
 

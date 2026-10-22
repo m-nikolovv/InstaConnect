@@ -118,8 +118,7 @@ public static class EmailConfirmationTokenEquals
 	{
 		public bool Matches(AddEmailConfirmationTokenCommand command, EmailConfirmationToken entity)
 		{
-			return request.MatchesId(entity.Id.Value) &&
-				   request.EmailConfirmationToken.Matches(command, entity);
+			return request.EmailConfirmationToken.Matches(command, entity);
 		}
 	}
 
@@ -138,8 +137,7 @@ public static class EmailConfirmationTokenEquals
 	{
 		public bool Matches(VerifyEmailConfirmationTokenCommand command, EmailConfirmationToken entity)
 		{
-			return request.MatchesId(command.Id.Value) &&
-				   request.EmailConfirmationToken.Matches(command, entity);
+			return request.EmailConfirmationToken.Matches(command, entity);
 		}
 	}
 

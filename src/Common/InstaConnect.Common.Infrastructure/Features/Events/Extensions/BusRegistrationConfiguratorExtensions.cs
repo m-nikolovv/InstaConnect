@@ -27,6 +27,7 @@ public static class BusRegistrationConfiguratorExtensions
 
 		public IBusRegistrationConfigurator AddKafka(
 			KafkaOptions options,
+			Action<IRiderRegistrationConfigurator>? mapEventProducers,
 			Action<IRiderRegistrationContext, IKafkaFactoryConfigurator, IDictionary<string, KafkaConsumerOptions>>? mapEventHandlers,
 			params Assembly[] assemblies)
 		{
@@ -35,6 +36,8 @@ public static class BusRegistrationConfiguratorExtensions
 			busConfigurator.AddRider(riderConfigurator =>
 			{
 				riderConfigurator.AddConsumers(assemblies);
+
+				mapEventProducers?.Invoke(riderConfigurator);
 
 				riderConfigurator.UsingKafka((context, kafkaConfigurator) =>
 				{

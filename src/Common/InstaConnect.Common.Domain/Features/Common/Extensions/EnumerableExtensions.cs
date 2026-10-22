@@ -24,7 +24,12 @@ public static class EnumerableExtensions
 
 		public string JoinWithSemicolon()
 		{
-			return enumerable.JoinWith(";");
+			return enumerable.JoinWith("; ");
+		}
+
+		public string JoinWithColon()
+		{
+			return enumerable.JoinWith(":");
 		}
 	}
 }

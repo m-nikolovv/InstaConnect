@@ -18,8 +18,7 @@ public static class PostCommentEquals
 	{
 		public bool Matches(AddPostCommentCommandRequest request, PostComment entity)
 		{
-			return r.MatchesId(entity.Id.CommentId) &&
-				   r.PostComment.Matches(request, entity);
+			return r.PostComment.Matches(request, entity);
 		}
 	}
 
@@ -27,8 +26,7 @@ public static class PostCommentEquals
 	{
 		public bool Matches(UpdatePostCommentCommandRequest request, PostComment entity)
 		{
-			return r.MatchesId(request.CommentId) &&
-				   r.PostComment.Matches(request, entity);
+			return r.PostComment.Matches(request, entity);
 		}
 	}
 
@@ -36,8 +34,7 @@ public static class PostCommentEquals
 	{
 		public bool Matches(DeletePostCommentCommandRequest request, PostComment entity)
 		{
-			return r.MatchesId(request.CommentId) &&
-				   r.PostComment.Matches(request, entity);
+			return r.PostComment.Matches(request, entity);
 		}
 	}
 

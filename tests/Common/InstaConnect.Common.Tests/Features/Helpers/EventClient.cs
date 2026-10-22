@@ -1,5 +1,4 @@
 using InstaConnect.Common.Events.Features.Events.Abstractions;
-using InstaConnect.Common.Infrastructure.Features.Events.Extensions;
 
 using MassTransit;
 using MassTransit.Testing;
@@ -23,7 +22,9 @@ public class EventClient : IEventClient
 	public async Task PublishAsync<TRequest>(TRequest message, CancellationToken cancellationToken)
 		where TRequest : class, IEventRequest
 	{
-		await _testHarness.Scope.ServiceProvider.GetRequiredService<ITopicProducerProvider>().GetEventProducer<TRequest>().Produce(message, cancellationToken);
+		var producer = _testHarness.Scope.ServiceProvider.GetRequiredService<ITopicProducer<TRequest>>();
+
+		await producer.Produce(message, cancellationToken);
 		await _testHarness.InactivityTask;
 	}
 

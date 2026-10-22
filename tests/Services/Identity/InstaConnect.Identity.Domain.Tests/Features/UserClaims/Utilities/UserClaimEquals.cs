@@ -19,8 +19,7 @@ public static class UserClaimEquals
 	{
 		public bool Matches(AddUserClaimCommand command, UserClaim entity)
 		{
-			return request.MatchesId(command.Id.Id, command.Claim.GetName()) &&
-				   request.UserClaim.Matches(command, entity);
+			return request.UserClaim.Matches(command, entity);
 		}
 	}
 
@@ -28,8 +27,7 @@ public static class UserClaimEquals
 	{
 		public bool Matches(DeleteUserClaimCommand command, UserClaim entity)
 		{
-			return request.MatchesId(command.Id.Id.Id, command.Id.Claim.GetName()) &&
-				   request.UserClaim.Matches(command, entity);
+			return request.UserClaim.Matches(command, entity);
 		}
 	}
 

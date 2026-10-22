@@ -16,8 +16,7 @@ public static class PostLikeEquals
 	{
 		public bool Matches(AddPostLikeApiRequest request, PostLike entity)
 		{
-			return r.MatchesId(request.Id, request.UserId) &&
-				   r.PostLike.Matches(request, entity);
+			return r.PostLike.Matches(request, entity);
 		}
 	}
 
@@ -25,8 +24,7 @@ public static class PostLikeEquals
 	{
 		public bool Matches(DeletePostLikeApiRequest request, PostLike entity)
 		{
-			return r.MatchesId(request.Id, request.UserId) &&
-				   r.PostLike.Matches(request, entity);
+			return r.PostLike.Matches(request, entity);
 		}
 	}
 

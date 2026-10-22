@@ -21,8 +21,7 @@ public static class PostLikeEquals
 	{
 		public bool Matches(AddPostLikeCommand command, PostLike entity)
 		{
-			return request.MatchesId(command.Id.Id, command.UserId.Id) &&
-				   request.PostLike.Matches(command, entity);
+			return request.PostLike.Matches(command, entity);
 		}
 	}
 
@@ -30,8 +29,7 @@ public static class PostLikeEquals
 	{
 		public bool Matches(DeletePostLikeCommand command, PostLike entity)
 		{
-			return request.MatchesId(command.Id.Id.Id, command.Id.UserId.Id) &&
-				   request.PostLike.Matches(command, entity);
+			return request.PostLike.Matches(command, entity);
 		}
 	}
 
