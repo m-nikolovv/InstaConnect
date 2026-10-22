@@ -2,6 +2,7 @@
 
   <PropertyGroup>
     <UserSecretsId>2d2c94e0-ad74-4c31-b0d3-655c0d1d6877</UserSecretsId>
+    <PreserveCompilationContext>true</PreserveCompilationContext>
   </PropertyGroup>
 
   <ItemGroup>
