@@ -4,7 +4,4 @@ public record KafkaConsumerOptions(
 	ushort PartitionCount,
 	short ReplicationFactor,
 	int ConcurrentMessageLimit,
-	int RetryLimit,
-	TimeSpan RetryMinInterval,
-	TimeSpan RetryMaxInterval,
-	TimeSpan RetryIntervalDelta);
+	KafkaRetryOptions Retry);

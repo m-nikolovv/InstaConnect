@@ -13,16 +13,8 @@ public class KafkaConsumerOptionsValidator : AbstractValidator<KafkaConsumerOpti
 		RuleFor(o => o.ConcurrentMessageLimit)
 			.NotEmptyWithMessage();
 
-		RuleFor(o => o.RetryLimit)
-			.NotEmptyWithMessage();
-
-		RuleFor(o => o.RetryMinInterval)
-			.NotEmptyWithMessage();
-
-		RuleFor(o => o.RetryMaxInterval)
-			.NotEmptyWithMessage();
-
-		RuleFor(o => o.RetryIntervalDelta)
-			.NotEmptyWithMessage();
+		RuleFor(o => o.Retry)
+			.NotEmptyWithMessage()
+			.SetValidator(new KafkaRetryOptionsValidator());
 	}
 }

@@ -40,10 +40,10 @@ public static class KafkaFactoryConfiguratorExtensions
 					endpointConfigurator.UseMessageRetry(retryConfigurator =>
 					{
 						retryConfigurator.Exponential(
-							topicConsumerOptions.RetryLimit,
-							topicConsumerOptions.RetryMinInterval,
-							topicConsumerOptions.RetryMaxInterval,
-							topicConsumerOptions.RetryIntervalDelta);
+							topicConsumerOptions.Retry.Limit,
+							topicConsumerOptions.Retry.MinInterval,
+							topicConsumerOptions.Retry.MaxInterval,
+							topicConsumerOptions.Retry.IntervalDelta);
 
 						retryConfigurator.Handle<MongoException>();
 						retryConfigurator.Handle<TimeoutException>();
