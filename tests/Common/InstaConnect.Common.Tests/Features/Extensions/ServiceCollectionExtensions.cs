@@ -45,8 +45,6 @@ public static class ServiceCollectionExtensions
 			Action<IRiderRegistrationContext, IKafkaFactoryConfigurator, IDictionary<string, KafkaConsumerOptions>>? mapEventHandlers,
 			params Assembly[] assemblies)
 		{
-			serviceCollection.AddImplementationsOf(typeof(IEventKeySelector<>), assemblies);
-
 			serviceCollection.AddMassTransitTestHarness(busConfigurator =>
 				busConfigurator.AddKafka(options, mapEventHandlers, assemblies));
 

@@ -1,5 +1,4 @@
 using InstaConnect.Common.Tests.Features.Extensions;
-using InstaConnect.Identity.Events.Features.Common.Extensions;
 using InstaConnect.Identity.Infrastructure.Features.Common.Extensions;
 using InstaConnect.Identity.Tests.Features.Common.Extensions;
 
@@ -32,7 +31,7 @@ public class IdentityWebApplicationFactory : WebApplicationFactory<Program>, IAs
 		{
 			serviceCollection.AddMockImageHandler();
 			serviceCollection.AddMockEmailSender();
-			serviceCollection.AddTestEventClient(null, IdentityInfrastructureReference.Assembly, IdentityEventsReference.Assembly);
+			serviceCollection.AddTestEventClient(null, IdentityInfrastructureReference.Assembly);
 		});
 
 		builder.UpdateKafkaConfiguration(_kafkaContainer.GetBootstrapServers());

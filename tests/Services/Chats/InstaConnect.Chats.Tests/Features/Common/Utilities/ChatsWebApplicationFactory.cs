@@ -1,10 +1,8 @@
-using InstaConnect.Chats.Events.Features.Common.Extensions;
 using InstaConnect.Chats.Infrastructure.Features.Common.Extensions;
 using InstaConnect.Chats.Infrastructure.Features.Common.Utilities;
 using InstaConnect.Chats.Tests.Features.ChatMessages.Extensions;
 using InstaConnect.Chats.Tests.Features.Common.Extensions;
 using InstaConnect.Common.Tests.Features.Extensions;
-using InstaConnect.Identity.Events.Features.Common.Extensions;
 
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc.Testing;
@@ -35,7 +33,7 @@ public class ChatsWebApplicationFactory : WebApplicationFactory<Program>, IAsync
 		{
 			serviceCollection.AddMockImageHandler();
 			serviceCollection.AddChatMessageMockSummarizer();
-			serviceCollection.AddTestEventClient((context, kafkaConfigurator, consumerOptions) => kafkaConfigurator.MapUserEventHandler(context, ChatsEventHandlerUtilities.Prefix.GetTest(), consumerOptions), ChatsInfrastructureReference.Assembly, ChatsEventsReference.Assembly, IdentityEventsReference.Assembly);
+			serviceCollection.AddTestEventClient((context, kafkaConfigurator, consumerOptions) => kafkaConfigurator.MapUserEventHandler(context, ChatsEventHandlerUtilities.Prefix.GetTest(), consumerOptions), ChatsInfrastructureReference.Assembly);
 		});
 
 		builder.UpdateKafkaConfiguration(_kafkaContainer.GetBootstrapServers());

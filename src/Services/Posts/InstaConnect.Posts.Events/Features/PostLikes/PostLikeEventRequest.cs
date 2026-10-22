@@ -7,5 +7,4 @@ public record PostLikeEventRequest(
 		string UserId,
 		UserEventRequest User,
 		PostEventRequest Post,
-		DateTimeOffset CreatedAtUtc)
-	: IEventRequest;
+		DateTimeOffset CreatedAtUtc);

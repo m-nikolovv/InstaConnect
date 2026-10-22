@@ -1,7 +1,6 @@
 using System.Reflection;
 
 using InstaConnect.Common.Events.Features.Events.Abstractions;
-using InstaConnect.Common.Infrastructure.Features.Events.Abstractions;
 using InstaConnect.Common.Infrastructure.Features.Events.Helpers;
 using InstaConnect.Common.Infrastructure.Features.Events.Models;
 
@@ -28,8 +27,6 @@ public static class ServiceCollectionExtensions
 				busConfigurator.AddKafka(options, mapEventHandlers, assemblies);
 			});
 
-			serviceCollection.AddImplementationsOf(typeof(IEventKeySelector<>), assemblies);
-			serviceCollection.AddSingleton<IEventKeySelectorProvider, EventKeySelectorProvider>();
 			serviceCollection.AddScoped<IEventPublisher, EventPublisher>();
 
 			return serviceCollection;

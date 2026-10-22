@@ -1,6 +1,7 @@
 <Project>
   <ItemGroup Label="Events" Condition="'$(ProjectLayer)' == 'Events'">
     <Using Include="InstaConnect.Common.Events.Features.Events.Abstractions" />
+    <Using Include="InstaConnect.Common.Events.Features.Events.Utilities" />
     <Using Include="InstaConnect.Identity.Events.Features.Users" />
   </ItemGroup>
 </Project>

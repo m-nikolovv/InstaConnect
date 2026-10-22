@@ -26,10 +26,5 @@ public static class EnumerableExtensions
 		{
 			return enumerable.JoinWith(";");
 		}
-
-		public string JoinWithColon()
-		{
-			return enumerable.JoinWith(":");
-		}
 	}
 }
