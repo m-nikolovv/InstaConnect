@@ -24,12 +24,13 @@ public static class KafkaFactoryConfiguratorExtensions
 			var topicName = KebabCaseEndpointNameFormatter.Instance.Message<TEvent>();
 			var topicConsumerOptions = consumerOptions[topicName];
 
-			kafkaConfigurator.TopicEndpoint<TEvent>(
+			kafkaConfigurator.TopicEndpoint<string, TEvent>(
 				topicName,
 				GroupIdFormat.FormatCurrentCulture(prefix, topicName),
 				endpointConfigurator =>
 				{
 					endpointConfigurator.AutoOffsetReset = AutoOffsetReset.Earliest;
+					endpointConfigurator.ConcurrentMessageLimit = topicConsumerOptions.ConcurrentMessageLimit;
 					endpointConfigurator.CreateIfMissing(topicOptions =>
 					{
 						topicOptions.NumPartitions = topicConsumerOptions.PartitionCount;

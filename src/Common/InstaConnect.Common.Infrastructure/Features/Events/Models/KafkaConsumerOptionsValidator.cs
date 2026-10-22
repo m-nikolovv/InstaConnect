@@ -10,6 +10,9 @@ public class KafkaConsumerOptionsValidator : AbstractValidator<KafkaConsumerOpti
 		RuleFor(o => o.ReplicationFactor)
 			.NotEmptyWithMessage();
 
+		RuleFor(o => o.ConcurrentMessageLimit)
+			.NotEmptyWithMessage();
+
 		RuleFor(o => o.RetryLimit)
 			.NotEmptyWithMessage();
 
