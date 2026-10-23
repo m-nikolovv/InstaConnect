@@ -13,9 +13,9 @@ public static class RiderRegistrationConfiguratorExtensions
 		public IRiderRegistrationConfigurator MapUserEventProducer()
 		{
 			riderConfigurator
-				.MapEventProducer<UserAddedEventRequest>(context => CommonEventKeySelectorMessages.GetKey(context.Message.User.Id))
-				.MapEventProducer<UserUpdatedEventRequest>(context => CommonEventKeySelectorMessages.GetKey(context.Message.User.Id))
-				.MapEventProducer<UserDeletedEventRequest>(context => CommonEventKeySelectorMessages.GetKey(context.Message.User.Id));
+				.MapEventProducer<UserAddedEventRequest>(message => CommonEventKeySelectorMessages.GetKey(message.User.Id))
+				.MapEventProducer<UserUpdatedEventRequest>(message => CommonEventKeySelectorMessages.GetKey(message.User.Id))
+				.MapEventProducer<UserDeletedEventRequest>(message => CommonEventKeySelectorMessages.GetKey(message.User.Id));
 
 			return riderConfigurator;
 		}

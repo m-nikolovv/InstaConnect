@@ -6,6 +6,8 @@ using InstaConnect.Common.Infrastructure.Features.DateTimes.Extensions;
 using InstaConnect.Common.Infrastructure.Features.Events.Extensions;
 using InstaConnect.Common.Infrastructure.Features.Guids.Extensions;
 using InstaConnect.Common.Infrastructure.Features.Images.Extensions;
+using InstaConnect.Common.Infrastructure.Features.Jsons.Extensions;
+using InstaConnect.Common.Infrastructure.Features.OutboxEvents.Extensions;
 using InstaConnect.Common.Infrastructure.Features.Summarizers.Extensions;
 using InstaConnect.Common.Infrastructure.Features.Telemetries.Extensions;
 using InstaConnect.Posts.Infrastructure.Features.Common.Utilities;
@@ -43,9 +45,11 @@ public static class ServiceCollectionExtensions
 				.AddServicesWithMatchingInterfacesExceptFluents(PostsInfrastructureReference.Assembly)
 				.AddDatabases(configuration)
 				.AddEvents(configuration, riderConfigurator => riderConfigurator.MapPostEventProducer().MapPostCommentEventProducer().MapPostLikeEventProducer().MapPostCommentLikeEventProducer(), (context, kafkaConfigurator, consumerOptions) => kafkaConfigurator.MapUserEventHandler(context, PostsEventHandlerUtilities.Prefix, consumerOptions), PostsInfrastructureReference.Assembly)
+				.AddOutboxEvents()
 				.AddAccessTokens(configuration)
 				.AddImages(configuration)
 				.AddSummarizers(configuration)
+				.AddJsons()
 				.AddGuids()
 				.AddDateTimes()
 				.AddDatabaseSortOrders();

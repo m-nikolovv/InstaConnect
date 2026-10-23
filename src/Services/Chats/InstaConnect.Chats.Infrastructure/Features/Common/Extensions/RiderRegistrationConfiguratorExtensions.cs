@@ -13,7 +13,7 @@ public static class RiderRegistrationConfiguratorExtensions
 		public IRiderRegistrationConfigurator MapChatEventProducer()
 		{
 			riderConfigurator
-				.MapEventProducer<ChatAddedEventRequest>(context => context.Message.Chat.GetKey());
+				.MapEventProducer<ChatAddedEventRequest>(message => message.Chat.GetKey());
 
 			return riderConfigurator;
 		}

@@ -17,9 +17,9 @@ public static class RiderRegistrationConfiguratorExtensions
 		public IRiderRegistrationConfigurator MapPostEventProducer()
 		{
 			riderConfigurator
-				.MapEventProducer<PostAddedEventRequest>(context => context.Message.Post.GetKey())
-				.MapEventProducer<PostUpdatedEventRequest>(context => context.Message.Post.GetKey())
-				.MapEventProducer<PostDeletedEventRequest>(context => context.Message.Post.GetKey());
+				.MapEventProducer<PostAddedEventRequest>(message => message.Post.GetKey())
+				.MapEventProducer<PostUpdatedEventRequest>(message => message.Post.GetKey())
+				.MapEventProducer<PostDeletedEventRequest>(message => message.Post.GetKey());
 
 			return riderConfigurator;
 		}
@@ -27,9 +27,9 @@ public static class RiderRegistrationConfiguratorExtensions
 		public IRiderRegistrationConfigurator MapPostCommentEventProducer()
 		{
 			riderConfigurator
-				.MapEventProducer<PostCommentAddedEventRequest>(context => context.Message.PostComment.GetKey())
-				.MapEventProducer<PostCommentUpdatedEventRequest>(context => context.Message.PostComment.GetKey())
-				.MapEventProducer<PostCommentDeletedEventRequest>(context => context.Message.PostComment.GetKey());
+				.MapEventProducer<PostCommentAddedEventRequest>(message => message.PostComment.GetKey())
+				.MapEventProducer<PostCommentUpdatedEventRequest>(message => message.PostComment.GetKey())
+				.MapEventProducer<PostCommentDeletedEventRequest>(message => message.PostComment.GetKey());
 
 			return riderConfigurator;
 		}
@@ -37,8 +37,8 @@ public static class RiderRegistrationConfiguratorExtensions
 		public IRiderRegistrationConfigurator MapPostLikeEventProducer()
 		{
 			riderConfigurator
-				.MapEventProducer<PostLikeAddedEventRequest>(context => context.Message.PostLike.GetKey())
-				.MapEventProducer<PostLikeDeletedEventRequest>(context => context.Message.PostLike.GetKey());
+				.MapEventProducer<PostLikeAddedEventRequest>(message => message.PostLike.GetKey())
+				.MapEventProducer<PostLikeDeletedEventRequest>(message => message.PostLike.GetKey());
 
 			return riderConfigurator;
 		}
@@ -46,8 +46,8 @@ public static class RiderRegistrationConfiguratorExtensions
 		public IRiderRegistrationConfigurator MapPostCommentLikeEventProducer()
 		{
 			riderConfigurator
-				.MapEventProducer<PostCommentLikeAddedEventRequest>(context => context.Message.PostCommentLike.GetKey())
-				.MapEventProducer<PostCommentLikeDeletedEventRequest>(context => context.Message.PostCommentLike.GetKey());
+				.MapEventProducer<PostCommentLikeAddedEventRequest>(message => message.PostCommentLike.GetKey())
+				.MapEventProducer<PostCommentLikeDeletedEventRequest>(message => message.PostCommentLike.GetKey());
 
 			return riderConfigurator;
 		}

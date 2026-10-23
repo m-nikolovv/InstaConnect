@@ -1,6 +1,7 @@
 using System.Reflection;
 
 using InstaConnect.Common.Events.Features.Events.Abstractions;
+using InstaConnect.Common.Infrastructure.Features.Events.Abstractions;
 using InstaConnect.Common.Infrastructure.Features.Events.Helpers;
 using InstaConnect.Common.Infrastructure.Features.Events.Models;
 
@@ -22,13 +23,11 @@ public static class ServiceCollectionExtensions
 			var options = configuration.GetOptions<KafkaOptions>(KafkaOptions.SectionName);
 
 			serviceCollection.AddMassTransit(busConfigurator =>
-			{
-				busConfigurator.AddMongoDbOutbox();
+				busConfigurator.AddKafka(options, mapEventProducers, mapEventHandlers, assemblies));
 
-				busConfigurator.AddKafka(options, mapEventProducers, mapEventHandlers, assemblies);
-			});
-
-			serviceCollection.AddScoped<IEventPublisher, EventPublisher>();
+			serviceCollection
+				.AddScoped<IEventKeySelectorProvider, EventKeySelectorProvider>()
+				.AddScoped<IEventPublisher, EventPublisher>();
 
 			return serviceCollection;
 		}

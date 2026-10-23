@@ -8,6 +8,8 @@ using InstaConnect.Common.Infrastructure.Features.Emails.Extensions;
 using InstaConnect.Common.Infrastructure.Features.Events.Extensions;
 using InstaConnect.Common.Infrastructure.Features.Guids.Extensions;
 using InstaConnect.Common.Infrastructure.Features.Images.Extensions;
+using InstaConnect.Common.Infrastructure.Features.Jsons.Extensions;
+using InstaConnect.Common.Infrastructure.Features.OutboxEvents.Extensions;
 using InstaConnect.Common.Infrastructure.Features.Seeders.Extensions;
 using InstaConnect.Common.Infrastructure.Features.Telemetries.Extensions;
 using InstaConnect.Identity.Domain.Features.Common.Helpers;
@@ -53,7 +55,9 @@ public static class ServiceCollectionExtensions
 				.AddSeeders<IIdentityDatabaseSeeder>()
 				.AddImages(configuration)
 				.AddEvents(configuration, riderConfigurator => riderConfigurator.MapUserEventProducer().MapUserClaimEventProducer().MapEmailConfirmationTokenEventProducer().MapForgotPasswordTokenEventProducer(), null, IdentityInfrastructureReference.Assembly)
+				.AddOutboxEvents()
 				.AddAccessTokens(configuration)
+				.AddJsons()
 				.AddGuids()
 				.AddDateTimes()
 				.AddDatabaseSortOrders();

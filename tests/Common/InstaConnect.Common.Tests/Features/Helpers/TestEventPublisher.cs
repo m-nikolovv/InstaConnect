@@ -17,7 +17,7 @@ public class TestEventPublisher : IEventPublisher
 		await _eventClient.PublishAsync(message, cancellationToken);
 	}
 
-	public async Task PublishAsync<TEvent>(ICollection<TEvent> messages, CancellationToken cancellationToken)
+	public async Task PublishRangeAsync<TEvent>(ICollection<TEvent> messages, CancellationToken cancellationToken)
 		where TEvent : class, IEventRequest
 	{
 		foreach (var message in messages)

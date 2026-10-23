@@ -10,19 +10,6 @@ public static class BusRegistrationConfiguratorExtensions
 {
 	extension(IBusRegistrationConfigurator busConfigurator)
 	{
-		public IBusRegistrationConfigurator AddMongoDbOutbox()
-		{
-			busConfigurator.AddMongoDbOutbox(o =>
-			{
-				o.ClientFactory(provider => provider.GetRequiredService<IMongoClient>());
-				o.DatabaseFactory(provider => provider.GetRequiredService<IMongoDatabase>());
-
-				o.UseBusOutbox();
-			});
-
-			return busConfigurator;
-		}
-
 		public IBusRegistrationConfigurator AddKafka(
 			KafkaOptions options,
 			Action<IRiderRegistrationConfigurator>? mapEventProducers,

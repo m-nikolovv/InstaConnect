@@ -49,8 +49,6 @@ public static class KafkaFactoryConfiguratorExtensions
 						retryConfigurator.Handle<TimeoutException>();
 					});
 
-					endpointConfigurator.UseMongoDbOutbox(context);
-
 					endpointConfigurator.ConfigureConsumer<TEventHandler>(context);
 				});
 

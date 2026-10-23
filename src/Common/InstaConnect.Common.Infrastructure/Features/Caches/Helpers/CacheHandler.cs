@@ -1,7 +1,7 @@
 using InstaConnect.Common.Application.Features.Caches.Abstractions;
 using InstaConnect.Common.Application.Features.Caches.Models;
 using InstaConnect.Common.Domain.Features.Mappers.Abstractions;
-using InstaConnect.Common.Infrastructure.Features.Caches.Abstractions;
+using InstaConnect.Common.Infrastructure.Features.Jsons.Abstractions;
 
 using Microsoft.Extensions.Caching.Distributed;
 

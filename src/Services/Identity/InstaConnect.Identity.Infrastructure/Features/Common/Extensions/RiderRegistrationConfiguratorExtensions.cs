@@ -18,9 +18,9 @@ public static class RiderRegistrationConfiguratorExtensions
 		public IRiderRegistrationConfigurator MapUserEventProducer()
 		{
 			riderConfigurator
-				.MapEventProducer<UserAddedEventRequest>(context => context.Message.User.GetKey())
-				.MapEventProducer<UserUpdatedEventRequest>(context => context.Message.User.GetKey())
-				.MapEventProducer<UserDeletedEventRequest>(context => context.Message.User.GetKey());
+				.MapEventProducer<UserAddedEventRequest>(message => message.User.GetKey())
+				.MapEventProducer<UserUpdatedEventRequest>(message => message.User.GetKey())
+				.MapEventProducer<UserDeletedEventRequest>(message => message.User.GetKey());
 
 			return riderConfigurator;
 		}
@@ -28,8 +28,8 @@ public static class RiderRegistrationConfiguratorExtensions
 		public IRiderRegistrationConfigurator MapUserClaimEventProducer()
 		{
 			riderConfigurator
-				.MapEventProducer<UserClaimAddedEventRequest>(context => context.Message.UserClaim.GetKey())
-				.MapEventProducer<UserClaimDeletedEventRequest>(context => context.Message.UserClaim.GetKey());
+				.MapEventProducer<UserClaimAddedEventRequest>(message => message.UserClaim.GetKey())
+				.MapEventProducer<UserClaimDeletedEventRequest>(message => message.UserClaim.GetKey());
 
 			return riderConfigurator;
 		}
@@ -37,8 +37,8 @@ public static class RiderRegistrationConfiguratorExtensions
 		public IRiderRegistrationConfigurator MapEmailConfirmationTokenEventProducer()
 		{
 			riderConfigurator
-				.MapEventProducer<EmailConfirmationTokenAddedEventRequest>(context => context.Message.EmailConfirmationToken.GetKey())
-				.MapEventProducer<EmailConfirmationTokenDeletedEventRequest>(context => context.Message.EmailConfirmationToken.GetKey());
+				.MapEventProducer<EmailConfirmationTokenAddedEventRequest>(message => message.EmailConfirmationToken.GetKey())
+				.MapEventProducer<EmailConfirmationTokenDeletedEventRequest>(message => message.EmailConfirmationToken.GetKey());
 
 			return riderConfigurator;
 		}
@@ -46,8 +46,8 @@ public static class RiderRegistrationConfiguratorExtensions
 		public IRiderRegistrationConfigurator MapForgotPasswordTokenEventProducer()
 		{
 			riderConfigurator
-				.MapEventProducer<ForgotPasswordTokenAddedEventRequest>(context => context.Message.ForgotPasswordToken.GetKey())
-				.MapEventProducer<ForgotPasswordTokenDeletedEventRequest>(context => context.Message.ForgotPasswordToken.GetKey());
+				.MapEventProducer<ForgotPasswordTokenAddedEventRequest>(message => message.ForgotPasswordToken.GetKey())
+				.MapEventProducer<ForgotPasswordTokenDeletedEventRequest>(message => message.ForgotPasswordToken.GetKey());
 
 			return riderConfigurator;
 		}

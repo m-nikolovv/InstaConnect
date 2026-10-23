@@ -1,6 +1,5 @@
 using InstaConnect.Common.Application.Features.Caches.Abstractions;
 using InstaConnect.Common.Application.Features.Caches.Helpers;
-using InstaConnect.Common.Infrastructure.Features.Caches.Abstractions;
 using InstaConnect.Common.Infrastructure.Features.Caches.Helpers;
 using InstaConnect.Common.Infrastructure.Features.Caches.Models;
 
@@ -15,8 +14,7 @@ public static class ServiceCollectionExtensions
 			serviceCollection.AddValidatedOptions<RedisOptions>(RedisOptions.SectionName);
 			var options = configuration.GetOptions<RedisOptions>(RedisOptions.SectionName);
 
-			serviceCollection.AddScoped<IJsonConverter, JsonConverter>()
-							 .AddScoped<ICacheHandler, CacheHandler>()
+			serviceCollection.AddScoped<ICacheHandler, CacheHandler>()
 							 .AddScoped<ICacheRequestFactory, CacheRequestFactory>();
 
 			serviceCollection.AddStackExchangeRedisCache(redisOptions =>

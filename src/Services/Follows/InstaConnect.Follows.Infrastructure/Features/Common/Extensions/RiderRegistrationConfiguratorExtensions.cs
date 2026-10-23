@@ -13,8 +13,8 @@ public static class RiderRegistrationConfiguratorExtensions
 		public IRiderRegistrationConfigurator MapFollowEventProducer()
 		{
 			riderConfigurator
-				.MapEventProducer<FollowAddedEventRequest>(context => context.Message.Follow.GetKey())
-				.MapEventProducer<FollowDeletedEventRequest>(context => context.Message.Follow.GetKey());
+				.MapEventProducer<FollowAddedEventRequest>(message => message.Follow.GetKey())
+				.MapEventProducer<FollowDeletedEventRequest>(message => message.Follow.GetKey());
 
 			return riderConfigurator;
 		}

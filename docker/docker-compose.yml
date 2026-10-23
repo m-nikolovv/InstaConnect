@@ -128,6 +128,54 @@ services:
     networks:
       - instaconnect
 
+  kafka-connect:
+    image: quay.io/debezium/connect:3.0
+    container_name: kafka-connect
+    hostname: kafka-connect
+    restart: unless-stopped
+    entrypoint:
+      - bash
+      - -c
+      - |
+        /docker-entrypoint.sh start &
+        until curl -s -o /dev/null http://localhost:8083/connectors; do sleep 2; done
+        curl -s -X PUT -H "Content-Type: application/json" --data @/kafka-connect/outbox-connector.json http://localhost:8083/connectors/outbox/config
+        wait
+    environment:
+      BOOTSTRAP_SERVERS: kafka:9092
+      GROUP_ID: kafka-connect
+      CONFIG_STORAGE_TOPIC: kafka-connect-configs
+      OFFSET_STORAGE_TOPIC: kafka-connect-offsets
+      STATUS_STORAGE_TOPIC: kafka-connect-statuses
+      CONFIG_STORAGE_REPLICATION_FACTOR: 1
+      OFFSET_STORAGE_REPLICATION_FACTOR: 1
+      STATUS_STORAGE_REPLICATION_FACTOR: 1
+      CONNECT_SECURITY_PROTOCOL: SASL_PLAINTEXT
+      CONNECT_SASL_MECHANISM: PLAIN
+      CONNECT_SASL_JAAS_CONFIG: org.apache.kafka.common.security.plain.PlainLoginModule required username="${KAFKA_USERNAME}" password="${KAFKA_PASSWORD}";
+      CONNECT_PRODUCER_SECURITY_PROTOCOL: SASL_PLAINTEXT
+      CONNECT_PRODUCER_SASL_MECHANISM: PLAIN
+      CONNECT_PRODUCER_SASL_JAAS_CONFIG: org.apache.kafka.common.security.plain.PlainLoginModule required username="${KAFKA_USERNAME}" password="${KAFKA_PASSWORD}";
+      CONNECT_CONFIG_PROVIDERS: env
+      CONNECT_CONFIG_PROVIDERS_ENV_CLASS: org.apache.kafka.common.config.provider.EnvVarConfigProvider
+      MONGO_USERNAME: ${MONGO_USERNAME}
+      MONGO_PASSWORD: ${MONGO_PASSWORD}
+    volumes:
+      - ./kafka-connect:/kafka-connect:ro
+    healthcheck:
+      test: ["CMD-SHELL", "curl -s http://localhost:8083/connectors/outbox/status | grep -q RUNNING"]
+      interval: 10s
+      timeout: 10s
+      retries: 20
+      start_period: 30s
+    depends_on:
+      kafka:
+        condition: service_healthy
+      mongo:
+        condition: service_healthy
+    networks:
+      - instaconnect
+
   identity-svc:
     image: ${DOCKER_REGISTRY-}identity-svc
     deploy:
