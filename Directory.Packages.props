@@ -20,8 +20,7 @@
     <PackageVersion Include="Mapster" Version="10.0.13" />
     <PackageVersion Include="Mapster.DependencyInjection" Version="10.0.13" />
     <PackageVersion Include="MassTransit" Version="8.5.11" />
-    <PackageVersion Include="MassTransit.MongoDb" Version="8.5.11" />
-    <PackageVersion Include="MassTransit.RabbitMQ" Version="8.5.11" />
+    <PackageVersion Include="MassTransit.Kafka" Version="8.5.11" />
     <PackageVersion Include="MediatR" Version="12.5.0" />
     <PackageVersion Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="10.0.13" />
     <PackageVersion Include="Microsoft.AspNetCore.Mvc.Testing" Version="10.0.13" />
@@ -45,7 +44,7 @@
     <PackageVersion Include="Serilog.Sinks.OpenTelemetry" Version="4.2.0" />
     <PackageVersion Include="SonarAnalyzer.CSharp" Version="10.35.0.4138" />
     <PackageVersion Include="Testcontainers.MongoDb" Version="4.16.0" />
-    <PackageVersion Include="Testcontainers.RabbitMq" Version="4.16.0" />
+    <PackageVersion Include="Testcontainers.Kafka" Version="4.16.0" />
     <PackageVersion Include="Testcontainers.Redis" Version="4.16.0" />
     <PackageVersion Include="xunit" Version="2.9.3" />
     <PackageVersion Include="xunit.extensibility.core" Version="2.9.3" />

@@ -121,13 +121,13 @@ public class VerifyEmailConfirmationTokenCommandServiceUnitTests : BaseEmailConf
 	}
 
 	[Fact]
-	public async Task VerifyAsync_ShouldCallTheEventPublisherPublishAsync_WhenCommandIsValid()
+	public async Task VerifyAsync_ShouldCallTheEventPublisherPublishRangeAsync_WhenCommandIsValid()
 	{
 		// Act
 		await _service.VerifyAsync(_command, CancellationToken);
 
 		// Assert
-		await EventPublisher.ShouldHaveReceivedOnePublishAsync(_command, User.EmailConfirmationTokens, CancellationToken);
+		await EventPublisher.ShouldHaveReceivedOnePublishRangeAsync(_command, User.EmailConfirmationTokens, CancellationToken);
 	}
 
 	[Fact]

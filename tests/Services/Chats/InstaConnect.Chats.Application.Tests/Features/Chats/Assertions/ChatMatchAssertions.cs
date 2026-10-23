@@ -1,4 +1,4 @@
-using InstaConnect.Chats.Events.Features.Chats;
+using InstaConnect.Chats.Events.Features.Chats.Models;
 using InstaConnect.Chats.Tests.Features.ChatMessages.Assertions;
 
 namespace InstaConnect.Chats.Application.Tests.Features.Chats.Assertions;

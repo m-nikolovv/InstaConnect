@@ -2,7 +2,7 @@ using InstaConnect.Chats.Application.Features.Chats.Commands.Add;
 using InstaConnect.Chats.Application.Features.Chats.Queries.GetAll;
 using InstaConnect.Chats.Application.Features.Chats.Queries.GetById;
 using InstaConnect.Chats.Domain.Features.Chats.Models.ValueObjects;
-using InstaConnect.Chats.Events.Features.Chats;
+using InstaConnect.Chats.Events.Features.Chats.Models;
 using InstaConnect.Chats.Presentation.Tests.Features.Users.Utilities;
 using InstaConnect.Identity.Events.Features.Users;
 

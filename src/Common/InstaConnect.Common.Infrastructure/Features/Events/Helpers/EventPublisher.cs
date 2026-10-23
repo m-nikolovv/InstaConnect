@@ -1,30 +1,34 @@
 using InstaConnect.Common.Events.Features.Events.Abstractions;
-
-using MassTransit;
+using InstaConnect.Common.Infrastructure.Features.OutboxEvents.Abstractions;
 
 namespace InstaConnect.Common.Infrastructure.Features.Events.Helpers;
 
 public class EventPublisher : IEventPublisher
 {
-	private readonly IPublishEndpoint _publishEndpoint;
+	private readonly IOutboxEventFactory _outboxEventFactory;
+	private readonly IOutboxEventCommandRepository _outboxEventRepository;
 
-	public EventPublisher(IPublishEndpoint publishEndpoint)
+	public EventPublisher(
+		IOutboxEventFactory outboxEventFactory,
+		IOutboxEventCommandRepository outboxEventRepository)
 	{
-		_publishEndpoint = publishEndpoint;
+		_outboxEventFactory = outboxEventFactory;
+		_outboxEventRepository = outboxEventRepository;
 	}
 
 	public async Task PublishAsync<TEvent>(TEvent message, CancellationToken cancellationToken)
 		where TEvent : class, IEventRequest
 	{
-		await _publishEndpoint.Publish(message, cancellationToken);
+		var outboxEvent = _outboxEventFactory.Create(message);
+
+		await _outboxEventRepository.AddAsync(outboxEvent, cancellationToken);
 	}
 
-	public async Task PublishAsync<TEvent>(ICollection<TEvent> messages, CancellationToken cancellationToken)
+	public async Task PublishRangeAsync<TEvent>(ICollection<TEvent> messages, CancellationToken cancellationToken)
 		where TEvent : class, IEventRequest
 	{
-		foreach (var message in messages)
-		{
-			await PublishAsync(message, cancellationToken);
-		}
+		var outboxEvents = _outboxEventFactory.CreateRange(messages);
+
+		await _outboxEventRepository.AddRangeAsync(outboxEvents, cancellationToken);
 	}
 }

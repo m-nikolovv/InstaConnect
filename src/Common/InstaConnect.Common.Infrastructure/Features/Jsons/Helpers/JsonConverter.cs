@@ -1,8 +1,8 @@
-using InstaConnect.Common.Infrastructure.Features.Caches.Abstractions;
+using InstaConnect.Common.Infrastructure.Features.Jsons.Abstractions;
 
 using Newtonsoft.Json;
 
-namespace InstaConnect.Common.Infrastructure.Features.Caches.Helpers;
+namespace InstaConnect.Common.Infrastructure.Features.Jsons.Helpers;
 
 internal class JsonConverter : IJsonConverter
 {

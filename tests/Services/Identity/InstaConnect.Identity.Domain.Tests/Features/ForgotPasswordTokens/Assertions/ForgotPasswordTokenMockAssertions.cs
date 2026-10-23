@@ -70,12 +70,12 @@ public static class ForgotPasswordTokenMockAssertions
 			await eventPublisher.ShouldHaveReceivedOnePublishAsync(command.IsForgotPasswordTokenAddedEventRequest(forgotPasswordToken), cancellationToken);
 		}
 
-		public async Task ShouldHaveReceivedOnePublishAsync(
+		public async Task ShouldHaveReceivedOnePublishRangeAsync(
 			VerifyForgotPasswordTokenCommand command,
 			ICollection<ForgotPasswordToken> forgotPasswordTokens,
 			CancellationToken cancellationToken)
 		{
-			await eventPublisher.ShouldHaveReceivedOnePublishAsync(command.IsForgotPasswordTokenDeletedEventRequestCollection(forgotPasswordTokens), cancellationToken);
+			await eventPublisher.ShouldHaveReceivedOnePublishRangeAsync(command.IsForgotPasswordTokenDeletedEventRequestCollection(forgotPasswordTokens), cancellationToken);
 		}
 	}
 

@@ -1,4 +1,4 @@
-namespace InstaConnect.Common.Infrastructure.Features.Caches.Abstractions;
+namespace InstaConnect.Common.Infrastructure.Features.Jsons.Abstractions;
 
 public interface IJsonConverter
 {
