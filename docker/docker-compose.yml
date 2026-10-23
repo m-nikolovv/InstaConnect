@@ -138,8 +138,7 @@ services:
       - -c
       - |
         /docker-entrypoint.sh start &
-        until curl -s -o /dev/null http://localhost:8083/connectors; do sleep 2; done
-        curl -s -X PUT -H "Content-Type: application/json" --data @/kafka-connect/outbox-connector.json http://localhost:8083/connectors/outbox/config
+        until curl -sf -o /dev/null -X PUT -H "Content-Type: application/json" --data @/kafka-connect/outbox-connector.json http://localhost:8083/connectors/outbox/config; do sleep 2; done
         wait
     environment:
       BOOTSTRAP_SERVERS: kafka:9092
