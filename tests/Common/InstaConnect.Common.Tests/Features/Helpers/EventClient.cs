@@ -22,7 +22,8 @@ public class EventClient : IEventClient
 	public async Task PublishAsync<TRequest>(TRequest message, CancellationToken cancellationToken)
 		where TRequest : class, IEventRequest
 	{
-		var producer = _testHarness.Scope.ServiceProvider.GetRequiredService<ITopicProducer<TRequest>>();
+		var producerProvider = _testHarness.Scope.ServiceProvider.GetRequiredService<ITopicProducerProvider>();
+		var producer = producerProvider.GetProducer<TRequest>(new Uri($"topic:{KebabCaseEndpointNameFormatter.Instance.Message<TRequest>()}"));
 
 		await producer.Produce(message, cancellationToken);
 		await _testHarness.InactivityTask;
