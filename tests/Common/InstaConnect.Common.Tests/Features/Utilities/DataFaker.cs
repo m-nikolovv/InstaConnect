@@ -1,4 +1,4 @@
-using System.Text;
+using System.Net.Mime;
 
 using Bogus;
 
@@ -9,27 +9,30 @@ namespace InstaConnect.Common.Tests.Features.Utilities;
 public abstract class DataFaker
 {
 	private const int DefaultStringLength = 100;
+	private const int DefaultFormFileLength = 100;
+	private const string DefaultFormFileContentType = MediaTypeNames.Image.Png;
 
 	private static readonly Faker _faker = new();
 
-	public static IFormFile GetFormFile()
+	public static IFormFile GetFormFile(int length = DefaultFormFileLength, string contentType = DefaultFormFileContentType)
 	{
-		var name = _faker.System.FileName();
-		var formFile = Mocker.Mock<IFormFile>();
+		return GetFormFile(_faker.System.FileName(), _faker.Random.Bytes(length), contentType);
+	}
 
-		var fileContent = Encoding.UTF8.GetBytes("This is a test file.");
-		var stream = new MemoryStream(fileContent)
+	public static IFormFile GetFormFile(string fileName, byte[] content, string contentType)
+	{
+		var stream = new MemoryStream(content);
+
+		return new FormFile(stream, default, stream.Length, fileName, fileName)
 		{
-			Position = 0
+			Headers = new HeaderDictionary(),
+			ContentType = contentType
 		};
+	}
 
-		formFile.OpenReadStream().ReturnsResponse(stream);
-		formFile.Name.ReturnsResponse(name);
-		formFile.FileName.ReturnsResponse(name);
-		formFile.ContentType.ReturnsResponse("text/plain");
-		formFile.Length.ReturnsResponse(stream.Length);
-
-		return formFile;
+	public static IFormFile GetAverageFormFile(int maxLength, int minLength = default)
+	{
+		return GetFormFile(GetAverageNumber(maxLength, minLength));
 	}
 
 	public static string GetGuid()
@@ -82,7 +85,7 @@ public abstract class DataFaker
 		return _faker.Random.Number();
 	}
 
-	public static int GetAverageNumber(int maxLength, int minLength)
+	public static int GetAverageNumber(int maxLength, int minLength = default)
 	{
 		return (maxLength + minLength) / 2;
 	}

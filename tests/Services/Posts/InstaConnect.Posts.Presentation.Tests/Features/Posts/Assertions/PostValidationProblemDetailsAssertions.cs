@@ -1,3 +1,5 @@
+using InstaConnect.Common.Tests.Features.DataAttributes.FormFileCollections.Base;
+
 namespace InstaConnect.Posts.Presentation.Tests.Features.Posts.Assertions;
 
 public static class PostValidationProblemDetailsAssertions
@@ -251,6 +253,16 @@ public static class PostValidationProblemDetailsAssertions
 			problemDetails.ShouldSatisfyInvalidValidation(
 				request,
 				p => p.SortTerm,
+				messageTransformer);
+		}
+
+		public void ShouldSatisfyInvalidValidationForImages(
+			AddPostApiRequest request,
+			IFormFileCollectionMessageTransformer messageTransformer)
+		{
+			problemDetails.ShouldSatisfyInvalidValidation(
+				request,
+				p => p.Form.Images,
 				messageTransformer);
 		}
 	}

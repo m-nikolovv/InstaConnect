@@ -1,4 +1,3 @@
-using InstaConnect.Chats.Domain.Features.ChatMessages.Models.Entities;
 using InstaConnect.Chats.Presentation.Tests.Features.ChatMessages.Utilities;
 using InstaConnect.Chats.Presentation.Tests.Features.Chats.Utilities;
 using InstaConnect.Chats.Tests.Features.ChatMessages.DataAttributes.Content;
@@ -20,10 +19,10 @@ public class AddChatMessageFunctionalTests : BaseChatMessagePresentationCommandF
 		: base(webApplicationFactory)
 	{
 		_requestBuilderFactory = new();
-		_requestBuilder = _requestBuilderFactory.Create(Chat, ChatMessage.ChatMessageImages.Count);
+		_requestBuilder = _requestBuilderFactory.Create(Chat);
 		_request = _requestBuilder.Build();
 
-		_invertedRequestBuilder = _requestBuilderFactory.Create(Chat, ChatMessage.ChatMessageImages.Count).WithParticipantOneId(ParticipantTwoId).WithParticipantTwoId(ParticipantOneId);
+		_invertedRequestBuilder = _requestBuilderFactory.Create(Chat).WithParticipantOneId(ParticipantTwoId).WithParticipantTwoId(ParticipantOneId);
 		_invertedRequest = _invertedRequestBuilder.Build();
 	}
 
@@ -139,6 +138,40 @@ public class AddChatMessageFunctionalTests : BaseChatMessagePresentationCommandF
 		response.ShouldSatisfyInvalidValidationForContent(request, messageTransformer);
 	}
 
+	[Theory]
+	[ChatMessageImagesTooManyData]
+	[ChatMessageImagesTooLargeData]
+	[ChatMessageImagesInvalidContentTypeData]
+	public async Task AddAsync_ShouldHaveBadRequestStatusCode_WhenImagesAreInvalid(
+		IFormFileCollectionTransformer transformer)
+	{
+		// Arrange
+		var request = _requestBuilder.WithImages(transformer).Build();
+
+		// Act
+		var response = await ApiClient.AddStatusCodeAsync(request, CancellationToken);
+
+		// Assert
+		response.ShouldBeBadRequest();
+	}
+
+	[Theory]
+	[ChatMessageImagesTooManyWithMessageData]
+	[ChatMessageImagesTooLargeWithMessageData]
+	[ChatMessageImagesInvalidContentTypeWithMessageData]
+	public async Task AddAsync_ShouldHaveBadRequestProblemDetails_WhenImagesAreInvalid(
+		IFormFileCollectionTransformer transformer, IFormFileCollectionMessageTransformer messageTransformer)
+	{
+		// Arrange
+		var request = _requestBuilder.WithImages(transformer).Build();
+
+		// Act
+		var response = await ApiClient.AddProblemDetailsAsync(request, CancellationToken);
+
+		// Assert
+		response.ShouldSatisfyInvalidValidationForImages(request, messageTransformer);
+	}
+
 	[Fact]
 	public async Task AddAsync_ShouldHaveNotFoundStatusCode_WhenChatNotFound()
 	{
@@ -207,6 +240,12 @@ public class AddChatMessageFunctionalTests : BaseChatMessagePresentationCommandF
 
 	[Theory]
 	[ChatMessageImagesEmptyData]
+	[ChatMessageImagesJpegData]
+	[ChatMessageImagesPngData]
+	[ChatMessageImagesWebpData]
+	[ChatMessageImagesJpegDifferentCaseData]
+	[ChatMessageImagesPngDifferentCaseData]
+	[ChatMessageImagesWebpDifferentCaseData]
 	public async Task AddAsync_ShouldHaveOkStatusCode_WhenRequestAndImagesAreValid(
 		IFormFileCollectionTransformer transformer)
 	{
@@ -265,6 +304,12 @@ public class AddChatMessageFunctionalTests : BaseChatMessagePresentationCommandF
 
 	[Theory]
 	[ChatMessageImagesEmptyData]
+	[ChatMessageImagesJpegData]
+	[ChatMessageImagesPngData]
+	[ChatMessageImagesWebpData]
+	[ChatMessageImagesJpegDifferentCaseData]
+	[ChatMessageImagesPngDifferentCaseData]
+	[ChatMessageImagesWebpDifferentCaseData]
 	public async Task AddAsync_ShouldReturnResponse_WhenRequestAndImagesAreValid(
 		IFormFileCollectionTransformer transformer)
 	{
@@ -324,6 +369,12 @@ public class AddChatMessageFunctionalTests : BaseChatMessagePresentationCommandF
 
 	[Theory]
 	[ChatMessageImagesEmptyData]
+	[ChatMessageImagesJpegData]
+	[ChatMessageImagesPngData]
+	[ChatMessageImagesWebpData]
+	[ChatMessageImagesJpegDifferentCaseData]
+	[ChatMessageImagesPngDifferentCaseData]
+	[ChatMessageImagesWebpDifferentCaseData]
 	public async Task AddAsync_ShouldAddChatMessage_WhenRequestAndImagesAreValid(
 		IFormFileCollectionTransformer transformer)
 	{
@@ -386,6 +437,12 @@ public class AddChatMessageFunctionalTests : BaseChatMessagePresentationCommandF
 
 	[Theory]
 	[ChatMessageImagesEmptyData]
+	[ChatMessageImagesJpegData]
+	[ChatMessageImagesPngData]
+	[ChatMessageImagesWebpData]
+	[ChatMessageImagesJpegDifferentCaseData]
+	[ChatMessageImagesPngDifferentCaseData]
+	[ChatMessageImagesWebpDifferentCaseData]
 	public async Task AddAsync_ShouldPublishChatMessageAddedNotification_WhenRequestAndImagesAreValid(
 		IFormFileCollectionTransformer transformer)
 	{
@@ -443,6 +500,12 @@ public class AddChatMessageFunctionalTests : BaseChatMessagePresentationCommandF
 
 	[Theory]
 	[ChatMessageImagesEmptyData]
+	[ChatMessageImagesJpegData]
+	[ChatMessageImagesPngData]
+	[ChatMessageImagesWebpData]
+	[ChatMessageImagesJpegDifferentCaseData]
+	[ChatMessageImagesPngDifferentCaseData]
+	[ChatMessageImagesWebpDifferentCaseData]
 	public async Task AddAsync_ShouldHaveInvertedOkStatusCode_WhenRequestAndImagesAreValid(
 		IFormFileCollectionTransformer transformer)
 	{
@@ -501,6 +564,12 @@ public class AddChatMessageFunctionalTests : BaseChatMessagePresentationCommandF
 
 	[Theory]
 	[ChatMessageImagesEmptyData]
+	[ChatMessageImagesJpegData]
+	[ChatMessageImagesPngData]
+	[ChatMessageImagesWebpData]
+	[ChatMessageImagesJpegDifferentCaseData]
+	[ChatMessageImagesPngDifferentCaseData]
+	[ChatMessageImagesWebpDifferentCaseData]
 	public async Task AddAsync_ShouldReturnInvertedResponse_WhenRequestAndImagesAreValid(
 		IFormFileCollectionTransformer transformer)
 	{
@@ -560,6 +629,12 @@ public class AddChatMessageFunctionalTests : BaseChatMessagePresentationCommandF
 
 	[Theory]
 	[ChatMessageImagesEmptyData]
+	[ChatMessageImagesJpegData]
+	[ChatMessageImagesPngData]
+	[ChatMessageImagesWebpData]
+	[ChatMessageImagesJpegDifferentCaseData]
+	[ChatMessageImagesPngDifferentCaseData]
+	[ChatMessageImagesWebpDifferentCaseData]
 	public async Task AddAsync_ShouldAddInvertedChatMessage_WhenRequestAndImagesAreValid(
 		IFormFileCollectionTransformer transformer)
 	{
@@ -622,6 +697,12 @@ public class AddChatMessageFunctionalTests : BaseChatMessagePresentationCommandF
 
 	[Theory]
 	[ChatMessageImagesEmptyData]
+	[ChatMessageImagesJpegData]
+	[ChatMessageImagesPngData]
+	[ChatMessageImagesWebpData]
+	[ChatMessageImagesJpegDifferentCaseData]
+	[ChatMessageImagesPngDifferentCaseData]
+	[ChatMessageImagesWebpDifferentCaseData]
 	public async Task AddAsync_ShouldPublishInvertedChatMessageAddedNotification_WhenRequestAndImagesAreValid(
 		IFormFileCollectionTransformer transformer)
 	{

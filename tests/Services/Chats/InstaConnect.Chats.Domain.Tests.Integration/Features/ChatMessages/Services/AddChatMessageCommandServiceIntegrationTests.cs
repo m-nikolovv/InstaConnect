@@ -17,10 +17,10 @@ public class AddChatMessageCommandServiceIntegrationTests : BaseChatMessageDomai
 		: base(webApplicationFactory)
 	{
 		_commandBuilderFactory = new();
-		_commandBuilder = _commandBuilderFactory.Create(Chat, ChatMessage.ChatMessageImages.Count);
+		_commandBuilder = _commandBuilderFactory.Create(Chat);
 		_command = _commandBuilder.Build();
 
-		_invertedCommandBuilder = _commandBuilderFactory.Create(Chat, ChatMessage.ChatMessageImages.Count).WithParticipantOneId(ParticipantTwoId).WithParticipantTwoId(ParticipantOneId);
+		_invertedCommandBuilder = _commandBuilderFactory.Create(Chat).WithParticipantOneId(ParticipantTwoId).WithParticipantTwoId(ParticipantOneId);
 		_invertedCommand = _invertedCommandBuilder.Build();
 	}
 

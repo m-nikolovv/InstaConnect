@@ -1,5 +1,4 @@
 using InstaConnect.Common.Tests.Features.DataAttributes.FormFileCollections.Base;
-using InstaConnect.Posts.Domain.Features.PostComments.Models.Entities;
 using InstaConnect.Posts.Tests.Features.PostComments.DataAttributes.Content;
 using InstaConnect.Posts.Tests.Features.PostComments.DataAttributes.Images;
 
@@ -15,7 +14,7 @@ public class AddPostCommentFunctionalTests : BasePostCommentPresentationCommandF
 		: base(webApplicationFactory)
 	{
 		_requestBuilderFactory = new();
-		_requestBuilder = _requestBuilderFactory.Create(Post, User, PostComment.PostCommentImages.Count);
+		_requestBuilder = _requestBuilderFactory.Create(Post, User);
 		_request = _requestBuilder.Build();
 	}
 
@@ -131,6 +130,40 @@ public class AddPostCommentFunctionalTests : BasePostCommentPresentationCommandF
 		response.ShouldSatisfyInvalidValidationForContent(request, messageTransformer);
 	}
 
+	[Theory]
+	[PostCommentImagesTooManyData]
+	[PostCommentImagesTooLargeData]
+	[PostCommentImagesInvalidContentTypeData]
+	public async Task AddAsync_ShouldHaveBadRequestStatusCode_WhenImagesAreInvalid(
+		IFormFileCollectionTransformer transformer)
+	{
+		// Arrange
+		var request = _requestBuilder.WithImages(transformer).Build();
+
+		// Act
+		var response = await CommentApiClient.AddStatusCodeAsync(request, CancellationToken);
+
+		// Assert
+		response.ShouldBeBadRequest();
+	}
+
+	[Theory]
+	[PostCommentImagesTooManyWithMessageData]
+	[PostCommentImagesTooLargeWithMessageData]
+	[PostCommentImagesInvalidContentTypeWithMessageData]
+	public async Task AddAsync_ShouldHaveBadRequestProblemDetails_WhenImagesAreInvalid(
+		IFormFileCollectionTransformer transformer, IFormFileCollectionMessageTransformer messageTransformer)
+	{
+		// Arrange
+		var request = _requestBuilder.WithImages(transformer).Build();
+
+		// Act
+		var response = await CommentApiClient.AddProblemDetailsAsync(request, CancellationToken);
+
+		// Assert
+		response.ShouldSatisfyInvalidValidationForImages(request, messageTransformer);
+	}
+
 	[Fact]
 	public async Task AddAsync_ShouldHaveNotFoundStatusCode_WhenPostNotFound()
 	{
@@ -225,6 +258,12 @@ public class AddPostCommentFunctionalTests : BasePostCommentPresentationCommandF
 
 	[Theory]
 	[PostCommentImagesEmptyData]
+	[PostCommentImagesJpegData]
+	[PostCommentImagesPngData]
+	[PostCommentImagesWebpData]
+	[PostCommentImagesJpegDifferentCaseData]
+	[PostCommentImagesPngDifferentCaseData]
+	[PostCommentImagesWebpDifferentCaseData]
 	public async Task AddAsync_ShouldHaveOkStatusCode_WhenRequestAndImagesAreValid(
 		IFormFileCollectionTransformer transformer)
 	{
@@ -283,6 +322,12 @@ public class AddPostCommentFunctionalTests : BasePostCommentPresentationCommandF
 
 	[Theory]
 	[PostCommentImagesEmptyData]
+	[PostCommentImagesJpegData]
+	[PostCommentImagesPngData]
+	[PostCommentImagesWebpData]
+	[PostCommentImagesJpegDifferentCaseData]
+	[PostCommentImagesPngDifferentCaseData]
+	[PostCommentImagesWebpDifferentCaseData]
 	public async Task AddAsync_ShouldReturnResponse_WhenRequestAndImagesAreValid(
 		IFormFileCollectionTransformer transformer)
 	{
@@ -342,6 +387,12 @@ public class AddPostCommentFunctionalTests : BasePostCommentPresentationCommandF
 
 	[Theory]
 	[PostCommentImagesEmptyData]
+	[PostCommentImagesJpegData]
+	[PostCommentImagesPngData]
+	[PostCommentImagesWebpData]
+	[PostCommentImagesJpegDifferentCaseData]
+	[PostCommentImagesPngDifferentCaseData]
+	[PostCommentImagesWebpDifferentCaseData]
 	public async Task AddAsync_ShouldAddPostComment_WhenRequestAndImagesAreValid(
 		IFormFileCollectionTransformer transformer)
 	{
@@ -407,6 +458,12 @@ public class AddPostCommentFunctionalTests : BasePostCommentPresentationCommandF
 
 	[Theory]
 	[PostCommentImagesEmptyData]
+	[PostCommentImagesJpegData]
+	[PostCommentImagesPngData]
+	[PostCommentImagesWebpData]
+	[PostCommentImagesJpegDifferentCaseData]
+	[PostCommentImagesPngDifferentCaseData]
+	[PostCommentImagesWebpDifferentCaseData]
 	public async Task AddAsync_ShouldPublishPostCommentAddedEvent_WhenRequestAndImagesAreValid(
 		IFormFileCollectionTransformer transformer)
 	{

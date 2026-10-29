@@ -1,5 +1,4 @@
 using InstaConnect.Common.Tests.Features.DataAttributes.FormFileCollections.Base;
-using InstaConnect.Posts.Domain.Features.Posts.Models.Entities;
 using InstaConnect.Posts.Tests.Features.Posts.DataAttributes.Content;
 using InstaConnect.Posts.Tests.Features.Posts.DataAttributes.Images;
 using InstaConnect.Posts.Tests.Features.Posts.DataAttributes.Title;
@@ -16,7 +15,7 @@ public class AddPostControllerIntegrationTests : BasePostPresentationCommandInte
 		: base(webApplicationFactory)
 	{
 		_requestBuilderFactory = new();
-		_requestBuilder = _requestBuilderFactory.Create(User, Post.PostImages.Count);
+		_requestBuilder = _requestBuilderFactory.Create(User);
 		_request = _requestBuilder.Build();
 	}
 
@@ -68,6 +67,21 @@ public class AddPostControllerIntegrationTests : BasePostPresentationCommandInte
 			request, messageTransformer, CancellationToken);
 	}
 
+	[Theory]
+	[PostImagesTooManyWithMessageData]
+	[PostImagesTooLargeWithMessageData]
+	[PostImagesInvalidContentTypeWithMessageData]
+	public async Task AddAsync_ShouldThrowValidationException_WhenImagesAreInvalid(
+		IFormFileCollectionTransformer transformer, IFormFileCollectionMessageTransformer messageTransformer)
+	{
+		// Arrange
+		var request = _requestBuilder.WithImages(transformer).Build();
+
+		// Assert
+		await Controller.ShouldThrowInvalidValidationExceptionForImagesAsync(
+			request, messageTransformer, CancellationToken);
+	}
+
 	[Fact]
 	public async Task AddAsync_ShouldThrowUserNotFoundException_WhenUserNotFound()
 	{
@@ -105,6 +119,12 @@ public class AddPostControllerIntegrationTests : BasePostPresentationCommandInte
 
 	[Theory]
 	[PostImagesEmptyData]
+	[PostImagesJpegData]
+	[PostImagesPngData]
+	[PostImagesWebpData]
+	[PostImagesJpegDifferentCaseData]
+	[PostImagesPngDifferentCaseData]
+	[PostImagesWebpDifferentCaseData]
 	public async Task AddAsync_ShouldReturnOkStatusCode_WhenRequestAndImagesAreValid(
 		IFormFileCollectionTransformer transformer)
 	{
@@ -147,6 +167,12 @@ public class AddPostControllerIntegrationTests : BasePostPresentationCommandInte
 
 	[Theory]
 	[PostImagesEmptyData]
+	[PostImagesJpegData]
+	[PostImagesPngData]
+	[PostImagesWebpData]
+	[PostImagesJpegDifferentCaseData]
+	[PostImagesPngDifferentCaseData]
+	[PostImagesWebpDifferentCaseData]
 	public async Task AddAsync_ShouldReturnResponse_WhenRequestAndImagesAreValid(
 		IFormFileCollectionTransformer transformer)
 	{
@@ -190,6 +216,12 @@ public class AddPostControllerIntegrationTests : BasePostPresentationCommandInte
 
 	[Theory]
 	[PostImagesEmptyData]
+	[PostImagesJpegData]
+	[PostImagesPngData]
+	[PostImagesWebpData]
+	[PostImagesJpegDifferentCaseData]
+	[PostImagesPngDifferentCaseData]
+	[PostImagesWebpDifferentCaseData]
 	public async Task AddAsync_ShouldAddPost_WhenRequestAndImagesAreValid(
 		IFormFileCollectionTransformer transformer)
 	{
@@ -237,6 +269,12 @@ public class AddPostControllerIntegrationTests : BasePostPresentationCommandInte
 
 	[Theory]
 	[PostImagesEmptyData]
+	[PostImagesJpegData]
+	[PostImagesPngData]
+	[PostImagesWebpData]
+	[PostImagesJpegDifferentCaseData]
+	[PostImagesPngDifferentCaseData]
+	[PostImagesWebpDifferentCaseData]
 	public async Task AddAsync_ShouldPublishPostAddedEvent_WhenRequestAndImagesAreValid(
 		IFormFileCollectionTransformer transformer)
 	{

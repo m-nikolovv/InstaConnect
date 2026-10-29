@@ -16,7 +16,7 @@ public class AddPostCommentCommandServiceUnitTests : BasePostCommentDomainComman
 	public AddPostCommentCommandServiceUnitTests()
 	{
 		_commandBuilderFactory = new();
-		_commandBuilder = _commandBuilderFactory.Create(Post, User, PostComment.PostCommentImages.Count);
+		_commandBuilder = _commandBuilderFactory.Create(Post, User);
 		_command = _commandBuilder.Build();
 
 		_include = IncludeBuilderFactory.Create().WithUser().Build();

@@ -2,8 +2,8 @@ namespace InstaConnect.Posts.Domain.Tests.Features.Posts.Builders;
 
 public class AddPostCommandBuilderFactory
 {
-	public AddPostCommandBuilder Create(User user, int numberOfImages)
+	public AddPostCommandBuilder Create(User user)
 	{
-		return new(user, numberOfImages);
+		return new(user);
 	}
 }

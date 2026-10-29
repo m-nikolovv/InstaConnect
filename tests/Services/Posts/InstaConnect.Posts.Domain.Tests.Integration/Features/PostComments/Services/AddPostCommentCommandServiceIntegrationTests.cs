@@ -14,7 +14,7 @@ public class AddPostCommentCommandServiceIntegrationTests : BasePostCommentDomai
 		: base(webApplicationFactory)
 	{
 		_commandBuilderFactory = new();
-		_commandBuilder = _commandBuilderFactory.Create(Post, User, PostComment.PostCommentImages.Count);
+		_commandBuilder = _commandBuilderFactory.Create(Post, User);
 		_command = _commandBuilder.Build();
 	}
 

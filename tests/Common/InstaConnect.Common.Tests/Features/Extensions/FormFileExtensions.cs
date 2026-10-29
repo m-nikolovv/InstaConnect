@@ -17,6 +17,16 @@ public static class FormFileExtensions
 
 			return new(Format.FormatCurrentCulture(Uri.EscapeDataString(formFile.FileName)));
 		}
+
+		public byte[] GetContent()
+		{
+			using var stream = formFile.OpenReadStream();
+			using var content = new MemoryStream();
+
+			stream.CopyTo(content);
+
+			return content.ToArray();
+		}
 	}
 
 	extension(ICollection<IFormFile> formFiles)

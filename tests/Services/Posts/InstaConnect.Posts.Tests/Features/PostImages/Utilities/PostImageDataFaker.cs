@@ -21,8 +21,8 @@ public static class PostImageDataFaker
 		return DataFaker.GetSoonDate();
 	}
 
-	public static ICollection<IFormFile> GetImages(int numberOfImages)
+	public static ICollection<IFormFile> GetImages()
 	{
-		return [.. Enumerable.Range(default, numberOfImages).Select(_ => DataFaker.GetFormFile())];
+		return [.. Enumerable.Range(default, DataFaker.GetAverageNumber(PostConfigurations.ImagesMaxCount)).Select(_ => DataFaker.GetAverageFormFile(PostImageConfigurations.ImageMaxSize))];
 	}
 }

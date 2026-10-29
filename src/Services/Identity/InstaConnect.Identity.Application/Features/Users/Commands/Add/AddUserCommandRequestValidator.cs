@@ -32,5 +32,9 @@ public class AddUserCommandRequestValidator : AbstractValidator<AddUserCommandRe
 
 		RuleFor(r => r.ConfirmPassword)
 			.EqualWithMessage(r => r.Password);
+
+		RuleFor(r => r.ProfileImage)
+			.UserProfileImageMaxSizeWithMessage()
+			.UserProfileImageContentTypeWithMessage();
 	}
 }

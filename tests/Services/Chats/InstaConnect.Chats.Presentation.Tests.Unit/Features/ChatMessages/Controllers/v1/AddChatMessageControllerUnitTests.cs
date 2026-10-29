@@ -1,5 +1,3 @@
-using InstaConnect.Chats.Domain.Features.ChatMessages.Models.Entities;
-
 namespace InstaConnect.Chats.Presentation.Tests.Unit.Features.ChatMessages.Controllers.v1;
 
 public class AddChatMessageControllerUnitTests : BaseChatMessagePresentationCommandUnitTest
@@ -13,7 +11,7 @@ public class AddChatMessageControllerUnitTests : BaseChatMessagePresentationComm
 	public AddChatMessageControllerUnitTests()
 	{
 		_requestBuilderFactory = new();
-		_requestBuilder = _requestBuilderFactory.Create(Chat, ChatMessage.ChatMessageImages.Count);
+		_requestBuilder = _requestBuilderFactory.Create(Chat);
 		_request = _requestBuilder.Build();
 
 		_controller = new(Mapper, Sender);

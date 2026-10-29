@@ -18,5 +18,12 @@ public class AddPostCommentCommandRequestValidator : AbstractValidator<AddPostCo
 			.NotEmptyWithMessage()
 			.PostTitleMinLengthWithMessage()
 			.PostTitleMaxLengthWithMessage();
+
+		RuleFor(r => r.Images)
+			.PostCommentImagesMaxCountWithMessage();
+
+		RuleForEach(r => r.Images)
+			.PostCommentImageMaxSizeWithMessage()
+			.PostCommentImageContentTypeWithMessage();
 	}
 }

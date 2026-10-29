@@ -1,5 +1,4 @@
 using InstaConnect.Chats.Application.Features.ChatMessages.Commands.Add;
-using InstaConnect.Chats.Domain.Features.ChatMessages.Models.Entities;
 using InstaConnect.Chats.Tests.Features.ChatMessages.DataAttributes.Content;
 using InstaConnect.Chats.Tests.Features.ChatMessages.DataAttributes.Images;
 using InstaConnect.Common.Tests.Features.DataAttributes.FormFileCollections.Base;
@@ -19,10 +18,10 @@ public class AddChatMessageCommandHandlerIntegrationTests : BaseChatMessageAppli
 		: base(webApplicationFactory)
 	{
 		_requestBuilderFactory = new();
-		_requestBuilder = _requestBuilderFactory.Create(Chat, ChatMessage.ChatMessageImages.Count);
+		_requestBuilder = _requestBuilderFactory.Create(Chat);
 		_request = _requestBuilder.Build();
 
-		_invertedRequestBuilder = _requestBuilderFactory.Create(Chat, ChatMessage.ChatMessageImages.Count).WithParticipantOneId(ParticipantTwoId).WithParticipantTwoId(ParticipantOneId);
+		_invertedRequestBuilder = _requestBuilderFactory.Create(Chat).WithParticipantOneId(ParticipantTwoId).WithParticipantTwoId(ParticipantOneId);
 		_invertedRequest = _invertedRequestBuilder.Build();
 	}
 
@@ -71,6 +70,21 @@ public class AddChatMessageCommandHandlerIntegrationTests : BaseChatMessageAppli
 
 		// Assert
 		await Sender.ShouldThrowInvalidValidationExceptionForContentAsync(
+			request, messageTransformer, CancellationToken);
+	}
+
+	[Theory]
+	[ChatMessageImagesTooManyWithMessageData]
+	[ChatMessageImagesTooLargeWithMessageData]
+	[ChatMessageImagesInvalidContentTypeWithMessageData]
+	public async Task SendAsync_ShouldThrowValidationException_WhenImagesAreInvalid(
+		IFormFileCollectionTransformer transformer, IFormFileCollectionMessageTransformer messageTransformer)
+	{
+		// Arrange
+		var request = _requestBuilder.WithImages(transformer).Build();
+
+		// Assert
+		await Sender.ShouldThrowInvalidValidationExceptionForImagesAsync(
 			request, messageTransformer, CancellationToken);
 	}
 
@@ -129,6 +143,12 @@ public class AddChatMessageCommandHandlerIntegrationTests : BaseChatMessageAppli
 
 	[Theory]
 	[ChatMessageImagesEmptyData]
+	[ChatMessageImagesJpegData]
+	[ChatMessageImagesPngData]
+	[ChatMessageImagesWebpData]
+	[ChatMessageImagesJpegDifferentCaseData]
+	[ChatMessageImagesPngDifferentCaseData]
+	[ChatMessageImagesWebpDifferentCaseData]
 	public async Task SendAsync_ShouldReturnResponse_WhenRequestAndImagesAreValid(
 		IFormFileCollectionTransformer transformer)
 	{
@@ -188,6 +208,12 @@ public class AddChatMessageCommandHandlerIntegrationTests : BaseChatMessageAppli
 
 	[Theory]
 	[ChatMessageImagesEmptyData]
+	[ChatMessageImagesJpegData]
+	[ChatMessageImagesPngData]
+	[ChatMessageImagesWebpData]
+	[ChatMessageImagesJpegDifferentCaseData]
+	[ChatMessageImagesPngDifferentCaseData]
+	[ChatMessageImagesWebpDifferentCaseData]
 	public async Task SendAsync_ShouldAddChatMessage_WhenRequestAndImagesAreValid(
 		IFormFileCollectionTransformer transformer)
 	{
@@ -250,6 +276,12 @@ public class AddChatMessageCommandHandlerIntegrationTests : BaseChatMessageAppli
 
 	[Theory]
 	[ChatMessageImagesEmptyData]
+	[ChatMessageImagesJpegData]
+	[ChatMessageImagesPngData]
+	[ChatMessageImagesWebpData]
+	[ChatMessageImagesJpegDifferentCaseData]
+	[ChatMessageImagesPngDifferentCaseData]
+	[ChatMessageImagesWebpDifferentCaseData]
 	public async Task SendAsync_ShouldPublishChatMessageAddedNotification_WhenRequestAndImagesAreValid(
 		IFormFileCollectionTransformer transformer)
 	{
@@ -310,6 +342,12 @@ public class AddChatMessageCommandHandlerIntegrationTests : BaseChatMessageAppli
 
 	[Theory]
 	[ChatMessageImagesEmptyData]
+	[ChatMessageImagesJpegData]
+	[ChatMessageImagesPngData]
+	[ChatMessageImagesWebpData]
+	[ChatMessageImagesJpegDifferentCaseData]
+	[ChatMessageImagesPngDifferentCaseData]
+	[ChatMessageImagesWebpDifferentCaseData]
 	public async Task SendAsync_ShouldReturnInvertedResponse_WhenRequestAndImagesAreValid(
 		IFormFileCollectionTransformer transformer)
 	{
@@ -369,6 +407,12 @@ public class AddChatMessageCommandHandlerIntegrationTests : BaseChatMessageAppli
 
 	[Theory]
 	[ChatMessageImagesEmptyData]
+	[ChatMessageImagesJpegData]
+	[ChatMessageImagesPngData]
+	[ChatMessageImagesWebpData]
+	[ChatMessageImagesJpegDifferentCaseData]
+	[ChatMessageImagesPngDifferentCaseData]
+	[ChatMessageImagesWebpDifferentCaseData]
 	public async Task SendAsync_ShouldAddInvertedChatMessage_WhenRequestAndImagesAreValid(
 		IFormFileCollectionTransformer transformer)
 	{
@@ -431,6 +475,12 @@ public class AddChatMessageCommandHandlerIntegrationTests : BaseChatMessageAppli
 
 	[Theory]
 	[ChatMessageImagesEmptyData]
+	[ChatMessageImagesJpegData]
+	[ChatMessageImagesPngData]
+	[ChatMessageImagesWebpData]
+	[ChatMessageImagesJpegDifferentCaseData]
+	[ChatMessageImagesPngDifferentCaseData]
+	[ChatMessageImagesWebpDifferentCaseData]
 	public async Task SendAsync_ShouldPublishInvertedChatMessageAddedNotification_WhenRequestAndImagesAreValid(
 		IFormFileCollectionTransformer transformer)
 	{

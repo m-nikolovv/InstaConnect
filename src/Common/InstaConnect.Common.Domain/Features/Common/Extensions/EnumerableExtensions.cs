@@ -31,5 +31,10 @@ public static class EnumerableExtensions
 		{
 			return enumerable.JoinWith(":");
 		}
+
+		public string JoinWithComa()
+		{
+			return enumerable.JoinWith(", ");
+		}
 	}
 }

@@ -1,6 +1,5 @@
 using InstaConnect.Common.Tests.Features.DataAttributes.FormFileCollections.Base;
 using InstaConnect.Posts.Application.Features.PostComments.Commands.Add;
-using InstaConnect.Posts.Domain.Features.PostComments.Models.Entities;
 using InstaConnect.Posts.Tests.Features.PostComments.DataAttributes.Content;
 using InstaConnect.Posts.Tests.Features.PostComments.DataAttributes.Images;
 
@@ -17,7 +16,7 @@ public class AddPostCommentCommandRequestValidatorUnitTests : BasePostCommentApp
 	public AddPostCommentCommandRequestValidatorUnitTests()
 	{
 		_requestBuilderFactory = new();
-		_requestBuilder = _requestBuilderFactory.Create(Post, User, PostComment.PostCommentImages.Count);
+		_requestBuilder = _requestBuilderFactory.Create(Post, User);
 		_request = _requestBuilder.Build();
 
 		_requestValidator = new();
@@ -77,6 +76,23 @@ public class AddPostCommentCommandRequestValidatorUnitTests : BasePostCommentApp
 		response.ShouldHaveValidationErrorForContent(request, messageTransformer);
 	}
 
+	[Theory]
+	[PostCommentImagesTooManyWithMessageData]
+	[PostCommentImagesTooLargeWithMessageData]
+	[PostCommentImagesInvalidContentTypeWithMessageData]
+	public void TestValidate_ShouldHaveAnError_WhenImagesAreInvalid(
+		IFormFileCollectionTransformer transformer, IFormFileCollectionMessageTransformer messageTransformer)
+	{
+		// Arrange
+		var request = _requestBuilder.WithImages(transformer).Build();
+
+		// Act
+		var response = _requestValidator.TestValidate(request);
+
+		// Assert
+		response.ShouldHaveValidationErrorForImages(request, messageTransformer);
+	}
+
 	[Fact]
 	public void TestValidate_ShouldNotHaveAnyValidationErrors_WhenRequestIsValid()
 	{
@@ -89,6 +105,12 @@ public class AddPostCommentCommandRequestValidatorUnitTests : BasePostCommentApp
 
 	[Theory]
 	[PostCommentImagesEmptyData]
+	[PostCommentImagesJpegData]
+	[PostCommentImagesPngData]
+	[PostCommentImagesWebpData]
+	[PostCommentImagesJpegDifferentCaseData]
+	[PostCommentImagesPngDifferentCaseData]
+	[PostCommentImagesWebpDifferentCaseData]
 	public void TestValidate_ShouldNotHaveAnyValidationErrors_WhenRequestAndImagesAreValid(
 		IFormFileCollectionTransformer transformer)
 	{

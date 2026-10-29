@@ -12,12 +12,12 @@ public class AddPostCommandBuilder
 	private string _content;
 	private ICollection<IFormFile> _images;
 
-	public AddPostCommandBuilder(User user, int numberOfImages)
+	public AddPostCommandBuilder(User user)
 	{
 		_userId = user.Id.Id;
 		_title = PostDataFaker.GetTitle();
 		_content = PostDataFaker.GetContent();
-		_images = PostImageDataFaker.GetImages(numberOfImages);
+		_images = PostImageDataFaker.GetImages();
 	}
 
 	public AddPostCommandBuilder WithUserId(UserId userId, IStringTransformer? transformer = null)

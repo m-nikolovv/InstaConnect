@@ -12,12 +12,12 @@ public class AddPostCommentCommandRequestBuilder
 	private string _content;
 	private ICollection<IFormFile> _images;
 
-	public AddPostCommentCommandRequestBuilder(Post post, User user, int numberOfImages)
+	public AddPostCommentCommandRequestBuilder(Post post, User user)
 	{
 		_id = post.Id.Id;
 		_userId = user.Id.Id;
 		_content = PostCommentDataFaker.GetContent();
-		_images = PostCommentImageDataFaker.GetImages(numberOfImages);
+		_images = PostCommentImageDataFaker.GetImages();
 	}
 
 	public AddPostCommentCommandRequestBuilder WithId(PostId id, IStringTransformer? transformer = null)

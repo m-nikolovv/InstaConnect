@@ -1,3 +1,5 @@
+using InstaConnect.Common.Tests.Features.DataAttributes.FormFiles.Base;
+
 namespace InstaConnect.Identity.Application.Tests.Features.Users.Assertions;
 
 public static class UserValidationExceptionAssertions
@@ -378,6 +380,34 @@ public static class UserValidationExceptionAssertions
 			await func.ShouldThrowInvalidValidationExceptionAsync(
 				request,
 				p => p.SortTerm,
+				messageTransformer,
+				cancellationToken);
+		}
+
+		public async Task ShouldThrowInvalidValidationExceptionForProfileImageAsync(
+			AddUserCommandRequest request,
+			IFormFileMessageTransformer messageTransformer,
+			CancellationToken cancellationToken)
+		{
+			var func = () => sender.SendAsync(request, cancellationToken);
+
+			await func.ShouldThrowInvalidValidationExceptionAsync(
+				request,
+				p => p.ProfileImage!,
+				messageTransformer,
+				cancellationToken);
+		}
+
+		public async Task ShouldThrowInvalidValidationExceptionForProfileImageAsync(
+			UpdateCurrentUserCommandRequest request,
+			IFormFileMessageTransformer messageTransformer,
+			CancellationToken cancellationToken)
+		{
+			var func = () => sender.SendAsync(request, cancellationToken);
+
+			await func.ShouldThrowInvalidValidationExceptionAsync(
+				request,
+				p => p.ProfileImage!,
 				messageTransformer,
 				cancellationToken);
 		}

@@ -2,6 +2,8 @@ using System.Linq.Expressions;
 
 using InstaConnect.Common.Domain.Features.Validations.Utilities;
 
+using Microsoft.AspNetCore.Http;
+
 namespace InstaConnect.Common.Domain.Features.Validations.Extensions;
 
 public static class RuleBuilderExtensions
@@ -63,6 +65,33 @@ public static class RuleBuilderExtensions
 			return ruleBuilder
 				.LessThanOrEqualTo(maxValue)
 				.WithMessage((_, typeProperty) => CommonValidationErrorMessages.GetMaxValue(PropertyNamePlaceholder, typeProperty, maxValue));
+		}
+	}
+
+	extension<T>(IRuleBuilder<T, IFormFile?> ruleBuilder)
+	{
+		public IRuleBuilderOptions<T, IFormFile?> MaxFileSizeWithMessage(int maxSize)
+		{
+			return ruleBuilder
+				.Must(formFile => formFile == null || formFile.Length <= maxSize)
+				.WithMessage((_, typeProperty) => CommonValidationErrorMessages.GetMaxFileSize(PropertyNamePlaceholder, typeProperty!.Length, maxSize));
+		}
+
+		public IRuleBuilderOptions<T, IFormFile?> ContentTypeWithMessage(ICollection<string> contentTypes)
+		{
+			return ruleBuilder
+				.Must(formFile => formFile == null || contentTypes.Any(contentType => contentType.EqualsOrdinalIgnoreCase(formFile.ContentType)))
+				.WithMessage(CommonValidationErrorMessages.GetInvalidContentType(PropertyNamePlaceholder, contentTypes));
+		}
+	}
+
+	extension<T, TElement>(IRuleBuilder<T, ICollection<TElement>> ruleBuilder)
+	{
+		public IRuleBuilderOptions<T, ICollection<TElement>> MaxCountWithMessage(int maxCount)
+		{
+			return ruleBuilder
+				.Must(elements => elements.Count <= maxCount)
+				.WithMessage((_, typeProperty) => CommonValidationErrorMessages.GetMaxCount(PropertyNamePlaceholder, typeProperty.Count, maxCount));
 		}
 	}
 }

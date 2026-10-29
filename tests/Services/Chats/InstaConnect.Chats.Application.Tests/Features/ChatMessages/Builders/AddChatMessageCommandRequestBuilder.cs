@@ -12,12 +12,12 @@ public class AddChatMessageCommandRequestBuilder
 	private string _content;
 	private ICollection<IFormFile> _images;
 
-	public AddChatMessageCommandRequestBuilder(Chat chat, int numberOfImages)
+	public AddChatMessageCommandRequestBuilder(Chat chat)
 	{
 		_participantOneId = chat.Id.ParticipantOneId.Id;
 		_participantTwoId = chat.Id.ParticipantTwoId.Id;
 		_content = ChatMessageDataFaker.GetContent();
-		_images = ChatMessageImageDataFaker.GetImages(numberOfImages);
+		_images = ChatMessageImageDataFaker.GetImages();
 	}
 
 	public AddChatMessageCommandRequestBuilder WithParticipantOneId(UserId participantOneId, IStringTransformer? transformer = null)
