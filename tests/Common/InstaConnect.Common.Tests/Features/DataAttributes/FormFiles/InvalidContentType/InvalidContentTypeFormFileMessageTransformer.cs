@@ -11,7 +11,7 @@ internal class InvalidContentTypeFormFileMessageTransformer : IFormFileMessageTr
 		_contentTypes = contentTypes;
 	}
 
-	public string Transform<T>(Expression<Func<T, IFormFile>> propertyExpression, IFormFile value)
+	public string Transform<T>(Expression<Func<T, IFormFile?>> propertyExpression, IFormFile? value)
 	{
 		return CommonValidationErrorMessages.GetInvalidContentType(propertyExpression.GetPropertyDisplayName(), _contentTypes);
 	}

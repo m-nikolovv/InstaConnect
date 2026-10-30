@@ -45,7 +45,7 @@ public static class UserValidationAssertions
 			UpdateCurrentUserCommandRequest request,
 			IFormFileMessageTransformer messageTransformer)
 		{
-			response.ShouldHaveValidationErrorForProperty(request, p => p.ProfileImage!, messageTransformer);
+			response.ShouldHaveValidationErrorForProperty(request, p => p.ProfileImage, messageTransformer);
 		}
 	}
 
@@ -171,7 +171,7 @@ public static class UserValidationAssertions
 			AddUserCommandRequest request,
 			IFormFileMessageTransformer messageTransformer)
 		{
-			response.ShouldHaveValidationErrorForProperty(request, p => p.ProfileImage!, messageTransformer);
+			response.ShouldHaveValidationErrorForProperty(request, p => p.ProfileImage, messageTransformer);
 		}
 	}
 

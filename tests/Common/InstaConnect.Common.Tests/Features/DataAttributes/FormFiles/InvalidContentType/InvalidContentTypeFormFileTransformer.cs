@@ -7,7 +7,7 @@ namespace InstaConnect.Common.Tests.Features.DataAttributes.FormFiles.InvalidCon
 
 internal class InvalidContentTypeFormFileTransformer : IFormFileTransformer
 {
-	public IFormFile Transform(IFormFile? value)
+	public IFormFile? Transform(IFormFile? value)
 	{
 		return DataFaker.GetFormFile(value!.FileName, value.GetContent(), MediaTypeNames.Text.Plain);
 	}

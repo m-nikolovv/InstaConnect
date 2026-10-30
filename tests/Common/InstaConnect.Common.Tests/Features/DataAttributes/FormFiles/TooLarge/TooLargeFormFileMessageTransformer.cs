@@ -11,8 +11,8 @@ internal class TooLargeFormFileMessageTransformer : IFormFileMessageTransformer
 		_maxSize = maxSize;
 	}
 
-	public string Transform<T>(Expression<Func<T, IFormFile>> propertyExpression, IFormFile value)
+	public string Transform<T>(Expression<Func<T, IFormFile?>> propertyExpression, IFormFile? value)
 	{
-		return CommonValidationErrorMessages.GetMaxFileSize(propertyExpression.GetPropertyDisplayName(), value.Length, _maxSize);
+		return CommonValidationErrorMessages.GetMaxFileSize(propertyExpression.GetPropertyDisplayName(), value!.Length, _maxSize);
 	}
 }

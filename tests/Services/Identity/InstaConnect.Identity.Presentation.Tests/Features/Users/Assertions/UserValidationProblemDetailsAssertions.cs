@@ -283,7 +283,7 @@ public static class UserValidationProblemDetailsAssertions
 		{
 			problemDetails.ShouldSatisfyInvalidValidation(
 				request,
-				p => p.Form.ProfileImage!,
+				p => p.Form.ProfileImage,
 				messageTransformer);
 		}
 
@@ -293,7 +293,7 @@ public static class UserValidationProblemDetailsAssertions
 		{
 			problemDetails.ShouldSatisfyInvalidValidation(
 				request,
-				p => p.Form.ProfileImage!,
+				p => p.Form.ProfileImage,
 				messageTransformer);
 		}
 	}

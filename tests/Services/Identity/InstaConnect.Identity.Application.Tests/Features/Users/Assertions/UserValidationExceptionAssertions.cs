@@ -393,7 +393,7 @@ public static class UserValidationExceptionAssertions
 
 			await func.ShouldThrowInvalidValidationExceptionAsync(
 				request,
-				p => p.ProfileImage!,
+				p => p.ProfileImage,
 				messageTransformer,
 				cancellationToken);
 		}
@@ -407,7 +407,7 @@ public static class UserValidationExceptionAssertions
 
 			await func.ShouldThrowInvalidValidationExceptionAsync(
 				request,
-				p => p.ProfileImage!,
+				p => p.ProfileImage,
 				messageTransformer,
 				cancellationToken);
 		}

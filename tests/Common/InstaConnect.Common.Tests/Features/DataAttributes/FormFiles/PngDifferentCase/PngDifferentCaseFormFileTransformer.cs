@@ -7,7 +7,7 @@ namespace InstaConnect.Common.Tests.Features.DataAttributes.FormFiles.PngDiffere
 
 internal class PngDifferentCaseFormFileTransformer : IFormFileTransformer
 {
-	public IFormFile Transform(IFormFile? value)
+	public IFormFile? Transform(IFormFile? value)
 	{
 		return DataFaker.GetFormFile(value!.FileName, value.GetContent(), DataFaker.GetDifferentCaseString(MediaTypeNames.Image.Png));
 	}

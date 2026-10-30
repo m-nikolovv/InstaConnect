@@ -32,7 +32,7 @@ public static class EnumerableExtensions
 			return enumerable.JoinWith(":");
 		}
 
-		public string JoinWithComa()
+		public string JoinWithComma()
 		{
 			return enumerable.JoinWith(", ");
 		}

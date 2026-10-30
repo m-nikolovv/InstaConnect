@@ -69,6 +69,6 @@ public static class CommonValidationErrorMessages
 	{
 		const string Format = "{0} content type must be one of {1}";
 
-		return Format.FormatCurrentCulture(propertyName, contentTypes.JoinWithComa());
+		return Format.FormatCurrentCulture(propertyName, contentTypes.JoinWithComma());
 	}
 }
