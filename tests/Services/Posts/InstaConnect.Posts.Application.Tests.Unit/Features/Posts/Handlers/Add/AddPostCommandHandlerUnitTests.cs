@@ -1,5 +1,4 @@
 using InstaConnect.Posts.Application.Features.Posts.Commands.Add;
-using InstaConnect.Posts.Domain.Features.Posts.Models.Entities;
 
 namespace InstaConnect.Posts.Application.Tests.Unit.Features.Posts.Handlers.Add;
 
@@ -14,7 +13,7 @@ public class AddPostCommandHandlerUnitTests : BasePostApplicationCommandUnitTest
 	public AddPostCommandHandlerUnitTests()
 	{
 		_requestBuilderFactory = new();
-		_requestBuilder = _requestBuilderFactory.Create(User, Post.PostImages.Count);
+		_requestBuilder = _requestBuilderFactory.Create(User);
 		_request = _requestBuilder.Build();
 
 		_handler = new(Mapper, Service);

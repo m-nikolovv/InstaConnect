@@ -1,3 +1,5 @@
+using InstaConnect.Common.Tests.Features.DataAttributes.FormFileCollections.Base;
+
 namespace InstaConnect.Chats.Presentation.Tests.Features.ChatMessages.Assertions;
 
 public static class ChatMessageValidationProblemDetailsAssertions
@@ -211,6 +213,16 @@ public static class ChatMessageValidationProblemDetailsAssertions
 			problemDetails.ShouldSatisfyInvalidValidation(
 				request,
 				p => p.SortTerm,
+				messageTransformer);
+		}
+
+		public void ShouldSatisfyInvalidValidationForImages(
+			AddChatMessageApiRequest request,
+			IFormFileCollectionMessageTransformer messageTransformer)
+		{
+			problemDetails.ShouldSatisfyInvalidValidation(
+				request,
+				p => p.Form.Images,
 				messageTransformer);
 		}
 	}

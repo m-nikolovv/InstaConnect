@@ -51,7 +51,7 @@ public static class ChatMessageImageEquals
 	{
 		public bool MatchesFull(ICollection<ChatMessageImage> chatMessageImages)
 		{
-			return response.MatchesCollection(
+			return response.MatchesCollectionAndNotEmpty(
 				chatMessageImages,
 				r => r.Id,
 				p => p.Id,
@@ -60,7 +60,7 @@ public static class ChatMessageImageEquals
 
 		public bool MatchesFullInverted(ICollection<ChatMessageImage> chatMessageImages)
 		{
-			return response.MatchesCollection(
+			return response.MatchesCollectionAndNotEmpty(
 				chatMessageImages,
 				r => new(new(new(r.Id.Id.Id.ParticipantTwoId, r.Id.Id.Id.ParticipantOneId), r.Id.Id.MessageId), r.Id.ImageId),
 				p => p.Id,

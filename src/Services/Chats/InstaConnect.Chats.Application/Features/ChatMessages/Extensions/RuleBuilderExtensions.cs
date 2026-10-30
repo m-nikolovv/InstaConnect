@@ -1,5 +1,7 @@
 using InstaConnect.Chats.Domain.Features.ChatMessages.Utilities;
 
+using Microsoft.AspNetCore.Http;
+
 namespace InstaConnect.Chats.Application.Features.ChatMessages.Extensions;
 
 internal static class RuleBuilderExtensions
@@ -47,6 +49,14 @@ internal static class RuleBuilderExtensions
 		public IRuleBuilderOptions<T, int> ChatMessagePageSizeMaxValueWithMessage()
 		{
 			return ruleBuilder.MaxValueWithMessage(ChatMessageConfigurations.PageSizeMaxValue);
+		}
+	}
+
+	extension<T>(IRuleBuilder<T, ICollection<IFormFile>> ruleBuilder)
+	{
+		public IRuleBuilderOptions<T, ICollection<IFormFile>> ChatMessageImagesMaxCountWithMessage()
+		{
+			return ruleBuilder.MaxCountWithMessage(ChatMessageConfigurations.ImagesMaxCount);
 		}
 	}
 }

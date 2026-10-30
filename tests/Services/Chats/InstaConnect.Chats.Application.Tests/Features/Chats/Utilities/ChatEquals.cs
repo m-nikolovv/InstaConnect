@@ -1,6 +1,6 @@
 using InstaConnect.Chats.Application.Features.Chats.Models;
 using InstaConnect.Chats.Domain.Features.Chats.Models.ValueObjects;
-using InstaConnect.Chats.Events.Features.Chats;
+using InstaConnect.Chats.Events.Features.Chats.Models;
 using InstaConnect.Identity.Events.Features.Users;
 
 namespace InstaConnect.Chats.Application.Tests.Features.Chats.Utilities;
@@ -288,7 +288,7 @@ public static class ChatEquals
 			return response.MatchesCollectionResponse(request, chats.Count(matchesFilter)) &&
 				   response.ParticipantOne == null &&
 				   response.ParticipantTwo.MatchesFull(participantTwo) &&
-				   response.Chats.MatchesCollection(request,
+				   response.Chats.MatchesCollectionAndNotEmpty(request,
 													chats,
 													response => new(new(response.ParticipantOneId), new(response.ParticipantTwoId)),
 													chat => chat.Id,
@@ -326,7 +326,7 @@ public static class ChatEquals
 			return response.MatchesCollectionResponse(request, chats.Count(matchesFilter)) &&
 				   response.ParticipantOne.MatchesFull(participantOne) &&
 				   response.ParticipantTwo == null &&
-				   response.Chats.MatchesCollection(request,
+				   response.Chats.MatchesCollectionAndNotEmpty(request,
 													chats,
 													response => new(new(response.ParticipantOneId), new(response.ParticipantTwoId)),
 													chat => chat.Id,
@@ -364,7 +364,7 @@ public static class ChatEquals
 			return response.MatchesCollectionResponse(request, chats.Count(matchesFilter)) &&
 				   response.ParticipantOne == null &&
 				   response.ParticipantTwo.MatchesFull(participantTwo) &&
-				   response.Chats.MatchesCollection(request,
+				   response.Chats.MatchesCollectionAndNotEmpty(request,
 													chats,
 													response => new(new(response.ParticipantTwoId), new(response.ParticipantOneId)),
 													chat => chat.Id,
@@ -402,7 +402,7 @@ public static class ChatEquals
 			return response.MatchesCollectionResponse(request, chats.Count(matchesFilter)) &&
 				   response.ParticipantOne.MatchesFull(participantOne) &&
 				   response.ParticipantTwo == null &&
-				   response.Chats.MatchesCollection(request,
+				   response.Chats.MatchesCollectionAndNotEmpty(request,
 													chats,
 													response => new(new(response.ParticipantTwoId), new(response.ParticipantOneId)),
 													chat => chat.Id,

@@ -1,5 +1,4 @@
 using InstaConnect.Chats.Application.Features.ChatMessages.Commands.Add;
-using InstaConnect.Chats.Domain.Features.ChatMessages.Models.Entities;
 
 namespace InstaConnect.Chats.Application.Tests.Unit.Features.ChatMessages.Handlers.Add;
 
@@ -14,7 +13,7 @@ public class AddChatMessageCommandHandlerUnitTests : BaseChatMessageApplicationC
 	public AddChatMessageCommandHandlerUnitTests()
 	{
 		_requestBuilderFactory = new();
-		_requestBuilder = _requestBuilderFactory.Create(Chat, ChatMessage.ChatMessageImages.Count);
+		_requestBuilder = _requestBuilderFactory.Create(Chat);
 		_request = _requestBuilder.Build();
 
 		_handler = new(Mapper, MessageService);

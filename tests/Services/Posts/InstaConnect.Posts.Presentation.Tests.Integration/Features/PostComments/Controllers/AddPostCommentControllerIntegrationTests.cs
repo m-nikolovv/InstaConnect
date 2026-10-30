@@ -1,5 +1,4 @@
 using InstaConnect.Common.Tests.Features.DataAttributes.FormFileCollections.Base;
-using InstaConnect.Posts.Domain.Features.PostComments.Models.Entities;
 using InstaConnect.Posts.Tests.Features.PostComments.DataAttributes.Content;
 using InstaConnect.Posts.Tests.Features.PostComments.DataAttributes.Images;
 
@@ -15,7 +14,7 @@ public class AddPostCommentControllerIntegrationTests : BasePostCommentPresentat
 		: base(webApplicationFactory)
 	{
 		_requestBuilderFactory = new();
-		_requestBuilder = _requestBuilderFactory.Create(Post, User, PostComment.PostCommentImages.Count);
+		_requestBuilder = _requestBuilderFactory.Create(Post, User);
 		_request = _requestBuilder.Build();
 	}
 
@@ -64,6 +63,21 @@ public class AddPostCommentControllerIntegrationTests : BasePostCommentPresentat
 
 		// Assert
 		await Controller.ShouldThrowInvalidValidationExceptionForContentAsync(
+			request, messageTransformer, CancellationToken);
+	}
+
+	[Theory]
+	[PostCommentImagesTooManyWithMessageData]
+	[PostCommentImagesTooLargeWithMessageData]
+	[PostCommentImagesInvalidContentTypeWithMessageData]
+	public async Task AddAsync_ShouldThrowValidationException_WhenImagesAreInvalid(
+		IFormFileCollectionTransformer transformer, IFormFileCollectionMessageTransformer messageTransformer)
+	{
+		// Arrange
+		var request = _requestBuilder.WithImages(transformer).Build();
+
+		// Assert
+		await Controller.ShouldThrowInvalidValidationExceptionForImagesAsync(
 			request, messageTransformer, CancellationToken);
 	}
 
@@ -129,6 +143,12 @@ public class AddPostCommentControllerIntegrationTests : BasePostCommentPresentat
 
 	[Theory]
 	[PostCommentImagesEmptyData]
+	[PostCommentImagesJpegData]
+	[PostCommentImagesPngData]
+	[PostCommentImagesWebpData]
+	[PostCommentImagesJpegDifferentCaseData]
+	[PostCommentImagesPngDifferentCaseData]
+	[PostCommentImagesWebpDifferentCaseData]
 	public async Task AddAsync_ShouldReturnOkStatusCode_WhenRequestAndImagesAreValid(
 		IFormFileCollectionTransformer transformer)
 	{
@@ -187,6 +207,12 @@ public class AddPostCommentControllerIntegrationTests : BasePostCommentPresentat
 
 	[Theory]
 	[PostCommentImagesEmptyData]
+	[PostCommentImagesJpegData]
+	[PostCommentImagesPngData]
+	[PostCommentImagesWebpData]
+	[PostCommentImagesJpegDifferentCaseData]
+	[PostCommentImagesPngDifferentCaseData]
+	[PostCommentImagesWebpDifferentCaseData]
 	public async Task AddAsync_ShouldReturnResponse_WhenRequestAndImagesAreValid(
 		IFormFileCollectionTransformer transformer)
 	{
@@ -246,6 +272,12 @@ public class AddPostCommentControllerIntegrationTests : BasePostCommentPresentat
 
 	[Theory]
 	[PostCommentImagesEmptyData]
+	[PostCommentImagesJpegData]
+	[PostCommentImagesPngData]
+	[PostCommentImagesWebpData]
+	[PostCommentImagesJpegDifferentCaseData]
+	[PostCommentImagesPngDifferentCaseData]
+	[PostCommentImagesWebpDifferentCaseData]
 	public async Task AddAsync_ShouldAddPostComment_WhenRequestAndImagesAreValid(
 		IFormFileCollectionTransformer transformer)
 	{
@@ -311,6 +343,12 @@ public class AddPostCommentControllerIntegrationTests : BasePostCommentPresentat
 
 	[Theory]
 	[PostCommentImagesEmptyData]
+	[PostCommentImagesJpegData]
+	[PostCommentImagesPngData]
+	[PostCommentImagesWebpData]
+	[PostCommentImagesJpegDifferentCaseData]
+	[PostCommentImagesPngDifferentCaseData]
+	[PostCommentImagesWebpDifferentCaseData]
 	public async Task AddAsync_ShouldPublishPostCommentAddedEvent_WhenRequestAndImagesAreValid(
 		IFormFileCollectionTransformer transformer)
 	{
@@ -372,6 +410,12 @@ public class AddPostCommentControllerIntegrationTests : BasePostCommentPresentat
 
 	[Theory]
 	[PostCommentImagesEmptyData]
+	[PostCommentImagesJpegData]
+	[PostCommentImagesPngData]
+	[PostCommentImagesWebpData]
+	[PostCommentImagesJpegDifferentCaseData]
+	[PostCommentImagesPngDifferentCaseData]
+	[PostCommentImagesWebpDifferentCaseData]
 	public async Task AddAsync_ShouldAddPostCommentImages_WhenRequestAndImagesAreValid(
 		IFormFileCollectionTransformer transformer)
 	{
@@ -383,6 +427,6 @@ public class AddPostCommentControllerIntegrationTests : BasePostCommentPresentat
 		var postComment = await ServiceScope.GetByIdAsync(response, CancellationToken);
 
 		// Assert
-		postComment.PostCommentImages.ShouldBeEmpty();
+		postComment.PostCommentImages.ShouldSatisfy(request);
 	}
 }

@@ -93,7 +93,7 @@ public static class PostCommentLikeEquals
 			PostComment postComment,
 			ICollection<PostCommentLike> postCommentLikes)
 		{
-			return response.MatchesCollection(paginationQuery,
+			return response.MatchesCollectionAndNotEmpty(paginationQuery,
 											  postCommentLikes,
 											  response => response.Id,
 											  postCommentLike => postCommentLike.Id,
@@ -123,7 +123,7 @@ public static class PostCommentLikeEquals
 			User user,
 			ICollection<PostCommentLike> postCommentLikes)
 		{
-			return response.MatchesCollection(paginationQuery,
+			return response.MatchesCollectionAndNotEmpty(paginationQuery,
 											  postCommentLikes,
 											  response => response.Id,
 											  postCommentLike => postCommentLike.Id,

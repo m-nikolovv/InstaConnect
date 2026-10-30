@@ -29,5 +29,9 @@ public class UpdateCurrentUserCommandRequestValidator : AbstractValidator<Update
 			.UserEmailMinLengthWithMessage()
 			.UserEmailMaxLengthWithMessage()
 			.InvalidEmailWithMessage();
+
+		RuleFor(r => r.ProfileImage)
+			.UserProfileImageMaxSizeWithMessage()
+			.UserProfileImageContentTypeWithMessage();
 	}
 }

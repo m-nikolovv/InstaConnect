@@ -1,3 +1,5 @@
+using InstaConnect.Common.Tests.Features.DataAttributes.FormFileCollections.Base;
+
 namespace InstaConnect.Chats.Application.Tests.Features.ChatMessages.Assertions;
 
 public static class ChatMessageValidationAssertions
@@ -17,6 +19,11 @@ public static class ChatMessageValidationAssertions
 		public void ShouldHaveValidationErrorForContent(AddChatMessageCommandRequest request, IStringMessageTransformer messageTransformer)
 		{
 			response.ShouldHaveValidationErrorForProperty(request, p => p.Content, messageTransformer);
+		}
+
+		public void ShouldHaveValidationErrorForImages(AddChatMessageCommandRequest request, IFormFileCollectionMessageTransformer messageTransformer)
+		{
+			response.ShouldHaveValidationErrorForProperty(request, p => p.Images, messageTransformer);
 		}
 	}
 

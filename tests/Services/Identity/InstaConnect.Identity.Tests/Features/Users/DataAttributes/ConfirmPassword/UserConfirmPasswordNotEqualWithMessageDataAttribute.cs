@@ -6,7 +6,7 @@ namespace InstaConnect.Identity.Tests.Features.Users.DataAttributes.ConfirmPassw
 public sealed class UserConfirmPasswordNotEqualWithMessageDataAttribute : NotEqualStringWithMessageDataAttribute
 {
 	public UserConfirmPasswordNotEqualWithMessageDataAttribute(string equalPropertyName)
-		: base(equalPropertyName)
+		: base(equalPropertyName, UserConfigurations.PasswordMaxLength, UserConfigurations.PasswordMinLength)
 	{
 	}
 }

@@ -112,13 +112,13 @@ public class VerifyForgotPasswordTokenCommandServiceUnitTests : BaseForgotPasswo
 	}
 
 	[Fact]
-	public async Task VerifyAsync_ShouldCallTheEventPublisherPublishAsync_WhenCommandIsValid()
+	public async Task VerifyAsync_ShouldCallTheEventPublisherPublishRangeAsync_WhenCommandIsValid()
 	{
 		// Act
 		await _service.VerifyAsync(_command, CancellationToken);
 
 		// Assert
-		await EventPublisher.ShouldHaveReceivedOnePublishAsync(_command, User.ForgotPasswordTokens, CancellationToken);
+		await EventPublisher.ShouldHaveReceivedOnePublishRangeAsync(_command, User.ForgotPasswordTokens, CancellationToken);
 	}
 
 	[Fact]

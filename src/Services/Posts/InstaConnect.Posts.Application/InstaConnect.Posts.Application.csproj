@@ -32,6 +32,14 @@
     <Using Include="InstaConnect.Posts.Domain.Features.PostComments.Models.Requests" />
   </ItemGroup>
 
+  <ItemGroup Label="PostImages">
+    <Using Include="InstaConnect.Posts.Application.Features.PostImages.Extensions" />
+  </ItemGroup>
+
+  <ItemGroup Label="PostCommentImages">
+    <Using Include="InstaConnect.Posts.Application.Features.PostCommentImages.Extensions" />
+  </ItemGroup>
+
   <ItemGroup Label="PostCommentLikes">
     <Using Include="InstaConnect.Posts.Application.Features.PostCommentLikes.Models" />
     <Using Include="InstaConnect.Posts.Domain.Features.PostCommentLikes.Abstractions" />

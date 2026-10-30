@@ -18,5 +18,12 @@ public class AddChatMessageCommandRequestValidator : AbstractValidator<AddChatMe
 			.NotEmptyWithMessage()
 			.ChatMessageContentMinLengthWithMessage()
 			.ChatMessageContentMaxLengthWithMessage();
+
+		RuleFor(r => r.Images)
+			.ChatMessageImagesMaxCountWithMessage();
+
+		RuleForEach(r => r.Images)
+			.ChatMessageImageMaxSizeWithMessage()
+			.ChatMessageImageContentTypeWithMessage();
 	}
 }

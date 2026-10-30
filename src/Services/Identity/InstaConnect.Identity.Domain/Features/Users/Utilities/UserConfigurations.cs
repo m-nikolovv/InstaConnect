@@ -1,3 +1,5 @@
+using System.Net.Mime;
+
 namespace InstaConnect.Identity.Domain.Features.Users.Utilities;
 
 public static class UserConfigurations
@@ -25,4 +27,8 @@ public static class UserConfigurations
 
 	public const int PageSizeMinValue = 1;
 	public const int PageSizeMaxValue = 100;
+
+	public const int ProfileImageMaxSize = 1024 * 1024;
+
+	public static readonly ICollection<string> ProfileImageContentTypes = [MediaTypeNames.Image.Jpeg, MediaTypeNames.Image.Png, MediaTypeNames.Image.Webp];
 }

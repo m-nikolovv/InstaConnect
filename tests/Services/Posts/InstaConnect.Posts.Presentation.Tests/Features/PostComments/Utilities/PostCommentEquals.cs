@@ -123,17 +123,16 @@ public static class PostCommentEquals
 	{
 		public bool Matches(AddPostCommentApiRequest request, ICollection<PostCommentImage> entities)
 		{
-			return request.Form.Images.IsEmpty() ||
-				   r.MatchesCollection(
-					   entities,
-					   response => new(new(new(response.Id), response.CommentId), response.ImageId),
-					   postCommentImage => postCommentImage.Id,
-					   (r, postCommentImage) => r.Matches(request, postCommentImage));
+			return r.MatchesCollectionAndEmpty(
+				entities,
+				response => new(new(new(response.Id), response.CommentId), response.ImageId),
+				postCommentImage => postCommentImage.Id,
+				(r, postCommentImage) => r.Matches(request, postCommentImage));
 		}
 
 		public bool Matches(UpdatePostCommentApiRequest request, ICollection<PostCommentImage> entities)
 		{
-			return r.MatchesCollection(
+			return r.MatchesCollectionAndNotEmpty(
 				entities,
 				response => new(new(new(response.Id), response.CommentId), response.ImageId),
 				postCommentImage => postCommentImage.Id,
@@ -142,7 +141,7 @@ public static class PostCommentEquals
 
 		public bool Matches(DeletePostCommentApiRequest request, ICollection<PostCommentImage> entities)
 		{
-			return r.MatchesCollection(
+			return r.MatchesCollectionAndNotEmpty(
 				entities,
 				response => new(new(new(response.Id), response.CommentId), response.ImageId),
 				postCommentImage => postCommentImage.Id,
@@ -399,7 +398,7 @@ public static class PostCommentEquals
 			return postCommentImage.Id.Id.Id.Id.IsNotNullOrEmptyOrWhiteSpace() &&
 				   postCommentImage.Id.Id.CommentId.IsNotNullOrEmptyOrWhiteSpace() &&
 				   postCommentImage.Id.ImageId.IsNotNullOrEmptyOrWhiteSpace() &&
-				   postCommentImage.Url.Value.IsNotNullOrEmptyOrWhiteSpace() &&
+				   request.Form.Images.ContainsUrl(postCommentImage.Url) &&
 				   postCommentImage.CreatedAtUtc != default;
 		}
 	}
@@ -408,7 +407,7 @@ public static class PostCommentEquals
 	{
 		public bool Matches(AddPostCommentApiRequest request)
 		{
-			return postCommentImages.AllAndNotEmpty(postCommentImage => postCommentImage.Matches(request));
+			return postCommentImages.AllAndEmpty(request.Form.Images, postCommentImage => postCommentImage.Matches(request));
 		}
 	}
 
@@ -496,7 +495,7 @@ public static class PostCommentEquals
 			return response.MatchesCollectionResponse(request, postComments.Count(matchesFilter)) &&
 				   response.User == null &&
 				   response.Post.MatchesFull(request, post) &&
-				   response.PostComments.MatchesCollection(request,
+				   response.PostComments.MatchesCollectionAndNotEmpty(request,
 														postComments,
 														response => new(new(response.Id), response.CommentId),
 														postComment => postComment.Id,
@@ -534,7 +533,7 @@ public static class PostCommentEquals
 			return response.MatchesCollectionResponse(request, postComments.Count(matchesFilter)) &&
 				   response.User.MatchesFull(user) &&
 				   response.Post == null &&
-				   response.PostComments.MatchesCollection(request,
+				   response.PostComments.MatchesCollectionAndNotEmpty(request,
 														postComments,
 														response => new(new(response.Id), response.CommentId),
 														postComment => postComment.Id,

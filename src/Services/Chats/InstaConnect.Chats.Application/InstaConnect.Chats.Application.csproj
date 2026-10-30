@@ -22,4 +22,8 @@
     <Using Include="InstaConnect.Chats.Domain.Features.ChatMessages.Models.Requests" />
   </ItemGroup>
 
+  <ItemGroup Label="ChatMessageImages">
+    <Using Include="InstaConnect.Chats.Application.Features.ChatMessageImages.Extensions" />
+  </ItemGroup>
+
 </Project>

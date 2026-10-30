@@ -16,7 +16,7 @@ public static class ChatMessageImageEquals
 	{
 		public bool Matches(ICollection<ChatMessageImage> chatMessageImages)
 		{
-			return entities.MatchesCollection(
+			return entities.MatchesCollectionAndNotEmpty(
 				chatMessageImages,
 				e => e.Id,
 				e => e.Id,

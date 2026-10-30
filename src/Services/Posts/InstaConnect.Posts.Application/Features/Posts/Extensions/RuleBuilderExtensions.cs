@@ -1,5 +1,7 @@
 using InstaConnect.Posts.Domain.Features.Posts.Utilities;
 
+using Microsoft.AspNetCore.Http;
+
 namespace InstaConnect.Posts.Application.Features.Posts.Extensions;
 
 internal static class RuleBuilderExtensions
@@ -57,6 +59,14 @@ internal static class RuleBuilderExtensions
 		public IRuleBuilderOptions<T, int> PostPageSizeMaxValueWithMessage()
 		{
 			return ruleBuilder.MaxValueWithMessage(PostConfigurations.PageSizeMaxValue);
+		}
+	}
+
+	extension<T>(IRuleBuilder<T, ICollection<IFormFile>> ruleBuilder)
+	{
+		public IRuleBuilderOptions<T, ICollection<IFormFile>> PostImagesMaxCountWithMessage()
+		{
+			return ruleBuilder.MaxCountWithMessage(PostConfigurations.ImagesMaxCount);
 		}
 	}
 }

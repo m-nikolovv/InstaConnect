@@ -4,11 +4,11 @@ public static class ChatMessageImageGenerator
 {
 	extension(ChatMessageImage baseChatMessageImage)
 	{
-		public ICollection<ChatMessageImage> Generate(IEnumerable<ChatMessage> chatMessages, int numberOfIterations = 5)
+		public ICollection<ChatMessageImage> Generate(IEnumerable<ChatMessage> chatMessages)
 		{
 			return [baseChatMessageImage, .. chatMessages
 				.SelectMany(chatMessage =>
-					Enumerable.Range(default, numberOfIterations).Select(_ =>
+					Enumerable.Range(default, DataFaker.GetAverageNumber(ChatMessageConfigurations.ImagesMaxCount) - chatMessage.ChatMessageImages.Count).Select(_ =>
 					{
 						var chatMessageImage = new ChatMessageImage(
 							new(chatMessage.Id, ChatMessageImageDataFaker.GetImageId()),

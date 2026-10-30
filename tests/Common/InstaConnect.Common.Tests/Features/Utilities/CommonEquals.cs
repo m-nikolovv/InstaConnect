@@ -61,7 +61,7 @@ public static class CommonEquals
 
 	extension<TExpected>(ICollection<TExpected> e)
 	{
-		public bool MatchesCollection<TEntity, TKey>(
+		public bool MatchesCollectionAndNotEmpty<TEntity, TKey>(
 		ICollection<TEntity> entities,
 		Func<TExpected, TKey> expectedKey,
 		Func<TEntity, TKey> entityKey,
@@ -79,7 +79,7 @@ public static class CommonEquals
 				   matcher(e, a));
 		}
 
-		public bool MatchesCollection<TEntity, TKey, TQuery>(
+		public bool MatchesCollectionAndNotEmpty<TEntity, TKey, TQuery>(
 		TQuery request,
 		ICollection<TEntity> entities,
 		Func<TExpected, TKey> expectedKey,
@@ -94,6 +94,23 @@ public static class CommonEquals
 
 			return e.Count == entitiesByKey.Count &&
 				   e.AllAndNotEmpty(e =>
+				   entitiesByKey.TryGetValue(expectedKey(e), out var a) &&
+				   matcher(e, a));
+		}
+
+		public bool MatchesCollectionAndEmpty<TEntity, TKey>(
+		ICollection<TEntity> entities,
+		Func<TExpected, TKey> expectedKey,
+		Func<TEntity, TKey> entityKey,
+		Func<TExpected, TEntity, bool> matcher)
+		where TEntity : IEntity
+		where TKey : notnull
+		{
+			var entitiesByKey = entities
+				.OrderBy(a => a.CreatedAtUtc)
+				.ToDictionary(entityKey);
+
+			return e.AllAndEmpty(entitiesByKey.Values, e =>
 				   entitiesByKey.TryGetValue(expectedKey(e), out var a) &&
 				   matcher(e, a));
 		}

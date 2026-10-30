@@ -93,7 +93,7 @@ public static class PostEquals
 	{
 		public bool Matches(AddPostCommand command)
 		{
-			return p.AllAndNotEmpty(u => u.Matches(command));
+			return p.AllAndEmpty(command.Images, u => u.Matches(command));
 		}
 	}
 
@@ -112,7 +112,7 @@ public static class PostEquals
 	{
 		public bool Matches(AddPostCommand command)
 		{
-			return p.AllAndNotEmpty(pi => pi.Matches(command));
+			return p.AllAndEmpty(command.Images, pi => pi.Matches(command));
 		}
 	}
 
@@ -220,7 +220,7 @@ public static class PostEquals
 		public bool Matches(AddPostCommand command, ICollection<PostImage> entities)
 		{
 			return command.Images.IsEmpty() ||
-				   r.MatchesCollection(
+				   r.MatchesCollectionAndNotEmpty(
 					   entities,
 					   response => new(new(response.Id), response.ImageId),
 					   postImage => postImage.Id,
@@ -229,7 +229,7 @@ public static class PostEquals
 
 		public bool Matches(UpdatePostCommand command, ICollection<PostImage> entities)
 		{
-			return r.MatchesCollection(
+			return r.MatchesCollectionAndNotEmpty(
 				entities,
 				response => new(new(response.Id), response.ImageId),
 				postImage => postImage.Id,
@@ -238,7 +238,7 @@ public static class PostEquals
 
 		public bool Matches(DeletePostCommand command, ICollection<PostImage> entities)
 		{
-			return r.MatchesCollection(
+			return r.MatchesCollectionAndNotEmpty(
 				entities,
 				response => new(new(response.Id), response.ImageId),
 				postImage => postImage.Id,
@@ -342,7 +342,7 @@ public static class PostEquals
 		{
 			return response.MatchesCollectionResponse(request.Pagination, posts.Count(matchesFilter)) &&
 				   response.User.MatchesFull(user) &&
-				   response.Posts.MatchesCollection(request.Pagination,
+				   response.Posts.MatchesCollectionAndNotEmpty(request.Pagination,
 													posts,
 													response => response.Id,
 													post => post.Id,
@@ -377,7 +377,7 @@ public static class PostEquals
 		{
 			return response.MatchesCollectionResponse(request.Pagination, posts.Count(matchesFilter)) &&
 				   response.User == null &&
-				   response.Posts.MatchesCollection(request.Pagination,
+				   response.Posts.MatchesCollectionAndNotEmpty(request.Pagination,
 													posts,
 													response => response.Id,
 													post => post.Id,

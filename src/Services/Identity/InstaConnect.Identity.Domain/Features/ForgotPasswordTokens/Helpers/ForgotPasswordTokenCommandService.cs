@@ -84,7 +84,7 @@ internal class ForgotPasswordTokenCommandService : IForgotPasswordTokenCommandSe
 
 		await _forgotPasswordTokenRepository.DeleteRangeAsync(user.ForgotPasswordTokens, cancellationToken);
 
-		await _eventPublisher.PublishAsync(
+		await _eventPublisher.PublishRangeAsync(
 			_mapper.Map<ICollection<ForgotPasswordTokenDeletedEventRequest>>(user), cancellationToken);
 
 		user.UpdatePasswordHash(_passwordHasher.Hash(command.Password));

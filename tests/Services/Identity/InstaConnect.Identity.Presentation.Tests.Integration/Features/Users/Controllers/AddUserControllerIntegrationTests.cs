@@ -119,6 +119,20 @@ public class AddUserControllerIntegrationTests : BaseUserPresentationCommandInte
 			request, messageTransformer, CancellationToken);
 	}
 
+	[Theory]
+	[UserProfileImageTooLargeWithMessageData]
+	[UserProfileImageInvalidContentTypeWithMessageData]
+	public async Task AddAsync_ShouldThrowValidationException_WhenProfileImageIsInvalid(
+		IFormFileTransformer transformer, IFormFileMessageTransformer messageTransformer)
+	{
+		// Arrange
+		var request = _requestBuilder.WithProfileImage(transformer).Build();
+
+		// Assert
+		await Controller.ShouldThrowInvalidValidationExceptionForProfileImageAsync(
+			request, messageTransformer, CancellationToken);
+	}
+
 	[Fact]
 	public async Task AddAsync_ShouldThrowUserEmailAlreadyTakenException_WhenUserEmailAlreadyTaken()
 	{
@@ -179,6 +193,12 @@ public class AddUserControllerIntegrationTests : BaseUserPresentationCommandInte
 
 	[Theory]
 	[UserProfileImageNullData]
+	[UserProfileImageJpegData]
+	[UserProfileImagePngData]
+	[UserProfileImageWebpData]
+	[UserProfileImageJpegDifferentCaseData]
+	[UserProfileImagePngDifferentCaseData]
+	[UserProfileImageWebpDifferentCaseData]
 	public async Task AddAsync_ShouldReturnOkStatusCode_WhenRequestAndProfileImageAreValid(
 		IFormFileTransformer transformer)
 	{
@@ -205,6 +225,12 @@ public class AddUserControllerIntegrationTests : BaseUserPresentationCommandInte
 
 	[Theory]
 	[UserProfileImageNullData]
+	[UserProfileImageJpegData]
+	[UserProfileImagePngData]
+	[UserProfileImageWebpData]
+	[UserProfileImageJpegDifferentCaseData]
+	[UserProfileImagePngDifferentCaseData]
+	[UserProfileImageWebpDifferentCaseData]
 	public async Task AddAsync_ShouldReturnResponse_WhenRequestAndProfileImageAreValid(
 		IFormFileTransformer transformer)
 	{
@@ -232,6 +258,12 @@ public class AddUserControllerIntegrationTests : BaseUserPresentationCommandInte
 
 	[Theory]
 	[UserProfileImageNullData]
+	[UserProfileImageJpegData]
+	[UserProfileImagePngData]
+	[UserProfileImageWebpData]
+	[UserProfileImageJpegDifferentCaseData]
+	[UserProfileImagePngDifferentCaseData]
+	[UserProfileImageWebpDifferentCaseData]
 	public async Task AddAsync_ShouldAddUser_WhenRequestAndProfileImageAreValid(
 		IFormFileTransformer transformer)
 	{
@@ -259,6 +291,12 @@ public class AddUserControllerIntegrationTests : BaseUserPresentationCommandInte
 
 	[Theory]
 	[UserProfileImageNullData]
+	[UserProfileImageJpegData]
+	[UserProfileImagePngData]
+	[UserProfileImageWebpData]
+	[UserProfileImageJpegDifferentCaseData]
+	[UserProfileImagePngDifferentCaseData]
+	[UserProfileImageWebpDifferentCaseData]
 	public async Task AddAsync_ShouldAddEmailConfirmationToken_WhenRequestAndProfileImageAreValid(
 		IFormFileTransformer transformer)
 	{
@@ -287,6 +325,12 @@ public class AddUserControllerIntegrationTests : BaseUserPresentationCommandInte
 
 	[Theory]
 	[UserProfileImageNullData]
+	[UserProfileImageJpegData]
+	[UserProfileImagePngData]
+	[UserProfileImageWebpData]
+	[UserProfileImageJpegDifferentCaseData]
+	[UserProfileImagePngDifferentCaseData]
+	[UserProfileImageWebpDifferentCaseData]
 	public async Task AddAsync_ShouldPublishUserAddedEvent_WhenRequestAndProfileImageAreValid(
 		IFormFileTransformer transformer)
 	{
@@ -316,6 +360,12 @@ public class AddUserControllerIntegrationTests : BaseUserPresentationCommandInte
 
 	[Theory]
 	[UserProfileImageNullData]
+	[UserProfileImageJpegData]
+	[UserProfileImagePngData]
+	[UserProfileImageWebpData]
+	[UserProfileImageJpegDifferentCaseData]
+	[UserProfileImagePngDifferentCaseData]
+	[UserProfileImageWebpDifferentCaseData]
 	public async Task AddAsync_ShouldPublishEmailConfirmationTokenAddedEvent_WhenRequestAndProfileImageAreValid(
 		IFormFileTransformer transformer)
 	{

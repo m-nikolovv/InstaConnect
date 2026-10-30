@@ -2,8 +2,8 @@ namespace InstaConnect.Chats.Domain.Tests.Features.ChatMessages.Builders;
 
 public class AddChatMessageCommandBuilderFactory
 {
-	public AddChatMessageCommandBuilder Create(Chat chat, int numberOfImages)
+	public AddChatMessageCommandBuilder Create(Chat chat)
 	{
-		return new(chat, numberOfImages);
+		return new(chat);
 	}
 }

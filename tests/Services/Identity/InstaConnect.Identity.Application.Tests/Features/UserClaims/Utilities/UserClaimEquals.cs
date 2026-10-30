@@ -201,7 +201,7 @@ public static class UserClaimEquals
 		{
 			return response.MatchesCollectionResponse(request, userClaims.Count(matchesFilter)) &&
 				   response.User.MatchesFull(user) &&
-				   response.UserClaims.MatchesCollection(
+				   response.UserClaims.MatchesCollectionAndNotEmpty(
 													request,
 													userClaims,
 													response => new(new(response.Id), response.Claim),
@@ -238,7 +238,7 @@ public static class UserClaimEquals
 		{
 			return response.MatchesCollectionResponse(request, userClaims.Count(matchesFilter)) &&
 				   response.User == null &&
-				   response.UserClaims.MatchesCollection(
+				   response.UserClaims.MatchesCollectionAndNotEmpty(
 													request,
 													userClaims,
 													response => new(new(response.Id), response.Claim),

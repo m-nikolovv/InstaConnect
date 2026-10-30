@@ -81,7 +81,7 @@ public class UpdateUserCommandBuilder
 
 	public UpdateUserCommandBuilder WithProfileImage(IFormFileTransformer transformer)
 	{
-		_profileImage = transformer.Transform(_profileImage!);
+		_profileImage = transformer.Transform(_profileImage);
 
 		return this;
 	}

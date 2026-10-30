@@ -1,4 +1,4 @@
-using InstaConnect.Chats.Events.Features.Chats;
+using InstaConnect.Chats.Events.Features.Chats.Models;
 using InstaConnect.Identity.Events.Features.Users;
 
 namespace InstaConnect.Chats.Domain.Features.Chats.Mappings;

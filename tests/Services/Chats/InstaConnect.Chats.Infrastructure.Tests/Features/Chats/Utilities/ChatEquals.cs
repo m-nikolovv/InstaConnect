@@ -109,7 +109,7 @@ public static class ChatEquals
 			User participantOne,
 			ICollection<Chat> chats)
 		{
-			return response.MatchesCollection(paginationQuery,
+			return response.MatchesCollectionAndNotEmpty(paginationQuery,
 											  chats,
 											  response => response.Id,
 											  chat => chat.Id,
@@ -139,7 +139,7 @@ public static class ChatEquals
 			User participantTwo,
 			ICollection<Chat> chats)
 		{
-			return response.MatchesCollection(paginationQuery,
+			return response.MatchesCollectionAndNotEmpty(paginationQuery,
 											  chats,
 											  response => new(response.Id.ParticipantTwoId, response.Id.ParticipantOneId),
 											  chat => chat.Id,

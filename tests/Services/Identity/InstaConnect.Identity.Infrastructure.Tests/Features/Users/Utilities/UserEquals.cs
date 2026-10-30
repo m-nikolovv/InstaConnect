@@ -69,7 +69,7 @@ public static class UserEquals
 			Func<User, bool> matchesFilter,
 			ICollection<User> users)
 		{
-			return response.MatchesCollection(paginationQuery,
+			return response.MatchesCollectionAndNotEmpty(paginationQuery,
 											  users,
 											  response => response.Id,
 											  user => user.Id,

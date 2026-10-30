@@ -122,7 +122,7 @@ public static class ChatMessageEquals
 			Chat chat,
 			ICollection<ChatMessage> chatMessages)
 		{
-			return response.MatchesCollection(paginationQuery,
+			return response.MatchesCollectionAndNotEmpty(paginationQuery,
 											  chatMessages,
 											  response => response.Id,
 											  chatMessage => chatMessage.Id,
@@ -152,7 +152,7 @@ public static class ChatMessageEquals
 			Chat chat,
 			ICollection<ChatMessage> chatMessages)
 		{
-			return response.MatchesCollection(paginationQuery,
+			return response.MatchesCollectionAndNotEmpty(paginationQuery,
 											  chatMessages,
 											  response => new(new(response.Id.Id.ParticipantTwoId, response.Id.Id.ParticipantOneId), response.Id.MessageId),
 											  chatMessage => chatMessage.Id,

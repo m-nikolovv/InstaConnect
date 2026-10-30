@@ -1,3 +1,5 @@
+using InstaConnect.Common.Tests.Features.DataAttributes.FormFiles.Base;
+
 namespace InstaConnect.Identity.Application.Tests.Features.Users.Assertions;
 
 public static class UserValidationAssertions
@@ -37,6 +39,13 @@ public static class UserValidationAssertions
 			IStringMessageTransformer messageTransformer)
 		{
 			response.ShouldHaveValidationErrorForProperty(request, p => p.Email, messageTransformer);
+		}
+
+		public void ShouldHaveValidationErrorForProfileImage(
+			UpdateCurrentUserCommandRequest request,
+			IFormFileMessageTransformer messageTransformer)
+		{
+			response.ShouldHaveValidationErrorForProperty(request, p => p.ProfileImage, messageTransformer);
 		}
 	}
 
@@ -156,6 +165,13 @@ public static class UserValidationAssertions
 			IStringMessageTransformer messageTransformer)
 		{
 			response.ShouldHaveValidationErrorForProperty(request, p => p.ConfirmPassword, messageTransformer);
+		}
+
+		public void ShouldHaveValidationErrorForProfileImage(
+			AddUserCommandRequest request,
+			IFormFileMessageTransformer messageTransformer)
+		{
+			response.ShouldHaveValidationErrorForProperty(request, p => p.ProfileImage, messageTransformer);
 		}
 	}
 

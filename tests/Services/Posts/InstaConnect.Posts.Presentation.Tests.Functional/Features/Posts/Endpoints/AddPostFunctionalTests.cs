@@ -1,5 +1,4 @@
 using InstaConnect.Common.Tests.Features.DataAttributes.FormFileCollections.Base;
-using InstaConnect.Posts.Domain.Features.Posts.Models.Entities;
 using InstaConnect.Posts.Tests.Features.Posts.DataAttributes.Content;
 using InstaConnect.Posts.Tests.Features.Posts.DataAttributes.Images;
 using InstaConnect.Posts.Tests.Features.Posts.DataAttributes.Title;
@@ -16,7 +15,7 @@ public class AddPostFunctionalTests : BasePostPresentationCommandFunctionalTest
 		: base(webApplicationFactory)
 	{
 		_requestBuilderFactory = new();
-		_requestBuilder = _requestBuilderFactory.Create(User, Post.PostImages.Count);
+		_requestBuilder = _requestBuilderFactory.Create(User);
 		_request = _requestBuilder.Build();
 	}
 
@@ -136,6 +135,40 @@ public class AddPostFunctionalTests : BasePostPresentationCommandFunctionalTest
 		response.ShouldSatisfyInvalidValidationForContent(request, messageTransformer);
 	}
 
+	[Theory]
+	[PostImagesTooManyData]
+	[PostImagesTooLargeData]
+	[PostImagesInvalidContentTypeData]
+	public async Task AddAsync_ShouldHaveBadRequestStatusCode_WhenImagesAreInvalid(
+		IFormFileCollectionTransformer transformer)
+	{
+		// Arrange
+		var request = _requestBuilder.WithImages(transformer).Build();
+
+		// Act
+		var response = await ApiClient.AddStatusCodeAsync(request, CancellationToken);
+
+		// Assert
+		response.ShouldBeBadRequest();
+	}
+
+	[Theory]
+	[PostImagesTooManyWithMessageData]
+	[PostImagesTooLargeWithMessageData]
+	[PostImagesInvalidContentTypeWithMessageData]
+	public async Task AddAsync_ShouldHaveBadRequestProblemDetails_WhenImagesAreInvalid(
+		IFormFileCollectionTransformer transformer, IFormFileCollectionMessageTransformer messageTransformer)
+	{
+		// Arrange
+		var request = _requestBuilder.WithImages(transformer).Build();
+
+		// Act
+		var response = await ApiClient.AddProblemDetailsAsync(request, CancellationToken);
+
+		// Assert
+		response.ShouldSatisfyInvalidValidationForImages(request, messageTransformer);
+	}
+
 	[Fact]
 	public async Task AddAsync_ShouldHaveNotFoundStatusCode_WhenUserNotFound()
 	{
@@ -189,6 +222,12 @@ public class AddPostFunctionalTests : BasePostPresentationCommandFunctionalTest
 
 	[Theory]
 	[PostImagesEmptyData]
+	[PostImagesJpegData]
+	[PostImagesPngData]
+	[PostImagesWebpData]
+	[PostImagesJpegDifferentCaseData]
+	[PostImagesPngDifferentCaseData]
+	[PostImagesWebpDifferentCaseData]
 	public async Task AddAsync_ShouldHaveOkStatusCode_WhenRequestAndImagesAreValid(
 		IFormFileCollectionTransformer transformer)
 	{
@@ -231,6 +270,12 @@ public class AddPostFunctionalTests : BasePostPresentationCommandFunctionalTest
 
 	[Theory]
 	[PostImagesEmptyData]
+	[PostImagesJpegData]
+	[PostImagesPngData]
+	[PostImagesWebpData]
+	[PostImagesJpegDifferentCaseData]
+	[PostImagesPngDifferentCaseData]
+	[PostImagesWebpDifferentCaseData]
 	public async Task AddAsync_ShouldReturnResponse_WhenRequestAndImagesAreValid(
 		IFormFileCollectionTransformer transformer)
 	{
@@ -274,6 +319,12 @@ public class AddPostFunctionalTests : BasePostPresentationCommandFunctionalTest
 
 	[Theory]
 	[PostImagesEmptyData]
+	[PostImagesJpegData]
+	[PostImagesPngData]
+	[PostImagesWebpData]
+	[PostImagesJpegDifferentCaseData]
+	[PostImagesPngDifferentCaseData]
+	[PostImagesWebpDifferentCaseData]
 	public async Task AddAsync_ShouldAddPost_WhenRequestAndImagesAreValid(
 		IFormFileCollectionTransformer transformer)
 	{
@@ -321,6 +372,12 @@ public class AddPostFunctionalTests : BasePostPresentationCommandFunctionalTest
 
 	[Theory]
 	[PostImagesEmptyData]
+	[PostImagesJpegData]
+	[PostImagesPngData]
+	[PostImagesWebpData]
+	[PostImagesJpegDifferentCaseData]
+	[PostImagesPngDifferentCaseData]
+	[PostImagesWebpDifferentCaseData]
 	public async Task AddAsync_ShouldPublishPostAddedEvent_WhenRequestAndImagesAreValid(
 		IFormFileCollectionTransformer transformer)
 	{
@@ -366,6 +423,12 @@ public class AddPostFunctionalTests : BasePostPresentationCommandFunctionalTest
 
 	[Theory]
 	[PostImagesEmptyData]
+	[PostImagesJpegData]
+	[PostImagesPngData]
+	[PostImagesWebpData]
+	[PostImagesJpegDifferentCaseData]
+	[PostImagesPngDifferentCaseData]
+	[PostImagesWebpDifferentCaseData]
 	public async Task AddAsync_ShouldAddPostImages_WhenRequestAndImagesAreValid(
 		IFormFileCollectionTransformer transformer)
 	{
@@ -377,6 +440,6 @@ public class AddPostFunctionalTests : BasePostPresentationCommandFunctionalTest
 		var post = await ServiceScope.GetByIdAsync(response, CancellationToken);
 
 		// Assert
-		post.PostImages.ShouldBeEmpty();
+		post.PostImages.ShouldSatisfy(request);
 	}
 }

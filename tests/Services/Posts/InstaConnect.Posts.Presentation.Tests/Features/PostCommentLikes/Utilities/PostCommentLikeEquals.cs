@@ -370,7 +370,7 @@ public static class PostCommentLikeEquals
 			return response.MatchesCollectionResponse(request, postCommentLikes.Count(matchesFilter)) &&
 				   response.User == null &&
 				   response.PostComment.MatchesFull(request, postComment) &&
-				   response.PostCommentLikes.MatchesCollection(request,
+				   response.PostCommentLikes.MatchesCollectionAndNotEmpty(request,
 														postCommentLikes,
 														response => new(new(new(response.Id), response.CommentId), new(response.UserId)),
 														postCommentLike => postCommentLike.Id,
@@ -408,7 +408,7 @@ public static class PostCommentLikeEquals
 			return response.MatchesCollectionResponse(request, postCommentLikes.Count(matchesFilter)) &&
 				   response.User.MatchesFull(user) &&
 				   response.PostComment == null &&
-				   response.PostCommentLikes.MatchesCollection(request,
+				   response.PostCommentLikes.MatchesCollectionAndNotEmpty(request,
 														postCommentLikes,
 														response => new(new(new(response.Id), response.CommentId), new(response.UserId)),
 														postCommentLike => postCommentLike.Id,

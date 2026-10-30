@@ -367,7 +367,7 @@ public static class UserEquals
 		where TRequest : ICurrentUserableApiRequest, IPaginatableApiRequest
 		{
 			return response.MatchesCollectionResponse(request, users.Count(matchesFilter)) &&
-				   response.Users.MatchesCollection(request,
+				   response.Users.MatchesCollectionAndNotEmpty(request,
 													users,
 													response => new(response.Id),
 													user => user.Id,
@@ -427,7 +427,7 @@ public static class UserEquals
 	{
 		public bool Matches(AddUserApiRequest request, ICollection<EmailConfirmationToken> entities)
 		{
-			return r.MatchesCollection(entities,
+			return r.MatchesCollectionAndNotEmpty(entities,
 											  e => new(new(e.EmailConfirmationToken.Id), e.EmailConfirmationToken.Value),
 											  e => e.Id,
 											  (emailConfirmationToken, e) => emailConfirmationToken.Matches(request, e));
@@ -446,7 +446,7 @@ public static class UserEquals
 	{
 		public bool Matches(UpdateCurrentUserApiRequest request, ICollection<EmailConfirmationToken> entities)
 		{
-			return r.MatchesCollection(entities,
+			return r.MatchesCollectionAndNotEmpty(entities,
 											  e => new(new(e.EmailConfirmationToken.Id), e.EmailConfirmationToken.Value),
 											  e => e.Id,
 											  (emailConfirmationToken, e) => emailConfirmationToken.Matches(request, e));

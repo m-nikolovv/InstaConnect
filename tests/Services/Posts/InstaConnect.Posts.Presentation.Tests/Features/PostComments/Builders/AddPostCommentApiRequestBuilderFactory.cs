@@ -2,8 +2,8 @@ namespace InstaConnect.Posts.Presentation.Tests.Features.PostComments.Builders;
 
 public class AddPostCommentApiRequestBuilderFactory
 {
-	public AddPostCommentApiRequestBuilder Create(Post post, User user, int numberOfImages)
+	public AddPostCommentApiRequestBuilder Create(Post post, User user)
 	{
-		return new(post, user, numberOfImages);
+		return new(post, user);
 	}
 }

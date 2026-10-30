@@ -4,6 +4,10 @@ public static class MockValues
 {
 	public const string MongoName = "instaconnect";
 
+	public const string KafkaUsername = "test";
+
+	public const string KafkaPassword = "test";
+
 	public const string SendGridSender = "test";
 
 	public const string SendGridApiKey = "test";

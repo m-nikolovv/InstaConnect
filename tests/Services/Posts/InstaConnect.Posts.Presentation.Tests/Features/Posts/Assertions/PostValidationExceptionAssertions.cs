@@ -1,3 +1,4 @@
+using InstaConnect.Common.Tests.Features.DataAttributes.FormFileCollections.Base;
 using InstaConnect.Posts.Presentation.Features.Posts.Controllers.v1;
 
 namespace InstaConnect.Posts.Presentation.Tests.Features.Posts.Assertions;
@@ -254,6 +255,20 @@ public static class PostValidationExceptionAssertions
 			await func.ShouldThrowInvalidValidationExceptionAsync(
 				request,
 				r => r.PageSize,
+				messageTransformer,
+				cancellationToken);
+		}
+
+		public async Task ShouldThrowInvalidValidationExceptionForImagesAsync(
+			AddPostApiRequest request,
+			IFormFileCollectionMessageTransformer messageTransformer,
+			CancellationToken cancellationToken)
+		{
+			var func = () => controller.AddAsync(request, cancellationToken);
+
+			await func.ShouldThrowInvalidValidationExceptionAsync(
+				request,
+				r => r.Form.Images,
 				messageTransformer,
 				cancellationToken);
 		}

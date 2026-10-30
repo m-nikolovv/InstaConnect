@@ -1,0 +1,16 @@
+{
+  "connector.class": "io.debezium.connector.mongodb.MongoDbConnector",
+  "mongodb.connection.string": "mongodb://${env:MONGO_USERNAME}:${env:MONGO_PASSWORD}@mongo:27017/?replicaSet=rs0&authSource=admin",
+  "topic.prefix": "outbox",
+  "collection.include.list": "instaconnect_identity.outbox_events,instaconnect_posts.outbox_events,instaconnect_chats.outbox_events,instaconnect_follows.outbox_events",
+  "snapshot.mode": "no_data",
+  "tombstones.on.delete": "false",
+  "key.converter": "org.apache.kafka.connect.storage.StringConverter",
+  "value.converter": "org.apache.kafka.connect.storage.StringConverter",
+  "transforms": "outbox",
+  "transforms.outbox.type": "io.debezium.connector.mongodb.transforms.outbox.MongoEventRouter",
+  "transforms.outbox.route.by.field": "Topic",
+  "transforms.outbox.route.topic.replacement": "${routedByValue}",
+  "transforms.outbox.collection.field.event.key": "Key",
+  "transforms.outbox.collection.field.event.payload": "Payload"
+}

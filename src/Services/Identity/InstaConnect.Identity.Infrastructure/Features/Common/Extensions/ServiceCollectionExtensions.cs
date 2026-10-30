@@ -1,5 +1,3 @@
-using System.Reflection;
-
 using InstaConnect.Common.Domain.Features.Mappers.Extensions;
 using InstaConnect.Common.Domain.Features.Validations.Extensions;
 using InstaConnect.Common.Infrastructure.Features.AccessTokens.Extensions;
@@ -10,13 +8,14 @@ using InstaConnect.Common.Infrastructure.Features.Emails.Extensions;
 using InstaConnect.Common.Infrastructure.Features.Events.Extensions;
 using InstaConnect.Common.Infrastructure.Features.Guids.Extensions;
 using InstaConnect.Common.Infrastructure.Features.Images.Extensions;
+using InstaConnect.Common.Infrastructure.Features.Jsons.Extensions;
+using InstaConnect.Common.Infrastructure.Features.OutboxEvents.Extensions;
 using InstaConnect.Common.Infrastructure.Features.Seeders.Extensions;
 using InstaConnect.Common.Infrastructure.Features.Telemetries.Extensions;
 using InstaConnect.Identity.Domain.Features.Common.Helpers;
 using InstaConnect.Identity.Infrastructure.Features.Common.Abstractions;
 using InstaConnect.Identity.Infrastructure.Features.Common.Helpers;
 using InstaConnect.Identity.Infrastructure.Features.Common.Models.Options;
-using InstaConnect.Identity.Infrastructure.Features.Common.Utilities;
 using InstaConnect.Identity.Infrastructure.Features.EmailConfirmationTokens.Extensions;
 using InstaConnect.Identity.Infrastructure.Features.ForgotPasswordTokens.Extensions;
 using InstaConnect.Identity.Infrastructure.Features.UserClaims.Extensions;
@@ -32,8 +31,7 @@ public static class ServiceCollectionExtensions
 	{
 		public IServiceCollection AddInfrastructure(
 			IConfiguration configuration,
-			IWebHostEnvironment webHostEnvironment,
-			Assembly presentationAssembly)
+			IWebHostEnvironment webHostEnvironment)
 		{
 			serviceCollection.AddValidatedOptions<AdminOptions>(AdminOptions.SectionName);
 
@@ -56,8 +54,10 @@ public static class ServiceCollectionExtensions
 				.AddDatabases(configuration)
 				.AddSeeders<IIdentityDatabaseSeeder>()
 				.AddImages(configuration)
-				.AddEvents(configuration, IdentityEventHandlerUtilities.Prefix, presentationAssembly)
+				.AddEvents(configuration, riderConfigurator => riderConfigurator.MapUserEventProducer().MapUserClaimEventProducer().MapEmailConfirmationTokenEventProducer().MapForgotPasswordTokenEventProducer(), null, IdentityInfrastructureReference.Assembly)
+				.AddOutboxEvents()
 				.AddAccessTokens(configuration)
+				.AddJsons()
 				.AddGuids()
 				.AddDateTimes()
 				.AddDatabaseSortOrders();

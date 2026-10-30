@@ -126,7 +126,7 @@ public static class ForgotPasswordTokenEquals
 	{
 		public bool Matches(AddForgotPasswordTokenCommandRequest request, ICollection<ForgotPasswordToken> forgotPasswordTokens)
 		{
-			return r.MatchesCollection(forgotPasswordTokens,
+			return r.MatchesCollectionAndNotEmpty(forgotPasswordTokens,
 											  r => new(new(r.ForgotPasswordToken.Id), r.ForgotPasswordToken.Value),
 											  f => f.Id,
 											  (r, entity) => r.Matches(request, entity));
@@ -145,7 +145,7 @@ public static class ForgotPasswordTokenEquals
 	{
 		public bool Matches(VerifyForgotPasswordTokenCommandRequest request, ICollection<ForgotPasswordToken> forgotPasswordTokens)
 		{
-			return r.MatchesCollection(forgotPasswordTokens,
+			return r.MatchesCollectionAndNotEmpty(forgotPasswordTokens,
 											  r => new(new(r.ForgotPasswordToken.Id), r.ForgotPasswordToken.Value),
 											  f => f.Id,
 											  (r, entity) => r.Matches(request, entity));

@@ -324,20 +324,20 @@ public static class UserMockAssertions
 			await eventPublisher.ShouldHaveReceivedOnePublishAsync(command.IsEmailConfirmationTokenAddedEventRequest(emailConfirmationToken), cancellationToken);
 		}
 
-		public async Task ShouldHaveReceivedOnePublishEmailConfirmationTokenDeletedAsync(
+		public async Task ShouldHaveReceivedOnePublishRangeEmailConfirmationTokenDeletedAsync(
 			UpdateUserCommand command,
 			ICollection<EmailConfirmationToken> emailConfirmationTokens,
 			CancellationToken cancellationToken)
 		{
-			await eventPublisher.ShouldHaveReceivedOnePublishAsync(command.IsEmailConfirmationTokenDeletedEventRequestCollection(emailConfirmationTokens), cancellationToken);
+			await eventPublisher.ShouldHaveReceivedOnePublishRangeAsync(command.IsEmailConfirmationTokenDeletedEventRequestCollection(emailConfirmationTokens), cancellationToken);
 		}
 
-		public async Task ShouldHaveReceivedZeroPublishEmailConfirmationTokenDeletedAsync(
+		public async Task ShouldHaveReceivedZeroPublishRangeEmailConfirmationTokenDeletedAsync(
 			UpdateUserCommand command,
 			ICollection<EmailConfirmationToken> emailConfirmationTokens,
 			CancellationToken cancellationToken)
 		{
-			await eventPublisher.ShouldHaveReceivedZeroPublishAsync(command.IsEmailConfirmationTokenDeletedEventRequestCollection(emailConfirmationTokens), cancellationToken);
+			await eventPublisher.ShouldHaveReceivedZeroPublishRangeAsync(command.IsEmailConfirmationTokenDeletedEventRequestCollection(emailConfirmationTokens), cancellationToken);
 		}
 	}
 

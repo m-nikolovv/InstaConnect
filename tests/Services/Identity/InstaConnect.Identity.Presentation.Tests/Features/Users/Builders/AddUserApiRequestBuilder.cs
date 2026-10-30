@@ -84,7 +84,7 @@ public class AddUserApiRequestBuilder
 
 	public AddUserApiRequestBuilder WithProfileImage(IFormFileTransformer transformer)
 	{
-		_profileImage = transformer.Transform(_profileImage!);
+		_profileImage = transformer.Transform(_profileImage);
 
 		return this;
 	}

@@ -4,7 +4,7 @@ namespace InstaConnect.Identity.Tests.Features.Users.DataAttributes.Password;
 public sealed class UserPasswordTooLongDataAttribute : TooLongStringDataAttribute
 {
 	public UserPasswordTooLongDataAttribute()
-		: base(UserConfigurations.NameMaxLength)
+		: base(UserConfigurations.PasswordMaxLength)
 	{
 	}
 }

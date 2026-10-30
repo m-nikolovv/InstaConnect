@@ -1,3 +1,4 @@
+using InstaConnect.Common.Tests.Features.DataAttributes.FormFiles.Base;
 using InstaConnect.Identity.Domain.Features.Users.Models.Requests;
 
 namespace InstaConnect.Identity.Presentation.Tests.Features.Users.Assertions;
@@ -273,6 +274,26 @@ public static class UserValidationProblemDetailsAssertions
 			problemDetails.ShouldSatisfyInvalidValidation(
 				request,
 				p => p.SortTerm,
+				messageTransformer);
+		}
+
+		public void ShouldSatisfyInvalidValidationForProfileImage(
+			AddUserApiRequest request,
+			IFormFileMessageTransformer messageTransformer)
+		{
+			problemDetails.ShouldSatisfyInvalidValidation(
+				request,
+				p => p.Form.ProfileImage,
+				messageTransformer);
+		}
+
+		public void ShouldSatisfyInvalidValidationForProfileImage(
+			UpdateCurrentUserApiRequest request,
+			IFormFileMessageTransformer messageTransformer)
+		{
+			problemDetails.ShouldSatisfyInvalidValidation(
+				request,
+				p => p.Form.ProfileImage,
 				messageTransformer);
 		}
 	}

@@ -50,4 +50,25 @@ public static class CommonValidationErrorMessages
 
 		return Format.FormatCurrentCulture(propertyName);
 	}
+
+	public static string GetMaxCount(string propertyName, int count, int maxCount)
+	{
+		const string Format = "{0} count is {1} and it must be at most {2}";
+
+		return Format.FormatCurrentCulture(propertyName, count, maxCount);
+	}
+
+	public static string GetMaxFileSize(string propertyName, long size, int maxSize)
+	{
+		const string Format = "{0} size is {1} and it must be at most {2} bytes";
+
+		return Format.FormatCurrentCulture(propertyName, size, maxSize);
+	}
+
+	public static string GetInvalidContentType(string propertyName, ICollection<string> contentTypes)
+	{
+		const string Format = "{0} content type must be one of {1}";
+
+		return Format.FormatCurrentCulture(propertyName, contentTypes.JoinWithComma());
+	}
 }

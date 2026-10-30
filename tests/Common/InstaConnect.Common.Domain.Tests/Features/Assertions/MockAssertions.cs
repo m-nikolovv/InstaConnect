@@ -41,20 +41,20 @@ public static class MockAssertions
 			await eventPublisher.ShouldHaveReceivedOne().PublishAsync(message, cancellationToken);
 		}
 
-		public async Task ShouldHaveReceivedOnePublishAsync<TEvent>(
+		public async Task ShouldHaveReceivedOnePublishRangeAsync<TEvent>(
 			ICollection<TEvent> messages,
 			CancellationToken cancellationToken)
 			where TEvent : class, IEventRequest
 		{
-			await eventPublisher.ShouldHaveReceivedOne().PublishAsync(messages, cancellationToken);
+			await eventPublisher.ShouldHaveReceivedOne().PublishRangeAsync(messages, cancellationToken);
 		}
 
-		public async Task ShouldHaveReceivedZeroPublishAsync<TEvent>(
+		public async Task ShouldHaveReceivedZeroPublishRangeAsync<TEvent>(
 			ICollection<TEvent> messages,
 			CancellationToken cancellationToken)
 			where TEvent : class, IEventRequest
 		{
-			await eventPublisher.ShouldHaveReceivedZero().PublishAsync(messages, cancellationToken);
+			await eventPublisher.ShouldHaveReceivedZero().PublishRangeAsync(messages, cancellationToken);
 		}
 	}
 

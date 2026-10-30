@@ -24,6 +24,6 @@ The build treats warnings as errors and enforces code style, so a clean build is
 
 - **Architecture:** each service is split into `Domain`, `Application`, `Infrastructure`, `Presentation` and `Events` projects. Dependencies point inwards (Presentation → Infrastructure → Application → Domain → Events), and each layer may also reference its `Common` counterpart.
 - **Feature folders:** code is grouped by feature (`Features/<Feature>/...`), not by technical type.
-- **Cross-service communication:** services never reference each other's internals. Only `<Service>.Events` projects may be shared, and communication goes through RabbitMQ.
+- **Cross-service communication:** services never reference each other's internals. Only `<Service>.Events` projects may be shared, and communication goes through Kafka.
 - **Packages:** versions are managed centrally in [Directory.Packages.props](../Directory.Packages.props). Don't add `Version` attributes to `PackageReference` items.
 - **Tests:** add tests to the matching `*.Tests.Unit`, `*.Tests.Integration` or `*.Tests.Functional` project for the layer you change.

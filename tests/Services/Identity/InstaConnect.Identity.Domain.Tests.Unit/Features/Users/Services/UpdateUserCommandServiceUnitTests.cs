@@ -648,18 +648,18 @@ public class UpdateUserCommandServiceUnitTests : BaseUserDomainCommandUnitTest
 	}
 
 	[Fact]
-	public async Task UpdateAsync_ShouldCallTheEventPublisherPublishAsyncForEmailConfirmationTokenDeleted_WhenCommandIsValid()
+	public async Task UpdateAsync_ShouldCallTheEventPublisherPublishRangeAsyncForEmailConfirmationTokenDeleted_WhenCommandIsValid()
 	{
 		// Act
 		await _service.UpdateAsync(_command, CancellationToken);
 
 		// Assert
-		await EventPublisher.ShouldHaveReceivedOnePublishEmailConfirmationTokenDeletedAsync(_command, User.EmailConfirmationTokens, CancellationToken);
+		await EventPublisher.ShouldHaveReceivedOnePublishRangeEmailConfirmationTokenDeletedAsync(_command, User.EmailConfirmationTokens, CancellationToken);
 	}
 
 	[Theory]
 	[UserNameDifferentCaseData]
-	public async Task UpdateAsync_ShouldCallTheEventPublisherPublishAsyncForEmailConfirmationTokenDeleted_WhenCommandAndNameAreValid(
+	public async Task UpdateAsync_ShouldCallTheEventPublisherPublishRangeAsyncForEmailConfirmationTokenDeleted_WhenCommandAndNameAreValid(
 		IStringTransformer transformer)
 	{
 		// Arrange
@@ -670,11 +670,11 @@ public class UpdateUserCommandServiceUnitTests : BaseUserDomainCommandUnitTest
 		await _service.UpdateAsync(command, CancellationToken);
 
 		// Assert
-		await EventPublisher.ShouldHaveReceivedOnePublishEmailConfirmationTokenDeletedAsync(command, User.EmailConfirmationTokens, CancellationToken);
+		await EventPublisher.ShouldHaveReceivedOnePublishRangeEmailConfirmationTokenDeletedAsync(command, User.EmailConfirmationTokens, CancellationToken);
 	}
 
 	[Fact]
-	public async Task UpdateAsync_ShouldCallTheEventPublisherPublishAsyncForEmailConfirmationTokenDeleted_WhenNameHasNotChanged()
+	public async Task UpdateAsync_ShouldCallTheEventPublisherPublishRangeAsyncForEmailConfirmationTokenDeleted_WhenNameHasNotChanged()
 	{
 		// Arrange
 		var command = _commandBuilder.WithName(User.Name).Build();
@@ -683,12 +683,12 @@ public class UpdateUserCommandServiceUnitTests : BaseUserDomainCommandUnitTest
 		await _service.UpdateAsync(command, CancellationToken);
 
 		// Assert
-		await EventPublisher.ShouldHaveReceivedOnePublishEmailConfirmationTokenDeletedAsync(command, User.EmailConfirmationTokens, CancellationToken);
+		await EventPublisher.ShouldHaveReceivedOnePublishRangeEmailConfirmationTokenDeletedAsync(command, User.EmailConfirmationTokens, CancellationToken);
 	}
 
 	[Theory]
 	[UserNameDifferentCaseData]
-	public async Task UpdateAsync_ShouldCallTheEventPublisherPublishAsyncForEmailConfirmationTokenDeleted_WhenNameIsValidAndHasNotChanged(
+	public async Task UpdateAsync_ShouldCallTheEventPublisherPublishRangeAsyncForEmailConfirmationTokenDeleted_WhenNameIsValidAndHasNotChanged(
 		IStringTransformer transformer)
 	{
 		// Arrange
@@ -699,12 +699,12 @@ public class UpdateUserCommandServiceUnitTests : BaseUserDomainCommandUnitTest
 		await _service.UpdateAsync(command, CancellationToken);
 
 		// Assert
-		await EventPublisher.ShouldHaveReceivedOnePublishEmailConfirmationTokenDeletedAsync(command, User.EmailConfirmationTokens, CancellationToken);
+		await EventPublisher.ShouldHaveReceivedOnePublishRangeEmailConfirmationTokenDeletedAsync(command, User.EmailConfirmationTokens, CancellationToken);
 	}
 
 	[Theory]
 	[UserEmailDifferentCaseData]
-	public async Task UpdateAsync_ShouldCallTheEventPublisherPublishAsyncForEmailConfirmationTokenDeleted_WhenCommandAndEmailAreValid(
+	public async Task UpdateAsync_ShouldCallTheEventPublisherPublishRangeAsyncForEmailConfirmationTokenDeleted_WhenCommandAndEmailAreValid(
 		IStringTransformer transformer)
 	{
 		// Arrange
@@ -715,11 +715,11 @@ public class UpdateUserCommandServiceUnitTests : BaseUserDomainCommandUnitTest
 		await _service.UpdateAsync(command, CancellationToken);
 
 		// Assert
-		await EventPublisher.ShouldHaveReceivedOnePublishEmailConfirmationTokenDeletedAsync(command, User.EmailConfirmationTokens, CancellationToken);
+		await EventPublisher.ShouldHaveReceivedOnePublishRangeEmailConfirmationTokenDeletedAsync(command, User.EmailConfirmationTokens, CancellationToken);
 	}
 
 	[Fact]
-	public async Task UpdateAsync_ShouldNotCallTheEventPublisherPublishAsyncForEmailConfirmationTokenDeleted_WhenEmailHasNotChanged()
+	public async Task UpdateAsync_ShouldNotCallTheEventPublisherPublishRangeAsyncForEmailConfirmationTokenDeleted_WhenEmailHasNotChanged()
 	{
 		// Arrange
 		var command = _commandBuilder.WithEmail(User.Email).Build();
@@ -728,12 +728,12 @@ public class UpdateUserCommandServiceUnitTests : BaseUserDomainCommandUnitTest
 		await _service.UpdateAsync(command, CancellationToken);
 
 		// Assert
-		await EventPublisher.ShouldHaveReceivedZeroPublishEmailConfirmationTokenDeletedAsync(command, User.EmailConfirmationTokens, CancellationToken);
+		await EventPublisher.ShouldHaveReceivedZeroPublishRangeEmailConfirmationTokenDeletedAsync(command, User.EmailConfirmationTokens, CancellationToken);
 	}
 
 	[Theory]
 	[UserEmailDifferentCaseData]
-	public async Task UpdateAsync_ShouldNotCallTheEventPublisherPublishAsyncForEmailConfirmationTokenDeleted_WhenEmailIsValidAndHasNotChanged(
+	public async Task UpdateAsync_ShouldNotCallTheEventPublisherPublishRangeAsyncForEmailConfirmationTokenDeleted_WhenEmailIsValidAndHasNotChanged(
 		IStringTransformer transformer)
 	{
 		// Arrange
@@ -744,12 +744,12 @@ public class UpdateUserCommandServiceUnitTests : BaseUserDomainCommandUnitTest
 		await _service.UpdateAsync(command, CancellationToken);
 
 		// Assert
-		await EventPublisher.ShouldHaveReceivedZeroPublishEmailConfirmationTokenDeletedAsync(command, User.EmailConfirmationTokens, CancellationToken);
+		await EventPublisher.ShouldHaveReceivedZeroPublishRangeEmailConfirmationTokenDeletedAsync(command, User.EmailConfirmationTokens, CancellationToken);
 	}
 
 	[Theory]
 	[UserProfileImageNullData]
-	public async Task UpdateAsync_ShouldCallTheEventPublisherPublishAsyncForEmailConfirmationTokenDeleted_WhenCommandAndProfileImageAreValid(
+	public async Task UpdateAsync_ShouldCallTheEventPublisherPublishRangeAsyncForEmailConfirmationTokenDeleted_WhenCommandAndProfileImageAreValid(
 		IFormFileTransformer transformer)
 	{
 		// Arrange
@@ -759,7 +759,7 @@ public class UpdateUserCommandServiceUnitTests : BaseUserDomainCommandUnitTest
 		await _service.UpdateAsync(command, CancellationToken);
 
 		// Assert
-		await EventPublisher.ShouldHaveReceivedOnePublishEmailConfirmationTokenDeletedAsync(command, User.EmailConfirmationTokens, CancellationToken);
+		await EventPublisher.ShouldHaveReceivedOnePublishRangeEmailConfirmationTokenDeletedAsync(command, User.EmailConfirmationTokens, CancellationToken);
 	}
 
 	[Fact]

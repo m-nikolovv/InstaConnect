@@ -131,7 +131,7 @@ public static class UserClaimEquals
 		{
 			return response.MatchesCollectionResponse(query.Pagination, userClaims.Count(userClaim => userClaim.MatchesFilter(query.Filter))) &&
 				   response.User.MatchesFull(user) &&
-				   response.UserClaims.MatchesCollection(query.Pagination,
+				   response.UserClaims.MatchesCollectionAndNotEmpty(query.Pagination,
 														 userClaims,
 														 response => response.Id,
 														 userClaim => userClaim.Id,

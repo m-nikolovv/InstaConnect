@@ -16,7 +16,7 @@ public class AddChatMessageCommandServiceUnitTests : BaseChatMessageDomainComman
 	public AddChatMessageCommandServiceUnitTests()
 	{
 		_commandBuilderFactory = new();
-		_commandBuilder = _commandBuilderFactory.Create(Chat, ChatMessage.ChatMessageImages.Count);
+		_commandBuilder = _commandBuilderFactory.Create(Chat);
 		_command = _commandBuilder.Build();
 
 		_include = IncludeBuilderFactory.Create().WithParticipantOne().WithParticipantTwo().Build();
