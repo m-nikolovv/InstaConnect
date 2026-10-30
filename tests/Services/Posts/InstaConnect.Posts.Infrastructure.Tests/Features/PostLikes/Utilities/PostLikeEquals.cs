@@ -90,7 +90,7 @@ public static class PostLikeEquals
 			Post post,
 			ICollection<PostLike> postLikes)
 		{
-			return response.MatchesCollection(paginationQuery,
+			return response.MatchesCollectionAndNotEmpty(paginationQuery,
 											  postLikes,
 											  response => response.Id,
 											  postLike => postLike.Id,
@@ -120,7 +120,7 @@ public static class PostLikeEquals
 			User user,
 			ICollection<PostLike> postLikes)
 		{
-			return response.MatchesCollection(paginationQuery,
+			return response.MatchesCollectionAndNotEmpty(paginationQuery,
 											  postLikes,
 											  response => response.Id,
 											  postLike => postLike.Id,

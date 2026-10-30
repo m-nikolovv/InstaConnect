@@ -115,6 +115,22 @@ public class UpdateCurrentUserCommandRequestValidatorUnitTests : BaseUserApplica
 		response.ShouldHaveValidationErrorForEmail(request, messageTransformer);
 	}
 
+	[Theory]
+	[UserProfileImageTooLargeWithMessageData]
+	[UserProfileImageInvalidContentTypeWithMessageData]
+	public void TestValidate_ShouldHaveAnError_WhenProfileImageIsInvalid(
+		IFormFileTransformer transformer, IFormFileMessageTransformer messageTransformer)
+	{
+		// Arrange
+		var request = _requestBuilder.WithProfileImage(transformer).Build();
+
+		// Act
+		var response = _requestValidator.TestValidate(request);
+
+		// Assert
+		response.ShouldHaveValidationErrorForProfileImage(request, messageTransformer);
+	}
+
 	[Fact]
 	public void TestValidate_ShouldNotHaveAnyValidationErrors_WhenRequestIsValid()
 	{
@@ -127,6 +143,12 @@ public class UpdateCurrentUserCommandRequestValidatorUnitTests : BaseUserApplica
 
 	[Theory]
 	[UserProfileImageNullData]
+	[UserProfileImageJpegData]
+	[UserProfileImagePngData]
+	[UserProfileImageWebpData]
+	[UserProfileImageJpegDifferentCaseData]
+	[UserProfileImagePngDifferentCaseData]
+	[UserProfileImageWebpDifferentCaseData]
 	public void TestValidate_ShouldNotHaveAnyValidationErrors_WhenRequestAndProfileImageAreValid(
 		IFormFileTransformer transformer)
 	{

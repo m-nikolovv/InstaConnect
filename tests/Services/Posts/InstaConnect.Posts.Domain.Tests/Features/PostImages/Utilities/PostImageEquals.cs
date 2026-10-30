@@ -21,7 +21,7 @@ public static class PostImageEquals
 	{
 		public bool MatchesFull(ICollection<PostImage> postImages)
 		{
-			return response.MatchesCollection(
+			return response.MatchesCollectionAndNotEmpty(
 				postImages,
 				r => r.Id,
 				p => p.Id,

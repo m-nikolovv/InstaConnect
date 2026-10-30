@@ -1,6 +1,7 @@
 using System.Reflection;
 
 using InstaConnect.Common.Events.Features.Events.Abstractions;
+using InstaConnect.Common.Infrastructure.Features.Events.Abstractions;
 using InstaConnect.Common.Infrastructure.Features.Events.Helpers;
 using InstaConnect.Common.Infrastructure.Features.Events.Models;
 
@@ -12,36 +13,21 @@ public static class ServiceCollectionExtensions
 {
 	extension(IServiceCollection serviceCollection)
 	{
-		public IServiceCollection AddEvents(IConfiguration configuration, string prefix, params Assembly[] currentAssemblies)
+		public IServiceCollection AddEvents(
+			IConfiguration configuration,
+			Action<IRiderRegistrationConfigurator>? mapEventProducers,
+			Action<IRiderRegistrationContext, IKafkaFactoryConfigurator, IDictionary<string, KafkaConsumerOptions>>? mapEventHandlers,
+			params Assembly[] assemblies)
 		{
-			serviceCollection.AddValidatedOptions<RabbitMqOptions>(RabbitMqOptions.SectionName);
-			var options = configuration.GetOptions<RabbitMqOptions>(RabbitMqOptions.SectionName);
+			serviceCollection.AddValidatedOptions<KafkaOptions>(KafkaOptions.SectionName);
+			var options = configuration.GetOptions<KafkaOptions>(KafkaOptions.SectionName);
 
 			serviceCollection.AddMassTransit(busConfigurator =>
-			{
-				busConfigurator.SetKebabCaseEndpointNameFormatterWithPrefix(prefix);
+				busConfigurator.AddKafka(options, mapEventProducers, mapEventHandlers, assemblies));
 
-				busConfigurator.AddConsumers(currentAssemblies);
-
-				busConfigurator.AddMongoDbOutbox(o =>
-				{
-					o.ClientFactory(provider => provider.GetRequiredService<IMongoClient>());
-					o.DatabaseFactory(provider => provider.GetRequiredService<IMongoDatabase>());
-
-					o.UseBusOutbox();
-				});
-
-				busConfigurator.AddConfigureEndpointsCallback((context, name, cfg) => cfg.UseMongoDbOutbox(context));
-
-				busConfigurator.UsingRabbitMq((context, configurator) =>
-				{
-					configurator.Host(options.ConnectionString);
-
-					configurator.ConfigureEndpoints(context);
-				});
-			});
-
-			serviceCollection.AddScoped<IEventPublisher, EventPublisher>();
+			serviceCollection
+				.AddScoped<IEventKeySelectorProvider, EventKeySelectorProvider>()
+				.AddScoped<IEventPublisher, EventPublisher>();
 
 			return serviceCollection;
 		}

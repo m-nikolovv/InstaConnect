@@ -34,11 +34,19 @@ public static class WebHostBuilderExtensions
 				connectionString);
 		}
 
-		public void UpdateRabbitMqConfiguration(string connectionString)
+		public void UpdateKafkaConfiguration(string connectionString)
 		{
 			webHostBuilder.UseSetting(
-				RabbitMqOptions.SectionName.ToSectionKey(nameof(RabbitMqOptions.ConnectionString)),
+				KafkaOptions.SectionName.ToSectionKey(nameof(KafkaOptions.ConnectionString)),
 				connectionString);
+
+			webHostBuilder.UseSetting(
+				KafkaOptions.SectionName.ToSectionKey(nameof(KafkaOptions.Username)),
+				MockValues.KafkaUsername);
+
+			webHostBuilder.UseSetting(
+				KafkaOptions.SectionName.ToSectionKey(nameof(KafkaOptions.Password)),
+				MockValues.KafkaPassword);
 		}
 
 		public void UpdateCloudinaryConfiguration()

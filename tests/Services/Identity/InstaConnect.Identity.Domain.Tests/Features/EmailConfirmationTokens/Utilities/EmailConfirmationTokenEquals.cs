@@ -126,7 +126,7 @@ public static class EmailConfirmationTokenEquals
 	{
 		public bool Matches(AddEmailConfirmationTokenCommand command, ICollection<EmailConfirmationToken> emailConfirmationTokens)
 		{
-			return requests.MatchesCollection(emailConfirmationTokens,
+			return requests.MatchesCollectionAndNotEmpty(emailConfirmationTokens,
 											  r => new(new(r.EmailConfirmationToken.Id), r.EmailConfirmationToken.Value),
 											  f => f.Id,
 											  (request, entity) => request.Matches(command, entity));
@@ -145,7 +145,7 @@ public static class EmailConfirmationTokenEquals
 	{
 		public bool Matches(VerifyEmailConfirmationTokenCommand command, ICollection<EmailConfirmationToken> emailConfirmationTokens)
 		{
-			return requests.MatchesCollection(emailConfirmationTokens,
+			return requests.MatchesCollectionAndNotEmpty(emailConfirmationTokens,
 											  r => new(new(r.EmailConfirmationToken.Id), r.EmailConfirmationToken.Value),
 											  f => f.Id,
 											  (request, entity) => request.Matches(command, entity));

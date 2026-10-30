@@ -216,17 +216,16 @@ public static class ChatMessageEquals
 	{
 		public bool Matches(AddChatMessageCommandRequest request, ICollection<ChatMessageImage> entities)
 		{
-			return request.Images.IsEmpty() ||
-				   r.MatchesCollection(
-					   entities,
-					   response => new(new(new(new(response.ParticipantOneId), new(response.ParticipantTwoId)), response.MessageId), response.ImageId),
-					   chatMessageImage => chatMessageImage.Id,
-					   (r, chatMessageImage) => r.Matches(request, chatMessageImage));
+			return r.MatchesCollectionAndEmpty(
+				entities,
+				response => new(new(new(new(response.ParticipantOneId), new(response.ParticipantTwoId)), response.MessageId), response.ImageId),
+				chatMessageImage => chatMessageImage.Id,
+				(r, chatMessageImage) => r.Matches(request, chatMessageImage));
 		}
 
 		public bool Matches(UpdateChatMessageCommandRequest request, ICollection<ChatMessageImage> entities)
 		{
-			return r.MatchesCollection(
+			return r.MatchesCollectionAndNotEmpty(
 				entities,
 				response => new(new(new(new(response.ParticipantOneId), new(response.ParticipantTwoId)), response.MessageId), response.ImageId),
 				chatMessageImage => chatMessageImage.Id,
@@ -235,7 +234,7 @@ public static class ChatMessageEquals
 
 		public bool Matches(DeleteChatMessageCommandRequest request, ICollection<ChatMessageImage> entities)
 		{
-			return r.MatchesCollection(
+			return r.MatchesCollectionAndNotEmpty(
 				entities,
 				response => new(new(new(new(response.ParticipantOneId), new(response.ParticipantTwoId)), response.MessageId), response.ImageId),
 				chatMessageImage => chatMessageImage.Id,
@@ -244,17 +243,16 @@ public static class ChatMessageEquals
 
 		public bool MatchesInverted(AddChatMessageCommandRequest request, ICollection<ChatMessageImage> entities)
 		{
-			return request.Images.IsEmpty() ||
-				   r.MatchesCollection(
-					   entities,
-					   response => new(new(new(new(response.ParticipantOneId), new(response.ParticipantTwoId)), response.MessageId), response.ImageId),
-					   chatMessageImage => chatMessageImage.Id,
-					   (r, chatMessageImage) => r.MatchesInverted(request, chatMessageImage));
+			return r.MatchesCollectionAndEmpty(
+				entities,
+				response => new(new(new(new(response.ParticipantOneId), new(response.ParticipantTwoId)), response.MessageId), response.ImageId),
+				chatMessageImage => chatMessageImage.Id,
+				(r, chatMessageImage) => r.MatchesInverted(request, chatMessageImage));
 		}
 
 		public bool MatchesInverted(UpdateChatMessageCommandRequest request, ICollection<ChatMessageImage> entities)
 		{
-			return r.MatchesCollection(
+			return r.MatchesCollectionAndNotEmpty(
 				entities,
 				response => new(new(new(new(response.ParticipantOneId), new(response.ParticipantTwoId)), response.MessageId), response.ImageId),
 				chatMessageImage => chatMessageImage.Id,
@@ -263,7 +261,7 @@ public static class ChatMessageEquals
 
 		public bool MatchesInverted(DeleteChatMessageCommandRequest request, ICollection<ChatMessageImage> entities)
 		{
-			return r.MatchesCollection(
+			return r.MatchesCollectionAndNotEmpty(
 				entities,
 				response => new(new(new(new(response.ParticipantOneId), new(response.ParticipantTwoId)), response.MessageId), response.ImageId),
 				chatMessageImage => chatMessageImage.Id,
@@ -679,7 +677,7 @@ public static class ChatMessageEquals
 			return chatMessageImage.Id.Id.Id.Matches(request.ParticipantOneId, request.ParticipantTwoId) &&
 				   chatMessageImage.Id.Id.MessageId.IsNotNullOrEmptyOrWhiteSpace() &&
 				   chatMessageImage.Id.ImageId.IsNotNullOrEmptyOrWhiteSpace() &&
-				   chatMessageImage.Url.Value.IsNotNullOrEmptyOrWhiteSpace() &&
+				   request.Images.ContainsUrl(chatMessageImage.Url) &&
 				   chatMessageImage.CreatedAtUtc != default;
 		}
 
@@ -688,7 +686,7 @@ public static class ChatMessageEquals
 			return chatMessageImage.Id.Id.Id.Matches(request.ParticipantTwoId, request.ParticipantOneId) &&
 				   chatMessageImage.Id.Id.MessageId.IsNotNullOrEmptyOrWhiteSpace() &&
 				   chatMessageImage.Id.ImageId.IsNotNullOrEmptyOrWhiteSpace() &&
-				   chatMessageImage.Url.Value.IsNotNullOrEmptyOrWhiteSpace() &&
+				   request.Images.ContainsUrl(chatMessageImage.Url) &&
 				   chatMessageImage.CreatedAtUtc != default;
 		}
 	}
@@ -697,12 +695,12 @@ public static class ChatMessageEquals
 	{
 		public bool Matches(AddChatMessageCommandRequest request)
 		{
-			return chatMessageImages.AllAndNotEmpty(chatMessageImage => chatMessageImage.Matches(request));
+			return chatMessageImages.AllAndEmpty(request.Images, chatMessageImage => chatMessageImage.Matches(request));
 		}
 
 		public bool MatchesInverted(AddChatMessageCommandRequest request)
 		{
-			return chatMessageImages.AllAndNotEmpty(chatMessageImage => chatMessageImage.MatchesInverted(request));
+			return chatMessageImages.AllAndEmpty(request.Images, chatMessageImage => chatMessageImage.MatchesInverted(request));
 		}
 	}
 
@@ -821,7 +819,7 @@ public static class ChatMessageEquals
 			return response.MatchesCollectionResponse(request, chatMessages.Count(matchesFilter)) &&
 				   response.Sender == null &&
 				   response.Chat.MatchesFull(request, chat) &&
-				   response.ChatMessages.MatchesCollection(
+				   response.ChatMessages.MatchesCollectionAndNotEmpty(
 					   request,
 					   chatMessages,
 					   response => new(new(new(response.ParticipantOneId), new(response.ParticipantTwoId)), response.MessageId),
@@ -852,7 +850,7 @@ public static class ChatMessageEquals
 			return response.MatchesCollectionResponse(request, chatMessages.Count(matchesFilter)) &&
 				   response.Sender.MatchesFull(user) &&
 				   response.Chat == null &&
-				   response.ChatMessages.MatchesCollection(
+				   response.ChatMessages.MatchesCollectionAndNotEmpty(
 					   request,
 					   chatMessages,
 					   response => new(new(new(response.ParticipantOneId), new(response.ParticipantTwoId)), response.MessageId),
@@ -882,7 +880,7 @@ public static class ChatMessageEquals
 			return response.MatchesCollectionResponse(request, chatMessages.Count(matchesFilter)) &&
 				   response.Sender == null &&
 				   response.Chat.MatchesFullInverted(request, chat) &&
-				   response.ChatMessages.MatchesCollection(
+				   response.ChatMessages.MatchesCollectionAndNotEmpty(
 					   request,
 					   chatMessages,
 					   response => new(new(new(response.ParticipantTwoId), new(response.ParticipantOneId)), response.MessageId),
@@ -913,7 +911,7 @@ public static class ChatMessageEquals
 			return response.MatchesCollectionResponse(request, chatMessages.Count(matchesFilter)) &&
 				   response.Sender.MatchesFull(user) &&
 				   response.Chat == null &&
-				   response.ChatMessages.MatchesCollection(
+				   response.ChatMessages.MatchesCollectionAndNotEmpty(
 					   request,
 					   chatMessages,
 					   response => new(new(new(response.ParticipantTwoId), new(response.ParticipantOneId)), response.MessageId),

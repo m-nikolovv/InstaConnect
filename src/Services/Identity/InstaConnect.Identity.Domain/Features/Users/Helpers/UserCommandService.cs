@@ -119,7 +119,7 @@ internal class UserCommandService : IUserCommandService
 
 			await _emailConfirmationTokenRepository.DeleteRangeAsync(user.EmailConfirmationTokens, cancellationToken);
 
-			await _eventPublisher.PublishAsync(
+			await _eventPublisher.PublishRangeAsync(
 				_mapper.Map<ICollection<EmailConfirmationTokenDeletedEventRequest>>(user), cancellationToken);
 		}
 

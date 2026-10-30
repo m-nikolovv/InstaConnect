@@ -5,4 +5,8 @@ namespace InstaConnect.Identity.Tests.Features.Users.DataAttributes.ConfirmPassw
 [AttributeUsage(AttributeTargets.Method, AllowMultiple = true, Inherited = true)]
 public sealed class UserConfirmPasswordNotEqualDataAttribute : NotEqualStringDataAttribute
 {
+	public UserConfirmPasswordNotEqualDataAttribute()
+		: base(UserConfigurations.PasswordMaxLength, UserConfigurations.PasswordMinLength)
+	{
+	}
 }

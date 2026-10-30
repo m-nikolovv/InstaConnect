@@ -14,7 +14,7 @@ public class AddPostCommandServiceIntegrationTests : BasePostDomainCommandIntegr
 		: base(webApplicationFactory)
 	{
 		_commandBuilderFactory = new();
-		_commandBuilder = _commandBuilderFactory.Create(User, Post.PostImages.Count);
+		_commandBuilder = _commandBuilderFactory.Create(User);
 		_command = _commandBuilder.Build();
 	}
 
@@ -203,6 +203,6 @@ public class AddPostCommandServiceIntegrationTests : BasePostDomainCommandIntegr
 		var post = await ServiceScope.GetByIdAsync(response, CancellationToken);
 
 		// Assert
-		post.PostImages.ShouldBeEmpty();
+		post.PostImages.ShouldSatisfy(command);
 	}
 }

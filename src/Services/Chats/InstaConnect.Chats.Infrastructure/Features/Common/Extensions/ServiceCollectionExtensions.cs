@@ -11,6 +11,8 @@ using InstaConnect.Common.Infrastructure.Features.Events.Extensions;
 using InstaConnect.Common.Infrastructure.Features.Guids.Extensions;
 using InstaConnect.Common.Infrastructure.Features.Hubs.Extensions;
 using InstaConnect.Common.Infrastructure.Features.Images.Extensions;
+using InstaConnect.Common.Infrastructure.Features.Jsons.Extensions;
+using InstaConnect.Common.Infrastructure.Features.OutboxEvents.Extensions;
 using InstaConnect.Common.Infrastructure.Features.Summarizers.Extensions;
 using InstaConnect.Common.Infrastructure.Features.Telemetries.Extensions;
 
@@ -39,12 +41,14 @@ public static class ServiceCollectionExtensions
 				.AddValidations(ChatsInfrastructureReference.Assembly, CommonInfrastructureReference.Assembly)
 				.AddServicesWithMatchingInterfacesExceptFluents(ChatsInfrastructureReference.Assembly)
 				.AddDatabases(configuration)
-				.AddEvents(configuration, ChatsEventHandlerUtilities.Prefix, ChatsInfrastructureReference.Assembly)
+				.AddEvents(configuration, riderConfigurator => riderConfigurator.MapChatEventProducer(), (context, kafkaConfigurator, consumerOptions) => kafkaConfigurator.MapUserEventHandler(context, ChatsEventHandlerUtilities.Prefix, consumerOptions), ChatsInfrastructureReference.Assembly)
+				.AddOutboxEvents()
 				.AddAccessTokens(configuration)
 				.AddCaches(configuration)
 				.AddHubs(configuration)
 				.AddImages(configuration)
 				.AddSummarizers(configuration)
+				.AddJsons()
 				.AddGuids()
 				.AddDateTimes()
 				.AddDatabaseSortOrders();

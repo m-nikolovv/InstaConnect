@@ -98,7 +98,7 @@ public static class UserEquals
 			ICollection<User> users)
 		{
 			return response.MatchesCollectionResponse(query.Pagination, users.Count(user => user.MatchesFilter(query.Filter))) &&
-				   response.Users.MatchesCollection(query.Pagination,
+				   response.Users.MatchesCollectionAndNotEmpty(query.Pagination,
 													users,
 													response => response.Id,
 													user => user.Id,
@@ -253,7 +253,7 @@ public static class UserEquals
 	{
 		public bool Matches(AddUserCommand command, ICollection<EmailConfirmationToken> entities)
 		{
-			return r.MatchesCollection(entities,
+			return r.MatchesCollectionAndNotEmpty(entities,
 											  e => new(new(e.EmailConfirmationToken.Id), e.EmailConfirmationToken.Value),
 											  e => e.Id,
 											  (emailConfirmationToken, e) => emailConfirmationToken.Matches(command, e));
@@ -272,7 +272,7 @@ public static class UserEquals
 	{
 		public bool Matches(UpdateUserCommand command, ICollection<EmailConfirmationToken> entities)
 		{
-			return r.MatchesCollection(entities,
+			return r.MatchesCollectionAndNotEmpty(entities,
 											  e => new(new(e.EmailConfirmationToken.Id), e.EmailConfirmationToken.Value),
 											  e => e.Id,
 											  (emailConfirmationToken, e) => emailConfirmationToken.Matches(command, e));

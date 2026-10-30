@@ -12,12 +12,12 @@ public class AddPostApiRequestBuilder
 	private string _content;
 	private ICollection<IFormFile> _images;
 
-	public AddPostApiRequestBuilder(User user, int numberOfImages)
+	public AddPostApiRequestBuilder(User user)
 	{
 		_userId = user.Id.Id;
 		_title = PostDataFaker.GetTitle();
 		_content = PostDataFaker.GetContent();
-		_images = PostImageDataFaker.GetImages(numberOfImages);
+		_images = PostImageDataFaker.GetImages();
 	}
 
 	public AddPostApiRequestBuilder WithUserId(UserId userId, IStringTransformer? transformer = null)

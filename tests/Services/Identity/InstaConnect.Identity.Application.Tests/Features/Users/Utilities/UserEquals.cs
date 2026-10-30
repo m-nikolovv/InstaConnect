@@ -343,7 +343,7 @@ public static class UserEquals
 		where TRequest : ICurrentUserableQueryRequest, IPaginatableQueryRequest
 		{
 			return response.MatchesCollectionResponse(request, users.Count(matchesFilter)) &&
-				   response.Users.MatchesCollection(request,
+				   response.Users.MatchesCollectionAndNotEmpty(request,
 													users,
 													response => new(response.Id),
 													user => user.Id,
@@ -422,7 +422,7 @@ public static class UserEquals
 	{
 		public bool Matches(AddUserCommandRequest request, ICollection<EmailConfirmationToken> entities)
 		{
-			return r.MatchesCollection(entities,
+			return r.MatchesCollectionAndNotEmpty(entities,
 											  e => new(new(e.EmailConfirmationToken.Id), e.EmailConfirmationToken.Value),
 											  e => e.Id,
 											  (emailConfirmationToken, e) => emailConfirmationToken.Matches(request, e));
@@ -441,7 +441,7 @@ public static class UserEquals
 	{
 		public bool Matches(UpdateCurrentUserCommandRequest request, ICollection<EmailConfirmationToken> entities)
 		{
-			return r.MatchesCollection(entities,
+			return r.MatchesCollectionAndNotEmpty(entities,
 											  e => new(new(e.EmailConfirmationToken.Id), e.EmailConfirmationToken.Value),
 											  e => e.Id,
 											  (emailConfirmationToken, e) => emailConfirmationToken.Matches(request, e));

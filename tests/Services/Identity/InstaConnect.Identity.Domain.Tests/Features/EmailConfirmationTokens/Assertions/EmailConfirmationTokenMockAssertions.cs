@@ -61,12 +61,12 @@ public static class EmailConfirmationTokenMockAssertions
 			await eventPublisher.ShouldHaveReceivedOnePublishAsync(command.IsEmailConfirmationTokenAddedEventRequest(emailConfirmationToken), cancellationToken);
 		}
 
-		public async Task ShouldHaveReceivedOnePublishAsync(
+		public async Task ShouldHaveReceivedOnePublishRangeAsync(
 			VerifyEmailConfirmationTokenCommand command,
 			ICollection<EmailConfirmationToken> emailConfirmationTokens,
 			CancellationToken cancellationToken)
 		{
-			await eventPublisher.ShouldHaveReceivedOnePublishAsync(command.IsEmailConfirmationTokenDeletedEventRequestCollection(emailConfirmationTokens), cancellationToken);
+			await eventPublisher.ShouldHaveReceivedOnePublishRangeAsync(command.IsEmailConfirmationTokenDeletedEventRequestCollection(emailConfirmationTokens), cancellationToken);
 		}
 	}
 

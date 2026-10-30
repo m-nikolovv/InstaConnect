@@ -1,5 +1,7 @@
 using InstaConnect.Identity.Domain.Features.Users.Utilities;
 
+using Microsoft.AspNetCore.Http;
+
 namespace InstaConnect.Identity.Application.Features.Users.Extensions;
 
 internal static class RuleBuilderExtensions
@@ -87,6 +89,19 @@ internal static class RuleBuilderExtensions
 		public IRuleBuilderOptions<T, int> UserPageSizeMaxValueWithMessage()
 		{
 			return ruleBuilder.MaxValueWithMessage(UserConfigurations.PageSizeMaxValue);
+		}
+	}
+
+	extension<T>(IRuleBuilder<T, IFormFile?> ruleBuilder)
+	{
+		public IRuleBuilderOptions<T, IFormFile?> UserProfileImageMaxSizeWithMessage()
+		{
+			return ruleBuilder.MaxFileSizeWithMessage(UserConfigurations.ProfileImageMaxSize);
+		}
+
+		public IRuleBuilderOptions<T, IFormFile?> UserProfileImageContentTypeWithMessage()
+		{
+			return ruleBuilder.ContentTypeWithMessage(UserConfigurations.ProfileImageContentTypes);
 		}
 	}
 }

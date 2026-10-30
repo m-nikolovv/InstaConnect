@@ -114,6 +114,20 @@ public class AddUserCommandHandlerIntegrationTests : BaseUserApplicationCommandI
 		await Sender.ShouldThrowInvalidValidationExceptionForConfirmPasswordAsync(request, messageTransformer, CancellationToken);
 	}
 
+	[Theory]
+	[UserProfileImageTooLargeWithMessageData]
+	[UserProfileImageInvalidContentTypeWithMessageData]
+	public async Task SendAsync_ShouldThrowValidationException_WhenProfileImageIsInvalid(
+		IFormFileTransformer transformer, IFormFileMessageTransformer messageTransformer)
+	{
+		// Arrange
+		var request = _requestBuilder.WithProfileImage(transformer).Build();
+
+		// Assert
+		await Sender.ShouldThrowInvalidValidationExceptionForProfileImageAsync(
+			request, messageTransformer, CancellationToken);
+	}
+
 	[Fact]
 	public async Task SendAsync_ShouldThrowUserEmailAlreadyTakenException_WhenUserEmailAlreadyTaken()
 	{
@@ -175,6 +189,12 @@ public class AddUserCommandHandlerIntegrationTests : BaseUserApplicationCommandI
 
 	[Theory]
 	[UserProfileImageNullData]
+	[UserProfileImageJpegData]
+	[UserProfileImagePngData]
+	[UserProfileImageWebpData]
+	[UserProfileImageJpegDifferentCaseData]
+	[UserProfileImagePngDifferentCaseData]
+	[UserProfileImageWebpDifferentCaseData]
 	public async Task SendAsync_ShouldReturnResponse_WhenRequestAndProfileImageAreValid(
 		IFormFileTransformer transformer)
 	{
@@ -202,6 +222,12 @@ public class AddUserCommandHandlerIntegrationTests : BaseUserApplicationCommandI
 
 	[Theory]
 	[UserProfileImageNullData]
+	[UserProfileImageJpegData]
+	[UserProfileImagePngData]
+	[UserProfileImageWebpData]
+	[UserProfileImageJpegDifferentCaseData]
+	[UserProfileImagePngDifferentCaseData]
+	[UserProfileImageWebpDifferentCaseData]
 	public async Task SendAsync_ShouldAddUser_WhenRequestAndProfileImageAreValid(
 		IFormFileTransformer transformer)
 	{
@@ -229,6 +255,12 @@ public class AddUserCommandHandlerIntegrationTests : BaseUserApplicationCommandI
 
 	[Theory]
 	[UserProfileImageNullData]
+	[UserProfileImageJpegData]
+	[UserProfileImagePngData]
+	[UserProfileImageWebpData]
+	[UserProfileImageJpegDifferentCaseData]
+	[UserProfileImagePngDifferentCaseData]
+	[UserProfileImageWebpDifferentCaseData]
 	public async Task SendAsync_ShouldAddEmailConfirmationToken_WhenRequestAndProfileImageAreValid(
 		IFormFileTransformer transformer)
 	{
@@ -257,6 +289,12 @@ public class AddUserCommandHandlerIntegrationTests : BaseUserApplicationCommandI
 
 	[Theory]
 	[UserProfileImageNullData]
+	[UserProfileImageJpegData]
+	[UserProfileImagePngData]
+	[UserProfileImageWebpData]
+	[UserProfileImageJpegDifferentCaseData]
+	[UserProfileImagePngDifferentCaseData]
+	[UserProfileImageWebpDifferentCaseData]
 	public async Task SendAsync_ShouldPublishUserAddedEvent_WhenRequestAndProfileImageAreValid(
 		IFormFileTransformer transformer)
 	{
@@ -286,6 +324,12 @@ public class AddUserCommandHandlerIntegrationTests : BaseUserApplicationCommandI
 
 	[Theory]
 	[UserProfileImageNullData]
+	[UserProfileImageJpegData]
+	[UserProfileImagePngData]
+	[UserProfileImageWebpData]
+	[UserProfileImageJpegDifferentCaseData]
+	[UserProfileImagePngDifferentCaseData]
+	[UserProfileImageWebpDifferentCaseData]
 	public async Task SendAsync_ShouldPublishEmailConfirmationTokenAddedEvent_WhenRequestAndProfileImageAreValid(
 		IFormFileTransformer transformer)
 	{

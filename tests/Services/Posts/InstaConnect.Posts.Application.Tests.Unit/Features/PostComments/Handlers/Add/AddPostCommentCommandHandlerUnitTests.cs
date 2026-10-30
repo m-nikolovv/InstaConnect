@@ -1,5 +1,4 @@
 using InstaConnect.Posts.Application.Features.PostComments.Commands.Add;
-using InstaConnect.Posts.Domain.Features.PostComments.Models.Entities;
 
 namespace InstaConnect.Posts.Application.Tests.Unit.Features.PostComments.Handlers.Add;
 
@@ -14,7 +13,7 @@ public class AddPostCommentCommandHandlerUnitTests : BasePostCommentApplicationC
 	public AddPostCommentCommandHandlerUnitTests()
 	{
 		_requestBuilderFactory = new();
-		_requestBuilder = _requestBuilderFactory.Create(Post, User, PostComment.PostCommentImages.Count);
+		_requestBuilder = _requestBuilderFactory.Create(Post, User);
 		_request = _requestBuilder.Build();
 
 		_handler = new(Mapper, CommentService);

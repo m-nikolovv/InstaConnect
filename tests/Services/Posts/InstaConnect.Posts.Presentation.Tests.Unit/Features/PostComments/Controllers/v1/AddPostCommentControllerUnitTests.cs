@@ -1,5 +1,3 @@
-using InstaConnect.Posts.Domain.Features.PostComments.Models.Entities;
-
 namespace InstaConnect.Posts.Presentation.Tests.Unit.Features.PostComments.Controllers.v1;
 
 public class AddPostCommentControllerUnitTests : BasePostCommentPresentationCommandUnitTest
@@ -13,7 +11,7 @@ public class AddPostCommentControllerUnitTests : BasePostCommentPresentationComm
 	public AddPostCommentControllerUnitTests()
 	{
 		_requestBuilderFactory = new();
-		_requestBuilder = _requestBuilderFactory.Create(Post, User, PostComment.PostCommentImages.Count);
+		_requestBuilder = _requestBuilderFactory.Create(Post, User);
 		_request = _requestBuilder.Build();
 
 		_controller = new(Mapper, Sender);

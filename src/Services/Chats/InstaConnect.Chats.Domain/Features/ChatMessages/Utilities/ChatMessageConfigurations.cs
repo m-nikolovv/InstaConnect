@@ -16,4 +16,6 @@ public static class ChatMessageConfigurations
 
 	public const int PageSizeMinValue = 1;
 	public const int PageSizeMaxValue = 100;
+
+	public const int ImagesMaxCount = 10;
 }

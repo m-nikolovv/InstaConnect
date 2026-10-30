@@ -1,3 +1,5 @@
+using InstaConnect.Common.Tests.Features.DataAttributes.FormFileCollections.Base;
+
 namespace InstaConnect.Posts.Application.Tests.Features.PostComments.Assertions;
 
 public static class PostCommentValidationAssertions
@@ -17,6 +19,11 @@ public static class PostCommentValidationAssertions
 		public void ShouldHaveValidationErrorForUserId(AddPostCommentCommandRequest request, IStringMessageTransformer messageTransformer)
 		{
 			response.ShouldHaveValidationErrorForProperty(request, p => p.UserId, messageTransformer);
+		}
+
+		public void ShouldHaveValidationErrorForImages(AddPostCommentCommandRequest request, IFormFileCollectionMessageTransformer messageTransformer)
+		{
+			response.ShouldHaveValidationErrorForProperty(request, p => p.Images, messageTransformer);
 		}
 	}
 

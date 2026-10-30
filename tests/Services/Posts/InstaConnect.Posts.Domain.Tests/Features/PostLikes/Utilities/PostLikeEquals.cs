@@ -202,7 +202,7 @@ public static class PostLikeEquals
 			return response.MatchesCollectionResponse(request.Pagination, postLikes.Count(matchesFilter)) &&
 				   response.User == null &&
 				   response.Post.MatchesFull(request, post) &&
-				   response.PostLikes.MatchesCollection(
+				   response.PostLikes.MatchesCollectionAndNotEmpty(
 													request.Pagination,
 													postLikes,
 													response => response.Id,
@@ -242,7 +242,7 @@ public static class PostLikeEquals
 			return response.MatchesCollectionResponse(request.Pagination, postLikes.Count(matchesFilter)) &&
 				   response.User.MatchesFull(user) &&
 				   response.Post == null &&
-				   response.PostLikes.MatchesCollection(
+				   response.PostLikes.MatchesCollectionAndNotEmpty(
 													request.Pagination,
 													postLikes,
 													response => response.Id,

@@ -93,7 +93,7 @@ public static class PostEquals
 		User user,
 		ICollection<Post> posts)
 		{
-			return response.MatchesCollection(paginationQuery,
+			return response.MatchesCollectionAndNotEmpty(paginationQuery,
 													posts,
 													response => response.Id,
 													post => post.Id,
@@ -122,7 +122,7 @@ public static class PostEquals
 			Func<Post, bool> matchesFilter,
 			ICollection<Post> posts)
 		{
-			return response.MatchesCollection(paginationQuery,
+			return response.MatchesCollectionAndNotEmpty(paginationQuery,
 													posts,
 													response => response.Id,
 													post => post.Id,

@@ -1,3 +1,5 @@
+using InstaConnect.Common.Tests.Features.DataAttributes.FormFileCollections.Base;
+
 namespace InstaConnect.Posts.Application.Tests.Features.Posts.Assertions;
 
 public static class PostValidationAssertions
@@ -88,6 +90,13 @@ public static class PostValidationAssertions
 			IStringMessageTransformer messageTransformer)
 		{
 			response.ShouldHaveValidationErrorForProperty(request, p => p.UserId, messageTransformer);
+		}
+
+		public void ShouldHaveValidationErrorForImages(
+			AddPostCommandRequest request,
+			IFormFileCollectionMessageTransformer messageTransformer)
+		{
+			response.ShouldHaveValidationErrorForProperty(request, p => p.Images, messageTransformer);
 		}
 	}
 

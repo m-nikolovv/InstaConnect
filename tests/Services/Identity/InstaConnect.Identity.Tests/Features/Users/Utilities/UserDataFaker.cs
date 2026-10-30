@@ -63,7 +63,7 @@ public static class UserDataFaker
 
 	public static IFormFile GetProfileImage()
 	{
-		return DataFaker.GetFormFile();
+		return DataFaker.GetAverageFormFile(UserConfigurations.ProfileImageMaxSize);
 	}
 
 	public static string GetProfileImageUrl()

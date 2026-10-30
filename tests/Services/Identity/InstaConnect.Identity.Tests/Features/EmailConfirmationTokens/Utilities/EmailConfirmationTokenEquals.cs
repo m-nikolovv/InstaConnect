@@ -16,7 +16,7 @@ public static class EmailConfirmationTokenEquals
 	{
 		public bool Matches(ICollection<EmailConfirmationToken> emailConfirmationTokens)
 		{
-			return entities.MatchesCollection(
+			return entities.MatchesCollectionAndNotEmpty(
 				emailConfirmationTokens,
 				e => e.Id,
 				e => e.Id,

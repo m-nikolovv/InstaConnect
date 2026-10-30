@@ -1,3 +1,4 @@
+using InstaConnect.Common.Tests.Features.DataAttributes.FormFileCollections.Base;
 using InstaConnect.Posts.Presentation.Features.PostComments.Controllers.v1;
 
 namespace InstaConnect.Posts.Presentation.Tests.Features.PostComments.Assertions;
@@ -282,6 +283,20 @@ public static class PostCommentValidationExceptionAssertions
 			await func.ShouldThrowInvalidValidationExceptionAsync(
 				request,
 				r => r.PageSize,
+				messageTransformer,
+				cancellationToken);
+		}
+
+		public async Task ShouldThrowInvalidValidationExceptionForImagesAsync(
+			AddPostCommentApiRequest request,
+			IFormFileCollectionMessageTransformer messageTransformer,
+			CancellationToken cancellationToken)
+		{
+			var func = () => controller.AddAsync(request, cancellationToken);
+
+			await func.ShouldThrowInvalidValidationExceptionAsync(
+				request,
+				r => r.Form.Images,
 				messageTransformer,
 				cancellationToken);
 		}

@@ -8,5 +8,10 @@ public static class EnumerableExtensions
 		{
 			return source.Any() && source.All(predicate);
 		}
+
+		public bool AllAndEmpty<TExpected>(IEnumerable<TExpected> expected, Func<T, bool> predicate)
+		{
+			return source.Count() == expected.Count() && source.All(predicate);
+		}
 	}
 }

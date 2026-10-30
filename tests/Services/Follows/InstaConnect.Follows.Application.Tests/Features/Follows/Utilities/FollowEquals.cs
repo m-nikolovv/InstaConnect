@@ -391,7 +391,7 @@ public static class FollowEquals
 			return response.MatchesCollectionResponse(request, follows.Count(matchesFilter)) &&
 				   response.Following == null &&
 				   response.Follower.MatchesFull(follower) &&
-				   response.Follows.MatchesCollection(request,
+				   response.Follows.MatchesCollectionAndNotEmpty(request,
 														follows,
 														response => new(new(response.FollowerId), new(response.FollowingId)),
 														follow => follow.Id,
@@ -429,7 +429,7 @@ public static class FollowEquals
 			return response.MatchesCollectionResponse(request, follows.Count(matchesFilter)) &&
 				   response.Following.MatchesFull(following) &&
 				   response.Follower == null &&
-				   response.Follows.MatchesCollection(request,
+				   response.Follows.MatchesCollectionAndNotEmpty(request,
 														follows,
 														response => new(new(response.FollowerId), new(response.FollowingId)),
 														follow => follow.Id,

@@ -222,6 +222,38 @@ public class UpdateCurrentUserFunctionalTests : BaseUserPresentationCommandFunct
 		response.ShouldSatisfyInvalidValidationForEmail(request, messageTransformer);
 	}
 
+	[Theory]
+	[UserProfileImageTooLargeData]
+	[UserProfileImageInvalidContentTypeData]
+	public async Task UpdateCurrentAsync_ShouldHaveBadRequestStatusCode_WhenProfileImageIsInvalid(
+		IFormFileTransformer transformer)
+	{
+		// Arrange
+		var request = _requestBuilder.WithProfileImage(transformer).Build();
+
+		// Act
+		var response = await ApiClient.UpdateCurrentStatusCodeAsync(request, CancellationToken);
+
+		// Assert
+		response.ShouldBeBadRequest();
+	}
+
+	[Theory]
+	[UserProfileImageTooLargeWithMessageData]
+	[UserProfileImageInvalidContentTypeWithMessageData]
+	public async Task UpdateCurrentAsync_ShouldHaveBadRequestProblemDetails_WhenProfileImageIsInvalid(
+		IFormFileTransformer transformer, IFormFileMessageTransformer messageTransformer)
+	{
+		// Arrange
+		var request = _requestBuilder.WithProfileImage(transformer).Build();
+
+		// Act
+		var response = await ApiClient.UpdateCurrentProblemDetailsAsync(request, CancellationToken);
+
+		// Assert
+		response.ShouldSatisfyInvalidValidationForProfileImage(request, messageTransformer);
+	}
+
 	[Fact]
 	public async Task UpdateCurrentAsync_ShouldHaveNotFoundStatusCode_WhenUserNotFound()
 	{
@@ -489,6 +521,12 @@ public class UpdateCurrentUserFunctionalTests : BaseUserPresentationCommandFunct
 
 	[Theory]
 	[UserProfileImageNullData]
+	[UserProfileImageJpegData]
+	[UserProfileImagePngData]
+	[UserProfileImageWebpData]
+	[UserProfileImageJpegDifferentCaseData]
+	[UserProfileImagePngDifferentCaseData]
+	[UserProfileImageWebpDifferentCaseData]
 	public async Task UpdateCurrentAsync_ShouldHaveOkStatusCode_WhenRequestAndProfileImageAreValid(
 		IFormFileTransformer transformer)
 	{
@@ -623,6 +661,12 @@ public class UpdateCurrentUserFunctionalTests : BaseUserPresentationCommandFunct
 
 	[Theory]
 	[UserProfileImageNullData]
+	[UserProfileImageJpegData]
+	[UserProfileImagePngData]
+	[UserProfileImageWebpData]
+	[UserProfileImageJpegDifferentCaseData]
+	[UserProfileImagePngDifferentCaseData]
+	[UserProfileImageWebpDifferentCaseData]
 	public async Task UpdateCurrentAsync_ShouldReturnResponse_WhenRequestAndProfileImageAreValid(
 		IFormFileTransformer transformer)
 	{
@@ -758,6 +802,12 @@ public class UpdateCurrentUserFunctionalTests : BaseUserPresentationCommandFunct
 
 	[Theory]
 	[UserProfileImageNullData]
+	[UserProfileImageJpegData]
+	[UserProfileImagePngData]
+	[UserProfileImageWebpData]
+	[UserProfileImageJpegDifferentCaseData]
+	[UserProfileImagePngDifferentCaseData]
+	[UserProfileImageWebpDifferentCaseData]
 	public async Task UpdateCurrentAsync_ShouldUpdateUser_WhenRequestAndProfileImageAreValid(
 		IFormFileTransformer transformer)
 	{
@@ -901,6 +951,12 @@ public class UpdateCurrentUserFunctionalTests : BaseUserPresentationCommandFunct
 
 	[Theory]
 	[UserProfileImageNullData]
+	[UserProfileImageJpegData]
+	[UserProfileImagePngData]
+	[UserProfileImageWebpData]
+	[UserProfileImageJpegDifferentCaseData]
+	[UserProfileImagePngDifferentCaseData]
+	[UserProfileImageWebpDifferentCaseData]
 	public async Task UpdateCurrentAsync_ShouldPublishUserUpdatedEvent_WhenRequestAndProfileImageAreValid(
 		IFormFileTransformer transformer)
 	{
@@ -1037,6 +1093,12 @@ public class UpdateCurrentUserFunctionalTests : BaseUserPresentationCommandFunct
 
 	[Theory]
 	[UserProfileImageNullData]
+	[UserProfileImageJpegData]
+	[UserProfileImagePngData]
+	[UserProfileImageWebpData]
+	[UserProfileImageJpegDifferentCaseData]
+	[UserProfileImagePngDifferentCaseData]
+	[UserProfileImageWebpDifferentCaseData]
 	public async Task UpdateCurrentAsync_ShouldDeleteEmailConfirmationTokens_WhenRequestAndProfileImageAreValid(
 		IFormFileTransformer transformer)
 	{
@@ -1178,6 +1240,12 @@ public class UpdateCurrentUserFunctionalTests : BaseUserPresentationCommandFunct
 
 	[Theory]
 	[UserProfileImageNullData]
+	[UserProfileImageJpegData]
+	[UserProfileImagePngData]
+	[UserProfileImageWebpData]
+	[UserProfileImageJpegDifferentCaseData]
+	[UserProfileImagePngDifferentCaseData]
+	[UserProfileImageWebpDifferentCaseData]
 	public async Task UpdateCurrentAsync_ShouldPublishEmailConfirmationTokenDeletedEvents_WhenRequestAndProfileImageAreValid(
 		IFormFileTransformer transformer)
 	{

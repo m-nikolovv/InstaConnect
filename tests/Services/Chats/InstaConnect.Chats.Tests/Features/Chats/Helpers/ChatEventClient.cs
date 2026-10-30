@@ -1,4 +1,4 @@
-using InstaConnect.Chats.Events.Features.Chats;
+using InstaConnect.Chats.Events.Features.Chats.Models;
 using InstaConnect.Chats.Tests.Features.Chats.Abstractions;
 using InstaConnect.Common.Tests.Features.Abstractions;
 

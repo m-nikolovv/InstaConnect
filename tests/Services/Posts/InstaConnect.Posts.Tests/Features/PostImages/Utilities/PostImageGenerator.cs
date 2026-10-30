@@ -4,11 +4,11 @@ public static class PostImageGenerator
 {
 	extension(PostImage basePostImage)
 	{
-		public ICollection<PostImage> Generate(IEnumerable<Post> posts, int numberOfIterations = 5)
+		public ICollection<PostImage> Generate(IEnumerable<Post> posts)
 		{
 			return [basePostImage, .. posts
 				.SelectMany(post =>
-					Enumerable.Range(default, numberOfIterations).Select(_ =>
+					Enumerable.Range(default, DataFaker.GetAverageNumber(PostConfigurations.ImagesMaxCount) - post.PostImages.Count).Select(_ =>
 					{
 						var postImage = new PostImage(
 							new(post.Id, PostImageDataFaker.GetImageId()),

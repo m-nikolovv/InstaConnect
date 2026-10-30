@@ -1,3 +1,5 @@
+using InstaConnect.Common.Tests.Features.DataAttributes.FormFileCollections.Base;
+
 namespace InstaConnect.Chats.Application.Tests.Features.ChatMessages.Assertions;
 
 public static class ChatMessageValidationExceptionAssertions
@@ -266,6 +268,20 @@ public static class ChatMessageValidationExceptionAssertions
 			await func.ShouldThrowInvalidValidationExceptionAsync(
 				request,
 				p => p.SortTerm,
+				messageTransformer,
+				cancellationToken);
+		}
+
+		public async Task ShouldThrowInvalidValidationExceptionForImagesAsync(
+			AddChatMessageCommandRequest request,
+			IFormFileCollectionMessageTransformer messageTransformer,
+			CancellationToken cancellationToken)
+		{
+			var func = () => sender.SendAsync(request, cancellationToken);
+
+			await func.ShouldThrowInvalidValidationExceptionAsync(
+				request,
+				p => p.Images,
 				messageTransformer,
 				cancellationToken);
 		}

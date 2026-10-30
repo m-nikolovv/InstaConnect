@@ -59,7 +59,7 @@ public static class UserClaimEquals
 			Func<UserClaim, bool> matchesFilter,
 			ICollection<UserClaim> userClaims)
 		{
-			return response.MatchesCollection(paginationQuery,
+			return response.MatchesCollectionAndNotEmpty(paginationQuery,
 											  userClaims,
 											  response => response.Id,
 											  userClaim => userClaim.Id,
