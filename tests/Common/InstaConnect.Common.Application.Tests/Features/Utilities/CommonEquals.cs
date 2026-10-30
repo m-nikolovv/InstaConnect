@@ -33,7 +33,7 @@ public static class CommonEquals
 
 	extension<TExpected>(ICollection<TExpected> expected)
 	{
-		public bool MatchesCollection<TEntity, TKey, TRequest>(
+		public bool MatchesCollectionAndNotEmpty<TEntity, TKey, TRequest>(
 		TRequest request,
 		ICollection<TEntity> entities,
 		Func<TExpected, TKey> expectedKey,

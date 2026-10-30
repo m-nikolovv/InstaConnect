@@ -102,7 +102,7 @@ public static class FollowEquals
 			User follower,
 			ICollection<Follow> follows)
 		{
-			return response.MatchesCollection(paginationQuery,
+			return response.MatchesCollectionAndNotEmpty(paginationQuery,
 											  follows,
 											  response => response.Id,
 											  follow => follow.Id,
@@ -132,7 +132,7 @@ public static class FollowEquals
 			User following,
 			ICollection<Follow> follows)
 		{
-			return response.MatchesCollection(paginationQuery,
+			return response.MatchesCollectionAndNotEmpty(paginationQuery,
 											  follows,
 											  response => response.Id,
 											  follow => follow.Id,

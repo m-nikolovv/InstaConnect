@@ -57,6 +57,12 @@ public class AddPostCommandServiceIntegrationTests : BasePostDomainCommandIntegr
 
 	[Theory]
 	[PostImagesEmptyData]
+	[PostImagesJpegData]
+	[PostImagesPngData]
+	[PostImagesWebpData]
+	[PostImagesJpegDifferentCaseData]
+	[PostImagesPngDifferentCaseData]
+	[PostImagesWebpDifferentCaseData]
 	public async Task AddAsync_ShouldReturnResponse_WhenCommandAndImagesAreValid(
 		IFormFileCollectionTransformer transformer)
 	{
@@ -100,6 +106,12 @@ public class AddPostCommandServiceIntegrationTests : BasePostDomainCommandIntegr
 
 	[Theory]
 	[PostImagesEmptyData]
+	[PostImagesJpegData]
+	[PostImagesPngData]
+	[PostImagesWebpData]
+	[PostImagesJpegDifferentCaseData]
+	[PostImagesPngDifferentCaseData]
+	[PostImagesWebpDifferentCaseData]
 	public async Task AddAsync_ShouldAddPost_WhenCommandAndImagesAreValid(
 		IFormFileCollectionTransformer transformer)
 	{
@@ -147,6 +159,12 @@ public class AddPostCommandServiceIntegrationTests : BasePostDomainCommandIntegr
 
 	[Theory]
 	[PostImagesEmptyData]
+	[PostImagesJpegData]
+	[PostImagesPngData]
+	[PostImagesWebpData]
+	[PostImagesJpegDifferentCaseData]
+	[PostImagesPngDifferentCaseData]
+	[PostImagesWebpDifferentCaseData]
 	public async Task AddAsync_ShouldPublishPostAddedEvent_WhenCommandAndImagesAreValid(
 		IFormFileCollectionTransformer transformer)
 	{
@@ -192,6 +210,12 @@ public class AddPostCommandServiceIntegrationTests : BasePostDomainCommandIntegr
 
 	[Theory]
 	[PostImagesEmptyData]
+	[PostImagesJpegData]
+	[PostImagesPngData]
+	[PostImagesWebpData]
+	[PostImagesJpegDifferentCaseData]
+	[PostImagesPngDifferentCaseData]
+	[PostImagesWebpDifferentCaseData]
 	public async Task AddAsync_ShouldAddPostImages_WhenCommandAndImagesAreValid(
 		IFormFileCollectionTransformer transformer)
 	{

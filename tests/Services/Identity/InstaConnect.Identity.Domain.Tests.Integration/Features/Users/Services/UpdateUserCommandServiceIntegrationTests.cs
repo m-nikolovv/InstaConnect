@@ -215,6 +215,12 @@ public class UpdateUserCommandServiceIntegrationTests : BaseUserDomainCommandInt
 
 	[Theory]
 	[UserProfileImageNullData]
+	[UserProfileImageJpegData]
+	[UserProfileImagePngData]
+	[UserProfileImageWebpData]
+	[UserProfileImageJpegDifferentCaseData]
+	[UserProfileImagePngDifferentCaseData]
+	[UserProfileImageWebpDifferentCaseData]
 	public async Task UpdateAsync_ShouldReturnResponse_WhenCommandAndProfileImageAreValid(
 		IFormFileTransformer transformer)
 	{
@@ -350,6 +356,12 @@ public class UpdateUserCommandServiceIntegrationTests : BaseUserDomainCommandInt
 
 	[Theory]
 	[UserProfileImageNullData]
+	[UserProfileImageJpegData]
+	[UserProfileImagePngData]
+	[UserProfileImageWebpData]
+	[UserProfileImageJpegDifferentCaseData]
+	[UserProfileImagePngDifferentCaseData]
+	[UserProfileImageWebpDifferentCaseData]
 	public async Task UpdateAsync_ShouldUpdateUser_WhenCommandAndProfileImageAreValid(
 		IFormFileTransformer transformer)
 	{
@@ -493,6 +505,12 @@ public class UpdateUserCommandServiceIntegrationTests : BaseUserDomainCommandInt
 
 	[Theory]
 	[UserProfileImageNullData]
+	[UserProfileImageJpegData]
+	[UserProfileImagePngData]
+	[UserProfileImageWebpData]
+	[UserProfileImageJpegDifferentCaseData]
+	[UserProfileImagePngDifferentCaseData]
+	[UserProfileImageWebpDifferentCaseData]
 	public async Task UpdateAsync_ShouldPublishUserUpdatedEvent_WhenCommandAndProfileImageAreValid(
 		IFormFileTransformer transformer)
 	{
@@ -629,6 +647,12 @@ public class UpdateUserCommandServiceIntegrationTests : BaseUserDomainCommandInt
 
 	[Theory]
 	[UserProfileImageNullData]
+	[UserProfileImageJpegData]
+	[UserProfileImagePngData]
+	[UserProfileImageWebpData]
+	[UserProfileImageJpegDifferentCaseData]
+	[UserProfileImagePngDifferentCaseData]
+	[UserProfileImageWebpDifferentCaseData]
 	public async Task UpdateAsync_ShouldDeleteEmailConfirmationTokens_WhenCommandAndProfileImageAreValid(
 		IFormFileTransformer transformer)
 	{
@@ -770,6 +794,12 @@ public class UpdateUserCommandServiceIntegrationTests : BaseUserDomainCommandInt
 
 	[Theory]
 	[UserProfileImageNullData]
+	[UserProfileImageJpegData]
+	[UserProfileImagePngData]
+	[UserProfileImageWebpData]
+	[UserProfileImageJpegDifferentCaseData]
+	[UserProfileImagePngDifferentCaseData]
+	[UserProfileImageWebpDifferentCaseData]
 	public async Task UpdateAsync_ShouldPublishEmailConfirmationTokenDeletedEvents_WhenCommandAndProfileImageAreValid(
 		IFormFileTransformer transformer)
 	{

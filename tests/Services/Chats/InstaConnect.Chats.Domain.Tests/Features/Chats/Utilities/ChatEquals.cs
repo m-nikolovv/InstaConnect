@@ -163,7 +163,7 @@ public static class ChatEquals
 			return response.MatchesCollectionResponse(request.Pagination, chats.Count(matchesFilter)) &&
 				   response.ParticipantOne.MatchesFull(participantOne) &&
 				   response.ParticipantTwo == null &&
-				   response.Chats.MatchesCollection(request.Pagination,
+				   response.Chats.MatchesCollectionAndNotEmpty(request.Pagination,
 													chats,
 													response => response.Id,
 													chat => chat.Id,
@@ -201,7 +201,7 @@ public static class ChatEquals
 			return response.MatchesCollectionResponse(request.Pagination, chats.Count(matchesFilter)) &&
 				   response.ParticipantOne.MatchesFull(participantTwo) &&
 				   response.ParticipantTwo == null &&
-				   response.Chats.MatchesCollection(request.Pagination,
+				   response.Chats.MatchesCollectionAndNotEmpty(request.Pagination,
 													chats,
 													response => new(response.Id.ParticipantTwoId, response.Id.ParticipantOneId),
 													chat => chat.Id,

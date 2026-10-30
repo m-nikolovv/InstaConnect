@@ -221,17 +221,16 @@ public static class PostCommentEquals
 	{
 		public bool Matches(AddPostCommentCommand command, ICollection<PostCommentImage> entities)
 		{
-			return command.Images.IsEmpty() ||
-				   r.MatchesCollection(
-					   entities,
-					   response => new(new(new(response.Id), response.CommentId), response.ImageId),
-					   postCommentImage => postCommentImage.Id,
-					   (r, postCommentImage) => r.Matches(command, postCommentImage));
+			return r.MatchesCollectionAndEmpty(
+				entities,
+				response => new(new(new(response.Id), response.CommentId), response.ImageId),
+				postCommentImage => postCommentImage.Id,
+				(r, postCommentImage) => r.Matches(command, postCommentImage));
 		}
 
 		public bool Matches(UpdatePostCommentCommand command, ICollection<PostCommentImage> entities)
 		{
-			return r.MatchesCollection(
+			return r.MatchesCollectionAndNotEmpty(
 				entities,
 				response => new(new(new(response.Id), response.CommentId), response.ImageId),
 				postCommentImage => postCommentImage.Id,
@@ -240,7 +239,7 @@ public static class PostCommentEquals
 
 		public bool Matches(DeletePostCommentCommand command, ICollection<PostCommentImage> entities)
 		{
-			return r.MatchesCollection(
+			return r.MatchesCollectionAndNotEmpty(
 				entities,
 				response => new(new(new(response.Id), response.CommentId), response.ImageId),
 				postCommentImage => postCommentImage.Id,
@@ -362,7 +361,7 @@ public static class PostCommentEquals
 			return response.MatchesCollectionResponse(request.Pagination, postComments.Count(matchesFilter)) &&
 				   response.User == null &&
 				   response.Post.MatchesFull(request, post) &&
-				   response.PostComments.MatchesCollection(request.Pagination,
+				   response.PostComments.MatchesCollectionAndNotEmpty(request.Pagination,
 													postComments,
 													response => response.Id,
 													postComment => postComment.Id,
@@ -400,7 +399,7 @@ public static class PostCommentEquals
 			return response.MatchesCollectionResponse(request.Pagination, postComments.Count(matchesFilter)) &&
 				   response.User.MatchesFull(user) &&
 				   response.Post == null &&
-				   response.PostComments.MatchesCollection(request.Pagination,
+				   response.PostComments.MatchesCollectionAndNotEmpty(request.Pagination,
 													postComments,
 													response => response.Id,
 													postComment => postComment.Id,

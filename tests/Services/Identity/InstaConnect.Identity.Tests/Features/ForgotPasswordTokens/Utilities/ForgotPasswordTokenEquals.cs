@@ -16,7 +16,7 @@ public static class ForgotPasswordTokenEquals
 	{
 		public bool Matches(ICollection<ForgotPasswordToken> forgotPasswordTokens)
 		{
-			return entities.MatchesCollection(
+			return entities.MatchesCollectionAndNotEmpty(
 				forgotPasswordTokens,
 				e => e.Id,
 				e => e.Id,

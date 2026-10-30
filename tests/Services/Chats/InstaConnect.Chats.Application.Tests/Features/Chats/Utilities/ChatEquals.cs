@@ -288,7 +288,7 @@ public static class ChatEquals
 			return response.MatchesCollectionResponse(request, chats.Count(matchesFilter)) &&
 				   response.ParticipantOne == null &&
 				   response.ParticipantTwo.MatchesFull(participantTwo) &&
-				   response.Chats.MatchesCollection(request,
+				   response.Chats.MatchesCollectionAndNotEmpty(request,
 													chats,
 													response => new(new(response.ParticipantOneId), new(response.ParticipantTwoId)),
 													chat => chat.Id,
@@ -326,7 +326,7 @@ public static class ChatEquals
 			return response.MatchesCollectionResponse(request, chats.Count(matchesFilter)) &&
 				   response.ParticipantOne.MatchesFull(participantOne) &&
 				   response.ParticipantTwo == null &&
-				   response.Chats.MatchesCollection(request,
+				   response.Chats.MatchesCollectionAndNotEmpty(request,
 													chats,
 													response => new(new(response.ParticipantOneId), new(response.ParticipantTwoId)),
 													chat => chat.Id,
@@ -364,7 +364,7 @@ public static class ChatEquals
 			return response.MatchesCollectionResponse(request, chats.Count(matchesFilter)) &&
 				   response.ParticipantOne == null &&
 				   response.ParticipantTwo.MatchesFull(participantTwo) &&
-				   response.Chats.MatchesCollection(request,
+				   response.Chats.MatchesCollectionAndNotEmpty(request,
 													chats,
 													response => new(new(response.ParticipantTwoId), new(response.ParticipantOneId)),
 													chat => chat.Id,
@@ -402,7 +402,7 @@ public static class ChatEquals
 			return response.MatchesCollectionResponse(request, chats.Count(matchesFilter)) &&
 				   response.ParticipantOne.MatchesFull(participantOne) &&
 				   response.ParticipantTwo == null &&
-				   response.Chats.MatchesCollection(request,
+				   response.Chats.MatchesCollectionAndNotEmpty(request,
 													chats,
 													response => new(new(response.ParticipantTwoId), new(response.ParticipantOneId)),
 													chat => chat.Id,

@@ -43,7 +43,7 @@ public static class PostCommentImageEquals
 	{
 		public bool MatchesFull(ICollection<PostCommentImage> postCommentImages)
 		{
-			return response.MatchesCollection(
+			return response.MatchesCollectionAndNotEmpty(
 				postCommentImages,
 				r => r.Id,
 				p => p.Id,

@@ -82,6 +82,12 @@ public class AddUserCommandServiceIntegrationTests : BaseUserDomainCommandIntegr
 
 	[Theory]
 	[UserProfileImageNullData]
+	[UserProfileImageJpegData]
+	[UserProfileImagePngData]
+	[UserProfileImageWebpData]
+	[UserProfileImageJpegDifferentCaseData]
+	[UserProfileImagePngDifferentCaseData]
+	[UserProfileImageWebpDifferentCaseData]
 	public async Task AddAsync_ShouldReturnResponse_WhenCommandAndProfileImageAreValid(
 		IFormFileTransformer transformer)
 	{
@@ -109,6 +115,12 @@ public class AddUserCommandServiceIntegrationTests : BaseUserDomainCommandIntegr
 
 	[Theory]
 	[UserProfileImageNullData]
+	[UserProfileImageJpegData]
+	[UserProfileImagePngData]
+	[UserProfileImageWebpData]
+	[UserProfileImageJpegDifferentCaseData]
+	[UserProfileImagePngDifferentCaseData]
+	[UserProfileImageWebpDifferentCaseData]
 	public async Task AddAsync_ShouldAddUser_WhenCommandAndProfileImageAreValid(
 		IFormFileTransformer transformer)
 	{
@@ -136,6 +148,12 @@ public class AddUserCommandServiceIntegrationTests : BaseUserDomainCommandIntegr
 
 	[Theory]
 	[UserProfileImageNullData]
+	[UserProfileImageJpegData]
+	[UserProfileImagePngData]
+	[UserProfileImageWebpData]
+	[UserProfileImageJpegDifferentCaseData]
+	[UserProfileImagePngDifferentCaseData]
+	[UserProfileImageWebpDifferentCaseData]
 	public async Task AddAsync_ShouldAddEmailConfirmationToken_WhenCommandAndProfileImageAreValid(
 		IFormFileTransformer transformer)
 	{
@@ -164,6 +182,12 @@ public class AddUserCommandServiceIntegrationTests : BaseUserDomainCommandIntegr
 
 	[Theory]
 	[UserProfileImageNullData]
+	[UserProfileImageJpegData]
+	[UserProfileImagePngData]
+	[UserProfileImageWebpData]
+	[UserProfileImageJpegDifferentCaseData]
+	[UserProfileImagePngDifferentCaseData]
+	[UserProfileImageWebpDifferentCaseData]
 	public async Task AddAsync_ShouldPublishUserAddedEvent_WhenCommandAndProfileImageAreValid(
 		IFormFileTransformer transformer)
 	{
@@ -193,6 +217,12 @@ public class AddUserCommandServiceIntegrationTests : BaseUserDomainCommandIntegr
 
 	[Theory]
 	[UserProfileImageNullData]
+	[UserProfileImageJpegData]
+	[UserProfileImagePngData]
+	[UserProfileImageWebpData]
+	[UserProfileImageJpegDifferentCaseData]
+	[UserProfileImagePngDifferentCaseData]
+	[UserProfileImageWebpDifferentCaseData]
 	public async Task AddAsync_ShouldPublishEmailConfirmationTokenAddedEvent_WhenCommandAndProfileImageAreValid(
 		IFormFileTransformer transformer)
 	{

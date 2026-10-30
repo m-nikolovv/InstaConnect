@@ -110,7 +110,7 @@ public static class PostCommentEquals
 			Post post,
 			ICollection<PostComment> postComments)
 		{
-			return response.MatchesCollection(paginationQuery,
+			return response.MatchesCollectionAndNotEmpty(paginationQuery,
 											  postComments,
 											  response => response.Id,
 											  postComment => postComment.Id,
@@ -140,7 +140,7 @@ public static class PostCommentEquals
 			User user,
 			ICollection<PostComment> postComments)
 		{
-			return response.MatchesCollection(paginationQuery,
+			return response.MatchesCollectionAndNotEmpty(paginationQuery,
 											  postComments,
 											  response => response.Id,
 											  postComment => postComment.Id,

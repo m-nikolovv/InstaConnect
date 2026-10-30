@@ -221,17 +221,16 @@ public static class ChatMessageEquals
 	{
 		public bool Matches(AddChatMessageApiRequest request, ICollection<ChatMessageImage> entities)
 		{
-			return request.Form.Images.IsEmpty() ||
-				   r.MatchesCollection(
-					   entities,
-					   response => new(new(new(new(response.ParticipantOneId), new(response.ParticipantTwoId)), response.MessageId), response.ImageId),
-					   chatMessageImage => chatMessageImage.Id,
-					   (r, chatMessageImage) => r.Matches(request, chatMessageImage));
+			return r.MatchesCollectionAndEmpty(
+				entities,
+				response => new(new(new(new(response.ParticipantOneId), new(response.ParticipantTwoId)), response.MessageId), response.ImageId),
+				chatMessageImage => chatMessageImage.Id,
+				(r, chatMessageImage) => r.Matches(request, chatMessageImage));
 		}
 
 		public bool Matches(UpdateChatMessageApiRequest request, ICollection<ChatMessageImage> entities)
 		{
-			return r.MatchesCollection(
+			return r.MatchesCollectionAndNotEmpty(
 				entities,
 				response => new(new(new(new(response.ParticipantOneId), new(response.ParticipantTwoId)), response.MessageId), response.ImageId),
 				chatMessageImage => chatMessageImage.Id,
@@ -240,7 +239,7 @@ public static class ChatMessageEquals
 
 		public bool Matches(DeleteChatMessageApiRequest request, ICollection<ChatMessageImage> entities)
 		{
-			return r.MatchesCollection(
+			return r.MatchesCollectionAndNotEmpty(
 				entities,
 				response => new(new(new(new(response.ParticipantOneId), new(response.ParticipantTwoId)), response.MessageId), response.ImageId),
 				chatMessageImage => chatMessageImage.Id,
@@ -249,17 +248,16 @@ public static class ChatMessageEquals
 
 		public bool MatchesInverted(AddChatMessageApiRequest request, ICollection<ChatMessageImage> entities)
 		{
-			return request.Form.Images.IsEmpty() ||
-				   r.MatchesCollection(
-					   entities,
-					   response => new(new(new(new(response.ParticipantOneId), new(response.ParticipantTwoId)), response.MessageId), response.ImageId),
-					   chatMessageImage => chatMessageImage.Id,
-					   (r, chatMessageImage) => r.MatchesInverted(request, chatMessageImage));
+			return r.MatchesCollectionAndEmpty(
+				entities,
+				response => new(new(new(new(response.ParticipantOneId), new(response.ParticipantTwoId)), response.MessageId), response.ImageId),
+				chatMessageImage => chatMessageImage.Id,
+				(r, chatMessageImage) => r.MatchesInverted(request, chatMessageImage));
 		}
 
 		public bool MatchesInverted(UpdateChatMessageApiRequest request, ICollection<ChatMessageImage> entities)
 		{
-			return r.MatchesCollection(
+			return r.MatchesCollectionAndNotEmpty(
 				entities,
 				response => new(new(new(new(response.ParticipantOneId), new(response.ParticipantTwoId)), response.MessageId), response.ImageId),
 				chatMessageImage => chatMessageImage.Id,
@@ -268,7 +266,7 @@ public static class ChatMessageEquals
 
 		public bool MatchesInverted(DeleteChatMessageApiRequest request, ICollection<ChatMessageImage> entities)
 		{
-			return r.MatchesCollection(
+			return r.MatchesCollectionAndNotEmpty(
 				entities,
 				response => new(new(new(new(response.ParticipantOneId), new(response.ParticipantTwoId)), response.MessageId), response.ImageId),
 				chatMessageImage => chatMessageImage.Id,
@@ -701,7 +699,7 @@ public static class ChatMessageEquals
 			return chatMessageImage.Id.Id.Id.Matches(request.ParticipantOneId, request.ParticipantTwoId) &&
 				   chatMessageImage.Id.Id.MessageId.IsNotNullOrEmptyOrWhiteSpace() &&
 				   chatMessageImage.Id.ImageId.IsNotNullOrEmptyOrWhiteSpace() &&
-				   chatMessageImage.Url.Value.IsNotNullOrEmptyOrWhiteSpace() &&
+				   request.Form.Images.ContainsUrl(chatMessageImage.Url) &&
 				   chatMessageImage.CreatedAtUtc != default;
 		}
 
@@ -710,7 +708,7 @@ public static class ChatMessageEquals
 			return chatMessageImage.Id.Id.Id.Matches(request.ParticipantTwoId, request.ParticipantOneId) &&
 				   chatMessageImage.Id.Id.MessageId.IsNotNullOrEmptyOrWhiteSpace() &&
 				   chatMessageImage.Id.ImageId.IsNotNullOrEmptyOrWhiteSpace() &&
-				   chatMessageImage.Url.Value.IsNotNullOrEmptyOrWhiteSpace() &&
+				   request.Form.Images.ContainsUrl(chatMessageImage.Url) &&
 				   chatMessageImage.CreatedAtUtc != default;
 		}
 	}
@@ -843,7 +841,7 @@ public static class ChatMessageEquals
 			return response.MatchesCollectionResponse(request, chatMessages.Count(matchesFilter)) &&
 				   response.Sender == null &&
 				   response.Chat.MatchesFull(request, chat) &&
-				   response.ChatMessages.MatchesCollection(
+				   response.ChatMessages.MatchesCollectionAndNotEmpty(
 					   request,
 					   chatMessages,
 					   response => new(new(new(response.ParticipantOneId), new(response.ParticipantTwoId)), response.MessageId),
@@ -874,7 +872,7 @@ public static class ChatMessageEquals
 			return response.MatchesCollectionResponse(request, chatMessages.Count(matchesFilter)) &&
 				   response.Sender.MatchesFull(user) &&
 				   response.Chat == null &&
-				   response.ChatMessages.MatchesCollection(
+				   response.ChatMessages.MatchesCollectionAndNotEmpty(
 					   request,
 					   chatMessages,
 					   response => new(new(new(response.ParticipantOneId), new(response.ParticipantTwoId)), response.MessageId),
@@ -904,7 +902,7 @@ public static class ChatMessageEquals
 			return response.MatchesCollectionResponse(request, chatMessages.Count(matchesFilter)) &&
 				   response.Sender == null &&
 				   response.Chat.MatchesFullInverted(request, chat) &&
-				   response.ChatMessages.MatchesCollection(
+				   response.ChatMessages.MatchesCollectionAndNotEmpty(
 					   request,
 					   chatMessages,
 					   response => new(new(new(response.ParticipantTwoId), new(response.ParticipantOneId)), response.MessageId),
@@ -935,7 +933,7 @@ public static class ChatMessageEquals
 			return response.MatchesCollectionResponse(request, chatMessages.Count(matchesFilter)) &&
 				   response.Sender.MatchesFull(user) &&
 				   response.Chat == null &&
-				   response.ChatMessages.MatchesCollection(
+				   response.ChatMessages.MatchesCollectionAndNotEmpty(
 					   request,
 					   chatMessages,
 					   response => new(new(new(response.ParticipantTwoId), new(response.ParticipantOneId)), response.MessageId),

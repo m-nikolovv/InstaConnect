@@ -16,7 +16,7 @@ public static class PostImageEquals
 	{
 		public bool Matches(ICollection<PostImage> postImages)
 		{
-			return entities.MatchesCollection(
+			return entities.MatchesCollectionAndNotEmpty(
 				postImages,
 				e => e.Id,
 				e => e.Id,
