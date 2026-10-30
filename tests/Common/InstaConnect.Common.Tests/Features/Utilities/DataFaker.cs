@@ -8,12 +8,9 @@ namespace InstaConnect.Common.Tests.Features.Utilities;
 
 public abstract class DataFaker
 {
-	private const int DefaultStringLength = 100;
-	private const string DefaultFormFileContentType = MediaTypeNames.Image.Png;
-
 	private static readonly Faker _faker = new();
 
-	public static IFormFile GetFormFile(int length, string contentType = DefaultFormFileContentType)
+	public static IFormFile GetFormFile(int length, string contentType = MediaTypeNames.Image.Png)
 	{
 		return GetFormFile(_faker.System.FileName(), _faker.Random.Bytes(length), contentType);
 	}
@@ -69,7 +66,7 @@ public abstract class DataFaker
 		return Format.FormatCurrentCulture(name, domain).Substring(domain.Length - 1);
 	}
 
-	public static string GetString(int length = DefaultStringLength)
+	public static string GetString(int length)
 	{
 		return _faker.Random.AlphaNumeric(length);
 	}
