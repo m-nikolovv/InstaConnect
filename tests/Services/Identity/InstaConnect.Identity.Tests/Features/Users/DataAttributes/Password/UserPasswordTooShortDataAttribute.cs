@@ -4,7 +4,7 @@ namespace InstaConnect.Identity.Tests.Features.Users.DataAttributes.Password;
 public sealed class UserPasswordTooShortDataAttribute : TooShortStringDataAttribute
 {
 	public UserPasswordTooShortDataAttribute()
-		: base(UserConfigurations.NameMinLength)
+		: base(UserConfigurations.PasswordMinLength)
 	{
 	}
 }
