@@ -279,6 +279,6 @@ public class AddPostCommentCommandServiceIntegrationTests : BasePostCommentDomai
 		var postComment = await ServiceScope.GetByIdAsync(response, CancellationToken);
 
 		// Assert
-		postComment.PostCommentImages.ShouldBeEmpty();
+		postComment.PostCommentImages.ShouldSatisfy(command);
 	}
 }

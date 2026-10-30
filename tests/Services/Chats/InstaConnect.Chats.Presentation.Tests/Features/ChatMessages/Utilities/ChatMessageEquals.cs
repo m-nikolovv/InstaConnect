@@ -719,12 +719,12 @@ public static class ChatMessageEquals
 	{
 		public bool Matches(AddChatMessageApiRequest request)
 		{
-			return chatMessageImages.AllAndNotEmpty(chatMessageImage => chatMessageImage.Matches(request));
+			return chatMessageImages.AllAndEmpty(request.Form.Images, chatMessageImage => chatMessageImage.Matches(request));
 		}
 
 		public bool MatchesInverted(AddChatMessageApiRequest request)
 		{
-			return chatMessageImages.AllAndNotEmpty(chatMessageImage => chatMessageImage.MatchesInverted(request));
+			return chatMessageImages.AllAndEmpty(request.Form.Images, chatMessageImage => chatMessageImage.MatchesInverted(request));
 		}
 	}
 

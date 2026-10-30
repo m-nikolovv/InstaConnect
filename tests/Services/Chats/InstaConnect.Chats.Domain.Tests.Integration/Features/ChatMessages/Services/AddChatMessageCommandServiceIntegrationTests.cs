@@ -452,7 +452,7 @@ public class AddChatMessageCommandServiceIntegrationTests : BaseChatMessageDomai
 		var chatMessage = await ServiceScope.GetByIdAsync(response, CancellationToken);
 
 		// Assert
-		chatMessage.ChatMessageImages.ShouldBeEmpty();
+		chatMessage.ChatMessageImages.ShouldSatisfy(command);
 	}
 
 	[Fact]
@@ -511,6 +511,6 @@ public class AddChatMessageCommandServiceIntegrationTests : BaseChatMessageDomai
 		var chatMessage = await ServiceScope.GetByIdAsync(response, CancellationToken);
 
 		// Assert
-		chatMessage.ChatMessageImages.ShouldBeEmpty();
+		chatMessage.ChatMessageImages.ShouldSatisfyInverted(invertedCommand);
 	}
 }

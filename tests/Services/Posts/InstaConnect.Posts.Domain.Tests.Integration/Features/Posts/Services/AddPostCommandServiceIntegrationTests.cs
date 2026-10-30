@@ -203,6 +203,6 @@ public class AddPostCommandServiceIntegrationTests : BasePostDomainCommandIntegr
 		var post = await ServiceScope.GetByIdAsync(response, CancellationToken);
 
 		// Assert
-		post.PostImages.ShouldBeEmpty();
+		post.PostImages.ShouldSatisfy(command);
 	}
 }

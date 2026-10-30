@@ -423,6 +423,12 @@ public class AddPostFunctionalTests : BasePostPresentationCommandFunctionalTest
 
 	[Theory]
 	[PostImagesEmptyData]
+	[PostImagesJpegData]
+	[PostImagesPngData]
+	[PostImagesWebpData]
+	[PostImagesJpegDifferentCaseData]
+	[PostImagesPngDifferentCaseData]
+	[PostImagesWebpDifferentCaseData]
 	public async Task AddAsync_ShouldAddPostImages_WhenRequestAndImagesAreValid(
 		IFormFileCollectionTransformer transformer)
 	{
@@ -434,6 +440,6 @@ public class AddPostFunctionalTests : BasePostPresentationCommandFunctionalTest
 		var post = await ServiceScope.GetByIdAsync(response, CancellationToken);
 
 		// Assert
-		post.PostImages.ShouldBeEmpty();
+		post.PostImages.ShouldSatisfy(request);
 	}
 }

@@ -583,7 +583,7 @@ public static class ChatMessageEquals
 	{
 		public bool Matches(AddChatMessageCommand command)
 		{
-			return p.AllAndNotEmpty(u => u.Matches(command));
+			return p.AllAndEmpty(command.Images, u => u.Matches(command));
 		}
 	}
 
@@ -612,12 +612,12 @@ public static class ChatMessageEquals
 	{
 		public bool Matches(AddChatMessageCommand command)
 		{
-			return p.AllAndNotEmpty(pi => pi.Matches(command));
+			return p.AllAndEmpty(command.Images, pi => pi.Matches(command));
 		}
 
 		public bool MatchesInverted(AddChatMessageCommand command)
 		{
-			return p.AllAndNotEmpty(pi => pi.MatchesInverted(command));
+			return p.AllAndEmpty(command.Images, pi => pi.MatchesInverted(command));
 		}
 	}
 

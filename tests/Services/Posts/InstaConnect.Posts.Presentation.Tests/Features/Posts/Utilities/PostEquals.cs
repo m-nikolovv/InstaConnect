@@ -401,7 +401,7 @@ public static class PostEquals
 	{
 		public bool Matches(AddPostApiRequest request)
 		{
-			return postImages.AllAndNotEmpty(postImage => postImage.Matches(request));
+			return postImages.AllAndEmpty(request.Form.Images, postImage => postImage.Matches(request));
 		}
 	}
 

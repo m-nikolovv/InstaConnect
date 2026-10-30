@@ -91,7 +91,7 @@ public static class PostCommentEquals
 	{
 		public bool Matches(AddPostCommentCommand command)
 		{
-			return p.AllAndNotEmpty(u => u.Matches(command));
+			return p.AllAndEmpty(command.Images, u => u.Matches(command));
 		}
 	}
 
@@ -111,7 +111,7 @@ public static class PostCommentEquals
 	{
 		public bool Matches(AddPostCommentCommand command)
 		{
-			return p.AllAndNotEmpty(pi => pi.Matches(command));
+			return p.AllAndEmpty(command.Images, pi => pi.Matches(command));
 		}
 	}
 

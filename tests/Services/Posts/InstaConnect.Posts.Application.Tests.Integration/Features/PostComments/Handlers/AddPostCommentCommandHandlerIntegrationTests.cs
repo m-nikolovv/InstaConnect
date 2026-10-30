@@ -351,6 +351,12 @@ public class AddPostCommentCommandHandlerIntegrationTests : BasePostCommentAppli
 
 	[Theory]
 	[PostCommentImagesEmptyData]
+	[PostCommentImagesJpegData]
+	[PostCommentImagesPngData]
+	[PostCommentImagesWebpData]
+	[PostCommentImagesJpegDifferentCaseData]
+	[PostCommentImagesPngDifferentCaseData]
+	[PostCommentImagesWebpDifferentCaseData]
 	public async Task SendAsync_ShouldAddPostCommentImages_WhenRequestAndImagesAreValid(
 		IFormFileCollectionTransformer transformer)
 	{
@@ -362,6 +368,6 @@ public class AddPostCommentCommandHandlerIntegrationTests : BasePostCommentAppli
 		var postComment = await ServiceScope.GetByIdAsync(response, CancellationToken);
 
 		// Assert
-		postComment.PostCommentImages.ShouldBeEmpty();
+		postComment.PostCommentImages.ShouldSatisfy(request);
 	}
 }

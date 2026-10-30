@@ -388,7 +388,7 @@ public static class PostCommentEquals
 	{
 		public bool Matches(AddPostCommentCommandRequest request)
 		{
-			return postCommentImages.AllAndNotEmpty(postCommentImage => postCommentImage.Matches(request));
+			return postCommentImages.AllAndEmpty(request.Images, postCommentImage => postCommentImage.Matches(request));
 		}
 	}
 

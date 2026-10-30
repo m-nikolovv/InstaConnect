@@ -662,6 +662,12 @@ public class AddChatMessageControllerIntegrationTests : BaseChatMessagePresentat
 
 	[Theory]
 	[ChatMessageImagesEmptyData]
+	[ChatMessageImagesJpegData]
+	[ChatMessageImagesPngData]
+	[ChatMessageImagesWebpData]
+	[ChatMessageImagesJpegDifferentCaseData]
+	[ChatMessageImagesPngDifferentCaseData]
+	[ChatMessageImagesWebpDifferentCaseData]
 	public async Task AddAsync_ShouldAddChatMessageImages_WhenRequestAndImagesAreValid(
 		IFormFileCollectionTransformer transformer)
 	{
@@ -673,7 +679,7 @@ public class AddChatMessageControllerIntegrationTests : BaseChatMessagePresentat
 		var chatMessage = await ServiceScope.GetByIdAsync(response, CancellationToken);
 
 		// Assert
-		chatMessage.ChatMessageImages.ShouldBeEmpty();
+		chatMessage.ChatMessageImages.ShouldSatisfy(request);
 	}
 
 	[Fact]
@@ -721,6 +727,12 @@ public class AddChatMessageControllerIntegrationTests : BaseChatMessagePresentat
 
 	[Theory]
 	[ChatMessageImagesEmptyData]
+	[ChatMessageImagesJpegData]
+	[ChatMessageImagesPngData]
+	[ChatMessageImagesWebpData]
+	[ChatMessageImagesJpegDifferentCaseData]
+	[ChatMessageImagesPngDifferentCaseData]
+	[ChatMessageImagesWebpDifferentCaseData]
 	public async Task AddAsync_ShouldAddInvertedChatMessageImages_WhenRequestAndImagesAreValid(
 		IFormFileCollectionTransformer transformer)
 	{
@@ -732,6 +744,6 @@ public class AddChatMessageControllerIntegrationTests : BaseChatMessagePresentat
 		var chatMessage = await ServiceScope.GetByIdAsync(response, CancellationToken);
 
 		// Assert
-		chatMessage.ChatMessageImages.ShouldBeEmpty();
+		chatMessage.ChatMessageImages.ShouldSatisfyInverted(invertedRequest);
 	}
 }

@@ -404,7 +404,7 @@ public static class PostEquals
 	{
 		public bool Matches(AddPostCommandRequest request)
 		{
-			return postImages.AllAndNotEmpty(postImage => postImage.Matches(request));
+			return postImages.AllAndEmpty(request.Images, postImage => postImage.Matches(request));
 		}
 	}
 

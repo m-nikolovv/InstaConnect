@@ -541,6 +541,12 @@ public class AddChatMessageCommandHandlerIntegrationTests : BaseChatMessageAppli
 
 	[Theory]
 	[ChatMessageImagesEmptyData]
+	[ChatMessageImagesJpegData]
+	[ChatMessageImagesPngData]
+	[ChatMessageImagesWebpData]
+	[ChatMessageImagesJpegDifferentCaseData]
+	[ChatMessageImagesPngDifferentCaseData]
+	[ChatMessageImagesWebpDifferentCaseData]
 	public async Task SendAsync_ShouldAddChatMessageImages_WhenRequestAndImagesAreValid(
 		IFormFileCollectionTransformer transformer)
 	{
@@ -552,7 +558,7 @@ public class AddChatMessageCommandHandlerIntegrationTests : BaseChatMessageAppli
 		var chatMessage = await ServiceScope.GetByIdAsync(response, CancellationToken);
 
 		// Assert
-		chatMessage.ChatMessageImages.ShouldBeEmpty();
+		chatMessage.ChatMessageImages.ShouldSatisfy(request);
 	}
 
 	[Fact]
@@ -600,6 +606,12 @@ public class AddChatMessageCommandHandlerIntegrationTests : BaseChatMessageAppli
 
 	[Theory]
 	[ChatMessageImagesEmptyData]
+	[ChatMessageImagesJpegData]
+	[ChatMessageImagesPngData]
+	[ChatMessageImagesWebpData]
+	[ChatMessageImagesJpegDifferentCaseData]
+	[ChatMessageImagesPngDifferentCaseData]
+	[ChatMessageImagesWebpDifferentCaseData]
 	public async Task SendAsync_ShouldAddInvertedChatMessageImages_WhenRequestAndImagesAreValid(
 		IFormFileCollectionTransformer transformer)
 	{
@@ -611,6 +623,6 @@ public class AddChatMessageCommandHandlerIntegrationTests : BaseChatMessageAppli
 		var chatMessage = await ServiceScope.GetByIdAsync(response, CancellationToken);
 
 		// Assert
-		chatMessage.ChatMessageImages.ShouldBeEmpty();
+		chatMessage.ChatMessageImages.ShouldSatisfyInverted(invertedRequest);
 	}
 }

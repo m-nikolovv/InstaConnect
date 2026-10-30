@@ -320,6 +320,12 @@ public class AddPostControllerIntegrationTests : BasePostPresentationCommandInte
 
 	[Theory]
 	[PostImagesEmptyData]
+	[PostImagesJpegData]
+	[PostImagesPngData]
+	[PostImagesWebpData]
+	[PostImagesJpegDifferentCaseData]
+	[PostImagesPngDifferentCaseData]
+	[PostImagesWebpDifferentCaseData]
 	public async Task AddAsync_ShouldAddPostImages_WhenRequestAndImagesAreValid(
 		IFormFileCollectionTransformer transformer)
 	{
@@ -331,6 +337,6 @@ public class AddPostControllerIntegrationTests : BasePostPresentationCommandInte
 		var post = await ServiceScope.GetByIdAsync(response, CancellationToken);
 
 		// Assert
-		post.PostImages.ShouldBeEmpty();
+		post.PostImages.ShouldSatisfy(request);
 	}
 }

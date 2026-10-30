@@ -697,12 +697,12 @@ public static class ChatMessageEquals
 	{
 		public bool Matches(AddChatMessageCommandRequest request)
 		{
-			return chatMessageImages.AllAndNotEmpty(chatMessageImage => chatMessageImage.Matches(request));
+			return chatMessageImages.AllAndEmpty(request.Images, chatMessageImage => chatMessageImage.Matches(request));
 		}
 
 		public bool MatchesInverted(AddChatMessageCommandRequest request)
 		{
-			return chatMessageImages.AllAndNotEmpty(chatMessageImage => chatMessageImage.MatchesInverted(request));
+			return chatMessageImages.AllAndEmpty(request.Images, chatMessageImage => chatMessageImage.MatchesInverted(request));
 		}
 	}
 
