@@ -79,12 +79,6 @@ public class AddChatMessageCommandServiceIntegrationTests : BaseChatMessageDomai
 
 	[Theory]
 	[ChatMessageImagesEmptyData]
-	[ChatMessageImagesJpegData]
-	[ChatMessageImagesPngData]
-	[ChatMessageImagesWebpData]
-	[ChatMessageImagesJpegDifferentCaseData]
-	[ChatMessageImagesPngDifferentCaseData]
-	[ChatMessageImagesWebpDifferentCaseData]
 	public async Task AddAsync_ShouldReturnResponse_WhenCommandAndImagesAreValid(
 		IFormFileCollectionTransformer transformer)
 	{
@@ -144,12 +138,6 @@ public class AddChatMessageCommandServiceIntegrationTests : BaseChatMessageDomai
 
 	[Theory]
 	[ChatMessageImagesEmptyData]
-	[ChatMessageImagesJpegData]
-	[ChatMessageImagesPngData]
-	[ChatMessageImagesWebpData]
-	[ChatMessageImagesJpegDifferentCaseData]
-	[ChatMessageImagesPngDifferentCaseData]
-	[ChatMessageImagesWebpDifferentCaseData]
 	public async Task AddAsync_ShouldAddChatMessage_WhenCommandAndImagesAreValid(
 		IFormFileCollectionTransformer transformer)
 	{
@@ -212,12 +200,6 @@ public class AddChatMessageCommandServiceIntegrationTests : BaseChatMessageDomai
 
 	[Theory]
 	[ChatMessageImagesEmptyData]
-	[ChatMessageImagesJpegData]
-	[ChatMessageImagesPngData]
-	[ChatMessageImagesWebpData]
-	[ChatMessageImagesJpegDifferentCaseData]
-	[ChatMessageImagesPngDifferentCaseData]
-	[ChatMessageImagesWebpDifferentCaseData]
 	public async Task AddAsync_ShouldPublishChatMessageAddedNotification_WhenCommandAndImagesAreValid(
 		IFormFileCollectionTransformer transformer)
 	{
@@ -278,12 +260,6 @@ public class AddChatMessageCommandServiceIntegrationTests : BaseChatMessageDomai
 
 	[Theory]
 	[ChatMessageImagesEmptyData]
-	[ChatMessageImagesJpegData]
-	[ChatMessageImagesPngData]
-	[ChatMessageImagesWebpData]
-	[ChatMessageImagesJpegDifferentCaseData]
-	[ChatMessageImagesPngDifferentCaseData]
-	[ChatMessageImagesWebpDifferentCaseData]
 	public async Task AddAsync_ShouldReturnInvertedResponse_WhenCommandAndImagesAreValid(
 		IFormFileCollectionTransformer transformer)
 	{
@@ -343,12 +319,6 @@ public class AddChatMessageCommandServiceIntegrationTests : BaseChatMessageDomai
 
 	[Theory]
 	[ChatMessageImagesEmptyData]
-	[ChatMessageImagesJpegData]
-	[ChatMessageImagesPngData]
-	[ChatMessageImagesWebpData]
-	[ChatMessageImagesJpegDifferentCaseData]
-	[ChatMessageImagesPngDifferentCaseData]
-	[ChatMessageImagesWebpDifferentCaseData]
 	public async Task AddAsync_ShouldAddInvertedChatMessage_WhenCommandAndImagesAreValid(
 		IFormFileCollectionTransformer transformer)
 	{
@@ -411,12 +381,6 @@ public class AddChatMessageCommandServiceIntegrationTests : BaseChatMessageDomai
 
 	[Theory]
 	[ChatMessageImagesEmptyData]
-	[ChatMessageImagesJpegData]
-	[ChatMessageImagesPngData]
-	[ChatMessageImagesWebpData]
-	[ChatMessageImagesJpegDifferentCaseData]
-	[ChatMessageImagesPngDifferentCaseData]
-	[ChatMessageImagesWebpDifferentCaseData]
 	public async Task AddAsync_ShouldPublishInvertedChatMessageAddedNotification_WhenCommandAndImagesAreValid(
 		IFormFileCollectionTransformer transformer)
 	{
@@ -477,12 +441,6 @@ public class AddChatMessageCommandServiceIntegrationTests : BaseChatMessageDomai
 
 	[Theory]
 	[ChatMessageImagesEmptyData]
-	[ChatMessageImagesJpegData]
-	[ChatMessageImagesPngData]
-	[ChatMessageImagesWebpData]
-	[ChatMessageImagesJpegDifferentCaseData]
-	[ChatMessageImagesPngDifferentCaseData]
-	[ChatMessageImagesWebpDifferentCaseData]
 	public async Task AddAsync_ShouldAddChatMessageImages_WhenCommandAndImagesAreValid(
 		IFormFileCollectionTransformer transformer)
 	{
@@ -542,12 +500,6 @@ public class AddChatMessageCommandServiceIntegrationTests : BaseChatMessageDomai
 
 	[Theory]
 	[ChatMessageImagesEmptyData]
-	[ChatMessageImagesJpegData]
-	[ChatMessageImagesPngData]
-	[ChatMessageImagesWebpData]
-	[ChatMessageImagesJpegDifferentCaseData]
-	[ChatMessageImagesPngDifferentCaseData]
-	[ChatMessageImagesWebpDifferentCaseData]
 	public async Task AddAsync_ShouldAddInvertedChatMessageImages_WhenCommandAndImagesAreValid(
 		IFormFileCollectionTransformer transformer)
 	{

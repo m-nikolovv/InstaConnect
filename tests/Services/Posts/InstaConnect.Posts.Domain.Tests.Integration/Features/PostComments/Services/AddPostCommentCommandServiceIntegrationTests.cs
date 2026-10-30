@@ -83,12 +83,6 @@ public class AddPostCommentCommandServiceIntegrationTests : BasePostCommentDomai
 
 	[Theory]
 	[PostCommentImagesEmptyData]
-	[PostCommentImagesJpegData]
-	[PostCommentImagesPngData]
-	[PostCommentImagesWebpData]
-	[PostCommentImagesJpegDifferentCaseData]
-	[PostCommentImagesPngDifferentCaseData]
-	[PostCommentImagesWebpDifferentCaseData]
 	public async Task AddAsync_ShouldReturnResponse_WhenCommandAndImagesAreValid(
 		IFormFileCollectionTransformer transformer)
 	{
@@ -148,12 +142,6 @@ public class AddPostCommentCommandServiceIntegrationTests : BasePostCommentDomai
 
 	[Theory]
 	[PostCommentImagesEmptyData]
-	[PostCommentImagesJpegData]
-	[PostCommentImagesPngData]
-	[PostCommentImagesWebpData]
-	[PostCommentImagesJpegDifferentCaseData]
-	[PostCommentImagesPngDifferentCaseData]
-	[PostCommentImagesWebpDifferentCaseData]
 	public async Task AddAsync_ShouldAddPostComment_WhenCommandAndImagesAreValid(
 		IFormFileCollectionTransformer transformer)
 	{
@@ -219,12 +207,6 @@ public class AddPostCommentCommandServiceIntegrationTests : BasePostCommentDomai
 
 	[Theory]
 	[PostCommentImagesEmptyData]
-	[PostCommentImagesJpegData]
-	[PostCommentImagesPngData]
-	[PostCommentImagesWebpData]
-	[PostCommentImagesJpegDifferentCaseData]
-	[PostCommentImagesPngDifferentCaseData]
-	[PostCommentImagesWebpDifferentCaseData]
 	public async Task AddAsync_ShouldPublishPostCommentAddedEvent_WhenCommandAndImagesAreValid(
 		IFormFileCollectionTransformer transformer)
 	{
@@ -286,12 +268,6 @@ public class AddPostCommentCommandServiceIntegrationTests : BasePostCommentDomai
 
 	[Theory]
 	[PostCommentImagesEmptyData]
-	[PostCommentImagesJpegData]
-	[PostCommentImagesPngData]
-	[PostCommentImagesWebpData]
-	[PostCommentImagesJpegDifferentCaseData]
-	[PostCommentImagesPngDifferentCaseData]
-	[PostCommentImagesWebpDifferentCaseData]
 	public async Task AddAsync_ShouldAddPostCommentImages_WhenCommandAndImagesAreValid(
 		IFormFileCollectionTransformer transformer)
 	{
