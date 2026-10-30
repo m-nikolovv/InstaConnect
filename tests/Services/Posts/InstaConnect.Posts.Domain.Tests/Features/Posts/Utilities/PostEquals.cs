@@ -219,11 +219,12 @@ public static class PostEquals
 	{
 		public bool Matches(AddPostCommand command, ICollection<PostImage> entities)
 		{
-			return r.MatchesCollectionAndEmpty(
-				entities,
-				response => new(new(response.Id), response.ImageId),
-				postImage => postImage.Id,
-				(r, postImage) => r.Matches(command, postImage));
+			return command.Images.IsEmpty() ||
+				   r.MatchesCollectionAndNotEmpty(
+					   entities,
+					   response => new(new(response.Id), response.ImageId),
+					   postImage => postImage.Id,
+					   (r, postImage) => r.Matches(command, postImage));
 		}
 
 		public bool Matches(UpdatePostCommand command, ICollection<PostImage> entities)

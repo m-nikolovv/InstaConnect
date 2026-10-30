@@ -221,11 +221,12 @@ public static class PostCommentEquals
 	{
 		public bool Matches(AddPostCommentCommand command, ICollection<PostCommentImage> entities)
 		{
-			return r.MatchesCollectionAndEmpty(
-				entities,
-				response => new(new(new(response.Id), response.CommentId), response.ImageId),
-				postCommentImage => postCommentImage.Id,
-				(r, postCommentImage) => r.Matches(command, postCommentImage));
+			return command.Images.IsEmpty() ||
+				   r.MatchesCollectionAndNotEmpty(
+					   entities,
+					   response => new(new(new(response.Id), response.CommentId), response.ImageId),
+					   postCommentImage => postCommentImage.Id,
+					   (r, postCommentImage) => r.Matches(command, postCommentImage));
 		}
 
 		public bool Matches(UpdatePostCommentCommand command, ICollection<PostCommentImage> entities)

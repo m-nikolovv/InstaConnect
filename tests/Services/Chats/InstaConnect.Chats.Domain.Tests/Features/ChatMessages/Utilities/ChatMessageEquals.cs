@@ -232,11 +232,12 @@ public static class ChatMessageEquals
 	{
 		public bool Matches(AddChatMessageCommand command, ICollection<ChatMessageImage> entities)
 		{
-			return r.MatchesCollectionAndEmpty(
-				entities,
-				response => new(new(new(new(response.ParticipantOneId), new(response.ParticipantTwoId)), response.MessageId), response.ImageId),
-				chatMessageImage => chatMessageImage.Id,
-				(r, chatMessageImage) => r.Matches(command, chatMessageImage));
+			return command.Images.IsEmpty() ||
+				   r.MatchesCollectionAndNotEmpty(
+					   entities,
+					   response => new(new(new(new(response.ParticipantOneId), new(response.ParticipantTwoId)), response.MessageId), response.ImageId),
+					   chatMessageImage => chatMessageImage.Id,
+					   (r, chatMessageImage) => r.Matches(command, chatMessageImage));
 		}
 
 		public bool Matches(UpdateChatMessageCommand command, ICollection<ChatMessageImage> entities)
@@ -259,11 +260,12 @@ public static class ChatMessageEquals
 
 		public bool MatchesInverted(AddChatMessageCommand command, ICollection<ChatMessageImage> entities)
 		{
-			return r.MatchesCollectionAndEmpty(
-				entities,
-				response => new(new(new(new(response.ParticipantOneId), new(response.ParticipantTwoId)), response.MessageId), response.ImageId),
-				chatMessageImage => chatMessageImage.Id,
-				(r, chatMessageImage) => r.MatchesInverted(command, chatMessageImage));
+			return command.Images.IsEmpty() ||
+				   r.MatchesCollectionAndNotEmpty(
+					   entities,
+					   response => new(new(new(new(response.ParticipantOneId), new(response.ParticipantTwoId)), response.MessageId), response.ImageId),
+					   chatMessageImage => chatMessageImage.Id,
+					   (r, chatMessageImage) => r.MatchesInverted(command, chatMessageImage));
 		}
 
 		public bool MatchesInverted(UpdateChatMessageCommand command, ICollection<ChatMessageImage> entities)
