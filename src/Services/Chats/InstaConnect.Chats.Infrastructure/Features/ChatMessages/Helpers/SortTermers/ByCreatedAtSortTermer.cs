@@ -4,5 +4,5 @@ internal class ByCreatedAtSortTermer : IChatMessagesSortTermer
 {
 	public ChatMessagesSortTerm SortTerm => ChatMessagesSortTerm.ByCreatedAt;
 
-	public Expression<Func<ChatMessageResponse, object>> Term => p => p.CreatedAtUtc;
+	public Expression<Func<ChatMessage, object>> Term => p => p.CreatedAtUtc;
 }

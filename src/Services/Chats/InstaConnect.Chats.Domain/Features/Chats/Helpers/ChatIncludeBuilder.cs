@@ -42,6 +42,13 @@ public class ChatIncludeBuilder
 		return this;
 	}
 
+	public ChatIncludeBuilder WithChatMessages()
+	{
+		_descriptors.Add(_descriptorFactory.CreateChatMessages());
+
+		return this;
+	}
+
 	public ChatInclude Build()
 	{
 		return new(_descriptors);

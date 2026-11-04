@@ -1,20 +1,36 @@
 using InstaConnect.Posts.Domain.Features.PostCommentImages.Models.Responses;
+using InstaConnect.Posts.Domain.Features.PostComments.Abstractions;
 using InstaConnect.Posts.Domain.Features.PostImages.Models.Responses;
 
 namespace InstaConnect.Posts.Infrastructure.Features.PostComments.Helpers.Collections;
 
 internal class PostCommentFluent : MongoDbFluent<PostComment>, IPostCommentFluent
 {
+	private readonly IPaginator _paginator;
+	private readonly ISortOrdererFactory _sortOrdererFactory;
 	private readonly IPostCommentIncluderFactory _includerFactory;
+	private readonly IPostCommentsSortTermerFactory _sortTermerFactory;
+	private readonly IPostCommentIncludeBuilderFactory _includeBuilderFactory;
 	private readonly IPostCommentResponseFluentFactory _responseFluentFactory;
+	private readonly IPostCommentsForUserSortTermerFactory _forUserSortTermerFactory;
 
 	public PostCommentFluent(
 		IAggregateFluent<PostComment> fluent,
+		IPaginator paginator,
+		ISortOrdererFactory sortOrdererFactory,
 		IPostCommentIncluderFactory includerFactory,
-		IPostCommentResponseFluentFactory responseFluentFactory) : base(fluent)
+		IPostCommentsSortTermerFactory sortTermerFactory,
+		IPostCommentIncludeBuilderFactory includeBuilderFactory,
+		IPostCommentResponseFluentFactory responseFluentFactory,
+		IPostCommentsForUserSortTermerFactory forUserSortTermerFactory) : base(fluent)
 	{
+		_paginator = paginator;
+		_sortOrdererFactory = sortOrdererFactory;
 		_includerFactory = includerFactory;
+		_sortTermerFactory = sortTermerFactory;
+		_includeBuilderFactory = includeBuilderFactory;
 		_responseFluentFactory = responseFluentFactory;
+		_forUserSortTermerFactory = forUserSortTermerFactory;
 	}
 
 	public IPostCommentFluent ApplyIncludes(PostCommentInclude include)
@@ -26,6 +42,8 @@ internal class PostCommentFluent : MongoDbFluent<PostComment>, IPostCommentFluen
 
 	public IPostCommentFluent Match(PostCommentsFilterQuery filter)
 	{
+		ApplyUserInclude();
+
 		Match(filter.GetFilter());
 
 		return this;
@@ -41,6 +59,37 @@ internal class PostCommentFluent : MongoDbFluent<PostComment>, IPostCommentFluen
 	public IPostCommentFluent Match(PostCommentId filter)
 	{
 		Match(filter.GetFilter());
+
+		return this;
+	}
+
+	public IPostCommentFluent ApplySorting(PostCommentsSortingQuery query)
+	{
+		if (query.Term == PostCommentsSortTerm.ByUserName)
+		{
+			ApplyUserInclude();
+		}
+
+		ApplySorting(_sortOrdererFactory, _sortTermerFactory, query);
+
+		return this;
+	}
+
+	public IPostCommentFluent ApplySorting(PostCommentsForUserSortingQuery query)
+	{
+		if (query.Term == PostCommentsForUserSortTerm.ByUserName)
+		{
+			ApplyUserInclude();
+		}
+
+		ApplySorting(_sortOrdererFactory, _forUserSortTermerFactory, query);
+
+		return this;
+	}
+
+	public IPostCommentFluent ApplyPagination(PostCommentsPaginationQuery query)
+	{
+		ApplyPagination(_paginator, query);
 
 		return this;
 	}
@@ -85,6 +134,8 @@ internal class PostCommentFluent : MongoDbFluent<PostComment>, IPostCommentFluen
 							pi.CreatedAtUtc)).ToList(),
 					p.Post.PostLikes.Any(
 						pl => pl.Id.UserId.Id.ToLower() == currentUserId),
+					p.Post.PostLikes.Count,
+					p.Post.PostComments.Count,
 					p.Post.CreatedAtUtc,
 					p.Post.UpdatedAtUtc),
 				p.PostCommentImages.Select(
@@ -94,6 +145,7 @@ internal class PostCommentFluent : MongoDbFluent<PostComment>, IPostCommentFluen
 						pi.CreatedAtUtc)).ToList(),
 				p.PostCommentLikes.Any(
 							pl => pl.Id.UserId.Id.ToLower() == currentUserId),
+				p.PostCommentLikes.Count,
 				p.CreatedAtUtc,
 				p.UpdatedAtUtc));
 		var fluent = Project(projection);
@@ -133,6 +185,8 @@ internal class PostCommentFluent : MongoDbFluent<PostComment>, IPostCommentFluen
 							pi.CreatedAtUtc)).ToList(),
 					p.Post.PostLikes.Any(
 						pl => pl.Id.UserId.Id.ToLower() == currentUserId),
+					p.Post.PostLikes.Count,
+					p.Post.PostComments.Count,
 					p.Post.CreatedAtUtc,
 					p.Post.UpdatedAtUtc),
 				p.PostCommentImages.Select(
@@ -142,6 +196,7 @@ internal class PostCommentFluent : MongoDbFluent<PostComment>, IPostCommentFluen
 						pi.CreatedAtUtc)).ToList(),
 				p.PostCommentLikes.Any(
 							pl => pl.Id.UserId.Id.ToLower() == currentUserId),
+				p.PostCommentLikes.Count,
 				p.CreatedAtUtc,
 				p.UpdatedAtUtc));
 		var fluent = Project(projection);
@@ -175,10 +230,16 @@ internal class PostCommentFluent : MongoDbFluent<PostComment>, IPostCommentFluen
 						pi.CreatedAtUtc)).ToList(),
 				p.PostCommentLikes.Any(
 							pl => pl.Id.UserId.Id.ToLower() == currentUserId),
+				p.PostCommentLikes.Count,
 				p.CreatedAtUtc,
 				p.UpdatedAtUtc));
 		var fluent = Project(projection);
 
 		return _responseFluentFactory.Create(fluent);
+	}
+
+	private void ApplyUserInclude()
+	{
+		ApplyIncludes(_includeBuilderFactory.Create().WithUser().Build());
 	}
 }

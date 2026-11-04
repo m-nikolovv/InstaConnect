@@ -10,7 +10,11 @@ internal static class ServiceCollectionExtensions
 
 			serviceCollection.AddImplementationsOf<IUserIncluder>(PostsInfrastructureReference.Assembly);
 
-			serviceCollection.AddCollection<User>(CollectionName);
+			serviceCollection.AddCollection(
+				CollectionName,
+				new CreateIndexModel<User>(Builders<User>.IndexKeys.Ascending(c => c.Id.Id)),
+				new CreateIndexModel<User>(Builders<User>.IndexKeys.Ascending(c => c.Name.Value)),
+				new CreateIndexModel<User>(Builders<User>.IndexKeys.Ascending(c => c.Email.Value)));
 
 			BsonClassMap.TryRegisterClassMap<User>(cm =>
 			{

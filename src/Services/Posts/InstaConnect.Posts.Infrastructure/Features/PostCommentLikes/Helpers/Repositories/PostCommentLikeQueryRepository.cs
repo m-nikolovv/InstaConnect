@@ -33,11 +33,11 @@ internal class PostCommentLikeQueryRepository : IPostCommentLikeQueryRepository
 
 		return await _collection
 			.AggregateFluent()
-			.ApplyIncludes(commentLikeInclude)
 			.Match(filter)
-			.ProjectToResponseWithoutPostComment(currentUser)
 			.ApplySorting(sorting)
 			.ApplyPagination(pagination)
+			.ApplyIncludes(commentLikeInclude)
+			.ProjectToResponseWithoutPostComment(currentUser)
 			.ToListAsync(cancellationToken);
 	}
 
@@ -48,17 +48,17 @@ internal class PostCommentLikeQueryRepository : IPostCommentLikeQueryRepository
 		CurrentUserQuery currentUser,
 		CancellationToken cancellationToken)
 	{
-		var include = _includeBuilderFactory.Create().WithUser().WithPostLikes().WithPostImages().Build();
+		var include = _includeBuilderFactory.Create().WithUser().WithPostLikes().WithPostComments().WithPostImages().Build();
 		var commentInclude = _commentIncludeBuilderFactory.Create().WithUser().WithPost(include).WithPostCommentLikes().WithPostCommentImages().Build();
 		var commentLikeInclude = _commentLikeIncludeBuilderFactory.Create().WithPostComment(commentInclude).Build();
 
 		return await _collection
 			.AggregateFluent()
-			.ApplyIncludes(commentLikeInclude)
 			.Match(filter)
-			.ProjectToResponseWithoutUser(currentUser)
 			.ApplySorting(sorting)
 			.ApplyPagination(pagination)
+			.ApplyIncludes(commentLikeInclude)
+			.ProjectToResponseWithoutUser(currentUser)
 			.ToListAsync(cancellationToken);
 	}
 
@@ -66,11 +66,8 @@ internal class PostCommentLikeQueryRepository : IPostCommentLikeQueryRepository
 		PostCommentLikesFilterQuery filter,
 		CancellationToken cancellationToken)
 	{
-		var commentLikeInclude = _commentLikeIncludeBuilderFactory.Create().WithUser().Build();
-
 		return await _collection
 			.AggregateFluent()
-			.ApplyIncludes(commentLikeInclude)
 			.Match(filter)
 			.GetCountAsync(cancellationToken);
 	}
@@ -79,13 +76,8 @@ internal class PostCommentLikeQueryRepository : IPostCommentLikeQueryRepository
 		PostCommentLikesForUserFilterQuery filter,
 		CancellationToken cancellationToken)
 	{
-		var include = _includeBuilderFactory.Create().WithUser().WithPostLikes().WithPostImages().Build();
-		var commentInclude = _commentIncludeBuilderFactory.Create().WithUser().WithPost(include).WithPostCommentLikes().WithPostCommentImages().Build();
-		var commentLikeInclude = _commentLikeIncludeBuilderFactory.Create().WithPostComment(commentInclude).Build();
-
 		return await _collection
 			.AggregateFluent()
-			.ApplyIncludes(commentLikeInclude)
 			.Match(filter)
 			.GetCountAsync(cancellationToken);
 	}
@@ -95,14 +87,14 @@ internal class PostCommentLikeQueryRepository : IPostCommentLikeQueryRepository
 		CurrentUserQuery currentUser,
 		CancellationToken cancellationToken)
 	{
-		var include = _includeBuilderFactory.Create().WithUser().WithPostLikes().WithPostImages().Build();
+		var include = _includeBuilderFactory.Create().WithUser().WithPostLikes().WithPostComments().WithPostImages().Build();
 		var commentInclude = _commentIncludeBuilderFactory.Create().WithUser().WithPost(include).WithPostCommentLikes().WithPostCommentImages().Build();
 		var commentLikeInclude = _commentLikeIncludeBuilderFactory.Create().WithUser().WithPostComment(commentInclude).Build();
 
 		return await _collection
 			.AggregateFluent()
-			.ApplyIncludes(commentLikeInclude)
 			.Match(id)
+			.ApplyIncludes(commentLikeInclude)
 			.ProjectToFullResponse(currentUser)
 			.FirstOrDefaultAsync(cancellationToken);
 	}

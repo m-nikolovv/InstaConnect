@@ -24,8 +24,8 @@ internal class RefreshTokenCommandRepository : IRefreshTokenCommandRepository
 	{
 		return await _collection
 			.AggregateFluent()
-			.ApplyIncludes(include)
 			.Match(id)
+			.ApplyIncludes(include)
 			.FirstOrDefaultAsync(cancellationToken);
 	}
 

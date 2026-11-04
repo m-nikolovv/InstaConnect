@@ -12,7 +12,12 @@ internal static class ServiceCollectionExtensions
 			serviceCollection.AddImplementationsOf<IPostCommentLikesForUserSortTermer>(PostsInfrastructureReference.Assembly);
 			serviceCollection.AddImplementationsOf<IPostCommentLikeIncluder>(PostsInfrastructureReference.Assembly);
 
-			serviceCollection.AddCollection<PostCommentLike>(CollectionName);
+			serviceCollection.AddCollection(
+				CollectionName,
+				new CreateIndexModel<PostCommentLike>(Builders<PostCommentLike>.IndexKeys.Ascending(c => c.Id.CommentId.Id.Id).Ascending(c => c.Id.CommentId.CommentId).Ascending(c => c.CreatedAtUtc)),
+				new CreateIndexModel<PostCommentLike>(Builders<PostCommentLike>.IndexKeys.Ascending(c => c.Id.UserId.Id).Ascending(c => c.CreatedAtUtc)),
+				new CreateIndexModel<PostCommentLike>(Builders<PostCommentLike>.IndexKeys.Ascending(c => c.Id.CommentId)),
+				new CreateIndexModel<PostCommentLike>(Builders<PostCommentLike>.IndexKeys.Ascending(c => c.Id.UserId)));
 
 			BsonClassMap.TryRegisterClassMap<PostCommentLike>(cm =>
 			{

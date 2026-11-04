@@ -6,6 +6,8 @@ public interface IUserFluent : IMongoDbFluent<User>
 	public IUserFluent Match(UserId filter);
 	public IUserFluent Match(Name filter);
 	public IUserFluent Match(Email filter);
+	public IUserFluent ApplySorting(UsersSortingQuery query);
+	public IUserFluent ApplyPagination(UsersPaginationQuery query);
 	public IUserResponseFluent ProjectToFullResponse(CurrentUserQuery currentUser);
 	public IUserFluent ApplyIncludes(UserInclude include);
 }

@@ -14,7 +14,10 @@ internal static class ServiceCollectionExtensions
 
 			serviceCollection.AddImplementationsOf<IForgotPasswordTokenIncluder>(IdentityInfrastructureReference.Assembly);
 
-			serviceCollection.AddCollection<ForgotPasswordToken>(CollectionName);
+			serviceCollection.AddCollection(
+				CollectionName,
+				new CreateIndexModel<ForgotPasswordToken>(Builders<ForgotPasswordToken>.IndexKeys.Ascending(c => c.Id.Id.Id)),
+				new CreateIndexModel<ForgotPasswordToken>(Builders<ForgotPasswordToken>.IndexKeys.Ascending(c => c.Id.Id)));
 
 			BsonClassMap.TryRegisterClassMap<ForgotPasswordToken>(cm =>
 			{

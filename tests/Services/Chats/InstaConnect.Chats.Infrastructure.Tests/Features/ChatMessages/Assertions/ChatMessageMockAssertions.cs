@@ -164,10 +164,7 @@ public static class ChatMessageMockAssertions
 		{
 			await fluent.ShouldHaveReceivedOneFirstOrDefaultAsync(cancellationToken);
 		}
-	}
 
-	extension(IChatMessageResponseFluent fluent)
-	{
 		public void ShouldHaveReceivedOneApplySorting(
 			ChatMessagesFilterQuery filterQuery,
 			ChatMessagesSortingQuery sortingQuery,
@@ -195,7 +192,10 @@ public static class ChatMessageMockAssertions
 		{
 			fluent.ShouldHaveReceivedOne().ApplyPagination(paginationQuery);
 		}
+	}
 
+	extension(IChatMessageResponseFluent fluent)
+	{
 		public async Task ShouldHaveReceivedOneFirstOrDefaultAsync(
 			ChatMessageId id,
 			CurrentUserQuery currentUserQuery,

@@ -21,6 +21,7 @@ public static class ServiceCollectionExtensions
 
 					cf.AddOpenBehavior(typeof(ValidationPipelineBehavior<,>));
 					cf.AddOpenBehavior(typeof(CachePipelineBehavior<,>));
+					cf.AddOpenBehavior(typeof(CacheInvalidationPipelineBehavior<,>));
 					cf.AddOpenBehavior(typeof(UnitOfWorkPipelineBehavior<,>));
 				});
 

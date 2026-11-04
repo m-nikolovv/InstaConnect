@@ -14,7 +14,12 @@ internal static class ServiceCollectionExtensions
 			serviceCollection.AddImplementationsOf<IFollowsForFollowingSortTermer>(FollowsInfrastructureReference.Assembly);
 			serviceCollection.AddImplementationsOf<IFollowIncluder>(FollowsInfrastructureReference.Assembly);
 
-			serviceCollection.AddCollection<Follow>(CollectionName);
+			serviceCollection.AddCollection(
+				CollectionName,
+				new CreateIndexModel<Follow>(Builders<Follow>.IndexKeys.Ascending(c => c.Id.FollowerId.Id).Ascending(c => c.CreatedAtUtc)),
+				new CreateIndexModel<Follow>(Builders<Follow>.IndexKeys.Ascending(c => c.Id.FollowingId.Id).Ascending(c => c.CreatedAtUtc)),
+				new CreateIndexModel<Follow>(Builders<Follow>.IndexKeys.Ascending(c => c.Id.FollowerId)),
+				new CreateIndexModel<Follow>(Builders<Follow>.IndexKeys.Ascending(c => c.Id.FollowingId)));
 
 			BsonClassMap.TryRegisterClassMap<Follow>(cm =>
 			{

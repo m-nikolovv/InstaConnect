@@ -4,15 +4,24 @@ namespace InstaConnect.Identity.Infrastructure.Features.UserClaims.Helpers.Colle
 
 internal class UserClaimFluent : MongoDbFluent<UserClaim>, IUserClaimFluent
 {
+	private readonly IPaginator _paginator;
+	private readonly ISortOrdererFactory _sortOrdererFactory;
 	private readonly IUserClaimIncluderFactory _includerFactory;
+	private readonly IUserClaimsSortTermerFactory _sortTermerFactory;
 	private readonly IUserClaimResponseFluentFactory _responseFluentFactory;
 
 	public UserClaimFluent(
 		IAggregateFluent<UserClaim> fluent,
+		IPaginator paginator,
+		ISortOrdererFactory sortOrdererFactory,
 		IUserClaimIncluderFactory includerFactory,
+		IUserClaimsSortTermerFactory sortTermerFactory,
 		IUserClaimResponseFluentFactory responseFluentFactory) : base(fluent)
 	{
+		_paginator = paginator;
+		_sortOrdererFactory = sortOrdererFactory;
 		_includerFactory = includerFactory;
+		_sortTermerFactory = sortTermerFactory;
 		_responseFluentFactory = responseFluentFactory;
 	}
 
@@ -33,6 +42,20 @@ internal class UserClaimFluent : MongoDbFluent<UserClaim>, IUserClaimFluent
 	public IUserClaimFluent Match(UserClaimId filter)
 	{
 		Match(filter.GetFilter());
+
+		return this;
+	}
+
+	public IUserClaimFluent ApplySorting(UserClaimsSortingQuery query)
+	{
+		ApplySorting(_sortOrdererFactory, _sortTermerFactory, query);
+
+		return this;
+	}
+
+	public IUserClaimFluent ApplyPagination(UserClaimsPaginationQuery query)
+	{
+		ApplyPagination(_paginator, query);
 
 		return this;
 	}

@@ -238,10 +238,7 @@ public static class PostLikeMockSetups
 		{
 			fluent.SetupFirstOrDefaultAsync(postLike, cancellationToken);
 		}
-	}
 
-	extension(IPostLikeResponseFluent fluent)
-	{
 		public void SetupApplySorting(
 			PostLikesFilterQuery filterQuery,
 			PostLikesSortingQuery sortingQuery,
@@ -292,7 +289,10 @@ public static class PostLikeMockSetups
 		{
 			fluent.ApplyPagination(paginationQuery).ReturnsResponse(fluent);
 		}
+	}
 
+	extension(IPostLikeResponseFluent fluent)
+	{
 		public void SetupToListAsync(
 			PostLikesFilterQuery filterQuery,
 			PostLikesSortingQuery sortingQuery,

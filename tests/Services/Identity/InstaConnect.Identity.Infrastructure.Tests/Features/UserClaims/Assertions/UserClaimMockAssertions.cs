@@ -139,10 +139,7 @@ public static class UserClaimMockAssertions
 		{
 			await fluent.ShouldHaveReceivedOneFirstOrDefaultAsync(cancellationToken);
 		}
-	}
 
-	extension(IUserClaimResponseFluent fluent)
-	{
 		public void ShouldHaveReceivedOneApplySorting(
 			UserClaimsFilterQuery filterQuery,
 			UserClaimsSortingQuery sortingQuery,
@@ -170,7 +167,10 @@ public static class UserClaimMockAssertions
 		{
 			fluent.ShouldHaveReceivedOne().ApplyPagination(paginationQuery);
 		}
+	}
 
+	extension(IUserClaimResponseFluent fluent)
+	{
 		public async Task ShouldHaveReceivedOneFirstOrDefaultAsync(
 			UserClaimId id,
 			CurrentUserQuery currentUserQuery,

@@ -83,6 +83,7 @@ internal class PostCommentPresentationMappings : IRegister
 				src.Post.Adapt<PostApiResponse>(config),
 				src.PostCommentImages.Adapt<ICollection<PostCommentImageApiResponse>>(config),
 				src.IsLikedByCurrentUser,
+				src.LikeCount,
 				src.CreatedAtUtc,
 				src.UpdatedAtUtc));
 

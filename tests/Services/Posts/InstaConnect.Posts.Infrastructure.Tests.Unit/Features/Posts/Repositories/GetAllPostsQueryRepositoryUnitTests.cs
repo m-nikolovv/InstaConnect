@@ -42,7 +42,7 @@ public class GetAllPostsQueryRepositoryUnitTests : BasePostInfrastructureQueryUn
 		_currentUserQueryBuilder = _currentUserQueryBuilderFactory.Create(User);
 		_currentUserQuery = _currentUserQueryBuilder.Build();
 
-		_include = IncludeBuilderFactory.Create().WithUser().WithPostLikes().WithPostImages().Build();
+		_include = IncludeBuilderFactory.Create().WithUser().WithPostLikes().WithPostComments().WithPostImages().Build();
 
 		_repository = new(Collection, IncludeBuilderFactory);
 
@@ -50,8 +50,8 @@ public class GetAllPostsQueryRepositoryUnitTests : BasePostInfrastructureQueryUn
 		Fluent.SetupApplyIncludes(_filterQuery, _sortingQuery, _paginationQuery, _currentUserQuery, _include);
 		Fluent.SetupMatch(_filterQuery, _sortingQuery, _paginationQuery, _currentUserQuery);
 		Fluent.SetupProjectToFullResponse(_filterQuery, _sortingQuery, _paginationQuery, _currentUserQuery, ResponseFluent);
-		ResponseFluent.SetupApplySorting(_filterQuery, _sortingQuery, _paginationQuery, _currentUserQuery);
-		ResponseFluent.SetupApplyPagination(_filterQuery, _sortingQuery, _paginationQuery, _currentUserQuery);
+		Fluent.SetupApplySorting(_filterQuery, _sortingQuery, _paginationQuery, _currentUserQuery);
+		Fluent.SetupApplyPagination(_filterQuery, _sortingQuery, _paginationQuery, _currentUserQuery);
 		ResponseFluent.SetupToListAsync(_filterQuery, _sortingQuery, _paginationQuery, _currentUserQuery, Posts, CancellationToken);
 	}
 
@@ -106,23 +106,23 @@ public class GetAllPostsQueryRepositoryUnitTests : BasePostInfrastructureQueryUn
 	}
 
 	[Fact]
-	public async Task GetAllAsync_ShouldCallTheResponseFluentApplySorting_WhenQueryIsValid()
+	public async Task GetAllAsync_ShouldCallTheFluentApplySorting_WhenQueryIsValid()
 	{
 		// Act
 		await _repository.GetAllAsync(_filterQuery, _sortingQuery, _paginationQuery, _currentUserQuery, CancellationToken);
 
 		// Assert
-		ResponseFluent.ShouldHaveReceivedOneApplySorting(_filterQuery, _sortingQuery, _paginationQuery, _currentUserQuery);
+		Fluent.ShouldHaveReceivedOneApplySorting(_filterQuery, _sortingQuery, _paginationQuery, _currentUserQuery);
 	}
 
 	[Fact]
-	public async Task GetAllAsync_ShouldCallTheResponseFluentApplyPagination_WhenQueryIsValid()
+	public async Task GetAllAsync_ShouldCallTheFluentApplyPagination_WhenQueryIsValid()
 	{
 		// Act
 		await _repository.GetAllAsync(_filterQuery, _sortingQuery, _paginationQuery, _currentUserQuery, CancellationToken);
 
 		// Assert
-		ResponseFluent.ShouldHaveReceivedOneApplyPagination(_filterQuery, _sortingQuery, _paginationQuery, _currentUserQuery);
+		Fluent.ShouldHaveReceivedOneApplyPagination(_filterQuery, _sortingQuery, _paginationQuery, _currentUserQuery);
 	}
 
 	[Fact]

@@ -1,4 +1,5 @@
 using InstaConnect.Common.Infrastructure.Features.Databases.Extensions;
+using InstaConnect.Common.Infrastructure.Features.Databases.Utilities;
 
 namespace InstaConnect.Common.Infrastructure.Features.Databases.Helpers;
 
@@ -17,11 +18,9 @@ public abstract class MongoDbCollection<TEntity> : IMongoDbCollection<TEntity> w
 
 	protected IAggregateFluent<TEntity> AggregateWithIgnoreCaseCollation()
 	{
-		const string Locale = "en";
-
 		var options = new AggregateOptions
 		{
-			Collation = new Collation(Locale, strength: CollationStrength.Primary)
+			Collation = MongoDbCollations.IgnoreCase
 		};
 
 		return _mongoCollection.Aggregate(options);
@@ -29,7 +28,7 @@ public abstract class MongoDbCollection<TEntity> : IMongoDbCollection<TEntity> w
 
 	protected async Task UpdateAsync(FilterDefinition<TEntity> filter, TEntity entity, CancellationToken cancellationToken)
 	{
-		var options = new ReplaceOptions { IsUpsert = false };
+		var options = new ReplaceOptions { IsUpsert = false, Collation = MongoDbCollations.IgnoreCase };
 
 		if (_sessionHandler.ClientSessionHandle.HasNoActiveTransaction())
 		{
@@ -43,26 +42,30 @@ public abstract class MongoDbCollection<TEntity> : IMongoDbCollection<TEntity> w
 
 	protected async Task DeleteAsync(FilterDefinition<TEntity> filter, CancellationToken cancellationToken)
 	{
+		var options = new DeleteOptions { Collation = MongoDbCollations.IgnoreCase };
+
 		if (_sessionHandler.ClientSessionHandle.HasNoActiveTransaction())
 		{
-			await _mongoCollection.DeleteOneAsync(filter, null, cancellationToken);
+			await _mongoCollection.DeleteOneAsync(filter, options, cancellationToken);
 
 			return;
 		}
 
-		await _mongoCollection.DeleteOneAsync(_sessionHandler.ClientSessionHandle, filter, null, cancellationToken);
+		await _mongoCollection.DeleteOneAsync(_sessionHandler.ClientSessionHandle, filter, options, cancellationToken);
 	}
 
 	protected async Task DeleteRangeAsync(FilterDefinition<TEntity> filter, CancellationToken cancellationToken)
 	{
+		var options = new DeleteOptions { Collation = MongoDbCollations.IgnoreCase };
+
 		if (_sessionHandler.ClientSessionHandle.HasNoActiveTransaction())
 		{
-			await _mongoCollection.DeleteManyAsync(filter, null, cancellationToken);
+			await _mongoCollection.DeleteManyAsync(filter, options, cancellationToken);
 
 			return;
 		}
 
-		await _mongoCollection.DeleteManyAsync(_sessionHandler.ClientSessionHandle, filter, null, cancellationToken);
+		await _mongoCollection.DeleteManyAsync(_sessionHandler.ClientSessionHandle, filter, options, cancellationToken);
 	}
 
 	public async Task AddAsync(TEntity entity, CancellationToken cancellationToken)

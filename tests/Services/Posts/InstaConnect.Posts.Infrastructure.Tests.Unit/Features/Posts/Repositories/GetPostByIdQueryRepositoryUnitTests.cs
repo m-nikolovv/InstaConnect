@@ -16,7 +16,7 @@ public class GetPostByIdQueryRepositoryUnitTests : BasePostInfrastructureQueryUn
 		_currentUserQueryBuilder = _currentUserQueryBuilderFactory.Create(User);
 		_currentUserQuery = _currentUserQueryBuilder.Build();
 
-		_include = IncludeBuilderFactory.Create().WithUser().WithPostLikes().WithPostImages().Build();
+		_include = IncludeBuilderFactory.Create().WithUser().WithPostLikes().WithPostComments().WithPostImages().Build();
 
 		_repository = new(Collection, IncludeBuilderFactory);
 

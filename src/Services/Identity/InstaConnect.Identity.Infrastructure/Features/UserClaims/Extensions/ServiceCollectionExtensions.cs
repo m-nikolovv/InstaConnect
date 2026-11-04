@@ -11,7 +11,10 @@ internal static class ServiceCollectionExtensions
 			serviceCollection.AddImplementationsOf<IUserClaimsSortTermer>(IdentityInfrastructureReference.Assembly);
 			serviceCollection.AddImplementationsOf<IUserClaimIncluder>(IdentityInfrastructureReference.Assembly);
 
-			serviceCollection.AddCollection<UserClaim>(CollectionName);
+			serviceCollection.AddCollection(
+				CollectionName,
+				new CreateIndexModel<UserClaim>(Builders<UserClaim>.IndexKeys.Ascending(c => c.Id.Id.Id).Ascending(c => c.CreatedAtUtc)),
+				new CreateIndexModel<UserClaim>(Builders<UserClaim>.IndexKeys.Ascending(c => c.Id.Id)));
 
 			BsonClassMap.TryRegisterClassMap<UserClaim>(cm =>
 			{

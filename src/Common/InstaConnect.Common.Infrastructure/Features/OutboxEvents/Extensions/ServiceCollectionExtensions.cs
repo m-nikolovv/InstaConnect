@@ -22,7 +22,11 @@ public static class ServiceCollectionExtensions
 				.AddScoped<IOutboxEventCollection, OutboxEventCollection>()
 				.AddScoped<IOutboxEventCommandRepository, OutboxEventCommandRepository>();
 
-			serviceCollection.AddCollection<OutboxEvent>(CollectionName);
+			serviceCollection.AddCollection(
+				CollectionName,
+				new CreateIndexModel<OutboxEvent>(
+					Builders<OutboxEvent>.IndexKeys.AscendingDateTime(c => c.CreatedAtUtc),
+					new CreateIndexOptions { ExpireAfter = TimeSpan.FromDays(1) }));
 
 			BsonClassMap.TryRegisterClassMap<OutboxEvent>(cm =>
 			{

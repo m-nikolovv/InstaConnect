@@ -35,6 +35,11 @@ internal class CacheHandler : ICacheHandler
 			cancellationToken);
 	}
 
+	public async Task RemoveAsync(string key, CancellationToken cancellationToken)
+	{
+		await _distributedCache.RemoveAsync(key, cancellationToken);
+	}
+
 	public async Task<T?> GetAsync<T>(string key, CancellationToken cancellationToken)
 	{
 		var value = await _distributedCache.GetStringAsync(key, cancellationToken) ?? string.Empty;

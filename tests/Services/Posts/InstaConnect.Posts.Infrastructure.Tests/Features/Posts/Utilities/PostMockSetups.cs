@@ -239,10 +239,7 @@ public static class PostMockSetups
 		{
 			fluent.SetupFirstOrDefaultAsync(post, cancellationToken);
 		}
-	}
 
-	extension(IPostResponseFluent fluent)
-	{
 		public void SetupApplySorting(
 			PostsFilterQuery filterQuery,
 			PostsSortingQuery sortingQuery,
@@ -293,7 +290,10 @@ public static class PostMockSetups
 		{
 			fluent.ApplyPagination(paginationQuery).ReturnsResponse(fluent);
 		}
+	}
 
+	extension(IPostResponseFluent fluent)
+	{
 		public void SetupToListAsync(
 			PostsFilterQuery filterQuery,
 			PostsSortingQuery sortingQuery,

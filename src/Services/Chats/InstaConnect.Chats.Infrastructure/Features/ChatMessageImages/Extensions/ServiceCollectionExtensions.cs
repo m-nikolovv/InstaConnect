@@ -8,7 +8,10 @@ internal static class ServiceCollectionExtensions
 		{
 			const string CollectionName = "chat_message_images";
 
-			serviceCollection.AddCollection<ChatMessageImage>(CollectionName);
+			serviceCollection.AddCollection(
+				CollectionName,
+				new CreateIndexModel<ChatMessageImage>(Builders<ChatMessageImage>.IndexKeys.Ascending(c => c.Id.Id.Id.ParticipantOneId.Id).Ascending(c => c.Id.Id.Id.ParticipantTwoId.Id).Ascending(c => c.Id.Id.MessageId)),
+				new CreateIndexModel<ChatMessageImage>(Builders<ChatMessageImage>.IndexKeys.Ascending(c => c.Id.Id)));
 
 			BsonClassMap.TryRegisterClassMap<ChatMessageImage>(cm =>
 			{

@@ -13,7 +13,7 @@ public static class FilterExtensions
 				return builder.Empty;
 			}
 
-			return builder.Regex(field, value.ToEqualsIgnoreCaseRegex());
+			return builder.Eq(field, value);
 		}
 
 		public FilterDefinition<T> StartsWithIgnoreCase(Expression<Func<T, object>> field, string value, bool isEmpty = false)

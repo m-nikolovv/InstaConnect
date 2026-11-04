@@ -16,6 +16,13 @@ internal static class ChatFilterExtensions
 
 			return Builders<Chat>.Filter.Or(participantOne, participantTwo);
 		}
+
+		public FilterDefinition<Chat> GetParticipantFilter()
+		{
+			return Builders<Chat>.Filter.Or(
+				filter.ParticipantOneId.GetFilterForIdEquals<Chat>(p => p.Id.ParticipantOneId.Id),
+				filter.ParticipantOneId.GetFilterForIdEquals<Chat>(p => p.Id.ParticipantTwoId.Id));
+		}
 	}
 
 	extension(ChatId filter)

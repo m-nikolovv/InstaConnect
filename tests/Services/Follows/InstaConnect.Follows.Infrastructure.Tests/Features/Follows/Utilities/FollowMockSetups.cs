@@ -237,10 +237,7 @@ public static class FollowMockSetups
 		{
 			fluent.SetupFirstOrDefaultAsync(follow, cancellationToken);
 		}
-	}
 
-	extension(IFollowResponseFluent fluent)
-	{
 		public void SetupApplySorting(
 			FollowsFilterQuery filterQuery,
 			FollowsSortingQuery sortingQuery,
@@ -291,7 +288,10 @@ public static class FollowMockSetups
 		{
 			fluent.ApplyPagination(paginationQuery).ReturnsResponse(fluent);
 		}
+	}
 
+	extension(IFollowResponseFluent fluent)
+	{
 		public void SetupToListAsync(
 			FollowsFilterQuery filterQuery,
 			FollowsSortingQuery sortingQuery,

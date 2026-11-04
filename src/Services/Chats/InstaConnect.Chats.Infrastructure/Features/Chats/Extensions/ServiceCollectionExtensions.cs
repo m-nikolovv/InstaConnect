@@ -13,7 +13,12 @@ internal static class ServiceCollectionExtensions
 			serviceCollection.AddImplementationsOf<IChatsSortTermer>(ChatsInfrastructureReference.Assembly);
 			serviceCollection.AddImplementationsOf<IChatIncluder>(ChatsInfrastructureReference.Assembly);
 
-			serviceCollection.AddCollection<Chat>(CollectionName);
+			serviceCollection.AddCollection(
+				CollectionName,
+				new CreateIndexModel<Chat>(Builders<Chat>.IndexKeys.Ascending(c => c.Id.ParticipantOneId.Id).Ascending(c => c.CreatedAtUtc)),
+				new CreateIndexModel<Chat>(Builders<Chat>.IndexKeys.Ascending(c => c.Id.ParticipantTwoId.Id).Ascending(c => c.CreatedAtUtc)),
+				new CreateIndexModel<Chat>(Builders<Chat>.IndexKeys.Ascending(c => c.Id.ParticipantOneId)),
+				new CreateIndexModel<Chat>(Builders<Chat>.IndexKeys.Ascending(c => c.Id.ParticipantTwoId)));
 
 			BsonClassMap.TryRegisterClassMap<Chat>(cm =>
 			{

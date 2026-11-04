@@ -8,8 +8,6 @@ public class GetPostCommentsForUserTotalCountQueryRepositoryUnitTests : BasePost
 	private readonly PostCommentsForUserFilterQueryBuilder _filterQueryBuilder;
 	private readonly PostCommentsForUserFilterQuery _filterQuery;
 
-	private readonly PostCommentInclude _include;
-
 	private readonly PostCommentQueryRepository _repository;
 
 	public GetPostCommentsForUserTotalCountQueryRepositoryUnitTests()
@@ -18,12 +16,9 @@ public class GetPostCommentsForUserTotalCountQueryRepositoryUnitTests : BasePost
 		_filterQueryBuilder = _filterQueryBuilderFactory.Create(PostComment);
 		_filterQuery = _filterQueryBuilder.Build();
 
-		_include = CommentIncludeBuilderFactory.Create().WithPost(IncludeBuilderFactory.Create().WithUser().WithPostLikes().WithPostImages().Build()).WithPostCommentLikes().WithPostCommentImages().Build();
-
 		_repository = new(Collection, IncludeBuilderFactory, CommentIncludeBuilderFactory);
 
 		Collection.SetupAggregateFluent(_filterQuery, Fluent);
-		Fluent.SetupApplyIncludes(_filterQuery, _include);
 		Fluent.SetupMatch(_filterQuery);
 		Fluent.SetupGetCountAsync(_filterQuery, PostComments, CancellationToken);
 	}
@@ -46,16 +41,6 @@ public class GetPostCommentsForUserTotalCountQueryRepositoryUnitTests : BasePost
 
 		// Assert
 		Collection.ShouldHaveReceivedOneAggregateFluent(_filterQuery);
-	}
-
-	[Fact]
-	public async Task GetTotalCountForUserAsync_ShouldCallTheFluentApplyIncludes_WhenQueryIsValid()
-	{
-		// Act
-		await _repository.GetTotalCountForUserAsync(_filterQuery, CancellationToken);
-
-		// Assert
-		Fluent.ShouldHaveReceivedOneApplyIncludes(_filterQuery, _include);
 	}
 
 	[Fact]

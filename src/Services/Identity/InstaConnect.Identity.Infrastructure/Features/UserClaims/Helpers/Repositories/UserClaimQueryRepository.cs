@@ -25,9 +25,9 @@ internal class UserClaimQueryRepository : IUserClaimQueryRepository
 		return await _collection
 			.AggregateFluent()
 			.Match(filter)
-			.ProjectToResponseWithoutUser(current)
 			.ApplySorting(sorting)
 			.ApplyPagination(pagination)
+			.ProjectToResponseWithoutUser(current)
 			.ToListAsync(cancellationToken);
 	}
 
@@ -50,8 +50,8 @@ internal class UserClaimQueryRepository : IUserClaimQueryRepository
 
 		return await _collection
 			.AggregateFluent()
-			.ApplyIncludes(include)
 			.Match(id)
+			.ApplyIncludes(include)
 			.ProjectToFullResponse(current)
 			.FirstOrDefaultAsync(cancellationToken);
 	}

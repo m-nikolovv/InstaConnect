@@ -4,15 +4,24 @@ namespace InstaConnect.Chats.Infrastructure.Features.ChatMessages.Helpers.Collec
 
 internal class ChatMessageFluent : MongoDbFluent<ChatMessage>, IChatMessageFluent
 {
+	private readonly IPaginator _paginator;
+	private readonly ISortOrdererFactory _sortOrdererFactory;
 	private readonly IChatMessageIncluderFactory _includerFactory;
+	private readonly IChatMessagesSortTermerFactory _sortTermerFactory;
 	private readonly IChatMessageResponseFluentFactory _responseFluentFactory;
 
 	public ChatMessageFluent(
 		IAggregateFluent<ChatMessage> fluent,
+		IPaginator paginator,
+		ISortOrdererFactory sortOrdererFactory,
 		IChatMessageIncluderFactory includerFactory,
+		IChatMessagesSortTermerFactory sortTermerFactory,
 		IChatMessageResponseFluentFactory responseFluentFactory) : base(fluent)
 	{
+		_paginator = paginator;
+		_sortOrdererFactory = sortOrdererFactory;
 		_includerFactory = includerFactory;
+		_sortTermerFactory = sortTermerFactory;
 		_responseFluentFactory = responseFluentFactory;
 	}
 
@@ -33,6 +42,20 @@ internal class ChatMessageFluent : MongoDbFluent<ChatMessage>, IChatMessageFluen
 	public IChatMessageFluent Match(ChatMessageId filter)
 	{
 		Match(filter.GetFilter());
+
+		return this;
+	}
+
+	public IChatMessageFluent ApplySorting(ChatMessagesSortingQuery query)
+	{
+		ApplySorting(_sortOrdererFactory, _sortTermerFactory, query);
+
+		return this;
+	}
+
+	public IChatMessageFluent ApplyPagination(ChatMessagesPaginationQuery query)
+	{
+		ApplyPagination(_paginator, query);
 
 		return this;
 	}
@@ -72,6 +95,7 @@ internal class ChatMessageFluent : MongoDbFluent<ChatMessage>, IChatMessageFluen
 							p.Id.Id.ParticipantOneId.Id.ToLower() == currentUserId ? p.Chat.ParticipantTwo!.ProfileImageUrl : p.Chat.ParticipantOne!.ProfileImageUrl,
 							p.Id.Id.ParticipantOneId.Id.ToLower() == currentUserId ? p.Chat.ParticipantTwo!.CreatedAtUtc : p.Chat.ParticipantOne!.CreatedAtUtc,
 							p.Id.Id.ParticipantOneId.Id.ToLower() == currentUserId ? p.Chat.ParticipantTwo!.UpdatedAtUtc : p.Chat.ParticipantOne!.UpdatedAtUtc),
+						p.Chat.ChatMessages.Count,
 						p.Chat.CreatedAtUtc),
 					new UserResponse(
 						p.Sender!.Id,
@@ -176,6 +200,7 @@ internal class ChatMessageFluent : MongoDbFluent<ChatMessage>, IChatMessageFluen
 							p.Id.Id.ParticipantOneId.Id.ToLower() == currentUserId ? p.Chat.ParticipantTwo!.ProfileImageUrl : p.Chat.ParticipantOne!.ProfileImageUrl,
 							p.Id.Id.ParticipantOneId.Id.ToLower() == currentUserId ? p.Chat.ParticipantTwo!.CreatedAtUtc : p.Chat.ParticipantOne!.CreatedAtUtc,
 							p.Id.Id.ParticipantOneId.Id.ToLower() == currentUserId ? p.Chat.ParticipantTwo!.UpdatedAtUtc : p.Chat.ParticipantOne!.UpdatedAtUtc),
+						p.Chat.ChatMessages.Count,
 						p.CreatedAtUtc),
 					null,
 					p.ChatMessageImages.Select(

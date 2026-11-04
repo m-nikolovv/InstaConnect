@@ -147,10 +147,7 @@ public static class UserClaimMockSetups
 		{
 			fluent.SetupFirstOrDefaultAsync(userClaim, cancellationToken);
 		}
-	}
 
-	extension(IUserClaimResponseFluent fluent)
-	{
 		public void SetupApplySorting(
 			UserClaimsFilterQuery filterQuery,
 			UserClaimsSortingQuery sortingQuery,
@@ -178,7 +175,10 @@ public static class UserClaimMockSetups
 		{
 			fluent.ApplyPagination(paginationQuery).ReturnsResponse(fluent);
 		}
+	}
 
+	extension(IUserClaimResponseFluent fluent)
+	{
 		public void SetupToListAsync(
 			UserClaimsFilterQuery filterQuery,
 			UserClaimsSortingQuery sortingQuery,
