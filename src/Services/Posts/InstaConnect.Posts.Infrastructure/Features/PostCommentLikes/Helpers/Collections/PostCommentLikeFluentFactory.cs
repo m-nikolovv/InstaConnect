@@ -1,5 +1,3 @@
-using InstaConnect.Posts.Domain.Features.PostCommentLikes.Abstractions;
-
 namespace InstaConnect.Posts.Infrastructure.Features.PostCommentLikes.Helpers.Collections;
 
 internal class PostCommentLikeFluentFactory : IPostCommentLikeFluentFactory
@@ -8,7 +6,6 @@ internal class PostCommentLikeFluentFactory : IPostCommentLikeFluentFactory
 	private readonly ISortOrdererFactory _sortOrdererFactory;
 	private readonly IPostCommentLikeIncluderFactory _includerFactory;
 	private readonly IPostCommentLikesSortTermerFactory _sortTermerFactory;
-	private readonly IPostCommentLikeIncludeBuilderFactory _includeBuilderFactory;
 	private readonly IPostCommentLikeResponseFluentFactory _responseFluentFactory;
 	private readonly IPostCommentLikesForUserSortTermerFactory _forUserSortTermerFactory;
 
@@ -17,7 +14,6 @@ internal class PostCommentLikeFluentFactory : IPostCommentLikeFluentFactory
 		ISortOrdererFactory sortOrdererFactory,
 		IPostCommentLikeIncluderFactory includerFactory,
 		IPostCommentLikesSortTermerFactory sortTermerFactory,
-		IPostCommentLikeIncludeBuilderFactory includeBuilderFactory,
 		IPostCommentLikeResponseFluentFactory responseFluentFactory,
 		IPostCommentLikesForUserSortTermerFactory forUserSortTermerFactory)
 	{
@@ -25,7 +21,6 @@ internal class PostCommentLikeFluentFactory : IPostCommentLikeFluentFactory
 		_sortOrdererFactory = sortOrdererFactory;
 		_includerFactory = includerFactory;
 		_sortTermerFactory = sortTermerFactory;
-		_includeBuilderFactory = includeBuilderFactory;
 		_responseFluentFactory = responseFluentFactory;
 		_forUserSortTermerFactory = forUserSortTermerFactory;
 	}
@@ -38,7 +33,6 @@ internal class PostCommentLikeFluentFactory : IPostCommentLikeFluentFactory
 			_sortOrdererFactory,
 			_includerFactory,
 			_sortTermerFactory,
-			_includeBuilderFactory,
 			_responseFluentFactory,
 			_forUserSortTermerFactory);
 	}

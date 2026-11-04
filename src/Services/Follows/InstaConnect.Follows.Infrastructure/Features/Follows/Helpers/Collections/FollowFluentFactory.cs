@@ -1,5 +1,3 @@
-using InstaConnect.Follows.Domain.Features.Follows.Abstractions;
-
 namespace InstaConnect.Follows.Infrastructure.Features.Follows.Helpers.Collections;
 
 internal class FollowFluentFactory : IFollowFluentFactory
@@ -8,7 +6,6 @@ internal class FollowFluentFactory : IFollowFluentFactory
 	private readonly ISortOrdererFactory _sortOrdererFactory;
 	private readonly IFollowIncluderFactory _includerFactory;
 	private readonly IFollowsSortTermerFactory _sortTermerFactory;
-	private readonly IFollowIncludeBuilderFactory _includeBuilderFactory;
 	private readonly IFollowResponseFluentFactory _responseFluentFactory;
 	private readonly IFollowsForFollowingSortTermerFactory _forFollowingSortTermerFactory;
 
@@ -17,7 +14,6 @@ internal class FollowFluentFactory : IFollowFluentFactory
 		ISortOrdererFactory sortOrdererFactory,
 		IFollowIncluderFactory includerFactory,
 		IFollowsSortTermerFactory sortTermerFactory,
-		IFollowIncludeBuilderFactory includeBuilderFactory,
 		IFollowResponseFluentFactory responseFluentFactory,
 		IFollowsForFollowingSortTermerFactory forFollowingSortTermerFactory)
 	{
@@ -25,7 +21,6 @@ internal class FollowFluentFactory : IFollowFluentFactory
 		_sortOrdererFactory = sortOrdererFactory;
 		_includerFactory = includerFactory;
 		_sortTermerFactory = sortTermerFactory;
-		_includeBuilderFactory = includeBuilderFactory;
 		_responseFluentFactory = responseFluentFactory;
 		_forFollowingSortTermerFactory = forFollowingSortTermerFactory;
 	}
@@ -38,7 +33,6 @@ internal class FollowFluentFactory : IFollowFluentFactory
 			_sortOrdererFactory,
 			_includerFactory,
 			_sortTermerFactory,
-			_includeBuilderFactory,
 			_responseFluentFactory,
 			_forFollowingSortTermerFactory);
 	}

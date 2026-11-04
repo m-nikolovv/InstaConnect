@@ -1,20 +1,9 @@
 namespace InstaConnect.Identity.Infrastructure.Features.RefreshTokens.Helpers.Includers;
 
-internal class RefreshTokenIncluderFactory : IRefreshTokenIncluderFactory
+internal class RefreshTokenIncluderFactory
+	: IncluderFactory<IdentityIncludeType, IdentityDestinationType, IdentityIncludeDescriptor, IRefreshTokenIncluder, RefreshToken>, IRefreshTokenIncluderFactory
 {
-	private readonly IEnumerable<IRefreshTokenIncluder> _includers;
-
-	public RefreshTokenIncluderFactory(IEnumerable<IRefreshTokenIncluder> includers)
+	public RefreshTokenIncluderFactory(IEnumerable<IRefreshTokenIncluder> includers) : base(includers)
 	{
-		_includers = includers;
-	}
-
-	public IEnumerable<IRefreshTokenIncluder> Create(ICollection<IdentityIncludeDescriptor> descriptors)
-	{
-		var includers = _includers.Where(s => descriptors.Any(p =>
-														p.IncludeType == s.IncludeType &&
-														p.DestinationType == s.DestinationType));
-
-		return includers;
 	}
 }

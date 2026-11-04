@@ -8,7 +8,6 @@ internal class PostFluent : MongoDbFluent<Post>, IPostFluent
 	private readonly IPostIncluderFactory _includerFactory;
 	private readonly ISortOrdererFactory _sortOrdererFactory;
 	private readonly IPostsSortTermerFactory _sortTermerFactory;
-	private readonly IPostIncludeBuilderFactory _includeBuilderFactory;
 	private readonly IPostResponseFluentFactory _responseFluentFactory;
 	private readonly IPostsForUserSortTermerFactory _forUserSortTermerFactory;
 
@@ -18,7 +17,6 @@ internal class PostFluent : MongoDbFluent<Post>, IPostFluent
 		IPostIncluderFactory includerFactory,
 		ISortOrdererFactory sortOrdererFactory,
 		IPostsSortTermerFactory sortTermerFactory,
-		IPostIncludeBuilderFactory includeBuilderFactory,
 		IPostResponseFluentFactory responseFluentFactory,
 		IPostsForUserSortTermerFactory forUserSortTermerFactory) : base(fluent)
 	{
@@ -26,7 +24,6 @@ internal class PostFluent : MongoDbFluent<Post>, IPostFluent
 		_includerFactory = includerFactory;
 		_sortOrdererFactory = sortOrdererFactory;
 		_sortTermerFactory = sortTermerFactory;
-		_includeBuilderFactory = includeBuilderFactory;
 		_responseFluentFactory = responseFluentFactory;
 		_forUserSortTermerFactory = forUserSortTermerFactory;
 	}
@@ -40,8 +37,6 @@ internal class PostFluent : MongoDbFluent<Post>, IPostFluent
 
 	public IPostFluent Match(PostsFilterQuery filter)
 	{
-		ApplyUserInclude();
-
 		Match(filter.GetFilter());
 
 		return this;
@@ -63,11 +58,6 @@ internal class PostFluent : MongoDbFluent<Post>, IPostFluent
 
 	public IPostFluent ApplySorting(PostsSortingQuery query)
 	{
-		if (query.Term == PostsSortTerm.ByUserName)
-		{
-			ApplyUserInclude();
-		}
-
 		ApplySorting(_sortOrdererFactory, _sortTermerFactory, query);
 
 		return this;
@@ -75,11 +65,6 @@ internal class PostFluent : MongoDbFluent<Post>, IPostFluent
 
 	public IPostFluent ApplySorting(PostsForUserSortingQuery query)
 	{
-		if (query.Term == PostsForUserSortTerm.ByUserName)
-		{
-			ApplyUserInclude();
-		}
-
 		ApplySorting(_sortOrdererFactory, _forUserSortTermerFactory, query);
 
 		return this;
@@ -152,10 +137,5 @@ internal class PostFluent : MongoDbFluent<Post>, IPostFluent
 		var fluent = Project(projection);
 
 		return _responseFluentFactory.Create(fluent);
-	}
-
-	private void ApplyUserInclude()
-	{
-		ApplyIncludes(_includeBuilderFactory.Create().WithUser().Build());
 	}
 }

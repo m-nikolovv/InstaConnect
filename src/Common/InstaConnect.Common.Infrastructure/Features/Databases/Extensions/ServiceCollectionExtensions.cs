@@ -6,7 +6,6 @@ using InstaConnect.Common.Infrastructure.Features.Databases.Helpers;
 using InstaConnect.Common.Infrastructure.Features.Databases.Helpers.Conventions;
 using InstaConnect.Common.Infrastructure.Features.Databases.Helpers.SortOrders;
 using InstaConnect.Common.Infrastructure.Features.Databases.Models;
-using InstaConnect.Common.Infrastructure.Features.Databases.Utilities;
 
 using MongoDB.Bson.Serialization.Conventions;
 
@@ -32,17 +31,8 @@ public static class ServiceCollectionExtensions
 		{
 			serviceCollection.AddCollection<TEntity>(name);
 
-			var collatedIndexes = indexes
-				.Select(index => new CreateIndexModel<TEntity>(index.Keys, index.Options ?? new CreateIndexOptions()))
-				.ToList();
-
-			foreach (var index in collatedIndexes)
-			{
-				index.Options.Collation ??= MongoDbCollations.IgnoreCase;
-			}
-
 			serviceCollection.AddSingleton(new MongoDbCollectionIndexes((database, cancellationToken) =>
-				database.GetCollection<TEntity>(name).Indexes.CreateManyAsync(collatedIndexes, cancellationToken)));
+				database.GetCollection<TEntity>(name).Indexes.CreateManyAsync(indexes, cancellationToken)));
 			serviceCollection.AddHostedService<MongoDbIndexesHostedService>();
 
 			return serviceCollection;

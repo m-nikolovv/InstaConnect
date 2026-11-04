@@ -6,7 +6,6 @@ internal class PostFluentFactory : IPostFluentFactory
 	private readonly IPostIncluderFactory _includerFactory;
 	private readonly ISortOrdererFactory _sortOrdererFactory;
 	private readonly IPostsSortTermerFactory _sortTermerFactory;
-	private readonly IPostIncludeBuilderFactory _includeBuilderFactory;
 	private readonly IPostResponseFluentFactory _responseFluentFactory;
 	private readonly IPostsForUserSortTermerFactory _forUserSortTermerFactory;
 
@@ -15,7 +14,6 @@ internal class PostFluentFactory : IPostFluentFactory
 		IPostIncluderFactory includerFactory,
 		ISortOrdererFactory sortOrdererFactory,
 		IPostsSortTermerFactory sortTermerFactory,
-		IPostIncludeBuilderFactory includeBuilderFactory,
 		IPostResponseFluentFactory responseFluentFactory,
 		IPostsForUserSortTermerFactory forUserSortTermerFactory)
 	{
@@ -23,7 +21,6 @@ internal class PostFluentFactory : IPostFluentFactory
 		_includerFactory = includerFactory;
 		_sortOrdererFactory = sortOrdererFactory;
 		_sortTermerFactory = sortTermerFactory;
-		_includeBuilderFactory = includeBuilderFactory;
 		_responseFluentFactory = responseFluentFactory;
 		_forUserSortTermerFactory = forUserSortTermerFactory;
 	}
@@ -36,7 +33,6 @@ internal class PostFluentFactory : IPostFluentFactory
 			_includerFactory,
 			_sortOrdererFactory,
 			_sortTermerFactory,
-			_includeBuilderFactory,
 			_responseFluentFactory,
 			_forUserSortTermerFactory);
 	}

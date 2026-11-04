@@ -1,4 +1,3 @@
-using InstaConnect.Follows.Domain.Features.Follows.Abstractions;
 using InstaConnect.Follows.Infrastructure.Features.Follows.Extensions;
 
 namespace InstaConnect.Follows.Infrastructure.Features.Follows.Helpers.Collections;
@@ -9,7 +8,6 @@ internal class FollowFluent : MongoDbFluent<Follow>, IFollowFluent
 	private readonly ISortOrdererFactory _sortOrdererFactory;
 	private readonly IFollowIncluderFactory _includerFactory;
 	private readonly IFollowsSortTermerFactory _sortTermerFactory;
-	private readonly IFollowIncludeBuilderFactory _includeBuilderFactory;
 	private readonly IFollowResponseFluentFactory _responseFluentFactory;
 	private readonly IFollowsForFollowingSortTermerFactory _forFollowingSortTermerFactory;
 
@@ -19,7 +17,6 @@ internal class FollowFluent : MongoDbFluent<Follow>, IFollowFluent
 		ISortOrdererFactory sortOrdererFactory,
 		IFollowIncluderFactory includerFactory,
 		IFollowsSortTermerFactory sortTermerFactory,
-		IFollowIncludeBuilderFactory includeBuilderFactory,
 		IFollowResponseFluentFactory responseFluentFactory,
 		IFollowsForFollowingSortTermerFactory forFollowingSortTermerFactory) : base(fluent)
 	{
@@ -27,7 +24,6 @@ internal class FollowFluent : MongoDbFluent<Follow>, IFollowFluent
 		_sortOrdererFactory = sortOrdererFactory;
 		_includerFactory = includerFactory;
 		_sortTermerFactory = sortTermerFactory;
-		_includeBuilderFactory = includeBuilderFactory;
 		_responseFluentFactory = responseFluentFactory;
 		_forFollowingSortTermerFactory = forFollowingSortTermerFactory;
 	}
@@ -41,8 +37,6 @@ internal class FollowFluent : MongoDbFluent<Follow>, IFollowFluent
 
 	public IFollowFluent Match(FollowsFilterQuery filter)
 	{
-		ApplyFollowingInclude();
-
 		Match(filter.GetFilter());
 
 		return this;
@@ -50,8 +44,6 @@ internal class FollowFluent : MongoDbFluent<Follow>, IFollowFluent
 
 	public IFollowFluent Match(FollowsForFollowingFilterQuery filter)
 	{
-		ApplyFollowerInclude();
-
 		Match(filter.GetFilter());
 
 		return this;
@@ -66,11 +58,6 @@ internal class FollowFluent : MongoDbFluent<Follow>, IFollowFluent
 
 	public IFollowFluent ApplySorting(FollowsSortingQuery query)
 	{
-		if (query.Term == FollowsSortTerm.ByFollowingName)
-		{
-			ApplyFollowingInclude();
-		}
-
 		ApplySorting(_sortOrdererFactory, _sortTermerFactory, query);
 
 		return this;
@@ -78,11 +65,6 @@ internal class FollowFluent : MongoDbFluent<Follow>, IFollowFluent
 
 	public IFollowFluent ApplySorting(FollowsForFollowingSortingQuery query)
 	{
-		if (query.Term == FollowsForFollowingSortTerm.ByFollowerName)
-		{
-			ApplyFollowerInclude();
-		}
-
 		ApplySorting(_sortOrdererFactory, _forFollowingSortTermerFactory, query);
 
 		return this;
@@ -170,15 +152,5 @@ internal class FollowFluent : MongoDbFluent<Follow>, IFollowFluent
 		var fluent = Project(projection);
 
 		return _responseFluentFactory.Create(fluent);
-	}
-
-	private void ApplyFollowerInclude()
-	{
-		ApplyIncludes(_includeBuilderFactory.Create().WithFollower().Build());
-	}
-
-	private void ApplyFollowingInclude()
-	{
-		ApplyIncludes(_includeBuilderFactory.Create().WithFollowing().Build());
 	}
 }

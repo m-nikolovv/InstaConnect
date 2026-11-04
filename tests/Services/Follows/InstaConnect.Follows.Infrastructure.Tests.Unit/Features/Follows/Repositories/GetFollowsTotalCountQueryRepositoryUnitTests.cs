@@ -8,6 +8,8 @@ public class GetFollowsTotalCountQueryRepositoryUnitTests : BaseFollowInfrastruc
 	private readonly FollowsFilterQueryBuilder _filterQueryBuilder;
 	private readonly FollowsFilterQuery _filterQuery;
 
+	private readonly FollowInclude _include;
+
 	private readonly FollowQueryRepository _repository;
 
 	public GetFollowsTotalCountQueryRepositoryUnitTests()
@@ -16,9 +18,12 @@ public class GetFollowsTotalCountQueryRepositoryUnitTests : BaseFollowInfrastruc
 		_filterQueryBuilder = _filterQueryBuilderFactory.Create(Follow);
 		_filterQuery = _filterQueryBuilder.Build();
 
+		_include = IncludeBuilderFactory.Create().WithFollowing().Build();
+
 		_repository = new(Collection, IncludeBuilderFactory);
 
 		Collection.SetupAggregateFluent(_filterQuery, Fluent);
+		Fluent.SetupApplyIncludes(_filterQuery, _include);
 		Fluent.SetupMatch(_filterQuery);
 		Fluent.SetupGetCountAsync(_filterQuery, Follows, CancellationToken);
 	}
@@ -41,6 +46,16 @@ public class GetFollowsTotalCountQueryRepositoryUnitTests : BaseFollowInfrastruc
 
 		// Assert
 		Collection.ShouldHaveReceivedOneAggregateFluent(_filterQuery);
+	}
+
+	[Fact]
+	public async Task GetTotalCountAsync_ShouldCallTheFluentApplyIncludes_WhenQueryIsValid()
+	{
+		// Act
+		await _repository.GetTotalCountAsync(_filterQuery, CancellationToken);
+
+		// Assert
+		Fluent.ShouldHaveReceivedOneApplyIncludes(_filterQuery, _include);
 	}
 
 	[Fact]

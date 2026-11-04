@@ -29,10 +29,10 @@ internal class PostLikeQueryRepository : IPostLikeQueryRepository
 
 		return await _collection
 			.AggregateFluent()
+			.ApplyIncludes(likeInclude)
 			.Match(filter)
 			.ApplySorting(sorting)
 			.ApplyPagination(pagination)
-			.ApplyIncludes(likeInclude)
 			.ProjectToResponseWithoutPost(currentUser)
 			.ToListAsync(cancellationToken);
 	}
@@ -61,8 +61,11 @@ internal class PostLikeQueryRepository : IPostLikeQueryRepository
 		PostLikesFilterQuery filter,
 		CancellationToken cancellationToken)
 	{
+		var likeInclude = _likeIncludeBuilderFactory.Create().WithUser().Build();
+
 		return await _collection
 			.AggregateFluent()
+			.ApplyIncludes(likeInclude)
 			.Match(filter)
 			.GetCountAsync(cancellationToken);
 	}

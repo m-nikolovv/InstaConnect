@@ -1,5 +1,4 @@
 using InstaConnect.Posts.Domain.Features.PostImages.Models.Responses;
-using InstaConnect.Posts.Domain.Features.PostLikes.Abstractions;
 using InstaConnect.Posts.Infrastructure.Features.PostLikes.Extensions;
 
 namespace InstaConnect.Posts.Infrastructure.Features.PostLikes.Helpers.Collections;
@@ -10,7 +9,6 @@ internal class PostLikeFluent : MongoDbFluent<PostLike>, IPostLikeFluent
 	private readonly ISortOrdererFactory _sortOrdererFactory;
 	private readonly IPostLikeIncluderFactory _includerFactory;
 	private readonly IPostLikesSortTermerFactory _sortTermerFactory;
-	private readonly IPostLikeIncludeBuilderFactory _includeBuilderFactory;
 	private readonly IPostLikeResponseFluentFactory _responseFluentFactory;
 	private readonly IPostLikesForUserSortTermerFactory _forUserSortTermerFactory;
 
@@ -20,7 +18,6 @@ internal class PostLikeFluent : MongoDbFluent<PostLike>, IPostLikeFluent
 		ISortOrdererFactory sortOrdererFactory,
 		IPostLikeIncluderFactory includerFactory,
 		IPostLikesSortTermerFactory sortTermerFactory,
-		IPostLikeIncludeBuilderFactory includeBuilderFactory,
 		IPostLikeResponseFluentFactory responseFluentFactory,
 		IPostLikesForUserSortTermerFactory forUserSortTermerFactory) : base(fluent)
 	{
@@ -28,7 +25,6 @@ internal class PostLikeFluent : MongoDbFluent<PostLike>, IPostLikeFluent
 		_sortOrdererFactory = sortOrdererFactory;
 		_includerFactory = includerFactory;
 		_sortTermerFactory = sortTermerFactory;
-		_includeBuilderFactory = includeBuilderFactory;
 		_responseFluentFactory = responseFluentFactory;
 		_forUserSortTermerFactory = forUserSortTermerFactory;
 	}
@@ -42,8 +38,6 @@ internal class PostLikeFluent : MongoDbFluent<PostLike>, IPostLikeFluent
 
 	public IPostLikeFluent Match(PostLikesFilterQuery filter)
 	{
-		ApplyUserInclude();
-
 		Match(filter.GetFilter());
 
 		return this;
@@ -65,11 +59,6 @@ internal class PostLikeFluent : MongoDbFluent<PostLike>, IPostLikeFluent
 
 	public IPostLikeFluent ApplySorting(PostLikesSortingQuery query)
 	{
-		if (query.Term == PostLikesSortTerm.ByUserName)
-		{
-			ApplyUserInclude();
-		}
-
 		ApplySorting(_sortOrdererFactory, _sortTermerFactory, query);
 
 		return this;
@@ -77,11 +66,6 @@ internal class PostLikeFluent : MongoDbFluent<PostLike>, IPostLikeFluent
 
 	public IPostLikeFluent ApplySorting(PostLikesForUserSortingQuery query)
 	{
-		if (query.Term == PostLikesForUserSortTerm.ByUserName)
-		{
-			ApplyUserInclude();
-		}
-
 		ApplySorting(_sortOrdererFactory, _forUserSortTermerFactory, query);
 
 		return this;
@@ -199,10 +183,5 @@ internal class PostLikeFluent : MongoDbFluent<PostLike>, IPostLikeFluent
 		var fluent = Project(projection);
 
 		return _responseFluentFactory.Create(fluent);
-	}
-
-	private void ApplyUserInclude()
-	{
-		ApplyIncludes(_includeBuilderFactory.Create().WithUser().Build());
 	}
 }

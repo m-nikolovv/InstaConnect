@@ -1,20 +1,9 @@
 namespace InstaConnect.Identity.Infrastructure.Features.ForgotPasswordTokens.Helpers.Includers;
 
-internal class ForgotPasswordTokenIncluderFactory : IForgotPasswordTokenIncluderFactory
+internal class ForgotPasswordTokenIncluderFactory
+	: IncluderFactory<IdentityIncludeType, IdentityDestinationType, IdentityIncludeDescriptor, IForgotPasswordTokenIncluder, ForgotPasswordToken>, IForgotPasswordTokenIncluderFactory
 {
-	private readonly IEnumerable<IForgotPasswordTokenIncluder> _includers;
-
-	public ForgotPasswordTokenIncluderFactory(IEnumerable<IForgotPasswordTokenIncluder> includers)
+	public ForgotPasswordTokenIncluderFactory(IEnumerable<IForgotPasswordTokenIncluder> includers) : base(includers)
 	{
-		_includers = includers;
-	}
-
-	public IEnumerable<IForgotPasswordTokenIncluder> Create(ICollection<IdentityIncludeDescriptor> descriptors)
-	{
-		var includers = _includers.Where(s => descriptors.Any(p =>
-														p.IncludeType == s.IncludeType &&
-														p.DestinationType == s.DestinationType));
-
-		return includers;
 	}
 }

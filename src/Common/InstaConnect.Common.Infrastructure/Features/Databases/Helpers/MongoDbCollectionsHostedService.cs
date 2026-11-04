@@ -37,9 +37,12 @@ internal class MongoDbCollectionsHostedService : IHostedService
 
 				await _database.CreateCollectionAsync(name, options, cancellationToken);
 			}
-			catch (MongoCommandException exception) when (exception.Code == NamespaceExistsCode)
+			catch (MongoCommandException exception)
 			{
-				// Another instance created it first.
+				if (exception.Code != NamespaceExistsCode)
+				{
+					throw;
+				}
 			}
 		}
 	}

@@ -29,10 +29,10 @@ internal class PostCommentQueryRepository : IPostCommentQueryRepository
 
 		return await _collection
 			.AggregateFluent()
+			.ApplyIncludes(commentInclude)
 			.Match(filter)
 			.ApplySorting(sorting)
 			.ApplyPagination(pagination)
-			.ApplyIncludes(commentInclude)
 			.ProjectToResponseWithoutPost(currentUser)
 			.ToListAsync(cancellationToken);
 	}
@@ -61,8 +61,11 @@ internal class PostCommentQueryRepository : IPostCommentQueryRepository
 		PostCommentsFilterQuery filter,
 		CancellationToken cancellationToken)
 	{
+		var commentInclude = _commentIncludeBuilderFactory.Create().WithUser().Build();
+
 		return await _collection
 			.AggregateFluent()
+			.ApplyIncludes(commentInclude)
 			.Match(filter)
 			.GetCountAsync(cancellationToken);
 	}

@@ -22,7 +22,7 @@ internal class ChatQueryRepository : IChatQueryRepository
 		CurrentUserQuery currentUser,
 		CancellationToken cancellationToken)
 	{
-		var include = _includeBuilderFactory.Create().WithParticipantOne().WithParticipantTwo().WithChatMessages().Build();
+		var include = _includeBuilderFactory.Create().WithChatMessages().Build();
 
 		return await _collection
 			.AggregateFluent()

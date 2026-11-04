@@ -8,6 +8,8 @@ public class GetPostsTotalCountQueryRepositoryUnitTests : BasePostInfrastructure
 	private readonly PostsFilterQueryBuilder _filterQueryBuilder;
 	private readonly PostsFilterQuery _filterQuery;
 
+	private readonly PostInclude _include;
+
 	private readonly PostQueryRepository _repository;
 
 	public GetPostsTotalCountQueryRepositoryUnitTests()
@@ -16,9 +18,12 @@ public class GetPostsTotalCountQueryRepositoryUnitTests : BasePostInfrastructure
 		_filterQueryBuilder = _filterQueryBuilderFactory.Create(Post);
 		_filterQuery = _filterQueryBuilder.Build();
 
+		_include = IncludeBuilderFactory.Create().WithUser().Build();
+
 		_repository = new(Collection, IncludeBuilderFactory);
 
 		Collection.SetupAggregateFluent(_filterQuery, Fluent);
+		Fluent.SetupApplyIncludes(_filterQuery, _include);
 		Fluent.SetupMatch(_filterQuery);
 		Fluent.SetupGetCountAsync(_filterQuery, Posts, CancellationToken);
 	}
@@ -41,6 +46,16 @@ public class GetPostsTotalCountQueryRepositoryUnitTests : BasePostInfrastructure
 
 		// Assert
 		Collection.ShouldHaveReceivedOneAggregateFluent(_filterQuery);
+	}
+
+	[Fact]
+	public async Task GetTotalCountAsync_ShouldCallTheFluentApplyIncludes_WhenQueryIsValid()
+	{
+		// Act
+		await _repository.GetTotalCountAsync(_filterQuery, CancellationToken);
+
+		// Assert
+		Fluent.ShouldHaveReceivedOneApplyIncludes(_filterQuery, _include);
 	}
 
 	[Fact]

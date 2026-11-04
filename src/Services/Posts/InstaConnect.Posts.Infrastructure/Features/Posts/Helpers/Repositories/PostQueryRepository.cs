@@ -24,10 +24,10 @@ internal class PostQueryRepository : IPostQueryRepository
 
 		return await _collection
 			.AggregateFluent()
+			.ApplyIncludes(include)
 			.Match(filter)
 			.ApplySorting(sorting)
 			.ApplyPagination(pagination)
-			.ApplyIncludes(include)
 			.ProjectToFullResponse(currentUser)
 			.ToListAsync(cancellationToken);
 	}
@@ -55,8 +55,11 @@ internal class PostQueryRepository : IPostQueryRepository
 		PostsFilterQuery filter,
 		CancellationToken cancellationToken)
 	{
+		var include = _includeBuilderFactory.Create().WithUser().Build();
+
 		return await _collection
 			.AggregateFluent()
+			.ApplyIncludes(include)
 			.Match(filter)
 			.GetCountAsync(cancellationToken);
 	}

@@ -5,13 +5,10 @@ namespace InstaConnect.Common.Infrastructure.Features.Databases.Helpers;
 public abstract class MongoDbFluent<TEntity>
 	: IMongoDbFluent<TEntity> where TEntity : ICreatable
 {
-	private readonly HashSet<(Enum DestinationType, Enum IncludeType)> _appliedIncludes;
-
 	private IAggregateFluent<TEntity> _fluent;
 
 	protected MongoDbFluent(IAggregateFluent<TEntity> fluent)
 	{
-		_appliedIncludes = [];
 		_fluent = fluent;
 	}
 
@@ -38,11 +35,6 @@ public abstract class MongoDbFluent<TEntity>
 
 		foreach (var includer in includers)
 		{
-			if (!_appliedIncludes.Add((includer.DestinationType, includer.IncludeType)))
-			{
-				continue;
-			}
-
 			_fluent = includer.Include(_fluent);
 		}
 	}

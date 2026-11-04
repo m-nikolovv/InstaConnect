@@ -1,5 +1,4 @@
 using InstaConnect.Posts.Domain.Features.PostCommentImages.Models.Responses;
-using InstaConnect.Posts.Domain.Features.PostComments.Abstractions;
 using InstaConnect.Posts.Domain.Features.PostImages.Models.Responses;
 
 namespace InstaConnect.Posts.Infrastructure.Features.PostComments.Helpers.Collections;
@@ -10,7 +9,6 @@ internal class PostCommentFluent : MongoDbFluent<PostComment>, IPostCommentFluen
 	private readonly ISortOrdererFactory _sortOrdererFactory;
 	private readonly IPostCommentIncluderFactory _includerFactory;
 	private readonly IPostCommentsSortTermerFactory _sortTermerFactory;
-	private readonly IPostCommentIncludeBuilderFactory _includeBuilderFactory;
 	private readonly IPostCommentResponseFluentFactory _responseFluentFactory;
 	private readonly IPostCommentsForUserSortTermerFactory _forUserSortTermerFactory;
 
@@ -20,7 +18,6 @@ internal class PostCommentFluent : MongoDbFluent<PostComment>, IPostCommentFluen
 		ISortOrdererFactory sortOrdererFactory,
 		IPostCommentIncluderFactory includerFactory,
 		IPostCommentsSortTermerFactory sortTermerFactory,
-		IPostCommentIncludeBuilderFactory includeBuilderFactory,
 		IPostCommentResponseFluentFactory responseFluentFactory,
 		IPostCommentsForUserSortTermerFactory forUserSortTermerFactory) : base(fluent)
 	{
@@ -28,7 +25,6 @@ internal class PostCommentFluent : MongoDbFluent<PostComment>, IPostCommentFluen
 		_sortOrdererFactory = sortOrdererFactory;
 		_includerFactory = includerFactory;
 		_sortTermerFactory = sortTermerFactory;
-		_includeBuilderFactory = includeBuilderFactory;
 		_responseFluentFactory = responseFluentFactory;
 		_forUserSortTermerFactory = forUserSortTermerFactory;
 	}
@@ -42,8 +38,6 @@ internal class PostCommentFluent : MongoDbFluent<PostComment>, IPostCommentFluen
 
 	public IPostCommentFluent Match(PostCommentsFilterQuery filter)
 	{
-		ApplyUserInclude();
-
 		Match(filter.GetFilter());
 
 		return this;
@@ -65,11 +59,6 @@ internal class PostCommentFluent : MongoDbFluent<PostComment>, IPostCommentFluen
 
 	public IPostCommentFluent ApplySorting(PostCommentsSortingQuery query)
 	{
-		if (query.Term == PostCommentsSortTerm.ByUserName)
-		{
-			ApplyUserInclude();
-		}
-
 		ApplySorting(_sortOrdererFactory, _sortTermerFactory, query);
 
 		return this;
@@ -77,11 +66,6 @@ internal class PostCommentFluent : MongoDbFluent<PostComment>, IPostCommentFluen
 
 	public IPostCommentFluent ApplySorting(PostCommentsForUserSortingQuery query)
 	{
-		if (query.Term == PostCommentsForUserSortTerm.ByUserName)
-		{
-			ApplyUserInclude();
-		}
-
 		ApplySorting(_sortOrdererFactory, _forUserSortTermerFactory, query);
 
 		return this;
@@ -236,10 +220,5 @@ internal class PostCommentFluent : MongoDbFluent<PostComment>, IPostCommentFluen
 		var fluent = Project(projection);
 
 		return _responseFluentFactory.Create(fluent);
-	}
-
-	private void ApplyUserInclude()
-	{
-		ApplyIncludes(_includeBuilderFactory.Create().WithUser().Build());
 	}
 }
