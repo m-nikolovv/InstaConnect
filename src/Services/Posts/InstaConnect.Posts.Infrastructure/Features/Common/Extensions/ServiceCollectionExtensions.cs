@@ -43,7 +43,7 @@ public static class ServiceCollectionExtensions
 				.AddMappers(PostsInfrastructureReference.Assembly, CommonInfrastructureReference.Assembly)
 				.AddValidations(PostsInfrastructureReference.Assembly, CommonInfrastructureReference.Assembly)
 				.AddServicesWithMatchingInterfacesExceptFluents(PostsInfrastructureReference.Assembly)
-				.AddDatabases(configuration)
+				.AddDatabases(configuration, PostsInfrastructureReference.Assembly, CommonInfrastructureReference.Assembly)
 				.AddEvents(configuration, riderConfigurator => riderConfigurator.MapPostEventProducer().MapPostCommentEventProducer().MapPostLikeEventProducer().MapPostCommentLikeEventProducer(), (context, kafkaConfigurator, consumerOptions) => kafkaConfigurator.MapUserEventHandler(context, PostsEventHandlerUtilities.Prefix, consumerOptions), PostsInfrastructureReference.Assembly)
 				.AddOutboxEvents()
 				.AddAccessTokens(configuration)

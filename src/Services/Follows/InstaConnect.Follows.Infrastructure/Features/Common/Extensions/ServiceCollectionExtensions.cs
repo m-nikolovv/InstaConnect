@@ -36,7 +36,7 @@ public static class ServiceCollectionExtensions
 				.AddMappers(FollowsInfrastructureReference.Assembly)
 				.AddValidations(FollowsInfrastructureReference.Assembly, CommonInfrastructureReference.Assembly)
 				.AddServicesWithMatchingInterfacesExceptFluents(FollowsInfrastructureReference.Assembly)
-				.AddDatabases(configuration)
+				.AddDatabases(configuration, FollowsInfrastructureReference.Assembly, CommonInfrastructureReference.Assembly)
 				.AddEvents(configuration, riderConfigurator => riderConfigurator.MapFollowEventProducer(), (context, kafkaConfigurator, consumerOptions) => kafkaConfigurator.MapUserEventHandler(context, FollowsEventHandlerUtilities.Prefix, consumerOptions), FollowsInfrastructureReference.Assembly)
 				.AddOutboxEvents()
 				.AddAccessTokens(configuration)

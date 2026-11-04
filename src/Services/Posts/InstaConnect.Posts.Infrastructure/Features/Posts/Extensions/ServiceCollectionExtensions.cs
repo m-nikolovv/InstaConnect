@@ -12,12 +12,7 @@ internal static class ServiceCollectionExtensions
 			serviceCollection.AddImplementationsOf<IPostsForUserSortTermer>(PostsInfrastructureReference.Assembly);
 			serviceCollection.AddImplementationsOf<IPostIncluder>(PostsInfrastructureReference.Assembly);
 
-			serviceCollection.AddCollection(
-				CollectionName,
-				new CreateIndexModel<Post>(Builders<Post>.IndexKeys.Ascending(c => c.Id.Id)),
-				new CreateIndexModel<Post>(Builders<Post>.IndexKeys.Ascending(c => c.UserId.Id).Ascending(c => c.CreatedAtUtc)),
-				new CreateIndexModel<Post>(Builders<Post>.IndexKeys.Ascending(c => c.UserId)),
-				new CreateIndexModel<Post>(Builders<Post>.IndexKeys.Ascending(c => c.CreatedAtUtc)));
+			serviceCollection.AddCollection<Post>(CollectionName);
 
 			BsonClassMap.TryRegisterClassMap<Post>(cm =>
 			{

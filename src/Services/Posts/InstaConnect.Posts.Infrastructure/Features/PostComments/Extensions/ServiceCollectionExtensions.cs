@@ -12,12 +12,7 @@ internal static class ServiceCollectionExtensions
 			serviceCollection.AddImplementationsOf<IPostCommentsForUserSortTermer>(PostsInfrastructureReference.Assembly);
 			serviceCollection.AddImplementationsOf<IPostCommentIncluder>(PostsInfrastructureReference.Assembly);
 
-			serviceCollection.AddCollection(
-				CollectionName,
-				new CreateIndexModel<PostComment>(Builders<PostComment>.IndexKeys.Ascending(c => c.Id.Id.Id).Ascending(c => c.CreatedAtUtc)),
-				new CreateIndexModel<PostComment>(Builders<PostComment>.IndexKeys.Ascending(c => c.UserId.Id).Ascending(c => c.CreatedAtUtc)),
-				new CreateIndexModel<PostComment>(Builders<PostComment>.IndexKeys.Ascending(c => c.Id.Id)),
-				new CreateIndexModel<PostComment>(Builders<PostComment>.IndexKeys.Ascending(c => c.UserId)));
+			serviceCollection.AddCollection<PostComment>(CollectionName);
 
 			BsonClassMap.TryRegisterClassMap<PostComment>(cm =>
 			{

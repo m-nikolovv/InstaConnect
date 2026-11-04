@@ -8,10 +8,7 @@ internal static class ServiceCollectionExtensions
 		{
 			const string CollectionName = "post_comment_images";
 
-			serviceCollection.AddCollection(
-				CollectionName,
-				new CreateIndexModel<PostCommentImage>(Builders<PostCommentImage>.IndexKeys.Ascending(c => c.Id.Id.Id.Id)),
-				new CreateIndexModel<PostCommentImage>(Builders<PostCommentImage>.IndexKeys.Ascending(c => c.Id.Id)));
+			serviceCollection.AddCollection<PostCommentImage>(CollectionName);
 
 			BsonClassMap.TryRegisterClassMap<PostCommentImage>(cm =>
 			{

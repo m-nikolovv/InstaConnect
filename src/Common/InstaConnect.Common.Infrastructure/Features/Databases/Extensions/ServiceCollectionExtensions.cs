@@ -20,25 +20,10 @@ public static class ServiceCollectionExtensions
 		{
 			serviceCollection.AddScoped(sp => sp.GetRequiredService<IMongoDatabase>().GetCollection<TEntity>(name));
 
-			serviceCollection.AddSingleton(new MongoDbCollectionDefinition(name));
-			serviceCollection.AddHostedService<MongoDbCollectionsHostedService>();
-
 			return serviceCollection;
 		}
 
-		public IServiceCollection AddCollection<TEntity>(string name, params CreateIndexModel<TEntity>[] indexes)
-			where TEntity : IEntity
-		{
-			serviceCollection.AddCollection<TEntity>(name);
-
-			serviceCollection.AddSingleton(new MongoDbCollectionIndexes((database, cancellationToken) =>
-				database.GetCollection<TEntity>(name).Indexes.CreateManyAsync(indexes, cancellationToken)));
-			serviceCollection.AddHostedService<MongoDbIndexesHostedService>();
-
-			return serviceCollection;
-		}
-
-		public IServiceCollection AddDatabases(IConfiguration configuration)
+		public IServiceCollection AddDatabases(IConfiguration configuration, params Assembly[] assemblies)
 		{
 			const string ConventionName = "ApplicationConventionPack";
 
@@ -56,6 +41,10 @@ public static class ServiceCollectionExtensions
 				.AddScoped<IPaginator, Paginator>()
 				.AddScoped<IUnitOfWork, UnitOfWork>()
 				.AddScoped<ISessionHandler, SessionHandler>();
+
+			serviceCollection
+				.AddScoped<IDatabaseInitializer, DatabaseInitializer>()
+				.AddImplementationsOf<IMongoDbCollectionInitializer>(assemblies);
 
 			var conventionPack = new ConventionPack
 			{

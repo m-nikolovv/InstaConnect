@@ -14,10 +14,7 @@ internal static class ServiceCollectionExtensions
 
 			serviceCollection.AddImplementationsOf<IRefreshTokenIncluder>(IdentityInfrastructureReference.Assembly);
 
-			serviceCollection.AddCollection(
-				CollectionName,
-				new CreateIndexModel<RefreshToken>(Builders<RefreshToken>.IndexKeys.Ascending(c => c.Id.Id.Id)),
-				new CreateIndexModel<RefreshToken>(Builders<RefreshToken>.IndexKeys.Ascending(c => c.Id.Id)));
+			serviceCollection.AddCollection<RefreshToken>(CollectionName);
 
 			BsonClassMap.TryRegisterClassMap<RefreshToken>(cm =>
 			{

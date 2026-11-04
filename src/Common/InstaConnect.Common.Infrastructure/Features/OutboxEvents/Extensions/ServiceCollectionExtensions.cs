@@ -3,9 +3,12 @@ using InstaConnect.Common.Infrastructure.Features.OutboxEvents.Abstractions;
 using InstaConnect.Common.Infrastructure.Features.OutboxEvents.Helpers;
 using InstaConnect.Common.Infrastructure.Features.OutboxEvents.Helpers.Collections;
 using InstaConnect.Common.Infrastructure.Features.OutboxEvents.Helpers.Repositories;
+using InstaConnect.Common.Infrastructure.Features.OutboxEvents.Models;
 using InstaConnect.Common.Infrastructure.Features.OutboxEvents.Models.Entities;
 
+using MongoDB.Bson;
 using MongoDB.Bson.Serialization;
+using MongoDB.Bson.Serialization.Serializers;
 
 namespace InstaConnect.Common.Infrastructure.Features.OutboxEvents.Extensions;
 
@@ -17,16 +20,14 @@ public static class ServiceCollectionExtensions
 		{
 			const string CollectionName = "outbox_events";
 
+			serviceCollection.AddValidatedOptions<OutboxEventOptions>(OutboxEventOptions.SectionName);
+
 			serviceCollection
 				.AddScoped<IOutboxEventFactory, OutboxEventFactory>()
 				.AddScoped<IOutboxEventCollection, OutboxEventCollection>()
 				.AddScoped<IOutboxEventCommandRepository, OutboxEventCommandRepository>();
 
-			serviceCollection.AddCollection(
-				CollectionName,
-				new CreateIndexModel<OutboxEvent>(
-					Builders<OutboxEvent>.IndexKeys.AscendingDateTime(c => c.CreatedAtUtc),
-					new CreateIndexOptions { ExpireAfter = TimeSpan.FromDays(1) }));
+			serviceCollection.AddCollection<OutboxEvent>(CollectionName);
 
 			BsonClassMap.TryRegisterClassMap<OutboxEvent>(cm =>
 			{
@@ -36,7 +37,7 @@ public static class ServiceCollectionExtensions
 				cm.MapMember(c => c.Topic);
 				cm.MapMember(c => c.Key);
 				cm.MapMember(c => c.Payload);
-				cm.MapMember(c => c.CreatedAtUtc);
+				cm.MapMember(c => c.CreatedAtUtc).SetSerializer(new DateTimeOffsetSerializer(BsonType.DateTime));
 
 				cm.MapCreator(c => new OutboxEvent(
 					c.Id,

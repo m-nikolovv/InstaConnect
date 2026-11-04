@@ -14,10 +14,7 @@ internal static class ServiceCollectionExtensions
 
 			serviceCollection.AddImplementationsOf<IEmailConfirmationTokenIncluder>(IdentityInfrastructureReference.Assembly);
 
-			serviceCollection.AddCollection(
-				CollectionName,
-				new CreateIndexModel<EmailConfirmationToken>(Builders<EmailConfirmationToken>.IndexKeys.Ascending(c => c.Id.Id.Id)),
-				new CreateIndexModel<EmailConfirmationToken>(Builders<EmailConfirmationToken>.IndexKeys.Ascending(c => c.Id.Id)));
+			serviceCollection.AddCollection<EmailConfirmationToken>(CollectionName);
 
 			BsonClassMap.TryRegisterClassMap<EmailConfirmationToken>(cm =>
 			{

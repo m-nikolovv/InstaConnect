@@ -12,11 +12,7 @@ internal static class ServiceCollectionExtensions
 
 			serviceCollection.AddImplementationsOf<IUserIncluder>(ChatsInfrastructureReference.Assembly);
 
-			serviceCollection.AddCollection(
-				CollectionName,
-				new CreateIndexModel<User>(Builders<User>.IndexKeys.Ascending(c => c.Id.Id)),
-				new CreateIndexModel<User>(Builders<User>.IndexKeys.Ascending(c => c.Name.Value)),
-				new CreateIndexModel<User>(Builders<User>.IndexKeys.Ascending(c => c.Email.Value)));
+			serviceCollection.AddCollection<User>(CollectionName);
 
 			BsonClassMap.TryRegisterClassMap<User>(cm =>
 			{

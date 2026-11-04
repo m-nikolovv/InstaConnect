@@ -13,10 +13,7 @@ internal static class ServiceCollectionExtensions
 			serviceCollection.AddImplementationsOf<IChatMessagesSortTermer>(ChatsInfrastructureReference.Assembly);
 			serviceCollection.AddImplementationsOf<IChatMessageIncluder>(ChatsInfrastructureReference.Assembly);
 
-			serviceCollection.AddCollection(
-				CollectionName,
-				new CreateIndexModel<ChatMessage>(Builders<ChatMessage>.IndexKeys.Ascending(c => c.Id.Id.ParticipantOneId.Id).Ascending(c => c.Id.Id.ParticipantTwoId.Id).Ascending(c => c.CreatedAtUtc)),
-				new CreateIndexModel<ChatMessage>(Builders<ChatMessage>.IndexKeys.Ascending(c => c.SenderId)));
+			serviceCollection.AddCollection<ChatMessage>(CollectionName);
 
 			BsonClassMap.TryRegisterClassMap<ChatMessage>(cm =>
 			{

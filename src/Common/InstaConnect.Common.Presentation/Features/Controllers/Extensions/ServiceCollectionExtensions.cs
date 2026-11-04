@@ -82,8 +82,11 @@ public static class ServiceCollectionExtensions
 			return serviceCollection;
 		}
 
-		public IServiceCollection AddRateLimiterPolicies()
+		public IServiceCollection AddRateLimiterPolicies(IConfiguration configuration)
 		{
+			serviceCollection.AddValidatedOptions<RateLimiterPolicyOptions>(RateLimiterPolicyOptions.SectionName);
+			var rateLimiterOptions = configuration.GetOptions<RateLimiterPolicyOptions>(RateLimiterPolicyOptions.SectionName);
+
 			serviceCollection.Configure<ForwardedHeadersOptions>(options =>
 			{
 				options.ForwardedHeaders = ForwardedHeaders.XForwardedFor | ForwardedHeaders.XForwardedProto;
@@ -100,9 +103,9 @@ public static class ServiceCollectionExtensions
 						partitionKey: httpContext.User.FindFirstValue(DefaultClaims.Id) ?? httpContext.Connection.RemoteIpAddress?.ToString(),
 						factory: _ => new SlidingWindowRateLimiterOptions
 						{
-							PermitLimit = 100,
-							Window = TimeSpan.FromSeconds(10),
-							SegmentsPerWindow = 5,
+							PermitLimit = rateLimiterOptions.PermitLimit,
+							Window = rateLimiterOptions.Window,
+							SegmentsPerWindow = rateLimiterOptions.SegmentsPerWindow,
 						}));
 			});
 
