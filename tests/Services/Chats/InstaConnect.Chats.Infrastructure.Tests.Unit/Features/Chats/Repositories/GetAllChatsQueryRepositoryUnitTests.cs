@@ -42,7 +42,7 @@ public class GetAllChatsQueryRepositoryUnitTests : BaseChatInfrastructureQueryUn
 		_currentUserQueryBuilder = _currentUserQueryBuilderFactory.Create(ParticipantOne);
 		_currentUserQuery = _currentUserQueryBuilder.Build();
 
-		_include = IncludeBuilderFactory.Create().WithParticipantOne().WithParticipantTwo().WithChatMessages().Build();
+		_include = IncludeBuilderFactory.Create().WithChatMessages().Build();
 
 		_repository = new(Collection, IncludeBuilderFactory);
 

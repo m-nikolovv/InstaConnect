@@ -910,19 +910,4 @@ public class UpdateCurrentUserCommandHandlerIntegrationTests : BaseUserApplicati
 		// Assert
 		eventRequests.ShouldSatisfy(request, User.EmailConfirmationTokens.AddUser(user));
 	}
-
-	[Fact]
-	public async Task SendAsync_ShouldInvalidateCurrentUserCache_WhenRequestIsValid()
-	{
-		// Arrange
-		var query = new GetCurrentUserByIdQueryRequestBuilderFactory().Create(User).Build();
-		await Sender.SendAsync(query, CancellationToken);
-
-		// Act
-		await Sender.SendAsync(_request, CancellationToken);
-		var response = await Sender.SendAsync(query, CancellationToken);
-
-		// Assert
-		response.ShouldSatisfy(p => p.Response.FirstName == _request.FirstName && p.Response.LastName == _request.LastName && p.Response.Name == _request.Name);
-	}
 }

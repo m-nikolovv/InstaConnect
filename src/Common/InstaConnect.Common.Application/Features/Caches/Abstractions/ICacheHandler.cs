@@ -7,6 +7,4 @@ public interface ICacheHandler
 	public Task<T?> GetAsync<T>(string key, CancellationToken cancellationToken);
 
 	public Task SetAsync(CacheRequest request, CancellationToken cancellationToken);
-
-	public Task RemoveAsync(string key, CancellationToken cancellationToken);
 }
