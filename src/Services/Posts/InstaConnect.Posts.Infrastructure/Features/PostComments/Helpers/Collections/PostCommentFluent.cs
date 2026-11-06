@@ -13,8 +13,8 @@ internal class PostCommentFluent : MongoDbFluent<PostComment>, IPostCommentFluen
 	private readonly IPostCommentsForUserSortTermerFactory _forUserSortTermerFactory;
 
 	public PostCommentFluent(
-		IAggregateFluent<PostComment> fluent,
 		IPaginator paginator,
+		IAggregateFluent<PostComment> fluent,
 		ISortOrdererFactory sortOrdererFactory,
 		IPostCommentIncluderFactory includerFactory,
 		IPostCommentsSortTermerFactory sortTermerFactory,
@@ -22,9 +22,9 @@ internal class PostCommentFluent : MongoDbFluent<PostComment>, IPostCommentFluen
 		IPostCommentsForUserSortTermerFactory forUserSortTermerFactory) : base(fluent)
 	{
 		_paginator = paginator;
-		_sortOrdererFactory = sortOrdererFactory;
 		_includerFactory = includerFactory;
 		_sortTermerFactory = sortTermerFactory;
+		_sortOrdererFactory = sortOrdererFactory;
 		_responseFluentFactory = responseFluentFactory;
 		_forUserSortTermerFactory = forUserSortTermerFactory;
 	}

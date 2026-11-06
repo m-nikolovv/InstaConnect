@@ -14,18 +14,18 @@ internal class PostCommentLikeFluent : MongoDbFluent<PostCommentLike>, IPostComm
 	private readonly IPostCommentLikesForUserSortTermerFactory _forUserSortTermerFactory;
 
 	public PostCommentLikeFluent(
-		IAggregateFluent<PostCommentLike> fluent,
 		IPaginator paginator,
 		ISortOrdererFactory sortOrdererFactory,
+		IAggregateFluent<PostCommentLike> fluent,
 		IPostCommentLikeIncluderFactory includerFactory,
 		IPostCommentLikesSortTermerFactory sortTermerFactory,
 		IPostCommentLikeResponseFluentFactory responseFluentFactory,
 		IPostCommentLikesForUserSortTermerFactory forUserSortTermerFactory) : base(fluent)
 	{
 		_paginator = paginator;
-		_sortOrdererFactory = sortOrdererFactory;
 		_includerFactory = includerFactory;
 		_sortTermerFactory = sortTermerFactory;
+		_sortOrdererFactory = sortOrdererFactory;
 		_responseFluentFactory = responseFluentFactory;
 		_forUserSortTermerFactory = forUserSortTermerFactory;
 	}

@@ -14,8 +14,8 @@ internal class ChatResponseFluent :
 		IChatsSortTermerFactory sortTermerFactory) : base(fluent)
 	{
 		_paginator = paginator;
-		_sortOrdererFactory = sortOrdererFactory;
 		_sortTermerFactory = sortTermerFactory;
+		_sortOrdererFactory = sortOrdererFactory;
 	}
 
 	public IChatResponseFluent ApplySorting(ChatsSortingQuery query)

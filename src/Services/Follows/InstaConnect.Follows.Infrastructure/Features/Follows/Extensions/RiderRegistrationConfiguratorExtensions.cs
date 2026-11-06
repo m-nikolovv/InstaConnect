@@ -1,12 +1,11 @@
 using InstaConnect.Common.Infrastructure.Features.Events.Extensions;
 using InstaConnect.Follows.Events.Features.Follows;
-using InstaConnect.Follows.Infrastructure.Features.Follows.Extensions;
 
 using MassTransit;
 
-namespace InstaConnect.Follows.Infrastructure.Features.Common.Extensions;
+namespace InstaConnect.Follows.Infrastructure.Features.Follows.Extensions;
 
-public static class RiderRegistrationConfiguratorExtensions
+internal static class RiderRegistrationConfiguratorExtensions
 {
 	extension(IRiderRegistrationConfigurator riderConfigurator)
 	{

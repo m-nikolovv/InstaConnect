@@ -39,4 +39,12 @@ internal static class PostCommentImageFilterExtensions
 			return Builders<T>.Filter.Or(filter.Select(item => item.GetFilterForIdEquals(idField, commentIdField, imageIdField)));
 		}
 	}
+
+	extension(IEnumerable<PostCommentId> filter)
+	{
+		public FilterDefinition<PostCommentImage> GetPostCommentImageCascadeFilter()
+		{
+			return filter.GetFilterForIdRange<PostCommentImage>(p => p.Id.Id.Id.Id, p => p.Id.Id.CommentId);
+		}
+	}
 }

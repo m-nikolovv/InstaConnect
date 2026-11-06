@@ -17,16 +17,16 @@ internal class UserFluentFactory : IUserFluentFactory
 	{
 		_paginator = paginator;
 		_includerFactory = includerFactory;
-		_sortOrdererFactory = sortOrdererFactory;
 		_sortTermerFactory = sortTermerFactory;
+		_sortOrdererFactory = sortOrdererFactory;
 		_responseFluentFactory = responseFluentFactory;
 	}
 
 	public IUserFluent Create(IAggregateFluent<User> fluent)
 	{
 		return new UserFluent(
-			fluent,
 			_paginator,
+			fluent,
 			_includerFactory,
 			_sortOrdererFactory,
 			_sortTermerFactory,

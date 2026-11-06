@@ -1,9 +1,10 @@
+using InstaConnect.Posts.Domain.Features.PostCommentImages.Models.ValueObjects;
 using InstaConnect.Posts.Infrastructure.Features.PostCommentImages.Abstractions;
 using InstaConnect.Posts.Infrastructure.Features.PostCommentImages.Extensions;
 
 namespace InstaConnect.Posts.Infrastructure.Features.PostCommentImages.Helpers.Collections;
 
-internal class PostCommentImageCollection : MongoDbCollection<PostCommentImage>, IPostCommentImageCollection
+internal class PostCommentImageCollection : MongoDbCollection<PostCommentImage, PostCommentImageId>, IPostCommentImageCollection
 {
 	private readonly IPostCommentImageFluentFactory _fluentFactory;
 
@@ -34,5 +35,12 @@ internal class PostCommentImageCollection : MongoDbCollection<PostCommentImage>,
 		CancellationToken cancellationToken)
 	{
 		await DeleteRangeAsync(entities.Select(p => p.Id).GetFilter(), cancellationToken);
+	}
+
+	public async Task CascadeDeleteAsync(
+		FilterDefinition<PostCommentImage> filter,
+		CancellationToken cancellationToken)
+	{
+		await DeleteRangeAsync(filter, cancellationToken);
 	}
 }

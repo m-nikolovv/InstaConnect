@@ -47,4 +47,12 @@ internal static class ChatMessageImageFilterExtensions
 			return Builders<T>.Filter.Or(filter.Select(item => item.GetFilterForIdEquals(participantOneIdField, participantTwoIdField, messageIdField, imageIdField)));
 		}
 	}
+
+	extension(IEnumerable<ChatMessageId> filter)
+	{
+		public FilterDefinition<ChatMessageImage> GetChatMessageImageCascadeFilter()
+		{
+			return filter.GetFilterForIdRange<ChatMessageImage>(p => p.Id.Id.Id.ParticipantOneId.Id, p => p.Id.Id.Id.ParticipantTwoId.Id, p => p.Id.Id.MessageId);
+		}
+	}
 }

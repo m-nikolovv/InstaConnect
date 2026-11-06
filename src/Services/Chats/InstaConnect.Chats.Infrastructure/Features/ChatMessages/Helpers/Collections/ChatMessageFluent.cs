@@ -11,17 +11,17 @@ internal class ChatMessageFluent : MongoDbFluent<ChatMessage>, IChatMessageFluen
 	private readonly IChatMessageResponseFluentFactory _responseFluentFactory;
 
 	public ChatMessageFluent(
-		IAggregateFluent<ChatMessage> fluent,
 		IPaginator paginator,
+		IAggregateFluent<ChatMessage> fluent,
 		ISortOrdererFactory sortOrdererFactory,
 		IChatMessageIncluderFactory includerFactory,
 		IChatMessagesSortTermerFactory sortTermerFactory,
 		IChatMessageResponseFluentFactory responseFluentFactory) : base(fluent)
 	{
 		_paginator = paginator;
-		_sortOrdererFactory = sortOrdererFactory;
 		_includerFactory = includerFactory;
 		_sortTermerFactory = sortTermerFactory;
+		_sortOrdererFactory = sortOrdererFactory;
 		_responseFluentFactory = responseFluentFactory;
 	}
 

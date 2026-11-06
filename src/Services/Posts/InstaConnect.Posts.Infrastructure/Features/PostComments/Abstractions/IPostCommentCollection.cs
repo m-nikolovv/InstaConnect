@@ -11,4 +11,8 @@ public interface IPostCommentCollection : IMongoDbCollection<PostComment>
 	public Task DeleteAsync(
 		PostComment entity,
 		CancellationToken cancellationToken);
+
+	internal Task CascadeDeleteAsync(
+		FilterDefinition<PostComment> filter,
+		CancellationToken cancellationToken);
 }

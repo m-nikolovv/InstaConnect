@@ -5,25 +5,25 @@ namespace InstaConnect.Follows.Infrastructure.Features.Follows.Helpers.Collectio
 internal class FollowFluent : MongoDbFluent<Follow>, IFollowFluent
 {
 	private readonly IPaginator _paginator;
-	private readonly ISortOrdererFactory _sortOrdererFactory;
 	private readonly IFollowIncluderFactory _includerFactory;
+	private readonly ISortOrdererFactory _sortOrdererFactory;
 	private readonly IFollowsSortTermerFactory _sortTermerFactory;
 	private readonly IFollowResponseFluentFactory _responseFluentFactory;
 	private readonly IFollowsForFollowingSortTermerFactory _forFollowingSortTermerFactory;
 
 	public FollowFluent(
-		IAggregateFluent<Follow> fluent,
 		IPaginator paginator,
-		ISortOrdererFactory sortOrdererFactory,
+		IAggregateFluent<Follow> fluent,
 		IFollowIncluderFactory includerFactory,
+		ISortOrdererFactory sortOrdererFactory,
 		IFollowsSortTermerFactory sortTermerFactory,
 		IFollowResponseFluentFactory responseFluentFactory,
 		IFollowsForFollowingSortTermerFactory forFollowingSortTermerFactory) : base(fluent)
 	{
 		_paginator = paginator;
-		_sortOrdererFactory = sortOrdererFactory;
 		_includerFactory = includerFactory;
 		_sortTermerFactory = sortTermerFactory;
+		_sortOrdererFactory = sortOrdererFactory;
 		_responseFluentFactory = responseFluentFactory;
 		_forFollowingSortTermerFactory = forFollowingSortTermerFactory;
 	}

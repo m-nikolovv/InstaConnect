@@ -11,4 +11,8 @@ public interface IRefreshTokenCollection : IMongoDbCollection<RefreshToken>
 	public Task DeleteAsync(
 		RefreshToken entity,
 		CancellationToken cancellationToken);
+
+	internal Task CascadeDeleteAsync(
+		FilterDefinition<RefreshToken> filter,
+		CancellationToken cancellationToken);
 }

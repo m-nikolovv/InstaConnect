@@ -42,4 +42,20 @@ internal static class PostCommentLikeFilterExtensions
 			return Builders<T>.Filter.And(commentId, userId);
 		}
 	}
+
+	extension(IEnumerable<PostCommentId> filter)
+	{
+		public FilterDefinition<PostCommentLike> GetPostCommentLikeCascadeFilter()
+		{
+			return filter.GetFilterForIdRange<PostCommentLike>(p => p.Id.CommentId.Id.Id, p => p.Id.CommentId.CommentId);
+		}
+	}
+
+	extension(UserId filter)
+	{
+		public FilterDefinition<PostCommentLike> GetPostCommentLikeCascadeFilter()
+		{
+			return filter.GetFilterForIdEquals<PostCommentLike>(p => p.Id.UserId.Id);
+		}
+	}
 }

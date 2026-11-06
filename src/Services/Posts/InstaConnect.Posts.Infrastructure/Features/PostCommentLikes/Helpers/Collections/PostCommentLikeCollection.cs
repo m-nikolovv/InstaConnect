@@ -2,7 +2,7 @@ using InstaConnect.Posts.Infrastructure.Features.PostCommentLikes.Extensions;
 
 namespace InstaConnect.Posts.Infrastructure.Features.PostCommentLikes.Helpers.Collections;
 
-internal class PostCommentLikeCollection : MongoDbCollection<PostCommentLike>, IPostCommentLikeCollection
+internal class PostCommentLikeCollection : MongoDbCollection<PostCommentLike, PostCommentLikeId>, IPostCommentLikeCollection
 {
 	private readonly IPostCommentLikeFluentFactory _fluentFactory;
 
@@ -26,5 +26,12 @@ internal class PostCommentLikeCollection : MongoDbCollection<PostCommentLike>, I
 		CancellationToken cancellationToken)
 	{
 		await DeleteAsync(entity.Id.GetFilter(), cancellationToken);
+	}
+
+	public async Task CascadeDeleteAsync(
+		FilterDefinition<PostCommentLike> filter,
+		CancellationToken cancellationToken)
+	{
+		await DeleteRangeAsync(filter, cancellationToken);
 	}
 }

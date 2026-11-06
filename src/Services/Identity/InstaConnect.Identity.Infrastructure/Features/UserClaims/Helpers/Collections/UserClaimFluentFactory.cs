@@ -16,17 +16,17 @@ internal class UserClaimFluentFactory : IUserClaimFluentFactory
 		IUserClaimResponseFluentFactory responseFluentFactory)
 	{
 		_paginator = paginator;
-		_sortOrdererFactory = sortOrdererFactory;
 		_includerFactory = includerFactory;
 		_sortTermerFactory = sortTermerFactory;
+		_sortOrdererFactory = sortOrdererFactory;
 		_responseFluentFactory = responseFluentFactory;
 	}
 
 	public IUserClaimFluent Create(IAggregateFluent<UserClaim> fluent)
 	{
 		return new UserClaimFluent(
-			fluent,
 			_paginator,
+			fluent,
 			_sortOrdererFactory,
 			_includerFactory,
 			_sortTermerFactory,

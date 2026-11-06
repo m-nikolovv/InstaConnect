@@ -9,8 +9,8 @@ internal class UserFluent : MongoDbFluent<User>, IUserFluent
 	private readonly IUserResponseFluentFactory _responseFluentFactory;
 
 	public UserFluent(
-		IAggregateFluent<User> fluent,
 		IPaginator paginator,
+		IAggregateFluent<User> fluent,
 		IUserIncluderFactory includerFactory,
 		ISortOrdererFactory sortOrdererFactory,
 		IUsersSortTermerFactory sortTermerFactory,
@@ -18,8 +18,8 @@ internal class UserFluent : MongoDbFluent<User>, IUserFluent
 	{
 		_paginator = paginator;
 		_includerFactory = includerFactory;
-		_sortOrdererFactory = sortOrdererFactory;
 		_sortTermerFactory = sortTermerFactory;
+		_sortOrdererFactory = sortOrdererFactory;
 		_responseFluentFactory = responseFluentFactory;
 	}
 

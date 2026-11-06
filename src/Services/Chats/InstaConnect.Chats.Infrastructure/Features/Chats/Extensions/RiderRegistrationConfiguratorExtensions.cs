@@ -1,12 +1,11 @@
 using InstaConnect.Chats.Events.Features.Chats.Models;
-using InstaConnect.Chats.Infrastructure.Features.Chats.Extensions;
 using InstaConnect.Common.Infrastructure.Features.Events.Extensions;
 
 using MassTransit;
 
-namespace InstaConnect.Chats.Infrastructure.Features.Common.Extensions;
+namespace InstaConnect.Chats.Infrastructure.Features.Chats.Extensions;
 
-public static class RiderRegistrationConfiguratorExtensions
+internal static class RiderRegistrationConfiguratorExtensions
 {
 	extension(IRiderRegistrationConfigurator riderConfigurator)
 	{

@@ -16,17 +16,17 @@ internal class ChatMessageFluentFactory : IChatMessageFluentFactory
 		IChatMessageResponseFluentFactory responseFluentFactory)
 	{
 		_paginator = paginator;
-		_sortOrdererFactory = sortOrdererFactory;
 		_includerFactory = includerFactory;
 		_sortTermerFactory = sortTermerFactory;
+		_sortOrdererFactory = sortOrdererFactory;
 		_responseFluentFactory = responseFluentFactory;
 	}
 
 	public IChatMessageFluent Create(IAggregateFluent<ChatMessage> fluent)
 	{
 		return new ChatMessageFluent(
-			fluent,
 			_paginator,
+			fluent,
 			_sortOrdererFactory,
 			_includerFactory,
 			_sortTermerFactory,

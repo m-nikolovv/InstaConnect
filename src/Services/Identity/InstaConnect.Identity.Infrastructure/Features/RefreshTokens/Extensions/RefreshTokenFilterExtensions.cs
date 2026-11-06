@@ -21,4 +21,12 @@ public static class RefreshTokenFilterExtensions
 			return Builders<T>.Filter.And(id, value);
 		}
 	}
+
+	extension(UserId filter)
+	{
+		public FilterDefinition<RefreshToken> GetRefreshTokenCascadeFilter()
+		{
+			return filter.GetFilterForIdEquals<RefreshToken>(p => p.Id.Id.Id);
+		}
+	}
 }

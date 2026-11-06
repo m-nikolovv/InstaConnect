@@ -15,4 +15,8 @@ public interface IForgotPasswordTokenCollection : IMongoDbCollection<ForgotPassw
 	public Task DeleteRangeAsync(
 		IEnumerable<ForgotPasswordToken> entities,
 		CancellationToken cancellationToken);
+
+	internal Task CascadeDeleteAsync(
+		FilterDefinition<ForgotPasswordToken> filter,
+		CancellationToken cancellationToken);
 }

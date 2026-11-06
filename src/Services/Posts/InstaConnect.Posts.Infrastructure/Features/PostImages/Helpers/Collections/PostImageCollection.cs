@@ -1,9 +1,10 @@
+using InstaConnect.Posts.Domain.Features.PostImages.Models.ValueObjects;
 using InstaConnect.Posts.Infrastructure.Features.PostImages.Abstractions;
 using InstaConnect.Posts.Infrastructure.Features.PostImages.Extensions;
 
 namespace InstaConnect.Posts.Infrastructure.Features.PostImages.Helpers.Collections;
 
-internal class PostImageCollection : MongoDbCollection<PostImage>, IPostImageCollection
+internal class PostImageCollection : MongoDbCollection<PostImage, PostImageId>, IPostImageCollection
 {
 	private readonly IPostImageFluentFactory _fluentFactory;
 
@@ -34,5 +35,12 @@ internal class PostImageCollection : MongoDbCollection<PostImage>, IPostImageCol
 		CancellationToken cancellationToken)
 	{
 		await DeleteRangeAsync(entities.Select(p => p.Id).GetFilter(), cancellationToken);
+	}
+
+	public async Task CascadeDeleteAsync(
+		FilterDefinition<PostImage> filter,
+		CancellationToken cancellationToken)
+	{
+		await DeleteRangeAsync(filter, cancellationToken);
 	}
 }

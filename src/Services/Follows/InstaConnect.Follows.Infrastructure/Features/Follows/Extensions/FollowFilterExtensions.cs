@@ -43,4 +43,15 @@ internal static class FollowFilterExtensions
 			return Builders<T>.Filter.And(followerId, followingId);
 		}
 	}
+
+	extension(UserId filter)
+	{
+		public FilterDefinition<Follow> GetFollowCascadeFilter()
+		{
+			var followerId = filter.GetFilterForIdEquals<Follow>(p => p.Id.FollowerId.Id);
+			var followingId = filter.GetFilterForIdEquals<Follow>(p => p.Id.FollowingId.Id);
+
+			return Builders<Follow>.Filter.Or(followerId, followingId);
+		}
+	}
 }

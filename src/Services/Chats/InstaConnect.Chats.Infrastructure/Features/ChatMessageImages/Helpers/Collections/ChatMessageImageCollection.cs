@@ -3,7 +3,7 @@ using InstaConnect.Chats.Infrastructure.Features.ChatMessageImages.Extensions;
 
 namespace InstaConnect.Chats.Infrastructure.Features.ChatMessageImages.Helpers.Collections;
 
-internal class ChatMessageImageCollection : MongoDbCollection<ChatMessageImage>, IChatMessageImageCollection
+internal class ChatMessageImageCollection : MongoDbCollection<ChatMessageImage, ChatMessageImageId>, IChatMessageImageCollection
 {
 	private readonly IChatMessageImageFluentFactory _fluentFactory;
 
@@ -34,5 +34,12 @@ internal class ChatMessageImageCollection : MongoDbCollection<ChatMessageImage>,
 		CancellationToken cancellationToken)
 	{
 		await DeleteRangeAsync(entities.Select(p => p.Id).GetFilter(), cancellationToken);
+	}
+
+	public async Task CascadeDeleteAsync(
+		FilterDefinition<ChatMessageImage> filter,
+		CancellationToken cancellationToken)
+	{
+		await DeleteRangeAsync(filter, cancellationToken);
 	}
 }

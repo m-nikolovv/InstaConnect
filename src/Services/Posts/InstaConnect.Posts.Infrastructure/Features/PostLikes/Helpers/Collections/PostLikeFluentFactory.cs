@@ -18,9 +18,9 @@ internal class PostLikeFluentFactory : IPostLikeFluentFactory
 		IPostLikesForUserSortTermerFactory forUserSortTermerFactory)
 	{
 		_paginator = paginator;
-		_sortOrdererFactory = sortOrdererFactory;
 		_includerFactory = includerFactory;
 		_sortTermerFactory = sortTermerFactory;
+		_sortOrdererFactory = sortOrdererFactory;
 		_responseFluentFactory = responseFluentFactory;
 		_forUserSortTermerFactory = forUserSortTermerFactory;
 	}
@@ -28,8 +28,8 @@ internal class PostLikeFluentFactory : IPostLikeFluentFactory
 	public IPostLikeFluent Create(IAggregateFluent<PostLike> fluent)
 	{
 		return new PostLikeFluent(
-			fluent,
 			_paginator,
+			fluent,
 			_sortOrdererFactory,
 			_includerFactory,
 			_sortTermerFactory,

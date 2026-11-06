@@ -37,4 +37,12 @@ public static class EmailConfirmationTokenFilterExtensions
 			return Builders<T>.Filter.Or(filter.Select(item => item.GetFilterForIdEquals(idField, valueField)));
 		}
 	}
+
+	extension(UserId filter)
+	{
+		public FilterDefinition<EmailConfirmationToken> GetEmailConfirmationTokenCascadeFilter()
+		{
+			return filter.GetFilterForIdEquals<EmailConfirmationToken>(p => p.Id.Id.Id);
+		}
+	}
 }

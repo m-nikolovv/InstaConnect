@@ -3,7 +3,9 @@ using InstaConnect.Common.Infrastructure.Features.Databases.Utilities;
 
 namespace InstaConnect.Common.Infrastructure.Features.Databases.Helpers;
 
-public abstract class MongoDbCollection<TEntity> : IMongoDbCollection<TEntity> where TEntity : IEntity
+public abstract class MongoDbCollection<TEntity, TEntityId> : IMongoDbCollection<TEntity>
+	where TEntity : IEntityWithId<TEntityId>
+	where TEntityId : IEntityId
 {
 	private readonly ISessionHandler _sessionHandler;
 	private readonly IMongoCollection<TEntity> _mongoCollection;
@@ -38,6 +40,14 @@ public abstract class MongoDbCollection<TEntity> : IMongoDbCollection<TEntity> w
 		}
 
 		await _mongoCollection.ReplaceOneAsync(_sessionHandler.ClientSessionHandle, filter, entity, options, cancellationToken);
+	}
+
+	protected async Task<List<TEntityId>> GetIdsAsync(FilterDefinition<TEntity> filter, CancellationToken cancellationToken)
+	{
+		return await AggregateWithIgnoreCaseCollation()
+			.Match(filter)
+			.Project(p => p.Id)
+			.ToListAsync(cancellationToken);
 	}
 
 	protected async Task DeleteAsync(FilterDefinition<TEntity> filter, CancellationToken cancellationToken)

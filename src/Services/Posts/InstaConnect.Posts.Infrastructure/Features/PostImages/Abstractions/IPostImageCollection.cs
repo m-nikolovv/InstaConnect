@@ -11,4 +11,8 @@ public interface IPostImageCollection : IMongoDbCollection<PostImage>
 	public Task DeleteRangeAsync(
 		IEnumerable<PostImage> entities,
 		CancellationToken cancellationToken);
+
+	internal Task CascadeDeleteAsync(
+		FilterDefinition<PostImage> filter,
+		CancellationToken cancellationToken);
 }

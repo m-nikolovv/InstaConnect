@@ -12,8 +12,8 @@ internal class PostFluent : MongoDbFluent<Post>, IPostFluent
 	private readonly IPostsForUserSortTermerFactory _forUserSortTermerFactory;
 
 	public PostFluent(
-		IAggregateFluent<Post> fluent,
 		IPaginator paginator,
+		IAggregateFluent<Post> fluent,
 		IPostIncluderFactory includerFactory,
 		ISortOrdererFactory sortOrdererFactory,
 		IPostsSortTermerFactory sortTermerFactory,
@@ -22,8 +22,8 @@ internal class PostFluent : MongoDbFluent<Post>, IPostFluent
 	{
 		_paginator = paginator;
 		_includerFactory = includerFactory;
-		_sortOrdererFactory = sortOrdererFactory;
 		_sortTermerFactory = sortTermerFactory;
+		_sortOrdererFactory = sortOrdererFactory;
 		_responseFluentFactory = responseFluentFactory;
 		_forUserSortTermerFactory = forUserSortTermerFactory;
 	}

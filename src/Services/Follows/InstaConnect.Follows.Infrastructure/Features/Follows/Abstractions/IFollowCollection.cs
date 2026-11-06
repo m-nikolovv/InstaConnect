@@ -7,4 +7,8 @@ public interface IFollowCollection : IMongoDbCollection<Follow>
 	public Task DeleteAsync(
 		Follow entity,
 		CancellationToken cancellationToken);
+
+	internal Task CascadeDeleteAsync(
+		FilterDefinition<Follow> filter,
+		CancellationToken cancellationToken);
 }

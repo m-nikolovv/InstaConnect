@@ -38,4 +38,20 @@ internal static class PostFilterExtensions
 			return Builders<T>.Filter.EqualsIgnoreCase(idField, filter.Id, filter.Id.IsEmpty());
 		}
 	}
+
+	extension(IEnumerable<PostId> filter)
+	{
+		public FilterDefinition<T> GetFilterForIdRange<T>(Expression<Func<T, object>> idField)
+		{
+			return Builders<T>.Filter.In(idField, filter.Select(item => item.Id));
+		}
+	}
+
+	extension(UserId filter)
+	{
+		public FilterDefinition<Post> GetPostCascadeFilter()
+		{
+			return filter.GetFilterForIdEquals<Post>(p => p.UserId.Id);
+		}
+	}
 }

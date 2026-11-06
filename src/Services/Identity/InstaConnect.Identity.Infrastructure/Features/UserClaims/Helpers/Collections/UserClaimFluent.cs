@@ -11,17 +11,17 @@ internal class UserClaimFluent : MongoDbFluent<UserClaim>, IUserClaimFluent
 	private readonly IUserClaimResponseFluentFactory _responseFluentFactory;
 
 	public UserClaimFluent(
-		IAggregateFluent<UserClaim> fluent,
 		IPaginator paginator,
+		IAggregateFluent<UserClaim> fluent,
 		ISortOrdererFactory sortOrdererFactory,
 		IUserClaimIncluderFactory includerFactory,
 		IUserClaimsSortTermerFactory sortTermerFactory,
 		IUserClaimResponseFluentFactory responseFluentFactory) : base(fluent)
 	{
 		_paginator = paginator;
-		_sortOrdererFactory = sortOrdererFactory;
 		_includerFactory = includerFactory;
 		_sortTermerFactory = sortTermerFactory;
+		_sortOrdererFactory = sortOrdererFactory;
 		_responseFluentFactory = responseFluentFactory;
 	}
 

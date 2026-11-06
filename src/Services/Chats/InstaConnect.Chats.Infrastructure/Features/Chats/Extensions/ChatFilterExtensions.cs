@@ -49,4 +49,15 @@ internal static class ChatFilterExtensions
 			return Builders<T>.Filter.Or(participantOneId, participantTwoId);
 		}
 	}
+
+	extension(UserId filter)
+	{
+		public FilterDefinition<Chat> GetChatCascadeFilter()
+		{
+			var participantOneId = filter.GetFilterForIdEquals<Chat>(p => p.Id.ParticipantOneId.Id);
+			var participantTwoId = filter.GetFilterForIdEquals<Chat>(p => p.Id.ParticipantTwoId.Id);
+
+			return Builders<Chat>.Filter.Or(participantOneId, participantTwoId);
+		}
+	}
 }

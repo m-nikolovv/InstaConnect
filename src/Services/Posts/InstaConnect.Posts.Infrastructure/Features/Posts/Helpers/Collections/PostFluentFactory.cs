@@ -19,8 +19,8 @@ internal class PostFluentFactory : IPostFluentFactory
 	{
 		_paginator = paginator;
 		_includerFactory = includerFactory;
-		_sortOrdererFactory = sortOrdererFactory;
 		_sortTermerFactory = sortTermerFactory;
+		_sortOrdererFactory = sortOrdererFactory;
 		_responseFluentFactory = responseFluentFactory;
 		_forUserSortTermerFactory = forUserSortTermerFactory;
 	}
@@ -28,8 +28,8 @@ internal class PostFluentFactory : IPostFluentFactory
 	public IPostFluent Create(IAggregateFluent<Post> fluent)
 	{
 		return new PostFluent(
-			fluent,
 			_paginator,
+			fluent,
 			_includerFactory,
 			_sortOrdererFactory,
 			_sortTermerFactory,

@@ -37,4 +37,12 @@ public static class ForgotPasswordTokenFilterExtensions
 			return Builders<T>.Filter.Or(filter.Select(item => item.GetFilterForIdEquals(idField, valueField)));
 		}
 	}
+
+	extension(UserId filter)
+	{
+		public FilterDefinition<ForgotPasswordToken> GetForgotPasswordTokenCascadeFilter()
+		{
+			return filter.GetFilterForIdEquals<ForgotPasswordToken>(p => p.Id.Id.Id);
+		}
+	}
 }

@@ -37,4 +37,12 @@ internal static class PostImageFilterExtensions
 			return Builders<T>.Filter.Or(filter.Select(item => item.GetFilterForIdEquals(idField, imageIdField)));
 		}
 	}
+
+	extension(IEnumerable<PostId> filter)
+	{
+		public FilterDefinition<PostImage> GetPostImageCascadeFilter()
+		{
+			return filter.GetFilterForIdRange<PostImage>(p => p.Id.Id.Id);
+		}
+	}
 }

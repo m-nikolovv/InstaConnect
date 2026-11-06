@@ -15,4 +15,8 @@ public interface IEmailConfirmationTokenCollection : IMongoDbCollection<EmailCon
 	public Task DeleteRangeAsync(
 		IEnumerable<EmailConfirmationToken> entities,
 		CancellationToken cancellationToken);
+
+	internal Task CascadeDeleteAsync(
+		FilterDefinition<EmailConfirmationToken> filter,
+		CancellationToken cancellationToken);
 }

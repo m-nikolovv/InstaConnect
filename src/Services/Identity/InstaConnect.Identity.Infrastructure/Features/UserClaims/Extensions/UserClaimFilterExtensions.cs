@@ -29,4 +29,12 @@ public static class UserClaimFilterExtensions
 			return Builders<T>.Filter.And(id, claim);
 		}
 	}
+
+	extension(UserId filter)
+	{
+		public FilterDefinition<UserClaim> GetUserClaimCascadeFilter()
+		{
+			return filter.GetFilterForIdEquals<UserClaim>(p => p.Id.Id.Id);
+		}
+	}
 }
