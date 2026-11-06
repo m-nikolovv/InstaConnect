@@ -3,18 +3,12 @@ using InstaConnect.Identity.Presentation.Tests.Features.UserClaims.Extensions;
 
 namespace InstaConnect.Identity.Presentation.Tests.Functional.Features.UserClaims.Utilities;
 
-public abstract class BaseUserClaimPresentationQueryFunctionalTest : BaseUserClaimWebTest
+public abstract class BaseUserClaimPresentationQueryFunctionalTest : BaseIdentityQueryWebTest
 {
 	protected IUserClaimApiClient ClaimApiClient { get; }
 
 	protected BaseUserClaimPresentationQueryFunctionalTest(IdentityWebApplicationFactory webApplicationFactory) : base(webApplicationFactory)
 	{
 		ClaimApiClient = webApplicationFactory.CreateClaimApiClient();
-	}
-
-	public override async Task InitializeAsync()
-	{
-		await ServiceScope.AddRangeAsync(Users, CancellationToken);
-		await OnInitializeAsync();
 	}
 }

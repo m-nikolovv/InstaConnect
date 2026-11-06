@@ -16,6 +16,11 @@ public class AddPostLikeCommandServiceIntegrationTests : BasePostLikeDomainComma
 		_command = _commandBuilder.Build();
 	}
 
+	protected override async Task OnInitializeAsync()
+	{
+		await ServiceScope.DeleteAsync(PostLike, CancellationToken);
+	}
+
 	[Fact]
 	public async Task AddAsync_ShouldThrowPostNotFoundException_WhenPostNotFound()
 	{

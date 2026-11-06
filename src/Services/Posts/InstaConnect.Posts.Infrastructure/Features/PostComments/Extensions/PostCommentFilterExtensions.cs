@@ -42,6 +42,11 @@ internal static class PostCommentFilterExtensions
 
 	extension(IEnumerable<PostCommentId> filter)
 	{
+		public FilterDefinition<PostComment> GetFilter()
+		{
+			return filter.GetFilterForIdRange<PostComment>(p => p.Id.Id.Id, p => p.Id.CommentId);
+		}
+
 		public FilterDefinition<T> GetFilterForIdRange<T>(
 			Expression<Func<T, object>> idField,
 			Expression<Func<T, object>> commentIdField)

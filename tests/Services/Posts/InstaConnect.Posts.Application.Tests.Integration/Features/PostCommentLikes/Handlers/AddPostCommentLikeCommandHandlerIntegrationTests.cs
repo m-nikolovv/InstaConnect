@@ -16,6 +16,11 @@ public class AddPostCommentLikeCommandHandlerIntegrationTests : BasePostCommentL
 		_request = _requestBuilder.Build();
 	}
 
+	protected override async Task OnInitializeAsync()
+	{
+		await ServiceScope.DeleteAsync(PostCommentLike, CancellationToken);
+	}
+
 	[Theory]
 	[PostIdNullWithMessageData]
 	[PostIdEmptyWithMessageData]

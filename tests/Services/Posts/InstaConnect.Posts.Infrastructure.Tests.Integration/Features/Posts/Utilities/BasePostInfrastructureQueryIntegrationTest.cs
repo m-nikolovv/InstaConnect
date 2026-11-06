@@ -2,7 +2,7 @@ using InstaConnect.Posts.Domain.Features.Posts.Abstractions;
 
 namespace InstaConnect.Posts.Infrastructure.Tests.Integration.Features.Posts.Utilities;
 
-public abstract class BasePostInfrastructureQueryIntegrationTest : BasePostWebTest
+public abstract class BasePostInfrastructureQueryIntegrationTest : BasePostsQueryWebTest
 {
 	protected IPostQueryRepository Repository { get; }
 
@@ -11,13 +11,5 @@ public abstract class BasePostInfrastructureQueryIntegrationTest : BasePostWebTe
 	{
 		Repository = ServiceScope.GetPostQueryRepository();
 
-	}
-
-	public override async Task InitializeAsync()
-	{
-		await ServiceScope.AddRangeAsync(Users, CancellationToken);
-		await ServiceScope.AddRangeAsync(PostLikes, CancellationToken);
-		await ServiceScope.AddRangeAsync(PostImages, CancellationToken);
-		await OnInitializeAsync();
 	}
 }

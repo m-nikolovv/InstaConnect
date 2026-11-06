@@ -50,6 +50,17 @@ public static class PostCommentLikeSetups
 			return (await serviceScope.GetPostCommentLikeCommandRepository().GetByIdAsync(id, commentLikeInclude, cancellationToken)).SetUser().SetPostComment();
 		}
 
+		public async Task<ICollection<PostCommentLike>> GetByIdRangeAsync(
+			IEnumerable<PostCommentLikeId> ids,
+			CancellationToken cancellationToken)
+		{
+			var include = serviceScope.GetPostIncludeBuilderFactory().Create().WithUser().Build();
+			var commentInclude = serviceScope.GetPostCommentIncludeBuilderFactory().Create().WithUser().WithPost(include).Build();
+			var commentLikeInclude = serviceScope.GetPostCommentLikeIncludeBuilderFactory().Create().WithPostComment(commentInclude).WithUser().Build();
+
+			return (await serviceScope.GetPostCommentLikeCommandRepository().GetByIdRangeAsync(ids, commentLikeInclude, cancellationToken)).SetUser().SetPostComment();
+		}
+
 		public async Task AddAsync(
 			PostCommentLike postCommentLike,
 			CancellationToken cancellationToken)
@@ -69,6 +80,16 @@ public static class PostCommentLikeSetups
 			CancellationToken cancellationToken)
 		{
 			await serviceScope.GetPostCommentLikeCommandRepository().DeleteAsync(postCommentLike, cancellationToken);
+		}
+
+		public async Task DeleteRangeAsync(
+			IEnumerable<PostCommentLike> postCommentLikes,
+			CancellationToken cancellationToken)
+		{
+			foreach (var postCommentLike in postCommentLikes)
+			{
+				await serviceScope.DeleteAsync(postCommentLike, cancellationToken);
+			}
 		}
 	}
 }

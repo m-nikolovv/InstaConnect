@@ -14,11 +14,6 @@ public class GetPostCommentByIdFunctionalTests : BasePostCommentPresentationQuer
 		_request = _requestBuilder.Build();
 	}
 
-	protected override async Task OnInitializeAsync()
-	{
-		await ServiceScope.AddAsync(PostComment, CancellationToken);
-	}
-
 	[Theory]
 	[PostIdTooShortData]
 	[PostIdTooLongData]

@@ -17,12 +17,6 @@ public class UpdatePostCommentCommandServiceIntegrationTests : BasePostCommentDo
 		_command = _commandBuilder.Build();
 	}
 
-	protected override async Task OnInitializeAsync()
-	{
-		await ServiceScope.AddAsync(PostComment, CancellationToken);
-		await ServiceScope.AddRangeAsync(PostCommentImages, CancellationToken);
-	}
-
 	[Fact]
 	public async Task UpdateAsync_ShouldThrowPostNotFoundException_WhenPostNotFound()
 	{

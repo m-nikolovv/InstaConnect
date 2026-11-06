@@ -3,7 +3,7 @@ using InstaConnect.Posts.Tests.Features.PostCommentLikes.Extensions;
 
 namespace InstaConnect.Posts.Application.Tests.Integration.Features.PostCommentLikes.Utilities;
 
-public abstract class BasePostCommentLikeApplicationCommandIntegrationTest : BasePostCommentLikeWebTest
+public abstract class BasePostCommentLikeApplicationCommandIntegrationTest : BasePostsCommandWebTest
 {
 	protected IApplicationSender Sender { get; }
 
@@ -18,10 +18,7 @@ public abstract class BasePostCommentLikeApplicationCommandIntegrationTest : Bas
 
 	public override async Task InitializeAsync()
 	{
-		await ServiceScope.AddAsync(User, CancellationToken);
-		await ServiceScope.AddAsync(Post, CancellationToken);
-		await ServiceScope.AddAsync(PostComment, CancellationToken);
-		await OnInitializeAsync();
+		await base.InitializeAsync();
 		await CommentLikeEventClient.StartAsync(CancellationToken);
 	}
 

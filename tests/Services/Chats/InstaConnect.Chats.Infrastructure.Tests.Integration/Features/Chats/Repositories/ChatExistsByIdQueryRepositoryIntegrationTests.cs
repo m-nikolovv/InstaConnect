@@ -9,11 +9,6 @@ public class ChatExistsByIdQueryRepositoryIntegrationTests : BaseChatInfrastruct
 	{
 	}
 
-	protected override async Task OnInitializeAsync()
-	{
-		await ServiceScope.AddAsync(Chat, CancellationToken);
-	}
-
 	[Fact]
 	public async Task ExistsByIdAsync_ShouldReturnNull_WhenIdIsInvalid()
 	{

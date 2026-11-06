@@ -14,12 +14,6 @@ public class DeleteUserFunctionalTests : BaseUserPresentationCommandFunctionalTe
 		_request = _requestBuilder.Build();
 	}
 
-	protected override async Task OnInitializeAsync()
-	{
-		await ServiceScope.AddAsync(User, CancellationToken);
-		await ServiceScope.AddRangeAsync(User.EmailConfirmationTokens, CancellationToken);
-	}
-
 	[Fact]
 	public async Task DeleteAsync_ShouldReturnUnauthorizedStatusCode_WhenRequestIsUnauthorized()
 	{
@@ -149,6 +143,114 @@ public class DeleteUserFunctionalTests : BaseUserPresentationCommandFunctionalTe
 
 		// Assert
 		user.ShouldBeNull();
+	}
+
+	[Fact]
+	public async Task DeleteAsync_ShouldDeleteUserUserClaims_WhenRequestIsValid()
+	{
+		// Act
+		await ApiClient.DeleteAsync(_request, CancellationToken);
+		var userClaims = await ServiceScope.GetByIdRangeAsync(UserUserClaimIds, CancellationToken);
+
+		// Assert
+		userClaims.ShouldBeEmpty();
+	}
+
+	[Theory]
+	[UserIdDifferentCaseData]
+	public async Task DeleteAsync_ShouldDeleteUserUserClaims_WhenRequestAndIdAreValid(
+		IStringTransformer transformer)
+	{
+		// Arrange
+		var request = _requestBuilder.WithId(transformer).Build();
+
+		// Act
+		await ApiClient.DeleteAsync(request, CancellationToken);
+		var userClaims = await ServiceScope.GetByIdRangeAsync(UserUserClaimIds, CancellationToken);
+
+		// Assert
+		userClaims.ShouldBeEmpty();
+	}
+
+	[Fact]
+	public async Task DeleteAsync_ShouldDeleteUserRefreshTokens_WhenRequestIsValid()
+	{
+		// Act
+		await ApiClient.DeleteAsync(_request, CancellationToken);
+		var refreshTokens = await ServiceScope.GetByIdRangeAsync(UserRefreshTokenIds, CancellationToken);
+
+		// Assert
+		refreshTokens.ShouldBeEmpty();
+	}
+
+	[Theory]
+	[UserIdDifferentCaseData]
+	public async Task DeleteAsync_ShouldDeleteUserRefreshTokens_WhenRequestAndIdAreValid(
+		IStringTransformer transformer)
+	{
+		// Arrange
+		var request = _requestBuilder.WithId(transformer).Build();
+
+		// Act
+		await ApiClient.DeleteAsync(request, CancellationToken);
+		var refreshTokens = await ServiceScope.GetByIdRangeAsync(UserRefreshTokenIds, CancellationToken);
+
+		// Assert
+		refreshTokens.ShouldBeEmpty();
+	}
+
+	[Fact]
+	public async Task DeleteAsync_ShouldDeleteUserForgotPasswordTokens_WhenRequestIsValid()
+	{
+		// Act
+		await ApiClient.DeleteAsync(_request, CancellationToken);
+		var forgotPasswordTokens = await ServiceScope.GetByIdRangeAsync(UserForgotPasswordTokenIds, CancellationToken);
+
+		// Assert
+		forgotPasswordTokens.ShouldBeEmpty();
+	}
+
+	[Theory]
+	[UserIdDifferentCaseData]
+	public async Task DeleteAsync_ShouldDeleteUserForgotPasswordTokens_WhenRequestAndIdAreValid(
+		IStringTransformer transformer)
+	{
+		// Arrange
+		var request = _requestBuilder.WithId(transformer).Build();
+
+		// Act
+		await ApiClient.DeleteAsync(request, CancellationToken);
+		var forgotPasswordTokens = await ServiceScope.GetByIdRangeAsync(UserForgotPasswordTokenIds, CancellationToken);
+
+		// Assert
+		forgotPasswordTokens.ShouldBeEmpty();
+	}
+
+	[Fact]
+	public async Task DeleteAsync_ShouldDeleteUserEmailConfirmationTokens_WhenRequestIsValid()
+	{
+		// Act
+		await ApiClient.DeleteAsync(_request, CancellationToken);
+		var emailConfirmationTokens = await ServiceScope.GetByIdRangeAsync(UserEmailConfirmationTokenIds, CancellationToken);
+
+		// Assert
+		emailConfirmationTokens.ShouldBeEmpty();
+	}
+
+	[Theory]
+	[UserIdDifferentCaseData]
+	public async Task DeleteAsync_ShouldDeleteUserEmailConfirmationTokens_WhenRequestAndIdAreValid(
+		IStringTransformer transformer)
+	{
+		// Arrange
+		var request = _requestBuilder.WithId(transformer).Build();
+
+		// Act
+		await ApiClient.DeleteAsync(request, CancellationToken);
+		var emailConfirmationTokens = await ServiceScope.GetByIdRangeAsync(UserEmailConfirmationTokenIds, CancellationToken);
+
+		// Assert
+		emailConfirmationTokens.ShouldBeEmpty();
 	}
 
 	[Fact]

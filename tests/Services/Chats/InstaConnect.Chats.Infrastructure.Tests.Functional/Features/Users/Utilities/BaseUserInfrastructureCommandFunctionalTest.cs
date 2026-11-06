@@ -1,13 +1,12 @@
 using InstaConnect.Chats.Infrastructure.Tests.Features.Users.Abstractions;
 using InstaConnect.Chats.Infrastructure.Tests.Features.Users.Extensions;
 using InstaConnect.Chats.Tests.Features.Common.Utilities;
-using InstaConnect.Chats.Tests.Features.Users.Utilities;
 using InstaConnect.Common.Events.Features.Events.Abstractions;
 using InstaConnect.Common.Infrastructure.Tests.Features.Utilities;
 
 namespace InstaConnect.Chats.Infrastructure.Tests.Functional.Features.Users.Utilities;
 
-public abstract class BaseUserInfrastructureCommandFunctionalTest : BaseUserWebTest
+public abstract class BaseUserInfrastructureCommandFunctionalTest : BaseChatsWebCommandTest
 {
 	protected IUserEventClient UserEventClient { get; }
 

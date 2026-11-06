@@ -26,6 +26,16 @@ public static class ChatMessageEquals
 		}
 	}
 
+	extension(ICollection<ChatMessage> p)
+	{
+		public bool Matches(
+			ICollection<ChatMessageId> ids,
+			ICollection<ChatMessage> chatMessages)
+		{
+			return p.Matches(chatMessages);
+		}
+	}
+
 	extension(ChatMessageResponse? response)
 	{
 		public bool MatchesFull(

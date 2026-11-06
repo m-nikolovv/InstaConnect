@@ -15,6 +15,13 @@ public static class ChatMessageMockSetups
 		}
 
 		public void SetupAggregateFluent(
+			ICollection<ChatMessageId> ids,
+			IChatMessageFluent fluent)
+		{
+			collection.SetupAggregateFluent(fluent);
+		}
+
+		public void SetupAggregateFluent(
 			ChatMessageId id,
 			CurrentUserQuery currentUserQuery,
 			IChatMessageFluent fluent)
@@ -71,6 +78,13 @@ public static class ChatMessageMockSetups
 		}
 
 		public void SetupApplyIncludes(
+			ICollection<ChatMessageId> ids,
+			ChatMessageInclude include)
+		{
+			fluent.SetupApplyIncludes(include);
+		}
+
+		public void SetupApplyIncludes(
 			ChatMessageId id,
 			CurrentUserQuery currentUserQuery,
 			ChatMessageInclude include)
@@ -103,6 +117,11 @@ public static class ChatMessageMockSetups
 		public void SetupMatch(ChatMessageId id)
 		{
 			fluent.Match(id).ReturnsResponse(fluent);
+		}
+
+		public void SetupMatch(ICollection<ChatMessageId> ids)
+		{
+			fluent.Match(ids).ReturnsResponse(fluent);
 		}
 
 		public void SetupMatch(
@@ -164,6 +183,14 @@ public static class ChatMessageMockSetups
 			CancellationToken cancellationToken)
 		{
 			fluent.SetupFirstOrDefaultAsync(chatMessage, cancellationToken);
+		}
+
+		public void SetupToListAsync(
+			ICollection<ChatMessageId> ids,
+			ICollection<ChatMessage> chatMessages,
+			CancellationToken cancellationToken)
+		{
+			fluent.SetupToListAsync(chatMessages, cancellationToken);
 		}
 
 		public void SetupApplySorting(

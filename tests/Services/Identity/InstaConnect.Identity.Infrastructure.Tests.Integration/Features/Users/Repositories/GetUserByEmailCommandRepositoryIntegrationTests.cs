@@ -22,11 +22,6 @@ public class GetUserByEmailCommandRepositoryIntegrationTests : BaseUserInfrastru
 		_include = IncludeBuilderFactory.Create().WithUserClaims().WithRefreshTokens().WithForgotPasswordTokens().WithEmailConfirmationTokens().Build();
 	}
 
-	protected override async Task OnInitializeAsync()
-	{
-		await ServiceScope.AddAsync(User, CancellationToken);
-	}
-
 	[Fact]
 	public async Task GetByEmailAsync_ShouldReturnNull_WhenEmailIsInvalid()
 	{

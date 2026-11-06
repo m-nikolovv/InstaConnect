@@ -16,6 +16,11 @@ public class AddFollowCommandServiceIntegrationTests : BaseFollowDomainCommandIn
 		_command = _commandBuilder.Build();
 	}
 
+	protected override async Task OnInitializeAsync()
+	{
+		await ServiceScope.DeleteAsync(Follow, CancellationToken);
+	}
+
 	[Fact]
 	public async Task AddAsync_ShouldThrowFollowerNotFoundException_WhenFollowerNotFound()
 	{

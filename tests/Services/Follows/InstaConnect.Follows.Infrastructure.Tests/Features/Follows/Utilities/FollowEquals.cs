@@ -28,6 +28,16 @@ public static class FollowEquals
 		}
 	}
 
+	extension(ICollection<Follow> f)
+	{
+		public bool Matches(
+			ICollection<FollowId> ids,
+			ICollection<Follow> follows)
+		{
+			return f.Matches(follows);
+		}
+	}
+
 	extension(User? u)
 	{
 		public bool MatchesFilter(FollowsFilterQuery query)

@@ -23,12 +23,6 @@ public class GetChatMessageByIdQueryRepositoryIntegrationTests : BaseChatMessage
 		_invertedCurrentUserQuery = _invertedCurrentUserQueryBuilder.Build();
 	}
 
-	protected override async Task OnInitializeAsync()
-	{
-		await ServiceScope.AddAsync(ChatMessage, CancellationToken);
-		await ServiceScope.AddRangeAsync(ChatMessageImages, CancellationToken);
-	}
-
 	[Fact]
 	public async Task GetByIdAsync_ShouldReturnNull_WhenIdIsInvalid()
 	{

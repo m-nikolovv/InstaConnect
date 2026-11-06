@@ -3,7 +3,7 @@ using InstaConnect.Follows.Tests.Features.Follows.Extensions;
 
 namespace InstaConnect.Follows.Application.Tests.Integration.Features.Follows.Utilities;
 
-public abstract class BaseFollowApplicationCommandIntegrationTest : BaseFollowWebTest
+public abstract class BaseFollowApplicationCommandIntegrationTest : BaseFollowsCommandWebTest
 {
 	protected IApplicationSender Sender { get; }
 
@@ -21,9 +21,7 @@ public abstract class BaseFollowApplicationCommandIntegrationTest : BaseFollowWe
 
 	public override async Task InitializeAsync()
 	{
-		await ServiceScope.AddAsync(Follower, CancellationToken);
-		await ServiceScope.AddAsync(Following, CancellationToken);
-		await OnInitializeAsync();
+		await base.InitializeAsync();
 		await EventClient.StartAsync(CancellationToken);
 		await NotificationClient.StartAsync(CancellationToken);
 	}

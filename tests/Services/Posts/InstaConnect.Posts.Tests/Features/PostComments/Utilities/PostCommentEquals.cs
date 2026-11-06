@@ -14,6 +14,18 @@ public static class PostCommentEquals
 		}
 	}
 
+	extension(ICollection<PostComment> entities)
+	{
+		public bool Matches(ICollection<PostComment> postComments)
+		{
+			return entities.MatchesCollectionAndNotEmpty(
+				postComments,
+				e => e.Id,
+				e => e.Id,
+				(entity, postComment) => entity.Matches(postComment));
+		}
+	}
+
 	extension(PostCommentId p)
 	{
 		public bool Matches(PostCommentId id)

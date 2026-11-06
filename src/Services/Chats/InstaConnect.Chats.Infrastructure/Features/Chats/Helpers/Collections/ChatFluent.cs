@@ -44,6 +44,13 @@ internal class ChatFluent : MongoDbFluent<Chat>, IChatFluent
 		return this;
 	}
 
+	public IChatFluent Match(IEnumerable<ChatId> filter)
+	{
+		Match(filter.GetFilter());
+
+		return this;
+	}
+
 	public IChatResponseFluent ProjectToFullResponse(CurrentUserQuery currentUser)
 	{
 		var currentUserId = currentUser.Id.Id.ToLower();

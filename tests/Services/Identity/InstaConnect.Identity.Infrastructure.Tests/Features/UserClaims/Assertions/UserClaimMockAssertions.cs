@@ -11,6 +11,11 @@ public static class UserClaimMockAssertions
 			collection.ShouldHaveReceivedOneAggregateFluent();
 		}
 
+		public void ShouldHaveReceivedOneAggregateFluent(ICollection<UserClaimId> ids)
+		{
+			collection.ShouldHaveReceivedOneAggregateFluent();
+		}
+
 		public void ShouldHaveReceivedOneAggregateFluent(
 			UserClaimId id,
 			CurrentUserQuery currentUserQuery)
@@ -64,6 +69,11 @@ public static class UserClaimMockAssertions
 		public void ShouldHaveReceivedOneMatch(UserClaimId id)
 		{
 			fluent.ShouldHaveReceivedOne().Match(id);
+		}
+
+		public void ShouldHaveReceivedOneMatch(ICollection<UserClaimId> ids)
+		{
+			fluent.ShouldHaveReceivedOne().Match(ids);
 		}
 
 		public void ShouldHaveReceivedOneMatch(
@@ -138,6 +148,13 @@ public static class UserClaimMockAssertions
 			CancellationToken cancellationToken)
 		{
 			await fluent.ShouldHaveReceivedOneFirstOrDefaultAsync(cancellationToken);
+		}
+
+		public async Task ShouldHaveReceivedOneToListAsync(
+			ICollection<UserClaimId> ids,
+			CancellationToken cancellationToken)
+		{
+			await fluent.ShouldHaveReceivedOneToListAsync(cancellationToken);
 		}
 
 		public void ShouldHaveReceivedOneApplySorting(

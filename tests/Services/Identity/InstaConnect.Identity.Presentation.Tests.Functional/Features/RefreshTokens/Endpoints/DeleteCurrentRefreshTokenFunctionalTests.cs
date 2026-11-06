@@ -19,11 +19,6 @@ public class DeleteCurrentRefreshTokenFunctionalTests : BaseRefreshTokenPresenta
 		_request = _requestBuilder.Build();
 	}
 
-	protected override async Task OnInitializeAsync()
-	{
-		await ServiceScope.AddAsync(RefreshToken, CancellationToken);
-	}
-
 	[Theory]
 	[UserIdNullData]
 	[UserIdEmptyData]

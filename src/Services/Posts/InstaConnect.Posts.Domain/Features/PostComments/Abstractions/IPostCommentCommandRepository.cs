@@ -11,6 +11,15 @@ public interface IPostCommentCommandRepository
 		PostCommentId id,
 		CancellationToken cancellationToken);
 
+	public Task<ICollection<PostComment>> GetByIdRangeAsync(
+		IEnumerable<PostCommentId> ids,
+		PostCommentInclude include,
+		CancellationToken cancellationToken);
+
+	public Task<ICollection<PostComment>> GetByIdRangeAsync(
+		IEnumerable<PostCommentId> ids,
+		CancellationToken cancellationToken);
+
 	public Task<bool> ExistsByIdAsync(
 		PostCommentId id,
 		CancellationToken cancellationToken);

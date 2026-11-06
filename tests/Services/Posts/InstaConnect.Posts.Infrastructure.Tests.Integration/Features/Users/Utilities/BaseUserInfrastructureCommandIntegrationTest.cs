@@ -2,7 +2,7 @@ using InstaConnect.Posts.Domain.Features.Users.Abstractions;
 
 namespace InstaConnect.Posts.Infrastructure.Tests.Integration.Features.Users.Utilities;
 
-public abstract class BaseUserInfrastructureCommandIntegrationTest : BaseUserWebTest
+public abstract class BaseUserInfrastructureCommandIntegrationTest : BasePostsCommandWebTest
 {
 	protected IUserCommandRepository Repository { get; }
 

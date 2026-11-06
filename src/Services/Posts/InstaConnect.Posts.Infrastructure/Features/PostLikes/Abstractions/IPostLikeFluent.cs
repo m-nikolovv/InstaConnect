@@ -5,6 +5,7 @@ public interface IPostLikeFluent : IMongoDbFluent<PostLike>
 	public IPostLikeFluent Match(PostLikesFilterQuery filter);
 	public IPostLikeFluent Match(PostLikesForUserFilterQuery filter);
 	public IPostLikeFluent Match(PostLikeId filter);
+	public IPostLikeFluent Match(IEnumerable<PostLikeId> filter);
 	public IPostLikeFluent ApplySorting(PostLikesSortingQuery query);
 	public IPostLikeFluent ApplySorting(PostLikesForUserSortingQuery query);
 	public IPostLikeFluent ApplyPagination(PostLikesPaginationQuery query);

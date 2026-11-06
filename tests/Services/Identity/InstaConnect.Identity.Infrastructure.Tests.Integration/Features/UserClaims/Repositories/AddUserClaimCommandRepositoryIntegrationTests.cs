@@ -9,6 +9,11 @@ public class AddUserClaimCommandRepositoryIntegrationTests : BaseUserClaimInfras
 	{
 	}
 
+	protected override async Task OnInitializeAsync()
+	{
+		await ServiceScope.DeleteAsync(UserClaim, CancellationToken);
+	}
+
 	[Fact]
 	public async Task AddAsync_ShouldAddUserClaim_WhenCommandIsValid()
 	{

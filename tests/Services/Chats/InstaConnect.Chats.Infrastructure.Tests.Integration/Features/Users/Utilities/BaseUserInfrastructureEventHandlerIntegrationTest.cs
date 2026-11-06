@@ -5,7 +5,7 @@ using InstaConnect.Common.Infrastructure.Tests.Features.Utilities;
 
 namespace InstaConnect.Chats.Infrastructure.Tests.Integration.Features.Users.Utilities;
 
-public abstract class BaseUserInfrastructureEventHandlerIntegrationTest : BaseUserWebTest
+public abstract class BaseUserInfrastructureEventHandlerIntegrationTest : BaseChatsWebCommandTest
 {
 	protected IUserEventClient UserEventClient { get; }
 

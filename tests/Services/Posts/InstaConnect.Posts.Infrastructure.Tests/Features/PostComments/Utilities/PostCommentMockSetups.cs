@@ -14,6 +14,13 @@ public static class PostCommentMockSetups
 		}
 
 		public void SetupAggregateFluent(
+			ICollection<PostCommentId> ids,
+			IPostCommentFluent fluent)
+		{
+			collection.SetupAggregateFluent(fluent);
+		}
+
+		public void SetupAggregateFluent(
 			PostCommentId id,
 			CurrentUserQuery currentUserQuery,
 			IPostCommentFluent fluent)
@@ -95,6 +102,13 @@ public static class PostCommentMockSetups
 		}
 
 		public void SetupApplyIncludes(
+			ICollection<PostCommentId> ids,
+			PostCommentInclude include)
+		{
+			fluent.SetupApplyIncludes(include);
+		}
+
+		public void SetupApplyIncludes(
 			PostCommentId id,
 			CurrentUserQuery currentUserQuery,
 			PostCommentInclude include)
@@ -144,6 +158,11 @@ public static class PostCommentMockSetups
 		public void SetupMatch(PostCommentId id)
 		{
 			fluent.Match(id).ReturnsResponse(fluent);
+		}
+
+		public void SetupMatch(ICollection<PostCommentId> ids)
+		{
+			fluent.Match(ids).ReturnsResponse(fluent);
 		}
 
 		public void SetupMatch(
@@ -236,6 +255,14 @@ public static class PostCommentMockSetups
 			CancellationToken cancellationToken)
 		{
 			fluent.SetupFirstOrDefaultAsync(postComment, cancellationToken);
+		}
+
+		public void SetupToListAsync(
+			ICollection<PostCommentId> ids,
+			ICollection<PostComment> postComments,
+			CancellationToken cancellationToken)
+		{
+			fluent.SetupToListAsync(postComments, cancellationToken);
 		}
 
 		public void SetupApplySorting(

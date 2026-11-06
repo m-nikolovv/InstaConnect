@@ -18,11 +18,6 @@ public class DeleteUserCommandHandlerIntegrationTests : BaseUserApplicationComma
 		_request = _requestBuilder.Build();
 	}
 
-	protected override async Task OnInitializeAsync()
-	{
-		await ServiceScope.AddAsync(User, CancellationToken);
-	}
-
 	[Theory]
 	[UserIdNullWithMessageData]
 	[UserIdEmptyWithMessageData]
@@ -73,5 +68,32 @@ public class DeleteUserCommandHandlerIntegrationTests : BaseUserApplicationComma
 
 		// Assert
 		user.ShouldBeNull();
+	}
+
+	[Fact]
+	public async Task SendAsync_ShouldDeleteUserFollows_WhenRequestIsValid()
+	{
+		// Act
+		await Sender.SendAsync(_request, CancellationToken);
+		var follows = await ServiceScope.GetByIdRangeAsync(UserFollowIds, CancellationToken);
+
+		// Assert
+		follows.ShouldBeEmpty();
+	}
+
+	[Theory]
+	[UserIdDifferentCaseData]
+	public async Task SendAsync_ShouldDeleteUserFollows_WhenRequestAndIdAreValid(
+		IStringTransformer transformer)
+	{
+		// Arrange
+		var request = _requestBuilder.WithId(transformer).Build();
+
+		// Act
+		await Sender.SendAsync(request, CancellationToken);
+		var follows = await ServiceScope.GetByIdRangeAsync(UserFollowIds, CancellationToken);
+
+		// Assert
+		follows.ShouldBeEmpty();
 	}
 }

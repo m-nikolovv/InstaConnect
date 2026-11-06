@@ -20,6 +20,11 @@ public class AddUserClaimControllerIntegrationTests : BaseUserClaimPresentationC
 		_request = _requestBuilder.Build();
 	}
 
+	protected override async Task OnInitializeAsync()
+	{
+		await ServiceScope.DeleteAsync(UserClaim, CancellationToken);
+	}
+
 	[Theory]
 	[UserIdNullWithMessageData]
 	[UserIdEmptyWithMessageData]

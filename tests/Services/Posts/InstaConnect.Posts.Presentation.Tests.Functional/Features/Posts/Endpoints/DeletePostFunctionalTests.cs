@@ -1,3 +1,4 @@
+using InstaConnect.Posts.Tests.Features.PostCommentImages.Utilities;
 using InstaConnect.Posts.Tests.Features.Users.Builders;
 
 namespace InstaConnect.Posts.Presentation.Tests.Functional.Features.Posts.Endpoints;
@@ -14,12 +15,6 @@ public class DeletePostFunctionalTests : BasePostPresentationCommandFunctionalTe
 		_requestBuilderFactory = new();
 		_requestBuilder = _requestBuilderFactory.Create(Post);
 		_request = _requestBuilder.Build();
-	}
-
-	protected override async Task OnInitializeAsync()
-	{
-		await ServiceScope.AddAsync(Post, CancellationToken);
-		await ServiceScope.AddRangeAsync(PostImages, CancellationToken);
 	}
 
 	[Fact]
@@ -235,6 +230,221 @@ public class DeletePostFunctionalTests : BasePostPresentationCommandFunctionalTe
 
 		// Assert
 		post.ShouldBeNull();
+	}
+
+	[Fact]
+	public async Task DeleteAsync_ShouldDeletePostPostImages_WhenRequestIsValid()
+	{
+		// Act
+		await ApiClient.DeleteAsync(_request, CancellationToken);
+		var postImages = await ServiceScope.GetByIdRangeAsync(PostPostImageIds, CancellationToken);
+
+		// Assert
+		postImages.ShouldBeEmpty();
+	}
+
+	[Theory]
+	[PostIdDifferentCaseData]
+	public async Task DeleteAsync_ShouldDeletePostPostImages_WhenRequestAndIdAreValid(
+		IStringTransformer transformer)
+	{
+		// Arrange
+		var request = _requestBuilder.WithId(transformer).Build();
+
+		// Act
+		await ApiClient.DeleteAsync(request, CancellationToken);
+		var postImages = await ServiceScope.GetByIdRangeAsync(PostPostImageIds, CancellationToken);
+
+		// Assert
+		postImages.ShouldBeEmpty();
+	}
+
+	[Theory]
+	[UserIdDifferentCaseData]
+	public async Task DeleteAsync_ShouldDeletePostPostImages_WhenRequestAndUserIdAreValid(
+		IStringTransformer transformer)
+	{
+		// Arrange
+		var request = _requestBuilder.WithUserId(transformer).Build();
+
+		// Act
+		await ApiClient.DeleteAsync(request, CancellationToken);
+		var postImages = await ServiceScope.GetByIdRangeAsync(PostPostImageIds, CancellationToken);
+
+		// Assert
+		postImages.ShouldBeEmpty();
+	}
+
+	[Fact]
+	public async Task DeleteAsync_ShouldDeletePostPostLikes_WhenRequestIsValid()
+	{
+		// Act
+		await ApiClient.DeleteAsync(_request, CancellationToken);
+		var postLikes = await ServiceScope.GetByIdRangeAsync(PostPostLikeIds, CancellationToken);
+
+		// Assert
+		postLikes.ShouldBeEmpty();
+	}
+
+	[Theory]
+	[PostIdDifferentCaseData]
+	public async Task DeleteAsync_ShouldDeletePostPostLikes_WhenRequestAndIdAreValid(
+		IStringTransformer transformer)
+	{
+		// Arrange
+		var request = _requestBuilder.WithId(transformer).Build();
+
+		// Act
+		await ApiClient.DeleteAsync(request, CancellationToken);
+		var postLikes = await ServiceScope.GetByIdRangeAsync(PostPostLikeIds, CancellationToken);
+
+		// Assert
+		postLikes.ShouldBeEmpty();
+	}
+
+	[Theory]
+	[UserIdDifferentCaseData]
+	public async Task DeleteAsync_ShouldDeletePostPostLikes_WhenRequestAndUserIdAreValid(
+		IStringTransformer transformer)
+	{
+		// Arrange
+		var request = _requestBuilder.WithUserId(transformer).Build();
+
+		// Act
+		await ApiClient.DeleteAsync(request, CancellationToken);
+		var postLikes = await ServiceScope.GetByIdRangeAsync(PostPostLikeIds, CancellationToken);
+
+		// Assert
+		postLikes.ShouldBeEmpty();
+	}
+
+	[Fact]
+	public async Task DeleteAsync_ShouldDeletePostPostComments_WhenRequestIsValid()
+	{
+		// Act
+		await ApiClient.DeleteAsync(_request, CancellationToken);
+		var postComments = await ServiceScope.GetByIdRangeAsync(PostPostCommentIds, CancellationToken);
+
+		// Assert
+		postComments.ShouldBeEmpty();
+	}
+
+	[Theory]
+	[PostIdDifferentCaseData]
+	public async Task DeleteAsync_ShouldDeletePostPostComments_WhenRequestAndIdAreValid(
+		IStringTransformer transformer)
+	{
+		// Arrange
+		var request = _requestBuilder.WithId(transformer).Build();
+
+		// Act
+		await ApiClient.DeleteAsync(request, CancellationToken);
+		var postComments = await ServiceScope.GetByIdRangeAsync(PostPostCommentIds, CancellationToken);
+
+		// Assert
+		postComments.ShouldBeEmpty();
+	}
+
+	[Theory]
+	[UserIdDifferentCaseData]
+	public async Task DeleteAsync_ShouldDeletePostPostComments_WhenRequestAndUserIdAreValid(
+		IStringTransformer transformer)
+	{
+		// Arrange
+		var request = _requestBuilder.WithUserId(transformer).Build();
+
+		// Act
+		await ApiClient.DeleteAsync(request, CancellationToken);
+		var postComments = await ServiceScope.GetByIdRangeAsync(PostPostCommentIds, CancellationToken);
+
+		// Assert
+		postComments.ShouldBeEmpty();
+	}
+
+	[Fact]
+	public async Task DeleteAsync_ShouldDeletePostPostCommentsPostCommentImages_WhenRequestIsValid()
+	{
+		// Act
+		await ApiClient.DeleteAsync(_request, CancellationToken);
+		var postCommentImages = await ServiceScope.GetByIdRangeAsync(PostPostCommentsPostCommentImageIds, CancellationToken);
+
+		// Assert
+		postCommentImages.ShouldBeEmpty();
+	}
+
+	[Theory]
+	[PostIdDifferentCaseData]
+	public async Task DeleteAsync_ShouldDeletePostPostCommentsPostCommentImages_WhenRequestAndIdAreValid(
+		IStringTransformer transformer)
+	{
+		// Arrange
+		var request = _requestBuilder.WithId(transformer).Build();
+
+		// Act
+		await ApiClient.DeleteAsync(request, CancellationToken);
+		var postCommentImages = await ServiceScope.GetByIdRangeAsync(PostPostCommentsPostCommentImageIds, CancellationToken);
+
+		// Assert
+		postCommentImages.ShouldBeEmpty();
+	}
+
+	[Theory]
+	[UserIdDifferentCaseData]
+	public async Task DeleteAsync_ShouldDeletePostPostCommentsPostCommentImages_WhenRequestAndUserIdAreValid(
+		IStringTransformer transformer)
+	{
+		// Arrange
+		var request = _requestBuilder.WithUserId(transformer).Build();
+
+		// Act
+		await ApiClient.DeleteAsync(request, CancellationToken);
+		var postCommentImages = await ServiceScope.GetByIdRangeAsync(PostPostCommentsPostCommentImageIds, CancellationToken);
+
+		// Assert
+		postCommentImages.ShouldBeEmpty();
+	}
+
+	[Fact]
+	public async Task DeleteAsync_ShouldDeletePostPostCommentsPostCommentLikes_WhenRequestIsValid()
+	{
+		// Act
+		await ApiClient.DeleteAsync(_request, CancellationToken);
+		var postCommentLikes = await ServiceScope.GetByIdRangeAsync(PostPostCommentsPostCommentLikeIds, CancellationToken);
+
+		// Assert
+		postCommentLikes.ShouldBeEmpty();
+	}
+
+	[Theory]
+	[PostIdDifferentCaseData]
+	public async Task DeleteAsync_ShouldDeletePostPostCommentsPostCommentLikes_WhenRequestAndIdAreValid(
+		IStringTransformer transformer)
+	{
+		// Arrange
+		var request = _requestBuilder.WithId(transformer).Build();
+
+		// Act
+		await ApiClient.DeleteAsync(request, CancellationToken);
+		var postCommentLikes = await ServiceScope.GetByIdRangeAsync(PostPostCommentsPostCommentLikeIds, CancellationToken);
+
+		// Assert
+		postCommentLikes.ShouldBeEmpty();
+	}
+
+	[Theory]
+	[UserIdDifferentCaseData]
+	public async Task DeleteAsync_ShouldDeletePostPostCommentsPostCommentLikes_WhenRequestAndUserIdAreValid(
+		IStringTransformer transformer)
+	{
+		// Arrange
+		var request = _requestBuilder.WithUserId(transformer).Build();
+
+		// Act
+		await ApiClient.DeleteAsync(request, CancellationToken);
+		var postCommentLikes = await ServiceScope.GetByIdRangeAsync(PostPostCommentsPostCommentLikeIds, CancellationToken);
+
+		// Assert
+		postCommentLikes.ShouldBeEmpty();
 	}
 
 	[Fact]

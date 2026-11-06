@@ -30,6 +30,21 @@ public static class UserClaimFilterExtensions
 		}
 	}
 
+	extension(IEnumerable<UserClaimId> filter)
+	{
+		public FilterDefinition<UserClaim> GetFilter()
+		{
+			return filter.GetFilterForIdRange<UserClaim>(p => p.Id.Id.Id, p => p.Id.Claim);
+		}
+
+		public FilterDefinition<T> GetFilterForIdRange<T>(
+			Expression<Func<T, object>> idField,
+			Expression<Func<T, object>> claimField)
+		{
+			return Builders<T>.Filter.Or(filter.Select(item => item.GetFilterForIdEquals(idField, claimField)));
+		}
+	}
+
 	extension(UserId filter)
 	{
 		public FilterDefinition<UserClaim> GetUserClaimCascadeFilter()

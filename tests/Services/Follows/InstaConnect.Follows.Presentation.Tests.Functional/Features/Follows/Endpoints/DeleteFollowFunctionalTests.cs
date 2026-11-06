@@ -16,11 +16,6 @@ public class DeleteFollowFunctionalTests : BaseFollowPresentationCommandFunction
 		_request = _requestBuilder.Build();
 	}
 
-	protected override async Task OnInitializeAsync()
-	{
-		await ServiceScope.AddAsync(Follow, CancellationToken);
-	}
-
 	[Fact]
 	public async Task DeleteAsync_ShouldReturnUnauthorizedStatusCode_WhenRequestIsUnauthorized()
 	{

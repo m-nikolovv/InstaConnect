@@ -9,6 +9,11 @@ public class AddUserCommandRepositoryIntegrationTests : BaseUserInfrastructureCo
 	{
 	}
 
+	protected override async Task OnInitializeAsync()
+	{
+		await ServiceScope.DeleteAsync(User, CancellationToken);
+	}
+
 	[Fact]
 	public async Task AddAsync_ShouldAddUser_WhenCommandIsValid()
 	{

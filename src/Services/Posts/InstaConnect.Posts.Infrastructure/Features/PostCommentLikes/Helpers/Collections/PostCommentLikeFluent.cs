@@ -58,6 +58,13 @@ internal class PostCommentLikeFluent : MongoDbFluent<PostCommentLike>, IPostComm
 		return this;
 	}
 
+	public IPostCommentLikeFluent Match(IEnumerable<PostCommentLikeId> filter)
+	{
+		Match(filter.GetFilter());
+
+		return this;
+	}
+
 	public IPostCommentLikeFluent ApplySorting(PostCommentLikesSortingQuery query)
 	{
 		ApplySorting(_sortOrdererFactory, _sortTermerFactory, query);

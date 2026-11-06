@@ -57,6 +57,13 @@ internal class PostLikeFluent : MongoDbFluent<PostLike>, IPostLikeFluent
 		return this;
 	}
 
+	public IPostLikeFluent Match(IEnumerable<PostLikeId> filter)
+	{
+		Match(filter.GetFilter());
+
+		return this;
+	}
+
 	public IPostLikeFluent ApplySorting(PostLikesSortingQuery query)
 	{
 		ApplySorting(_sortOrdererFactory, _sortTermerFactory, query);

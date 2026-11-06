@@ -12,6 +12,11 @@ public static class ChatMockAssertions
 			collection.ShouldHaveReceivedOneAggregateFluent();
 		}
 
+		public void ShouldHaveReceivedOneAggregateFluent(ICollection<ChatId> ids)
+		{
+			collection.ShouldHaveReceivedOneAggregateFluent();
+		}
+
 		public void ShouldHaveReceivedOneAggregateFluent(
 			ChatId id,
 			CurrentUserQuery currentUserQuery)
@@ -67,6 +72,11 @@ public static class ChatMockAssertions
 			fluent.ShouldHaveReceivedOne().Match(id);
 		}
 
+		public void ShouldHaveReceivedOneMatch(ICollection<ChatId> ids)
+		{
+			fluent.ShouldHaveReceivedOne().Match(ids);
+		}
+
 		public void ShouldHaveReceivedOneMatch(
 			ChatId id,
 			CurrentUserQuery currentUserQuery)
@@ -76,6 +86,13 @@ public static class ChatMockAssertions
 
 		public void ShouldHaveReceivedOneApplyIncludes(
 			ChatId id,
+			ChatInclude include)
+		{
+			fluent.ShouldHaveReceivedOneApplyIncludes(include);
+		}
+
+		public void ShouldHaveReceivedOneApplyIncludes(
+			ICollection<ChatId> ids,
 			ChatInclude include)
 		{
 			fluent.ShouldHaveReceivedOneApplyIncludes(include);
@@ -156,6 +173,13 @@ public static class ChatMockAssertions
 			CancellationToken cancellationToken)
 		{
 			await fluent.ShouldHaveReceivedOneFirstOrDefaultAsync(cancellationToken);
+		}
+
+		public async Task ShouldHaveReceivedOneToListAsync(
+			ICollection<ChatId> ids,
+			CancellationToken cancellationToken)
+		{
+			await fluent.ShouldHaveReceivedOneToListAsync(cancellationToken);
 		}
 	}
 

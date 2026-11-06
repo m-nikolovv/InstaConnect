@@ -7,11 +7,6 @@ public class DeleteUserCommandRepositoryIntegrationTests : BaseUserInfrastructur
 	{
 	}
 
-	protected override async Task OnInitializeAsync()
-	{
-		await ServiceScope.AddAsync(User, CancellationToken);
-	}
-
 	[Fact]
 	public async Task DeleteAsync_ShouldDeleteUser_WhenCommandIsValid()
 	{
@@ -21,5 +16,16 @@ public class DeleteUserCommandRepositoryIntegrationTests : BaseUserInfrastructur
 
 		// Assert
 		user.ShouldBeNull();
+	}
+
+	[Fact]
+	public async Task DeleteAsync_ShouldDeleteUserFollows_WhenCommandIsValid()
+	{
+		// Act
+		await Repository.DeleteAsync(User, CancellationToken);
+		var follows = await ServiceScope.GetByIdRangeAsync(UserFollowIds, CancellationToken);
+
+		// Assert
+		follows.ShouldBeEmpty();
 	}
 }

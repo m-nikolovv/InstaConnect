@@ -9,11 +9,6 @@ public class UserClaimExistsByIdCommandRepositoryIntegrationTests : BaseUserClai
 	{
 	}
 
-	protected override async Task OnInitializeAsync()
-	{
-		await ServiceScope.AddAsync(UserClaim, CancellationToken);
-	}
-
 	[Fact]
 	public async Task ExistsByIdAsync_ShouldReturnNull_WhenIdIsInvalid()
 	{

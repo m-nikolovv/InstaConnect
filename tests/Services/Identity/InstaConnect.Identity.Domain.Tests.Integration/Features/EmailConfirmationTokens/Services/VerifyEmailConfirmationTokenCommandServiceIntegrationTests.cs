@@ -21,11 +21,6 @@ public class VerifyEmailConfirmationTokenCommandServiceIntegrationTests : BaseEm
 		_command = _commandBuilder.Build();
 	}
 
-	protected override async Task OnInitializeAsync()
-	{
-		await ServiceScope.AddRangeAsync(User.EmailConfirmationTokens, CancellationToken);
-	}
-
 	[Fact]
 	public async Task VerifyAsync_ShouldThrowUserNotFoundException_WhenUserNotFound()
 	{
@@ -162,7 +157,7 @@ public class VerifyEmailConfirmationTokenCommandServiceIntegrationTests : BaseEm
 		var eventRequests = await EmailConfirmationTokenEventClient.PublishedDeletedRangeAsync(CancellationToken);
 
 		// Assert
-		eventRequests.ShouldSatisfy(_command, User.EmailConfirmationTokens);
+		eventRequests.ShouldSatisfy(_command, UserEmailConfirmationTokens);
 	}
 
 	[Theory]
@@ -178,7 +173,7 @@ public class VerifyEmailConfirmationTokenCommandServiceIntegrationTests : BaseEm
 		var eventRequests = await EmailConfirmationTokenEventClient.PublishedDeletedRangeAsync(CancellationToken);
 
 		// Assert
-		eventRequests.ShouldSatisfy(command, User.EmailConfirmationTokens);
+		eventRequests.ShouldSatisfy(command, UserEmailConfirmationTokens);
 	}
 
 	[Theory]
@@ -194,6 +189,6 @@ public class VerifyEmailConfirmationTokenCommandServiceIntegrationTests : BaseEm
 		var eventRequests = await EmailConfirmationTokenEventClient.PublishedDeletedRangeAsync(CancellationToken);
 
 		// Assert
-		eventRequests.ShouldSatisfy(command, User.EmailConfirmationTokens);
+		eventRequests.ShouldSatisfy(command, UserEmailConfirmationTokens);
 	}
 }

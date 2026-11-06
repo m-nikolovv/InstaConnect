@@ -43,11 +43,6 @@ public class GetAllPostCommentLikesQueryRepositoryIntegrationTests : BasePostCom
 		_currentUserQuery = _currentUserQueryBuilder.Build();
 	}
 
-	protected override async Task OnInitializeAsync()
-	{
-		await ServiceScope.AddRangeAsync(PostCommentLikes, CancellationToken);
-	}
-
 	[Fact]
 	public async Task GetAllAsync_ShouldReturnResponse_WhenQueryIsValid()
 	{

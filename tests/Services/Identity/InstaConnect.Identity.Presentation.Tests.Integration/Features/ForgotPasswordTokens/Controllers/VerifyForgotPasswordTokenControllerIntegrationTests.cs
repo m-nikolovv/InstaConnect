@@ -25,11 +25,6 @@ public class VerifyForgotPasswordTokenControllerIntegrationTests : BaseForgotPas
 		_request = _requestBuilder.Build();
 	}
 
-	protected override async Task OnInitializeAsync()
-	{
-		await ServiceScope.AddRangeAsync(User.ForgotPasswordTokens, CancellationToken);
-	}
-
 	[Theory]
 	[UserIdNullWithMessageData]
 	[UserIdEmptyWithMessageData]
@@ -256,7 +251,7 @@ public class VerifyForgotPasswordTokenControllerIntegrationTests : BaseForgotPas
 		var eventRequests = await EventClient.PublishedDeletedRangeAsync(CancellationToken);
 
 		// Assert
-		eventRequests.ShouldSatisfy(_request, User.ForgotPasswordTokens);
+		eventRequests.ShouldSatisfy(_request, UserForgotPasswordTokens);
 	}
 
 	[Theory]
@@ -272,7 +267,7 @@ public class VerifyForgotPasswordTokenControllerIntegrationTests : BaseForgotPas
 		var eventRequests = await EventClient.PublishedDeletedRangeAsync(CancellationToken);
 
 		// Assert
-		eventRequests.ShouldSatisfy(request, User.ForgotPasswordTokens);
+		eventRequests.ShouldSatisfy(request, UserForgotPasswordTokens);
 	}
 
 	[Theory]
@@ -288,6 +283,6 @@ public class VerifyForgotPasswordTokenControllerIntegrationTests : BaseForgotPas
 		var eventRequests = await EventClient.PublishedDeletedRangeAsync(CancellationToken);
 
 		// Assert
-		eventRequests.ShouldSatisfy(request, User.ForgotPasswordTokens);
+		eventRequests.ShouldSatisfy(request, UserForgotPasswordTokens);
 	}
 }

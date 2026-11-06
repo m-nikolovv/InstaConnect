@@ -16,6 +16,11 @@ public class AddFollowCommandHandlerIntegrationTests : BaseFollowApplicationComm
 		_request = _requestBuilder.Build();
 	}
 
+	protected override async Task OnInitializeAsync()
+	{
+		await ServiceScope.DeleteAsync(Follow, CancellationToken);
+	}
+
 	[Theory]
 	[UserIdNullWithMessageData]
 	[UserIdEmptyWithMessageData]

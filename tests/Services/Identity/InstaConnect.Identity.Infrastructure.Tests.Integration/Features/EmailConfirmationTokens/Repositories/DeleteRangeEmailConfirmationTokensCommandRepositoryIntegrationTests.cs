@@ -7,11 +7,6 @@ public class DeleteRangeEmailConfirmationTokensCommandRepositoryIntegrationTests
 	{
 	}
 
-	protected override async Task OnInitializeAsync()
-	{
-		await ServiceScope.AddRangeAsync(EmailConfirmationTokens, CancellationToken);
-	}
-
 	[Fact]
 	public async Task DeleteRangeAsync_ShouldDeleteEmailConfirmationTokens_WhenCommandIsValid()
 	{

@@ -27,6 +27,9 @@ public class UserDeletedEventHandlerIntegrationTests : BaseUserInfrastructureEve
 	protected override async Task OnInitializeAsync()
 	{
 		await ServiceScope.AddAsync(User, CancellationToken);
+		await ServiceScope.AddRangeAsync(UserChats, CancellationToken);
+		await ServiceScope.AddRangeAsync(UserChatMessages, CancellationToken);
+		await ServiceScope.AddRangeAsync(UserChatMessageImages, CancellationToken);
 	}
 
 	[Theory]
@@ -79,5 +82,86 @@ public class UserDeletedEventHandlerIntegrationTests : BaseUserInfrastructureEve
 
 		// Assert
 		user.ShouldBeNull();
+	}
+
+	[Fact]
+	public async Task Consume_ShouldDeleteUserChats_WhenRequestIsValid()
+	{
+		// Act
+		await _handler.Consume(_request, CancellationToken);
+		var chats = await ServiceScope.GetByIdRangeAsync(UserChatIds, CancellationToken);
+
+		// Assert
+		chats.ShouldBeEmpty();
+	}
+
+	[Theory]
+	[UserIdDifferentCaseData]
+	public async Task Consume_ShouldDeleteUserChats_WhenRequestAndIdAreValid(
+		IStringTransformer transformer)
+	{
+		// Arrange
+		var request = _requestBuilder.WithId(transformer).Build();
+
+		// Act
+		await _handler.Consume(request, CancellationToken);
+		var chats = await ServiceScope.GetByIdRangeAsync(UserChatIds, CancellationToken);
+
+		// Assert
+		chats.ShouldBeEmpty();
+	}
+
+	[Fact]
+	public async Task Consume_ShouldDeleteUserChatMessages_WhenRequestIsValid()
+	{
+		// Act
+		await _handler.Consume(_request, CancellationToken);
+		var chatMessages = await ServiceScope.GetByIdRangeAsync(UserChatMessageIds, CancellationToken);
+
+		// Assert
+		chatMessages.ShouldBeEmpty();
+	}
+
+	[Theory]
+	[UserIdDifferentCaseData]
+	public async Task Consume_ShouldDeleteUserChatMessages_WhenRequestAndIdAreValid(
+		IStringTransformer transformer)
+	{
+		// Arrange
+		var request = _requestBuilder.WithId(transformer).Build();
+
+		// Act
+		await _handler.Consume(request, CancellationToken);
+		var chatMessages = await ServiceScope.GetByIdRangeAsync(UserChatMessageIds, CancellationToken);
+
+		// Assert
+		chatMessages.ShouldBeEmpty();
+	}
+
+	[Fact]
+	public async Task Consume_ShouldDeleteUserChatMessageImages_WhenRequestIsValid()
+	{
+		// Act
+		await _handler.Consume(_request, CancellationToken);
+		var chatMessageImages = await ServiceScope.GetByIdRangeAsync(UserChatMessageImageIds, CancellationToken);
+
+		// Assert
+		chatMessageImages.ShouldBeEmpty();
+	}
+
+	[Theory]
+	[UserIdDifferentCaseData]
+	public async Task Consume_ShouldDeleteUserChatMessageImages_WhenRequestAndIdAreValid(
+		IStringTransformer transformer)
+	{
+		// Arrange
+		var request = _requestBuilder.WithId(transformer).Build();
+
+		// Act
+		await _handler.Consume(request, CancellationToken);
+		var chatMessageImages = await ServiceScope.GetByIdRangeAsync(UserChatMessageImageIds, CancellationToken);
+
+		// Assert
+		chatMessageImages.ShouldBeEmpty();
 	}
 }

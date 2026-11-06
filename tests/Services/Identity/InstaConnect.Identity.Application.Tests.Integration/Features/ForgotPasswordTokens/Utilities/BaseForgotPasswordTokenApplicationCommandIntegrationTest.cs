@@ -3,7 +3,7 @@ using InstaConnect.Identity.Tests.Features.ForgotPasswordTokens.Extensions;
 
 namespace InstaConnect.Identity.Application.Tests.Integration.Features.ForgotPasswordTokens.Utilities;
 
-public abstract class BaseForgotPasswordTokenApplicationCommandIntegrationTest : BaseForgotPasswordTokenWebTest
+public abstract class BaseForgotPasswordTokenApplicationCommandIntegrationTest : BaseIdentityCommandWebTest
 {
 	protected IApplicationSender Sender { get; }
 
@@ -17,8 +17,7 @@ public abstract class BaseForgotPasswordTokenApplicationCommandIntegrationTest :
 
 	public override async Task InitializeAsync()
 	{
-		await ServiceScope.AddAsync(User, CancellationToken);
-		await OnInitializeAsync();
+		await base.InitializeAsync();
 		await ForgotPasswordTokenEventClient.StartAsync(CancellationToken);
 	}
 

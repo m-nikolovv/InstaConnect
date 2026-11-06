@@ -9,6 +9,11 @@ public class AddPostCommentLikeCommandRepositoryIntegrationTests : BasePostComme
 	{
 	}
 
+	protected override async Task OnInitializeAsync()
+	{
+		await ServiceScope.DeleteAsync(PostCommentLike, CancellationToken);
+	}
+
 	[Fact]
 	public async Task AddAsync_ShouldAddPostCommentLike_WhenCommandIsValid()
 	{

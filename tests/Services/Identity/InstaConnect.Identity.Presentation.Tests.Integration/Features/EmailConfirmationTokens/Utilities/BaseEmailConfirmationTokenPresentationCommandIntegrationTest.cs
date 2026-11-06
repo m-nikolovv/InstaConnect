@@ -5,13 +5,13 @@ using InstaConnect.Identity.Tests.Features.EmailConfirmationTokens.Extensions;
 
 namespace InstaConnect.Identity.Presentation.Tests.Integration.Features.EmailConfirmationTokens.Utilities;
 
-public abstract class BaseEmailConfirmationTokenPresentationCommandIntegrationTest : BaseEmailConfirmationTokenWebTest
+public abstract class BaseEmailConfirmationTokenPresentationCommandIntegrationTest : BaseIdentityCommandWebTest
 {
 	protected EmailConfirmationTokenController Controller { get; }
 
 	protected IEmailConfirmationTokenEventClient EventClient { get; }
 
-	protected BaseEmailConfirmationTokenPresentationCommandIntegrationTest(IdentityWebApplicationFactory webApplicationFactory) : base(webApplicationFactory)
+	protected BaseEmailConfirmationTokenPresentationCommandIntegrationTest(IdentityWebApplicationFactory webApplicationFactory) : base(webApplicationFactory, isEmailConfirmed: false)
 	{
 		Controller = ServiceScope.GetEmailConfirmationTokenController();
 		EventClient = webApplicationFactory.CreateEmailConfirmationTokenEventClient();
@@ -19,8 +19,7 @@ public abstract class BaseEmailConfirmationTokenPresentationCommandIntegrationTe
 
 	public override async Task InitializeAsync()
 	{
-		await ServiceScope.AddAsync(User, CancellationToken);
-		await OnInitializeAsync();
+		await base.InitializeAsync();
 		await EventClient.StartAsync(CancellationToken);
 	}
 

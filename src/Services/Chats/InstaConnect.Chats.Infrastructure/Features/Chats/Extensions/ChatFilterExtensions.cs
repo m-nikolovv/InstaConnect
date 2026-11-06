@@ -50,6 +50,23 @@ internal static class ChatFilterExtensions
 		}
 	}
 
+	extension(IEnumerable<ChatId> filter)
+	{
+		public FilterDefinition<Chat> GetFilter()
+		{
+			return filter.GetFilterForIdRange<Chat>(
+				p => p.Id.ParticipantOneId.Id,
+				p => p.Id.ParticipantTwoId.Id);
+		}
+
+		public FilterDefinition<T> GetFilterForIdRange<T>(
+			Expression<Func<T, object>> participantOneIdField,
+			Expression<Func<T, object>> participantTwoIdField)
+		{
+			return Builders<T>.Filter.Or(filter.Select(item => item.GetFilterForIdEquals(participantOneIdField, participantTwoIdField)));
+		}
+	}
+
 	extension(UserId filter)
 	{
 		public FilterDefinition<Chat> GetChatCascadeFilter()

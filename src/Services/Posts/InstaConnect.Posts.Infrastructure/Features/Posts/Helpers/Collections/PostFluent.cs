@@ -56,6 +56,13 @@ internal class PostFluent : MongoDbFluent<Post>, IPostFluent
 		return this;
 	}
 
+	public IPostFluent Match(IEnumerable<PostId> filter)
+	{
+		Match(filter.GetFilter());
+
+		return this;
+	}
+
 	public IPostFluent ApplySorting(PostsSortingQuery query)
 	{
 		ApplySorting(_sortOrdererFactory, _sortTermerFactory, query);

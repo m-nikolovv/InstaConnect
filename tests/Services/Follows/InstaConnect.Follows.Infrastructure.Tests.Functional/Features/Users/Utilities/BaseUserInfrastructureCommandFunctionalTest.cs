@@ -3,11 +3,10 @@ using InstaConnect.Common.Infrastructure.Tests.Features.Utilities;
 using InstaConnect.Follows.Infrastructure.Tests.Features.Users.Abstractions;
 using InstaConnect.Follows.Infrastructure.Tests.Features.Users.Extensions;
 using InstaConnect.Follows.Tests.Features.Common.Utilities;
-using InstaConnect.Follows.Tests.Features.Users.Utilities;
 
 namespace InstaConnect.Follows.Infrastructure.Tests.Functional.Features.Users.Utilities;
 
-public abstract class BaseUserInfrastructureCommandFunctionalTest : BaseUserWebTest
+public abstract class BaseUserInfrastructureCommandFunctionalTest : BaseFollowsCommandWebTest
 {
 	protected IUserEventClient UserEventClient { get; }
 
@@ -21,7 +20,7 @@ public abstract class BaseUserInfrastructureCommandFunctionalTest : BaseUserWebT
 
 	public override async Task InitializeAsync()
 	{
-		await OnInitializeAsync();
+		await base.InitializeAsync();
 		await UserEventClient.StartAsync(CancellationToken);
 	}
 

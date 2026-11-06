@@ -14,6 +14,18 @@ public static class ChatMessageEquals
 		}
 	}
 
+	extension(ICollection<ChatMessage> entities)
+	{
+		public bool Matches(ICollection<ChatMessage> chatMessages)
+		{
+			return entities.MatchesCollectionAndNotEmpty(
+				chatMessages,
+				e => e.Id,
+				e => e.Id,
+				(entity, chatMessage) => entity.Matches(chatMessage));
+		}
+	}
+
 	extension(ChatMessageId p)
 	{
 		public bool Matches(ChatMessageId id)

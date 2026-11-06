@@ -19,6 +19,14 @@ public class IssueRefreshTokenFunctionalTests : BaseRefreshTokenPresentationComm
 		_request = _requestBuilder.Build();
 	}
 
+	protected override async Task OnInitializeAsync()
+	{
+		foreach (var refreshToken in UserRefreshTokens)
+		{
+			await ServiceScope.DeleteAsync(refreshToken, CancellationToken);
+		}
+	}
+
 	[Theory]
 	[UserNameTooShortData]
 	[UserNameTooLongData]

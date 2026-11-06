@@ -20,6 +20,11 @@ public class AddForgotPasswordTokenCommandServiceIntegrationTests : BaseForgotPa
 		_command = _commandBuilder.Build();
 	}
 
+	protected override async Task OnInitializeAsync()
+	{
+		await ServiceScope.DeleteRangeAsync(UserForgotPasswordTokens, CancellationToken);
+	}
+
 	[Fact]
 	public async Task AddAsync_ShouldThrowUserNameNotFoundException_WhenUserNameNotFound()
 	{

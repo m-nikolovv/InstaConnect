@@ -16,6 +16,11 @@ public class AddPostCommentLikeCommandServiceIntegrationTests : BasePostCommentL
 		_command = _commandBuilder.Build();
 	}
 
+	protected override async Task OnInitializeAsync()
+	{
+		await ServiceScope.DeleteAsync(PostCommentLike, CancellationToken);
+	}
+
 	[Fact]
 	public async Task AddAsync_ShouldThrowPostNotFoundException_WhenPostNotFound()
 	{

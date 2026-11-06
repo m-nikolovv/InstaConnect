@@ -13,11 +13,6 @@ public class GetUserClaimByIdCommandRepositoryIntegrationTests : BaseUserClaimIn
 		_include = IncludeBuilderFactory.Create().WithUser().Build();
 	}
 
-	protected override async Task OnInitializeAsync()
-	{
-		await ServiceScope.AddAsync(UserClaim, CancellationToken);
-	}
-
 	[Fact]
 	public async Task GetByIdAsync_ShouldReturnNull_WhenIdIsInvalid()
 	{

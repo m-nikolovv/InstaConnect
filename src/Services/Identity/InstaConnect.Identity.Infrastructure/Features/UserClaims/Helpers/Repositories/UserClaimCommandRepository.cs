@@ -36,6 +36,16 @@ internal class UserClaimCommandRepository : IUserClaimCommandRepository
 		return await GetByIdAsync(id, include, cancellationToken);
 	}
 
+	public async Task<ICollection<UserClaim>> GetByIdRangeAsync(
+		IEnumerable<UserClaimId> ids,
+		CancellationToken cancellationToken)
+	{
+		return await _collection
+			.AggregateFluent()
+			.Match(ids)
+			.ToListAsync(cancellationToken);
+	}
+
 	public async Task<bool> ExistsByIdAsync(
 		UserClaimId id,
 		CancellationToken cancellationToken)

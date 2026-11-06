@@ -48,6 +48,15 @@ public static class PostSetups
 			return (await serviceScope.GetPostCommandRepository().GetByIdAsync(id, include, cancellationToken)).SetUser().SetPostImages();
 		}
 
+		public async Task<ICollection<Post>> GetByIdRangeAsync(
+			IEnumerable<PostId> ids,
+			CancellationToken cancellationToken)
+		{
+			var include = serviceScope.GetPostIncludeBuilderFactory().Create().WithUser().WithPostImages().Build();
+
+			return (await serviceScope.GetPostCommandRepository().GetByIdRangeAsync(ids, include, cancellationToken)).SetUser();
+		}
+
 		public async Task AddAsync(
 			Post post,
 			CancellationToken cancellationToken)
@@ -67,6 +76,16 @@ public static class PostSetups
 			CancellationToken cancellationToken)
 		{
 			await serviceScope.GetPostCommandRepository().DeleteAsync(post, cancellationToken);
+		}
+
+		public async Task DeleteRangeAsync(
+			IEnumerable<Post> posts,
+			CancellationToken cancellationToken)
+		{
+			foreach (var post in posts)
+			{
+				await serviceScope.DeleteAsync(post, cancellationToken);
+			}
 		}
 	}
 }

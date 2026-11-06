@@ -48,6 +48,13 @@ public static class UserClaimSetups
 			return (await serviceScope.GetClaimCommandRepository().GetByIdAsync(id, claimInclude, cancellationToken)).SetUser();
 		}
 
+		public async Task<ICollection<UserClaim>> GetByIdRangeAsync(
+			IEnumerable<UserClaimId> ids,
+			CancellationToken cancellationToken)
+		{
+			return await serviceScope.GetClaimCommandRepository().GetByIdRangeAsync(ids, cancellationToken);
+		}
+
 		public async Task AddAsync(
 			UserClaim userClaim,
 			CancellationToken cancellationToken)

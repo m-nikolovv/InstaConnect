@@ -36,7 +36,7 @@ public class VerifyEmailConfirmationTokenCommandServiceUnitTests : BaseEmailConf
 
 		Repository.SetupGetByIdAsync(_command, _include, User, CancellationToken);
 		EmailConfirmationTokenRepository.SetupGetByIdAsync(_command, EmailConfirmationToken, CancellationToken);
-		DateTimeProvider.SetupGetOffsetUtcNow(_command, UnexpiredDate);
+		DateTimeProvider.SetupGetOffsetUtcNow(_command, EmailConfirmationTokenUnexpiredDate);
 	}
 
 	[Fact]
@@ -74,7 +74,7 @@ public class VerifyEmailConfirmationTokenCommandServiceUnitTests : BaseEmailConf
 	public async Task VerifyAsync_ShouldThrowEmailConfirmationTokenExpiredException_WhenEmailConfirmationTokenExpired()
 	{
 		// Arrange
-		DateTimeProvider.SetupGetOffsetUtcNow(_command, ExpiredDate);
+		DateTimeProvider.SetupGetOffsetUtcNow(_command, EmailConfirmationTokenExpiredDate);
 
 		// Assert
 		await _service.ShouldThrowEmailConfirmationTokenExpiredExceptionAsync(_command, CancellationToken);
@@ -127,7 +127,7 @@ public class VerifyEmailConfirmationTokenCommandServiceUnitTests : BaseEmailConf
 		await _service.VerifyAsync(_command, CancellationToken);
 
 		// Assert
-		await EventPublisher.ShouldHaveReceivedOnePublishRangeAsync(_command, User.EmailConfirmationTokens, CancellationToken);
+		await EventPublisher.ShouldHaveReceivedOnePublishRangeAsync(_command, UserEmailConfirmationTokens, CancellationToken);
 	}
 
 	[Fact]

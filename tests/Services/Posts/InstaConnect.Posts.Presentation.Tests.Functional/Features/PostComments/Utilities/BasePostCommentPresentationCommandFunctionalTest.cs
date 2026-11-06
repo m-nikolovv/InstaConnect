@@ -5,7 +5,7 @@ using InstaConnect.Posts.Tests.Features.PostComments.Extensions;
 
 namespace InstaConnect.Posts.Presentation.Tests.Functional.Features.PostComments.Utilities;
 
-public abstract class BasePostCommentPresentationCommandFunctionalTest : BasePostCommentWebTest
+public abstract class BasePostCommentPresentationCommandFunctionalTest : BasePostsCommandWebTest
 {
 	protected IPostCommentApiClient CommentApiClient { get; }
 
@@ -19,9 +19,7 @@ public abstract class BasePostCommentPresentationCommandFunctionalTest : BasePos
 
 	public override async Task InitializeAsync()
 	{
-		await ServiceScope.AddAsync(User, CancellationToken);
-		await ServiceScope.AddAsync(Post, CancellationToken);
-		await OnInitializeAsync();
+		await base.InitializeAsync();
 		await CommentEventClient.StartAsync(CancellationToken);
 	}
 

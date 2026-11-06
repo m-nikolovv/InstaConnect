@@ -13,6 +13,14 @@ public static class PostMatchAssertions
 		}
 	}
 
+	extension(ICollection<Post> response)
+	{
+		public void ShouldSatisfy(ICollection<PostId> ids, ICollection<Post> posts)
+		{
+			response.ShouldSatisfy(p => p.Matches(ids, posts));
+		}
+	}
+
 	extension(PostResponse response)
 	{
 		public void ShouldSatisfy(PostId id, CurrentUserQuery currentUserQuery, Post post)

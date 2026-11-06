@@ -22,6 +22,21 @@ public static class RefreshTokenFilterExtensions
 		}
 	}
 
+	extension(IEnumerable<RefreshTokenId> filter)
+	{
+		public FilterDefinition<RefreshToken> GetFilter()
+		{
+			return filter.GetFilterForIdRange<RefreshToken>(p => p.Id.Id.Id, p => p.Id.Value);
+		}
+
+		public FilterDefinition<T> GetFilterForIdRange<T>(
+			Expression<Func<T, object>> idField,
+			Expression<Func<T, object>> valueField)
+		{
+			return Builders<T>.Filter.Or(filter.Select(item => item.GetFilterForIdEquals(idField, valueField)));
+		}
+	}
+
 	extension(UserId filter)
 	{
 		public FilterDefinition<RefreshToken> GetRefreshTokenCascadeFilter()

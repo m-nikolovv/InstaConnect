@@ -9,11 +9,6 @@ public class PostCommentExistsByIdCommandRepositoryIntegrationTests : BasePostCo
 	{
 	}
 
-	protected override async Task OnInitializeAsync()
-	{
-		await ServiceScope.AddAsync(PostComment, CancellationToken);
-	}
-
 	[Fact]
 	public async Task ExistsByIdAsync_ShouldReturnNull_WhenIdIsInvalid()
 	{

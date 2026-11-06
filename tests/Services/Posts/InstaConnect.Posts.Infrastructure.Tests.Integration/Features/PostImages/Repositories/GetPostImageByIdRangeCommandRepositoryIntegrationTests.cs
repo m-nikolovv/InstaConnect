@@ -10,19 +10,14 @@ public class GetPostImageByIdRangeCommandRepositoryIntegrationTests : BasePostIm
 	{
 	}
 
-	protected override async Task OnInitializeAsync()
-	{
-		await ServiceScope.AddRangeAsync(PostImages, CancellationToken);
-	}
-
 	[Fact]
 	public async Task GetByIdRangeAsync_ShouldReturnEmpty_WhenIdsAreInvalid()
 	{
 		// Arrange
-		await ServiceScope.DeleteRangeAsync(PostImages, CancellationToken);
+		await ServiceScope.DeleteRangeAsync(PostPostImages, CancellationToken);
 
 		// Act
-		var response = await Repository.GetByIdRangeAsync(PostImageIds, CancellationToken);
+		var response = await Repository.GetByIdRangeAsync(PostPostImageIds, CancellationToken);
 
 		// Assert
 		response.ShouldBeEmpty();
@@ -32,10 +27,10 @@ public class GetPostImageByIdRangeCommandRepositoryIntegrationTests : BasePostIm
 	public async Task GetByIdRangeAsync_ShouldReturnResponse_WhenCommandIsValid()
 	{
 		// Act
-		var response = await Repository.GetByIdRangeAsync(PostImageIds, CancellationToken);
+		var response = await Repository.GetByIdRangeAsync(PostPostImageIds, CancellationToken);
 
 		// Assert
-		response.ShouldSatisfy(PostImages);
+		response.ShouldSatisfy(PostPostImages);
 	}
 
 	[Theory]
@@ -44,13 +39,13 @@ public class GetPostImageByIdRangeCommandRepositoryIntegrationTests : BasePostIm
 		IStringTransformer transformer)
 	{
 		// Arrange
-		var ids = PostImageIdRangeBuilder.WithId(transformer).Build();
+		var ids = PostPostImageIdRangeBuilder.WithId(transformer).Build();
 
 		// Act
 		var response = await Repository.GetByIdRangeAsync(ids, CancellationToken);
 
 		// Assert
-		response.ShouldSatisfy(PostImages);
+		response.ShouldSatisfy(PostPostImages);
 	}
 
 	[Theory]
@@ -59,12 +54,12 @@ public class GetPostImageByIdRangeCommandRepositoryIntegrationTests : BasePostIm
 		IStringTransformer transformer)
 	{
 		// Arrange
-		var ids = PostImageIdRangeBuilder.WithImageId(transformer).Build();
+		var ids = PostPostImageIdRangeBuilder.WithImageId(transformer).Build();
 
 		// Act
 		var response = await Repository.GetByIdRangeAsync(ids, CancellationToken);
 
 		// Assert
-		response.ShouldSatisfy(PostImages);
+		response.ShouldSatisfy(PostPostImages);
 	}
 }

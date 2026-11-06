@@ -10,6 +10,8 @@ public class DeleteChatCommandRepositoryIntegrationTests : BaseChatInfrastructur
 	protected override async Task OnInitializeAsync()
 	{
 		await ServiceScope.AddAsync(Chat, CancellationToken);
+		await ServiceScope.AddRangeAsync(ChatChatMessages, CancellationToken);
+		await ServiceScope.AddRangeAsync(ChatChatMessageImages, CancellationToken);
 	}
 
 	[Fact]
@@ -21,5 +23,27 @@ public class DeleteChatCommandRepositoryIntegrationTests : BaseChatInfrastructur
 
 		// Assert
 		chat.ShouldBeNull();
+	}
+
+	[Fact]
+	public async Task DeleteAsync_ShouldDeleteChatChatMessages_WhenCommandIsValid()
+	{
+		// Act
+		await Repository.DeleteAsync(Chat, CancellationToken);
+		var chatMessages = await ServiceScope.GetByIdRangeAsync(ChatChatMessageIds, CancellationToken);
+
+		// Assert
+		chatMessages.ShouldBeEmpty();
+	}
+
+	[Fact]
+	public async Task DeleteAsync_ShouldDeleteChatChatMessageImages_WhenCommandIsValid()
+	{
+		// Act
+		await Repository.DeleteAsync(Chat, CancellationToken);
+		var chatMessageImages = await ServiceScope.GetByIdRangeAsync(ChatChatMessageImageIds, CancellationToken);
+
+		// Assert
+		chatMessageImages.ShouldBeEmpty();
 	}
 }

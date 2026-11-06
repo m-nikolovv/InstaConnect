@@ -11,11 +11,6 @@ public class ForgotPasswordTokenExistsByIdCommandRepositoryIntegrationTests : Ba
 	{
 	}
 
-	protected override async Task OnInitializeAsync()
-	{
-		await ServiceScope.AddAsync(ForgotPasswordToken, CancellationToken);
-	}
-
 	[Fact]
 	public async Task ExistsByIdAsync_ShouldReturnNull_WhenIdIsInvalid()
 	{

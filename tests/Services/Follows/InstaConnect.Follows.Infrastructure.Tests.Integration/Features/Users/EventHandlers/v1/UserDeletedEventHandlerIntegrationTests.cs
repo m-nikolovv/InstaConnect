@@ -24,11 +24,6 @@ public class UserDeletedEventHandlerIntegrationTests : BaseUserInfrastructureEve
 		_handler = ServiceScope.GetUserDeletedEventHandler();
 	}
 
-	protected override async Task OnInitializeAsync()
-	{
-		await ServiceScope.AddAsync(User, CancellationToken);
-	}
-
 	[Theory]
 	[UserIdNullWithMessageData]
 	[UserIdEmptyWithMessageData]
@@ -79,5 +74,32 @@ public class UserDeletedEventHandlerIntegrationTests : BaseUserInfrastructureEve
 
 		// Assert
 		user.ShouldBeNull();
+	}
+
+	[Fact]
+	public async Task Consume_ShouldDeleteUserFollows_WhenRequestIsValid()
+	{
+		// Act
+		await _handler.Consume(_request, CancellationToken);
+		var follows = await ServiceScope.GetByIdRangeAsync(UserFollowIds, CancellationToken);
+
+		// Assert
+		follows.ShouldBeEmpty();
+	}
+
+	[Theory]
+	[UserIdDifferentCaseData]
+	public async Task Consume_ShouldDeleteUserFollows_WhenRequestAndIdAreValid(
+		IStringTransformer transformer)
+	{
+		// Arrange
+		var request = _requestBuilder.WithId(transformer).Build();
+
+		// Act
+		await _handler.Consume(request, CancellationToken);
+		var follows = await ServiceScope.GetByIdRangeAsync(UserFollowIds, CancellationToken);
+
+		// Assert
+		follows.ShouldBeEmpty();
 	}
 }

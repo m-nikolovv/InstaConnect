@@ -12,11 +12,6 @@ public class GetPostByIdCommandRepositoryIntegrationTests : BasePostInfrastructu
 		_include = IncludeBuilderFactory.Create().WithUser().WithPostLikes().WithPostImages().Build();
 	}
 
-	protected override async Task OnInitializeAsync()
-	{
-		await ServiceScope.AddAsync(Post, CancellationToken);
-	}
-
 	[Fact]
 	public async Task GetByIdAsync_ShouldReturnNull_WhenIdIsInvalid()
 	{

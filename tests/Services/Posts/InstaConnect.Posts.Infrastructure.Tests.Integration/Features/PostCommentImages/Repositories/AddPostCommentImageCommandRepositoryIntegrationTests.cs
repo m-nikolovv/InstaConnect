@@ -9,6 +9,11 @@ public class AddPostCommentImageCommandRepositoryIntegrationTests : BasePostComm
 	{
 	}
 
+	protected override async Task OnInitializeAsync()
+	{
+		await ServiceScope.DeleteAsync(PostCommentImage, CancellationToken);
+	}
+
 	[Fact]
 	public async Task AddAsync_ShouldAddPostCommentImage_WhenCommandIsValid()
 	{

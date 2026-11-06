@@ -22,7 +22,10 @@ public class RotateRefreshTokenControllerIntegrationTests : BaseRefreshTokenPres
 
 	protected override async Task OnInitializeAsync()
 	{
-		await ServiceScope.AddAsync(RefreshToken, CancellationToken);
+		foreach (var refreshToken in UserRefreshTokens.Except([RefreshToken]))
+		{
+			await ServiceScope.DeleteAsync(refreshToken, CancellationToken);
+		}
 	}
 
 	[Theory]

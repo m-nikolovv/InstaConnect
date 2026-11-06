@@ -46,6 +46,13 @@ internal class ChatMessageFluent : MongoDbFluent<ChatMessage>, IChatMessageFluen
 		return this;
 	}
 
+	public IChatMessageFluent Match(IEnumerable<ChatMessageId> filter)
+	{
+		Match(filter.GetFilter());
+
+		return this;
+	}
+
 	public IChatMessageFluent ApplySorting(ChatMessagesSortingQuery query)
 	{
 		ApplySorting(_sortOrdererFactory, _sortTermerFactory, query);

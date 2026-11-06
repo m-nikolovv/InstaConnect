@@ -22,11 +22,6 @@ public class GetAllPostsForUserFunctionalTests : BasePostPresentationQueryFuncti
 		_request = _requestBuilder.Build();
 	}
 
-	protected override async Task OnInitializeAsync()
-	{
-		await ServiceScope.AddRangeAsync(Posts, CancellationToken);
-	}
-
 	[Theory]
 	[UserIdTooShortData]
 	[UserIdTooLongData]

@@ -46,6 +46,13 @@ internal class UserClaimFluent : MongoDbFluent<UserClaim>, IUserClaimFluent
 		return this;
 	}
 
+	public IUserClaimFluent Match(IEnumerable<UserClaimId> filter)
+	{
+		Match(filter.GetFilter());
+
+		return this;
+	}
+
 	public IUserClaimFluent ApplySorting(UserClaimsSortingQuery query)
 	{
 		ApplySorting(_sortOrdererFactory, _sortTermerFactory, query);

@@ -18,6 +18,11 @@ public static class FollowMockAssertions
 			collection.ShouldHaveReceivedOneAggregateFluent();
 		}
 
+		public void ShouldHaveReceivedOneAggregateFluent(ICollection<FollowId> ids)
+		{
+			collection.ShouldHaveReceivedOneAggregateFluent();
+		}
+
 		public void ShouldHaveReceivedOneAggregateFluent(FollowsFilterQuery filterQuery)
 		{
 			collection.ShouldHaveReceivedOneAggregateFluent();
@@ -101,8 +106,20 @@ public static class FollowMockAssertions
 			fluent.ShouldHaveReceivedOneMatch(id);
 		}
 
+		public void ShouldHaveReceivedOneMatch(ICollection<FollowId> ids)
+		{
+			fluent.ShouldHaveReceivedOne().Match(ids);
+		}
+
 		public void ShouldHaveReceivedOneApplyIncludes(
 			FollowId id,
+			FollowInclude include)
+		{
+			fluent.ShouldHaveReceivedOneApplyIncludes(include);
+		}
+
+		public void ShouldHaveReceivedOneApplyIncludes(
+			ICollection<FollowId> ids,
 			FollowInclude include)
 		{
 			fluent.ShouldHaveReceivedOneApplyIncludes(include);
@@ -221,6 +238,13 @@ public static class FollowMockAssertions
 			CancellationToken cancellationToken)
 		{
 			await fluent.ShouldHaveReceivedOneFirstOrDefaultAsync(cancellationToken);
+		}
+
+		public async Task ShouldHaveReceivedOneToListAsync(
+			ICollection<FollowId> ids,
+			CancellationToken cancellationToken)
+		{
+			await fluent.ShouldHaveReceivedOneToListAsync(cancellationToken);
 		}
 
 		public void ShouldHaveReceivedOneApplySorting(

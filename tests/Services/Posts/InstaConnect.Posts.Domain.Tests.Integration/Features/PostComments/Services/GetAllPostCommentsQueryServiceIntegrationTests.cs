@@ -18,11 +18,6 @@ public class GetAllPostCommentsQueryServiceIntegrationTests : BasePostCommentDom
 		_query = _queryBuilder.Build();
 	}
 
-	protected override async Task OnInitializeAsync()
-	{
-		await ServiceScope.AddRangeAsync(PostComments, CancellationToken);
-	}
-
 	[Fact]
 	public async Task GetAllAsync_ShouldThrowPostNotFoundException_WhenPostNotFound()
 	{

@@ -14,11 +14,6 @@ public class GetFollowByIdQueryServiceIntegrationTests : BaseFollowDomainQueryIn
 		_query = _queryBuilder.Build();
 	}
 
-	protected override async Task OnInitializeAsync()
-	{
-		await ServiceScope.AddAsync(Follow, CancellationToken);
-	}
-
 	[Fact]
 	public async Task GetByIdAsync_ShouldThrowFollowNotFoundException_WhenFollowNotFound()
 	{

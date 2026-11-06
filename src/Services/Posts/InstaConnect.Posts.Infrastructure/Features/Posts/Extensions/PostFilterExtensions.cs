@@ -41,6 +41,11 @@ internal static class PostFilterExtensions
 
 	extension(IEnumerable<PostId> filter)
 	{
+		public FilterDefinition<Post> GetFilter()
+		{
+			return filter.GetFilterForIdRange<Post>(p => p.Id.Id);
+		}
+
 		public FilterDefinition<T> GetFilterForIdRange<T>(Expression<Func<T, object>> idField)
 		{
 			return Builders<T>.Filter.In(idField, filter.Select(item => item.Id));

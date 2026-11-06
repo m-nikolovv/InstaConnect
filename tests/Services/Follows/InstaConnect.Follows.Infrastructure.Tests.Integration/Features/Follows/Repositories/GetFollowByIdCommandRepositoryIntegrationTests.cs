@@ -12,11 +12,6 @@ public class GetFollowByIdCommandRepositoryIntegrationTests : BaseFollowInfrastr
 		_include = IncludeBuilderFactory.Create().WithFollower().WithFollowing().Build();
 	}
 
-	protected override async Task OnInitializeAsync()
-	{
-		await ServiceScope.AddAsync(Follow, CancellationToken);
-	}
-
 	[Fact]
 	public async Task GetByIdAsync_ShouldReturnNull_WhenIdIsInvalid()
 	{

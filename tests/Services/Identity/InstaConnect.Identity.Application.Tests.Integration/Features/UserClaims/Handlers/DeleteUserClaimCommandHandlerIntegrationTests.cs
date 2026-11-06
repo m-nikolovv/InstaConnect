@@ -20,11 +20,6 @@ public class DeleteUserClaimCommandHandlerIntegrationTests : BaseUserClaimApplic
 		_request = _requestBuilder.Build();
 	}
 
-	protected override async Task OnInitializeAsync()
-	{
-		await ServiceScope.AddAsync(UserClaim, CancellationToken);
-	}
-
 	[Theory]
 	[UserIdNullWithMessageData]
 	[UserIdEmptyWithMessageData]

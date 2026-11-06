@@ -38,6 +38,14 @@ public static class ChatMessageFilterExtensions
 
 	extension(IEnumerable<ChatMessageId> filter)
 	{
+		public FilterDefinition<ChatMessage> GetFilter()
+		{
+			return filter.GetFilterForIdRange<ChatMessage>(
+				p => p.Id.Id.ParticipantOneId.Id,
+				p => p.Id.Id.ParticipantTwoId.Id,
+				p => p.Id.MessageId);
+		}
+
 		public FilterDefinition<T> GetFilterForIdRange<T>(
 			Expression<Func<T, object>> participantOneIdField,
 			Expression<Func<T, object>> participantTwoIdField,

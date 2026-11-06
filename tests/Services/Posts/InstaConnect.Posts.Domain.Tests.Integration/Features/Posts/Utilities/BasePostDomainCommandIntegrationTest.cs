@@ -5,7 +5,7 @@ using InstaConnect.Posts.Tests.Features.Posts.Extensions;
 
 namespace InstaConnect.Posts.Domain.Tests.Integration.Features.Posts.Utilities;
 
-public abstract class BasePostDomainCommandIntegrationTest : BasePostWebTest
+public abstract class BasePostDomainCommandIntegrationTest : BasePostsCommandWebTest
 {
 	protected IPostCommandService Service { get; }
 
@@ -19,8 +19,7 @@ public abstract class BasePostDomainCommandIntegrationTest : BasePostWebTest
 
 	public override async Task InitializeAsync()
 	{
-		await ServiceScope.AddAsync(User, CancellationToken);
-		await OnInitializeAsync();
+		await base.InitializeAsync();
 		await EventClient.StartAsync(CancellationToken);
 	}
 

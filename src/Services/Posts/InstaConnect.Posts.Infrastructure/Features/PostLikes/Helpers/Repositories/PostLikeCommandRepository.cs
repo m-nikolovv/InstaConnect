@@ -36,6 +36,27 @@ internal class PostLikeCommandRepository : IPostLikeCommandRepository
 		return await GetByIdAsync(id, include, cancellationToken);
 	}
 
+	public async Task<ICollection<PostLike>> GetByIdRangeAsync(
+		IEnumerable<PostLikeId> ids,
+		PostLikeInclude include,
+		CancellationToken cancellationToken)
+	{
+		return await _collection
+			.AggregateFluent()
+			.Match(ids)
+			.ApplyIncludes(include)
+			.ToListAsync(cancellationToken);
+	}
+
+	public async Task<ICollection<PostLike>> GetByIdRangeAsync(
+		IEnumerable<PostLikeId> ids,
+		CancellationToken cancellationToken)
+	{
+		var include = _includeBuilderFactory.Create().Build();
+
+		return await GetByIdRangeAsync(ids, include, cancellationToken);
+	}
+
 	public async Task<bool> ExistsByIdAsync(
 		PostLikeId id,
 		CancellationToken cancellationToken)

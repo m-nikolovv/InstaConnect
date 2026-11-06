@@ -9,11 +9,6 @@ public class PostLikeExistsByIdCommandRepositoryIntegrationTests : BasePostLikeI
 	{
 	}
 
-	protected override async Task OnInitializeAsync()
-	{
-		await ServiceScope.AddAsync(PostLike, CancellationToken);
-	}
-
 	[Fact]
 	public async Task ExistsByIdAsync_ShouldReturnNull_WhenIdIsInvalid()
 	{

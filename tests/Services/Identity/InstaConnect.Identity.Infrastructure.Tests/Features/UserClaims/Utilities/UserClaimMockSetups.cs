@@ -14,6 +14,13 @@ public static class UserClaimMockSetups
 		}
 
 		public void SetupAggregateFluent(
+			ICollection<UserClaimId> ids,
+			IUserClaimFluent fluent)
+		{
+			collection.SetupAggregateFluent(fluent);
+		}
+
+		public void SetupAggregateFluent(
 			UserClaimId id,
 			CurrentUserQuery currentUserQuery,
 			IUserClaimFluent fluent)
@@ -87,6 +94,11 @@ public static class UserClaimMockSetups
 			fluent.Match(id).ReturnsResponse(fluent);
 		}
 
+		public void SetupMatch(ICollection<UserClaimId> ids)
+		{
+			fluent.Match(ids).ReturnsResponse(fluent);
+		}
+
 		public void SetupMatch(
 			UserClaimId id,
 			CurrentUserQuery currentUserQuery)
@@ -146,6 +158,14 @@ public static class UserClaimMockSetups
 			CancellationToken cancellationToken)
 		{
 			fluent.SetupFirstOrDefaultAsync(userClaim, cancellationToken);
+		}
+
+		public void SetupToListAsync(
+			ICollection<UserClaimId> ids,
+			ICollection<UserClaim> userClaims,
+			CancellationToken cancellationToken)
+		{
+			fluent.SetupToListAsync(userClaims, cancellationToken);
 		}
 
 		public void SetupApplySorting(

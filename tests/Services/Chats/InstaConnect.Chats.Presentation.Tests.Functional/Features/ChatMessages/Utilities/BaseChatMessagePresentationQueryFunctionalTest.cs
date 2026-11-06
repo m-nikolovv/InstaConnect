@@ -3,20 +3,12 @@ using InstaConnect.Chats.Presentation.Tests.Features.ChatMessages.Extensions;
 
 namespace InstaConnect.Chats.Presentation.Tests.Functional.Features.ChatMessages.Utilities;
 
-public abstract class BaseChatMessagePresentationQueryFunctionalTest : BaseChatMessageWebTest
+public abstract class BaseChatMessagePresentationQueryFunctionalTest : BaseChatsWebQueryTest
 {
 	protected IChatMessageApiClient ApiClient { get; }
 
 	protected BaseChatMessagePresentationQueryFunctionalTest(ChatsWebApplicationFactory webApplicationFactory) : base(webApplicationFactory)
 	{
 		ApiClient = webApplicationFactory.CreateMessageApiClient();
-	}
-
-	public override async Task InitializeAsync()
-	{
-		await ServiceScope.AddRangeAsync(ParticipantOnes, CancellationToken);
-		await ServiceScope.AddRangeAsync(ParticipantTwos, CancellationToken);
-		await ServiceScope.AddRangeAsync(Chats, CancellationToken);
-		await OnInitializeAsync();
 	}
 }

@@ -20,6 +20,11 @@ public class AddUserClaimCommandServiceIntegrationTests : BaseUserClaimDomainCom
 		_command = _commandBuilder.Build();
 	}
 
+	protected override async Task OnInitializeAsync()
+	{
+		await ServiceScope.DeleteAsync(UserClaim, CancellationToken);
+	}
+
 	[Fact]
 	public async Task AddAsync_ShouldThrowUserNotFoundException_WhenUserNotFound()
 	{

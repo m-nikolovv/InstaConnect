@@ -9,11 +9,6 @@ public class UpdateForgotPasswordTokenCommandRepositoryIntegrationTests : BaseFo
 	{
 	}
 
-	protected override async Task OnInitializeAsync()
-	{
-		await ServiceScope.AddAsync(ForgotPasswordToken, CancellationToken);
-	}
-
 	[Fact]
 	public async Task UpdateAsync_ShouldUpdateForgotPasswordToken_WhenCommandIsValid()
 	{

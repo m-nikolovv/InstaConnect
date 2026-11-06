@@ -27,4 +27,11 @@ internal class RefreshTokenFluent : MongoDbFluent<RefreshToken>, IRefreshTokenFl
 
 		return this;
 	}
+
+	public IRefreshTokenFluent Match(IEnumerable<RefreshTokenId> filter)
+	{
+		Match(filter.GetFilter());
+
+		return this;
+	}
 }

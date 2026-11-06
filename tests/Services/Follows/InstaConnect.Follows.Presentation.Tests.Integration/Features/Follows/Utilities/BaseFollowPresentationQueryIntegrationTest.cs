@@ -3,7 +3,7 @@ using InstaConnect.Follows.Presentation.Tests.Features.Follows.Utilities;
 
 namespace InstaConnect.Follows.Presentation.Tests.Integration.Features.Follows.Utilities;
 
-public abstract class BaseFollowPresentationQueryIntegrationTest : BaseFollowWebTest
+public abstract class BaseFollowPresentationQueryIntegrationTest : BaseFollowsQueryWebTest
 {
 	protected FollowController Controller { get; }
 
@@ -13,12 +13,5 @@ public abstract class BaseFollowPresentationQueryIntegrationTest : BaseFollowWeb
 	{
 		Controller = ServiceScope.GetFollowController();
 		FollowingController = ServiceScope.GetFollowingFollowController();
-	}
-
-	public override async Task InitializeAsync()
-	{
-		await ServiceScope.AddRangeAsync(Followers, CancellationToken);
-		await ServiceScope.AddRangeAsync(Followings, CancellationToken);
-		await OnInitializeAsync();
 	}
 }

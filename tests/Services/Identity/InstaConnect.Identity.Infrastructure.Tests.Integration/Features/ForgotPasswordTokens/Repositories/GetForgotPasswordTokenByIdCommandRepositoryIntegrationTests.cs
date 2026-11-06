@@ -15,11 +15,6 @@ public class GetForgotPasswordTokenByIdCommandRepositoryIntegrationTests : BaseF
 		_include = IncludeBuilderFactory.Create().WithUser().Build();
 	}
 
-	protected override async Task OnInitializeAsync()
-	{
-		await ServiceScope.AddAsync(ForgotPasswordToken, CancellationToken);
-	}
-
 	[Fact]
 	public async Task GetByIdAsync_ShouldReturnNull_WhenIdIsInvalid()
 	{

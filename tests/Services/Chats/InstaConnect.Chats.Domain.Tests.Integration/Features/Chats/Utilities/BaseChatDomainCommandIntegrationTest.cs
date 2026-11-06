@@ -5,7 +5,7 @@ using InstaConnect.Chats.Tests.Features.Chats.Extensions;
 
 namespace InstaConnect.Chats.Domain.Tests.Integration.Features.Chats.Utilities;
 
-public abstract class BaseChatDomainCommandIntegrationTest : BaseChatWebTest
+public abstract class BaseChatDomainCommandIntegrationTest : BaseChatsWebCommandTest
 {
 	protected IChatCommandService Service { get; }
 

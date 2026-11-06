@@ -35,6 +35,7 @@
     <InternalsVisibleTo Include="$(MSBuildProjectName).Tests.Unit" />
     <InternalsVisibleTo Include="$(MSBuildProjectName).Tests.Integration" />
     <InternalsVisibleTo Include="$(MSBuildProjectName).Tests.Functional" />
+    <InternalsVisibleTo Include="DynamicProxyGenAssembly2" />
   </ItemGroup>
 
   <PropertyGroup Condition="'$(IsTestCodeProject)' == 'true'">

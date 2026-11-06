@@ -38,6 +38,16 @@ internal class RefreshTokenCommandRepository : IRefreshTokenCommandRepository
 		return await GetByIdAsync(id, include, cancellationToken);
 	}
 
+	public async Task<ICollection<RefreshToken>> GetByIdRangeAsync(
+		IEnumerable<RefreshTokenId> ids,
+		CancellationToken cancellationToken)
+	{
+		return await _collection
+			.AggregateFluent()
+			.Match(ids)
+			.ToListAsync(cancellationToken);
+	}
+
 	public async Task AddAsync(RefreshToken entity, CancellationToken cancellationToken)
 	{
 		await _collection.AddAsync(entity, cancellationToken);

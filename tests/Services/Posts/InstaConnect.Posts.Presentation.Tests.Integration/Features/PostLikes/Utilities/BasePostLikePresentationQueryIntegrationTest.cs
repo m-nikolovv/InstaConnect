@@ -2,7 +2,7 @@ using InstaConnect.Posts.Presentation.Features.PostLikes.Controllers.v1;
 
 namespace InstaConnect.Posts.Presentation.Tests.Integration.Features.PostLikes.Utilities;
 
-public abstract class BasePostLikePresentationQueryIntegrationTest : BasePostLikeWebTest
+public abstract class BasePostLikePresentationQueryIntegrationTest : BasePostsQueryWebTest
 {
 	protected PostLikeController Controller { get; }
 
@@ -12,13 +12,5 @@ public abstract class BasePostLikePresentationQueryIntegrationTest : BasePostLik
 	{
 		Controller = ServiceScope.GetPostLikeController();
 		UserController = ServiceScope.GetUserPostLikeController();
-	}
-
-	public override async Task InitializeAsync()
-	{
-		await ServiceScope.AddRangeAsync(Users, CancellationToken);
-		await ServiceScope.AddRangeAsync(Posts, CancellationToken);
-		await ServiceScope.AddRangeAsync(PostImages, CancellationToken);
-		await OnInitializeAsync();
 	}
 }

@@ -1,6 +1,9 @@
 using InstaConnect.Chats.Infrastructure.Tests.Features.Users.Assertions;
 using InstaConnect.Chats.Infrastructure.Tests.Features.Users.Builders;
 using InstaConnect.Chats.Infrastructure.Tests.Functional.Features.Users.Utilities;
+using InstaConnect.Chats.Tests.Features.ChatMessageImages.Utilities;
+using InstaConnect.Chats.Tests.Features.ChatMessages.Utilities;
+using InstaConnect.Chats.Tests.Features.Chats.Utilities;
 using InstaConnect.Chats.Tests.Features.Common.Utilities;
 using InstaConnect.Chats.Tests.Features.Users.Assertions;
 using InstaConnect.Chats.Tests.Features.Users.DataAttributes.Id;
@@ -28,6 +31,9 @@ public class DeleteUserInfrastructureFunctionalTests : BaseUserInfrastructureCom
 	protected override async Task OnInitializeAsync()
 	{
 		await ServiceScope.AddAsync(User, CancellationToken);
+		await ServiceScope.AddRangeAsync(UserChats, CancellationToken);
+		await ServiceScope.AddRangeAsync(UserChatMessages, CancellationToken);
+		await ServiceScope.AddRangeAsync(UserChatMessageImages, CancellationToken);
 	}
 
 	[Theory]
@@ -115,5 +121,86 @@ public class DeleteUserInfrastructureFunctionalTests : BaseUserInfrastructureCom
 
 		// Assert
 		user.ShouldBeNull();
+	}
+
+	[Fact]
+	public async Task PublishAsync_ShouldDeleteUserChats_WhenRequestIsValid()
+	{
+		// Act
+		await EventPublisher.PublishAsync(_request, CancellationToken);
+		var chats = await ServiceScope.GetByIdRangeAsync(UserChatIds, CancellationToken);
+
+		// Assert
+		chats.ShouldBeEmpty();
+	}
+
+	[Theory]
+	[UserIdDifferentCaseData]
+	public async Task PublishAsync_ShouldDeleteUserChats_WhenRequestAndIdAreValid(
+		IStringTransformer transformer)
+	{
+		// Arrange
+		var request = _requestBuilder.WithId(transformer).Build();
+
+		// Act
+		await EventPublisher.PublishAsync(request, CancellationToken);
+		var chats = await ServiceScope.GetByIdRangeAsync(UserChatIds, CancellationToken);
+
+		// Assert
+		chats.ShouldBeEmpty();
+	}
+
+	[Fact]
+	public async Task PublishAsync_ShouldDeleteUserChatMessages_WhenRequestIsValid()
+	{
+		// Act
+		await EventPublisher.PublishAsync(_request, CancellationToken);
+		var chatMessages = await ServiceScope.GetByIdRangeAsync(UserChatMessageIds, CancellationToken);
+
+		// Assert
+		chatMessages.ShouldBeEmpty();
+	}
+
+	[Theory]
+	[UserIdDifferentCaseData]
+	public async Task PublishAsync_ShouldDeleteUserChatMessages_WhenRequestAndIdAreValid(
+		IStringTransformer transformer)
+	{
+		// Arrange
+		var request = _requestBuilder.WithId(transformer).Build();
+
+		// Act
+		await EventPublisher.PublishAsync(request, CancellationToken);
+		var chatMessages = await ServiceScope.GetByIdRangeAsync(UserChatMessageIds, CancellationToken);
+
+		// Assert
+		chatMessages.ShouldBeEmpty();
+	}
+
+	[Fact]
+	public async Task PublishAsync_ShouldDeleteUserChatMessageImages_WhenRequestIsValid()
+	{
+		// Act
+		await EventPublisher.PublishAsync(_request, CancellationToken);
+		var chatMessageImages = await ServiceScope.GetByIdRangeAsync(UserChatMessageImageIds, CancellationToken);
+
+		// Assert
+		chatMessageImages.ShouldBeEmpty();
+	}
+
+	[Theory]
+	[UserIdDifferentCaseData]
+	public async Task PublishAsync_ShouldDeleteUserChatMessageImages_WhenRequestAndIdAreValid(
+		IStringTransformer transformer)
+	{
+		// Arrange
+		var request = _requestBuilder.WithId(transformer).Build();
+
+		// Act
+		await EventPublisher.PublishAsync(request, CancellationToken);
+		var chatMessageImages = await ServiceScope.GetByIdRangeAsync(UserChatMessageImageIds, CancellationToken);
+
+		// Assert
+		chatMessageImages.ShouldBeEmpty();
 	}
 }

@@ -4,7 +4,7 @@ using InstaConnect.Chats.Tests.Features.ChatMessages.Extensions;
 
 namespace InstaConnect.Chats.Presentation.Tests.Integration.Features.ChatMessages.Utilities;
 
-public abstract class BaseChatMessagePresentationCommandIntegrationTest : BaseChatMessageWebTest
+public abstract class BaseChatMessagePresentationCommandIntegrationTest : BaseChatsWebCommandTest
 {
 	protected ChatMessageController Controller { get; }
 

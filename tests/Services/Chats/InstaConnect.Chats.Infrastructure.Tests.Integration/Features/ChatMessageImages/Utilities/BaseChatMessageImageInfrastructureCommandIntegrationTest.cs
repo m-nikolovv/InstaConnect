@@ -2,7 +2,7 @@ using InstaConnect.Chats.Domain.Features.ChatMessageImages.Abstractions;
 
 namespace InstaConnect.Chats.Infrastructure.Tests.Integration.Features.ChatMessageImages.Utilities;
 
-public abstract class BaseChatMessageImageInfrastructureCommandIntegrationTest : BaseChatMessageImageWebTest
+public abstract class BaseChatMessageImageInfrastructureCommandIntegrationTest : BaseChatsWebCommandTest
 {
 	protected IChatMessageImageCommandRepository Repository { get; }
 

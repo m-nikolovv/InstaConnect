@@ -50,6 +50,16 @@ public static class ChatMessageSetups
 			return (await serviceScope.GetMessageCommandRepository().GetByIdAsync(id, messageInclude, cancellationToken)).SetSender().SetChat().SetChatMessageImages();
 		}
 
+		public async Task<ICollection<ChatMessage>> GetByIdRangeAsync(
+			IEnumerable<ChatMessageId> ids,
+			CancellationToken cancellationToken)
+		{
+			var include = serviceScope.GetIncludeBuilderFactory().Create().WithParticipantOne().WithParticipantTwo().Build();
+			var messageInclude = serviceScope.GetMessageIncludeBuilderFactory().Create().WithSender().WithChat(include).WithChatMessageImages().Build();
+
+			return (await serviceScope.GetMessageCommandRepository().GetByIdRangeAsync(ids, messageInclude, cancellationToken)).SetSender().SetChat().SetChatMessageImages();
+		}
+
 		public async Task AddAsync(
 			ChatMessage chatMessage,
 			CancellationToken cancellationToken)

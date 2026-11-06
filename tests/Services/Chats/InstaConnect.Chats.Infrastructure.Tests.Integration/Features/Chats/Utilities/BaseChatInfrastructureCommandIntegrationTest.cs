@@ -2,7 +2,7 @@ using InstaConnect.Chats.Domain.Features.Chats.Abstractions;
 
 namespace InstaConnect.Chats.Infrastructure.Tests.Integration.Features.Chats.Utilities;
 
-public abstract class BaseChatInfrastructureCommandIntegrationTest : BaseChatWebTest
+public abstract class BaseChatInfrastructureCommandIntegrationTest : BaseChatsWebCommandTest
 {
 	protected IChatCommandRepository Repository { get; }
 

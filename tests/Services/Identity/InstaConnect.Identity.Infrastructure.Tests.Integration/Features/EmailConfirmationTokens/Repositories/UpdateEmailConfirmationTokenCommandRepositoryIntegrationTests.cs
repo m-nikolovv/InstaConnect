@@ -9,11 +9,6 @@ public class UpdateEmailConfirmationTokenCommandRepositoryIntegrationTests : Bas
 	{
 	}
 
-	protected override async Task OnInitializeAsync()
-	{
-		await ServiceScope.AddAsync(EmailConfirmationToken, CancellationToken);
-	}
-
 	[Fact]
 	public async Task UpdateAsync_ShouldUpdateEmailConfirmationToken_WhenCommandIsValid()
 	{

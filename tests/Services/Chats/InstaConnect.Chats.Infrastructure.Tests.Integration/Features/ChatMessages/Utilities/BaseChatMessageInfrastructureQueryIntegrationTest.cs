@@ -2,7 +2,7 @@ using InstaConnect.Chats.Domain.Features.ChatMessages.Abstractions;
 
 namespace InstaConnect.Chats.Infrastructure.Tests.Integration.Features.ChatMessages.Utilities;
 
-public abstract class BaseChatMessageInfrastructureQueryIntegrationTest : BaseChatMessageWebTest
+public abstract class BaseChatMessageInfrastructureQueryIntegrationTest : BaseChatsWebQueryTest
 {
 	protected IChatMessageQueryRepository Repository { get; }
 
@@ -10,13 +10,5 @@ public abstract class BaseChatMessageInfrastructureQueryIntegrationTest : BaseCh
 		: base(webApplicationFactory)
 	{
 		Repository = ServiceScope.GetMessageQueryRepository();
-	}
-
-	public override async Task InitializeAsync()
-	{
-		await ServiceScope.AddRangeAsync(ParticipantOnes, CancellationToken);
-		await ServiceScope.AddRangeAsync(ParticipantTwos, CancellationToken);
-		await ServiceScope.AddRangeAsync(Chats, CancellationToken);
-		await OnInitializeAsync();
 	}
 }

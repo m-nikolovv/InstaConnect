@@ -7,11 +7,6 @@ public class DeletePostCommentLikeCommandRepositoryIntegrationTests : BasePostCo
 	{
 	}
 
-	protected override async Task OnInitializeAsync()
-	{
-		await ServiceScope.AddAsync(PostCommentLike, CancellationToken);
-	}
-
 	[Fact]
 	public async Task DeleteAsync_ShouldDeletePostCommentLike_WhenCommandIsValid()
 	{

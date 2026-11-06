@@ -4,7 +4,7 @@ using InstaConnect.Identity.Tests.Features.UserClaims.Extensions;
 
 namespace InstaConnect.Identity.Presentation.Tests.Integration.Features.UserClaims.Utilities;
 
-public abstract class BaseUserClaimPresentationCommandIntegrationTest : BaseUserClaimWebTest
+public abstract class BaseUserClaimPresentationCommandIntegrationTest : BaseIdentityCommandWebTest
 {
 	protected UserClaimController Controller { get; }
 
@@ -18,8 +18,7 @@ public abstract class BaseUserClaimPresentationCommandIntegrationTest : BaseUser
 
 	public override async Task InitializeAsync()
 	{
-		await ServiceScope.AddAsync(User, CancellationToken);
-		await OnInitializeAsync();
+		await base.InitializeAsync();
 		await ClaimEventClient.StartAsync(CancellationToken);
 	}
 

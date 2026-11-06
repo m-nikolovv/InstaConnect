@@ -56,6 +56,13 @@ internal class FollowFluent : MongoDbFluent<Follow>, IFollowFluent
 		return this;
 	}
 
+	public IFollowFluent Match(IEnumerable<FollowId> filter)
+	{
+		Match(filter.GetFilter());
+
+		return this;
+	}
+
 	public IFollowFluent ApplySorting(FollowsSortingQuery query)
 	{
 		ApplySorting(_sortOrdererFactory, _sortTermerFactory, query);

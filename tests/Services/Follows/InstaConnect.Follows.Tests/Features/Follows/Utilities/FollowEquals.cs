@@ -11,6 +11,18 @@ public static class FollowEquals
 		}
 	}
 
+	extension(ICollection<Follow> entities)
+	{
+		public bool Matches(ICollection<Follow> follows)
+		{
+			return entities.MatchesCollectionAndNotEmpty(
+				follows,
+				e => e.Id,
+				e => e.Id,
+				(entity, follow) => entity.Matches(follow));
+		}
+	}
+
 	extension(FollowId p)
 	{
 		public bool Matches(FollowId id)

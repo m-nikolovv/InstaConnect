@@ -15,11 +15,6 @@ public class GetEmailConfirmationTokenByIdCommandRepositoryIntegrationTests : Ba
 		_include = IncludeBuilderFactory.Create().WithUser().Build();
 	}
 
-	protected override async Task OnInitializeAsync()
-	{
-		await ServiceScope.AddAsync(EmailConfirmationToken, CancellationToken);
-	}
-
 	[Fact]
 	public async Task GetByIdAsync_ShouldReturnNull_WhenIdIsInvalid()
 	{
