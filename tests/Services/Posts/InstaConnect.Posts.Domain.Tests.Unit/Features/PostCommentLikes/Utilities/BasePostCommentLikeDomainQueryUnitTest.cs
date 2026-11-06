@@ -1,10 +1,10 @@
 using InstaConnect.Posts.Domain.Features.PostCommentLikes.Abstractions;
 using InstaConnect.Posts.Domain.Features.PostComments.Abstractions;
-using InstaConnect.Posts.Tests.Features.PostCommentLikes.Utilities;
+using InstaConnect.Posts.Tests.Features.Common.Utilities;
 
 namespace InstaConnect.Posts.Domain.Tests.Unit.Features.PostCommentLikes.Utilities;
 
-public abstract class BasePostCommentLikeDomainQueryUnitTest : BasePostCommentLikeTest
+public abstract class BasePostCommentLikeDomainQueryUnitTest : BasePostsQueryTest
 {
 	protected IPostQueryRepository Repository { get; }
 

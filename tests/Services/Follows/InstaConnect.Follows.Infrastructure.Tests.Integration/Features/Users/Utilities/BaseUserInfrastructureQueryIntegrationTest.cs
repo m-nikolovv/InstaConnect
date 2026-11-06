@@ -2,7 +2,7 @@ using InstaConnect.Follows.Domain.Features.Users.Abstractions;
 
 namespace InstaConnect.Follows.Infrastructure.Tests.Integration.Features.Users.Utilities;
 
-public abstract class BaseUserInfrastructureQueryIntegrationTest : BaseFollowsQueryWebTest
+public abstract class BaseUserInfrastructureQueryIntegrationTest : BaseFollowsWebQueryTest
 {
 	protected IUserQueryRepository Repository { get; }
 

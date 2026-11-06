@@ -1,11 +1,11 @@
 using InstaConnect.Chats.Infrastructure.Features.Common.Extensions;
-using InstaConnect.Chats.Tests.Features.Users.Utilities;
+using InstaConnect.Chats.Tests.Features.Common.Utilities;
 using InstaConnect.Common.Application.Features.Requests.Abstractions;
 using InstaConnect.Common.Domain.Features.Mappers.Abstractions;
 
 namespace InstaConnect.Chats.Infrastructure.Tests.Unit.Features.Users.Utilities;
 
-public abstract class BaseUserInfrastructureEventHandlerUnitTest : BaseUserTest
+public abstract class BaseUserInfrastructureEventHandlerUnitTest : BaseChatsCommandTest
 {
 	protected IApplicationSender Sender { get; }
 

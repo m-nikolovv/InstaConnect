@@ -1,10 +1,10 @@
 namespace InstaConnect.Follows.Tests.Features.Common.Utilities;
 
-public abstract class BaseFollowsCommandWebTest : BaseFollowsCommandTest, IClassFixture<FollowsWebApplicationFactory>
+public abstract class BaseFollowsWebCommandTest : BaseFollowsCommandTest, IClassFixture<FollowsWebApplicationFactory>
 {
 	protected IServiceScope ServiceScope { get; }
 
-	protected BaseFollowsCommandWebTest(FollowsWebApplicationFactory webApplicationFactory)
+	protected BaseFollowsWebCommandTest(FollowsWebApplicationFactory webApplicationFactory)
 	{
 		ServiceScope = webApplicationFactory.Services.CreateScope();
 	}

@@ -5,7 +5,7 @@ using InstaConnect.Posts.Tests.Features.Posts.Extensions;
 
 namespace InstaConnect.Posts.Presentation.Tests.Functional.Features.Posts.Utilities;
 
-public abstract class BasePostPresentationCommandFunctionalTest : BasePostsCommandWebTest
+public abstract class BasePostPresentationCommandFunctionalTest : BasePostsWebCommandTest
 {
 	protected IPostApiClient ApiClient { get; }
 

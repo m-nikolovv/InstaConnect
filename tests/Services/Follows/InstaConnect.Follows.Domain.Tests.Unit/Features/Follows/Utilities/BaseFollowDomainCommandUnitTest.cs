@@ -3,11 +3,12 @@ using InstaConnect.Common.Events.Features.Events.Abstractions;
 using InstaConnect.Follows.Domain.Features.Common.Extensions;
 using InstaConnect.Follows.Domain.Features.Follows.Abstractions;
 using InstaConnect.Follows.Domain.Features.Users.Abstractions;
+using InstaConnect.Follows.Tests.Features.Common.Utilities;
 using InstaConnect.Follows.Tests.Features.Follows.Utilities;
 
 namespace InstaConnect.Follows.Domain.Tests.Unit.Features.Follows.Utilities;
 
-public abstract class BaseFollowDomainCommandUnitTest : BaseFollowTest
+public abstract class BaseFollowDomainCommandUnitTest : BaseFollowsCommandTest
 {
 	protected IFollowFactory Factory { get; }
 

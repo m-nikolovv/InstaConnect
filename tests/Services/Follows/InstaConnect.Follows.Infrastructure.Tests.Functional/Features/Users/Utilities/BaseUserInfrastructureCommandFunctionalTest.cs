@@ -6,7 +6,7 @@ using InstaConnect.Follows.Tests.Features.Common.Utilities;
 
 namespace InstaConnect.Follows.Infrastructure.Tests.Functional.Features.Users.Utilities;
 
-public abstract class BaseUserInfrastructureCommandFunctionalTest : BaseFollowsCommandWebTest
+public abstract class BaseUserInfrastructureCommandFunctionalTest : BaseFollowsWebCommandTest
 {
 	protected IUserEventClient UserEventClient { get; }
 

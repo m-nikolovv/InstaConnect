@@ -1,6 +1,6 @@
 namespace InstaConnect.Identity.Application.Tests.Integration.Features.UserClaims.Utilities;
 
-public abstract class BaseUserClaimApplicationQueryIntegrationTest : BaseIdentityQueryWebTest
+public abstract class BaseUserClaimApplicationQueryIntegrationTest : BaseIdentityWebQueryTest
 {
 	protected IApplicationSender Sender { get; }
 

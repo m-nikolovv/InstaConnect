@@ -1,10 +1,9 @@
 using InstaConnect.Identity.Application.Tests.Features.RefreshTokens.Utilities;
 using InstaConnect.Identity.Domain.Features.RefreshTokens.Abstractions;
-using InstaConnect.Identity.Tests.Features.RefreshTokens.Utilities;
 
 namespace InstaConnect.Identity.Application.Tests.Unit.Features.RefreshTokens.Utilities;
 
-public abstract class BaseRefreshTokenApplicationCommandUnitTest : BaseRefreshTokenTest
+public abstract class BaseRefreshTokenApplicationCommandUnitTest : BaseIdentityCommandTest
 {
 	protected IApplicationMapper Mapper { get; }
 

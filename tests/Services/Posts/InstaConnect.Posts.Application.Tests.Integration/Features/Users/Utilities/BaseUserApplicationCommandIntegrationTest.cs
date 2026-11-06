@@ -1,6 +1,6 @@
 namespace InstaConnect.Posts.Application.Tests.Integration.Features.Users.Utilities;
 
-public abstract class BaseUserApplicationCommandIntegrationTest : BasePostsCommandWebTest
+public abstract class BaseUserApplicationCommandIntegrationTest : BasePostsWebCommandTest
 {
 	protected IApplicationSender Sender { get; }
 

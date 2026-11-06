@@ -2,7 +2,7 @@ using InstaConnect.Posts.Domain.Features.PostLikes.Abstractions;
 
 namespace InstaConnect.Posts.Infrastructure.Tests.Integration.Features.PostLikes.Utilities;
 
-public abstract class BasePostLikeInfrastructureCommandIntegrationTest : BasePostsCommandWebTest
+public abstract class BasePostLikeInfrastructureCommandIntegrationTest : BasePostsWebCommandTest
 {
 	protected IPostLikeCommandRepository Repository { get; }
 

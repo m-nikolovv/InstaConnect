@@ -6,7 +6,7 @@ using InstaConnect.Identity.Tests.Features.Users.Extensions;
 
 namespace InstaConnect.Identity.Presentation.Tests.Integration.Features.Users.Utilities;
 
-public abstract class BaseUserPresentationCommandIntegrationTest : BaseIdentityCommandWebTest
+public abstract class BaseUserPresentationCommandIntegrationTest : BaseIdentityWebCommandTest
 {
 	protected UserController Controller { get; }
 

@@ -3,7 +3,7 @@ using InstaConnect.Posts.Domain.Tests.Features.Users.Utilities;
 
 namespace InstaConnect.Posts.Domain.Tests.Integration.Features.Users.Utilities;
 
-public abstract class BaseUserDomainCommandIntegrationTest : BasePostsCommandWebTest
+public abstract class BaseUserDomainCommandIntegrationTest : BasePostsWebCommandTest
 {
 	protected IUserCommandService UserService { get; }
 

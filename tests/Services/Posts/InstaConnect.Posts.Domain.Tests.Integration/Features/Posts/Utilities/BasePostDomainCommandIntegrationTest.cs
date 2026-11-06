@@ -5,7 +5,7 @@ using InstaConnect.Posts.Tests.Features.Posts.Extensions;
 
 namespace InstaConnect.Posts.Domain.Tests.Integration.Features.Posts.Utilities;
 
-public abstract class BasePostDomainCommandIntegrationTest : BasePostsCommandWebTest
+public abstract class BasePostDomainCommandIntegrationTest : BasePostsWebCommandTest
 {
 	protected IPostCommandService Service { get; }
 

@@ -3,7 +3,7 @@ using InstaConnect.Posts.Domain.Tests.Features.PostComments.Utilities;
 
 namespace InstaConnect.Posts.Domain.Tests.Integration.Features.PostComments.Utilities;
 
-public abstract class BasePostCommentDomainQueryIntegrationTest : BasePostsQueryWebTest
+public abstract class BasePostCommentDomainQueryIntegrationTest : BasePostsWebQueryTest
 {
 	protected IPostCommentQueryService Service { get; }
 

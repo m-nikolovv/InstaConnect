@@ -1,9 +1,9 @@
 using InstaConnect.Follows.Domain.Features.Users.Abstractions;
-using InstaConnect.Follows.Tests.Features.Users.Utilities;
+using InstaConnect.Follows.Tests.Features.Common.Utilities;
 
 namespace InstaConnect.Follows.Domain.Tests.Unit.Features.Users.Utilities;
 
-public abstract class BaseUserDomainCommandUnitTest : BaseUserTest
+public abstract class BaseUserDomainCommandUnitTest : BaseFollowsCommandTest
 {
 	protected IUserFactory UserFactory { get; }
 

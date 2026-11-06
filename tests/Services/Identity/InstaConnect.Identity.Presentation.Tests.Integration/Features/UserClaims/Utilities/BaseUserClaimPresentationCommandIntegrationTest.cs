@@ -4,7 +4,7 @@ using InstaConnect.Identity.Tests.Features.UserClaims.Extensions;
 
 namespace InstaConnect.Identity.Presentation.Tests.Integration.Features.UserClaims.Utilities;
 
-public abstract class BaseUserClaimPresentationCommandIntegrationTest : BaseIdentityCommandWebTest
+public abstract class BaseUserClaimPresentationCommandIntegrationTest : BaseIdentityWebCommandTest
 {
 	protected UserClaimController Controller { get; }
 

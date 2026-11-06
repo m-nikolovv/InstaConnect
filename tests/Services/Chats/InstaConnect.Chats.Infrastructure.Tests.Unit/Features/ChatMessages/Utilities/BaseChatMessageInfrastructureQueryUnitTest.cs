@@ -3,10 +3,11 @@ using InstaConnect.Chats.Domain.Features.Chats.Abstractions;
 using InstaConnect.Chats.Infrastructure.Features.ChatMessages.Abstractions;
 using InstaConnect.Chats.Tests.Features.ChatMessages.Utilities;
 using InstaConnect.Chats.Tests.Features.Chats.Utilities;
+using InstaConnect.Chats.Tests.Features.Common.Utilities;
 
 namespace InstaConnect.Chats.Infrastructure.Tests.Unit.Features.ChatMessages.Utilities;
 
-public abstract class BaseChatMessageInfrastructureQueryUnitTest : BaseChatMessageTest
+public abstract class BaseChatMessageInfrastructureQueryUnitTest : BaseChatsQueryTest
 {
 	protected IChatMessageFluent Fluent { get; }
 

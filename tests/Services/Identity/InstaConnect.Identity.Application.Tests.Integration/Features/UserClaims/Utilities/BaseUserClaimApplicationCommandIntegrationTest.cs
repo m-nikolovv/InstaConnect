@@ -3,7 +3,7 @@ using InstaConnect.Identity.Tests.Features.UserClaims.Extensions;
 
 namespace InstaConnect.Identity.Application.Tests.Integration.Features.UserClaims.Utilities;
 
-public abstract class BaseUserClaimApplicationCommandIntegrationTest : BaseIdentityCommandWebTest
+public abstract class BaseUserClaimApplicationCommandIntegrationTest : BaseIdentityWebCommandTest
 {
 	protected IApplicationSender Sender { get; }
 

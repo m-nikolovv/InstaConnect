@@ -5,7 +5,7 @@ using InstaConnect.Identity.Tests.Features.ForgotPasswordTokens.Extensions;
 
 namespace InstaConnect.Identity.Presentation.Tests.Integration.Features.ForgotPasswordTokens.Utilities;
 
-public abstract class BaseForgotPasswordTokenPresentationCommandIntegrationTest : BaseIdentityCommandWebTest
+public abstract class BaseForgotPasswordTokenPresentationCommandIntegrationTest : BaseIdentityWebCommandTest
 {
 	protected ForgotPasswordTokenController Controller { get; }
 

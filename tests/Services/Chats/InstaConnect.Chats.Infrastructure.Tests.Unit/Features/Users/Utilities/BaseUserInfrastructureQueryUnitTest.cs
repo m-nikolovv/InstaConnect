@@ -1,9 +1,9 @@
 using InstaConnect.Chats.Infrastructure.Features.Users.Abstractions;
-using InstaConnect.Chats.Tests.Features.Users.Utilities;
+using InstaConnect.Chats.Tests.Features.Common.Utilities;
 
 namespace InstaConnect.Chats.Infrastructure.Tests.Unit.Features.Users.Utilities;
 
-public abstract class BaseUserInfrastructureQueryUnitTest : BaseUserTest
+public abstract class BaseUserInfrastructureQueryUnitTest : BaseChatsQueryTest
 {
 	protected IUserFluent Fluent { get; }
 

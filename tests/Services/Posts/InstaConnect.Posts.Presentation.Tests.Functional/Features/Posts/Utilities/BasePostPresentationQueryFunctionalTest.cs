@@ -3,7 +3,7 @@ using InstaConnect.Posts.Presentation.Tests.Features.Posts.Extensions;
 
 namespace InstaConnect.Posts.Presentation.Tests.Functional.Features.Posts.Utilities;
 
-public abstract class BasePostPresentationQueryFunctionalTest : BasePostsQueryWebTest
+public abstract class BasePostPresentationQueryFunctionalTest : BasePostsWebQueryTest
 {
 	protected IPostApiClient ApiClient { get; }
 

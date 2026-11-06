@@ -7,11 +7,6 @@ namespace InstaConnect.Posts.Tests.Features.Common.Utilities;
 
 public abstract class BasePostsCommandTest : BasePostsTest
 {
-	protected ICollection<PostImage> PostPostImages { get; }
-	protected PostImageIdRangeBuilderFactory PostPostImageIdRangeBuilderFactory { get; }
-	protected PostImageIdRangeBuilder PostPostImageIdRangeBuilder { get; }
-	protected ICollection<PostImageId> PostPostImageIds { get; }
-
 	protected ICollection<PostLike> PostPostLikes { get; }
 	protected PostLikeIdRangeBuilderFactory PostPostLikeIdRangeBuilderFactory { get; }
 	protected PostLikeIdRangeBuilder PostPostLikeIdRangeBuilder { get; }
@@ -31,11 +26,6 @@ public abstract class BasePostsCommandTest : BasePostsTest
 	protected PostCommentLikeIdRangeBuilderFactory PostPostCommentsPostCommentLikeIdRangeBuilderFactory { get; }
 	protected PostCommentLikeIdRangeBuilder PostPostCommentsPostCommentLikeIdRangeBuilder { get; }
 	protected ICollection<PostCommentLikeId> PostPostCommentsPostCommentLikeIds { get; }
-
-	protected ICollection<PostCommentImage> PostCommentPostCommentImages { get; }
-	protected PostCommentImageIdRangeBuilderFactory PostCommentPostCommentImageIdRangeBuilderFactory { get; }
-	protected PostCommentImageIdRangeBuilder PostCommentPostCommentImageIdRangeBuilder { get; }
-	protected ICollection<PostCommentImageId> PostCommentPostCommentImageIds { get; }
 
 	protected ICollection<PostCommentLike> PostCommentPostCommentLikes { get; }
 	protected PostCommentLikeIdRangeBuilderFactory PostCommentPostCommentLikeIdRangeBuilderFactory { get; }
@@ -97,14 +87,17 @@ public abstract class BasePostsCommandTest : BasePostsTest
 	protected PostCommentLikeIdRangeBuilder UserPostCommentsPostCommentLikeIdRangeBuilder { get; }
 	protected ICollection<PostCommentLikeId> UserPostCommentsPostCommentLikeIds { get; }
 
+	protected ICollection<PostImage> PostPostImages { get; }
+	protected PostImageIdRangeBuilderFactory PostPostImageIdRangeBuilderFactory { get; }
+	protected PostImageIdRangeBuilder PostPostImageIdRangeBuilder { get; }
+	protected ICollection<PostImageId> PostPostImageIds { get; }
+	protected ICollection<PostCommentImage> PostCommentPostCommentImages { get; }
+	protected PostCommentImageIdRangeBuilderFactory PostCommentPostCommentImageIdRangeBuilderFactory { get; }
+	protected PostCommentImageIdRangeBuilder PostCommentPostCommentImageIdRangeBuilder { get; }
+	protected ICollection<PostCommentImageId> PostCommentPostCommentImageIds { get; }
 
 	protected BasePostsCommandTest()
 	{
-		PostPostImages = [.. Post.PostImages];
-		PostPostImageIdRangeBuilderFactory = new();
-		PostPostImageIdRangeBuilder = PostPostImageIdRangeBuilderFactory.Create([.. PostPostImages.Select(p => p.Id)]);
-		PostPostImageIds = PostPostImageIdRangeBuilder.Build();
-
 		PostPostLikes = [.. Post.PostLikes];
 		PostPostLikeIdRangeBuilderFactory = new();
 		PostPostLikeIdRangeBuilder = PostPostLikeIdRangeBuilderFactory.Create([.. PostPostLikes.Select(p => p.Id)]);
@@ -124,11 +117,6 @@ public abstract class BasePostsCommandTest : BasePostsTest
 		PostPostCommentsPostCommentLikeIdRangeBuilderFactory = new();
 		PostPostCommentsPostCommentLikeIdRangeBuilder = PostPostCommentsPostCommentLikeIdRangeBuilderFactory.Create([.. PostPostCommentsPostCommentLikes.Select(p => p.Id)]);
 		PostPostCommentsPostCommentLikeIds = PostPostCommentsPostCommentLikeIdRangeBuilder.Build();
-
-		PostCommentPostCommentImages = [.. PostComment.PostCommentImages];
-		PostCommentPostCommentImageIdRangeBuilderFactory = new();
-		PostCommentPostCommentImageIdRangeBuilder = PostCommentPostCommentImageIdRangeBuilderFactory.Create([.. PostCommentPostCommentImages.Select(p => p.Id)]);
-		PostCommentPostCommentImageIds = PostCommentPostCommentImageIdRangeBuilder.Build();
 
 		PostCommentPostCommentLikes = [.. PostComment.PostCommentLikes];
 		PostCommentPostCommentLikeIdRangeBuilderFactory = new();
@@ -189,5 +177,14 @@ public abstract class BasePostsCommandTest : BasePostsTest
 		UserPostCommentsPostCommentLikeIdRangeBuilderFactory = new();
 		UserPostCommentsPostCommentLikeIdRangeBuilder = UserPostCommentsPostCommentLikeIdRangeBuilderFactory.Create([.. UserPostCommentsPostCommentLikes.Select(p => p.Id)]);
 		UserPostCommentsPostCommentLikeIds = UserPostCommentsPostCommentLikeIdRangeBuilder.Build();
+
+		PostPostImages = [.. Post.PostImages];
+		PostPostImageIdRangeBuilderFactory = new();
+		PostPostImageIdRangeBuilder = PostPostImageIdRangeBuilderFactory.Create([.. PostPostImages.Select(p => p.Id)]);
+		PostPostImageIds = PostPostImageIdRangeBuilder.Build();
+		PostCommentPostCommentImages = [.. PostComment.PostCommentImages];
+		PostCommentPostCommentImageIdRangeBuilderFactory = new();
+		PostCommentPostCommentImageIdRangeBuilder = PostCommentPostCommentImageIdRangeBuilderFactory.Create([.. PostCommentPostCommentImages.Select(p => p.Id)]);
+		PostCommentPostCommentImageIds = PostCommentPostCommentImageIdRangeBuilder.Build();
 	}
 }

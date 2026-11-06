@@ -1,8 +1,7 @@
-using InstaConnect.Identity.Tests.Features.Users.Utilities;
 
 namespace InstaConnect.Identity.Presentation.Tests.Unit.Features.Users.Utilities;
 
-public abstract class BaseUserPresentationCommandUnitTest : BaseUserTest
+public abstract class BaseUserPresentationCommandUnitTest : BaseIdentityCommandTest
 {
 	protected IApplicationSender Sender { get; }
 

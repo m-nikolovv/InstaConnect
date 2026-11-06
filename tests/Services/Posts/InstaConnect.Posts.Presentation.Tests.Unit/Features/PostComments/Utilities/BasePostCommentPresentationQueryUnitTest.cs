@@ -1,8 +1,8 @@
-using InstaConnect.Posts.Tests.Features.PostComments.Utilities;
+using InstaConnect.Posts.Tests.Features.Common.Utilities;
 
 namespace InstaConnect.Posts.Presentation.Tests.Unit.Features.PostComments.Utilities;
 
-public abstract class BasePostCommentPresentationQueryUnitTest : BasePostCommentTest
+public abstract class BasePostCommentPresentationQueryUnitTest : BasePostsQueryTest
 {
 	protected IApplicationSender Sender { get; }
 

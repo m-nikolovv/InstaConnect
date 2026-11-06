@@ -1,13 +1,13 @@
 using InstaConnect.Chats.Domain.Features.Chats.Abstractions;
 using InstaConnect.Chats.Domain.Features.Common.Extensions;
 using InstaConnect.Chats.Domain.Features.Users.Abstractions;
-using InstaConnect.Chats.Tests.Features.Chats.Utilities;
+using InstaConnect.Chats.Tests.Features.Common.Utilities;
 using InstaConnect.Common.Domain.Features.Mappers.Abstractions;
 using InstaConnect.Common.Events.Features.Events.Abstractions;
 
 namespace InstaConnect.Chats.Domain.Tests.Unit.Features.Chats.Utilities;
 
-public abstract class BaseChatDomainCommandUnitTest : BaseChatTest
+public abstract class BaseChatDomainCommandUnitTest : BaseChatsCommandTest
 {
 	protected IChatFactory Factory { get; }
 

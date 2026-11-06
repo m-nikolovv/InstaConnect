@@ -1,12 +1,10 @@
 namespace InstaConnect.Follows.Tests.Features.Common.Utilities;
 
-public abstract class BaseFollowsQueryWebTest : BaseFollowsQueryTest, IClassFixture<FollowsWebApplicationFactory>
+public abstract class BaseFollowsWebQueryTest : BaseFollowsWebTest
 {
-	protected IServiceScope ServiceScope { get; }
-
-	protected BaseFollowsQueryWebTest(FollowsWebApplicationFactory webApplicationFactory)
+	protected BaseFollowsWebQueryTest(FollowsWebApplicationFactory webApplicationFactory)
+		: base(webApplicationFactory)
 	{
-		ServiceScope = webApplicationFactory.Services.CreateScope();
 	}
 
 	public override async Task InitializeAsync()

@@ -1,10 +1,10 @@
 using InstaConnect.Follows.Application.Features.Common.Extensions;
 using InstaConnect.Follows.Domain.Features.Follows.Abstractions;
-using InstaConnect.Follows.Tests.Features.Follows.Utilities;
+using InstaConnect.Follows.Tests.Features.Common.Utilities;
 
 namespace InstaConnect.Follows.Application.Tests.Unit.Features.Follows.Utilities;
 
-public abstract class BaseFollowApplicationQueryUnitTest : BaseFollowTest
+public abstract class BaseFollowApplicationQueryUnitTest : BaseFollowsQueryTest
 {
 	protected IApplicationMapper Mapper { get; }
 

@@ -2,7 +2,7 @@ using InstaConnect.Identity.Presentation.Features.RefreshTokens.Controllers.v1;
 
 namespace InstaConnect.Identity.Presentation.Tests.Integration.Features.RefreshTokens.Utilities;
 
-public abstract class BaseRefreshTokenPresentationCommandIntegrationTest : BaseIdentityCommandWebTest
+public abstract class BaseRefreshTokenPresentationCommandIntegrationTest : BaseIdentityWebCommandTest
 {
 	protected RefreshTokenController Controller { get; }
 

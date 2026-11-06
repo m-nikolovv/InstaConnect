@@ -1,10 +1,10 @@
 namespace InstaConnect.Posts.Tests.Features.Common.Utilities;
 
-public abstract class BasePostsCommandWebTest : BasePostsCommandTest, IClassFixture<PostsWebApplicationFactory>
+public abstract class BasePostsWebCommandTest : BasePostsCommandTest, IClassFixture<PostsWebApplicationFactory>
 {
 	protected IServiceScope ServiceScope { get; }
 
-	protected BasePostsCommandWebTest(PostsWebApplicationFactory webApplicationFactory)
+	protected BasePostsWebCommandTest(PostsWebApplicationFactory webApplicationFactory)
 	{
 		ServiceScope = webApplicationFactory.Services.CreateScope();
 	}

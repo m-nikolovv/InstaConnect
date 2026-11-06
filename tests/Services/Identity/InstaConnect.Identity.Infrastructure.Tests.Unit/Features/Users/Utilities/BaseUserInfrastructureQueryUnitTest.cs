@@ -1,9 +1,8 @@
 using InstaConnect.Identity.Infrastructure.Features.Users.Abstractions;
-using InstaConnect.Identity.Tests.Features.Users.Utilities;
 
 namespace InstaConnect.Identity.Infrastructure.Tests.Unit.Features.Users.Utilities;
 
-public abstract class BaseUserInfrastructureQueryUnitTest : BaseUserTest
+public abstract class BaseUserInfrastructureQueryUnitTest : BaseIdentityQueryTest
 {
 	protected IUserFluent Fluent { get; }
 

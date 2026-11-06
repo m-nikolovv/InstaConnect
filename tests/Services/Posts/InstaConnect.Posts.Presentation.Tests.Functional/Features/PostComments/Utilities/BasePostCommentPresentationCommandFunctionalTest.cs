@@ -5,7 +5,7 @@ using InstaConnect.Posts.Tests.Features.PostComments.Extensions;
 
 namespace InstaConnect.Posts.Presentation.Tests.Functional.Features.PostComments.Utilities;
 
-public abstract class BasePostCommentPresentationCommandFunctionalTest : BasePostsCommandWebTest
+public abstract class BasePostCommentPresentationCommandFunctionalTest : BasePostsWebCommandTest
 {
 	protected IPostCommentApiClient CommentApiClient { get; }
 

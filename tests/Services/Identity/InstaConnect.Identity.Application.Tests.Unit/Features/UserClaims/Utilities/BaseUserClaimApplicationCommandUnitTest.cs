@@ -1,9 +1,8 @@
 using InstaConnect.Identity.Domain.Features.UserClaims.Abstractions;
-using InstaConnect.Identity.Tests.Features.UserClaims.Utilities;
 
 namespace InstaConnect.Identity.Application.Tests.Unit.Features.UserClaims.Utilities;
 
-public abstract class BaseUserClaimApplicationCommandUnitTest : BaseUserClaimTest
+public abstract class BaseUserClaimApplicationCommandUnitTest : BaseIdentityCommandTest
 {
 	protected IApplicationMapper Mapper { get; }
 

@@ -4,8 +4,8 @@ using InstaConnect.Common.Events.Features.Events.Abstractions;
 using InstaConnect.Identity.Domain.Features.Common.Extensions;
 using InstaConnect.Identity.Domain.Features.EmailConfirmationTokens.Abstractions;
 using InstaConnect.Identity.Domain.Features.EmailConfirmationTokens.Models.Options;
-
 using Microsoft.Extensions.Options;
+
 
 namespace InstaConnect.Identity.Domain.Tests.Unit.Features.EmailConfirmationTokens.Utilities;
 

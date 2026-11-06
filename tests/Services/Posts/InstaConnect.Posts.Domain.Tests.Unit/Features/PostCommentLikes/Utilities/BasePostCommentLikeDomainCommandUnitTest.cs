@@ -3,11 +3,11 @@ using InstaConnect.Common.Events.Features.Events.Abstractions;
 using InstaConnect.Posts.Domain.Features.Common.Extensions;
 using InstaConnect.Posts.Domain.Features.PostCommentLikes.Abstractions;
 using InstaConnect.Posts.Domain.Features.PostComments.Abstractions;
-using InstaConnect.Posts.Tests.Features.PostCommentLikes.Utilities;
+using InstaConnect.Posts.Tests.Features.Common.Utilities;
 
 namespace InstaConnect.Posts.Domain.Tests.Unit.Features.PostCommentLikes.Utilities;
 
-public abstract class BasePostCommentLikeDomainCommandUnitTest : BasePostCommentLikeTest
+public abstract class BasePostCommentLikeDomainCommandUnitTest : BasePostsCommandTest
 {
 	protected IApplicationMapper Mapper { get; }
 

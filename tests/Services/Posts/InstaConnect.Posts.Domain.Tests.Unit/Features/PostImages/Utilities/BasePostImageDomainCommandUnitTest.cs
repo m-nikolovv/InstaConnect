@@ -1,11 +1,11 @@
 using InstaConnect.Common.Domain.Features.Guids.Abstractions;
 using InstaConnect.Posts.Domain.Features.PostImages.Abstractions;
 using InstaConnect.Posts.Domain.Tests.Features.PostImages.Utilities;
-using InstaConnect.Posts.Tests.Features.PostImages.Utilities;
+using InstaConnect.Posts.Tests.Features.Common.Utilities;
 
 namespace InstaConnect.Posts.Domain.Tests.Unit.Features.PostImages.Utilities;
 
-public abstract class BasePostImageDomainCommandUnitTest : BasePostImageTest
+public abstract class BasePostImageDomainCommandUnitTest : BasePostsCommandTest
 {
 	protected IPostImageFactory Factory { get; }
 

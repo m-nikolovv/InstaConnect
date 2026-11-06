@@ -1,9 +1,9 @@
 using InstaConnect.Posts.Domain.Features.PostComments.Abstractions;
-using InstaConnect.Posts.Tests.Features.PostComments.Utilities;
+using InstaConnect.Posts.Tests.Features.Common.Utilities;
 
 namespace InstaConnect.Posts.Domain.Tests.Unit.Features.PostComments.Utilities;
 
-public abstract class BasePostCommentDomainQueryUnitTest : BasePostCommentTest
+public abstract class BasePostCommentDomainQueryUnitTest : BasePostsQueryTest
 {
 	protected IPostQueryRepository Repository { get; }
 

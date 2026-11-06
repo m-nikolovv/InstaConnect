@@ -1,10 +1,10 @@
 namespace InstaConnect.Identity.Tests.Features.Common.Utilities;
 
-public abstract class BaseIdentityCommandWebTest : BaseIdentityCommandTest, IClassFixture<IdentityWebApplicationFactory>
+public abstract class BaseIdentityWebCommandTest : BaseIdentityCommandTest, IClassFixture<IdentityWebApplicationFactory>
 {
 	protected IServiceScope ServiceScope { get; }
 
-	protected BaseIdentityCommandWebTest(IdentityWebApplicationFactory webApplicationFactory, bool isEmailConfirmed = true) : base(webApplicationFactory.Services.GetPasswordHasher(), isEmailConfirmed)
+	protected BaseIdentityWebCommandTest(IdentityWebApplicationFactory webApplicationFactory, bool isEmailConfirmed = true) : base(webApplicationFactory.Services.GetPasswordHasher(), isEmailConfirmed)
 	{
 		ServiceScope = webApplicationFactory.Services.CreateScope();
 	}

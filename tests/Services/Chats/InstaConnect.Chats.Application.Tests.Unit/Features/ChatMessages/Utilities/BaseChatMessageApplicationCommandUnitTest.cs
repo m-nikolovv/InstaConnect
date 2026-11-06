@@ -1,9 +1,9 @@
 using InstaConnect.Chats.Domain.Features.ChatMessages.Abstractions;
-using InstaConnect.Chats.Tests.Features.ChatMessages.Utilities;
+using InstaConnect.Chats.Tests.Features.Common.Utilities;
 
 namespace InstaConnect.Chats.Application.Tests.Unit.Features.ChatMessages.Utilities;
 
-public abstract class BaseChatMessageApplicationCommandUnitTest : BaseChatMessageTest
+public abstract class BaseChatMessageApplicationCommandUnitTest : BaseChatsCommandTest
 {
 	protected IApplicationMapper Mapper { get; }
 

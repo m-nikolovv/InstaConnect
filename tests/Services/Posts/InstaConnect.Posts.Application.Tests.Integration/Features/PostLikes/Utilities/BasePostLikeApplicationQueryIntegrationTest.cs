@@ -1,6 +1,6 @@
 namespace InstaConnect.Posts.Application.Tests.Integration.Features.PostLikes.Utilities;
 
-public abstract class BasePostLikeApplicationQueryIntegrationTest : BasePostsQueryWebTest
+public abstract class BasePostLikeApplicationQueryIntegrationTest : BasePostsWebQueryTest
 {
 	protected IApplicationSender Sender { get; }
 

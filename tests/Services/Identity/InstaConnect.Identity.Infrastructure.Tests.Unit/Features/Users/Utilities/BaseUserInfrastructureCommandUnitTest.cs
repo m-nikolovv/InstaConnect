@@ -4,7 +4,7 @@ using InstaConnect.Identity.Tests.Features.Users.Utilities;
 
 namespace InstaConnect.Identity.Infrastructure.Tests.Unit.Features.Users.Utilities;
 
-public abstract class BaseUserInfrastructureCommandUnitTest : BaseUserTest
+public abstract class BaseUserInfrastructureCommandUnitTest : BaseIdentityCommandTest
 {
 	protected IUserFluent Fluent { get; }
 

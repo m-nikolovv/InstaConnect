@@ -5,7 +5,7 @@ using InstaConnect.Identity.Tests.Features.EmailConfirmationTokens.Extensions;
 
 namespace InstaConnect.Identity.Presentation.Tests.Integration.Features.EmailConfirmationTokens.Utilities;
 
-public abstract class BaseEmailConfirmationTokenPresentationCommandIntegrationTest : BaseIdentityCommandWebTest
+public abstract class BaseEmailConfirmationTokenPresentationCommandIntegrationTest : BaseIdentityWebCommandTest
 {
 	protected EmailConfirmationTokenController Controller { get; }
 

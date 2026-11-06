@@ -1,11 +1,11 @@
 using InstaConnect.Chats.Domain.Features.ChatMessageImages.Abstractions;
 using InstaConnect.Chats.Domain.Tests.Features.ChatMessageImages.Utilities;
-using InstaConnect.Chats.Tests.Features.ChatMessageImages.Utilities;
+using InstaConnect.Chats.Tests.Features.Common.Utilities;
 using InstaConnect.Common.Domain.Features.Guids.Abstractions;
 
 namespace InstaConnect.Chats.Domain.Tests.Unit.Features.ChatMessageImages.Utilities;
 
-public abstract class BaseChatMessageImageDomainCommandUnitTest : BaseChatMessageImageTest
+public abstract class BaseChatMessageImageDomainCommandUnitTest : BaseChatsCommandTest
 {
 	protected IGuidProvider GuidProvider { get; }
 

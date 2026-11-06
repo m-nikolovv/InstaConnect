@@ -6,7 +6,7 @@ using InstaConnect.Posts.Tests.Features.Common.Utilities;
 
 namespace InstaConnect.Posts.Infrastructure.Tests.Functional.Features.Users.Utilities;
 
-public abstract class BaseUserInfrastructureCommandFunctionalTest : BasePostsCommandWebTest
+public abstract class BaseUserInfrastructureCommandFunctionalTest : BasePostsWebCommandTest
 {
 	protected IUserEventClient UserEventClient { get; }
 

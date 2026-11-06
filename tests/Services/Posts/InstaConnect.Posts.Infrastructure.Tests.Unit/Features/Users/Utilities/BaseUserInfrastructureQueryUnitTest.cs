@@ -1,9 +1,9 @@
 using InstaConnect.Posts.Infrastructure.Features.Users.Abstractions;
-using InstaConnect.Posts.Tests.Features.Users.Utilities;
+using InstaConnect.Posts.Tests.Features.Common.Utilities;
 
 namespace InstaConnect.Posts.Infrastructure.Tests.Unit.Features.Users.Utilities;
 
-public abstract class BaseUserInfrastructureQueryUnitTest : BaseUserTest
+public abstract class BaseUserInfrastructureQueryUnitTest : BasePostsQueryTest
 {
 	protected IUserFluent Fluent { get; }
 

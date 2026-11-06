@@ -1,10 +1,11 @@
 using InstaConnect.Chats.Domain.Features.Users.Abstractions;
 using InstaConnect.Chats.Infrastructure.Features.Users.Abstractions;
+using InstaConnect.Chats.Tests.Features.Common.Utilities;
 using InstaConnect.Chats.Tests.Features.Users.Utilities;
 
 namespace InstaConnect.Chats.Infrastructure.Tests.Unit.Features.Users.Utilities;
 
-public abstract class BaseUserInfrastructureCommandUnitTest : BaseUserTest
+public abstract class BaseUserInfrastructureCommandUnitTest : BaseChatsCommandTest
 {
 	protected IUserFluent Fluent { get; }
 

@@ -1,8 +1,8 @@
-using InstaConnect.Posts.Tests.Features.PostLikes.Utilities;
+using InstaConnect.Posts.Tests.Features.Common.Utilities;
 
 namespace InstaConnect.Posts.Presentation.Tests.Unit.Features.PostLikes.Utilities;
 
-public abstract class BasePostLikePresentationCommandUnitTest : BasePostLikeTest
+public abstract class BasePostLikePresentationCommandUnitTest : BasePostsCommandTest
 {
 	protected IApplicationSender Sender { get; }
 

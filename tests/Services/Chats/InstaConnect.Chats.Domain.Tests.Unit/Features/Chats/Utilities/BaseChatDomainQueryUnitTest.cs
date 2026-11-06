@@ -1,10 +1,10 @@
 using InstaConnect.Chats.Domain.Features.Chats.Abstractions;
 using InstaConnect.Chats.Domain.Features.Users.Abstractions;
-using InstaConnect.Chats.Tests.Features.Chats.Utilities;
+using InstaConnect.Chats.Tests.Features.Common.Utilities;
 
 namespace InstaConnect.Chats.Domain.Tests.Unit.Features.Chats.Utilities;
 
-public abstract class BaseChatDomainQueryUnitTest : BaseChatTest
+public abstract class BaseChatDomainQueryUnitTest : BaseChatsQueryTest
 {
 	protected IChatQueryRepository Repository { get; }
 

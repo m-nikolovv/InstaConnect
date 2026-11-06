@@ -1,13 +1,12 @@
 using InstaConnect.Common.Domain.Features.Guids.Abstractions;
 using InstaConnect.Identity.Domain.Features.RefreshTokens.Abstractions;
 using InstaConnect.Identity.Domain.Features.RefreshTokens.Models.Options;
-using InstaConnect.Identity.Tests.Features.RefreshTokens.Utilities;
-
 using Microsoft.Extensions.Options;
+
 
 namespace InstaConnect.Identity.Domain.Tests.Unit.Features.RefreshTokens.Utilities;
 
-public abstract class BaseRefreshTokenDomainCommandUnitTest : BaseRefreshTokenTest
+public abstract class BaseRefreshTokenDomainCommandUnitTest : BaseIdentityCommandTest
 {
 	protected IGuidProvider GuidProvider { get; }
 
