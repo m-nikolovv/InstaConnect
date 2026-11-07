@@ -5,7 +5,7 @@ public class PostCommentImageBuilder
 	private string _id;
 	private readonly string _url;
 	private string _imageId;
-	private readonly string _commentId;
+	private string _commentId;
 	private readonly PostComment _postComment;
 	private readonly DateTimeOffset _createdAtUtc;
 
@@ -32,6 +32,20 @@ public class PostCommentImageBuilder
 	public PostCommentImageBuilder WithId(IStringTransformer transformer)
 	{
 		_id = transformer.Transform(_id);
+
+		return this;
+	}
+
+	public PostCommentImageBuilder WithCommentId(IStringTransformer transformer)
+	{
+		_commentId = transformer.Transform(_commentId);
+
+		return this;
+	}
+
+	public PostCommentImageBuilder WithImageId(PostCommentImageId imageId, IStringTransformer? transformer = null)
+	{
+		_imageId = transformer.TryTransform(imageId.ImageId);
 
 		return this;
 	}

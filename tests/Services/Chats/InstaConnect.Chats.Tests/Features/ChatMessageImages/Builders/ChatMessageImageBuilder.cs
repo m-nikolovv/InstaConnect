@@ -1,3 +1,4 @@
+using InstaConnect.Common.Tests.Features.DataAttributes.Base;
 using InstaConnect.Chats.Tests.Features.ChatMessageImages.Utilities;
 
 namespace InstaConnect.Chats.Tests.Features.ChatMessageImages.Builders;
@@ -6,7 +7,7 @@ public class ChatMessageImageBuilder
 {
 	private readonly string _url;
 	private string _imageId;
-	private readonly string _messageId;
+	private string _messageId;
 	private string _participantOneId;
 	private string _participantTwoId;
 	private readonly ChatMessage _chatMessage;
@@ -44,6 +45,20 @@ public class ChatMessageImageBuilder
 	public ChatMessageImageBuilder WithParticipantTwoId(IStringTransformer transformer)
 	{
 		_participantTwoId = transformer.Transform(_participantTwoId);
+
+		return this;
+	}
+
+	public ChatMessageImageBuilder WithMessageId(IStringTransformer transformer)
+	{
+		_messageId = transformer.Transform(_messageId);
+
+		return this;
+	}
+
+	public ChatMessageImageBuilder WithImageId(ChatMessageImageId imageId, IStringTransformer? transformer = null)
+	{
+		_imageId = transformer.TryTransform(imageId.ImageId);
 
 		return this;
 	}

@@ -33,6 +33,13 @@ public class PostImageBuilder
 		return this;
 	}
 
+	public PostImageBuilder WithImageId(PostImageId imageId, IStringTransformer? transformer = null)
+	{
+		_imageId = transformer.TryTransform(imageId.ImageId);
+
+		return this;
+	}
+
 	public PostImageBuilder WithImageId(IStringTransformer transformer)
 	{
 		_imageId = transformer.Transform(_imageId);

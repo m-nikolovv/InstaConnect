@@ -44,13 +44,6 @@ public class PostCommentBuilder
 		_updatedAtUtc = postComment.UpdatedAtUtc;
 	}
 
-	public PostCommentBuilder WithId(PostId id, IStringTransformer? transformer = null)
-	{
-		_id = transformer.TryTransform(id.Id);
-
-		return this;
-	}
-
 	public PostCommentBuilder WithId(IStringTransformer transformer)
 	{
 		_id = transformer.Transform(_id);

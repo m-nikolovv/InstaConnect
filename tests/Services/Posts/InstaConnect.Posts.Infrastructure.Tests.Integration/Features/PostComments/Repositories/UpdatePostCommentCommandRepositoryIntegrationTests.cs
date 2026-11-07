@@ -1,4 +1,5 @@
 using InstaConnect.Posts.Tests.Features.PostComments.Assertions;
+using InstaConnect.Posts.Tests.Features.PostComments.DataAttributes.Id;
 
 namespace InstaConnect.Posts.Infrastructure.Tests.Integration.Features.PostComments.Repositories;
 
@@ -33,7 +34,7 @@ public class UpdatePostCommentCommandRepositoryIntegrationTests : BasePostCommen
 		IStringTransformer transformer)
 	{
 		// Arrange
-		var updatedPostComment = PostCommentBuilderFactory.Create(Post, User).WithId(transformer).WithCommentId(PostCommentId).Build();
+		var updatedPostComment = PostCommentBuilderFactory.Create(Post, User).WithCommentId(PostCommentId).WithId(transformer).Build();
 
 		// Act
 		await Repository.UpdateAsync(updatedPostComment, CancellationToken);
