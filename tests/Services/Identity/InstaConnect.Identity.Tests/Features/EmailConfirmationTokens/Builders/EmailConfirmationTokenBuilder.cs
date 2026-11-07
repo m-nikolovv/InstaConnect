@@ -1,8 +1,10 @@
+using InstaConnect.Common.Tests.Features.DataAttributes.Base;
+
 namespace InstaConnect.Identity.Tests.Features.EmailConfirmationTokens.Builders;
 
 public class EmailConfirmationTokenBuilder
 {
-	private readonly string _id;
+	private string _id;
 	private readonly User _user;
 	private string _value;
 	private DateTimeOffset _expiresAtUtc;
@@ -26,9 +28,23 @@ public class EmailConfirmationTokenBuilder
 		_createdAtUtc = emailConfirmationToken.CreatedAtUtc;
 	}
 
-	public EmailConfirmationTokenBuilder WithValue(EmailConfirmationTokenId value)
+	public EmailConfirmationTokenBuilder WithId(IStringTransformer transformer)
 	{
-		_value = value.Value;
+		_id = transformer.Transform(_id);
+
+		return this;
+	}
+
+	public EmailConfirmationTokenBuilder WithValue(EmailConfirmationTokenId value, IStringTransformer? transformer = null)
+	{
+		_value = transformer.TryTransform(value.Value);
+
+		return this;
+	}
+
+	public EmailConfirmationTokenBuilder WithValue(IStringTransformer transformer)
+	{
+		_value = transformer.Transform(_value);
 
 		return this;
 	}

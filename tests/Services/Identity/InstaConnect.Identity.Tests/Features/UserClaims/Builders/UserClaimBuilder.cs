@@ -2,7 +2,7 @@ namespace InstaConnect.Identity.Tests.Features.UserClaims.Builders;
 
 public class UserClaimBuilder
 {
-	private readonly string _id;
+	private string _id;
 	private readonly User _user;
 	private readonly ApplicationClaims _claim;
 	private readonly DateTimeOffset _createdAtUtc;
@@ -21,6 +21,13 @@ public class UserClaimBuilder
 		_user = userClaim.User!;
 		_claim = userClaim.Id.Claim;
 		_createdAtUtc = userClaim.CreatedAtUtc;
+	}
+
+	public UserClaimBuilder WithId(IStringTransformer transformer)
+	{
+		_id = transformer.Transform(_id);
+
+		return this;
 	}
 
 	public UserClaim BuildAttached()

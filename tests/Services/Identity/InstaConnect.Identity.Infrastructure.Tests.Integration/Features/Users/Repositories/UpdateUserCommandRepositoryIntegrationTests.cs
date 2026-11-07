@@ -27,4 +27,20 @@ public class UpdateUserCommandRepositoryIntegrationTests : BaseUserInfrastructur
 		// Assert
 		user.ShouldSatisfy(updatedUser);
 	}
+
+	[Theory]
+	[UserIdDifferentCaseData]
+	public async Task UpdateAsync_ShouldUpdateUser_WhenCommandAndIdAreValid(
+		IStringTransformer transformer)
+	{
+		// Arrange
+		var updatedUser = UserBuilderFactory.Create(PasswordHasher.Hash(Password)).WithId(UserId, transformer).Build();
+
+		// Act
+		await Repository.UpdateAsync(updatedUser, CancellationToken);
+		var user = await ServiceScope.GetByIdAsync(UserId, CancellationToken);
+
+		// Assert
+		user.ShouldSatisfy(updatedUser);
+	}
 }

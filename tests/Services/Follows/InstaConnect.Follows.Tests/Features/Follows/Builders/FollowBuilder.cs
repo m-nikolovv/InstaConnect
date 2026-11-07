@@ -2,9 +2,9 @@ namespace InstaConnect.Follows.Tests.Features.Follows.Builders;
 
 public class FollowBuilder
 {
-	private readonly string _followerId;
+	private string _followerId;
 	private readonly User _follower;
-	private readonly string _followingId;
+	private string _followingId;
 	private readonly User _following;
 	private readonly DateTimeOffset _createdAtUtc;
 
@@ -24,6 +24,20 @@ public class FollowBuilder
 		_followingId = follow.Id.FollowingId.Id;
 		_following = follow.Following!;
 		_createdAtUtc = follow.CreatedAtUtc;
+	}
+
+	public FollowBuilder WithFollowerId(IStringTransformer transformer)
+	{
+		_followerId = transformer.Transform(_followerId);
+
+		return this;
+	}
+
+	public FollowBuilder WithFollowingId(IStringTransformer transformer)
+	{
+		_followingId = transformer.Transform(_followingId);
+
+		return this;
 	}
 
 	public Follow BuildAttached()

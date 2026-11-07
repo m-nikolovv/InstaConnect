@@ -51,6 +51,7 @@ public abstract class BaseChatsTest : BaseTest
 	protected ChatBuilder ChatBuilder { get; }
 	protected Chat Chat { get; }
 	protected ICollection<Chat> Chats { get; }
+	protected ChatBuilder InvertedChatBuilder { get; }
 	protected Chat InvertedChat { get; }
 	protected ICollection<Chat> InvertedChats { get; }
 
@@ -142,7 +143,8 @@ public abstract class BaseChatsTest : BaseTest
 		ChatBuilder = ChatBuilderFactory.Create(ParticipantOne, ParticipantTwo);
 		Chat = ChatBuilder.BuildAttached();
 		Chats = Chat.GenerateAttached(ParticipantOnes, ParticipantTwos);
-		InvertedChat = ChatBuilder.WithParticipantOne(ParticipantTwo).WithParticipantTwo(ParticipantOne).BuildAttached();
+		InvertedChatBuilder = ChatBuilderFactory.Create(ParticipantTwo, ParticipantOne);
+		InvertedChat = InvertedChatBuilder.BuildAttached();
 		InvertedChats = InvertedChat.GenerateAttached(ParticipantTwos, ParticipantOnes);
 
 		ChatIdBuilderFactory = new();

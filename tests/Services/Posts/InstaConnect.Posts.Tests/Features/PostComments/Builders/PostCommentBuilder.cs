@@ -44,10 +44,30 @@ public class PostCommentBuilder
 		_updatedAtUtc = postComment.UpdatedAtUtc;
 	}
 
-	public PostCommentBuilder WithId(PostCommentId id)
+	public PostCommentBuilder WithId(PostId id, IStringTransformer? transformer = null)
 	{
-		_id = id.Id.Id;
-		_commentId = id.CommentId;
+		_id = transformer.TryTransform(id.Id);
+
+		return this;
+	}
+
+	public PostCommentBuilder WithId(IStringTransformer transformer)
+	{
+		_id = transformer.Transform(_id);
+
+		return this;
+	}
+
+	public PostCommentBuilder WithCommentId(PostCommentId commentId, IStringTransformer? transformer = null)
+	{
+		_commentId = transformer.TryTransform(commentId.CommentId);
+
+		return this;
+	}
+
+	public PostCommentBuilder WithCommentId(IStringTransformer transformer)
+	{
+		_commentId = transformer.Transform(_commentId);
 
 		return this;
 	}

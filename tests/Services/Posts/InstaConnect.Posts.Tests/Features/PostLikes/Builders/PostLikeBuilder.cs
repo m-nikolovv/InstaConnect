@@ -2,9 +2,9 @@ namespace InstaConnect.Posts.Tests.Features.PostLikes.Builders;
 
 public class PostLikeBuilder
 {
-	private readonly string _id;
+	private string _id;
 	private readonly Post _post;
-	private readonly string _userId;
+	private string _userId;
 	private readonly User _user;
 	private readonly DateTimeOffset _createdAtUtc;
 
@@ -24,6 +24,20 @@ public class PostLikeBuilder
 		_userId = postLike.Id.UserId.Id;
 		_user = postLike.User!;
 		_createdAtUtc = postLike.CreatedAtUtc;
+	}
+
+	public PostLikeBuilder WithId(IStringTransformer transformer)
+	{
+		_id = transformer.Transform(_id);
+
+		return this;
+	}
+
+	public PostLikeBuilder WithUserId(IStringTransformer transformer)
+	{
+		_userId = transformer.Transform(_userId);
+
+		return this;
 	}
 
 	public PostLike BuildAttached()

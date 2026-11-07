@@ -45,6 +45,20 @@ public class ChatBuilder
 		return this;
 	}
 
+	public ChatBuilder WithParticipantOneId(IStringTransformer transformer)
+	{
+		_participantOneId = transformer.Transform(_participantOneId);
+
+		return this;
+	}
+
+	public ChatBuilder WithParticipantTwoId(IStringTransformer transformer)
+	{
+		_participantTwoId = transformer.Transform(_participantTwoId);
+
+		return this;
+	}
+
 	public Chat BuildAttached()
 	{
 		var chat = Build();

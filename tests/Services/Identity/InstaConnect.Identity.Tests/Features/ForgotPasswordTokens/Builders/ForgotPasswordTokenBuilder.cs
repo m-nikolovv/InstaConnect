@@ -1,8 +1,10 @@
+using InstaConnect.Common.Tests.Features.DataAttributes.Base;
+
 namespace InstaConnect.Identity.Tests.Features.ForgotPasswordTokens.Builders;
 
 public class ForgotPasswordTokenBuilder
 {
-	private readonly string _id;
+	private string _id;
 	private readonly User _user;
 	private string _value;
 	private DateTimeOffset _expiresAtUtc;
@@ -26,9 +28,23 @@ public class ForgotPasswordTokenBuilder
 		_createdAtUtc = forgotPasswordToken.CreatedAtUtc;
 	}
 
-	public ForgotPasswordTokenBuilder WithValue(ForgotPasswordTokenId value)
+	public ForgotPasswordTokenBuilder WithId(IStringTransformer transformer)
 	{
-		_value = value.Value;
+		_id = transformer.Transform(_id);
+
+		return this;
+	}
+
+	public ForgotPasswordTokenBuilder WithValue(ForgotPasswordTokenId value, IStringTransformer? transformer = null)
+	{
+		_value = transformer.TryTransform(value.Value);
+
+		return this;
+	}
+
+	public ForgotPasswordTokenBuilder WithValue(IStringTransformer transformer)
+	{
+		_value = transformer.Transform(_value);
 
 		return this;
 	}

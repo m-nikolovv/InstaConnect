@@ -22,4 +22,20 @@ public class DeleteUserClaimCommandRepositoryIntegrationTests : BaseUserClaimInf
 		// Assert
 		userClaim.ShouldBeNull();
 	}
+
+	[Theory]
+	[UserIdDifferentCaseData]
+	public async Task DeleteAsync_ShouldDeleteUserClaim_WhenCommandAndIdAreValid(
+		IStringTransformer transformer)
+	{
+		// Arrange
+		var deletedUserClaim = UserClaimBuilder.WithId(transformer).Build();
+
+		// Act
+		await Repository.DeleteAsync(deletedUserClaim, CancellationToken);
+		var userClaim = await ServiceScope.GetByIdAsync(UserClaimId, CancellationToken);
+
+		// Assert
+		userClaim.ShouldBeNull();
+	}
 }

@@ -2,9 +2,9 @@ namespace InstaConnect.Posts.Tests.Features.PostCommentImages.Builders;
 
 public class PostCommentImageBuilder
 {
-	private readonly string _id;
+	private string _id;
 	private readonly string _url;
-	private readonly string _imageId;
+	private string _imageId;
 	private readonly string _commentId;
 	private readonly PostComment _postComment;
 	private readonly DateTimeOffset _createdAtUtc;
@@ -27,6 +27,20 @@ public class PostCommentImageBuilder
 		_commentId = postCommentImage.Id.Id.CommentId;
 		_postComment = postCommentImage.PostComment!;
 		_createdAtUtc = postCommentImage.CreatedAtUtc;
+	}
+
+	public PostCommentImageBuilder WithId(IStringTransformer transformer)
+	{
+		_id = transformer.Transform(_id);
+
+		return this;
+	}
+
+	public PostCommentImageBuilder WithImageId(IStringTransformer transformer)
+	{
+		_imageId = transformer.Transform(_imageId);
+
+		return this;
 	}
 
 	public PostCommentImage BuildAttached()

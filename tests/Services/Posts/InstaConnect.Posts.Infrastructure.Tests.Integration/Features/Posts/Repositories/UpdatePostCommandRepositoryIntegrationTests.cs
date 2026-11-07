@@ -24,4 +24,20 @@ public class UpdatePostCommandRepositoryIntegrationTests : BasePostInfrastructur
 		// Assert
 		post.ShouldSatisfy(updatedPost);
 	}
+
+	[Theory]
+	[PostIdDifferentCaseData]
+	public async Task UpdateAsync_ShouldUpdatePost_WhenCommandAndIdAreValid(
+		IStringTransformer transformer)
+	{
+		// Arrange
+		var updatedPost = PostBuilderFactory.Create(User).WithId(PostId, transformer).Build();
+
+		// Act
+		await Repository.UpdateAsync(updatedPost, CancellationToken);
+		var post = await ServiceScope.GetByIdAsync(PostId, CancellationToken);
+
+		// Assert
+		post.ShouldSatisfy(updatedPost);
+	}
 }

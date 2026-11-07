@@ -5,10 +5,10 @@ namespace InstaConnect.Chats.Tests.Features.ChatMessageImages.Builders;
 public class ChatMessageImageBuilder
 {
 	private readonly string _url;
-	private readonly string _imageId;
+	private string _imageId;
 	private readonly string _messageId;
-	private readonly string _participantOneId;
-	private readonly string _participantTwoId;
+	private string _participantOneId;
+	private string _participantTwoId;
 	private readonly ChatMessage _chatMessage;
 	private readonly DateTimeOffset _createdAtUtc;
 
@@ -32,6 +32,27 @@ public class ChatMessageImageBuilder
 		_participantTwoId = chatMessageImage.Id.Id.Id.ParticipantTwoId.Id;
 		_chatMessage = chatMessageImage.ChatMessage!;
 		_createdAtUtc = chatMessageImage.CreatedAtUtc;
+	}
+
+	public ChatMessageImageBuilder WithParticipantOneId(IStringTransformer transformer)
+	{
+		_participantOneId = transformer.Transform(_participantOneId);
+
+		return this;
+	}
+
+	public ChatMessageImageBuilder WithParticipantTwoId(IStringTransformer transformer)
+	{
+		_participantTwoId = transformer.Transform(_participantTwoId);
+
+		return this;
+	}
+
+	public ChatMessageImageBuilder WithImageId(IStringTransformer transformer)
+	{
+		_imageId = transformer.Transform(_imageId);
+
+		return this;
 	}
 
 	public ChatMessageImage BuildAttached()
