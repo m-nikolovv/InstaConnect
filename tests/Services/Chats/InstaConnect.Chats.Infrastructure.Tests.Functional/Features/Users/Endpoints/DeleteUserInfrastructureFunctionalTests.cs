@@ -32,7 +32,6 @@ public class DeleteUserInfrastructureFunctionalTests : BaseUserInfrastructureCom
 	{
 		await ServiceScope.AddAsync(User, CancellationToken);
 		await ServiceScope.AddRangeAsync(Chats, CancellationToken);
-		await ServiceScope.AddRangeAsync(InvertedChats, CancellationToken);
 		await ServiceScope.AddRangeAsync(ChatMessages, CancellationToken);
 		await ServiceScope.AddRangeAsync(ChatMessageImages, CancellationToken);
 	}
