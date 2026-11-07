@@ -132,7 +132,6 @@ public class AddUserCommandHandlerIntegrationTests : BaseUserApplicationCommandI
 	public async Task SendAsync_ShouldThrowUserEmailAlreadyTakenException_WhenUserEmailAlreadyTaken()
 	{
 		// Arrange
-		await ServiceScope.AddAsync(User, CancellationToken);
 		var request = _requestBuilder.WithEmail(User.Email).Build();
 
 		// Assert
@@ -145,7 +144,6 @@ public class AddUserCommandHandlerIntegrationTests : BaseUserApplicationCommandI
 		IStringTransformer transformer)
 	{
 		// Arrange
-		await ServiceScope.AddAsync(User, CancellationToken);
 		var request = _requestBuilder.WithEmail(User.Email, transformer).Build();
 
 		// Assert
@@ -156,7 +154,6 @@ public class AddUserCommandHandlerIntegrationTests : BaseUserApplicationCommandI
 	public async Task SendAsync_ShouldThrowUserNameAlreadyTakenException_WhenUserNameAlreadyTaken()
 	{
 		// Arrange
-		await ServiceScope.AddAsync(User, CancellationToken);
 		var request = _requestBuilder.WithName(User.Name).Build();
 
 		// Assert
@@ -169,7 +166,6 @@ public class AddUserCommandHandlerIntegrationTests : BaseUserApplicationCommandI
 		IStringTransformer transformer)
 	{
 		// Arrange
-		await ServiceScope.AddAsync(User, CancellationToken);
 		var request = _requestBuilder.WithName(User.Name, transformer).Build();
 
 		// Assert

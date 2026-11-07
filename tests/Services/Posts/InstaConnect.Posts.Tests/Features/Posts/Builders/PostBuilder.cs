@@ -44,11 +44,27 @@ public class PostBuilder
 		_updatedAtUtc = post.UpdatedAtUtc;
 	}
 
-	public PostBuilder WithId(PostId id)
+	public PostBuilder WithId(PostId id, IStringTransformer? transformer = null)
 	{
-		_id = id.Id;
+		_id = transformer.TryTransform(id.Id);
 
 		return this;
+	}
+
+	public PostBuilder WithId(IStringTransformer transformer)
+	{
+		_id = transformer.Transform(_id);
+
+		return this;
+	}
+
+	public Post BuildAttached()
+	{
+		var post = Build();
+
+		_user.AddPost(post);
+
+		return post;
 	}
 
 	public Post Build()
@@ -63,7 +79,6 @@ public class PostBuilder
 				_updatedAtUtc);
 
 		post.AddUser(_user);
-		_user.AddPost(post);
 		post.AddPostLikes(_postLikes);
 		post.AddPostComments(_postComments);
 		post.AddPostImages(_postImages);

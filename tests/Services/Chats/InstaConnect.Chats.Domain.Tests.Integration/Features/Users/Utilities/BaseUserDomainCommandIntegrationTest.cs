@@ -3,7 +3,7 @@ using InstaConnect.Chats.Domain.Tests.Features.Users.Utilities;
 
 namespace InstaConnect.Chats.Domain.Tests.Integration.Features.Users.Utilities;
 
-public abstract class BaseUserDomainCommandIntegrationTest : BaseUserWebTest
+public abstract class BaseUserDomainCommandIntegrationTest : BaseUserWebCommandTest
 {
 	protected IUserCommandService UserService { get; }
 

@@ -12,6 +12,11 @@ public static class PostCommentLikeMockAssertions
 			collection.ShouldHaveReceivedOneAggregateFluent();
 		}
 
+		public void ShouldHaveReceivedOneAggregateFluent(ICollection<PostCommentLikeId> ids)
+		{
+			collection.ShouldHaveReceivedOneAggregateFluent();
+		}
+
 		public void ShouldHaveReceivedOneAggregateFluent(
 			PostCommentLikeId id,
 			CurrentUserQuery currentUserQuery)
@@ -97,6 +102,12 @@ public static class PostCommentLikeMockAssertions
 		}
 
 		public void ShouldHaveReceivedOneMatch(
+			ICollection<PostCommentLikeId> ids)
+		{
+			fluent.ShouldHaveReceivedOne().Match(ids);
+		}
+
+		public void ShouldHaveReceivedOneMatch(
 			PostCommentLikeId filterQuery,
 			CurrentUserQuery currentUserQuery)
 		{
@@ -105,6 +116,13 @@ public static class PostCommentLikeMockAssertions
 
 		public void ShouldHaveReceivedOneApplyIncludes(
 			PostCommentLikeId id,
+			PostCommentLikeInclude include)
+		{
+			fluent.ShouldHaveReceivedOneApplyIncludes(include);
+		}
+
+		public void ShouldHaveReceivedOneApplyIncludes(
+			ICollection<PostCommentLikeId> ids,
 			PostCommentLikeInclude include)
 		{
 			fluent.ShouldHaveReceivedOneApplyIncludes(include);
@@ -224,10 +242,14 @@ public static class PostCommentLikeMockAssertions
 		{
 			await fluent.ShouldHaveReceivedOneFirstOrDefaultAsync(cancellationToken);
 		}
-	}
 
-	extension(IPostCommentLikeResponseFluent fluent)
-	{
+		public async Task ShouldHaveReceivedOneToListAsync(
+			ICollection<PostCommentLikeId> ids,
+			CancellationToken cancellationToken)
+		{
+			await fluent.ShouldHaveReceivedOneToListAsync(cancellationToken);
+		}
+
 		public void ShouldHaveReceivedOneApplySorting(
 			PostCommentLikesFilterQuery filterQuery,
 			PostCommentLikesSortingQuery sortingQuery,
@@ -278,7 +300,10 @@ public static class PostCommentLikeMockAssertions
 		{
 			fluent.ShouldHaveReceivedOne().ApplyPagination(paginationQuery);
 		}
+	}
 
+	extension(IPostCommentLikeResponseFluent fluent)
+	{
 		public async Task ShouldHaveReceivedOneFirstOrDefaultAsync(
 			PostCommentLikeId id,
 			CurrentUserQuery currentUserQuery,

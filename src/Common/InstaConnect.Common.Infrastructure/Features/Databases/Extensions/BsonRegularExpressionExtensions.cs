@@ -8,13 +8,6 @@ public static class BsonRegularExpressionExtensions
 {
 	extension(string value)
 	{
-		public BsonRegularExpression ToEqualsIgnoreCaseRegex()
-		{
-			const string Pattern = "^{0}$";
-
-			return value.ToIgnoreCaseRegex(Pattern);
-		}
-
 		public BsonRegularExpression ToStartsWithIgnoreCaseRegex()
 		{
 			const string Pattern = "^{0}";

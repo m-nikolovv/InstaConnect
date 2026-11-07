@@ -9,8 +9,6 @@ public class GetChatMessagesTotalCountQueryRepositoryUnitTests : BaseChatMessage
 	private readonly ChatMessagesFilterQueryBuilder _filterQueryBuilder;
 	private readonly ChatMessagesFilterQuery _filterQuery;
 
-	private readonly ChatMessageInclude _messageInclude;
-
 	private readonly ChatMessageQueryRepository _repository;
 
 	public GetChatMessagesTotalCountQueryRepositoryUnitTests()
@@ -19,12 +17,9 @@ public class GetChatMessagesTotalCountQueryRepositoryUnitTests : BaseChatMessage
 		_filterQueryBuilder = _filterQueryBuilderFactory.Create(ChatMessage);
 		_filterQuery = _filterQueryBuilder.Build();
 
-		_messageInclude = MessageIncludeBuilderFactory.Create().WithSender().WithChatMessageImages().Build();
-
 		_repository = new(Collection, IncludeBuilderFactory, MessageIncludeBuilderFactory);
 
 		Collection.SetupAggregateFluent(_filterQuery, Fluent);
-		Fluent.SetupApplyIncludes(_filterQuery, _messageInclude);
 		Fluent.SetupMatch(_filterQuery);
 		Fluent.SetupGetCountAsync(_filterQuery, ChatMessages, CancellationToken);
 	}
@@ -47,16 +42,6 @@ public class GetChatMessagesTotalCountQueryRepositoryUnitTests : BaseChatMessage
 
 		// Assert
 		Collection.ShouldHaveReceivedOneAggregateFluent(_filterQuery);
-	}
-
-	[Fact]
-	public async Task GetTotalCountAsync_ShouldCallTheFluentApplyIncludes_WhenQueryIsValid()
-	{
-		// Act
-		await _repository.GetTotalCountAsync(_filterQuery, CancellationToken);
-
-		// Assert
-		Fluent.ShouldHaveReceivedOneApplyIncludes(_filterQuery, _messageInclude);
 	}
 
 	[Fact]

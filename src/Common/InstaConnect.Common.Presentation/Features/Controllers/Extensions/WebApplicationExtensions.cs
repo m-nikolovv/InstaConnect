@@ -17,6 +17,7 @@ public static class WebApplicationExtensions
 
 		public WebApplication UseRateLimiterPolicies()
 		{
+			webApplication.UseForwardedHeaders();
 			webApplication.UseRateLimiter();
 
 			return webApplication;

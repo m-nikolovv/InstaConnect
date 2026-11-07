@@ -24,6 +24,16 @@ public static class ChatEquals
 		}
 	}
 
+	extension(ICollection<Chat> p)
+	{
+		public bool Matches(
+			ICollection<ChatId> ids,
+			ICollection<Chat> chats)
+		{
+			return p.Matches(chats);
+		}
+	}
+
 	extension(User? u)
 	{
 		public bool MatchesFilter(ChatsFilterQuery query)

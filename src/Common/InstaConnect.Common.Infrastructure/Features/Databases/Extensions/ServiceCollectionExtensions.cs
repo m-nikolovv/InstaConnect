@@ -23,7 +23,7 @@ public static class ServiceCollectionExtensions
 			return serviceCollection;
 		}
 
-		public IServiceCollection AddDatabases(IConfiguration configuration)
+		public IServiceCollection AddDatabases(IConfiguration configuration, params Assembly[] assemblies)
 		{
 			const string ConventionName = "ApplicationConventionPack";
 
@@ -41,6 +41,10 @@ public static class ServiceCollectionExtensions
 				.AddScoped<IPaginator, Paginator>()
 				.AddScoped<IUnitOfWork, UnitOfWork>()
 				.AddScoped<ISessionHandler, SessionHandler>();
+
+			serviceCollection
+				.AddScoped<IDatabaseInitializer, DatabaseInitializer>()
+				.AddImplementationsOf<IMongoDbCollectionInitializer>(assemblies);
 
 			var conventionPack = new ConventionPack
 			{

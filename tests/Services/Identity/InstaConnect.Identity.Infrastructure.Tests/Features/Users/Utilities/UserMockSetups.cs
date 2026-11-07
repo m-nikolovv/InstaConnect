@@ -202,10 +202,7 @@ public static class UserMockSetups
 		{
 			fluent.SetupFirstOrDefaultAsync(user, cancellationToken);
 		}
-	}
 
-	extension(IUserResponseFluent fluent)
-	{
 		public void SetupApplySorting(
 			UsersFilterQuery filterQuery,
 			UsersSortingQuery sortingQuery,
@@ -233,7 +230,10 @@ public static class UserMockSetups
 		{
 			fluent.ApplyPagination(paginationQuery).ReturnsResponse(fluent);
 		}
+	}
 
+	extension(IUserResponseFluent fluent)
+	{
 		public void SetupToListAsync(
 			UsersFilterQuery filterQuery,
 			UsersSortingQuery sortingQuery,

@@ -16,7 +16,7 @@ public class GetPostCommentByIdQueryRepositoryUnitTests : BasePostCommentInfrast
 		_currentUserQueryBuilder = _currentUserQueryBuilderFactory.Create(User);
 		_currentUserQuery = _currentUserQueryBuilder.Build();
 
-		_include = CommentIncludeBuilderFactory.Create().WithUser().WithPostCommentLikes().WithPost(IncludeBuilderFactory.Create().WithUser().WithPostLikes().WithPostImages().Build()).WithPostCommentImages().Build();
+		_include = CommentIncludeBuilderFactory.Create().WithUser().WithPostCommentLikes().WithPost(IncludeBuilderFactory.Create().WithUser().WithPostLikes().WithPostComments().WithPostImages().Build()).WithPostCommentImages().Build();
 
 		_repository = new(Collection, IncludeBuilderFactory, CommentIncludeBuilderFactory);
 

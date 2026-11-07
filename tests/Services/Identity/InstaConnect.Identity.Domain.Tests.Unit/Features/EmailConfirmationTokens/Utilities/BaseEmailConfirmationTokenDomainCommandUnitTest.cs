@@ -10,7 +10,7 @@ using Microsoft.Extensions.Options;
 
 namespace InstaConnect.Identity.Domain.Tests.Unit.Features.EmailConfirmationTokens.Utilities;
 
-public abstract class BaseEmailConfirmationTokenDomainCommandUnitTest : BaseEmailConfirmationTokenTest
+public abstract class BaseEmailConfirmationTokenDomainCommandUnitTest : BaseEmailConfirmationTokenCommandTest
 {
 	protected IApplicationMapper Mapper { get; }
 
@@ -32,7 +32,7 @@ public abstract class BaseEmailConfirmationTokenDomainCommandUnitTest : BaseEmai
 
 	protected IEmailConfirmationTokenCommandRepository EmailConfirmationTokenRepository { get; }
 
-	protected BaseEmailConfirmationTokenDomainCommandUnitTest() : base(IdentityMockFactory.CreatePasswordHasher())
+	protected BaseEmailConfirmationTokenDomainCommandUnitTest() : base(IdentityMockFactory.CreatePasswordHasher(), false)
 	{
 		Mapper = MockFactory.CreateMapper(IdentityDomainReference.Assembly);
 		GuidProvider = DomainMockFactory.CreateGuidProvider();

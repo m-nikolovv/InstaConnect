@@ -12,8 +12,8 @@ internal static class WebApplicationExtensions
 		{
 			return application
 				.UseCorsPolicies()
-				.UseRateLimiterPolicies()
 				.UseAccessTokens()
+				.UseRateLimiterPolicies()
 				.MapApiControllers()
 				.UseExceptions()
 				.MapHealthCheckEndpoints();

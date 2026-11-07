@@ -30,11 +30,11 @@ internal class ChatMessageQueryRepository : IChatMessageQueryRepository
 
 		return await _collection
 			.AggregateFluent()
-			.ApplyIncludes(messageInclude)
 			.Match(filter)
-			.ProjectToResponseWithoutChat(currentUser)
 			.ApplySorting(sorting)
 			.ApplyPagination(pagination)
+			.ApplyIncludes(messageInclude)
+			.ProjectToResponseWithoutChat(currentUser)
 			.ToListAsync(cancellationToken);
 	}
 
@@ -42,11 +42,8 @@ internal class ChatMessageQueryRepository : IChatMessageQueryRepository
 		ChatMessagesFilterQuery filter,
 		CancellationToken cancellationToken)
 	{
-		var messageInclude = _messageIncludeBuilderFactory.Create().WithSender().WithChatMessageImages().Build();
-
 		return await _collection
 			.AggregateFluent()
-			.ApplyIncludes(messageInclude)
 			.Match(filter)
 			.GetCountAsync(cancellationToken);
 	}
@@ -56,13 +53,13 @@ internal class ChatMessageQueryRepository : IChatMessageQueryRepository
 		CurrentUserQuery currentUser,
 		CancellationToken cancellationToken)
 	{
-		var include = _includeBuilderFactory.Create().WithParticipantOne().WithParticipantTwo().Build();
+		var include = _includeBuilderFactory.Create().WithParticipantOne().WithParticipantTwo().WithChatMessages().Build();
 		var messageInclude = _messageIncludeBuilderFactory.Create().WithSender().WithChat(include).WithChatMessageImages().Build();
 
 		return await _collection
 			.AggregateFluent()
-			.ApplyIncludes(messageInclude)
 			.Match(id)
+			.ApplyIncludes(messageInclude)
 			.ProjectToFullResponse(currentUser)
 			.FirstOrDefaultAsync(cancellationToken);
 	}

@@ -13,4 +13,12 @@ public static class RefreshTokenMatchAssertions
 			response.ShouldSatisfy(p => p.Matches(id, refreshToken));
 		}
 	}
+
+	extension(ICollection<RefreshToken> response)
+	{
+		public void ShouldSatisfy(ICollection<RefreshTokenId> ids, ICollection<RefreshToken> refreshTokens)
+		{
+			response.ShouldSatisfy(p => p.Matches(ids, refreshTokens));
+		}
+	}
 }

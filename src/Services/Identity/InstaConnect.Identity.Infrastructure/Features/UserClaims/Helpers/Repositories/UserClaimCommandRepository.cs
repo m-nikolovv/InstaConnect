@@ -22,8 +22,8 @@ internal class UserClaimCommandRepository : IUserClaimCommandRepository
 	{
 		return await _collection
 			.AggregateFluent()
-			.ApplyIncludes(include)
 			.Match(id)
+			.ApplyIncludes(include)
 			.FirstOrDefaultAsync(cancellationToken);
 	}
 
@@ -34,6 +34,16 @@ internal class UserClaimCommandRepository : IUserClaimCommandRepository
 		var include = _includeBuilderFactory.Create().Build();
 
 		return await GetByIdAsync(id, include, cancellationToken);
+	}
+
+	public async Task<ICollection<UserClaim>> GetByIdRangeAsync(
+		IEnumerable<UserClaimId> ids,
+		CancellationToken cancellationToken)
+	{
+		return await _collection
+			.AggregateFluent()
+			.Match(ids)
+			.ToListAsync(cancellationToken);
 	}
 
 	public async Task<bool> ExistsByIdAsync(

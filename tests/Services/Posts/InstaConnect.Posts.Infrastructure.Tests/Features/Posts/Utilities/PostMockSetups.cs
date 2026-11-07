@@ -14,6 +14,13 @@ public static class PostMockSetups
 		}
 
 		public void SetupAggregateFluent(
+			ICollection<PostId> ids,
+			IPostFluent fluent)
+		{
+			collection.SetupAggregateFluent(fluent);
+		}
+
+		public void SetupAggregateFluent(
 			PostId id,
 			CurrentUserQuery currentUserQuery,
 			IPostFluent fluent)
@@ -95,6 +102,13 @@ public static class PostMockSetups
 		}
 
 		public void SetupApplyIncludes(
+			ICollection<PostId> ids,
+			PostInclude include)
+		{
+			fluent.SetupApplyIncludes(include);
+		}
+
+		public void SetupApplyIncludes(
 			PostId id,
 			CurrentUserQuery currentUserQuery,
 			PostInclude include)
@@ -144,6 +158,11 @@ public static class PostMockSetups
 		public void SetupMatch(PostId id)
 		{
 			fluent.Match(id).ReturnsResponse(fluent);
+		}
+
+		public void SetupMatch(ICollection<PostId> ids)
+		{
+			fluent.Match(ids).ReturnsResponse(fluent);
 		}
 
 		public void SetupMatch(
@@ -239,10 +258,15 @@ public static class PostMockSetups
 		{
 			fluent.SetupFirstOrDefaultAsync(post, cancellationToken);
 		}
-	}
 
-	extension(IPostResponseFluent fluent)
-	{
+		public void SetupToListAsync(
+			ICollection<PostId> ids,
+			ICollection<Post> posts,
+			CancellationToken cancellationToken)
+		{
+			fluent.SetupToListAsync(posts, cancellationToken);
+		}
+
 		public void SetupApplySorting(
 			PostsFilterQuery filterQuery,
 			PostsSortingQuery sortingQuery,
@@ -293,7 +317,10 @@ public static class PostMockSetups
 		{
 			fluent.ApplyPagination(paginationQuery).ReturnsResponse(fluent);
 		}
+	}
 
+	extension(IPostResponseFluent fluent)
+	{
 		public void SetupToListAsync(
 			PostsFilterQuery filterQuery,
 			PostsSortingQuery sortingQuery,

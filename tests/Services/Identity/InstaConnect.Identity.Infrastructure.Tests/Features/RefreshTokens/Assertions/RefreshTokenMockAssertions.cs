@@ -14,6 +14,11 @@ public static class RefreshTokenMockAssertions
 			collection.ShouldHaveReceivedOneAggregateFluent();
 		}
 
+		public void ShouldHaveReceivedOneAggregateFluent(ICollection<RefreshTokenId> ids)
+		{
+			collection.ShouldHaveReceivedOneAggregateFluent();
+		}
+
 		public void ShouldHaveReceivedOneAggregateFluent()
 		{
 			collection.ShouldHaveReceivedOne().AggregateFluent();
@@ -41,6 +46,11 @@ public static class RefreshTokenMockAssertions
 			fluent.ShouldHaveReceivedOne().Match(id);
 		}
 
+		public void ShouldHaveReceivedOneMatch(ICollection<RefreshTokenId> ids)
+		{
+			fluent.ShouldHaveReceivedOne().Match(ids);
+		}
+
 		public void ShouldHaveReceivedOneApplyIncludes(
 			RefreshTokenId id,
 			RefreshTokenInclude include)
@@ -58,6 +68,13 @@ public static class RefreshTokenMockAssertions
 			CancellationToken cancellationToken)
 		{
 			await fluent.ShouldHaveReceivedOneFirstOrDefaultAsync(cancellationToken);
+		}
+
+		public async Task ShouldHaveReceivedOneToListAsync(
+			ICollection<RefreshTokenId> ids,
+			CancellationToken cancellationToken)
+		{
+			await fluent.ShouldHaveReceivedOneToListAsync(cancellationToken);
 		}
 	}
 }

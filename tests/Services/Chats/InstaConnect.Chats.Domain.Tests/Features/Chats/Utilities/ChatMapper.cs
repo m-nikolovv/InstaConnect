@@ -21,6 +21,7 @@ public static class ChatMapper
 			return new(chat.Id,
 					   chat.ParticipantOne?.ToFullResponse(),
 					   chat.ParticipantTwo?.ToFullResponse(),
+					   chat.ChatMessages.Count,
 					   chat.CreatedAtUtc);
 		}
 
@@ -29,6 +30,7 @@ public static class ChatMapper
 			return new(chat.Id,
 					   null,
 					   chat.ParticipantTwo?.ToFullResponse(),
+					   chat.ChatMessages.Count,
 					   chat.CreatedAtUtc);
 		}
 

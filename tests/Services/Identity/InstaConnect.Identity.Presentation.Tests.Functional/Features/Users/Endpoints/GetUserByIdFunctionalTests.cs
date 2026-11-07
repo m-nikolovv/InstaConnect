@@ -14,11 +14,6 @@ public class GetUserByIdFunctionalTests : BaseUserPresentationQueryFunctionalTes
 		_request = _requestBuilder.Build();
 	}
 
-	protected override async Task OnInitializeAsync()
-	{
-		await ServiceScope.AddAsync(User, CancellationToken);
-	}
-
 	[Theory]
 	[UserIdTooShortData]
 	[UserIdTooLongData]

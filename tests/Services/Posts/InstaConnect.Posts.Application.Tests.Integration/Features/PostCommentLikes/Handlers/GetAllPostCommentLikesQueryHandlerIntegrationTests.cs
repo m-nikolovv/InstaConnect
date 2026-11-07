@@ -22,11 +22,6 @@ public class GetAllPostCommentLikesQueryHandlerIntegrationTests : BasePostCommen
 		_request = _requestBuilder.Build();
 	}
 
-	protected override async Task OnInitializeAsync()
-	{
-		await ServiceScope.AddRangeAsync(PostCommentLikes, CancellationToken);
-	}
-
 	[Theory]
 	[PostIdNullWithMessageData]
 	[PostIdEmptyWithMessageData]

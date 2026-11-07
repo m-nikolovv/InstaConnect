@@ -2,7 +2,7 @@ using InstaConnect.Follows.Infrastructure.Features.Follows.Extensions;
 
 namespace InstaConnect.Follows.Infrastructure.Features.Follows.Helpers.Collections;
 
-internal class FollowCollection : MongoDbCollection<Follow>, IFollowCollection
+internal class FollowCollection : MongoDbCollection<Follow, FollowId>, IFollowCollection
 {
 	private readonly IFollowFluentFactory _fluentFactory;
 
@@ -26,5 +26,12 @@ internal class FollowCollection : MongoDbCollection<Follow>, IFollowCollection
 		CancellationToken cancellationToken)
 	{
 		await DeleteAsync(entity.Id.GetFilter(), cancellationToken);
+	}
+
+	public async Task CascadeDeleteAsync(
+		FilterDefinition<Follow> filter,
+		CancellationToken cancellationToken)
+	{
+		await DeleteRangeAsync(filter, cancellationToken);
 	}
 }

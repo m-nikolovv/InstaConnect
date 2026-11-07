@@ -22,6 +22,16 @@ public static class UserClaimEquals
 		}
 	}
 
+	extension(ICollection<UserClaim> p)
+	{
+		public bool Matches(
+			ICollection<UserClaimId> ids,
+			ICollection<UserClaim> userClaims)
+		{
+			return p.Matches(userClaims);
+		}
+	}
+
 	extension(UserClaimResponse? response)
 	{
 		public bool MatchesFull(UserClaim? userClaim)

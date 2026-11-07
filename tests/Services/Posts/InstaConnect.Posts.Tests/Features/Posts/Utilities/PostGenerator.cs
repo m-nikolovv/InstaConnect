@@ -4,6 +4,18 @@ public static class PostGenerator
 {
 	extension(Post basePost)
 	{
+		public ICollection<Post> GenerateAttached(IEnumerable<User> users, int numberOfIterations = 3)
+		{
+			var posts = basePost.Generate(users, numberOfIterations);
+
+			foreach (var post in posts.Where(p => p != basePost))
+			{
+				post.User!.AddPost(post);
+			}
+
+			return posts;
+		}
+
 		public ICollection<Post> Generate(IEnumerable<User> users, int numberOfIterations = 3)
 		{
 			return [basePost, .. users
@@ -20,7 +32,6 @@ public static class PostGenerator
 						PostDataFaker.GetUpdatedAtUtc());
 
 					post.AddUser(user);
-					user.AddPost(post);
 
 					return post;
 				}))];

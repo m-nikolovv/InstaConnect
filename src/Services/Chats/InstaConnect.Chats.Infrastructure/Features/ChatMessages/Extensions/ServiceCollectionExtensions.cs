@@ -23,8 +23,8 @@ internal static class ServiceCollectionExtensions
 				cm.MapMember(c => c.SenderId);
 				cm.MapMember(c => c.Content);
 				cm.MapMember(c => c.Summary);
-				cm.MapMember(c => c.CreatedAtUtc);
-				cm.MapMember(c => c.UpdatedAtUtc);
+				cm.MapDateTimeMember(c => c.CreatedAtUtc);
+				cm.MapDateTimeMember(c => c.UpdatedAtUtc);
 
 				cm.MapMemberWithoutSerialization(c => c.Chat);
 				cm.MapMemberWithoutSerialization(c => c.Sender);
@@ -38,7 +38,7 @@ internal static class ServiceCollectionExtensions
 					c.CreatedAtUtc,
 					c.UpdatedAtUtc));
 
-				cm.SetIgnoreExtraElements(true);
+				cm.IgnoreExtraElements();
 			});
 
 			return serviceCollection;

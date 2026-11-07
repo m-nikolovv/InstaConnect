@@ -4,6 +4,18 @@ public static class UserClaimGenerator
 {
 	extension(UserClaim baseUserClaim)
 	{
+		public ICollection<UserClaim> GenerateAttached(IEnumerable<User> users)
+		{
+			var userClaims = baseUserClaim.Generate(users);
+
+			foreach (var userClaim in userClaims.Where(u => u != baseUserClaim))
+			{
+				userClaim.User!.AddUserClaim(userClaim);
+			}
+
+			return userClaims;
+		}
+
 		public ICollection<UserClaim> Generate(IEnumerable<User> users)
 		{
 			return [.. users
@@ -18,7 +30,6 @@ public static class UserClaimGenerator
 							   return baseUserClaim;
 						   }
 
-						   user.AddUserClaim(userClaim);
 						   userClaim.AddUser(user);
 
 						   return userClaim;

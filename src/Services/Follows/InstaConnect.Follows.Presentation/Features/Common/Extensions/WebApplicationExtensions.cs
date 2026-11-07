@@ -13,8 +13,8 @@ public static class WebApplicationExtensions
 		{
 			application
 				.UseCorsPolicies()
-				.UseRateLimiterPolicies()
 				.UseAccessTokens()
+				.UseRateLimiterPolicies()
 				.MapApiControllers()
 				.UseExceptions()
 				.MapHealthCheckEndpoints()

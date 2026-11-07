@@ -23,11 +23,6 @@ public class GetAllUsersQueryHandlerIntegrationTests : BaseUserApplicationQueryI
 		_request = _requestBuilder.Build();
 	}
 
-	protected override async Task OnInitializeAsync()
-	{
-		await ServiceScope.AddRangeAsync(Users, CancellationToken);
-	}
-
 	[Theory]
 	[UserNameTooLongWithMessageData]
 	public async Task SendAsync_ShouldThrowValidationException_WhenNameIsInvalid(

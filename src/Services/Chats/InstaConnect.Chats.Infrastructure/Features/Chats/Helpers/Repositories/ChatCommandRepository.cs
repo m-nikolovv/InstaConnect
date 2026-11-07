@@ -22,8 +22,8 @@ internal class ChatCommandRepository : IChatCommandRepository
 	{
 		return await _collection
 			.AggregateFluent()
-			.ApplyIncludes(include)
 			.Match(id)
+			.ApplyIncludes(include)
 			.FirstOrDefaultAsync(cancellationToken);
 	}
 
@@ -34,6 +34,27 @@ internal class ChatCommandRepository : IChatCommandRepository
 		var include = _includeBuilderFactory.Create().Build();
 
 		return await GetByIdAsync(id, include, cancellationToken);
+	}
+
+	public async Task<ICollection<Chat>> GetByIdRangeAsync(
+		IEnumerable<ChatId> ids,
+		ChatInclude include,
+		CancellationToken cancellationToken)
+	{
+		return await _collection
+			.AggregateFluent()
+			.Match(ids)
+			.ApplyIncludes(include)
+			.ToListAsync(cancellationToken);
+	}
+
+	public async Task<ICollection<Chat>> GetByIdRangeAsync(
+		IEnumerable<ChatId> ids,
+		CancellationToken cancellationToken)
+	{
+		var include = _includeBuilderFactory.Create().Build();
+
+		return await GetByIdRangeAsync(ids, include, cancellationToken);
 	}
 
 	public async Task<bool> ExistsByIdAsync(

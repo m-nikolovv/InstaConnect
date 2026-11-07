@@ -22,11 +22,6 @@ public class GetAllPostCommentsQueryHandlerIntegrationTests : BasePostCommentApp
 		_request = _requestBuilder.Build();
 	}
 
-	protected override async Task OnInitializeAsync()
-	{
-		await ServiceScope.AddRangeAsync(PostComments, CancellationToken);
-	}
-
 	[Theory]
 	[PostIdNullWithMessageData]
 	[PostIdEmptyWithMessageData]

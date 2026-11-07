@@ -22,11 +22,6 @@ public class GetAllUserClaimsQueryServiceIntegrationTests : BaseUserClaimDomainQ
 		_query = _queryBuilder.Build();
 	}
 
-	protected override async Task OnInitializeAsync()
-	{
-		await ServiceScope.AddRangeAsync(UserClaims, CancellationToken);
-	}
-
 	[Fact]
 	public async Task GetAllAsync_ShouldThrowUserNotFoundException_WhenUserNotFound()
 	{

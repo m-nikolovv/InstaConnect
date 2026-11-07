@@ -4,5 +4,5 @@ internal class ByFollowingNameSortTermer : IFollowsSortTermer
 {
 	public FollowsSortTerm SortTerm => FollowsSortTerm.ByFollowingName;
 
-	public Expression<Func<FollowResponse, object>> Term => p => p.Following!.Name.Value;
+	public Expression<Func<Follow, object>> Term => p => p.Following!.Name.Value;
 }

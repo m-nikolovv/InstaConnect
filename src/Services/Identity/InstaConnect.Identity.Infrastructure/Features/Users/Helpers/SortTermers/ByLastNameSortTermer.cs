@@ -4,5 +4,5 @@ internal class ByLastNameSortTermer : IUsersSortTermer
 {
 	public UsersSortTerm SortTerm => UsersSortTerm.ByLastName;
 
-	public Expression<Func<UserResponse, object>> Term => p => p.LastName;
+	public Expression<Func<User, object>> Term => p => p.LastName;
 }

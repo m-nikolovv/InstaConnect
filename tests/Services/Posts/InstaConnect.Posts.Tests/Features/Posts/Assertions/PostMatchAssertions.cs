@@ -11,4 +11,12 @@ public static class PostMatchAssertions
 			p.ShouldSatisfy(u => u.Matches(post));
 		}
 	}
+
+	extension(ICollection<Post> p)
+	{
+		public void ShouldSatisfy(ICollection<Post> posts)
+		{
+			p.ShouldSatisfy(u => u.Matches(posts));
+		}
+	}
 }

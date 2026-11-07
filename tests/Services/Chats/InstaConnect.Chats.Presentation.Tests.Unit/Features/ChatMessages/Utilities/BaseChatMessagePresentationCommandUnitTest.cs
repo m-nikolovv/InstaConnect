@@ -3,7 +3,7 @@ using InstaConnect.Chats.Tests.Features.ChatMessages.Utilities;
 
 namespace InstaConnect.Chats.Presentation.Tests.Unit.Features.ChatMessages.Utilities;
 
-public abstract class BaseChatMessagePresentationCommandUnitTest : BaseChatMessageTest
+public abstract class BaseChatMessagePresentationCommandUnitTest : BaseChatMessageCommandTest
 {
 	protected IApplicationSender Sender { get; }
 

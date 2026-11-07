@@ -11,4 +11,8 @@ public interface IChatMessageCollection : IMongoDbCollection<ChatMessage>
 	public Task DeleteAsync(
 		ChatMessage entity,
 		CancellationToken cancellationToken);
+
+	internal Task CascadeDeleteAsync(
+		FilterDefinition<ChatMessage> filter,
+		CancellationToken cancellationToken);
 }

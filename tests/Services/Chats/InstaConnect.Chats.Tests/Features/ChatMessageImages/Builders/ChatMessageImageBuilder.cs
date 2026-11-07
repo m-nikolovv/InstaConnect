@@ -1,14 +1,15 @@
 using InstaConnect.Chats.Tests.Features.ChatMessageImages.Utilities;
+using InstaConnect.Common.Tests.Features.DataAttributes.Base;
 
 namespace InstaConnect.Chats.Tests.Features.ChatMessageImages.Builders;
 
 public class ChatMessageImageBuilder
 {
 	private readonly string _url;
-	private readonly string _imageId;
-	private readonly string _messageId;
-	private readonly string _participantOneId;
-	private readonly string _participantTwoId;
+	private string _imageId;
+	private string _messageId;
+	private string _participantOneId;
+	private string _participantTwoId;
 	private readonly ChatMessage _chatMessage;
 	private readonly DateTimeOffset _createdAtUtc;
 
@@ -34,6 +35,50 @@ public class ChatMessageImageBuilder
 		_createdAtUtc = chatMessageImage.CreatedAtUtc;
 	}
 
+	public ChatMessageImageBuilder WithParticipantOneId(IStringTransformer transformer)
+	{
+		_participantOneId = transformer.Transform(_participantOneId);
+
+		return this;
+	}
+
+	public ChatMessageImageBuilder WithParticipantTwoId(IStringTransformer transformer)
+	{
+		_participantTwoId = transformer.Transform(_participantTwoId);
+
+		return this;
+	}
+
+	public ChatMessageImageBuilder WithMessageId(IStringTransformer transformer)
+	{
+		_messageId = transformer.Transform(_messageId);
+
+		return this;
+	}
+
+	public ChatMessageImageBuilder WithImageId(ChatMessageImageId imageId, IStringTransformer? transformer = null)
+	{
+		_imageId = transformer.TryTransform(imageId.ImageId);
+
+		return this;
+	}
+
+	public ChatMessageImageBuilder WithImageId(IStringTransformer transformer)
+	{
+		_imageId = transformer.Transform(_imageId);
+
+		return this;
+	}
+
+	public ChatMessageImage BuildAttached()
+	{
+		var chatMessageImage = Build();
+
+		_chatMessage.AddChatMessageImage(chatMessageImage);
+
+		return chatMessageImage;
+	}
+
 	public ChatMessageImage Build()
 	{
 		var chatMessageImage = new ChatMessageImage(
@@ -47,7 +92,6 @@ public class ChatMessageImageBuilder
 				new(_url),
 				_createdAtUtc);
 
-		_chatMessage.AddChatMessageImage(chatMessageImage);
 		chatMessageImage.AddChatMessage(_chatMessage);
 
 		return chatMessageImage;

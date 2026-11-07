@@ -4,7 +4,7 @@ using InstaConnect.Chats.Tests.Features.ChatMessageImages.Utilities;
 
 namespace InstaConnect.Chats.Infrastructure.Tests.Unit.Features.ChatMessageImages.Utilities;
 
-public abstract class BaseChatMessageImageInfrastructureCommandUnitTest : BaseChatMessageImageTest
+public abstract class BaseChatMessageImageInfrastructureCommandUnitTest : BaseChatMessageImageCommandTest
 {
 	protected IChatMessageImageFluent Fluent { get; }
 

@@ -6,5 +6,6 @@ namespace InstaConnect.Identity.Infrastructure.Features.RefreshTokens.Abstractio
 public interface IRefreshTokenFluent : IMongoDbFluent<RefreshToken>
 {
 	public IRefreshTokenFluent Match(RefreshTokenId filter);
+	public IRefreshTokenFluent Match(IEnumerable<RefreshTokenId> filter);
 	public IRefreshTokenFluent ApplyIncludes(RefreshTokenInclude include);
 }

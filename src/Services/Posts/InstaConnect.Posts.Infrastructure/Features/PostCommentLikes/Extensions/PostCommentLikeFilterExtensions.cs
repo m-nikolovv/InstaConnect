@@ -42,4 +42,37 @@ internal static class PostCommentLikeFilterExtensions
 			return Builders<T>.Filter.And(commentId, userId);
 		}
 	}
+
+	extension(IEnumerable<PostCommentLikeId> filter)
+	{
+		public FilterDefinition<PostCommentLike> GetFilter()
+		{
+			return filter.GetFilterForIdRange<PostCommentLike>(
+				p => p.Id.CommentId.Id.Id, p => p.Id.CommentId.CommentId, p => p.Id.UserId.Id);
+		}
+
+		public FilterDefinition<T> GetFilterForIdRange<T>(
+			Expression<Func<T, object>> idField,
+			Expression<Func<T, object>> commentIdField,
+			Expression<Func<T, object>> userIdField)
+		{
+			return Builders<T>.Filter.Or(filter.Select(item => item.GetFilterForIdEquals(idField, commentIdField, userIdField)));
+		}
+	}
+
+	extension(IEnumerable<PostCommentId> filter)
+	{
+		public FilterDefinition<PostCommentLike> GetPostCommentLikeCascadeFilter()
+		{
+			return filter.GetFilterForIdRange<PostCommentLike>(p => p.Id.CommentId.Id.Id, p => p.Id.CommentId.CommentId);
+		}
+	}
+
+	extension(UserId filter)
+	{
+		public FilterDefinition<PostCommentLike> GetPostCommentLikeCascadeFilter()
+		{
+			return filter.GetFilterForIdEquals<PostCommentLike>(p => p.Id.UserId.Id);
+		}
+	}
 }

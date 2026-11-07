@@ -1,8 +1,10 @@
+using InstaConnect.Common.Tests.Features.DataAttributes.Base;
+
 namespace InstaConnect.Identity.Tests.Features.ForgotPasswordTokens.Builders;
 
 public class ForgotPasswordTokenBuilder
 {
-	private readonly string _id;
+	private string _id;
 	private readonly User _user;
 	private string _value;
 	private DateTimeOffset _expiresAtUtc;
@@ -26,9 +28,23 @@ public class ForgotPasswordTokenBuilder
 		_createdAtUtc = forgotPasswordToken.CreatedAtUtc;
 	}
 
-	public ForgotPasswordTokenBuilder WithValue(ForgotPasswordTokenId value)
+	public ForgotPasswordTokenBuilder WithId(IStringTransformer transformer)
 	{
-		_value = value.Value;
+		_id = transformer.Transform(_id);
+
+		return this;
+	}
+
+	public ForgotPasswordTokenBuilder WithValue(ForgotPasswordTokenId value, IStringTransformer? transformer = null)
+	{
+		_value = transformer.TryTransform(value.Value);
+
+		return this;
+	}
+
+	public ForgotPasswordTokenBuilder WithValue(IStringTransformer transformer)
+	{
+		_value = transformer.Transform(_value);
 
 		return this;
 	}
@@ -38,6 +54,15 @@ public class ForgotPasswordTokenBuilder
 		_expiresAtUtc = DataFaker.GetPastDate(_expiresAtUtc);
 
 		return this;
+	}
+
+	public ForgotPasswordToken BuildAttached()
+	{
+		var forgotPasswordToken = Build();
+
+		_user.AddForgotPasswordToken(forgotPasswordToken);
+
+		return forgotPasswordToken;
 	}
 
 	public ForgotPasswordToken Build()
@@ -50,7 +75,6 @@ public class ForgotPasswordTokenBuilder
 			_createdAtUtc);
 
 		forgotPasswordToken.AddUser(_user);
-		_user.AddForgotPasswordToken(forgotPasswordToken);
 
 		return forgotPasswordToken;
 	}

@@ -2,7 +2,7 @@ using InstaConnect.Posts.Presentation.Features.PostComments.Controllers.v1;
 
 namespace InstaConnect.Posts.Presentation.Tests.Integration.Features.PostComments.Utilities;
 
-public abstract class BasePostCommentPresentationQueryIntegrationTest : BasePostCommentWebTest
+public abstract class BasePostCommentPresentationQueryIntegrationTest : BasePostCommentWebQueryTest
 {
 	protected PostCommentController Controller { get; }
 
@@ -12,16 +12,5 @@ public abstract class BasePostCommentPresentationQueryIntegrationTest : BasePost
 	{
 		Controller = ServiceScope.GetPostCommentController();
 		UserController = ServiceScope.GetUserPostCommentController();
-	}
-
-	public override async Task InitializeAsync()
-	{
-		await ServiceScope.AddRangeAsync(Users, CancellationToken);
-		await ServiceScope.AddRangeAsync(Posts, CancellationToken);
-		await ServiceScope.AddRangeAsync(PostLikes, CancellationToken);
-		await ServiceScope.AddRangeAsync(PostCommentLikes, CancellationToken);
-		await ServiceScope.AddRangeAsync(PostImages, CancellationToken);
-		await ServiceScope.AddRangeAsync(PostCommentImages, CancellationToken);
-		await OnInitializeAsync();
 	}
 }

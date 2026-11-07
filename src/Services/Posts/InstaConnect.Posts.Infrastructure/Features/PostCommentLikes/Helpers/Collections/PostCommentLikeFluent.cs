@@ -6,16 +6,28 @@ namespace InstaConnect.Posts.Infrastructure.Features.PostCommentLikes.Helpers.Co
 
 internal class PostCommentLikeFluent : MongoDbFluent<PostCommentLike>, IPostCommentLikeFluent
 {
+	private readonly IPaginator _paginator;
+	private readonly ISortOrdererFactory _sortOrdererFactory;
 	private readonly IPostCommentLikeIncluderFactory _includerFactory;
+	private readonly IPostCommentLikesSortTermerFactory _sortTermerFactory;
 	private readonly IPostCommentLikeResponseFluentFactory _responseFluentFactory;
+	private readonly IPostCommentLikesForUserSortTermerFactory _forUserSortTermerFactory;
 
 	public PostCommentLikeFluent(
+		IPaginator paginator,
+		ISortOrdererFactory sortOrdererFactory,
 		IAggregateFluent<PostCommentLike> fluent,
 		IPostCommentLikeIncluderFactory includerFactory,
-		IPostCommentLikeResponseFluentFactory responseFluentFactory) : base(fluent)
+		IPostCommentLikesSortTermerFactory sortTermerFactory,
+		IPostCommentLikeResponseFluentFactory responseFluentFactory,
+		IPostCommentLikesForUserSortTermerFactory forUserSortTermerFactory) : base(fluent)
 	{
+		_paginator = paginator;
 		_includerFactory = includerFactory;
+		_sortTermerFactory = sortTermerFactory;
+		_sortOrdererFactory = sortOrdererFactory;
 		_responseFluentFactory = responseFluentFactory;
+		_forUserSortTermerFactory = forUserSortTermerFactory;
 	}
 
 	public IPostCommentLikeFluent ApplyIncludes(PostCommentLikeInclude include)
@@ -42,6 +54,34 @@ internal class PostCommentLikeFluent : MongoDbFluent<PostCommentLike>, IPostComm
 	public IPostCommentLikeFluent Match(PostCommentLikeId filter)
 	{
 		Match(filter.GetFilter());
+
+		return this;
+	}
+
+	public IPostCommentLikeFluent Match(IEnumerable<PostCommentLikeId> filter)
+	{
+		Match(filter.GetFilter());
+
+		return this;
+	}
+
+	public IPostCommentLikeFluent ApplySorting(PostCommentLikesSortingQuery query)
+	{
+		ApplySorting(_sortOrdererFactory, _sortTermerFactory, query);
+
+		return this;
+	}
+
+	public IPostCommentLikeFluent ApplySorting(PostCommentLikesForUserSortingQuery query)
+	{
+		ApplySorting(_sortOrdererFactory, _forUserSortTermerFactory, query);
+
+		return this;
+	}
+
+	public IPostCommentLikeFluent ApplyPagination(PostCommentLikesPaginationQuery query)
+	{
+		ApplyPagination(_paginator, query);
 
 		return this;
 	}
@@ -98,6 +138,8 @@ internal class PostCommentLikeFluent : MongoDbFluent<PostCommentLike>, IPostComm
 									pi.CreatedAtUtc)).ToList(),
 							p.PostComment.Post.PostLikes != null && p.PostComment.Post.PostLikes.Any(
 								pl => pl.Id.UserId.Id.ToLower() == currentUserId),
+							p.PostComment.Post.PostLikes!.Count,
+							p.PostComment.Post.PostComments.Count,
 							p.PostComment.Post.CreatedAtUtc,
 							p.PostComment.Post.UpdatedAtUtc),
 					p.PostComment.PostCommentImages.Select(
@@ -107,6 +149,7 @@ internal class PostCommentLikeFluent : MongoDbFluent<PostCommentLike>, IPostComm
 							pi.CreatedAtUtc)).ToList(),
 					p.PostComment.PostCommentLikes != null && p.PostComment.PostCommentLikes.Any(
 						pl => pl.Id.UserId.Id.ToLower() == currentUserId),
+					p.PostComment.PostCommentLikes!.Count,
 					p.PostComment.CreatedAtUtc,
 					p.PostComment.UpdatedAtUtc),
 				p.CreatedAtUtc));
@@ -159,6 +202,8 @@ internal class PostCommentLikeFluent : MongoDbFluent<PostCommentLike>, IPostComm
 									pi.CreatedAtUtc)).ToList(),
 							p.PostComment.Post.PostLikes != null && p.PostComment.Post.PostLikes.Any(
 								pl => pl.Id.UserId.Id.ToLower() == currentUserId),
+							p.PostComment.Post.PostLikes!.Count,
+							p.PostComment.Post.PostComments.Count,
 							p.PostComment.Post.CreatedAtUtc,
 							p.PostComment.Post.UpdatedAtUtc),
 					p.PostComment.PostCommentImages.Select(
@@ -168,6 +213,7 @@ internal class PostCommentLikeFluent : MongoDbFluent<PostCommentLike>, IPostComm
 							pi.CreatedAtUtc)).ToList(),
 					p.PostComment.PostCommentLikes != null && p.PostComment.PostCommentLikes.Any(
 						pl => pl.Id.UserId.Id.ToLower() == currentUserId),
+					p.PostComment.PostCommentLikes!.Count,
 					p.PostComment.CreatedAtUtc,
 					p.PostComment.UpdatedAtUtc),
 				p.CreatedAtUtc));

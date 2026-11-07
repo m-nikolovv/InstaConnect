@@ -4,5 +4,5 @@ internal class ByCreatedAtSortTermer : IPostLikesSortTermer
 {
 	public PostLikesSortTerm SortTerm => PostLikesSortTerm.ByCreatedAt;
 
-	public Expression<Func<PostLikeResponse, object>> Term => p => p.CreatedAtUtc;
+	public Expression<Func<PostLike, object>> Term => p => p.CreatedAtUtc;
 }

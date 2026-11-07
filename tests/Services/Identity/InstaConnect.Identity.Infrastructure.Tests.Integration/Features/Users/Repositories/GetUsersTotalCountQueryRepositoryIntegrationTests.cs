@@ -19,11 +19,6 @@ public class GetUsersTotalCountQueryRepositoryIntegrationTests : BaseUserInfrast
 		_filterQuery = _filterQueryBuilder.Build();
 	}
 
-	protected override async Task OnInitializeAsync()
-	{
-		await ServiceScope.AddRangeAsync(Users, CancellationToken);
-	}
-
 	[Fact]
 	public async Task GetTotalCountAsync_ShouldReturnResponse_WhenQueryIsValid()
 	{

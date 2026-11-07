@@ -3,7 +3,7 @@ using InstaConnect.Identity.Tests.Features.Users.Utilities;
 
 namespace InstaConnect.Identity.Infrastructure.Tests.Unit.Features.Users.Utilities;
 
-public abstract class BaseUserInfrastructureQueryUnitTest : BaseUserTest
+public abstract class BaseUserInfrastructureQueryUnitTest : BaseUserQueryTest
 {
 	protected IUserFluent Fluent { get; }
 

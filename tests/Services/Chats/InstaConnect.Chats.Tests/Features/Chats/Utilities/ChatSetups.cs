@@ -48,6 +48,15 @@ public static class ChatSetups
 			return (await serviceScope.GetCommandRepository().GetByIdAsync(id, include, cancellationToken)).SetParticipantOne().SetParticipantTwo();
 		}
 
+		public async Task<ICollection<Chat>> GetByIdRangeAsync(
+			IEnumerable<ChatId> ids,
+			CancellationToken cancellationToken)
+		{
+			var include = serviceScope.GetIncludeBuilderFactory().Create().WithParticipantOne().WithParticipantTwo().Build();
+
+			return (await serviceScope.GetCommandRepository().GetByIdRangeAsync(ids, include, cancellationToken)).SetParticipantOne().SetParticipantTwo();
+		}
+
 		public async Task AddAsync(
 			Chat chat,
 			CancellationToken cancellationToken)
@@ -67,6 +76,16 @@ public static class ChatSetups
 			CancellationToken cancellationToken)
 		{
 			await serviceScope.GetCommandRepository().DeleteAsync(chat, cancellationToken);
+		}
+
+		public async Task DeleteRangeAsync(
+			IEnumerable<Chat> chats,
+			CancellationToken cancellationToken)
+		{
+			foreach (var chat in chats)
+			{
+				await serviceScope.GetCommandRepository().DeleteAsync(chat, cancellationToken);
+			}
 		}
 	}
 }

@@ -23,12 +23,6 @@ public class GetChatMessageByIdQueryServiceIntegrationTests : BaseChatMessageDom
 		_invertedQuery = _invertedQueryBuilder.Build();
 	}
 
-	protected override async Task OnInitializeAsync()
-	{
-		await ServiceScope.AddAsync(ChatMessage, CancellationToken);
-		await ServiceScope.AddRangeAsync(ChatMessageImages, CancellationToken);
-	}
-
 	[Fact]
 	public async Task GetByIdAsync_ShouldThrowChatNotFoundException_WhenChatNotFound()
 	{

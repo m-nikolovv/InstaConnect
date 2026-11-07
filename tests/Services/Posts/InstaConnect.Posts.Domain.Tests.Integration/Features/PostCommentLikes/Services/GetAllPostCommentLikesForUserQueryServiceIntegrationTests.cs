@@ -18,11 +18,6 @@ public class GetAllPostCommentLikesForUserQueryServiceIntegrationTests : BasePos
 		_query = _queryBuilder.Build();
 	}
 
-	protected override async Task OnInitializeAsync()
-	{
-		await ServiceScope.AddRangeAsync(PostCommentLikes, CancellationToken);
-	}
-
 	[Fact]
 	public async Task GetAllForUserAsync_ShouldThrowUserNotFoundException_WhenUserNotFound()
 	{

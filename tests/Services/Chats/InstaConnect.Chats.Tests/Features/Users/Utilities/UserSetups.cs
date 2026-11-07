@@ -44,10 +44,7 @@ public static class UserSetups
 			UserId id,
 			CancellationToken cancellationToken)
 		{
-			var chatInclude = serviceScope.GetIncludeBuilderFactory().Create().WithParticipantOne().WithParticipantTwo().Build();
-			var messageInclude = serviceScope.GetMessageIncludeBuilderFactory().Create().WithChat(chatInclude).Build();
-
-			var include = serviceScope.GetUserIncludeBuilderFactory().Create().WithChats(chatInclude).WithChatMessages(messageInclude).Build();
+			var include = serviceScope.GetUserIncludeBuilderFactory().Create().WithChats().WithChatMessages().Build();
 
 			return (await serviceScope.GetUserCommandRepository().GetByIdAsync(id, include, cancellationToken)).SetChats().SetChatMessages();
 		}
@@ -56,10 +53,7 @@ public static class UserSetups
 			Name name,
 			CancellationToken cancellationToken)
 		{
-			var chatInclude = serviceScope.GetIncludeBuilderFactory().Create().WithParticipantOne().WithParticipantTwo().Build();
-			var messageInclude = serviceScope.GetMessageIncludeBuilderFactory().Create().WithChat(chatInclude).Build();
-
-			var include = serviceScope.GetUserIncludeBuilderFactory().Create().WithChats(chatInclude).WithChatMessages(messageInclude).Build();
+			var include = serviceScope.GetUserIncludeBuilderFactory().Create().WithChats().WithChatMessages().Build();
 
 			return (await serviceScope.GetUserCommandRepository().GetByNameAsync(name, include, cancellationToken)).SetChats().SetChatMessages();
 		}
@@ -68,10 +62,7 @@ public static class UserSetups
 			Email email,
 			CancellationToken cancellationToken)
 		{
-			var chatInclude = serviceScope.GetIncludeBuilderFactory().Create().WithParticipantOne().WithParticipantTwo().Build();
-			var messageInclude = serviceScope.GetMessageIncludeBuilderFactory().Create().WithChat(chatInclude).Build();
-
-			var include = serviceScope.GetUserIncludeBuilderFactory().Create().WithChats(chatInclude).WithChatMessages(messageInclude).Build();
+			var include = serviceScope.GetUserIncludeBuilderFactory().Create().WithChats().WithChatMessages().Build();
 
 			return (await serviceScope.GetUserCommandRepository().GetByEmailAsync(email, include, cancellationToken)).SetChats().SetChatMessages();
 		}

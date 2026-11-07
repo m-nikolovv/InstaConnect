@@ -1,3 +1,3 @@
 namespace InstaConnect.Posts.Infrastructure.Features.Posts.Abstractions;
 
-public interface IPostsSortTermerFactory : ISortTermerFactory<PostsSortTerm, IPostsSortTermer, PostResponse>;
+public interface IPostsSortTermerFactory : ISortTermerFactory<PostsSortTerm, IPostsSortTermer, Post>;

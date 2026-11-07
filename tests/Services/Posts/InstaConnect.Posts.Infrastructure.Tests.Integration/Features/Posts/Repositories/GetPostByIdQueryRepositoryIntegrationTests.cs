@@ -16,11 +16,6 @@ public class GetPostByIdQueryRepositoryIntegrationTests : BasePostInfrastructure
 		_currentUserQuery = _currentUserQueryBuilder.Build();
 	}
 
-	protected override async Task OnInitializeAsync()
-	{
-		await ServiceScope.AddAsync(Post, CancellationToken);
-	}
-
 	[Fact]
 	public async Task GetByIdAsync_ShouldReturnNull_WhenIdIsInvalid()
 	{

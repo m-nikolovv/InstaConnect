@@ -11,6 +11,10 @@ public interface IRefreshTokenCommandRepository
 		RefreshTokenId id,
 		CancellationToken cancellationToken);
 
+	public Task<ICollection<RefreshToken>> GetByIdRangeAsync(
+		IEnumerable<RefreshTokenId> ids,
+		CancellationToken cancellationToken);
+
 	public Task AddAsync(RefreshToken entity, CancellationToken cancellationToken);
 
 	public Task AddRangeAsync(IEnumerable<RefreshToken> entities, CancellationToken cancellationToken);

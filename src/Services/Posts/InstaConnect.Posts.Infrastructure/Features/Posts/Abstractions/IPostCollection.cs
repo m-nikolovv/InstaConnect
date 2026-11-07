@@ -11,4 +11,8 @@ public interface IPostCollection : IMongoDbCollection<Post>
 	public Task DeleteAsync(
 		Post entity,
 		CancellationToken cancellationToken);
+
+	internal Task CascadeDeleteAsync(
+		FilterDefinition<Post> filter,
+		CancellationToken cancellationToken);
 }

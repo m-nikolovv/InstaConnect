@@ -28,6 +28,16 @@ public static class PostEquals
 		}
 	}
 
+	extension(ICollection<Post> p)
+	{
+		public bool Matches(
+			ICollection<PostId> ids,
+			ICollection<Post> posts)
+		{
+			return p.Matches(posts);
+		}
+	}
+
 	extension(User? u)
 	{
 		public bool MatchesFilter(PostsFilterQuery query)

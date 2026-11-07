@@ -1,6 +1,8 @@
+using InstaConnect.Identity.Domain.Features.RefreshTokens.Models.ValueObjects;
+
 namespace InstaConnect.Identity.Infrastructure.Features.RefreshTokens.Helpers.Collections;
 
-internal class RefreshTokenCollection : MongoDbCollection<RefreshToken>, IRefreshTokenCollection
+internal class RefreshTokenCollection : MongoDbCollection<RefreshToken, RefreshTokenId>, IRefreshTokenCollection
 {
 	private readonly IRefreshTokenFluentFactory _fluentFactory;
 
@@ -31,5 +33,12 @@ internal class RefreshTokenCollection : MongoDbCollection<RefreshToken>, IRefres
 		CancellationToken cancellationToken)
 	{
 		await DeleteAsync(entity.Id.GetFilter(), cancellationToken);
+	}
+
+	public async Task CascadeDeleteAsync(
+		FilterDefinition<RefreshToken> filter,
+		CancellationToken cancellationToken)
+	{
+		await DeleteRangeAsync(filter, cancellationToken);
 	}
 }

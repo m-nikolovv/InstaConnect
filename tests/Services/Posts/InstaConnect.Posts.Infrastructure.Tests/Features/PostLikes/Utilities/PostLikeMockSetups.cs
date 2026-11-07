@@ -15,6 +15,13 @@ public static class PostLikeMockSetups
 		}
 
 		public void SetupAggregateFluent(
+			ICollection<PostLikeId> ids,
+			IPostLikeFluent fluent)
+		{
+			collection.SetupAggregateFluent(fluent);
+		}
+
+		public void SetupAggregateFluent(
 			PostLikeId id,
 			CurrentUserQuery currentUserQuery,
 			IPostLikeFluent fluent)
@@ -96,6 +103,13 @@ public static class PostLikeMockSetups
 		}
 
 		public void SetupApplyIncludes(
+			ICollection<PostLikeId> ids,
+			PostLikeInclude include)
+		{
+			fluent.SetupApplyIncludes(include);
+		}
+
+		public void SetupApplyIncludes(
 			PostLikeId id,
 			CurrentUserQuery currentUserQuery,
 			PostLikeInclude include)
@@ -145,6 +159,11 @@ public static class PostLikeMockSetups
 		public void SetupMatch(PostLikeId id)
 		{
 			fluent.Match(id).ReturnsResponse(fluent);
+		}
+
+		public void SetupMatch(ICollection<PostLikeId> ids)
+		{
+			fluent.Match(ids).ReturnsResponse(fluent);
 		}
 
 		public void SetupMatch(
@@ -238,10 +257,15 @@ public static class PostLikeMockSetups
 		{
 			fluent.SetupFirstOrDefaultAsync(postLike, cancellationToken);
 		}
-	}
 
-	extension(IPostLikeResponseFluent fluent)
-	{
+		public void SetupToListAsync(
+			ICollection<PostLikeId> ids,
+			ICollection<PostLike> postLikes,
+			CancellationToken cancellationToken)
+		{
+			fluent.SetupToListAsync(postLikes, cancellationToken);
+		}
+
 		public void SetupApplySorting(
 			PostLikesFilterQuery filterQuery,
 			PostLikesSortingQuery sortingQuery,
@@ -292,7 +316,10 @@ public static class PostLikeMockSetups
 		{
 			fluent.ApplyPagination(paginationQuery).ReturnsResponse(fluent);
 		}
+	}
 
+	extension(IPostLikeResponseFluent fluent)
+	{
 		public void SetupToListAsync(
 			PostLikesFilterQuery filterQuery,
 			PostLikesSortingQuery sortingQuery,

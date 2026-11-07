@@ -16,7 +16,7 @@ public class GetChatByIdQueryRepositoryUnitTests : BaseChatInfrastructureQueryUn
 		_currentUserQueryBuilder = _currentUserQueryBuilderFactory.Create(ParticipantOne);
 		_currentUserQuery = _currentUserQueryBuilder.Build();
 
-		_include = IncludeBuilderFactory.Create().WithParticipantOne().WithParticipantTwo().Build();
+		_include = IncludeBuilderFactory.Create().WithParticipantOne().WithParticipantTwo().WithChatMessages().Build();
 
 		_repository = new(Collection, IncludeBuilderFactory);
 

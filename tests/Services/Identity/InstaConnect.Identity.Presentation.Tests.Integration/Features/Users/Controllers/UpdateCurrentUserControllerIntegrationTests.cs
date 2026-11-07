@@ -24,7 +24,6 @@ public class UpdateCurrentUserControllerIntegrationTests : BaseUserPresentationC
 	protected override async Task OnInitializeAsync()
 	{
 		await ServiceScope.AddAsync(User, CancellationToken);
-		await ServiceScope.AddRangeAsync(User.EmailConfirmationTokens, CancellationToken);
 	}
 
 	[Theory]
@@ -898,7 +897,7 @@ public class UpdateCurrentUserControllerIntegrationTests : BaseUserPresentationC
 		var eventRequests = await EmailConfirmationTokenEventClient.PublishedDeletedRangeAsync(CancellationToken);
 
 		// Assert
-		eventRequests.ShouldSatisfy(_request, User.EmailConfirmationTokens.AddUser(user));
+		eventRequests.ShouldSatisfy(_request, UserEmailConfirmationTokens.AddUser(user));
 	}
 
 	[Theory]
@@ -915,7 +914,7 @@ public class UpdateCurrentUserControllerIntegrationTests : BaseUserPresentationC
 		var eventRequests = await EmailConfirmationTokenEventClient.PublishedDeletedRangeAsync(CancellationToken);
 
 		// Assert
-		eventRequests.ShouldSatisfy(request, User.EmailConfirmationTokens.AddUser(user));
+		eventRequests.ShouldSatisfy(request, UserEmailConfirmationTokens.AddUser(user));
 	}
 
 	[Theory]
@@ -932,7 +931,7 @@ public class UpdateCurrentUserControllerIntegrationTests : BaseUserPresentationC
 		var eventRequests = await EmailConfirmationTokenEventClient.PublishedDeletedRangeAsync(CancellationToken);
 
 		// Assert
-		eventRequests.ShouldSatisfy(request, User.EmailConfirmationTokens.AddUser(user));
+		eventRequests.ShouldSatisfy(request, UserEmailConfirmationTokens.AddUser(user));
 	}
 
 	[Fact]
@@ -947,7 +946,7 @@ public class UpdateCurrentUserControllerIntegrationTests : BaseUserPresentationC
 		var eventRequests = await EmailConfirmationTokenEventClient.PublishedDeletedRangeAsync(CancellationToken);
 
 		// Assert
-		eventRequests.ShouldSatisfy(request, User.EmailConfirmationTokens.AddUser(user));
+		eventRequests.ShouldSatisfy(request, UserEmailConfirmationTokens.AddUser(user));
 	}
 
 	[Theory]
@@ -964,7 +963,7 @@ public class UpdateCurrentUserControllerIntegrationTests : BaseUserPresentationC
 		var eventRequests = await EmailConfirmationTokenEventClient.PublishedDeletedRangeAsync(CancellationToken);
 
 		// Assert
-		eventRequests.ShouldSatisfy(request, User.EmailConfirmationTokens.AddUser(user));
+		eventRequests.ShouldSatisfy(request, UserEmailConfirmationTokens.AddUser(user));
 	}
 
 	[Theory]
@@ -981,7 +980,7 @@ public class UpdateCurrentUserControllerIntegrationTests : BaseUserPresentationC
 		var eventRequests = await EmailConfirmationTokenEventClient.PublishedDeletedRangeAsync(CancellationToken);
 
 		// Assert
-		eventRequests.ShouldSatisfy(request, User.EmailConfirmationTokens.AddUser(user));
+		eventRequests.ShouldSatisfy(request, UserEmailConfirmationTokens.AddUser(user));
 	}
 
 	[Theory]
@@ -1004,7 +1003,7 @@ public class UpdateCurrentUserControllerIntegrationTests : BaseUserPresentationC
 		var eventRequests = await EmailConfirmationTokenEventClient.PublishedDeletedRangeAsync(CancellationToken);
 
 		// Assert
-		eventRequests.ShouldSatisfy(request, User.EmailConfirmationTokens.AddUser(user));
+		eventRequests.ShouldSatisfy(request, UserEmailConfirmationTokens.AddUser(user));
 	}
 
 	[Fact]

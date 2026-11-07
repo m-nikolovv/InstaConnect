@@ -21,11 +21,6 @@ public class GetAllPostLikesForUserFunctionalTests : BasePostLikePresentationQue
 		_request = _requestBuilder.Build();
 	}
 
-	protected override async Task OnInitializeAsync()
-	{
-		await ServiceScope.AddRangeAsync(PostLikes, CancellationToken);
-	}
-
 	[Theory]
 	[UserIdTooShortData]
 	[UserIdTooLongData]

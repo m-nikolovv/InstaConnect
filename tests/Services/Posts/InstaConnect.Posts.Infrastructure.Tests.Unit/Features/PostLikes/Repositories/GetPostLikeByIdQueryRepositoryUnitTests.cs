@@ -16,7 +16,7 @@ public class GetPostLikeByIdQueryRepositoryUnitTests : BasePostLikeInfrastructur
 		_currentUserQueryBuilder = _currentUserQueryBuilderFactory.Create(User);
 		_currentUserQuery = _currentUserQueryBuilder.Build();
 
-		_include = LikeIncludeBuilderFactory.Create().WithUser().WithPost(IncludeBuilderFactory.Create().WithUser().WithPostLikes().WithPostImages().Build()).Build();
+		_include = LikeIncludeBuilderFactory.Create().WithUser().WithPost(IncludeBuilderFactory.Create().WithUser().WithPostLikes().WithPostComments().WithPostImages().Build()).Build();
 
 		_repository = new(Collection, IncludeBuilderFactory, LikeIncludeBuilderFactory);
 

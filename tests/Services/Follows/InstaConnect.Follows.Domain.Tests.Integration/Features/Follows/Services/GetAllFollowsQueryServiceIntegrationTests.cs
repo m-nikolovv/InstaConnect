@@ -19,11 +19,6 @@ public class GetAllFollowsQueryServiceIntegrationTests : BaseFollowDomainQueryIn
 		_query = _queryBuilder.Build();
 	}
 
-	protected override async Task OnInitializeAsync()
-	{
-		await ServiceScope.AddRangeAsync(Follows, CancellationToken);
-	}
-
 	[Fact]
 	public async Task GetAllAsync_ShouldThrowFollowerNotFoundException_WhenFollowerNotFound()
 	{

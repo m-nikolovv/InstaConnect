@@ -7,7 +7,7 @@ using Microsoft.Extensions.Options;
 
 namespace InstaConnect.Identity.Domain.Tests.Unit.Features.RefreshTokens.Utilities;
 
-public abstract class BaseRefreshTokenDomainCommandUnitTest : BaseRefreshTokenTest
+public abstract class BaseRefreshTokenDomainCommandUnitTest : BaseRefreshTokenCommandTest
 {
 	protected IGuidProvider GuidProvider { get; }
 

@@ -4,16 +4,28 @@ namespace InstaConnect.Follows.Infrastructure.Features.Follows.Helpers.Collectio
 
 internal class FollowFluent : MongoDbFluent<Follow>, IFollowFluent
 {
+	private readonly IPaginator _paginator;
 	private readonly IFollowIncluderFactory _includerFactory;
+	private readonly ISortOrdererFactory _sortOrdererFactory;
+	private readonly IFollowsSortTermerFactory _sortTermerFactory;
 	private readonly IFollowResponseFluentFactory _responseFluentFactory;
+	private readonly IFollowsForFollowingSortTermerFactory _forFollowingSortTermerFactory;
 
 	public FollowFluent(
+		IPaginator paginator,
 		IAggregateFluent<Follow> fluent,
 		IFollowIncluderFactory includerFactory,
-		IFollowResponseFluentFactory responseFluentFactory) : base(fluent)
+		ISortOrdererFactory sortOrdererFactory,
+		IFollowsSortTermerFactory sortTermerFactory,
+		IFollowResponseFluentFactory responseFluentFactory,
+		IFollowsForFollowingSortTermerFactory forFollowingSortTermerFactory) : base(fluent)
 	{
+		_paginator = paginator;
 		_includerFactory = includerFactory;
+		_sortTermerFactory = sortTermerFactory;
+		_sortOrdererFactory = sortOrdererFactory;
 		_responseFluentFactory = responseFluentFactory;
+		_forFollowingSortTermerFactory = forFollowingSortTermerFactory;
 	}
 
 	public IFollowFluent ApplyIncludes(FollowInclude include)
@@ -40,6 +52,34 @@ internal class FollowFluent : MongoDbFluent<Follow>, IFollowFluent
 	public IFollowFluent Match(FollowId filter)
 	{
 		Match(filter.GetFilter());
+
+		return this;
+	}
+
+	public IFollowFluent Match(IEnumerable<FollowId> filter)
+	{
+		Match(filter.GetFilter());
+
+		return this;
+	}
+
+	public IFollowFluent ApplySorting(FollowsSortingQuery query)
+	{
+		ApplySorting(_sortOrdererFactory, _sortTermerFactory, query);
+
+		return this;
+	}
+
+	public IFollowFluent ApplySorting(FollowsForFollowingSortingQuery query)
+	{
+		ApplySorting(_sortOrdererFactory, _forFollowingSortTermerFactory, query);
+
+		return this;
+	}
+
+	public IFollowFluent ApplyPagination(FollowsPaginationQuery query)
+	{
+		ApplyPagination(_paginator, query);
 
 		return this;
 	}

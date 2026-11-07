@@ -11,4 +11,8 @@ public interface IChatMessageImageCollection : IMongoDbCollection<ChatMessageIma
 	public Task DeleteRangeAsync(
 		IEnumerable<ChatMessageImage> entities,
 		CancellationToken cancellationToken);
+
+	internal Task CascadeDeleteAsync(
+		FilterDefinition<ChatMessageImage> filter,
+		CancellationToken cancellationToken);
 }

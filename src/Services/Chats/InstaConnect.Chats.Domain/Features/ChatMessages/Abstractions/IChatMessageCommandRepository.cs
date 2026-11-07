@@ -14,5 +14,9 @@ public interface IChatMessageCommandRepository
 
 	public Task<ChatMessage?> GetByIdAsync(ChatMessageId id, ChatMessageInclude include, CancellationToken cancellationToken);
 
+	public Task<ICollection<ChatMessage>> GetByIdRangeAsync(IEnumerable<ChatMessageId> ids, CancellationToken cancellationToken);
+
+	public Task<ICollection<ChatMessage>> GetByIdRangeAsync(IEnumerable<ChatMessageId> ids, ChatMessageInclude include, CancellationToken cancellationToken);
+
 	public Task<bool> ExistsByIdAsync(ChatMessageId id, CancellationToken cancellationToken);
 }

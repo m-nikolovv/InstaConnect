@@ -10,6 +10,10 @@ public class DeleteUserCommandRepositoryIntegrationTests : BaseUserInfrastructur
 	protected override async Task OnInitializeAsync()
 	{
 		await ServiceScope.AddAsync(User, CancellationToken);
+		await ServiceScope.AddRangeAsync(UserClaims, CancellationToken);
+		await ServiceScope.AddRangeAsync(RefreshTokens, CancellationToken);
+		await ServiceScope.AddRangeAsync(ForgotPasswordTokens, CancellationToken);
+		await ServiceScope.AddRangeAsync(EmailConfirmationTokens, CancellationToken);
 	}
 
 	[Fact]
@@ -21,5 +25,49 @@ public class DeleteUserCommandRepositoryIntegrationTests : BaseUserInfrastructur
 
 		// Assert
 		user.ShouldBeNull();
+	}
+
+	[Fact]
+	public async Task DeleteAsync_ShouldDeleteUserUserClaims_WhenCommandIsValid()
+	{
+		// Act
+		await Repository.DeleteAsync(User, CancellationToken);
+		var userUserClaims = await ServiceScope.GetByIdRangeAsync(UserUserClaimIds, CancellationToken);
+
+		// Assert
+		userUserClaims.ShouldBeEmpty();
+	}
+
+	[Fact]
+	public async Task DeleteAsync_ShouldDeleteUserRefreshTokens_WhenCommandIsValid()
+	{
+		// Act
+		await Repository.DeleteAsync(User, CancellationToken);
+		var userRefreshTokens = await ServiceScope.GetByIdRangeAsync(UserRefreshTokenIds, CancellationToken);
+
+		// Assert
+		userRefreshTokens.ShouldBeEmpty();
+	}
+
+	[Fact]
+	public async Task DeleteAsync_ShouldDeleteUserForgotPasswordTokens_WhenCommandIsValid()
+	{
+		// Act
+		await Repository.DeleteAsync(User, CancellationToken);
+		var userForgotPasswordTokens = await ServiceScope.GetByIdRangeAsync(UserForgotPasswordTokenIds, CancellationToken);
+
+		// Assert
+		userForgotPasswordTokens.ShouldBeEmpty();
+	}
+
+	[Fact]
+	public async Task DeleteAsync_ShouldDeleteUserEmailConfirmationTokens_WhenCommandIsValid()
+	{
+		// Act
+		await Repository.DeleteAsync(User, CancellationToken);
+		var userEmailConfirmationTokens = await ServiceScope.GetByIdRangeAsync(UserEmailConfirmationTokenIds, CancellationToken);
+
+		// Assert
+		userEmailConfirmationTokens.ShouldBeEmpty();
 	}
 }

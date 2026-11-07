@@ -2,7 +2,7 @@ using InstaConnect.Identity.Infrastructure.Features.UserClaims.Extensions;
 
 namespace InstaConnect.Identity.Infrastructure.Features.UserClaims.Helpers.Collections;
 
-internal class UserClaimCollection : MongoDbCollection<UserClaim>, IUserClaimCollection
+internal class UserClaimCollection : MongoDbCollection<UserClaim, UserClaimId>, IUserClaimCollection
 {
 	private readonly IUserClaimFluentFactory _fluentFactory;
 
@@ -26,5 +26,12 @@ internal class UserClaimCollection : MongoDbCollection<UserClaim>, IUserClaimCol
 		CancellationToken cancellationToken)
 	{
 		await DeleteAsync(entity.Id.GetFilter(), cancellationToken);
+	}
+
+	public async Task CascadeDeleteAsync(
+		FilterDefinition<UserClaim> filter,
+		CancellationToken cancellationToken)
+	{
+		await DeleteRangeAsync(filter, cancellationToken);
 	}
 }

@@ -14,11 +14,6 @@ public class GetCurrentUserByIdFunctionalTests : BaseUserPresentationQueryFuncti
 		_request = _requestBuilder.Build();
 	}
 
-	protected override async Task OnInitializeAsync()
-	{
-		await ServiceScope.AddAsync(User, CancellationToken);
-	}
-
 	[Fact]
 	public async Task GetCurrentByIdAsync_ShouldReturnUnauthorizedStatusCode_WhenRequestIsUnauthorized()
 	{

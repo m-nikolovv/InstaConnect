@@ -1,113 +1,62 @@
+using InstaConnect.Posts.Tests.Features.PostCommentImages.Builders;
+using InstaConnect.Posts.Tests.Features.PostCommentLikes.Builders;
+using InstaConnect.Posts.Tests.Features.PostComments.Builders;
 using InstaConnect.Posts.Tests.Features.PostLikes.Builders;
 
 namespace InstaConnect.Posts.Tests.Features.Posts.Utilities;
 
-public abstract class BasePostTest : BaseTest
+public abstract class BasePostTest : BasePostsTest
 {
-	protected UserBuilderFactory UserBuilderFactory { get; }
-	protected UserBuilder UserBuilder { get; }
-	protected User User { get; }
-	protected ICollection<User> Users { get; }
+	protected ICollection<PostImage> PostPostImages { get; }
+	protected PostImageIdRangeBuilderFactory PostPostImageIdRangeBuilderFactory { get; }
+	protected PostImageIdRangeBuilder PostPostImageIdRangeBuilder { get; }
+	protected ICollection<PostImageId> PostPostImageIds { get; }
 
-	protected UserIdBuilderFactory UserIdBuilderFactory { get; }
-	protected UserIdBuilder UserIdBuilder { get; }
-	protected UserId UserId { get; }
+	protected ICollection<PostLike> PostPostLikes { get; }
+	protected PostLikeIdRangeBuilderFactory PostPostLikeIdRangeBuilderFactory { get; }
+	protected PostLikeIdRangeBuilder PostPostLikeIdRangeBuilder { get; }
+	protected ICollection<PostLikeId> PostPostLikeIds { get; }
 
-	protected UserIdRangeBuilderFactory UserIdRangeBuilderFactory { get; }
-	protected UserIdRangeBuilder UserIdRangeBuilder { get; }
-	protected ICollection<UserId> UserIds { get; }
+	protected ICollection<PostComment> PostPostComments { get; }
+	protected PostCommentIdRangeBuilderFactory PostPostCommentIdRangeBuilderFactory { get; }
+	protected PostCommentIdRangeBuilder PostPostCommentIdRangeBuilder { get; }
+	protected ICollection<PostCommentId> PostPostCommentIds { get; }
 
-	protected PostBuilderFactory PostBuilderFactory { get; }
-	protected PostBuilder PostBuilder { get; }
-	protected Post Post { get; }
-	protected ICollection<Post> Posts { get; }
+	protected ICollection<PostCommentImage> PostPostCommentsPostCommentImages { get; }
+	protected PostCommentImageIdRangeBuilderFactory PostPostCommentsPostCommentImageIdRangeBuilderFactory { get; }
+	protected PostCommentImageIdRangeBuilder PostPostCommentsPostCommentImageIdRangeBuilder { get; }
+	protected ICollection<PostCommentImageId> PostPostCommentsPostCommentImageIds { get; }
 
-	protected PostIdBuilderFactory PostIdBuilderFactory { get; }
-	protected PostIdBuilder PostIdBuilder { get; }
-	protected PostId PostId { get; }
-
-	protected PostIdRangeBuilderFactory PostIdRangeBuilderFactory { get; }
-	protected PostIdRangeBuilder PostIdRangeBuilder { get; }
-	protected ICollection<PostId> PostIds { get; }
-
-	protected PostLikeBuilderFactory PostLikeBuilderFactory { get; }
-	protected PostLikeBuilder PostLikeBuilder { get; }
-	protected PostLike PostLike { get; }
-	protected ICollection<PostLike> PostLikes { get; }
-
-	protected PostLikeIdBuilderFactory PostLikeIdBuilderFactory { get; }
-	protected PostLikeIdBuilder PostLikeIdBuilder { get; }
-	protected PostLikeId PostLikeId { get; }
-
-	protected PostLikeIdRangeBuilderFactory PostLikeIdRangeBuilderFactory { get; }
-	protected PostLikeIdRangeBuilder PostLikeIdRangeBuilder { get; }
-	protected ICollection<PostLikeId> PostLikeIds { get; }
-
-	protected PostImageBuilderFactory PostImageBuilderFactory { get; }
-	protected PostImageBuilder PostImageBuilder { get; }
-	protected PostImage PostImage { get; }
-	protected ICollection<PostImage> PostImages { get; }
-
-	protected PostImageIdBuilderFactory PostImageIdBuilderFactory { get; }
-	protected PostImageIdBuilder PostImageIdBuilder { get; }
-	protected PostImageId PostImageId { get; }
-
-	protected PostImageIdRangeBuilderFactory PostImageIdRangeBuilderFactory { get; }
-	protected PostImageIdRangeBuilder PostImageIdRangeBuilder { get; }
-	protected ICollection<PostImageId> PostImageIds { get; }
+	protected ICollection<PostCommentLike> PostPostCommentsPostCommentLikes { get; }
+	protected PostCommentLikeIdRangeBuilderFactory PostPostCommentsPostCommentLikeIdRangeBuilderFactory { get; }
+	protected PostCommentLikeIdRangeBuilder PostPostCommentsPostCommentLikeIdRangeBuilder { get; }
+	protected ICollection<PostCommentLikeId> PostPostCommentsPostCommentLikeIds { get; }
 
 	protected BasePostTest()
 	{
-		UserBuilderFactory = new();
-		UserBuilder = UserBuilderFactory.Create();
-		User = UserBuilder.Build();
-		Users = User.Generate();
+		PostPostImages = [.. Post.PostImages];
+		PostPostImageIdRangeBuilderFactory = new();
+		PostPostImageIdRangeBuilder = PostPostImageIdRangeBuilderFactory.Create([.. PostPostImages.Select(p => p.Id)]);
+		PostPostImageIds = PostPostImageIdRangeBuilder.Build();
 
-		UserIdBuilderFactory = new();
-		UserIdBuilder = UserIdBuilderFactory.Create(User.Id);
-		UserId = UserIdBuilder.Build();
+		PostPostLikes = [.. Post.PostLikes];
+		PostPostLikeIdRangeBuilderFactory = new();
+		PostPostLikeIdRangeBuilder = PostPostLikeIdRangeBuilderFactory.Create([.. PostPostLikes.Select(p => p.Id)]);
+		PostPostLikeIds = PostPostLikeIdRangeBuilder.Build();
 
-		UserIdRangeBuilderFactory = new();
-		UserIdRangeBuilder = UserIdRangeBuilderFactory.Create([.. Users.Select(p => p.Id)]);
-		UserIds = UserIdRangeBuilder.Build();
+		PostPostComments = [.. Post.PostComments];
+		PostPostCommentIdRangeBuilderFactory = new();
+		PostPostCommentIdRangeBuilder = PostPostCommentIdRangeBuilderFactory.Create([.. PostPostComments.Select(p => p.Id)]);
+		PostPostCommentIds = PostPostCommentIdRangeBuilder.Build();
 
-		PostBuilderFactory = new();
-		PostBuilder = PostBuilderFactory.Create(User);
-		Post = PostBuilder.Build();
-		Posts = Post.Generate(Users);
+		PostPostCommentsPostCommentImages = [.. Post.PostComments.SelectMany(p => p.PostCommentImages)];
+		PostPostCommentsPostCommentImageIdRangeBuilderFactory = new();
+		PostPostCommentsPostCommentImageIdRangeBuilder = PostPostCommentsPostCommentImageIdRangeBuilderFactory.Create([.. PostPostCommentsPostCommentImages.Select(p => p.Id)]);
+		PostPostCommentsPostCommentImageIds = PostPostCommentsPostCommentImageIdRangeBuilder.Build();
 
-		PostIdBuilderFactory = new();
-		PostIdBuilder = PostIdBuilderFactory.Create(Post.Id);
-		PostId = PostIdBuilder.Build();
-
-		PostIdRangeBuilderFactory = new();
-		PostIdRangeBuilder = PostIdRangeBuilderFactory.Create([.. Posts.Select(p => p.Id)]);
-		PostIds = PostIdRangeBuilder.Build();
-
-		PostLikeBuilderFactory = new();
-		PostLikeBuilder = PostLikeBuilderFactory.Create(Post, User);
-		PostLike = PostLikeBuilder.Build();
-		PostLikes = PostLike.Generate(Posts, Users);
-
-		PostLikeIdBuilderFactory = new();
-		PostLikeIdBuilder = PostLikeIdBuilderFactory.Create(PostLike.Id);
-		PostLikeId = PostLikeIdBuilder.Build();
-
-		PostLikeIdRangeBuilderFactory = new();
-		PostLikeIdRangeBuilder = PostLikeIdRangeBuilderFactory.Create([.. PostLikes.Select(p => p.Id)]);
-		PostLikeIds = PostLikeIdRangeBuilder.Build();
-
-		PostImageBuilderFactory = new();
-		PostImageBuilder = PostImageBuilderFactory.Create(Post);
-		PostImage = PostImageBuilder.Build();
-		PostImages = PostImage.Generate(Posts);
-
-		PostImageIdBuilderFactory = new();
-		PostImageIdBuilder = PostImageIdBuilderFactory.Create(PostImage.Id);
-		PostImageId = PostImageIdBuilder.Build();
-
-		PostImageIdRangeBuilderFactory = new();
-		PostImageIdRangeBuilder = PostImageIdRangeBuilderFactory.Create([.. PostImages.Select(p => p.Id)]);
-		PostImageIds = PostImageIdRangeBuilder.Build();
+		PostPostCommentsPostCommentLikes = [.. Post.PostComments.SelectMany(p => p.PostCommentLikes)];
+		PostPostCommentsPostCommentLikeIdRangeBuilderFactory = new();
+		PostPostCommentsPostCommentLikeIdRangeBuilder = PostPostCommentsPostCommentLikeIdRangeBuilderFactory.Create([.. PostPostCommentsPostCommentLikes.Select(p => p.Id)]);
+		PostPostCommentsPostCommentLikeIds = PostPostCommentsPostCommentLikeIdRangeBuilder.Build();
 	}
 }

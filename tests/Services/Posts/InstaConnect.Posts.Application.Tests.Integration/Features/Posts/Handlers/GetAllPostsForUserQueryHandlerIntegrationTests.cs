@@ -23,11 +23,6 @@ public class GetAllPostsForUserQueryHandlerIntegrationTests : BasePostApplicatio
 		_request = _requestBuilder.Build();
 	}
 
-	protected override async Task OnInitializeAsync()
-	{
-		await ServiceScope.AddRangeAsync(Posts, CancellationToken);
-	}
-
 	[Theory]
 	[UserIdNullWithMessageData]
 	[UserIdEmptyWithMessageData]

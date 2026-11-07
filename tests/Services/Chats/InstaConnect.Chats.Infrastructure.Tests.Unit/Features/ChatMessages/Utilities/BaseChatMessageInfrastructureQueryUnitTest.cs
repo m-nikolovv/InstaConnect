@@ -6,7 +6,7 @@ using InstaConnect.Chats.Tests.Features.Chats.Utilities;
 
 namespace InstaConnect.Chats.Infrastructure.Tests.Unit.Features.ChatMessages.Utilities;
 
-public abstract class BaseChatMessageInfrastructureQueryUnitTest : BaseChatMessageTest
+public abstract class BaseChatMessageInfrastructureQueryUnitTest : BaseChatMessageQueryTest
 {
 	protected IChatMessageFluent Fluent { get; }
 

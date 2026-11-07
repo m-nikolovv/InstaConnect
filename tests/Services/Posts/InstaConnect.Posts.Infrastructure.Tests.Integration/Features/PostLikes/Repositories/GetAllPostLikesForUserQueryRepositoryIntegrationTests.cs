@@ -43,11 +43,6 @@ public class GetAllPostLikesForUserQueryRepositoryIntegrationTests : BasePostLik
 		_currentUserQuery = _currentUserQueryBuilder.Build();
 	}
 
-	protected override async Task OnInitializeAsync()
-	{
-		await ServiceScope.AddRangeAsync(PostLikes, CancellationToken);
-	}
-
 	[Fact]
 	public async Task GetAllForUserAsync_ShouldReturnResponse_WhenQueryIsValid()
 	{

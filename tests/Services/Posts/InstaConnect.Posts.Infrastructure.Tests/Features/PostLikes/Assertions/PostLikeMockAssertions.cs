@@ -12,6 +12,11 @@ public static class PostLikeMockAssertions
 			collection.ShouldHaveReceivedOneAggregateFluent();
 		}
 
+		public void ShouldHaveReceivedOneAggregateFluent(ICollection<PostLikeId> ids)
+		{
+			collection.ShouldHaveReceivedOneAggregateFluent();
+		}
+
 		public void ShouldHaveReceivedOneAggregateFluent(
 			PostLikeId id,
 			CurrentUserQuery currentUserQuery)
@@ -97,6 +102,12 @@ public static class PostLikeMockAssertions
 		}
 
 		public void ShouldHaveReceivedOneMatch(
+			ICollection<PostLikeId> ids)
+		{
+			fluent.ShouldHaveReceivedOne().Match(ids);
+		}
+
+		public void ShouldHaveReceivedOneMatch(
 			PostLikeId filterQuery,
 			CurrentUserQuery currentUserQuery)
 		{
@@ -105,6 +116,13 @@ public static class PostLikeMockAssertions
 
 		public void ShouldHaveReceivedOneApplyIncludes(
 			PostLikeId id,
+			PostLikeInclude include)
+		{
+			fluent.ShouldHaveReceivedOneApplyIncludes(include);
+		}
+
+		public void ShouldHaveReceivedOneApplyIncludes(
+			ICollection<PostLikeId> ids,
 			PostLikeInclude include)
 		{
 			fluent.ShouldHaveReceivedOneApplyIncludes(include);
@@ -224,10 +242,14 @@ public static class PostLikeMockAssertions
 		{
 			await fluent.ShouldHaveReceivedOneFirstOrDefaultAsync(cancellationToken);
 		}
-	}
 
-	extension(IPostLikeResponseFluent fluent)
-	{
+		public async Task ShouldHaveReceivedOneToListAsync(
+			ICollection<PostLikeId> ids,
+			CancellationToken cancellationToken)
+		{
+			await fluent.ShouldHaveReceivedOneToListAsync(cancellationToken);
+		}
+
 		public void ShouldHaveReceivedOneApplySorting(
 			PostLikesFilterQuery filterQuery,
 			PostLikesSortingQuery sortingQuery,
@@ -278,7 +300,10 @@ public static class PostLikeMockAssertions
 		{
 			fluent.ShouldHaveReceivedOne().ApplyPagination(paginationQuery);
 		}
+	}
 
+	extension(IPostLikeResponseFluent fluent)
+	{
 		public async Task ShouldHaveReceivedOneFirstOrDefaultAsync(
 			PostLikeId id,
 			CurrentUserQuery currentUserQuery,

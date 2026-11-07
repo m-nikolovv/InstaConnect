@@ -1,5 +1,5 @@
 using InstaConnect.Common.Infrastructure.Features.Telemetries.Extensions;
-using InstaConnect.Common.Presentation.Features.Seeders.Extensions;
+using InstaConnect.Common.Presentation.Features.Databases.Extensions;
 using InstaConnect.Common.Presentation.Features.Telemetries.Extensions;
 using InstaConnect.Identity.Application.Features.Common.Extensions;
 using InstaConnect.Identity.Domain.Features.Common.Extensions;
@@ -24,7 +24,7 @@ app.UsePresentation();
 
 await app.StartAsync();
 
-await app.UseSeedersAsync(CancellationToken.None);
+await app.UseDatabaseInitializerAsync(CancellationToken.None);
 
 await app.WaitForShutdownAsync();
 

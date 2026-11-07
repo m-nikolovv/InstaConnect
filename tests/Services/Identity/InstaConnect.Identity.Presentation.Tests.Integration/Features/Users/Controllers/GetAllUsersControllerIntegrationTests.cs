@@ -22,11 +22,6 @@ public class GetAllUsersControllerIntegrationTests : BaseUserPresentationQueryIn
 		_request = _requestBuilder.Build();
 	}
 
-	protected override async Task OnInitializeAsync()
-	{
-		await ServiceScope.AddRangeAsync(Users, CancellationToken);
-	}
-
 	[Theory]
 	[UserIdTooLongWithMessageData]
 	public async Task GetAllAsync_ShouldThrowValidationException_WhenCurrentIdIsInvalid(

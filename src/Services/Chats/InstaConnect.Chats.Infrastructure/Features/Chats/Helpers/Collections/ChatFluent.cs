@@ -1,3 +1,4 @@
+using InstaConnect.Chats.Domain.Features.Chats.Abstractions;
 using InstaConnect.Chats.Infrastructure.Features.Chats.Extensions;
 
 namespace InstaConnect.Chats.Infrastructure.Features.Chats.Helpers.Collections;
@@ -5,14 +6,17 @@ namespace InstaConnect.Chats.Infrastructure.Features.Chats.Helpers.Collections;
 internal class ChatFluent : MongoDbFluent<Chat>, IChatFluent
 {
 	private readonly IChatIncluderFactory _includerFactory;
+	private readonly IChatIncludeBuilderFactory _includeBuilderFactory;
 	private readonly IChatResponseFluentFactory _responseFluentFactory;
 
 	public ChatFluent(
 		IAggregateFluent<Chat> fluent,
 		IChatIncluderFactory includerFactory,
+		IChatIncludeBuilderFactory includeBuilderFactory,
 		IChatResponseFluentFactory responseFluentFactory) : base(fluent)
 	{
 		_includerFactory = includerFactory;
+		_includeBuilderFactory = includeBuilderFactory;
 		_responseFluentFactory = responseFluentFactory;
 	}
 
@@ -25,12 +29,22 @@ internal class ChatFluent : MongoDbFluent<Chat>, IChatFluent
 
 	public IChatFluent Match(ChatsFilterQuery filter)
 	{
+		Match(filter.GetParticipantFilter());
+
+		ApplyIncludes(_includeBuilderFactory.Create().WithParticipantOne().WithParticipantTwo().Build());
 		Match(filter.GetFilter());
 
 		return this;
 	}
 
 	public IChatFluent Match(ChatId filter)
+	{
+		Match(filter.GetFilter());
+
+		return this;
+	}
+
+	public IChatFluent Match(IEnumerable<ChatId> filter)
 	{
 		Match(filter.GetFilter());
 
@@ -63,6 +77,7 @@ internal class ChatFluent : MongoDbFluent<Chat>, IChatFluent
 								   p.Id.ParticipantOneId.Id.ToLower() == currentUserId ? p.ParticipantTwo!.ProfileImageUrl : p.ParticipantOne!.ProfileImageUrl,
 								   p.Id.ParticipantOneId.Id.ToLower() == currentUserId ? p.ParticipantTwo!.CreatedAtUtc : p.ParticipantOne!.CreatedAtUtc,
 								   p.Id.ParticipantOneId.Id.ToLower() == currentUserId ? p.ParticipantTwo!.UpdatedAtUtc : p.ParticipantOne!.UpdatedAtUtc),
+							   p.ChatMessages.Count,
 							   p.CreatedAtUtc));
 		var fluent = Project(projection);
 
@@ -87,6 +102,7 @@ internal class ChatFluent : MongoDbFluent<Chat>, IChatFluent
 								   p.Id.ParticipantOneId.Id.ToLower() == currentUserId ? p.ParticipantTwo!.ProfileImageUrl : p.ParticipantOne!.ProfileImageUrl,
 								   p.Id.ParticipantOneId.Id.ToLower() == currentUserId ? p.ParticipantTwo!.CreatedAtUtc : p.ParticipantOne!.CreatedAtUtc,
 								   p.Id.ParticipantOneId.Id.ToLower() == currentUserId ? p.ParticipantTwo!.UpdatedAtUtc : p.ParticipantOne!.UpdatedAtUtc),
+							   p.ChatMessages.Count,
 							   p.CreatedAtUtc));
 		var fluent = Project(projection);
 
@@ -111,6 +127,7 @@ internal class ChatFluent : MongoDbFluent<Chat>, IChatFluent
 								   p.Id.ParticipantOneId.Id.ToLower() == currentUserId ? p.ParticipantOne!.CreatedAtUtc : p.ParticipantTwo!.CreatedAtUtc,
 								   p.Id.ParticipantOneId.Id.ToLower() == currentUserId ? p.ParticipantOne!.UpdatedAtUtc : p.ParticipantTwo!.UpdatedAtUtc),
 							   null,
+							   p.ChatMessages.Count,
 							   p.CreatedAtUtc));
 		var fluent = Project(projection);
 

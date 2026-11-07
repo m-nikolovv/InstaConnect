@@ -22,6 +22,13 @@ public static class FollowMockSetups
 		}
 
 		public void SetupAggregateFluent(
+			ICollection<FollowId> ids,
+			IFollowFluent fluent)
+		{
+			collection.SetupAggregateFluent(fluent);
+		}
+
+		public void SetupAggregateFluent(
 			FollowsFilterQuery filterQuery,
 			FollowsSortingQuery sortingQuery,
 			FollowsPaginationQuery paginationQuery,
@@ -103,6 +110,13 @@ public static class FollowMockSetups
 		}
 
 		public void SetupApplyIncludes(
+			ICollection<FollowId> ids,
+			FollowInclude include)
+		{
+			fluent.SetupApplyIncludes(include);
+		}
+
+		public void SetupApplyIncludes(
 			FollowsFilterQuery filterQuery,
 			FollowInclude include)
 		{
@@ -151,6 +165,11 @@ public static class FollowMockSetups
 			CurrentUserQuery currentUserQuery)
 		{
 			fluent.SetupMatch(id);
+		}
+
+		public void SetupMatch(ICollection<FollowId> ids)
+		{
+			fluent.Match(ids).ReturnsResponse(fluent);
 		}
 
 		public void SetupMatch(FollowsFilterQuery filterQuery)
@@ -237,10 +256,15 @@ public static class FollowMockSetups
 		{
 			fluent.SetupFirstOrDefaultAsync(follow, cancellationToken);
 		}
-	}
 
-	extension(IFollowResponseFluent fluent)
-	{
+		public void SetupToListAsync(
+			ICollection<FollowId> ids,
+			ICollection<Follow> follows,
+			CancellationToken cancellationToken)
+		{
+			fluent.SetupToListAsync(follows, cancellationToken);
+		}
+
 		public void SetupApplySorting(
 			FollowsFilterQuery filterQuery,
 			FollowsSortingQuery sortingQuery,
@@ -291,7 +315,10 @@ public static class FollowMockSetups
 		{
 			fluent.ApplyPagination(paginationQuery).ReturnsResponse(fluent);
 		}
+	}
 
+	extension(IFollowResponseFluent fluent)
+	{
 		public void SetupToListAsync(
 			FollowsFilterQuery filterQuery,
 			FollowsSortingQuery sortingQuery,

@@ -4,6 +4,18 @@ public static class PostCommentImageGenerator
 {
 	extension(PostCommentImage basePostCommentImage)
 	{
+		public ICollection<PostCommentImage> GenerateAttached(IEnumerable<PostComment> postComments)
+		{
+			var postCommentImages = basePostCommentImage.Generate(postComments);
+
+			foreach (var postCommentImage in postCommentImages.Where(p => p != basePostCommentImage))
+			{
+				postCommentImage.PostComment!.AddPostCommentImage(postCommentImage);
+			}
+
+			return postCommentImages;
+		}
+
 		public ICollection<PostCommentImage> Generate(IEnumerable<PostComment> postComments)
 		{
 			return [basePostCommentImage, .. postComments
@@ -15,7 +27,6 @@ public static class PostCommentImageGenerator
 							new(PostCommentImageDataFaker.GetUrl()),
 							PostCommentImageDataFaker.GetCreatedAtUtc());
 
-						postComment.AddPostCommentImage(postCommentImage);
 						postCommentImage.AddPostComment(postComment);
 
 						return postCommentImage;

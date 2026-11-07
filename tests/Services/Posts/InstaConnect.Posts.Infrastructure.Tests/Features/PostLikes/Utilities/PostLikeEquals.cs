@@ -27,6 +27,16 @@ public static class PostLikeEquals
 		}
 	}
 
+	extension(ICollection<PostLike> p)
+	{
+		public bool Matches(
+			ICollection<PostLikeId> ids,
+			ICollection<PostLike> postLikes)
+		{
+			return p.Matches(postLikes);
+		}
+	}
+
 	extension(User? u)
 	{
 		public bool MatchesFilter(PostLikesFilterQuery query)

@@ -18,6 +18,11 @@ public static class FollowMockAssertions
 			collection.ShouldHaveReceivedOneAggregateFluent();
 		}
 
+		public void ShouldHaveReceivedOneAggregateFluent(ICollection<FollowId> ids)
+		{
+			collection.ShouldHaveReceivedOneAggregateFluent();
+		}
+
 		public void ShouldHaveReceivedOneAggregateFluent(FollowsFilterQuery filterQuery)
 		{
 			collection.ShouldHaveReceivedOneAggregateFluent();
@@ -101,8 +106,20 @@ public static class FollowMockAssertions
 			fluent.ShouldHaveReceivedOneMatch(id);
 		}
 
+		public void ShouldHaveReceivedOneMatch(ICollection<FollowId> ids)
+		{
+			fluent.ShouldHaveReceivedOne().Match(ids);
+		}
+
 		public void ShouldHaveReceivedOneApplyIncludes(
 			FollowId id,
+			FollowInclude include)
+		{
+			fluent.ShouldHaveReceivedOneApplyIncludes(include);
+		}
+
+		public void ShouldHaveReceivedOneApplyIncludes(
+			ICollection<FollowId> ids,
 			FollowInclude include)
 		{
 			fluent.ShouldHaveReceivedOneApplyIncludes(include);
@@ -222,10 +239,14 @@ public static class FollowMockAssertions
 		{
 			await fluent.ShouldHaveReceivedOneFirstOrDefaultAsync(cancellationToken);
 		}
-	}
 
-	extension(IFollowResponseFluent fluent)
-	{
+		public async Task ShouldHaveReceivedOneToListAsync(
+			ICollection<FollowId> ids,
+			CancellationToken cancellationToken)
+		{
+			await fluent.ShouldHaveReceivedOneToListAsync(cancellationToken);
+		}
+
 		public void ShouldHaveReceivedOneApplySorting(
 			FollowsFilterQuery filterQuery,
 			FollowsSortingQuery sortingQuery,
@@ -276,7 +297,10 @@ public static class FollowMockAssertions
 		{
 			fluent.ShouldHaveReceivedOne().ApplyPagination(paginationQuery);
 		}
+	}
 
+	extension(IFollowResponseFluent fluent)
+	{
 		public async Task ShouldHaveReceivedOneFirstOrDefaultAsync(
 			FollowId id,
 			CurrentUserQuery currentUserQuery,

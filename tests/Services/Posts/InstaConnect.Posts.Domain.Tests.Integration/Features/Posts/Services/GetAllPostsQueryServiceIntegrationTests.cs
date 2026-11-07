@@ -19,11 +19,6 @@ public class GetAllPostsQueryServiceIntegrationTests : BasePostDomainQueryIntegr
 		_query = _queryBuilder.Build();
 	}
 
-	protected override async Task OnInitializeAsync()
-	{
-		await ServiceScope.AddRangeAsync(Posts, CancellationToken);
-	}
-
 	[Fact]
 	public async Task GetAllAsync_ShouldReturnResponse_WhenQueryIsValid()
 	{

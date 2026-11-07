@@ -4,6 +4,19 @@ public static class FollowGenerator
 {
 	extension(Follow baseFollow)
 	{
+		public ICollection<Follow> GenerateAttached(IEnumerable<User> followers, IEnumerable<User> followings)
+		{
+			var follows = baseFollow.Generate(followers, followings);
+
+			foreach (var follow in follows.Where(f => f != baseFollow))
+			{
+				follow.Following!.AddFollowFollower(follow);
+				follow.Follower!.AddFollowFollowing(follow);
+			}
+
+			return follows;
+		}
+
 		public ICollection<Follow> Generate(IEnumerable<User> followers, IEnumerable<User> followings)
 		{
 			return [.. followers
@@ -19,8 +32,6 @@ public static class FollowGenerator
 						  return baseFollow;
 					  }
 
-					  followings.AddFollowFollower(follow);
-					  follower.AddFollowFollowing(follow);
 					  follow.AddFollowing(followings);
 					  follow.AddFollower(follower);
 

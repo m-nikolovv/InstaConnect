@@ -4,7 +4,7 @@ using InstaConnect.Identity.Tests.Features.RefreshTokens.Utilities;
 
 namespace InstaConnect.Identity.Application.Tests.Unit.Features.RefreshTokens.Utilities;
 
-public abstract class BaseRefreshTokenApplicationCommandUnitTest : BaseRefreshTokenTest
+public abstract class BaseRefreshTokenApplicationCommandUnitTest : BaseRefreshTokenCommandTest
 {
 	protected IApplicationMapper Mapper { get; }
 

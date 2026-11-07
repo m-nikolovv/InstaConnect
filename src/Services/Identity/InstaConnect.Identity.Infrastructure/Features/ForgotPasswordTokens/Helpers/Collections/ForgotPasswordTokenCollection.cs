@@ -1,8 +1,9 @@
+using InstaConnect.Identity.Domain.Features.ForgotPasswordTokens.Models.ValueObjects;
 using InstaConnect.Identity.Infrastructure.Features.ForgotPasswordTokens.Extensions;
 
 namespace InstaConnect.Identity.Infrastructure.Features.ForgotPasswordTokens.Helpers.Collections;
 
-internal class ForgotPasswordTokenCollection : MongoDbCollection<ForgotPasswordToken>, IForgotPasswordTokenCollection
+internal class ForgotPasswordTokenCollection : MongoDbCollection<ForgotPasswordToken, ForgotPasswordTokenId>, IForgotPasswordTokenCollection
 {
 	private readonly IForgotPasswordTokenFluentFactory _fluentFactory;
 
@@ -40,5 +41,12 @@ internal class ForgotPasswordTokenCollection : MongoDbCollection<ForgotPasswordT
 		CancellationToken cancellationToken)
 	{
 		await DeleteRangeAsync(entities.Select(p => p.Id).GetFilter(), cancellationToken);
+	}
+
+	public async Task CascadeDeleteAsync(
+		FilterDefinition<ForgotPasswordToken> filter,
+		CancellationToken cancellationToken)
+	{
+		await DeleteRangeAsync(filter, cancellationToken);
 	}
 }

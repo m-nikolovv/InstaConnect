@@ -4,6 +4,18 @@ public static class ChatMessageImageGenerator
 {
 	extension(ChatMessageImage baseChatMessageImage)
 	{
+		public ICollection<ChatMessageImage> GenerateAttached(IEnumerable<ChatMessage> chatMessages)
+		{
+			var chatMessageImages = baseChatMessageImage.Generate(chatMessages);
+
+			foreach (var chatMessageImage in chatMessageImages.Where(c => c != baseChatMessageImage))
+			{
+				chatMessageImage.ChatMessage!.AddChatMessageImage(chatMessageImage);
+			}
+
+			return chatMessageImages;
+		}
+
 		public ICollection<ChatMessageImage> Generate(IEnumerable<ChatMessage> chatMessages)
 		{
 			return [baseChatMessageImage, .. chatMessages
@@ -15,7 +27,6 @@ public static class ChatMessageImageGenerator
 							new(ChatMessageImageDataFaker.GetUrl()),
 							ChatMessageImageDataFaker.GetCreatedAtUtc());
 
-						chatMessage.AddChatMessageImage(chatMessageImage);
 						chatMessageImage.AddChatMessage(chatMessage);
 
 						return chatMessageImage;

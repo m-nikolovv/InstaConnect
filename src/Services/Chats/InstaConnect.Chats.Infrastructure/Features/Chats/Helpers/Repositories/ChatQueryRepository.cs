@@ -22,12 +22,12 @@ internal class ChatQueryRepository : IChatQueryRepository
 		CurrentUserQuery currentUser,
 		CancellationToken cancellationToken)
 	{
-		var include = _includeBuilderFactory.Create().WithParticipantOne().WithParticipantTwo().Build();
+		var include = _includeBuilderFactory.Create().WithChatMessages().Build();
 
 		return await _collection
 			.AggregateFluent()
-			.ApplyIncludes(include)
 			.Match(filter)
+			.ApplyIncludes(include)
 			.ProjectToResponseWithoutParticipantOne(currentUser)
 			.ApplySorting(sorting)
 			.ApplyPagination(pagination)
@@ -38,11 +38,8 @@ internal class ChatQueryRepository : IChatQueryRepository
 		ChatsFilterQuery filter,
 		CancellationToken cancellationToken)
 	{
-		var include = _includeBuilderFactory.Create().WithParticipantOne().WithParticipantTwo().Build();
-
 		return await _collection
 			.AggregateFluent()
-			.ApplyIncludes(include)
 			.Match(filter)
 			.GetCountAsync(cancellationToken);
 	}
@@ -52,12 +49,12 @@ internal class ChatQueryRepository : IChatQueryRepository
 		CurrentUserQuery currentUser,
 		CancellationToken cancellationToken)
 	{
-		var include = _includeBuilderFactory.Create().WithParticipantOne().WithParticipantTwo().Build();
+		var include = _includeBuilderFactory.Create().WithParticipantOne().WithParticipantTwo().WithChatMessages().Build();
 
 		return await _collection
 			.AggregateFluent()
-			.ApplyIncludes(include)
 			.Match(id)
+			.ApplyIncludes(include)
 			.ProjectToFullResponse(currentUser)
 			.FirstOrDefaultAsync(cancellationToken);
 	}

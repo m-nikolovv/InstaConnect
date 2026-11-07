@@ -4,16 +4,28 @@ namespace InstaConnect.Posts.Infrastructure.Features.Posts.Helpers.Collections;
 
 internal class PostFluent : MongoDbFluent<Post>, IPostFluent
 {
+	private readonly IPaginator _paginator;
 	private readonly IPostIncluderFactory _includerFactory;
+	private readonly ISortOrdererFactory _sortOrdererFactory;
+	private readonly IPostsSortTermerFactory _sortTermerFactory;
 	private readonly IPostResponseFluentFactory _responseFluentFactory;
+	private readonly IPostsForUserSortTermerFactory _forUserSortTermerFactory;
 
 	public PostFluent(
+		IPaginator paginator,
 		IAggregateFluent<Post> fluent,
 		IPostIncluderFactory includerFactory,
-		IPostResponseFluentFactory responseFluentFactory) : base(fluent)
+		ISortOrdererFactory sortOrdererFactory,
+		IPostsSortTermerFactory sortTermerFactory,
+		IPostResponseFluentFactory responseFluentFactory,
+		IPostsForUserSortTermerFactory forUserSortTermerFactory) : base(fluent)
 	{
+		_paginator = paginator;
 		_includerFactory = includerFactory;
+		_sortTermerFactory = sortTermerFactory;
+		_sortOrdererFactory = sortOrdererFactory;
 		_responseFluentFactory = responseFluentFactory;
+		_forUserSortTermerFactory = forUserSortTermerFactory;
 	}
 
 	public IPostFluent ApplyIncludes(PostInclude include)
@@ -44,6 +56,34 @@ internal class PostFluent : MongoDbFluent<Post>, IPostFluent
 		return this;
 	}
 
+	public IPostFluent Match(IEnumerable<PostId> filter)
+	{
+		Match(filter.GetFilter());
+
+		return this;
+	}
+
+	public IPostFluent ApplySorting(PostsSortingQuery query)
+	{
+		ApplySorting(_sortOrdererFactory, _sortTermerFactory, query);
+
+		return this;
+	}
+
+	public IPostFluent ApplySorting(PostsForUserSortingQuery query)
+	{
+		ApplySorting(_sortOrdererFactory, _forUserSortTermerFactory, query);
+
+		return this;
+	}
+
+	public IPostFluent ApplyPagination(PostsPaginationQuery query)
+	{
+		ApplyPagination(_paginator, query);
+
+		return this;
+	}
+
 	public IPostResponseFluent ProjectToFullResponse(CurrentUserQuery currentUser)
 	{
 		var currentUserId = currentUser.Id.Id?.ToLower();
@@ -70,6 +110,8 @@ internal class PostFluent : MongoDbFluent<Post>, IPostFluent
 						 pi.CreatedAtUtc)).ToList(),
 				 p.PostLikes.Any(
 					 pl => pl.Id.UserId.Id.ToLower() == currentUserId),
+				 p.PostLikes.Count,
+				 p.PostComments.Count,
 				 p.CreatedAtUtc,
 				 p.UpdatedAtUtc));
 		var fluent = Project(projection);
@@ -95,6 +137,8 @@ internal class PostFluent : MongoDbFluent<Post>, IPostFluent
 						 pi.CreatedAtUtc)).ToList(),
 				 p.PostLikes.Any(
 					 pl => pl.Id.UserId.Id.ToLower() == currentUserId),
+				 p.PostLikes.Count,
+				 p.PostComments.Count,
 				 p.CreatedAtUtc,
 				 p.UpdatedAtUtc));
 		var fluent = Project(projection);

@@ -21,9 +21,9 @@ internal class UserQueryRepository : IUserQueryRepository
 		return await _collection
 			.AggregateFluent()
 			.Match(filter)
-			.ProjectToFullResponse(current)
 			.ApplySorting(sorting)
 			.ApplyPagination(pagination)
+			.ProjectToFullResponse(current)
 			.ToListAsync(cancellationToken);
 	}
 

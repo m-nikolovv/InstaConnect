@@ -11,7 +11,7 @@ using Microsoft.Extensions.Options;
 
 namespace InstaConnect.Identity.Domain.Tests.Unit.Features.ForgotPasswordTokens.Utilities;
 
-public abstract class BaseForgotPasswordTokenDomainCommandUnitTest : BaseForgotPasswordTokenTest
+public abstract class BaseForgotPasswordTokenDomainCommandUnitTest : BaseForgotPasswordTokenCommandTest
 {
 	protected IApplicationMapper Mapper { get; }
 

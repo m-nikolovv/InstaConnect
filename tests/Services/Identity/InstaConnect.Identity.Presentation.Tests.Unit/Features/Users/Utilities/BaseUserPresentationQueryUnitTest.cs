@@ -2,7 +2,7 @@ using InstaConnect.Identity.Tests.Features.Users.Utilities;
 
 namespace InstaConnect.Identity.Presentation.Tests.Unit.Features.Users.Utilities;
 
-public abstract class BaseUserPresentationQueryUnitTest : BaseUserTest
+public abstract class BaseUserPresentationQueryUnitTest : BaseUserQueryTest
 {
 	protected IApplicationSender Sender { get; }
 

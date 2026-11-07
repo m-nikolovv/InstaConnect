@@ -4,6 +4,18 @@ public static class EmailConfirmationTokenGenerator
 {
 	extension(EmailConfirmationToken baseEmailConfirmationToken)
 	{
+		public ICollection<EmailConfirmationToken> GenerateAttached(IEnumerable<User> users, int numberOfIterations = 3)
+		{
+			var emailConfirmationTokens = baseEmailConfirmationToken.Generate(users, numberOfIterations);
+
+			foreach (var emailConfirmationToken in emailConfirmationTokens.Where(e => e != baseEmailConfirmationToken))
+			{
+				emailConfirmationToken.User!.AddEmailConfirmationToken(emailConfirmationToken);
+			}
+
+			return emailConfirmationTokens;
+		}
+
 		public ICollection<EmailConfirmationToken> Generate(IEnumerable<User> users, int numberOfIterations = 3)
 		{
 			return [baseEmailConfirmationToken, .. users
@@ -15,7 +27,6 @@ public static class EmailConfirmationTokenGenerator
 						  EmailConfirmationTokenDataFaker.GetExpiresAtUtc(),
 						  EmailConfirmationTokenDataFaker.GetCreatedAtUtc());
 
-					  user.AddEmailConfirmationToken(emailConfirmationToken);
 					  emailConfirmationToken.AddUser(user);
 
 					  return emailConfirmationToken;

@@ -18,7 +18,10 @@ public class SessionHandler : ISessionHandler
 	public async Task BeginAsync(CancellationToken cancellationToken)
 	{
 		_clientSessionHandle = await _mongoClient.StartSessionAsync(null, cancellationToken);
-		_clientSessionHandle.StartTransaction();
+		_clientSessionHandle.StartTransaction(new TransactionOptions(
+			readConcern: ReadConcern.Majority,
+			readPreference: ReadPreference.Primary,
+			writeConcern: WriteConcern.WMajority));
 	}
 
 	public async Task CommitAsync(CancellationToken cancellationToken)

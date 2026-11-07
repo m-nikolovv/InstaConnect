@@ -3,6 +3,7 @@ using InstaConnect.Common.Infrastructure.Features.OutboxEvents.Abstractions;
 using InstaConnect.Common.Infrastructure.Features.OutboxEvents.Helpers;
 using InstaConnect.Common.Infrastructure.Features.OutboxEvents.Helpers.Collections;
 using InstaConnect.Common.Infrastructure.Features.OutboxEvents.Helpers.Repositories;
+using InstaConnect.Common.Infrastructure.Features.OutboxEvents.Models;
 using InstaConnect.Common.Infrastructure.Features.OutboxEvents.Models.Entities;
 
 using MongoDB.Bson.Serialization;
@@ -16,6 +17,8 @@ public static class ServiceCollectionExtensions
 		public IServiceCollection AddOutboxEvents()
 		{
 			const string CollectionName = "outbox_events";
+
+			serviceCollection.AddValidatedOptions<OutboxEventOptions>(OutboxEventOptions.SectionName);
 
 			serviceCollection
 				.AddScoped<IOutboxEventFactory, OutboxEventFactory>()
@@ -32,16 +35,18 @@ public static class ServiceCollectionExtensions
 				cm.MapMember(c => c.Topic);
 				cm.MapMember(c => c.Key);
 				cm.MapMember(c => c.Payload);
-				cm.MapMember(c => c.CreatedAtUtc);
+				cm.MapDateTimeMember(c => c.ExpiresAtUtc);
+				cm.MapDateTimeMember(c => c.CreatedAtUtc);
 
 				cm.MapCreator(c => new OutboxEvent(
 					c.Id,
 					c.Topic,
 					c.Key,
 					c.Payload,
+					c.ExpiresAtUtc,
 					c.CreatedAtUtc));
 
-				cm.SetIgnoreExtraElements(true);
+				cm.IgnoreExtraElements();
 			});
 
 			return serviceCollection;

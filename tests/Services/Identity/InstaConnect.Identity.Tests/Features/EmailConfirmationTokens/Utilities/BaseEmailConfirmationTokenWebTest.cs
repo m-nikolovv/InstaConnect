@@ -4,7 +4,7 @@ public abstract class BaseEmailConfirmationTokenWebTest : BaseEmailConfirmationT
 {
 	protected IServiceScope ServiceScope { get; }
 
-	protected BaseEmailConfirmationTokenWebTest(IdentityWebApplicationFactory webApplicationFactory) : base(webApplicationFactory.Services.GetPasswordHasher())
+	protected BaseEmailConfirmationTokenWebTest(IdentityWebApplicationFactory webApplicationFactory, bool isEmailConfirmed = true) : base(webApplicationFactory.Services.GetPasswordHasher(), isEmailConfirmed)
 	{
 		ServiceScope = webApplicationFactory.Services.CreateScope();
 	}

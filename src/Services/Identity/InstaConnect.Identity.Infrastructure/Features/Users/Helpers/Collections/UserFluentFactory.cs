@@ -2,17 +2,34 @@ namespace InstaConnect.Identity.Infrastructure.Features.Users.Helpers.Collection
 
 internal class UserFluentFactory : IUserFluentFactory
 {
+	private readonly IPaginator _paginator;
 	private readonly IUserIncluderFactory _includerFactory;
+	private readonly ISortOrdererFactory _sortOrdererFactory;
+	private readonly IUsersSortTermerFactory _sortTermerFactory;
 	private readonly IUserResponseFluentFactory _responseFluentFactory;
 
-	public UserFluentFactory(IUserIncluderFactory includerFactory, IUserResponseFluentFactory responseFluentFactory)
+	public UserFluentFactory(
+		IPaginator paginator,
+		IUserIncluderFactory includerFactory,
+		ISortOrdererFactory sortOrdererFactory,
+		IUsersSortTermerFactory sortTermerFactory,
+		IUserResponseFluentFactory responseFluentFactory)
 	{
+		_paginator = paginator;
 		_includerFactory = includerFactory;
+		_sortTermerFactory = sortTermerFactory;
+		_sortOrdererFactory = sortOrdererFactory;
 		_responseFluentFactory = responseFluentFactory;
 	}
 
 	public IUserFluent Create(IAggregateFluent<User> fluent)
 	{
-		return new UserFluent(fluent, _includerFactory, _responseFluentFactory);
+		return new UserFluent(
+			_paginator,
+			fluent,
+			_includerFactory,
+			_sortOrdererFactory,
+			_sortTermerFactory,
+			_responseFluentFactory);
 	}
 }

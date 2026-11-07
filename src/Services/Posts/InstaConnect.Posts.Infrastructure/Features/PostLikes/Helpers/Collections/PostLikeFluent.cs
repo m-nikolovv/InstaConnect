@@ -5,16 +5,28 @@ namespace InstaConnect.Posts.Infrastructure.Features.PostLikes.Helpers.Collectio
 
 internal class PostLikeFluent : MongoDbFluent<PostLike>, IPostLikeFluent
 {
+	private readonly IPaginator _paginator;
+	private readonly ISortOrdererFactory _sortOrdererFactory;
 	private readonly IPostLikeIncluderFactory _includerFactory;
+	private readonly IPostLikesSortTermerFactory _sortTermerFactory;
 	private readonly IPostLikeResponseFluentFactory _responseFluentFactory;
+	private readonly IPostLikesForUserSortTermerFactory _forUserSortTermerFactory;
 
 	public PostLikeFluent(
+		IPaginator paginator,
 		IAggregateFluent<PostLike> fluent,
+		ISortOrdererFactory sortOrdererFactory,
 		IPostLikeIncluderFactory includerFactory,
-		IPostLikeResponseFluentFactory responseFluentFactory) : base(fluent)
+		IPostLikesSortTermerFactory sortTermerFactory,
+		IPostLikeResponseFluentFactory responseFluentFactory,
+		IPostLikesForUserSortTermerFactory forUserSortTermerFactory) : base(fluent)
 	{
+		_paginator = paginator;
 		_includerFactory = includerFactory;
+		_sortTermerFactory = sortTermerFactory;
+		_sortOrdererFactory = sortOrdererFactory;
 		_responseFluentFactory = responseFluentFactory;
+		_forUserSortTermerFactory = forUserSortTermerFactory;
 	}
 
 	public IPostLikeFluent ApplyIncludes(PostLikeInclude include)
@@ -41,6 +53,34 @@ internal class PostLikeFluent : MongoDbFluent<PostLike>, IPostLikeFluent
 	public IPostLikeFluent Match(PostLikeId filter)
 	{
 		Match(filter.GetFilter());
+
+		return this;
+	}
+
+	public IPostLikeFluent Match(IEnumerable<PostLikeId> filter)
+	{
+		Match(filter.GetFilter());
+
+		return this;
+	}
+
+	public IPostLikeFluent ApplySorting(PostLikesSortingQuery query)
+	{
+		ApplySorting(_sortOrdererFactory, _sortTermerFactory, query);
+
+		return this;
+	}
+
+	public IPostLikeFluent ApplySorting(PostLikesForUserSortingQuery query)
+	{
+		ApplySorting(_sortOrdererFactory, _forUserSortTermerFactory, query);
+
+		return this;
+	}
+
+	public IPostLikeFluent ApplyPagination(PostLikesPaginationQuery query)
+	{
+		ApplyPagination(_paginator, query);
 
 		return this;
 	}
@@ -82,6 +122,8 @@ internal class PostLikeFluent : MongoDbFluent<PostLike>, IPostLikeFluent
 							pi.CreatedAtUtc)).ToList(),
 					p.Post.PostLikes.Any(
 						pl => pl.Id.UserId.Id.ToLower() == currentUserId),
+					p.Post.PostLikes.Count,
+					p.Post.PostComments.Count,
 					p.Post.CreatedAtUtc,
 					p.Post.UpdatedAtUtc),
 				p.CreatedAtUtc));
@@ -119,6 +161,8 @@ internal class PostLikeFluent : MongoDbFluent<PostLike>, IPostLikeFluent
 							pi.CreatedAtUtc)).ToList(),
 					p.Post.PostLikes.Any(
 						pl => pl.Id.UserId.Id.ToLower() == currentUserId),
+					p.Post.PostLikes.Count,
+					p.Post.PostComments.Count,
 					p.Post.CreatedAtUtc,
 					p.Post.UpdatedAtUtc),
 				p.CreatedAtUtc));

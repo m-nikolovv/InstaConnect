@@ -38,4 +38,35 @@ internal static class PostLikeFilterExtensions
 			return Builders<T>.Filter.And(id, userId);
 		}
 	}
+
+	extension(IEnumerable<PostLikeId> filter)
+	{
+		public FilterDefinition<PostLike> GetFilter()
+		{
+			return filter.GetFilterForIdRange<PostLike>(p => p.Id.Id.Id, p => p.Id.UserId.Id);
+		}
+
+		public FilterDefinition<T> GetFilterForIdRange<T>(
+			Expression<Func<T, object>> idField,
+			Expression<Func<T, object>> userIdField)
+		{
+			return Builders<T>.Filter.Or(filter.Select(item => item.GetFilterForIdEquals(idField, userIdField)));
+		}
+	}
+
+	extension(IEnumerable<PostId> filter)
+	{
+		public FilterDefinition<PostLike> GetPostLikeCascadeFilter()
+		{
+			return filter.GetFilterForIdRange<PostLike>(p => p.Id.Id.Id);
+		}
+	}
+
+	extension(UserId filter)
+	{
+		public FilterDefinition<PostLike> GetPostLikeCascadeFilter()
+		{
+			return filter.GetFilterForIdEquals<PostLike>(p => p.Id.UserId.Id);
+		}
+	}
 }

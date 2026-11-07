@@ -11,6 +11,11 @@ public static class PostCommentMockAssertions
 			collection.ShouldHaveReceivedOneAggregateFluent();
 		}
 
+		public void ShouldHaveReceivedOneAggregateFluent(ICollection<PostCommentId> ids)
+		{
+			collection.ShouldHaveReceivedOneAggregateFluent();
+		}
+
 		public void ShouldHaveReceivedOneAggregateFluent(
 			PostCommentId id,
 			CurrentUserQuery currentUserQuery)
@@ -103,6 +108,12 @@ public static class PostCommentMockAssertions
 		}
 
 		public void ShouldHaveReceivedOneMatch(
+			ICollection<PostCommentId> ids)
+		{
+			fluent.ShouldHaveReceivedOne().Match(ids);
+		}
+
+		public void ShouldHaveReceivedOneMatch(
 			PostCommentId filterQuery,
 			CurrentUserQuery currentUserQuery)
 		{
@@ -111,6 +122,13 @@ public static class PostCommentMockAssertions
 
 		public void ShouldHaveReceivedOneApplyIncludes(
 			PostCommentId id,
+			PostCommentInclude include)
+		{
+			fluent.ShouldHaveReceivedOneApplyIncludes(include);
+		}
+
+		public void ShouldHaveReceivedOneApplyIncludes(
+			ICollection<PostCommentId> ids,
 			PostCommentInclude include)
 		{
 			fluent.ShouldHaveReceivedOneApplyIncludes(include);
@@ -230,10 +248,14 @@ public static class PostCommentMockAssertions
 		{
 			await fluent.ShouldHaveReceivedOneFirstOrDefaultAsync(cancellationToken);
 		}
-	}
 
-	extension(IPostCommentResponseFluent fluent)
-	{
+		public async Task ShouldHaveReceivedOneToListAsync(
+			ICollection<PostCommentId> ids,
+			CancellationToken cancellationToken)
+		{
+			await fluent.ShouldHaveReceivedOneToListAsync(cancellationToken);
+		}
+
 		public void ShouldHaveReceivedOneApplySorting(
 			PostCommentsFilterQuery filterQuery,
 			PostCommentsSortingQuery sortingQuery,
@@ -284,7 +306,10 @@ public static class PostCommentMockAssertions
 		{
 			fluent.ShouldHaveReceivedOne().ApplyPagination(paginationQuery);
 		}
+	}
 
+	extension(IPostCommentResponseFluent fluent)
+	{
 		public async Task ShouldHaveReceivedOneFirstOrDefaultAsync(
 			PostCommentId id,
 			CurrentUserQuery currentUserQuery,

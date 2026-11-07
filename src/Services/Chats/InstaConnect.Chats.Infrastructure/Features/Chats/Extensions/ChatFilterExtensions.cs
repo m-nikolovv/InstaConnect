@@ -16,6 +16,13 @@ internal static class ChatFilterExtensions
 
 			return Builders<Chat>.Filter.Or(participantOne, participantTwo);
 		}
+
+		public FilterDefinition<Chat> GetParticipantFilter()
+		{
+			return Builders<Chat>.Filter.Or(
+				filter.ParticipantOneId.GetFilterForIdEquals<Chat>(p => p.Id.ParticipantOneId.Id),
+				filter.ParticipantOneId.GetFilterForIdEquals<Chat>(p => p.Id.ParticipantTwoId.Id));
+		}
 	}
 
 	extension(ChatId filter)
@@ -40,6 +47,34 @@ internal static class ChatFilterExtensions
 				filter.ParticipantOneId.GetFilterForIdEquals(participantTwoIdField));
 
 			return Builders<T>.Filter.Or(participantOneId, participantTwoId);
+		}
+	}
+
+	extension(IEnumerable<ChatId> filter)
+	{
+		public FilterDefinition<Chat> GetFilter()
+		{
+			return filter.GetFilterForIdRange<Chat>(
+				p => p.Id.ParticipantOneId.Id,
+				p => p.Id.ParticipantTwoId.Id);
+		}
+
+		public FilterDefinition<T> GetFilterForIdRange<T>(
+			Expression<Func<T, object>> participantOneIdField,
+			Expression<Func<T, object>> participantTwoIdField)
+		{
+			return Builders<T>.Filter.Or(filter.Select(item => item.GetFilterForIdEquals(participantOneIdField, participantTwoIdField)));
+		}
+	}
+
+	extension(UserId filter)
+	{
+		public FilterDefinition<Chat> GetChatCascadeFilter()
+		{
+			var participantOneId = filter.GetFilterForIdEquals<Chat>(p => p.Id.ParticipantOneId.Id);
+			var participantTwoId = filter.GetFilterForIdEquals<Chat>(p => p.Id.ParticipantTwoId.Id);
+
+			return Builders<Chat>.Filter.Or(participantOneId, participantTwoId);
 		}
 	}
 }

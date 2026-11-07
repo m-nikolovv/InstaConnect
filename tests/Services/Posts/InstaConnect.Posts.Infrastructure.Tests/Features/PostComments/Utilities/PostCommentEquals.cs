@@ -27,6 +27,16 @@ public static class PostCommentEquals
 		}
 	}
 
+	extension(ICollection<PostComment> p)
+	{
+		public bool Matches(
+			ICollection<PostCommentId> ids,
+			ICollection<PostComment> postComments)
+		{
+			return p.Matches(postComments);
+		}
+	}
+
 	extension(User? u)
 	{
 		public bool MatchesFilter(PostCommentsFilterQuery query)

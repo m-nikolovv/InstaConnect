@@ -1,8 +1,9 @@
+using InstaConnect.Identity.Domain.Features.EmailConfirmationTokens.Models.ValueObjects;
 using InstaConnect.Identity.Infrastructure.Features.EmailConfirmationTokens.Extensions;
 
 namespace InstaConnect.Identity.Infrastructure.Features.EmailConfirmationTokens.Helpers.Collections;
 
-internal class EmailConfirmationTokenCollection : MongoDbCollection<EmailConfirmationToken>, IEmailConfirmationTokenCollection
+internal class EmailConfirmationTokenCollection : MongoDbCollection<EmailConfirmationToken, EmailConfirmationTokenId>, IEmailConfirmationTokenCollection
 {
 	private readonly IEmailConfirmationTokenFluentFactory _fluentFactory;
 
@@ -40,5 +41,12 @@ internal class EmailConfirmationTokenCollection : MongoDbCollection<EmailConfirm
 		CancellationToken cancellationToken)
 	{
 		await DeleteRangeAsync(entities.Select(p => p.Id).GetFilter(), cancellationToken);
+	}
+
+	public async Task CascadeDeleteAsync(
+		FilterDefinition<EmailConfirmationToken> filter,
+		CancellationToken cancellationToken)
+	{
+		await DeleteRangeAsync(filter, cancellationToken);
 	}
 }

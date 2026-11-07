@@ -10,6 +10,8 @@ public class DeletePostCommentCommandRepositoryIntegrationTests : BasePostCommen
 	protected override async Task OnInitializeAsync()
 	{
 		await ServiceScope.AddAsync(PostComment, CancellationToken);
+		await ServiceScope.AddRangeAsync(PostCommentImages, CancellationToken);
+		await ServiceScope.AddRangeAsync(PostCommentLikes, CancellationToken);
 	}
 
 	[Fact]
@@ -21,5 +23,27 @@ public class DeletePostCommentCommandRepositoryIntegrationTests : BasePostCommen
 
 		// Assert
 		postComment.ShouldBeNull();
+	}
+
+	[Fact]
+	public async Task DeleteAsync_ShouldDeletePostCommentPostCommentImages_WhenCommandIsValid()
+	{
+		// Act
+		await Repository.DeleteAsync(PostComment, CancellationToken);
+		var postCommentPostCommentImages = await ServiceScope.GetByIdRangeAsync(PostCommentPostCommentImageIds, CancellationToken);
+
+		// Assert
+		postCommentPostCommentImages.ShouldBeEmpty();
+	}
+
+	[Fact]
+	public async Task DeleteAsync_ShouldDeletePostCommentPostCommentLikes_WhenCommandIsValid()
+	{
+		// Act
+		await Repository.DeleteAsync(PostComment, CancellationToken);
+		var postCommentPostCommentLikes = await ServiceScope.GetByIdRangeAsync(PostCommentPostCommentLikeIds, CancellationToken);
+
+		// Assert
+		postCommentPostCommentLikes.ShouldBeEmpty();
 	}
 }

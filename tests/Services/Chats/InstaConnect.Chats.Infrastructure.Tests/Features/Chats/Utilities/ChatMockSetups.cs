@@ -15,6 +15,13 @@ public static class ChatMockSetups
 		}
 
 		public void SetupAggregateFluent(
+			ICollection<ChatId> ids,
+			IChatFluent fluent)
+		{
+			collection.SetupAggregateFluent(fluent);
+		}
+
+		public void SetupAggregateFluent(
 			ChatId id,
 			CurrentUserQuery currentUserQuery,
 			IChatFluent fluent)
@@ -71,6 +78,13 @@ public static class ChatMockSetups
 		}
 
 		public void SetupApplyIncludes(
+			ICollection<ChatId> ids,
+			ChatInclude include)
+		{
+			fluent.SetupApplyIncludes(include);
+		}
+
+		public void SetupApplyIncludes(
 			ChatId id,
 			CurrentUserQuery currentUserQuery,
 			ChatInclude include)
@@ -103,6 +117,11 @@ public static class ChatMockSetups
 		public void SetupMatch(ChatId id)
 		{
 			fluent.Match(id).ReturnsResponse(fluent);
+		}
+
+		public void SetupMatch(ICollection<ChatId> ids)
+		{
+			fluent.Match(ids).ReturnsResponse(fluent);
 		}
 
 		public void SetupMatch(
@@ -164,6 +183,14 @@ public static class ChatMockSetups
 			CancellationToken cancellationToken)
 		{
 			fluent.SetupFirstOrDefaultAsync(chat, cancellationToken);
+		}
+
+		public void SetupToListAsync(
+			ICollection<ChatId> ids,
+			ICollection<Chat> chats,
+			CancellationToken cancellationToken)
+		{
+			fluent.SetupToListAsync(chats, cancellationToken);
 		}
 	}
 

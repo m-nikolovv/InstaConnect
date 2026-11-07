@@ -325,6 +325,65 @@ public class DeleteChatMessageFunctionalTests : BaseChatMessagePresentationComma
 	}
 
 	[Fact]
+	public async Task DeleteAsync_ShouldDeleteChatMessageChatMessageImages_WhenRequestIsValid()
+	{
+		// Act
+		await ApiClient.DeleteAsync(_request, CancellationToken);
+		var chatMessageChatMessageImages = await ServiceScope.GetByIdRangeAsync(ChatMessageChatMessageImageIds, CancellationToken);
+
+		// Assert
+		chatMessageChatMessageImages.ShouldBeEmpty();
+	}
+
+	[Theory]
+	[UserIdDifferentCaseData]
+	public async Task DeleteAsync_ShouldDeleteChatMessageChatMessageImages_WhenRequestAndParticipantOneIdAreValid(
+		IStringTransformer transformer)
+	{
+		// Arrange
+		var request = _requestBuilder.WithParticipantOneId(transformer).Build();
+
+		// Act
+		await ApiClient.DeleteAsync(request, CancellationToken);
+		var chatMessageChatMessageImages = await ServiceScope.GetByIdRangeAsync(ChatMessageChatMessageImageIds, CancellationToken);
+
+		// Assert
+		chatMessageChatMessageImages.ShouldBeEmpty();
+	}
+
+	[Theory]
+	[UserIdDifferentCaseData]
+	public async Task DeleteAsync_ShouldDeleteChatMessageChatMessageImages_WhenRequestAndParticipantTwoIdAreValid(
+		IStringTransformer transformer)
+	{
+		// Arrange
+		var request = _requestBuilder.WithParticipantTwoId(transformer).Build();
+
+		// Act
+		await ApiClient.DeleteAsync(request, CancellationToken);
+		var chatMessageChatMessageImages = await ServiceScope.GetByIdRangeAsync(ChatMessageChatMessageImageIds, CancellationToken);
+
+		// Assert
+		chatMessageChatMessageImages.ShouldBeEmpty();
+	}
+
+	[Theory]
+	[ChatMessageIdDifferentCaseData]
+	public async Task DeleteAsync_ShouldDeleteChatMessageChatMessageImages_WhenRequestAndMessageIdAreValid(
+		IStringTransformer transformer)
+	{
+		// Arrange
+		var request = _requestBuilder.WithMessageId(transformer).Build();
+
+		// Act
+		await ApiClient.DeleteAsync(request, CancellationToken);
+		var chatMessageChatMessageImages = await ServiceScope.GetByIdRangeAsync(ChatMessageChatMessageImageIds, CancellationToken);
+
+		// Assert
+		chatMessageChatMessageImages.ShouldBeEmpty();
+	}
+
+	[Fact]
 	public async Task DeleteAsync_ShouldPublishChatMessageDeletedNotification_WhenRequestIsValid()
 	{
 		// Act
@@ -507,6 +566,71 @@ public class DeleteChatMessageFunctionalTests : BaseChatMessagePresentationComma
 
 		// Assert
 		chatMessage.ShouldBeNull();
+	}
+
+	[Fact]
+	public async Task DeleteAsync_ShouldDeleteInvertedChatMessageChatMessageImages_WhenRequestIsValid()
+	{
+		// Arrange
+		await ServiceScope.UpdateAsync(InvertedChatMessage, CancellationToken);
+
+		// Act
+		await ApiClient.DeleteAsync(_invertedRequest, CancellationToken);
+		var chatMessageChatMessageImages = await ServiceScope.GetByIdRangeAsync(ChatMessageChatMessageImageIds, CancellationToken);
+
+		// Assert
+		chatMessageChatMessageImages.ShouldBeEmpty();
+	}
+
+	[Theory]
+	[UserIdDifferentCaseData]
+	public async Task DeleteAsync_ShouldDeleteInvertedChatMessageChatMessageImages_WhenRequestAndParticipantOneIdAreValid(
+		IStringTransformer transformer)
+	{
+		// Arrange
+		await ServiceScope.UpdateAsync(InvertedChatMessage, CancellationToken);
+		var invertedRequest = _invertedRequestBuilder.WithParticipantOneId(transformer).Build();
+
+		// Act
+		await ApiClient.DeleteAsync(invertedRequest, CancellationToken);
+		var chatMessageChatMessageImages = await ServiceScope.GetByIdRangeAsync(ChatMessageChatMessageImageIds, CancellationToken);
+
+		// Assert
+		chatMessageChatMessageImages.ShouldBeEmpty();
+	}
+
+	[Theory]
+	[UserIdDifferentCaseData]
+	public async Task DeleteAsync_ShouldDeleteInvertedChatMessageChatMessageImages_WhenRequestAndParticipantTwoIdAreValid(
+		IStringTransformer transformer)
+	{
+		// Arrange
+		await ServiceScope.UpdateAsync(InvertedChatMessage, CancellationToken);
+		var invertedRequest = _invertedRequestBuilder.WithParticipantTwoId(transformer).Build();
+
+		// Act
+		await ApiClient.DeleteAsync(invertedRequest, CancellationToken);
+		var chatMessageChatMessageImages = await ServiceScope.GetByIdRangeAsync(ChatMessageChatMessageImageIds, CancellationToken);
+
+		// Assert
+		chatMessageChatMessageImages.ShouldBeEmpty();
+	}
+
+	[Theory]
+	[ChatMessageIdDifferentCaseData]
+	public async Task DeleteAsync_ShouldDeleteInvertedChatMessageChatMessageImages_WhenRequestAndMessageIdAreValid(
+		IStringTransformer transformer)
+	{
+		// Arrange
+		await ServiceScope.UpdateAsync(InvertedChatMessage, CancellationToken);
+		var invertedRequest = _invertedRequestBuilder.WithMessageId(transformer).Build();
+
+		// Act
+		await ApiClient.DeleteAsync(invertedRequest, CancellationToken);
+		var chatMessageChatMessageImages = await ServiceScope.GetByIdRangeAsync(ChatMessageChatMessageImageIds, CancellationToken);
+
+		// Assert
+		chatMessageChatMessageImages.ShouldBeEmpty();
 	}
 
 	[Fact]

@@ -4,7 +4,7 @@ using InstaConnect.Follows.Tests.Features.Follows.Utilities;
 
 namespace InstaConnect.Follows.Application.Tests.Unit.Features.Follows.Utilities;
 
-public abstract class BaseFollowApplicationCommandUnitTest : BaseFollowTest
+public abstract class BaseFollowApplicationCommandUnitTest : BaseFollowCommandTest
 {
 	protected IApplicationMapper Mapper { get; }
 

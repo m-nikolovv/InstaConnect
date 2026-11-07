@@ -2,7 +2,7 @@ using InstaConnect.Posts.Tests.Features.PostComments.Utilities;
 
 namespace InstaConnect.Posts.Presentation.Tests.Unit.Features.PostComments.Utilities;
 
-public abstract class BasePostCommentPresentationCommandUnitTest : BasePostCommentTest
+public abstract class BasePostCommentPresentationCommandUnitTest : BasePostCommentCommandTest
 {
 	protected IApplicationSender Sender { get; }
 

@@ -1,17 +1,21 @@
+using InstaConnect.Follows.Infrastructure.Features.Follows.Extensions;
 using InstaConnect.Follows.Infrastructure.Features.Users.Extensions;
 
 namespace InstaConnect.Follows.Infrastructure.Features.Users.Helpers.Collections;
 
-internal class UserCollection : MongoDbCollection<User>, IUserCollection
+internal class UserCollection : MongoDbCollection<User, UserId>, IUserCollection
 {
 	private readonly IUserFluentFactory _fluentFactory;
+	private readonly IFollowCollection _followCollection;
 
 	public UserCollection(
 		ISessionHandler sessionHandler,
 		IUserFluentFactory fluentFactory,
-		IMongoCollection<User> collection) : base(sessionHandler, collection)
+		IMongoCollection<User> collection,
+		IFollowCollection followCollection) : base(sessionHandler, collection)
 	{
 		_fluentFactory = fluentFactory;
+		_followCollection = followCollection;
 	}
 
 	public IUserFluent AggregateFluent()
@@ -32,6 +36,7 @@ internal class UserCollection : MongoDbCollection<User>, IUserCollection
 		User entity,
 		CancellationToken cancellationToken)
 	{
+		await _followCollection.CascadeDeleteAsync(entity.Id.GetFollowCascadeFilter(), cancellationToken);
 		await DeleteAsync(entity.Id.GetFilter(), cancellationToken);
 	}
 }

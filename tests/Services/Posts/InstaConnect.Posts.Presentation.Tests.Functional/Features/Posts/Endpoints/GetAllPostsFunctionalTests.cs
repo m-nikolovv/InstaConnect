@@ -23,11 +23,6 @@ public class GetAllPostsFunctionalTests : BasePostPresentationQueryFunctionalTes
 		_request = _requestBuilder.Build();
 	}
 
-	protected override async Task OnInitializeAsync()
-	{
-		await ServiceScope.AddRangeAsync(Posts, CancellationToken);
-	}
-
 	[Theory]
 	[UserNameTooLongData]
 	public async Task GetAllAsync_ShouldHaveBadRequestStatusCode_WhenUserNameIsInvalid(

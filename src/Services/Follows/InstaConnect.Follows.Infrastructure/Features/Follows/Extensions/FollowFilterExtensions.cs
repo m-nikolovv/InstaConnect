@@ -43,4 +43,30 @@ internal static class FollowFilterExtensions
 			return Builders<T>.Filter.And(followerId, followingId);
 		}
 	}
+
+	extension(IEnumerable<FollowId> filter)
+	{
+		public FilterDefinition<Follow> GetFilter()
+		{
+			return filter.GetFilterForIdRange<Follow>(p => p.Id.FollowerId.Id, p => p.Id.FollowingId.Id);
+		}
+
+		public FilterDefinition<T> GetFilterForIdRange<T>(
+			Expression<Func<T, object>> followerIdField,
+			Expression<Func<T, object>> followingIdField)
+		{
+			return Builders<T>.Filter.Or(filter.Select(item => item.GetFilterForIdEquals(followerIdField, followingIdField)));
+		}
+	}
+
+	extension(UserId filter)
+	{
+		public FilterDefinition<Follow> GetFollowCascadeFilter()
+		{
+			var followerId = filter.GetFilterForIdEquals<Follow>(p => p.Id.FollowerId.Id);
+			var followingId = filter.GetFilterForIdEquals<Follow>(p => p.Id.FollowingId.Id);
+
+			return Builders<Follow>.Filter.Or(followerId, followingId);
+		}
+	}
 }

@@ -1,15 +1,21 @@
+using InstaConnect.Chats.Infrastructure.Features.ChatMessageImages.Abstractions;
+using InstaConnect.Chats.Infrastructure.Features.ChatMessageImages.Extensions;
+
 namespace InstaConnect.Chats.Infrastructure.Features.ChatMessages.Helpers.Collections;
 
-internal class ChatMessageCollection : MongoDbCollection<ChatMessage>, IChatMessageCollection
+internal class ChatMessageCollection : MongoDbCollection<ChatMessage, ChatMessageId>, IChatMessageCollection
 {
 	private readonly IChatMessageFluentFactory _fluentFactory;
+	private readonly IChatMessageImageCollection _messageImageCollection;
 
 	public ChatMessageCollection(
 		ISessionHandler sessionHandler,
 		IChatMessageFluentFactory fluentFactory,
-		IMongoCollection<ChatMessage> collection) : base(sessionHandler, collection)
+		IMongoCollection<ChatMessage> collection,
+		IChatMessageImageCollection messageImageCollection) : base(sessionHandler, collection)
 	{
 		_fluentFactory = fluentFactory;
+		_messageImageCollection = messageImageCollection;
 	}
 
 	public IChatMessageFluent AggregateFluent()
@@ -30,6 +36,16 @@ internal class ChatMessageCollection : MongoDbCollection<ChatMessage>, IChatMess
 		ChatMessage entity,
 		CancellationToken cancellationToken)
 	{
-		await DeleteAsync(entity.Id.GetFilter(), cancellationToken);
+		await CascadeDeleteAsync(entity.Id.GetFilter(), cancellationToken);
+	}
+
+	public async Task CascadeDeleteAsync(
+		FilterDefinition<ChatMessage> filter,
+		CancellationToken cancellationToken)
+	{
+		var messageIds = await GetIdsAsync(filter, cancellationToken);
+
+		await _messageImageCollection.CascadeDeleteAsync(messageIds.GetChatMessageImageCascadeFilter(), cancellationToken);
+		await DeleteRangeAsync(filter, cancellationToken);
 	}
 }

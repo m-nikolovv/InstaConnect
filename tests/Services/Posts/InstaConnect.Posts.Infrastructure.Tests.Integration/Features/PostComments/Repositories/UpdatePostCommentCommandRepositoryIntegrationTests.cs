@@ -17,7 +17,7 @@ public class UpdatePostCommentCommandRepositoryIntegrationTests : BasePostCommen
 	[Fact]
 	public async Task UpdateAsync_ShouldUpdatePostComment_WhenCommandIsValid()
 	{
-		var updatedPostComment = PostCommentBuilderFactory.Create(Post, User).WithId(PostCommentId).Build();
+		var updatedPostComment = PostCommentBuilderFactory.Create(Post, User).WithCommentId(PostCommentId).Build();
 
 		// Act
 		await Repository.UpdateAsync(updatedPostComment, CancellationToken);
