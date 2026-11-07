@@ -1,7 +1,7 @@
-using InstaConnect.Identity.Tests.Features.RefreshTokens.Utilities;
 using InstaConnect.Common.Domain.Features.Guids.Abstractions;
 using InstaConnect.Identity.Domain.Features.RefreshTokens.Abstractions;
 using InstaConnect.Identity.Domain.Features.RefreshTokens.Models.Options;
+using InstaConnect.Identity.Tests.Features.RefreshTokens.Utilities;
 
 using Microsoft.Extensions.Options;
 

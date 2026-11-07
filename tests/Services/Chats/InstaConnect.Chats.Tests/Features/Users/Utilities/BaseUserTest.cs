@@ -1,6 +1,6 @@
-using InstaConnect.Chats.Tests.Features.Chats.Builders;
-using InstaConnect.Chats.Tests.Features.ChatMessages.Builders;
 using InstaConnect.Chats.Tests.Features.ChatMessageImages.Builders;
+using InstaConnect.Chats.Tests.Features.ChatMessages.Builders;
+using InstaConnect.Chats.Tests.Features.Chats.Builders;
 
 namespace InstaConnect.Chats.Tests.Features.Users.Utilities;
 

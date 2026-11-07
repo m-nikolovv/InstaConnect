@@ -1,5 +1,5 @@
-using InstaConnect.Identity.Tests.Features.RefreshTokens.Utilities;
 using InstaConnect.Identity.Presentation.Features.RefreshTokens.Abstractions;
+using InstaConnect.Identity.Tests.Features.RefreshTokens.Utilities;
 
 namespace InstaConnect.Identity.Presentation.Tests.Unit.Features.RefreshTokens.Utilities;
 
