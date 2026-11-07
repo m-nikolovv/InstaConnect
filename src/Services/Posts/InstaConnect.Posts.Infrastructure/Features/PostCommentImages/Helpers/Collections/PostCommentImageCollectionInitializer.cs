@@ -6,8 +6,8 @@ internal class PostCommentImageCollectionInitializer : MongoDbCollectionInitiali
 		: base(
 			collection,
 			[
-				new(Builders<PostCommentImage>.IndexKeys.Ascending(c => c.Id.Id.Id.Id)),
-				new(Builders<PostCommentImage>.IndexKeys.Ascending(c => c.Id.Id))
+				Builders<PostCommentImage>.IndexKeys.Ascending(c => c.Id.Id.Id.Id).ToIndex(),
+				Builders<PostCommentImage>.IndexKeys.Ascending(c => c.Id.Id).ToIndex()
 			])
 	{
 	}

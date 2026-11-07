@@ -6,8 +6,8 @@ internal class RefreshTokenCollectionInitializer : MongoDbCollectionInitializer<
 		: base(
 			collection,
 			[
-				new(Builders<RefreshToken>.IndexKeys.Ascending(c => c.Id.Id.Id)),
-				new(Builders<RefreshToken>.IndexKeys.Ascending(c => c.Id.Id))
+				Builders<RefreshToken>.IndexKeys.Ascending(c => c.Id.Id.Id).ToIndex(),
+				Builders<RefreshToken>.IndexKeys.Ascending(c => c.Id.Id).ToIndex()
 			])
 	{
 	}

@@ -6,9 +6,9 @@ internal class ChatMessageCollectionInitializer : MongoDbCollectionInitializer<C
 		: base(
 			collection,
 			[
-				new(Builders<ChatMessage>.IndexKeys.Ascending(c => c.Id.Id.ParticipantOneId.Id).Ascending(c => c.Id.Id.ParticipantTwoId.Id).Ascending(c => c.CreatedAtUtc)),
-				new(Builders<ChatMessage>.IndexKeys.Ascending(c => c.SenderId)),
-				new(Builders<ChatMessage>.IndexKeys.Ascending(c => c.Id.Id))
+				Builders<ChatMessage>.IndexKeys.Ascending(c => c.Id.Id.ParticipantOneId.Id).Ascending(c => c.Id.Id.ParticipantTwoId.Id).Ascending(c => c.CreatedAtUtc).ToIndex(),
+				Builders<ChatMessage>.IndexKeys.Ascending(c => c.SenderId).ToIndex(),
+				Builders<ChatMessage>.IndexKeys.Ascending(c => c.Id.Id).ToIndex()
 			])
 	{
 	}

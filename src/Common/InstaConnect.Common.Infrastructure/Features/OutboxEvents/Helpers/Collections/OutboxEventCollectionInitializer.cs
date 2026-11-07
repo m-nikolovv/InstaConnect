@@ -1,3 +1,4 @@
+using InstaConnect.Common.Infrastructure.Features.Databases.Extensions;
 using InstaConnect.Common.Infrastructure.Features.Databases.Helpers;
 using InstaConnect.Common.Infrastructure.Features.OutboxEvents.Models;
 using InstaConnect.Common.Infrastructure.Features.OutboxEvents.Models.Entities;
@@ -14,7 +15,7 @@ internal class OutboxEventCollectionInitializer : MongoDbCollectionInitializer<O
 		: base(
 			collection,
 			[
-				new(Builders<OutboxEvent>.IndexKeys.Ascending(c => c.CreatedAtUtc), new CreateIndexOptions { ExpireAfter = options.Value.ExpireAfter })
+				Builders<OutboxEvent>.IndexKeys.Ascending(c => c.CreatedAtUtc).ExpireAfter(options.Value.ExpireAfter)
 			])
 	{
 	}

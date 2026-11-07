@@ -6,8 +6,8 @@ internal class UserClaimCollectionInitializer : MongoDbCollectionInitializer<Use
 		: base(
 			collection,
 			[
-				new(Builders<UserClaim>.IndexKeys.Ascending(c => c.Id.Id.Id).Ascending(c => c.CreatedAtUtc)),
-				new(Builders<UserClaim>.IndexKeys.Ascending(c => c.Id.Id))
+				Builders<UserClaim>.IndexKeys.Ascending(c => c.Id.Id.Id).Ascending(c => c.CreatedAtUtc).ToIndex(),
+				Builders<UserClaim>.IndexKeys.Ascending(c => c.Id.Id).ToIndex()
 			])
 	{
 	}

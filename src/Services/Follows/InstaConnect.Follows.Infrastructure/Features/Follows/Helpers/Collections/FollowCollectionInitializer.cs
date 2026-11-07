@@ -6,10 +6,10 @@ internal class FollowCollectionInitializer : MongoDbCollectionInitializer<Follow
 		: base(
 			collection,
 			[
-				new(Builders<Follow>.IndexKeys.Ascending(c => c.Id.FollowerId.Id).Ascending(c => c.CreatedAtUtc)),
-				new(Builders<Follow>.IndexKeys.Ascending(c => c.Id.FollowingId.Id).Ascending(c => c.CreatedAtUtc)),
-				new(Builders<Follow>.IndexKeys.Ascending(c => c.Id.FollowerId)),
-				new(Builders<Follow>.IndexKeys.Ascending(c => c.Id.FollowingId))
+				Builders<Follow>.IndexKeys.Ascending(c => c.Id.FollowerId.Id).Ascending(c => c.CreatedAtUtc).ToIndex(),
+				Builders<Follow>.IndexKeys.Ascending(c => c.Id.FollowingId.Id).Ascending(c => c.CreatedAtUtc).ToIndex(),
+				Builders<Follow>.IndexKeys.Ascending(c => c.Id.FollowerId).ToIndex(),
+				Builders<Follow>.IndexKeys.Ascending(c => c.Id.FollowingId).ToIndex()
 			])
 	{
 	}

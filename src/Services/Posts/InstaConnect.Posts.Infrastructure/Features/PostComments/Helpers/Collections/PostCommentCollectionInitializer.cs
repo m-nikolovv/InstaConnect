@@ -6,10 +6,10 @@ internal class PostCommentCollectionInitializer : MongoDbCollectionInitializer<P
 		: base(
 			collection,
 			[
-				new(Builders<PostComment>.IndexKeys.Ascending(c => c.Id.Id.Id).Ascending(c => c.CreatedAtUtc)),
-				new(Builders<PostComment>.IndexKeys.Ascending(c => c.UserId.Id).Ascending(c => c.CreatedAtUtc)),
-				new(Builders<PostComment>.IndexKeys.Ascending(c => c.Id.Id)),
-				new(Builders<PostComment>.IndexKeys.Ascending(c => c.UserId))
+				Builders<PostComment>.IndexKeys.Ascending(c => c.Id.Id.Id).Ascending(c => c.CreatedAtUtc).ToIndex(),
+				Builders<PostComment>.IndexKeys.Ascending(c => c.UserId.Id).Ascending(c => c.CreatedAtUtc).ToIndex(),
+				Builders<PostComment>.IndexKeys.Ascending(c => c.Id.Id).ToIndex(),
+				Builders<PostComment>.IndexKeys.Ascending(c => c.UserId).ToIndex()
 			])
 	{
 	}

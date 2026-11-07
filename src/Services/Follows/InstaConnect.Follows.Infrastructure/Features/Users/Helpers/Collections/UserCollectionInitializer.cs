@@ -6,9 +6,9 @@ internal class UserCollectionInitializer : MongoDbCollectionInitializer<User>
 		: base(
 			collection,
 			[
-				new(Builders<User>.IndexKeys.Ascending(c => c.Id.Id)),
-				new(Builders<User>.IndexKeys.Ascending(c => c.Name.Value)),
-				new(Builders<User>.IndexKeys.Ascending(c => c.Email.Value))
+				Builders<User>.IndexKeys.Ascending(c => c.Id.Id).ToIndex(),
+				Builders<User>.IndexKeys.Ascending(c => c.Name.Value).ToIndex(),
+				Builders<User>.IndexKeys.Ascending(c => c.Email.Value).ToIndex()
 			])
 	{
 	}

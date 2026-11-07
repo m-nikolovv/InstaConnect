@@ -6,8 +6,8 @@ internal class ChatMessageImageCollectionInitializer : MongoDbCollectionInitiali
 		: base(
 			collection,
 			[
-				new(Builders<ChatMessageImage>.IndexKeys.Ascending(c => c.Id.Id.Id.ParticipantOneId.Id).Ascending(c => c.Id.Id.Id.ParticipantTwoId.Id).Ascending(c => c.Id.Id.MessageId)),
-				new(Builders<ChatMessageImage>.IndexKeys.Ascending(c => c.Id.Id))
+				Builders<ChatMessageImage>.IndexKeys.Ascending(c => c.Id.Id.Id.ParticipantOneId.Id).Ascending(c => c.Id.Id.Id.ParticipantTwoId.Id).Ascending(c => c.Id.Id.MessageId).ToIndex(),
+				Builders<ChatMessageImage>.IndexKeys.Ascending(c => c.Id.Id).ToIndex()
 			])
 	{
 	}

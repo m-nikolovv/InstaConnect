@@ -6,10 +6,10 @@ internal class ChatCollectionInitializer : MongoDbCollectionInitializer<Chat>
 		: base(
 			collection,
 			[
-				new(Builders<Chat>.IndexKeys.Ascending(c => c.Id.ParticipantOneId.Id).Ascending(c => c.CreatedAtUtc)),
-				new(Builders<Chat>.IndexKeys.Ascending(c => c.Id.ParticipantTwoId.Id).Ascending(c => c.CreatedAtUtc)),
-				new(Builders<Chat>.IndexKeys.Ascending(c => c.Id.ParticipantOneId)),
-				new(Builders<Chat>.IndexKeys.Ascending(c => c.Id.ParticipantTwoId))
+				Builders<Chat>.IndexKeys.Ascending(c => c.Id.ParticipantOneId.Id).Ascending(c => c.CreatedAtUtc).ToIndex(),
+				Builders<Chat>.IndexKeys.Ascending(c => c.Id.ParticipantTwoId.Id).Ascending(c => c.CreatedAtUtc).ToIndex(),
+				Builders<Chat>.IndexKeys.Ascending(c => c.Id.ParticipantOneId).ToIndex(),
+				Builders<Chat>.IndexKeys.Ascending(c => c.Id.ParticipantTwoId).ToIndex()
 			])
 	{
 	}

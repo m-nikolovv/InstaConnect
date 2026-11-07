@@ -6,10 +6,10 @@ internal class PostCollectionInitializer : MongoDbCollectionInitializer<Post>
 		: base(
 			collection,
 			[
-				new(Builders<Post>.IndexKeys.Ascending(c => c.Id.Id)),
-				new(Builders<Post>.IndexKeys.Ascending(c => c.UserId.Id).Ascending(c => c.CreatedAtUtc)),
-				new(Builders<Post>.IndexKeys.Ascending(c => c.UserId)),
-				new(Builders<Post>.IndexKeys.Ascending(c => c.CreatedAtUtc))
+				Builders<Post>.IndexKeys.Ascending(c => c.Id.Id).ToIndex(),
+				Builders<Post>.IndexKeys.Ascending(c => c.UserId.Id).Ascending(c => c.CreatedAtUtc).ToIndex(),
+				Builders<Post>.IndexKeys.Ascending(c => c.UserId).ToIndex(),
+				Builders<Post>.IndexKeys.Ascending(c => c.CreatedAtUtc).ToIndex()
 			])
 	{
 	}
