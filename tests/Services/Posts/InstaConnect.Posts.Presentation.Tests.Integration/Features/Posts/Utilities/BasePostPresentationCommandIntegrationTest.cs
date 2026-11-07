@@ -4,7 +4,7 @@ using InstaConnect.Posts.Tests.Features.Posts.Extensions;
 
 namespace InstaConnect.Posts.Presentation.Tests.Integration.Features.Posts.Utilities;
 
-public abstract class BasePostPresentationCommandIntegrationTest : BasePostsWebCommandTest
+public abstract class BasePostPresentationCommandIntegrationTest : BasePostWebCommandTest
 {
 	protected PostController Controller { get; }
 

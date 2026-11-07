@@ -3,7 +3,7 @@ using InstaConnect.Identity.Presentation.Tests.Features.UserClaims.Extensions;
 
 namespace InstaConnect.Identity.Presentation.Tests.Functional.Features.UserClaims.Utilities;
 
-public abstract class BaseUserClaimPresentationQueryFunctionalTest : BaseIdentityWebQueryTest
+public abstract class BaseUserClaimPresentationQueryFunctionalTest : BaseUserClaimWebQueryTest
 {
 	protected IUserClaimApiClient ClaimApiClient { get; }
 

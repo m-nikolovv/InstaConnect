@@ -1,7 +1,8 @@
+using InstaConnect.Identity.Tests.Features.EmailConfirmationTokens.Utilities;
 
 namespace InstaConnect.Identity.Presentation.Tests.Unit.Features.EmailConfirmationTokens.Utilities;
 
-public abstract class BaseEmailConfirmationTokenPresentationCommandUnitTest : BaseIdentityCommandTest
+public abstract class BaseEmailConfirmationTokenPresentationCommandUnitTest : BaseEmailConfirmationTokenCommandTest
 {
 	protected IApplicationSender Sender { get; }
 

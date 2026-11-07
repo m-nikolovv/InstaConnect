@@ -3,7 +3,7 @@ using InstaConnect.Identity.Tests.Features.EmailConfirmationTokens.Extensions;
 
 namespace InstaConnect.Identity.Application.Tests.Integration.Features.EmailConfirmationTokens.Utilities;
 
-public abstract class BaseEmailConfirmationTokenApplicationCommandIntegrationTest : BaseIdentityWebCommandTest
+public abstract class BaseEmailConfirmationTokenApplicationCommandIntegrationTest : BaseEmailConfirmationTokenWebCommandTest
 {
 	protected IApplicationSender Sender { get; }
 

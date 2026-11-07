@@ -18,6 +18,14 @@ public class DeleteUserCommandHandlerIntegrationTests : BaseUserApplicationComma
 		_request = _requestBuilder.Build();
 	}
 
+	protected override async Task OnInitializeAsync()
+	{
+		await ServiceScope.AddAsync(User, CancellationToken);
+		await ServiceScope.AddRangeAsync(Follows, CancellationToken);
+		await ServiceScope.AddRangeAsync(UserFollowFollowers, CancellationToken);
+		await ServiceScope.AddRangeAsync(UserFollowFollowings, CancellationToken);
+	}
+
 	[Theory]
 	[UserIdNullWithMessageData]
 	[UserIdEmptyWithMessageData]
@@ -71,19 +79,19 @@ public class DeleteUserCommandHandlerIntegrationTests : BaseUserApplicationComma
 	}
 
 	[Fact]
-	public async Task SendAsync_ShouldDeleteUserFollows_WhenRequestIsValid()
+	public async Task SendAsync_ShouldDeleteUserFollowFollowers_WhenRequestIsValid()
 	{
 		// Act
 		await Sender.SendAsync(_request, CancellationToken);
-		var follows = await ServiceScope.GetByIdRangeAsync(UserFollowIds, CancellationToken);
+		var userFollowFollowers = await ServiceScope.GetByIdRangeAsync(UserFollowFollowerIds, CancellationToken);
 
 		// Assert
-		follows.ShouldBeEmpty();
+		userFollowFollowers.ShouldBeEmpty();
 	}
 
 	[Theory]
 	[UserIdDifferentCaseData]
-	public async Task SendAsync_ShouldDeleteUserFollows_WhenRequestAndIdAreValid(
+	public async Task SendAsync_ShouldDeleteUserFollowFollowers_WhenRequestAndIdAreValid(
 		IStringTransformer transformer)
 	{
 		// Arrange
@@ -91,9 +99,36 @@ public class DeleteUserCommandHandlerIntegrationTests : BaseUserApplicationComma
 
 		// Act
 		await Sender.SendAsync(request, CancellationToken);
-		var follows = await ServiceScope.GetByIdRangeAsync(UserFollowIds, CancellationToken);
+		var userFollowFollowers = await ServiceScope.GetByIdRangeAsync(UserFollowFollowerIds, CancellationToken);
 
 		// Assert
-		follows.ShouldBeEmpty();
+		userFollowFollowers.ShouldBeEmpty();
+	}
+
+	[Fact]
+	public async Task SendAsync_ShouldDeleteUserFollowFollowings_WhenRequestIsValid()
+	{
+		// Act
+		await Sender.SendAsync(_request, CancellationToken);
+		var userFollowFollowings = await ServiceScope.GetByIdRangeAsync(UserFollowFollowingIds, CancellationToken);
+
+		// Assert
+		userFollowFollowings.ShouldBeEmpty();
+	}
+
+	[Theory]
+	[UserIdDifferentCaseData]
+	public async Task SendAsync_ShouldDeleteUserFollowFollowings_WhenRequestAndIdAreValid(
+		IStringTransformer transformer)
+	{
+		// Arrange
+		var request = _requestBuilder.WithId(transformer).Build();
+
+		// Act
+		await Sender.SendAsync(request, CancellationToken);
+		var userFollowFollowings = await ServiceScope.GetByIdRangeAsync(UserFollowFollowingIds, CancellationToken);
+
+		// Assert
+		userFollowFollowings.ShouldBeEmpty();
 	}
 }

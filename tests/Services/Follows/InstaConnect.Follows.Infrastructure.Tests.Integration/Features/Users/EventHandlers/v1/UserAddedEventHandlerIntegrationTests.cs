@@ -31,11 +31,6 @@ public class UserAddedEventHandlerIntegrationTests : BaseUserInfrastructureEvent
 		_handler = ServiceScope.GetUserAddedEventHandler();
 	}
 
-	protected override async Task OnInitializeAsync()
-	{
-		await ServiceScope.DeleteAsync(User, CancellationToken);
-	}
-
 	[Theory]
 	[UserIdNullWithMessageData]
 	[UserIdEmptyWithMessageData]

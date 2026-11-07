@@ -2,7 +2,7 @@ using InstaConnect.Chats.Presentation.Features.Chats.Controllers.v1;
 
 namespace InstaConnect.Chats.Presentation.Tests.Integration.Features.Chats.Utilities;
 
-public abstract class BaseChatPresentationQueryIntegrationTest : BaseChatsWebQueryTest
+public abstract class BaseChatPresentationQueryIntegrationTest : BaseChatWebQueryTest
 {
 	protected ChatController Controller { get; }
 

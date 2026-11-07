@@ -25,7 +25,7 @@ public class DeleteChatMessageControllerIntegrationTests : BaseChatMessagePresen
 	protected override async Task OnInitializeAsync()
 	{
 		await ServiceScope.AddAsync(ChatMessage, CancellationToken);
-		await ServiceScope.AddRangeAsync(ChatMessageChatMessageImages, CancellationToken);
+		await ServiceScope.AddRangeAsync(ChatMessageImages, CancellationToken);
 	}
 
 	[Theory]
@@ -350,10 +350,10 @@ public class DeleteChatMessageControllerIntegrationTests : BaseChatMessagePresen
 	{
 		// Act
 		await Controller.DeleteAsync(_request, CancellationToken);
-		var chatMessageImages = await ServiceScope.GetByIdRangeAsync(ChatMessageChatMessageImageIds, CancellationToken);
+		var chatMessageChatMessageImages = await ServiceScope.GetByIdRangeAsync(ChatMessageChatMessageImageIds, CancellationToken);
 
 		// Assert
-		chatMessageImages.ShouldBeEmpty();
+		chatMessageChatMessageImages.ShouldBeEmpty();
 	}
 
 	[Theory]
@@ -366,10 +366,10 @@ public class DeleteChatMessageControllerIntegrationTests : BaseChatMessagePresen
 
 		// Act
 		await Controller.DeleteAsync(request, CancellationToken);
-		var chatMessageImages = await ServiceScope.GetByIdRangeAsync(ChatMessageChatMessageImageIds, CancellationToken);
+		var chatMessageChatMessageImages = await ServiceScope.GetByIdRangeAsync(ChatMessageChatMessageImageIds, CancellationToken);
 
 		// Assert
-		chatMessageImages.ShouldBeEmpty();
+		chatMessageChatMessageImages.ShouldBeEmpty();
 	}
 
 	[Theory]
@@ -382,10 +382,10 @@ public class DeleteChatMessageControllerIntegrationTests : BaseChatMessagePresen
 
 		// Act
 		await Controller.DeleteAsync(request, CancellationToken);
-		var chatMessageImages = await ServiceScope.GetByIdRangeAsync(ChatMessageChatMessageImageIds, CancellationToken);
+		var chatMessageChatMessageImages = await ServiceScope.GetByIdRangeAsync(ChatMessageChatMessageImageIds, CancellationToken);
 
 		// Assert
-		chatMessageImages.ShouldBeEmpty();
+		chatMessageChatMessageImages.ShouldBeEmpty();
 	}
 
 	[Theory]
@@ -398,10 +398,10 @@ public class DeleteChatMessageControllerIntegrationTests : BaseChatMessagePresen
 
 		// Act
 		await Controller.DeleteAsync(request, CancellationToken);
-		var chatMessageImages = await ServiceScope.GetByIdRangeAsync(ChatMessageChatMessageImageIds, CancellationToken);
+		var chatMessageChatMessageImages = await ServiceScope.GetByIdRangeAsync(ChatMessageChatMessageImageIds, CancellationToken);
 
 		// Assert
-		chatMessageImages.ShouldBeEmpty();
+		chatMessageChatMessageImages.ShouldBeEmpty();
 	}
 
 	[Fact]
@@ -412,10 +412,10 @@ public class DeleteChatMessageControllerIntegrationTests : BaseChatMessagePresen
 
 		// Act
 		await Controller.DeleteAsync(_invertedRequest, CancellationToken);
-		var chatMessageImages = await ServiceScope.GetByIdRangeAsync(ChatMessageChatMessageImageIds, CancellationToken);
+		var chatMessageChatMessageImages = await ServiceScope.GetByIdRangeAsync(ChatMessageChatMessageImageIds, CancellationToken);
 
 		// Assert
-		chatMessageImages.ShouldBeEmpty();
+		chatMessageChatMessageImages.ShouldBeEmpty();
 	}
 
 	[Theory]
@@ -429,10 +429,10 @@ public class DeleteChatMessageControllerIntegrationTests : BaseChatMessagePresen
 
 		// Act
 		await Controller.DeleteAsync(invertedRequest, CancellationToken);
-		var chatMessageImages = await ServiceScope.GetByIdRangeAsync(ChatMessageChatMessageImageIds, CancellationToken);
+		var chatMessageChatMessageImages = await ServiceScope.GetByIdRangeAsync(ChatMessageChatMessageImageIds, CancellationToken);
 
 		// Assert
-		chatMessageImages.ShouldBeEmpty();
+		chatMessageChatMessageImages.ShouldBeEmpty();
 	}
 
 	[Theory]
@@ -446,10 +446,10 @@ public class DeleteChatMessageControllerIntegrationTests : BaseChatMessagePresen
 
 		// Act
 		await Controller.DeleteAsync(invertedRequest, CancellationToken);
-		var chatMessageImages = await ServiceScope.GetByIdRangeAsync(ChatMessageChatMessageImageIds, CancellationToken);
+		var chatMessageChatMessageImages = await ServiceScope.GetByIdRangeAsync(ChatMessageChatMessageImageIds, CancellationToken);
 
 		// Assert
-		chatMessageImages.ShouldBeEmpty();
+		chatMessageChatMessageImages.ShouldBeEmpty();
 	}
 
 	[Theory]
@@ -463,10 +463,10 @@ public class DeleteChatMessageControllerIntegrationTests : BaseChatMessagePresen
 
 		// Act
 		await Controller.DeleteAsync(invertedRequest, CancellationToken);
-		var chatMessageImages = await ServiceScope.GetByIdRangeAsync(ChatMessageChatMessageImageIds, CancellationToken);
+		var chatMessageChatMessageImages = await ServiceScope.GetByIdRangeAsync(ChatMessageChatMessageImageIds, CancellationToken);
 
 		// Assert
-		chatMessageImages.ShouldBeEmpty();
+		chatMessageChatMessageImages.ShouldBeEmpty();
 	}
 
 	[Fact]

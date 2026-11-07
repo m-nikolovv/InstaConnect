@@ -9,6 +9,11 @@ public class UpdateUserCommandRepositoryIntegrationTests : BaseUserInfrastructur
 	{
 	}
 
+	protected override async Task OnInitializeAsync()
+	{
+		await ServiceScope.AddAsync(User, CancellationToken);
+	}
+
 	[Fact]
 	public async Task UpdateAsync_ShouldUpdateUser_WhenCommandIsValid()
 	{

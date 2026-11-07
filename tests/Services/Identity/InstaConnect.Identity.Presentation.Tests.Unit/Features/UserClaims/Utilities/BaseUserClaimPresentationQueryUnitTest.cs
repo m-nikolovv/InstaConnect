@@ -1,7 +1,8 @@
+using InstaConnect.Identity.Tests.Features.UserClaims.Utilities;
 
 namespace InstaConnect.Identity.Presentation.Tests.Unit.Features.UserClaims.Utilities;
 
-public abstract class BaseUserClaimPresentationQueryUnitTest : BaseIdentityQueryTest
+public abstract class BaseUserClaimPresentationQueryUnitTest : BaseUserClaimQueryTest
 {
 	protected IApplicationSender Sender { get; }
 

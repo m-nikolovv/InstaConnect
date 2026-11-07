@@ -18,6 +18,11 @@ public class UserIsEmailUniqueCommandRepositoryIntegrationTests : BaseUserInfras
 		_email = _emailBuilder.Build();
 	}
 
+	protected override async Task OnInitializeAsync()
+	{
+		await ServiceScope.AddAsync(User, CancellationToken);
+	}
+
 	[Fact]
 	public async Task IsEmailUniqueAsync_ShouldReturnNull_WhenEmailIsInvalid()
 	{

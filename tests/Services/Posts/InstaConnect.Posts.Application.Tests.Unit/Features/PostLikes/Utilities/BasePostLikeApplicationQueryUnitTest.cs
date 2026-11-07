@@ -1,9 +1,9 @@
 using InstaConnect.Posts.Domain.Features.PostLikes.Abstractions;
-using InstaConnect.Posts.Tests.Features.Common.Utilities;
+using InstaConnect.Posts.Tests.Features.PostLikes.Utilities;
 
 namespace InstaConnect.Posts.Application.Tests.Unit.Features.PostLikes.Utilities;
 
-public abstract class BasePostLikeApplicationQueryUnitTest : BasePostsQueryTest
+public abstract class BasePostLikeApplicationQueryUnitTest : BasePostLikeQueryTest
 {
 	protected IApplicationMapper Mapper { get; }
 

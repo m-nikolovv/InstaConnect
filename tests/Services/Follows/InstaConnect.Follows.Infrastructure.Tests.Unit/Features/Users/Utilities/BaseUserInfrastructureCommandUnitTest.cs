@@ -1,11 +1,10 @@
 using InstaConnect.Follows.Domain.Features.Users.Abstractions;
 using InstaConnect.Follows.Infrastructure.Features.Users.Abstractions;
-using InstaConnect.Follows.Tests.Features.Common.Utilities;
 using InstaConnect.Follows.Tests.Features.Users.Utilities;
 
 namespace InstaConnect.Follows.Infrastructure.Tests.Unit.Features.Users.Utilities;
 
-public abstract class BaseUserInfrastructureCommandUnitTest : BaseFollowsCommandTest
+public abstract class BaseUserInfrastructureCommandUnitTest : BaseUserCommandTest
 {
 	protected IUserFluent Fluent { get; }
 

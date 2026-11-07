@@ -7,7 +7,7 @@ using InstaConnect.Identity.Tests.Features.Users.Extensions;
 
 namespace InstaConnect.Identity.Presentation.Tests.Functional.Features.Users.Utilities;
 
-public abstract class BaseUserPresentationCommandFunctionalTest : BaseIdentityWebCommandTest
+public abstract class BaseUserPresentationCommandFunctionalTest : BaseUserWebCommandTest
 {
 	protected IUserApiClient ApiClient { get; }
 

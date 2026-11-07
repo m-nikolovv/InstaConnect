@@ -3,7 +3,7 @@ using InstaConnect.Follows.Presentation.Tests.Features.Follows.Utilities;
 
 namespace InstaConnect.Follows.Presentation.Tests.Integration.Features.Follows.Utilities;
 
-public abstract class BaseFollowPresentationQueryIntegrationTest : BaseFollowsWebQueryTest
+public abstract class BaseFollowPresentationQueryIntegrationTest : BaseFollowWebQueryTest
 {
 	protected FollowController Controller { get; }
 

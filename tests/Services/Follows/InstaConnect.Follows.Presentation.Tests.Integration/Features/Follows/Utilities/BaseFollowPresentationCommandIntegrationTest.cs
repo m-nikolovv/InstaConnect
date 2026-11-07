@@ -5,7 +5,7 @@ using InstaConnect.Follows.Tests.Features.Follows.Extensions;
 
 namespace InstaConnect.Follows.Presentation.Tests.Integration.Features.Follows.Utilities;
 
-public abstract class BaseFollowPresentationCommandIntegrationTest : BaseFollowsWebCommandTest
+public abstract class BaseFollowPresentationCommandIntegrationTest : BaseFollowWebCommandTest
 {
 	protected FollowController Controller { get; }
 

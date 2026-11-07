@@ -1,9 +1,9 @@
 using InstaConnect.Follows.Infrastructure.Features.Users.Abstractions;
-using InstaConnect.Follows.Tests.Features.Common.Utilities;
+using InstaConnect.Follows.Tests.Features.Users.Utilities;
 
 namespace InstaConnect.Follows.Infrastructure.Tests.Unit.Features.Users.Utilities;
 
-public abstract class BaseUserInfrastructureQueryUnitTest : BaseFollowsQueryTest
+public abstract class BaseUserInfrastructureQueryUnitTest : BaseUserQueryTest
 {
 	protected IUserFluent Fluent { get; }
 

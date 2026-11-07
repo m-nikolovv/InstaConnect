@@ -1,8 +1,9 @@
+using InstaConnect.Identity.Tests.Features.RefreshTokens.Utilities;
 using InstaConnect.Identity.Presentation.Features.RefreshTokens.Abstractions;
 
 namespace InstaConnect.Identity.Presentation.Tests.Unit.Features.RefreshTokens.Utilities;
 
-public abstract class BaseRefreshTokenPresentationCommandUnitTest : BaseIdentityCommandTest
+public abstract class BaseRefreshTokenPresentationCommandUnitTest : BaseRefreshTokenCommandTest
 {
 	protected IApplicationSender Sender { get; }
 

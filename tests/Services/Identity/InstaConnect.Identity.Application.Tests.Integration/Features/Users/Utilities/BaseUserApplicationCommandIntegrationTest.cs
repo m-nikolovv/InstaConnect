@@ -5,7 +5,7 @@ using InstaConnect.Identity.Tests.Features.Users.Extensions;
 
 namespace InstaConnect.Identity.Application.Tests.Integration.Features.Users.Utilities;
 
-public abstract class BaseUserApplicationCommandIntegrationTest : BaseIdentityWebCommandTest
+public abstract class BaseUserApplicationCommandIntegrationTest : BaseUserWebCommandTest
 {
 	protected IApplicationSender Sender { get; }
 

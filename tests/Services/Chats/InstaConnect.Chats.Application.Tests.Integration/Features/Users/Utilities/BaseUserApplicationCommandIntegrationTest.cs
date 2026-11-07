@@ -1,6 +1,6 @@
 namespace InstaConnect.Chats.Application.Tests.Integration.Features.Users.Utilities;
 
-public abstract class BaseUserApplicationCommandIntegrationTest : BaseChatsWebCommandTest
+public abstract class BaseUserApplicationCommandIntegrationTest : BaseUserWebCommandTest
 {
 	protected IApplicationSender Sender { get; }
 

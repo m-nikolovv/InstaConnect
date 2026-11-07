@@ -1,7 +1,8 @@
+using InstaConnect.Identity.Tests.Features.Users.Utilities;
 
 namespace InstaConnect.Identity.Domain.Tests.Unit.Features.Users.Utilities;
 
-public abstract class BaseUserDomainQueryUnitTest : BaseIdentityQueryTest
+public abstract class BaseUserDomainQueryUnitTest : BaseUserQueryTest
 {
 	protected IUserQueryRepository Repository { get; }
 

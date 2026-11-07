@@ -3,7 +3,7 @@ using InstaConnect.Posts.Domain.Tests.Features.Posts.Utilities;
 
 namespace InstaConnect.Posts.Domain.Tests.Integration.Features.Posts.Utilities;
 
-public abstract class BasePostDomainQueryIntegrationTest : BasePostsWebQueryTest
+public abstract class BasePostDomainQueryIntegrationTest : BasePostWebQueryTest
 {
 	protected IPostQueryService Service { get; }
 

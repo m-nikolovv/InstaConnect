@@ -2,7 +2,7 @@ using InstaConnect.Chats.Domain.Features.Chats.Abstractions;
 
 namespace InstaConnect.Chats.Infrastructure.Tests.Integration.Features.Chats.Utilities;
 
-public abstract class BaseChatInfrastructureCommandIntegrationTest : BaseChatsWebCommandTest
+public abstract class BaseChatInfrastructureCommandIntegrationTest : BaseChatWebCommandTest
 {
 	protected IChatCommandRepository Repository { get; }
 
@@ -13,12 +13,5 @@ public abstract class BaseChatInfrastructureCommandIntegrationTest : BaseChatsWe
 	{
 		Repository = ServiceScope.GetCommandRepository();
 		IncludeBuilderFactory = ServiceScope.GetIncludeBuilderFactory();
-	}
-
-	public override async Task InitializeAsync()
-	{
-		await ServiceScope.AddAsync(ParticipantOne, CancellationToken);
-		await ServiceScope.AddAsync(ParticipantTwo, CancellationToken);
-		await OnInitializeAsync();
 	}
 }

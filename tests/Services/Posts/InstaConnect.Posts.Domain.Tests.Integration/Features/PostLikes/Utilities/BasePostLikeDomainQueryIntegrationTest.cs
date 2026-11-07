@@ -3,7 +3,7 @@ using InstaConnect.Posts.Domain.Tests.Features.PostLikes.Utilities;
 
 namespace InstaConnect.Posts.Domain.Tests.Integration.Features.PostLikes.Utilities;
 
-public abstract class BasePostLikeDomainQueryIntegrationTest : BasePostsWebQueryTest
+public abstract class BasePostLikeDomainQueryIntegrationTest : BasePostLikeWebQueryTest
 {
 	protected IPostLikeQueryService Service { get; }
 

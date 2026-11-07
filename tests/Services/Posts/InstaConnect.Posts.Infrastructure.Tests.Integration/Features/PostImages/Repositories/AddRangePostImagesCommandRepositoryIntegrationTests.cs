@@ -9,19 +9,14 @@ public class AddRangePostImagesCommandRepositoryIntegrationTests : BasePostImage
 	{
 	}
 
-	protected override async Task OnInitializeAsync()
-	{
-		await ServiceScope.DeleteRangeAsync(PostPostImages, CancellationToken);
-	}
-
 	[Fact]
 	public async Task AddRangeAsync_ShouldAddPostImages_WhenCommandIsValid()
 	{
 		// Act
-		await Repository.AddRangeAsync(PostPostImages, CancellationToken);
-		var postImages = await ServiceScope.GetByIdRangeAsync(PostPostImageIds, CancellationToken);
+		await Repository.AddRangeAsync(PostImages, CancellationToken);
+		var postImages = await ServiceScope.GetByIdRangeAsync(PostImageIds, CancellationToken);
 
 		// Assert
-		postImages.ShouldSatisfy(PostPostImages);
+		postImages.ShouldSatisfy(PostImages);
 	}
 }

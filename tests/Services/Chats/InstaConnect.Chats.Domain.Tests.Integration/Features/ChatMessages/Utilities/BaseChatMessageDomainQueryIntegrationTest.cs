@@ -3,7 +3,7 @@ using InstaConnect.Chats.Domain.Tests.Features.ChatMessages.Utilities;
 
 namespace InstaConnect.Chats.Domain.Tests.Integration.Features.ChatMessages.Utilities;
 
-public abstract class BaseChatMessageDomainQueryIntegrationTest : BaseChatsWebQueryTest
+public abstract class BaseChatMessageDomainQueryIntegrationTest : BaseChatMessageWebQueryTest
 {
 	protected IChatMessageQueryService Service { get; }
 

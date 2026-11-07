@@ -5,14 +5,13 @@ using InstaConnect.Chats.Domain.Features.Common.Extensions;
 using InstaConnect.Chats.Domain.Tests.Features.ChatMessageImages.Utilities;
 using InstaConnect.Chats.Tests.Features.ChatMessages.Utilities;
 using InstaConnect.Chats.Tests.Features.Chats.Utilities;
-using InstaConnect.Chats.Tests.Features.Common.Utilities;
 using InstaConnect.Common.Domain.Features.Guids.Abstractions;
 using InstaConnect.Common.Domain.Features.Images.Abstractions;
 using InstaConnect.Common.Domain.Features.Mappers.Abstractions;
 
 namespace InstaConnect.Chats.Domain.Tests.Unit.Features.ChatMessages.Utilities;
 
-public abstract class BaseChatMessageDomainCommandUnitTest : BaseChatsCommandTest
+public abstract class BaseChatMessageDomainCommandUnitTest : BaseChatMessageCommandTest
 {
 	protected IApplicationMapper Mapper { get; }
 

@@ -118,7 +118,7 @@ public class VerifyForgotPasswordTokenCommandServiceUnitTests : BaseForgotPasswo
 		await _service.VerifyAsync(_command, CancellationToken);
 
 		// Assert
-		await EventPublisher.ShouldHaveReceivedOnePublishRangeAsync(_command, UserForgotPasswordTokens, CancellationToken);
+		await EventPublisher.ShouldHaveReceivedOnePublishRangeAsync(_command, User.ForgotPasswordTokens, CancellationToken);
 	}
 
 	[Fact]

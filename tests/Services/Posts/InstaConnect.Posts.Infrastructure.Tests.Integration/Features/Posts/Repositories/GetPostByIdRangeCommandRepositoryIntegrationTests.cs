@@ -10,14 +10,19 @@ public class GetPostByIdRangeCommandRepositoryIntegrationTests : BasePostInfrast
 		_include = IncludeBuilderFactory.Create().WithUser().WithPostLikes().WithPostImages().Build();
 	}
 
+	protected override async Task OnInitializeAsync()
+	{
+		await ServiceScope.AddRangeAsync(Posts, CancellationToken);
+	}
+
 	[Fact]
 	public async Task GetByIdRangeAsync_ShouldReturnEmpty_WhenIdsAreInvalid()
 	{
 		// Arrange
-		await ServiceScope.DeleteRangeAsync(UserPosts, CancellationToken);
+		await ServiceScope.DeleteRangeAsync(Posts, CancellationToken);
 
 		// Act
-		var response = await Repository.GetByIdRangeAsync(UserPostIds, _include, CancellationToken);
+		var response = await Repository.GetByIdRangeAsync(PostIds, _include, CancellationToken);
 
 		// Assert
 		response.ShouldBeEmpty();
@@ -27,10 +32,10 @@ public class GetPostByIdRangeCommandRepositoryIntegrationTests : BasePostInfrast
 	public async Task GetByIdRangeAsync_ShouldReturnResponse_WhenCommandIsValid()
 	{
 		// Act
-		var response = await Repository.GetByIdRangeAsync(UserPostIds, _include, CancellationToken);
+		var response = await Repository.GetByIdRangeAsync(PostIds, _include, CancellationToken);
 
 		// Assert
-		response.ShouldSatisfy(UserPosts);
+		response.ShouldSatisfy(Posts);
 	}
 
 	[Theory]
@@ -39,12 +44,12 @@ public class GetPostByIdRangeCommandRepositoryIntegrationTests : BasePostInfrast
 		IStringTransformer transformer)
 	{
 		// Arrange
-		var ids = UserPostIdRangeBuilder.WithId(transformer).Build();
+		var ids = PostIdRangeBuilder.WithId(transformer).Build();
 
 		// Act
 		var response = await Repository.GetByIdRangeAsync(ids, _include, CancellationToken);
 
 		// Assert
-		response.ShouldSatisfy(UserPosts);
+		response.ShouldSatisfy(Posts);
 	}
 }

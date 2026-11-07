@@ -20,6 +20,11 @@ public class VerifyEmailConfirmationTokenFunctionalTests : BaseEmailConfirmation
 		_request = _requestBuilder.Build();
 	}
 
+	protected override async Task OnInitializeAsync()
+	{
+		await ServiceScope.AddAsync(EmailConfirmationToken, CancellationToken);
+	}
+
 	[Theory]
 	[UserIdTooShortData]
 	[UserIdTooLongData]
@@ -328,7 +333,7 @@ public class VerifyEmailConfirmationTokenFunctionalTests : BaseEmailConfirmation
 		var eventRequests = await EmailConfirmationTokenEventClient.PublishedDeletedRangeAsync(CancellationToken);
 
 		// Assert
-		eventRequests.ShouldSatisfy(_request, UserEmailConfirmationTokens);
+		eventRequests.ShouldSatisfy(_request, User.EmailConfirmationTokens);
 	}
 
 	[Theory]
@@ -344,7 +349,7 @@ public class VerifyEmailConfirmationTokenFunctionalTests : BaseEmailConfirmation
 		var eventRequests = await EmailConfirmationTokenEventClient.PublishedDeletedRangeAsync(CancellationToken);
 
 		// Assert
-		eventRequests.ShouldSatisfy(request, UserEmailConfirmationTokens);
+		eventRequests.ShouldSatisfy(request, User.EmailConfirmationTokens);
 	}
 
 	[Theory]
@@ -360,6 +365,6 @@ public class VerifyEmailConfirmationTokenFunctionalTests : BaseEmailConfirmation
 		var eventRequests = await EmailConfirmationTokenEventClient.PublishedDeletedRangeAsync(CancellationToken);
 
 		// Assert
-		eventRequests.ShouldSatisfy(request, UserEmailConfirmationTokens);
+		eventRequests.ShouldSatisfy(request, User.EmailConfirmationTokens);
 	}
 }

@@ -26,6 +26,11 @@ public class VerifyForgotPasswordTokenFunctionalTests : BaseForgotPasswordTokenP
 		_request = _requestBuilder.Build();
 	}
 
+	protected override async Task OnInitializeAsync()
+	{
+		await ServiceScope.AddAsync(ForgotPasswordToken, CancellationToken);
+	}
+
 	[Theory]
 	[UserIdTooShortData]
 	[UserIdTooLongData]
@@ -372,7 +377,7 @@ public class VerifyForgotPasswordTokenFunctionalTests : BaseForgotPasswordTokenP
 		var eventRequests = await ForgotPasswordTokenEventClient.PublishedDeletedRangeAsync(CancellationToken);
 
 		// Assert
-		eventRequests.ShouldSatisfy(_request, UserForgotPasswordTokens);
+		eventRequests.ShouldSatisfy(_request, User.ForgotPasswordTokens);
 	}
 
 	[Theory]
@@ -388,7 +393,7 @@ public class VerifyForgotPasswordTokenFunctionalTests : BaseForgotPasswordTokenP
 		var eventRequests = await ForgotPasswordTokenEventClient.PublishedDeletedRangeAsync(CancellationToken);
 
 		// Assert
-		eventRequests.ShouldSatisfy(request, UserForgotPasswordTokens);
+		eventRequests.ShouldSatisfy(request, User.ForgotPasswordTokens);
 	}
 
 	[Theory]
@@ -404,6 +409,6 @@ public class VerifyForgotPasswordTokenFunctionalTests : BaseForgotPasswordTokenP
 		var eventRequests = await ForgotPasswordTokenEventClient.PublishedDeletedRangeAsync(CancellationToken);
 
 		// Assert
-		eventRequests.ShouldSatisfy(request, UserForgotPasswordTokens);
+		eventRequests.ShouldSatisfy(request, User.ForgotPasswordTokens);
 	}
 }

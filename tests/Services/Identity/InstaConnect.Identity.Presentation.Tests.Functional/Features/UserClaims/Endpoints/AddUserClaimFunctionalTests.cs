@@ -20,11 +20,6 @@ public class AddUserClaimFunctionalTests : BaseUserClaimPresentationCommandFunct
 		_request = _requestBuilder.Build();
 	}
 
-	protected override async Task OnInitializeAsync()
-	{
-		await ServiceScope.DeleteAsync(UserClaim, CancellationToken);
-	}
-
 	[Fact]
 	public async Task AddAsync_ShouldReturnUnauthorizedStatusCode_WhenRequestIsUnauthorized()
 	{

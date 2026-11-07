@@ -1,8 +1,9 @@
+using InstaConnect.Identity.Tests.Features.EmailConfirmationTokens.Utilities;
 using InstaConnect.Identity.Domain.Features.EmailConfirmationTokens.Abstractions;
 
 namespace InstaConnect.Identity.Application.Tests.Unit.Features.EmailConfirmationTokens.Utilities;
 
-public abstract class BaseEmailConfirmationTokenApplicationCommandUnitTest : BaseIdentityCommandTest
+public abstract class BaseEmailConfirmationTokenApplicationCommandUnitTest : BaseEmailConfirmationTokenCommandTest
 {
 	protected IApplicationMapper Mapper { get; }
 

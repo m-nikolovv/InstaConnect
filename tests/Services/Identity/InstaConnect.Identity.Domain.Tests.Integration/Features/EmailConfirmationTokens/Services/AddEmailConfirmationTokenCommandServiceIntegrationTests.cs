@@ -19,11 +19,6 @@ public class AddEmailConfirmationTokenCommandServiceIntegrationTests : BaseEmail
 		_command = _commandBuilder.Build();
 	}
 
-	protected override async Task OnInitializeAsync()
-	{
-		await ServiceScope.DeleteRangeAsync(UserEmailConfirmationTokens, CancellationToken);
-	}
-
 	[Fact]
 	public async Task AddAsync_ShouldThrowUserNameNotFoundException_WhenUserNameNotFound()
 	{

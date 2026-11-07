@@ -7,6 +7,11 @@ public class UserExistsByIdCommandRepositoryIntegrationTests : BaseUserInfrastru
 	{
 	}
 
+	protected override async Task OnInitializeAsync()
+	{
+		await ServiceScope.AddAsync(User, CancellationToken);
+	}
+
 	[Fact]
 	public async Task ExistsByIdAsync_ShouldReturnNull_WhenIdIsInvalid()
 	{

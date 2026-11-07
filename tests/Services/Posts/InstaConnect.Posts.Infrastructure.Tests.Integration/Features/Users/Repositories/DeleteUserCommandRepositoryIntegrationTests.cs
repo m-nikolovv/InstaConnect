@@ -7,6 +7,17 @@ public class DeleteUserCommandRepositoryIntegrationTests : BaseUserInfrastructur
 	{
 	}
 
+	protected override async Task OnInitializeAsync()
+	{
+		await ServiceScope.AddAsync(User, CancellationToken);
+		await ServiceScope.AddRangeAsync(Posts, CancellationToken);
+		await ServiceScope.AddRangeAsync(PostLikes, CancellationToken);
+		await ServiceScope.AddRangeAsync(PostImages, CancellationToken);
+		await ServiceScope.AddRangeAsync(PostComments, CancellationToken);
+		await ServiceScope.AddRangeAsync(PostCommentImages, CancellationToken);
+		await ServiceScope.AddRangeAsync(PostCommentLikes, CancellationToken);
+	}
+
 	[Fact]
 	public async Task DeleteAsync_ShouldDeleteUser_WhenCommandIsValid()
 	{
@@ -23,10 +34,10 @@ public class DeleteUserCommandRepositoryIntegrationTests : BaseUserInfrastructur
 	{
 		// Act
 		await Repository.DeleteAsync(User, CancellationToken);
-		var posts = await ServiceScope.GetByIdRangeAsync(UserPostIds, CancellationToken);
+		var userPosts = await ServiceScope.GetByIdRangeAsync(UserPostIds, CancellationToken);
 
 		// Assert
-		posts.ShouldBeEmpty();
+		userPosts.ShouldBeEmpty();
 	}
 
 	[Fact]
@@ -34,10 +45,10 @@ public class DeleteUserCommandRepositoryIntegrationTests : BaseUserInfrastructur
 	{
 		// Act
 		await Repository.DeleteAsync(User, CancellationToken);
-		var postLikes = await ServiceScope.GetByIdRangeAsync(UserPostLikeIds, CancellationToken);
+		var userPostLikes = await ServiceScope.GetByIdRangeAsync(UserPostLikeIds, CancellationToken);
 
 		// Assert
-		postLikes.ShouldBeEmpty();
+		userPostLikes.ShouldBeEmpty();
 	}
 
 	[Fact]
@@ -45,10 +56,10 @@ public class DeleteUserCommandRepositoryIntegrationTests : BaseUserInfrastructur
 	{
 		// Act
 		await Repository.DeleteAsync(User, CancellationToken);
-		var postComments = await ServiceScope.GetByIdRangeAsync(UserPostCommentIds, CancellationToken);
+		var userPostComments = await ServiceScope.GetByIdRangeAsync(UserPostCommentIds, CancellationToken);
 
 		// Assert
-		postComments.ShouldBeEmpty();
+		userPostComments.ShouldBeEmpty();
 	}
 
 	[Fact]
@@ -56,10 +67,10 @@ public class DeleteUserCommandRepositoryIntegrationTests : BaseUserInfrastructur
 	{
 		// Act
 		await Repository.DeleteAsync(User, CancellationToken);
-		var postCommentLikes = await ServiceScope.GetByIdRangeAsync(UserPostCommentLikeIds, CancellationToken);
+		var userPostCommentLikes = await ServiceScope.GetByIdRangeAsync(UserPostCommentLikeIds, CancellationToken);
 
 		// Assert
-		postCommentLikes.ShouldBeEmpty();
+		userPostCommentLikes.ShouldBeEmpty();
 	}
 
 	[Fact]
@@ -67,10 +78,10 @@ public class DeleteUserCommandRepositoryIntegrationTests : BaseUserInfrastructur
 	{
 		// Act
 		await Repository.DeleteAsync(User, CancellationToken);
-		var postImages = await ServiceScope.GetByIdRangeAsync(UserPostsPostImageIds, CancellationToken);
+		var userPostsPostImages = await ServiceScope.GetByIdRangeAsync(UserPostsPostImageIds, CancellationToken);
 
 		// Assert
-		postImages.ShouldBeEmpty();
+		userPostsPostImages.ShouldBeEmpty();
 	}
 
 	[Fact]
@@ -78,10 +89,10 @@ public class DeleteUserCommandRepositoryIntegrationTests : BaseUserInfrastructur
 	{
 		// Act
 		await Repository.DeleteAsync(User, CancellationToken);
-		var postLikes = await ServiceScope.GetByIdRangeAsync(UserPostsPostLikeIds, CancellationToken);
+		var userPostsPostLikes = await ServiceScope.GetByIdRangeAsync(UserPostsPostLikeIds, CancellationToken);
 
 		// Assert
-		postLikes.ShouldBeEmpty();
+		userPostsPostLikes.ShouldBeEmpty();
 	}
 
 	[Fact]
@@ -89,10 +100,10 @@ public class DeleteUserCommandRepositoryIntegrationTests : BaseUserInfrastructur
 	{
 		// Act
 		await Repository.DeleteAsync(User, CancellationToken);
-		var postComments = await ServiceScope.GetByIdRangeAsync(UserPostsPostCommentIds, CancellationToken);
+		var userPostsPostComments = await ServiceScope.GetByIdRangeAsync(UserPostsPostCommentIds, CancellationToken);
 
 		// Assert
-		postComments.ShouldBeEmpty();
+		userPostsPostComments.ShouldBeEmpty();
 	}
 
 	[Fact]
@@ -100,10 +111,10 @@ public class DeleteUserCommandRepositoryIntegrationTests : BaseUserInfrastructur
 	{
 		// Act
 		await Repository.DeleteAsync(User, CancellationToken);
-		var postCommentImages = await ServiceScope.GetByIdRangeAsync(UserPostsPostCommentsPostCommentImageIds, CancellationToken);
+		var userPostsPostCommentsPostCommentImages = await ServiceScope.GetByIdRangeAsync(UserPostsPostCommentsPostCommentImageIds, CancellationToken);
 
 		// Assert
-		postCommentImages.ShouldBeEmpty();
+		userPostsPostCommentsPostCommentImages.ShouldBeEmpty();
 	}
 
 	[Fact]
@@ -111,10 +122,10 @@ public class DeleteUserCommandRepositoryIntegrationTests : BaseUserInfrastructur
 	{
 		// Act
 		await Repository.DeleteAsync(User, CancellationToken);
-		var postCommentLikes = await ServiceScope.GetByIdRangeAsync(UserPostsPostCommentsPostCommentLikeIds, CancellationToken);
+		var userPostsPostCommentsPostCommentLikes = await ServiceScope.GetByIdRangeAsync(UserPostsPostCommentsPostCommentLikeIds, CancellationToken);
 
 		// Assert
-		postCommentLikes.ShouldBeEmpty();
+		userPostsPostCommentsPostCommentLikes.ShouldBeEmpty();
 	}
 
 	[Fact]
@@ -122,10 +133,10 @@ public class DeleteUserCommandRepositoryIntegrationTests : BaseUserInfrastructur
 	{
 		// Act
 		await Repository.DeleteAsync(User, CancellationToken);
-		var postCommentImages = await ServiceScope.GetByIdRangeAsync(UserPostCommentsPostCommentImageIds, CancellationToken);
+		var userPostCommentsPostCommentImages = await ServiceScope.GetByIdRangeAsync(UserPostCommentsPostCommentImageIds, CancellationToken);
 
 		// Assert
-		postCommentImages.ShouldBeEmpty();
+		userPostCommentsPostCommentImages.ShouldBeEmpty();
 	}
 
 	[Fact]
@@ -133,9 +144,10 @@ public class DeleteUserCommandRepositoryIntegrationTests : BaseUserInfrastructur
 	{
 		// Act
 		await Repository.DeleteAsync(User, CancellationToken);
-		var postCommentLikes = await ServiceScope.GetByIdRangeAsync(UserPostCommentsPostCommentLikeIds, CancellationToken);
+		var userPostCommentsPostCommentLikes = await ServiceScope.GetByIdRangeAsync(UserPostCommentsPostCommentLikeIds, CancellationToken);
 
 		// Assert
-		postCommentLikes.ShouldBeEmpty();
+		userPostCommentsPostCommentLikes.ShouldBeEmpty();
 	}
+
 }

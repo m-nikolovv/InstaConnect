@@ -1,11 +1,10 @@
 using InstaConnect.Chats.Domain.Features.ChatMessages.Abstractions;
 using InstaConnect.Chats.Infrastructure.Features.ChatMessages.Abstractions;
 using InstaConnect.Chats.Tests.Features.ChatMessages.Utilities;
-using InstaConnect.Chats.Tests.Features.Common.Utilities;
 
 namespace InstaConnect.Chats.Infrastructure.Tests.Unit.Features.ChatMessages.Utilities;
 
-public abstract class BaseChatMessageInfrastructureCommandUnitTest : BaseChatsCommandTest
+public abstract class BaseChatMessageInfrastructureCommandUnitTest : BaseChatMessageCommandTest
 {
 	protected IChatMessageFluent Fluent { get; }
 

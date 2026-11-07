@@ -1,6 +1,6 @@
 namespace InstaConnect.Follows.Application.Tests.Integration.Features.Follows.Utilities;
 
-public abstract class BaseFollowApplicationQueryIntegrationTest : BaseFollowsWebQueryTest
+public abstract class BaseFollowApplicationQueryIntegrationTest : BaseFollowWebQueryTest
 {
 	protected IApplicationSender Sender { get; }
 

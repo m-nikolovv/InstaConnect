@@ -1,6 +1,6 @@
 namespace InstaConnect.Chats.Application.Tests.Integration.Features.ChatMessages.Utilities;
 
-public abstract class BaseChatMessageApplicationQueryIntegrationTest : BaseChatsWebQueryTest
+public abstract class BaseChatMessageApplicationQueryIntegrationTest : BaseChatMessageWebQueryTest
 {
 	protected IApplicationSender Sender { get; }
 

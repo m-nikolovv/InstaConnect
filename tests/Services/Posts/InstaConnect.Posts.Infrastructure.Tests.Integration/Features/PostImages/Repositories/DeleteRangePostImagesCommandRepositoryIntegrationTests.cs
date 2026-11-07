@@ -7,12 +7,17 @@ public class DeleteRangePostImagesCommandRepositoryIntegrationTests : BasePostIm
 	{
 	}
 
+	protected override async Task OnInitializeAsync()
+	{
+		await ServiceScope.AddRangeAsync(PostImages, CancellationToken);
+	}
+
 	[Fact]
 	public async Task DeleteRangeAsync_ShouldDeletePostImages_WhenCommandIsValid()
 	{
 		// Act
-		await Repository.DeleteRangeAsync(PostPostImages, CancellationToken);
-		var postImages = await ServiceScope.GetByIdRangeAsync(PostPostImageIds, CancellationToken);
+		await Repository.DeleteRangeAsync(PostImages, CancellationToken);
+		var postImages = await ServiceScope.GetByIdRangeAsync(PostImageIds, CancellationToken);
 
 		// Assert
 		postImages.ShouldBeEmpty();

@@ -1,11 +1,10 @@
 using InstaConnect.Posts.Domain.Features.Users.Abstractions;
 using InstaConnect.Posts.Infrastructure.Features.Users.Abstractions;
-using InstaConnect.Posts.Tests.Features.Common.Utilities;
 using InstaConnect.Posts.Tests.Features.Users.Utilities;
 
 namespace InstaConnect.Posts.Infrastructure.Tests.Unit.Features.Users.Utilities;
 
-public abstract class BaseUserInfrastructureCommandUnitTest : BasePostsCommandTest
+public abstract class BaseUserInfrastructureCommandUnitTest : BaseUserCommandTest
 {
 	protected IUserFluent Fluent { get; }
 

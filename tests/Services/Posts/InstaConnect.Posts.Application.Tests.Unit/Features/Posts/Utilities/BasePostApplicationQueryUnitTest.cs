@@ -1,9 +1,9 @@
 using InstaConnect.Posts.Domain.Features.Posts.Abstractions;
-using InstaConnect.Posts.Tests.Features.Common.Utilities;
+using InstaConnect.Posts.Tests.Features.Posts.Utilities;
 
 namespace InstaConnect.Posts.Application.Tests.Unit.Features.Posts.Utilities;
 
-public abstract class BasePostApplicationQueryUnitTest : BasePostsQueryTest
+public abstract class BasePostApplicationQueryUnitTest : BasePostQueryTest
 {
 	protected IApplicationMapper Mapper { get; }
 

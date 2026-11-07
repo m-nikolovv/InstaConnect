@@ -12,14 +12,19 @@ public class GetPostCommentLikeByIdRangeCommandRepositoryIntegrationTests : Base
 		_include = IncludeBuilderFactory.Create().WithUser().WithPostComment().Build();
 	}
 
+	protected override async Task OnInitializeAsync()
+	{
+		await ServiceScope.AddRangeAsync(PostCommentLikes, CancellationToken);
+	}
+
 	[Fact]
 	public async Task GetByIdRangeAsync_ShouldReturnEmpty_WhenIdsAreInvalid()
 	{
 		// Arrange
-		await ServiceScope.DeleteRangeAsync(PostCommentPostCommentLikes, CancellationToken);
+		await ServiceScope.DeleteRangeAsync(PostCommentLikes, CancellationToken);
 
 		// Act
-		var response = await Repository.GetByIdRangeAsync(PostCommentPostCommentLikeIds, _include, CancellationToken);
+		var response = await Repository.GetByIdRangeAsync(PostCommentLikeIds, _include, CancellationToken);
 
 		// Assert
 		response.ShouldBeEmpty();
@@ -29,10 +34,10 @@ public class GetPostCommentLikeByIdRangeCommandRepositoryIntegrationTests : Base
 	public async Task GetByIdRangeAsync_ShouldReturnResponse_WhenCommandIsValid()
 	{
 		// Act
-		var response = await Repository.GetByIdRangeAsync(PostCommentPostCommentLikeIds, _include, CancellationToken);
+		var response = await Repository.GetByIdRangeAsync(PostCommentLikeIds, _include, CancellationToken);
 
 		// Assert
-		response.ShouldSatisfy(PostCommentPostCommentLikes);
+		response.ShouldSatisfy(PostCommentLikes);
 	}
 
 	[Theory]
@@ -41,13 +46,13 @@ public class GetPostCommentLikeByIdRangeCommandRepositoryIntegrationTests : Base
 		IStringTransformer transformer)
 	{
 		// Arrange
-		var ids = PostCommentPostCommentLikeIdRangeBuilder.WithId(transformer).Build();
+		var ids = PostCommentLikeIdRangeBuilder.WithId(transformer).Build();
 
 		// Act
 		var response = await Repository.GetByIdRangeAsync(ids, _include, CancellationToken);
 
 		// Assert
-		response.ShouldSatisfy(PostCommentPostCommentLikes);
+		response.ShouldSatisfy(PostCommentLikes);
 	}
 
 	[Theory]
@@ -56,13 +61,13 @@ public class GetPostCommentLikeByIdRangeCommandRepositoryIntegrationTests : Base
 		IStringTransformer transformer)
 	{
 		// Arrange
-		var ids = PostCommentPostCommentLikeIdRangeBuilder.WithCommentId(transformer).Build();
+		var ids = PostCommentLikeIdRangeBuilder.WithCommentId(transformer).Build();
 
 		// Act
 		var response = await Repository.GetByIdRangeAsync(ids, _include, CancellationToken);
 
 		// Assert
-		response.ShouldSatisfy(PostCommentPostCommentLikes);
+		response.ShouldSatisfy(PostCommentLikes);
 	}
 
 	[Theory]
@@ -71,12 +76,12 @@ public class GetPostCommentLikeByIdRangeCommandRepositoryIntegrationTests : Base
 		IStringTransformer transformer)
 	{
 		// Arrange
-		var ids = PostCommentPostCommentLikeIdRangeBuilder.WithUserId(transformer).Build();
+		var ids = PostCommentLikeIdRangeBuilder.WithUserId(transformer).Build();
 
 		// Act
 		var response = await Repository.GetByIdRangeAsync(ids, _include, CancellationToken);
 
 		// Assert
-		response.ShouldSatisfy(PostCommentPostCommentLikes);
+		response.ShouldSatisfy(PostCommentLikes);
 	}
 }

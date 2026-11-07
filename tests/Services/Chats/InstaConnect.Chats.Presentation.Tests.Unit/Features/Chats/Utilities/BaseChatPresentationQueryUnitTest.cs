@@ -1,9 +1,9 @@
 using InstaConnect.Chats.Presentation.Features.Common.Extensions;
-using InstaConnect.Chats.Tests.Features.Common.Utilities;
+using InstaConnect.Chats.Tests.Features.Chats.Utilities;
 
 namespace InstaConnect.Chats.Presentation.Tests.Unit.Features.Chats.Utilities;
 
-public abstract class BaseChatPresentationQueryUnitTest : BaseChatsQueryTest
+public abstract class BaseChatPresentationQueryUnitTest : BaseChatQueryTest
 {
 	protected IApplicationSender Sender { get; }
 

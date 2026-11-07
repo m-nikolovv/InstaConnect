@@ -16,6 +16,11 @@ public class DeletePostLikeCommandHandlerIntegrationTests : BasePostLikeApplicat
 		_request = _requestBuilder.Build();
 	}
 
+	protected override async Task OnInitializeAsync()
+	{
+		await ServiceScope.AddAsync(PostLike, CancellationToken);
+	}
+
 	[Theory]
 	[PostIdNullWithMessageData]
 	[PostIdEmptyWithMessageData]

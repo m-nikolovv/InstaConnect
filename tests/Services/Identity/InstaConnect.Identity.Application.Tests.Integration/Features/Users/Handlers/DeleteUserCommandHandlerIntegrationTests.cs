@@ -16,6 +16,15 @@ public class DeleteUserCommandHandlerIntegrationTests : BaseUserApplicationComma
 		_request = _requestBuilder.Build();
 	}
 
+	protected override async Task OnInitializeAsync()
+	{
+		await ServiceScope.AddAsync(User, CancellationToken);
+		await ServiceScope.AddRangeAsync(UserClaims, CancellationToken);
+		await ServiceScope.AddRangeAsync(RefreshTokens, CancellationToken);
+		await ServiceScope.AddRangeAsync(ForgotPasswordTokens, CancellationToken);
+		await ServiceScope.AddRangeAsync(EmailConfirmationTokens, CancellationToken);
+	}
+
 	[Theory]
 	[UserIdNullWithMessageData]
 	[UserIdEmptyWithMessageData]
@@ -74,10 +83,10 @@ public class DeleteUserCommandHandlerIntegrationTests : BaseUserApplicationComma
 	{
 		// Act
 		await Sender.SendAsync(_request, CancellationToken);
-		var userClaims = await ServiceScope.GetByIdRangeAsync(UserUserClaimIds, CancellationToken);
+		var userUserClaims = await ServiceScope.GetByIdRangeAsync(UserUserClaimIds, CancellationToken);
 
 		// Assert
-		userClaims.ShouldBeEmpty();
+		userUserClaims.ShouldBeEmpty();
 	}
 
 	[Theory]
@@ -90,10 +99,10 @@ public class DeleteUserCommandHandlerIntegrationTests : BaseUserApplicationComma
 
 		// Act
 		await Sender.SendAsync(request, CancellationToken);
-		var userClaims = await ServiceScope.GetByIdRangeAsync(UserUserClaimIds, CancellationToken);
+		var userUserClaims = await ServiceScope.GetByIdRangeAsync(UserUserClaimIds, CancellationToken);
 
 		// Assert
-		userClaims.ShouldBeEmpty();
+		userUserClaims.ShouldBeEmpty();
 	}
 
 	[Fact]
@@ -101,10 +110,10 @@ public class DeleteUserCommandHandlerIntegrationTests : BaseUserApplicationComma
 	{
 		// Act
 		await Sender.SendAsync(_request, CancellationToken);
-		var refreshTokens = await ServiceScope.GetByIdRangeAsync(UserRefreshTokenIds, CancellationToken);
+		var userRefreshTokens = await ServiceScope.GetByIdRangeAsync(UserRefreshTokenIds, CancellationToken);
 
 		// Assert
-		refreshTokens.ShouldBeEmpty();
+		userRefreshTokens.ShouldBeEmpty();
 	}
 
 	[Theory]
@@ -117,10 +126,10 @@ public class DeleteUserCommandHandlerIntegrationTests : BaseUserApplicationComma
 
 		// Act
 		await Sender.SendAsync(request, CancellationToken);
-		var refreshTokens = await ServiceScope.GetByIdRangeAsync(UserRefreshTokenIds, CancellationToken);
+		var userRefreshTokens = await ServiceScope.GetByIdRangeAsync(UserRefreshTokenIds, CancellationToken);
 
 		// Assert
-		refreshTokens.ShouldBeEmpty();
+		userRefreshTokens.ShouldBeEmpty();
 	}
 
 	[Fact]
@@ -128,10 +137,10 @@ public class DeleteUserCommandHandlerIntegrationTests : BaseUserApplicationComma
 	{
 		// Act
 		await Sender.SendAsync(_request, CancellationToken);
-		var forgotPasswordTokens = await ServiceScope.GetByIdRangeAsync(UserForgotPasswordTokenIds, CancellationToken);
+		var userForgotPasswordTokens = await ServiceScope.GetByIdRangeAsync(UserForgotPasswordTokenIds, CancellationToken);
 
 		// Assert
-		forgotPasswordTokens.ShouldBeEmpty();
+		userForgotPasswordTokens.ShouldBeEmpty();
 	}
 
 	[Theory]
@@ -144,10 +153,10 @@ public class DeleteUserCommandHandlerIntegrationTests : BaseUserApplicationComma
 
 		// Act
 		await Sender.SendAsync(request, CancellationToken);
-		var forgotPasswordTokens = await ServiceScope.GetByIdRangeAsync(UserForgotPasswordTokenIds, CancellationToken);
+		var userForgotPasswordTokens = await ServiceScope.GetByIdRangeAsync(UserForgotPasswordTokenIds, CancellationToken);
 
 		// Assert
-		forgotPasswordTokens.ShouldBeEmpty();
+		userForgotPasswordTokens.ShouldBeEmpty();
 	}
 
 	[Fact]
@@ -155,10 +164,10 @@ public class DeleteUserCommandHandlerIntegrationTests : BaseUserApplicationComma
 	{
 		// Act
 		await Sender.SendAsync(_request, CancellationToken);
-		var emailConfirmationTokens = await ServiceScope.GetByIdRangeAsync(UserEmailConfirmationTokenIds, CancellationToken);
+		var userEmailConfirmationTokens = await ServiceScope.GetByIdRangeAsync(UserEmailConfirmationTokenIds, CancellationToken);
 
 		// Assert
-		emailConfirmationTokens.ShouldBeEmpty();
+		userEmailConfirmationTokens.ShouldBeEmpty();
 	}
 
 	[Theory]
@@ -171,10 +180,10 @@ public class DeleteUserCommandHandlerIntegrationTests : BaseUserApplicationComma
 
 		// Act
 		await Sender.SendAsync(request, CancellationToken);
-		var emailConfirmationTokens = await ServiceScope.GetByIdRangeAsync(UserEmailConfirmationTokenIds, CancellationToken);
+		var userEmailConfirmationTokens = await ServiceScope.GetByIdRangeAsync(UserEmailConfirmationTokenIds, CancellationToken);
 
 		// Assert
-		emailConfirmationTokens.ShouldBeEmpty();
+		userEmailConfirmationTokens.ShouldBeEmpty();
 	}
 
 	[Fact]

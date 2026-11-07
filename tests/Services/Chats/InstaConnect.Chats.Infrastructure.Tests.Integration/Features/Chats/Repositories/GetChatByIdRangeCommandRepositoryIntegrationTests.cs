@@ -21,7 +21,7 @@ public class GetChatByIdRangeCommandRepositoryIntegrationTests : BaseChatInfrast
 		await ServiceScope.DeleteAsync(User, CancellationToken);
 
 		// Act
-		var response = await Repository.GetByIdRangeAsync(UserChatIds, CancellationToken);
+		var response = await Repository.GetByIdRangeAsync(ChatIds, CancellationToken);
 
 		// Assert
 		response.ShouldBeEmpty();

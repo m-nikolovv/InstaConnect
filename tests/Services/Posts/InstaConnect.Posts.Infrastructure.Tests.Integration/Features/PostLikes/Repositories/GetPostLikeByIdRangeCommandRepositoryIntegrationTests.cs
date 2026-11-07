@@ -12,14 +12,19 @@ public class GetPostLikeByIdRangeCommandRepositoryIntegrationTests : BasePostLik
 		_include = IncludeBuilderFactory.Create().WithUser().WithPost().Build();
 	}
 
+	protected override async Task OnInitializeAsync()
+	{
+		await ServiceScope.AddRangeAsync(PostLikes, CancellationToken);
+	}
+
 	[Fact]
 	public async Task GetByIdRangeAsync_ShouldReturnEmpty_WhenIdsAreInvalid()
 	{
 		// Arrange
-		await ServiceScope.DeleteRangeAsync(PostPostLikes, CancellationToken);
+		await ServiceScope.DeleteRangeAsync(PostLikes, CancellationToken);
 
 		// Act
-		var response = await Repository.GetByIdRangeAsync(PostPostLikeIds, _include, CancellationToken);
+		var response = await Repository.GetByIdRangeAsync(PostLikeIds, _include, CancellationToken);
 
 		// Assert
 		response.ShouldBeEmpty();
@@ -29,10 +34,10 @@ public class GetPostLikeByIdRangeCommandRepositoryIntegrationTests : BasePostLik
 	public async Task GetByIdRangeAsync_ShouldReturnResponse_WhenCommandIsValid()
 	{
 		// Act
-		var response = await Repository.GetByIdRangeAsync(PostPostLikeIds, _include, CancellationToken);
+		var response = await Repository.GetByIdRangeAsync(PostLikeIds, _include, CancellationToken);
 
 		// Assert
-		response.ShouldSatisfy(PostPostLikes);
+		response.ShouldSatisfy(PostLikes);
 	}
 
 	[Theory]
@@ -41,13 +46,13 @@ public class GetPostLikeByIdRangeCommandRepositoryIntegrationTests : BasePostLik
 		IStringTransformer transformer)
 	{
 		// Arrange
-		var ids = PostPostLikeIdRangeBuilder.WithId(transformer).Build();
+		var ids = PostLikeIdRangeBuilder.WithId(transformer).Build();
 
 		// Act
 		var response = await Repository.GetByIdRangeAsync(ids, _include, CancellationToken);
 
 		// Assert
-		response.ShouldSatisfy(PostPostLikes);
+		response.ShouldSatisfy(PostLikes);
 	}
 
 	[Theory]
@@ -56,12 +61,12 @@ public class GetPostLikeByIdRangeCommandRepositoryIntegrationTests : BasePostLik
 		IStringTransformer transformer)
 	{
 		// Arrange
-		var ids = PostPostLikeIdRangeBuilder.WithUserId(transformer).Build();
+		var ids = PostLikeIdRangeBuilder.WithUserId(transformer).Build();
 
 		// Act
 		var response = await Repository.GetByIdRangeAsync(ids, _include, CancellationToken);
 
 		// Assert
-		response.ShouldSatisfy(PostPostLikes);
+		response.ShouldSatisfy(PostLikes);
 	}
 }

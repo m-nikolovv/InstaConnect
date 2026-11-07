@@ -1,3 +1,4 @@
+using InstaConnect.Identity.Tests.Features.RefreshTokens.Utilities;
 using InstaConnect.Common.Domain.Features.Guids.Abstractions;
 using InstaConnect.Identity.Domain.Features.RefreshTokens.Abstractions;
 using InstaConnect.Identity.Domain.Features.RefreshTokens.Models.Options;
@@ -6,7 +7,7 @@ using Microsoft.Extensions.Options;
 
 namespace InstaConnect.Identity.Domain.Tests.Unit.Features.RefreshTokens.Utilities;
 
-public abstract class BaseRefreshTokenDomainCommandUnitTest : BaseIdentityCommandTest
+public abstract class BaseRefreshTokenDomainCommandUnitTest : BaseRefreshTokenCommandTest
 {
 	protected IGuidProvider GuidProvider { get; }
 

@@ -12,6 +12,11 @@ public class GetPostCommentLikeByIdCommandRepositoryIntegrationTests : BasePostC
 		_include = IncludeBuilderFactory.Create().WithUser().WithPostComment().Build();
 	}
 
+	protected override async Task OnInitializeAsync()
+	{
+		await ServiceScope.AddAsync(PostCommentLike, CancellationToken);
+	}
+
 	[Fact]
 	public async Task GetByIdAsync_ShouldReturnNull_WhenIdIsInvalid()
 	{

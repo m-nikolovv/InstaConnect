@@ -2,7 +2,7 @@ using InstaConnect.Posts.Domain.Features.PostCommentImages.Abstractions;
 
 namespace InstaConnect.Posts.Infrastructure.Tests.Integration.Features.PostCommentImages.Utilities;
 
-public abstract class BasePostCommentImageInfrastructureCommandIntegrationTest : BasePostsWebCommandTest
+public abstract class BasePostCommentImageInfrastructureCommandIntegrationTest : BasePostCommentImageWebCommandTest
 {
 	protected IPostCommentImageCommandRepository Repository { get; }
 

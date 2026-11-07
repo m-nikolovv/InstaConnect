@@ -9,6 +9,11 @@ public class UpdatePostCommentCommandRepositoryIntegrationTests : BasePostCommen
 	{
 	}
 
+	protected override async Task OnInitializeAsync()
+	{
+		await ServiceScope.AddAsync(PostComment, CancellationToken);
+	}
+
 	[Fact]
 	public async Task UpdateAsync_ShouldUpdatePostComment_WhenCommandIsValid()
 	{

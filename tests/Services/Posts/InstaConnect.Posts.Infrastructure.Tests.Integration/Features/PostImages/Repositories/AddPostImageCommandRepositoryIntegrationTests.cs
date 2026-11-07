@@ -9,11 +9,6 @@ public class AddPostImageCommandRepositoryIntegrationTests : BasePostImageInfras
 	{
 	}
 
-	protected override async Task OnInitializeAsync()
-	{
-		await ServiceScope.DeleteAsync(PostImage, CancellationToken);
-	}
-
 	[Fact]
 	public async Task AddAsync_ShouldAddPostImage_WhenCommandIsValid()
 	{

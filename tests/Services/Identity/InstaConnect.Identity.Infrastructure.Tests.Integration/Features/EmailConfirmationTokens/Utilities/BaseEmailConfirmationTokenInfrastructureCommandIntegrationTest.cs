@@ -2,7 +2,7 @@ using InstaConnect.Identity.Domain.Features.EmailConfirmationTokens.Abstractions
 
 namespace InstaConnect.Identity.Infrastructure.Tests.Integration.Features.EmailConfirmationTokens.Utilities;
 
-public abstract class BaseEmailConfirmationTokenInfrastructureCommandIntegrationTest : BaseIdentityWebCommandTest
+public abstract class BaseEmailConfirmationTokenInfrastructureCommandIntegrationTest : BaseEmailConfirmationTokenWebCommandTest
 {
 	protected IEmailConfirmationTokenCommandRepository Repository { get; }
 

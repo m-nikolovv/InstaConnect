@@ -7,6 +7,11 @@ public class DeleteUserClaimCommandRepositoryIntegrationTests : BaseUserClaimInf
 	{
 	}
 
+	protected override async Task OnInitializeAsync()
+	{
+		await ServiceScope.AddAsync(UserClaim, CancellationToken);
+	}
+
 	[Fact]
 	public async Task DeleteAsync_ShouldDeleteUserClaim_WhenCommandIsValid()
 	{

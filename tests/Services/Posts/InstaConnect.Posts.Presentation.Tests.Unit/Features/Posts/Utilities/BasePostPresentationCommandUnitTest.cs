@@ -1,8 +1,8 @@
-using InstaConnect.Posts.Tests.Features.Common.Utilities;
+using InstaConnect.Posts.Tests.Features.Posts.Utilities;
 
 namespace InstaConnect.Posts.Presentation.Tests.Unit.Features.Posts.Utilities;
 
-public abstract class BasePostPresentationCommandUnitTest : BasePostsCommandTest
+public abstract class BasePostPresentationCommandUnitTest : BasePostCommandTest
 {
 	protected IApplicationSender Sender { get; }
 

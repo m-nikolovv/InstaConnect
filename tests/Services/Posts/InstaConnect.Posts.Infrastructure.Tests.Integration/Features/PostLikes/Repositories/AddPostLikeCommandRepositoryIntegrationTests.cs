@@ -9,11 +9,6 @@ public class AddPostLikeCommandRepositoryIntegrationTests : BasePostLikeInfrastr
 	{
 	}
 
-	protected override async Task OnInitializeAsync()
-	{
-		await ServiceScope.DeleteAsync(PostLike, CancellationToken);
-	}
-
 	[Fact]
 	public async Task AddAsync_ShouldAddPostLike_WhenCommandIsValid()
 	{

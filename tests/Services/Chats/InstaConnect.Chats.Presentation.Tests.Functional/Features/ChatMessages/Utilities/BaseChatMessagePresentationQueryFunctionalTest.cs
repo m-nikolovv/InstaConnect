@@ -3,7 +3,7 @@ using InstaConnect.Chats.Presentation.Tests.Features.ChatMessages.Extensions;
 
 namespace InstaConnect.Chats.Presentation.Tests.Functional.Features.ChatMessages.Utilities;
 
-public abstract class BaseChatMessagePresentationQueryFunctionalTest : BaseChatsWebQueryTest
+public abstract class BaseChatMessagePresentationQueryFunctionalTest : BaseChatMessageWebQueryTest
 {
 	protected IChatMessageApiClient ApiClient { get; }
 

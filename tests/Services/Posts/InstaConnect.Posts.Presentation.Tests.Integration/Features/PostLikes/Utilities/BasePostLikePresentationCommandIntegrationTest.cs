@@ -4,7 +4,7 @@ using InstaConnect.Posts.Tests.Features.PostLikes.Extensions;
 
 namespace InstaConnect.Posts.Presentation.Tests.Integration.Features.PostLikes.Utilities;
 
-public abstract class BasePostLikePresentationCommandIntegrationTest : BasePostsWebCommandTest
+public abstract class BasePostLikePresentationCommandIntegrationTest : BasePostLikeWebCommandTest
 {
 	protected PostLikeController Controller { get; }
 

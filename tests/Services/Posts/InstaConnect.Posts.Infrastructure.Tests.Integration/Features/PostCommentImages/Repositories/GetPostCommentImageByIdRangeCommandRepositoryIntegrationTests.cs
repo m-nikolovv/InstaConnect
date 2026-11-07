@@ -10,14 +10,19 @@ public class GetPostCommentImageByIdRangeCommandRepositoryIntegrationTests : Bas
 	{
 	}
 
+	protected override async Task OnInitializeAsync()
+	{
+		await ServiceScope.AddRangeAsync(PostCommentImages, CancellationToken);
+	}
+
 	[Fact]
 	public async Task GetByIdRangeAsync_ShouldReturnEmpty_WhenIdsAreInvalid()
 	{
 		// Arrange
-		await ServiceScope.DeleteRangeAsync(PostCommentPostCommentImages, CancellationToken);
+		await ServiceScope.DeleteRangeAsync(PostCommentImages, CancellationToken);
 
 		// Act
-		var response = await Repository.GetByIdRangeAsync(PostCommentPostCommentImageIds, CancellationToken);
+		var response = await Repository.GetByIdRangeAsync(PostCommentImageIds, CancellationToken);
 
 		// Assert
 		response.ShouldBeEmpty();
@@ -27,10 +32,10 @@ public class GetPostCommentImageByIdRangeCommandRepositoryIntegrationTests : Bas
 	public async Task GetByIdRangeAsync_ShouldReturnResponse_WhenCommandIsValid()
 	{
 		// Act
-		var response = await Repository.GetByIdRangeAsync(PostCommentPostCommentImageIds, CancellationToken);
+		var response = await Repository.GetByIdRangeAsync(PostCommentImageIds, CancellationToken);
 
 		// Assert
-		response.ShouldSatisfy(PostCommentPostCommentImages);
+		response.ShouldSatisfy(PostCommentImages);
 	}
 
 	[Theory]
@@ -39,13 +44,13 @@ public class GetPostCommentImageByIdRangeCommandRepositoryIntegrationTests : Bas
 		IStringTransformer transformer)
 	{
 		// Arrange
-		var ids = PostCommentPostCommentImageIdRangeBuilder.WithId(transformer).Build();
+		var ids = PostCommentImageIdRangeBuilder.WithId(transformer).Build();
 
 		// Act
 		var response = await Repository.GetByIdRangeAsync(ids, CancellationToken);
 
 		// Assert
-		response.ShouldSatisfy(PostCommentPostCommentImages);
+		response.ShouldSatisfy(PostCommentImages);
 	}
 
 	[Theory]
@@ -54,12 +59,12 @@ public class GetPostCommentImageByIdRangeCommandRepositoryIntegrationTests : Bas
 		IStringTransformer transformer)
 	{
 		// Arrange
-		var ids = PostCommentPostCommentImageIdRangeBuilder.WithImageId(transformer).Build();
+		var ids = PostCommentImageIdRangeBuilder.WithImageId(transformer).Build();
 
 		// Act
 		var response = await Repository.GetByIdRangeAsync(ids, CancellationToken);
 
 		// Assert
-		response.ShouldSatisfy(PostCommentPostCommentImages);
+		response.ShouldSatisfy(PostCommentImages);
 	}
 }

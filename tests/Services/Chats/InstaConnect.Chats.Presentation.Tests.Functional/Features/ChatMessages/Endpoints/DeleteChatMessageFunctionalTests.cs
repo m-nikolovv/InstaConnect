@@ -27,7 +27,7 @@ public class DeleteChatMessageFunctionalTests : BaseChatMessagePresentationComma
 	protected override async Task OnInitializeAsync()
 	{
 		await ServiceScope.AddAsync(ChatMessage, CancellationToken);
-		await ServiceScope.AddRangeAsync(ChatMessageChatMessageImages, CancellationToken);
+		await ServiceScope.AddRangeAsync(ChatMessageImages, CancellationToken);
 	}
 
 	[Fact]
@@ -329,10 +329,10 @@ public class DeleteChatMessageFunctionalTests : BaseChatMessagePresentationComma
 	{
 		// Act
 		await ApiClient.DeleteAsync(_request, CancellationToken);
-		var chatMessageImages = await ServiceScope.GetByIdRangeAsync(ChatMessageChatMessageImageIds, CancellationToken);
+		var chatMessageChatMessageImages = await ServiceScope.GetByIdRangeAsync(ChatMessageChatMessageImageIds, CancellationToken);
 
 		// Assert
-		chatMessageImages.ShouldBeEmpty();
+		chatMessageChatMessageImages.ShouldBeEmpty();
 	}
 
 	[Theory]
@@ -345,10 +345,10 @@ public class DeleteChatMessageFunctionalTests : BaseChatMessagePresentationComma
 
 		// Act
 		await ApiClient.DeleteAsync(request, CancellationToken);
-		var chatMessageImages = await ServiceScope.GetByIdRangeAsync(ChatMessageChatMessageImageIds, CancellationToken);
+		var chatMessageChatMessageImages = await ServiceScope.GetByIdRangeAsync(ChatMessageChatMessageImageIds, CancellationToken);
 
 		// Assert
-		chatMessageImages.ShouldBeEmpty();
+		chatMessageChatMessageImages.ShouldBeEmpty();
 	}
 
 	[Theory]
@@ -361,10 +361,10 @@ public class DeleteChatMessageFunctionalTests : BaseChatMessagePresentationComma
 
 		// Act
 		await ApiClient.DeleteAsync(request, CancellationToken);
-		var chatMessageImages = await ServiceScope.GetByIdRangeAsync(ChatMessageChatMessageImageIds, CancellationToken);
+		var chatMessageChatMessageImages = await ServiceScope.GetByIdRangeAsync(ChatMessageChatMessageImageIds, CancellationToken);
 
 		// Assert
-		chatMessageImages.ShouldBeEmpty();
+		chatMessageChatMessageImages.ShouldBeEmpty();
 	}
 
 	[Theory]
@@ -377,10 +377,10 @@ public class DeleteChatMessageFunctionalTests : BaseChatMessagePresentationComma
 
 		// Act
 		await ApiClient.DeleteAsync(request, CancellationToken);
-		var chatMessageImages = await ServiceScope.GetByIdRangeAsync(ChatMessageChatMessageImageIds, CancellationToken);
+		var chatMessageChatMessageImages = await ServiceScope.GetByIdRangeAsync(ChatMessageChatMessageImageIds, CancellationToken);
 
 		// Assert
-		chatMessageImages.ShouldBeEmpty();
+		chatMessageChatMessageImages.ShouldBeEmpty();
 	}
 
 	[Fact]
@@ -576,10 +576,10 @@ public class DeleteChatMessageFunctionalTests : BaseChatMessagePresentationComma
 
 		// Act
 		await ApiClient.DeleteAsync(_invertedRequest, CancellationToken);
-		var chatMessageImages = await ServiceScope.GetByIdRangeAsync(ChatMessageChatMessageImageIds, CancellationToken);
+		var chatMessageChatMessageImages = await ServiceScope.GetByIdRangeAsync(ChatMessageChatMessageImageIds, CancellationToken);
 
 		// Assert
-		chatMessageImages.ShouldBeEmpty();
+		chatMessageChatMessageImages.ShouldBeEmpty();
 	}
 
 	[Theory]
@@ -593,10 +593,10 @@ public class DeleteChatMessageFunctionalTests : BaseChatMessagePresentationComma
 
 		// Act
 		await ApiClient.DeleteAsync(invertedRequest, CancellationToken);
-		var chatMessageImages = await ServiceScope.GetByIdRangeAsync(ChatMessageChatMessageImageIds, CancellationToken);
+		var chatMessageChatMessageImages = await ServiceScope.GetByIdRangeAsync(ChatMessageChatMessageImageIds, CancellationToken);
 
 		// Assert
-		chatMessageImages.ShouldBeEmpty();
+		chatMessageChatMessageImages.ShouldBeEmpty();
 	}
 
 	[Theory]
@@ -610,10 +610,10 @@ public class DeleteChatMessageFunctionalTests : BaseChatMessagePresentationComma
 
 		// Act
 		await ApiClient.DeleteAsync(invertedRequest, CancellationToken);
-		var chatMessageImages = await ServiceScope.GetByIdRangeAsync(ChatMessageChatMessageImageIds, CancellationToken);
+		var chatMessageChatMessageImages = await ServiceScope.GetByIdRangeAsync(ChatMessageChatMessageImageIds, CancellationToken);
 
 		// Assert
-		chatMessageImages.ShouldBeEmpty();
+		chatMessageChatMessageImages.ShouldBeEmpty();
 	}
 
 	[Theory]
@@ -627,10 +627,10 @@ public class DeleteChatMessageFunctionalTests : BaseChatMessagePresentationComma
 
 		// Act
 		await ApiClient.DeleteAsync(invertedRequest, CancellationToken);
-		var chatMessageImages = await ServiceScope.GetByIdRangeAsync(ChatMessageChatMessageImageIds, CancellationToken);
+		var chatMessageChatMessageImages = await ServiceScope.GetByIdRangeAsync(ChatMessageChatMessageImageIds, CancellationToken);
 
 		// Assert
-		chatMessageImages.ShouldBeEmpty();
+		chatMessageChatMessageImages.ShouldBeEmpty();
 	}
 
 	[Fact]

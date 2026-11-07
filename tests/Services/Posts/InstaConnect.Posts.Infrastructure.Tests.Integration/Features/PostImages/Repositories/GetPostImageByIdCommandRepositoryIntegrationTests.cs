@@ -10,6 +10,11 @@ public class GetPostImageByIdCommandRepositoryIntegrationTests : BasePostImageIn
 	{
 	}
 
+	protected override async Task OnInitializeAsync()
+	{
+		await ServiceScope.AddAsync(PostImage, CancellationToken);
+	}
+
 	[Fact]
 	public async Task GetByIdAsync_ShouldReturnNull_WhenIdIsInvalid()
 	{

@@ -14,6 +14,11 @@ public class DeletePostCommentLikeFunctionalTests : BasePostCommentLikePresentat
 		_request = _requestBuilder.Build();
 	}
 
+	protected override async Task OnInitializeAsync()
+	{
+		await ServiceScope.AddAsync(PostCommentLike, CancellationToken);
+	}
+
 	[Fact]
 	public async Task DeleteAsync_ShouldReturnUnauthorizedStatusCode_WhenRequestIsUnauthorized()
 	{

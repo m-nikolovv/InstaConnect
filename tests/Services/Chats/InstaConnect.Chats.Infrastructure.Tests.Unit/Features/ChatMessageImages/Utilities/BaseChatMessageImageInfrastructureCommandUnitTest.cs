@@ -1,10 +1,10 @@
 using InstaConnect.Chats.Infrastructure.Features.ChatMessageImages.Abstractions;
 using InstaConnect.Chats.Infrastructure.Tests.Features.ChatMessageImages.Utilities;
-using InstaConnect.Chats.Tests.Features.Common.Utilities;
+using InstaConnect.Chats.Tests.Features.ChatMessageImages.Utilities;
 
 namespace InstaConnect.Chats.Infrastructure.Tests.Unit.Features.ChatMessageImages.Utilities;
 
-public abstract class BaseChatMessageImageInfrastructureCommandUnitTest : BaseChatsCommandTest
+public abstract class BaseChatMessageImageInfrastructureCommandUnitTest : BaseChatMessageImageCommandTest
 {
 	protected IChatMessageImageFluent Fluent { get; }
 

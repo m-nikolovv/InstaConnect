@@ -2,7 +2,7 @@ using InstaConnect.Identity.Presentation.Features.Users.Controllers.v1;
 
 namespace InstaConnect.Identity.Presentation.Tests.Integration.Features.Users.Utilities;
 
-public abstract class BaseUserPresentationQueryIntegrationTest : BaseIdentityWebQueryTest
+public abstract class BaseUserPresentationQueryIntegrationTest : BaseUserWebQueryTest
 {
 	protected UserController Controller { get; }
 

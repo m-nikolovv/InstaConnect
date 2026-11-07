@@ -7,6 +7,14 @@ public class DeleteUserCommandRepositoryIntegrationTests : BaseUserInfrastructur
 	{
 	}
 
+	protected override async Task OnInitializeAsync()
+	{
+		await ServiceScope.AddAsync(User, CancellationToken);
+		await ServiceScope.AddRangeAsync(Follows, CancellationToken);
+		await ServiceScope.AddRangeAsync(UserFollowFollowers, CancellationToken);
+		await ServiceScope.AddRangeAsync(UserFollowFollowings, CancellationToken);
+	}
+
 	[Fact]
 	public async Task DeleteAsync_ShouldDeleteUser_WhenCommandIsValid()
 	{
@@ -19,13 +27,24 @@ public class DeleteUserCommandRepositoryIntegrationTests : BaseUserInfrastructur
 	}
 
 	[Fact]
-	public async Task DeleteAsync_ShouldDeleteUserFollows_WhenCommandIsValid()
+	public async Task DeleteAsync_ShouldDeleteUserFollowFollowers_WhenCommandIsValid()
 	{
 		// Act
 		await Repository.DeleteAsync(User, CancellationToken);
-		var follows = await ServiceScope.GetByIdRangeAsync(UserFollowIds, CancellationToken);
+		var userFollowFollowers = await ServiceScope.GetByIdRangeAsync(UserFollowFollowerIds, CancellationToken);
 
 		// Assert
-		follows.ShouldBeEmpty();
+		userFollowFollowers.ShouldBeEmpty();
+	}
+
+	[Fact]
+	public async Task DeleteAsync_ShouldDeleteUserFollowFollowings_WhenCommandIsValid()
+	{
+		// Act
+		await Repository.DeleteAsync(User, CancellationToken);
+		var userFollowFollowings = await ServiceScope.GetByIdRangeAsync(UserFollowFollowingIds, CancellationToken);
+
+		// Assert
+		userFollowFollowings.ShouldBeEmpty();
 	}
 }

@@ -16,11 +16,6 @@ public class AddFollowControllerIntegrationTests : BaseFollowPresentationCommand
 		_request = _requestBuilder.Build();
 	}
 
-	protected override async Task OnInitializeAsync()
-	{
-		await ServiceScope.DeleteAsync(Follow, CancellationToken);
-	}
-
 	[Theory]
 	[UserIdNullWithMessageData]
 	[UserIdEmptyWithMessageData]

@@ -16,6 +16,11 @@ public class DeletePostLikeCommandServiceIntegrationTests : BasePostLikeDomainCo
 		_command = _commandBuilder.Build();
 	}
 
+	protected override async Task OnInitializeAsync()
+	{
+		await ServiceScope.AddAsync(PostLike, CancellationToken);
+	}
+
 	[Fact]
 	public async Task DeleteAsync_ShouldThrowPostNotFoundException_WhenPostNotFound()
 	{

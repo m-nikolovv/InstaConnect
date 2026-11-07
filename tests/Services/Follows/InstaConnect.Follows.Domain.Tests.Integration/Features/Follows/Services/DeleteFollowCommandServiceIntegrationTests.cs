@@ -16,6 +16,11 @@ public class DeleteFollowCommandServiceIntegrationTests : BaseFollowDomainComman
 		_command = _commandBuilder.Build();
 	}
 
+	protected override async Task OnInitializeAsync()
+	{
+		await ServiceScope.AddAsync(Follow, CancellationToken);
+	}
+
 	[Fact]
 	public async Task DeleteAsync_ShouldThrowFollowNotFoundException_WhenFollowNotFound()
 	{

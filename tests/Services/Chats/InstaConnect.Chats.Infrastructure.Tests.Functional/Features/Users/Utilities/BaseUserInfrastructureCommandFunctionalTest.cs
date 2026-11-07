@@ -1,3 +1,4 @@
+using InstaConnect.Chats.Tests.Features.Users.Utilities;
 using InstaConnect.Chats.Infrastructure.Tests.Features.Users.Abstractions;
 using InstaConnect.Chats.Infrastructure.Tests.Features.Users.Extensions;
 using InstaConnect.Chats.Tests.Features.Common.Utilities;
@@ -6,7 +7,7 @@ using InstaConnect.Common.Infrastructure.Tests.Features.Utilities;
 
 namespace InstaConnect.Chats.Infrastructure.Tests.Functional.Features.Users.Utilities;
 
-public abstract class BaseUserInfrastructureCommandFunctionalTest : BaseChatsWebCommandTest
+public abstract class BaseUserInfrastructureCommandFunctionalTest : BaseUserWebCommandTest
 {
 	protected IUserEventClient UserEventClient { get; }
 
@@ -20,7 +21,7 @@ public abstract class BaseUserInfrastructureCommandFunctionalTest : BaseChatsWeb
 
 	public override async Task InitializeAsync()
 	{
-		await OnInitializeAsync();
+		await base.InitializeAsync();
 		await UserEventClient.StartAsync(CancellationToken);
 	}
 

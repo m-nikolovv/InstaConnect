@@ -7,6 +7,11 @@ public class DeleteForgotPasswordTokenCommandRepositoryIntegrationTests : BaseFo
 	{
 	}
 
+	protected override async Task OnInitializeAsync()
+	{
+		await ServiceScope.AddAsync(ForgotPasswordToken, CancellationToken);
+	}
+
 	[Fact]
 	public async Task DeleteAsync_ShouldDeleteForgotPasswordToken_WhenCommandIsValid()
 	{

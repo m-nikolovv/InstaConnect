@@ -1,3 +1,4 @@
+using InstaConnect.Identity.Tests.Features.Users.Utilities;
 using InstaConnect.Common.Domain.Features.Guids.Abstractions;
 using InstaConnect.Common.Domain.Features.Images.Abstractions;
 using InstaConnect.Common.Domain.Features.Mappers.Abstractions;
@@ -7,7 +8,7 @@ using InstaConnect.Identity.Domain.Features.EmailConfirmationTokens.Abstractions
 
 namespace InstaConnect.Identity.Domain.Tests.Unit.Features.Users.Utilities;
 
-public abstract class BaseUserDomainCommandUnitTest : BaseIdentityCommandTest
+public abstract class BaseUserDomainCommandUnitTest : BaseUserCommandTest
 {
 	protected IUserFactory Factory { get; }
 

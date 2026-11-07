@@ -1,10 +1,10 @@
 using InstaConnect.Posts.Infrastructure.Features.PostCommentImages.Abstractions;
 using InstaConnect.Posts.Infrastructure.Tests.Features.PostCommentImages.Utilities;
-using InstaConnect.Posts.Tests.Features.Common.Utilities;
+using InstaConnect.Posts.Tests.Features.PostCommentImages.Utilities;
 
 namespace InstaConnect.Posts.Infrastructure.Tests.Unit.Features.PostCommentImages.Utilities;
 
-public abstract class BasePostCommentImageInfrastructureCommandUnitTest : BasePostsCommandTest
+public abstract class BasePostCommentImageInfrastructureCommandUnitTest : BasePostCommentImageCommandTest
 {
 	protected IPostCommentImageFluent Fluent { get; }
 

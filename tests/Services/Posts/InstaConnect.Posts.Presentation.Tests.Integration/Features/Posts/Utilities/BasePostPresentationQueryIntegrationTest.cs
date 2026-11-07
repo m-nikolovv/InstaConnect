@@ -2,7 +2,7 @@ using InstaConnect.Posts.Presentation.Features.Posts.Controllers.v1;
 
 namespace InstaConnect.Posts.Presentation.Tests.Integration.Features.Posts.Utilities;
 
-public abstract class BasePostPresentationQueryIntegrationTest : BasePostsWebQueryTest
+public abstract class BasePostPresentationQueryIntegrationTest : BasePostWebQueryTest
 {
 	protected PostController Controller { get; }
 

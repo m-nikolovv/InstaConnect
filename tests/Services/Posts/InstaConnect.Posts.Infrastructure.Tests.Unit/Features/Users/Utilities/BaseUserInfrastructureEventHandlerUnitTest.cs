@@ -1,11 +1,11 @@
 using InstaConnect.Common.Application.Features.Requests.Abstractions;
 using InstaConnect.Common.Domain.Features.Mappers.Abstractions;
 using InstaConnect.Posts.Infrastructure.Features.Common.Extensions;
-using InstaConnect.Posts.Tests.Features.Common.Utilities;
+using InstaConnect.Posts.Tests.Features.Users.Utilities;
 
 namespace InstaConnect.Posts.Infrastructure.Tests.Unit.Features.Users.Utilities;
 
-public abstract class BaseUserInfrastructureEventHandlerUnitTest : BasePostsCommandTest
+public abstract class BaseUserInfrastructureEventHandlerUnitTest : BaseUserCommandTest
 {
 	protected IApplicationSender Sender { get; }
 

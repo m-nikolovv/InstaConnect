@@ -18,11 +18,6 @@ public class AddForgotPasswordTokenCommandHandlerIntegrationTests : BaseForgotPa
 		_request = _requestBuilder.Build();
 	}
 
-	protected override async Task OnInitializeAsync()
-	{
-		await ServiceScope.DeleteRangeAsync(UserForgotPasswordTokens, CancellationToken);
-	}
-
 	[Theory]
 	[UserNameNullWithMessageData]
 	[UserNameEmptyWithMessageData]

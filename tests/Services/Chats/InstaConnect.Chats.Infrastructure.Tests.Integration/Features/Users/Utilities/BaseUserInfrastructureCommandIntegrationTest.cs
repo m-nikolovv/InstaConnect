@@ -2,7 +2,7 @@ using InstaConnect.Chats.Domain.Features.Users.Abstractions;
 
 namespace InstaConnect.Chats.Infrastructure.Tests.Integration.Features.Users.Utilities;
 
-public abstract class BaseUserInfrastructureCommandIntegrationTest : BaseChatsWebCommandTest
+public abstract class BaseUserInfrastructureCommandIntegrationTest : BaseUserWebCommandTest
 {
 	protected IUserCommandRepository Repository { get; }
 

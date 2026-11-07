@@ -1,3 +1,4 @@
+using InstaConnect.Identity.Tests.Features.UserClaims.Utilities;
 using InstaConnect.Common.Domain.Features.Mappers.Abstractions;
 using InstaConnect.Common.Events.Features.Events.Abstractions;
 using InstaConnect.Identity.Domain.Features.Common.Extensions;
@@ -5,7 +6,7 @@ using InstaConnect.Identity.Domain.Features.UserClaims.Abstractions;
 
 namespace InstaConnect.Identity.Domain.Tests.Unit.Features.UserClaims.Utilities;
 
-public abstract class BaseUserClaimDomainCommandUnitTest : BaseIdentityCommandTest
+public abstract class BaseUserClaimDomainCommandUnitTest : BaseUserClaimCommandTest
 {
 	protected IUserClaimFactory Factory { get; }
 

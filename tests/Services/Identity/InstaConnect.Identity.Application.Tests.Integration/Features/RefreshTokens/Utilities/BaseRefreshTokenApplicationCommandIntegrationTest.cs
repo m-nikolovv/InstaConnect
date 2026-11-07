@@ -1,6 +1,6 @@
 namespace InstaConnect.Identity.Application.Tests.Integration.Features.RefreshTokens.Utilities;
 
-public abstract class BaseRefreshTokenApplicationCommandIntegrationTest : BaseIdentityWebCommandTest
+public abstract class BaseRefreshTokenApplicationCommandIntegrationTest : BaseRefreshTokenWebCommandTest
 {
 	protected IApplicationSender Sender { get; }
 

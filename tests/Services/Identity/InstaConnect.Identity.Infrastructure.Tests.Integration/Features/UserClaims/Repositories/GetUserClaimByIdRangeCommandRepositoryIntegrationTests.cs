@@ -7,6 +7,11 @@ public class GetUserClaimByIdRangeCommandRepositoryIntegrationTests : BaseUserCl
 	{
 	}
 
+	protected override async Task OnInitializeAsync()
+	{
+		await ServiceScope.AddRangeAsync(UserClaims, CancellationToken);
+	}
+
 	[Fact]
 	public async Task GetByIdRangeAsync_ShouldReturnEmpty_WhenIdsAreInvalid()
 	{

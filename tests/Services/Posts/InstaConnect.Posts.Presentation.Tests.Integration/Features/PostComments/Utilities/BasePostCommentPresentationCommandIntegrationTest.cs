@@ -4,7 +4,7 @@ using InstaConnect.Posts.Tests.Features.PostComments.Extensions;
 
 namespace InstaConnect.Posts.Presentation.Tests.Integration.Features.PostComments.Utilities;
 
-public abstract class BasePostCommentPresentationCommandIntegrationTest : BasePostsWebCommandTest
+public abstract class BasePostCommentPresentationCommandIntegrationTest : BasePostCommentWebCommandTest
 {
 	protected PostCommentController Controller { get; }
 

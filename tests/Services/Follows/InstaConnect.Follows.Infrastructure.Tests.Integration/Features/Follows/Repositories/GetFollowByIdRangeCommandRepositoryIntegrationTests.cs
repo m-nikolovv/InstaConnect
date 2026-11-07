@@ -12,14 +12,19 @@ public class GetFollowByIdRangeCommandRepositoryIntegrationTests : BaseFollowInf
 		_include = IncludeBuilderFactory.Create().WithFollower().WithFollowing().Build();
 	}
 
+	protected override async Task OnInitializeAsync()
+	{
+		await ServiceScope.AddRangeAsync(Follows, CancellationToken);
+	}
+
 	[Fact]
 	public async Task GetByIdRangeAsync_ShouldReturnEmpty_WhenIdsAreInvalid()
 	{
 		// Arrange
-		await ServiceScope.DeleteRangeAsync(UserFollows, CancellationToken);
+		await ServiceScope.DeleteRangeAsync(Follows, CancellationToken);
 
 		// Act
-		var response = await Repository.GetByIdRangeAsync(UserFollowIds, _include, CancellationToken);
+		var response = await Repository.GetByIdRangeAsync(FollowIds, _include, CancellationToken);
 
 		// Assert
 		response.ShouldBeEmpty();
@@ -29,10 +34,10 @@ public class GetFollowByIdRangeCommandRepositoryIntegrationTests : BaseFollowInf
 	public async Task GetByIdRangeAsync_ShouldReturnResponse_WhenCommandIsValid()
 	{
 		// Act
-		var response = await Repository.GetByIdRangeAsync(UserFollowIds, _include, CancellationToken);
+		var response = await Repository.GetByIdRangeAsync(FollowIds, _include, CancellationToken);
 
 		// Assert
-		response.ShouldSatisfy(UserFollows);
+		response.ShouldSatisfy(Follows);
 	}
 
 	[Theory]
@@ -41,13 +46,13 @@ public class GetFollowByIdRangeCommandRepositoryIntegrationTests : BaseFollowInf
 		IStringTransformer transformer)
 	{
 		// Arrange
-		var ids = UserFollowIdRangeBuilder.WithFollowerId(transformer).Build();
+		var ids = FollowIdRangeBuilder.WithFollowerId(transformer).Build();
 
 		// Act
 		var response = await Repository.GetByIdRangeAsync(ids, _include, CancellationToken);
 
 		// Assert
-		response.ShouldSatisfy(UserFollows);
+		response.ShouldSatisfy(Follows);
 	}
 
 	[Theory]
@@ -56,12 +61,12 @@ public class GetFollowByIdRangeCommandRepositoryIntegrationTests : BaseFollowInf
 		IStringTransformer transformer)
 	{
 		// Arrange
-		var ids = UserFollowIdRangeBuilder.WithFollowingId(transformer).Build();
+		var ids = FollowIdRangeBuilder.WithFollowingId(transformer).Build();
 
 		// Act
 		var response = await Repository.GetByIdRangeAsync(ids, _include, CancellationToken);
 
 		// Assert
-		response.ShouldSatisfy(UserFollows);
+		response.ShouldSatisfy(Follows);
 	}
 }

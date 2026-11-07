@@ -2,7 +2,7 @@ using InstaConnect.Posts.Presentation.Features.PostComments.Controllers.v1;
 
 namespace InstaConnect.Posts.Presentation.Tests.Integration.Features.PostComments.Utilities;
 
-public abstract class BasePostCommentPresentationQueryIntegrationTest : BasePostsWebQueryTest
+public abstract class BasePostCommentPresentationQueryIntegrationTest : BasePostCommentWebQueryTest
 {
 	protected PostCommentController Controller { get; }
 

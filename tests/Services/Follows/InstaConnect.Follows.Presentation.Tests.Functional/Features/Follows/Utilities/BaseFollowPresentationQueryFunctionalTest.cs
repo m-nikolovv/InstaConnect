@@ -3,7 +3,7 @@ using InstaConnect.Follows.Presentation.Tests.Features.Follows.Extensions;
 
 namespace InstaConnect.Follows.Presentation.Tests.Functional.Features.Follows.Utilities;
 
-public abstract class BaseFollowPresentationQueryFunctionalTest : BaseFollowsWebQueryTest
+public abstract class BaseFollowPresentationQueryFunctionalTest : BaseFollowWebQueryTest
 {
 	protected IFollowApiClient ApiClient { get; }
 

@@ -19,6 +19,11 @@ public class DeleteCurrentRefreshTokenControllerIntegrationTests : BaseRefreshTo
 		_request = _requestBuilder.Build();
 	}
 
+	protected override async Task OnInitializeAsync()
+	{
+		await ServiceScope.AddAsync(RefreshToken, CancellationToken);
+	}
+
 	[Theory]
 	[UserIdNullWithMessageData]
 	[UserIdEmptyWithMessageData]

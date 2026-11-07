@@ -2,7 +2,7 @@ using InstaConnect.Posts.Presentation.Features.PostLikes.Controllers.v1;
 
 namespace InstaConnect.Posts.Presentation.Tests.Integration.Features.PostLikes.Utilities;
 
-public abstract class BasePostLikePresentationQueryIntegrationTest : BasePostsWebQueryTest
+public abstract class BasePostLikePresentationQueryIntegrationTest : BasePostLikeWebQueryTest
 {
 	protected PostLikeController Controller { get; }
 

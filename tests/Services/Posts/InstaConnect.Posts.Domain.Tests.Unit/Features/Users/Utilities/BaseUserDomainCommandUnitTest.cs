@@ -1,8 +1,8 @@
-using InstaConnect.Posts.Tests.Features.Common.Utilities;
+using InstaConnect.Posts.Tests.Features.Users.Utilities;
 
 namespace InstaConnect.Posts.Domain.Tests.Unit.Features.Users.Utilities;
 
-public abstract class BaseUserDomainCommandUnitTest : BasePostsCommandTest
+public abstract class BaseUserDomainCommandUnitTest : BaseUserCommandTest
 {
 	protected IUserFactory UserFactory { get; }
 

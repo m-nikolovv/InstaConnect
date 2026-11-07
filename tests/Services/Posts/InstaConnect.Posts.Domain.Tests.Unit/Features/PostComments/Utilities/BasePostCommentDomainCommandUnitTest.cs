@@ -6,12 +6,11 @@ using InstaConnect.Posts.Domain.Features.Common.Extensions;
 using InstaConnect.Posts.Domain.Features.PostCommentImages.Abstractions;
 using InstaConnect.Posts.Domain.Features.PostComments.Abstractions;
 using InstaConnect.Posts.Domain.Tests.Features.PostCommentImages.Utilities;
-using InstaConnect.Posts.Tests.Features.Common.Utilities;
 using InstaConnect.Posts.Tests.Features.PostComments.Utilities;
 
 namespace InstaConnect.Posts.Domain.Tests.Unit.Features.PostComments.Utilities;
 
-public abstract class BasePostCommentDomainCommandUnitTest : BasePostsCommandTest
+public abstract class BasePostCommentDomainCommandUnitTest : BasePostCommentCommandTest
 {
 	protected IApplicationMapper Mapper { get; }
 

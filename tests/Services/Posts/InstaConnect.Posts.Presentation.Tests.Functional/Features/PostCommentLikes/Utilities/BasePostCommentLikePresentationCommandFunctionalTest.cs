@@ -5,7 +5,7 @@ using InstaConnect.Posts.Tests.Features.PostCommentLikes.Extensions;
 
 namespace InstaConnect.Posts.Presentation.Tests.Functional.Features.PostCommentLikes.Utilities;
 
-public abstract class BasePostCommentLikePresentationCommandFunctionalTest : BasePostsWebCommandTest
+public abstract class BasePostCommentLikePresentationCommandFunctionalTest : BasePostCommentLikeWebCommandTest
 {
 	protected IPostCommentLikeApiClient CommentLikeApiClient { get; }
 

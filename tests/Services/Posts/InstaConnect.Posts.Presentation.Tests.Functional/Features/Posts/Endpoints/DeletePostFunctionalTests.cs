@@ -17,6 +17,16 @@ public class DeletePostFunctionalTests : BasePostPresentationCommandFunctionalTe
 		_request = _requestBuilder.Build();
 	}
 
+	protected override async Task OnInitializeAsync()
+	{
+		await ServiceScope.AddAsync(Post, CancellationToken);
+		await ServiceScope.AddRangeAsync(PostImages, CancellationToken);
+		await ServiceScope.AddRangeAsync(PostLikes, CancellationToken);
+		await ServiceScope.AddRangeAsync(PostComments, CancellationToken);
+		await ServiceScope.AddRangeAsync(PostCommentImages, CancellationToken);
+		await ServiceScope.AddRangeAsync(PostCommentLikes, CancellationToken);
+	}
+
 	[Fact]
 	public async Task DeleteAsync_ShouldReturnUnauthorizedStatusCode_WhenRequestIsUnauthorized()
 	{
@@ -237,10 +247,10 @@ public class DeletePostFunctionalTests : BasePostPresentationCommandFunctionalTe
 	{
 		// Act
 		await ApiClient.DeleteAsync(_request, CancellationToken);
-		var postImages = await ServiceScope.GetByIdRangeAsync(PostPostImageIds, CancellationToken);
+		var postPostImages = await ServiceScope.GetByIdRangeAsync(PostPostImageIds, CancellationToken);
 
 		// Assert
-		postImages.ShouldBeEmpty();
+		postPostImages.ShouldBeEmpty();
 	}
 
 	[Theory]
@@ -253,10 +263,10 @@ public class DeletePostFunctionalTests : BasePostPresentationCommandFunctionalTe
 
 		// Act
 		await ApiClient.DeleteAsync(request, CancellationToken);
-		var postImages = await ServiceScope.GetByIdRangeAsync(PostPostImageIds, CancellationToken);
+		var postPostImages = await ServiceScope.GetByIdRangeAsync(PostPostImageIds, CancellationToken);
 
 		// Assert
-		postImages.ShouldBeEmpty();
+		postPostImages.ShouldBeEmpty();
 	}
 
 	[Theory]
@@ -269,10 +279,10 @@ public class DeletePostFunctionalTests : BasePostPresentationCommandFunctionalTe
 
 		// Act
 		await ApiClient.DeleteAsync(request, CancellationToken);
-		var postImages = await ServiceScope.GetByIdRangeAsync(PostPostImageIds, CancellationToken);
+		var postPostImages = await ServiceScope.GetByIdRangeAsync(PostPostImageIds, CancellationToken);
 
 		// Assert
-		postImages.ShouldBeEmpty();
+		postPostImages.ShouldBeEmpty();
 	}
 
 	[Fact]
@@ -280,10 +290,10 @@ public class DeletePostFunctionalTests : BasePostPresentationCommandFunctionalTe
 	{
 		// Act
 		await ApiClient.DeleteAsync(_request, CancellationToken);
-		var postLikes = await ServiceScope.GetByIdRangeAsync(PostPostLikeIds, CancellationToken);
+		var postPostLikes = await ServiceScope.GetByIdRangeAsync(PostPostLikeIds, CancellationToken);
 
 		// Assert
-		postLikes.ShouldBeEmpty();
+		postPostLikes.ShouldBeEmpty();
 	}
 
 	[Theory]
@@ -296,10 +306,10 @@ public class DeletePostFunctionalTests : BasePostPresentationCommandFunctionalTe
 
 		// Act
 		await ApiClient.DeleteAsync(request, CancellationToken);
-		var postLikes = await ServiceScope.GetByIdRangeAsync(PostPostLikeIds, CancellationToken);
+		var postPostLikes = await ServiceScope.GetByIdRangeAsync(PostPostLikeIds, CancellationToken);
 
 		// Assert
-		postLikes.ShouldBeEmpty();
+		postPostLikes.ShouldBeEmpty();
 	}
 
 	[Theory]
@@ -312,10 +322,10 @@ public class DeletePostFunctionalTests : BasePostPresentationCommandFunctionalTe
 
 		// Act
 		await ApiClient.DeleteAsync(request, CancellationToken);
-		var postLikes = await ServiceScope.GetByIdRangeAsync(PostPostLikeIds, CancellationToken);
+		var postPostLikes = await ServiceScope.GetByIdRangeAsync(PostPostLikeIds, CancellationToken);
 
 		// Assert
-		postLikes.ShouldBeEmpty();
+		postPostLikes.ShouldBeEmpty();
 	}
 
 	[Fact]
@@ -323,10 +333,10 @@ public class DeletePostFunctionalTests : BasePostPresentationCommandFunctionalTe
 	{
 		// Act
 		await ApiClient.DeleteAsync(_request, CancellationToken);
-		var postComments = await ServiceScope.GetByIdRangeAsync(PostPostCommentIds, CancellationToken);
+		var postPostComments = await ServiceScope.GetByIdRangeAsync(PostPostCommentIds, CancellationToken);
 
 		// Assert
-		postComments.ShouldBeEmpty();
+		postPostComments.ShouldBeEmpty();
 	}
 
 	[Theory]
@@ -339,10 +349,10 @@ public class DeletePostFunctionalTests : BasePostPresentationCommandFunctionalTe
 
 		// Act
 		await ApiClient.DeleteAsync(request, CancellationToken);
-		var postComments = await ServiceScope.GetByIdRangeAsync(PostPostCommentIds, CancellationToken);
+		var postPostComments = await ServiceScope.GetByIdRangeAsync(PostPostCommentIds, CancellationToken);
 
 		// Assert
-		postComments.ShouldBeEmpty();
+		postPostComments.ShouldBeEmpty();
 	}
 
 	[Theory]
@@ -355,10 +365,10 @@ public class DeletePostFunctionalTests : BasePostPresentationCommandFunctionalTe
 
 		// Act
 		await ApiClient.DeleteAsync(request, CancellationToken);
-		var postComments = await ServiceScope.GetByIdRangeAsync(PostPostCommentIds, CancellationToken);
+		var postPostComments = await ServiceScope.GetByIdRangeAsync(PostPostCommentIds, CancellationToken);
 
 		// Assert
-		postComments.ShouldBeEmpty();
+		postPostComments.ShouldBeEmpty();
 	}
 
 	[Fact]
@@ -366,10 +376,10 @@ public class DeletePostFunctionalTests : BasePostPresentationCommandFunctionalTe
 	{
 		// Act
 		await ApiClient.DeleteAsync(_request, CancellationToken);
-		var postCommentImages = await ServiceScope.GetByIdRangeAsync(PostPostCommentsPostCommentImageIds, CancellationToken);
+		var postPostCommentsPostCommentImages = await ServiceScope.GetByIdRangeAsync(PostPostCommentsPostCommentImageIds, CancellationToken);
 
 		// Assert
-		postCommentImages.ShouldBeEmpty();
+		postPostCommentsPostCommentImages.ShouldBeEmpty();
 	}
 
 	[Theory]
@@ -382,10 +392,10 @@ public class DeletePostFunctionalTests : BasePostPresentationCommandFunctionalTe
 
 		// Act
 		await ApiClient.DeleteAsync(request, CancellationToken);
-		var postCommentImages = await ServiceScope.GetByIdRangeAsync(PostPostCommentsPostCommentImageIds, CancellationToken);
+		var postPostCommentsPostCommentImages = await ServiceScope.GetByIdRangeAsync(PostPostCommentsPostCommentImageIds, CancellationToken);
 
 		// Assert
-		postCommentImages.ShouldBeEmpty();
+		postPostCommentsPostCommentImages.ShouldBeEmpty();
 	}
 
 	[Theory]
@@ -398,10 +408,10 @@ public class DeletePostFunctionalTests : BasePostPresentationCommandFunctionalTe
 
 		// Act
 		await ApiClient.DeleteAsync(request, CancellationToken);
-		var postCommentImages = await ServiceScope.GetByIdRangeAsync(PostPostCommentsPostCommentImageIds, CancellationToken);
+		var postPostCommentsPostCommentImages = await ServiceScope.GetByIdRangeAsync(PostPostCommentsPostCommentImageIds, CancellationToken);
 
 		// Assert
-		postCommentImages.ShouldBeEmpty();
+		postPostCommentsPostCommentImages.ShouldBeEmpty();
 	}
 
 	[Fact]
@@ -409,10 +419,10 @@ public class DeletePostFunctionalTests : BasePostPresentationCommandFunctionalTe
 	{
 		// Act
 		await ApiClient.DeleteAsync(_request, CancellationToken);
-		var postCommentLikes = await ServiceScope.GetByIdRangeAsync(PostPostCommentsPostCommentLikeIds, CancellationToken);
+		var postPostCommentsPostCommentLikes = await ServiceScope.GetByIdRangeAsync(PostPostCommentsPostCommentLikeIds, CancellationToken);
 
 		// Assert
-		postCommentLikes.ShouldBeEmpty();
+		postPostCommentsPostCommentLikes.ShouldBeEmpty();
 	}
 
 	[Theory]
@@ -425,10 +435,10 @@ public class DeletePostFunctionalTests : BasePostPresentationCommandFunctionalTe
 
 		// Act
 		await ApiClient.DeleteAsync(request, CancellationToken);
-		var postCommentLikes = await ServiceScope.GetByIdRangeAsync(PostPostCommentsPostCommentLikeIds, CancellationToken);
+		var postPostCommentsPostCommentLikes = await ServiceScope.GetByIdRangeAsync(PostPostCommentsPostCommentLikeIds, CancellationToken);
 
 		// Assert
-		postCommentLikes.ShouldBeEmpty();
+		postPostCommentsPostCommentLikes.ShouldBeEmpty();
 	}
 
 	[Theory]
@@ -441,10 +451,10 @@ public class DeletePostFunctionalTests : BasePostPresentationCommandFunctionalTe
 
 		// Act
 		await ApiClient.DeleteAsync(request, CancellationToken);
-		var postCommentLikes = await ServiceScope.GetByIdRangeAsync(PostPostCommentsPostCommentLikeIds, CancellationToken);
+		var postPostCommentsPostCommentLikes = await ServiceScope.GetByIdRangeAsync(PostPostCommentsPostCommentLikeIds, CancellationToken);
 
 		// Assert
-		postCommentLikes.ShouldBeEmpty();
+		postPostCommentsPostCommentLikes.ShouldBeEmpty();
 	}
 
 	[Fact]

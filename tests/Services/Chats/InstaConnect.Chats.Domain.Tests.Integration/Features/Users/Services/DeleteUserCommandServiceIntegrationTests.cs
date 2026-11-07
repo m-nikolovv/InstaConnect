@@ -23,9 +23,10 @@ public class DeleteUserCommandServiceIntegrationTests : BaseUserDomainCommandInt
 	protected override async Task OnInitializeAsync()
 	{
 		await ServiceScope.AddAsync(User, CancellationToken);
-		await ServiceScope.AddRangeAsync(UserChats, CancellationToken);
-		await ServiceScope.AddRangeAsync(UserChatMessages, CancellationToken);
-		await ServiceScope.AddRangeAsync(UserChatMessageImages, CancellationToken);
+		await ServiceScope.AddRangeAsync(Chats, CancellationToken);
+		await ServiceScope.AddRangeAsync(InvertedChats, CancellationToken);
+		await ServiceScope.AddRangeAsync(ChatMessages, CancellationToken);
+		await ServiceScope.AddRangeAsync(ChatMessageImages, CancellationToken);
 	}
 
 	[Fact]
@@ -70,10 +71,10 @@ public class DeleteUserCommandServiceIntegrationTests : BaseUserDomainCommandInt
 	{
 		// Act
 		await UserService.DeleteAsync(_command, CancellationToken);
-		var chats = await ServiceScope.GetByIdRangeAsync(UserChatIds, CancellationToken);
+		var userChats = await ServiceScope.GetByIdRangeAsync(UserChatIds, CancellationToken);
 
 		// Assert
-		chats.ShouldBeEmpty();
+		userChats.ShouldBeEmpty();
 	}
 
 	[Theory]
@@ -86,10 +87,64 @@ public class DeleteUserCommandServiceIntegrationTests : BaseUserDomainCommandInt
 
 		// Act
 		await UserService.DeleteAsync(command, CancellationToken);
-		var chats = await ServiceScope.GetByIdRangeAsync(UserChatIds, CancellationToken);
+		var userChats = await ServiceScope.GetByIdRangeAsync(UserChatIds, CancellationToken);
 
 		// Assert
-		chats.ShouldBeEmpty();
+		userChats.ShouldBeEmpty();
+	}
+
+	[Fact]
+	public async Task DeleteAsync_ShouldDeleteUserChatsChatMessages_WhenCommandIsValid()
+	{
+		// Act
+		await UserService.DeleteAsync(_command, CancellationToken);
+		var userChatsChatMessages = await ServiceScope.GetByIdRangeAsync(UserChatsChatMessageIds, CancellationToken);
+
+		// Assert
+		userChatsChatMessages.ShouldBeEmpty();
+	}
+
+	[Theory]
+	[UserIdDifferentCaseData]
+	public async Task DeleteAsync_ShouldDeleteUserChatsChatMessages_WhenCommandAndIdAreValid(
+		IStringTransformer transformer)
+	{
+		// Arrange
+		var command = _commandBuilder.WithId(transformer).Build();
+
+		// Act
+		await UserService.DeleteAsync(command, CancellationToken);
+		var userChatsChatMessages = await ServiceScope.GetByIdRangeAsync(UserChatsChatMessageIds, CancellationToken);
+
+		// Assert
+		userChatsChatMessages.ShouldBeEmpty();
+	}
+
+	[Fact]
+	public async Task DeleteAsync_ShouldDeleteUserChatsChatMessagesChatMessageImages_WhenCommandIsValid()
+	{
+		// Act
+		await UserService.DeleteAsync(_command, CancellationToken);
+		var userChatsChatMessagesChatMessageImages = await ServiceScope.GetByIdRangeAsync(UserChatsChatMessagesChatMessageImageIds, CancellationToken);
+
+		// Assert
+		userChatsChatMessagesChatMessageImages.ShouldBeEmpty();
+	}
+
+	[Theory]
+	[UserIdDifferentCaseData]
+	public async Task DeleteAsync_ShouldDeleteUserChatsChatMessagesChatMessageImages_WhenCommandAndIdAreValid(
+		IStringTransformer transformer)
+	{
+		// Arrange
+		var command = _commandBuilder.WithId(transformer).Build();
+
+		// Act
+		await UserService.DeleteAsync(command, CancellationToken);
+		var userChatsChatMessagesChatMessageImages = await ServiceScope.GetByIdRangeAsync(UserChatsChatMessagesChatMessageImageIds, CancellationToken);
+
+		// Assert
+		userChatsChatMessagesChatMessageImages.ShouldBeEmpty();
 	}
 
 	[Fact]
@@ -97,10 +152,10 @@ public class DeleteUserCommandServiceIntegrationTests : BaseUserDomainCommandInt
 	{
 		// Act
 		await UserService.DeleteAsync(_command, CancellationToken);
-		var chatMessages = await ServiceScope.GetByIdRangeAsync(UserChatMessageIds, CancellationToken);
+		var userChatMessages = await ServiceScope.GetByIdRangeAsync(UserChatMessageIds, CancellationToken);
 
 		// Assert
-		chatMessages.ShouldBeEmpty();
+		userChatMessages.ShouldBeEmpty();
 	}
 
 	[Theory]
@@ -113,26 +168,26 @@ public class DeleteUserCommandServiceIntegrationTests : BaseUserDomainCommandInt
 
 		// Act
 		await UserService.DeleteAsync(command, CancellationToken);
-		var chatMessages = await ServiceScope.GetByIdRangeAsync(UserChatMessageIds, CancellationToken);
+		var userChatMessages = await ServiceScope.GetByIdRangeAsync(UserChatMessageIds, CancellationToken);
 
 		// Assert
-		chatMessages.ShouldBeEmpty();
+		userChatMessages.ShouldBeEmpty();
 	}
 
 	[Fact]
-	public async Task DeleteAsync_ShouldDeleteUserChatMessageImages_WhenCommandIsValid()
+	public async Task DeleteAsync_ShouldDeleteUserChatMessagesChatMessageImages_WhenCommandIsValid()
 	{
 		// Act
 		await UserService.DeleteAsync(_command, CancellationToken);
-		var chatMessageImages = await ServiceScope.GetByIdRangeAsync(UserChatMessageImageIds, CancellationToken);
+		var userChatMessagesChatMessageImages = await ServiceScope.GetByIdRangeAsync(UserChatMessagesChatMessageImageIds, CancellationToken);
 
 		// Assert
-		chatMessageImages.ShouldBeEmpty();
+		userChatMessagesChatMessageImages.ShouldBeEmpty();
 	}
 
 	[Theory]
 	[UserIdDifferentCaseData]
-	public async Task DeleteAsync_ShouldDeleteUserChatMessageImages_WhenCommandAndIdAreValid(
+	public async Task DeleteAsync_ShouldDeleteUserChatMessagesChatMessageImages_WhenCommandAndIdAreValid(
 		IStringTransformer transformer)
 	{
 		// Arrange
@@ -140,9 +195,10 @@ public class DeleteUserCommandServiceIntegrationTests : BaseUserDomainCommandInt
 
 		// Act
 		await UserService.DeleteAsync(command, CancellationToken);
-		var chatMessageImages = await ServiceScope.GetByIdRangeAsync(UserChatMessageImageIds, CancellationToken);
+		var userChatMessagesChatMessageImages = await ServiceScope.GetByIdRangeAsync(UserChatMessagesChatMessageImageIds, CancellationToken);
 
 		// Assert
-		chatMessageImages.ShouldBeEmpty();
+		userChatMessagesChatMessageImages.ShouldBeEmpty();
 	}
+
 }

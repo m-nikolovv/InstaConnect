@@ -18,11 +18,6 @@ public class AddForgotPasswordTokenFunctionalTests : BaseForgotPasswordTokenPres
 		_request = _requestBuilder.Build();
 	}
 
-	protected override async Task OnInitializeAsync()
-	{
-		await ServiceScope.DeleteRangeAsync(UserForgotPasswordTokens, CancellationToken);
-	}
-
 	[Theory]
 	[UserNameTooShortData]
 	[UserNameTooLongData]

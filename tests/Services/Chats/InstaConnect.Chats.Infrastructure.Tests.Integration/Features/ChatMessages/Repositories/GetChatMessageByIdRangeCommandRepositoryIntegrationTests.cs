@@ -10,6 +10,11 @@ public class GetChatMessageByIdRangeCommandRepositoryIntegrationTests : BaseChat
 	{
 	}
 
+	protected override async Task OnInitializeAsync()
+	{
+		await ServiceScope.AddRangeAsync(ChatMessages, CancellationToken);
+	}
+
 	[Fact]
 	public async Task GetByIdRangeAsync_ShouldReturnEmpty_WhenIdsAreInvalid()
 	{
@@ -17,7 +22,7 @@ public class GetChatMessageByIdRangeCommandRepositoryIntegrationTests : BaseChat
 		await ServiceScope.DeleteAsync(Chat, CancellationToken);
 
 		// Act
-		var response = await Repository.GetByIdRangeAsync(ChatChatMessageIds, CancellationToken);
+		var response = await Repository.GetByIdRangeAsync(ChatMessageIds, CancellationToken);
 
 		// Assert
 		response.ShouldBeEmpty();
@@ -27,10 +32,10 @@ public class GetChatMessageByIdRangeCommandRepositoryIntegrationTests : BaseChat
 	public async Task GetByIdRangeAsync_ShouldReturnResponse_WhenCommandIsValid()
 	{
 		// Act
-		var response = await Repository.GetByIdRangeAsync(ChatChatMessageIds, CancellationToken);
+		var response = await Repository.GetByIdRangeAsync(ChatMessageIds, CancellationToken);
 
 		// Assert
-		response.ShouldSatisfy(ChatChatMessages);
+		response.ShouldSatisfy(ChatMessages);
 	}
 
 	[Theory]
@@ -39,13 +44,13 @@ public class GetChatMessageByIdRangeCommandRepositoryIntegrationTests : BaseChat
 		IStringTransformer transformer)
 	{
 		// Arrange
-		var ids = ChatChatMessageIdRangeBuilder.WithParticipantOneId(transformer).Build();
+		var ids = ChatMessageIdRangeBuilder.WithParticipantOneId(transformer).Build();
 
 		// Act
 		var response = await Repository.GetByIdRangeAsync(ids, CancellationToken);
 
 		// Assert
-		response.ShouldSatisfy(ChatChatMessages);
+		response.ShouldSatisfy(ChatMessages);
 	}
 
 	[Theory]
@@ -54,13 +59,13 @@ public class GetChatMessageByIdRangeCommandRepositoryIntegrationTests : BaseChat
 		IStringTransformer transformer)
 	{
 		// Arrange
-		var ids = ChatChatMessageIdRangeBuilder.WithParticipantTwoId(transformer).Build();
+		var ids = ChatMessageIdRangeBuilder.WithParticipantTwoId(transformer).Build();
 
 		// Act
 		var response = await Repository.GetByIdRangeAsync(ids, CancellationToken);
 
 		// Assert
-		response.ShouldSatisfy(ChatChatMessages);
+		response.ShouldSatisfy(ChatMessages);
 	}
 
 	[Theory]
@@ -69,12 +74,12 @@ public class GetChatMessageByIdRangeCommandRepositoryIntegrationTests : BaseChat
 		IStringTransformer transformer)
 	{
 		// Arrange
-		var ids = ChatChatMessageIdRangeBuilder.WithMessageId(transformer).Build();
+		var ids = ChatMessageIdRangeBuilder.WithMessageId(transformer).Build();
 
 		// Act
 		var response = await Repository.GetByIdRangeAsync(ids, CancellationToken);
 
 		// Assert
-		response.ShouldSatisfy(ChatChatMessages);
+		response.ShouldSatisfy(ChatMessages);
 	}
 }

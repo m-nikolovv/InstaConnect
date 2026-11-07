@@ -5,7 +5,7 @@ using InstaConnect.Follows.Tests.Features.Follows.Extensions;
 
 namespace InstaConnect.Follows.Presentation.Tests.Functional.Features.Follows.Utilities;
 
-public abstract class BaseFollowPresentationCommandFunctionalTest : BaseFollowsWebCommandTest
+public abstract class BaseFollowPresentationCommandFunctionalTest : BaseFollowWebCommandTest
 {
 	protected IFollowApiClient ApiClient { get; }
 

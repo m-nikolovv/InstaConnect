@@ -9,11 +9,6 @@ public class AddEmailConfirmationTokenCommandRepositoryIntegrationTests : BaseEm
 	{
 	}
 
-	protected override async Task OnInitializeAsync()
-	{
-		await ServiceScope.DeleteAsync(EmailConfirmationToken, CancellationToken);
-	}
-
 	[Fact]
 	public async Task AddAsync_ShouldAddEmailConfirmationToken_WhenCommandIsValid()
 	{

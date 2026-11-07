@@ -2,7 +2,7 @@ using InstaConnect.Identity.Domain.Features.RefreshTokens.Abstractions;
 
 namespace InstaConnect.Identity.Infrastructure.Tests.Integration.Features.RefreshTokens.Utilities;
 
-public abstract class BaseRefreshTokenInfrastructureCommandIntegrationTest : BaseIdentityWebCommandTest
+public abstract class BaseRefreshTokenInfrastructureCommandIntegrationTest : BaseRefreshTokenWebCommandTest
 {
 	protected IRefreshTokenCommandRepository Repository { get; }
 

@@ -1,9 +1,9 @@
 using InstaConnect.Follows.Presentation.Features.Common.Extensions;
-using InstaConnect.Follows.Tests.Features.Common.Utilities;
+using InstaConnect.Follows.Tests.Features.Follows.Utilities;
 
 namespace InstaConnect.Follows.Presentation.Tests.Unit.Features.Follows.Utilities;
 
-public abstract class BaseFollowPresentationCommandUnitTest : BaseFollowsCommandTest
+public abstract class BaseFollowPresentationCommandUnitTest : BaseFollowCommandTest
 {
 	protected IApplicationSender Sender { get; }
 

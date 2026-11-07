@@ -22,6 +22,11 @@ public class UpdateUserCommandServiceIntegrationTests : BaseUserDomainCommandInt
 		_command = _commandBuilder.Build();
 	}
 
+	protected override async Task OnInitializeAsync()
+	{
+		await ServiceScope.AddAsync(User, CancellationToken);
+	}
+
 	[Fact]
 	public async Task UpdateAsync_ShouldThrowUserNotFoundException_WhenUserNotFound()
 	{

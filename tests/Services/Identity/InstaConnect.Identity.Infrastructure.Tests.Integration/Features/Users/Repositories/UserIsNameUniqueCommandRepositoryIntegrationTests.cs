@@ -18,6 +18,11 @@ public class UserIsNameUniqueCommandRepositoryIntegrationTests : BaseUserInfrast
 		_name = _nameBuilder.Build();
 	}
 
+	protected override async Task OnInitializeAsync()
+	{
+		await ServiceScope.AddAsync(User, CancellationToken);
+	}
+
 	[Fact]
 	public async Task IsNameUniqueAsync_ShouldReturnNull_WhenNameIsInvalid()
 	{

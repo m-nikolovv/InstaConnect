@@ -2,7 +2,7 @@ using InstaConnect.Posts.Domain.Features.PostCommentLikes.Abstractions;
 
 namespace InstaConnect.Posts.Infrastructure.Tests.Integration.Features.PostCommentLikes.Utilities;
 
-public abstract class BasePostCommentLikeInfrastructureQueryIntegrationTest : BasePostsWebQueryTest
+public abstract class BasePostCommentLikeInfrastructureQueryIntegrationTest : BasePostCommentLikeWebQueryTest
 {
 	protected IPostCommentLikeQueryRepository Repository { get; }
 

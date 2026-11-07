@@ -11,6 +11,11 @@ public class GetRefreshTokenByIdRangeCommandRepositoryIntegrationTests : BaseRef
 	{
 	}
 
+	protected override async Task OnInitializeAsync()
+	{
+		await ServiceScope.AddRangeAsync(RefreshTokens, CancellationToken);
+	}
+
 	[Fact]
 	public async Task GetByIdRangeAsync_ShouldReturnEmpty_WhenIdsAreInvalid()
 	{

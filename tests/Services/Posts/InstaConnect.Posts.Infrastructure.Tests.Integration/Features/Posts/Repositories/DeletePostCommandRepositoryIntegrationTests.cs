@@ -7,6 +7,16 @@ public class DeletePostCommandRepositoryIntegrationTests : BasePostInfrastructur
 	{
 	}
 
+	protected override async Task OnInitializeAsync()
+	{
+		await ServiceScope.AddAsync(Post, CancellationToken);
+		await ServiceScope.AddRangeAsync(PostImages, CancellationToken);
+		await ServiceScope.AddRangeAsync(PostLikes, CancellationToken);
+		await ServiceScope.AddRangeAsync(PostComments, CancellationToken);
+		await ServiceScope.AddRangeAsync(PostCommentImages, CancellationToken);
+		await ServiceScope.AddRangeAsync(PostCommentLikes, CancellationToken);
+	}
+
 	[Fact]
 	public async Task DeleteAsync_ShouldDeletePost_WhenCommandIsValid()
 	{
@@ -23,10 +33,10 @@ public class DeletePostCommandRepositoryIntegrationTests : BasePostInfrastructur
 	{
 		// Act
 		await Repository.DeleteAsync(Post, CancellationToken);
-		var postImages = await ServiceScope.GetByIdRangeAsync(PostPostImageIds, CancellationToken);
+		var postPostImages = await ServiceScope.GetByIdRangeAsync(PostPostImageIds, CancellationToken);
 
 		// Assert
-		postImages.ShouldBeEmpty();
+		postPostImages.ShouldBeEmpty();
 	}
 
 	[Fact]
@@ -34,10 +44,10 @@ public class DeletePostCommandRepositoryIntegrationTests : BasePostInfrastructur
 	{
 		// Act
 		await Repository.DeleteAsync(Post, CancellationToken);
-		var postLikes = await ServiceScope.GetByIdRangeAsync(PostPostLikeIds, CancellationToken);
+		var postPostLikes = await ServiceScope.GetByIdRangeAsync(PostPostLikeIds, CancellationToken);
 
 		// Assert
-		postLikes.ShouldBeEmpty();
+		postPostLikes.ShouldBeEmpty();
 	}
 
 	[Fact]
@@ -45,10 +55,10 @@ public class DeletePostCommandRepositoryIntegrationTests : BasePostInfrastructur
 	{
 		// Act
 		await Repository.DeleteAsync(Post, CancellationToken);
-		var postComments = await ServiceScope.GetByIdRangeAsync(PostPostCommentIds, CancellationToken);
+		var postPostComments = await ServiceScope.GetByIdRangeAsync(PostPostCommentIds, CancellationToken);
 
 		// Assert
-		postComments.ShouldBeEmpty();
+		postPostComments.ShouldBeEmpty();
 	}
 
 	[Fact]
@@ -56,10 +66,10 @@ public class DeletePostCommandRepositoryIntegrationTests : BasePostInfrastructur
 	{
 		// Act
 		await Repository.DeleteAsync(Post, CancellationToken);
-		var postCommentImages = await ServiceScope.GetByIdRangeAsync(PostPostCommentsPostCommentImageIds, CancellationToken);
+		var postPostCommentsPostCommentImages = await ServiceScope.GetByIdRangeAsync(PostPostCommentsPostCommentImageIds, CancellationToken);
 
 		// Assert
-		postCommentImages.ShouldBeEmpty();
+		postPostCommentsPostCommentImages.ShouldBeEmpty();
 	}
 
 	[Fact]
@@ -67,9 +77,10 @@ public class DeletePostCommandRepositoryIntegrationTests : BasePostInfrastructur
 	{
 		// Act
 		await Repository.DeleteAsync(Post, CancellationToken);
-		var postCommentLikes = await ServiceScope.GetByIdRangeAsync(PostPostCommentsPostCommentLikeIds, CancellationToken);
+		var postPostCommentsPostCommentLikes = await ServiceScope.GetByIdRangeAsync(PostPostCommentsPostCommentLikeIds, CancellationToken);
 
 		// Assert
-		postCommentLikes.ShouldBeEmpty();
+		postPostCommentsPostCommentLikes.ShouldBeEmpty();
 	}
+
 }

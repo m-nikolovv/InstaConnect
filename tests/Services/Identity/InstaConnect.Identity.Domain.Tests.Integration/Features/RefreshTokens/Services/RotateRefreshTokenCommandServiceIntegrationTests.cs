@@ -21,6 +21,11 @@ public class RotateRefreshTokenCommandServiceIntegrationTests : BaseRefreshToken
 		_command = _commandBuilder.Build();
 	}
 
+	protected override async Task OnInitializeAsync()
+	{
+		await ServiceScope.AddAsync(RefreshToken, CancellationToken);
+	}
+
 	[Fact]
 	public async Task RotateAsync_ShouldThrowUserNotFoundException_WhenUserNotFound()
 	{

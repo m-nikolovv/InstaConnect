@@ -1,11 +1,11 @@
 using InstaConnect.Common.Domain.Features.Guids.Abstractions;
 using InstaConnect.Posts.Domain.Features.PostCommentImages.Abstractions;
 using InstaConnect.Posts.Domain.Tests.Features.PostCommentImages.Utilities;
-using InstaConnect.Posts.Tests.Features.Common.Utilities;
+using InstaConnect.Posts.Tests.Features.PostCommentImages.Utilities;
 
 namespace InstaConnect.Posts.Domain.Tests.Unit.Features.PostCommentImages.Utilities;
 
-public abstract class BasePostCommentImageDomainCommandUnitTest : BasePostsCommandTest
+public abstract class BasePostCommentImageDomainCommandUnitTest : BasePostCommentImageCommandTest
 {
 	protected IGuidProvider GuidProvider { get; }
 

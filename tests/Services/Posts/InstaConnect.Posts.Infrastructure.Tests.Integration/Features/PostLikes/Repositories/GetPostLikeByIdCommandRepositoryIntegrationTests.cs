@@ -12,6 +12,11 @@ public class GetPostLikeByIdCommandRepositoryIntegrationTests : BasePostLikeInfr
 		_include = IncludeBuilderFactory.Create().WithUser().WithPost().Build();
 	}
 
+	protected override async Task OnInitializeAsync()
+	{
+		await ServiceScope.AddAsync(PostLike, CancellationToken);
+	}
+
 	[Fact]
 	public async Task GetByIdAsync_ShouldReturnNull_WhenIdIsInvalid()
 	{

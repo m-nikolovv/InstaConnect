@@ -22,6 +22,11 @@ public class GetUserByNameCommandRepositoryIntegrationTests : BaseUserInfrastruc
 		_include = IncludeBuilderFactory.Create().WithUserClaims().WithRefreshTokens().WithForgotPasswordTokens().WithEmailConfirmationTokens().Build();
 	}
 
+	protected override async Task OnInitializeAsync()
+	{
+		await ServiceScope.AddAsync(User, CancellationToken);
+	}
+
 	[Fact]
 	public async Task GetByNameAsync_ShouldReturnNull_WhenNameIsInvalid()
 	{

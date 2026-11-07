@@ -1,3 +1,4 @@
+using InstaConnect.Identity.Tests.Features.ForgotPasswordTokens.Utilities;
 using InstaConnect.Identity.Domain.Features.ForgotPasswordTokens.Abstractions;
 using InstaConnect.Identity.Domain.Tests.Features.ForgotPasswordTokens.Utilities;
 using InstaConnect.Identity.Tests.Features.ForgotPasswordTokens.Abstractions;
@@ -5,7 +6,7 @@ using InstaConnect.Identity.Tests.Features.ForgotPasswordTokens.Extensions;
 
 namespace InstaConnect.Identity.Domain.Tests.Integration.Features.ForgotPasswordTokens.Utilities;
 
-public abstract class BaseForgotPasswordTokenDomainCommandIntegrationTest : BaseIdentityWebCommandTest
+public abstract class BaseForgotPasswordTokenDomainCommandIntegrationTest : BaseForgotPasswordTokenWebCommandTest
 {
 	protected IForgotPasswordTokenCommandService Service { get; }
 

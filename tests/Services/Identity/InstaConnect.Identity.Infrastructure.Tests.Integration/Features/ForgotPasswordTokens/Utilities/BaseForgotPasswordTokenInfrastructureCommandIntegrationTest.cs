@@ -2,7 +2,7 @@ using InstaConnect.Identity.Domain.Features.ForgotPasswordTokens.Abstractions;
 
 namespace InstaConnect.Identity.Infrastructure.Tests.Integration.Features.ForgotPasswordTokens.Utilities;
 
-public abstract class BaseForgotPasswordTokenInfrastructureCommandIntegrationTest : BaseIdentityWebCommandTest
+public abstract class BaseForgotPasswordTokenInfrastructureCommandIntegrationTest : BaseForgotPasswordTokenWebCommandTest
 {
 	protected IForgotPasswordTokenCommandRepository Repository { get; }
 

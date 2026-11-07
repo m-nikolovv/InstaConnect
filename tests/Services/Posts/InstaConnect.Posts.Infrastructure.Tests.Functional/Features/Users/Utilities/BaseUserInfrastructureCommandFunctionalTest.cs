@@ -1,3 +1,4 @@
+using InstaConnect.Posts.Tests.Features.Users.Utilities;
 using InstaConnect.Common.Events.Features.Events.Abstractions;
 using InstaConnect.Common.Infrastructure.Tests.Features.Utilities;
 using InstaConnect.Posts.Infrastructure.Tests.Features.Users.Abstractions;
@@ -6,7 +7,7 @@ using InstaConnect.Posts.Tests.Features.Common.Utilities;
 
 namespace InstaConnect.Posts.Infrastructure.Tests.Functional.Features.Users.Utilities;
 
-public abstract class BaseUserInfrastructureCommandFunctionalTest : BasePostsWebCommandTest
+public abstract class BaseUserInfrastructureCommandFunctionalTest : BaseUserWebCommandTest
 {
 	protected IUserEventClient UserEventClient { get; }
 

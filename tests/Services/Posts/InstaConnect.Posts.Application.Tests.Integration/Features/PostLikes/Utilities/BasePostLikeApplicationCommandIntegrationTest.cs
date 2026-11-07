@@ -3,7 +3,7 @@ using InstaConnect.Posts.Tests.Features.PostLikes.Extensions;
 
 namespace InstaConnect.Posts.Application.Tests.Integration.Features.PostLikes.Utilities;
 
-public abstract class BasePostLikeApplicationCommandIntegrationTest : BasePostsWebCommandTest
+public abstract class BasePostLikeApplicationCommandIntegrationTest : BasePostLikeWebCommandTest
 {
 	protected IApplicationSender Sender { get; }
 

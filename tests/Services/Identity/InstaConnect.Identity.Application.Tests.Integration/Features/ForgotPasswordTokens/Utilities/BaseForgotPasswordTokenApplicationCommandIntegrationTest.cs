@@ -3,7 +3,7 @@ using InstaConnect.Identity.Tests.Features.ForgotPasswordTokens.Extensions;
 
 namespace InstaConnect.Identity.Application.Tests.Integration.Features.ForgotPasswordTokens.Utilities;
 
-public abstract class BaseForgotPasswordTokenApplicationCommandIntegrationTest : BaseIdentityWebCommandTest
+public abstract class BaseForgotPasswordTokenApplicationCommandIntegrationTest : BaseForgotPasswordTokenWebCommandTest
 {
 	protected IApplicationSender Sender { get; }
 

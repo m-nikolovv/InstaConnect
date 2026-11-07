@@ -1,11 +1,10 @@
 using InstaConnect.Follows.Domain.Features.Follows.Abstractions;
 using InstaConnect.Follows.Infrastructure.Features.Follows.Abstractions;
-using InstaConnect.Follows.Tests.Features.Common.Utilities;
 using InstaConnect.Follows.Tests.Features.Follows.Utilities;
 
 namespace InstaConnect.Follows.Infrastructure.Tests.Unit.Features.Follows.Utilities;
 
-public abstract class BaseFollowInfrastructureQueryUnitTest : BaseFollowsQueryTest
+public abstract class BaseFollowInfrastructureQueryUnitTest : BaseFollowQueryTest
 {
 	protected IFollowFluent Fluent { get; }
 

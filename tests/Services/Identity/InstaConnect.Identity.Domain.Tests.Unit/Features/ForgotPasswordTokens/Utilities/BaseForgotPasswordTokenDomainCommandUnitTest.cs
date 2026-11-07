@@ -1,3 +1,4 @@
+using InstaConnect.Identity.Tests.Features.ForgotPasswordTokens.Utilities;
 using InstaConnect.Common.Domain.Features.Guids.Abstractions;
 using InstaConnect.Common.Domain.Features.Mappers.Abstractions;
 using InstaConnect.Common.Events.Features.Events.Abstractions;
@@ -10,7 +11,7 @@ using Microsoft.Extensions.Options;
 
 namespace InstaConnect.Identity.Domain.Tests.Unit.Features.ForgotPasswordTokens.Utilities;
 
-public abstract class BaseForgotPasswordTokenDomainCommandUnitTest : BaseIdentityCommandTest
+public abstract class BaseForgotPasswordTokenDomainCommandUnitTest : BaseForgotPasswordTokenCommandTest
 {
 	protected IApplicationMapper Mapper { get; }
 

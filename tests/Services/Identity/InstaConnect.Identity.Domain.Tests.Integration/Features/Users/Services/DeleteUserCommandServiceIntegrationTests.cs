@@ -18,6 +18,15 @@ public class DeleteUserCommandServiceIntegrationTests : BaseUserDomainCommandInt
 		_command = _commandBuilder.Build();
 	}
 
+	protected override async Task OnInitializeAsync()
+	{
+		await ServiceScope.AddAsync(User, CancellationToken);
+		await ServiceScope.AddRangeAsync(UserClaims, CancellationToken);
+		await ServiceScope.AddRangeAsync(RefreshTokens, CancellationToken);
+		await ServiceScope.AddRangeAsync(ForgotPasswordTokens, CancellationToken);
+		await ServiceScope.AddRangeAsync(EmailConfirmationTokens, CancellationToken);
+	}
+
 	[Fact]
 	public async Task DeleteAsync_ShouldThrowUserNotFoundException_WhenUserNotFound()
 	{
@@ -60,10 +69,10 @@ public class DeleteUserCommandServiceIntegrationTests : BaseUserDomainCommandInt
 	{
 		// Act
 		await Service.DeleteAsync(_command, CancellationToken);
-		var userClaims = await ServiceScope.GetByIdRangeAsync(UserUserClaimIds, CancellationToken);
+		var userUserClaims = await ServiceScope.GetByIdRangeAsync(UserUserClaimIds, CancellationToken);
 
 		// Assert
-		userClaims.ShouldBeEmpty();
+		userUserClaims.ShouldBeEmpty();
 	}
 
 	[Theory]
@@ -76,10 +85,10 @@ public class DeleteUserCommandServiceIntegrationTests : BaseUserDomainCommandInt
 
 		// Act
 		await Service.DeleteAsync(command, CancellationToken);
-		var userClaims = await ServiceScope.GetByIdRangeAsync(UserUserClaimIds, CancellationToken);
+		var userUserClaims = await ServiceScope.GetByIdRangeAsync(UserUserClaimIds, CancellationToken);
 
 		// Assert
-		userClaims.ShouldBeEmpty();
+		userUserClaims.ShouldBeEmpty();
 	}
 
 	[Fact]
@@ -87,10 +96,10 @@ public class DeleteUserCommandServiceIntegrationTests : BaseUserDomainCommandInt
 	{
 		// Act
 		await Service.DeleteAsync(_command, CancellationToken);
-		var refreshTokens = await ServiceScope.GetByIdRangeAsync(UserRefreshTokenIds, CancellationToken);
+		var userRefreshTokens = await ServiceScope.GetByIdRangeAsync(UserRefreshTokenIds, CancellationToken);
 
 		// Assert
-		refreshTokens.ShouldBeEmpty();
+		userRefreshTokens.ShouldBeEmpty();
 	}
 
 	[Theory]
@@ -103,10 +112,10 @@ public class DeleteUserCommandServiceIntegrationTests : BaseUserDomainCommandInt
 
 		// Act
 		await Service.DeleteAsync(command, CancellationToken);
-		var refreshTokens = await ServiceScope.GetByIdRangeAsync(UserRefreshTokenIds, CancellationToken);
+		var userRefreshTokens = await ServiceScope.GetByIdRangeAsync(UserRefreshTokenIds, CancellationToken);
 
 		// Assert
-		refreshTokens.ShouldBeEmpty();
+		userRefreshTokens.ShouldBeEmpty();
 	}
 
 	[Fact]
@@ -114,10 +123,10 @@ public class DeleteUserCommandServiceIntegrationTests : BaseUserDomainCommandInt
 	{
 		// Act
 		await Service.DeleteAsync(_command, CancellationToken);
-		var forgotPasswordTokens = await ServiceScope.GetByIdRangeAsync(UserForgotPasswordTokenIds, CancellationToken);
+		var userForgotPasswordTokens = await ServiceScope.GetByIdRangeAsync(UserForgotPasswordTokenIds, CancellationToken);
 
 		// Assert
-		forgotPasswordTokens.ShouldBeEmpty();
+		userForgotPasswordTokens.ShouldBeEmpty();
 	}
 
 	[Theory]
@@ -130,10 +139,10 @@ public class DeleteUserCommandServiceIntegrationTests : BaseUserDomainCommandInt
 
 		// Act
 		await Service.DeleteAsync(command, CancellationToken);
-		var forgotPasswordTokens = await ServiceScope.GetByIdRangeAsync(UserForgotPasswordTokenIds, CancellationToken);
+		var userForgotPasswordTokens = await ServiceScope.GetByIdRangeAsync(UserForgotPasswordTokenIds, CancellationToken);
 
 		// Assert
-		forgotPasswordTokens.ShouldBeEmpty();
+		userForgotPasswordTokens.ShouldBeEmpty();
 	}
 
 	[Fact]
@@ -141,10 +150,10 @@ public class DeleteUserCommandServiceIntegrationTests : BaseUserDomainCommandInt
 	{
 		// Act
 		await Service.DeleteAsync(_command, CancellationToken);
-		var emailConfirmationTokens = await ServiceScope.GetByIdRangeAsync(UserEmailConfirmationTokenIds, CancellationToken);
+		var userEmailConfirmationTokens = await ServiceScope.GetByIdRangeAsync(UserEmailConfirmationTokenIds, CancellationToken);
 
 		// Assert
-		emailConfirmationTokens.ShouldBeEmpty();
+		userEmailConfirmationTokens.ShouldBeEmpty();
 	}
 
 	[Theory]
@@ -157,10 +166,10 @@ public class DeleteUserCommandServiceIntegrationTests : BaseUserDomainCommandInt
 
 		// Act
 		await Service.DeleteAsync(command, CancellationToken);
-		var emailConfirmationTokens = await ServiceScope.GetByIdRangeAsync(UserEmailConfirmationTokenIds, CancellationToken);
+		var userEmailConfirmationTokens = await ServiceScope.GetByIdRangeAsync(UserEmailConfirmationTokenIds, CancellationToken);
 
 		// Assert
-		emailConfirmationTokens.ShouldBeEmpty();
+		userEmailConfirmationTokens.ShouldBeEmpty();
 	}
 
 	[Fact]

@@ -1,9 +1,8 @@
 using InstaConnect.Posts.Infrastructure.Features.Posts.Abstractions;
-using InstaConnect.Posts.Tests.Features.Common.Utilities;
 
 namespace InstaConnect.Posts.Infrastructure.Tests.Unit.Features.Posts.Utilities;
 
-public abstract class BasePostInfrastructureCommandUnitTest : BasePostsCommandTest
+public abstract class BasePostInfrastructureCommandUnitTest : BasePostCommandTest
 {
 	protected IPostFluent Fluent { get; }
 

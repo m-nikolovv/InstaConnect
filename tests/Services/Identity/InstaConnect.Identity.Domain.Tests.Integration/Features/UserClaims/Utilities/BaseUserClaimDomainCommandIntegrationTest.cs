@@ -5,7 +5,7 @@ using InstaConnect.Identity.Tests.Features.UserClaims.Extensions;
 
 namespace InstaConnect.Identity.Domain.Tests.Integration.Features.UserClaims.Utilities;
 
-public abstract class BaseUserClaimDomainCommandIntegrationTest : BaseIdentityWebCommandTest
+public abstract class BaseUserClaimDomainCommandIntegrationTest : BaseUserClaimWebCommandTest
 {
 	protected IUserClaimCommandService Service { get; }
 

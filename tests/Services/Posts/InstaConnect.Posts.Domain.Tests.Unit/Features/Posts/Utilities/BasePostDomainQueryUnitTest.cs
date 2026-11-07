@@ -1,7 +1,6 @@
-using InstaConnect.Posts.Tests.Features.Common.Utilities;
 namespace InstaConnect.Posts.Domain.Tests.Unit.Features.Posts.Utilities;
 
-public abstract class BasePostDomainQueryUnitTest : BasePostsQueryTest
+public abstract class BasePostDomainQueryUnitTest : BasePostQueryTest
 {
 	protected IPostQueryRepository Repository { get; }
 

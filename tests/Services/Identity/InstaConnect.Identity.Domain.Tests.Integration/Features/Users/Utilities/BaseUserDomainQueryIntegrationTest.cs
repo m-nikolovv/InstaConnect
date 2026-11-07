@@ -3,7 +3,7 @@ using InstaConnect.Identity.Domain.Tests.Features.Users.Utilities;
 
 namespace InstaConnect.Identity.Domain.Tests.Integration.Features.Users.Utilities;
 
-public abstract class BaseUserDomainQueryIntegrationTest : BaseIdentityWebQueryTest
+public abstract class BaseUserDomainQueryIntegrationTest : BaseUserWebQueryTest
 {
 	protected IUserQueryService Service { get; }
 
