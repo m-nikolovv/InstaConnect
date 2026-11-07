@@ -14,9 +14,9 @@ public static class IndexKeysDefinitionExtensions
 			return keys.ToIndex().Unique();
 		}
 
-		public CreateIndexModel<T> ExpireAfter(TimeSpan expireAfter)
+		public CreateIndexModel<T> ExpireAt()
 		{
-			return keys.ToIndex().ExpireAfter(expireAfter);
+			return keys.ToIndex().ExpireAt();
 		}
 	}
 }

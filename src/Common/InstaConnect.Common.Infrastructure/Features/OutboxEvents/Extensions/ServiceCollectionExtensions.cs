@@ -6,9 +6,7 @@ using InstaConnect.Common.Infrastructure.Features.OutboxEvents.Helpers.Repositor
 using InstaConnect.Common.Infrastructure.Features.OutboxEvents.Models;
 using InstaConnect.Common.Infrastructure.Features.OutboxEvents.Models.Entities;
 
-using MongoDB.Bson;
 using MongoDB.Bson.Serialization;
-using MongoDB.Bson.Serialization.Serializers;
 
 namespace InstaConnect.Common.Infrastructure.Features.OutboxEvents.Extensions;
 
@@ -37,16 +35,18 @@ public static class ServiceCollectionExtensions
 				cm.MapMember(c => c.Topic);
 				cm.MapMember(c => c.Key);
 				cm.MapMember(c => c.Payload);
-				cm.MapMember(c => c.CreatedAtUtc).SetSerializer(new DateTimeOffsetSerializer(BsonType.DateTime));
+				cm.MapDateTimeMember(c => c.ExpiresAtUtc);
+				cm.MapDateTimeMember(c => c.CreatedAtUtc);
 
 				cm.MapCreator(c => new OutboxEvent(
 					c.Id,
 					c.Topic,
 					c.Key,
 					c.Payload,
+					c.ExpiresAtUtc,
 					c.CreatedAtUtc));
 
-				cm.SetIgnoreExtraElements(true);
+				cm.IgnoreExtraElements();
 			});
 
 			return serviceCollection;

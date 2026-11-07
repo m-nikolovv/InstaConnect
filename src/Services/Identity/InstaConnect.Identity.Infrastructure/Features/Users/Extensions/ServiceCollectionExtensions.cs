@@ -25,8 +25,8 @@ internal static class ServiceCollectionExtensions
 				cm.MapMember(c => c.PasswordHash);
 				cm.MapMember(c => c.IsEmailConfirmed);
 				cm.MapMember(c => c.ProfileImageUrl);
-				cm.MapMember(c => c.CreatedAtUtc);
-				cm.MapMember(c => c.UpdatedAtUtc);
+				cm.MapDateTimeMember(c => c.CreatedAtUtc);
+				cm.MapDateTimeMember(c => c.UpdatedAtUtc);
 
 				cm.MapMemberWithoutSerialization(c => c.UserClaims);
 				cm.MapMemberWithoutSerialization(c => c.RefreshTokens);
@@ -45,7 +45,7 @@ internal static class ServiceCollectionExtensions
 					c.CreatedAtUtc,
 					c.UpdatedAtUtc));
 
-				cm.SetIgnoreExtraElements(true);
+				cm.IgnoreExtraElements();
 			});
 
 			return serviceCollection;

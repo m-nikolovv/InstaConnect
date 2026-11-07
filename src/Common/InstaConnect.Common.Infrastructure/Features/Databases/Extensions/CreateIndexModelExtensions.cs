@@ -11,9 +11,9 @@ public static class CreateIndexModelExtensions
 			return model;
 		}
 
-		public CreateIndexModel<T> ExpireAfter(TimeSpan expireAfter)
+		public CreateIndexModel<T> ExpireAt()
 		{
-			model.Options.ExpireAfter = expireAfter;
+			model.Options.ExpireAfter = TimeSpan.Zero;
 
 			return model;
 		}

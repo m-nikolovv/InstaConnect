@@ -4,7 +4,7 @@ public class OutboxEventOptionsValidator : AbstractValidator<OutboxEventOptions>
 {
 	public OutboxEventOptionsValidator()
 	{
-		RuleFor(o => o.ExpireAfter)
+		RuleFor(o => o.LifetimeSeconds)
 			.NotEmptyWithMessage();
 	}
 }

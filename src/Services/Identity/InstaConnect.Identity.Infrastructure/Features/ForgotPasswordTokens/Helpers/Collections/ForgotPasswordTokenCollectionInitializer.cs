@@ -7,7 +7,8 @@ internal class ForgotPasswordTokenCollectionInitializer : MongoDbCollectionIniti
 			collection,
 			[
 				Builders<ForgotPasswordToken>.IndexKeys.Ascending(c => c.Id.Id.Id).ToIndex(),
-				Builders<ForgotPasswordToken>.IndexKeys.Ascending(c => c.Id.Id).ToIndex()
+				Builders<ForgotPasswordToken>.IndexKeys.Ascending(c => c.Id.Id).ToIndex(),
+				Builders<ForgotPasswordToken>.IndexKeys.Ascending(c => c.ExpiresAtUtc).ExpireAt()
 			])
 	{
 	}

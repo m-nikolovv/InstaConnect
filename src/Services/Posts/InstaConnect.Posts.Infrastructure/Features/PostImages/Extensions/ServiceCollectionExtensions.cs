@@ -16,7 +16,7 @@ internal static class ServiceCollectionExtensions
 
 				cm.MapMember(c => c.Id);
 				cm.MapMember(c => c.Url);
-				cm.MapMember(c => c.CreatedAtUtc);
+				cm.MapDateTimeMember(c => c.CreatedAtUtc);
 
 				cm.MapMemberWithoutSerialization(c => c.Post);
 
@@ -25,7 +25,7 @@ internal static class ServiceCollectionExtensions
 					c.Url,
 					c.CreatedAtUtc));
 
-				cm.SetIgnoreExtraElements(true);
+				cm.IgnoreExtraElements();
 			});
 
 			return serviceCollection;
