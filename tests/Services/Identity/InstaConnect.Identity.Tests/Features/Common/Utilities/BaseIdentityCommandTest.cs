@@ -46,5 +46,6 @@ public abstract class BaseIdentityCommandTest : BaseIdentityTest
 		UserEmailConfirmationTokens = User.EmailConfirmationTokens;
 		UserEmailConfirmationTokenIdRangeBuilderFactory = new();
 		UserEmailConfirmationTokenIdRangeBuilder = UserEmailConfirmationTokenIdRangeBuilderFactory.Create([.. UserEmailConfirmationTokens.Select(e => e.Id)]);
-		UserEmailConfirmationTokenIds = UserEmailConfirmationTokenIdRangeBuilder.Build();	}
+		UserEmailConfirmationTokenIds = UserEmailConfirmationTokenIdRangeBuilder.Build();
+	}
 }

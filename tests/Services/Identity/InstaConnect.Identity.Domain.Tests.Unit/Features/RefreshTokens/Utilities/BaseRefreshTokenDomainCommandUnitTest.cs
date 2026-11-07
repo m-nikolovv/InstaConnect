@@ -1,8 +1,8 @@
 using InstaConnect.Common.Domain.Features.Guids.Abstractions;
 using InstaConnect.Identity.Domain.Features.RefreshTokens.Abstractions;
 using InstaConnect.Identity.Domain.Features.RefreshTokens.Models.Options;
-using Microsoft.Extensions.Options;
 
+using Microsoft.Extensions.Options;
 
 namespace InstaConnect.Identity.Domain.Tests.Unit.Features.RefreshTokens.Utilities;
 
