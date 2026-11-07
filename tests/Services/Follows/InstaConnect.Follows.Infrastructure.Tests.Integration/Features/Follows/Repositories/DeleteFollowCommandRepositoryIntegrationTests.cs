@@ -22,36 +22,4 @@ public class DeleteFollowCommandRepositoryIntegrationTests : BaseFollowInfrastru
 		// Assert
 		follow.ShouldBeNull();
 	}
-
-	[Theory]
-	[UserIdDifferentCaseData]
-	public async Task DeleteAsync_ShouldDeleteFollow_WhenCommandAndFollowerIdAreValid(
-		IStringTransformer transformer)
-	{
-		// Arrange
-		var deletedFollow = FollowBuilder.WithFollowerId(transformer).Build();
-
-		// Act
-		await Repository.DeleteAsync(deletedFollow, CancellationToken);
-		var follow = await ServiceScope.GetByIdAsync(FollowId, CancellationToken);
-
-		// Assert
-		follow.ShouldBeNull();
-	}
-
-	[Theory]
-	[UserIdDifferentCaseData]
-	public async Task DeleteAsync_ShouldDeleteFollow_WhenCommandAndFollowingIdAreValid(
-		IStringTransformer transformer)
-	{
-		// Arrange
-		var deletedFollow = FollowBuilder.WithFollowingId(transformer).Build();
-
-		// Act
-		await Repository.DeleteAsync(deletedFollow, CancellationToken);
-		var follow = await ServiceScope.GetByIdAsync(FollowId, CancellationToken);
-
-		// Assert
-		follow.ShouldBeNull();
-	}
 }

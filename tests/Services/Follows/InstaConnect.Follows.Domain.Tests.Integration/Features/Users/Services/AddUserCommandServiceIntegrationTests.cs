@@ -26,6 +26,7 @@ public class AddUserCommandServiceIntegrationTests : BaseUserDomainCommandIntegr
 	public async Task AddAsync_ShouldThrowUserAlreadyExistsException_WhenUserAlreadyExists()
 	{
 		// Arrange
+		await ServiceScope.AddAsync(User, CancellationToken);
 		var command = _commandBuilder.WithId(UserId).Build();
 
 		// Assert
@@ -38,6 +39,7 @@ public class AddUserCommandServiceIntegrationTests : BaseUserDomainCommandIntegr
 		IStringTransformer transformer)
 	{
 		// Arrange
+		await ServiceScope.AddAsync(User, CancellationToken);
 		var command = _commandBuilder.WithId(UserId, transformer).Build();
 
 		// Assert
@@ -48,6 +50,7 @@ public class AddUserCommandServiceIntegrationTests : BaseUserDomainCommandIntegr
 	public async Task AddAsync_ShouldThrowUserEmailAlreadyExistsException_WhenUserEmailAlreadyExists()
 	{
 		// Arrange
+		await ServiceScope.AddAsync(User, CancellationToken);
 		var command = _commandBuilder.WithEmail(User.Email).Build();
 
 		// Assert
@@ -60,6 +63,7 @@ public class AddUserCommandServiceIntegrationTests : BaseUserDomainCommandIntegr
 		IStringTransformer transformer)
 	{
 		// Arrange
+		await ServiceScope.AddAsync(User, CancellationToken);
 		var command = _commandBuilder.WithEmail(User.Email, transformer).Build();
 
 		// Assert
@@ -70,6 +74,7 @@ public class AddUserCommandServiceIntegrationTests : BaseUserDomainCommandIntegr
 	public async Task AddAsync_ShouldThrowUserNameAlreadyExistsException_WhenUserNameAlreadyExists()
 	{
 		// Arrange
+		await ServiceScope.AddAsync(User, CancellationToken);
 		var command = _commandBuilder.WithName(User.Name).Build();
 
 		// Assert
@@ -82,6 +87,7 @@ public class AddUserCommandServiceIntegrationTests : BaseUserDomainCommandIntegr
 		IStringTransformer transformer)
 	{
 		// Arrange
+		await ServiceScope.AddAsync(User, CancellationToken);
 		var command = _commandBuilder.WithName(User.Name, transformer).Build();
 
 		// Assert

@@ -87,5 +87,15 @@ public static class ChatMessageSetups
 		{
 			await serviceScope.GetMessageCommandRepository().DeleteAsync(chatMessage, cancellationToken);
 		}
+
+		public async Task DeleteRangeAsync(
+			IEnumerable<ChatMessage> chatMessages,
+			CancellationToken cancellationToken)
+		{
+			foreach (var chatMessage in chatMessages)
+			{
+				await serviceScope.GetMessageCommandRepository().DeleteAsync(chatMessage, cancellationToken);
+			}
+		}
 	}
 }

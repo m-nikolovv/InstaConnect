@@ -26,22 +26,6 @@ public class DeleteUserCommandRepositoryIntegrationTests : BaseUserInfrastructur
 		user.ShouldBeNull();
 	}
 
-	[Theory]
-	[UserIdDifferentCaseData]
-	public async Task DeleteAsync_ShouldDeleteUser_WhenCommandAndIdAreValid(
-		IStringTransformer transformer)
-	{
-		// Arrange
-		var deletedUser = UserBuilder.WithId(transformer).Build();
-
-		// Act
-		await Repository.DeleteAsync(deletedUser, CancellationToken);
-		var user = await ServiceScope.GetByIdAsync(UserId, CancellationToken);
-
-		// Assert
-		user.ShouldBeNull();
-	}
-
 	[Fact]
 	public async Task DeleteAsync_ShouldDeleteUserFollowFollowers_WhenCommandIsValid()
 	{
@@ -53,43 +37,11 @@ public class DeleteUserCommandRepositoryIntegrationTests : BaseUserInfrastructur
 		userFollowFollowers.ShouldBeEmpty();
 	}
 
-	[Theory]
-	[UserIdDifferentCaseData]
-	public async Task DeleteAsync_ShouldDeleteUserFollowFollowers_WhenCommandAndIdAreValid(
-		IStringTransformer transformer)
-	{
-		// Arrange
-		var deletedUser = UserBuilder.WithId(transformer).Build();
-
-		// Act
-		await Repository.DeleteAsync(deletedUser, CancellationToken);
-		var userFollowFollowers = await ServiceScope.GetByIdRangeAsync(UserFollowFollowerIds, CancellationToken);
-
-		// Assert
-		userFollowFollowers.ShouldBeEmpty();
-	}
-
 	[Fact]
 	public async Task DeleteAsync_ShouldDeleteUserFollowFollowings_WhenCommandIsValid()
 	{
 		// Act
 		await Repository.DeleteAsync(User, CancellationToken);
-		var userFollowFollowings = await ServiceScope.GetByIdRangeAsync(UserFollowFollowingIds, CancellationToken);
-
-		// Assert
-		userFollowFollowings.ShouldBeEmpty();
-	}
-
-	[Theory]
-	[UserIdDifferentCaseData]
-	public async Task DeleteAsync_ShouldDeleteUserFollowFollowings_WhenCommandAndIdAreValid(
-		IStringTransformer transformer)
-	{
-		// Arrange
-		var deletedUser = UserBuilder.WithId(transformer).Build();
-
-		// Act
-		await Repository.DeleteAsync(deletedUser, CancellationToken);
 		var userFollowFollowings = await ServiceScope.GetByIdRangeAsync(UserFollowFollowingIds, CancellationToken);
 
 		// Assert

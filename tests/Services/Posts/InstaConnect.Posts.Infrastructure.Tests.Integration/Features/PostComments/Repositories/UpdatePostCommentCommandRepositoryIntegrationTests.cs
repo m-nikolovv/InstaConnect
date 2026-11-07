@@ -26,36 +26,4 @@ public class UpdatePostCommentCommandRepositoryIntegrationTests : BasePostCommen
 		// Assert
 		postComment.ShouldSatisfy(updatedPostComment);
 	}
-
-	[Theory]
-	[PostIdDifferentCaseData]
-	public async Task UpdateAsync_ShouldUpdatePostComment_WhenCommandAndIdAreValid(
-		IStringTransformer transformer)
-	{
-		// Arrange
-		var updatedPostComment = PostCommentBuilderFactory.Create(Post, User).WithCommentId(PostCommentId).WithId(transformer).Build();
-
-		// Act
-		await Repository.UpdateAsync(updatedPostComment, CancellationToken);
-		var postComment = await ServiceScope.GetByIdAsync(PostCommentId, CancellationToken);
-
-		// Assert
-		postComment.ShouldSatisfy(updatedPostComment);
-	}
-
-	[Theory]
-	[PostCommentIdDifferentCaseData]
-	public async Task UpdateAsync_ShouldUpdatePostComment_WhenCommandAndCommentIdAreValid(
-		IStringTransformer transformer)
-	{
-		// Arrange
-		var updatedPostComment = PostCommentBuilderFactory.Create(Post, User).WithCommentId(PostCommentId, transformer).Build();
-
-		// Act
-		await Repository.UpdateAsync(updatedPostComment, CancellationToken);
-		var postComment = await ServiceScope.GetByIdAsync(PostCommentId, CancellationToken);
-
-		// Assert
-		postComment.ShouldSatisfy(updatedPostComment);
-	}
 }

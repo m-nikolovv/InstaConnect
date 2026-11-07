@@ -18,7 +18,7 @@ public class GetChatByIdRangeCommandRepositoryIntegrationTests : BaseChatInfrast
 	public async Task GetByIdRangeAsync_ShouldReturnEmpty_WhenIdsAreInvalid()
 	{
 		// Arrange
-		await ServiceScope.DeleteAsync(User, CancellationToken);
+		await ServiceScope.DeleteRangeAsync(Chats, CancellationToken);
 
 		// Act
 		var response = await Repository.GetByIdRangeAsync(ChatIds, CancellationToken);
