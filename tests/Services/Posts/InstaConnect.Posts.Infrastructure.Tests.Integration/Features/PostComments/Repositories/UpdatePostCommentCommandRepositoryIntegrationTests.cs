@@ -1,5 +1,4 @@
 using InstaConnect.Posts.Tests.Features.PostComments.Assertions;
-using InstaConnect.Posts.Tests.Features.PostComments.DataAttributes.Id;
 
 namespace InstaConnect.Posts.Infrastructure.Tests.Integration.Features.PostComments.Repositories;
 
