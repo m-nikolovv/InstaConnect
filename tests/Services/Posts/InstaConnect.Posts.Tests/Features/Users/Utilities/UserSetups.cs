@@ -43,12 +43,7 @@ public static class UserSetups
 			UserId id,
 			CancellationToken cancellationToken)
 		{
-			var postInclude = serviceScope.GetPostIncludeBuilderFactory().Create().WithUser().Build();
-			var postCommentInclude = serviceScope.GetPostCommentIncludeBuilderFactory().Create().WithUser().WithPost(postInclude).Build();
-			var postLikeInclude = serviceScope.GetPostLikeIncludeBuilderFactory().Create().WithUser().WithPost(postInclude).Build();
-			var postCommentLikeInclude = serviceScope.GetPostCommentLikeIncludeBuilderFactory().Create().WithPostComment(postCommentInclude).WithUser().Build();
-
-			var include = serviceScope.GetUserIncludeBuilderFactory().Create().WithPosts().WithPostLikes(postLikeInclude).WithPostComments(postCommentInclude).WithPostCommentLikes(postCommentLikeInclude).Build();
+			var include = serviceScope.GetUserIncludeBuilderFactory().Create().WithPosts().WithPostLikes().WithPostComments().WithPostCommentLikes().Build();
 
 			return (await serviceScope.GetUserCommandRepository().GetByIdAsync(id, include, cancellationToken)).SetPosts().SetPostLikes().SetPostComments().SetPostCommentLikes();
 		}
