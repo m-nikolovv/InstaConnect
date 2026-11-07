@@ -29,6 +29,16 @@ public class PostCommentLikeBuilder
 		_createdAtUtc = postCommentLike.CreatedAtUtc;
 	}
 
+	public PostCommentLike BuildAttached()
+	{
+		var postCommentLike = Build();
+
+		_user.AddPostCommentLike(postCommentLike);
+		_postComment.AddPostCommentLike(postCommentLike);
+
+		return postCommentLike;
+	}
+
 	public PostCommentLike Build()
 	{
 		var postCommentLike = new PostCommentLike(
@@ -39,8 +49,6 @@ public class PostCommentLikeBuilder
 					new(_userId)),
 				_createdAtUtc);
 
-		_user.AddPostCommentLike(postCommentLike);
-		_postComment.AddPostCommentLike(postCommentLike);
 		postCommentLike.AddUser(_user);
 		postCommentLike.AddPostComment(_postComment);
 

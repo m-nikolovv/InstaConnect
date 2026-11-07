@@ -45,6 +45,16 @@ public class ChatBuilder
 		return this;
 	}
 
+	public Chat BuildAttached()
+	{
+		var chat = Build();
+
+		_participantOne.AddChat(chat);
+		_participantTwo.AddChat(chat);
+
+		return chat;
+	}
+
 	public Chat Build()
 	{
 		var chat = new Chat(
@@ -55,8 +65,6 @@ public class ChatBuilder
 
 		chat.AddParticipantOne(_participantOne);
 		chat.AddParticipantTwo(_participantTwo);
-		_participantOne.AddChat(chat);
-		_participantTwo.AddChat(chat);
 		chat.AddChatMessages(_chatMessages);
 
 		return chat;

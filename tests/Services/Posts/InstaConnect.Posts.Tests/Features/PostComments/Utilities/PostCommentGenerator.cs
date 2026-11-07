@@ -4,6 +4,19 @@ public static class PostCommentGenerator
 {
 	extension(PostComment basePostComment)
 	{
+		public ICollection<PostComment> GenerateAttached(IEnumerable<Post> posts, IEnumerable<User> users)
+		{
+			var postComments = basePostComment.Generate(posts, users);
+
+			foreach (var postComment in postComments.Where(p => p != basePostComment))
+			{
+				postComment.User!.AddPostComment(postComment);
+				postComment.Post!.AddPostComment(postComment);
+			}
+
+			return postComments;
+		}
+
 		public ICollection<PostComment> Generate(IEnumerable<Post> posts, IEnumerable<User> users)
 		{
 			return [basePostComment, .. posts
@@ -21,8 +34,6 @@ public static class PostCommentGenerator
 
 						postComment.AddUser(user);
 						postComment.AddPost(post);
-						user.AddPostComment(postComment);
-						post.AddPostComment(postComment);
 
 						return postComment;
 				  }))];

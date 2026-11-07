@@ -115,8 +115,8 @@ public abstract class BasePostsTest : BaseTest
 
 		PostBuilderFactory = new();
 		PostBuilder = PostBuilderFactory.Create(User);
-		Post = PostBuilder.Build();
-		Posts = Post.Generate(Users);
+		Post = PostBuilder.BuildAttached();
+		Posts = Post.GenerateAttached(Users);
 
 		PostIdBuilderFactory = new();
 		PostIdBuilder = PostIdBuilderFactory.Create(Post.Id);
@@ -128,8 +128,8 @@ public abstract class BasePostsTest : BaseTest
 
 		PostLikeBuilderFactory = new();
 		PostLikeBuilder = PostLikeBuilderFactory.Create(Post, User);
-		PostLike = PostLikeBuilder.Build();
-		PostLikes = PostLike.Generate(Posts, Users);
+		PostLike = PostLikeBuilder.BuildAttached();
+		PostLikes = PostLike.GenerateAttached(Posts, Users);
 
 		PostLikeIdBuilderFactory = new();
 		PostLikeIdBuilder = PostLikeIdBuilderFactory.Create(PostLike.Id);
@@ -141,8 +141,8 @@ public abstract class BasePostsTest : BaseTest
 
 		PostImageBuilderFactory = new();
 		PostImageBuilder = PostImageBuilderFactory.Create(Post);
-		PostImage = PostImageBuilder.Build();
-		PostImages = PostImage.Generate(Posts);
+		PostImage = PostImageBuilder.BuildAttached();
+		PostImages = PostImage.GenerateAttached(Posts);
 
 		PostImageIdBuilderFactory = new();
 		PostImageIdBuilder = PostImageIdBuilderFactory.Create(PostImage.Id);
@@ -154,8 +154,8 @@ public abstract class BasePostsTest : BaseTest
 
 		PostCommentBuilderFactory = new();
 		PostCommentBuilder = PostCommentBuilderFactory.Create(Post, User);
-		PostComment = PostCommentBuilder.Build();
-		PostComments = PostComment.Generate(Posts, Users);
+		PostComment = PostCommentBuilder.BuildAttached();
+		PostComments = PostComment.GenerateAttached(Posts, Users);
 
 		PostCommentIdBuilderFactory = new();
 		PostCommentIdBuilder = PostCommentIdBuilderFactory.Create(PostComment.Id);
@@ -167,8 +167,8 @@ public abstract class BasePostsTest : BaseTest
 
 		PostCommentImageBuilderFactory = new();
 		PostCommentImageBuilder = PostCommentImageBuilderFactory.Create(PostComment);
-		PostCommentImage = PostCommentImageBuilder.Build();
-		PostCommentImages = PostCommentImage.Generate(PostComments);
+		PostCommentImage = PostCommentImageBuilder.BuildAttached();
+		PostCommentImages = PostCommentImage.GenerateAttached(PostComments);
 
 		PostCommentImageIdBuilderFactory = new();
 		PostCommentImageIdBuilder = PostCommentImageIdBuilderFactory.Create(PostCommentImage.Id);
@@ -180,8 +180,8 @@ public abstract class BasePostsTest : BaseTest
 
 		PostCommentLikeBuilderFactory = new();
 		PostCommentLikeBuilder = PostCommentLikeBuilderFactory.Create(PostComment, User);
-		PostCommentLike = PostCommentLikeBuilder.Build();
-		PostCommentLikes = PostCommentLike.Generate(PostComments, Users);
+		PostCommentLike = PostCommentLikeBuilder.BuildAttached();
+		PostCommentLikes = PostCommentLike.GenerateAttached(PostComments, Users);
 
 		PostCommentLikeIdBuilderFactory = new();
 		PostCommentLikeIdBuilder = PostCommentLikeIdBuilderFactory.Create(PostCommentLike.Id);

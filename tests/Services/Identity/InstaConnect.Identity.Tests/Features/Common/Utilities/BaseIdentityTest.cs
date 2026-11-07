@@ -106,8 +106,8 @@ public abstract class BaseIdentityTest : BaseTest
 
 		UserClaimBuilderFactory = new();
 		UserClaimBuilder = UserClaimBuilderFactory.Create(User);
-		UserClaim = UserClaimBuilder.Build();
-		UserClaims = UserClaim.Generate(Users);
+		UserClaim = UserClaimBuilder.BuildAttached();
+		UserClaims = UserClaim.GenerateAttached(Users);
 
 		UserClaimIdBuilderFactory = new();
 		UserClaimIdBuilder = UserClaimIdBuilderFactory.Create(UserClaim.Id);
@@ -119,8 +119,8 @@ public abstract class BaseIdentityTest : BaseTest
 
 		RefreshTokenBuilderFactory = new();
 		RefreshTokenBuilder = RefreshTokenBuilderFactory.Create(User);
-		RefreshToken = RefreshTokenBuilder.Build();
-		RefreshTokens = RefreshToken.Generate(Users);
+		RefreshToken = RefreshTokenBuilder.BuildAttached();
+		RefreshTokens = RefreshToken.GenerateAttached(Users);
 
 		RefreshTokenIdBuilderFactory = new();
 		RefreshTokenIdBuilder = RefreshTokenIdBuilderFactory.Create(RefreshToken.Id);
@@ -132,8 +132,8 @@ public abstract class BaseIdentityTest : BaseTest
 
 		ForgotPasswordTokenBuilderFactory = new();
 		ForgotPasswordTokenBuilder = ForgotPasswordTokenBuilderFactory.Create(User);
-		ForgotPasswordToken = ForgotPasswordTokenBuilder.Build();
-		ForgotPasswordTokens = ForgotPasswordToken.Generate(Users);
+		ForgotPasswordToken = ForgotPasswordTokenBuilder.BuildAttached();
+		ForgotPasswordTokens = ForgotPasswordToken.GenerateAttached(Users);
 
 		ForgotPasswordTokenIdBuilderFactory = new();
 		ForgotPasswordTokenIdBuilder = ForgotPasswordTokenIdBuilderFactory.Create(ForgotPasswordToken.Id);
@@ -145,8 +145,8 @@ public abstract class BaseIdentityTest : BaseTest
 
 		EmailConfirmationTokenBuilderFactory = new();
 		EmailConfirmationTokenBuilder = EmailConfirmationTokenBuilderFactory.Create(User);
-		EmailConfirmationToken = EmailConfirmationTokenBuilder.Build();
-		EmailConfirmationTokens = EmailConfirmationToken.Generate(Users);
+		EmailConfirmationToken = EmailConfirmationTokenBuilder.BuildAttached();
+		EmailConfirmationTokens = EmailConfirmationToken.GenerateAttached(Users);
 
 		EmailConfirmationTokenIdBuilderFactory = new();
 		EmailConfirmationTokenIdBuilder = EmailConfirmationTokenIdBuilderFactory.Create(EmailConfirmationToken.Id);

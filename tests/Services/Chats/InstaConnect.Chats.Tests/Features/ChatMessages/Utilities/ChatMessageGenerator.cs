@@ -4,6 +4,19 @@ public static class ChatMessageGenerator
 {
 	extension(ChatMessage baseChatMessage)
 	{
+		public ICollection<ChatMessage> GenerateAttached(IEnumerable<Chat> chats, int numberOfIterations = 3)
+		{
+			var chatMessages = baseChatMessage.Generate(chats, numberOfIterations);
+
+			foreach (var chatMessage in chatMessages.Where(c => c != baseChatMessage))
+			{
+				chatMessage.Sender!.AddChatMessage(chatMessage);
+				chatMessage.Chat!.AddChatMessage(chatMessage);
+			}
+
+			return chatMessages;
+		}
+
 		public ICollection<ChatMessage> Generate(IEnumerable<Chat> chats, int numberOfIterations = 3)
 		{
 			return [baseChatMessage, ..chats.SelectMany(chat =>
@@ -20,8 +33,6 @@ public static class ChatMessageGenerator
 
 					 chatMessage.AddSender(chat.ParticipantOne);
 					 chatMessage.AddChat(chat);
-					 chat.ParticipantOne!.AddChatMessage(chatMessage);
-					 chat.AddChatMessage(chatMessage);
 
 					 return chatMessage;
 				 })),
@@ -39,8 +50,6 @@ public static class ChatMessageGenerator
 
 					 chatMessage.AddSender(chat.ParticipantTwo);
 					 chatMessage.AddChat(chat);
-					 chat.ParticipantTwo!.AddChatMessage(chatMessage);
-					 chat.AddChatMessage(chatMessage);
 
 					 return chatMessage;
 				 }))];

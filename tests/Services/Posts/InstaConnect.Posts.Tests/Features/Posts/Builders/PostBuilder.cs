@@ -51,6 +51,15 @@ public class PostBuilder
 		return this;
 	}
 
+	public Post BuildAttached()
+	{
+		var post = Build();
+
+		_user.AddPost(post);
+
+		return post;
+	}
+
 	public Post Build()
 	{
 		var post = new Post(
@@ -63,7 +72,6 @@ public class PostBuilder
 				_updatedAtUtc);
 
 		post.AddUser(_user);
-		_user.AddPost(post);
 		post.AddPostLikes(_postLikes);
 		post.AddPostComments(_postComments);
 		post.AddPostImages(_postImages);

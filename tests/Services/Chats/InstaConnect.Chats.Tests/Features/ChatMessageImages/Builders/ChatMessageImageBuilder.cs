@@ -34,6 +34,15 @@ public class ChatMessageImageBuilder
 		_createdAtUtc = chatMessageImage.CreatedAtUtc;
 	}
 
+	public ChatMessageImage BuildAttached()
+	{
+		var chatMessageImage = Build();
+
+		_chatMessage.AddChatMessageImage(chatMessageImage);
+
+		return chatMessageImage;
+	}
+
 	public ChatMessageImage Build()
 	{
 		var chatMessageImage = new ChatMessageImage(
@@ -47,7 +56,6 @@ public class ChatMessageImageBuilder
 				new(_url),
 				_createdAtUtc);
 
-		_chatMessage.AddChatMessageImage(chatMessageImage);
 		chatMessageImage.AddChatMessage(_chatMessage);
 
 		return chatMessageImage;

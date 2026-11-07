@@ -52,6 +52,16 @@ public class PostCommentBuilder
 		return this;
 	}
 
+	public PostComment BuildAttached()
+	{
+		var postComment = Build();
+
+		_user.AddPostComment(postComment);
+		_post.AddPostComment(postComment);
+
+		return postComment;
+	}
+
 	public PostComment Build()
 	{
 		var postComment = new PostComment(
@@ -64,8 +74,6 @@ public class PostCommentBuilder
 				_createdAtUtc,
 				_updatedAtUtc);
 
-		_user.AddPostComment(postComment);
-		_post.AddPostComment(postComment);
 		postComment.AddUser(_user);
 		postComment.AddPost(_post);
 		postComment.AddPostCommentLikes(_postCommentLikes);

@@ -26,6 +26,16 @@ public class PostLikeBuilder
 		_createdAtUtc = postLike.CreatedAtUtc;
 	}
 
+	public PostLike BuildAttached()
+	{
+		var postLike = Build();
+
+		_user.AddPostLike(postLike);
+		_post.AddPostLike(postLike);
+
+		return postLike;
+	}
+
 	public PostLike Build()
 	{
 		var postLike = new PostLike(
@@ -34,8 +44,6 @@ public class PostLikeBuilder
 					new(_userId)),
 				_createdAtUtc);
 
-		_user.AddPostLike(postLike);
-		_post.AddPostLike(postLike);
 		postLike.AddUser(_user);
 		postLike.AddPost(_post);
 

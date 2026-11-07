@@ -94,8 +94,8 @@ public abstract class BaseFollowsTest : BaseTest
 
 		FollowBuilderFactory = new();
 		FollowBuilder = FollowBuilderFactory.Create(Follower, Following);
-		Follow = FollowBuilder.Build();
-		Follows = Follow.Generate(Followers, Followings);
+		Follow = FollowBuilder.BuildAttached();
+		Follows = Follow.GenerateAttached(Followers, Followings);
 		FollowFollowerBuilder = FollowBuilderFactory.Create(Follower, User);
 		FollowFollower = FollowFollowerBuilder.Build();
 		FollowFollowingBuilder = FollowBuilderFactory.Create(User, Following);

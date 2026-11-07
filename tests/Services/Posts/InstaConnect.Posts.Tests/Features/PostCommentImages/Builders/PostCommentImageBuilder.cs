@@ -29,6 +29,15 @@ public class PostCommentImageBuilder
 		_createdAtUtc = postCommentImage.CreatedAtUtc;
 	}
 
+	public PostCommentImage BuildAttached()
+	{
+		var postCommentImage = Build();
+
+		_postComment.AddPostCommentImage(postCommentImage);
+
+		return postCommentImage;
+	}
+
 	public PostCommentImage Build()
 	{
 		var postCommentImage = new PostCommentImage(
@@ -40,7 +49,6 @@ public class PostCommentImageBuilder
 				new(_url),
 				_createdAtUtc);
 
-		_postComment.AddPostCommentImage(postCommentImage);
 		postCommentImage.AddPostComment(_postComment);
 
 		return postCommentImage;

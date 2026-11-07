@@ -4,6 +4,18 @@ public static class PostImageGenerator
 {
 	extension(PostImage basePostImage)
 	{
+		public ICollection<PostImage> GenerateAttached(IEnumerable<Post> posts)
+		{
+			var postImages = basePostImage.Generate(posts);
+
+			foreach (var postImage in postImages.Where(p => p != basePostImage))
+			{
+				postImage.Post!.AddPostImage(postImage);
+			}
+
+			return postImages;
+		}
+
 		public ICollection<PostImage> Generate(IEnumerable<Post> posts)
 		{
 			return [basePostImage, .. posts
@@ -15,7 +27,6 @@ public static class PostImageGenerator
 							new(PostImageDataFaker.GetUrl()),
 							PostImageDataFaker.GetCreatedAtUtc());
 
-						post.AddPostImage(postImage);
 						postImage.AddPost(post);
 
 						return postImage;

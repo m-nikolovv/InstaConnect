@@ -40,6 +40,15 @@ public class ForgotPasswordTokenBuilder
 		return this;
 	}
 
+	public ForgotPasswordToken BuildAttached()
+	{
+		var forgotPasswordToken = Build();
+
+		_user.AddForgotPasswordToken(forgotPasswordToken);
+
+		return forgotPasswordToken;
+	}
+
 	public ForgotPasswordToken Build()
 	{
 		var forgotPasswordToken = new ForgotPasswordToken(
@@ -50,7 +59,6 @@ public class ForgotPasswordTokenBuilder
 			_createdAtUtc);
 
 		forgotPasswordToken.AddUser(_user);
-		_user.AddForgotPasswordToken(forgotPasswordToken);
 
 		return forgotPasswordToken;
 	}

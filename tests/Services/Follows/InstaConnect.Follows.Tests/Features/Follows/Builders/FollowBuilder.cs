@@ -26,6 +26,16 @@ public class FollowBuilder
 		_createdAtUtc = follow.CreatedAtUtc;
 	}
 
+	public Follow BuildAttached()
+	{
+		var follow = Build();
+
+		_follower.AddFollowFollowing(follow);
+		_following.AddFollowFollower(follow);
+
+		return follow;
+	}
+
 	public Follow Build()
 	{
 		var follow = new Follow(
@@ -34,8 +44,6 @@ public class FollowBuilder
 					new(_followingId)),
 				_createdAtUtc);
 
-		_follower.AddFollowFollowing(follow);
-		_following.AddFollowFollower(follow);
 		follow.AddFollower(_follower);
 		follow.AddFollowing(_following);
 

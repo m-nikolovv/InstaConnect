@@ -140,10 +140,10 @@ public abstract class BaseChatsTest : BaseTest
 
 		ChatBuilderFactory = new();
 		ChatBuilder = ChatBuilderFactory.Create(ParticipantOne, ParticipantTwo);
-		Chat = ChatBuilder.Build();
-		Chats = Chat.Generate(ParticipantOnes, ParticipantTwos);
-		InvertedChat = ChatBuilder.WithParticipantOne(ParticipantTwo).WithParticipantTwo(ParticipantOne).Build();
-		InvertedChats = InvertedChat.Generate(ParticipantTwos, ParticipantOnes);
+		Chat = ChatBuilder.BuildAttached();
+		Chats = Chat.GenerateAttached(ParticipantOnes, ParticipantTwos);
+		InvertedChat = ChatBuilder.WithParticipantOne(ParticipantTwo).WithParticipantTwo(ParticipantOne).BuildAttached();
+		InvertedChats = InvertedChat.GenerateAttached(ParticipantTwos, ParticipantOnes);
 
 		ChatIdBuilderFactory = new();
 		ChatIdBuilder = ChatIdBuilderFactory.Create(Chat.Id);
@@ -159,8 +159,8 @@ public abstract class BaseChatsTest : BaseTest
 
 		ChatMessageBuilderFactory = new();
 		ChatMessageBuilder = ChatMessageBuilderFactory.Create(Chat);
-		ChatMessage = ChatMessageBuilder.Build();
-		ChatMessages = ChatMessage.Generate(Chats);
+		ChatMessage = ChatMessageBuilder.BuildAttached();
+		ChatMessages = ChatMessage.GenerateAttached(Chats);
 
 		ChatMessageIdBuilderFactory = new();
 		ChatMessageIdBuilder = ChatMessageIdBuilderFactory.Create(ChatMessage.Id);
@@ -176,8 +176,8 @@ public abstract class BaseChatsTest : BaseTest
 
 		ChatMessageImageBuilderFactory = new();
 		ChatMessageImageBuilder = ChatMessageImageBuilderFactory.Create(ChatMessage);
-		ChatMessageImage = ChatMessageImageBuilder.Build();
-		ChatMessageImages = ChatMessageImage.Generate(ChatMessages);
+		ChatMessageImage = ChatMessageImageBuilder.BuildAttached();
+		ChatMessageImages = ChatMessageImage.GenerateAttached(ChatMessages);
 		InvertedChatMessage = ChatMessageBuilderFactory.Create(ChatMessage).WithSender(ParticipantTwo).Build();
 
 		ChatMessageImageIdBuilderFactory = new();

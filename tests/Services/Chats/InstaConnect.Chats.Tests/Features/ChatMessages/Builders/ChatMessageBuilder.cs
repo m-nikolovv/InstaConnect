@@ -59,6 +59,16 @@ public class ChatMessageBuilder
 		return this;
 	}
 
+	public ChatMessage BuildAttached()
+	{
+		var chatMessage = Build();
+
+		_chat.AddChatMessage(chatMessage);
+		_sender.AddChatMessage(chatMessage);
+
+		return chatMessage;
+	}
+
 	public ChatMessage Build()
 	{
 		var chatMessage = new ChatMessage(
@@ -73,8 +83,6 @@ public class ChatMessageBuilder
 				_createdAtUtc,
 				_updatedAtUtc);
 
-		_chat.AddChatMessage(chatMessage);
-		_sender.AddChatMessage(chatMessage);
 		chatMessage.AddChat(_chat);
 		chatMessage.AddSender(_sender);
 		chatMessage.AddChatMessageImages(_chatMessageImages);

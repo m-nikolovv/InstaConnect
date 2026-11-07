@@ -26,6 +26,15 @@ public class PostImageBuilder
 		_createdAtUtc = postImage.CreatedAtUtc;
 	}
 
+	public PostImage BuildAttached()
+	{
+		var postImage = Build();
+
+		_post.AddPostImage(postImage);
+
+		return postImage;
+	}
+
 	public PostImage Build()
 	{
 		var postImage = new PostImage(
@@ -35,7 +44,6 @@ public class PostImageBuilder
 				new(_url),
 				_createdAtUtc);
 
-		_post.AddPostImage(postImage);
 		postImage.AddPost(_post);
 
 		return postImage;

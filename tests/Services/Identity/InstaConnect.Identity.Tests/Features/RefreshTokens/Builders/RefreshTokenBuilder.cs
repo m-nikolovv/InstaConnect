@@ -40,6 +40,15 @@ public class RefreshTokenBuilder
 		return this;
 	}
 
+	public RefreshToken BuildAttached()
+	{
+		var refreshToken = Build();
+
+		_user.AddRefreshToken(refreshToken);
+
+		return refreshToken;
+	}
+
 	public RefreshToken Build()
 	{
 		var refreshToken = new RefreshToken(
@@ -50,7 +59,6 @@ public class RefreshTokenBuilder
 			_createdAtUtc);
 
 		refreshToken.AddUser(_user);
-		_user.AddRefreshToken(refreshToken);
 
 		return refreshToken;
 	}

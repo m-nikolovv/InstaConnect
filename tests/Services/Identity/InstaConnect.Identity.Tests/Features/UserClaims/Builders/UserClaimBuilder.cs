@@ -23,6 +23,15 @@ public class UserClaimBuilder
 		_createdAtUtc = userClaim.CreatedAtUtc;
 	}
 
+	public UserClaim BuildAttached()
+	{
+		var userClaim = Build();
+
+		_user.AddUserClaim(userClaim);
+
+		return userClaim;
+	}
+
 	public UserClaim Build()
 	{
 		var userClaim = new UserClaim(
@@ -32,7 +41,6 @@ public class UserClaimBuilder
 			_createdAtUtc);
 
 		userClaim.AddUser(_user);
-		_user.AddUserClaim(userClaim);
 
 		return userClaim;
 	}

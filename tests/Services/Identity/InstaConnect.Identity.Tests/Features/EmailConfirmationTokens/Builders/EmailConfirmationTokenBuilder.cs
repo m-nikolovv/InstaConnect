@@ -40,6 +40,15 @@ public class EmailConfirmationTokenBuilder
 		return this;
 	}
 
+	public EmailConfirmationToken BuildAttached()
+	{
+		var emailConfirmationToken = Build();
+
+		_user.AddEmailConfirmationToken(emailConfirmationToken);
+
+		return emailConfirmationToken;
+	}
+
 	public EmailConfirmationToken Build()
 	{
 		var emailConfirmationToken = new EmailConfirmationToken(
@@ -50,7 +59,6 @@ public class EmailConfirmationTokenBuilder
 			_createdAtUtc);
 
 		emailConfirmationToken.AddUser(_user);
-		_user.AddEmailConfirmationToken(emailConfirmationToken);
 
 		return emailConfirmationToken;
 	}
