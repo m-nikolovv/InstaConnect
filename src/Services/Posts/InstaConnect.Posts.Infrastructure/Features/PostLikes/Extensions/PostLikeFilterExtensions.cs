@@ -9,7 +9,7 @@ internal static class PostLikeFilterExtensions
 			var id = filter.Id.GetFilterForIdEquals<PostLike>(p => p.Id.Id.Id);
 			var userName = filter.UserName.GetFilterForNameStartsWith<PostLike>(p => p.User!.Name.Value);
 
-			return Builders<PostLike>.Filter.And(id, userName);
+			return Builders<PostLike>.Filter.AndAll(id, userName);
 		}
 	}
 
@@ -35,7 +35,7 @@ internal static class PostLikeFilterExtensions
 			var id = filter.Id.GetFilterForIdEquals(idField);
 			var userId = filter.UserId.GetFilterForIdEquals(userIdField);
 
-			return Builders<T>.Filter.And(id, userId);
+			return Builders<T>.Filter.AndAll(id, userId);
 		}
 	}
 

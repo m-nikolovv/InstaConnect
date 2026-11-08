@@ -1,9 +1,8 @@
 using InstaConnect.Identity.Domain.Features.ForgotPasswordTokens.Models.ValueObjects;
-using InstaConnect.Identity.Infrastructure.Features.ForgotPasswordTokens.Extensions;
 
 namespace InstaConnect.Identity.Infrastructure.Features.ForgotPasswordTokens.Extensions;
 
-public static class ForgotPasswordTokenFilterExtensions
+internal static class ForgotPasswordTokenFilterExtensions
 {
 	extension(ForgotPasswordTokenId filter)
 	{
@@ -17,9 +16,9 @@ public static class ForgotPasswordTokenFilterExtensions
 			Expression<Func<T, object>> valueField)
 		{
 			var id = filter.Id.GetFilterForIdEquals(idField);
-			var value = Builders<T>.Filter.EqualsIgnoreCase(valueField, filter.Value, filter.Value.IsNullOrEmptyOrWhiteSpace());
+			var value = Builders<T>.Filter.EqualsIgnoreCaseOrFalse(valueField, filter.Value);
 
-			return Builders<T>.Filter.And(id, value);
+			return Builders<T>.Filter.AndAll(id, value);
 		}
 	}
 

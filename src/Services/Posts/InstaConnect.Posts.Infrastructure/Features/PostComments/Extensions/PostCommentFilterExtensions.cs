@@ -9,7 +9,7 @@ internal static class PostCommentFilterExtensions
 			var id = filter.Id.GetFilterForIdEquals<PostComment>(p => p.Id.Id.Id);
 			var userName = filter.UserName.GetFilterForNameStartsWith<PostComment>(p => p.User!.Name.Value);
 
-			return Builders<PostComment>.Filter.And(id, userName);
+			return Builders<PostComment>.Filter.AndAll(id, userName);
 		}
 	}
 
@@ -33,10 +33,9 @@ internal static class PostCommentFilterExtensions
 			Expression<Func<T, object>> commentIdField)
 		{
 			var id = filter.Id.GetFilterForIdEquals(idField);
-			var commentId = Builders<T>.Filter.EqualsIgnoreCase(
-				commentIdField, filter.CommentId, filter.CommentId.IsNullOrEmptyOrWhiteSpace());
+			var commentId = Builders<T>.Filter.EqualsIgnoreCaseOrFalse(commentIdField, filter.CommentId);
 
-			return Builders<T>.Filter.And(id, commentId);
+			return Builders<T>.Filter.AndAll(id, commentId);
 		}
 	}
 

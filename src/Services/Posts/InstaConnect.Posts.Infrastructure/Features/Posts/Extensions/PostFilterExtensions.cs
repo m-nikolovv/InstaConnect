@@ -8,9 +8,9 @@ internal static class PostFilterExtensions
 		{
 			var userName = filter.UserName.GetFilterForNameStartsWith<Post>(p => p.User!.Name.Value);
 			var title = Builders<Post>.Filter.StartsWithIgnoreCase(
-				p => p.Title, filter.Title, filter.Title.IsNullOrEmptyOrWhiteSpace());
+				p => p.Title, filter.Title);
 
-			return Builders<Post>.Filter.And(userName, title);
+			return Builders<Post>.Filter.AndAll(userName, title);
 		}
 	}
 
@@ -20,9 +20,9 @@ internal static class PostFilterExtensions
 		{
 			var userId = filter.UserId.GetFilterForIdEquals<Post>(p => p.UserId.Id);
 			var title = Builders<Post>.Filter.StartsWithIgnoreCase(
-				p => p.Title, filter.Title, filter.Title.IsNullOrEmptyOrWhiteSpace());
+				p => p.Title, filter.Title);
 
-			return Builders<Post>.Filter.And(userId, title);
+			return Builders<Post>.Filter.AndAll(userId, title);
 		}
 	}
 
@@ -35,7 +35,7 @@ internal static class PostFilterExtensions
 
 		public FilterDefinition<T> GetFilterForIdEquals<T>(Expression<Func<T, object>> idField)
 		{
-			return Builders<T>.Filter.EqualsIgnoreCase(idField, filter.Id, filter.Id.IsEmpty());
+			return Builders<T>.Filter.EqualsIgnoreCaseOrFalse(idField, filter.Id);
 		}
 	}
 
@@ -48,7 +48,7 @@ internal static class PostFilterExtensions
 
 		public FilterDefinition<T> GetFilterForIdRange<T>(Expression<Func<T, object>> idField)
 		{
-			return Builders<T>.Filter.In(idField, filter.Select(item => item.Id));
+			return Builders<T>.Filter.InRange(idField, filter.Select(item => item.Id));
 		}
 	}
 

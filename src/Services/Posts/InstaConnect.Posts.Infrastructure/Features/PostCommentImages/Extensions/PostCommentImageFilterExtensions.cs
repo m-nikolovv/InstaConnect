@@ -17,10 +17,9 @@ internal static class PostCommentImageFilterExtensions
 			Expression<Func<T, object>> imageIdField)
 		{
 			var id = filter.Id.GetFilterForIdEquals(idField, commentIdField);
-			var imageId = Builders<T>.Filter.EqualsIgnoreCase(
-				imageIdField, filter.ImageId, filter.ImageId.IsNullOrEmptyOrWhiteSpace());
+			var imageId = Builders<T>.Filter.EqualsIgnoreCaseOrFalse(imageIdField, filter.ImageId);
 
-			return Builders<T>.Filter.And(id, imageId);
+			return Builders<T>.Filter.AndAll(id, imageId);
 		}
 	}
 

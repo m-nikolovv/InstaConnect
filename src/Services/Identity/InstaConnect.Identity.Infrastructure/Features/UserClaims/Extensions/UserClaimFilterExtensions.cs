@@ -1,8 +1,6 @@
-using InstaConnect.Identity.Infrastructure.Features.UserClaims.Extensions;
-
 namespace InstaConnect.Identity.Infrastructure.Features.UserClaims.Extensions;
 
-public static class UserClaimFilterExtensions
+internal static class UserClaimFilterExtensions
 {
 	extension(UserClaimsFilterQuery filter)
 	{
@@ -24,9 +22,9 @@ public static class UserClaimFilterExtensions
 			Expression<Func<T, object>> claimField)
 		{
 			var id = filter.Id.GetFilterForIdEquals(idField);
-			var claim = Builders<T>.Filter.Eq(claimField, filter.Claim);
+			var claim = Builders<T>.Filter.EqualsValue(claimField, filter.Claim);
 
-			return Builders<T>.Filter.And(id, claim);
+			return Builders<T>.Filter.AndAll(id, claim);
 		}
 	}
 

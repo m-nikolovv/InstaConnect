@@ -1,5 +1,3 @@
-using InstaConnect.Posts.Infrastructure.Features.PostCommentLikes.Extensions;
-
 namespace InstaConnect.Posts.Infrastructure.Features.PostCommentLikes.Extensions;
 
 internal static class PostCommentLikeFilterExtensions
@@ -11,7 +9,7 @@ internal static class PostCommentLikeFilterExtensions
 			var commentId = filter.CommentId.GetFilterForIdEquals<PostCommentLike>(p => p.Id.CommentId.Id.Id, p => p.Id.CommentId.CommentId);
 			var userName = filter.UserName.GetFilterForNameStartsWith<PostCommentLike>(p => p.User!.Name.Value);
 
-			return Builders<PostCommentLike>.Filter.And(commentId, userName);
+			return Builders<PostCommentLike>.Filter.AndAll(commentId, userName);
 		}
 	}
 
@@ -39,7 +37,7 @@ internal static class PostCommentLikeFilterExtensions
 			var commentId = filter.CommentId.GetFilterForIdEquals(idField, commentIdField);
 			var userId = filter.UserId.GetFilterForIdEquals(userIdField);
 
-			return Builders<T>.Filter.And(commentId, userId);
+			return Builders<T>.Filter.AndAll(commentId, userId);
 		}
 	}
 

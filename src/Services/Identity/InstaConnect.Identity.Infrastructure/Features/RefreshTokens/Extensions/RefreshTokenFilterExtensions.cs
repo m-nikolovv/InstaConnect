@@ -2,7 +2,7 @@ using InstaConnect.Identity.Domain.Features.RefreshTokens.Models.ValueObjects;
 
 namespace InstaConnect.Identity.Infrastructure.Features.RefreshTokens.Extensions;
 
-public static class RefreshTokenFilterExtensions
+internal static class RefreshTokenFilterExtensions
 {
 	extension(RefreshTokenId filter)
 	{
@@ -16,9 +16,9 @@ public static class RefreshTokenFilterExtensions
 			Expression<Func<T, object>> valueField)
 		{
 			var id = filter.Id.GetFilterForIdEquals(idField);
-			var value = Builders<T>.Filter.EqualsIgnoreCase(valueField, filter.Value, filter.Value.IsNullOrEmptyOrWhiteSpace());
+			var value = Builders<T>.Filter.EqualsIgnoreCaseOrFalse(valueField, filter.Value);
 
-			return Builders<T>.Filter.And(id, value);
+			return Builders<T>.Filter.AndAll(id, value);
 		}
 	}
 

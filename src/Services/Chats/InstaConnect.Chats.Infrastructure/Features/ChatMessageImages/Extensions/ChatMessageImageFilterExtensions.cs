@@ -20,10 +20,9 @@ internal static class ChatMessageImageFilterExtensions
 			Expression<Func<T, object>> imageIdField)
 		{
 			var id = filter.Id.GetFilterForIdEquals(participantOneIdField, participantTwoIdField, messageIdField);
-			var imageId = Builders<T>.Filter.EqualsIgnoreCase(
-				imageIdField, filter.ImageId, filter.ImageId.IsNullOrEmptyOrWhiteSpace());
+			var imageId = Builders<T>.Filter.EqualsIgnoreCaseOrFalse(imageIdField, filter.ImageId);
 
-			return Builders<T>.Filter.And(id, imageId);
+			return Builders<T>.Filter.AndAll(id, imageId);
 		}
 	}
 
@@ -44,7 +43,8 @@ internal static class ChatMessageImageFilterExtensions
 			Expression<Func<T, object>> messageIdField,
 			Expression<Func<T, object>> imageIdField)
 		{
-			return Builders<T>.Filter.OrRange(filter.Select(item => item.GetFilterForIdEquals(participantOneIdField, participantTwoIdField, messageIdField, imageIdField)));
+			return Builders<T>.Filter.OrRange(filter.Select(item => item.GetFilterForIdEquals(
+				participantOneIdField, participantTwoIdField, messageIdField, imageIdField)));
 		}
 	}
 
@@ -52,7 +52,10 @@ internal static class ChatMessageImageFilterExtensions
 	{
 		public FilterDefinition<ChatMessageImage> GetChatMessageImageCascadeFilter()
 		{
-			return filter.GetFilterForIdRange<ChatMessageImage>(p => p.Id.Id.Id.ParticipantOneId.Id, p => p.Id.Id.Id.ParticipantTwoId.Id, p => p.Id.Id.MessageId);
+			return filter.GetFilterForIdRange<ChatMessageImage>(
+				p => p.Id.Id.Id.ParticipantOneId.Id,
+				p => p.Id.Id.Id.ParticipantTwoId.Id,
+				p => p.Id.Id.MessageId);
 		}
 	}
 }

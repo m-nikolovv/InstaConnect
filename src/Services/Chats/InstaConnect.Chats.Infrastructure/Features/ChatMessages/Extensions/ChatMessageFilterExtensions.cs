@@ -2,7 +2,7 @@ using InstaConnect.Chats.Infrastructure.Features.Chats.Extensions;
 
 namespace InstaConnect.Chats.Infrastructure.Features.ChatMessages.Extensions;
 
-public static class ChatMessageFilterExtensions
+internal static class ChatMessageFilterExtensions
 {
 	extension(ChatMessagesFilterQuery filter)
 	{
@@ -29,10 +29,9 @@ public static class ChatMessageFilterExtensions
 			Expression<Func<T, object>> messageIdField)
 		{
 			var chatId = filter.Id.GetFilterForIdEquals(participantOneIdField, participantTwoIdField);
-			var messageId = Builders<T>.Filter.EqualsIgnoreCase(
-				messageIdField, filter.MessageId, filter.MessageId.IsNullOrEmptyOrWhiteSpace());
+			var messageId = Builders<T>.Filter.EqualsIgnoreCaseOrFalse(messageIdField, filter.MessageId);
 
-			return Builders<T>.Filter.And(chatId, messageId);
+			return Builders<T>.Filter.AndAll(chatId, messageId);
 		}
 	}
 
@@ -59,7 +58,9 @@ public static class ChatMessageFilterExtensions
 	{
 		public FilterDefinition<ChatMessage> GetChatMessageCascadeFilter()
 		{
-			return Builders<ChatMessage>.Filter.In(p => p.Id.Id, filter);
+			return filter.GetFilterForIdRange<ChatMessage>(
+				p => p.Id.Id.ParticipantOneId.Id,
+				p => p.Id.Id.ParticipantTwoId.Id);
 		}
 	}
 }
