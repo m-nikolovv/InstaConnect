@@ -1,9 +1,8 @@
 using InstaConnect.Common.Presentation.Features.AccessTokens.Extensions;
 using InstaConnect.Common.Presentation.Features.Controllers.Extensions;
 using InstaConnect.Common.Presentation.Features.Exceptions.Extensions;
-using InstaConnect.Follows.Presentation.Features.Follows.Extensions;
 
-namespace InstaConnect.Follows.Presentation.Features.Common.Extensions;
+namespace InstaConnect.Common.Presentation.Features.Common.Extensions;
 
 public static class WebApplicationExtensions
 {
@@ -11,16 +10,13 @@ public static class WebApplicationExtensions
 	{
 		public WebApplication UsePresentation()
 		{
-			application
+			return application
 				.UseCorsPolicies()
 				.UseAccessTokens()
 				.UseRateLimiterPolicies()
 				.MapApiControllers()
 				.UseExceptions()
-				.MapHealthCheckEndpoints()
-				.MapFollowHub();
-
-			return application;
+				.MapHealthCheckEndpoints();
 		}
 	}
 }
