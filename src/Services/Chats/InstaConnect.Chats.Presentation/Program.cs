@@ -1,11 +1,8 @@
 using InstaConnect.Chats.Application.Features.Common.Extensions;
 using InstaConnect.Chats.Domain.Features.Common.Extensions;
 using InstaConnect.Chats.Infrastructure.Features.Common.Extensions;
-using InstaConnect.Chats.Presentation.Features.ChatMessages.Extensions;
 using InstaConnect.Chats.Presentation.Features.Common.Extensions;
 using InstaConnect.Common.Infrastructure.Features.Telemetries.Extensions;
-using InstaConnect.Common.Presentation.Features.Common.Extensions;
-using InstaConnect.Common.Presentation.Features.Databases.Extensions;
 using InstaConnect.Common.Presentation.Features.Telemetries.Extensions;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -24,8 +21,7 @@ var app = builder.Build();
 
 await app
 	.UsePresentation()
-	.MapChatMessageHub()
-	.InitializeAndRunAsync(CancellationToken.None);
+	.RunPresentationAsync(CancellationToken.None);
 
 
 // Utils for testing

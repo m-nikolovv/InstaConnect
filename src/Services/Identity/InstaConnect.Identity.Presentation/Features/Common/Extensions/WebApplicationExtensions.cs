@@ -1,8 +1,9 @@
 using InstaConnect.Common.Presentation.Features.AccessTokens.Extensions;
 using InstaConnect.Common.Presentation.Features.Controllers.Extensions;
+using InstaConnect.Common.Presentation.Features.Databases.Extensions;
 using InstaConnect.Common.Presentation.Features.Exceptions.Extensions;
 
-namespace InstaConnect.Common.Presentation.Features.Common.Extensions;
+namespace InstaConnect.Identity.Presentation.Features.Common.Extensions;
 
 public static class WebApplicationExtensions
 {
@@ -17,6 +18,17 @@ public static class WebApplicationExtensions
 				.MapApiControllers()
 				.UseExceptions()
 				.MapHealthCheckEndpoints();
+		}
+
+		public async Task RunPresentationAsync(CancellationToken cancellationToken)
+		{
+			await application.UseDatabaseInitializerAsync(cancellationToken);
+
+			await application.StartAsync(cancellationToken);
+
+			await application.UseDatabaseSeederAsync(cancellationToken);
+
+			await application.WaitForShutdownAsync(cancellationToken);
 		}
 	}
 }

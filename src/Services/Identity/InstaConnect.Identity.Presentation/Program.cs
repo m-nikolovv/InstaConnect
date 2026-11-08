@@ -1,6 +1,4 @@
 using InstaConnect.Common.Infrastructure.Features.Telemetries.Extensions;
-using InstaConnect.Common.Presentation.Features.Common.Extensions;
-using InstaConnect.Common.Presentation.Features.Databases.Extensions;
 using InstaConnect.Common.Presentation.Features.Telemetries.Extensions;
 using InstaConnect.Identity.Application.Features.Common.Extensions;
 using InstaConnect.Identity.Domain.Features.Common.Extensions;
@@ -23,7 +21,7 @@ var app = builder.Build();
 
 await app
 	.UsePresentation()
-	.InitializeAndRunAsync(CancellationToken.None);
+	.RunPresentationAsync(CancellationToken.None);
 
 
 // Utils for testing
