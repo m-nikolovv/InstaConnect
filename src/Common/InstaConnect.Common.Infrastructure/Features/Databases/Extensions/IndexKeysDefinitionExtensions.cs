@@ -8,15 +8,5 @@ public static class IndexKeysDefinitionExtensions
 		{
 			return new(keys, new());
 		}
-
-		public CreateIndexModel<T> Unique()
-		{
-			return keys.ToIndex().Unique();
-		}
-
-		public CreateIndexModel<T> ExpireAt()
-		{
-			return keys.ToIndex().ExpireAt();
-		}
 	}
 }

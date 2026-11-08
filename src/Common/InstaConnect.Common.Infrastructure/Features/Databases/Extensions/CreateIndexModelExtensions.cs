@@ -4,14 +4,14 @@ public static class CreateIndexModelExtensions
 {
 	extension<T>(CreateIndexModel<T> model)
 	{
-		public CreateIndexModel<T> Unique()
+		public CreateIndexModel<T> WithUnique()
 		{
 			model.Options.Unique = true;
 
 			return model;
 		}
 
-		public CreateIndexModel<T> ExpireAt()
+		public CreateIndexModel<T> WithExpiration()
 		{
 			model.Options.ExpireAfter = TimeSpan.Zero;
 

@@ -7,8 +7,8 @@ internal class UserCollectionInitializer : MongoDbCollectionInitializer<User>
 			collection,
 			[
 				Builders<User>.IndexKeys.Ascending(c => c.Id.Id).ToIndex(),
-				Builders<User>.IndexKeys.Ascending(c => c.Name.Value).Unique(),
-				Builders<User>.IndexKeys.Ascending(c => c.Email.Value).Unique()
+				Builders<User>.IndexKeys.Ascending(c => c.Name.Value).ToIndex().WithUnique(),
+				Builders<User>.IndexKeys.Ascending(c => c.Email.Value).ToIndex().WithUnique()
 			])
 	{
 	}

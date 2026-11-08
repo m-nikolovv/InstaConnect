@@ -10,7 +10,7 @@ internal class OutboxEventCollectionInitializer : MongoDbCollectionInitializer<O
 		: base(
 			collection,
 			[
-				Builders<OutboxEvent>.IndexKeys.Ascending(c => c.ExpiresAtUtc).ExpireAt()
+				Builders<OutboxEvent>.IndexKeys.Ascending(c => c.ExpiresAtUtc).ToIndex().WithExpiration()
 			])
 	{
 	}

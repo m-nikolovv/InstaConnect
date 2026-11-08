@@ -8,7 +8,7 @@ internal class EmailConfirmationTokenCollectionInitializer : MongoDbCollectionIn
 			[
 				Builders<EmailConfirmationToken>.IndexKeys.Ascending(c => c.Id.Id.Id).ToIndex(),
 				Builders<EmailConfirmationToken>.IndexKeys.Ascending(c => c.Id.Id).ToIndex(),
-				Builders<EmailConfirmationToken>.IndexKeys.Ascending(c => c.ExpiresAtUtc).ExpireAt()
+				Builders<EmailConfirmationToken>.IndexKeys.Ascending(c => c.ExpiresAtUtc).ToIndex().WithExpiration()
 			])
 	{
 	}
