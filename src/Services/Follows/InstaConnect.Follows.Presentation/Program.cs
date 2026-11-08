@@ -26,6 +26,8 @@ await app.UseDatabaseInitializerAsync(CancellationToken.None);
 
 await app.StartAsync();
 
+await app.UseDatabaseSeederAsync(CancellationToken.None);
+
 await app.WaitForShutdownAsync();
 
 

@@ -30,9 +30,4 @@ public abstract class MongoDbCollectionInitializer<TEntity> : IMongoDbCollection
 
 		await _collection.Indexes.CreateManyAsync(_indexes, cancellationToken);
 	}
-
-	public virtual Task SeedAsync(CancellationToken cancellationToken)
-	{
-		return Task.CompletedTask;
-	}
 }

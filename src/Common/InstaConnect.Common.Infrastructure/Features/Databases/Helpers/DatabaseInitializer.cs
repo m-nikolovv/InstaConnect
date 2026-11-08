@@ -14,7 +14,6 @@ internal class DatabaseInitializer : IDatabaseInitializer
 		foreach (var collectionInitializer in _collectionInitializers)
 		{
 			await collectionInitializer.InitializeAsync(cancellationToken);
-			await collectionInitializer.SeedAsync(cancellationToken);
 		}
 	}
 }

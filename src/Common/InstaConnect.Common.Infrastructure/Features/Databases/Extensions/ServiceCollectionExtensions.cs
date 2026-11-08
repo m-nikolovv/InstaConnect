@@ -46,6 +46,10 @@ public static class ServiceCollectionExtensions
 				.AddScoped<IDatabaseInitializer, DatabaseInitializer>()
 				.AddImplementationsOf<IMongoDbCollectionInitializer>(assemblies);
 
+			serviceCollection
+				.AddScoped<IDatabaseSeeder, DatabaseSeeder>()
+				.AddImplementationsOf<IMongoDbCollectionSeeder>(assemblies);
+
 			var conventionPack = new ConventionPack
 			{
 				new SnakeCaseElementNameConvention(),

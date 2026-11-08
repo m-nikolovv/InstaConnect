@@ -17,5 +17,17 @@ public static class WebApplicationExtensions
 
 			return webApplication;
 		}
+
+		public async Task<WebApplication> UseDatabaseSeederAsync(CancellationToken cancellationToken)
+		{
+			await webApplication
+				.Services
+				.CreateScope()
+				.ServiceProvider
+				.GetRequiredService<IDatabaseSeeder>()
+				.SeedAsync(cancellationToken);
+
+			return webApplication;
+		}
 	}
 }
