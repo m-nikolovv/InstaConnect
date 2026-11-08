@@ -22,9 +22,9 @@ var app = builder.Build();
 
 app.UsePresentation();
 
-await app.StartAsync();
-
 await app.UseDatabaseInitializerAsync(CancellationToken.None);
+
+await app.StartAsync();
 
 await app.WaitForShutdownAsync();
 

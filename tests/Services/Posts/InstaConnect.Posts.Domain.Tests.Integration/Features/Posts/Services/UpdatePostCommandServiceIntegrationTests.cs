@@ -19,6 +19,7 @@ public class UpdatePostCommandServiceIntegrationTests : BasePostDomainCommandInt
 	protected override async Task OnInitializeAsync()
 	{
 		await ServiceScope.AddAsync(Post, CancellationToken);
+		await ServiceScope.AddRangeAsync(PostImages, CancellationToken);
 	}
 
 	[Fact]

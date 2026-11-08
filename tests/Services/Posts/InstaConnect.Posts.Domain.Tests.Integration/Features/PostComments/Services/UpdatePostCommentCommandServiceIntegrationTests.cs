@@ -20,6 +20,7 @@ public class UpdatePostCommentCommandServiceIntegrationTests : BasePostCommentDo
 	protected override async Task OnInitializeAsync()
 	{
 		await ServiceScope.AddAsync(PostComment, CancellationToken);
+		await ServiceScope.AddRangeAsync(PostCommentImages, CancellationToken);
 	}
 
 	[Fact]

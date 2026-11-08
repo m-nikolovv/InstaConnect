@@ -3,6 +3,7 @@ using System.Net.Mime;
 using Bogus;
 
 using InstaConnect.Common.Domain.Features.Requests.Models;
+using InstaConnect.Common.Infrastructure.Features.DateTimes.Extensions;
 
 namespace InstaConnect.Common.Tests.Features.Utilities;
 
@@ -38,17 +39,17 @@ public abstract class DataFaker
 
 	public static DateTimeOffset GetSoonDate()
 	{
-		return _faker.Date.SoonOffset();
+		return _faker.Date.SoonOffset().TruncateToMilliseconds();
 	}
 
 	public static DateTimeOffset GetFutureDate(DateTimeOffset date)
 	{
-		return _faker.Date.FutureOffset(refDate: date);
+		return _faker.Date.FutureOffset(refDate: date).TruncateToMilliseconds();
 	}
 
 	public static DateTimeOffset GetPastDate(DateTimeOffset date)
 	{
-		return _faker.Date.PastOffset(refDate: date);
+		return _faker.Date.PastOffset(refDate: date).TruncateToMilliseconds();
 	}
 
 	public static string GetUrl()
@@ -108,7 +109,7 @@ public abstract class DataFaker
 		var mid = value.Length / 2;
 
 		return string.Concat(
-			value.AsSpan(0, mid),
+			value.AsSpan(default, mid),
 			average.AsSpan(mid)
 		);
 	}
