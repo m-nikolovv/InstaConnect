@@ -25,6 +25,7 @@ public class UpdateUserCommandServiceIntegrationTests : BaseUserDomainCommandInt
 	protected override async Task OnInitializeAsync()
 	{
 		await ServiceScope.AddAsync(User, CancellationToken);
+		await ServiceScope.AddRangeAsync(EmailConfirmationTokens, CancellationToken);
 	}
 
 	[Fact]

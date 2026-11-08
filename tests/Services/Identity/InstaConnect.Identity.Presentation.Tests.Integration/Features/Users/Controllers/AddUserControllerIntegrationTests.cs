@@ -25,6 +25,11 @@ public class AddUserControllerIntegrationTests : BaseUserPresentationCommandInte
 		_request = _requestBuilder.Build();
 	}
 
+	protected override async Task OnInitializeAsync()
+	{
+		await ServiceScope.AddAsync(User, CancellationToken);
+	}
+
 	[Theory]
 	[UserNameNullWithMessageData]
 	[UserNameEmptyWithMessageData]

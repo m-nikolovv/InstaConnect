@@ -33,6 +33,11 @@ internal class ChatMessageImageCollection : MongoDbCollection<ChatMessageImage, 
 		IEnumerable<ChatMessageImage> entities,
 		CancellationToken cancellationToken)
 	{
+		if (entities.IsEmpty())
+		{
+			return;
+		}
+
 		await DeleteRangeAsync(entities.Select(p => p.Id).GetFilter(), cancellationToken);
 	}
 

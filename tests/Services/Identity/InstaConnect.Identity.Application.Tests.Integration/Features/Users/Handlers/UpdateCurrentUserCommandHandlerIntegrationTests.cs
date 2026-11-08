@@ -26,6 +26,7 @@ public class UpdateCurrentUserCommandHandlerIntegrationTests : BaseUserApplicati
 	protected override async Task OnInitializeAsync()
 	{
 		await ServiceScope.AddAsync(User, CancellationToken);
+		await ServiceScope.AddRangeAsync(EmailConfirmationTokens, CancellationToken);
 	}
 
 	[Theory]

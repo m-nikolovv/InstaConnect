@@ -24,6 +24,7 @@ public class UpdateCurrentUserFunctionalTests : BaseUserPresentationCommandFunct
 	protected override async Task OnInitializeAsync()
 	{
 		await ServiceScope.AddAsync(User, CancellationToken);
+		await ServiceScope.AddRangeAsync(EmailConfirmationTokens, CancellationToken);
 	}
 
 	[Fact]

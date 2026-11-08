@@ -24,6 +24,7 @@ public class UpdateCurrentUserControllerIntegrationTests : BaseUserPresentationC
 	protected override async Task OnInitializeAsync()
 	{
 		await ServiceScope.AddAsync(User, CancellationToken);
+		await ServiceScope.AddRangeAsync(EmailConfirmationTokens, CancellationToken);
 	}
 
 	[Theory]

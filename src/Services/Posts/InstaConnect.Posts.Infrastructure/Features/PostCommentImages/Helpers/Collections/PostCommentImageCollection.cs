@@ -34,6 +34,11 @@ internal class PostCommentImageCollection : MongoDbCollection<PostCommentImage, 
 		IEnumerable<PostCommentImage> entities,
 		CancellationToken cancellationToken)
 	{
+		if (entities.IsEmpty())
+		{
+			return;
+		}
+
 		await DeleteRangeAsync(entities.Select(p => p.Id).GetFilter(), cancellationToken);
 	}
 

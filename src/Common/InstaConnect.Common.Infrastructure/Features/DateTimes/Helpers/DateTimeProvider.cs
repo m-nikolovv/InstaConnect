@@ -12,7 +12,7 @@ public class DateTimeProvider : IDateTimeProvider
 
 	public DateTimeOffset GetOffsetUtcNow(int seconds)
 	{
-		return DateTimeOffset.UtcNow.AddSeconds(seconds).TruncateToMilliseconds();
+		return DateTimeOffset.FromUnixTimeSeconds(DateTimeOffset.UtcNow.ToUnixTimeSeconds() + seconds);
 	}
 
 	public DateTime GetUtcNow()
