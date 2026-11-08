@@ -51,11 +51,7 @@ public static class ChatMessageFilterExtensions
 			Expression<Func<T, object>> participantTwoIdField,
 			Expression<Func<T, object>> messageIdField)
 		{
-			var participantOneId = Builders<T>.Filter.In(participantOneIdField, filter.Select(item => item.Id.ParticipantOneId.Id));
-			var participantTwoId = Builders<T>.Filter.In(participantTwoIdField, filter.Select(item => item.Id.ParticipantTwoId.Id));
-			var messageId = Builders<T>.Filter.In(messageIdField, filter.Select(item => item.MessageId));
-
-			return Builders<T>.Filter.And(participantOneId, participantTwoId, messageId);
+			return Builders<T>.Filter.OrRange(filter.Select(item => item.GetFilterForIdEquals(participantOneIdField, participantTwoIdField, messageIdField)));
 		}
 	}
 

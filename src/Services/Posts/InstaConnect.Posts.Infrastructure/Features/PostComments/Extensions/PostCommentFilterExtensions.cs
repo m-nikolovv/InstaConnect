@@ -51,10 +51,7 @@ internal static class PostCommentFilterExtensions
 			Expression<Func<T, object>> idField,
 			Expression<Func<T, object>> commentIdField)
 		{
-			var id = Builders<T>.Filter.In(idField, filter.Select(item => item.Id.Id));
-			var commentId = Builders<T>.Filter.In(commentIdField, filter.Select(item => item.CommentId));
-
-			return Builders<T>.Filter.And(id, commentId);
+			return Builders<T>.Filter.OrRange(filter.Select(item => item.GetFilterForIdEquals(idField, commentIdField)));
 		}
 	}
 
