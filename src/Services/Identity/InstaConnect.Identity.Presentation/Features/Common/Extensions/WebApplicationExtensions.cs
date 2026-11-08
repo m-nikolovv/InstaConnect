@@ -12,11 +12,12 @@ public static class WebApplicationExtensions
 		public WebApplication UsePresentation()
 		{
 			return application
+				.UseForwardedHeaderPolicies()
+				.UseExceptions()
 				.UseCorsPolicies()
 				.UseAccessTokens()
 				.UseRateLimiterPolicies()
 				.MapApiControllers()
-				.UseExceptions()
 				.MapHealthCheckEndpoints();
 		}
 
