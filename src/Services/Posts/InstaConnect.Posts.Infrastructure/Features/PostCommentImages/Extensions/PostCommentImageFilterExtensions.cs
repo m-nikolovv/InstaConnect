@@ -36,7 +36,7 @@ internal static class PostCommentImageFilterExtensions
 			Expression<Func<T, object>> commentIdField,
 			Expression<Func<T, object>> imageIdField)
 		{
-			return Builders<T>.Filter.Or(filter.Select(item => item.GetFilterForIdEquals(idField, commentIdField, imageIdField)));
+			return Builders<T>.Filter.OrRange(filter.Select(item => item.GetFilterForIdEquals(idField, commentIdField, imageIdField)));
 		}
 	}
 

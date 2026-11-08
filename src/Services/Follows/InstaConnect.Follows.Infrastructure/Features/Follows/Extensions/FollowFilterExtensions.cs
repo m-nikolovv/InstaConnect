@@ -55,7 +55,7 @@ internal static class FollowFilterExtensions
 			Expression<Func<T, object>> followerIdField,
 			Expression<Func<T, object>> followingIdField)
 		{
-			return Builders<T>.Filter.Or(filter.Select(item => item.GetFilterForIdEquals(followerIdField, followingIdField)));
+			return Builders<T>.Filter.OrRange(filter.Select(item => item.GetFilterForIdEquals(followerIdField, followingIdField)));
 		}
 	}
 

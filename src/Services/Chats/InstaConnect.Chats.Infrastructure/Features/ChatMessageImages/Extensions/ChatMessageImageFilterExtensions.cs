@@ -44,7 +44,7 @@ internal static class ChatMessageImageFilterExtensions
 			Expression<Func<T, object>> messageIdField,
 			Expression<Func<T, object>> imageIdField)
 		{
-			return Builders<T>.Filter.Or(filter.Select(item => item.GetFilterForIdEquals(participantOneIdField, participantTwoIdField, messageIdField, imageIdField)));
+			return Builders<T>.Filter.OrRange(filter.Select(item => item.GetFilterForIdEquals(participantOneIdField, participantTwoIdField, messageIdField, imageIdField)));
 		}
 	}
 

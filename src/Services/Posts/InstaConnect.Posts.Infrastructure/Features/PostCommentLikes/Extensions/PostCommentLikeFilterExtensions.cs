@@ -56,7 +56,7 @@ internal static class PostCommentLikeFilterExtensions
 			Expression<Func<T, object>> commentIdField,
 			Expression<Func<T, object>> userIdField)
 		{
-			return Builders<T>.Filter.Or(filter.Select(item => item.GetFilterForIdEquals(idField, commentIdField, userIdField)));
+			return Builders<T>.Filter.OrRange(filter.Select(item => item.GetFilterForIdEquals(idField, commentIdField, userIdField)));
 		}
 	}
 

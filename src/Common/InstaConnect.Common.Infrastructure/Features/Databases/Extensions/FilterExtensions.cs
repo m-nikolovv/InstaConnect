@@ -6,6 +6,18 @@ public static class FilterExtensions
 {
 	extension<T>(FilterDefinitionBuilder<T> builder)
 	{
+		public FilterDefinition<T> False => builder.Where(_ => false);
+
+		public FilterDefinition<T> OrRange(IEnumerable<FilterDefinition<T>> filters)
+		{
+			if (filters.IsEmpty())
+			{
+				return builder.False;
+			}
+
+			return builder.Or(filters);
+		}
+
 		public FilterDefinition<T> EqualsIgnoreCase(Expression<Func<T, object>> field, string value, bool isEmpty = false)
 		{
 			if (isEmpty)

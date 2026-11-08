@@ -34,7 +34,7 @@ public static class ForgotPasswordTokenFilterExtensions
 			Expression<Func<T, object>> idField,
 			Expression<Func<T, object>> valueField)
 		{
-			return Builders<T>.Filter.Or(filter.Select(item => item.GetFilterForIdEquals(idField, valueField)));
+			return Builders<T>.Filter.OrRange(filter.Select(item => item.GetFilterForIdEquals(idField, valueField)));
 		}
 	}
 

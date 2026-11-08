@@ -41,7 +41,7 @@ public static class UserClaimFilterExtensions
 			Expression<Func<T, object>> idField,
 			Expression<Func<T, object>> claimField)
 		{
-			return Builders<T>.Filter.Or(filter.Select(item => item.GetFilterForIdEquals(idField, claimField)));
+			return Builders<T>.Filter.OrRange(filter.Select(item => item.GetFilterForIdEquals(idField, claimField)));
 		}
 	}
 

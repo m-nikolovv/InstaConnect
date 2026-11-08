@@ -63,7 +63,7 @@ internal static class ChatFilterExtensions
 			Expression<Func<T, object>> participantOneIdField,
 			Expression<Func<T, object>> participantTwoIdField)
 		{
-			return Builders<T>.Filter.Or(filter.Select(item => item.GetFilterForIdEquals(participantOneIdField, participantTwoIdField)));
+			return Builders<T>.Filter.OrRange(filter.Select(item => item.GetFilterForIdEquals(participantOneIdField, participantTwoIdField)));
 		}
 	}
 
