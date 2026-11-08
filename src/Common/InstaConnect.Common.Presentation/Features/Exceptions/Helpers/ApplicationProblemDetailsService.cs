@@ -15,8 +15,6 @@ public class ApplicationProblemDetailsService : IApplicationProblemDetailsServic
 		ApplicationProblemDetails details,
 		CancellationToken cancellationToken)
 	{
-		httpContext.Response.StatusCode = details.Status ?? StatusCodes.Status500InternalServerError;
-
 		var problemDetailsContext = new ProblemDetailsContext
 		{
 			HttpContext = httpContext,
