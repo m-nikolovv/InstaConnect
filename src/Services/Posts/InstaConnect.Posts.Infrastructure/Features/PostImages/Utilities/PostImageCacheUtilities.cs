@@ -1,5 +1,4 @@
 using InstaConnect.Posts.Domain.Features.PostImages.Models.ValueObjects;
-using InstaConnect.Posts.Infrastructure.Features.Posts.Utilities;
 
 namespace InstaConnect.Posts.Infrastructure.Features.PostImages.Utilities;
 
@@ -9,25 +8,25 @@ public static class PostImageCacheUtilities
 
 	public static string GetByIdKey(PostImageId id)
 	{
-		const string Format = GetByIdKeyPrefix + ":{0}:{1}";
+		const string Format = "{0}:{1}:{2}";
 
-		return Format.FormatCurrentCulture(id.Id.Id, id.ImageId);
+		return Format.FormatCurrentCulture(
+			GetByIdKeyPrefix,
+			id.Id.Id,
+			id.ImageId);
 	}
 
 	public static string GetTag(PostImageId id)
 	{
 		const string Format = "posts:tags:post-images:{0}:{1}";
 
-		return Format.FormatCurrentCulture(id.Id.Id, id.ImageId).ToUpperInvariant();
+		return Format.FormatCurrentCulture(
+			id.Id.Id,
+			id.ImageId).ToLowerCurrentCulture();
 	}
 
 	public static IEnumerable<string> GetTagRange(IEnumerable<PostImageId> ids)
 	{
 		return ids.Select(GetTag);
-	}
-
-	public static IEnumerable<string> GetTagRange(PostImageId id)
-	{
-		return [GetTag(id), PostCacheUtilities.GetTag(id.Id)];
 	}
 }

@@ -1,6 +1,9 @@
 using InstaConnect.Common.Infrastructure.Features.Caches.Abstractions;
 using InstaConnect.Posts.Infrastructure.Features.PostCommentLikes.Models.Options;
 using InstaConnect.Posts.Infrastructure.Features.PostCommentLikes.Utilities;
+using InstaConnect.Posts.Infrastructure.Features.PostComments.Utilities;
+using InstaConnect.Posts.Infrastructure.Features.Posts.Utilities;
+using InstaConnect.Posts.Infrastructure.Features.Users.Utilities;
 
 using Microsoft.Extensions.Options;
 
@@ -29,12 +32,39 @@ internal class PostCommentLikeCacheHandler : IPostCommentLikeCacheHandler
 
 	public async Task AddAsync(PostCommentLike entity)
 	{
-		await _cacheHandler.SetAsync(PostCommentLikeCacheUtilities.GetByIdKey(entity.Id), entity, _cacheOptions.Expirations[PostCommentLikeCacheUtilities.GetByIdKeyPrefix], PostCommentLikeCacheUtilities.GetTagRange(entity.Id));
+		await _cacheHandler.SetAsync(
+			PostCommentLikeCacheUtilities.GetByIdKey(entity.Id),
+			entity,
+			_cacheOptions.Expirations[PostCommentLikeCacheUtilities.GetByIdKeyPrefix],
+			[PostCommentLikeCacheUtilities.GetTag(entity.Id),
+			 PostCommentCacheUtilities.GetTag(entity.Id.CommentId),
+			 PostCacheUtilities.GetTag(entity.Id.CommentId.Id),
+			 UserCacheUtilities.GetTag(entity.Id.UserId)]);
 	}
 
 	public async Task AddAsync(PostCommentLikeResponse response, CurrentUserQuery currentUser)
 	{
-		await _cacheHandler.SetAsync(PostCommentLikeCacheUtilities.GetResponseByIdKey(response.Id, currentUser), response, _cacheOptions.Expirations[PostCommentLikeCacheUtilities.GetResponseByIdKeyPrefix], PostCommentLikeCacheUtilities.GetTagRange(response));
+		List<string> tags =
+			[PostCommentLikeCacheUtilities.GetTag(response.Id),
+			 PostCommentCacheUtilities.GetTag(response.Id.CommentId),
+			 PostCacheUtilities.GetTag(response.Id.CommentId.Id),
+			 UserCacheUtilities.GetTag(response.Id.UserId)];
+
+		if (response.PostComment != null)
+		{
+			tags.Add(UserCacheUtilities.GetTag(response.PostComment.UserId));
+		}
+
+		if (response.PostComment?.Post != null)
+		{
+			tags.Add(UserCacheUtilities.GetTag(response.PostComment.Post.UserId));
+		}
+
+		await _cacheHandler.SetAsync(
+			PostCommentLikeCacheUtilities.GetResponseByIdKey(response.Id, currentUser),
+			response,
+			_cacheOptions.Expirations[PostCommentLikeCacheUtilities.GetResponseByIdKeyPrefix],
+			tags);
 	}
 
 	public async Task<bool?> ExistsByIdAsync(PostCommentLikeId id)
@@ -44,7 +74,14 @@ internal class PostCommentLikeCacheHandler : IPostCommentLikeCacheHandler
 
 	public async Task AddExistsByIdAsync(PostCommentLikeId id, bool exists)
 	{
-		await _cacheHandler.SetAsync<bool?>(PostCommentLikeCacheUtilities.ExistsByIdKey(id), exists, _cacheOptions.Expirations[PostCommentLikeCacheUtilities.ExistsByIdKeyPrefix], PostCommentLikeCacheUtilities.GetTagRange(id));
+		await _cacheHandler.SetAsync<bool?>(
+			PostCommentLikeCacheUtilities.ExistsByIdKey(id),
+			exists,
+			_cacheOptions.Expirations[PostCommentLikeCacheUtilities.ExistsByIdKeyPrefix],
+			[PostCommentLikeCacheUtilities.GetTag(id),
+			 PostCommentCacheUtilities.GetTag(id.CommentId),
+			 PostCacheUtilities.GetTag(id.CommentId.Id),
+			 UserCacheUtilities.GetTag(id.UserId)]);
 	}
 
 	public async Task DeleteAsync(PostCommentLikeId id)

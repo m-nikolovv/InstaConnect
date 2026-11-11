@@ -1,6 +1,7 @@
 using InstaConnect.Common.Infrastructure.Features.Caches.Abstractions;
 using InstaConnect.Posts.Infrastructure.Features.Posts.Models.Options;
 using InstaConnect.Posts.Infrastructure.Features.Posts.Utilities;
+using InstaConnect.Posts.Infrastructure.Features.Users.Utilities;
 
 using Microsoft.Extensions.Options;
 
@@ -29,12 +30,22 @@ internal class PostCacheHandler : IPostCacheHandler
 
 	public async Task AddAsync(Post entity)
 	{
-		await _cacheHandler.SetAsync(PostCacheUtilities.GetByIdKey(entity.Id), entity, _cacheOptions.Expirations[PostCacheUtilities.GetByIdKeyPrefix], PostCacheUtilities.GetTagRange(entity));
+		await _cacheHandler.SetAsync(
+			PostCacheUtilities.GetByIdKey(entity.Id),
+			entity,
+			_cacheOptions.Expirations[PostCacheUtilities.GetByIdKeyPrefix],
+			[PostCacheUtilities.GetTag(entity.Id),
+			 UserCacheUtilities.GetTag(entity.UserId)]);
 	}
 
 	public async Task AddAsync(PostResponse response, CurrentUserQuery currentUser)
 	{
-		await _cacheHandler.SetAsync(PostCacheUtilities.GetResponseByIdKey(response.Id, currentUser), response, _cacheOptions.Expirations[PostCacheUtilities.GetResponseByIdKeyPrefix], PostCacheUtilities.GetTagRange(response));
+		await _cacheHandler.SetAsync(
+			PostCacheUtilities.GetResponseByIdKey(response.Id, currentUser),
+			response,
+			_cacheOptions.Expirations[PostCacheUtilities.GetResponseByIdKeyPrefix],
+			[PostCacheUtilities.GetTag(response.Id),
+			 UserCacheUtilities.GetTag(response.UserId)]);
 	}
 
 	public async Task<bool?> ExistsByIdAsync(PostId id)
@@ -44,7 +55,11 @@ internal class PostCacheHandler : IPostCacheHandler
 
 	public async Task AddExistsByIdAsync(PostId id, bool exists)
 	{
-		await _cacheHandler.SetAsync<bool?>(PostCacheUtilities.ExistsByIdKey(id), exists, _cacheOptions.Expirations[PostCacheUtilities.ExistsByIdKeyPrefix], PostCacheUtilities.GetTagRange(id));
+		await _cacheHandler.SetAsync<bool?>(
+			PostCacheUtilities.ExistsByIdKey(id),
+			exists,
+			_cacheOptions.Expirations[PostCacheUtilities.ExistsByIdKeyPrefix],
+			[PostCacheUtilities.GetTag(id)]);
 	}
 
 	public async Task DeleteAsync(PostId id)

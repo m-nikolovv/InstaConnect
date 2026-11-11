@@ -1,6 +1,3 @@
-using InstaConnect.Chats.Infrastructure.Features.Chats.Utilities;
-using InstaConnect.Chats.Infrastructure.Features.Users.Utilities;
-
 namespace InstaConnect.Chats.Infrastructure.Features.ChatMessages.Utilities;
 
 public static class ChatMessageCacheUtilities
@@ -11,39 +8,50 @@ public static class ChatMessageCacheUtilities
 
 	public static string GetByIdKey(ChatMessageId id)
 	{
-		const string Format = GetByIdKeyPrefix + ":{0}:{1}:{2}";
+		const string Format = "{0}:{1}:{2}:{3}";
 
-		return Format.FormatCurrentCulture(id.Id.ParticipantOneId.Id, id.Id.ParticipantTwoId.Id, id.MessageId);
+		return Format.FormatCurrentCulture(
+			GetByIdKeyPrefix,
+			id.Id.ParticipantOneId.Id,
+			id.Id.ParticipantTwoId.Id,
+			id.MessageId);
 	}
 
 	public static string ExistsByIdKey(ChatMessageId id)
 	{
-		const string Format = ExistsByIdKeyPrefix + ":{0}:{1}:{2}";
+		const string Format = "{0}:{1}:{2}:{3}";
 
-		return Format.FormatCurrentCulture(id.Id.ParticipantOneId.Id, id.Id.ParticipantTwoId.Id, id.MessageId);
+		return Format.FormatCurrentCulture(
+			ExistsByIdKeyPrefix,
+			id.Id.ParticipantOneId.Id,
+			id.Id.ParticipantTwoId.Id,
+			id.MessageId);
 	}
 
 	public static string GetResponseByIdKey(ChatMessageId id, CurrentUserQuery currentUser)
 	{
-		const string Format = GetResponseByIdKeyPrefix + ":{0}:{1}:{2}:{3}";
+		const string Format = "{0}:{1}:{2}:{3}:{4}";
 
-		return Format.FormatCurrentCulture(id.Id.ParticipantOneId.Id, id.Id.ParticipantTwoId.Id, id.MessageId, currentUser.Id.Id);
+		return Format.FormatCurrentCulture(
+			GetResponseByIdKeyPrefix,
+			id.Id.ParticipantOneId.Id,
+			id.Id.ParticipantTwoId.Id,
+			id.MessageId,
+			currentUser.Id.Id);
 	}
 
 	public static string GetTag(ChatMessageId id)
 	{
 		const string Format = "chats:tags:chat-messages:{0}:{1}:{2}";
 
-		return Format.FormatCurrentCulture(id.Id.ParticipantOneId.Id, id.Id.ParticipantTwoId.Id, id.MessageId).ToUpperInvariant();
+		return Format.FormatCurrentCulture(
+			id.Id.ParticipantOneId.Id,
+			id.Id.ParticipantTwoId.Id,
+			id.MessageId).ToLowerCurrentCulture();
 	}
 
 	public static IEnumerable<string> GetTagRange(IEnumerable<ChatMessageId> ids)
 	{
 		return ids.Select(GetTag);
-	}
-
-	public static IEnumerable<string> GetTagRange(ChatMessageId id)
-	{
-		return [GetTag(id), ChatCacheUtilities.GetTag(id.Id), UserCacheUtilities.GetTag(id.Id.ParticipantOneId), UserCacheUtilities.GetTag(id.Id.ParticipantTwoId)];
 	}
 }

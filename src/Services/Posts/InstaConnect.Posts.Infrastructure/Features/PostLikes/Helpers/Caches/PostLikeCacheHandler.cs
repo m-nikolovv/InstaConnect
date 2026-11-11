@@ -1,6 +1,8 @@
 using InstaConnect.Common.Infrastructure.Features.Caches.Abstractions;
 using InstaConnect.Posts.Infrastructure.Features.PostLikes.Models.Options;
 using InstaConnect.Posts.Infrastructure.Features.PostLikes.Utilities;
+using InstaConnect.Posts.Infrastructure.Features.Posts.Utilities;
+using InstaConnect.Posts.Infrastructure.Features.Users.Utilities;
 
 using Microsoft.Extensions.Options;
 
@@ -29,12 +31,32 @@ internal class PostLikeCacheHandler : IPostLikeCacheHandler
 
 	public async Task AddAsync(PostLike entity)
 	{
-		await _cacheHandler.SetAsync(PostLikeCacheUtilities.GetByIdKey(entity.Id), entity, _cacheOptions.Expirations[PostLikeCacheUtilities.GetByIdKeyPrefix], PostLikeCacheUtilities.GetTagRange(entity.Id));
+		await _cacheHandler.SetAsync(
+			PostLikeCacheUtilities.GetByIdKey(entity.Id),
+			entity,
+			_cacheOptions.Expirations[PostLikeCacheUtilities.GetByIdKeyPrefix],
+			[PostLikeCacheUtilities.GetTag(entity.Id),
+			 PostCacheUtilities.GetTag(entity.Id.Id),
+			 UserCacheUtilities.GetTag(entity.Id.UserId)]);
 	}
 
 	public async Task AddAsync(PostLikeResponse response, CurrentUserQuery currentUser)
 	{
-		await _cacheHandler.SetAsync(PostLikeCacheUtilities.GetResponseByIdKey(response.Id, currentUser), response, _cacheOptions.Expirations[PostLikeCacheUtilities.GetResponseByIdKeyPrefix], PostLikeCacheUtilities.GetTagRange(response));
+		List<string> tags =
+			[PostLikeCacheUtilities.GetTag(response.Id),
+			 PostCacheUtilities.GetTag(response.Id.Id),
+			 UserCacheUtilities.GetTag(response.Id.UserId)];
+
+		if (response.Post != null)
+		{
+			tags.Add(UserCacheUtilities.GetTag(response.Post.UserId));
+		}
+
+		await _cacheHandler.SetAsync(
+			PostLikeCacheUtilities.GetResponseByIdKey(response.Id, currentUser),
+			response,
+			_cacheOptions.Expirations[PostLikeCacheUtilities.GetResponseByIdKeyPrefix],
+			tags);
 	}
 
 	public async Task<bool?> ExistsByIdAsync(PostLikeId id)
@@ -44,7 +66,13 @@ internal class PostLikeCacheHandler : IPostLikeCacheHandler
 
 	public async Task AddExistsByIdAsync(PostLikeId id, bool exists)
 	{
-		await _cacheHandler.SetAsync<bool?>(PostLikeCacheUtilities.ExistsByIdKey(id), exists, _cacheOptions.Expirations[PostLikeCacheUtilities.ExistsByIdKeyPrefix], PostLikeCacheUtilities.GetTagRange(id));
+		await _cacheHandler.SetAsync<bool?>(
+			PostLikeCacheUtilities.ExistsByIdKey(id),
+			exists,
+			_cacheOptions.Expirations[PostLikeCacheUtilities.ExistsByIdKeyPrefix],
+			[PostLikeCacheUtilities.GetTag(id),
+			 PostCacheUtilities.GetTag(id.Id),
+			 UserCacheUtilities.GetTag(id.UserId)]);
 	}
 
 	public async Task DeleteAsync(PostLikeId id)

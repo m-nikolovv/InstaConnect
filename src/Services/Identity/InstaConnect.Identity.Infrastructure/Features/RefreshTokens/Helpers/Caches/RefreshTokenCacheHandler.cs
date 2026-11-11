@@ -2,6 +2,7 @@ using InstaConnect.Common.Infrastructure.Features.Caches.Abstractions;
 using InstaConnect.Identity.Domain.Features.RefreshTokens.Models.ValueObjects;
 using InstaConnect.Identity.Infrastructure.Features.RefreshTokens.Models.Options;
 using InstaConnect.Identity.Infrastructure.Features.RefreshTokens.Utilities;
+using InstaConnect.Identity.Infrastructure.Features.Users.Utilities;
 
 using Microsoft.Extensions.Options;
 
@@ -25,7 +26,12 @@ internal class RefreshTokenCacheHandler : IRefreshTokenCacheHandler
 
 	public async Task AddAsync(RefreshToken entity)
 	{
-		await _cacheHandler.SetAsync(RefreshTokenCacheUtilities.GetByIdKey(entity.Id), entity, _cacheOptions.Expirations[RefreshTokenCacheUtilities.GetByIdKeyPrefix], RefreshTokenCacheUtilities.GetTagRange(entity.Id));
+		await _cacheHandler.SetAsync(
+			RefreshTokenCacheUtilities.GetByIdKey(entity.Id),
+			entity,
+			_cacheOptions.Expirations[RefreshTokenCacheUtilities.GetByIdKeyPrefix],
+			[RefreshTokenCacheUtilities.GetTag(entity.Id),
+			 UserCacheUtilities.GetTag(entity.Id.Id)]);
 	}
 
 	public async Task DeleteAsync(RefreshTokenId id)

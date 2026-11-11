@@ -1,5 +1,4 @@
 using InstaConnect.Identity.Domain.Features.EmailConfirmationTokens.Models.ValueObjects;
-using InstaConnect.Identity.Infrastructure.Features.Users.Utilities;
 
 namespace InstaConnect.Identity.Infrastructure.Features.EmailConfirmationTokens.Utilities;
 
@@ -10,32 +9,35 @@ public static class EmailConfirmationTokenCacheUtilities
 
 	public static string GetByIdKey(EmailConfirmationTokenId id)
 	{
-		const string Format = GetByIdKeyPrefix + ":{0}:{1}";
+		const string Format = "{0}:{1}:{2}";
 
-		return Format.FormatCurrentCulture(id.Id.Id, id.Value);
+		return Format.FormatCurrentCulture(
+			GetByIdKeyPrefix,
+			id.Id.Id,
+			id.Value);
 	}
 
 	public static string ExistsByIdKey(EmailConfirmationTokenId id)
 	{
-		const string Format = ExistsByIdKeyPrefix + ":{0}:{1}";
+		const string Format = "{0}:{1}:{2}";
 
-		return Format.FormatCurrentCulture(id.Id.Id, id.Value);
+		return Format.FormatCurrentCulture(
+			ExistsByIdKeyPrefix,
+			id.Id.Id,
+			id.Value);
 	}
 
 	public static string GetTag(EmailConfirmationTokenId id)
 	{
 		const string Format = "identity:tags:email-confirmation-tokens:{0}:{1}";
 
-		return Format.FormatCurrentCulture(id.Id.Id, id.Value).ToUpperInvariant();
+		return Format.FormatCurrentCulture(
+			id.Id.Id,
+			id.Value).ToLowerCurrentCulture();
 	}
 
 	public static IEnumerable<string> GetTagRange(IEnumerable<EmailConfirmationTokenId> ids)
 	{
 		return ids.Select(GetTag);
-	}
-
-	public static IEnumerable<string> GetTagRange(EmailConfirmationTokenId id)
-	{
-		return [GetTag(id), UserCacheUtilities.GetTag(id.Id)];
 	}
 }

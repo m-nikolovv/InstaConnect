@@ -2,6 +2,7 @@ using InstaConnect.Common.Infrastructure.Features.Caches.Abstractions;
 using InstaConnect.Identity.Domain.Features.EmailConfirmationTokens.Models.ValueObjects;
 using InstaConnect.Identity.Infrastructure.Features.EmailConfirmationTokens.Models.Options;
 using InstaConnect.Identity.Infrastructure.Features.EmailConfirmationTokens.Utilities;
+using InstaConnect.Identity.Infrastructure.Features.Users.Utilities;
 
 using Microsoft.Extensions.Options;
 
@@ -25,7 +26,12 @@ internal class EmailConfirmationTokenCacheHandler : IEmailConfirmationTokenCache
 
 	public async Task AddAsync(EmailConfirmationToken entity)
 	{
-		await _cacheHandler.SetAsync(EmailConfirmationTokenCacheUtilities.GetByIdKey(entity.Id), entity, _cacheOptions.Expirations[EmailConfirmationTokenCacheUtilities.GetByIdKeyPrefix], EmailConfirmationTokenCacheUtilities.GetTagRange(entity.Id));
+		await _cacheHandler.SetAsync(
+			EmailConfirmationTokenCacheUtilities.GetByIdKey(entity.Id),
+			entity,
+			_cacheOptions.Expirations[EmailConfirmationTokenCacheUtilities.GetByIdKeyPrefix],
+			[EmailConfirmationTokenCacheUtilities.GetTag(entity.Id),
+			 UserCacheUtilities.GetTag(entity.Id.Id)]);
 	}
 
 	public async Task<bool?> ExistsByIdAsync(EmailConfirmationTokenId id)
@@ -35,7 +41,12 @@ internal class EmailConfirmationTokenCacheHandler : IEmailConfirmationTokenCache
 
 	public async Task AddExistsByIdAsync(EmailConfirmationTokenId id, bool exists)
 	{
-		await _cacheHandler.SetAsync<bool?>(EmailConfirmationTokenCacheUtilities.ExistsByIdKey(id), exists, _cacheOptions.Expirations[EmailConfirmationTokenCacheUtilities.ExistsByIdKeyPrefix], EmailConfirmationTokenCacheUtilities.GetTagRange(id));
+		await _cacheHandler.SetAsync<bool?>(
+			EmailConfirmationTokenCacheUtilities.ExistsByIdKey(id),
+			exists,
+			_cacheOptions.Expirations[EmailConfirmationTokenCacheUtilities.ExistsByIdKeyPrefix],
+			[EmailConfirmationTokenCacheUtilities.GetTag(id),
+			 UserCacheUtilities.GetTag(id.Id)]);
 	}
 
 	public async Task DeleteAsync(EmailConfirmationTokenId id)

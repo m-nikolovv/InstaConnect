@@ -11,58 +11,59 @@ public static class UserCacheUtilities
 
 	public static string GetByIdKey(UserId id)
 	{
-		const string Format = GetByIdKeyPrefix + ":{0}";
+		const string Format = "{0}:{1}";
 
-		return Format.FormatCurrentCulture(id.Id);
+		return Format.FormatCurrentCulture(
+			GetByIdKeyPrefix,
+			id.Id);
 	}
 
 	public static string ExistsByIdKey(UserId id)
 	{
-		const string Format = ExistsByIdKeyPrefix + ":{0}";
+		const string Format = "{0}:{1}";
 
-		return Format.FormatCurrentCulture(id.Id);
+		return Format.FormatCurrentCulture(
+			ExistsByIdKeyPrefix,
+			id.Id);
 	}
 
 	public static string GetByNameKey(Name name)
 	{
-		const string Format = GetByNameKeyPrefix + ":{0}";
+		const string Format = "{0}:{1}";
 
-		return Format.FormatCurrentCulture(name.Value);
+		return Format.FormatCurrentCulture(
+			GetByNameKeyPrefix,
+			name.Value);
 	}
 
 	public static string GetByEmailKey(Email email)
 	{
-		const string Format = GetByEmailKeyPrefix + ":{0}";
+		const string Format = "{0}:{1}";
 
-		return Format.FormatCurrentCulture(email.Value);
+		return Format.FormatCurrentCulture(
+			GetByEmailKeyPrefix,
+			email.Value);
 	}
 
 	public static string GetResponseByIdKey(UserId id, CurrentUserQuery currentUser)
 	{
-		const string Format = GetResponseByIdKeyPrefix + ":{0}:{1}";
+		const string Format = "{0}:{1}:{2}";
 
-		return Format.FormatCurrentCulture(id.Id, currentUser.Id.Id);
+		return Format.FormatCurrentCulture(
+			GetResponseByIdKeyPrefix,
+			id.Id,
+			currentUser.Id.Id);
 	}
 
 	public static string GetTag(UserId id)
 	{
 		const string Format = "identity:tags:users:{0}";
 
-		return Format.FormatCurrentCulture(id.Id).ToUpperInvariant();
+		return Format.FormatCurrentCulture(id.Id).ToLowerCurrentCulture();
 	}
 
 	public static IEnumerable<string> GetTagRange(IEnumerable<UserId> ids)
 	{
 		return ids.Select(GetTag);
-	}
-
-	public static IEnumerable<string> GetTagRange(UserId id)
-	{
-		return [GetTag(id)];
-	}
-
-	public static IEnumerable<string> GetTagRange(User entity)
-	{
-		return GetTagRange(entity.Id);
 	}
 }

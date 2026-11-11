@@ -1,6 +1,8 @@
 using InstaConnect.Common.Infrastructure.Features.Caches.Abstractions;
 using InstaConnect.Posts.Infrastructure.Features.PostComments.Models.Options;
 using InstaConnect.Posts.Infrastructure.Features.PostComments.Utilities;
+using InstaConnect.Posts.Infrastructure.Features.Posts.Utilities;
+using InstaConnect.Posts.Infrastructure.Features.Users.Utilities;
 
 using Microsoft.Extensions.Options;
 
@@ -29,12 +31,32 @@ internal class PostCommentCacheHandler : IPostCommentCacheHandler
 
 	public async Task AddAsync(PostComment entity)
 	{
-		await _cacheHandler.SetAsync(PostCommentCacheUtilities.GetByIdKey(entity.Id), entity, _cacheOptions.Expirations[PostCommentCacheUtilities.GetByIdKeyPrefix], PostCommentCacheUtilities.GetTagRange(entity));
+		await _cacheHandler.SetAsync(
+			PostCommentCacheUtilities.GetByIdKey(entity.Id),
+			entity,
+			_cacheOptions.Expirations[PostCommentCacheUtilities.GetByIdKeyPrefix],
+			[PostCommentCacheUtilities.GetTag(entity.Id),
+			 PostCacheUtilities.GetTag(entity.Id.Id),
+			 UserCacheUtilities.GetTag(entity.UserId)]);
 	}
 
 	public async Task AddAsync(PostCommentResponse response, CurrentUserQuery currentUser)
 	{
-		await _cacheHandler.SetAsync(PostCommentCacheUtilities.GetResponseByIdKey(response.Id, currentUser), response, _cacheOptions.Expirations[PostCommentCacheUtilities.GetResponseByIdKeyPrefix], PostCommentCacheUtilities.GetTagRange(response));
+		List<string> tags =
+			[PostCommentCacheUtilities.GetTag(response.Id),
+			 PostCacheUtilities.GetTag(response.Id.Id),
+			 UserCacheUtilities.GetTag(response.UserId)];
+
+		if (response.Post != null)
+		{
+			tags.Add(UserCacheUtilities.GetTag(response.Post.UserId));
+		}
+
+		await _cacheHandler.SetAsync(
+			PostCommentCacheUtilities.GetResponseByIdKey(response.Id, currentUser),
+			response,
+			_cacheOptions.Expirations[PostCommentCacheUtilities.GetResponseByIdKeyPrefix],
+			tags);
 	}
 
 	public async Task<bool?> ExistsByIdAsync(PostCommentId id)
@@ -44,7 +66,12 @@ internal class PostCommentCacheHandler : IPostCommentCacheHandler
 
 	public async Task AddExistsByIdAsync(PostCommentId id, bool exists)
 	{
-		await _cacheHandler.SetAsync<bool?>(PostCommentCacheUtilities.ExistsByIdKey(id), exists, _cacheOptions.Expirations[PostCommentCacheUtilities.ExistsByIdKeyPrefix], PostCommentCacheUtilities.GetTagRange(id));
+		await _cacheHandler.SetAsync<bool?>(
+			PostCommentCacheUtilities.ExistsByIdKey(id),
+			exists,
+			_cacheOptions.Expirations[PostCommentCacheUtilities.ExistsByIdKeyPrefix],
+			[PostCommentCacheUtilities.GetTag(id),
+			 PostCacheUtilities.GetTag(id.Id)]);
 	}
 
 	public async Task DeleteAsync(PostCommentId id)

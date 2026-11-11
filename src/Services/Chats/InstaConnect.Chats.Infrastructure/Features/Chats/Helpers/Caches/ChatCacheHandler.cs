@@ -1,5 +1,6 @@
 using InstaConnect.Chats.Infrastructure.Features.Chats.Models.Options;
 using InstaConnect.Chats.Infrastructure.Features.Chats.Utilities;
+using InstaConnect.Chats.Infrastructure.Features.Users.Utilities;
 using InstaConnect.Common.Infrastructure.Features.Caches.Abstractions;
 
 using Microsoft.Extensions.Options;
@@ -29,12 +30,24 @@ internal class ChatCacheHandler : IChatCacheHandler
 
 	public async Task AddAsync(Chat entity)
 	{
-		await _cacheHandler.SetAsync(ChatCacheUtilities.GetByIdKey(entity.Id), entity, _cacheOptions.Expirations[ChatCacheUtilities.GetByIdKeyPrefix], ChatCacheUtilities.GetTagRange(entity.Id));
+		await _cacheHandler.SetAsync(
+			ChatCacheUtilities.GetByIdKey(entity.Id),
+			entity,
+			_cacheOptions.Expirations[ChatCacheUtilities.GetByIdKeyPrefix],
+			[ChatCacheUtilities.GetTag(entity.Id),
+			 UserCacheUtilities.GetTag(entity.Id.ParticipantOneId),
+			 UserCacheUtilities.GetTag(entity.Id.ParticipantTwoId)]);
 	}
 
 	public async Task AddAsync(ChatResponse response, CurrentUserQuery currentUser)
 	{
-		await _cacheHandler.SetAsync(ChatCacheUtilities.GetResponseByIdKey(response.Id, currentUser), response, _cacheOptions.Expirations[ChatCacheUtilities.GetResponseByIdKeyPrefix], ChatCacheUtilities.GetTagRange(response.Id));
+		await _cacheHandler.SetAsync(
+			ChatCacheUtilities.GetResponseByIdKey(response.Id, currentUser),
+			response,
+			_cacheOptions.Expirations[ChatCacheUtilities.GetResponseByIdKeyPrefix],
+			[ChatCacheUtilities.GetTag(response.Id),
+			 UserCacheUtilities.GetTag(response.Id.ParticipantOneId),
+			 UserCacheUtilities.GetTag(response.Id.ParticipantTwoId)]);
 	}
 
 	public async Task<bool?> ExistsByIdAsync(ChatId id)
@@ -44,7 +57,13 @@ internal class ChatCacheHandler : IChatCacheHandler
 
 	public async Task AddExistsByIdAsync(ChatId id, bool exists)
 	{
-		await _cacheHandler.SetAsync<bool?>(ChatCacheUtilities.ExistsByIdKey(id), exists, _cacheOptions.Expirations[ChatCacheUtilities.ExistsByIdKeyPrefix], ChatCacheUtilities.GetTagRange(id));
+		await _cacheHandler.SetAsync<bool?>(
+			ChatCacheUtilities.ExistsByIdKey(id),
+			exists,
+			_cacheOptions.Expirations[ChatCacheUtilities.ExistsByIdKeyPrefix],
+			[ChatCacheUtilities.GetTag(id),
+			 UserCacheUtilities.GetTag(id.ParticipantOneId),
+			 UserCacheUtilities.GetTag(id.ParticipantTwoId)]);
 	}
 
 	public async Task DeleteAsync(ChatId id)

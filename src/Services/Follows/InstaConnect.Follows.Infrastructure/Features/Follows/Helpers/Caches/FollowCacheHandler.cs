@@ -1,6 +1,7 @@
 using InstaConnect.Common.Infrastructure.Features.Caches.Abstractions;
 using InstaConnect.Follows.Infrastructure.Features.Follows.Models.Options;
 using InstaConnect.Follows.Infrastructure.Features.Follows.Utilities;
+using InstaConnect.Follows.Infrastructure.Features.Users.Utilities;
 
 using Microsoft.Extensions.Options;
 
@@ -29,12 +30,24 @@ internal class FollowCacheHandler : IFollowCacheHandler
 
 	public async Task AddAsync(Follow entity)
 	{
-		await _cacheHandler.SetAsync(FollowCacheUtilities.GetByIdKey(entity.Id), entity, _cacheOptions.Expirations[FollowCacheUtilities.GetByIdKeyPrefix], FollowCacheUtilities.GetTagRange(entity.Id));
+		await _cacheHandler.SetAsync(
+			FollowCacheUtilities.GetByIdKey(entity.Id),
+			entity,
+			_cacheOptions.Expirations[FollowCacheUtilities.GetByIdKeyPrefix],
+			[FollowCacheUtilities.GetTag(entity.Id),
+			 UserCacheUtilities.GetTag(entity.Id.FollowerId),
+			 UserCacheUtilities.GetTag(entity.Id.FollowingId)]);
 	}
 
 	public async Task AddAsync(FollowResponse response, CurrentUserQuery currentUser)
 	{
-		await _cacheHandler.SetAsync(FollowCacheUtilities.GetResponseByIdKey(response.Id, currentUser), response, _cacheOptions.Expirations[FollowCacheUtilities.GetResponseByIdKeyPrefix], FollowCacheUtilities.GetTagRange(response.Id));
+		await _cacheHandler.SetAsync(
+			FollowCacheUtilities.GetResponseByIdKey(response.Id, currentUser),
+			response,
+			_cacheOptions.Expirations[FollowCacheUtilities.GetResponseByIdKeyPrefix],
+			[FollowCacheUtilities.GetTag(response.Id),
+			 UserCacheUtilities.GetTag(response.Id.FollowerId),
+			 UserCacheUtilities.GetTag(response.Id.FollowingId)]);
 	}
 
 	public async Task<bool?> ExistsByIdAsync(FollowId id)
@@ -44,7 +57,13 @@ internal class FollowCacheHandler : IFollowCacheHandler
 
 	public async Task AddExistsByIdAsync(FollowId id, bool exists)
 	{
-		await _cacheHandler.SetAsync<bool?>(FollowCacheUtilities.ExistsByIdKey(id), exists, _cacheOptions.Expirations[FollowCacheUtilities.ExistsByIdKeyPrefix], FollowCacheUtilities.GetTagRange(id));
+		await _cacheHandler.SetAsync<bool?>(
+			FollowCacheUtilities.ExistsByIdKey(id),
+			exists,
+			_cacheOptions.Expirations[FollowCacheUtilities.ExistsByIdKeyPrefix],
+			[FollowCacheUtilities.GetTag(id),
+			 UserCacheUtilities.GetTag(id.FollowerId),
+			 UserCacheUtilities.GetTag(id.FollowingId)]);
 	}
 
 	public async Task DeleteAsync(FollowId id)

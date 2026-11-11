@@ -1,6 +1,7 @@
 using InstaConnect.Common.Infrastructure.Features.Caches.Abstractions;
 using InstaConnect.Identity.Infrastructure.Features.UserClaims.Models.Options;
 using InstaConnect.Identity.Infrastructure.Features.UserClaims.Utilities;
+using InstaConnect.Identity.Infrastructure.Features.Users.Utilities;
 
 using Microsoft.Extensions.Options;
 
@@ -29,12 +30,22 @@ internal class UserClaimCacheHandler : IUserClaimCacheHandler
 
 	public async Task AddAsync(UserClaim entity)
 	{
-		await _cacheHandler.SetAsync(UserClaimCacheUtilities.GetByIdKey(entity.Id), entity, _cacheOptions.Expirations[UserClaimCacheUtilities.GetByIdKeyPrefix], UserClaimCacheUtilities.GetTagRange(entity.Id));
+		await _cacheHandler.SetAsync(
+			UserClaimCacheUtilities.GetByIdKey(entity.Id),
+			entity,
+			_cacheOptions.Expirations[UserClaimCacheUtilities.GetByIdKeyPrefix],
+			[UserClaimCacheUtilities.GetTag(entity.Id),
+			 UserCacheUtilities.GetTag(entity.Id.Id)]);
 	}
 
 	public async Task AddAsync(UserClaimResponse response, CurrentUserQuery currentUser)
 	{
-		await _cacheHandler.SetAsync(UserClaimCacheUtilities.GetResponseByIdKey(response.Id, currentUser), response, _cacheOptions.Expirations[UserClaimCacheUtilities.GetResponseByIdKeyPrefix], UserClaimCacheUtilities.GetTagRange(response.Id));
+		await _cacheHandler.SetAsync(
+			UserClaimCacheUtilities.GetResponseByIdKey(response.Id, currentUser),
+			response,
+			_cacheOptions.Expirations[UserClaimCacheUtilities.GetResponseByIdKeyPrefix],
+			[UserClaimCacheUtilities.GetTag(response.Id),
+			 UserCacheUtilities.GetTag(response.Id.Id)]);
 	}
 
 	public async Task<bool?> ExistsByIdAsync(UserClaimId id)
@@ -44,7 +55,12 @@ internal class UserClaimCacheHandler : IUserClaimCacheHandler
 
 	public async Task AddExistsByIdAsync(UserClaimId id, bool exists)
 	{
-		await _cacheHandler.SetAsync<bool?>(UserClaimCacheUtilities.ExistsByIdKey(id), exists, _cacheOptions.Expirations[UserClaimCacheUtilities.ExistsByIdKeyPrefix], UserClaimCacheUtilities.GetTagRange(id));
+		await _cacheHandler.SetAsync<bool?>(
+			UserClaimCacheUtilities.ExistsByIdKey(id),
+			exists,
+			_cacheOptions.Expirations[UserClaimCacheUtilities.ExistsByIdKeyPrefix],
+			[UserClaimCacheUtilities.GetTag(id),
+			 UserCacheUtilities.GetTag(id.Id)]);
 	}
 
 	public async Task DeleteAsync(UserClaimId id)

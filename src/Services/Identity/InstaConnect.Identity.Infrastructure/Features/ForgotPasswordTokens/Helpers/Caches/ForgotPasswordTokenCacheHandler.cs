@@ -2,6 +2,7 @@ using InstaConnect.Common.Infrastructure.Features.Caches.Abstractions;
 using InstaConnect.Identity.Domain.Features.ForgotPasswordTokens.Models.ValueObjects;
 using InstaConnect.Identity.Infrastructure.Features.ForgotPasswordTokens.Models.Options;
 using InstaConnect.Identity.Infrastructure.Features.ForgotPasswordTokens.Utilities;
+using InstaConnect.Identity.Infrastructure.Features.Users.Utilities;
 
 using Microsoft.Extensions.Options;
 
@@ -25,7 +26,12 @@ internal class ForgotPasswordTokenCacheHandler : IForgotPasswordTokenCacheHandle
 
 	public async Task AddAsync(ForgotPasswordToken entity)
 	{
-		await _cacheHandler.SetAsync(ForgotPasswordTokenCacheUtilities.GetByIdKey(entity.Id), entity, _cacheOptions.Expirations[ForgotPasswordTokenCacheUtilities.GetByIdKeyPrefix], ForgotPasswordTokenCacheUtilities.GetTagRange(entity.Id));
+		await _cacheHandler.SetAsync(
+			ForgotPasswordTokenCacheUtilities.GetByIdKey(entity.Id),
+			entity,
+			_cacheOptions.Expirations[ForgotPasswordTokenCacheUtilities.GetByIdKeyPrefix],
+			[ForgotPasswordTokenCacheUtilities.GetTag(entity.Id),
+			 UserCacheUtilities.GetTag(entity.Id.Id)]);
 	}
 
 	public async Task<bool?> ExistsByIdAsync(ForgotPasswordTokenId id)
@@ -35,7 +41,12 @@ internal class ForgotPasswordTokenCacheHandler : IForgotPasswordTokenCacheHandle
 
 	public async Task AddExistsByIdAsync(ForgotPasswordTokenId id, bool exists)
 	{
-		await _cacheHandler.SetAsync<bool?>(ForgotPasswordTokenCacheUtilities.ExistsByIdKey(id), exists, _cacheOptions.Expirations[ForgotPasswordTokenCacheUtilities.ExistsByIdKeyPrefix], ForgotPasswordTokenCacheUtilities.GetTagRange(id));
+		await _cacheHandler.SetAsync<bool?>(
+			ForgotPasswordTokenCacheUtilities.ExistsByIdKey(id),
+			exists,
+			_cacheOptions.Expirations[ForgotPasswordTokenCacheUtilities.ExistsByIdKeyPrefix],
+			[ForgotPasswordTokenCacheUtilities.GetTag(id),
+			 UserCacheUtilities.GetTag(id.Id)]);
 	}
 
 	public async Task DeleteAsync(ForgotPasswordTokenId id)

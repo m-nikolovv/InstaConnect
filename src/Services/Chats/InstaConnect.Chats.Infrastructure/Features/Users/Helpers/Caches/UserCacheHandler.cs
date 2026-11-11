@@ -29,12 +29,20 @@ internal class UserCacheHandler : IUserCacheHandler
 
 	public async Task AddAsync(User entity)
 	{
-		await _cacheHandler.SetAsync(UserCacheUtilities.GetByIdKey(entity.Id), entity, _cacheOptions.Expirations[UserCacheUtilities.GetByIdKeyPrefix], UserCacheUtilities.GetTagRange(entity.Id));
+		await _cacheHandler.SetAsync(
+			UserCacheUtilities.GetByIdKey(entity.Id),
+			entity,
+			_cacheOptions.Expirations[UserCacheUtilities.GetByIdKeyPrefix],
+			[UserCacheUtilities.GetTag(entity.Id)]);
 	}
 
 	public async Task AddAsync(UserResponse response, CurrentUserQuery currentUser)
 	{
-		await _cacheHandler.SetAsync(UserCacheUtilities.GetResponseByIdKey(response.Id, currentUser), response, _cacheOptions.Expirations[UserCacheUtilities.GetResponseByIdKeyPrefix], UserCacheUtilities.GetTagRange(response.Id));
+		await _cacheHandler.SetAsync(
+			UserCacheUtilities.GetResponseByIdKey(response.Id, currentUser),
+			response,
+			_cacheOptions.Expirations[UserCacheUtilities.GetResponseByIdKeyPrefix],
+			[UserCacheUtilities.GetTag(response.Id)]);
 	}
 
 	public async Task<bool?> ExistsByIdAsync(UserId id)
@@ -44,7 +52,11 @@ internal class UserCacheHandler : IUserCacheHandler
 
 	public async Task AddExistsByIdAsync(UserId id, bool exists)
 	{
-		await _cacheHandler.SetAsync<bool?>(UserCacheUtilities.ExistsByIdKey(id), exists, _cacheOptions.Expirations[UserCacheUtilities.ExistsByIdKeyPrefix], UserCacheUtilities.GetTagRange(id));
+		await _cacheHandler.SetAsync<bool?>(
+			UserCacheUtilities.ExistsByIdKey(id),
+			exists,
+			_cacheOptions.Expirations[UserCacheUtilities.ExistsByIdKeyPrefix],
+			[UserCacheUtilities.GetTag(id)]);
 	}
 
 	public async Task<User?> GetByNameAsync(Name name)
@@ -54,7 +66,11 @@ internal class UserCacheHandler : IUserCacheHandler
 
 	public async Task AddByNameAsync(User entity)
 	{
-		await _cacheHandler.SetAsync(UserCacheUtilities.GetByNameKey(entity.Name), entity, _cacheOptions.Expirations[UserCacheUtilities.GetByNameKeyPrefix], UserCacheUtilities.GetTagRange(entity));
+		await _cacheHandler.SetAsync(
+			UserCacheUtilities.GetByNameKey(entity.Name),
+			entity,
+			_cacheOptions.Expirations[UserCacheUtilities.GetByNameKeyPrefix],
+			[UserCacheUtilities.GetTag(entity.Id)]);
 	}
 
 	public async Task<User?> GetByEmailAsync(Email email)
@@ -64,7 +80,11 @@ internal class UserCacheHandler : IUserCacheHandler
 
 	public async Task AddByEmailAsync(User entity)
 	{
-		await _cacheHandler.SetAsync(UserCacheUtilities.GetByEmailKey(entity.Email), entity, _cacheOptions.Expirations[UserCacheUtilities.GetByEmailKeyPrefix], UserCacheUtilities.GetTagRange(entity));
+		await _cacheHandler.SetAsync(
+			UserCacheUtilities.GetByEmailKey(entity.Email),
+			entity,
+			_cacheOptions.Expirations[UserCacheUtilities.GetByEmailKeyPrefix],
+			[UserCacheUtilities.GetTag(entity.Id)]);
 	}
 
 	public async Task DeleteAsync(UserId id)
