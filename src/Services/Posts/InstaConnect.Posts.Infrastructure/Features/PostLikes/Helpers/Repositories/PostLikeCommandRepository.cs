@@ -5,13 +5,16 @@ namespace InstaConnect.Posts.Infrastructure.Features.PostLikes.Helpers.Repositor
 internal class PostLikeCommandRepository : IPostLikeCommandRepository
 {
 	private readonly IPostLikeCollection _collection;
+	private readonly IPostLikeCacheHandler _likeCacheHandler;
 	private readonly IPostLikeIncludeBuilderFactory _includeBuilderFactory;
 
 	public PostLikeCommandRepository(
 		IPostLikeCollection collection,
+		IPostLikeCacheHandler likeCacheHandler,
 		IPostLikeIncludeBuilderFactory includeBuilderFactory)
 	{
 		_collection = collection;
+		_likeCacheHandler = likeCacheHandler;
 		_includeBuilderFactory = includeBuilderFactory;
 	}
 
@@ -31,9 +34,23 @@ internal class PostLikeCommandRepository : IPostLikeCommandRepository
 		PostLikeId id,
 		CancellationToken cancellationToken)
 	{
+		var cachedEntity = await _likeCacheHandler.GetByIdAsync(id);
+
+		if (cachedEntity != null)
+		{
+			return cachedEntity;
+		}
+
 		var include = _includeBuilderFactory.Create().Build();
 
-		return await GetByIdAsync(id, include, cancellationToken);
+		var entity = await GetByIdAsync(id, include, cancellationToken);
+
+		if (entity != null)
+		{
+			await _likeCacheHandler.AddAsync(entity);
+		}
+
+		return entity;
 	}
 
 	public async Task<ICollection<PostLike>> GetByIdRangeAsync(
@@ -61,10 +78,21 @@ internal class PostLikeCommandRepository : IPostLikeCommandRepository
 		PostLikeId id,
 		CancellationToken cancellationToken)
 	{
-		return await _collection
+		var cachedExists = await _likeCacheHandler.ExistsByIdAsync(id);
+
+		if (cachedExists != null)
+		{
+			return cachedExists.Value;
+		}
+
+		var exists = await _collection
 			.AggregateFluent()
 			.Match(id)
 			.AnyAsync(cancellationToken);
+
+		await _likeCacheHandler.AddExistsByIdAsync(id, exists);
+
+		return exists;
 	}
 
 	public async Task AddAsync(PostLike entity, CancellationToken cancellationToken)

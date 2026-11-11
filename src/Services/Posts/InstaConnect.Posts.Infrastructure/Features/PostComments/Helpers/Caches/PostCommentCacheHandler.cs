@@ -2,7 +2,6 @@ using InstaConnect.Common.Infrastructure.Features.Caches.Abstractions;
 using InstaConnect.Posts.Infrastructure.Features.PostComments.Models.Options;
 using InstaConnect.Posts.Infrastructure.Features.PostComments.Utilities;
 using InstaConnect.Posts.Infrastructure.Features.Posts.Utilities;
-using InstaConnect.Posts.Infrastructure.Features.Users.Utilities;
 
 using Microsoft.Extensions.Options;
 
@@ -35,9 +34,7 @@ internal class PostCommentCacheHandler : IPostCommentCacheHandler
 			PostCommentCacheUtilities.GetByIdKey(entity.Id),
 			entity,
 			_cacheOptions.Expirations[PostCommentCacheUtilities.GetByIdKeyPrefix],
-			[PostCommentCacheUtilities.GetTag(entity.Id),
-			 PostCacheUtilities.GetTag(entity.Id.Id),
-			 UserCacheUtilities.GetTag(entity.UserId)]);
+			[PostCommentCacheUtilities.GetTag(entity.Id)]);
 	}
 
 	public async Task AddAsync(PostCommentResponse response, CurrentUserQuery currentUser)
@@ -47,8 +44,6 @@ internal class PostCommentCacheHandler : IPostCommentCacheHandler
 			response,
 			_cacheOptions.Expirations[PostCommentCacheUtilities.GetResponseByIdKeyPrefix],
 			[PostCommentCacheUtilities.GetTag(response.Id),
-			 PostCacheUtilities.GetTag(response.Id.Id),
-			 UserCacheUtilities.GetTag(response.UserId),
 			 PostCommentCacheUtilities.GetResponseTag(response.Id),
 			 PostCacheUtilities.GetResponseTag(response.Id.Id)]);
 	}
@@ -72,8 +67,7 @@ internal class PostCommentCacheHandler : IPostCommentCacheHandler
 			PostCommentCacheUtilities.ExistsByIdKey(id),
 			exists,
 			_cacheOptions.Expirations[PostCommentCacheUtilities.ExistsByIdKeyPrefix],
-			[PostCommentCacheUtilities.GetTag(id),
-			 PostCacheUtilities.GetTag(id.Id)]);
+			[PostCommentCacheUtilities.GetTag(id)]);
 	}
 
 	public async Task DeleteAsync(PostCommentId id)

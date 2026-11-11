@@ -2,7 +2,6 @@ using InstaConnect.Common.Infrastructure.Features.Caches.Abstractions;
 using InstaConnect.Identity.Domain.Features.ForgotPasswordTokens.Models.ValueObjects;
 using InstaConnect.Identity.Infrastructure.Features.ForgotPasswordTokens.Models.Options;
 using InstaConnect.Identity.Infrastructure.Features.ForgotPasswordTokens.Utilities;
-using InstaConnect.Identity.Infrastructure.Features.Users.Utilities;
 
 using Microsoft.Extensions.Options;
 
@@ -30,8 +29,7 @@ internal class ForgotPasswordTokenCacheHandler : IForgotPasswordTokenCacheHandle
 			ForgotPasswordTokenCacheUtilities.GetByIdKey(entity.Id),
 			entity,
 			_cacheOptions.Expirations[ForgotPasswordTokenCacheUtilities.GetByIdKeyPrefix],
-			[ForgotPasswordTokenCacheUtilities.GetTag(entity.Id),
-			 UserCacheUtilities.GetTag(entity.Id.Id)]);
+			[ForgotPasswordTokenCacheUtilities.GetTag(entity.Id)]);
 	}
 
 	public async Task AddRangeAsync(IEnumerable<ForgotPasswordToken> entities)
@@ -53,8 +51,7 @@ internal class ForgotPasswordTokenCacheHandler : IForgotPasswordTokenCacheHandle
 			ForgotPasswordTokenCacheUtilities.ExistsByIdKey(id),
 			exists,
 			_cacheOptions.Expirations[ForgotPasswordTokenCacheUtilities.ExistsByIdKeyPrefix],
-			[ForgotPasswordTokenCacheUtilities.GetTag(id),
-			 UserCacheUtilities.GetTag(id.Id)]);
+			[ForgotPasswordTokenCacheUtilities.GetTag(id)]);
 	}
 
 	public async Task DeleteAsync(ForgotPasswordTokenId id)

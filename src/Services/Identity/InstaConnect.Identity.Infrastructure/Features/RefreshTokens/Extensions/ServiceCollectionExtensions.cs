@@ -1,6 +1,4 @@
-using InstaConnect.Identity.Domain.Features.RefreshTokens.Abstractions;
 using InstaConnect.Identity.Domain.Features.RefreshTokens.Models.Options;
-using InstaConnect.Identity.Infrastructure.Features.RefreshTokens.Helpers.Repositories;
 using InstaConnect.Identity.Infrastructure.Features.RefreshTokens.Models.Options;
 
 namespace InstaConnect.Identity.Infrastructure.Features.RefreshTokens.Extensions;
@@ -20,9 +18,6 @@ internal static class ServiceCollectionExtensions
 			serviceCollection.AddValidatedOptions<RefreshTokenCacheOptions>(RefreshTokenCacheOptions.SectionName);
 
 			serviceCollection.AddCollection<RefreshToken>(CollectionName);
-
-			serviceCollection.AddScoped<IRefreshTokenCommandRepository, RefreshTokenCommandRepository>()
-							 .Decorate<IRefreshTokenCommandRepository, CachedRefreshTokenCommandRepository>();
 
 			BsonClassMap.TryRegisterClassMap<RefreshToken>(cm =>
 			{

@@ -6,20 +6,38 @@ namespace InstaConnect.Chats.Infrastructure.Features.ChatMessageImages.Helpers.R
 internal class ChatMessageImageCommandRepository : IChatMessageImageCommandRepository
 {
 	private readonly IChatMessageImageCollection _collection;
+	private readonly IChatMessageImageCacheHandler _messageImageCacheHandler;
 
-	public ChatMessageImageCommandRepository(IChatMessageImageCollection collection)
+	public ChatMessageImageCommandRepository(
+		IChatMessageImageCollection collection,
+		IChatMessageImageCacheHandler messageImageCacheHandler)
 	{
 		_collection = collection;
+		_messageImageCacheHandler = messageImageCacheHandler;
 	}
 
 	public async Task<ChatMessageImage?> GetByIdAsync(
 		ChatMessageImageId id,
 		CancellationToken cancellationToken)
 	{
-		return await _collection
+		var cachedEntity = await _messageImageCacheHandler.GetByIdAsync(id);
+
+		if (cachedEntity != null)
+		{
+			return cachedEntity;
+		}
+
+		var entity = await _collection
 			.AggregateFluent()
 			.Match(id)
 			.FirstOrDefaultAsync(cancellationToken);
+
+		if (entity != null)
+		{
+			await _messageImageCacheHandler.AddAsync(entity);
+		}
+
+		return entity;
 	}
 
 	public async Task<ICollection<ChatMessageImage>> GetByIdRangeAsync(

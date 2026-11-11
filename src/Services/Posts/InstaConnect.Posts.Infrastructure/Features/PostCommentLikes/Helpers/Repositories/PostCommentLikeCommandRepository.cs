@@ -5,14 +5,17 @@ namespace InstaConnect.Posts.Infrastructure.Features.PostCommentLikes.Helpers.Re
 internal class PostCommentLikeCommandRepository : IPostCommentLikeCommandRepository
 {
 	private readonly IPostCommentLikeCollection _collection;
+	private readonly IPostCommentLikeCacheHandler _commentLikeCacheHandler;
 	private readonly IPostCommentLikeIncludeBuilderFactory _includeBuilderFactory;
 
 	public PostCommentLikeCommandRepository(
 		IPostCommentLikeCollection collection,
+		IPostCommentLikeCacheHandler commentLikeCacheHandler,
 		IPostCommentLikeIncludeBuilderFactory includeBuilderFactory)
 	{
 		_collection = collection;
 		_includeBuilderFactory = includeBuilderFactory;
+		_commentLikeCacheHandler = commentLikeCacheHandler;
 	}
 
 	public async Task<PostCommentLike?> GetByIdAsync(
@@ -31,9 +34,23 @@ internal class PostCommentLikeCommandRepository : IPostCommentLikeCommandReposit
 		PostCommentLikeId id,
 		CancellationToken cancellationToken)
 	{
+		var cachedEntity = await _commentLikeCacheHandler.GetByIdAsync(id);
+
+		if (cachedEntity != null)
+		{
+			return cachedEntity;
+		}
+
 		var include = _includeBuilderFactory.Create().Build();
 
-		return await GetByIdAsync(id, include, cancellationToken);
+		var entity = await GetByIdAsync(id, include, cancellationToken);
+
+		if (entity != null)
+		{
+			await _commentLikeCacheHandler.AddAsync(entity);
+		}
+
+		return entity;
 	}
 
 	public async Task<ICollection<PostCommentLike>> GetByIdRangeAsync(
@@ -61,10 +78,21 @@ internal class PostCommentLikeCommandRepository : IPostCommentLikeCommandReposit
 		PostCommentLikeId id,
 		CancellationToken cancellationToken)
 	{
-		return await _collection
+		var cachedExists = await _commentLikeCacheHandler.ExistsByIdAsync(id);
+
+		if (cachedExists != null)
+		{
+			return cachedExists.Value;
+		}
+
+		var exists = await _collection
 			.AggregateFluent()
 			.Match(id)
 			.AnyAsync(cancellationToken);
+
+		await _commentLikeCacheHandler.AddExistsByIdAsync(id, exists);
+
+		return exists;
 	}
 
 	public async Task AddAsync(PostCommentLike entity, CancellationToken cancellationToken)

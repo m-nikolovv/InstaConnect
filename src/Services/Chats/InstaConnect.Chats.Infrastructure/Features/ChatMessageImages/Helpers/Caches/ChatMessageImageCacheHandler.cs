@@ -1,9 +1,6 @@
 using InstaConnect.Chats.Infrastructure.Features.ChatMessageImages.Abstractions;
 using InstaConnect.Chats.Infrastructure.Features.ChatMessageImages.Models.Options;
 using InstaConnect.Chats.Infrastructure.Features.ChatMessageImages.Utilities;
-using InstaConnect.Chats.Infrastructure.Features.ChatMessages.Utilities;
-using InstaConnect.Chats.Infrastructure.Features.Chats.Utilities;
-using InstaConnect.Chats.Infrastructure.Features.Users.Utilities;
 using InstaConnect.Common.Infrastructure.Features.Caches.Abstractions;
 
 using Microsoft.Extensions.Options;
@@ -32,11 +29,7 @@ internal class ChatMessageImageCacheHandler : IChatMessageImageCacheHandler
 			ChatMessageImageCacheUtilities.GetByIdKey(entity.Id),
 			entity,
 			_cacheOptions.Expirations[ChatMessageImageCacheUtilities.GetByIdKeyPrefix],
-			[ChatMessageImageCacheUtilities.GetTag(entity.Id),
-			 ChatMessageCacheUtilities.GetTag(entity.Id.Id),
-			 ChatCacheUtilities.GetTag(entity.Id.Id.Id),
-			 UserCacheUtilities.GetTag(entity.Id.Id.Id.ParticipantOneId),
-			 UserCacheUtilities.GetTag(entity.Id.Id.Id.ParticipantTwoId)]);
+			[ChatMessageImageCacheUtilities.GetTag(entity.Id)]);
 	}
 
 	public async Task AddRangeAsync(IEnumerable<ChatMessageImage> entities)

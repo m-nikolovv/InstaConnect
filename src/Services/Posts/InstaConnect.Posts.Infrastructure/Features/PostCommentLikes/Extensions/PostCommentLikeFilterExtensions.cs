@@ -58,6 +58,14 @@ internal static class PostCommentLikeFilterExtensions
 		}
 	}
 
+	extension(PostCommentId filter)
+	{
+		public FilterDefinition<PostCommentLike> GetPostCommentLikeCascadeFilter()
+		{
+			return filter.GetFilterForIdEquals<PostCommentLike>(p => p.Id.CommentId.Id.Id, p => p.Id.CommentId.CommentId);
+		}
+	}
+
 	extension(IEnumerable<PostCommentId> filter)
 	{
 		public FilterDefinition<PostCommentLike> GetPostCommentLikeCascadeFilter()

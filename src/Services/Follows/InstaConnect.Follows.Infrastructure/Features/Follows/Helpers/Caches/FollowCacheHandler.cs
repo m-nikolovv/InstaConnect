@@ -1,7 +1,6 @@
 using InstaConnect.Common.Infrastructure.Features.Caches.Abstractions;
 using InstaConnect.Follows.Infrastructure.Features.Follows.Models.Options;
 using InstaConnect.Follows.Infrastructure.Features.Follows.Utilities;
-using InstaConnect.Follows.Infrastructure.Features.Users.Utilities;
 
 using Microsoft.Extensions.Options;
 
@@ -34,9 +33,7 @@ internal class FollowCacheHandler : IFollowCacheHandler
 			FollowCacheUtilities.GetByIdKey(entity.Id),
 			entity,
 			_cacheOptions.Expirations[FollowCacheUtilities.GetByIdKeyPrefix],
-			[FollowCacheUtilities.GetTag(entity.Id),
-			 UserCacheUtilities.GetTag(entity.Id.FollowerId),
-			 UserCacheUtilities.GetTag(entity.Id.FollowingId)]);
+			[FollowCacheUtilities.GetTag(entity.Id)]);
 	}
 
 	public async Task AddAsync(FollowResponse response, CurrentUserQuery currentUser)
@@ -45,9 +42,7 @@ internal class FollowCacheHandler : IFollowCacheHandler
 			FollowCacheUtilities.GetResponseByIdKey(response.Id, currentUser),
 			response,
 			_cacheOptions.Expirations[FollowCacheUtilities.GetResponseByIdKeyPrefix],
-			[FollowCacheUtilities.GetTag(response.Id),
-			 UserCacheUtilities.GetTag(response.Id.FollowerId),
-			 UserCacheUtilities.GetTag(response.Id.FollowingId)]);
+			[FollowCacheUtilities.GetTag(response.Id)]);
 	}
 
 	public async Task AddRangeAsync(IEnumerable<Follow> entities)
@@ -69,9 +64,7 @@ internal class FollowCacheHandler : IFollowCacheHandler
 			FollowCacheUtilities.ExistsByIdKey(id),
 			exists,
 			_cacheOptions.Expirations[FollowCacheUtilities.ExistsByIdKeyPrefix],
-			[FollowCacheUtilities.GetTag(id),
-			 UserCacheUtilities.GetTag(id.FollowerId),
-			 UserCacheUtilities.GetTag(id.FollowingId)]);
+			[FollowCacheUtilities.GetTag(id)]);
 	}
 
 	public async Task DeleteAsync(FollowId id)

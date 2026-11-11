@@ -5,10 +5,14 @@ namespace InstaConnect.Identity.Infrastructure.Features.Users.Helpers.Repositori
 internal class UserQueryRepository : IUserQueryRepository
 {
 	private readonly IUserCollection _collection;
+	private readonly IUserCacheHandler _cacheHandler;
 
-	public UserQueryRepository(IUserCollection collection)
+	public UserQueryRepository(
+		IUserCollection collection,
+		IUserCacheHandler cacheHandler)
 	{
 		_collection = collection;
+		_cacheHandler = cacheHandler;
 	}
 
 	public async Task<ICollection<UserResponse>> GetAllAsync(
@@ -42,20 +46,45 @@ internal class UserQueryRepository : IUserQueryRepository
 		CurrentUserQuery current,
 		CancellationToken cancellationToken)
 	{
-		return await _collection
+		var cachedResponse = await _cacheHandler.GetByIdAsync(id, current);
+
+		if (cachedResponse != null)
+		{
+			return cachedResponse;
+		}
+
+		var response = await _collection
 			.AggregateFluent()
 			.Match(id)
 			.ProjectToFullResponse(current)
 			.FirstOrDefaultAsync(cancellationToken);
+
+		if (response != null)
+		{
+			await _cacheHandler.AddAsync(response, current);
+		}
+
+		return response;
 	}
 
 	public async Task<bool> ExistsByIdAsync(
 		UserId id,
 		CancellationToken cancellationToken)
 	{
-		return await _collection
+		var cachedExists = await _cacheHandler.ExistsByIdAsync(id);
+
+		if (cachedExists != null)
+		{
+			return cachedExists.Value;
+		}
+
+		var exists = await _collection
 			.AggregateFluent()
 			.Match(id)
 			.AnyAsync(cancellationToken);
+
+		await _cacheHandler.AddExistsByIdAsync(id, exists);
+
+		return exists;
 	}
 }

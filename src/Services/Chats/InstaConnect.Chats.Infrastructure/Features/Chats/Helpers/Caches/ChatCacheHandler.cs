@@ -1,6 +1,5 @@
 using InstaConnect.Chats.Infrastructure.Features.Chats.Models.Options;
 using InstaConnect.Chats.Infrastructure.Features.Chats.Utilities;
-using InstaConnect.Chats.Infrastructure.Features.Users.Utilities;
 using InstaConnect.Common.Infrastructure.Features.Caches.Abstractions;
 
 using Microsoft.Extensions.Options;
@@ -34,9 +33,7 @@ internal class ChatCacheHandler : IChatCacheHandler
 			ChatCacheUtilities.GetByIdKey(entity.Id),
 			entity,
 			_cacheOptions.Expirations[ChatCacheUtilities.GetByIdKeyPrefix],
-			[ChatCacheUtilities.GetTag(entity.Id),
-			 UserCacheUtilities.GetTag(entity.Id.ParticipantOneId),
-			 UserCacheUtilities.GetTag(entity.Id.ParticipantTwoId)]);
+			[ChatCacheUtilities.GetTag(entity.Id)]);
 	}
 
 	public async Task AddAsync(ChatResponse response, CurrentUserQuery currentUser)
@@ -46,8 +43,6 @@ internal class ChatCacheHandler : IChatCacheHandler
 			response,
 			_cacheOptions.Expirations[ChatCacheUtilities.GetResponseByIdKeyPrefix],
 			[ChatCacheUtilities.GetTag(response.Id),
-			 UserCacheUtilities.GetTag(response.Id.ParticipantOneId),
-			 UserCacheUtilities.GetTag(response.Id.ParticipantTwoId),
 			 ChatCacheUtilities.GetResponseTag(response.Id)]);
 	}
 
@@ -70,9 +65,7 @@ internal class ChatCacheHandler : IChatCacheHandler
 			ChatCacheUtilities.ExistsByIdKey(id),
 			exists,
 			_cacheOptions.Expirations[ChatCacheUtilities.ExistsByIdKeyPrefix],
-			[ChatCacheUtilities.GetTag(id),
-			 UserCacheUtilities.GetTag(id.ParticipantOneId),
-			 UserCacheUtilities.GetTag(id.ParticipantTwoId)]);
+			[ChatCacheUtilities.GetTag(id)]);
 	}
 
 	public async Task DeleteAsync(ChatId id)

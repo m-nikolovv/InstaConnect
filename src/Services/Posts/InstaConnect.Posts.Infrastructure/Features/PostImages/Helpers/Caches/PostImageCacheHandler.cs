@@ -3,7 +3,6 @@ using InstaConnect.Posts.Domain.Features.PostImages.Models.ValueObjects;
 using InstaConnect.Posts.Infrastructure.Features.PostImages.Abstractions;
 using InstaConnect.Posts.Infrastructure.Features.PostImages.Models.Options;
 using InstaConnect.Posts.Infrastructure.Features.PostImages.Utilities;
-using InstaConnect.Posts.Infrastructure.Features.Posts.Utilities;
 
 using Microsoft.Extensions.Options;
 
@@ -31,8 +30,7 @@ internal class PostImageCacheHandler : IPostImageCacheHandler
 			PostImageCacheUtilities.GetByIdKey(entity.Id),
 			entity,
 			_cacheOptions.Expirations[PostImageCacheUtilities.GetByIdKeyPrefix],
-			[PostImageCacheUtilities.GetTag(entity.Id),
-			 PostCacheUtilities.GetTag(entity.Id.Id)]);
+			[PostImageCacheUtilities.GetTag(entity.Id)]);
 	}
 
 	public async Task AddRangeAsync(IEnumerable<PostImage> entities)

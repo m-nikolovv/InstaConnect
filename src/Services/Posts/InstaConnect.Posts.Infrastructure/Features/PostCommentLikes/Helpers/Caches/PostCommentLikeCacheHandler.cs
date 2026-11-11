@@ -3,7 +3,6 @@ using InstaConnect.Posts.Infrastructure.Features.PostCommentLikes.Models.Options
 using InstaConnect.Posts.Infrastructure.Features.PostCommentLikes.Utilities;
 using InstaConnect.Posts.Infrastructure.Features.PostComments.Utilities;
 using InstaConnect.Posts.Infrastructure.Features.Posts.Utilities;
-using InstaConnect.Posts.Infrastructure.Features.Users.Utilities;
 
 using Microsoft.Extensions.Options;
 
@@ -36,10 +35,7 @@ internal class PostCommentLikeCacheHandler : IPostCommentLikeCacheHandler
 			PostCommentLikeCacheUtilities.GetByIdKey(entity.Id),
 			entity,
 			_cacheOptions.Expirations[PostCommentLikeCacheUtilities.GetByIdKeyPrefix],
-			[PostCommentLikeCacheUtilities.GetTag(entity.Id),
-			 PostCommentCacheUtilities.GetTag(entity.Id.CommentId),
-			 PostCacheUtilities.GetTag(entity.Id.CommentId.Id),
-			 UserCacheUtilities.GetTag(entity.Id.UserId)]);
+			[PostCommentLikeCacheUtilities.GetTag(entity.Id)]);
 	}
 
 	public async Task AddAsync(PostCommentLikeResponse response, CurrentUserQuery currentUser)
@@ -49,9 +45,6 @@ internal class PostCommentLikeCacheHandler : IPostCommentLikeCacheHandler
 			response,
 			_cacheOptions.Expirations[PostCommentLikeCacheUtilities.GetResponseByIdKeyPrefix],
 			[PostCommentLikeCacheUtilities.GetTag(response.Id),
-			 PostCommentCacheUtilities.GetTag(response.Id.CommentId),
-			 PostCacheUtilities.GetTag(response.Id.CommentId.Id),
-			 UserCacheUtilities.GetTag(response.Id.UserId),
 			 PostCommentCacheUtilities.GetResponseTag(response.Id.CommentId),
 			 PostCacheUtilities.GetResponseTag(response.Id.CommentId.Id)]);
 	}
@@ -75,10 +68,7 @@ internal class PostCommentLikeCacheHandler : IPostCommentLikeCacheHandler
 			PostCommentLikeCacheUtilities.ExistsByIdKey(id),
 			exists,
 			_cacheOptions.Expirations[PostCommentLikeCacheUtilities.ExistsByIdKeyPrefix],
-			[PostCommentLikeCacheUtilities.GetTag(id),
-			 PostCommentCacheUtilities.GetTag(id.CommentId),
-			 PostCacheUtilities.GetTag(id.CommentId.Id),
-			 UserCacheUtilities.GetTag(id.UserId)]);
+			[PostCommentLikeCacheUtilities.GetTag(id)]);
 	}
 
 	public async Task DeleteAsync(PostCommentLikeId id)

@@ -5,13 +5,16 @@ namespace InstaConnect.Posts.Infrastructure.Features.PostComments.Helpers.Reposi
 internal class PostCommentCommandRepository : IPostCommentCommandRepository
 {
 	private readonly IPostCommentCollection _collection;
+	private readonly IPostCommentCacheHandler _commentCacheHandler;
 	private readonly IPostCommentIncludeBuilderFactory _includeBuilderFactory;
 
 	public PostCommentCommandRepository(
 		IPostCommentCollection collection,
+		IPostCommentCacheHandler commentCacheHandler,
 		IPostCommentIncludeBuilderFactory includeBuilderFactory)
 	{
 		_collection = collection;
+		_commentCacheHandler = commentCacheHandler;
 		_includeBuilderFactory = includeBuilderFactory;
 	}
 
@@ -31,9 +34,23 @@ internal class PostCommentCommandRepository : IPostCommentCommandRepository
 		PostCommentId id,
 		CancellationToken cancellationToken)
 	{
+		var cachedEntity = await _commentCacheHandler.GetByIdAsync(id);
+
+		if (cachedEntity != null)
+		{
+			return cachedEntity;
+		}
+
 		var include = _includeBuilderFactory.Create().Build();
 
-		return await GetByIdAsync(id, include, cancellationToken);
+		var entity = await GetByIdAsync(id, include, cancellationToken);
+
+		if (entity != null)
+		{
+			await _commentCacheHandler.AddAsync(entity);
+		}
+
+		return entity;
 	}
 
 	public async Task<ICollection<PostComment>> GetByIdRangeAsync(
@@ -61,10 +78,21 @@ internal class PostCommentCommandRepository : IPostCommentCommandRepository
 		PostCommentId id,
 		CancellationToken cancellationToken)
 	{
-		return await _collection
+		var cachedExists = await _commentCacheHandler.ExistsByIdAsync(id);
+
+		if (cachedExists != null)
+		{
+			return cachedExists.Value;
+		}
+
+		var exists = await _collection
 			.AggregateFluent()
 			.Match(id)
 			.AnyAsync(cancellationToken);
+
+		await _commentCacheHandler.AddExistsByIdAsync(id, exists);
+
+		return exists;
 	}
 
 	public async Task AddAsync(PostComment entity, CancellationToken cancellationToken)

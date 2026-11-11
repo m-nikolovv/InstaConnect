@@ -5,15 +5,18 @@ namespace InstaConnect.Follows.Infrastructure.Features.Users.Helpers.Collections
 
 internal class UserCollection : MongoDbCollection<User, UserId>, IUserCollection
 {
+	private readonly IUserCacheHandler _cacheHandler;
 	private readonly IUserFluentFactory _fluentFactory;
 	private readonly IFollowCollection _followCollection;
 
 	public UserCollection(
 		ISessionHandler sessionHandler,
+		IUserCacheHandler cacheHandler,
 		IUserFluentFactory fluentFactory,
 		IMongoCollection<User> collection,
 		IFollowCollection followCollection) : base(sessionHandler, collection)
 	{
+		_cacheHandler = cacheHandler;
 		_fluentFactory = fluentFactory;
 		_followCollection = followCollection;
 	}
@@ -25,11 +28,30 @@ internal class UserCollection : MongoDbCollection<User, UserId>, IUserCollection
 		return _fluentFactory.Create(fluent);
 	}
 
+	public async Task AddAsync(
+		User entity,
+		CancellationToken cancellationToken)
+	{
+		await _followCollection.CascadeAddAsync(entity.Id.GetFollowCascadeFilter(), cancellationToken);
+		await InsertAsync(entity, cancellationToken);
+		await _cacheHandler.DeleteAsync(entity.Id);
+	}
+
+	public async Task AddRangeAsync(
+		IEnumerable<User> entities,
+		CancellationToken cancellationToken)
+	{
+		await InsertRangeAsync(entities, cancellationToken);
+		await _cacheHandler.DeleteRangeAsync(entities.Select(p => p.Id));
+	}
+
 	public async Task UpdateAsync(
 		User entity,
 		CancellationToken cancellationToken)
 	{
-		await UpdateAsync(entity.Id.GetFilter(), entity, cancellationToken);
+		await _followCollection.CascadeUpdateAsync(entity.Id.GetFollowCascadeFilter(), cancellationToken);
+		await ReplaceAsync(entity.Id.GetFilter(), entity, cancellationToken);
+		await _cacheHandler.DeleteAsync(entity.Id);
 	}
 
 	public async Task DeleteAsync(
@@ -37,6 +59,7 @@ internal class UserCollection : MongoDbCollection<User, UserId>, IUserCollection
 		CancellationToken cancellationToken)
 	{
 		await _followCollection.CascadeDeleteAsync(entity.Id.GetFollowCascadeFilter(), cancellationToken);
-		await DeleteAsync(entity.Id.GetFilter(), cancellationToken);
+		await RemoveAsync(entity.Id.GetFilter(), cancellationToken);
+		await _cacheHandler.DeleteAsync(entity.Id);
 	}
 }

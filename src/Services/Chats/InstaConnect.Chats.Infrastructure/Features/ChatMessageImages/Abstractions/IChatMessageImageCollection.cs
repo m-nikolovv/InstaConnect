@@ -4,15 +4,23 @@ public interface IChatMessageImageCollection : IMongoDbCollection<ChatMessageIma
 {
 	public IChatMessageImageFluent AggregateFluent();
 
+	internal Task CascadeAddAsync(
+		FilterDefinition<ChatMessageImage> filter,
+		CancellationToken cancellationToken);
+
+	internal Task CascadeUpdateAsync(
+		FilterDefinition<ChatMessageImage> filter,
+		CancellationToken cancellationToken);
+
 	public Task DeleteAsync(
 		ChatMessageImage entity,
 		CancellationToken cancellationToken);
 
-	public Task DeleteRangeAsync(
-		IEnumerable<ChatMessageImage> entities,
-		CancellationToken cancellationToken);
-
 	internal Task CascadeDeleteAsync(
 		FilterDefinition<ChatMessageImage> filter,
+		CancellationToken cancellationToken);
+
+	public Task DeleteRangeAsync(
+		IEnumerable<ChatMessageImage> entities,
 		CancellationToken cancellationToken);
 }

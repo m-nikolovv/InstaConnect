@@ -4,8 +4,16 @@ public interface IPostCommentCollection : IMongoDbCollection<PostComment>
 {
 	public IPostCommentFluent AggregateFluent();
 
+	internal Task CascadeAddAsync(
+		FilterDefinition<PostComment> filter,
+		CancellationToken cancellationToken);
+
 	public Task UpdateAsync(
 		PostComment entity,
+		CancellationToken cancellationToken);
+
+	internal Task CascadeUpdateAsync(
+		FilterDefinition<PostComment> filter,
 		CancellationToken cancellationToken);
 
 	public Task DeleteAsync(

@@ -5,13 +5,16 @@ namespace InstaConnect.Identity.Infrastructure.Features.UserClaims.Helpers.Repos
 internal class UserClaimCommandRepository : IUserClaimCommandRepository
 {
 	private readonly IUserClaimCollection _collection;
+	private readonly IUserClaimCacheHandler _cacheHandler;
 	private readonly IUserClaimIncludeBuilderFactory _includeBuilderFactory;
 
 	public UserClaimCommandRepository(
 		IUserClaimCollection collection,
+		IUserClaimCacheHandler cacheHandler,
 		IUserClaimIncludeBuilderFactory includeBuilderFactory)
 	{
 		_collection = collection;
+		_cacheHandler = cacheHandler;
 		_includeBuilderFactory = includeBuilderFactory;
 	}
 
@@ -31,9 +34,23 @@ internal class UserClaimCommandRepository : IUserClaimCommandRepository
 		UserClaimId id,
 		CancellationToken cancellationToken)
 	{
+		var cachedEntity = await _cacheHandler.GetByIdAsync(id);
+
+		if (cachedEntity != null)
+		{
+			return cachedEntity;
+		}
+
 		var include = _includeBuilderFactory.Create().Build();
 
-		return await GetByIdAsync(id, include, cancellationToken);
+		var entity = await GetByIdAsync(id, include, cancellationToken);
+
+		if (entity != null)
+		{
+			await _cacheHandler.AddAsync(entity);
+		}
+
+		return entity;
 	}
 
 	public async Task<ICollection<UserClaim>> GetByIdRangeAsync(
@@ -50,10 +67,21 @@ internal class UserClaimCommandRepository : IUserClaimCommandRepository
 		UserClaimId id,
 		CancellationToken cancellationToken)
 	{
-		return await _collection
+		var cachedExists = await _cacheHandler.ExistsByIdAsync(id);
+
+		if (cachedExists != null)
+		{
+			return cachedExists.Value;
+		}
+
+		var exists = await _collection
 			.AggregateFluent()
 			.Match(id)
 			.AnyAsync(cancellationToken);
+
+		await _cacheHandler.AddExistsByIdAsync(id, exists);
+
+		return exists;
 	}
 
 	public async Task AddAsync(UserClaim entity, CancellationToken cancellationToken)

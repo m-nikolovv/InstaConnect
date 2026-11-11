@@ -1,5 +1,3 @@
-using InstaConnect.Chats.Domain.Features.ChatMessages.Abstractions;
-using InstaConnect.Chats.Infrastructure.Features.ChatMessages.Helpers.Repositories;
 using InstaConnect.Chats.Infrastructure.Features.ChatMessages.Models.Options;
 using InstaConnect.Chats.Infrastructure.Features.Common.Extensions;
 
@@ -19,12 +17,6 @@ internal static class ServiceCollectionExtensions
 			serviceCollection.AddValidatedOptions<ChatMessageCacheOptions>(ChatMessageCacheOptions.SectionName);
 
 			serviceCollection.AddCollection<ChatMessage>(CollectionName);
-
-			serviceCollection.AddScoped<IChatMessageCommandRepository, ChatMessageCommandRepository>()
-							 .Decorate<IChatMessageCommandRepository, CachedChatMessageCommandRepository>();
-
-			serviceCollection.AddScoped<IChatMessageQueryRepository, ChatMessageQueryRepository>()
-							 .Decorate<IChatMessageQueryRepository, CachedChatMessageQueryRepository>();
 
 			BsonClassMap.TryRegisterClassMap<ChatMessage>(cm =>
 			{

@@ -1,6 +1,4 @@
-using InstaConnect.Chats.Domain.Features.Users.Abstractions;
 using InstaConnect.Chats.Infrastructure.Features.Common.Extensions;
-using InstaConnect.Chats.Infrastructure.Features.Users.Helpers.Repositories;
 using InstaConnect.Chats.Infrastructure.Features.Users.Models.Options;
 
 namespace InstaConnect.Chats.Infrastructure.Features.Users.Extensions;
@@ -19,12 +17,6 @@ internal static class ServiceCollectionExtensions
 			serviceCollection.AddValidatedOptions<UserEventHandlerOptions>(UserEventHandlerOptions.SectionName);
 
 			serviceCollection.AddCollection<User>(CollectionName);
-
-			serviceCollection.AddScoped<IUserCommandRepository, UserCommandRepository>()
-							 .Decorate<IUserCommandRepository, CachedUserCommandRepository>();
-
-			serviceCollection.AddScoped<IUserQueryRepository, UserQueryRepository>()
-							 .Decorate<IUserQueryRepository, CachedUserQueryRepository>();
 
 			BsonClassMap.TryRegisterClassMap<User>(cm =>
 			{

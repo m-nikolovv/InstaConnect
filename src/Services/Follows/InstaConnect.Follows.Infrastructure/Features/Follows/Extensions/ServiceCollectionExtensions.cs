@@ -1,6 +1,4 @@
-using InstaConnect.Follows.Domain.Features.Follows.Abstractions;
 using InstaConnect.Follows.Infrastructure.Features.Common.Extensions;
-using InstaConnect.Follows.Infrastructure.Features.Follows.Helpers.Repositories;
 using InstaConnect.Follows.Infrastructure.Features.Follows.Models.Options;
 
 namespace InstaConnect.Follows.Infrastructure.Features.Follows.Extensions;
@@ -20,12 +18,6 @@ internal static class ServiceCollectionExtensions
 			serviceCollection.AddValidatedOptions<FollowCacheOptions>(FollowCacheOptions.SectionName);
 
 			serviceCollection.AddCollection<Follow>(CollectionName);
-
-			serviceCollection.AddScoped<IFollowCommandRepository, FollowCommandRepository>()
-							 .Decorate<IFollowCommandRepository, CachedFollowCommandRepository>();
-
-			serviceCollection.AddScoped<IFollowQueryRepository, FollowQueryRepository>()
-							 .Decorate<IFollowQueryRepository, CachedFollowQueryRepository>();
 
 			BsonClassMap.TryRegisterClassMap<Follow>(cm =>
 			{

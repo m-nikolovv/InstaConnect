@@ -5,13 +5,16 @@ namespace InstaConnect.Identity.Infrastructure.Features.Users.Helpers.Repositori
 internal class UserCommandRepository : IUserCommandRepository
 {
 	private readonly IUserCollection _collection;
+	private readonly IUserCacheHandler _cacheHandler;
 	private readonly IUserIncludeBuilderFactory _includeBuilderFactory;
 
 	public UserCommandRepository(
 		IUserCollection collection,
+		IUserCacheHandler cacheHandler,
 		IUserIncludeBuilderFactory includeBuilderFactory)
 	{
 		_collection = collection;
+		_cacheHandler = cacheHandler;
 		_includeBuilderFactory = includeBuilderFactory;
 	}
 
@@ -31,19 +34,44 @@ internal class UserCommandRepository : IUserCommandRepository
 		UserId id,
 		CancellationToken cancellationToken)
 	{
+		var cachedEntity = await _cacheHandler.GetByIdAsync(id);
+
+		if (cachedEntity != null)
+		{
+			return cachedEntity;
+		}
+
 		var include = _includeBuilderFactory.Create().Build();
 
-		return await GetByIdAsync(id, include, cancellationToken);
+		var entity = await GetByIdAsync(id, include, cancellationToken);
+
+		if (entity != null)
+		{
+			await _cacheHandler.AddAsync(entity);
+		}
+
+		return entity;
 	}
 
 	public async Task<bool> ExistsByIdAsync(
 		UserId id,
 		CancellationToken cancellationToken)
 	{
-		return await _collection
+		var cachedExists = await _cacheHandler.ExistsByIdAsync(id);
+
+		if (cachedExists != null)
+		{
+			return cachedExists.Value;
+		}
+
+		var exists = await _collection
 			.AggregateFluent()
 			.Match(id)
 			.AnyAsync(cancellationToken);
+
+		await _cacheHandler.AddExistsByIdAsync(id, exists);
+
+		return exists;
 	}
 
 	public async Task<User?> GetByNameAsync(
@@ -62,9 +90,23 @@ internal class UserCommandRepository : IUserCommandRepository
 		Name name,
 		CancellationToken cancellationToken)
 	{
+		var cachedEntity = await _cacheHandler.GetByNameAsync(name);
+
+		if (cachedEntity != null)
+		{
+			return cachedEntity;
+		}
+
 		var include = _includeBuilderFactory.Create().Build();
 
-		return await GetByNameAsync(name, include, cancellationToken);
+		var entity = await GetByNameAsync(name, include, cancellationToken);
+
+		if (entity != null)
+		{
+			await _cacheHandler.AddByNameAsync(entity);
+		}
+
+		return entity;
 	}
 
 	public async Task<bool> IsNameUniqueAsync(
@@ -93,9 +135,23 @@ internal class UserCommandRepository : IUserCommandRepository
 		Email email,
 		CancellationToken cancellationToken)
 	{
+		var cachedEntity = await _cacheHandler.GetByEmailAsync(email);
+
+		if (cachedEntity != null)
+		{
+			return cachedEntity;
+		}
+
 		var include = _includeBuilderFactory.Create().Build();
 
-		return await GetByEmailAsync(email, include, cancellationToken);
+		var entity = await GetByEmailAsync(email, include, cancellationToken);
+
+		if (entity != null)
+		{
+			await _cacheHandler.AddByEmailAsync(entity);
+		}
+
+		return entity;
 	}
 
 	public async Task<bool> IsEmailUniqueAsync(

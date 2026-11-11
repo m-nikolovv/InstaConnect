@@ -4,13 +4,16 @@ namespace InstaConnect.Identity.Infrastructure.Features.RefreshTokens.Helpers.Co
 
 internal class RefreshTokenCollection : MongoDbCollection<RefreshToken, RefreshTokenId>, IRefreshTokenCollection
 {
+	private readonly IRefreshTokenCacheHandler _cacheHandler;
 	private readonly IRefreshTokenFluentFactory _fluentFactory;
 
 	public RefreshTokenCollection(
 		ISessionHandler sessionHandler,
+		IRefreshTokenCacheHandler cacheHandler,
 		IRefreshTokenFluentFactory fluentFactory,
 		IMongoCollection<RefreshToken> collection) : base(sessionHandler, collection)
 	{
+		_cacheHandler = cacheHandler;
 		_fluentFactory = fluentFactory;
 	}
 
@@ -21,24 +24,61 @@ internal class RefreshTokenCollection : MongoDbCollection<RefreshToken, RefreshT
 		return _fluentFactory.Create(fluent);
 	}
 
+	public async Task AddAsync(
+		RefreshToken entity,
+		CancellationToken cancellationToken)
+	{
+		await InsertAsync(entity, cancellationToken);
+		await _cacheHandler.DeleteAsync(entity.Id);
+	}
+
+	public async Task CascadeAddAsync(
+		FilterDefinition<RefreshToken> filter,
+		CancellationToken cancellationToken)
+	{
+		await CascadeUpdateAsync(filter, cancellationToken);
+	}
+
+	public async Task AddRangeAsync(
+		IEnumerable<RefreshToken> entities,
+		CancellationToken cancellationToken)
+	{
+		await InsertRangeAsync(entities, cancellationToken);
+		await _cacheHandler.DeleteRangeAsync(entities.Select(p => p.Id));
+	}
+
 	public async Task UpdateAsync(
 		RefreshToken entity,
 		CancellationToken cancellationToken)
 	{
-		await UpdateAsync(entity.Id.GetFilter(), entity, cancellationToken);
+		await ReplaceAsync(entity.Id.GetFilter(), entity, cancellationToken);
+		await _cacheHandler.DeleteAsync(entity.Id);
+	}
+
+	public async Task CascadeUpdateAsync(
+		FilterDefinition<RefreshToken> filter,
+		CancellationToken cancellationToken)
+	{
+		var tokenIds = await GetIdsAsync(filter, cancellationToken);
+
+		await _cacheHandler.DeleteRangeAsync(tokenIds);
 	}
 
 	public async Task DeleteAsync(
 		RefreshToken entity,
 		CancellationToken cancellationToken)
 	{
-		await DeleteAsync(entity.Id.GetFilter(), cancellationToken);
+		await RemoveAsync(entity.Id.GetFilter(), cancellationToken);
+		await _cacheHandler.DeleteAsync(entity.Id);
 	}
 
 	public async Task CascadeDeleteAsync(
 		FilterDefinition<RefreshToken> filter,
 		CancellationToken cancellationToken)
 	{
-		await DeleteRangeAsync(filter, cancellationToken);
+		var tokenIds = await GetIdsAsync(filter, cancellationToken);
+
+		await RemoveRangeAsync(filter, cancellationToken);
+		await _cacheHandler.DeleteRangeAsync(tokenIds);
 	}
 }

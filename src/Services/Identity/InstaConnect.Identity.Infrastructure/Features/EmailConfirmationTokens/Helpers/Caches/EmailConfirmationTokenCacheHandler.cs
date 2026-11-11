@@ -2,7 +2,6 @@ using InstaConnect.Common.Infrastructure.Features.Caches.Abstractions;
 using InstaConnect.Identity.Domain.Features.EmailConfirmationTokens.Models.ValueObjects;
 using InstaConnect.Identity.Infrastructure.Features.EmailConfirmationTokens.Models.Options;
 using InstaConnect.Identity.Infrastructure.Features.EmailConfirmationTokens.Utilities;
-using InstaConnect.Identity.Infrastructure.Features.Users.Utilities;
 
 using Microsoft.Extensions.Options;
 
@@ -30,8 +29,7 @@ internal class EmailConfirmationTokenCacheHandler : IEmailConfirmationTokenCache
 			EmailConfirmationTokenCacheUtilities.GetByIdKey(entity.Id),
 			entity,
 			_cacheOptions.Expirations[EmailConfirmationTokenCacheUtilities.GetByIdKeyPrefix],
-			[EmailConfirmationTokenCacheUtilities.GetTag(entity.Id),
-			 UserCacheUtilities.GetTag(entity.Id.Id)]);
+			[EmailConfirmationTokenCacheUtilities.GetTag(entity.Id)]);
 	}
 
 	public async Task AddRangeAsync(IEnumerable<EmailConfirmationToken> entities)
@@ -53,8 +51,7 @@ internal class EmailConfirmationTokenCacheHandler : IEmailConfirmationTokenCache
 			EmailConfirmationTokenCacheUtilities.ExistsByIdKey(id),
 			exists,
 			_cacheOptions.Expirations[EmailConfirmationTokenCacheUtilities.ExistsByIdKeyPrefix],
-			[EmailConfirmationTokenCacheUtilities.GetTag(id),
-			 UserCacheUtilities.GetTag(id.Id)]);
+			[EmailConfirmationTokenCacheUtilities.GetTag(id)]);
 	}
 
 	public async Task DeleteAsync(EmailConfirmationTokenId id)

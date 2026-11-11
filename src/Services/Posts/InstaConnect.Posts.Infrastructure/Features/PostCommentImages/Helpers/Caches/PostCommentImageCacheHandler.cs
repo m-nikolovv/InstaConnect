@@ -3,8 +3,6 @@ using InstaConnect.Posts.Domain.Features.PostCommentImages.Models.ValueObjects;
 using InstaConnect.Posts.Infrastructure.Features.PostCommentImages.Abstractions;
 using InstaConnect.Posts.Infrastructure.Features.PostCommentImages.Models.Options;
 using InstaConnect.Posts.Infrastructure.Features.PostCommentImages.Utilities;
-using InstaConnect.Posts.Infrastructure.Features.PostComments.Utilities;
-using InstaConnect.Posts.Infrastructure.Features.Posts.Utilities;
 
 using Microsoft.Extensions.Options;
 
@@ -32,9 +30,7 @@ internal class PostCommentImageCacheHandler : IPostCommentImageCacheHandler
 			PostCommentImageCacheUtilities.GetByIdKey(entity.Id),
 			entity,
 			_cacheOptions.Expirations[PostCommentImageCacheUtilities.GetByIdKeyPrefix],
-			[PostCommentImageCacheUtilities.GetTag(entity.Id),
-			 PostCommentCacheUtilities.GetTag(entity.Id.Id),
-			 PostCacheUtilities.GetTag(entity.Id.Id.Id)]);
+			[PostCommentImageCacheUtilities.GetTag(entity.Id)]);
 	}
 
 	public async Task AddRangeAsync(IEnumerable<PostCommentImage> entities)

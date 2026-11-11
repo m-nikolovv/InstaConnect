@@ -1,5 +1,3 @@
-using InstaConnect.Identity.Domain.Features.Users.Abstractions;
-using InstaConnect.Identity.Infrastructure.Features.Users.Helpers.Repositories;
 using InstaConnect.Identity.Infrastructure.Features.Users.Models.Options;
 
 namespace InstaConnect.Identity.Infrastructure.Features.Users.Extensions;
@@ -18,12 +16,6 @@ internal static class ServiceCollectionExtensions
 			serviceCollection.AddValidatedOptions<UserCacheOptions>(UserCacheOptions.SectionName);
 
 			serviceCollection.AddCollection<User>(CollectionName);
-
-			serviceCollection.AddScoped<IUserCommandRepository, UserCommandRepository>()
-							 .Decorate<IUserCommandRepository, CachedUserCommandRepository>();
-
-			serviceCollection.AddScoped<IUserQueryRepository, UserQueryRepository>()
-							 .Decorate<IUserQueryRepository, CachedUserQueryRepository>();
 
 			BsonClassMap.TryRegisterClassMap<User>(cm =>
 			{

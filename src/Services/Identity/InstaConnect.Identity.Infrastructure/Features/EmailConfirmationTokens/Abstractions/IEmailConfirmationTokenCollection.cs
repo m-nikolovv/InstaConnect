@@ -4,19 +4,27 @@ public interface IEmailConfirmationTokenCollection : IMongoDbCollection<EmailCon
 {
 	public IEmailConfirmationTokenFluent AggregateFluent();
 
+	internal Task CascadeAddAsync(
+		FilterDefinition<EmailConfirmationToken> filter,
+		CancellationToken cancellationToken);
+
 	public Task UpdateAsync(
 		EmailConfirmationToken entity,
+		CancellationToken cancellationToken);
+
+	internal Task CascadeUpdateAsync(
+		FilterDefinition<EmailConfirmationToken> filter,
 		CancellationToken cancellationToken);
 
 	public Task DeleteAsync(
 		EmailConfirmationToken entity,
 		CancellationToken cancellationToken);
 
-	public Task DeleteRangeAsync(
-		IEnumerable<EmailConfirmationToken> entities,
-		CancellationToken cancellationToken);
-
 	internal Task CascadeDeleteAsync(
 		FilterDefinition<EmailConfirmationToken> filter,
+		CancellationToken cancellationToken);
+
+	public Task DeleteRangeAsync(
+		IEnumerable<EmailConfirmationToken> entities,
 		CancellationToken cancellationToken);
 }

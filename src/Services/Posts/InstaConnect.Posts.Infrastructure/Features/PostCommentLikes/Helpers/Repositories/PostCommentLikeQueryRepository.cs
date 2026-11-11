@@ -7,17 +7,20 @@ internal class PostCommentLikeQueryRepository : IPostCommentLikeQueryRepository
 {
 	private readonly IPostCommentLikeCollection _collection;
 	private readonly IPostIncludeBuilderFactory _includeBuilderFactory;
+	private readonly IPostCommentLikeCacheHandler _commentLikeCacheHandler;
 	private readonly IPostCommentIncludeBuilderFactory _commentIncludeBuilderFactory;
 	private readonly IPostCommentLikeIncludeBuilderFactory _commentLikeIncludeBuilderFactory;
 
 	public PostCommentLikeQueryRepository(
 		IPostCommentLikeCollection collection,
 		IPostIncludeBuilderFactory includeBuilderFactory,
+		IPostCommentLikeCacheHandler commentLikeCacheHandler,
 		IPostCommentIncludeBuilderFactory commentIncludeBuilderFactory,
 		IPostCommentLikeIncludeBuilderFactory commentLikeIncludeBuilderFactory)
 	{
 		_collection = collection;
 		_includeBuilderFactory = includeBuilderFactory;
+		_commentLikeCacheHandler = commentLikeCacheHandler;
 		_commentIncludeBuilderFactory = commentIncludeBuilderFactory;
 		_commentLikeIncludeBuilderFactory = commentLikeIncludeBuilderFactory;
 	}
@@ -90,25 +93,50 @@ internal class PostCommentLikeQueryRepository : IPostCommentLikeQueryRepository
 		CurrentUserQuery currentUser,
 		CancellationToken cancellationToken)
 	{
+		var cachedResponse = await _commentLikeCacheHandler.GetByIdAsync(id, currentUser);
+
+		if (cachedResponse != null)
+		{
+			return cachedResponse;
+		}
+
 		var include = _includeBuilderFactory.Create().WithUser().WithPostLikes().WithPostComments().WithPostImages().Build();
 		var commentInclude = _commentIncludeBuilderFactory.Create().WithUser().WithPost(include).WithPostCommentLikes().WithPostCommentImages().Build();
 		var commentLikeInclude = _commentLikeIncludeBuilderFactory.Create().WithUser().WithPostComment(commentInclude).Build();
 
-		return await _collection
+		var response = await _collection
 			.AggregateFluent()
 			.Match(id)
 			.ApplyIncludes(commentLikeInclude)
 			.ProjectToFullResponse(currentUser)
 			.FirstOrDefaultAsync(cancellationToken);
+
+		if (response != null)
+		{
+			await _commentLikeCacheHandler.AddAsync(response, currentUser);
+		}
+
+		return response;
 	}
 
 	public async Task<bool> ExistsByIdAsync(
 		PostCommentLikeId id,
 		CancellationToken cancellationToken)
 	{
-		return await _collection
+		var cachedExists = await _commentLikeCacheHandler.ExistsByIdAsync(id);
+
+		if (cachedExists != null)
+		{
+			return cachedExists.Value;
+		}
+
+		var exists = await _collection
 			.AggregateFluent()
 			.Match(id)
 			.AnyAsync(cancellationToken);
+
+		await _commentLikeCacheHandler.AddExistsByIdAsync(id, exists);
+
+		return exists;
 	}
 }

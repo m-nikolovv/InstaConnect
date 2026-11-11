@@ -48,6 +48,17 @@ internal static class ChatMessageImageFilterExtensions
 		}
 	}
 
+	extension(ChatMessageId filter)
+	{
+		public FilterDefinition<ChatMessageImage> GetChatMessageImageCascadeFilter()
+		{
+			return filter.GetFilterForIdEquals<ChatMessageImage>(
+				p => p.Id.Id.Id.ParticipantOneId.Id,
+				p => p.Id.Id.Id.ParticipantTwoId.Id,
+				p => p.Id.Id.MessageId);
+		}
+	}
+
 	extension(IEnumerable<ChatMessageId> filter)
 	{
 		public FilterDefinition<ChatMessageImage> GetChatMessageImageCascadeFilter()

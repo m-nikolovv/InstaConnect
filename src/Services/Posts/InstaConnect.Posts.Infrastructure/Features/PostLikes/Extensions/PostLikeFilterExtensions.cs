@@ -54,6 +54,14 @@ internal static class PostLikeFilterExtensions
 		}
 	}
 
+	extension(PostId filter)
+	{
+		public FilterDefinition<PostLike> GetPostLikeCascadeFilter()
+		{
+			return filter.GetFilterForIdEquals<PostLike>(p => p.Id.Id.Id);
+		}
+	}
+
 	extension(IEnumerable<PostId> filter)
 	{
 		public FilterDefinition<PostLike> GetPostLikeCascadeFilter()

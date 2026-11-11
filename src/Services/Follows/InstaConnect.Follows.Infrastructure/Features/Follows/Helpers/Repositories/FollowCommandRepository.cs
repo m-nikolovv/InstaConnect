@@ -5,13 +5,16 @@ namespace InstaConnect.Follows.Infrastructure.Features.Follows.Helpers.Repositor
 internal class FollowCommandRepository : IFollowCommandRepository
 {
 	private readonly IFollowCollection _collection;
+	private readonly IFollowCacheHandler _cacheHandler;
 	private readonly IFollowIncludeBuilderFactory _includeBuilderFactory;
 
 	public FollowCommandRepository(
 		IFollowCollection collection,
+		IFollowCacheHandler cacheHandler,
 		IFollowIncludeBuilderFactory includeBuilderFactory)
 	{
 		_collection = collection;
+		_cacheHandler = cacheHandler;
 		_includeBuilderFactory = includeBuilderFactory;
 	}
 
@@ -31,9 +34,23 @@ internal class FollowCommandRepository : IFollowCommandRepository
 		FollowId id,
 		CancellationToken cancellationToken)
 	{
+		var cachedEntity = await _cacheHandler.GetByIdAsync(id);
+
+		if (cachedEntity != null)
+		{
+			return cachedEntity;
+		}
+
 		var include = _includeBuilderFactory.Create().Build();
 
-		return await GetByIdAsync(id, include, cancellationToken);
+		var entity = await GetByIdAsync(id, include, cancellationToken);
+
+		if (entity != null)
+		{
+			await _cacheHandler.AddAsync(entity);
+		}
+
+		return entity;
 	}
 
 	public async Task<ICollection<Follow>> GetByIdRangeAsync(
@@ -61,10 +78,21 @@ internal class FollowCommandRepository : IFollowCommandRepository
 		FollowId id,
 		CancellationToken cancellationToken)
 	{
-		return await _collection
+		var cachedExists = await _cacheHandler.ExistsByIdAsync(id);
+
+		if (cachedExists != null)
+		{
+			return cachedExists.Value;
+		}
+
+		var exists = await _collection
 			.AggregateFluent()
 			.Match(id)
 			.AnyAsync(cancellationToken);
+
+		await _cacheHandler.AddExistsByIdAsync(id, exists);
+
+		return exists;
 	}
 
 	public async Task AddAsync(Follow entity, CancellationToken cancellationToken)

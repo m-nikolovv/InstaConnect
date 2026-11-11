@@ -4,15 +4,23 @@ public interface IPostCommentImageCollection : IMongoDbCollection<PostCommentIma
 {
 	public IPostCommentImageFluent AggregateFluent();
 
+	internal Task CascadeAddAsync(
+		FilterDefinition<PostCommentImage> filter,
+		CancellationToken cancellationToken);
+
+	internal Task CascadeUpdateAsync(
+		FilterDefinition<PostCommentImage> filter,
+		CancellationToken cancellationToken);
+
 	public Task DeleteAsync(
 		PostCommentImage entity,
 		CancellationToken cancellationToken);
 
-	public Task DeleteRangeAsync(
-		IEnumerable<PostCommentImage> entities,
-		CancellationToken cancellationToken);
-
 	internal Task CascadeDeleteAsync(
 		FilterDefinition<PostCommentImage> filter,
+		CancellationToken cancellationToken);
+
+	public Task DeleteRangeAsync(
+		IEnumerable<PostCommentImage> entities,
 		CancellationToken cancellationToken);
 }

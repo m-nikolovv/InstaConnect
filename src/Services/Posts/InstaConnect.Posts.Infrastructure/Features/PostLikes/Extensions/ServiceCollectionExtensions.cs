@@ -1,5 +1,3 @@
-using InstaConnect.Posts.Domain.Features.PostLikes.Abstractions;
-using InstaConnect.Posts.Infrastructure.Features.PostLikes.Helpers.Repositories;
 using InstaConnect.Posts.Infrastructure.Features.PostLikes.Models.Options;
 
 namespace InstaConnect.Posts.Infrastructure.Features.PostLikes.Extensions;
@@ -19,12 +17,6 @@ internal static class ServiceCollectionExtensions
 			serviceCollection.AddValidatedOptions<PostLikeCacheOptions>(PostLikeCacheOptions.SectionName);
 
 			serviceCollection.AddCollection<PostLike>(CollectionName);
-
-			serviceCollection.AddScoped<IPostLikeCommandRepository, PostLikeCommandRepository>()
-							 .Decorate<IPostLikeCommandRepository, CachedPostLikeCommandRepository>();
-
-			serviceCollection.AddScoped<IPostLikeQueryRepository, PostLikeQueryRepository>()
-							 .Decorate<IPostLikeQueryRepository, CachedPostLikeQueryRepository>();
 
 			BsonClassMap.TryRegisterClassMap<PostLike>(cm =>
 			{

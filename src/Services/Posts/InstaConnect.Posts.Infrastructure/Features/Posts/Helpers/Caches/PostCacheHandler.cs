@@ -1,7 +1,6 @@
 using InstaConnect.Common.Infrastructure.Features.Caches.Abstractions;
 using InstaConnect.Posts.Infrastructure.Features.Posts.Models.Options;
 using InstaConnect.Posts.Infrastructure.Features.Posts.Utilities;
-using InstaConnect.Posts.Infrastructure.Features.Users.Utilities;
 
 using Microsoft.Extensions.Options;
 
@@ -34,8 +33,7 @@ internal class PostCacheHandler : IPostCacheHandler
 			PostCacheUtilities.GetByIdKey(entity.Id),
 			entity,
 			_cacheOptions.Expirations[PostCacheUtilities.GetByIdKeyPrefix],
-			[PostCacheUtilities.GetTag(entity.Id),
-			 UserCacheUtilities.GetTag(entity.UserId)]);
+			[PostCacheUtilities.GetTag(entity.Id)]);
 	}
 
 	public async Task AddAsync(PostResponse response, CurrentUserQuery currentUser)
@@ -45,7 +43,6 @@ internal class PostCacheHandler : IPostCacheHandler
 			response,
 			_cacheOptions.Expirations[PostCacheUtilities.GetResponseByIdKeyPrefix],
 			[PostCacheUtilities.GetTag(response.Id),
-			 UserCacheUtilities.GetTag(response.UserId),
 			 PostCacheUtilities.GetResponseTag(response.Id)]);
 	}
 

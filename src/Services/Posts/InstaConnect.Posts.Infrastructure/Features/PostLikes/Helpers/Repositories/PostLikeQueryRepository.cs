@@ -5,15 +5,18 @@ namespace InstaConnect.Posts.Infrastructure.Features.PostLikes.Helpers.Repositor
 internal class PostLikeQueryRepository : IPostLikeQueryRepository
 {
 	private readonly IPostLikeCollection _collection;
+	private readonly IPostLikeCacheHandler _likeCacheHandler;
 	private readonly IPostIncludeBuilderFactory _includeBuilderFactory;
 	private readonly IPostLikeIncludeBuilderFactory _likeIncludeBuilderFactory;
 
 	public PostLikeQueryRepository(
 		IPostLikeCollection collection,
+		IPostLikeCacheHandler likeCacheHandler,
 		IPostIncludeBuilderFactory includeBuilderFactory,
 		IPostLikeIncludeBuilderFactory likeIncludeBuilderFactory)
 	{
 		_collection = collection;
+		_likeCacheHandler = likeCacheHandler;
 		_includeBuilderFactory = includeBuilderFactory;
 		_likeIncludeBuilderFactory = likeIncludeBuilderFactory;
 	}
@@ -85,24 +88,49 @@ internal class PostLikeQueryRepository : IPostLikeQueryRepository
 		CurrentUserQuery currentUser,
 		CancellationToken cancellationToken)
 	{
+		var cachedResponse = await _likeCacheHandler.GetByIdAsync(id, currentUser);
+
+		if (cachedResponse != null)
+		{
+			return cachedResponse;
+		}
+
 		var include = _includeBuilderFactory.Create().WithUser().WithPostLikes().WithPostComments().WithPostImages().Build();
 		var likeInclude = _likeIncludeBuilderFactory.Create().WithUser().WithPost(include).Build();
 
-		return await _collection
+		var response = await _collection
 			.AggregateFluent()
 			.Match(id)
 			.ApplyIncludes(likeInclude)
 			.ProjectToFullResponse(currentUser)
 			.FirstOrDefaultAsync(cancellationToken);
+
+		if (response != null)
+		{
+			await _likeCacheHandler.AddAsync(response, currentUser);
+		}
+
+		return response;
 	}
 
 	public async Task<bool> ExistsByIdAsync(
 		PostLikeId id,
 		CancellationToken cancellationToken)
 	{
-		return await _collection
+		var cachedExists = await _likeCacheHandler.ExistsByIdAsync(id);
+
+		if (cachedExists != null)
+		{
+			return cachedExists.Value;
+		}
+
+		var exists = await _collection
 			.AggregateFluent()
 			.Match(id)
 			.AnyAsync(cancellationToken);
+
+		await _likeCacheHandler.AddExistsByIdAsync(id, exists);
+
+		return exists;
 	}
 }

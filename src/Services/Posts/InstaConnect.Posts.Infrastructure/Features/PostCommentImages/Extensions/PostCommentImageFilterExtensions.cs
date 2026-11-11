@@ -39,6 +39,14 @@ internal static class PostCommentImageFilterExtensions
 		}
 	}
 
+	extension(PostCommentId filter)
+	{
+		public FilterDefinition<PostCommentImage> GetPostCommentImageCascadeFilter()
+		{
+			return filter.GetFilterForIdEquals<PostCommentImage>(p => p.Id.Id.Id.Id, p => p.Id.Id.CommentId);
+		}
+	}
+
 	extension(IEnumerable<PostCommentId> filter)
 	{
 		public FilterDefinition<PostCommentImage> GetPostCommentImageCascadeFilter()

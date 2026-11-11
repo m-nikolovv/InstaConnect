@@ -1,5 +1,3 @@
-using InstaConnect.Posts.Domain.Features.PostImages.Abstractions;
-using InstaConnect.Posts.Infrastructure.Features.PostImages.Helpers.Repositories;
 using InstaConnect.Posts.Infrastructure.Features.PostImages.Models.Options;
 
 namespace InstaConnect.Posts.Infrastructure.Features.PostImages.Extensions;
@@ -15,9 +13,6 @@ internal static class ServiceCollectionExtensions
 			serviceCollection.AddValidatedOptions<PostImageCacheOptions>(PostImageCacheOptions.SectionName);
 
 			serviceCollection.AddCollection<PostImage>(CollectionName);
-
-			serviceCollection.AddScoped<IPostImageCommandRepository, PostImageCommandRepository>()
-							 .Decorate<IPostImageCommandRepository, CachedPostImageCommandRepository>();
 
 			BsonClassMap.TryRegisterClassMap<PostImage>(cm =>
 			{

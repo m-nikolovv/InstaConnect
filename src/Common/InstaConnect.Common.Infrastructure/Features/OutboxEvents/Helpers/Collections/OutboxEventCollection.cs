@@ -12,4 +12,18 @@ internal class OutboxEventCollection : MongoDbCollection<OutboxEvent, OutboxEven
 		IMongoCollection<OutboxEvent> collection) : base(sessionHandler, collection)
 	{
 	}
+
+	public async Task AddAsync(
+		OutboxEvent entity,
+		CancellationToken cancellationToken)
+	{
+		await InsertAsync(entity, cancellationToken);
+	}
+
+	public async Task AddRangeAsync(
+		IEnumerable<OutboxEvent> entities,
+		CancellationToken cancellationToken)
+	{
+		await InsertRangeAsync(entities, cancellationToken);
+	}
 }

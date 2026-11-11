@@ -2,7 +2,6 @@ using InstaConnect.Common.Infrastructure.Features.Caches.Abstractions;
 using InstaConnect.Posts.Infrastructure.Features.PostLikes.Models.Options;
 using InstaConnect.Posts.Infrastructure.Features.PostLikes.Utilities;
 using InstaConnect.Posts.Infrastructure.Features.Posts.Utilities;
-using InstaConnect.Posts.Infrastructure.Features.Users.Utilities;
 
 using Microsoft.Extensions.Options;
 
@@ -35,9 +34,7 @@ internal class PostLikeCacheHandler : IPostLikeCacheHandler
 			PostLikeCacheUtilities.GetByIdKey(entity.Id),
 			entity,
 			_cacheOptions.Expirations[PostLikeCacheUtilities.GetByIdKeyPrefix],
-			[PostLikeCacheUtilities.GetTag(entity.Id),
-			 PostCacheUtilities.GetTag(entity.Id.Id),
-			 UserCacheUtilities.GetTag(entity.Id.UserId)]);
+			[PostLikeCacheUtilities.GetTag(entity.Id)]);
 	}
 
 	public async Task AddAsync(PostLikeResponse response, CurrentUserQuery currentUser)
@@ -47,8 +44,6 @@ internal class PostLikeCacheHandler : IPostLikeCacheHandler
 			response,
 			_cacheOptions.Expirations[PostLikeCacheUtilities.GetResponseByIdKeyPrefix],
 			[PostLikeCacheUtilities.GetTag(response.Id),
-			 PostCacheUtilities.GetTag(response.Id.Id),
-			 UserCacheUtilities.GetTag(response.Id.UserId),
 			 PostCacheUtilities.GetResponseTag(response.Id.Id)]);
 	}
 
@@ -71,9 +66,7 @@ internal class PostLikeCacheHandler : IPostLikeCacheHandler
 			PostLikeCacheUtilities.ExistsByIdKey(id),
 			exists,
 			_cacheOptions.Expirations[PostLikeCacheUtilities.ExistsByIdKeyPrefix],
-			[PostLikeCacheUtilities.GetTag(id),
-			 PostCacheUtilities.GetTag(id.Id),
-			 UserCacheUtilities.GetTag(id.UserId)]);
+			[PostLikeCacheUtilities.GetTag(id)]);
 	}
 
 	public async Task DeleteAsync(PostLikeId id)

@@ -4,8 +4,16 @@ public interface IRefreshTokenCollection : IMongoDbCollection<RefreshToken>
 {
 	public IRefreshTokenFluent AggregateFluent();
 
+	internal Task CascadeAddAsync(
+		FilterDefinition<RefreshToken> filter,
+		CancellationToken cancellationToken);
+
 	public Task UpdateAsync(
 		RefreshToken entity,
+		CancellationToken cancellationToken);
+
+	internal Task CascadeUpdateAsync(
+		FilterDefinition<RefreshToken> filter,
 		CancellationToken cancellationToken);
 
 	public Task DeleteAsync(

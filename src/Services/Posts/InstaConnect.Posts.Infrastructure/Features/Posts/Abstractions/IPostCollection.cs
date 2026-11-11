@@ -4,9 +4,17 @@ public interface IPostCollection : IMongoDbCollection<Post>
 {
 	public IPostFluent AggregateFluent();
 
+	internal Task CascadeAddAsync(
+		FilterDefinition<Post> filter,
+		CancellationToken cancellationToken);
+
 	public Task UpdateAsync(
-			Post entity,
-			CancellationToken cancellationToken);
+		Post entity,
+		CancellationToken cancellationToken);
+
+	internal Task CascadeUpdateAsync(
+		FilterDefinition<Post> filter,
+		CancellationToken cancellationToken);
 
 	public Task DeleteAsync(
 		Post entity,

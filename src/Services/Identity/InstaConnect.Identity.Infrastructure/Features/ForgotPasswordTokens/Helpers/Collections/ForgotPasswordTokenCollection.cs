@@ -5,13 +5,16 @@ namespace InstaConnect.Identity.Infrastructure.Features.ForgotPasswordTokens.Hel
 
 internal class ForgotPasswordTokenCollection : MongoDbCollection<ForgotPasswordToken, ForgotPasswordTokenId>, IForgotPasswordTokenCollection
 {
+	private readonly IForgotPasswordTokenCacheHandler _cacheHandler;
 	private readonly IForgotPasswordTokenFluentFactory _fluentFactory;
 
 	public ForgotPasswordTokenCollection(
 		ISessionHandler sessionHandler,
+		IForgotPasswordTokenCacheHandler cacheHandler,
 		IForgotPasswordTokenFluentFactory fluentFactory,
 		IMongoCollection<ForgotPasswordToken> collection) : base(sessionHandler, collection)
 	{
+		_cacheHandler = cacheHandler;
 		_fluentFactory = fluentFactory;
 	}
 
@@ -22,31 +25,69 @@ internal class ForgotPasswordTokenCollection : MongoDbCollection<ForgotPasswordT
 		return _fluentFactory.Create(fluent);
 	}
 
+	public async Task AddAsync(
+		ForgotPasswordToken entity,
+		CancellationToken cancellationToken)
+	{
+		await InsertAsync(entity, cancellationToken);
+		await _cacheHandler.DeleteAsync(entity.Id);
+	}
+
+	public async Task CascadeAddAsync(
+		FilterDefinition<ForgotPasswordToken> filter,
+		CancellationToken cancellationToken)
+	{
+		await CascadeUpdateAsync(filter, cancellationToken);
+	}
+
+	public async Task AddRangeAsync(
+		IEnumerable<ForgotPasswordToken> entities,
+		CancellationToken cancellationToken)
+	{
+		await InsertRangeAsync(entities, cancellationToken);
+		await _cacheHandler.DeleteRangeAsync(entities.Select(p => p.Id));
+	}
+
 	public async Task UpdateAsync(
 		ForgotPasswordToken entity,
 		CancellationToken cancellationToken)
 	{
-		await UpdateAsync(entity.Id.GetFilter(), entity, cancellationToken);
+		await ReplaceAsync(entity.Id.GetFilter(), entity, cancellationToken);
+		await _cacheHandler.DeleteAsync(entity.Id);
+	}
+
+	public async Task CascadeUpdateAsync(
+		FilterDefinition<ForgotPasswordToken> filter,
+		CancellationToken cancellationToken)
+	{
+		var tokenIds = await GetIdsAsync(filter, cancellationToken);
+
+		await _cacheHandler.DeleteRangeAsync(tokenIds);
 	}
 
 	public async Task DeleteAsync(
 		ForgotPasswordToken entity,
 		CancellationToken cancellationToken)
 	{
-		await DeleteAsync(entity.Id.GetFilter(), cancellationToken);
-	}
-
-	public async Task DeleteRangeAsync(
-		IEnumerable<ForgotPasswordToken> entities,
-		CancellationToken cancellationToken)
-	{
-		await DeleteRangeAsync(entities.Select(p => p.Id).GetFilter(), cancellationToken);
+		await RemoveAsync(entity.Id.GetFilter(), cancellationToken);
+		await _cacheHandler.DeleteAsync(entity.Id);
 	}
 
 	public async Task CascadeDeleteAsync(
 		FilterDefinition<ForgotPasswordToken> filter,
 		CancellationToken cancellationToken)
 	{
-		await DeleteRangeAsync(filter, cancellationToken);
+		var tokenIds = await GetIdsAsync(filter, cancellationToken);
+
+		await RemoveRangeAsync(filter, cancellationToken);
+		await _cacheHandler.DeleteRangeAsync(tokenIds);
+	}
+
+	public async Task DeleteRangeAsync(
+		IEnumerable<ForgotPasswordToken> entities,
+		CancellationToken cancellationToken)
+	{
+		await RemoveRangeAsync(entities.Select(p => p.Id).GetFilter(), cancellationToken);
+		await _cacheHandler.DeleteRangeAsync(entities.Select(p => p.Id));
 	}
 }

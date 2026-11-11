@@ -1,7 +1,6 @@
 using InstaConnect.Common.Infrastructure.Features.Caches.Abstractions;
 using InstaConnect.Identity.Infrastructure.Features.UserClaims.Models.Options;
 using InstaConnect.Identity.Infrastructure.Features.UserClaims.Utilities;
-using InstaConnect.Identity.Infrastructure.Features.Users.Utilities;
 
 using Microsoft.Extensions.Options;
 
@@ -34,8 +33,7 @@ internal class UserClaimCacheHandler : IUserClaimCacheHandler
 			UserClaimCacheUtilities.GetByIdKey(entity.Id),
 			entity,
 			_cacheOptions.Expirations[UserClaimCacheUtilities.GetByIdKeyPrefix],
-			[UserClaimCacheUtilities.GetTag(entity.Id),
-			 UserCacheUtilities.GetTag(entity.Id.Id)]);
+			[UserClaimCacheUtilities.GetTag(entity.Id)]);
 	}
 
 	public async Task AddAsync(UserClaimResponse response, CurrentUserQuery currentUser)
@@ -44,8 +42,7 @@ internal class UserClaimCacheHandler : IUserClaimCacheHandler
 			UserClaimCacheUtilities.GetResponseByIdKey(response.Id, currentUser),
 			response,
 			_cacheOptions.Expirations[UserClaimCacheUtilities.GetResponseByIdKeyPrefix],
-			[UserClaimCacheUtilities.GetTag(response.Id),
-			 UserCacheUtilities.GetTag(response.Id.Id)]);
+			[UserClaimCacheUtilities.GetTag(response.Id)]);
 	}
 
 	public async Task AddRangeAsync(IEnumerable<UserClaim> entities)
@@ -67,8 +64,7 @@ internal class UserClaimCacheHandler : IUserClaimCacheHandler
 			UserClaimCacheUtilities.ExistsByIdKey(id),
 			exists,
 			_cacheOptions.Expirations[UserClaimCacheUtilities.ExistsByIdKeyPrefix],
-			[UserClaimCacheUtilities.GetTag(id),
-			 UserCacheUtilities.GetTag(id.Id)]);
+			[UserClaimCacheUtilities.GetTag(id)]);
 	}
 
 	public async Task DeleteAsync(UserClaimId id)
