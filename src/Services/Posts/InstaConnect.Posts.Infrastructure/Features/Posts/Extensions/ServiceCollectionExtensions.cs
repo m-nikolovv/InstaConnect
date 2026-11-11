@@ -1,3 +1,6 @@
+using InstaConnect.Posts.Infrastructure.Features.Posts.Helpers.Repositories;
+using InstaConnect.Posts.Infrastructure.Features.Posts.Models.Options;
+
 namespace InstaConnect.Posts.Infrastructure.Features.Posts.Extensions;
 
 internal static class ServiceCollectionExtensions
@@ -12,7 +15,15 @@ internal static class ServiceCollectionExtensions
 			serviceCollection.AddImplementationsOf<IPostsForUserSortTermer>(PostsInfrastructureReference.Assembly);
 			serviceCollection.AddImplementationsOf<IPostIncluder>(PostsInfrastructureReference.Assembly);
 
+			serviceCollection.AddValidatedOptions<PostCacheOptions>(PostCacheOptions.SectionName);
+
 			serviceCollection.AddCollection<Post>(CollectionName);
+
+			serviceCollection.AddScoped<IPostCommandRepository, PostCommandRepository>()
+							 .Decorate<IPostCommandRepository, CachedPostCommandRepository>();
+
+			serviceCollection.AddScoped<IPostQueryRepository, PostQueryRepository>()
+							 .Decorate<IPostQueryRepository, CachedPostQueryRepository>();
 
 			BsonClassMap.TryRegisterClassMap<Post>(cm =>
 			{

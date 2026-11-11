@@ -1,3 +1,7 @@
+using InstaConnect.Posts.Domain.Features.PostComments.Abstractions;
+using InstaConnect.Posts.Infrastructure.Features.PostComments.Helpers.Repositories;
+using InstaConnect.Posts.Infrastructure.Features.PostComments.Models.Options;
+
 namespace InstaConnect.Posts.Infrastructure.Features.PostComments.Extensions;
 
 internal static class ServiceCollectionExtensions
@@ -12,7 +16,15 @@ internal static class ServiceCollectionExtensions
 			serviceCollection.AddImplementationsOf<IPostCommentsForUserSortTermer>(PostsInfrastructureReference.Assembly);
 			serviceCollection.AddImplementationsOf<IPostCommentIncluder>(PostsInfrastructureReference.Assembly);
 
+			serviceCollection.AddValidatedOptions<PostCommentCacheOptions>(PostCommentCacheOptions.SectionName);
+
 			serviceCollection.AddCollection<PostComment>(CollectionName);
+
+			serviceCollection.AddScoped<IPostCommentCommandRepository, PostCommentCommandRepository>()
+							 .Decorate<IPostCommentCommandRepository, CachedPostCommentCommandRepository>();
+
+			serviceCollection.AddScoped<IPostCommentQueryRepository, PostCommentQueryRepository>()
+							 .Decorate<IPostCommentQueryRepository, CachedPostCommentQueryRepository>();
 
 			BsonClassMap.TryRegisterClassMap<PostComment>(cm =>
 			{

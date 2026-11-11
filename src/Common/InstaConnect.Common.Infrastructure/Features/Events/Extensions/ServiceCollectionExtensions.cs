@@ -16,7 +16,7 @@ public static class ServiceCollectionExtensions
 		public IServiceCollection AddEvents(
 			IConfiguration configuration,
 			Action<IRiderRegistrationConfigurator>? mapEventProducers,
-			Action<IRiderRegistrationContext, IKafkaFactoryConfigurator, IDictionary<string, KafkaConsumerOptions>>? mapEventHandlers,
+			Action<IRiderRegistrationContext, IKafkaFactoryConfigurator>? mapEventHandlers,
 			params Assembly[] assemblies)
 		{
 			serviceCollection.AddValidatedOptions<KafkaOptions>(KafkaOptions.SectionName);

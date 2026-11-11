@@ -1,3 +1,7 @@
+using InstaConnect.Identity.Domain.Features.UserClaims.Abstractions;
+using InstaConnect.Identity.Infrastructure.Features.UserClaims.Helpers.Repositories;
+using InstaConnect.Identity.Infrastructure.Features.UserClaims.Models.Options;
+
 namespace InstaConnect.Identity.Infrastructure.Features.UserClaims.Extensions;
 
 internal static class ServiceCollectionExtensions
@@ -11,7 +15,15 @@ internal static class ServiceCollectionExtensions
 			serviceCollection.AddImplementationsOf<IUserClaimsSortTermer>(IdentityInfrastructureReference.Assembly);
 			serviceCollection.AddImplementationsOf<IUserClaimIncluder>(IdentityInfrastructureReference.Assembly);
 
+			serviceCollection.AddValidatedOptions<UserClaimCacheOptions>(UserClaimCacheOptions.SectionName);
+
 			serviceCollection.AddCollection<UserClaim>(CollectionName);
+
+			serviceCollection.AddScoped<IUserClaimCommandRepository, UserClaimCommandRepository>()
+							 .Decorate<IUserClaimCommandRepository, CachedUserClaimCommandRepository>();
+
+			serviceCollection.AddScoped<IUserClaimQueryRepository, UserClaimQueryRepository>()
+							 .Decorate<IUserClaimQueryRepository, CachedUserClaimQueryRepository>();
 
 			BsonClassMap.TryRegisterClassMap<UserClaim>(cm =>
 			{

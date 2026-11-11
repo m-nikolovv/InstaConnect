@@ -131,31 +131,4 @@ public class GetCurrentUserDetailsByIdFunctionalTests : BaseUserPresentationQuer
 		// Assert
 		response.ShouldSatisfy(request, User);
 	}
-
-	[Fact]
-	public async Task GetCurrentDetailsByIdAsync_ShouldCacheResponse_WhenRequestIsValid()
-	{
-		// Act
-		await ApiClient.GetCurrentDetailsByIdAsync(_request, CancellationToken);
-		var response = await ServiceScope.GetCachedAsync(_request, CancellationToken);
-
-		// Assert
-		response.ShouldSatisfy(_request, User);
-	}
-
-	[Theory]
-	[UserIdDifferentCaseData]
-	public async Task GetCurrentDetailsByIdAsync_ShouldCacheResponse_WhenRequestAndCurrentIdAreValid(
-		IStringTransformer transformer)
-	{
-		// Arrange
-		var request = _requestBuilder.WithCurrentId(transformer).Build();
-
-		// Act
-		await ApiClient.GetCurrentDetailsByIdAsync(request, CancellationToken);
-		var response = await ServiceScope.GetCachedAsync(request, CancellationToken);
-
-		// Assert
-		response.ShouldSatisfy(request, User);
-	}
 }

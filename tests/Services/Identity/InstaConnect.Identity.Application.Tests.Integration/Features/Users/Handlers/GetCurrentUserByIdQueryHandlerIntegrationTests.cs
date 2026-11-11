@@ -66,31 +66,4 @@ public class GetCurrentUserByIdQueryHandlerIntegrationTests : BaseUserApplicatio
 		// Assert
 		response.ShouldSatisfy(request, User);
 	}
-
-	[Fact]
-	public async Task SendAsync_ShouldCacheResponse_WhenRequestIsValid()
-	{
-		// Act
-		await Sender.SendAsync(_request, CancellationToken);
-		var response = await ServiceScope.GetCachedAsync(_request, CancellationToken);
-
-		// Assert
-		response.ShouldSatisfy(_request, User);
-	}
-
-	[Theory]
-	[UserIdDifferentCaseData]
-	public async Task SendAsync_ShouldCacheResponse_WhenRequestAndCurrentIdAreValid(
-		IStringTransformer transformer)
-	{
-		// Arrange
-		var request = _requestBuilder.WithCurrentId(transformer).Build();
-
-		// Act
-		await Sender.SendAsync(request, CancellationToken);
-		var response = await ServiceScope.GetCachedAsync(request, CancellationToken);
-
-		// Assert
-		response.ShouldSatisfy(request, User);
-	}
 }

@@ -233,6 +233,7 @@ services:
       KafkaConfiguration__ConnectionString: "kafka:9092"
       KafkaConfiguration__Username: "${KAFKA_USERNAME}"
       KafkaConfiguration__Password: "${KAFKA_PASSWORD}"
+      RedisConfiguration__ConnectionString: "redis:6379,password=${REDIS_PASSWORD},abortConnect=False"
       CloudinaryConfiguration__CloudName: ${CLOUDINARY_CLOUD_NAME}
       CloudinaryConfiguration__ApiKey: ${CLOUDINARY_API_KEY}
       CloudinaryConfiguration__ApiSecret: ${CLOUDINARY_API_SECRET}

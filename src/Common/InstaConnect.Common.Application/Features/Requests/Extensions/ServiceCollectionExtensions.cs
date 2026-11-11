@@ -1,6 +1,5 @@
 using System.Reflection;
 
-using InstaConnect.Common.Application.Features.Caches.PipelineBehaviors;
 using InstaConnect.Common.Application.Features.Databases.PipelineBehaviors;
 using InstaConnect.Common.Application.Features.Requests.Abstractions;
 using InstaConnect.Common.Application.Features.Requests.Helpers;
@@ -20,7 +19,6 @@ public static class ServiceCollectionExtensions
 					cf.RegisterServicesFromAssemblies(assemblies);
 
 					cf.AddOpenBehavior(typeof(ValidationPipelineBehavior<,>));
-					cf.AddOpenBehavior(typeof(CachePipelineBehavior<,>));
 					cf.AddOpenBehavior(typeof(UnitOfWorkPipelineBehavior<,>));
 				});
 

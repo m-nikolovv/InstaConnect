@@ -33,7 +33,7 @@ public class ChatsWebApplicationFactory : WebApplicationFactory<Program>, IAsync
 		{
 			serviceCollection.AddMockImageHandler();
 			serviceCollection.AddChatMessageMockSummarizer();
-			serviceCollection.AddTestEventClient((context, kafkaConfigurator, consumerOptions) => kafkaConfigurator.MapUserEventHandler(context, ChatsEventHandlerUtilities.Prefix.GetTest(), consumerOptions), ChatsInfrastructureReference.Assembly);
+			serviceCollection.AddTestEventClient((context, kafkaConfigurator) => kafkaConfigurator.MapUserEventHandler(context, ChatsEventHandlerUtilities.Prefix.GetTest()), ChatsInfrastructureReference.Assembly);
 		});
 
 		builder.UpdateKafkaConfiguration(_kafkaContainer.GetBootstrapServers());

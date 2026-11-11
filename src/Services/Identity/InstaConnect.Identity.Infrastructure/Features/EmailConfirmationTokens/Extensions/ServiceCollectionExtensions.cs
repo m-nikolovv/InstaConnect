@@ -1,4 +1,7 @@
+using InstaConnect.Identity.Domain.Features.EmailConfirmationTokens.Abstractions;
 using InstaConnect.Identity.Domain.Features.EmailConfirmationTokens.Models.Options;
+using InstaConnect.Identity.Infrastructure.Features.EmailConfirmationTokens.Helpers.Repositories;
+using InstaConnect.Identity.Infrastructure.Features.EmailConfirmationTokens.Models.Options;
 
 namespace InstaConnect.Identity.Infrastructure.Features.EmailConfirmationTokens.Extensions;
 
@@ -14,7 +17,12 @@ internal static class ServiceCollectionExtensions
 
 			serviceCollection.AddImplementationsOf<IEmailConfirmationTokenIncluder>(IdentityInfrastructureReference.Assembly);
 
+			serviceCollection.AddValidatedOptions<EmailConfirmationTokenCacheOptions>(EmailConfirmationTokenCacheOptions.SectionName);
+
 			serviceCollection.AddCollection<EmailConfirmationToken>(CollectionName);
+
+			serviceCollection.AddScoped<IEmailConfirmationTokenCommandRepository, EmailConfirmationTokenCommandRepository>()
+							 .Decorate<IEmailConfirmationTokenCommandRepository, CachedEmailConfirmationTokenCommandRepository>();
 
 			BsonClassMap.TryRegisterClassMap<EmailConfirmationToken>(cm =>
 			{

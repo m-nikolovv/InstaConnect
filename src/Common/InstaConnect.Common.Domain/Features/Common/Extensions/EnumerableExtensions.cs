@@ -19,22 +19,30 @@ public static class EnumerableExtensions
 
 		public string JoinWithSpace()
 		{
-			return enumerable.JoinWith(" ");
+			const string Separator = " ";
+
+			return enumerable.JoinWith(Separator);
 		}
 
 		public string JoinWithSemicolon()
 		{
-			return enumerable.JoinWith("; ");
+			const string Separator = "; ";
+
+			return enumerable.JoinWith(Separator);
 		}
 
 		public string JoinWithColon()
 		{
-			return enumerable.JoinWith(":");
+			const string Separator = ":";
+
+			return enumerable.JoinWith(Separator);
 		}
 
 		public string JoinWithComma()
 		{
-			return enumerable.JoinWith(", ");
+			const string Separator = ", ";
+
+			return enumerable.JoinWith(Separator);
 		}
 	}
 }

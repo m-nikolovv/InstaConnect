@@ -1,48 +1,37 @@
-using InstaConnect.Common.Application.Features.Caches.Abstractions;
-using InstaConnect.Common.Application.Features.Caches.Models;
-using InstaConnect.Common.Domain.Features.Mappers.Abstractions;
-using InstaConnect.Common.Infrastructure.Features.Jsons.Abstractions;
+using InstaConnect.Common.Infrastructure.Features.Caches.Abstractions;
 
-using Microsoft.Extensions.Caching.Distributed;
+using ZiggyCreatures.Caching.Fusion;
 
 namespace InstaConnect.Common.Infrastructure.Features.Caches.Helpers;
 
-
 internal class CacheHandler : ICacheHandler
 {
-	private readonly IApplicationMapper _mapper;
-	private readonly IJsonConverter _jsonConverter;
-	private readonly IDistributedCache _distributedCache;
+	private readonly IFusionCache _fusionCache;
 
-	public CacheHandler(
-		IApplicationMapper mapper,
-		IJsonConverter jsonConverter,
-		IDistributedCache distributedCache)
+	public CacheHandler(IFusionCache fusionCache)
 	{
-		_mapper = mapper;
-		_jsonConverter = jsonConverter;
-		_distributedCache = distributedCache;
+		_fusionCache = fusionCache;
 	}
 
-	public async Task SetAsync(CacheRequest request, CancellationToken cancellationToken)
+	public async Task<T?> GetAsync<T>(string key)
 	{
-		var value = _jsonConverter.Serialize(request.Data);
-		var options = _mapper.Map<DistributedCacheEntryOptions>(request);
-		await _distributedCache.SetStringAsync(
-			request.Key,
-			value,
-			options,
-			cancellationToken);
+		return await _fusionCache.GetOrDefaultAsync<T>(key);
 	}
 
-	public async Task<T?> GetAsync<T>(string key, CancellationToken cancellationToken)
+	public async Task SetAsync<T>(string key, T value, TimeSpan expiration, IEnumerable<string> tags)
 	{
-		var value = await _distributedCache.GetStringAsync(key, cancellationToken) ?? string.Empty;
+		var options = _fusionCache.CreateEntryOptions(null, expiration);
 
-		var obj = _jsonConverter.Deserialize<T>(value);
+		await _fusionCache.SetAsync(key, value, options, tags);
+	}
 
-		return obj;
+	public async Task RemoveByTagAsync(string tag)
+	{
+		await _fusionCache.RemoveByTagAsync(tag);
+	}
 
+	public async Task RemoveByTagRangeAsync(IEnumerable<string> tags)
+	{
+		await _fusionCache.RemoveByTagAsync(tags);
 	}
 }
-

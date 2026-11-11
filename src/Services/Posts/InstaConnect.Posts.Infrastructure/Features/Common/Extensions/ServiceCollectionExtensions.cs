@@ -1,6 +1,7 @@
 using InstaConnect.Common.Domain.Features.Mappers.Extensions;
 using InstaConnect.Common.Domain.Features.Validations.Extensions;
 using InstaConnect.Common.Infrastructure.Features.AccessTokens.Extensions;
+using InstaConnect.Common.Infrastructure.Features.Caches.Extensions;
 using InstaConnect.Common.Infrastructure.Features.Common.Extensions;
 using InstaConnect.Common.Infrastructure.Features.DateTimes.Extensions;
 using InstaConnect.Common.Infrastructure.Features.Events.Extensions;
@@ -44,9 +45,10 @@ public static class ServiceCollectionExtensions
 				.AddValidations(PostsInfrastructureReference.Assembly, CommonInfrastructureReference.Assembly)
 				.AddServicesWithMatchingInterfacesExceptFluents(PostsInfrastructureReference.Assembly)
 				.AddDatabases(configuration, PostsInfrastructureReference.Assembly, CommonInfrastructureReference.Assembly)
-				.AddEvents(configuration, riderConfigurator => riderConfigurator.MapPostEventProducer().MapPostCommentEventProducer().MapPostLikeEventProducer().MapPostCommentLikeEventProducer(), (context, kafkaConfigurator, consumerOptions) => kafkaConfigurator.MapUserEventHandler(context, PostsEventHandlerUtilities.Prefix, consumerOptions), PostsInfrastructureReference.Assembly)
+				.AddEvents(configuration, riderConfigurator => riderConfigurator.MapPostEventProducer().MapPostCommentEventProducer().MapPostLikeEventProducer().MapPostCommentLikeEventProducer(), (context, kafkaConfigurator) => kafkaConfigurator.MapUserEventHandler(context, PostsEventHandlerUtilities.Prefix), PostsInfrastructureReference.Assembly)
 				.AddOutboxEvents()
 				.AddAccessTokens(configuration)
+				.AddCaches(configuration)
 				.AddImages(configuration)
 				.AddSummarizers(configuration)
 				.AddJsons()

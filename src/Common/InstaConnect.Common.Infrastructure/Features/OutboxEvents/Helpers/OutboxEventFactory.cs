@@ -2,12 +2,11 @@ using InstaConnect.Common.Domain.Features.DateTimes.Abstractions;
 using InstaConnect.Common.Domain.Features.Guids.Abstractions;
 using InstaConnect.Common.Events.Features.Events.Abstractions;
 using InstaConnect.Common.Infrastructure.Features.Events.Abstractions;
+using InstaConnect.Common.Infrastructure.Features.Events.Utilities;
 using InstaConnect.Common.Infrastructure.Features.Jsons.Abstractions;
 using InstaConnect.Common.Infrastructure.Features.OutboxEvents.Abstractions;
-using InstaConnect.Common.Infrastructure.Features.OutboxEvents.Models;
 using InstaConnect.Common.Infrastructure.Features.OutboxEvents.Models.Entities;
-
-using MassTransit;
+using InstaConnect.Common.Infrastructure.Features.OutboxEvents.Models;
 
 using Microsoft.Extensions.Options;
 
@@ -39,7 +38,7 @@ internal class OutboxEventFactory : IOutboxEventFactory
 		where TEvent : class, IEventRequest
 	{
 		var id = _guidProvider.NewStringGuid();
-		var topic = KebabCaseEndpointNameFormatter.Instance.Message<TEvent>();
+		var topic = EventUtilities.GetName<TEvent>();
 		var key = _eventKeySelectorProvider.GetKeySelector<TEvent>()(message);
 		var payload = _jsonConverter.Serialize(message);
 		var expiresAt = _dateTimeProvider.GetOffsetUtcNow(_outboxEventOptions.LifetimeSeconds);
