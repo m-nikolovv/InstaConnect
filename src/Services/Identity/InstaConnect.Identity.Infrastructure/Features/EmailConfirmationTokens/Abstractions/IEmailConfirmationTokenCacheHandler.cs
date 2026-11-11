@@ -8,6 +8,8 @@ public interface IEmailConfirmationTokenCacheHandler
 
 	public Task AddAsync(EmailConfirmationToken entity);
 
+	public Task AddRangeAsync(IEnumerable<EmailConfirmationToken> entities);
+
 	public Task<bool?> ExistsByIdAsync(EmailConfirmationTokenId id);
 
 	public Task AddExistsByIdAsync(EmailConfirmationTokenId id, bool exists);

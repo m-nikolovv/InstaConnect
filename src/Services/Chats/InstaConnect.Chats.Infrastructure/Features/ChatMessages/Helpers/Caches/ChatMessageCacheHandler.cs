@@ -53,6 +53,14 @@ internal class ChatMessageCacheHandler : IChatMessageCacheHandler
 			 UserCacheUtilities.GetTag(response.Id.Id.ParticipantTwoId)]);
 	}
 
+	public async Task AddRangeAsync(IEnumerable<ChatMessage> entities)
+	{
+		foreach (var entity in entities)
+		{
+			await AddAsync(entity);
+		}
+	}
+
 	public async Task<bool?> ExistsByIdAsync(ChatMessageId id)
 	{
 		return await _cacheHandler.GetAsync<bool?>(ChatMessageCacheUtilities.ExistsByIdKey(id));

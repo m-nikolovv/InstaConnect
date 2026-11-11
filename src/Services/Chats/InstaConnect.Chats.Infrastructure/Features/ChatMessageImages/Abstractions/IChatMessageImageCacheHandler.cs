@@ -6,6 +6,8 @@ public interface IChatMessageImageCacheHandler
 
 	public Task AddAsync(ChatMessageImage entity);
 
+	public Task AddRangeAsync(IEnumerable<ChatMessageImage> entities);
+
 	public Task DeleteAsync(ChatMessageImageId id);
 
 	public Task DeleteRangeAsync(IEnumerable<ChatMessageImageId> ids);

@@ -39,6 +39,14 @@ internal class ChatMessageImageCacheHandler : IChatMessageImageCacheHandler
 			 UserCacheUtilities.GetTag(entity.Id.Id.Id.ParticipantTwoId)]);
 	}
 
+	public async Task AddRangeAsync(IEnumerable<ChatMessageImage> entities)
+	{
+		foreach (var entity in entities)
+		{
+			await AddAsync(entity);
+		}
+	}
+
 	public async Task DeleteAsync(ChatMessageImageId id)
 	{
 		await _cacheHandler.RemoveByTagAsync(ChatMessageImageCacheUtilities.GetTag(id));

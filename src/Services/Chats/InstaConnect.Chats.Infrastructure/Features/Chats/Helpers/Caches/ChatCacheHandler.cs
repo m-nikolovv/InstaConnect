@@ -50,6 +50,14 @@ internal class ChatCacheHandler : IChatCacheHandler
 			 UserCacheUtilities.GetTag(response.Id.ParticipantTwoId)]);
 	}
 
+	public async Task AddRangeAsync(IEnumerable<Chat> entities)
+	{
+		foreach (var entity in entities)
+		{
+			await AddAsync(entity);
+		}
+	}
+
 	public async Task<bool?> ExistsByIdAsync(ChatId id)
 	{
 		return await _cacheHandler.GetAsync<bool?>(ChatCacheUtilities.ExistsByIdKey(id));

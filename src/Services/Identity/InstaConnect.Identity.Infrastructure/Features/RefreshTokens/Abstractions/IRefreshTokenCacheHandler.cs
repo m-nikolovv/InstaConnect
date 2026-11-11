@@ -8,6 +8,8 @@ public interface IRefreshTokenCacheHandler
 
 	public Task AddAsync(RefreshToken entity);
 
+	public Task AddRangeAsync(IEnumerable<RefreshToken> entities);
+
 	public Task DeleteAsync(RefreshTokenId id);
 
 	public Task DeleteRangeAsync(IEnumerable<RefreshTokenId> ids);

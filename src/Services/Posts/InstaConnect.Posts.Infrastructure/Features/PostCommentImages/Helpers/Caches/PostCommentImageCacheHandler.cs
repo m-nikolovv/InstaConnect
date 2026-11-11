@@ -37,6 +37,14 @@ internal class PostCommentImageCacheHandler : IPostCommentImageCacheHandler
 			 PostCacheUtilities.GetTag(entity.Id.Id.Id)]);
 	}
 
+	public async Task AddRangeAsync(IEnumerable<PostCommentImage> entities)
+	{
+		foreach (var entity in entities)
+		{
+			await AddAsync(entity);
+		}
+	}
+
 	public async Task DeleteAsync(PostCommentImageId id)
 	{
 		await _cacheHandler.RemoveByTagAsync(PostCommentImageCacheUtilities.GetTag(id));

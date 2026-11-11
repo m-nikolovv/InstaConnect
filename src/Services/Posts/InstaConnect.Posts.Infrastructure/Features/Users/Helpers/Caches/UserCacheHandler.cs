@@ -45,6 +45,14 @@ internal class UserCacheHandler : IUserCacheHandler
 			[UserCacheUtilities.GetTag(response.Id)]);
 	}
 
+	public async Task AddRangeAsync(IEnumerable<User> entities)
+	{
+		foreach (var entity in entities)
+		{
+			await AddAsync(entity);
+		}
+	}
+
 	public async Task<bool?> ExistsByIdAsync(UserId id)
 	{
 		return await _cacheHandler.GetAsync<bool?>(UserCacheUtilities.ExistsByIdKey(id));

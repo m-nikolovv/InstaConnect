@@ -10,6 +10,8 @@ public interface IFollowCacheHandler
 
 	public Task AddAsync(FollowResponse response, CurrentUserQuery currentUser);
 
+	public Task AddRangeAsync(IEnumerable<Follow> entities);
+
 	public Task<bool?> ExistsByIdAsync(FollowId id);
 
 	public Task AddExistsByIdAsync(FollowId id, bool exists);

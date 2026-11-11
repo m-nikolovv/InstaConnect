@@ -10,6 +10,8 @@ public interface IPostCommentLikeCacheHandler
 
 	public Task AddAsync(PostCommentLikeResponse response, CurrentUserQuery currentUser);
 
+	public Task AddRangeAsync(IEnumerable<PostCommentLike> entities);
+
 	public Task<bool?> ExistsByIdAsync(PostCommentLikeId id);
 
 	public Task AddExistsByIdAsync(PostCommentLikeId id, bool exists);

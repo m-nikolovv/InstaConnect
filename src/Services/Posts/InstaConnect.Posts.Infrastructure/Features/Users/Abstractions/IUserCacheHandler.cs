@@ -10,6 +10,8 @@ public interface IUserCacheHandler
 
 	public Task AddAsync(UserResponse response, CurrentUserQuery currentUser);
 
+	public Task AddRangeAsync(IEnumerable<User> entities);
+
 	public Task<bool?> ExistsByIdAsync(UserId id);
 
 	public Task AddExistsByIdAsync(UserId id, bool exists);

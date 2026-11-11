@@ -48,6 +48,14 @@ internal class PostCacheHandler : IPostCacheHandler
 			 UserCacheUtilities.GetTag(response.UserId)]);
 	}
 
+	public async Task AddRangeAsync(IEnumerable<Post> entities)
+	{
+		foreach (var entity in entities)
+		{
+			await AddAsync(entity);
+		}
+	}
+
 	public async Task<bool?> ExistsByIdAsync(PostId id)
 	{
 		return await _cacheHandler.GetAsync<bool?>(PostCacheUtilities.ExistsByIdKey(id));

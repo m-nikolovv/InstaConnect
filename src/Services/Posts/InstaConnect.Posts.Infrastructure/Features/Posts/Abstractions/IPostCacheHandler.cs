@@ -10,6 +10,8 @@ public interface IPostCacheHandler
 
 	public Task AddAsync(PostResponse response, CurrentUserQuery currentUser);
 
+	public Task AddRangeAsync(IEnumerable<Post> entities);
+
 	public Task<bool?> ExistsByIdAsync(PostId id);
 
 	public Task AddExistsByIdAsync(PostId id, bool exists);

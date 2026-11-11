@@ -8,6 +8,8 @@ public interface IForgotPasswordTokenCacheHandler
 
 	public Task AddAsync(ForgotPasswordToken entity);
 
+	public Task AddRangeAsync(IEnumerable<ForgotPasswordToken> entities);
+
 	public Task<bool?> ExistsByIdAsync(ForgotPasswordTokenId id);
 
 	public Task AddExistsByIdAsync(ForgotPasswordTokenId id, bool exists);

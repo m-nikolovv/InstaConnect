@@ -10,6 +10,8 @@ public interface IPostLikeCacheHandler
 
 	public Task AddAsync(PostLikeResponse response, CurrentUserQuery currentUser);
 
+	public Task AddRangeAsync(IEnumerable<PostLike> entities);
+
 	public Task<bool?> ExistsByIdAsync(PostLikeId id);
 
 	public Task AddExistsByIdAsync(PostLikeId id, bool exists);

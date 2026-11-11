@@ -20,9 +20,7 @@ internal class CacheHandler : ICacheHandler
 
 	public async Task SetAsync<T>(string key, T value, TimeSpan expiration, IEnumerable<string> tags)
 	{
-		var options = _fusionCache.CreateEntryOptions(null, expiration);
-
-		await _fusionCache.SetAsync(key, value, options, tags);
+		await _fusionCache.SetAsync(key, value, expiration, tags);
 	}
 
 	public async Task RemoveByTagAsync(string tag)

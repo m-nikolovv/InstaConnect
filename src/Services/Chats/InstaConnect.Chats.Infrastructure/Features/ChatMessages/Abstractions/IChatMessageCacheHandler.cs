@@ -10,6 +10,8 @@ public interface IChatMessageCacheHandler
 
 	public Task AddAsync(ChatMessageResponse response, CurrentUserQuery currentUser);
 
+	public Task AddRangeAsync(IEnumerable<ChatMessage> entities);
+
 	public Task<bool?> ExistsByIdAsync(ChatMessageId id);
 
 	public Task AddExistsByIdAsync(ChatMessageId id, bool exists);

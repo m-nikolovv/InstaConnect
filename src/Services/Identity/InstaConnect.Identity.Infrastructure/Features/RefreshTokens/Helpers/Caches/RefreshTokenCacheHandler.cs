@@ -34,6 +34,14 @@ internal class RefreshTokenCacheHandler : IRefreshTokenCacheHandler
 			 UserCacheUtilities.GetTag(entity.Id.Id)]);
 	}
 
+	public async Task AddRangeAsync(IEnumerable<RefreshToken> entities)
+	{
+		foreach (var entity in entities)
+		{
+			await AddAsync(entity);
+		}
+	}
+
 	public async Task DeleteAsync(RefreshTokenId id)
 	{
 		await _cacheHandler.RemoveByTagAsync(RefreshTokenCacheUtilities.GetTag(id));

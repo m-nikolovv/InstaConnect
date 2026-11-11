@@ -34,6 +34,14 @@ internal class ForgotPasswordTokenCacheHandler : IForgotPasswordTokenCacheHandle
 			 UserCacheUtilities.GetTag(entity.Id.Id)]);
 	}
 
+	public async Task AddRangeAsync(IEnumerable<ForgotPasswordToken> entities)
+	{
+		foreach (var entity in entities)
+		{
+			await AddAsync(entity);
+		}
+	}
+
 	public async Task<bool?> ExistsByIdAsync(ForgotPasswordTokenId id)
 	{
 		return await _cacheHandler.GetAsync<bool?>(ForgotPasswordTokenCacheUtilities.ExistsByIdKey(id));

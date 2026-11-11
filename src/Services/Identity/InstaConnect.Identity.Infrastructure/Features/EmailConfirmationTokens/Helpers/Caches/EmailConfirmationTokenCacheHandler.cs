@@ -34,6 +34,14 @@ internal class EmailConfirmationTokenCacheHandler : IEmailConfirmationTokenCache
 			 UserCacheUtilities.GetTag(entity.Id.Id)]);
 	}
 
+	public async Task AddRangeAsync(IEnumerable<EmailConfirmationToken> entities)
+	{
+		foreach (var entity in entities)
+		{
+			await AddAsync(entity);
+		}
+	}
+
 	public async Task<bool?> ExistsByIdAsync(EmailConfirmationTokenId id)
 	{
 		return await _cacheHandler.GetAsync<bool?>(EmailConfirmationTokenCacheUtilities.ExistsByIdKey(id));

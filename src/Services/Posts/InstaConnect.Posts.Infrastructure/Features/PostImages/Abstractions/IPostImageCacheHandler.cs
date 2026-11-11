@@ -8,6 +8,8 @@ public interface IPostImageCacheHandler
 
 	public Task AddAsync(PostImage entity);
 
+	public Task AddRangeAsync(IEnumerable<PostImage> entities);
+
 	public Task DeleteAsync(PostImageId id);
 
 	public Task DeleteRangeAsync(IEnumerable<PostImageId> ids);

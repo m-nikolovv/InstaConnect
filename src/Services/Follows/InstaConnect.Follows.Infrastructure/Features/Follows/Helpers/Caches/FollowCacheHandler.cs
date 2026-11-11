@@ -50,6 +50,14 @@ internal class FollowCacheHandler : IFollowCacheHandler
 			 UserCacheUtilities.GetTag(response.Id.FollowingId)]);
 	}
 
+	public async Task AddRangeAsync(IEnumerable<Follow> entities)
+	{
+		foreach (var entity in entities)
+		{
+			await AddAsync(entity);
+		}
+	}
+
 	public async Task<bool?> ExistsByIdAsync(FollowId id)
 	{
 		return await _cacheHandler.GetAsync<bool?>(FollowCacheUtilities.ExistsByIdKey(id));

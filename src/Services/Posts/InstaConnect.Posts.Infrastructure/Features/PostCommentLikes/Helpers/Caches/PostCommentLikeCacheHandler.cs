@@ -67,6 +67,14 @@ internal class PostCommentLikeCacheHandler : IPostCommentLikeCacheHandler
 			tags);
 	}
 
+	public async Task AddRangeAsync(IEnumerable<PostCommentLike> entities)
+	{
+		foreach (var entity in entities)
+		{
+			await AddAsync(entity);
+		}
+	}
+
 	public async Task<bool?> ExistsByIdAsync(PostCommentLikeId id)
 	{
 		return await _cacheHandler.GetAsync<bool?>(PostCommentLikeCacheUtilities.ExistsByIdKey(id));
