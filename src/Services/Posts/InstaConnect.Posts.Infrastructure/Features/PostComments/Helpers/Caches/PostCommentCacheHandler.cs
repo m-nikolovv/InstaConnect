@@ -42,21 +42,15 @@ internal class PostCommentCacheHandler : IPostCommentCacheHandler
 
 	public async Task AddAsync(PostCommentResponse response, CurrentUserQuery currentUser)
 	{
-		List<string> tags =
-			[PostCommentCacheUtilities.GetTag(response.Id),
-			 PostCacheUtilities.GetTag(response.Id.Id),
-			 UserCacheUtilities.GetTag(response.UserId)];
-
-		if (response.Post != null)
-		{
-			tags.Add(UserCacheUtilities.GetTag(response.Post.UserId));
-		}
-
 		await _cacheHandler.SetAsync(
 			PostCommentCacheUtilities.GetResponseByIdKey(response.Id, currentUser),
 			response,
 			_cacheOptions.Expirations[PostCommentCacheUtilities.GetResponseByIdKeyPrefix],
-			tags);
+			[PostCommentCacheUtilities.GetTag(response.Id),
+			 PostCacheUtilities.GetTag(response.Id.Id),
+			 UserCacheUtilities.GetTag(response.UserId),
+			 PostCommentCacheUtilities.GetResponseTag(response.Id),
+			 PostCacheUtilities.GetResponseTag(response.Id.Id)]);
 	}
 
 	public async Task AddRangeAsync(IEnumerable<PostComment> entities)
@@ -90,5 +84,15 @@ internal class PostCommentCacheHandler : IPostCommentCacheHandler
 	public async Task DeleteRangeAsync(IEnumerable<PostCommentId> ids)
 	{
 		await _cacheHandler.RemoveByTagRangeAsync(PostCommentCacheUtilities.GetTagRange(ids));
+	}
+
+	public async Task DeleteResponseAsync(PostCommentId id)
+	{
+		await _cacheHandler.RemoveByTagAsync(PostCommentCacheUtilities.GetResponseTag(id));
+	}
+
+	public async Task DeleteResponseRangeAsync(IEnumerable<PostCommentId> ids)
+	{
+		await _cacheHandler.RemoveByTagRangeAsync(PostCommentCacheUtilities.GetResponseTagRange(ids));
 	}
 }

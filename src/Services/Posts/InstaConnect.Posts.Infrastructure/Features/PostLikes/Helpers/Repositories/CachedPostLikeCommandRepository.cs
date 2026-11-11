@@ -83,21 +83,21 @@ internal class CachedPostLikeCommandRepository : IPostLikeCommandRepository
 	public async Task AddAsync(PostLike entity, CancellationToken cancellationToken)
 	{
 		await _repository.AddAsync(entity, cancellationToken);
-		await _cacheHandler.DeleteAsync(entity.Id.Id);
+		await _cacheHandler.DeleteResponseAsync(entity.Id.Id);
 		await _likeCacheHandler.DeleteAsync(entity.Id);
 	}
 
 	public async Task AddRangeAsync(IEnumerable<PostLike> entities, CancellationToken cancellationToken)
 	{
 		await _repository.AddRangeAsync(entities, cancellationToken);
-		await _cacheHandler.DeleteRangeAsync(entities.Select(p => p.Id.Id));
+		await _cacheHandler.DeleteResponseRangeAsync(entities.Select(p => p.Id.Id));
 		await _likeCacheHandler.DeleteRangeAsync(entities.Select(p => p.Id));
 	}
 
 	public async Task DeleteAsync(PostLike entity, CancellationToken cancellationToken)
 	{
 		await _repository.DeleteAsync(entity, cancellationToken);
-		await _cacheHandler.DeleteAsync(entity.Id.Id);
+		await _cacheHandler.DeleteResponseAsync(entity.Id.Id);
 		await _likeCacheHandler.DeleteAsync(entity.Id);
 	}
 }

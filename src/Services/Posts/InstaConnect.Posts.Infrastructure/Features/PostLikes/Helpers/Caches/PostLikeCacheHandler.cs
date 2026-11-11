@@ -42,21 +42,14 @@ internal class PostLikeCacheHandler : IPostLikeCacheHandler
 
 	public async Task AddAsync(PostLikeResponse response, CurrentUserQuery currentUser)
 	{
-		List<string> tags =
-			[PostLikeCacheUtilities.GetTag(response.Id),
-			 PostCacheUtilities.GetTag(response.Id.Id),
-			 UserCacheUtilities.GetTag(response.Id.UserId)];
-
-		if (response.Post != null)
-		{
-			tags.Add(UserCacheUtilities.GetTag(response.Post.UserId));
-		}
-
 		await _cacheHandler.SetAsync(
 			PostLikeCacheUtilities.GetResponseByIdKey(response.Id, currentUser),
 			response,
 			_cacheOptions.Expirations[PostLikeCacheUtilities.GetResponseByIdKeyPrefix],
-			tags);
+			[PostLikeCacheUtilities.GetTag(response.Id),
+			 PostCacheUtilities.GetTag(response.Id.Id),
+			 UserCacheUtilities.GetTag(response.Id.UserId),
+			 PostCacheUtilities.GetResponseTag(response.Id.Id)]);
 	}
 
 	public async Task AddRangeAsync(IEnumerable<PostLike> entities)

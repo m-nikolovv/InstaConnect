@@ -45,4 +45,16 @@ public static class PostCacheUtilities
 	{
 		return ids.Select(GetTag);
 	}
+
+	public static string GetResponseTag(PostId id)
+	{
+		const string Format = "posts:tags:posts:responses:{0}";
+
+		return Format.FormatCurrentCulture(id.Id).ToLowerCurrentCulture();
+	}
+
+	public static IEnumerable<string> GetResponseTagRange(IEnumerable<PostId> ids)
+	{
+		return ids.Select(GetResponseTag);
+	}
 }

@@ -51,28 +51,28 @@ internal class CachedPostCommentImageCommandRepository : IPostCommentImageComman
 	public async Task AddAsync(PostCommentImage entity, CancellationToken cancellationToken)
 	{
 		await _repository.AddAsync(entity, cancellationToken);
-		await _commentCacheHandler.DeleteAsync(entity.Id.Id);
+		await _commentCacheHandler.DeleteResponseAsync(entity.Id.Id);
 		await _commentImageCacheHandler.DeleteAsync(entity.Id);
 	}
 
 	public async Task AddRangeAsync(IEnumerable<PostCommentImage> entities, CancellationToken cancellationToken)
 	{
 		await _repository.AddRangeAsync(entities, cancellationToken);
-		await _commentCacheHandler.DeleteRangeAsync(entities.Select(p => p.Id.Id));
+		await _commentCacheHandler.DeleteResponseRangeAsync(entities.Select(p => p.Id.Id));
 		await _commentImageCacheHandler.DeleteRangeAsync(entities.Select(p => p.Id));
 	}
 
 	public async Task DeleteAsync(PostCommentImage entity, CancellationToken cancellationToken)
 	{
 		await _repository.DeleteAsync(entity, cancellationToken);
-		await _commentCacheHandler.DeleteAsync(entity.Id.Id);
+		await _commentCacheHandler.DeleteResponseAsync(entity.Id.Id);
 		await _commentImageCacheHandler.DeleteAsync(entity.Id);
 	}
 
 	public async Task DeleteRangeAsync(IEnumerable<PostCommentImage> entities, CancellationToken cancellationToken)
 	{
 		await _repository.DeleteRangeAsync(entities, cancellationToken);
-		await _commentCacheHandler.DeleteRangeAsync(entities.Select(p => p.Id.Id));
+		await _commentCacheHandler.DeleteResponseRangeAsync(entities.Select(p => p.Id.Id));
 		await _commentImageCacheHandler.DeleteRangeAsync(entities.Select(p => p.Id));
 	}
 }

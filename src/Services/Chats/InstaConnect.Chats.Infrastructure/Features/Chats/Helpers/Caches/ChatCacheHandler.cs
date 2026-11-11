@@ -47,7 +47,8 @@ internal class ChatCacheHandler : IChatCacheHandler
 			_cacheOptions.Expirations[ChatCacheUtilities.GetResponseByIdKeyPrefix],
 			[ChatCacheUtilities.GetTag(response.Id),
 			 UserCacheUtilities.GetTag(response.Id.ParticipantOneId),
-			 UserCacheUtilities.GetTag(response.Id.ParticipantTwoId)]);
+			 UserCacheUtilities.GetTag(response.Id.ParticipantTwoId),
+			 ChatCacheUtilities.GetResponseTag(response.Id)]);
 	}
 
 	public async Task AddRangeAsync(IEnumerable<Chat> entities)
@@ -82,5 +83,15 @@ internal class ChatCacheHandler : IChatCacheHandler
 	public async Task DeleteRangeAsync(IEnumerable<ChatId> ids)
 	{
 		await _cacheHandler.RemoveByTagRangeAsync(ChatCacheUtilities.GetTagRange(ids));
+	}
+
+	public async Task DeleteResponseAsync(ChatId id)
+	{
+		await _cacheHandler.RemoveByTagAsync(ChatCacheUtilities.GetResponseTag(id));
+	}
+
+	public async Task DeleteResponseRangeAsync(IEnumerable<ChatId> ids)
+	{
+		await _cacheHandler.RemoveByTagRangeAsync(ChatCacheUtilities.GetResponseTagRange(ids));
 	}
 }

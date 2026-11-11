@@ -83,14 +83,14 @@ internal class CachedChatMessageCommandRepository : IChatMessageCommandRepositor
 	public async Task AddAsync(ChatMessage entity, CancellationToken cancellationToken)
 	{
 		await _repository.AddAsync(entity, cancellationToken);
-		await _cacheHandler.DeleteAsync(entity.Id.Id);
+		await _cacheHandler.DeleteResponseAsync(entity.Id.Id);
 		await _messageCacheHandler.DeleteAsync(entity.Id);
 	}
 
 	public async Task AddRangeAsync(IEnumerable<ChatMessage> entities, CancellationToken cancellationToken)
 	{
 		await _repository.AddRangeAsync(entities, cancellationToken);
-		await _cacheHandler.DeleteRangeAsync(entities.Select(p => p.Id.Id));
+		await _cacheHandler.DeleteResponseRangeAsync(entities.Select(p => p.Id.Id));
 		await _messageCacheHandler.DeleteRangeAsync(entities.Select(p => p.Id));
 	}
 
@@ -103,7 +103,7 @@ internal class CachedChatMessageCommandRepository : IChatMessageCommandRepositor
 	public async Task DeleteAsync(ChatMessage entity, CancellationToken cancellationToken)
 	{
 		await _repository.DeleteAsync(entity, cancellationToken);
-		await _cacheHandler.DeleteAsync(entity.Id.Id);
+		await _cacheHandler.DeleteResponseAsync(entity.Id.Id);
 		await _messageCacheHandler.DeleteAsync(entity.Id);
 	}
 }

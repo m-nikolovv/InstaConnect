@@ -50,7 +50,9 @@ internal class ChatMessageCacheHandler : IChatMessageCacheHandler
 			[ChatMessageCacheUtilities.GetTag(response.Id),
 			 ChatCacheUtilities.GetTag(response.Id.Id),
 			 UserCacheUtilities.GetTag(response.Id.Id.ParticipantOneId),
-			 UserCacheUtilities.GetTag(response.Id.Id.ParticipantTwoId)]);
+			 UserCacheUtilities.GetTag(response.Id.Id.ParticipantTwoId),
+			 ChatMessageCacheUtilities.GetResponseTag(response.Id),
+			 ChatCacheUtilities.GetResponseTag(response.Id.Id)]);
 	}
 
 	public async Task AddRangeAsync(IEnumerable<ChatMessage> entities)
@@ -86,5 +88,15 @@ internal class ChatMessageCacheHandler : IChatMessageCacheHandler
 	public async Task DeleteRangeAsync(IEnumerable<ChatMessageId> ids)
 	{
 		await _cacheHandler.RemoveByTagRangeAsync(ChatMessageCacheUtilities.GetTagRange(ids));
+	}
+
+	public async Task DeleteResponseAsync(ChatMessageId id)
+	{
+		await _cacheHandler.RemoveByTagAsync(ChatMessageCacheUtilities.GetResponseTag(id));
+	}
+
+	public async Task DeleteResponseRangeAsync(IEnumerable<ChatMessageId> ids)
+	{
+		await _cacheHandler.RemoveByTagRangeAsync(ChatMessageCacheUtilities.GetResponseTagRange(ids));
 	}
 }

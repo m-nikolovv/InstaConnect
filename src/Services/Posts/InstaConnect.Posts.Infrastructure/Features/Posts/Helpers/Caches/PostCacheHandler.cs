@@ -45,7 +45,8 @@ internal class PostCacheHandler : IPostCacheHandler
 			response,
 			_cacheOptions.Expirations[PostCacheUtilities.GetResponseByIdKeyPrefix],
 			[PostCacheUtilities.GetTag(response.Id),
-			 UserCacheUtilities.GetTag(response.UserId)]);
+			 UserCacheUtilities.GetTag(response.UserId),
+			 PostCacheUtilities.GetResponseTag(response.Id)]);
 	}
 
 	public async Task AddRangeAsync(IEnumerable<Post> entities)
@@ -78,5 +79,15 @@ internal class PostCacheHandler : IPostCacheHandler
 	public async Task DeleteRangeAsync(IEnumerable<PostId> ids)
 	{
 		await _cacheHandler.RemoveByTagRangeAsync(PostCacheUtilities.GetTagRange(ids));
+	}
+
+	public async Task DeleteResponseAsync(PostId id)
+	{
+		await _cacheHandler.RemoveByTagAsync(PostCacheUtilities.GetResponseTag(id));
+	}
+
+	public async Task DeleteResponseRangeAsync(IEnumerable<PostId> ids)
+	{
+		await _cacheHandler.RemoveByTagRangeAsync(PostCacheUtilities.GetResponseTagRange(ids));
 	}
 }

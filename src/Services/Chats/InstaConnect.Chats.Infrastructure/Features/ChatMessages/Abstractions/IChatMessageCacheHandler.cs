@@ -19,4 +19,8 @@ public interface IChatMessageCacheHandler
 	public Task DeleteAsync(ChatMessageId id);
 
 	public Task DeleteRangeAsync(IEnumerable<ChatMessageId> ids);
+
+	public Task DeleteResponseAsync(ChatMessageId id);
+
+	public Task DeleteResponseRangeAsync(IEnumerable<ChatMessageId> ids);
 }

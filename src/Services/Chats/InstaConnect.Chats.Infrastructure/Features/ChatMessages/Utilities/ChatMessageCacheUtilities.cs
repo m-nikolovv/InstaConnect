@@ -54,4 +54,19 @@ public static class ChatMessageCacheUtilities
 	{
 		return ids.Select(GetTag);
 	}
+
+	public static string GetResponseTag(ChatMessageId id)
+	{
+		const string Format = "chats:tags:chat-messages:responses:{0}:{1}:{2}";
+
+		return Format.FormatCurrentCulture(
+			id.Id.ParticipantOneId.Id,
+			id.Id.ParticipantTwoId.Id,
+			id.MessageId).ToLowerCurrentCulture();
+	}
+
+	public static IEnumerable<string> GetResponseTagRange(IEnumerable<ChatMessageId> ids)
+	{
+		return ids.Select(GetResponseTag);
+	}
 }

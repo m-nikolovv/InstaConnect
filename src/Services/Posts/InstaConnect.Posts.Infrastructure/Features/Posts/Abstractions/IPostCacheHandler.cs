@@ -19,4 +19,8 @@ public interface IPostCacheHandler
 	public Task DeleteAsync(PostId id);
 
 	public Task DeleteRangeAsync(IEnumerable<PostId> ids);
+
+	public Task DeleteResponseAsync(PostId id);
+
+	public Task DeleteResponseRangeAsync(IEnumerable<PostId> ids);
 }

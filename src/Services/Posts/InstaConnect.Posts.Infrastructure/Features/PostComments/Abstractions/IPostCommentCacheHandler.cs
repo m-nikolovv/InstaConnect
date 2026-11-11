@@ -19,4 +19,8 @@ public interface IPostCommentCacheHandler
 	public Task DeleteAsync(PostCommentId id);
 
 	public Task DeleteRangeAsync(IEnumerable<PostCommentId> ids);
+
+	public Task DeleteResponseAsync(PostCommentId id);
+
+	public Task DeleteResponseRangeAsync(IEnumerable<PostCommentId> ids);
 }

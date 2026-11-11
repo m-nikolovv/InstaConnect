@@ -50,4 +50,18 @@ public static class PostCommentCacheUtilities
 	{
 		return ids.Select(GetTag);
 	}
+
+	public static string GetResponseTag(PostCommentId id)
+	{
+		const string Format = "posts:tags:post-comments:responses:{0}:{1}";
+
+		return Format.FormatCurrentCulture(
+			id.Id.Id,
+			id.CommentId).ToLowerCurrentCulture();
+	}
+
+	public static IEnumerable<string> GetResponseTagRange(IEnumerable<PostCommentId> ids)
+	{
+		return ids.Select(GetResponseTag);
+	}
 }

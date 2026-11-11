@@ -44,27 +44,16 @@ internal class PostCommentLikeCacheHandler : IPostCommentLikeCacheHandler
 
 	public async Task AddAsync(PostCommentLikeResponse response, CurrentUserQuery currentUser)
 	{
-		List<string> tags =
-			[PostCommentLikeCacheUtilities.GetTag(response.Id),
-			 PostCommentCacheUtilities.GetTag(response.Id.CommentId),
-			 PostCacheUtilities.GetTag(response.Id.CommentId.Id),
-			 UserCacheUtilities.GetTag(response.Id.UserId)];
-
-		if (response.PostComment != null)
-		{
-			tags.Add(UserCacheUtilities.GetTag(response.PostComment.UserId));
-		}
-
-		if (response.PostComment?.Post != null)
-		{
-			tags.Add(UserCacheUtilities.GetTag(response.PostComment.Post.UserId));
-		}
-
 		await _cacheHandler.SetAsync(
 			PostCommentLikeCacheUtilities.GetResponseByIdKey(response.Id, currentUser),
 			response,
 			_cacheOptions.Expirations[PostCommentLikeCacheUtilities.GetResponseByIdKeyPrefix],
-			tags);
+			[PostCommentLikeCacheUtilities.GetTag(response.Id),
+			 PostCommentCacheUtilities.GetTag(response.Id.CommentId),
+			 PostCacheUtilities.GetTag(response.Id.CommentId.Id),
+			 UserCacheUtilities.GetTag(response.Id.UserId),
+			 PostCommentCacheUtilities.GetResponseTag(response.Id.CommentId),
+			 PostCacheUtilities.GetResponseTag(response.Id.CommentId.Id)]);
 	}
 
 	public async Task AddRangeAsync(IEnumerable<PostCommentLike> entities)

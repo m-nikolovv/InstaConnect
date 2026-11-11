@@ -83,21 +83,21 @@ internal class CachedPostCommentLikeCommandRepository : IPostCommentLikeCommandR
 	public async Task AddAsync(PostCommentLike entity, CancellationToken cancellationToken)
 	{
 		await _repository.AddAsync(entity, cancellationToken);
-		await _commentCacheHandler.DeleteAsync(entity.Id.CommentId);
+		await _commentCacheHandler.DeleteResponseAsync(entity.Id.CommentId);
 		await _commentLikeCacheHandler.DeleteAsync(entity.Id);
 	}
 
 	public async Task AddRangeAsync(IEnumerable<PostCommentLike> entities, CancellationToken cancellationToken)
 	{
 		await _repository.AddRangeAsync(entities, cancellationToken);
-		await _commentCacheHandler.DeleteRangeAsync(entities.Select(p => p.Id.CommentId));
+		await _commentCacheHandler.DeleteResponseRangeAsync(entities.Select(p => p.Id.CommentId));
 		await _commentLikeCacheHandler.DeleteRangeAsync(entities.Select(p => p.Id));
 	}
 
 	public async Task DeleteAsync(PostCommentLike entity, CancellationToken cancellationToken)
 	{
 		await _repository.DeleteAsync(entity, cancellationToken);
-		await _commentCacheHandler.DeleteAsync(entity.Id.CommentId);
+		await _commentCacheHandler.DeleteResponseAsync(entity.Id.CommentId);
 		await _commentLikeCacheHandler.DeleteAsync(entity.Id);
 	}
 }
