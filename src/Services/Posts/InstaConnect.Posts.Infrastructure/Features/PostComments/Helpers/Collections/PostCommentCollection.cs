@@ -39,21 +39,21 @@ internal class PostCommentCollection : MongoDbCollection<PostComment, PostCommen
 		PostComment entity,
 		CancellationToken cancellationToken)
 	{
-		await _commentImageCollection.CascadeAddAsync(entity.Id.GetPostCommentImageCascadeFilter(), cancellationToken);
-		await _commentLikeCollection.CascadeAddAsync(entity.Id.GetPostCommentLikeCascadeFilter(), cancellationToken);
+		await _commentImageCollection.AddByParentAsync(entity.Id.GetPostCommentImageByParentFilter(), cancellationToken);
+		await _commentLikeCollection.AddByParentAsync(entity.Id.GetPostCommentLikeByParentFilter(), cancellationToken);
 		await InsertAsync(entity, cancellationToken);
 		await _cacheHandler.DeleteResponseAsync(entity.Id.Id);
 		await _commentCacheHandler.DeleteAsync(entity.Id);
 	}
 
-	public async Task CascadeAddAsync(
+	public async Task AddByParentAsync(
 		FilterDefinition<PostComment> filter,
 		CancellationToken cancellationToken)
 	{
 		var commentIds = await GetIdsAsync(filter, cancellationToken);
 
-		await _commentImageCollection.CascadeAddAsync(commentIds.GetPostCommentImageCascadeFilter(), cancellationToken);
-		await _commentLikeCollection.CascadeAddAsync(commentIds.GetPostCommentLikeCascadeFilter(), cancellationToken);
+		await _commentImageCollection.AddByParentAsync(commentIds.GetPostCommentImageByParentFilter(), cancellationToken);
+		await _commentLikeCollection.AddByParentAsync(commentIds.GetPostCommentLikeByParentFilter(), cancellationToken);
 		await _cacheHandler.DeleteResponseRangeAsync(commentIds.Select(p => p.Id));
 		await _commentCacheHandler.DeleteRangeAsync(commentIds);
 	}
@@ -62,8 +62,8 @@ internal class PostCommentCollection : MongoDbCollection<PostComment, PostCommen
 		IEnumerable<PostComment> entities,
 		CancellationToken cancellationToken)
 	{
-		await _commentImageCollection.CascadeAddAsync(entities.Select(p => p.Id).GetPostCommentImageCascadeFilter(), cancellationToken);
-		await _commentLikeCollection.CascadeAddAsync(entities.Select(p => p.Id).GetPostCommentLikeCascadeFilter(), cancellationToken);
+		await _commentImageCollection.AddByParentAsync(entities.Select(p => p.Id).GetPostCommentImageByParentFilter(), cancellationToken);
+		await _commentLikeCollection.AddByParentAsync(entities.Select(p => p.Id).GetPostCommentLikeByParentFilter(), cancellationToken);
 		await InsertRangeAsync(entities, cancellationToken);
 		await _cacheHandler.DeleteResponseRangeAsync(entities.Select(p => p.Id.Id));
 		await _commentCacheHandler.DeleteRangeAsync(entities.Select(p => p.Id));
@@ -73,20 +73,20 @@ internal class PostCommentCollection : MongoDbCollection<PostComment, PostCommen
 		PostComment entity,
 		CancellationToken cancellationToken)
 	{
-		await _commentImageCollection.CascadeUpdateAsync(entity.Id.GetPostCommentImageCascadeFilter(), cancellationToken);
-		await _commentLikeCollection.CascadeUpdateAsync(entity.Id.GetPostCommentLikeCascadeFilter(), cancellationToken);
+		await _commentImageCollection.UpdateByParentAsync(entity.Id.GetPostCommentImageByParentFilter(), cancellationToken);
+		await _commentLikeCollection.UpdateByParentAsync(entity.Id.GetPostCommentLikeByParentFilter(), cancellationToken);
 		await ReplaceAsync(entity.Id.GetFilter(), entity, cancellationToken);
 		await _commentCacheHandler.DeleteAsync(entity.Id);
 	}
 
-	public async Task CascadeUpdateAsync(
+	public async Task UpdateByParentAsync(
 		FilterDefinition<PostComment> filter,
 		CancellationToken cancellationToken)
 	{
 		var commentIds = await GetIdsAsync(filter, cancellationToken);
 
-		await _commentImageCollection.CascadeUpdateAsync(commentIds.GetPostCommentImageCascadeFilter(), cancellationToken);
-		await _commentLikeCollection.CascadeUpdateAsync(commentIds.GetPostCommentLikeCascadeFilter(), cancellationToken);
+		await _commentImageCollection.UpdateByParentAsync(commentIds.GetPostCommentImageByParentFilter(), cancellationToken);
+		await _commentLikeCollection.UpdateByParentAsync(commentIds.GetPostCommentLikeByParentFilter(), cancellationToken);
 		await _commentCacheHandler.DeleteRangeAsync(commentIds);
 	}
 
@@ -94,21 +94,21 @@ internal class PostCommentCollection : MongoDbCollection<PostComment, PostCommen
 		PostComment entity,
 		CancellationToken cancellationToken)
 	{
-		await _commentImageCollection.CascadeDeleteAsync(entity.Id.GetPostCommentImageCascadeFilter(), cancellationToken);
-		await _commentLikeCollection.CascadeDeleteAsync(entity.Id.GetPostCommentLikeCascadeFilter(), cancellationToken);
+		await _commentImageCollection.DeleteByParentAsync(entity.Id.GetPostCommentImageByParentFilter(), cancellationToken);
+		await _commentLikeCollection.DeleteByParentAsync(entity.Id.GetPostCommentLikeByParentFilter(), cancellationToken);
 		await RemoveAsync(entity.Id.GetFilter(), cancellationToken);
 		await _cacheHandler.DeleteResponseAsync(entity.Id.Id);
 		await _commentCacheHandler.DeleteAsync(entity.Id);
 	}
 
-	public async Task CascadeDeleteAsync(
+	public async Task DeleteByParentAsync(
 		FilterDefinition<PostComment> filter,
 		CancellationToken cancellationToken)
 	{
 		var commentIds = await GetIdsAsync(filter, cancellationToken);
 
-		await _commentImageCollection.CascadeDeleteAsync(commentIds.GetPostCommentImageCascadeFilter(), cancellationToken);
-		await _commentLikeCollection.CascadeDeleteAsync(commentIds.GetPostCommentLikeCascadeFilter(), cancellationToken);
+		await _commentImageCollection.DeleteByParentAsync(commentIds.GetPostCommentImageByParentFilter(), cancellationToken);
+		await _commentLikeCollection.DeleteByParentAsync(commentIds.GetPostCommentLikeByParentFilter(), cancellationToken);
 		await RemoveRangeAsync(filter, cancellationToken);
 		await _cacheHandler.DeleteResponseRangeAsync(commentIds.Select(p => p.Id));
 		await _commentCacheHandler.DeleteRangeAsync(commentIds);

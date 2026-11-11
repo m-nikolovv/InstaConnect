@@ -39,7 +39,7 @@ internal static class RefreshTokenFilterExtensions
 
 	extension(UserId filter)
 	{
-		public FilterDefinition<RefreshToken> GetRefreshTokenCascadeFilter()
+		public FilterDefinition<RefreshToken> GetRefreshTokenByParentFilter()
 		{
 			return filter.GetFilterForIdEquals<RefreshToken>(p => p.Id.Id.Id);
 		}

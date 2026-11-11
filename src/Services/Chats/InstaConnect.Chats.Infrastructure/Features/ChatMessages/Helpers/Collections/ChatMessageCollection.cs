@@ -35,19 +35,19 @@ internal class ChatMessageCollection : MongoDbCollection<ChatMessage, ChatMessag
 		ChatMessage entity,
 		CancellationToken cancellationToken)
 	{
-		await _messageImageCollection.CascadeAddAsync(entity.Id.GetChatMessageImageCascadeFilter(), cancellationToken);
+		await _messageImageCollection.AddByParentAsync(entity.Id.GetChatMessageImageByParentFilter(), cancellationToken);
 		await InsertAsync(entity, cancellationToken);
 		await _cacheHandler.DeleteResponseAsync(entity.Id.Id);
 		await _messageCacheHandler.DeleteAsync(entity.Id);
 	}
 
-	public async Task CascadeAddAsync(
+	public async Task AddByParentAsync(
 		FilterDefinition<ChatMessage> filter,
 		CancellationToken cancellationToken)
 	{
 		var messageIds = await GetIdsAsync(filter, cancellationToken);
 
-		await _messageImageCollection.CascadeAddAsync(messageIds.GetChatMessageImageCascadeFilter(), cancellationToken);
+		await _messageImageCollection.AddByParentAsync(messageIds.GetChatMessageImageByParentFilter(), cancellationToken);
 		await _cacheHandler.DeleteResponseRangeAsync(messageIds.Select(p => p.Id));
 		await _messageCacheHandler.DeleteRangeAsync(messageIds);
 	}
@@ -56,7 +56,7 @@ internal class ChatMessageCollection : MongoDbCollection<ChatMessage, ChatMessag
 		IEnumerable<ChatMessage> entities,
 		CancellationToken cancellationToken)
 	{
-		await _messageImageCollection.CascadeAddAsync(entities.Select(p => p.Id).GetChatMessageImageCascadeFilter(), cancellationToken);
+		await _messageImageCollection.AddByParentAsync(entities.Select(p => p.Id).GetChatMessageImageByParentFilter(), cancellationToken);
 		await InsertRangeAsync(entities, cancellationToken);
 		await _cacheHandler.DeleteResponseRangeAsync(entities.Select(p => p.Id.Id));
 		await _messageCacheHandler.DeleteRangeAsync(entities.Select(p => p.Id));
@@ -66,18 +66,18 @@ internal class ChatMessageCollection : MongoDbCollection<ChatMessage, ChatMessag
 		ChatMessage entity,
 		CancellationToken cancellationToken)
 	{
-		await _messageImageCollection.CascadeUpdateAsync(entity.Id.GetChatMessageImageCascadeFilter(), cancellationToken);
+		await _messageImageCollection.UpdateByParentAsync(entity.Id.GetChatMessageImageByParentFilter(), cancellationToken);
 		await ReplaceAsync(entity.Id.GetFilter(), entity, cancellationToken);
 		await _messageCacheHandler.DeleteAsync(entity.Id);
 	}
 
-	public async Task CascadeUpdateAsync(
+	public async Task UpdateByParentAsync(
 		FilterDefinition<ChatMessage> filter,
 		CancellationToken cancellationToken)
 	{
 		var messageIds = await GetIdsAsync(filter, cancellationToken);
 
-		await _messageImageCollection.CascadeUpdateAsync(messageIds.GetChatMessageImageCascadeFilter(), cancellationToken);
+		await _messageImageCollection.UpdateByParentAsync(messageIds.GetChatMessageImageByParentFilter(), cancellationToken);
 		await _messageCacheHandler.DeleteRangeAsync(messageIds);
 	}
 
@@ -85,19 +85,19 @@ internal class ChatMessageCollection : MongoDbCollection<ChatMessage, ChatMessag
 		ChatMessage entity,
 		CancellationToken cancellationToken)
 	{
-		await _messageImageCollection.CascadeDeleteAsync(entity.Id.GetChatMessageImageCascadeFilter(), cancellationToken);
+		await _messageImageCollection.DeleteByParentAsync(entity.Id.GetChatMessageImageByParentFilter(), cancellationToken);
 		await RemoveAsync(entity.Id.GetFilter(), cancellationToken);
 		await _cacheHandler.DeleteResponseAsync(entity.Id.Id);
 		await _messageCacheHandler.DeleteAsync(entity.Id);
 	}
 
-	public async Task CascadeDeleteAsync(
+	public async Task DeleteByParentAsync(
 		FilterDefinition<ChatMessage> filter,
 		CancellationToken cancellationToken)
 	{
 		var messageIds = await GetIdsAsync(filter, cancellationToken);
 
-		await _messageImageCollection.CascadeDeleteAsync(messageIds.GetChatMessageImageCascadeFilter(), cancellationToken);
+		await _messageImageCollection.DeleteByParentAsync(messageIds.GetChatMessageImageByParentFilter(), cancellationToken);
 		await RemoveRangeAsync(filter, cancellationToken);
 		await _cacheHandler.DeleteResponseRangeAsync(messageIds.Select(p => p.Id));
 		await _messageCacheHandler.DeleteRangeAsync(messageIds);

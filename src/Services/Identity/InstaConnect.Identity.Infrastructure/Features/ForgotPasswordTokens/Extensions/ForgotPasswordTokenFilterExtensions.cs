@@ -39,7 +39,7 @@ internal static class ForgotPasswordTokenFilterExtensions
 
 	extension(UserId filter)
 	{
-		public FilterDefinition<ForgotPasswordToken> GetForgotPasswordTokenCascadeFilter()
+		public FilterDefinition<ForgotPasswordToken> GetForgotPasswordTokenByParentFilter()
 		{
 			return filter.GetFilterForIdEquals<ForgotPasswordToken>(p => p.Id.Id.Id);
 		}

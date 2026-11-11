@@ -4,11 +4,11 @@ public interface IPostImageCollection : IMongoDbCollection<PostImage>
 {
 	public IPostImageFluent AggregateFluent();
 
-	internal Task CascadeAddAsync(
+	internal Task AddByParentAsync(
 		FilterDefinition<PostImage> filter,
 		CancellationToken cancellationToken);
 
-	internal Task CascadeUpdateAsync(
+	internal Task UpdateByParentAsync(
 		FilterDefinition<PostImage> filter,
 		CancellationToken cancellationToken);
 
@@ -16,7 +16,7 @@ public interface IPostImageCollection : IMongoDbCollection<PostImage>
 		PostImage entity,
 		CancellationToken cancellationToken);
 
-	internal Task CascadeDeleteAsync(
+	internal Task DeleteByParentAsync(
 		FilterDefinition<PostImage> filter,
 		CancellationToken cancellationToken);
 

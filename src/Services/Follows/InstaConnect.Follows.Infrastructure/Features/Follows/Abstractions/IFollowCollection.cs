@@ -4,11 +4,11 @@ public interface IFollowCollection : IMongoDbCollection<Follow>
 {
 	public IFollowFluent AggregateFluent();
 
-	internal Task CascadeAddAsync(
+	internal Task AddByParentAsync(
 		FilterDefinition<Follow> filter,
 		CancellationToken cancellationToken);
 
-	internal Task CascadeUpdateAsync(
+	internal Task UpdateByParentAsync(
 		FilterDefinition<Follow> filter,
 		CancellationToken cancellationToken);
 
@@ -16,7 +16,7 @@ public interface IFollowCollection : IMongoDbCollection<Follow>
 		Follow entity,
 		CancellationToken cancellationToken);
 
-	internal Task CascadeDeleteAsync(
+	internal Task DeleteByParentAsync(
 		FilterDefinition<Follow> filter,
 		CancellationToken cancellationToken);
 }

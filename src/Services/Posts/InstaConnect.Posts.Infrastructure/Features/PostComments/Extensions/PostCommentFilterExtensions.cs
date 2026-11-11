@@ -56,7 +56,7 @@ internal static class PostCommentFilterExtensions
 
 	extension(PostId filter)
 	{
-		public FilterDefinition<PostComment> GetPostCommentCascadeFilter()
+		public FilterDefinition<PostComment> GetPostCommentByParentFilter()
 		{
 			return filter.GetFilterForIdEquals<PostComment>(p => p.Id.Id.Id);
 		}
@@ -64,7 +64,7 @@ internal static class PostCommentFilterExtensions
 
 	extension(IEnumerable<PostId> filter)
 	{
-		public FilterDefinition<PostComment> GetPostCommentCascadeFilter()
+		public FilterDefinition<PostComment> GetPostCommentByParentFilter()
 		{
 			return filter.GetFilterForIdRange<PostComment>(p => p.Id.Id.Id);
 		}
@@ -72,7 +72,7 @@ internal static class PostCommentFilterExtensions
 
 	extension(UserId filter)
 	{
-		public FilterDefinition<PostComment> GetPostCommentCascadeFilter()
+		public FilterDefinition<PostComment> GetPostCommentByParentFilter()
 		{
 			return filter.GetFilterForIdEquals<PostComment>(p => p.UserId.Id);
 		}

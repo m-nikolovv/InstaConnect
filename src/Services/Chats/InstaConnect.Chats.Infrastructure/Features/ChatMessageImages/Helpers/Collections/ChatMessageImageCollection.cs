@@ -37,7 +37,7 @@ internal class ChatMessageImageCollection : MongoDbCollection<ChatMessageImage, 
 		await _messageImageCacheHandler.DeleteAsync(entity.Id);
 	}
 
-	public async Task CascadeAddAsync(
+	public async Task AddByParentAsync(
 		FilterDefinition<ChatMessageImage> filter,
 		CancellationToken cancellationToken)
 	{
@@ -56,7 +56,7 @@ internal class ChatMessageImageCollection : MongoDbCollection<ChatMessageImage, 
 		await _messageImageCacheHandler.DeleteRangeAsync(entities.Select(p => p.Id));
 	}
 
-	public async Task CascadeUpdateAsync(
+	public async Task UpdateByParentAsync(
 		FilterDefinition<ChatMessageImage> filter,
 		CancellationToken cancellationToken)
 	{
@@ -74,7 +74,7 @@ internal class ChatMessageImageCollection : MongoDbCollection<ChatMessageImage, 
 		await _messageImageCacheHandler.DeleteAsync(entity.Id);
 	}
 
-	public async Task CascadeDeleteAsync(
+	public async Task DeleteByParentAsync(
 		FilterDefinition<ChatMessageImage> filter,
 		CancellationToken cancellationToken)
 	{

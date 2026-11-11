@@ -32,11 +32,11 @@ internal class RefreshTokenCollection : MongoDbCollection<RefreshToken, RefreshT
 		await _cacheHandler.DeleteAsync(entity.Id);
 	}
 
-	public async Task CascadeAddAsync(
+	public async Task AddByParentAsync(
 		FilterDefinition<RefreshToken> filter,
 		CancellationToken cancellationToken)
 	{
-		await CascadeUpdateAsync(filter, cancellationToken);
+		await UpdateByParentAsync(filter, cancellationToken);
 	}
 
 	public async Task AddRangeAsync(
@@ -55,7 +55,7 @@ internal class RefreshTokenCollection : MongoDbCollection<RefreshToken, RefreshT
 		await _cacheHandler.DeleteAsync(entity.Id);
 	}
 
-	public async Task CascadeUpdateAsync(
+	public async Task UpdateByParentAsync(
 		FilterDefinition<RefreshToken> filter,
 		CancellationToken cancellationToken)
 	{
@@ -72,7 +72,7 @@ internal class RefreshTokenCollection : MongoDbCollection<RefreshToken, RefreshT
 		await _cacheHandler.DeleteAsync(entity.Id);
 	}
 
-	public async Task CascadeDeleteAsync(
+	public async Task DeleteByParentAsync(
 		FilterDefinition<RefreshToken> filter,
 		CancellationToken cancellationToken)
 	{

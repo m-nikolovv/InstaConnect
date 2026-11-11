@@ -36,7 +36,7 @@ internal class PostCommentLikeCollection : MongoDbCollection<PostCommentLike, Po
 		await _commentLikeCacheHandler.DeleteAsync(entity.Id);
 	}
 
-	public async Task CascadeAddAsync(
+	public async Task AddByParentAsync(
 		FilterDefinition<PostCommentLike> filter,
 		CancellationToken cancellationToken)
 	{
@@ -55,7 +55,7 @@ internal class PostCommentLikeCollection : MongoDbCollection<PostCommentLike, Po
 		await _commentLikeCacheHandler.DeleteRangeAsync(entities.Select(p => p.Id));
 	}
 
-	public async Task CascadeUpdateAsync(
+	public async Task UpdateByParentAsync(
 		FilterDefinition<PostCommentLike> filter,
 		CancellationToken cancellationToken)
 	{
@@ -73,7 +73,7 @@ internal class PostCommentLikeCollection : MongoDbCollection<PostCommentLike, Po
 		await _commentLikeCacheHandler.DeleteAsync(entity.Id);
 	}
 
-	public async Task CascadeDeleteAsync(
+	public async Task DeleteByParentAsync(
 		FilterDefinition<PostCommentLike> filter,
 		CancellationToken cancellationToken)
 	{

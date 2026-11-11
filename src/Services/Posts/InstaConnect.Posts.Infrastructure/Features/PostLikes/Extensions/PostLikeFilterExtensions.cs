@@ -56,7 +56,7 @@ internal static class PostLikeFilterExtensions
 
 	extension(PostId filter)
 	{
-		public FilterDefinition<PostLike> GetPostLikeCascadeFilter()
+		public FilterDefinition<PostLike> GetPostLikeByParentFilter()
 		{
 			return filter.GetFilterForIdEquals<PostLike>(p => p.Id.Id.Id);
 		}
@@ -64,7 +64,7 @@ internal static class PostLikeFilterExtensions
 
 	extension(IEnumerable<PostId> filter)
 	{
-		public FilterDefinition<PostLike> GetPostLikeCascadeFilter()
+		public FilterDefinition<PostLike> GetPostLikeByParentFilter()
 		{
 			return filter.GetFilterForIdRange<PostLike>(p => p.Id.Id.Id);
 		}
@@ -72,7 +72,7 @@ internal static class PostLikeFilterExtensions
 
 	extension(UserId filter)
 	{
-		public FilterDefinition<PostLike> GetPostLikeCascadeFilter()
+		public FilterDefinition<PostLike> GetPostLikeByParentFilter()
 		{
 			return filter.GetFilterForIdEquals<PostLike>(p => p.Id.UserId.Id);
 		}

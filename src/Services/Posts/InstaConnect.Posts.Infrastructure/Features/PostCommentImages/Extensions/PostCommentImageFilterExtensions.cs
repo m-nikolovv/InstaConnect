@@ -41,7 +41,7 @@ internal static class PostCommentImageFilterExtensions
 
 	extension(PostCommentId filter)
 	{
-		public FilterDefinition<PostCommentImage> GetPostCommentImageCascadeFilter()
+		public FilterDefinition<PostCommentImage> GetPostCommentImageByParentFilter()
 		{
 			return filter.GetFilterForIdEquals<PostCommentImage>(p => p.Id.Id.Id.Id, p => p.Id.Id.CommentId);
 		}
@@ -49,7 +49,7 @@ internal static class PostCommentImageFilterExtensions
 
 	extension(IEnumerable<PostCommentId> filter)
 	{
-		public FilterDefinition<PostCommentImage> GetPostCommentImageCascadeFilter()
+		public FilterDefinition<PostCommentImage> GetPostCommentImageByParentFilter()
 		{
 			return filter.GetFilterForIdRange<PostCommentImage>(p => p.Id.Id.Id.Id, p => p.Id.Id.CommentId);
 		}

@@ -61,7 +61,7 @@ internal static class FollowFilterExtensions
 
 	extension(UserId filter)
 	{
-		public FilterDefinition<Follow> GetFollowCascadeFilter()
+		public FilterDefinition<Follow> GetFollowByParentFilter()
 		{
 			var followerId = filter.GetFilterForIdEquals<Follow>(p => p.Id.FollowerId.Id);
 			var followingId = filter.GetFilterForIdEquals<Follow>(p => p.Id.FollowingId.Id);

@@ -4,11 +4,11 @@ public interface IChatCollection : IMongoDbCollection<Chat>
 {
 	public IChatFluent AggregateFluent();
 
-	internal Task CascadeAddAsync(
+	internal Task AddByParentAsync(
 		FilterDefinition<Chat> filter,
 		CancellationToken cancellationToken);
 
-	internal Task CascadeUpdateAsync(
+	internal Task UpdateByParentAsync(
 		FilterDefinition<Chat> filter,
 		CancellationToken cancellationToken);
 
@@ -16,7 +16,7 @@ public interface IChatCollection : IMongoDbCollection<Chat>
 		Chat entity,
 		CancellationToken cancellationToken);
 
-	internal Task CascadeDeleteAsync(
+	internal Task DeleteByParentAsync(
 		FilterDefinition<Chat> filter,
 		CancellationToken cancellationToken);
 }

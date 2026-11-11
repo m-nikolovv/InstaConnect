@@ -32,11 +32,11 @@ internal class UserClaimCollection : MongoDbCollection<UserClaim, UserClaimId>, 
 		await _cacheHandler.DeleteAsync(entity.Id);
 	}
 
-	public async Task CascadeAddAsync(
+	public async Task AddByParentAsync(
 		FilterDefinition<UserClaim> filter,
 		CancellationToken cancellationToken)
 	{
-		await CascadeUpdateAsync(filter, cancellationToken);
+		await UpdateByParentAsync(filter, cancellationToken);
 	}
 
 	public async Task AddRangeAsync(
@@ -47,7 +47,7 @@ internal class UserClaimCollection : MongoDbCollection<UserClaim, UserClaimId>, 
 		await _cacheHandler.DeleteRangeAsync(entities.Select(p => p.Id));
 	}
 
-	public async Task CascadeUpdateAsync(
+	public async Task UpdateByParentAsync(
 		FilterDefinition<UserClaim> filter,
 		CancellationToken cancellationToken)
 	{
@@ -64,7 +64,7 @@ internal class UserClaimCollection : MongoDbCollection<UserClaim, UserClaimId>, 
 		await _cacheHandler.DeleteAsync(entity.Id);
 	}
 
-	public async Task CascadeDeleteAsync(
+	public async Task DeleteByParentAsync(
 		FilterDefinition<UserClaim> filter,
 		CancellationToken cancellationToken)
 	{

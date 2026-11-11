@@ -45,7 +45,7 @@ internal static class UserClaimFilterExtensions
 
 	extension(UserId filter)
 	{
-		public FilterDefinition<UserClaim> GetUserClaimCascadeFilter()
+		public FilterDefinition<UserClaim> GetUserClaimByParentFilter()
 		{
 			return filter.GetFilterForIdEquals<UserClaim>(p => p.Id.Id.Id);
 		}

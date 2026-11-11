@@ -41,10 +41,10 @@ internal class UserCollection : MongoDbCollection<User, UserId>, IUserCollection
 		User entity,
 		CancellationToken cancellationToken)
 	{
-		await _postCollection.CascadeAddAsync(entity.Id.GetPostCascadeFilter(), cancellationToken);
-		await _likeCollection.CascadeAddAsync(entity.Id.GetPostLikeCascadeFilter(), cancellationToken);
-		await _commentCollection.CascadeAddAsync(entity.Id.GetPostCommentCascadeFilter(), cancellationToken);
-		await _commentLikeCollection.CascadeAddAsync(entity.Id.GetPostCommentLikeCascadeFilter(), cancellationToken);
+		await _postCollection.AddByParentAsync(entity.Id.GetPostByParentFilter(), cancellationToken);
+		await _likeCollection.AddByParentAsync(entity.Id.GetPostLikeByParentFilter(), cancellationToken);
+		await _commentCollection.AddByParentAsync(entity.Id.GetPostCommentByParentFilter(), cancellationToken);
+		await _commentLikeCollection.AddByParentAsync(entity.Id.GetPostCommentLikeByParentFilter(), cancellationToken);
 		await InsertAsync(entity, cancellationToken);
 		await _cacheHandler.DeleteAsync(entity.Id);
 	}
@@ -61,10 +61,10 @@ internal class UserCollection : MongoDbCollection<User, UserId>, IUserCollection
 		User entity,
 		CancellationToken cancellationToken)
 	{
-		await _postCollection.CascadeUpdateAsync(entity.Id.GetPostCascadeFilter(), cancellationToken);
-		await _likeCollection.CascadeUpdateAsync(entity.Id.GetPostLikeCascadeFilter(), cancellationToken);
-		await _commentCollection.CascadeUpdateAsync(entity.Id.GetPostCommentCascadeFilter(), cancellationToken);
-		await _commentLikeCollection.CascadeUpdateAsync(entity.Id.GetPostCommentLikeCascadeFilter(), cancellationToken);
+		await _postCollection.UpdateByParentAsync(entity.Id.GetPostByParentFilter(), cancellationToken);
+		await _likeCollection.UpdateByParentAsync(entity.Id.GetPostLikeByParentFilter(), cancellationToken);
+		await _commentCollection.UpdateByParentAsync(entity.Id.GetPostCommentByParentFilter(), cancellationToken);
+		await _commentLikeCollection.UpdateByParentAsync(entity.Id.GetPostCommentLikeByParentFilter(), cancellationToken);
 		await ReplaceAsync(entity.Id.GetFilter(), entity, cancellationToken);
 		await _cacheHandler.DeleteAsync(entity.Id);
 	}
@@ -73,10 +73,10 @@ internal class UserCollection : MongoDbCollection<User, UserId>, IUserCollection
 		User entity,
 		CancellationToken cancellationToken)
 	{
-		await _postCollection.CascadeDeleteAsync(entity.Id.GetPostCascadeFilter(), cancellationToken);
-		await _likeCollection.CascadeDeleteAsync(entity.Id.GetPostLikeCascadeFilter(), cancellationToken);
-		await _commentCollection.CascadeDeleteAsync(entity.Id.GetPostCommentCascadeFilter(), cancellationToken);
-		await _commentLikeCollection.CascadeDeleteAsync(entity.Id.GetPostCommentLikeCascadeFilter(), cancellationToken);
+		await _postCollection.DeleteByParentAsync(entity.Id.GetPostByParentFilter(), cancellationToken);
+		await _likeCollection.DeleteByParentAsync(entity.Id.GetPostLikeByParentFilter(), cancellationToken);
+		await _commentCollection.DeleteByParentAsync(entity.Id.GetPostCommentByParentFilter(), cancellationToken);
+		await _commentLikeCollection.DeleteByParentAsync(entity.Id.GetPostCommentLikeByParentFilter(), cancellationToken);
 		await RemoveAsync(entity.Id.GetFilter(), cancellationToken);
 		await _cacheHandler.DeleteAsync(entity.Id);
 	}

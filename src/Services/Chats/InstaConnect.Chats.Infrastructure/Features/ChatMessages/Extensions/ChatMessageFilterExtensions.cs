@@ -56,7 +56,7 @@ internal static class ChatMessageFilterExtensions
 
 	extension(ChatId filter)
 	{
-		public FilterDefinition<ChatMessage> GetChatMessageCascadeFilter()
+		public FilterDefinition<ChatMessage> GetChatMessageByParentFilter()
 		{
 			return filter.GetFilterForIdEquals<ChatMessage>(
 				p => p.Id.Id.ParticipantOneId.Id,
@@ -66,7 +66,7 @@ internal static class ChatMessageFilterExtensions
 
 	extension(IEnumerable<ChatId> filter)
 	{
-		public FilterDefinition<ChatMessage> GetChatMessageCascadeFilter()
+		public FilterDefinition<ChatMessage> GetChatMessageByParentFilter()
 		{
 			return filter.GetFilterForIdRange<ChatMessage>(
 				p => p.Id.Id.ParticipantOneId.Id,

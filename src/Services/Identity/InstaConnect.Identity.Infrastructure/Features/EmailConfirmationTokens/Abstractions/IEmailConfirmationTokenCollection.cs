@@ -4,7 +4,7 @@ public interface IEmailConfirmationTokenCollection : IMongoDbCollection<EmailCon
 {
 	public IEmailConfirmationTokenFluent AggregateFluent();
 
-	internal Task CascadeAddAsync(
+	internal Task AddByParentAsync(
 		FilterDefinition<EmailConfirmationToken> filter,
 		CancellationToken cancellationToken);
 
@@ -12,7 +12,7 @@ public interface IEmailConfirmationTokenCollection : IMongoDbCollection<EmailCon
 		EmailConfirmationToken entity,
 		CancellationToken cancellationToken);
 
-	internal Task CascadeUpdateAsync(
+	internal Task UpdateByParentAsync(
 		FilterDefinition<EmailConfirmationToken> filter,
 		CancellationToken cancellationToken);
 
@@ -20,7 +20,7 @@ public interface IEmailConfirmationTokenCollection : IMongoDbCollection<EmailCon
 		EmailConfirmationToken entity,
 		CancellationToken cancellationToken);
 
-	internal Task CascadeDeleteAsync(
+	internal Task DeleteByParentAsync(
 		FilterDefinition<EmailConfirmationToken> filter,
 		CancellationToken cancellationToken);
 

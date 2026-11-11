@@ -54,7 +54,7 @@ internal static class PostFilterExtensions
 
 	extension(UserId filter)
 	{
-		public FilterDefinition<Post> GetPostCascadeFilter()
+		public FilterDefinition<Post> GetPostByParentFilter()
 		{
 			return filter.GetFilterForIdEquals<Post>(p => p.UserId.Id);
 		}

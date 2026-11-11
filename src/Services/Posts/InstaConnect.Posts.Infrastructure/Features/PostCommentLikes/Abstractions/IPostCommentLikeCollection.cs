@@ -4,11 +4,11 @@ public interface IPostCommentLikeCollection : IMongoDbCollection<PostCommentLike
 {
 	public IPostCommentLikeFluent AggregateFluent();
 
-	internal Task CascadeAddAsync(
+	internal Task AddByParentAsync(
 		FilterDefinition<PostCommentLike> filter,
 		CancellationToken cancellationToken);
 
-	internal Task CascadeUpdateAsync(
+	internal Task UpdateByParentAsync(
 		FilterDefinition<PostCommentLike> filter,
 		CancellationToken cancellationToken);
 
@@ -16,7 +16,7 @@ public interface IPostCommentLikeCollection : IMongoDbCollection<PostCommentLike
 		PostCommentLike entity,
 		CancellationToken cancellationToken);
 
-	internal Task CascadeDeleteAsync(
+	internal Task DeleteByParentAsync(
 		FilterDefinition<PostCommentLike> filter,
 		CancellationToken cancellationToken);
 }

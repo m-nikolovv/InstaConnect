@@ -42,10 +42,10 @@ internal class UserCollection : MongoDbCollection<User, UserId>, IUserCollection
 		User entity,
 		CancellationToken cancellationToken)
 	{
-		await _claimCollection.CascadeAddAsync(entity.Id.GetUserClaimCascadeFilter(), cancellationToken);
-		await _refreshTokenCollection.CascadeAddAsync(entity.Id.GetRefreshTokenCascadeFilter(), cancellationToken);
-		await _forgotPasswordTokenCollection.CascadeAddAsync(entity.Id.GetForgotPasswordTokenCascadeFilter(), cancellationToken);
-		await _emailConfirmationTokenCollection.CascadeAddAsync(entity.Id.GetEmailConfirmationTokenCascadeFilter(), cancellationToken);
+		await _claimCollection.AddByParentAsync(entity.Id.GetUserClaimByParentFilter(), cancellationToken);
+		await _refreshTokenCollection.AddByParentAsync(entity.Id.GetRefreshTokenByParentFilter(), cancellationToken);
+		await _forgotPasswordTokenCollection.AddByParentAsync(entity.Id.GetForgotPasswordTokenByParentFilter(), cancellationToken);
+		await _emailConfirmationTokenCollection.AddByParentAsync(entity.Id.GetEmailConfirmationTokenByParentFilter(), cancellationToken);
 		await InsertAsync(entity, cancellationToken);
 		await _cacheHandler.DeleteAsync(entity.Id);
 	}
@@ -62,10 +62,10 @@ internal class UserCollection : MongoDbCollection<User, UserId>, IUserCollection
 		User entity,
 		CancellationToken cancellationToken)
 	{
-		await _claimCollection.CascadeUpdateAsync(entity.Id.GetUserClaimCascadeFilter(), cancellationToken);
-		await _refreshTokenCollection.CascadeUpdateAsync(entity.Id.GetRefreshTokenCascadeFilter(), cancellationToken);
-		await _forgotPasswordTokenCollection.CascadeUpdateAsync(entity.Id.GetForgotPasswordTokenCascadeFilter(), cancellationToken);
-		await _emailConfirmationTokenCollection.CascadeUpdateAsync(entity.Id.GetEmailConfirmationTokenCascadeFilter(), cancellationToken);
+		await _claimCollection.UpdateByParentAsync(entity.Id.GetUserClaimByParentFilter(), cancellationToken);
+		await _refreshTokenCollection.UpdateByParentAsync(entity.Id.GetRefreshTokenByParentFilter(), cancellationToken);
+		await _forgotPasswordTokenCollection.UpdateByParentAsync(entity.Id.GetForgotPasswordTokenByParentFilter(), cancellationToken);
+		await _emailConfirmationTokenCollection.UpdateByParentAsync(entity.Id.GetEmailConfirmationTokenByParentFilter(), cancellationToken);
 		await ReplaceAsync(entity.Id.GetFilter(), entity, cancellationToken);
 		await _cacheHandler.DeleteAsync(entity.Id);
 	}
@@ -74,10 +74,10 @@ internal class UserCollection : MongoDbCollection<User, UserId>, IUserCollection
 		User entity,
 		CancellationToken cancellationToken)
 	{
-		await _claimCollection.CascadeDeleteAsync(entity.Id.GetUserClaimCascadeFilter(), cancellationToken);
-		await _refreshTokenCollection.CascadeDeleteAsync(entity.Id.GetRefreshTokenCascadeFilter(), cancellationToken);
-		await _forgotPasswordTokenCollection.CascadeDeleteAsync(entity.Id.GetForgotPasswordTokenCascadeFilter(), cancellationToken);
-		await _emailConfirmationTokenCollection.CascadeDeleteAsync(entity.Id.GetEmailConfirmationTokenCascadeFilter(), cancellationToken);
+		await _claimCollection.DeleteByParentAsync(entity.Id.GetUserClaimByParentFilter(), cancellationToken);
+		await _refreshTokenCollection.DeleteByParentAsync(entity.Id.GetRefreshTokenByParentFilter(), cancellationToken);
+		await _forgotPasswordTokenCollection.DeleteByParentAsync(entity.Id.GetForgotPasswordTokenByParentFilter(), cancellationToken);
+		await _emailConfirmationTokenCollection.DeleteByParentAsync(entity.Id.GetEmailConfirmationTokenByParentFilter(), cancellationToken);
 		await RemoveAsync(entity.Id.GetFilter(), cancellationToken);
 		await _cacheHandler.DeleteAsync(entity.Id);
 	}

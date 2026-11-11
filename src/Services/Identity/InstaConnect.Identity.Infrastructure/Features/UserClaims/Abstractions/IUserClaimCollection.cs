@@ -4,11 +4,11 @@ public interface IUserClaimCollection : IMongoDbCollection<UserClaim>
 {
 	public IUserClaimFluent AggregateFluent();
 
-	internal Task CascadeAddAsync(
+	internal Task AddByParentAsync(
 		FilterDefinition<UserClaim> filter,
 		CancellationToken cancellationToken);
 
-	internal Task CascadeUpdateAsync(
+	internal Task UpdateByParentAsync(
 		FilterDefinition<UserClaim> filter,
 		CancellationToken cancellationToken);
 
@@ -16,7 +16,7 @@ public interface IUserClaimCollection : IMongoDbCollection<UserClaim>
 		UserClaim entity,
 		CancellationToken cancellationToken);
 
-	internal Task CascadeDeleteAsync(
+	internal Task DeleteByParentAsync(
 		FilterDefinition<UserClaim> filter,
 		CancellationToken cancellationToken);
 }

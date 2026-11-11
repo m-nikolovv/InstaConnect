@@ -69,7 +69,7 @@ internal static class ChatFilterExtensions
 
 	extension(UserId filter)
 	{
-		public FilterDefinition<Chat> GetChatCascadeFilter()
+		public FilterDefinition<Chat> GetChatByParentFilter()
 		{
 			var participantOneId = filter.GetFilterForIdEquals<Chat>(p => p.Id.ParticipantOneId.Id);
 			var participantTwoId = filter.GetFilterForIdEquals<Chat>(p => p.Id.ParticipantTwoId.Id);

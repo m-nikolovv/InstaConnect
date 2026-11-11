@@ -32,7 +32,7 @@ internal class UserCollection : MongoDbCollection<User, UserId>, IUserCollection
 		User entity,
 		CancellationToken cancellationToken)
 	{
-		await _followCollection.CascadeAddAsync(entity.Id.GetFollowCascadeFilter(), cancellationToken);
+		await _followCollection.AddByParentAsync(entity.Id.GetFollowByParentFilter(), cancellationToken);
 		await InsertAsync(entity, cancellationToken);
 		await _cacheHandler.DeleteAsync(entity.Id);
 	}
@@ -49,7 +49,7 @@ internal class UserCollection : MongoDbCollection<User, UserId>, IUserCollection
 		User entity,
 		CancellationToken cancellationToken)
 	{
-		await _followCollection.CascadeUpdateAsync(entity.Id.GetFollowCascadeFilter(), cancellationToken);
+		await _followCollection.UpdateByParentAsync(entity.Id.GetFollowByParentFilter(), cancellationToken);
 		await ReplaceAsync(entity.Id.GetFilter(), entity, cancellationToken);
 		await _cacheHandler.DeleteAsync(entity.Id);
 	}
@@ -58,7 +58,7 @@ internal class UserCollection : MongoDbCollection<User, UserId>, IUserCollection
 		User entity,
 		CancellationToken cancellationToken)
 	{
-		await _followCollection.CascadeDeleteAsync(entity.Id.GetFollowCascadeFilter(), cancellationToken);
+		await _followCollection.DeleteByParentAsync(entity.Id.GetFollowByParentFilter(), cancellationToken);
 		await RemoveAsync(entity.Id.GetFilter(), cancellationToken);
 		await _cacheHandler.DeleteAsync(entity.Id);
 	}

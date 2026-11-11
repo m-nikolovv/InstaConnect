@@ -38,7 +38,7 @@ internal class PostImageCollection : MongoDbCollection<PostImage, PostImageId>, 
 		await _imageCacheHandler.DeleteAsync(entity.Id);
 	}
 
-	public async Task CascadeAddAsync(
+	public async Task AddByParentAsync(
 		FilterDefinition<PostImage> filter,
 		CancellationToken cancellationToken)
 	{
@@ -57,7 +57,7 @@ internal class PostImageCollection : MongoDbCollection<PostImage, PostImageId>, 
 		await _imageCacheHandler.DeleteRangeAsync(entities.Select(p => p.Id));
 	}
 
-	public async Task CascadeUpdateAsync(
+	public async Task UpdateByParentAsync(
 		FilterDefinition<PostImage> filter,
 		CancellationToken cancellationToken)
 	{
@@ -75,7 +75,7 @@ internal class PostImageCollection : MongoDbCollection<PostImage, PostImageId>, 
 		await _imageCacheHandler.DeleteAsync(entity.Id);
 	}
 
-	public async Task CascadeDeleteAsync(
+	public async Task DeleteByParentAsync(
 		FilterDefinition<PostImage> filter,
 		CancellationToken cancellationToken)
 	{

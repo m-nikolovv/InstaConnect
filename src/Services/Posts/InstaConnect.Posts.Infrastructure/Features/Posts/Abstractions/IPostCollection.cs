@@ -4,7 +4,7 @@ public interface IPostCollection : IMongoDbCollection<Post>
 {
 	public IPostFluent AggregateFluent();
 
-	internal Task CascadeAddAsync(
+	internal Task AddByParentAsync(
 		FilterDefinition<Post> filter,
 		CancellationToken cancellationToken);
 
@@ -12,7 +12,7 @@ public interface IPostCollection : IMongoDbCollection<Post>
 		Post entity,
 		CancellationToken cancellationToken);
 
-	internal Task CascadeUpdateAsync(
+	internal Task UpdateByParentAsync(
 		FilterDefinition<Post> filter,
 		CancellationToken cancellationToken);
 
@@ -20,7 +20,7 @@ public interface IPostCollection : IMongoDbCollection<Post>
 		Post entity,
 		CancellationToken cancellationToken);
 
-	internal Task CascadeDeleteAsync(
+	internal Task DeleteByParentAsync(
 		FilterDefinition<Post> filter,
 		CancellationToken cancellationToken);
 }

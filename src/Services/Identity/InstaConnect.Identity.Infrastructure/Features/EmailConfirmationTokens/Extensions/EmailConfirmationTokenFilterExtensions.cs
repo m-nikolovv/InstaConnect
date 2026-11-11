@@ -39,7 +39,7 @@ internal static class EmailConfirmationTokenFilterExtensions
 
 	extension(UserId filter)
 	{
-		public FilterDefinition<EmailConfirmationToken> GetEmailConfirmationTokenCascadeFilter()
+		public FilterDefinition<EmailConfirmationToken> GetEmailConfirmationTokenByParentFilter()
 		{
 			return filter.GetFilterForIdEquals<EmailConfirmationToken>(p => p.Id.Id.Id);
 		}
