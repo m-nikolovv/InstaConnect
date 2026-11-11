@@ -6,9 +6,9 @@ namespace InstaConnect.Common.Infrastructure.Features.Events.Utilities;
 
 public static class EventUtilities
 {
-	public static string GetName<TEvent>()
-		where TEvent : class, IEventRequest
+	public static string GetName<TEventRequest>()
+		where TEventRequest : class, IEventRequest
 	{
-		return KebabCaseEndpointNameFormatter.Instance.Message<TEvent>();
+		return KebabCaseEndpointNameFormatter.Instance.Message<TEventRequest>();
 	}
 }
