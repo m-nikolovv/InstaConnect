@@ -1,6 +1,6 @@
 namespace InstaConnect.Posts.Infrastructure.Features.Posts.Abstractions;
 
-public interface IPostFluent : IMongoDbFluent<Post>
+public interface IPostFluent : IMongoDbFluent<Post, PostId>
 {
 	public IPostFluent Match(PostsFilterQuery filter);
 	public IPostFluent Match(PostsForUserFilterQuery filter);

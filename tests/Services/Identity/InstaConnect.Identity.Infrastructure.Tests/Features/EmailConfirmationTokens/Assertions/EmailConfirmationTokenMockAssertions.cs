@@ -24,6 +24,20 @@ public static class EmailConfirmationTokenMockAssertions
 			collection.ShouldHaveReceivedOne().AggregateFluent();
 		}
 
+		public async Task ShouldHaveReceivedOneAddAsync(
+			EmailConfirmationToken emailConfirmationToken,
+			CancellationToken cancellationToken)
+		{
+			await collection.ShouldHaveReceivedOne().AddAsync(emailConfirmationToken, cancellationToken);
+		}
+
+		public async Task ShouldHaveReceivedOneAddRangeAsync(
+			ICollection<EmailConfirmationToken> emailConfirmationTokens,
+			CancellationToken cancellationToken)
+		{
+			await collection.ShouldHaveReceivedOne().AddRangeAsync(emailConfirmationTokens, cancellationToken);
+		}
+
 		public async Task ShouldHaveReceivedOneUpdateAsync(
 			EmailConfirmationToken emailConfirmationToken,
 			CancellationToken cancellationToken)

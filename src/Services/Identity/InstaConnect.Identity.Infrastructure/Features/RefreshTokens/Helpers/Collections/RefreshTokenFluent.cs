@@ -3,7 +3,7 @@ using InstaConnect.Identity.Domain.Features.RefreshTokens.Models.ValueObjects;
 
 namespace InstaConnect.Identity.Infrastructure.Features.RefreshTokens.Helpers.Collections;
 
-internal class RefreshTokenFluent : MongoDbFluent<RefreshToken>, IRefreshTokenFluent
+internal class RefreshTokenFluent : MongoDbFluent<RefreshToken, RefreshTokenId>, IRefreshTokenFluent
 {
 	private readonly IRefreshTokenIncluderFactory _includerFactory;
 

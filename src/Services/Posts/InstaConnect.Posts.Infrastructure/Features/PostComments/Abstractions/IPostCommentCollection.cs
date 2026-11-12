@@ -1,19 +1,19 @@
 namespace InstaConnect.Posts.Infrastructure.Features.PostComments.Abstractions;
 
-public interface IPostCommentCollection : IMongoDbCollection<PostComment>
+public interface IPostCommentCollection
 {
 	public IPostCommentFluent AggregateFluent();
 
-	internal Task AddByParentAsync(
-		FilterDefinition<PostComment> filter,
+	public Task AddAsync(
+		PostComment entity,
+		CancellationToken cancellationToken);
+
+	public Task AddRangeAsync(
+		IEnumerable<PostComment> entities,
 		CancellationToken cancellationToken);
 
 	public Task UpdateAsync(
 		PostComment entity,
-		CancellationToken cancellationToken);
-
-	internal Task UpdateByParentAsync(
-		FilterDefinition<PostComment> filter,
 		CancellationToken cancellationToken);
 
 	public Task DeleteAsync(

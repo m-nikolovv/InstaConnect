@@ -1,15 +1,15 @@
 namespace InstaConnect.Chats.Infrastructure.Features.Chats.Abstractions;
 
-public interface IChatCollection : IMongoDbCollection<Chat>
+public interface IChatCollection
 {
 	public IChatFluent AggregateFluent();
 
-	internal Task AddByParentAsync(
-		FilterDefinition<Chat> filter,
+	public Task AddAsync(
+		Chat entity,
 		CancellationToken cancellationToken);
 
-	internal Task UpdateByParentAsync(
-		FilterDefinition<Chat> filter,
+	public Task AddRangeAsync(
+		IEnumerable<Chat> entities,
 		CancellationToken cancellationToken);
 
 	public Task DeleteAsync(

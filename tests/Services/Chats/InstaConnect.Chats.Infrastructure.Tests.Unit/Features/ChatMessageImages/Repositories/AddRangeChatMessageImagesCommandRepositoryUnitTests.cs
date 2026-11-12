@@ -1,3 +1,5 @@
+using InstaConnect.Chats.Infrastructure.Tests.Features.ChatMessageImages.Assertions;
+
 namespace InstaConnect.Chats.Infrastructure.Tests.Unit.Features.ChatMessageImages.Repositories;
 
 public class AddRangeChatMessageImagesCommandRepositoryUnitTests : BaseChatMessageImageInfrastructureCommandUnitTest

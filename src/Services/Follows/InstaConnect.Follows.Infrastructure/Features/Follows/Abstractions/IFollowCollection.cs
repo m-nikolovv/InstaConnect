@@ -1,15 +1,15 @@
 namespace InstaConnect.Follows.Infrastructure.Features.Follows.Abstractions;
 
-public interface IFollowCollection : IMongoDbCollection<Follow>
+public interface IFollowCollection
 {
 	public IFollowFluent AggregateFluent();
 
-	internal Task AddByParentAsync(
-		FilterDefinition<Follow> filter,
+	public Task AddAsync(
+		Follow entity,
 		CancellationToken cancellationToken);
 
-	internal Task UpdateByParentAsync(
-		FilterDefinition<Follow> filter,
+	public Task AddRangeAsync(
+		IEnumerable<Follow> entities,
 		CancellationToken cancellationToken);
 
 	public Task DeleteAsync(

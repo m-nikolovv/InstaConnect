@@ -4,7 +4,7 @@ using InstaConnect.Identity.Infrastructure.Features.ForgotPasswordTokens.Extensi
 
 namespace InstaConnect.Identity.Infrastructure.Features.ForgotPasswordTokens.Helpers.Collections;
 
-internal class ForgotPasswordTokenFluent : MongoDbFluent<ForgotPasswordToken>, IForgotPasswordTokenFluent
+internal class ForgotPasswordTokenFluent : MongoDbFluent<ForgotPasswordToken, ForgotPasswordTokenId>, IForgotPasswordTokenFluent
 {
 	private readonly IForgotPasswordTokenIncluderFactory _includerFactory;
 

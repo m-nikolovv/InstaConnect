@@ -2,7 +2,7 @@ using InstaConnect.Follows.Infrastructure.Features.Follows.Extensions;
 
 namespace InstaConnect.Follows.Infrastructure.Features.Follows.Helpers.Collections;
 
-internal class FollowFluent : MongoDbFluent<Follow>, IFollowFluent
+internal class FollowFluent : MongoDbFluent<Follow, FollowId>, IFollowFluent
 {
 	private readonly IPaginator _paginator;
 	private readonly IFollowIncluderFactory _includerFactory;

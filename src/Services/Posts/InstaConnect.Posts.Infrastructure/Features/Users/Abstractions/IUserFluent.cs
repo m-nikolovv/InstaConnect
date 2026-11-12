@@ -1,6 +1,6 @@
 namespace InstaConnect.Posts.Infrastructure.Features.Users.Abstractions;
 
-public interface IUserFluent : IMongoDbFluent<User>
+public interface IUserFluent : IMongoDbFluent<User, UserId>
 {
 	public IUserFluent Match(UserId filter);
 	public IUserFluent Match(Name filter);

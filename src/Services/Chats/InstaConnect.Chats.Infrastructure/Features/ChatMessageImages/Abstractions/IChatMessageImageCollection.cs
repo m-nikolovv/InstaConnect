@@ -1,15 +1,15 @@
 namespace InstaConnect.Chats.Infrastructure.Features.ChatMessageImages.Abstractions;
 
-public interface IChatMessageImageCollection : IMongoDbCollection<ChatMessageImage>
+public interface IChatMessageImageCollection
 {
 	public IChatMessageImageFluent AggregateFluent();
 
-	internal Task AddByParentAsync(
-		FilterDefinition<ChatMessageImage> filter,
+	public Task AddAsync(
+		ChatMessageImage entity,
 		CancellationToken cancellationToken);
 
-	internal Task UpdateByParentAsync(
-		FilterDefinition<ChatMessageImage> filter,
+	public Task AddRangeAsync(
+		IEnumerable<ChatMessageImage> entities,
 		CancellationToken cancellationToken);
 
 	public Task DeleteAsync(

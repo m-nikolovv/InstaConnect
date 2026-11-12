@@ -1,19 +1,19 @@
 namespace InstaConnect.Posts.Infrastructure.Features.Posts.Abstractions;
 
-public interface IPostCollection : IMongoDbCollection<Post>
+public interface IPostCollection
 {
 	public IPostFluent AggregateFluent();
 
-	internal Task AddByParentAsync(
-		FilterDefinition<Post> filter,
+	public Task AddAsync(
+		Post entity,
+		CancellationToken cancellationToken);
+
+	public Task AddRangeAsync(
+		IEnumerable<Post> entities,
 		CancellationToken cancellationToken);
 
 	public Task UpdateAsync(
 		Post entity,
-		CancellationToken cancellationToken);
-
-	internal Task UpdateByParentAsync(
-		FilterDefinition<Post> filter,
 		CancellationToken cancellationToken);
 
 	public Task DeleteAsync(

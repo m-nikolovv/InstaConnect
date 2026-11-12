@@ -2,24 +2,22 @@ using InstaConnect.Identity.Domain.Features.RefreshTokens.Models.ValueObjects;
 
 namespace InstaConnect.Identity.Infrastructure.Features.RefreshTokens.Helpers.Collections;
 
-internal class RefreshTokenCollection : MongoDbCollection<RefreshToken, RefreshTokenId>, IRefreshTokenCollection
+internal class RefreshTokenCollection : IRefreshTokenCollection
 {
-	private readonly IRefreshTokenCacheHandler _cacheHandler;
 	private readonly IRefreshTokenFluentFactory _fluentFactory;
+	private readonly IMongoDbCollectionHandler<RefreshToken, RefreshTokenId> _collectionHandler;
 
 	public RefreshTokenCollection(
-		ISessionHandler sessionHandler,
-		IRefreshTokenCacheHandler cacheHandler,
 		IRefreshTokenFluentFactory fluentFactory,
-		IMongoCollection<RefreshToken> collection) : base(sessionHandler, collection)
+		IMongoDbCollectionHandler<RefreshToken, RefreshTokenId> collectionHandler)
 	{
-		_cacheHandler = cacheHandler;
 		_fluentFactory = fluentFactory;
+		_collectionHandler = collectionHandler;
 	}
 
 	public IRefreshTokenFluent AggregateFluent()
 	{
-		var fluent = AggregateWithIgnoreCaseCollation();
+		var fluent = _collectionHandler.AggregateWithIgnoreCaseCollation();
 
 		return _fluentFactory.Create(fluent);
 	}
@@ -28,57 +26,34 @@ internal class RefreshTokenCollection : MongoDbCollection<RefreshToken, RefreshT
 		RefreshToken entity,
 		CancellationToken cancellationToken)
 	{
-		await InsertAsync(entity, cancellationToken);
-		await _cacheHandler.DeleteAsync(entity.Id);
-	}
-
-	public async Task AddByParentAsync(
-		FilterDefinition<RefreshToken> filter,
-		CancellationToken cancellationToken)
-	{
-		await UpdateByParentAsync(filter, cancellationToken);
+		await _collectionHandler.InsertAsync(entity, cancellationToken);
 	}
 
 	public async Task AddRangeAsync(
 		IEnumerable<RefreshToken> entities,
 		CancellationToken cancellationToken)
 	{
-		await InsertRangeAsync(entities, cancellationToken);
-		await _cacheHandler.DeleteRangeAsync(entities.Select(p => p.Id));
+		await _collectionHandler.InsertRangeAsync(entities, cancellationToken);
 	}
 
 	public async Task UpdateAsync(
 		RefreshToken entity,
 		CancellationToken cancellationToken)
 	{
-		await ReplaceAsync(entity.Id.GetFilter(), entity, cancellationToken);
-		await _cacheHandler.DeleteAsync(entity.Id);
-	}
-
-	public async Task UpdateByParentAsync(
-		FilterDefinition<RefreshToken> filter,
-		CancellationToken cancellationToken)
-	{
-		var tokenIds = await GetIdsAsync(filter, cancellationToken);
-
-		await _cacheHandler.DeleteRangeAsync(tokenIds);
+		await _collectionHandler.ReplaceAsync(entity.Id.GetFilter(), entity, cancellationToken);
 	}
 
 	public async Task DeleteAsync(
 		RefreshToken entity,
 		CancellationToken cancellationToken)
 	{
-		await RemoveAsync(entity.Id.GetFilter(), cancellationToken);
-		await _cacheHandler.DeleteAsync(entity.Id);
+		await _collectionHandler.RemoveAsync(entity.Id.GetFilter(), cancellationToken);
 	}
 
 	public async Task DeleteByParentAsync(
 		FilterDefinition<RefreshToken> filter,
 		CancellationToken cancellationToken)
 	{
-		var tokenIds = await GetIdsAsync(filter, cancellationToken);
-
-		await RemoveRangeAsync(filter, cancellationToken);
-		await _cacheHandler.DeleteRangeAsync(tokenIds);
+		await _collectionHandler.RemoveRangeAsync(filter, cancellationToken);
 	}
 }

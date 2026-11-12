@@ -57,6 +57,20 @@ public static class PostLikeMockAssertions
 			collection.ShouldHaveReceivedOne().AggregateFluent();
 		}
 
+		public async Task ShouldHaveReceivedOneAddAsync(
+			PostLike postLike,
+			CancellationToken cancellationToken)
+		{
+			await collection.ShouldHaveReceivedOne().AddAsync(postLike, cancellationToken);
+		}
+
+		public async Task ShouldHaveReceivedOneAddRangeAsync(
+			ICollection<PostLike> postLikes,
+			CancellationToken cancellationToken)
+		{
+			await collection.ShouldHaveReceivedOne().AddRangeAsync(postLikes, cancellationToken);
+		}
+
 		public async Task ShouldHaveReceivedOneDeleteAsync(
 			PostLike postLike,
 			CancellationToken cancellationToken)

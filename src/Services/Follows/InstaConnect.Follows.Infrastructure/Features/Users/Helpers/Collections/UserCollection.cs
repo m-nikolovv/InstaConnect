@@ -3,27 +3,25 @@ using InstaConnect.Follows.Infrastructure.Features.Users.Extensions;
 
 namespace InstaConnect.Follows.Infrastructure.Features.Users.Helpers.Collections;
 
-internal class UserCollection : MongoDbCollection<User, UserId>, IUserCollection
+internal class UserCollection : IUserCollection
 {
-	private readonly IUserCacheHandler _cacheHandler;
 	private readonly IUserFluentFactory _fluentFactory;
 	private readonly IFollowCollection _followCollection;
+	private readonly IMongoDbCollectionHandler<User, UserId> _collectionHandler;
 
 	public UserCollection(
-		ISessionHandler sessionHandler,
-		IUserCacheHandler cacheHandler,
 		IUserFluentFactory fluentFactory,
-		IMongoCollection<User> collection,
-		IFollowCollection followCollection) : base(sessionHandler, collection)
+		IFollowCollection followCollection,
+		IMongoDbCollectionHandler<User, UserId> collectionHandler)
 	{
-		_cacheHandler = cacheHandler;
 		_fluentFactory = fluentFactory;
 		_followCollection = followCollection;
+		_collectionHandler = collectionHandler;
 	}
 
 	public IUserFluent AggregateFluent()
 	{
-		var fluent = AggregateWithIgnoreCaseCollation();
+		var fluent = _collectionHandler.AggregateWithIgnoreCaseCollation();
 
 		return _fluentFactory.Create(fluent);
 	}
@@ -32,26 +30,21 @@ internal class UserCollection : MongoDbCollection<User, UserId>, IUserCollection
 		User entity,
 		CancellationToken cancellationToken)
 	{
-		await _followCollection.AddByParentAsync(entity.Id.GetFollowByParentFilter(), cancellationToken);
-		await InsertAsync(entity, cancellationToken);
-		await _cacheHandler.DeleteAsync(entity.Id);
+		await _collectionHandler.InsertAsync(entity, cancellationToken);
 	}
 
 	public async Task AddRangeAsync(
 		IEnumerable<User> entities,
 		CancellationToken cancellationToken)
 	{
-		await InsertRangeAsync(entities, cancellationToken);
-		await _cacheHandler.DeleteRangeAsync(entities.Select(p => p.Id));
+		await _collectionHandler.InsertRangeAsync(entities, cancellationToken);
 	}
 
 	public async Task UpdateAsync(
 		User entity,
 		CancellationToken cancellationToken)
 	{
-		await _followCollection.UpdateByParentAsync(entity.Id.GetFollowByParentFilter(), cancellationToken);
-		await ReplaceAsync(entity.Id.GetFilter(), entity, cancellationToken);
-		await _cacheHandler.DeleteAsync(entity.Id);
+		await _collectionHandler.ReplaceAsync(entity.Id.GetFilter(), entity, cancellationToken);
 	}
 
 	public async Task DeleteAsync(
@@ -59,7 +52,6 @@ internal class UserCollection : MongoDbCollection<User, UserId>, IUserCollection
 		CancellationToken cancellationToken)
 	{
 		await _followCollection.DeleteByParentAsync(entity.Id.GetFollowByParentFilter(), cancellationToken);
-		await RemoveAsync(entity.Id.GetFilter(), cancellationToken);
-		await _cacheHandler.DeleteAsync(entity.Id);
+		await _collectionHandler.RemoveAsync(entity.Id.GetFilter(), cancellationToken);
 	}
 }

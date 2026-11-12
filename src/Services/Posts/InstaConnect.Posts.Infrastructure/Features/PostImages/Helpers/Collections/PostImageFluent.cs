@@ -4,7 +4,7 @@ using InstaConnect.Posts.Infrastructure.Features.PostImages.Extensions;
 
 namespace InstaConnect.Posts.Infrastructure.Features.PostImages.Helpers.Collections;
 
-internal class PostImageFluent : MongoDbFluent<PostImage>, IPostImageFluent
+internal class PostImageFluent : MongoDbFluent<PostImage, PostImageId>, IPostImageFluent
 {
 	public PostImageFluent(IAggregateFluent<PostImage> fluent) : base(fluent)
 	{

@@ -42,6 +42,20 @@ public static class UserClaimMockAssertions
 			collection.ShouldHaveReceivedOne().AggregateFluent();
 		}
 
+		public async Task ShouldHaveReceivedOneAddAsync(
+			UserClaim userClaim,
+			CancellationToken cancellationToken)
+		{
+			await collection.ShouldHaveReceivedOne().AddAsync(userClaim, cancellationToken);
+		}
+
+		public async Task ShouldHaveReceivedOneAddRangeAsync(
+			ICollection<UserClaim> userClaims,
+			CancellationToken cancellationToken)
+		{
+			await collection.ShouldHaveReceivedOne().AddRangeAsync(userClaims, cancellationToken);
+		}
+
 		public async Task ShouldHaveReceivedOneDeleteAsync(
 			UserClaim userClaim,
 			CancellationToken cancellationToken)

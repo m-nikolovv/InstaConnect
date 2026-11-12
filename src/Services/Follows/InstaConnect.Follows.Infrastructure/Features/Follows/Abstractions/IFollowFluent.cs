@@ -1,6 +1,6 @@
 namespace InstaConnect.Follows.Infrastructure.Features.Follows.Abstractions;
 
-public interface IFollowFluent : IMongoDbFluent<Follow>
+public interface IFollowFluent : IMongoDbFluent<Follow, FollowId>
 {
 	public IFollowFluent Match(FollowsFilterQuery filter);
 	public IFollowFluent Match(FollowsForFollowingFilterQuery filter);

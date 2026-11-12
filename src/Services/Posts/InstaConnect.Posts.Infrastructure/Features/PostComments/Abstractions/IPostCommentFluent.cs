@@ -1,6 +1,6 @@
 namespace InstaConnect.Posts.Infrastructure.Features.PostComments.Abstractions;
 
-public interface IPostCommentFluent : IMongoDbFluent<PostComment>
+public interface IPostCommentFluent : IMongoDbFluent<PostComment, PostCommentId>
 {
 	public IPostCommentFluent Match(PostCommentsFilterQuery filter);
 	public IPostCommentFluent Match(PostCommentsForUserFilterQuery filter);

@@ -24,6 +24,20 @@ public static class RefreshTokenMockAssertions
 			collection.ShouldHaveReceivedOne().AggregateFluent();
 		}
 
+		public async Task ShouldHaveReceivedOneAddAsync(
+			RefreshToken refreshToken,
+			CancellationToken cancellationToken)
+		{
+			await collection.ShouldHaveReceivedOne().AddAsync(refreshToken, cancellationToken);
+		}
+
+		public async Task ShouldHaveReceivedOneAddRangeAsync(
+			ICollection<RefreshToken> refreshTokens,
+			CancellationToken cancellationToken)
+		{
+			await collection.ShouldHaveReceivedOne().AddRangeAsync(refreshTokens, cancellationToken);
+		}
+
 		public async Task ShouldHaveReceivedOneUpdateAsync(
 			RefreshToken refreshToken,
 			CancellationToken cancellationToken)

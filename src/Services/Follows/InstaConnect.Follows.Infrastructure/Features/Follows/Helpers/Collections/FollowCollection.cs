@@ -2,24 +2,22 @@ using InstaConnect.Follows.Infrastructure.Features.Follows.Extensions;
 
 namespace InstaConnect.Follows.Infrastructure.Features.Follows.Helpers.Collections;
 
-internal class FollowCollection : MongoDbCollection<Follow, FollowId>, IFollowCollection
+internal class FollowCollection : IFollowCollection
 {
-	private readonly IFollowCacheHandler _cacheHandler;
 	private readonly IFollowFluentFactory _fluentFactory;
+	private readonly IMongoDbCollectionHandler<Follow, FollowId> _collectionHandler;
 
 	public FollowCollection(
-		ISessionHandler sessionHandler,
-		IFollowCacheHandler cacheHandler,
 		IFollowFluentFactory fluentFactory,
-		IMongoCollection<Follow> collection) : base(sessionHandler, collection)
+		IMongoDbCollectionHandler<Follow, FollowId> collectionHandler)
 	{
-		_cacheHandler = cacheHandler;
 		_fluentFactory = fluentFactory;
+		_collectionHandler = collectionHandler;
 	}
 
 	public IFollowFluent AggregateFluent()
 	{
-		var fluent = AggregateWithIgnoreCaseCollation();
+		var fluent = _collectionHandler.AggregateWithIgnoreCaseCollation();
 
 		return _fluentFactory.Create(fluent);
 	}
@@ -28,49 +26,27 @@ internal class FollowCollection : MongoDbCollection<Follow, FollowId>, IFollowCo
 		Follow entity,
 		CancellationToken cancellationToken)
 	{
-		await InsertAsync(entity, cancellationToken);
-		await _cacheHandler.DeleteAsync(entity.Id);
-	}
-
-	public async Task AddByParentAsync(
-		FilterDefinition<Follow> filter,
-		CancellationToken cancellationToken)
-	{
-		await UpdateByParentAsync(filter, cancellationToken);
+		await _collectionHandler.InsertAsync(entity, cancellationToken);
 	}
 
 	public async Task AddRangeAsync(
 		IEnumerable<Follow> entities,
 		CancellationToken cancellationToken)
 	{
-		await InsertRangeAsync(entities, cancellationToken);
-		await _cacheHandler.DeleteRangeAsync(entities.Select(p => p.Id));
-	}
-
-	public async Task UpdateByParentAsync(
-		FilterDefinition<Follow> filter,
-		CancellationToken cancellationToken)
-	{
-		var followIds = await GetIdsAsync(filter, cancellationToken);
-
-		await _cacheHandler.DeleteRangeAsync(followIds);
+		await _collectionHandler.InsertRangeAsync(entities, cancellationToken);
 	}
 
 	public async Task DeleteAsync(
 		Follow entity,
 		CancellationToken cancellationToken)
 	{
-		await RemoveAsync(entity.Id.GetFilter(), cancellationToken);
-		await _cacheHandler.DeleteAsync(entity.Id);
+		await _collectionHandler.RemoveAsync(entity.Id.GetFilter(), cancellationToken);
 	}
 
 	public async Task DeleteByParentAsync(
 		FilterDefinition<Follow> filter,
 		CancellationToken cancellationToken)
 	{
-		var followIds = await GetIdsAsync(filter, cancellationToken);
-
-		await RemoveRangeAsync(filter, cancellationToken);
-		await _cacheHandler.DeleteRangeAsync(followIds);
+		await _collectionHandler.RemoveRangeAsync(filter, cancellationToken);
 	}
 }

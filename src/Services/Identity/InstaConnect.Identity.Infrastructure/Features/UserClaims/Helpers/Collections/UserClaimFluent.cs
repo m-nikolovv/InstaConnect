@@ -2,7 +2,7 @@ using InstaConnect.Identity.Infrastructure.Features.UserClaims.Extensions;
 
 namespace InstaConnect.Identity.Infrastructure.Features.UserClaims.Helpers.Collections;
 
-internal class UserClaimFluent : MongoDbFluent<UserClaim>, IUserClaimFluent
+internal class UserClaimFluent : MongoDbFluent<UserClaim, UserClaimId>, IUserClaimFluent
 {
 	private readonly IPaginator _paginator;
 	private readonly ISortOrdererFactory _sortOrdererFactory;

@@ -2,27 +2,22 @@ using InstaConnect.Posts.Infrastructure.Features.PostLikes.Extensions;
 
 namespace InstaConnect.Posts.Infrastructure.Features.PostLikes.Helpers.Collections;
 
-internal class PostLikeCollection : MongoDbCollection<PostLike, PostLikeId>, IPostLikeCollection
+internal class PostLikeCollection : IPostLikeCollection
 {
-	private readonly IPostCacheHandler _cacheHandler;
 	private readonly IPostLikeFluentFactory _fluentFactory;
-	private readonly IPostLikeCacheHandler _likeCacheHandler;
+	private readonly IMongoDbCollectionHandler<PostLike, PostLikeId> _collectionHandler;
 
 	public PostLikeCollection(
-		ISessionHandler sessionHandler,
-		IPostCacheHandler cacheHandler,
 		IPostLikeFluentFactory fluentFactory,
-		IMongoCollection<PostLike> collection,
-		IPostLikeCacheHandler likeCacheHandler) : base(sessionHandler, collection)
+		IMongoDbCollectionHandler<PostLike, PostLikeId> collectionHandler)
 	{
-		_cacheHandler = cacheHandler;
 		_fluentFactory = fluentFactory;
-		_likeCacheHandler = likeCacheHandler;
+		_collectionHandler = collectionHandler;
 	}
 
 	public IPostLikeFluent AggregateFluent()
 	{
-		var fluent = AggregateWithIgnoreCaseCollation();
+		var fluent = _collectionHandler.AggregateWithIgnoreCaseCollation();
 
 		return _fluentFactory.Create(fluent);
 	}
@@ -31,56 +26,27 @@ internal class PostLikeCollection : MongoDbCollection<PostLike, PostLikeId>, IPo
 		PostLike entity,
 		CancellationToken cancellationToken)
 	{
-		await InsertAsync(entity, cancellationToken);
-		await _cacheHandler.DeleteResponseAsync(entity.Id.Id);
-		await _likeCacheHandler.DeleteAsync(entity.Id);
-	}
-
-	public async Task AddByParentAsync(
-		FilterDefinition<PostLike> filter,
-		CancellationToken cancellationToken)
-	{
-		var likeIds = await GetIdsAsync(filter, cancellationToken);
-
-		await _cacheHandler.DeleteResponseRangeAsync(likeIds.Select(p => p.Id));
-		await _likeCacheHandler.DeleteRangeAsync(likeIds);
+		await _collectionHandler.InsertAsync(entity, cancellationToken);
 	}
 
 	public async Task AddRangeAsync(
 		IEnumerable<PostLike> entities,
 		CancellationToken cancellationToken)
 	{
-		await InsertRangeAsync(entities, cancellationToken);
-		await _cacheHandler.DeleteResponseRangeAsync(entities.Select(p => p.Id.Id));
-		await _likeCacheHandler.DeleteRangeAsync(entities.Select(p => p.Id));
-	}
-
-	public async Task UpdateByParentAsync(
-		FilterDefinition<PostLike> filter,
-		CancellationToken cancellationToken)
-	{
-		var likeIds = await GetIdsAsync(filter, cancellationToken);
-
-		await _likeCacheHandler.DeleteRangeAsync(likeIds);
+		await _collectionHandler.InsertRangeAsync(entities, cancellationToken);
 	}
 
 	public async Task DeleteAsync(
 		PostLike entity,
 		CancellationToken cancellationToken)
 	{
-		await RemoveAsync(entity.Id.GetFilter(), cancellationToken);
-		await _cacheHandler.DeleteResponseAsync(entity.Id.Id);
-		await _likeCacheHandler.DeleteAsync(entity.Id);
+		await _collectionHandler.RemoveAsync(entity.Id.GetFilter(), cancellationToken);
 	}
 
 	public async Task DeleteByParentAsync(
 		FilterDefinition<PostLike> filter,
 		CancellationToken cancellationToken)
 	{
-		var likeIds = await GetIdsAsync(filter, cancellationToken);
-
-		await RemoveRangeAsync(filter, cancellationToken);
-		await _cacheHandler.DeleteResponseRangeAsync(likeIds.Select(p => p.Id));
-		await _likeCacheHandler.DeleteRangeAsync(likeIds);
+		await _collectionHandler.RemoveRangeAsync(filter, cancellationToken);
 	}
 }

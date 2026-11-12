@@ -3,7 +3,7 @@ using InstaConnect.Posts.Infrastructure.Features.PostLikes.Extensions;
 
 namespace InstaConnect.Posts.Infrastructure.Features.PostLikes.Helpers.Collections;
 
-internal class PostLikeFluent : MongoDbFluent<PostLike>, IPostLikeFluent
+internal class PostLikeFluent : MongoDbFluent<PostLike, PostLikeId>, IPostLikeFluent
 {
 	private readonly IPaginator _paginator;
 	private readonly ISortOrdererFactory _sortOrdererFactory;

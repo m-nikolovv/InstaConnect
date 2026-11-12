@@ -1,6 +1,6 @@
 namespace InstaConnect.Posts.Infrastructure.Features.PostCommentLikes.Abstractions;
 
-public interface IPostCommentLikeFluent : IMongoDbFluent<PostCommentLike>
+public interface IPostCommentLikeFluent : IMongoDbFluent<PostCommentLike, PostCommentLikeId>
 {
 	public IPostCommentLikeFluent Match(PostCommentLikesFilterQuery filter);
 	public IPostCommentLikeFluent Match(PostCommentLikesForUserFilterQuery filter);

@@ -43,6 +43,20 @@ public static class ChatMockAssertions
 			collection.ShouldHaveReceivedOne().AggregateFluent();
 		}
 
+		public async Task ShouldHaveReceivedOneAddAsync(
+			Chat chat,
+			CancellationToken cancellationToken)
+		{
+			await collection.ShouldHaveReceivedOne().AddAsync(chat, cancellationToken);
+		}
+
+		public async Task ShouldHaveReceivedOneAddRangeAsync(
+			ICollection<Chat> chats,
+			CancellationToken cancellationToken)
+		{
+			await collection.ShouldHaveReceivedOne().AddRangeAsync(chats, cancellationToken);
+		}
+
 		public async Task ShouldHaveReceivedOneDeleteAsync(
 			Chat chat,
 			CancellationToken cancellationToken)

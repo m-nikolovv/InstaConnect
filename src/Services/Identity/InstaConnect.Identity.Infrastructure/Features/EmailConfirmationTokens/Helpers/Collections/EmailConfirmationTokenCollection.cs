@@ -3,24 +3,22 @@ using InstaConnect.Identity.Infrastructure.Features.EmailConfirmationTokens.Exte
 
 namespace InstaConnect.Identity.Infrastructure.Features.EmailConfirmationTokens.Helpers.Collections;
 
-internal class EmailConfirmationTokenCollection : MongoDbCollection<EmailConfirmationToken, EmailConfirmationTokenId>, IEmailConfirmationTokenCollection
+internal class EmailConfirmationTokenCollection : IEmailConfirmationTokenCollection
 {
-	private readonly IEmailConfirmationTokenCacheHandler _cacheHandler;
 	private readonly IEmailConfirmationTokenFluentFactory _fluentFactory;
+	private readonly IMongoDbCollectionHandler<EmailConfirmationToken, EmailConfirmationTokenId> _collectionHandler;
 
 	public EmailConfirmationTokenCollection(
-		ISessionHandler sessionHandler,
-		IEmailConfirmationTokenCacheHandler cacheHandler,
 		IEmailConfirmationTokenFluentFactory fluentFactory,
-		IMongoCollection<EmailConfirmationToken> collection) : base(sessionHandler, collection)
+		IMongoDbCollectionHandler<EmailConfirmationToken, EmailConfirmationTokenId> collectionHandler)
 	{
-		_cacheHandler = cacheHandler;
 		_fluentFactory = fluentFactory;
+		_collectionHandler = collectionHandler;
 	}
 
 	public IEmailConfirmationTokenFluent AggregateFluent()
 	{
-		var fluent = AggregateWithIgnoreCaseCollation();
+		var fluent = _collectionHandler.AggregateWithIgnoreCaseCollation();
 
 		return _fluentFactory.Create(fluent);
 	}
@@ -29,65 +27,41 @@ internal class EmailConfirmationTokenCollection : MongoDbCollection<EmailConfirm
 		EmailConfirmationToken entity,
 		CancellationToken cancellationToken)
 	{
-		await InsertAsync(entity, cancellationToken);
-		await _cacheHandler.DeleteAsync(entity.Id);
-	}
-
-	public async Task AddByParentAsync(
-		FilterDefinition<EmailConfirmationToken> filter,
-		CancellationToken cancellationToken)
-	{
-		await UpdateByParentAsync(filter, cancellationToken);
+		await _collectionHandler.InsertAsync(entity, cancellationToken);
 	}
 
 	public async Task AddRangeAsync(
 		IEnumerable<EmailConfirmationToken> entities,
 		CancellationToken cancellationToken)
 	{
-		await InsertRangeAsync(entities, cancellationToken);
-		await _cacheHandler.DeleteRangeAsync(entities.Select(p => p.Id));
+		await _collectionHandler.InsertRangeAsync(entities, cancellationToken);
 	}
 
 	public async Task UpdateAsync(
 		EmailConfirmationToken entity,
 		CancellationToken cancellationToken)
 	{
-		await ReplaceAsync(entity.Id.GetFilter(), entity, cancellationToken);
-		await _cacheHandler.DeleteAsync(entity.Id);
-	}
-
-	public async Task UpdateByParentAsync(
-		FilterDefinition<EmailConfirmationToken> filter,
-		CancellationToken cancellationToken)
-	{
-		var tokenIds = await GetIdsAsync(filter, cancellationToken);
-
-		await _cacheHandler.DeleteRangeAsync(tokenIds);
+		await _collectionHandler.ReplaceAsync(entity.Id.GetFilter(), entity, cancellationToken);
 	}
 
 	public async Task DeleteAsync(
 		EmailConfirmationToken entity,
 		CancellationToken cancellationToken)
 	{
-		await RemoveAsync(entity.Id.GetFilter(), cancellationToken);
-		await _cacheHandler.DeleteAsync(entity.Id);
+		await _collectionHandler.RemoveAsync(entity.Id.GetFilter(), cancellationToken);
 	}
 
 	public async Task DeleteByParentAsync(
 		FilterDefinition<EmailConfirmationToken> filter,
 		CancellationToken cancellationToken)
 	{
-		var tokenIds = await GetIdsAsync(filter, cancellationToken);
-
-		await RemoveRangeAsync(filter, cancellationToken);
-		await _cacheHandler.DeleteRangeAsync(tokenIds);
+		await _collectionHandler.RemoveRangeAsync(filter, cancellationToken);
 	}
 
 	public async Task DeleteRangeAsync(
 		IEnumerable<EmailConfirmationToken> entities,
 		CancellationToken cancellationToken)
 	{
-		await RemoveRangeAsync(entities.Select(p => p.Id).GetFilter(), cancellationToken);
-		await _cacheHandler.DeleteRangeAsync(entities.Select(p => p.Id));
+		await _collectionHandler.RemoveRangeAsync(entities.Select(p => p.Id).GetFilter(), cancellationToken);
 	}
 }

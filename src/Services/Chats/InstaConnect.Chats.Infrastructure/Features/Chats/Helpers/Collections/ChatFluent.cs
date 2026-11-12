@@ -3,7 +3,7 @@ using InstaConnect.Chats.Infrastructure.Features.Chats.Extensions;
 
 namespace InstaConnect.Chats.Infrastructure.Features.Chats.Helpers.Collections;
 
-internal class ChatFluent : MongoDbFluent<Chat>, IChatFluent
+internal class ChatFluent : MongoDbFluent<Chat, ChatId>, IChatFluent
 {
 	private readonly IChatIncluderFactory _includerFactory;
 	private readonly IChatIncludeBuilderFactory _includeBuilderFactory;

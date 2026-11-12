@@ -2,8 +2,10 @@ using InstaConnect.Common.Domain.Features.Requests.Abstractions;
 
 namespace InstaConnect.Common.Infrastructure.Features.Databases.Helpers;
 
-public abstract class MongoDbFluent<TEntity>
-	: IMongoDbFluent<TEntity> where TEntity : ICreatable
+public abstract class MongoDbFluent<TEntity, TEntityId>
+	: IMongoDbFluent<TEntity, TEntityId>
+	where TEntity : ICreatable, IEntityWithId<TEntityId>
+	where TEntityId : IEntityId
 {
 	private IAggregateFluent<TEntity> _fluent;
 
@@ -17,9 +19,11 @@ public abstract class MongoDbFluent<TEntity>
 		return _fluent.Project(projectionDefinition);
 	}
 
-	protected void Match(FilterDefinition<TEntity> filterDefinition)
+	public IMongoDbFluent<TEntity, TEntityId> Match(FilterDefinition<TEntity> filterDefinition)
 	{
 		_fluent = _fluent.Match(filterDefinition);
+
+		return this;
 	}
 
 	protected void ApplyIncludes<TInclude, TIncludeType, TDestinationType, TIncludeDescriptor, TIncluder>(
@@ -78,6 +82,13 @@ public abstract class MongoDbFluent<TEntity>
 	public async Task<bool> AnyAsync(CancellationToken cancellationToken)
 	{
 		return await _fluent.AnyAsync(cancellationToken);
+	}
+
+	public async Task<ICollection<TEntityId>> GetIdsAsync(CancellationToken cancellationToken)
+	{
+		return await _fluent
+			.Project(p => p.Id)
+			.ToListAsync(cancellationToken);
 	}
 
 	public async Task<long> GetCountAsync(CancellationToken cancellationToken)

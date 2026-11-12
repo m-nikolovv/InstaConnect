@@ -1,6 +1,6 @@
 namespace InstaConnect.Identity.Infrastructure.Features.Users.Helpers.Collections;
 
-internal class UserFluent : MongoDbFluent<User>, IUserFluent
+internal class UserFluent : MongoDbFluent<User, UserId>, IUserFluent
 {
 	private readonly IPaginator _paginator;
 	private readonly IUserIncluderFactory _includerFactory;

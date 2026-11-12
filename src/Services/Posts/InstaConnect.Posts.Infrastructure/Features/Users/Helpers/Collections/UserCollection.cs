@@ -3,36 +3,34 @@ using InstaConnect.Posts.Infrastructure.Features.PostLikes.Extensions;
 
 namespace InstaConnect.Posts.Infrastructure.Features.Users.Helpers.Collections;
 
-internal class UserCollection : MongoDbCollection<User, UserId>, IUserCollection
+internal class UserCollection : IUserCollection
 {
-	private readonly IUserCacheHandler _cacheHandler;
 	private readonly IPostCollection _postCollection;
 	private readonly IUserFluentFactory _fluentFactory;
 	private readonly IPostLikeCollection _likeCollection;
 	private readonly IPostCommentCollection _commentCollection;
 	private readonly IPostCommentLikeCollection _commentLikeCollection;
+	private readonly IMongoDbCollectionHandler<User, UserId> _collectionHandler;
 
 	public UserCollection(
-		ISessionHandler sessionHandler,
-		IUserCacheHandler cacheHandler,
 		IPostCollection postCollection,
 		IUserFluentFactory fluentFactory,
-		IMongoCollection<User> collection,
 		IPostLikeCollection likeCollection,
 		IPostCommentCollection commentCollection,
-		IPostCommentLikeCollection commentLikeCollection) : base(sessionHandler, collection)
+		IPostCommentLikeCollection commentLikeCollection,
+		IMongoDbCollectionHandler<User, UserId> collectionHandler)
 	{
-		_cacheHandler = cacheHandler;
 		_fluentFactory = fluentFactory;
 		_likeCollection = likeCollection;
 		_postCollection = postCollection;
 		_commentCollection = commentCollection;
+		_collectionHandler = collectionHandler;
 		_commentLikeCollection = commentLikeCollection;
 	}
 
 	public IUserFluent AggregateFluent()
 	{
-		var fluent = AggregateWithIgnoreCaseCollation();
+		var fluent = _collectionHandler.AggregateWithIgnoreCaseCollation();
 
 		return _fluentFactory.Create(fluent);
 	}
@@ -41,32 +39,21 @@ internal class UserCollection : MongoDbCollection<User, UserId>, IUserCollection
 		User entity,
 		CancellationToken cancellationToken)
 	{
-		await _postCollection.AddByParentAsync(entity.Id.GetPostByParentFilter(), cancellationToken);
-		await _likeCollection.AddByParentAsync(entity.Id.GetPostLikeByParentFilter(), cancellationToken);
-		await _commentCollection.AddByParentAsync(entity.Id.GetPostCommentByParentFilter(), cancellationToken);
-		await _commentLikeCollection.AddByParentAsync(entity.Id.GetPostCommentLikeByParentFilter(), cancellationToken);
-		await InsertAsync(entity, cancellationToken);
-		await _cacheHandler.DeleteAsync(entity.Id);
+		await _collectionHandler.InsertAsync(entity, cancellationToken);
 	}
 
 	public async Task AddRangeAsync(
 		IEnumerable<User> entities,
 		CancellationToken cancellationToken)
 	{
-		await InsertRangeAsync(entities, cancellationToken);
-		await _cacheHandler.DeleteRangeAsync(entities.Select(p => p.Id));
+		await _collectionHandler.InsertRangeAsync(entities, cancellationToken);
 	}
 
 	public async Task UpdateAsync(
 		User entity,
 		CancellationToken cancellationToken)
 	{
-		await _postCollection.UpdateByParentAsync(entity.Id.GetPostByParentFilter(), cancellationToken);
-		await _likeCollection.UpdateByParentAsync(entity.Id.GetPostLikeByParentFilter(), cancellationToken);
-		await _commentCollection.UpdateByParentAsync(entity.Id.GetPostCommentByParentFilter(), cancellationToken);
-		await _commentLikeCollection.UpdateByParentAsync(entity.Id.GetPostCommentLikeByParentFilter(), cancellationToken);
-		await ReplaceAsync(entity.Id.GetFilter(), entity, cancellationToken);
-		await _cacheHandler.DeleteAsync(entity.Id);
+		await _collectionHandler.ReplaceAsync(entity.Id.GetFilter(), entity, cancellationToken);
 	}
 
 	public async Task DeleteAsync(
@@ -77,7 +64,6 @@ internal class UserCollection : MongoDbCollection<User, UserId>, IUserCollection
 		await _likeCollection.DeleteByParentAsync(entity.Id.GetPostLikeByParentFilter(), cancellationToken);
 		await _commentCollection.DeleteByParentAsync(entity.Id.GetPostCommentByParentFilter(), cancellationToken);
 		await _commentLikeCollection.DeleteByParentAsync(entity.Id.GetPostCommentLikeByParentFilter(), cancellationToken);
-		await RemoveAsync(entity.Id.GetFilter(), cancellationToken);
-		await _cacheHandler.DeleteAsync(entity.Id);
+		await _collectionHandler.RemoveAsync(entity.Id.GetFilter(), cancellationToken);
 	}
 }

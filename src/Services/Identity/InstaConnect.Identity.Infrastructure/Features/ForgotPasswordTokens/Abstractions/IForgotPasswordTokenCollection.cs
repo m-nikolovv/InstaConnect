@@ -1,19 +1,19 @@
 namespace InstaConnect.Identity.Infrastructure.Features.ForgotPasswordTokens.Abstractions;
 
-public interface IForgotPasswordTokenCollection : IMongoDbCollection<ForgotPasswordToken>
+public interface IForgotPasswordTokenCollection
 {
 	public IForgotPasswordTokenFluent AggregateFluent();
 
-	internal Task AddByParentAsync(
-		FilterDefinition<ForgotPasswordToken> filter,
+	public Task AddAsync(
+		ForgotPasswordToken entity,
+		CancellationToken cancellationToken);
+
+	public Task AddRangeAsync(
+		IEnumerable<ForgotPasswordToken> entities,
 		CancellationToken cancellationToken);
 
 	public Task UpdateAsync(
 		ForgotPasswordToken entity,
-		CancellationToken cancellationToken);
-
-	internal Task UpdateByParentAsync(
-		FilterDefinition<ForgotPasswordToken> filter,
 		CancellationToken cancellationToken);
 
 	public Task DeleteAsync(

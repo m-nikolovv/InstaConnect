@@ -1,19 +1,19 @@
 namespace InstaConnect.Identity.Infrastructure.Features.EmailConfirmationTokens.Abstractions;
 
-public interface IEmailConfirmationTokenCollection : IMongoDbCollection<EmailConfirmationToken>
+public interface IEmailConfirmationTokenCollection
 {
 	public IEmailConfirmationTokenFluent AggregateFluent();
 
-	internal Task AddByParentAsync(
-		FilterDefinition<EmailConfirmationToken> filter,
+	public Task AddAsync(
+		EmailConfirmationToken entity,
+		CancellationToken cancellationToken);
+
+	public Task AddRangeAsync(
+		IEnumerable<EmailConfirmationToken> entities,
 		CancellationToken cancellationToken);
 
 	public Task UpdateAsync(
 		EmailConfirmationToken entity,
-		CancellationToken cancellationToken);
-
-	internal Task UpdateByParentAsync(
-		FilterDefinition<EmailConfirmationToken> filter,
 		CancellationToken cancellationToken);
 
 	public Task DeleteAsync(

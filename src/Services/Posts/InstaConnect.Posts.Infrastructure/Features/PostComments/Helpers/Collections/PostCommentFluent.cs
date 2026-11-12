@@ -3,7 +3,7 @@ using InstaConnect.Posts.Domain.Features.PostImages.Models.Responses;
 
 namespace InstaConnect.Posts.Infrastructure.Features.PostComments.Helpers.Collections;
 
-internal class PostCommentFluent : MongoDbFluent<PostComment>, IPostCommentFluent
+internal class PostCommentFluent : MongoDbFluent<PostComment, PostCommentId>, IPostCommentFluent
 {
 	private readonly IPaginator _paginator;
 	private readonly ISortOrdererFactory _sortOrdererFactory;

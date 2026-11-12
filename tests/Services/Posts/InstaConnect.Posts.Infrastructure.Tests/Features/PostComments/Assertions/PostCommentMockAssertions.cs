@@ -56,6 +56,20 @@ public static class PostCommentMockAssertions
 			collection.ShouldHaveReceivedOne().AggregateFluent();
 		}
 
+		public async Task ShouldHaveReceivedOneAddAsync(
+			PostComment postComment,
+			CancellationToken cancellationToken)
+		{
+			await collection.ShouldHaveReceivedOne().AddAsync(postComment, cancellationToken);
+		}
+
+		public async Task ShouldHaveReceivedOneAddRangeAsync(
+			ICollection<PostComment> postComments,
+			CancellationToken cancellationToken)
+		{
+			await collection.ShouldHaveReceivedOne().AddRangeAsync(postComments, cancellationToken);
+		}
+
 		public async Task ShouldHaveReceivedOneUpdateAsync(
 			PostComment postComment,
 			CancellationToken cancellationToken)

@@ -1,15 +1,15 @@
 namespace InstaConnect.Posts.Infrastructure.Features.PostLikes.Abstractions;
 
-public interface IPostLikeCollection : IMongoDbCollection<PostLike>
+public interface IPostLikeCollection
 {
 	public IPostLikeFluent AggregateFluent();
 
-	internal Task AddByParentAsync(
-		FilterDefinition<PostLike> filter,
+	public Task AddAsync(
+		PostLike entity,
 		CancellationToken cancellationToken);
 
-	internal Task UpdateByParentAsync(
-		FilterDefinition<PostLike> filter,
+	public Task AddRangeAsync(
+		IEnumerable<PostLike> entities,
 		CancellationToken cancellationToken);
 
 	public Task DeleteAsync(

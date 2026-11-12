@@ -3,7 +3,7 @@ using InstaConnect.Chats.Infrastructure.Features.ChatMessageImages.Extensions;
 
 namespace InstaConnect.Chats.Infrastructure.Features.ChatMessageImages.Helpers.Collections;
 
-internal class ChatMessageImageFluent : MongoDbFluent<ChatMessageImage>, IChatMessageImageFluent
+internal class ChatMessageImageFluent : MongoDbFluent<ChatMessageImage, ChatMessageImageId>, IChatMessageImageFluent
 {
 	public ChatMessageImageFluent(IAggregateFluent<ChatMessageImage> fluent) : base(fluent)
 	{

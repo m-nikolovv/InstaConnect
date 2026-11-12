@@ -2,27 +2,25 @@ using InstaConnect.Chats.Infrastructure.Features.Chats.Extensions;
 
 namespace InstaConnect.Chats.Infrastructure.Features.Chats.Helpers.Collections;
 
-internal class ChatCollection : MongoDbCollection<Chat, ChatId>, IChatCollection
+internal class ChatCollection : IChatCollection
 {
-	private readonly IChatCacheHandler _cacheHandler;
 	private readonly IChatFluentFactory _fluentFactory;
 	private readonly IChatMessageCollection _messageCollection;
+	private readonly IMongoDbCollectionHandler<Chat, ChatId> _collectionHandler;
 
 	public ChatCollection(
-		ISessionHandler sessionHandler,
-		IChatCacheHandler cacheHandler,
 		IChatFluentFactory fluentFactory,
-		IMongoCollection<Chat> collection,
-		IChatMessageCollection messageCollection) : base(sessionHandler, collection)
+		IChatMessageCollection messageCollection,
+		IMongoDbCollectionHandler<Chat, ChatId> collectionHandler)
 	{
-		_cacheHandler = cacheHandler;
 		_fluentFactory = fluentFactory;
 		_messageCollection = messageCollection;
+		_collectionHandler = collectionHandler;
 	}
 
 	public IChatFluent AggregateFluent()
 	{
-		var fluent = AggregateWithIgnoreCaseCollation();
+		var fluent = _collectionHandler.AggregateWithIgnoreCaseCollation();
 
 		return _fluentFactory.Create(fluent);
 	}
@@ -31,35 +29,14 @@ internal class ChatCollection : MongoDbCollection<Chat, ChatId>, IChatCollection
 		Chat entity,
 		CancellationToken cancellationToken)
 	{
-		await _messageCollection.AddByParentAsync(entity.Id.GetChatMessageByParentFilter(), cancellationToken);
-		await InsertAsync(entity, cancellationToken);
-		await _cacheHandler.DeleteAsync(entity.Id);
-	}
-
-	public async Task AddByParentAsync(
-		FilterDefinition<Chat> filter,
-		CancellationToken cancellationToken)
-	{
-		await UpdateByParentAsync(filter, cancellationToken);
+		await _collectionHandler.InsertAsync(entity, cancellationToken);
 	}
 
 	public async Task AddRangeAsync(
 		IEnumerable<Chat> entities,
 		CancellationToken cancellationToken)
 	{
-		await _messageCollection.AddByParentAsync(entities.Select(p => p.Id).GetChatMessageByParentFilter(), cancellationToken);
-		await InsertRangeAsync(entities, cancellationToken);
-		await _cacheHandler.DeleteRangeAsync(entities.Select(p => p.Id));
-	}
-
-	public async Task UpdateByParentAsync(
-		FilterDefinition<Chat> filter,
-		CancellationToken cancellationToken)
-	{
-		var chatIds = await GetIdsAsync(filter, cancellationToken);
-
-		await _messageCollection.UpdateByParentAsync(chatIds.GetChatMessageByParentFilter(), cancellationToken);
-		await _cacheHandler.DeleteRangeAsync(chatIds);
+		await _collectionHandler.InsertRangeAsync(entities, cancellationToken);
 	}
 
 	public async Task DeleteAsync(
@@ -67,18 +44,18 @@ internal class ChatCollection : MongoDbCollection<Chat, ChatId>, IChatCollection
 		CancellationToken cancellationToken)
 	{
 		await _messageCollection.DeleteByParentAsync(entity.Id.GetChatMessageByParentFilter(), cancellationToken);
-		await RemoveAsync(entity.Id.GetFilter(), cancellationToken);
-		await _cacheHandler.DeleteAsync(entity.Id);
+		await _collectionHandler.RemoveAsync(entity.Id.GetFilter(), cancellationToken);
 	}
 
 	public async Task DeleteByParentAsync(
 		FilterDefinition<Chat> filter,
 		CancellationToken cancellationToken)
 	{
-		var chatIds = await GetIdsAsync(filter, cancellationToken);
+		var chatIds = await AggregateFluent()
+			.Match(filter)
+			.GetIdsAsync(cancellationToken);
 
 		await _messageCollection.DeleteByParentAsync(chatIds.GetChatMessageByParentFilter(), cancellationToken);
-		await RemoveRangeAsync(filter, cancellationToken);
-		await _cacheHandler.DeleteRangeAsync(chatIds);
+		await _collectionHandler.RemoveRangeAsync(filter, cancellationToken);
 	}
 }

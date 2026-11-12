@@ -1,6 +1,6 @@
 namespace InstaConnect.Chats.Infrastructure.Features.Users.Helpers.Collections;
 
-internal class UserFluent : MongoDbFluent<User>, IUserFluent
+internal class UserFluent : MongoDbFluent<User, UserId>, IUserFluent
 {
 	private readonly IUserIncluderFactory _includerFactory;
 	private readonly IUserResponseFluentFactory _responseFluentFactory;

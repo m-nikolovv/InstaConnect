@@ -2,24 +2,22 @@ using InstaConnect.Identity.Infrastructure.Features.UserClaims.Extensions;
 
 namespace InstaConnect.Identity.Infrastructure.Features.UserClaims.Helpers.Collections;
 
-internal class UserClaimCollection : MongoDbCollection<UserClaim, UserClaimId>, IUserClaimCollection
+internal class UserClaimCollection : IUserClaimCollection
 {
-	private readonly IUserClaimCacheHandler _cacheHandler;
 	private readonly IUserClaimFluentFactory _fluentFactory;
+	private readonly IMongoDbCollectionHandler<UserClaim, UserClaimId> _collectionHandler;
 
 	public UserClaimCollection(
-		ISessionHandler sessionHandler,
-		IUserClaimCacheHandler cacheHandler,
 		IUserClaimFluentFactory fluentFactory,
-		IMongoCollection<UserClaim> collection) : base(sessionHandler, collection)
+		IMongoDbCollectionHandler<UserClaim, UserClaimId> collectionHandler)
 	{
-		_cacheHandler = cacheHandler;
 		_fluentFactory = fluentFactory;
+		_collectionHandler = collectionHandler;
 	}
 
 	public IUserClaimFluent AggregateFluent()
 	{
-		var fluent = AggregateWithIgnoreCaseCollation();
+		var fluent = _collectionHandler.AggregateWithIgnoreCaseCollation();
 
 		return _fluentFactory.Create(fluent);
 	}
@@ -28,49 +26,27 @@ internal class UserClaimCollection : MongoDbCollection<UserClaim, UserClaimId>, 
 		UserClaim entity,
 		CancellationToken cancellationToken)
 	{
-		await InsertAsync(entity, cancellationToken);
-		await _cacheHandler.DeleteAsync(entity.Id);
-	}
-
-	public async Task AddByParentAsync(
-		FilterDefinition<UserClaim> filter,
-		CancellationToken cancellationToken)
-	{
-		await UpdateByParentAsync(filter, cancellationToken);
+		await _collectionHandler.InsertAsync(entity, cancellationToken);
 	}
 
 	public async Task AddRangeAsync(
 		IEnumerable<UserClaim> entities,
 		CancellationToken cancellationToken)
 	{
-		await InsertRangeAsync(entities, cancellationToken);
-		await _cacheHandler.DeleteRangeAsync(entities.Select(p => p.Id));
-	}
-
-	public async Task UpdateByParentAsync(
-		FilterDefinition<UserClaim> filter,
-		CancellationToken cancellationToken)
-	{
-		var claimIds = await GetIdsAsync(filter, cancellationToken);
-
-		await _cacheHandler.DeleteRangeAsync(claimIds);
+		await _collectionHandler.InsertRangeAsync(entities, cancellationToken);
 	}
 
 	public async Task DeleteAsync(
 		UserClaim entity,
 		CancellationToken cancellationToken)
 	{
-		await RemoveAsync(entity.Id.GetFilter(), cancellationToken);
-		await _cacheHandler.DeleteAsync(entity.Id);
+		await _collectionHandler.RemoveAsync(entity.Id.GetFilter(), cancellationToken);
 	}
 
 	public async Task DeleteByParentAsync(
 		FilterDefinition<UserClaim> filter,
 		CancellationToken cancellationToken)
 	{
-		var claimIds = await GetIdsAsync(filter, cancellationToken);
-
-		await RemoveRangeAsync(filter, cancellationToken);
-		await _cacheHandler.DeleteRangeAsync(claimIds);
+		await _collectionHandler.RemoveRangeAsync(filter, cancellationToken);
 	}
 }

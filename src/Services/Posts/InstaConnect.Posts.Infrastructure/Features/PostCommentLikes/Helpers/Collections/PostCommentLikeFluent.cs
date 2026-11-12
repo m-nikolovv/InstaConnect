@@ -4,7 +4,7 @@ using InstaConnect.Posts.Infrastructure.Features.PostCommentLikes.Extensions;
 
 namespace InstaConnect.Posts.Infrastructure.Features.PostCommentLikes.Helpers.Collections;
 
-internal class PostCommentLikeFluent : MongoDbFluent<PostCommentLike>, IPostCommentLikeFluent
+internal class PostCommentLikeFluent : MongoDbFluent<PostCommentLike, PostCommentLikeId>, IPostCommentLikeFluent
 {
 	private readonly IPaginator _paginator;
 	private readonly ISortOrdererFactory _sortOrdererFactory;

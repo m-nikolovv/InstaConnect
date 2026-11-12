@@ -1,6 +1,6 @@
 namespace InstaConnect.Chats.Infrastructure.Features.Chats.Abstractions;
 
-public interface IChatFluent : IMongoDbFluent<Chat>
+public interface IChatFluent : IMongoDbFluent<Chat, ChatId>
 {
 	public IChatFluent Match(ChatsFilterQuery filter);
 	public IChatFluent Match(ChatId filter);

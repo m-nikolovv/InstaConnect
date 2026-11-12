@@ -4,7 +4,7 @@ using InstaConnect.Identity.Infrastructure.Features.EmailConfirmationTokens.Exte
 
 namespace InstaConnect.Identity.Infrastructure.Features.EmailConfirmationTokens.Helpers.Collections;
 
-internal class EmailConfirmationTokenFluent : MongoDbFluent<EmailConfirmationToken>, IEmailConfirmationTokenFluent
+internal class EmailConfirmationTokenFluent : MongoDbFluent<EmailConfirmationToken, EmailConfirmationTokenId>, IEmailConfirmationTokenFluent
 {
 	private readonly IEmailConfirmationTokenIncluderFactory _includerFactory;
 

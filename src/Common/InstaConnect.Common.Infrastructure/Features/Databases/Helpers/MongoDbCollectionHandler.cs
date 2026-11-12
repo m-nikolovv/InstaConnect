@@ -3,14 +3,14 @@ using InstaConnect.Common.Infrastructure.Features.Databases.Utilities;
 
 namespace InstaConnect.Common.Infrastructure.Features.Databases.Helpers;
 
-public abstract class MongoDbCollection<TEntity, TEntityId>
+internal class MongoDbCollectionHandler<TEntity, TEntityId> : IMongoDbCollectionHandler<TEntity, TEntityId>
 	where TEntity : IEntityWithId<TEntityId>
 	where TEntityId : IEntityId
 {
 	private readonly ISessionHandler _sessionHandler;
 	private readonly IMongoCollection<TEntity> _mongoCollection;
 
-	protected MongoDbCollection(
+	public MongoDbCollectionHandler(
 		ISessionHandler sessionHandler,
 		IMongoCollection<TEntity> mongoCollection)
 	{
@@ -18,7 +18,7 @@ public abstract class MongoDbCollection<TEntity, TEntityId>
 		_mongoCollection = mongoCollection;
 	}
 
-	protected IAggregateFluent<TEntity> AggregateWithIgnoreCaseCollation()
+	public IAggregateFluent<TEntity> AggregateWithIgnoreCaseCollation()
 	{
 		var options = new AggregateOptions
 		{
@@ -28,7 +28,7 @@ public abstract class MongoDbCollection<TEntity, TEntityId>
 		return _mongoCollection.Aggregate(options);
 	}
 
-	protected async Task ReplaceAsync(FilterDefinition<TEntity> filter, TEntity entity, CancellationToken cancellationToken)
+	public async Task ReplaceAsync(FilterDefinition<TEntity> filter, TEntity entity, CancellationToken cancellationToken)
 	{
 		var options = new ReplaceOptions { IsUpsert = false, Collation = MongoDbCollations.IgnoreCase };
 
@@ -42,15 +42,7 @@ public abstract class MongoDbCollection<TEntity, TEntityId>
 		await _mongoCollection.ReplaceOneAsync(_sessionHandler.ClientSessionHandle, filter, entity, options, cancellationToken);
 	}
 
-	protected async Task<List<TEntityId>> GetIdsAsync(FilterDefinition<TEntity> filter, CancellationToken cancellationToken)
-	{
-		return await AggregateWithIgnoreCaseCollation()
-			.Match(filter)
-			.Project(p => p.Id)
-			.ToListAsync(cancellationToken);
-	}
-
-	protected async Task RemoveAsync(FilterDefinition<TEntity> filter, CancellationToken cancellationToken)
+	public async Task RemoveAsync(FilterDefinition<TEntity> filter, CancellationToken cancellationToken)
 	{
 		var options = new DeleteOptions { Collation = MongoDbCollations.IgnoreCase };
 
@@ -64,7 +56,7 @@ public abstract class MongoDbCollection<TEntity, TEntityId>
 		await _mongoCollection.DeleteOneAsync(_sessionHandler.ClientSessionHandle, filter, options, cancellationToken);
 	}
 
-	protected async Task RemoveRangeAsync(FilterDefinition<TEntity> filter, CancellationToken cancellationToken)
+	public async Task RemoveRangeAsync(FilterDefinition<TEntity> filter, CancellationToken cancellationToken)
 	{
 		var options = new DeleteOptions { Collation = MongoDbCollations.IgnoreCase };
 
@@ -78,7 +70,7 @@ public abstract class MongoDbCollection<TEntity, TEntityId>
 		await _mongoCollection.DeleteManyAsync(_sessionHandler.ClientSessionHandle, filter, options, cancellationToken);
 	}
 
-	protected async Task InsertAsync(TEntity entity, CancellationToken cancellationToken)
+	public async Task InsertAsync(TEntity entity, CancellationToken cancellationToken)
 	{
 		if (_sessionHandler.ClientSessionHandle.HasNoActiveTransaction())
 		{
@@ -90,7 +82,7 @@ public abstract class MongoDbCollection<TEntity, TEntityId>
 		await _mongoCollection.InsertOneAsync(_sessionHandler.ClientSessionHandle, entity, null, cancellationToken);
 	}
 
-	protected async Task InsertRangeAsync(IEnumerable<TEntity> entities, CancellationToken cancellationToken)
+	public async Task InsertRangeAsync(IEnumerable<TEntity> entities, CancellationToken cancellationToken)
 	{
 		if (_sessionHandler.ClientSessionHandle.HasNoActiveTransaction())
 		{

@@ -4,27 +4,22 @@ using InstaConnect.Posts.Infrastructure.Features.PostCommentImages.Extensions;
 
 namespace InstaConnect.Posts.Infrastructure.Features.PostCommentImages.Helpers.Collections;
 
-internal class PostCommentImageCollection : MongoDbCollection<PostCommentImage, PostCommentImageId>, IPostCommentImageCollection
+internal class PostCommentImageCollection : IPostCommentImageCollection
 {
-	private readonly IPostCommentCacheHandler _commentCacheHandler;
 	private readonly IPostCommentImageFluentFactory _fluentFactory;
-	private readonly IPostCommentImageCacheHandler _commentImageCacheHandler;
+	private readonly IMongoDbCollectionHandler<PostCommentImage, PostCommentImageId> _collectionHandler;
 
 	public PostCommentImageCollection(
-		ISessionHandler sessionHandler,
-		IPostCommentCacheHandler commentCacheHandler,
 		IPostCommentImageFluentFactory fluentFactory,
-		IMongoCollection<PostCommentImage> collection,
-		IPostCommentImageCacheHandler commentImageCacheHandler) : base(sessionHandler, collection)
+		IMongoDbCollectionHandler<PostCommentImage, PostCommentImageId> collectionHandler)
 	{
 		_fluentFactory = fluentFactory;
-		_commentCacheHandler = commentCacheHandler;
-		_commentImageCacheHandler = commentImageCacheHandler;
+		_collectionHandler = collectionHandler;
 	}
 
 	public IPostCommentImageFluent AggregateFluent()
 	{
-		var fluent = AggregateWithIgnoreCaseCollation();
+		var fluent = _collectionHandler.AggregateWithIgnoreCaseCollation();
 
 		return _fluentFactory.Create(fluent);
 	}
@@ -33,65 +28,34 @@ internal class PostCommentImageCollection : MongoDbCollection<PostCommentImage, 
 		PostCommentImage entity,
 		CancellationToken cancellationToken)
 	{
-		await InsertAsync(entity, cancellationToken);
-		await _commentCacheHandler.DeleteResponseAsync(entity.Id.Id);
-		await _commentImageCacheHandler.DeleteAsync(entity.Id);
-	}
-
-	public async Task AddByParentAsync(
-		FilterDefinition<PostCommentImage> filter,
-		CancellationToken cancellationToken)
-	{
-		var imageIds = await GetIdsAsync(filter, cancellationToken);
-
-		await _commentCacheHandler.DeleteResponseRangeAsync(imageIds.Select(p => p.Id));
-		await _commentImageCacheHandler.DeleteRangeAsync(imageIds);
+		await _collectionHandler.InsertAsync(entity, cancellationToken);
 	}
 
 	public async Task AddRangeAsync(
 		IEnumerable<PostCommentImage> entities,
 		CancellationToken cancellationToken)
 	{
-		await InsertRangeAsync(entities, cancellationToken);
-		await _commentCacheHandler.DeleteResponseRangeAsync(entities.Select(p => p.Id.Id));
-		await _commentImageCacheHandler.DeleteRangeAsync(entities.Select(p => p.Id));
-	}
-
-	public async Task UpdateByParentAsync(
-		FilterDefinition<PostCommentImage> filter,
-		CancellationToken cancellationToken)
-	{
-		var imageIds = await GetIdsAsync(filter, cancellationToken);
-
-		await _commentImageCacheHandler.DeleteRangeAsync(imageIds);
+		await _collectionHandler.InsertRangeAsync(entities, cancellationToken);
 	}
 
 	public async Task DeleteAsync(
 		PostCommentImage entity,
 		CancellationToken cancellationToken)
 	{
-		await RemoveAsync(entity.Id.GetFilter(), cancellationToken);
-		await _commentCacheHandler.DeleteResponseAsync(entity.Id.Id);
-		await _commentImageCacheHandler.DeleteAsync(entity.Id);
+		await _collectionHandler.RemoveAsync(entity.Id.GetFilter(), cancellationToken);
 	}
 
 	public async Task DeleteByParentAsync(
 		FilterDefinition<PostCommentImage> filter,
 		CancellationToken cancellationToken)
 	{
-		var imageIds = await GetIdsAsync(filter, cancellationToken);
-
-		await RemoveRangeAsync(filter, cancellationToken);
-		await _commentCacheHandler.DeleteResponseRangeAsync(imageIds.Select(p => p.Id));
-		await _commentImageCacheHandler.DeleteRangeAsync(imageIds);
+		await _collectionHandler.RemoveRangeAsync(filter, cancellationToken);
 	}
 
 	public async Task DeleteRangeAsync(
 		IEnumerable<PostCommentImage> entities,
 		CancellationToken cancellationToken)
 	{
-		await RemoveRangeAsync(entities.Select(p => p.Id).GetFilter(), cancellationToken);
-		await _commentCacheHandler.DeleteResponseRangeAsync(entities.Select(p => p.Id.Id));
-		await _commentImageCacheHandler.DeleteRangeAsync(entities.Select(p => p.Id));
+		await _collectionHandler.RemoveRangeAsync(entities.Select(p => p.Id).GetFilter(), cancellationToken);
 	}
 }

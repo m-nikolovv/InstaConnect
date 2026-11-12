@@ -1,15 +1,15 @@
 namespace InstaConnect.Identity.Infrastructure.Features.UserClaims.Abstractions;
 
-public interface IUserClaimCollection : IMongoDbCollection<UserClaim>
+public interface IUserClaimCollection
 {
 	public IUserClaimFluent AggregateFluent();
 
-	internal Task AddByParentAsync(
-		FilterDefinition<UserClaim> filter,
+	public Task AddAsync(
+		UserClaim entity,
 		CancellationToken cancellationToken);
 
-	internal Task UpdateByParentAsync(
-		FilterDefinition<UserClaim> filter,
+	public Task AddRangeAsync(
+		IEnumerable<UserClaim> entities,
 		CancellationToken cancellationToken);
 
 	public Task DeleteAsync(

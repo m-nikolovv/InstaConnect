@@ -2,7 +2,7 @@ using InstaConnect.Chats.Domain.Features.ChatMessageImages.Models.Responses;
 
 namespace InstaConnect.Chats.Infrastructure.Features.ChatMessages.Helpers.Collections;
 
-internal class ChatMessageFluent : MongoDbFluent<ChatMessage>, IChatMessageFluent
+internal class ChatMessageFluent : MongoDbFluent<ChatMessage, ChatMessageId>, IChatMessageFluent
 {
 	private readonly IPaginator _paginator;
 	private readonly ISortOrdererFactory _sortOrdererFactory;

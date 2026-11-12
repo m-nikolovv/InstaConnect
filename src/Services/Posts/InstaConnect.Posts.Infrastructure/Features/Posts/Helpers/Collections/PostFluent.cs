@@ -2,7 +2,7 @@ using InstaConnect.Posts.Domain.Features.PostImages.Models.Responses;
 
 namespace InstaConnect.Posts.Infrastructure.Features.Posts.Helpers.Collections;
 
-internal class PostFluent : MongoDbFluent<Post>, IPostFluent
+internal class PostFluent : MongoDbFluent<Post, PostId>, IPostFluent
 {
 	private readonly IPaginator _paginator;
 	private readonly IPostIncluderFactory _includerFactory;

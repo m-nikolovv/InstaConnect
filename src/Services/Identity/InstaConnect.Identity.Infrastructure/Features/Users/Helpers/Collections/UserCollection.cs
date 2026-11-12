@@ -4,28 +4,26 @@ using InstaConnect.Identity.Infrastructure.Features.UserClaims.Extensions;
 
 namespace InstaConnect.Identity.Infrastructure.Features.Users.Helpers.Collections;
 
-internal class UserCollection : MongoDbCollection<User, UserId>, IUserCollection
+internal class UserCollection : IUserCollection
 {
-	private readonly IUserCacheHandler _cacheHandler;
 	private readonly IUserFluentFactory _fluentFactory;
 	private readonly IUserClaimCollection _claimCollection;
 	private readonly IRefreshTokenCollection _refreshTokenCollection;
+	private readonly IMongoDbCollectionHandler<User, UserId> _collectionHandler;
 	private readonly IForgotPasswordTokenCollection _forgotPasswordTokenCollection;
 	private readonly IEmailConfirmationTokenCollection _emailConfirmationTokenCollection;
 
 	public UserCollection(
-		ISessionHandler sessionHandler,
-		IUserCacheHandler cacheHandler,
 		IUserFluentFactory fluentFactory,
-		IMongoCollection<User> collection,
 		IUserClaimCollection claimCollection,
 		IRefreshTokenCollection refreshTokenCollection,
+		IMongoDbCollectionHandler<User, UserId> collectionHandler,
 		IForgotPasswordTokenCollection forgotPasswordTokenCollection,
-		IEmailConfirmationTokenCollection emailConfirmationTokenCollection) : base(sessionHandler, collection)
+		IEmailConfirmationTokenCollection emailConfirmationTokenCollection)
 	{
-		_cacheHandler = cacheHandler;
 		_fluentFactory = fluentFactory;
 		_claimCollection = claimCollection;
+		_collectionHandler = collectionHandler;
 		_refreshTokenCollection = refreshTokenCollection;
 		_forgotPasswordTokenCollection = forgotPasswordTokenCollection;
 		_emailConfirmationTokenCollection = emailConfirmationTokenCollection;
@@ -33,7 +31,7 @@ internal class UserCollection : MongoDbCollection<User, UserId>, IUserCollection
 
 	public IUserFluent AggregateFluent()
 	{
-		var fluent = AggregateWithIgnoreCaseCollation();
+		var fluent = _collectionHandler.AggregateWithIgnoreCaseCollation();
 
 		return _fluentFactory.Create(fluent);
 	}
@@ -42,32 +40,21 @@ internal class UserCollection : MongoDbCollection<User, UserId>, IUserCollection
 		User entity,
 		CancellationToken cancellationToken)
 	{
-		await _claimCollection.AddByParentAsync(entity.Id.GetUserClaimByParentFilter(), cancellationToken);
-		await _refreshTokenCollection.AddByParentAsync(entity.Id.GetRefreshTokenByParentFilter(), cancellationToken);
-		await _forgotPasswordTokenCollection.AddByParentAsync(entity.Id.GetForgotPasswordTokenByParentFilter(), cancellationToken);
-		await _emailConfirmationTokenCollection.AddByParentAsync(entity.Id.GetEmailConfirmationTokenByParentFilter(), cancellationToken);
-		await InsertAsync(entity, cancellationToken);
-		await _cacheHandler.DeleteAsync(entity.Id);
+		await _collectionHandler.InsertAsync(entity, cancellationToken);
 	}
 
 	public async Task AddRangeAsync(
 		IEnumerable<User> entities,
 		CancellationToken cancellationToken)
 	{
-		await InsertRangeAsync(entities, cancellationToken);
-		await _cacheHandler.DeleteRangeAsync(entities.Select(p => p.Id));
+		await _collectionHandler.InsertRangeAsync(entities, cancellationToken);
 	}
 
 	public async Task UpdateAsync(
 		User entity,
 		CancellationToken cancellationToken)
 	{
-		await _claimCollection.UpdateByParentAsync(entity.Id.GetUserClaimByParentFilter(), cancellationToken);
-		await _refreshTokenCollection.UpdateByParentAsync(entity.Id.GetRefreshTokenByParentFilter(), cancellationToken);
-		await _forgotPasswordTokenCollection.UpdateByParentAsync(entity.Id.GetForgotPasswordTokenByParentFilter(), cancellationToken);
-		await _emailConfirmationTokenCollection.UpdateByParentAsync(entity.Id.GetEmailConfirmationTokenByParentFilter(), cancellationToken);
-		await ReplaceAsync(entity.Id.GetFilter(), entity, cancellationToken);
-		await _cacheHandler.DeleteAsync(entity.Id);
+		await _collectionHandler.ReplaceAsync(entity.Id.GetFilter(), entity, cancellationToken);
 	}
 
 	public async Task DeleteAsync(
@@ -78,7 +65,6 @@ internal class UserCollection : MongoDbCollection<User, UserId>, IUserCollection
 		await _refreshTokenCollection.DeleteByParentAsync(entity.Id.GetRefreshTokenByParentFilter(), cancellationToken);
 		await _forgotPasswordTokenCollection.DeleteByParentAsync(entity.Id.GetForgotPasswordTokenByParentFilter(), cancellationToken);
 		await _emailConfirmationTokenCollection.DeleteByParentAsync(entity.Id.GetEmailConfirmationTokenByParentFilter(), cancellationToken);
-		await RemoveAsync(entity.Id.GetFilter(), cancellationToken);
-		await _cacheHandler.DeleteAsync(entity.Id);
+		await _collectionHandler.RemoveAsync(entity.Id.GetFilter(), cancellationToken);
 	}
 }
