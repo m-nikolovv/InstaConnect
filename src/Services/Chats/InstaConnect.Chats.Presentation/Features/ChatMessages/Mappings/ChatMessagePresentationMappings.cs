@@ -80,6 +80,7 @@ internal class ChatMessagePresentationMappings : IRegister
 				src.Chat.Adapt<ChatApiResponse>(config),
 				src.Sender.Adapt<UserApiResponse>(config),
 				src.ChatMessageImages.Adapt<ICollection<ChatMessageImageApiResponse>>(config),
+				src.ImageCount,
 				src.CreatedAtUtc,
 				src.UpdatedAtUtc));
 

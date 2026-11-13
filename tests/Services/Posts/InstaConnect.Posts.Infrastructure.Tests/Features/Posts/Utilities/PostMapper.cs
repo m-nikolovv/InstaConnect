@@ -19,6 +19,7 @@ public static class PostMapper
 					   post.PostLikes.Any(pl => pl.Id.UserId.Matches(query.Id)),
 					   post.PostLikes.Count,
 					   post.PostComments.Count,
+					   post.PostImages.Count,
 					   post.CreatedAtUtc,
 					   post.UpdatedAtUtc);
 		}
@@ -35,6 +36,7 @@ public static class PostMapper
 					   post.PostLikes.Any(pl => pl.Id.UserId.Matches(query.Id)),
 					   post.PostLikes.Count,
 					   post.PostComments.Count,
+					   post.PostImages.Count,
 					   post.CreatedAtUtc,
 					   post.UpdatedAtUtc);
 		}

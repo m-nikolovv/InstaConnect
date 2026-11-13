@@ -93,6 +93,7 @@ internal class PostLikeFluent : IPostLikeFluent
 						pl => pl.Id.UserId.Id.ToLower() == currentUserId),
 					p.Post.PostLikes.Count,
 					p.Post.PostComments.Count,
+					p.Post.PostImages.Count,
 					p.Post.CreatedAtUtc,
 					p.Post.UpdatedAtUtc),
 				p.CreatedAtUtc));
@@ -132,6 +133,7 @@ internal class PostLikeFluent : IPostLikeFluent
 						pl => pl.Id.UserId.Id.ToLower() == currentUserId),
 					p.Post.PostLikes.Count,
 					p.Post.PostComments.Count,
+					p.Post.PostImages.Count,
 					p.Post.CreatedAtUtc,
 					p.Post.UpdatedAtUtc),
 				p.CreatedAtUtc));

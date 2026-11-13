@@ -92,6 +92,7 @@ public class ChatMessageApplicationMappings : IRegister
 				src.Chat.Adapt<ChatQueryResponse>(config),
 				src.Sender.Adapt<UserQueryResponse>(config),
 				src.ChatMessageImages.Adapt<ICollection<ChatMessageImageQueryResponse>>(config),
+				src.ImageCount,
 				src.CreatedAtUtc,
 				src.UpdatedAtUtc));
 

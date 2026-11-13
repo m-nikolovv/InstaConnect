@@ -12,5 +12,6 @@ public record ChatMessageQueryResponse(
 	ChatQueryResponse? Chat,
 	UserQueryResponse? Sender,
 	ICollection<ChatMessageImageQueryResponse> ChatMessageImages,
+	int ImageCount,
 	DateTimeOffset CreatedAtUtc,
 	DateTimeOffset UpdatedAtUtc);

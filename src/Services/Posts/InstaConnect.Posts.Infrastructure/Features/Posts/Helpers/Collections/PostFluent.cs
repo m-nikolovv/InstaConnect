@@ -81,6 +81,7 @@ internal class PostFluent : IPostFluent
 					 pl => pl.Id.UserId.Id.ToLower() == currentUserId),
 				 p.PostLikes.Count,
 				 p.PostComments.Count,
+				 p.PostImages.Count,
 				 p.CreatedAtUtc,
 				 p.UpdatedAtUtc));
 		var fluent = _fluentHandler.Project(projection);
@@ -108,6 +109,7 @@ internal class PostFluent : IPostFluent
 					 pl => pl.Id.UserId.Id.ToLower() == currentUserId),
 				 p.PostLikes.Count,
 				 p.PostComments.Count,
+				 p.PostImages.Count,
 				 p.CreatedAtUtc,
 				 p.UpdatedAtUtc));
 		var fluent = _fluentHandler.Project(projection);

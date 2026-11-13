@@ -69,6 +69,7 @@ internal class PostCommentApplicationMappings : IRegister
 				src.PostCommentImages.Adapt<ICollection<PostCommentImageQueryResponse>>(config),
 				src.IsLikedByCurrentUser,
 				src.LikeCount,
+				src.ImageCount,
 				src.CreatedAtUtc,
 				src.UpdatedAtUtc));
 

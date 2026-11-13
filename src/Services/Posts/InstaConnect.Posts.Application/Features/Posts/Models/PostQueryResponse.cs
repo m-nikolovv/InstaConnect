@@ -13,5 +13,6 @@ public record PostQueryResponse(
 	bool IsLikedByCurrentUser,
 	int LikeCount,
 	int CommentCount,
+	int ImageCount,
 	DateTimeOffset CreatedAtUtc,
 	DateTimeOffset UpdatedAtUtc);

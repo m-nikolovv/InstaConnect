@@ -80,6 +80,7 @@ internal class PostPresentationMappings : IRegister
 					src.IsLikedByCurrentUser,
 					src.LikeCount,
 					src.CommentCount,
+					src.ImageCount,
 					src.CreatedAtUtc,
 					src.UpdatedAtUtc));
 

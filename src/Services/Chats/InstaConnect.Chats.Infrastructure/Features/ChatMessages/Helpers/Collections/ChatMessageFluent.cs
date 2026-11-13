@@ -103,6 +103,7 @@ internal class ChatMessageFluent : IChatMessageFluent
 								pi.Id.ImageId),
 							pi.Url,
 							pi.CreatedAtUtc)).ToList(),
+					p.ChatMessageImages.Count,
 					p.CreatedAtUtc,
 					p.UpdatedAtUtc));
 		var fluent = _fluentHandler.Project(projection);
@@ -144,6 +145,7 @@ internal class ChatMessageFluent : IChatMessageFluent
 								pi.Id.ImageId),
 							pi.Url,
 							pi.CreatedAtUtc)).ToList(),
+					p.ChatMessageImages.Count,
 					p.CreatedAtUtc,
 					p.UpdatedAtUtc));
 		var fluent = _fluentHandler.Project(projection);
@@ -200,6 +202,7 @@ internal class ChatMessageFluent : IChatMessageFluent
 								pi.Id.ImageId),
 							pi.Url,
 							pi.CreatedAtUtc)).ToList(),
+					p.ChatMessageImages.Count,
 					p.CreatedAtUtc,
 					p.UpdatedAtUtc));
 		var fluent = _fluentHandler.Project(projection);

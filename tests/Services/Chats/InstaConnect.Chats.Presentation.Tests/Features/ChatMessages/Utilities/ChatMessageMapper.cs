@@ -30,6 +30,7 @@ public static class ChatMessageMapper
 					   chatMessage.Chat?.ToFullQueryResponse(),
 					   chatMessage.Sender?.ToFullQueryResponse(),
 					   chatMessage.ChatMessageImages.ToFullQueryResponse(),
+					   chatMessage.ChatMessageImages.Count,
 					   chatMessage.CreatedAtUtc,
 					   chatMessage.UpdatedAtUtc);
 		}
@@ -45,6 +46,7 @@ public static class ChatMessageMapper
 					   chatMessage.Chat?.ToFullQueryResponse(),
 					   null,
 					   chatMessage.ChatMessageImages.ToFullQueryResponse(),
+					   chatMessage.ChatMessageImages.Count,
 					   chatMessage.CreatedAtUtc,
 					   chatMessage.UpdatedAtUtc);
 		}
@@ -60,6 +62,7 @@ public static class ChatMessageMapper
 					   null,
 					   chatMessage.Sender?.ToFullQueryResponse(),
 					   chatMessage.ChatMessageImages.ToFullQueryResponse(),
+					   chatMessage.ChatMessageImages.Count,
 					   chatMessage.CreatedAtUtc,
 					   chatMessage.UpdatedAtUtc);
 		}
