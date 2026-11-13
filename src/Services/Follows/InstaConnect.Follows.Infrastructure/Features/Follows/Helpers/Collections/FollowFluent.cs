@@ -4,30 +4,18 @@ namespace InstaConnect.Follows.Infrastructure.Features.Follows.Helpers.Collectio
 
 internal class FollowFluent : IFollowFluent
 {
-	private readonly IPaginator _paginator;
 	private readonly IFollowIncluderFactory _includerFactory;
-	private readonly ISortOrdererFactory _sortOrdererFactory;
-	private readonly IFollowsSortTermerFactory _sortTermerFactory;
 	private readonly IFollowResponseFluentFactory _responseFluentFactory;
 	private readonly IMongoDbFluentHandler<Follow, FollowId> _fluentHandler;
-	private readonly IFollowsForFollowingSortTermerFactory _forFollowingSortTermerFactory;
 
 	public FollowFluent(
-		IPaginator paginator,
 		IFollowIncluderFactory includerFactory,
-		ISortOrdererFactory sortOrdererFactory,
-		IFollowsSortTermerFactory sortTermerFactory,
 		IFollowResponseFluentFactory responseFluentFactory,
-		IMongoDbFluentHandler<Follow, FollowId> fluentHandler,
-		IFollowsForFollowingSortTermerFactory forFollowingSortTermerFactory)
+		IMongoDbFluentHandler<Follow, FollowId> fluentHandler)
 	{
-		_paginator = paginator;
 		_fluentHandler = fluentHandler;
 		_includerFactory = includerFactory;
-		_sortTermerFactory = sortTermerFactory;
-		_sortOrdererFactory = sortOrdererFactory;
 		_responseFluentFactory = responseFluentFactory;
-		_forFollowingSortTermerFactory = forFollowingSortTermerFactory;
 	}
 
 	public IFollowFluent ApplyIncludes(FollowInclude include)
@@ -61,27 +49,6 @@ internal class FollowFluent : IFollowFluent
 	public IFollowFluent Match(IEnumerable<FollowId> filter)
 	{
 		_fluentHandler.Match(filter.GetFilter());
-
-		return this;
-	}
-
-	public IFollowFluent ApplySorting(FollowsSortingQuery query)
-	{
-		_fluentHandler.ApplySorting(_sortOrdererFactory, _sortTermerFactory, query);
-
-		return this;
-	}
-
-	public IFollowFluent ApplySorting(FollowsForFollowingSortingQuery query)
-	{
-		_fluentHandler.ApplySorting(_sortOrdererFactory, _forFollowingSortTermerFactory, query);
-
-		return this;
-	}
-
-	public IFollowFluent ApplyPagination(FollowsPaginationQuery query)
-	{
-		_fluentHandler.ApplyPagination(_paginator, query);
 
 		return this;
 	}

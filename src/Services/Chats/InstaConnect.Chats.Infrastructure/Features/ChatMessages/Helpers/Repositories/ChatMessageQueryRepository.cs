@@ -31,10 +31,10 @@ internal class ChatMessageQueryRepository : IChatMessageQueryRepository
 		return await _collection
 			.AggregateFluent()
 			.Match(filter)
-			.ApplySorting(sorting)
-			.ApplyPagination(pagination)
 			.ApplyIncludes(messageInclude)
 			.ProjectToResponseWithoutChat(currentUser)
+			.ApplySorting(sorting)
+			.ApplyPagination(pagination)
 			.ToListAsync(cancellationToken);
 	}
 

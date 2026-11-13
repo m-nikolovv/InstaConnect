@@ -264,7 +264,10 @@ public static class PostMockAssertions
 		{
 			await fluent.ShouldHaveReceivedOneToListAsync(cancellationToken);
 		}
+	}
 
+	extension(IPostResponseFluent fluent)
+	{
 		public void ShouldHaveReceivedOneApplySorting(
 			PostsFilterQuery filterQuery,
 			PostsSortingQuery sortingQuery,
@@ -315,10 +318,7 @@ public static class PostMockAssertions
 		{
 			fluent.ShouldHaveReceivedOne().ApplyPagination(paginationQuery);
 		}
-	}
 
-	extension(IPostResponseFluent fluent)
-	{
 		public async Task ShouldHaveReceivedOneFirstOrDefaultAsync(
 			PostId id,
 			CurrentUserQuery currentUserQuery,

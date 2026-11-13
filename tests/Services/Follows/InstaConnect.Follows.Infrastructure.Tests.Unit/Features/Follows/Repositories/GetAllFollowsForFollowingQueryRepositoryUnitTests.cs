@@ -51,8 +51,8 @@ public class GetAllFollowsForFollowingQueryRepositoryUnitTests : BaseFollowInfra
 		Fluent.SetupApplyIncludes(_filterQuery, _sortingQuery, _paginationQuery, _currentUserQuery, _include);
 		Fluent.SetupMatch(_filterQuery, _sortingQuery, _paginationQuery, _currentUserQuery);
 		Fluent.SetupProjectToResponseWithoutFollowing(_filterQuery, _sortingQuery, _paginationQuery, _currentUserQuery, ResponseFluent);
-		Fluent.SetupApplySorting(_filterQuery, _sortingQuery, _paginationQuery, _currentUserQuery);
-		Fluent.SetupApplyPagination(_filterQuery, _sortingQuery, _paginationQuery, _currentUserQuery);
+		ResponseFluent.SetupApplySorting(_filterQuery, _sortingQuery, _paginationQuery, _currentUserQuery);
+		ResponseFluent.SetupApplyPagination(_filterQuery, _sortingQuery, _paginationQuery, _currentUserQuery);
 		ResponseFluent.SetupToListAsync(_filterQuery, _sortingQuery, _paginationQuery, _currentUserQuery, Follows, CancellationToken);
 	}
 
@@ -107,23 +107,23 @@ public class GetAllFollowsForFollowingQueryRepositoryUnitTests : BaseFollowInfra
 	}
 
 	[Fact]
-	public async Task GetAllForFollowingAsync_ShouldCallTheFluentApplySorting_WhenQueryIsValid()
+	public async Task GetAllForFollowingAsync_ShouldCallTheResponseFluentApplySorting_WhenQueryIsValid()
 	{
 		// Act
 		await _repository.GetAllForFollowingAsync(_filterQuery, _sortingQuery, _paginationQuery, _currentUserQuery, CancellationToken);
 
 		// Assert
-		Fluent.ShouldHaveReceivedOneApplySorting(_filterQuery, _sortingQuery, _paginationQuery, _currentUserQuery);
+		ResponseFluent.ShouldHaveReceivedOneApplySorting(_filterQuery, _sortingQuery, _paginationQuery, _currentUserQuery);
 	}
 
 	[Fact]
-	public async Task GetAllForFollowingAsync_ShouldCallTheFluentApplyPagination_WhenQueryIsValid()
+	public async Task GetAllForFollowingAsync_ShouldCallTheResponseFluentApplyPagination_WhenQueryIsValid()
 	{
 		// Act
 		await _repository.GetAllForFollowingAsync(_filterQuery, _sortingQuery, _paginationQuery, _currentUserQuery, CancellationToken);
 
 		// Assert
-		Fluent.ShouldHaveReceivedOneApplyPagination(_filterQuery, _sortingQuery, _paginationQuery, _currentUserQuery);
+		ResponseFluent.ShouldHaveReceivedOneApplyPagination(_filterQuery, _sortingQuery, _paginationQuery, _currentUserQuery);
 	}
 
 	[Fact]

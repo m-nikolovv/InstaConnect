@@ -31,9 +31,9 @@ internal class PostLikeQueryRepository : IPostLikeQueryRepository
 			.AggregateFluent()
 			.ApplyIncludes(likeInclude)
 			.Match(filter)
+			.ProjectToResponseWithoutPost(currentUser)
 			.ApplySorting(sorting)
 			.ApplyPagination(pagination)
-			.ProjectToResponseWithoutPost(currentUser)
 			.ToListAsync(cancellationToken);
 	}
 
@@ -50,10 +50,10 @@ internal class PostLikeQueryRepository : IPostLikeQueryRepository
 		return await _collection
 			.AggregateFluent()
 			.Match(filter)
-			.ApplySorting(sorting)
-			.ApplyPagination(pagination)
 			.ApplyIncludes(likeInclude)
 			.ProjectToResponseWithoutUser(currentUser)
+			.ApplySorting(sorting)
+			.ApplyPagination(pagination)
 			.ToListAsync(cancellationToken);
 	}
 

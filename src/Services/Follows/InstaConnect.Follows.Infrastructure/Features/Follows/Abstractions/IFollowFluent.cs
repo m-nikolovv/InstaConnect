@@ -6,9 +6,6 @@ public interface IFollowFluent : IMongoDbFluent<Follow, FollowId>
 	public IFollowFluent Match(FollowsForFollowingFilterQuery filter);
 	public IFollowFluent Match(FollowId filter);
 	public IFollowFluent Match(IEnumerable<FollowId> filter);
-	public IFollowFluent ApplySorting(FollowsSortingQuery query);
-	public IFollowFluent ApplySorting(FollowsForFollowingSortingQuery query);
-	public IFollowFluent ApplyPagination(FollowsPaginationQuery query);
 	public IFollowResponseFluent ProjectToFullResponse(CurrentUserQuery currentUser);
 	public IFollowResponseFluent ProjectToResponseWithoutFollower(CurrentUserQuery currentUser);
 	public IFollowResponseFluent ProjectToResponseWithoutFollowing(CurrentUserQuery currentUser);

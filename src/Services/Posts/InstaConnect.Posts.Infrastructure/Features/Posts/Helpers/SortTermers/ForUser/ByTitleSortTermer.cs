@@ -4,5 +4,5 @@ internal class ByTitleSortTermer : IPostsForUserSortTermer
 {
 	public PostsForUserSortTerm SortTerm => PostsForUserSortTerm.ByTitle;
 
-	public Expression<Func<Post, object>> Term => p => p.Title;
+	public Expression<Func<PostResponse, object>> Term => p => p.Title;
 }

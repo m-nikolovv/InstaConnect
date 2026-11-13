@@ -5,8 +5,6 @@ public interface IChatMessageFluent : IMongoDbFluent<ChatMessage, ChatMessageId>
 	public IChatMessageFluent Match(ChatMessagesFilterQuery filter);
 	public IChatMessageFluent Match(ChatMessageId filter);
 	public IChatMessageFluent Match(IEnumerable<ChatMessageId> filter);
-	public IChatMessageFluent ApplySorting(ChatMessagesSortingQuery query);
-	public IChatMessageFluent ApplyPagination(ChatMessagesPaginationQuery query);
 	public IChatMessageResponseFluent ProjectToFullResponse(CurrentUserQuery currentUser);
 	public IChatMessageResponseFluent ProjectToResponseWithoutChat(CurrentUserQuery currentUser);
 	public IChatMessageResponseFluent ProjectToResponseWithoutSender(CurrentUserQuery currentUser);

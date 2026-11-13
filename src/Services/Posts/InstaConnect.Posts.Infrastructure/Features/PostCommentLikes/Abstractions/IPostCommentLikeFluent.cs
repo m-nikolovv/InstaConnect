@@ -6,9 +6,6 @@ public interface IPostCommentLikeFluent : IMongoDbFluent<PostCommentLike, PostCo
 	public IPostCommentLikeFluent Match(PostCommentLikesForUserFilterQuery filter);
 	public IPostCommentLikeFluent Match(PostCommentLikeId filter);
 	public IPostCommentLikeFluent Match(IEnumerable<PostCommentLikeId> filter);
-	public IPostCommentLikeFluent ApplySorting(PostCommentLikesSortingQuery query);
-	public IPostCommentLikeFluent ApplySorting(PostCommentLikesForUserSortingQuery query);
-	public IPostCommentLikeFluent ApplyPagination(PostCommentLikesPaginationQuery query);
 	public IPostCommentLikeResponseFluent ProjectToFullResponse(CurrentUserQuery currentUser);
 	public IPostCommentLikeResponseFluent ProjectToResponseWithoutUser(CurrentUserQuery currentUser);
 	public IPostCommentLikeResponseFluent ProjectToResponseWithoutPostComment(CurrentUserQuery currentUser);

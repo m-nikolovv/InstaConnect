@@ -2,26 +2,17 @@ namespace InstaConnect.Identity.Infrastructure.Features.Users.Helpers.Collection
 
 internal class UserFluent : IUserFluent
 {
-	private readonly IPaginator _paginator;
 	private readonly IUserIncluderFactory _includerFactory;
-	private readonly ISortOrdererFactory _sortOrdererFactory;
-	private readonly IUsersSortTermerFactory _sortTermerFactory;
 	private readonly IUserResponseFluentFactory _responseFluentFactory;
 	private readonly IMongoDbFluentHandler<User, UserId> _fluentHandler;
 
 	public UserFluent(
-		IPaginator paginator,
 		IUserIncluderFactory includerFactory,
-		ISortOrdererFactory sortOrdererFactory,
-		IUsersSortTermerFactory sortTermerFactory,
 		IUserResponseFluentFactory responseFluentFactory,
 		IMongoDbFluentHandler<User, UserId> fluentHandler)
 	{
-		_paginator = paginator;
 		_fluentHandler = fluentHandler;
 		_includerFactory = includerFactory;
-		_sortTermerFactory = sortTermerFactory;
-		_sortOrdererFactory = sortOrdererFactory;
 		_responseFluentFactory = responseFluentFactory;
 	}
 
@@ -56,20 +47,6 @@ internal class UserFluent : IUserFluent
 	public IUserFluent Match(Email filter)
 	{
 		_fluentHandler.Match(filter.GetFilter());
-
-		return this;
-	}
-
-	public IUserFluent ApplySorting(UsersSortingQuery query)
-	{
-		_fluentHandler.ApplySorting(_sortOrdererFactory, _sortTermerFactory, query);
-
-		return this;
-	}
-
-	public IUserFluent ApplyPagination(UsersPaginationQuery query)
-	{
-		_fluentHandler.ApplyPagination(_paginator, query);
 
 		return this;
 	}

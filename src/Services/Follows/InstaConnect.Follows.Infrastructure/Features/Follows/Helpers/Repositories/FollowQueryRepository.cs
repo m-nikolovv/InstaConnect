@@ -28,9 +28,9 @@ internal class FollowQueryRepository : IFollowQueryRepository
 			.AggregateFluent()
 			.ApplyIncludes(include)
 			.Match(filter)
+			.ProjectToResponseWithoutFollower(currentUser)
 			.ApplySorting(sorting)
 			.ApplyPagination(pagination)
-			.ProjectToResponseWithoutFollower(currentUser)
 			.ToListAsync(cancellationToken);
 	}
 
@@ -47,9 +47,9 @@ internal class FollowQueryRepository : IFollowQueryRepository
 			.AggregateFluent()
 			.ApplyIncludes(include)
 			.Match(filter)
+			.ProjectToResponseWithoutFollowing(currentUser)
 			.ApplySorting(sorting)
 			.ApplyPagination(pagination)
-			.ProjectToResponseWithoutFollowing(currentUser)
 			.ToListAsync(cancellationToken);
 	}
 

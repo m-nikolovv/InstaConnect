@@ -1,5 +1,3 @@
-using InstaConnect.Common.Domain.Features.Requests.Abstractions;
-
 namespace InstaConnect.Common.Infrastructure.Features.Databases.Helpers;
 
 internal class MongoDbFluentHandler<TEntity, TEntityId>
@@ -39,32 +37,6 @@ internal class MongoDbFluentHandler<TEntity, TEntityId>
 		{
 			_fluent = includer.Include(_fluent);
 		}
-	}
-
-	public void ApplySorting<TSortTerm, TSortTermer, TSortingQuery>(
-		ISortOrdererFactory sortOrdererFactory,
-		ISortTermerFactory<TSortTerm, TSortTermer, TEntity> sortTermerFactory,
-		TSortingQuery sorting)
-			where TSortingQuery : ISortingQuery<TSortTerm>
-			where TSortTerm : Enum
-			where TSortTermer : ISortTermer<TSortTerm, TEntity>
-	{
-		var order = sortOrdererFactory.Create(sorting.Order);
-		var term = sortTermerFactory.Create(sorting.Term);
-
-		_fluent = _fluent.Sort(Builders<TEntity>.Sort.Combine(order.Sort(term.Term), order.Sort<TEntity>(a => a.CreatedAtUtc)));
-	}
-
-	public void ApplyPagination<TPaginationQuery>(
-		IPaginator paginator,
-		TPaginationQuery pagination)
-		where TPaginationQuery : IPaginationQuery
-	{
-		var offset = paginator.GetOffset(pagination.Page, pagination.PageSize);
-
-		_fluent = _fluent
-			.Skip(offset)
-			.Limit(pagination.PageSize);
 	}
 
 	public async Task<TEntity?> FirstOrDefaultAsync(CancellationToken cancellationToken)

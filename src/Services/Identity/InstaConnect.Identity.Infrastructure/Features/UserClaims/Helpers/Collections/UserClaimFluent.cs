@@ -4,26 +4,17 @@ namespace InstaConnect.Identity.Infrastructure.Features.UserClaims.Helpers.Colle
 
 internal class UserClaimFluent : IUserClaimFluent
 {
-	private readonly IPaginator _paginator;
-	private readonly ISortOrdererFactory _sortOrdererFactory;
 	private readonly IUserClaimIncluderFactory _includerFactory;
-	private readonly IUserClaimsSortTermerFactory _sortTermerFactory;
 	private readonly IUserClaimResponseFluentFactory _responseFluentFactory;
 	private readonly IMongoDbFluentHandler<UserClaim, UserClaimId> _fluentHandler;
 
 	public UserClaimFluent(
-		IPaginator paginator,
-		ISortOrdererFactory sortOrdererFactory,
 		IUserClaimIncluderFactory includerFactory,
-		IUserClaimsSortTermerFactory sortTermerFactory,
 		IUserClaimResponseFluentFactory responseFluentFactory,
 		IMongoDbFluentHandler<UserClaim, UserClaimId> fluentHandler)
 	{
-		_paginator = paginator;
 		_fluentHandler = fluentHandler;
 		_includerFactory = includerFactory;
-		_sortTermerFactory = sortTermerFactory;
-		_sortOrdererFactory = sortOrdererFactory;
 		_responseFluentFactory = responseFluentFactory;
 	}
 
@@ -51,20 +42,6 @@ internal class UserClaimFluent : IUserClaimFluent
 	public IUserClaimFluent Match(IEnumerable<UserClaimId> filter)
 	{
 		_fluentHandler.Match(filter.GetFilter());
-
-		return this;
-	}
-
-	public IUserClaimFluent ApplySorting(UserClaimsSortingQuery query)
-	{
-		_fluentHandler.ApplySorting(_sortOrdererFactory, _sortTermerFactory, query);
-
-		return this;
-	}
-
-	public IUserClaimFluent ApplyPagination(UserClaimsPaginationQuery query)
-	{
-		_fluentHandler.ApplyPagination(_paginator, query);
 
 		return this;
 	}

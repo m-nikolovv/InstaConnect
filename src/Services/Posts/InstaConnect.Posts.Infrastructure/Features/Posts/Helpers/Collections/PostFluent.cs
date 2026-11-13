@@ -4,30 +4,18 @@ namespace InstaConnect.Posts.Infrastructure.Features.Posts.Helpers.Collections;
 
 internal class PostFluent : IPostFluent
 {
-	private readonly IPaginator _paginator;
 	private readonly IPostIncluderFactory _includerFactory;
-	private readonly ISortOrdererFactory _sortOrdererFactory;
-	private readonly IPostsSortTermerFactory _sortTermerFactory;
 	private readonly IPostResponseFluentFactory _responseFluentFactory;
 	private readonly IMongoDbFluentHandler<Post, PostId> _fluentHandler;
-	private readonly IPostsForUserSortTermerFactory _forUserSortTermerFactory;
 
 	public PostFluent(
-		IPaginator paginator,
 		IPostIncluderFactory includerFactory,
-		ISortOrdererFactory sortOrdererFactory,
-		IPostsSortTermerFactory sortTermerFactory,
 		IPostResponseFluentFactory responseFluentFactory,
-		IMongoDbFluentHandler<Post, PostId> fluentHandler,
-		IPostsForUserSortTermerFactory forUserSortTermerFactory)
+		IMongoDbFluentHandler<Post, PostId> fluentHandler)
 	{
-		_paginator = paginator;
 		_fluentHandler = fluentHandler;
 		_includerFactory = includerFactory;
-		_sortTermerFactory = sortTermerFactory;
-		_sortOrdererFactory = sortOrdererFactory;
 		_responseFluentFactory = responseFluentFactory;
-		_forUserSortTermerFactory = forUserSortTermerFactory;
 	}
 
 	public IPostFluent ApplyIncludes(PostInclude include)
@@ -61,27 +49,6 @@ internal class PostFluent : IPostFluent
 	public IPostFluent Match(IEnumerable<PostId> filter)
 	{
 		_fluentHandler.Match(filter.GetFilter());
-
-		return this;
-	}
-
-	public IPostFluent ApplySorting(PostsSortingQuery query)
-	{
-		_fluentHandler.ApplySorting(_sortOrdererFactory, _sortTermerFactory, query);
-
-		return this;
-	}
-
-	public IPostFluent ApplySorting(PostsForUserSortingQuery query)
-	{
-		_fluentHandler.ApplySorting(_sortOrdererFactory, _forUserSortTermerFactory, query);
-
-		return this;
-	}
-
-	public IPostFluent ApplyPagination(PostsPaginationQuery query)
-	{
-		_fluentHandler.ApplyPagination(_paginator, query);
 
 		return this;
 	}

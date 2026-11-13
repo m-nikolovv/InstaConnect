@@ -1,4 +1,4 @@
 namespace InstaConnect.Posts.Infrastructure.Features.PostCommentLikes.Abstractions;
 
 public interface IPostCommentLikesForUserSortTermerFactory
-	: ISortTermerFactory<PostCommentLikesForUserSortTerm, IPostCommentLikesForUserSortTermer, PostCommentLike>;
+	: ISortTermerFactory<PostCommentLikesForUserSortTerm, IPostCommentLikesForUserSortTermer, PostCommentLikeResponse>;

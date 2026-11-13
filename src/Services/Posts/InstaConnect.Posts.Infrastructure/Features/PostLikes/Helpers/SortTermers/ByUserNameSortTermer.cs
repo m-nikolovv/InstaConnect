@@ -4,5 +4,5 @@ internal class ByUserNameSortTermer : IPostLikesSortTermer
 {
 	public PostLikesSortTerm SortTerm => PostLikesSortTerm.ByUserName;
 
-	public Expression<Func<PostLike, object>> Term => p => p.User!.Name;
+	public Expression<Func<PostLikeResponse, object>> Term => p => p.User!.Name;
 }

@@ -192,7 +192,10 @@ public static class ChatMessageMockSetups
 		{
 			fluent.SetupToListAsync(chatMessages, cancellationToken);
 		}
+	}
 
+	extension(IChatMessageResponseFluent fluent)
+	{
 		public void SetupApplySorting(
 			ChatMessagesFilterQuery filterQuery,
 			ChatMessagesSortingQuery sortingQuery,
@@ -220,10 +223,7 @@ public static class ChatMessageMockSetups
 		{
 			fluent.ApplyPagination(paginationQuery).ReturnsResponse(fluent);
 		}
-	}
 
-	extension(IChatMessageResponseFluent fluent)
-	{
 		public void SetupToListAsync(
 			ChatMessagesFilterQuery filterQuery,
 			ChatMessagesSortingQuery sortingQuery,

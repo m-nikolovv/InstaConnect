@@ -4,26 +4,17 @@ namespace InstaConnect.Chats.Infrastructure.Features.ChatMessages.Helpers.Collec
 
 internal class ChatMessageFluent : IChatMessageFluent
 {
-	private readonly IPaginator _paginator;
-	private readonly ISortOrdererFactory _sortOrdererFactory;
 	private readonly IChatMessageIncluderFactory _includerFactory;
-	private readonly IChatMessagesSortTermerFactory _sortTermerFactory;
 	private readonly IChatMessageResponseFluentFactory _responseFluentFactory;
 	private readonly IMongoDbFluentHandler<ChatMessage, ChatMessageId> _fluentHandler;
 
 	public ChatMessageFluent(
-		IPaginator paginator,
-		ISortOrdererFactory sortOrdererFactory,
 		IChatMessageIncluderFactory includerFactory,
-		IChatMessagesSortTermerFactory sortTermerFactory,
 		IChatMessageResponseFluentFactory responseFluentFactory,
 		IMongoDbFluentHandler<ChatMessage, ChatMessageId> fluentHandler)
 	{
-		_paginator = paginator;
 		_fluentHandler = fluentHandler;
 		_includerFactory = includerFactory;
-		_sortTermerFactory = sortTermerFactory;
-		_sortOrdererFactory = sortOrdererFactory;
 		_responseFluentFactory = responseFluentFactory;
 	}
 
@@ -51,20 +42,6 @@ internal class ChatMessageFluent : IChatMessageFluent
 	public IChatMessageFluent Match(IEnumerable<ChatMessageId> filter)
 	{
 		_fluentHandler.Match(filter.GetFilter());
-
-		return this;
-	}
-
-	public IChatMessageFluent ApplySorting(ChatMessagesSortingQuery query)
-	{
-		_fluentHandler.ApplySorting(_sortOrdererFactory, _sortTermerFactory, query);
-
-		return this;
-	}
-
-	public IChatMessageFluent ApplyPagination(ChatMessagesPaginationQuery query)
-	{
-		_fluentHandler.ApplyPagination(_paginator, query);
 
 		return this;
 	}

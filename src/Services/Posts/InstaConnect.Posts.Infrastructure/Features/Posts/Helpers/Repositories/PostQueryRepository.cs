@@ -26,9 +26,9 @@ internal class PostQueryRepository : IPostQueryRepository
 			.AggregateFluent()
 			.ApplyIncludes(include)
 			.Match(filter)
+			.ProjectToFullResponse(currentUser)
 			.ApplySorting(sorting)
 			.ApplyPagination(pagination)
-			.ProjectToFullResponse(currentUser)
 			.ToListAsync(cancellationToken);
 	}
 
@@ -44,10 +44,10 @@ internal class PostQueryRepository : IPostQueryRepository
 		return await _collection
 			.AggregateFluent()
 			.Match(filter)
-			.ApplySorting(sorting)
-			.ApplyPagination(pagination)
 			.ApplyIncludes(include)
 			.ProjectToResponseWithoutUser(currentUser)
+			.ApplySorting(sorting)
+			.ApplyPagination(pagination)
 			.ToListAsync(cancellationToken);
 	}
 

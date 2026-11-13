@@ -5,30 +5,18 @@ namespace InstaConnect.Posts.Infrastructure.Features.PostComments.Helpers.Collec
 
 internal class PostCommentFluent : IPostCommentFluent
 {
-	private readonly IPaginator _paginator;
-	private readonly ISortOrdererFactory _sortOrdererFactory;
 	private readonly IPostCommentIncluderFactory _includerFactory;
-	private readonly IPostCommentsSortTermerFactory _sortTermerFactory;
 	private readonly IPostCommentResponseFluentFactory _responseFluentFactory;
-	private readonly IPostCommentsForUserSortTermerFactory _forUserSortTermerFactory;
 	private readonly IMongoDbFluentHandler<PostComment, PostCommentId> _fluentHandler;
 
 	public PostCommentFluent(
-		IPaginator paginator,
-		ISortOrdererFactory sortOrdererFactory,
 		IPostCommentIncluderFactory includerFactory,
-		IPostCommentsSortTermerFactory sortTermerFactory,
 		IPostCommentResponseFluentFactory responseFluentFactory,
-		IPostCommentsForUserSortTermerFactory forUserSortTermerFactory,
 		IMongoDbFluentHandler<PostComment, PostCommentId> fluentHandler)
 	{
-		_paginator = paginator;
 		_fluentHandler = fluentHandler;
 		_includerFactory = includerFactory;
-		_sortTermerFactory = sortTermerFactory;
-		_sortOrdererFactory = sortOrdererFactory;
 		_responseFluentFactory = responseFluentFactory;
-		_forUserSortTermerFactory = forUserSortTermerFactory;
 	}
 
 	public IPostCommentFluent ApplyIncludes(PostCommentInclude include)
@@ -62,27 +50,6 @@ internal class PostCommentFluent : IPostCommentFluent
 	public IPostCommentFluent Match(IEnumerable<PostCommentId> filter)
 	{
 		_fluentHandler.Match(filter.GetFilter());
-
-		return this;
-	}
-
-	public IPostCommentFluent ApplySorting(PostCommentsSortingQuery query)
-	{
-		_fluentHandler.ApplySorting(_sortOrdererFactory, _sortTermerFactory, query);
-
-		return this;
-	}
-
-	public IPostCommentFluent ApplySorting(PostCommentsForUserSortingQuery query)
-	{
-		_fluentHandler.ApplySorting(_sortOrdererFactory, _forUserSortTermerFactory, query);
-
-		return this;
-	}
-
-	public IPostCommentFluent ApplyPagination(PostCommentsPaginationQuery query)
-	{
-		_fluentHandler.ApplyPagination(_paginator, query);
 
 		return this;
 	}

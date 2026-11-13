@@ -6,30 +6,18 @@ namespace InstaConnect.Posts.Infrastructure.Features.PostCommentLikes.Helpers.Co
 
 internal class PostCommentLikeFluent : IPostCommentLikeFluent
 {
-	private readonly IPaginator _paginator;
-	private readonly ISortOrdererFactory _sortOrdererFactory;
 	private readonly IPostCommentLikeIncluderFactory _includerFactory;
-	private readonly IPostCommentLikesSortTermerFactory _sortTermerFactory;
 	private readonly IPostCommentLikeResponseFluentFactory _responseFluentFactory;
-	private readonly IPostCommentLikesForUserSortTermerFactory _forUserSortTermerFactory;
 	private readonly IMongoDbFluentHandler<PostCommentLike, PostCommentLikeId> _fluentHandler;
 
 	public PostCommentLikeFluent(
-		IPaginator paginator,
-		ISortOrdererFactory sortOrdererFactory,
 		IPostCommentLikeIncluderFactory includerFactory,
-		IPostCommentLikesSortTermerFactory sortTermerFactory,
 		IPostCommentLikeResponseFluentFactory responseFluentFactory,
-		IPostCommentLikesForUserSortTermerFactory forUserSortTermerFactory,
 		IMongoDbFluentHandler<PostCommentLike, PostCommentLikeId> fluentHandler)
 	{
-		_paginator = paginator;
 		_fluentHandler = fluentHandler;
 		_includerFactory = includerFactory;
-		_sortTermerFactory = sortTermerFactory;
-		_sortOrdererFactory = sortOrdererFactory;
 		_responseFluentFactory = responseFluentFactory;
-		_forUserSortTermerFactory = forUserSortTermerFactory;
 	}
 
 	public IPostCommentLikeFluent ApplyIncludes(PostCommentLikeInclude include)
@@ -63,27 +51,6 @@ internal class PostCommentLikeFluent : IPostCommentLikeFluent
 	public IPostCommentLikeFluent Match(IEnumerable<PostCommentLikeId> filter)
 	{
 		_fluentHandler.Match(filter.GetFilter());
-
-		return this;
-	}
-
-	public IPostCommentLikeFluent ApplySorting(PostCommentLikesSortingQuery query)
-	{
-		_fluentHandler.ApplySorting(_sortOrdererFactory, _sortTermerFactory, query);
-
-		return this;
-	}
-
-	public IPostCommentLikeFluent ApplySorting(PostCommentLikesForUserSortingQuery query)
-	{
-		_fluentHandler.ApplySorting(_sortOrdererFactory, _forUserSortTermerFactory, query);
-
-		return this;
-	}
-
-	public IPostCommentLikeFluent ApplyPagination(PostCommentLikesPaginationQuery query)
-	{
-		_fluentHandler.ApplyPagination(_paginator, query);
 
 		return this;
 	}

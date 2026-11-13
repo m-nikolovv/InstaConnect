@@ -260,7 +260,10 @@ public static class FollowMockAssertions
 		{
 			await fluent.ShouldHaveReceivedOneToListAsync(cancellationToken);
 		}
+	}
 
+	extension(IFollowResponseFluent fluent)
+	{
 		public void ShouldHaveReceivedOneApplySorting(
 			FollowsFilterQuery filterQuery,
 			FollowsSortingQuery sortingQuery,
@@ -311,10 +314,7 @@ public static class FollowMockAssertions
 		{
 			fluent.ShouldHaveReceivedOne().ApplyPagination(paginationQuery);
 		}
-	}
 
-	extension(IFollowResponseFluent fluent)
-	{
 		public async Task ShouldHaveReceivedOneFirstOrDefaultAsync(
 			FollowId id,
 			CurrentUserQuery currentUserQuery,

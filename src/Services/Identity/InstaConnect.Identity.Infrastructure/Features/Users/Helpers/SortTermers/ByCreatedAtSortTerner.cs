@@ -4,5 +4,5 @@ internal class ByCreatedAtSortTerner : IUsersSortTermer
 {
 	public UsersSortTerm SortTerm => UsersSortTerm.ByCreatedAt;
 
-	public Expression<Func<User, object>> Term => p => p.CreatedAtUtc;
+	public Expression<Func<UserResponse, object>> Term => p => p.CreatedAtUtc;
 }

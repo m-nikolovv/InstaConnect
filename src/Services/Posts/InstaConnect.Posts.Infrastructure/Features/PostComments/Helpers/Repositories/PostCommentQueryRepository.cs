@@ -31,9 +31,9 @@ internal class PostCommentQueryRepository : IPostCommentQueryRepository
 			.AggregateFluent()
 			.ApplyIncludes(commentInclude)
 			.Match(filter)
+			.ProjectToResponseWithoutPost(currentUser)
 			.ApplySorting(sorting)
 			.ApplyPagination(pagination)
-			.ProjectToResponseWithoutPost(currentUser)
 			.ToListAsync(cancellationToken);
 	}
 
@@ -50,10 +50,10 @@ internal class PostCommentQueryRepository : IPostCommentQueryRepository
 		return await _collection
 			.AggregateFluent()
 			.Match(filter)
-			.ApplySorting(sorting)
-			.ApplyPagination(pagination)
 			.ApplyIncludes(commentInclude)
 			.ProjectToResponseWithoutUser(currentUser)
+			.ApplySorting(sorting)
+			.ApplyPagination(pagination)
 			.ToListAsync(cancellationToken);
 	}
 
