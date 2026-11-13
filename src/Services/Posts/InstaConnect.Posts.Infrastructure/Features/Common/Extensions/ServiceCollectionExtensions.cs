@@ -43,7 +43,7 @@ public static class ServiceCollectionExtensions
 				.AddTelemetries(configuration, webHostEnvironment)
 				.AddMappers(PostsInfrastructureReference.Assembly, CommonInfrastructureReference.Assembly)
 				.AddValidations(PostsInfrastructureReference.Assembly, CommonInfrastructureReference.Assembly)
-				.AddServicesWithMatchingInterfacesExceptFluents(PostsInfrastructureReference.Assembly)
+				.AddServicesWithMatchingInterfaces(PostsInfrastructureReference.Assembly)
 				.AddDatabases(configuration, PostsInfrastructureReference.Assembly, CommonInfrastructureReference.Assembly)
 				.AddEvents(configuration, riderConfigurator => riderConfigurator.MapPostEventProducer().MapPostCommentEventProducer().MapPostLikeEventProducer().MapPostCommentLikeEventProducer(), (context, kafkaConfigurator) => kafkaConfigurator.MapUserEventHandler(context, PostsEventHandlerUtilities.Prefix), PostsInfrastructureReference.Assembly)
 				.AddOutboxEvents()
@@ -53,8 +53,7 @@ public static class ServiceCollectionExtensions
 				.AddSummarizers(configuration)
 				.AddJsons()
 				.AddGuids()
-				.AddDateTimes()
-				.AddDatabaseSortOrders();
+				.AddDateTimes();
 
 			return serviceCollection;
 		}

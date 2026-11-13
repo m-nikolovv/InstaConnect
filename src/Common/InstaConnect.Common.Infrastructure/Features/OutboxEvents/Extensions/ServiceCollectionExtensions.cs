@@ -5,6 +5,7 @@ using InstaConnect.Common.Infrastructure.Features.OutboxEvents.Helpers.Collectio
 using InstaConnect.Common.Infrastructure.Features.OutboxEvents.Helpers.Repositories;
 using InstaConnect.Common.Infrastructure.Features.OutboxEvents.Models;
 using InstaConnect.Common.Infrastructure.Features.OutboxEvents.Models.Entities;
+using InstaConnect.Common.Infrastructure.Features.OutboxEvents.Models.ValueObjects;
 
 using MongoDB.Bson.Serialization;
 
@@ -25,7 +26,7 @@ public static class ServiceCollectionExtensions
 				.AddScoped<IOutboxEventCollection, OutboxEventCollection>()
 				.AddScoped<IOutboxEventCommandRepository, OutboxEventCommandRepository>();
 
-			serviceCollection.AddCollection<OutboxEvent>(CollectionName);
+			serviceCollection.AddCollection<OutboxEvent, OutboxEventId>(CollectionName);
 
 			BsonClassMap.TryRegisterClassMap<OutboxEvent>(cm =>
 			{

@@ -15,10 +15,13 @@ public static class ServiceCollectionExtensions
 {
 	extension(IServiceCollection serviceCollection)
 	{
-		public IServiceCollection AddCollection<TEntity>(string name)
-			where TEntity : IEntity
+		public IServiceCollection AddCollection<TEntity, TEntityId>(string name)
+			where TEntity : IEntity, IEntityWithId<TEntityId>
+			where TEntityId : IEntityId
 		{
-			serviceCollection.AddScoped(sp => sp.GetRequiredService<IMongoDatabase>().GetCollection<TEntity>(name));
+			serviceCollection
+				.AddScoped(sp => sp.GetRequiredService<IMongoDatabase>().GetCollection<TEntity>(name))
+				.AddScoped<IMongoDbCollectionHandler<TEntity, TEntityId>, MongoDbCollectionHandler<TEntity, TEntityId>>();
 
 			return serviceCollection;
 		}
@@ -41,8 +44,11 @@ public static class ServiceCollectionExtensions
 				.AddScoped<IPaginator, Paginator>()
 				.AddScoped<IUnitOfWork, UnitOfWork>()
 				.AddScoped<ISessionHandler, SessionHandler>()
-				.AddScoped<IMongoDbFluentHandlerFactory, MongoDbFluentHandlerFactory>()
-				.AddScoped(typeof(IMongoDbCollectionHandler<,>), typeof(MongoDbCollectionHandler<,>));
+				.AddScoped<IMongoDbFluentHandlerFactory, MongoDbFluentHandlerFactory>();
+
+			serviceCollection
+				.AddScoped<ISortOrdererFactory, SortOrdererFactory>()
+				.AddImplementationsOf<ISortOrderer>(CommonInfrastructureReference.Assembly);
 
 			serviceCollection
 				.AddScoped<IDatabaseInitializer, DatabaseInitializer>()
@@ -65,23 +71,6 @@ public static class ServiceCollectionExtensions
 							 _ => options.Name);
 
 			return serviceCollection;
-		}
-
-		public IServiceCollection AddDatabaseSortOrders()
-		{
-			serviceCollection.AddScoped<ISortOrdererFactory, SortOrdererFactory>()
-							 .AddImplementationsOf<ISortOrderer>(CommonInfrastructureReference.Assembly);
-
-			return serviceCollection;
-		}
-
-		public IServiceCollection AddServicesWithMatchingInterfacesExceptFluents(params Assembly[] assemblies)
-		{
-			Type[] fluentTypes = [typeof(IMongoDbFluent<,>), typeof(IMongoDbResponseFluent<>)];
-
-			return serviceCollection.AddServicesWithMatchingInterfaces(
-				type => !type.GetInterfaces().Any(p => p.IsGenericType && fluentTypes.Contains(p.GetGenericTypeDefinition())),
-				assemblies);
 		}
 	}
 }

@@ -17,7 +17,7 @@ internal static class ServiceCollectionExtensions
 
 			serviceCollection.AddValidatedOptions<UserClaimCacheOptions>(UserClaimCacheOptions.SectionName);
 
-			serviceCollection.AddCollection<UserClaim>(CollectionName);
+			serviceCollection.AddCollection<UserClaim, UserClaimId>(CollectionName);
 
 			serviceCollection.AddScoped<IUserClaimCommandRepository, UserClaimCommandRepository>()
 							 .Decorate<IUserClaimCommandRepository, CachedUserClaimCommandRepository>();

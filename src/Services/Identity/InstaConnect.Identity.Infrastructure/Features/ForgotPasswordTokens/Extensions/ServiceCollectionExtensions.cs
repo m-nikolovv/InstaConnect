@@ -1,5 +1,6 @@
 using InstaConnect.Identity.Domain.Features.ForgotPasswordTokens.Abstractions;
 using InstaConnect.Identity.Domain.Features.ForgotPasswordTokens.Models.Options;
+using InstaConnect.Identity.Domain.Features.ForgotPasswordTokens.Models.ValueObjects;
 using InstaConnect.Identity.Infrastructure.Features.ForgotPasswordTokens.Helpers.Repositories;
 using InstaConnect.Identity.Infrastructure.Features.ForgotPasswordTokens.Models.Options;
 
@@ -19,7 +20,7 @@ internal static class ServiceCollectionExtensions
 
 			serviceCollection.AddValidatedOptions<ForgotPasswordTokenCacheOptions>(ForgotPasswordTokenCacheOptions.SectionName);
 
-			serviceCollection.AddCollection<ForgotPasswordToken>(CollectionName);
+			serviceCollection.AddCollection<ForgotPasswordToken, ForgotPasswordTokenId>(CollectionName);
 
 			serviceCollection.AddScoped<IForgotPasswordTokenCommandRepository, ForgotPasswordTokenCommandRepository>()
 							 .Decorate<IForgotPasswordTokenCommandRepository, CachedForgotPasswordTokenCommandRepository>();

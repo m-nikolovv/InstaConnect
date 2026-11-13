@@ -39,7 +39,7 @@ public static class ServiceCollectionExtensions
 				.AddTelemetries(configuration, webHostEnvironment)
 				.AddMappers(ChatsInfrastructureReference.Assembly, CommonInfrastructureReference.Assembly)
 				.AddValidations(ChatsInfrastructureReference.Assembly, CommonInfrastructureReference.Assembly)
-				.AddServicesWithMatchingInterfacesExceptFluents(ChatsInfrastructureReference.Assembly)
+				.AddServicesWithMatchingInterfaces(ChatsInfrastructureReference.Assembly)
 				.AddDatabases(configuration, ChatsInfrastructureReference.Assembly, CommonInfrastructureReference.Assembly)
 				.AddEvents(configuration, riderConfigurator => riderConfigurator.MapChatEventProducer(), (context, kafkaConfigurator) => kafkaConfigurator.MapUserEventHandler(context, ChatsEventHandlerUtilities.Prefix), ChatsInfrastructureReference.Assembly)
 				.AddOutboxEvents()
@@ -50,8 +50,7 @@ public static class ServiceCollectionExtensions
 				.AddSummarizers(configuration)
 				.AddJsons()
 				.AddGuids()
-				.AddDateTimes()
-				.AddDatabaseSortOrders();
+				.AddDateTimes();
 
 			return serviceCollection;
 		}

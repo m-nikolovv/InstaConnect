@@ -18,7 +18,7 @@ internal static class ServiceCollectionExtensions
 			serviceCollection.AddValidatedOptions<UserCacheOptions>(UserCacheOptions.SectionName);
 			serviceCollection.AddValidatedOptions<UserEventHandlerOptions>(UserEventHandlerOptions.SectionName);
 
-			serviceCollection.AddCollection<User>(CollectionName);
+			serviceCollection.AddCollection<User, UserId>(CollectionName);
 
 			serviceCollection.AddScoped<IUserCommandRepository, UserCommandRepository>()
 							 .Decorate<IUserCommandRepository, CachedUserCommandRepository>();

@@ -18,7 +18,7 @@ internal static class ServiceCollectionExtensions
 
 			serviceCollection.AddValidatedOptions<PostLikeCacheOptions>(PostLikeCacheOptions.SectionName);
 
-			serviceCollection.AddCollection<PostLike>(CollectionName);
+			serviceCollection.AddCollection<PostLike, PostLikeId>(CollectionName);
 
 			serviceCollection.AddScoped<IPostLikeCommandRepository, PostLikeCommandRepository>()
 							 .Decorate<IPostLikeCommandRepository, CachedPostLikeCommandRepository>();

@@ -18,7 +18,7 @@ internal static class ServiceCollectionExtensions
 
 			serviceCollection.AddValidatedOptions<ChatMessageCacheOptions>(ChatMessageCacheOptions.SectionName);
 
-			serviceCollection.AddCollection<ChatMessage>(CollectionName);
+			serviceCollection.AddCollection<ChatMessage, ChatMessageId>(CollectionName);
 
 			serviceCollection.AddScoped<IChatMessageCommandRepository, ChatMessageCommandRepository>()
 							 .Decorate<IChatMessageCommandRepository, CachedChatMessageCommandRepository>();

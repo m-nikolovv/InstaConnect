@@ -19,7 +19,7 @@ internal static class ServiceCollectionExtensions
 
 			serviceCollection.AddValidatedOptions<FollowCacheOptions>(FollowCacheOptions.SectionName);
 
-			serviceCollection.AddCollection<Follow>(CollectionName);
+			serviceCollection.AddCollection<Follow, FollowId>(CollectionName);
 
 			serviceCollection.AddScoped<IFollowCommandRepository, FollowCommandRepository>()
 							 .Decorate<IFollowCommandRepository, CachedFollowCommandRepository>();

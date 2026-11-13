@@ -47,8 +47,8 @@ public static class ServiceCollectionExtensions
 				.AddMappers(IdentityInfrastructureReference.Assembly)
 				.AddValidations(IdentityInfrastructureReference.Assembly, CommonInfrastructureReference.Assembly)
 				.AddEmailSenders(configuration)
-				.AddServicesWithMatchingInterfacesExceptFluents(IdentityInfrastructureReference.Assembly)
 				.AddCaches(configuration)
+				.AddServicesWithMatchingInterfaces(IdentityInfrastructureReference.Assembly)
 				.AddDatabases(configuration, IdentityInfrastructureReference.Assembly, CommonInfrastructureReference.Assembly)
 				.AddImages(configuration)
 				.AddEvents(configuration, riderConfigurator => riderConfigurator.MapUserEventProducer().MapUserClaimEventProducer().MapEmailConfirmationTokenEventProducer().MapForgotPasswordTokenEventProducer(), null, IdentityInfrastructureReference.Assembly)
@@ -56,8 +56,7 @@ public static class ServiceCollectionExtensions
 				.AddAccessTokens(configuration)
 				.AddJsons()
 				.AddGuids()
-				.AddDateTimes()
-				.AddDatabaseSortOrders();
+				.AddDateTimes();
 
 			return serviceCollection;
 		}
