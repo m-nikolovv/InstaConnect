@@ -48,6 +48,8 @@ public static class ServiceCollectionExtensions
 				.ValidateFluentValidation(sectionName)
 				.ValidateOnStart();
 
+			serviceCollection.AddSingleton(sp => sp.GetRequiredService<IOptions<TOptions>>().Value);
+
 			serviceCollection.TryAddTransient<IOptionsFactory<TOptions>>(serviceProvider => new ConfigurationOptionsFactory<TOptions>(
 				sectionName,
 				serviceProvider.GetRequiredService<IConfiguration>(),

@@ -5,8 +5,6 @@ using InstaConnect.Identity.Application.Features.Users.Commands.Add;
 using InstaConnect.Identity.Domain.Features.Users.Abstractions;
 using InstaConnect.Identity.Infrastructure.Features.Common.Models.Options;
 
-using Microsoft.Extensions.Options;
-
 namespace InstaConnect.Identity.Infrastructure.Features.Users.Helpers.Collections;
 
 internal class UserCollectionSeeder : IMongoDbCollectionSeeder
@@ -16,13 +14,13 @@ internal class UserCollectionSeeder : IMongoDbCollectionSeeder
 	private readonly IUserCommandRepository _repository;
 
 	public UserCollectionSeeder(
-		IOptions<AdminOptions> adminOptions,
+		AdminOptions adminOptions,
 		IApplicationSender sender,
 		IUserCommandRepository repository)
 	{
-		_adminOptions = adminOptions.Value;
 		_sender = sender;
 		_repository = repository;
+		_adminOptions = adminOptions;
 	}
 
 	public async Task SeedAsync(CancellationToken cancellationToken)

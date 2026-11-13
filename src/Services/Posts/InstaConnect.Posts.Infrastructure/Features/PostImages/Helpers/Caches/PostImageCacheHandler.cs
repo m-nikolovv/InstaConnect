@@ -5,8 +5,6 @@ using InstaConnect.Posts.Infrastructure.Features.PostImages.Models.Options;
 using InstaConnect.Posts.Infrastructure.Features.PostImages.Utilities;
 using InstaConnect.Posts.Infrastructure.Features.Posts.Utilities;
 
-using Microsoft.Extensions.Options;
-
 namespace InstaConnect.Posts.Infrastructure.Features.PostImages.Helpers.Caches;
 
 internal class PostImageCacheHandler : IPostImageCacheHandler
@@ -14,10 +12,10 @@ internal class PostImageCacheHandler : IPostImageCacheHandler
 	private readonly ICacheHandler _cacheHandler;
 	private readonly PostImageCacheOptions _cacheOptions;
 
-	public PostImageCacheHandler(ICacheHandler cacheHandler, IOptions<PostImageCacheOptions> cacheOptions)
+	public PostImageCacheHandler(ICacheHandler cacheHandler, PostImageCacheOptions cacheOptions)
 	{
 		_cacheHandler = cacheHandler;
-		_cacheOptions = cacheOptions.Value;
+		_cacheOptions = cacheOptions;
 	}
 
 	public async Task<PostImage?> GetByIdAsync(PostImageId id, CancellationToken cancellationToken)

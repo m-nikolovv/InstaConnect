@@ -3,8 +3,6 @@ using InstaConnect.Posts.Infrastructure.Features.Posts.Models.Options;
 using InstaConnect.Posts.Infrastructure.Features.Posts.Utilities;
 using InstaConnect.Posts.Infrastructure.Features.Users.Utilities;
 
-using Microsoft.Extensions.Options;
-
 namespace InstaConnect.Posts.Infrastructure.Features.Posts.Helpers.Caches;
 
 internal class PostCacheHandler : IPostCacheHandler
@@ -12,10 +10,10 @@ internal class PostCacheHandler : IPostCacheHandler
 	private readonly ICacheHandler _cacheHandler;
 	private readonly PostCacheOptions _cacheOptions;
 
-	public PostCacheHandler(ICacheHandler cacheHandler, IOptions<PostCacheOptions> cacheOptions)
+	public PostCacheHandler(ICacheHandler cacheHandler, PostCacheOptions cacheOptions)
 	{
 		_cacheHandler = cacheHandler;
-		_cacheOptions = cacheOptions.Value;
+		_cacheOptions = cacheOptions;
 	}
 
 	public async Task<Post?> GetByIdAsync(PostId id, CancellationToken cancellationToken)

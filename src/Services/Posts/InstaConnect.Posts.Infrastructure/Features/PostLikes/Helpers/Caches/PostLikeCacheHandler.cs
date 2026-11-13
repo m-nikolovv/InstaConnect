@@ -4,8 +4,6 @@ using InstaConnect.Posts.Infrastructure.Features.PostLikes.Utilities;
 using InstaConnect.Posts.Infrastructure.Features.Posts.Utilities;
 using InstaConnect.Posts.Infrastructure.Features.Users.Utilities;
 
-using Microsoft.Extensions.Options;
-
 namespace InstaConnect.Posts.Infrastructure.Features.PostLikes.Helpers.Caches;
 
 internal class PostLikeCacheHandler : IPostLikeCacheHandler
@@ -13,10 +11,10 @@ internal class PostLikeCacheHandler : IPostLikeCacheHandler
 	private readonly ICacheHandler _cacheHandler;
 	private readonly PostLikeCacheOptions _cacheOptions;
 
-	public PostLikeCacheHandler(ICacheHandler cacheHandler, IOptions<PostLikeCacheOptions> cacheOptions)
+	public PostLikeCacheHandler(ICacheHandler cacheHandler, PostLikeCacheOptions cacheOptions)
 	{
 		_cacheHandler = cacheHandler;
-		_cacheOptions = cacheOptions.Value;
+		_cacheOptions = cacheOptions;
 	}
 
 	public async Task<PostLike?> GetByIdAsync(PostLikeId id, CancellationToken cancellationToken)

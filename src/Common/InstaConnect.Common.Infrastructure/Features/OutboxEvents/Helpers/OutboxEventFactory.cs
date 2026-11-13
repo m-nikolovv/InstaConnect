@@ -8,8 +8,6 @@ using InstaConnect.Common.Infrastructure.Features.OutboxEvents.Abstractions;
 using InstaConnect.Common.Infrastructure.Features.OutboxEvents.Models.Entities;
 using InstaConnect.Common.Infrastructure.Features.OutboxEvents.Models;
 
-using Microsoft.Extensions.Options;
-
 namespace InstaConnect.Common.Infrastructure.Features.OutboxEvents.Helpers;
 
 internal class OutboxEventFactory : IOutboxEventFactory
@@ -24,13 +22,13 @@ internal class OutboxEventFactory : IOutboxEventFactory
 		IGuidProvider guidProvider,
 		IJsonConverter jsonConverter,
 		IDateTimeProvider dateTimeProvider,
-		IOptions<OutboxEventOptions> outboxEventOptions,
+		OutboxEventOptions outboxEventOptions,
 		IEventKeySelectorProvider eventKeySelectorProvider)
 	{
 		_guidProvider = guidProvider;
 		_jsonConverter = jsonConverter;
 		_dateTimeProvider = dateTimeProvider;
-		_outboxEventOptions = outboxEventOptions.Value;
+		_outboxEventOptions = outboxEventOptions;
 		_eventKeySelectorProvider = eventKeySelectorProvider;
 	}
 

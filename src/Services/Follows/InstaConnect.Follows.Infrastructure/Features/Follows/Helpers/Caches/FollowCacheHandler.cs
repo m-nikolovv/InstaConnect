@@ -3,8 +3,6 @@ using InstaConnect.Follows.Infrastructure.Features.Follows.Models.Options;
 using InstaConnect.Follows.Infrastructure.Features.Follows.Utilities;
 using InstaConnect.Follows.Infrastructure.Features.Users.Utilities;
 
-using Microsoft.Extensions.Options;
-
 namespace InstaConnect.Follows.Infrastructure.Features.Follows.Helpers.Caches;
 
 internal class FollowCacheHandler : IFollowCacheHandler
@@ -12,10 +10,10 @@ internal class FollowCacheHandler : IFollowCacheHandler
 	private readonly ICacheHandler _cacheHandler;
 	private readonly FollowCacheOptions _cacheOptions;
 
-	public FollowCacheHandler(ICacheHandler cacheHandler, IOptions<FollowCacheOptions> cacheOptions)
+	public FollowCacheHandler(ICacheHandler cacheHandler, FollowCacheOptions cacheOptions)
 	{
 		_cacheHandler = cacheHandler;
-		_cacheOptions = cacheOptions.Value;
+		_cacheOptions = cacheOptions;
 	}
 
 	public async Task<Follow?> GetByIdAsync(FollowId id, CancellationToken cancellationToken)

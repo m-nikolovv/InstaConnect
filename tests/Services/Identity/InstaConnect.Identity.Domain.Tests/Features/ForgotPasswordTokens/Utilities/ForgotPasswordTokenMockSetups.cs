@@ -23,9 +23,9 @@ public static class ForgotPasswordTokenMockSetups
 
 		public void SetupGetOffsetUtcNow(
 			ForgotPasswordToken forgotPasswordToken,
-			IOptions<ForgotPasswordTokenOptions> forgotPasswordTokenOptions)
+			ForgotPasswordTokenOptions forgotPasswordTokenOptions)
 		{
-			dateTimeProvider.SetupGetOffsetUtcNow(forgotPasswordTokenOptions.Value.LifetimeSeconds, forgotPasswordToken.ExpiresAtUtc);
+			dateTimeProvider.SetupGetOffsetUtcNow(forgotPasswordTokenOptions.LifetimeSeconds, forgotPasswordToken.ExpiresAtUtc);
 		}
 
 		public void SetupGetOffsetUtcNow(VerifyForgotPasswordTokenCommand command, DateTimeOffset utcNow)

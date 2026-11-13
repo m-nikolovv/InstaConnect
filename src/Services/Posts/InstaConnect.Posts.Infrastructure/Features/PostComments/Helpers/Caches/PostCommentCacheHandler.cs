@@ -4,8 +4,6 @@ using InstaConnect.Posts.Infrastructure.Features.PostComments.Utilities;
 using InstaConnect.Posts.Infrastructure.Features.Posts.Utilities;
 using InstaConnect.Posts.Infrastructure.Features.Users.Utilities;
 
-using Microsoft.Extensions.Options;
-
 namespace InstaConnect.Posts.Infrastructure.Features.PostComments.Helpers.Caches;
 
 internal class PostCommentCacheHandler : IPostCommentCacheHandler
@@ -13,10 +11,10 @@ internal class PostCommentCacheHandler : IPostCommentCacheHandler
 	private readonly ICacheHandler _cacheHandler;
 	private readonly PostCommentCacheOptions _cacheOptions;
 
-	public PostCommentCacheHandler(ICacheHandler cacheHandler, IOptions<PostCommentCacheOptions> cacheOptions)
+	public PostCommentCacheHandler(ICacheHandler cacheHandler, PostCommentCacheOptions cacheOptions)
 	{
 		_cacheHandler = cacheHandler;
-		_cacheOptions = cacheOptions.Value;
+		_cacheOptions = cacheOptions;
 	}
 
 	public async Task<PostComment?> GetByIdAsync(PostCommentId id, CancellationToken cancellationToken)

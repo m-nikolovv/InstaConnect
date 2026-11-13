@@ -10,9 +10,9 @@ public static class EmailConfirmationTokenMockAssertions
 {
 	extension(IDateTimeProvider dateTimeProvider)
 	{
-		public void ShouldHaveReceivedOneGetOffsetUtcNow(IOptions<EmailConfirmationTokenOptions> emailConfirmationTokenOptions)
+		public void ShouldHaveReceivedOneGetOffsetUtcNow(EmailConfirmationTokenOptions emailConfirmationTokenOptions)
 		{
-			dateTimeProvider.ShouldHaveReceivedOneGetOffsetUtcNow(emailConfirmationTokenOptions.Value.LifetimeSeconds);
+			dateTimeProvider.ShouldHaveReceivedOneGetOffsetUtcNow(emailConfirmationTokenOptions.LifetimeSeconds);
 		}
 
 		public void ShouldHaveReceivedOneGetOffsetUtcNow(VerifyEmailConfirmationTokenCommand command)

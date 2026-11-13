@@ -4,8 +4,6 @@ using InstaConnect.Identity.Infrastructure.Features.ForgotPasswordTokens.Models.
 using InstaConnect.Identity.Infrastructure.Features.ForgotPasswordTokens.Utilities;
 using InstaConnect.Identity.Infrastructure.Features.Users.Utilities;
 
-using Microsoft.Extensions.Options;
-
 namespace InstaConnect.Identity.Infrastructure.Features.ForgotPasswordTokens.Helpers.Caches;
 
 internal class ForgotPasswordTokenCacheHandler : IForgotPasswordTokenCacheHandler
@@ -13,10 +11,10 @@ internal class ForgotPasswordTokenCacheHandler : IForgotPasswordTokenCacheHandle
 	private readonly ICacheHandler _cacheHandler;
 	private readonly ForgotPasswordTokenCacheOptions _cacheOptions;
 
-	public ForgotPasswordTokenCacheHandler(ICacheHandler cacheHandler, IOptions<ForgotPasswordTokenCacheOptions> cacheOptions)
+	public ForgotPasswordTokenCacheHandler(ICacheHandler cacheHandler, ForgotPasswordTokenCacheOptions cacheOptions)
 	{
 		_cacheHandler = cacheHandler;
-		_cacheOptions = cacheOptions.Value;
+		_cacheOptions = cacheOptions;
 	}
 
 	public async Task<ForgotPasswordToken?> GetByIdAsync(ForgotPasswordTokenId id, CancellationToken cancellationToken)

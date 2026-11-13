@@ -2,8 +2,6 @@ using InstaConnect.Common.Domain.Features.Emails.Abstractions;
 using InstaConnect.Common.Domain.Features.Emails.Models;
 using InstaConnect.Common.Infrastructure.Features.Emails.Models;
 
-using Microsoft.Extensions.Options;
-
 using SendGrid;
 using SendGrid.Helpers.Mail;
 
@@ -11,13 +9,13 @@ namespace InstaConnect.Common.Infrastructure.Features.Emails.Helpers;
 
 internal class EmailSender : IEmailSender
 {
-	private readonly SendGridOptions _sendGridOptions;
 	private readonly ISendGridClient _sendGridClient;
+	private readonly SendGridOptions _sendGridOptions;
 
-	public EmailSender(IOptions<SendGridOptions> sendGridOptions, ISendGridClient sendGridClient)
+	public EmailSender(ISendGridClient sendGridClient, SendGridOptions sendGridOptions)
 	{
-		_sendGridOptions = sendGridOptions.Value;
 		_sendGridClient = sendGridClient;
+		_sendGridOptions = sendGridOptions;
 	}
 
 	public async Task SendAsync(SendEmailRequest request, CancellationToken cancellationToken)

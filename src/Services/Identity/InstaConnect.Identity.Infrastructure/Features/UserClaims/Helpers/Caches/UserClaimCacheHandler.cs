@@ -3,8 +3,6 @@ using InstaConnect.Identity.Infrastructure.Features.UserClaims.Models.Options;
 using InstaConnect.Identity.Infrastructure.Features.UserClaims.Utilities;
 using InstaConnect.Identity.Infrastructure.Features.Users.Utilities;
 
-using Microsoft.Extensions.Options;
-
 namespace InstaConnect.Identity.Infrastructure.Features.UserClaims.Helpers.Caches;
 
 internal class UserClaimCacheHandler : IUserClaimCacheHandler
@@ -12,10 +10,10 @@ internal class UserClaimCacheHandler : IUserClaimCacheHandler
 	private readonly ICacheHandler _cacheHandler;
 	private readonly UserClaimCacheOptions _cacheOptions;
 
-	public UserClaimCacheHandler(ICacheHandler cacheHandler, IOptions<UserClaimCacheOptions> cacheOptions)
+	public UserClaimCacheHandler(ICacheHandler cacheHandler, UserClaimCacheOptions cacheOptions)
 	{
 		_cacheHandler = cacheHandler;
-		_cacheOptions = cacheOptions.Value;
+		_cacheOptions = cacheOptions;
 	}
 
 	public async Task<UserClaim?> GetByIdAsync(UserClaimId id, CancellationToken cancellationToken)

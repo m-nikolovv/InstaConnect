@@ -2,8 +2,6 @@ using InstaConnect.Chats.Infrastructure.Features.Users.Models.Options;
 using InstaConnect.Chats.Infrastructure.Features.Users.Utilities;
 using InstaConnect.Common.Infrastructure.Features.Caches.Abstractions;
 
-using Microsoft.Extensions.Options;
-
 namespace InstaConnect.Chats.Infrastructure.Features.Users.Helpers.Caches;
 
 internal class UserCacheHandler : IUserCacheHandler
@@ -11,10 +9,10 @@ internal class UserCacheHandler : IUserCacheHandler
 	private readonly ICacheHandler _cacheHandler;
 	private readonly UserCacheOptions _cacheOptions;
 
-	public UserCacheHandler(ICacheHandler cacheHandler, IOptions<UserCacheOptions> cacheOptions)
+	public UserCacheHandler(ICacheHandler cacheHandler, UserCacheOptions cacheOptions)
 	{
 		_cacheHandler = cacheHandler;
-		_cacheOptions = cacheOptions.Value;
+		_cacheOptions = cacheOptions;
 	}
 
 	public async Task<User?> GetByIdAsync(UserId id, CancellationToken cancellationToken)

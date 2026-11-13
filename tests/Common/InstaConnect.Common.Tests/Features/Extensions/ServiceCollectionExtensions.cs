@@ -7,7 +7,6 @@ using MassTransit;
 
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Options;
 
 namespace InstaConnect.Common.Tests.Features.Extensions;
 
@@ -20,7 +19,7 @@ public static class ServiceCollectionExtensions
 			params Assembly[] assemblies)
 		{
 			serviceCollection.AddSingleton<ITestHarnessFactory>(sp =>
-				new TestHarnessFactory(assemblies, sp.GetRequiredService<IOptions<KafkaOptions>>().Value, sp.GetRequiredService<IConfiguration>(), mapEventHandlers));
+				new TestHarnessFactory(assemblies, sp.GetRequiredService<KafkaOptions>(), sp.GetRequiredService<IConfiguration>(), mapEventHandlers));
 			serviceCollection.AddSingleton<IEventClient, EventClient>();
 			serviceCollection.AddScoped<IEventPublisher, TestEventPublisher>();
 

@@ -4,8 +4,6 @@ using InstaConnect.Identity.Infrastructure.Features.RefreshTokens.Models.Options
 using InstaConnect.Identity.Infrastructure.Features.RefreshTokens.Utilities;
 using InstaConnect.Identity.Infrastructure.Features.Users.Utilities;
 
-using Microsoft.Extensions.Options;
-
 namespace InstaConnect.Identity.Infrastructure.Features.RefreshTokens.Helpers.Caches;
 
 internal class RefreshTokenCacheHandler : IRefreshTokenCacheHandler
@@ -13,10 +11,10 @@ internal class RefreshTokenCacheHandler : IRefreshTokenCacheHandler
 	private readonly ICacheHandler _cacheHandler;
 	private readonly RefreshTokenCacheOptions _cacheOptions;
 
-	public RefreshTokenCacheHandler(ICacheHandler cacheHandler, IOptions<RefreshTokenCacheOptions> cacheOptions)
+	public RefreshTokenCacheHandler(ICacheHandler cacheHandler, RefreshTokenCacheOptions cacheOptions)
 	{
 		_cacheHandler = cacheHandler;
-		_cacheOptions = cacheOptions.Value;
+		_cacheOptions = cacheOptions;
 	}
 
 	public async Task<RefreshToken?> GetByIdAsync(RefreshTokenId id, CancellationToken cancellationToken)

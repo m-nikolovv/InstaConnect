@@ -2,8 +2,6 @@ using InstaConnect.Common.Infrastructure.Features.Caches.Abstractions;
 using InstaConnect.Follows.Infrastructure.Features.Users.Models.Options;
 using InstaConnect.Follows.Infrastructure.Features.Users.Utilities;
 
-using Microsoft.Extensions.Options;
-
 namespace InstaConnect.Follows.Infrastructure.Features.Users.Helpers.Caches;
 
 internal class UserCacheHandler : IUserCacheHandler
@@ -11,10 +9,10 @@ internal class UserCacheHandler : IUserCacheHandler
 	private readonly ICacheHandler _cacheHandler;
 	private readonly UserCacheOptions _cacheOptions;
 
-	public UserCacheHandler(ICacheHandler cacheHandler, IOptions<UserCacheOptions> cacheOptions)
+	public UserCacheHandler(ICacheHandler cacheHandler, UserCacheOptions cacheOptions)
 	{
 		_cacheHandler = cacheHandler;
-		_cacheOptions = cacheOptions.Value;
+		_cacheOptions = cacheOptions;
 	}
 
 	public async Task<User?> GetByIdAsync(UserId id, CancellationToken cancellationToken)

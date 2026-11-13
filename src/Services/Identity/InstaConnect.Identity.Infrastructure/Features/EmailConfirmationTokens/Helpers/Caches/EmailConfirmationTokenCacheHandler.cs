@@ -4,8 +4,6 @@ using InstaConnect.Identity.Infrastructure.Features.EmailConfirmationTokens.Mode
 using InstaConnect.Identity.Infrastructure.Features.EmailConfirmationTokens.Utilities;
 using InstaConnect.Identity.Infrastructure.Features.Users.Utilities;
 
-using Microsoft.Extensions.Options;
-
 namespace InstaConnect.Identity.Infrastructure.Features.EmailConfirmationTokens.Helpers.Caches;
 
 internal class EmailConfirmationTokenCacheHandler : IEmailConfirmationTokenCacheHandler
@@ -13,10 +11,10 @@ internal class EmailConfirmationTokenCacheHandler : IEmailConfirmationTokenCache
 	private readonly ICacheHandler _cacheHandler;
 	private readonly EmailConfirmationTokenCacheOptions _cacheOptions;
 
-	public EmailConfirmationTokenCacheHandler(ICacheHandler cacheHandler, IOptions<EmailConfirmationTokenCacheOptions> cacheOptions)
+	public EmailConfirmationTokenCacheHandler(ICacheHandler cacheHandler, EmailConfirmationTokenCacheOptions cacheOptions)
 	{
 		_cacheHandler = cacheHandler;
-		_cacheOptions = cacheOptions.Value;
+		_cacheOptions = cacheOptions;
 	}
 
 	public async Task<EmailConfirmationToken?> GetByIdAsync(EmailConfirmationTokenId id, CancellationToken cancellationToken)

@@ -4,8 +4,6 @@ using InstaConnect.Chats.Infrastructure.Features.ChatMessageImages.Utilities;
 using InstaConnect.Chats.Infrastructure.Features.ChatMessages.Utilities;
 using InstaConnect.Common.Infrastructure.Features.Caches.Abstractions;
 
-using Microsoft.Extensions.Options;
-
 namespace InstaConnect.Chats.Infrastructure.Features.ChatMessageImages.Helpers.Caches;
 
 internal class ChatMessageImageCacheHandler : IChatMessageImageCacheHandler
@@ -13,10 +11,10 @@ internal class ChatMessageImageCacheHandler : IChatMessageImageCacheHandler
 	private readonly ICacheHandler _cacheHandler;
 	private readonly ChatMessageImageCacheOptions _cacheOptions;
 
-	public ChatMessageImageCacheHandler(ICacheHandler cacheHandler, IOptions<ChatMessageImageCacheOptions> cacheOptions)
+	public ChatMessageImageCacheHandler(ICacheHandler cacheHandler, ChatMessageImageCacheOptions cacheOptions)
 	{
 		_cacheHandler = cacheHandler;
-		_cacheOptions = cacheOptions.Value;
+		_cacheOptions = cacheOptions;
 	}
 
 	public async Task<ChatMessageImage?> GetByIdAsync(ChatMessageImageId id, CancellationToken cancellationToken)
