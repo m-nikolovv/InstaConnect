@@ -20,7 +20,7 @@ public static class PostCommentImageGenerator
 		{
 			return [basePostCommentImage, .. postComments
 				.SelectMany(postComment =>
-					Enumerable.Range(default, DataFaker.GetAverageNumber(PostCommentConfigurations.ImagesMaxCount) - postComment.PostCommentImages.Count).Select(_ =>
+					Enumerable.Range(default, DataFaker.GetAverageNumber(PostCommentConfigurations.ImagesMaxCount)).Select(_ =>
 					{
 						var postCommentImage = new PostCommentImage(
 							new(postComment.Id, PostCommentImageDataFaker.GetImageId()),

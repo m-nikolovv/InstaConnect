@@ -4,9 +4,9 @@ public static class RefreshTokenGenerator
 {
 	extension(RefreshToken baseRefreshToken)
 	{
-		public ICollection<RefreshToken> GenerateAttached(IEnumerable<User> users, int numberOfIterations = 3)
+		public ICollection<RefreshToken> GenerateAttached(IEnumerable<User> users)
 		{
-			var refreshTokens = baseRefreshToken.Generate(users, numberOfIterations);
+			var refreshTokens = baseRefreshToken.Generate(users);
 
 			foreach (var refreshToken in refreshTokens.Where(r => r != baseRefreshToken))
 			{
@@ -16,11 +16,13 @@ public static class RefreshTokenGenerator
 			return refreshTokens;
 		}
 
-		public ICollection<RefreshToken> Generate(IEnumerable<User> users, int numberOfIterations = 3)
+		public ICollection<RefreshToken> Generate(IEnumerable<User> users)
 		{
+			const int NumberOfIterations = 3;
+
 			return [baseRefreshToken, .. users
 			   .SelectMany(user =>
-				   Enumerable.Range(default, numberOfIterations).Select(_ =>
+				   Enumerable.Range(default, NumberOfIterations).Select(_ =>
 				   {
 					  var refreshToken = new RefreshToken(
 						  new(user.Id, RefreshTokenDataFaker.GetValue()),

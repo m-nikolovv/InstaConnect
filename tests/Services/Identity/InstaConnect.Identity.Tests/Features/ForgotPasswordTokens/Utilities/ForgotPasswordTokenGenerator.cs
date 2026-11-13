@@ -4,9 +4,9 @@ public static class ForgotPasswordTokenGenerator
 {
 	extension(ForgotPasswordToken baseForgotPasswordToken)
 	{
-		public ICollection<ForgotPasswordToken> GenerateAttached(IEnumerable<User> users, int numberOfIterations = 3)
+		public ICollection<ForgotPasswordToken> GenerateAttached(IEnumerable<User> users)
 		{
-			var forgotPasswordTokens = baseForgotPasswordToken.Generate(users, numberOfIterations);
+			var forgotPasswordTokens = baseForgotPasswordToken.Generate(users);
 
 			foreach (var forgotPasswordToken in forgotPasswordTokens.Where(f => f != baseForgotPasswordToken))
 			{
@@ -16,11 +16,13 @@ public static class ForgotPasswordTokenGenerator
 			return forgotPasswordTokens;
 		}
 
-		public ICollection<ForgotPasswordToken> Generate(IEnumerable<User> users, int numberOfIterations = 3)
+		public ICollection<ForgotPasswordToken> Generate(IEnumerable<User> users)
 		{
+			const int NumberOfIterations = 3;
+
 			return [baseForgotPasswordToken, .. users
 			   .SelectMany(user =>
-				   Enumerable.Range(default, numberOfIterations).Select(_ =>
+				   Enumerable.Range(default, NumberOfIterations).Select(_ =>
 				   {
 					  var forgotPasswordToken = new ForgotPasswordToken(
 						  new(user.Id, ForgotPasswordTokenDataFaker.GetValue()),

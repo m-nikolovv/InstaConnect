@@ -14,8 +14,9 @@ internal class TooManyFormFileCollectionTransformer : IFormFileCollectionTransfo
 
 	public ICollection<IFormFile> Transform(ICollection<IFormFile>? value)
 	{
-		return [.. Enumerable.Range(default, _maxCount.Increment())
-			.Select(index => value!.ElementAt(index % value!.Count))
-			.Select(formFile => DataFaker.GetFormFile(formFile.FileName, formFile.GetContent(), formFile.ContentType))];
+		var length = value!.First().GetContent().Length;
+
+		return [.. value!, .. Enumerable.Range(default, _maxCount.Increment())
+			.Select(_ => DataFaker.GetFormFile(length))];
 	}
 }

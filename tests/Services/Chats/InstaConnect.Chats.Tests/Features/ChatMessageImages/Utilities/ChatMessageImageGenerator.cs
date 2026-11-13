@@ -20,7 +20,7 @@ public static class ChatMessageImageGenerator
 		{
 			return [baseChatMessageImage, .. chatMessages
 				.SelectMany(chatMessage =>
-					Enumerable.Range(default, DataFaker.GetAverageNumber(ChatMessageConfigurations.ImagesMaxCount) - chatMessage.ChatMessageImages.Count).Select(_ =>
+					Enumerable.Range(default, DataFaker.GetAverageNumber(ChatMessageConfigurations.ImagesMaxCount)).Select(_ =>
 					{
 						var chatMessageImage = new ChatMessageImage(
 							new(chatMessage.Id, ChatMessageImageDataFaker.GetImageId()),
