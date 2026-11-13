@@ -27,10 +27,10 @@ internal class ChatQueryRepository : IChatQueryRepository
 		return await _collection
 			.AggregateFluent()
 			.Match(filter)
-			.ApplyIncludes(include)
+			.Include(include)
 			.ProjectToResponseWithoutParticipantOne(currentUser)
-			.ApplySorting(sorting)
-			.ApplyPagination(pagination)
+			.Sort(sorting)
+			.Paginate(pagination)
 			.ToListAsync(cancellationToken);
 	}
 
@@ -54,7 +54,7 @@ internal class ChatQueryRepository : IChatQueryRepository
 		return await _collection
 			.AggregateFluent()
 			.Match(id)
-			.ApplyIncludes(include)
+			.Include(include)
 			.ProjectToFullResponse(currentUser)
 			.FirstOrDefaultAsync(cancellationToken);
 	}

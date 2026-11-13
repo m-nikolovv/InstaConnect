@@ -19,16 +19,16 @@ internal class UserResponseFluent : IUserResponseFluent
 		_sortOrdererFactory = sortOrdererFactory;
 	}
 
-	public IUserResponseFluent ApplySorting(UsersSortingQuery query)
+	public IUserResponseFluent Sort(UsersSortingQuery query)
 	{
-		_fluentHandler.ApplySorting(_sortOrdererFactory, _sortTermerFactory, query);
+		_fluentHandler.Sort(_sortOrdererFactory, _sortTermerFactory, query);
 
 		return this;
 	}
 
-	public IUserResponseFluent ApplyPagination(UsersPaginationQuery query)
+	public IUserResponseFluent Paginate(UsersPaginationQuery query)
 	{
-		_fluentHandler.ApplyPagination(_paginator, query);
+		_fluentHandler.Paginate(_paginator, query);
 
 		return this;
 	}

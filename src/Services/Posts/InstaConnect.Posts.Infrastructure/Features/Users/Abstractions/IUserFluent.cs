@@ -6,5 +6,5 @@ public interface IUserFluent : IMongoDbFluent<User, UserId>
 	public IUserFluent Match(Name filter);
 	public IUserFluent Match(Email filter);
 	public IUserResponseFluent ProjectToFullResponse(CurrentUserQuery currentUser);
-	public IUserFluent ApplyIncludes(UserInclude include);
+	public IUserFluent Include(UserInclude include);
 }

@@ -21,7 +21,7 @@ public class GetChatByIdQueryRepositoryUnitTests : BaseChatInfrastructureQueryUn
 		_repository = new(Collection, IncludeBuilderFactory);
 
 		Collection.SetupAggregateFluent(ChatId, _currentUserQuery, Fluent);
-		Fluent.SetupApplyIncludes(ChatId, _currentUserQuery, _include);
+		Fluent.SetupInclude(ChatId, _currentUserQuery, _include);
 		Fluent.SetupMatch(ChatId, _currentUserQuery);
 		Fluent.SetupProjectToFullResponse(ChatId, _currentUserQuery, ResponseFluent);
 		ResponseFluent.SetupFirstOrDefaultAsync(ChatId, _currentUserQuery, Chat, CancellationToken);
@@ -48,13 +48,13 @@ public class GetChatByIdQueryRepositoryUnitTests : BaseChatInfrastructureQueryUn
 	}
 
 	[Fact]
-	public async Task GetByIdAsync_ShouldCallTheFluentApplyIncludes_WhenQueryIsValid()
+	public async Task GetByIdAsync_ShouldCallTheFluentInclude_WhenQueryIsValid()
 	{
 		// Act
 		await _repository.GetByIdAsync(ChatId, _currentUserQuery, CancellationToken);
 
 		// Assert
-		Fluent.ShouldHaveReceivedOneApplyIncludes(ChatId, _currentUserQuery, _include);
+		Fluent.ShouldHaveReceivedOneInclude(ChatId, _currentUserQuery, _include);
 	}
 
 	[Fact]

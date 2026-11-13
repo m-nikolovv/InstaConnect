@@ -18,9 +18,9 @@ internal class PostFluent : IPostFluent
 		_responseFluentFactory = responseFluentFactory;
 	}
 
-	public IPostFluent ApplyIncludes(PostInclude include)
+	public IPostFluent Include(PostInclude include)
 	{
-		_fluentHandler.ApplyIncludes(_includerFactory, include);
+		_fluentHandler.Include(_includerFactory, include);
 
 		return this;
 	}

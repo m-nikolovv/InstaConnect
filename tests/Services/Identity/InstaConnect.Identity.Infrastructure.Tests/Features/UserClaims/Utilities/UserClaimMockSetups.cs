@@ -69,24 +69,24 @@ public static class UserClaimMockSetups
 			fluent.SetupAnyAsync(userClaim != null, cancellationToken);
 		}
 
-		public void SetupApplyIncludes(
+		public void SetupInclude(
 			UserClaimId id,
 			UserClaimInclude include)
 		{
-			fluent.SetupApplyIncludes(include);
+			fluent.SetupInclude(include);
 		}
 
-		public void SetupApplyIncludes(
+		public void SetupInclude(
 			UserClaimId id,
 			CurrentUserQuery currentUserQuery,
 			UserClaimInclude include)
 		{
-			fluent.SetupApplyIncludes(include);
+			fluent.SetupInclude(include);
 		}
 
-		public void SetupApplyIncludes(UserClaimInclude include)
+		public void SetupInclude(UserClaimInclude include)
 		{
-			fluent.ApplyIncludes(include).ReturnsResponse(fluent);
+			fluent.Include(include).ReturnsResponse(fluent);
 		}
 
 		public void SetupMatch(UserClaimId id)
@@ -171,32 +171,32 @@ public static class UserClaimMockSetups
 
 	extension(IUserClaimResponseFluent fluent)
 	{
-		public void SetupApplySorting(
+		public void SetupSort(
 			UserClaimsFilterQuery filterQuery,
 			UserClaimsSortingQuery sortingQuery,
 			UserClaimsPaginationQuery paginationQuery,
 			CurrentUserQuery currentUserQuery)
 		{
-			fluent.SetupApplySorting(sortingQuery);
+			fluent.SetupSort(sortingQuery);
 		}
 
-		public void SetupApplySorting(UserClaimsSortingQuery sortingQuery)
+		public void SetupSort(UserClaimsSortingQuery sortingQuery)
 		{
-			fluent.ApplySorting(sortingQuery).ReturnsResponse(fluent);
+			fluent.Sort(sortingQuery).ReturnsResponse(fluent);
 		}
 
-		public void SetupApplyPagination(
+		public void SetupPaginate(
 			UserClaimsFilterQuery filterQuery,
 			UserClaimsSortingQuery sortingQuery,
 			UserClaimsPaginationQuery paginationQuery,
 			CurrentUserQuery currentUserQuery)
 		{
-			fluent.SetupApplyPagination(paginationQuery);
+			fluent.SetupPaginate(paginationQuery);
 		}
 
-		public void SetupApplyPagination(UserClaimsPaginationQuery paginationQuery)
+		public void SetupPaginate(UserClaimsPaginationQuery paginationQuery)
 		{
-			fluent.ApplyPagination(paginationQuery).ReturnsResponse(fluent);
+			fluent.Paginate(paginationQuery).ReturnsResponse(fluent);
 		}
 
 		public void SetupToListAsync(

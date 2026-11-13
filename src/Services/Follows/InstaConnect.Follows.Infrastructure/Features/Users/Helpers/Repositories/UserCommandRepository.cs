@@ -23,7 +23,7 @@ internal class UserCommandRepository : IUserCommandRepository
 		return await _collection
 			.AggregateFluent()
 			.Match(id)
-			.ApplyIncludes(include)
+			.Include(include)
 			.FirstOrDefaultAsync(cancellationToken);
 	}
 
@@ -54,7 +54,7 @@ internal class UserCommandRepository : IUserCommandRepository
 		return await _collection
 			.AggregateFluent()
 			.Match(name)
-			.ApplyIncludes(include)
+			.Include(include)
 			.FirstOrDefaultAsync(cancellationToken);
 	}
 
@@ -85,7 +85,7 @@ internal class UserCommandRepository : IUserCommandRepository
 		return await _collection
 			.AggregateFluent()
 			.Match(email)
-			.ApplyIncludes(include)
+			.Include(include)
 			.FirstOrDefaultAsync(cancellationToken);
 	}
 

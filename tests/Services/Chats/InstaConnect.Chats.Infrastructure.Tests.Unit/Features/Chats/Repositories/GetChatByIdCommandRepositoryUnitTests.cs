@@ -13,7 +13,7 @@ public class GetChatByIdCommandRepositoryUnitTests : BaseChatInfrastructureComma
 		_repository = new(Collection, IncludeBuilderFactory);
 
 		Collection.SetupAggregateFluent(ChatId, Fluent);
-		Fluent.SetupApplyIncludes(ChatId, _include);
+		Fluent.SetupInclude(ChatId, _include);
 		Fluent.SetupMatch(ChatId);
 		Fluent.SetupFirstOrDefaultAsync(ChatId, Chat, CancellationToken);
 	}
@@ -39,13 +39,13 @@ public class GetChatByIdCommandRepositoryUnitTests : BaseChatInfrastructureComma
 	}
 
 	[Fact]
-	public async Task GetByIdAsync_ShouldCallTheFluentApplyIncludes_WhenCommandIsValid()
+	public async Task GetByIdAsync_ShouldCallTheFluentInclude_WhenCommandIsValid()
 	{
 		// Act
 		await _repository.GetByIdAsync(ChatId, _include, CancellationToken);
 
 		// Assert
-		Fluent.ShouldHaveReceivedOneApplyIncludes(ChatId, _include);
+		Fluent.ShouldHaveReceivedOneInclude(ChatId, _include);
 	}
 
 	[Fact]

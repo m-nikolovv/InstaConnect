@@ -21,7 +21,7 @@ public class GetPostLikeByIdQueryRepositoryUnitTests : BasePostLikeInfrastructur
 		_repository = new(Collection, IncludeBuilderFactory, LikeIncludeBuilderFactory);
 
 		Collection.SetupAggregateFluent(PostLikeId, _currentUserQuery, Fluent);
-		Fluent.SetupApplyIncludes(PostLikeId, _currentUserQuery, _include);
+		Fluent.SetupInclude(PostLikeId, _currentUserQuery, _include);
 		Fluent.SetupMatch(PostLikeId, _currentUserQuery);
 		Fluent.SetupProjectToFullResponse(PostLikeId, _currentUserQuery, ResponseFluent);
 		ResponseFluent.SetupFirstOrDefaultAsync(PostLikeId, _currentUserQuery, PostLike, CancellationToken);
@@ -48,13 +48,13 @@ public class GetPostLikeByIdQueryRepositoryUnitTests : BasePostLikeInfrastructur
 	}
 
 	[Fact]
-	public async Task GetByIdAsync_ShouldCallTheFluentApplyIncludes_WhenQueryIsValid()
+	public async Task GetByIdAsync_ShouldCallTheFluentInclude_WhenQueryIsValid()
 	{
 		// Act
 		await _repository.GetByIdAsync(PostLikeId, _currentUserQuery, CancellationToken);
 
 		// Assert
-		Fluent.ShouldHaveReceivedOneApplyIncludes(PostLikeId, _currentUserQuery, _include);
+		Fluent.ShouldHaveReceivedOneInclude(PostLikeId, _currentUserQuery, _include);
 	}
 
 	[Fact]

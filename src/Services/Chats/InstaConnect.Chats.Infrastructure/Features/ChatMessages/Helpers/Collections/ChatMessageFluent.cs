@@ -18,9 +18,9 @@ internal class ChatMessageFluent : IChatMessageFluent
 		_responseFluentFactory = responseFluentFactory;
 	}
 
-	public IChatMessageFluent ApplyIncludes(ChatMessageInclude include)
+	public IChatMessageFluent Include(ChatMessageInclude include)
 	{
-		_fluentHandler.ApplyIncludes(_includerFactory, include);
+		_fluentHandler.Include(_includerFactory, include);
 
 		return this;
 	}

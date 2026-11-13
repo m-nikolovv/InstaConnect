@@ -13,7 +13,7 @@ public class GetPostCommentByIdRangeCommandRepositoryUnitTests : BasePostComment
 		_repository = new(Collection, IncludeBuilderFactory);
 
 		Collection.SetupAggregateFluent(PostCommentIds, Fluent);
-		Fluent.SetupApplyIncludes(PostCommentIds, _include);
+		Fluent.SetupInclude(PostCommentIds, _include);
 		Fluent.SetupMatch(PostCommentIds);
 		Fluent.SetupToListAsync(PostCommentIds, PostComments, CancellationToken);
 	}
@@ -39,13 +39,13 @@ public class GetPostCommentByIdRangeCommandRepositoryUnitTests : BasePostComment
 	}
 
 	[Fact]
-	public async Task GetByIdRangeAsync_ShouldCallTheFluentApplyIncludes_WhenCommandIsValid()
+	public async Task GetByIdRangeAsync_ShouldCallTheFluentInclude_WhenCommandIsValid()
 	{
 		// Act
 		await _repository.GetByIdRangeAsync(PostCommentIds, _include, CancellationToken);
 
 		// Assert
-		Fluent.ShouldHaveReceivedOneApplyIncludes(PostCommentIds, _include);
+		Fluent.ShouldHaveReceivedOneInclude(PostCommentIds, _include);
 	}
 
 	[Fact]

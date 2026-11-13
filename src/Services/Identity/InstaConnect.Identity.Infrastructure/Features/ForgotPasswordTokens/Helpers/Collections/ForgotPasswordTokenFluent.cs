@@ -17,9 +17,9 @@ internal class ForgotPasswordTokenFluent : IForgotPasswordTokenFluent
 		_includerFactory = includerFactory;
 	}
 
-	public IForgotPasswordTokenFluent ApplyIncludes(ForgotPasswordTokenInclude include)
+	public IForgotPasswordTokenFluent Include(ForgotPasswordTokenInclude include)
 	{
-		_fluentHandler.ApplyIncludes(_includerFactory, include);
+		_fluentHandler.Include(_includerFactory, include);
 
 		return this;
 	}

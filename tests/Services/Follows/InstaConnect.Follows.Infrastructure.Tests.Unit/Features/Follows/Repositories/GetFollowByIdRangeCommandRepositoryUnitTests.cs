@@ -13,7 +13,7 @@ public class GetFollowByIdRangeCommandRepositoryUnitTests : BaseFollowInfrastruc
 		_repository = new(Collection, IncludeBuilderFactory);
 
 		Collection.SetupAggregateFluent(FollowIds, Fluent);
-		Fluent.SetupApplyIncludes(FollowIds, _include);
+		Fluent.SetupInclude(FollowIds, _include);
 		Fluent.SetupMatch(FollowIds);
 		Fluent.SetupToListAsync(FollowIds, Follows, CancellationToken);
 	}
@@ -39,13 +39,13 @@ public class GetFollowByIdRangeCommandRepositoryUnitTests : BaseFollowInfrastruc
 	}
 
 	[Fact]
-	public async Task GetByIdRangeAsync_ShouldCallTheFluentApplyIncludes_WhenCommandIsValid()
+	public async Task GetByIdRangeAsync_ShouldCallTheFluentInclude_WhenCommandIsValid()
 	{
 		// Act
 		await _repository.GetByIdRangeAsync(FollowIds, _include, CancellationToken);
 
 		// Assert
-		Fluent.ShouldHaveReceivedOneApplyIncludes(FollowIds, _include);
+		Fluent.ShouldHaveReceivedOneInclude(FollowIds, _include);
 	}
 
 	[Fact]

@@ -7,5 +7,5 @@ public interface IEmailConfirmationTokenFluent : IMongoDbFluent<EmailConfirmatio
 {
 	public IEmailConfirmationTokenFluent Match(EmailConfirmationTokenId filter);
 	public IEmailConfirmationTokenFluent Match(IEnumerable<EmailConfirmationTokenId> filter);
-	public IEmailConfirmationTokenFluent ApplyIncludes(EmailConfirmationTokenInclude include);
+	public IEmailConfirmationTokenFluent Include(EmailConfirmationTokenInclude include);
 }

@@ -8,7 +8,7 @@ public interface IMongoDbFluentHandler<TEntity, TEntityId>
 
 	public void Match(FilterDefinition<TEntity> filterDefinition);
 
-	public void ApplyIncludes<TInclude, TIncludeType, TDestinationType, TIncludeDescriptor, TIncluder>(
+	public void Include<TInclude, TIncludeType, TDestinationType, TIncludeDescriptor, TIncluder>(
 		IIncluderFactory<TIncludeType, TDestinationType, TIncludeDescriptor, TIncluder, TEntity> includerFactory,
 		TInclude include)
 		where TDestinationType : Enum

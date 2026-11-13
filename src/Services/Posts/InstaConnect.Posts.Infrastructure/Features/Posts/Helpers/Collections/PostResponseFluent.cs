@@ -22,23 +22,23 @@ internal class PostResponseFluent : IPostResponseFluent
 		_forUserSortTermerFactory = forUserSortTermerFactory;
 	}
 
-	public IPostResponseFluent ApplySorting(PostsSortingQuery query)
+	public IPostResponseFluent Sort(PostsSortingQuery query)
 	{
-		_fluentHandler.ApplySorting(_sortOrdererFactory, _sortTermerFactory, query);
+		_fluentHandler.Sort(_sortOrdererFactory, _sortTermerFactory, query);
 
 		return this;
 	}
 
-	public IPostResponseFluent ApplySorting(PostsForUserSortingQuery query)
+	public IPostResponseFluent Sort(PostsForUserSortingQuery query)
 	{
-		_fluentHandler.ApplySorting(_sortOrdererFactory, _forUserSortTermerFactory, query);
+		_fluentHandler.Sort(_sortOrdererFactory, _forUserSortTermerFactory, query);
 
 		return this;
 	}
 
-	public IPostResponseFluent ApplyPagination(PostsPaginationQuery query)
+	public IPostResponseFluent Paginate(PostsPaginationQuery query)
 	{
-		_fluentHandler.ApplyPagination(_paginator, query);
+		_fluentHandler.Paginate(_paginator, query);
 
 		return this;
 	}

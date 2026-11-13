@@ -17,9 +17,9 @@ internal class EmailConfirmationTokenFluent : IEmailConfirmationTokenFluent
 		_includerFactory = includerFactory;
 	}
 
-	public IEmailConfirmationTokenFluent ApplyIncludes(EmailConfirmationTokenInclude include)
+	public IEmailConfirmationTokenFluent Include(EmailConfirmationTokenInclude include)
 	{
-		_fluentHandler.ApplyIncludes(_includerFactory, include);
+		_fluentHandler.Include(_includerFactory, include);
 
 		return this;
 	}

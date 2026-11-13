@@ -22,9 +22,9 @@ internal class ChatFluent : IChatFluent
 		_responseFluentFactory = responseFluentFactory;
 	}
 
-	public IChatFluent ApplyIncludes(ChatInclude include)
+	public IChatFluent Include(ChatInclude include)
 	{
-		_fluentHandler.ApplyIncludes(_includerFactory, include);
+		_fluentHandler.Include(_includerFactory, include);
 
 		return this;
 	}
@@ -33,7 +33,7 @@ internal class ChatFluent : IChatFluent
 	{
 		_fluentHandler.Match(filter.GetParticipantFilter());
 
-		ApplyIncludes(_includeBuilderFactory.Create().WithParticipantOne().WithParticipantTwo().Build());
+		Include(_includeBuilderFactory.Create().WithParticipantOne().WithParticipantTwo().Build());
 		_fluentHandler.Match(filter.GetFilter());
 
 		return this;

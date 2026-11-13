@@ -18,9 +18,9 @@ internal class FollowFluent : IFollowFluent
 		_responseFluentFactory = responseFluentFactory;
 	}
 
-	public IFollowFluent ApplyIncludes(FollowInclude include)
+	public IFollowFluent Include(FollowInclude include)
 	{
-		_fluentHandler.ApplyIncludes(_includerFactory, include);
+		_fluentHandler.Include(_includerFactory, include);
 
 		return this;
 	}

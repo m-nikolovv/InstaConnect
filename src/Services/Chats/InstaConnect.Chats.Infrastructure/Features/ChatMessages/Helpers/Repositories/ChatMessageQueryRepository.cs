@@ -31,10 +31,10 @@ internal class ChatMessageQueryRepository : IChatMessageQueryRepository
 		return await _collection
 			.AggregateFluent()
 			.Match(filter)
-			.ApplyIncludes(messageInclude)
+			.Include(messageInclude)
 			.ProjectToResponseWithoutChat(currentUser)
-			.ApplySorting(sorting)
-			.ApplyPagination(pagination)
+			.Sort(sorting)
+			.Paginate(pagination)
 			.ToListAsync(cancellationToken);
 	}
 
@@ -59,7 +59,7 @@ internal class ChatMessageQueryRepository : IChatMessageQueryRepository
 		return await _collection
 			.AggregateFluent()
 			.Match(id)
-			.ApplyIncludes(messageInclude)
+			.Include(messageInclude)
 			.ProjectToFullResponse(currentUser)
 			.FirstOrDefaultAsync(cancellationToken);
 	}

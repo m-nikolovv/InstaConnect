@@ -23,7 +23,7 @@ public class GetPostCommentsTotalCountQueryRepositoryUnitTests : BasePostComment
 		_repository = new(Collection, IncludeBuilderFactory, CommentIncludeBuilderFactory);
 
 		Collection.SetupAggregateFluent(_filterQuery, Fluent);
-		Fluent.SetupApplyIncludes(_filterQuery, _include);
+		Fluent.SetupInclude(_filterQuery, _include);
 		Fluent.SetupMatch(_filterQuery);
 		Fluent.SetupGetCountAsync(_filterQuery, PostComments, CancellationToken);
 	}
@@ -49,13 +49,13 @@ public class GetPostCommentsTotalCountQueryRepositoryUnitTests : BasePostComment
 	}
 
 	[Fact]
-	public async Task GetTotalCountAsync_ShouldCallTheFluentApplyIncludes_WhenQueryIsValid()
+	public async Task GetTotalCountAsync_ShouldCallTheFluentInclude_WhenQueryIsValid()
 	{
 		// Act
 		await _repository.GetTotalCountAsync(_filterQuery, CancellationToken);
 
 		// Assert
-		Fluent.ShouldHaveReceivedOneApplyIncludes(_filterQuery, _include);
+		Fluent.ShouldHaveReceivedOneInclude(_filterQuery, _include);
 	}
 
 	[Fact]

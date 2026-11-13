@@ -19,16 +19,16 @@ internal class ChatResponseFluent : IChatResponseFluent
 		_sortOrdererFactory = sortOrdererFactory;
 	}
 
-	public IChatResponseFluent ApplySorting(ChatsSortingQuery query)
+	public IChatResponseFluent Sort(ChatsSortingQuery query)
 	{
-		_fluentHandler.ApplySorting(_sortOrdererFactory, _sortTermerFactory, query);
+		_fluentHandler.Sort(_sortOrdererFactory, _sortTermerFactory, query);
 
 		return this;
 	}
 
-	public IChatResponseFluent ApplyPagination(ChatsPaginationQuery query)
+	public IChatResponseFluent Paginate(ChatsPaginationQuery query)
 	{
-		_fluentHandler.ApplyPagination(_paginator, query);
+		_fluentHandler.Paginate(_paginator, query);
 
 		return this;
 	}

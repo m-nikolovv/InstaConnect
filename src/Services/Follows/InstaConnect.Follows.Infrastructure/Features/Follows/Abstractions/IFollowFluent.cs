@@ -9,5 +9,5 @@ public interface IFollowFluent : IMongoDbFluent<Follow, FollowId>
 	public IFollowResponseFluent ProjectToFullResponse(CurrentUserQuery currentUser);
 	public IFollowResponseFluent ProjectToResponseWithoutFollower(CurrentUserQuery currentUser);
 	public IFollowResponseFluent ProjectToResponseWithoutFollowing(CurrentUserQuery currentUser);
-	public IFollowFluent ApplyIncludes(FollowInclude include);
+	public IFollowFluent Include(FollowInclude include);
 }

@@ -19,9 +19,9 @@ internal class PostCommentFluent : IPostCommentFluent
 		_responseFluentFactory = responseFluentFactory;
 	}
 
-	public IPostCommentFluent ApplyIncludes(PostCommentInclude include)
+	public IPostCommentFluent Include(PostCommentInclude include)
 	{
-		_fluentHandler.ApplyIncludes(_includerFactory, include);
+		_fluentHandler.Include(_includerFactory, include);
 
 		return this;
 	}

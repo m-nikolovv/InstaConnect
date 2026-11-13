@@ -8,5 +8,5 @@ public interface IPostFluent : IMongoDbFluent<Post, PostId>
 	public IPostFluent Match(IEnumerable<PostId> filter);
 	public IPostResponseFluent ProjectToFullResponse(CurrentUserQuery currentUser);
 	public IPostResponseFluent ProjectToResponseWithoutUser(CurrentUserQuery currentUser);
-	public IPostFluent ApplyIncludes(PostInclude include);
+	public IPostFluent Include(PostInclude include);
 }

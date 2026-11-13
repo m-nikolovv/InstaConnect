@@ -29,11 +29,11 @@ internal class PostLikeQueryRepository : IPostLikeQueryRepository
 
 		return await _collection
 			.AggregateFluent()
-			.ApplyIncludes(likeInclude)
+			.Include(likeInclude)
 			.Match(filter)
 			.ProjectToResponseWithoutPost(currentUser)
-			.ApplySorting(sorting)
-			.ApplyPagination(pagination)
+			.Sort(sorting)
+			.Paginate(pagination)
 			.ToListAsync(cancellationToken);
 	}
 
@@ -50,10 +50,10 @@ internal class PostLikeQueryRepository : IPostLikeQueryRepository
 		return await _collection
 			.AggregateFluent()
 			.Match(filter)
-			.ApplyIncludes(likeInclude)
+			.Include(likeInclude)
 			.ProjectToResponseWithoutUser(currentUser)
-			.ApplySorting(sorting)
-			.ApplyPagination(pagination)
+			.Sort(sorting)
+			.Paginate(pagination)
 			.ToListAsync(cancellationToken);
 	}
 
@@ -65,7 +65,7 @@ internal class PostLikeQueryRepository : IPostLikeQueryRepository
 
 		return await _collection
 			.AggregateFluent()
-			.ApplyIncludes(likeInclude)
+			.Include(likeInclude)
 			.Match(filter)
 			.GetCountAsync(cancellationToken);
 	}
@@ -91,7 +91,7 @@ internal class PostLikeQueryRepository : IPostLikeQueryRepository
 		return await _collection
 			.AggregateFluent()
 			.Match(id)
-			.ApplyIncludes(likeInclude)
+			.Include(likeInclude)
 			.ProjectToFullResponse(currentUser)
 			.FirstOrDefaultAsync(cancellationToken);
 	}

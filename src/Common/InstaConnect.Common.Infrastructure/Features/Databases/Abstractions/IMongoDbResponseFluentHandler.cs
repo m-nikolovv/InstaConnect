@@ -5,7 +5,7 @@ namespace InstaConnect.Common.Infrastructure.Features.Databases.Abstractions;
 public interface IMongoDbResponseFluentHandler<TEntity>
 	where TEntity : ICreatable
 {
-	public void ApplySorting<TSortTerm, TSortTermer, TSortingQuery>(
+	public void Sort<TSortTerm, TSortTermer, TSortingQuery>(
 		ISortOrdererFactory sortOrdererFactory,
 		ISortTermerFactory<TSortTerm, TSortTermer, TEntity> sortTermerFactory,
 		TSortingQuery sorting)
@@ -13,7 +13,7 @@ public interface IMongoDbResponseFluentHandler<TEntity>
 			where TSortTerm : Enum
 			where TSortTermer : ISortTermer<TSortTerm, TEntity>;
 
-	public void ApplyPagination<TPaginationQuery>(
+	public void Paginate<TPaginationQuery>(
 		IPaginator paginator,
 		TPaginationQuery pagination)
 		where TPaginationQuery : IPaginationQuery;

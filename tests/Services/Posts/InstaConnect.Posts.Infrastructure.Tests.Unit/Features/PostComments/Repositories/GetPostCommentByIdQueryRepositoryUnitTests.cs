@@ -21,7 +21,7 @@ public class GetPostCommentByIdQueryRepositoryUnitTests : BasePostCommentInfrast
 		_repository = new(Collection, IncludeBuilderFactory, CommentIncludeBuilderFactory);
 
 		Collection.SetupAggregateFluent(PostCommentId, _currentUserQuery, Fluent);
-		Fluent.SetupApplyIncludes(PostCommentId, _currentUserQuery, _include);
+		Fluent.SetupInclude(PostCommentId, _currentUserQuery, _include);
 		Fluent.SetupMatch(PostCommentId, _currentUserQuery);
 		Fluent.SetupProjectToFullResponse(PostCommentId, _currentUserQuery, ResponseFluent);
 		ResponseFluent.SetupFirstOrDefaultAsync(PostCommentId, _currentUserQuery, PostComment, CancellationToken);
@@ -48,13 +48,13 @@ public class GetPostCommentByIdQueryRepositoryUnitTests : BasePostCommentInfrast
 	}
 
 	[Fact]
-	public async Task GetByIdAsync_ShouldCallTheFluentApplyIncludes_WhenQueryIsValid()
+	public async Task GetByIdAsync_ShouldCallTheFluentInclude_WhenQueryIsValid()
 	{
 		// Act
 		await _repository.GetByIdAsync(PostCommentId, _currentUserQuery, CancellationToken);
 
 		// Assert
-		Fluent.ShouldHaveReceivedOneApplyIncludes(PostCommentId, _currentUserQuery, _include);
+		Fluent.ShouldHaveReceivedOneInclude(PostCommentId, _currentUserQuery, _include);
 	}
 
 	[Fact]

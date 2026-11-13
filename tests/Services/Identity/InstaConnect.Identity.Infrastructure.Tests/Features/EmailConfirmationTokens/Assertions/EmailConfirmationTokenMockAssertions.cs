@@ -72,16 +72,16 @@ public static class EmailConfirmationTokenMockAssertions
 			fluent.ShouldHaveReceivedOne().Match(ids);
 		}
 
-		public void ShouldHaveReceivedOneApplyIncludes(
+		public void ShouldHaveReceivedOneInclude(
 			EmailConfirmationTokenId id,
 			EmailConfirmationTokenInclude include)
 		{
-			fluent.ShouldHaveReceivedOneApplyIncludes(include);
+			fluent.ShouldHaveReceivedOneInclude(include);
 		}
 
-		public void ShouldHaveReceivedOneApplyIncludes(EmailConfirmationTokenInclude include)
+		public void ShouldHaveReceivedOneInclude(EmailConfirmationTokenInclude include)
 		{
-			fluent.ShouldHaveReceivedOne().ApplyIncludes(include);
+			fluent.ShouldHaveReceivedOne().Include(include);
 		}
 
 		public async Task ShouldHaveReceivedOneAnyAsync(

@@ -95,65 +95,65 @@ public static class PostLikeMockSetups
 			fluent.SetupAnyAsync(postLike != null, cancellationToken);
 		}
 
-		public void SetupApplyIncludes(
+		public void SetupInclude(
 			PostLikeId id,
 			PostLikeInclude include)
 		{
-			fluent.SetupApplyIncludes(include);
+			fluent.SetupInclude(include);
 		}
 
-		public void SetupApplyIncludes(
+		public void SetupInclude(
 			ICollection<PostLikeId> ids,
 			PostLikeInclude include)
 		{
-			fluent.SetupApplyIncludes(include);
+			fluent.SetupInclude(include);
 		}
 
-		public void SetupApplyIncludes(
+		public void SetupInclude(
 			PostLikeId id,
 			CurrentUserQuery currentUserQuery,
 			PostLikeInclude include)
 		{
-			fluent.SetupApplyIncludes(include);
+			fluent.SetupInclude(include);
 		}
 
-		public void SetupApplyIncludes(
+		public void SetupInclude(
 			PostLikesFilterQuery filterQuery,
 			PostLikeInclude include)
 		{
-			fluent.SetupApplyIncludes(include);
+			fluent.SetupInclude(include);
 		}
 
-		public void SetupApplyIncludes(
+		public void SetupInclude(
 			PostLikesForUserFilterQuery filterQuery,
 			PostLikeInclude include)
 		{
-			fluent.SetupApplyIncludes(include);
+			fluent.SetupInclude(include);
 		}
 
-		public void SetupApplyIncludes(
+		public void SetupInclude(
 			PostLikesFilterQuery filterQuery,
 			PostLikesSortingQuery sortingQuery,
 			PostLikesPaginationQuery paginationQuery,
 			CurrentUserQuery currentUserQuery,
 			PostLikeInclude include)
 		{
-			fluent.SetupApplyIncludes(include);
+			fluent.SetupInclude(include);
 		}
 
-		public void SetupApplyIncludes(
+		public void SetupInclude(
 			PostLikesForUserFilterQuery filterQuery,
 			PostLikesForUserSortingQuery sortingQuery,
 			PostLikesPaginationQuery paginationQuery,
 			CurrentUserQuery currentUserQuery,
 			PostLikeInclude include)
 		{
-			fluent.SetupApplyIncludes(include);
+			fluent.SetupInclude(include);
 		}
 
-		public void SetupApplyIncludes(PostLikeInclude include)
+		public void SetupInclude(PostLikeInclude include)
 		{
-			fluent.ApplyIncludes(include).ReturnsResponse(fluent);
+			fluent.Include(include).ReturnsResponse(fluent);
 		}
 
 		public void SetupMatch(PostLikeId id)
@@ -269,55 +269,55 @@ public static class PostLikeMockSetups
 
 	extension(IPostLikeResponseFluent fluent)
 	{
-		public void SetupApplySorting(
+		public void SetupSort(
 			PostLikesFilterQuery filterQuery,
 			PostLikesSortingQuery sortingQuery,
 			PostLikesPaginationQuery paginationQuery,
 			CurrentUserQuery currentUserQuery)
 		{
-			fluent.SetupApplySorting(sortingQuery);
+			fluent.SetupSort(sortingQuery);
 		}
 
-		public void SetupApplySorting(
+		public void SetupSort(
 			PostLikesForUserFilterQuery filterQuery,
 			PostLikesForUserSortingQuery sortingQuery,
 			PostLikesPaginationQuery paginationQuery,
 			CurrentUserQuery currentUserQuery)
 		{
-			fluent.SetupApplySorting(sortingQuery);
+			fluent.SetupSort(sortingQuery);
 		}
 
-		public void SetupApplySorting(PostLikesSortingQuery sortingQuery)
+		public void SetupSort(PostLikesSortingQuery sortingQuery)
 		{
-			fluent.ApplySorting(sortingQuery).ReturnsResponse(fluent);
+			fluent.Sort(sortingQuery).ReturnsResponse(fluent);
 		}
 
-		public void SetupApplySorting(PostLikesForUserSortingQuery sortingQuery)
+		public void SetupSort(PostLikesForUserSortingQuery sortingQuery)
 		{
-			fluent.ApplySorting(sortingQuery).ReturnsResponse(fluent);
+			fluent.Sort(sortingQuery).ReturnsResponse(fluent);
 		}
 
-		public void SetupApplyPagination(
+		public void SetupPaginate(
 			PostLikesFilterQuery filterQuery,
 			PostLikesSortingQuery sortingQuery,
 			PostLikesPaginationQuery paginationQuery,
 			CurrentUserQuery currentUserQuery)
 		{
-			fluent.SetupApplyPagination(paginationQuery);
+			fluent.SetupPaginate(paginationQuery);
 		}
 
-		public void SetupApplyPagination(
+		public void SetupPaginate(
 			PostLikesForUserFilterQuery filterQuery,
 			PostLikesForUserSortingQuery sortingQuery,
 			PostLikesPaginationQuery paginationQuery,
 			CurrentUserQuery currentUserQuery)
 		{
-			fluent.SetupApplyPagination(paginationQuery);
+			fluent.SetupPaginate(paginationQuery);
 		}
 
-		public void SetupApplyPagination(PostLikesPaginationQuery paginationQuery)
+		public void SetupPaginate(PostLikesPaginationQuery paginationQuery)
 		{
-			fluent.ApplyPagination(paginationQuery).ReturnsResponse(fluent);
+			fluent.Paginate(paginationQuery).ReturnsResponse(fluent);
 		}
 
 		public void SetupToListAsync(

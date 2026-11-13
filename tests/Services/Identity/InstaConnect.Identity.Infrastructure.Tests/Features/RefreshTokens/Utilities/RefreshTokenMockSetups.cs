@@ -31,16 +31,16 @@ public static class RefreshTokenMockSetups
 
 	extension(IRefreshTokenFluent fluent)
 	{
-		public void SetupApplyIncludes(
+		public void SetupInclude(
 			RefreshTokenId id,
 			RefreshTokenInclude include)
 		{
-			fluent.SetupApplyIncludes(include);
+			fluent.SetupInclude(include);
 		}
 
-		public void SetupApplyIncludes(RefreshTokenInclude include)
+		public void SetupInclude(RefreshTokenInclude include)
 		{
-			fluent.ApplyIncludes(include).ReturnsResponse(fluent);
+			fluent.Include(include).ReturnsResponse(fluent);
 		}
 
 		public void SetupMatch(RefreshTokenId id)

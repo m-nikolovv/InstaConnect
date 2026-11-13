@@ -22,23 +22,23 @@ internal class PostCommentLikeResponseFluent : IPostCommentLikeResponseFluent
 		_forUserSortTermerFactory = forUserSortTermerFactory;
 	}
 
-	public IPostCommentLikeResponseFluent ApplySorting(PostCommentLikesSortingQuery query)
+	public IPostCommentLikeResponseFluent Sort(PostCommentLikesSortingQuery query)
 	{
-		_fluentHandler.ApplySorting(_sortOrdererFactory, _sortTermerFactory, query);
+		_fluentHandler.Sort(_sortOrdererFactory, _sortTermerFactory, query);
 
 		return this;
 	}
 
-	public IPostCommentLikeResponseFluent ApplySorting(PostCommentLikesForUserSortingQuery query)
+	public IPostCommentLikeResponseFluent Sort(PostCommentLikesForUserSortingQuery query)
 	{
-		_fluentHandler.ApplySorting(_sortOrdererFactory, _forUserSortTermerFactory, query);
+		_fluentHandler.Sort(_sortOrdererFactory, _forUserSortTermerFactory, query);
 
 		return this;
 	}
 
-	public IPostCommentLikeResponseFluent ApplyPagination(PostCommentLikesPaginationQuery query)
+	public IPostCommentLikeResponseFluent Paginate(PostCommentLikesPaginationQuery query)
 	{
-		_fluentHandler.ApplyPagination(_paginator, query);
+		_fluentHandler.Paginate(_paginator, query);
 
 		return this;
 	}

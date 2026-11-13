@@ -12,7 +12,7 @@ internal class MongoDbResponseFluentHandler<TEntity> : IMongoDbResponseFluentHan
 		_fluent = fluent;
 	}
 
-	public void ApplySorting<TSortTerm, TSortTermer, TSortingQuery>(
+	public void Sort<TSortTerm, TSortTermer, TSortingQuery>(
 		ISortOrdererFactory sortOrdererFactory,
 		ISortTermerFactory<TSortTerm, TSortTermer, TEntity> sortTermerFactory,
 		TSortingQuery sorting)
@@ -26,7 +26,7 @@ internal class MongoDbResponseFluentHandler<TEntity> : IMongoDbResponseFluentHan
 		_fluent = _fluent.Sort(Builders<TEntity>.Sort.Combine(order.Sort(term.Term), order.Sort<TEntity>(a => a.CreatedAtUtc)));
 	}
 
-	public void ApplyPagination<TPaginationQuery>(
+	public void Paginate<TPaginationQuery>(
 		IPaginator paginator,
 		TPaginationQuery pagination)
 		where TPaginationQuery : IPaginationQuery

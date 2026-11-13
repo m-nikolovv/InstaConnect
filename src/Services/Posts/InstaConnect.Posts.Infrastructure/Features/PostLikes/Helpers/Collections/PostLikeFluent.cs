@@ -19,9 +19,9 @@ internal class PostLikeFluent : IPostLikeFluent
 		_responseFluentFactory = responseFluentFactory;
 	}
 
-	public IPostLikeFluent ApplyIncludes(PostLikeInclude include)
+	public IPostLikeFluent Include(PostLikeInclude include)
 	{
-		_fluentHandler.ApplyIncludes(_includerFactory, include);
+		_fluentHandler.Include(_includerFactory, include);
 
 		return this;
 	}

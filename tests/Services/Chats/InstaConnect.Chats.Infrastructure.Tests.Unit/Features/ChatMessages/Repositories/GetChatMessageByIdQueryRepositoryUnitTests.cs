@@ -25,7 +25,7 @@ public class GetChatMessageByIdQueryRepositoryUnitTests : BaseChatMessageInfrast
 		_repository = new(Collection, IncludeBuilderFactory, MessageIncludeBuilderFactory);
 
 		Collection.SetupAggregateFluent(ChatMessageId, _currentUserQuery, Fluent);
-		Fluent.SetupApplyIncludes(ChatMessageId, _currentUserQuery, _messageInclude);
+		Fluent.SetupInclude(ChatMessageId, _currentUserQuery, _messageInclude);
 		Fluent.SetupMatch(ChatMessageId, _currentUserQuery);
 		Fluent.SetupProjectToFullResponse(ChatMessageId, _currentUserQuery, ResponseFluent);
 		ResponseFluent.SetupFirstOrDefaultAsync(ChatMessageId, _currentUserQuery, ChatMessage, CancellationToken);
@@ -52,13 +52,13 @@ public class GetChatMessageByIdQueryRepositoryUnitTests : BaseChatMessageInfrast
 	}
 
 	[Fact]
-	public async Task GetByIdAsync_ShouldCallTheFluentApplyIncludes_WhenQueryIsValid()
+	public async Task GetByIdAsync_ShouldCallTheFluentInclude_WhenQueryIsValid()
 	{
 		// Act
 		await _repository.GetByIdAsync(ChatMessageId, _currentUserQuery, CancellationToken);
 
 		// Assert
-		Fluent.ShouldHaveReceivedOneApplyIncludes(ChatMessageId, _currentUserQuery, _messageInclude);
+		Fluent.ShouldHaveReceivedOneInclude(ChatMessageId, _currentUserQuery, _messageInclude);
 	}
 
 	[Fact]

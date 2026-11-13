@@ -23,7 +23,7 @@ internal class UserClaimCommandRepository : IUserClaimCommandRepository
 		return await _collection
 			.AggregateFluent()
 			.Match(id)
-			.ApplyIncludes(include)
+			.Include(include)
 			.FirstOrDefaultAsync(cancellationToken);
 	}
 

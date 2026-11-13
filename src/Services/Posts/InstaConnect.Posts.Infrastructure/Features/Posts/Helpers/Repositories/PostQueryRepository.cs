@@ -24,11 +24,11 @@ internal class PostQueryRepository : IPostQueryRepository
 
 		return await _collection
 			.AggregateFluent()
-			.ApplyIncludes(include)
+			.Include(include)
 			.Match(filter)
 			.ProjectToFullResponse(currentUser)
-			.ApplySorting(sorting)
-			.ApplyPagination(pagination)
+			.Sort(sorting)
+			.Paginate(pagination)
 			.ToListAsync(cancellationToken);
 	}
 
@@ -44,10 +44,10 @@ internal class PostQueryRepository : IPostQueryRepository
 		return await _collection
 			.AggregateFluent()
 			.Match(filter)
-			.ApplyIncludes(include)
+			.Include(include)
 			.ProjectToResponseWithoutUser(currentUser)
-			.ApplySorting(sorting)
-			.ApplyPagination(pagination)
+			.Sort(sorting)
+			.Paginate(pagination)
 			.ToListAsync(cancellationToken);
 	}
 
@@ -59,7 +59,7 @@ internal class PostQueryRepository : IPostQueryRepository
 
 		return await _collection
 			.AggregateFluent()
-			.ApplyIncludes(include)
+			.Include(include)
 			.Match(filter)
 			.GetCountAsync(cancellationToken);
 	}
@@ -84,7 +84,7 @@ internal class PostQueryRepository : IPostQueryRepository
 		return await _collection
 			.AggregateFluent()
 			.Match(id)
-			.ApplyIncludes(include)
+			.Include(include)
 			.ProjectToFullResponse(currentUser)
 			.FirstOrDefaultAsync(cancellationToken);
 	}

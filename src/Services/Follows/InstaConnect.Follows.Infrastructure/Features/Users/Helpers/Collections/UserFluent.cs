@@ -18,9 +18,9 @@ internal class UserFluent : IUserFluent
 		_responseFluentFactory = responseFluentFactory;
 	}
 
-	public IUserFluent ApplyIncludes(UserInclude include)
+	public IUserFluent Include(UserInclude include)
 	{
-		_fluentHandler.ApplyIncludes(_includerFactory, include);
+		_fluentHandler.Include(_includerFactory, include);
 
 		return this;
 	}

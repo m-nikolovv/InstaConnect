@@ -16,7 +16,7 @@ public class GetEmailConfirmationTokenByIdCommandRepositoryUnitTests : BaseEmail
 		_repository = new(Collection, IncludeBuilderFactory);
 
 		Collection.SetupAggregateFluent(EmailConfirmationTokenId, Fluent);
-		Fluent.SetupApplyIncludes(EmailConfirmationTokenId, _include);
+		Fluent.SetupInclude(EmailConfirmationTokenId, _include);
 		Fluent.SetupMatch(EmailConfirmationTokenId);
 		Fluent.SetupFirstOrDefaultAsync(EmailConfirmationTokenId, EmailConfirmationToken, CancellationToken);
 	}
@@ -42,13 +42,13 @@ public class GetEmailConfirmationTokenByIdCommandRepositoryUnitTests : BaseEmail
 	}
 
 	[Fact]
-	public async Task GetByIdAsync_ShouldCallTheFluentApplyIncludes_WhenCommandIsValid()
+	public async Task GetByIdAsync_ShouldCallTheFluentInclude_WhenCommandIsValid()
 	{
 		// Act
 		await _repository.GetByIdAsync(EmailConfirmationTokenId, _include, CancellationToken);
 
 		// Assert
-		Fluent.ShouldHaveReceivedOneApplyIncludes(EmailConfirmationTokenId, _include);
+		Fluent.ShouldHaveReceivedOneInclude(EmailConfirmationTokenId, _include);
 	}
 
 	[Fact]

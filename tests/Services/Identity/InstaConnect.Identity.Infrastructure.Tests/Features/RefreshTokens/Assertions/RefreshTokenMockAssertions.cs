@@ -65,16 +65,16 @@ public static class RefreshTokenMockAssertions
 			fluent.ShouldHaveReceivedOne().Match(ids);
 		}
 
-		public void ShouldHaveReceivedOneApplyIncludes(
+		public void ShouldHaveReceivedOneInclude(
 			RefreshTokenId id,
 			RefreshTokenInclude include)
 		{
-			fluent.ShouldHaveReceivedOneApplyIncludes(include);
+			fluent.ShouldHaveReceivedOneInclude(include);
 		}
 
-		public void ShouldHaveReceivedOneApplyIncludes(RefreshTokenInclude include)
+		public void ShouldHaveReceivedOneInclude(RefreshTokenInclude include)
 		{
-			fluent.ShouldHaveReceivedOne().ApplyIncludes(include);
+			fluent.ShouldHaveReceivedOne().Include(include);
 		}
 
 		public async Task ShouldHaveReceivedOneFirstOrDefaultAsync(

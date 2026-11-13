@@ -15,7 +15,7 @@ public class GetPostByIdRangeCommandRepositoryUnitTests : BasePostInfrastructure
 		_repository = new(Collection, IncludeBuilderFactory);
 
 		Collection.SetupAggregateFluent(PostIds, Fluent);
-		Fluent.SetupApplyIncludes(PostIds, _include);
+		Fluent.SetupInclude(PostIds, _include);
 		Fluent.SetupMatch(PostIds);
 		Fluent.SetupToListAsync(PostIds, Posts, CancellationToken);
 	}
@@ -41,13 +41,13 @@ public class GetPostByIdRangeCommandRepositoryUnitTests : BasePostInfrastructure
 	}
 
 	[Fact]
-	public async Task GetByIdRangeAsync_ShouldCallTheFluentApplyIncludes_WhenCommandIsValid()
+	public async Task GetByIdRangeAsync_ShouldCallTheFluentInclude_WhenCommandIsValid()
 	{
 		// Act
 		await _repository.GetByIdRangeAsync(PostIds, _include, CancellationToken);
 
 		// Assert
-		Fluent.ShouldHaveReceivedOneApplyIncludes(PostIds, _include);
+		Fluent.ShouldHaveReceivedOneInclude(PostIds, _include);
 	}
 
 	[Fact]

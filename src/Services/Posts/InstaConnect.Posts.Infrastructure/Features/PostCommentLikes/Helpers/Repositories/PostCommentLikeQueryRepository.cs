@@ -33,11 +33,11 @@ internal class PostCommentLikeQueryRepository : IPostCommentLikeQueryRepository
 
 		return await _collection
 			.AggregateFluent()
-			.ApplyIncludes(commentLikeInclude)
+			.Include(commentLikeInclude)
 			.Match(filter)
 			.ProjectToResponseWithoutPostComment(currentUser)
-			.ApplySorting(sorting)
-			.ApplyPagination(pagination)
+			.Sort(sorting)
+			.Paginate(pagination)
 			.ToListAsync(cancellationToken);
 	}
 
@@ -55,10 +55,10 @@ internal class PostCommentLikeQueryRepository : IPostCommentLikeQueryRepository
 		return await _collection
 			.AggregateFluent()
 			.Match(filter)
-			.ApplyIncludes(commentLikeInclude)
+			.Include(commentLikeInclude)
 			.ProjectToResponseWithoutUser(currentUser)
-			.ApplySorting(sorting)
-			.ApplyPagination(pagination)
+			.Sort(sorting)
+			.Paginate(pagination)
 			.ToListAsync(cancellationToken);
 	}
 
@@ -70,7 +70,7 @@ internal class PostCommentLikeQueryRepository : IPostCommentLikeQueryRepository
 
 		return await _collection
 			.AggregateFluent()
-			.ApplyIncludes(commentLikeInclude)
+			.Include(commentLikeInclude)
 			.Match(filter)
 			.GetCountAsync(cancellationToken);
 	}
@@ -97,7 +97,7 @@ internal class PostCommentLikeQueryRepository : IPostCommentLikeQueryRepository
 		return await _collection
 			.AggregateFluent()
 			.Match(id)
-			.ApplyIncludes(commentLikeInclude)
+			.Include(commentLikeInclude)
 			.ProjectToFullResponse(currentUser)
 			.FirstOrDefaultAsync(cancellationToken);
 	}

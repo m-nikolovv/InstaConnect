@@ -19,16 +19,16 @@ internal class UserClaimResponseFluent : IUserClaimResponseFluent
 		_sortOrdererFactory = sortOrdererFactory;
 	}
 
-	public IUserClaimResponseFluent ApplySorting(UserClaimsSortingQuery query)
+	public IUserClaimResponseFluent Sort(UserClaimsSortingQuery query)
 	{
-		_fluentHandler.ApplySorting(_sortOrdererFactory, _sortTermerFactory, query);
+		_fluentHandler.Sort(_sortOrdererFactory, _sortTermerFactory, query);
 
 		return this;
 	}
 
-	public IUserClaimResponseFluent ApplyPagination(UserClaimsPaginationQuery query)
+	public IUserClaimResponseFluent Paginate(UserClaimsPaginationQuery query)
 	{
-		_fluentHandler.ApplyPagination(_paginator, query);
+		_fluentHandler.Paginate(_paginator, query);
 
 		return this;
 	}

@@ -19,7 +19,7 @@ public class GetRefreshTokenByIdCommandRepositoryUnitTests : BaseRefreshTokenInf
 		_repository = new(Collection, IncludeBuilderFactory);
 
 		Collection.SetupAggregateFluent(RefreshTokenId, Fluent);
-		Fluent.SetupApplyIncludes(RefreshTokenId, _include);
+		Fluent.SetupInclude(RefreshTokenId, _include);
 		Fluent.SetupMatch(RefreshTokenId);
 		Fluent.SetupFirstOrDefaultAsync(RefreshTokenId, RefreshToken, CancellationToken);
 	}
@@ -45,13 +45,13 @@ public class GetRefreshTokenByIdCommandRepositoryUnitTests : BaseRefreshTokenInf
 	}
 
 	[Fact]
-	public async Task GetByIdAsync_ShouldCallTheFluentApplyIncludes_WhenCommandIsValid()
+	public async Task GetByIdAsync_ShouldCallTheFluentInclude_WhenCommandIsValid()
 	{
 		// Act
 		await _repository.GetByIdAsync(RefreshTokenId, _include, CancellationToken);
 
 		// Assert
-		Fluent.ShouldHaveReceivedOneApplyIncludes(RefreshTokenId, _include);
+		Fluent.ShouldHaveReceivedOneInclude(RefreshTokenId, _include);
 	}
 
 	[Fact]

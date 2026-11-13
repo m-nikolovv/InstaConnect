@@ -18,9 +18,9 @@ internal class UserClaimFluent : IUserClaimFluent
 		_responseFluentFactory = responseFluentFactory;
 	}
 
-	public IUserClaimFluent ApplyIncludes(UserClaimInclude include)
+	public IUserClaimFluent Include(UserClaimInclude include)
 	{
-		_fluentHandler.ApplyIncludes(_includerFactory, include);
+		_fluentHandler.Include(_includerFactory, include);
 
 		return this;
 	}

@@ -7,5 +7,5 @@ public interface IUserClaimFluent : IMongoDbFluent<UserClaim, UserClaimId>
 	public IUserClaimFluent Match(IEnumerable<UserClaimId> filter);
 	public IUserClaimResponseFluent ProjectToFullResponse(CurrentUserQuery currentUser);
 	public IUserClaimResponseFluent ProjectToResponseWithoutUser(CurrentUserQuery currentUser);
-	public IUserClaimFluent ApplyIncludes(UserClaimInclude include);
+	public IUserClaimFluent Include(UserClaimInclude include);
 }

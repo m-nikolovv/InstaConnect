@@ -15,7 +15,7 @@ public class GetChatMessageByIdRangeCommandRepositoryUnitTests : BaseChatMessage
 		_repository = new(Collection, MessageIncludeBuilderFactory);
 
 		Collection.SetupAggregateFluent(ChatMessageIds, Fluent);
-		Fluent.SetupApplyIncludes(ChatMessageIds, _include);
+		Fluent.SetupInclude(ChatMessageIds, _include);
 		Fluent.SetupMatch(ChatMessageIds);
 		Fluent.SetupToListAsync(ChatMessageIds, ChatMessages, CancellationToken);
 	}
@@ -41,13 +41,13 @@ public class GetChatMessageByIdRangeCommandRepositoryUnitTests : BaseChatMessage
 	}
 
 	[Fact]
-	public async Task GetByIdRangeAsync_ShouldCallTheFluentApplyIncludes_WhenCommandIsValid()
+	public async Task GetByIdRangeAsync_ShouldCallTheFluentInclude_WhenCommandIsValid()
 	{
 		// Act
 		await _repository.GetByIdRangeAsync(ChatMessageIds, _include, CancellationToken);
 
 		// Assert
-		Fluent.ShouldHaveReceivedOneApplyIncludes(ChatMessageIds, _include);
+		Fluent.ShouldHaveReceivedOneInclude(ChatMessageIds, _include);
 	}
 
 	[Fact]

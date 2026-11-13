@@ -94,65 +94,65 @@ public static class PostCommentMockSetups
 			fluent.SetupAnyAsync(postComment != null, cancellationToken);
 		}
 
-		public void SetupApplyIncludes(
+		public void SetupInclude(
 			PostCommentId id,
 			PostCommentInclude include)
 		{
-			fluent.SetupApplyIncludes(include);
+			fluent.SetupInclude(include);
 		}
 
-		public void SetupApplyIncludes(
+		public void SetupInclude(
 			ICollection<PostCommentId> ids,
 			PostCommentInclude include)
 		{
-			fluent.SetupApplyIncludes(include);
+			fluent.SetupInclude(include);
 		}
 
-		public void SetupApplyIncludes(
+		public void SetupInclude(
 			PostCommentId id,
 			CurrentUserQuery currentUserQuery,
 			PostCommentInclude include)
 		{
-			fluent.SetupApplyIncludes(include);
+			fluent.SetupInclude(include);
 		}
 
-		public void SetupApplyIncludes(
+		public void SetupInclude(
 			PostCommentsFilterQuery filterQuery,
 			PostCommentInclude include)
 		{
-			fluent.SetupApplyIncludes(include);
+			fluent.SetupInclude(include);
 		}
 
-		public void SetupApplyIncludes(
+		public void SetupInclude(
 			PostCommentsForUserFilterQuery filterQuery,
 			PostCommentInclude include)
 		{
-			fluent.SetupApplyIncludes(include);
+			fluent.SetupInclude(include);
 		}
 
-		public void SetupApplyIncludes(
+		public void SetupInclude(
 			PostCommentsFilterQuery filterQuery,
 			PostCommentsSortingQuery sortingQuery,
 			PostCommentsPaginationQuery paginationQuery,
 			CurrentUserQuery currentUserQuery,
 			PostCommentInclude include)
 		{
-			fluent.SetupApplyIncludes(include);
+			fluent.SetupInclude(include);
 		}
 
-		public void SetupApplyIncludes(
+		public void SetupInclude(
 			PostCommentsForUserFilterQuery filterQuery,
 			PostCommentsForUserSortingQuery sortingQuery,
 			PostCommentsPaginationQuery paginationQuery,
 			CurrentUserQuery currentUserQuery,
 			PostCommentInclude include)
 		{
-			fluent.SetupApplyIncludes(include);
+			fluent.SetupInclude(include);
 		}
 
-		public void SetupApplyIncludes(PostCommentInclude include)
+		public void SetupInclude(PostCommentInclude include)
 		{
-			fluent.ApplyIncludes(include).ReturnsResponse(fluent);
+			fluent.Include(include).ReturnsResponse(fluent);
 		}
 
 		public void SetupMatch(PostCommentId id)
@@ -268,55 +268,55 @@ public static class PostCommentMockSetups
 
 	extension(IPostCommentResponseFluent fluent)
 	{
-		public void SetupApplySorting(
+		public void SetupSort(
 			PostCommentsFilterQuery filterQuery,
 			PostCommentsSortingQuery sortingQuery,
 			PostCommentsPaginationQuery paginationQuery,
 			CurrentUserQuery currentUserQuery)
 		{
-			fluent.SetupApplySorting(sortingQuery);
+			fluent.SetupSort(sortingQuery);
 		}
 
-		public void SetupApplySorting(
+		public void SetupSort(
 			PostCommentsForUserFilterQuery filterQuery,
 			PostCommentsForUserSortingQuery sortingQuery,
 			PostCommentsPaginationQuery paginationQuery,
 			CurrentUserQuery currentUserQuery)
 		{
-			fluent.SetupApplySorting(sortingQuery);
+			fluent.SetupSort(sortingQuery);
 		}
 
-		public void SetupApplySorting(PostCommentsSortingQuery sortingQuery)
+		public void SetupSort(PostCommentsSortingQuery sortingQuery)
 		{
-			fluent.ApplySorting(sortingQuery).ReturnsResponse(fluent);
+			fluent.Sort(sortingQuery).ReturnsResponse(fluent);
 		}
 
-		public void SetupApplySorting(PostCommentsForUserSortingQuery sortingQuery)
+		public void SetupSort(PostCommentsForUserSortingQuery sortingQuery)
 		{
-			fluent.ApplySorting(sortingQuery).ReturnsResponse(fluent);
+			fluent.Sort(sortingQuery).ReturnsResponse(fluent);
 		}
 
-		public void SetupApplyPagination(
+		public void SetupPaginate(
 			PostCommentsFilterQuery filterQuery,
 			PostCommentsSortingQuery sortingQuery,
 			PostCommentsPaginationQuery paginationQuery,
 			CurrentUserQuery currentUserQuery)
 		{
-			fluent.SetupApplyPagination(paginationQuery);
+			fluent.SetupPaginate(paginationQuery);
 		}
 
-		public void SetupApplyPagination(
+		public void SetupPaginate(
 			PostCommentsForUserFilterQuery filterQuery,
 			PostCommentsForUserSortingQuery sortingQuery,
 			PostCommentsPaginationQuery paginationQuery,
 			CurrentUserQuery currentUserQuery)
 		{
-			fluent.SetupApplyPagination(paginationQuery);
+			fluent.SetupPaginate(paginationQuery);
 		}
 
-		public void SetupApplyPagination(PostCommentsPaginationQuery paginationQuery)
+		public void SetupPaginate(PostCommentsPaginationQuery paginationQuery)
 		{
-			fluent.ApplyPagination(paginationQuery).ReturnsResponse(fluent);
+			fluent.Paginate(paginationQuery).ReturnsResponse(fluent);
 		}
 
 		public void SetupToListAsync(

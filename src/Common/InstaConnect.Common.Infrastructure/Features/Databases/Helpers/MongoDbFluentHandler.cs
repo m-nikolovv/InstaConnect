@@ -22,7 +22,7 @@ internal class MongoDbFluentHandler<TEntity, TEntityId>
 		_fluent = _fluent.Match(filterDefinition);
 	}
 
-	public void ApplyIncludes<TInclude, TIncludeType, TDestinationType, TIncludeDescriptor, TIncluder>(
+	public void Include<TInclude, TIncludeType, TDestinationType, TIncludeDescriptor, TIncluder>(
 		IIncluderFactory<TIncludeType, TDestinationType, TIncludeDescriptor, TIncluder, TEntity> includerFactory,
 		TInclude include)
 		where TDestinationType : Enum

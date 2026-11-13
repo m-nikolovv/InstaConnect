@@ -22,23 +22,23 @@ internal class FollowResponseFluent : IFollowResponseFluent
 		_forFollowingSortTermerFactory = forFollowingSortTermerFactory;
 	}
 
-	public IFollowResponseFluent ApplySorting(FollowsSortingQuery query)
+	public IFollowResponseFluent Sort(FollowsSortingQuery query)
 	{
-		_fluentHandler.ApplySorting(_sortOrdererFactory, _sortTermerFactory, query);
+		_fluentHandler.Sort(_sortOrdererFactory, _sortTermerFactory, query);
 
 		return this;
 	}
 
-	public IFollowResponseFluent ApplySorting(FollowsForFollowingSortingQuery query)
+	public IFollowResponseFluent Sort(FollowsForFollowingSortingQuery query)
 	{
-		_fluentHandler.ApplySorting(_sortOrdererFactory, _forFollowingSortTermerFactory, query);
+		_fluentHandler.Sort(_sortOrdererFactory, _forFollowingSortTermerFactory, query);
 
 		return this;
 	}
 
-	public IFollowResponseFluent ApplyPagination(FollowsPaginationQuery query)
+	public IFollowResponseFluent Paginate(FollowsPaginationQuery query)
 	{
-		_fluentHandler.ApplyPagination(_paginator, query);
+		_fluentHandler.Paginate(_paginator, query);
 
 		return this;
 	}

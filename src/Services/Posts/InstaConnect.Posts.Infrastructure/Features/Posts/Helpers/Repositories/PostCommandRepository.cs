@@ -21,7 +21,7 @@ internal class PostCommandRepository : IPostCommandRepository
 		return await _collection
 			.AggregateFluent()
 			.Match(id)
-			.ApplyIncludes(include)
+			.Include(include)
 			.FirstOrDefaultAsync(cancellationToken);
 	}
 
@@ -42,7 +42,7 @@ internal class PostCommandRepository : IPostCommandRepository
 		return await _collection
 			.AggregateFluent()
 			.Match(ids)
-			.ApplyIncludes(include)
+			.Include(include)
 			.ToListAsync(cancellationToken);
 	}
 

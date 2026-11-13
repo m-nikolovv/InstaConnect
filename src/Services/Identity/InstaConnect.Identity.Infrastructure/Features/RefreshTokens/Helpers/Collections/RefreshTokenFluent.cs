@@ -16,9 +16,9 @@ internal class RefreshTokenFluent : IRefreshTokenFluent
 		_includerFactory = includerFactory;
 	}
 
-	public IRefreshTokenFluent ApplyIncludes(RefreshTokenInclude include)
+	public IRefreshTokenFluent Include(RefreshTokenInclude include)
 	{
-		_fluentHandler.ApplyIncludes(_includerFactory, include);
+		_fluentHandler.Include(_includerFactory, include);
 
 		return this;
 	}

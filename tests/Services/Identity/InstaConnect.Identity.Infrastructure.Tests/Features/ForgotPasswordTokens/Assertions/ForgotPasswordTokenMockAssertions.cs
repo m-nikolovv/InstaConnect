@@ -72,16 +72,16 @@ public static class ForgotPasswordTokenMockAssertions
 			fluent.ShouldHaveReceivedOne().Match(ids);
 		}
 
-		public void ShouldHaveReceivedOneApplyIncludes(
+		public void ShouldHaveReceivedOneInclude(
 			ForgotPasswordTokenId id,
 			ForgotPasswordTokenInclude include)
 		{
-			fluent.ShouldHaveReceivedOneApplyIncludes(include);
+			fluent.ShouldHaveReceivedOneInclude(include);
 		}
 
-		public void ShouldHaveReceivedOneApplyIncludes(ForgotPasswordTokenInclude include)
+		public void ShouldHaveReceivedOneInclude(ForgotPasswordTokenInclude include)
 		{
-			fluent.ShouldHaveReceivedOne().ApplyIncludes(include);
+			fluent.ShouldHaveReceivedOne().Include(include);
 		}
 
 		public async Task ShouldHaveReceivedOneAnyAsync(
