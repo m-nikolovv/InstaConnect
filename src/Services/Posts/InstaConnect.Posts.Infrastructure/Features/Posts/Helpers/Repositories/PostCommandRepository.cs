@@ -3,16 +3,13 @@ namespace InstaConnect.Posts.Infrastructure.Features.Posts.Helpers.Repositories;
 internal class PostCommandRepository : IPostCommandRepository
 {
 	private readonly IPostCollection _collection;
-	private readonly IPostCacheHandler _cacheHandler;
 	private readonly IPostIncludeBuilderFactory _includeBuilderFactory;
 
 	public PostCommandRepository(
 		IPostCollection collection,
-		IPostCacheHandler cacheHandler,
 		IPostIncludeBuilderFactory includeBuilderFactory)
 	{
 		_collection = collection;
-		_cacheHandler = cacheHandler;
 		_includeBuilderFactory = includeBuilderFactory;
 	}
 
@@ -32,23 +29,9 @@ internal class PostCommandRepository : IPostCommandRepository
 		PostId id,
 		CancellationToken cancellationToken)
 	{
-		var cachedEntity = await _cacheHandler.GetByIdAsync(id);
-
-		if (cachedEntity != null)
-		{
-			return cachedEntity;
-		}
-
 		var include = _includeBuilderFactory.Create().Build();
 
-		var entity = await GetByIdAsync(id, include, cancellationToken);
-
-		if (entity != null)
-		{
-			await _cacheHandler.AddAsync(entity);
-		}
-
-		return entity;
+		return await GetByIdAsync(id, include, cancellationToken);
 	}
 
 	public async Task<ICollection<Post>> GetByIdRangeAsync(
@@ -76,21 +59,10 @@ internal class PostCommandRepository : IPostCommandRepository
 		PostId id,
 		CancellationToken cancellationToken)
 	{
-		var cachedExists = await _cacheHandler.ExistsByIdAsync(id);
-
-		if (cachedExists != null)
-		{
-			return cachedExists.Value;
-		}
-
-		var exists = await _collection
+		return await _collection
 			.AggregateFluent()
 			.Match(id)
 			.AnyAsync(cancellationToken);
-
-		await _cacheHandler.AddExistsByIdAsync(id, exists);
-
-		return exists;
 	}
 
 	public async Task AddAsync(Post entity, CancellationToken cancellationToken)

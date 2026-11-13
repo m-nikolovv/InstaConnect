@@ -7,38 +7,20 @@ namespace InstaConnect.Posts.Infrastructure.Features.PostCommentImages.Helpers.R
 internal class PostCommentImageCommandRepository : IPostCommentImageCommandRepository
 {
 	private readonly IPostCommentImageCollection _collection;
-	private readonly IPostCommentImageCacheHandler _commentImageCacheHandler;
 
-	public PostCommentImageCommandRepository(
-		IPostCommentImageCollection collection,
-		IPostCommentImageCacheHandler commentImageCacheHandler)
+	public PostCommentImageCommandRepository(IPostCommentImageCollection collection)
 	{
 		_collection = collection;
-		_commentImageCacheHandler = commentImageCacheHandler;
 	}
 
 	public async Task<PostCommentImage?> GetByIdAsync(
 		PostCommentImageId id,
 		CancellationToken cancellationToken)
 	{
-		var cachedEntity = await _commentImageCacheHandler.GetByIdAsync(id);
-
-		if (cachedEntity != null)
-		{
-			return cachedEntity;
-		}
-
-		var entity = await _collection
+		return await _collection
 			.AggregateFluent()
 			.Match(id)
 			.FirstOrDefaultAsync(cancellationToken);
-
-		if (entity != null)
-		{
-			await _commentImageCacheHandler.AddAsync(entity);
-		}
-
-		return entity;
 	}
 
 	public async Task<ICollection<PostCommentImage>> GetByIdRangeAsync(

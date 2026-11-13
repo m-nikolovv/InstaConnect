@@ -1,6 +1,7 @@
 using InstaConnect.Chats.Infrastructure.Features.ChatMessageImages.Abstractions;
 using InstaConnect.Chats.Infrastructure.Features.ChatMessageImages.Models.Options;
 using InstaConnect.Chats.Infrastructure.Features.ChatMessageImages.Utilities;
+using InstaConnect.Chats.Infrastructure.Features.ChatMessages.Utilities;
 using InstaConnect.Common.Infrastructure.Features.Caches.Abstractions;
 
 using Microsoft.Extensions.Options;
@@ -18,35 +19,38 @@ internal class ChatMessageImageCacheHandler : IChatMessageImageCacheHandler
 		_cacheOptions = cacheOptions.Value;
 	}
 
-	public async Task<ChatMessageImage?> GetByIdAsync(ChatMessageImageId id)
+	public async Task<ChatMessageImage?> GetByIdAsync(ChatMessageImageId id, CancellationToken cancellationToken)
 	{
-		return await _cacheHandler.GetAsync<ChatMessageImage>(ChatMessageImageCacheUtilities.GetByIdKey(id));
+		return await _cacheHandler.GetAsync<ChatMessageImage>(ChatMessageImageCacheUtilities.GetByIdKey(id), cancellationToken);
 	}
 
-	public async Task AddAsync(ChatMessageImage entity)
+	public async Task AddAsync(ChatMessageImage entity, CancellationToken cancellationToken)
 	{
 		await _cacheHandler.SetAsync(
 			ChatMessageImageCacheUtilities.GetByIdKey(entity.Id),
 			entity,
 			_cacheOptions.Expirations[ChatMessageImageCacheUtilities.GetByIdKeyPrefix],
-			[ChatMessageImageCacheUtilities.GetTag(entity.Id)]);
+			[ChatMessageImageCacheUtilities.GetTag(entity.Id),
+			 ChatMessageCacheUtilities.GetResponseTag(entity.Id.Id)],
+			[ChatMessageCacheUtilities.GetTag(entity.Id.Id)],
+			cancellationToken);
 	}
 
-	public async Task AddRangeAsync(IEnumerable<ChatMessageImage> entities)
+	public async Task AddRangeAsync(IEnumerable<ChatMessageImage> entities, CancellationToken cancellationToken)
 	{
 		foreach (var entity in entities)
 		{
-			await AddAsync(entity);
+			await AddAsync(entity, cancellationToken);
 		}
 	}
 
-	public async Task DeleteAsync(ChatMessageImageId id)
+	public async Task DeleteAsync(ChatMessageImageId id, CancellationToken cancellationToken)
 	{
-		await _cacheHandler.RemoveByTagAsync(ChatMessageImageCacheUtilities.GetTag(id));
+		await _cacheHandler.RemoveByTagAsync(ChatMessageImageCacheUtilities.GetTag(id), cancellationToken);
 	}
 
-	public async Task DeleteRangeAsync(IEnumerable<ChatMessageImageId> ids)
+	public async Task DeleteRangeAsync(IEnumerable<ChatMessageImageId> ids, CancellationToken cancellationToken)
 	{
-		await _cacheHandler.RemoveByTagRangeAsync(ChatMessageImageCacheUtilities.GetTagRange(ids));
+		await _cacheHandler.RemoveByTagRangeAsync(ChatMessageImageCacheUtilities.GetTagRange(ids), cancellationToken);
 	}
 }

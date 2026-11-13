@@ -2,21 +2,21 @@ namespace InstaConnect.Posts.Infrastructure.Features.PostLikes.Abstractions;
 
 public interface IPostLikeCacheHandler
 {
-	public Task<PostLike?> GetByIdAsync(PostLikeId id);
+	public Task<PostLike?> GetByIdAsync(PostLikeId id, CancellationToken cancellationToken);
 
-	public Task<PostLikeResponse?> GetByIdAsync(PostLikeId id, CurrentUserQuery currentUser);
+	public Task<PostLikeResponse?> GetByIdAsync(PostLikeId id, CurrentUserQuery currentUser, CancellationToken cancellationToken);
 
-	public Task AddAsync(PostLike entity);
+	public Task AddAsync(PostLike entity, CancellationToken cancellationToken);
 
-	public Task AddAsync(PostLikeResponse response, CurrentUserQuery currentUser);
+	public Task AddAsync(PostLikeResponse response, CurrentUserQuery currentUser, CancellationToken cancellationToken);
 
-	public Task AddRangeAsync(IEnumerable<PostLike> entities);
+	public Task AddRangeAsync(IEnumerable<PostLike> entities, CancellationToken cancellationToken);
 
-	public Task<bool?> ExistsByIdAsync(PostLikeId id);
+	public Task<bool?> ExistsByIdAsync(PostLikeId id, CancellationToken cancellationToken);
 
-	public Task AddExistsByIdAsync(PostLikeId id, bool exists);
+	public Task AddExistsByIdAsync(PostLikeId id, bool exists, CancellationToken cancellationToken);
 
-	public Task DeleteAsync(PostLikeId id);
+	public Task DeleteAsync(PostLikeId id, CancellationToken cancellationToken);
 
-	public Task DeleteRangeAsync(IEnumerable<PostLikeId> ids);
+	public Task DeleteRangeAsync(IEnumerable<PostLikeId> ids, CancellationToken cancellationToken);
 }

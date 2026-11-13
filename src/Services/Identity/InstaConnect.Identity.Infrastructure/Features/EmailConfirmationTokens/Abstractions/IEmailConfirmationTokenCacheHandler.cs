@@ -4,17 +4,17 @@ namespace InstaConnect.Identity.Infrastructure.Features.EmailConfirmationTokens.
 
 public interface IEmailConfirmationTokenCacheHandler
 {
-	public Task<EmailConfirmationToken?> GetByIdAsync(EmailConfirmationTokenId id);
+	public Task<EmailConfirmationToken?> GetByIdAsync(EmailConfirmationTokenId id, CancellationToken cancellationToken);
 
-	public Task AddAsync(EmailConfirmationToken entity);
+	public Task AddAsync(EmailConfirmationToken entity, CancellationToken cancellationToken);
 
-	public Task AddRangeAsync(IEnumerable<EmailConfirmationToken> entities);
+	public Task AddRangeAsync(IEnumerable<EmailConfirmationToken> entities, CancellationToken cancellationToken);
 
-	public Task<bool?> ExistsByIdAsync(EmailConfirmationTokenId id);
+	public Task<bool?> ExistsByIdAsync(EmailConfirmationTokenId id, CancellationToken cancellationToken);
 
-	public Task AddExistsByIdAsync(EmailConfirmationTokenId id, bool exists);
+	public Task AddExistsByIdAsync(EmailConfirmationTokenId id, bool exists, CancellationToken cancellationToken);
 
-	public Task DeleteAsync(EmailConfirmationTokenId id);
+	public Task DeleteAsync(EmailConfirmationTokenId id, CancellationToken cancellationToken);
 
-	public Task DeleteRangeAsync(IEnumerable<EmailConfirmationTokenId> ids);
+	public Task DeleteRangeAsync(IEnumerable<EmailConfirmationTokenId> ids, CancellationToken cancellationToken);
 }

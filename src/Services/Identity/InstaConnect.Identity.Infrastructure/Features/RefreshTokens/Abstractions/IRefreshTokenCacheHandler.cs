@@ -4,13 +4,13 @@ namespace InstaConnect.Identity.Infrastructure.Features.RefreshTokens.Abstractio
 
 public interface IRefreshTokenCacheHandler
 {
-	public Task<RefreshToken?> GetByIdAsync(RefreshTokenId id);
+	public Task<RefreshToken?> GetByIdAsync(RefreshTokenId id, CancellationToken cancellationToken);
 
-	public Task AddAsync(RefreshToken entity);
+	public Task AddAsync(RefreshToken entity, CancellationToken cancellationToken);
 
-	public Task AddRangeAsync(IEnumerable<RefreshToken> entities);
+	public Task AddRangeAsync(IEnumerable<RefreshToken> entities, CancellationToken cancellationToken);
 
-	public Task DeleteAsync(RefreshTokenId id);
+	public Task DeleteAsync(RefreshTokenId id, CancellationToken cancellationToken);
 
-	public Task DeleteRangeAsync(IEnumerable<RefreshTokenId> ids);
+	public Task DeleteRangeAsync(IEnumerable<RefreshTokenId> ids, CancellationToken cancellationToken);
 }

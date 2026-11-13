@@ -5,16 +5,13 @@ namespace InstaConnect.Chats.Infrastructure.Features.Chats.Helpers.Repositories;
 internal class ChatCommandRepository : IChatCommandRepository
 {
 	private readonly IChatCollection _collection;
-	private readonly IChatCacheHandler _cacheHandler;
 	private readonly IChatIncludeBuilderFactory _includeBuilderFactory;
 
 	public ChatCommandRepository(
 		IChatCollection collection,
-		IChatCacheHandler cacheHandler,
 		IChatIncludeBuilderFactory includeBuilderFactory)
 	{
 		_collection = collection;
-		_cacheHandler = cacheHandler;
 		_includeBuilderFactory = includeBuilderFactory;
 	}
 
@@ -34,23 +31,9 @@ internal class ChatCommandRepository : IChatCommandRepository
 		ChatId id,
 		CancellationToken cancellationToken)
 	{
-		var cachedEntity = await _cacheHandler.GetByIdAsync(id);
-
-		if (cachedEntity != null)
-		{
-			return cachedEntity;
-		}
-
 		var include = _includeBuilderFactory.Create().Build();
 
-		var entity = await GetByIdAsync(id, include, cancellationToken);
-
-		if (entity != null)
-		{
-			await _cacheHandler.AddAsync(entity);
-		}
-
-		return entity;
+		return await GetByIdAsync(id, include, cancellationToken);
 	}
 
 	public async Task<ICollection<Chat>> GetByIdRangeAsync(
@@ -78,21 +61,10 @@ internal class ChatCommandRepository : IChatCommandRepository
 		ChatId id,
 		CancellationToken cancellationToken)
 	{
-		var cachedExists = await _cacheHandler.ExistsByIdAsync(id);
-
-		if (cachedExists != null)
-		{
-			return cachedExists.Value;
-		}
-
-		var exists = await _collection
+		return await _collection
 			.AggregateFluent()
 			.Match(id)
 			.AnyAsync(cancellationToken);
-
-		await _cacheHandler.AddExistsByIdAsync(id, exists);
-
-		return exists;
 	}
 
 	public async Task AddAsync(Chat entity, CancellationToken cancellationToken)

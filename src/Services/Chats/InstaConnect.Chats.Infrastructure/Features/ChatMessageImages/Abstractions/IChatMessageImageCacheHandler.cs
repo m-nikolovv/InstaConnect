@@ -2,13 +2,13 @@ namespace InstaConnect.Chats.Infrastructure.Features.ChatMessageImages.Abstracti
 
 public interface IChatMessageImageCacheHandler
 {
-	public Task<ChatMessageImage?> GetByIdAsync(ChatMessageImageId id);
+	public Task<ChatMessageImage?> GetByIdAsync(ChatMessageImageId id, CancellationToken cancellationToken);
 
-	public Task AddAsync(ChatMessageImage entity);
+	public Task AddAsync(ChatMessageImage entity, CancellationToken cancellationToken);
 
-	public Task AddRangeAsync(IEnumerable<ChatMessageImage> entities);
+	public Task AddRangeAsync(IEnumerable<ChatMessageImage> entities, CancellationToken cancellationToken);
 
-	public Task DeleteAsync(ChatMessageImageId id);
+	public Task DeleteAsync(ChatMessageImageId id, CancellationToken cancellationToken);
 
-	public Task DeleteRangeAsync(IEnumerable<ChatMessageImageId> ids);
+	public Task DeleteRangeAsync(IEnumerable<ChatMessageImageId> ids, CancellationToken cancellationToken);
 }

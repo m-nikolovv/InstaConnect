@@ -2,21 +2,21 @@ namespace InstaConnect.Identity.Infrastructure.Features.UserClaims.Abstractions;
 
 public interface IUserClaimCacheHandler
 {
-	public Task<UserClaim?> GetByIdAsync(UserClaimId id);
+	public Task<UserClaim?> GetByIdAsync(UserClaimId id, CancellationToken cancellationToken);
 
-	public Task<UserClaimResponse?> GetByIdAsync(UserClaimId id, CurrentUserQuery currentUser);
+	public Task<UserClaimResponse?> GetByIdAsync(UserClaimId id, CurrentUserQuery currentUser, CancellationToken cancellationToken);
 
-	public Task AddAsync(UserClaim entity);
+	public Task AddAsync(UserClaim entity, CancellationToken cancellationToken);
 
-	public Task AddAsync(UserClaimResponse response, CurrentUserQuery currentUser);
+	public Task AddAsync(UserClaimResponse response, CurrentUserQuery currentUser, CancellationToken cancellationToken);
 
-	public Task AddRangeAsync(IEnumerable<UserClaim> entities);
+	public Task AddRangeAsync(IEnumerable<UserClaim> entities, CancellationToken cancellationToken);
 
-	public Task<bool?> ExistsByIdAsync(UserClaimId id);
+	public Task<bool?> ExistsByIdAsync(UserClaimId id, CancellationToken cancellationToken);
 
-	public Task AddExistsByIdAsync(UserClaimId id, bool exists);
+	public Task AddExistsByIdAsync(UserClaimId id, bool exists, CancellationToken cancellationToken);
 
-	public Task DeleteAsync(UserClaimId id);
+	public Task DeleteAsync(UserClaimId id, CancellationToken cancellationToken);
 
-	public Task DeleteRangeAsync(IEnumerable<UserClaimId> ids);
+	public Task DeleteRangeAsync(IEnumerable<UserClaimId> ids, CancellationToken cancellationToken);
 }

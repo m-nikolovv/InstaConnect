@@ -4,17 +4,17 @@ namespace InstaConnect.Identity.Infrastructure.Features.ForgotPasswordTokens.Abs
 
 public interface IForgotPasswordTokenCacheHandler
 {
-	public Task<ForgotPasswordToken?> GetByIdAsync(ForgotPasswordTokenId id);
+	public Task<ForgotPasswordToken?> GetByIdAsync(ForgotPasswordTokenId id, CancellationToken cancellationToken);
 
-	public Task AddAsync(ForgotPasswordToken entity);
+	public Task AddAsync(ForgotPasswordToken entity, CancellationToken cancellationToken);
 
-	public Task AddRangeAsync(IEnumerable<ForgotPasswordToken> entities);
+	public Task AddRangeAsync(IEnumerable<ForgotPasswordToken> entities, CancellationToken cancellationToken);
 
-	public Task<bool?> ExistsByIdAsync(ForgotPasswordTokenId id);
+	public Task<bool?> ExistsByIdAsync(ForgotPasswordTokenId id, CancellationToken cancellationToken);
 
-	public Task AddExistsByIdAsync(ForgotPasswordTokenId id, bool exists);
+	public Task AddExistsByIdAsync(ForgotPasswordTokenId id, bool exists, CancellationToken cancellationToken);
 
-	public Task DeleteAsync(ForgotPasswordTokenId id);
+	public Task DeleteAsync(ForgotPasswordTokenId id, CancellationToken cancellationToken);
 
-	public Task DeleteRangeAsync(IEnumerable<ForgotPasswordTokenId> ids);
+	public Task DeleteRangeAsync(IEnumerable<ForgotPasswordTokenId> ids, CancellationToken cancellationToken);
 }

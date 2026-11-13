@@ -1,3 +1,5 @@
+using InstaConnect.Chats.Domain.Features.ChatMessageImages.Abstractions;
+using InstaConnect.Chats.Infrastructure.Features.ChatMessageImages.Helpers.Repositories;
 using InstaConnect.Chats.Infrastructure.Features.ChatMessageImages.Models.Options;
 
 namespace InstaConnect.Chats.Infrastructure.Features.ChatMessageImages.Extensions;
@@ -13,6 +15,9 @@ internal static class ServiceCollectionExtensions
 			serviceCollection.AddValidatedOptions<ChatMessageImageCacheOptions>(ChatMessageImageCacheOptions.SectionName);
 
 			serviceCollection.AddCollection<ChatMessageImage>(CollectionName);
+
+			serviceCollection.AddScoped<IChatMessageImageCommandRepository, ChatMessageImageCommandRepository>()
+							 .Decorate<IChatMessageImageCommandRepository, CachedChatMessageImageCommandRepository>();
 
 			BsonClassMap.TryRegisterClassMap<ChatMessageImage>(cm =>
 			{

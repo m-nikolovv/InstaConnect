@@ -2,25 +2,25 @@ namespace InstaConnect.Chats.Infrastructure.Features.ChatMessages.Abstractions;
 
 public interface IChatMessageCacheHandler
 {
-	public Task<ChatMessage?> GetByIdAsync(ChatMessageId id);
+	public Task<ChatMessage?> GetByIdAsync(ChatMessageId id, CancellationToken cancellationToken);
 
-	public Task<ChatMessageResponse?> GetByIdAsync(ChatMessageId id, CurrentUserQuery currentUser);
+	public Task<ChatMessageResponse?> GetByIdAsync(ChatMessageId id, CurrentUserQuery currentUser, CancellationToken cancellationToken);
 
-	public Task AddAsync(ChatMessage entity);
+	public Task AddAsync(ChatMessage entity, CancellationToken cancellationToken);
 
-	public Task AddAsync(ChatMessageResponse response, CurrentUserQuery currentUser);
+	public Task AddAsync(ChatMessageResponse response, CurrentUserQuery currentUser, CancellationToken cancellationToken);
 
-	public Task AddRangeAsync(IEnumerable<ChatMessage> entities);
+	public Task AddRangeAsync(IEnumerable<ChatMessage> entities, CancellationToken cancellationToken);
 
-	public Task<bool?> ExistsByIdAsync(ChatMessageId id);
+	public Task<bool?> ExistsByIdAsync(ChatMessageId id, CancellationToken cancellationToken);
 
-	public Task AddExistsByIdAsync(ChatMessageId id, bool exists);
+	public Task AddExistsByIdAsync(ChatMessageId id, bool exists, CancellationToken cancellationToken);
 
-	public Task DeleteAsync(ChatMessageId id);
+	public Task DeleteAsync(ChatMessageId id, CancellationToken cancellationToken);
 
-	public Task DeleteRangeAsync(IEnumerable<ChatMessageId> ids);
+	public Task DeleteRangeAsync(IEnumerable<ChatMessageId> ids, CancellationToken cancellationToken);
 
-	public Task DeleteResponseAsync(ChatMessageId id);
+	public Task DeleteResponseAsync(ChatMessageId id, CancellationToken cancellationToken);
 
-	public Task DeleteResponseRangeAsync(IEnumerable<ChatMessageId> ids);
+	public Task DeleteResponseRangeAsync(IEnumerable<ChatMessageId> ids, CancellationToken cancellationToken);
 }

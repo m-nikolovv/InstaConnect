@@ -4,6 +4,8 @@ using InstaConnect.Common.Infrastructure.Features.Caches.Models;
 
 using Microsoft.Extensions.Caching.StackExchangeRedis;
 
+using StackExchange.Redis;
+
 using ZiggyCreatures.Caching.Fusion;
 
 namespace InstaConnect.Common.Infrastructure.Features.Caches.Extensions;
@@ -22,6 +24,12 @@ public static class ServiceCollectionExtensions
 							 .WithSerializer(new BsonCacheSerializer())
 							 .WithDistributedCache(new RedisCache(new RedisCacheOptions { Configuration = options.ConnectionString }))
 							 .WithStackExchangeRedisBackplane(backplaneOptions => backplaneOptions.Configuration = options.ConnectionString);
+
+			serviceCollection.AddSingleton<IConnectionMultiplexer>(_ =>
+				ConnectionMultiplexer.Connect(options.ConnectionString));
+
+			serviceCollection.AddSingleton(sp =>
+				sp.GetRequiredService<IConnectionMultiplexer>().GetDatabase());
 
 			serviceCollection.AddScoped<ICacheHandler, CacheHandler>();
 

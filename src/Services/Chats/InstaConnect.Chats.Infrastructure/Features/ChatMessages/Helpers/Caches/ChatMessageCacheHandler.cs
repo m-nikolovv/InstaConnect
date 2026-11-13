@@ -18,26 +18,29 @@ internal class ChatMessageCacheHandler : IChatMessageCacheHandler
 		_cacheOptions = cacheOptions.Value;
 	}
 
-	public async Task<ChatMessage?> GetByIdAsync(ChatMessageId id)
+	public async Task<ChatMessage?> GetByIdAsync(ChatMessageId id, CancellationToken cancellationToken)
 	{
-		return await _cacheHandler.GetAsync<ChatMessage>(ChatMessageCacheUtilities.GetByIdKey(id));
+		return await _cacheHandler.GetAsync<ChatMessage>(ChatMessageCacheUtilities.GetByIdKey(id), cancellationToken);
 	}
 
-	public async Task<ChatMessageResponse?> GetByIdAsync(ChatMessageId id, CurrentUserQuery currentUser)
+	public async Task<ChatMessageResponse?> GetByIdAsync(ChatMessageId id, CurrentUserQuery currentUser, CancellationToken cancellationToken)
 	{
-		return await _cacheHandler.GetAsync<ChatMessageResponse>(ChatMessageCacheUtilities.GetResponseByIdKey(id, currentUser));
+		return await _cacheHandler.GetAsync<ChatMessageResponse>(ChatMessageCacheUtilities.GetResponseByIdKey(id, currentUser), cancellationToken);
 	}
 
-	public async Task AddAsync(ChatMessage entity)
+	public async Task AddAsync(ChatMessage entity, CancellationToken cancellationToken)
 	{
 		await _cacheHandler.SetAsync(
 			ChatMessageCacheUtilities.GetByIdKey(entity.Id),
 			entity,
 			_cacheOptions.Expirations[ChatMessageCacheUtilities.GetByIdKeyPrefix],
-			[ChatMessageCacheUtilities.GetTag(entity.Id)]);
+			[ChatMessageCacheUtilities.GetTag(entity.Id),
+			 ChatCacheUtilities.GetResponseTag(entity.Id.Id)],
+			[ChatCacheUtilities.GetTag(entity.Id.Id)],
+			cancellationToken);
 	}
 
-	public async Task AddAsync(ChatMessageResponse response, CurrentUserQuery currentUser)
+	public async Task AddAsync(ChatMessageResponse response, CurrentUserQuery currentUser, CancellationToken cancellationToken)
 	{
 		await _cacheHandler.SetAsync(
 			ChatMessageCacheUtilities.GetResponseByIdKey(response.Id, currentUser),
@@ -45,48 +48,52 @@ internal class ChatMessageCacheHandler : IChatMessageCacheHandler
 			_cacheOptions.Expirations[ChatMessageCacheUtilities.GetResponseByIdKeyPrefix],
 			[ChatMessageCacheUtilities.GetTag(response.Id),
 			 ChatMessageCacheUtilities.GetResponseTag(response.Id),
-			 ChatCacheUtilities.GetResponseTag(response.Id.Id)]);
+			 ChatCacheUtilities.GetResponseTag(response.Id.Id)],
+			[ChatCacheUtilities.GetTag(response.Id.Id)],
+			cancellationToken);
 	}
 
-	public async Task AddRangeAsync(IEnumerable<ChatMessage> entities)
+	public async Task AddRangeAsync(IEnumerable<ChatMessage> entities, CancellationToken cancellationToken)
 	{
 		foreach (var entity in entities)
 		{
-			await AddAsync(entity);
+			await AddAsync(entity, cancellationToken);
 		}
 	}
 
-	public async Task<bool?> ExistsByIdAsync(ChatMessageId id)
+	public async Task<bool?> ExistsByIdAsync(ChatMessageId id, CancellationToken cancellationToken)
 	{
-		return await _cacheHandler.GetAsync<bool?>(ChatMessageCacheUtilities.ExistsByIdKey(id));
+		return await _cacheHandler.GetAsync<bool?>(ChatMessageCacheUtilities.ExistsByIdKey(id), cancellationToken);
 	}
 
-	public async Task AddExistsByIdAsync(ChatMessageId id, bool exists)
+	public async Task AddExistsByIdAsync(ChatMessageId id, bool exists, CancellationToken cancellationToken)
 	{
 		await _cacheHandler.SetAsync<bool?>(
 			ChatMessageCacheUtilities.ExistsByIdKey(id),
 			exists,
 			_cacheOptions.Expirations[ChatMessageCacheUtilities.ExistsByIdKeyPrefix],
-			[ChatMessageCacheUtilities.GetTag(id)]);
+			[ChatMessageCacheUtilities.GetTag(id)],
+			[ChatCacheUtilities.GetTag(id.Id)],
+			cancellationToken);
 	}
 
-	public async Task DeleteAsync(ChatMessageId id)
+	public async Task DeleteAsync(ChatMessageId id, CancellationToken cancellationToken)
 	{
-		await _cacheHandler.RemoveByTagAsync(ChatMessageCacheUtilities.GetTag(id));
+		await _cacheHandler.RemoveByTagAsync(ChatMessageCacheUtilities.GetTag(id), cancellationToken);
 	}
 
-	public async Task DeleteRangeAsync(IEnumerable<ChatMessageId> ids)
+	public async Task DeleteRangeAsync(IEnumerable<ChatMessageId> ids, CancellationToken cancellationToken)
 	{
-		await _cacheHandler.RemoveByTagRangeAsync(ChatMessageCacheUtilities.GetTagRange(ids));
+		await _cacheHandler.RemoveByTagRangeAsync(ChatMessageCacheUtilities.GetTagRange(ids), cancellationToken);
 	}
 
-	public async Task DeleteResponseAsync(ChatMessageId id)
+	public async Task DeleteResponseAsync(ChatMessageId id, CancellationToken cancellationToken)
 	{
-		await _cacheHandler.RemoveByTagAsync(ChatMessageCacheUtilities.GetResponseTag(id));
+		await _cacheHandler.RemoveByTagAsync(ChatMessageCacheUtilities.GetResponseTag(id), cancellationToken);
 	}
 
-	public async Task DeleteResponseRangeAsync(IEnumerable<ChatMessageId> ids)
+	public async Task DeleteResponseRangeAsync(IEnumerable<ChatMessageId> ids, CancellationToken cancellationToken)
 	{
-		await _cacheHandler.RemoveByTagRangeAsync(ChatMessageCacheUtilities.GetResponseTagRange(ids));
+		await _cacheHandler.RemoveByTagRangeAsync(ChatMessageCacheUtilities.GetResponseTagRange(ids), cancellationToken);
 	}
 }

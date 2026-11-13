@@ -7,16 +7,13 @@ namespace InstaConnect.Identity.Infrastructure.Features.EmailConfirmationTokens.
 internal class EmailConfirmationTokenCommandRepository : IEmailConfirmationTokenCommandRepository
 {
 	private readonly IEmailConfirmationTokenCollection _collection;
-	private readonly IEmailConfirmationTokenCacheHandler _cacheHandler;
 	private readonly IEmailConfirmationTokenIncludeBuilderFactory _includeBuilderFactory;
 
 	public EmailConfirmationTokenCommandRepository(
 		IEmailConfirmationTokenCollection collection,
-		IEmailConfirmationTokenCacheHandler cacheHandler,
 		IEmailConfirmationTokenIncludeBuilderFactory includeBuilderFactory)
 	{
 		_collection = collection;
-		_cacheHandler = cacheHandler;
 		_includeBuilderFactory = includeBuilderFactory;
 	}
 
@@ -36,23 +33,9 @@ internal class EmailConfirmationTokenCommandRepository : IEmailConfirmationToken
 		EmailConfirmationTokenId id,
 		CancellationToken cancellationToken)
 	{
-		var cachedEntity = await _cacheHandler.GetByIdAsync(id);
-
-		if (cachedEntity != null)
-		{
-			return cachedEntity;
-		}
-
 		var include = _includeBuilderFactory.Create().Build();
 
-		var entity = await GetByIdAsync(id, include, cancellationToken);
-
-		if (entity != null)
-		{
-			await _cacheHandler.AddAsync(entity);
-		}
-
-		return entity;
+		return await GetByIdAsync(id, include, cancellationToken);
 	}
 
 	public async Task<ICollection<EmailConfirmationToken>> GetByIdRangeAsync(
@@ -69,21 +52,10 @@ internal class EmailConfirmationTokenCommandRepository : IEmailConfirmationToken
 		EmailConfirmationTokenId id,
 		CancellationToken cancellationToken)
 	{
-		var cachedExists = await _cacheHandler.ExistsByIdAsync(id);
-
-		if (cachedExists != null)
-		{
-			return cachedExists.Value;
-		}
-
-		var exists = await _collection
+		return await _collection
 			.AggregateFluent()
 			.Match(id)
 			.AnyAsync(cancellationToken);
-
-		await _cacheHandler.AddExistsByIdAsync(id, exists);
-
-		return exists;
 	}
 
 	public async Task AddAsync(EmailConfirmationToken entity, CancellationToken cancellationToken)
