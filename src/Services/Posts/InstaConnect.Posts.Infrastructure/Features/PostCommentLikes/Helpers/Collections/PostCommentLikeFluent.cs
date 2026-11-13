@@ -4,7 +4,7 @@ using InstaConnect.Posts.Infrastructure.Features.PostCommentLikes.Extensions;
 
 namespace InstaConnect.Posts.Infrastructure.Features.PostCommentLikes.Helpers.Collections;
 
-internal class PostCommentLikeFluent : MongoDbFluent<PostCommentLike, PostCommentLikeId>, IPostCommentLikeFluent
+internal class PostCommentLikeFluent : IPostCommentLikeFluent
 {
 	private readonly IPaginator _paginator;
 	private readonly ISortOrdererFactory _sortOrdererFactory;
@@ -12,17 +12,19 @@ internal class PostCommentLikeFluent : MongoDbFluent<PostCommentLike, PostCommen
 	private readonly IPostCommentLikesSortTermerFactory _sortTermerFactory;
 	private readonly IPostCommentLikeResponseFluentFactory _responseFluentFactory;
 	private readonly IPostCommentLikesForUserSortTermerFactory _forUserSortTermerFactory;
+	private readonly IMongoDbFluentHandler<PostCommentLike, PostCommentLikeId> _fluentHandler;
 
 	public PostCommentLikeFluent(
 		IPaginator paginator,
 		ISortOrdererFactory sortOrdererFactory,
-		IAggregateFluent<PostCommentLike> fluent,
 		IPostCommentLikeIncluderFactory includerFactory,
 		IPostCommentLikesSortTermerFactory sortTermerFactory,
 		IPostCommentLikeResponseFluentFactory responseFluentFactory,
-		IPostCommentLikesForUserSortTermerFactory forUserSortTermerFactory) : base(fluent)
+		IPostCommentLikesForUserSortTermerFactory forUserSortTermerFactory,
+		IMongoDbFluentHandler<PostCommentLike, PostCommentLikeId> fluentHandler)
 	{
 		_paginator = paginator;
+		_fluentHandler = fluentHandler;
 		_includerFactory = includerFactory;
 		_sortTermerFactory = sortTermerFactory;
 		_sortOrdererFactory = sortOrdererFactory;
@@ -32,56 +34,56 @@ internal class PostCommentLikeFluent : MongoDbFluent<PostCommentLike, PostCommen
 
 	public IPostCommentLikeFluent ApplyIncludes(PostCommentLikeInclude include)
 	{
-		ApplyIncludes(_includerFactory, include);
+		_fluentHandler.ApplyIncludes(_includerFactory, include);
 
 		return this;
 	}
 
 	public IPostCommentLikeFluent Match(PostCommentLikesFilterQuery filter)
 	{
-		Match(filter.GetFilter());
+		_fluentHandler.Match(filter.GetFilter());
 
 		return this;
 	}
 
 	public IPostCommentLikeFluent Match(PostCommentLikesForUserFilterQuery filter)
 	{
-		Match(filter.GetFilter());
+		_fluentHandler.Match(filter.GetFilter());
 
 		return this;
 	}
 
 	public IPostCommentLikeFluent Match(PostCommentLikeId filter)
 	{
-		Match(filter.GetFilter());
+		_fluentHandler.Match(filter.GetFilter());
 
 		return this;
 	}
 
 	public IPostCommentLikeFluent Match(IEnumerable<PostCommentLikeId> filter)
 	{
-		Match(filter.GetFilter());
+		_fluentHandler.Match(filter.GetFilter());
 
 		return this;
 	}
 
 	public IPostCommentLikeFluent ApplySorting(PostCommentLikesSortingQuery query)
 	{
-		ApplySorting(_sortOrdererFactory, _sortTermerFactory, query);
+		_fluentHandler.ApplySorting(_sortOrdererFactory, _sortTermerFactory, query);
 
 		return this;
 	}
 
 	public IPostCommentLikeFluent ApplySorting(PostCommentLikesForUserSortingQuery query)
 	{
-		ApplySorting(_sortOrdererFactory, _forUserSortTermerFactory, query);
+		_fluentHandler.ApplySorting(_sortOrdererFactory, _forUserSortTermerFactory, query);
 
 		return this;
 	}
 
 	public IPostCommentLikeFluent ApplyPagination(PostCommentLikesPaginationQuery query)
 	{
-		ApplyPagination(_paginator, query);
+		_fluentHandler.ApplyPagination(_paginator, query);
 
 		return this;
 	}
@@ -153,7 +155,7 @@ internal class PostCommentLikeFluent : MongoDbFluent<PostCommentLike, PostCommen
 					p.PostComment.CreatedAtUtc,
 					p.PostComment.UpdatedAtUtc),
 				p.CreatedAtUtc));
-		var fluent = Project(projection);
+		var fluent = _fluentHandler.Project(projection);
 
 		return _responseFluentFactory.Create(fluent);
 	}
@@ -217,7 +219,7 @@ internal class PostCommentLikeFluent : MongoDbFluent<PostCommentLike, PostCommen
 					p.PostComment.CreatedAtUtc,
 					p.PostComment.UpdatedAtUtc),
 				p.CreatedAtUtc));
-		var fluent = Project(projection);
+		var fluent = _fluentHandler.Project(projection);
 
 		return _responseFluentFactory.Create(fluent);
 	}
@@ -239,8 +241,40 @@ internal class PostCommentLikeFluent : MongoDbFluent<PostCommentLike, PostCommen
 					p.User.UpdatedAtUtc),
 				null,
 				p.CreatedAtUtc));
-		var fluent = Project(projection);
+		var fluent = _fluentHandler.Project(projection);
 
 		return _responseFluentFactory.Create(fluent);
+	}
+
+	public IMongoDbFluent<PostCommentLike, PostCommentLikeId> Match(FilterDefinition<PostCommentLike> filterDefinition)
+	{
+		_fluentHandler.Match(filterDefinition);
+
+		return this;
+	}
+
+	public async Task<PostCommentLike?> FirstOrDefaultAsync(CancellationToken cancellationToken)
+	{
+		return await _fluentHandler.FirstOrDefaultAsync(cancellationToken);
+	}
+
+	public async Task<long> GetCountAsync(CancellationToken cancellationToken)
+	{
+		return await _fluentHandler.GetCountAsync(cancellationToken);
+	}
+
+	public async Task<ICollection<PostCommentLike>> ToListAsync(CancellationToken cancellationToken)
+	{
+		return await _fluentHandler.ToListAsync(cancellationToken);
+	}
+
+	public async Task<bool> AnyAsync(CancellationToken cancellationToken)
+	{
+		return await _fluentHandler.AnyAsync(cancellationToken);
+	}
+
+	public async Task<ICollection<PostCommentLikeId>> GetIdsAsync(CancellationToken cancellationToken)
+	{
+		return await _fluentHandler.GetIdsAsync(cancellationToken);
 	}
 }

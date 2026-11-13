@@ -2,31 +2,29 @@ using InstaConnect.Common.Domain.Features.Requests.Abstractions;
 
 namespace InstaConnect.Common.Infrastructure.Features.Databases.Helpers;
 
-public abstract class MongoDbFluent<TEntity, TEntityId>
-	: IMongoDbFluent<TEntity, TEntityId>
+internal class MongoDbFluentHandler<TEntity, TEntityId>
+	: IMongoDbFluentHandler<TEntity, TEntityId>
 	where TEntity : ICreatable, IEntityWithId<TEntityId>
 	where TEntityId : IEntityId
 {
 	private IAggregateFluent<TEntity> _fluent;
 
-	protected MongoDbFluent(IAggregateFluent<TEntity> fluent)
+	public MongoDbFluentHandler(IAggregateFluent<TEntity> fluent)
 	{
 		_fluent = fluent;
 	}
 
-	protected IAggregateFluent<TNewEntity> Project<TNewEntity>(ProjectionDefinition<TEntity, TNewEntity> projectionDefinition)
+	public IAggregateFluent<TNewEntity> Project<TNewEntity>(ProjectionDefinition<TEntity, TNewEntity> projectionDefinition)
 	{
 		return _fluent.Project(projectionDefinition);
 	}
 
-	public IMongoDbFluent<TEntity, TEntityId> Match(FilterDefinition<TEntity> filterDefinition)
+	public void Match(FilterDefinition<TEntity> filterDefinition)
 	{
 		_fluent = _fluent.Match(filterDefinition);
-
-		return this;
 	}
 
-	protected void ApplyIncludes<TInclude, TIncludeType, TDestinationType, TIncludeDescriptor, TIncluder>(
+	public void ApplyIncludes<TInclude, TIncludeType, TDestinationType, TIncludeDescriptor, TIncluder>(
 		IIncluderFactory<TIncludeType, TDestinationType, TIncludeDescriptor, TIncluder, TEntity> includerFactory,
 		TInclude include)
 		where TDestinationType : Enum
@@ -43,7 +41,7 @@ public abstract class MongoDbFluent<TEntity, TEntityId>
 		}
 	}
 
-	protected void ApplySorting<TSortTerm, TSortTermer, TSortingQuery>(
+	public void ApplySorting<TSortTerm, TSortTermer, TSortingQuery>(
 		ISortOrdererFactory sortOrdererFactory,
 		ISortTermerFactory<TSortTerm, TSortTermer, TEntity> sortTermerFactory,
 		TSortingQuery sorting)
@@ -57,7 +55,7 @@ public abstract class MongoDbFluent<TEntity, TEntityId>
 		_fluent = _fluent.Sort(Builders<TEntity>.Sort.Combine(order.Sort(term.Term), order.Sort<TEntity>(a => a.CreatedAtUtc)));
 	}
 
-	protected void ApplyPagination<TPaginationQuery>(
+	public void ApplyPagination<TPaginationQuery>(
 		IPaginator paginator,
 		TPaginationQuery pagination)
 		where TPaginationQuery : IPaginationQuery

@@ -3,25 +3,27 @@ using InstaConnect.Posts.Infrastructure.Features.PostLikes.Extensions;
 
 namespace InstaConnect.Posts.Infrastructure.Features.PostLikes.Helpers.Collections;
 
-internal class PostLikeFluent : MongoDbFluent<PostLike, PostLikeId>, IPostLikeFluent
+internal class PostLikeFluent : IPostLikeFluent
 {
 	private readonly IPaginator _paginator;
 	private readonly ISortOrdererFactory _sortOrdererFactory;
 	private readonly IPostLikeIncluderFactory _includerFactory;
 	private readonly IPostLikesSortTermerFactory _sortTermerFactory;
 	private readonly IPostLikeResponseFluentFactory _responseFluentFactory;
+	private readonly IMongoDbFluentHandler<PostLike, PostLikeId> _fluentHandler;
 	private readonly IPostLikesForUserSortTermerFactory _forUserSortTermerFactory;
 
 	public PostLikeFluent(
 		IPaginator paginator,
-		IAggregateFluent<PostLike> fluent,
 		ISortOrdererFactory sortOrdererFactory,
 		IPostLikeIncluderFactory includerFactory,
 		IPostLikesSortTermerFactory sortTermerFactory,
 		IPostLikeResponseFluentFactory responseFluentFactory,
-		IPostLikesForUserSortTermerFactory forUserSortTermerFactory) : base(fluent)
+		IMongoDbFluentHandler<PostLike, PostLikeId> fluentHandler,
+		IPostLikesForUserSortTermerFactory forUserSortTermerFactory)
 	{
 		_paginator = paginator;
+		_fluentHandler = fluentHandler;
 		_includerFactory = includerFactory;
 		_sortTermerFactory = sortTermerFactory;
 		_sortOrdererFactory = sortOrdererFactory;
@@ -31,56 +33,56 @@ internal class PostLikeFluent : MongoDbFluent<PostLike, PostLikeId>, IPostLikeFl
 
 	public IPostLikeFluent ApplyIncludes(PostLikeInclude include)
 	{
-		ApplyIncludes(_includerFactory, include);
+		_fluentHandler.ApplyIncludes(_includerFactory, include);
 
 		return this;
 	}
 
 	public IPostLikeFluent Match(PostLikesFilterQuery filter)
 	{
-		Match(filter.GetFilter());
+		_fluentHandler.Match(filter.GetFilter());
 
 		return this;
 	}
 
 	public IPostLikeFluent Match(PostLikesForUserFilterQuery filter)
 	{
-		Match(filter.GetFilter());
+		_fluentHandler.Match(filter.GetFilter());
 
 		return this;
 	}
 
 	public IPostLikeFluent Match(PostLikeId filter)
 	{
-		Match(filter.GetFilter());
+		_fluentHandler.Match(filter.GetFilter());
 
 		return this;
 	}
 
 	public IPostLikeFluent Match(IEnumerable<PostLikeId> filter)
 	{
-		Match(filter.GetFilter());
+		_fluentHandler.Match(filter.GetFilter());
 
 		return this;
 	}
 
 	public IPostLikeFluent ApplySorting(PostLikesSortingQuery query)
 	{
-		ApplySorting(_sortOrdererFactory, _sortTermerFactory, query);
+		_fluentHandler.ApplySorting(_sortOrdererFactory, _sortTermerFactory, query);
 
 		return this;
 	}
 
 	public IPostLikeFluent ApplySorting(PostLikesForUserSortingQuery query)
 	{
-		ApplySorting(_sortOrdererFactory, _forUserSortTermerFactory, query);
+		_fluentHandler.ApplySorting(_sortOrdererFactory, _forUserSortTermerFactory, query);
 
 		return this;
 	}
 
 	public IPostLikeFluent ApplyPagination(PostLikesPaginationQuery query)
 	{
-		ApplyPagination(_paginator, query);
+		_fluentHandler.ApplyPagination(_paginator, query);
 
 		return this;
 	}
@@ -127,7 +129,7 @@ internal class PostLikeFluent : MongoDbFluent<PostLike, PostLikeId>, IPostLikeFl
 					p.Post.CreatedAtUtc,
 					p.Post.UpdatedAtUtc),
 				p.CreatedAtUtc));
-		var fluent = Project(projection);
+		var fluent = _fluentHandler.Project(projection);
 
 		return _responseFluentFactory.Create(fluent);
 	}
@@ -166,7 +168,7 @@ internal class PostLikeFluent : MongoDbFluent<PostLike, PostLikeId>, IPostLikeFl
 					p.Post.CreatedAtUtc,
 					p.Post.UpdatedAtUtc),
 				p.CreatedAtUtc));
-		var fluent = Project(projection);
+		var fluent = _fluentHandler.Project(projection);
 
 		return _responseFluentFactory.Create(fluent);
 	}
@@ -187,8 +189,40 @@ internal class PostLikeFluent : MongoDbFluent<PostLike, PostLikeId>, IPostLikeFl
 					p.User.UpdatedAtUtc),
 				null,
 				p.CreatedAtUtc));
-		var fluent = Project(projection);
+		var fluent = _fluentHandler.Project(projection);
 
 		return _responseFluentFactory.Create(fluent);
+	}
+
+	public IMongoDbFluent<PostLike, PostLikeId> Match(FilterDefinition<PostLike> filterDefinition)
+	{
+		_fluentHandler.Match(filterDefinition);
+
+		return this;
+	}
+
+	public async Task<PostLike?> FirstOrDefaultAsync(CancellationToken cancellationToken)
+	{
+		return await _fluentHandler.FirstOrDefaultAsync(cancellationToken);
+	}
+
+	public async Task<long> GetCountAsync(CancellationToken cancellationToken)
+	{
+		return await _fluentHandler.GetCountAsync(cancellationToken);
+	}
+
+	public async Task<ICollection<PostLike>> ToListAsync(CancellationToken cancellationToken)
+	{
+		return await _fluentHandler.ToListAsync(cancellationToken);
+	}
+
+	public async Task<bool> AnyAsync(CancellationToken cancellationToken)
+	{
+		return await _fluentHandler.AnyAsync(cancellationToken);
+	}
+
+	public async Task<ICollection<PostLikeId>> GetIdsAsync(CancellationToken cancellationToken)
+	{
+		return await _fluentHandler.GetIdsAsync(cancellationToken);
 	}
 }

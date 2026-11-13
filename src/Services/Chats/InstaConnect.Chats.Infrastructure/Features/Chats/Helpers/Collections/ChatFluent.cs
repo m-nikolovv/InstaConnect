@@ -3,18 +3,20 @@ using InstaConnect.Chats.Infrastructure.Features.Chats.Extensions;
 
 namespace InstaConnect.Chats.Infrastructure.Features.Chats.Helpers.Collections;
 
-internal class ChatFluent : MongoDbFluent<Chat, ChatId>, IChatFluent
+internal class ChatFluent : IChatFluent
 {
 	private readonly IChatIncluderFactory _includerFactory;
 	private readonly IChatIncludeBuilderFactory _includeBuilderFactory;
 	private readonly IChatResponseFluentFactory _responseFluentFactory;
+	private readonly IMongoDbFluentHandler<Chat, ChatId> _fluentHandler;
 
 	public ChatFluent(
-		IAggregateFluent<Chat> fluent,
 		IChatIncluderFactory includerFactory,
 		IChatIncludeBuilderFactory includeBuilderFactory,
-		IChatResponseFluentFactory responseFluentFactory) : base(fluent)
+		IChatResponseFluentFactory responseFluentFactory,
+		IMongoDbFluentHandler<Chat, ChatId> fluentHandler)
 	{
+		_fluentHandler = fluentHandler;
 		_includerFactory = includerFactory;
 		_includeBuilderFactory = includeBuilderFactory;
 		_responseFluentFactory = responseFluentFactory;
@@ -22,31 +24,31 @@ internal class ChatFluent : MongoDbFluent<Chat, ChatId>, IChatFluent
 
 	public IChatFluent ApplyIncludes(ChatInclude include)
 	{
-		ApplyIncludes(_includerFactory, include);
+		_fluentHandler.ApplyIncludes(_includerFactory, include);
 
 		return this;
 	}
 
 	public IChatFluent Match(ChatsFilterQuery filter)
 	{
-		Match(filter.GetParticipantFilter());
+		_fluentHandler.Match(filter.GetParticipantFilter());
 
 		ApplyIncludes(_includeBuilderFactory.Create().WithParticipantOne().WithParticipantTwo().Build());
-		Match(filter.GetFilter());
+		_fluentHandler.Match(filter.GetFilter());
 
 		return this;
 	}
 
 	public IChatFluent Match(ChatId filter)
 	{
-		Match(filter.GetFilter());
+		_fluentHandler.Match(filter.GetFilter());
 
 		return this;
 	}
 
 	public IChatFluent Match(IEnumerable<ChatId> filter)
 	{
-		Match(filter.GetFilter());
+		_fluentHandler.Match(filter.GetFilter());
 
 		return this;
 	}
@@ -79,7 +81,7 @@ internal class ChatFluent : MongoDbFluent<Chat, ChatId>, IChatFluent
 								   p.Id.ParticipantOneId.Id.ToLower() == currentUserId ? p.ParticipantTwo!.UpdatedAtUtc : p.ParticipantOne!.UpdatedAtUtc),
 							   p.ChatMessages.Count,
 							   p.CreatedAtUtc));
-		var fluent = Project(projection);
+		var fluent = _fluentHandler.Project(projection);
 
 		return _responseFluentFactory.Create(fluent);
 	}
@@ -104,7 +106,7 @@ internal class ChatFluent : MongoDbFluent<Chat, ChatId>, IChatFluent
 								   p.Id.ParticipantOneId.Id.ToLower() == currentUserId ? p.ParticipantTwo!.UpdatedAtUtc : p.ParticipantOne!.UpdatedAtUtc),
 							   p.ChatMessages.Count,
 							   p.CreatedAtUtc));
-		var fluent = Project(projection);
+		var fluent = _fluentHandler.Project(projection);
 
 		return _responseFluentFactory.Create(fluent);
 	}
@@ -129,8 +131,40 @@ internal class ChatFluent : MongoDbFluent<Chat, ChatId>, IChatFluent
 							   null,
 							   p.ChatMessages.Count,
 							   p.CreatedAtUtc));
-		var fluent = Project(projection);
+		var fluent = _fluentHandler.Project(projection);
 
 		return _responseFluentFactory.Create(fluent);
+	}
+
+	public IMongoDbFluent<Chat, ChatId> Match(FilterDefinition<Chat> filterDefinition)
+	{
+		_fluentHandler.Match(filterDefinition);
+
+		return this;
+	}
+
+	public async Task<Chat?> FirstOrDefaultAsync(CancellationToken cancellationToken)
+	{
+		return await _fluentHandler.FirstOrDefaultAsync(cancellationToken);
+	}
+
+	public async Task<long> GetCountAsync(CancellationToken cancellationToken)
+	{
+		return await _fluentHandler.GetCountAsync(cancellationToken);
+	}
+
+	public async Task<ICollection<Chat>> ToListAsync(CancellationToken cancellationToken)
+	{
+		return await _fluentHandler.ToListAsync(cancellationToken);
+	}
+
+	public async Task<bool> AnyAsync(CancellationToken cancellationToken)
+	{
+		return await _fluentHandler.AnyAsync(cancellationToken);
+	}
+
+	public async Task<ICollection<ChatId>> GetIdsAsync(CancellationToken cancellationToken)
+	{
+		return await _fluentHandler.GetIdsAsync(cancellationToken);
 	}
 }

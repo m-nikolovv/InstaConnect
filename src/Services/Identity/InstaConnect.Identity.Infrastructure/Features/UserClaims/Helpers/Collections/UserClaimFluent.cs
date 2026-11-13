@@ -2,23 +2,25 @@ using InstaConnect.Identity.Infrastructure.Features.UserClaims.Extensions;
 
 namespace InstaConnect.Identity.Infrastructure.Features.UserClaims.Helpers.Collections;
 
-internal class UserClaimFluent : MongoDbFluent<UserClaim, UserClaimId>, IUserClaimFluent
+internal class UserClaimFluent : IUserClaimFluent
 {
 	private readonly IPaginator _paginator;
 	private readonly ISortOrdererFactory _sortOrdererFactory;
 	private readonly IUserClaimIncluderFactory _includerFactory;
 	private readonly IUserClaimsSortTermerFactory _sortTermerFactory;
 	private readonly IUserClaimResponseFluentFactory _responseFluentFactory;
+	private readonly IMongoDbFluentHandler<UserClaim, UserClaimId> _fluentHandler;
 
 	public UserClaimFluent(
 		IPaginator paginator,
-		IAggregateFluent<UserClaim> fluent,
 		ISortOrdererFactory sortOrdererFactory,
 		IUserClaimIncluderFactory includerFactory,
 		IUserClaimsSortTermerFactory sortTermerFactory,
-		IUserClaimResponseFluentFactory responseFluentFactory) : base(fluent)
+		IUserClaimResponseFluentFactory responseFluentFactory,
+		IMongoDbFluentHandler<UserClaim, UserClaimId> fluentHandler)
 	{
 		_paginator = paginator;
+		_fluentHandler = fluentHandler;
 		_includerFactory = includerFactory;
 		_sortTermerFactory = sortTermerFactory;
 		_sortOrdererFactory = sortOrdererFactory;
@@ -27,42 +29,42 @@ internal class UserClaimFluent : MongoDbFluent<UserClaim, UserClaimId>, IUserCla
 
 	public IUserClaimFluent ApplyIncludes(UserClaimInclude include)
 	{
-		ApplyIncludes(_includerFactory, include);
+		_fluentHandler.ApplyIncludes(_includerFactory, include);
 
 		return this;
 	}
 
 	public IUserClaimFluent Match(UserClaimsFilterQuery filter)
 	{
-		Match(filter.GetFilter());
+		_fluentHandler.Match(filter.GetFilter());
 
 		return this;
 	}
 
 	public IUserClaimFluent Match(UserClaimId filter)
 	{
-		Match(filter.GetFilter());
+		_fluentHandler.Match(filter.GetFilter());
 
 		return this;
 	}
 
 	public IUserClaimFluent Match(IEnumerable<UserClaimId> filter)
 	{
-		Match(filter.GetFilter());
+		_fluentHandler.Match(filter.GetFilter());
 
 		return this;
 	}
 
 	public IUserClaimFluent ApplySorting(UserClaimsSortingQuery query)
 	{
-		ApplySorting(_sortOrdererFactory, _sortTermerFactory, query);
+		_fluentHandler.ApplySorting(_sortOrdererFactory, _sortTermerFactory, query);
 
 		return this;
 	}
 
 	public IUserClaimFluent ApplyPagination(UserClaimsPaginationQuery query)
 	{
-		ApplyPagination(_paginator, query);
+		_fluentHandler.ApplyPagination(_paginator, query);
 
 		return this;
 	}
@@ -82,7 +84,7 @@ internal class UserClaimFluent : MongoDbFluent<UserClaim, UserClaimId>, IUserCla
 					uc.User.CreatedAtUtc,
 					uc.User.UpdatedAtUtc),
 				uc.CreatedAtUtc));
-		var fluent = Project(projection);
+		var fluent = _fluentHandler.Project(projection);
 
 		return _responseFluentFactory.Create(fluent);
 	}
@@ -94,8 +96,40 @@ internal class UserClaimFluent : MongoDbFluent<UserClaim, UserClaimId>, IUserCla
 				uc.Id,
 				null,
 				uc.CreatedAtUtc));
-		var fluent = Project(projection);
+		var fluent = _fluentHandler.Project(projection);
 
 		return _responseFluentFactory.Create(fluent);
+	}
+
+	public IMongoDbFluent<UserClaim, UserClaimId> Match(FilterDefinition<UserClaim> filterDefinition)
+	{
+		_fluentHandler.Match(filterDefinition);
+
+		return this;
+	}
+
+	public async Task<UserClaim?> FirstOrDefaultAsync(CancellationToken cancellationToken)
+	{
+		return await _fluentHandler.FirstOrDefaultAsync(cancellationToken);
+	}
+
+	public async Task<long> GetCountAsync(CancellationToken cancellationToken)
+	{
+		return await _fluentHandler.GetCountAsync(cancellationToken);
+	}
+
+	public async Task<ICollection<UserClaim>> ToListAsync(CancellationToken cancellationToken)
+	{
+		return await _fluentHandler.ToListAsync(cancellationToken);
+	}
+
+	public async Task<bool> AnyAsync(CancellationToken cancellationToken)
+	{
+		return await _fluentHandler.AnyAsync(cancellationToken);
+	}
+
+	public async Task<ICollection<UserClaimId>> GetIdsAsync(CancellationToken cancellationToken)
+	{
+		return await _fluentHandler.GetIdsAsync(cancellationToken);
 	}
 }

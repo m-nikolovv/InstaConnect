@@ -6,6 +6,7 @@ internal class FollowFluentFactory : IFollowFluentFactory
 	private readonly IFollowIncluderFactory _includerFactory;
 	private readonly ISortOrdererFactory _sortOrdererFactory;
 	private readonly IFollowsSortTermerFactory _sortTermerFactory;
+	private readonly IMongoDbFluentHandlerFactory _fluentHandlerFactory;
 	private readonly IFollowResponseFluentFactory _responseFluentFactory;
 	private readonly IFollowsForFollowingSortTermerFactory _forFollowingSortTermerFactory;
 
@@ -14,6 +15,7 @@ internal class FollowFluentFactory : IFollowFluentFactory
 		IFollowIncluderFactory includerFactory,
 		ISortOrdererFactory sortOrdererFactory,
 		IFollowsSortTermerFactory sortTermerFactory,
+		IMongoDbFluentHandlerFactory fluentHandlerFactory,
 		IFollowResponseFluentFactory responseFluentFactory,
 		IFollowsForFollowingSortTermerFactory forFollowingSortTermerFactory)
 	{
@@ -21,6 +23,7 @@ internal class FollowFluentFactory : IFollowFluentFactory
 		_includerFactory = includerFactory;
 		_sortTermerFactory = sortTermerFactory;
 		_sortOrdererFactory = sortOrdererFactory;
+		_fluentHandlerFactory = fluentHandlerFactory;
 		_responseFluentFactory = responseFluentFactory;
 		_forFollowingSortTermerFactory = forFollowingSortTermerFactory;
 	}
@@ -29,11 +32,11 @@ internal class FollowFluentFactory : IFollowFluentFactory
 	{
 		return new FollowFluent(
 			_paginator,
-			fluent,
 			_includerFactory,
 			_sortOrdererFactory,
 			_sortTermerFactory,
 			_responseFluentFactory,
+			_fluentHandlerFactory.Create<Follow, FollowId>(fluent),
 			_forFollowingSortTermerFactory);
 	}
 }

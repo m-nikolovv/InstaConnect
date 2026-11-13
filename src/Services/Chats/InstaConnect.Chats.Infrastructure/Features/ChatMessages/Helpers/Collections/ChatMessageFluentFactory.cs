@@ -6,6 +6,7 @@ internal class ChatMessageFluentFactory : IChatMessageFluentFactory
 	private readonly ISortOrdererFactory _sortOrdererFactory;
 	private readonly IChatMessageIncluderFactory _includerFactory;
 	private readonly IChatMessagesSortTermerFactory _sortTermerFactory;
+	private readonly IMongoDbFluentHandlerFactory _fluentHandlerFactory;
 	private readonly IChatMessageResponseFluentFactory _responseFluentFactory;
 
 	public ChatMessageFluentFactory(
@@ -13,12 +14,14 @@ internal class ChatMessageFluentFactory : IChatMessageFluentFactory
 		ISortOrdererFactory sortOrdererFactory,
 		IChatMessageIncluderFactory includerFactory,
 		IChatMessagesSortTermerFactory sortTermerFactory,
+		IMongoDbFluentHandlerFactory fluentHandlerFactory,
 		IChatMessageResponseFluentFactory responseFluentFactory)
 	{
 		_paginator = paginator;
 		_includerFactory = includerFactory;
 		_sortTermerFactory = sortTermerFactory;
 		_sortOrdererFactory = sortOrdererFactory;
+		_fluentHandlerFactory = fluentHandlerFactory;
 		_responseFluentFactory = responseFluentFactory;
 	}
 
@@ -26,10 +29,10 @@ internal class ChatMessageFluentFactory : IChatMessageFluentFactory
 	{
 		return new ChatMessageFluent(
 			_paginator,
-			fluent,
 			_sortOrdererFactory,
 			_includerFactory,
 			_sortTermerFactory,
-			_responseFluentFactory);
+			_responseFluentFactory,
+			_fluentHandlerFactory.Create<ChatMessage, ChatMessageId>(fluent));
 	}
 }

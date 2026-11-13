@@ -41,6 +41,7 @@ public static class ServiceCollectionExtensions
 				.AddScoped<IPaginator, Paginator>()
 				.AddScoped<IUnitOfWork, UnitOfWork>()
 				.AddScoped<ISessionHandler, SessionHandler>()
+				.AddScoped<IMongoDbFluentHandlerFactory, MongoDbFluentHandlerFactory>()
 				.AddScoped(typeof(IMongoDbCollectionHandler<,>), typeof(MongoDbCollectionHandler<,>));
 
 			serviceCollection
@@ -76,11 +77,10 @@ public static class ServiceCollectionExtensions
 
 		public IServiceCollection AddServicesWithMatchingInterfacesExceptFluents(params Assembly[] assemblies)
 		{
-			Type[] fluentTypes = [typeof(MongoDbFluent<,>), typeof(MongoDbResponseFluent<>)];
+			Type[] fluentTypes = [typeof(IMongoDbFluent<,>), typeof(IMongoDbResponseFluent<>)];
 
 			return serviceCollection.AddServicesWithMatchingInterfaces(
-				type => type.BaseType is not { IsGenericType: true } baseType ||
-						!fluentTypes.Contains(baseType.GetGenericTypeDefinition()),
+				type => !type.GetInterfaces().Any(p => p.IsGenericType && fluentTypes.Contains(p.GetGenericTypeDefinition())),
 				assemblies);
 		}
 	}

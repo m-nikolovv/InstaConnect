@@ -5,6 +5,7 @@ internal class PostCommentLikeFluentFactory : IPostCommentLikeFluentFactory
 	private readonly IPaginator _paginator;
 	private readonly ISortOrdererFactory _sortOrdererFactory;
 	private readonly IPostCommentLikeIncluderFactory _includerFactory;
+	private readonly IMongoDbFluentHandlerFactory _fluentHandlerFactory;
 	private readonly IPostCommentLikesSortTermerFactory _sortTermerFactory;
 	private readonly IPostCommentLikeResponseFluentFactory _responseFluentFactory;
 	private readonly IPostCommentLikesForUserSortTermerFactory _forUserSortTermerFactory;
@@ -13,6 +14,7 @@ internal class PostCommentLikeFluentFactory : IPostCommentLikeFluentFactory
 		IPaginator paginator,
 		ISortOrdererFactory sortOrdererFactory,
 		IPostCommentLikeIncluderFactory includerFactory,
+		IMongoDbFluentHandlerFactory fluentHandlerFactory,
 		IPostCommentLikesSortTermerFactory sortTermerFactory,
 		IPostCommentLikeResponseFluentFactory responseFluentFactory,
 		IPostCommentLikesForUserSortTermerFactory forUserSortTermerFactory)
@@ -21,6 +23,7 @@ internal class PostCommentLikeFluentFactory : IPostCommentLikeFluentFactory
 		_includerFactory = includerFactory;
 		_sortTermerFactory = sortTermerFactory;
 		_sortOrdererFactory = sortOrdererFactory;
+		_fluentHandlerFactory = fluentHandlerFactory;
 		_responseFluentFactory = responseFluentFactory;
 		_forUserSortTermerFactory = forUserSortTermerFactory;
 	}
@@ -30,10 +33,10 @@ internal class PostCommentLikeFluentFactory : IPostCommentLikeFluentFactory
 		return new PostCommentLikeFluent(
 			_paginator,
 			_sortOrdererFactory,
-			fluent,
 			_includerFactory,
 			_sortTermerFactory,
 			_responseFluentFactory,
-			_forUserSortTermerFactory);
+			_forUserSortTermerFactory,
+			_fluentHandlerFactory.Create<PostCommentLike, PostCommentLikeId>(fluent));
 	}
 }

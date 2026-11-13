@@ -2,18 +2,17 @@ using InstaConnect.Common.Domain.Features.Requests.Abstractions;
 
 namespace InstaConnect.Common.Infrastructure.Features.Databases.Helpers;
 
-public abstract class MongoDbResponseFluent<TEntity> : IMongoDbResponseFluent<TEntity>
+internal class MongoDbResponseFluentHandler<TEntity> : IMongoDbResponseFluentHandler<TEntity>
 	where TEntity : ICreatable
 {
 	private IAggregateFluent<TEntity> _fluent;
 
-	protected MongoDbResponseFluent(
-		IAggregateFluent<TEntity> fluent)
+	public MongoDbResponseFluentHandler(IAggregateFluent<TEntity> fluent)
 	{
 		_fluent = fluent;
 	}
 
-	protected void ApplySorting<TSortTerm, TSortTermer, TSortingQuery>(
+	public void ApplySorting<TSortTerm, TSortTermer, TSortingQuery>(
 		ISortOrdererFactory sortOrdererFactory,
 		ISortTermerFactory<TSortTerm, TSortTermer, TEntity> sortTermerFactory,
 		TSortingQuery sorting)
@@ -27,7 +26,7 @@ public abstract class MongoDbResponseFluent<TEntity> : IMongoDbResponseFluent<TE
 		_fluent = _fluent.Sort(Builders<TEntity>.Sort.Combine(order.Sort(term.Term), order.Sort<TEntity>(a => a.CreatedAtUtc)));
 	}
 
-	protected void ApplyPagination<TPaginationQuery>(
+	public void ApplyPagination<TPaginationQuery>(
 		IPaginator paginator,
 		TPaginationQuery pagination)
 		where TPaginationQuery : IPaginationQuery

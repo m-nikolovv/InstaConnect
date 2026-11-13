@@ -2,23 +2,25 @@ using InstaConnect.Chats.Domain.Features.ChatMessageImages.Models.Responses;
 
 namespace InstaConnect.Chats.Infrastructure.Features.ChatMessages.Helpers.Collections;
 
-internal class ChatMessageFluent : MongoDbFluent<ChatMessage, ChatMessageId>, IChatMessageFluent
+internal class ChatMessageFluent : IChatMessageFluent
 {
 	private readonly IPaginator _paginator;
 	private readonly ISortOrdererFactory _sortOrdererFactory;
 	private readonly IChatMessageIncluderFactory _includerFactory;
 	private readonly IChatMessagesSortTermerFactory _sortTermerFactory;
 	private readonly IChatMessageResponseFluentFactory _responseFluentFactory;
+	private readonly IMongoDbFluentHandler<ChatMessage, ChatMessageId> _fluentHandler;
 
 	public ChatMessageFluent(
 		IPaginator paginator,
-		IAggregateFluent<ChatMessage> fluent,
 		ISortOrdererFactory sortOrdererFactory,
 		IChatMessageIncluderFactory includerFactory,
 		IChatMessagesSortTermerFactory sortTermerFactory,
-		IChatMessageResponseFluentFactory responseFluentFactory) : base(fluent)
+		IChatMessageResponseFluentFactory responseFluentFactory,
+		IMongoDbFluentHandler<ChatMessage, ChatMessageId> fluentHandler)
 	{
 		_paginator = paginator;
+		_fluentHandler = fluentHandler;
 		_includerFactory = includerFactory;
 		_sortTermerFactory = sortTermerFactory;
 		_sortOrdererFactory = sortOrdererFactory;
@@ -27,42 +29,42 @@ internal class ChatMessageFluent : MongoDbFluent<ChatMessage, ChatMessageId>, IC
 
 	public IChatMessageFluent ApplyIncludes(ChatMessageInclude include)
 	{
-		ApplyIncludes(_includerFactory, include);
+		_fluentHandler.ApplyIncludes(_includerFactory, include);
 
 		return this;
 	}
 
 	public IChatMessageFluent Match(ChatMessagesFilterQuery filter)
 	{
-		Match(filter.GetFilter());
+		_fluentHandler.Match(filter.GetFilter());
 
 		return this;
 	}
 
 	public IChatMessageFluent Match(ChatMessageId filter)
 	{
-		Match(filter.GetFilter());
+		_fluentHandler.Match(filter.GetFilter());
 
 		return this;
 	}
 
 	public IChatMessageFluent Match(IEnumerable<ChatMessageId> filter)
 	{
-		Match(filter.GetFilter());
+		_fluentHandler.Match(filter.GetFilter());
 
 		return this;
 	}
 
 	public IChatMessageFluent ApplySorting(ChatMessagesSortingQuery query)
 	{
-		ApplySorting(_sortOrdererFactory, _sortTermerFactory, query);
+		_fluentHandler.ApplySorting(_sortOrdererFactory, _sortTermerFactory, query);
 
 		return this;
 	}
 
 	public IChatMessageFluent ApplyPagination(ChatMessagesPaginationQuery query)
 	{
-		ApplyPagination(_paginator, query);
+		_fluentHandler.ApplyPagination(_paginator, query);
 
 		return this;
 	}
@@ -126,7 +128,7 @@ internal class ChatMessageFluent : MongoDbFluent<ChatMessage, ChatMessageId>, IC
 							pi.CreatedAtUtc)).ToList(),
 					p.CreatedAtUtc,
 					p.UpdatedAtUtc));
-		var fluent = Project(projection);
+		var fluent = _fluentHandler.Project(projection);
 
 		return _responseFluentFactory.Create(fluent);
 	}
@@ -167,7 +169,7 @@ internal class ChatMessageFluent : MongoDbFluent<ChatMessage, ChatMessageId>, IC
 							pi.CreatedAtUtc)).ToList(),
 					p.CreatedAtUtc,
 					p.UpdatedAtUtc));
-		var fluent = Project(projection);
+		var fluent = _fluentHandler.Project(projection);
 
 		return _responseFluentFactory.Create(fluent);
 	}
@@ -223,8 +225,40 @@ internal class ChatMessageFluent : MongoDbFluent<ChatMessage, ChatMessageId>, IC
 							pi.CreatedAtUtc)).ToList(),
 					p.CreatedAtUtc,
 					p.UpdatedAtUtc));
-		var fluent = Project(projection);
+		var fluent = _fluentHandler.Project(projection);
 
 		return _responseFluentFactory.Create(fluent);
+	}
+
+	public IMongoDbFluent<ChatMessage, ChatMessageId> Match(FilterDefinition<ChatMessage> filterDefinition)
+	{
+		_fluentHandler.Match(filterDefinition);
+
+		return this;
+	}
+
+	public async Task<ChatMessage?> FirstOrDefaultAsync(CancellationToken cancellationToken)
+	{
+		return await _fluentHandler.FirstOrDefaultAsync(cancellationToken);
+	}
+
+	public async Task<long> GetCountAsync(CancellationToken cancellationToken)
+	{
+		return await _fluentHandler.GetCountAsync(cancellationToken);
+	}
+
+	public async Task<ICollection<ChatMessage>> ToListAsync(CancellationToken cancellationToken)
+	{
+		return await _fluentHandler.ToListAsync(cancellationToken);
+	}
+
+	public async Task<bool> AnyAsync(CancellationToken cancellationToken)
+	{
+		return await _fluentHandler.AnyAsync(cancellationToken);
+	}
+
+	public async Task<ICollection<ChatMessageId>> GetIdsAsync(CancellationToken cancellationToken)
+	{
+		return await _fluentHandler.GetIdsAsync(cancellationToken);
 	}
 }

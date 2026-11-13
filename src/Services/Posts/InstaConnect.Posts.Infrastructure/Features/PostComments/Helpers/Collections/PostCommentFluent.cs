@@ -3,7 +3,7 @@ using InstaConnect.Posts.Domain.Features.PostImages.Models.Responses;
 
 namespace InstaConnect.Posts.Infrastructure.Features.PostComments.Helpers.Collections;
 
-internal class PostCommentFluent : MongoDbFluent<PostComment, PostCommentId>, IPostCommentFluent
+internal class PostCommentFluent : IPostCommentFluent
 {
 	private readonly IPaginator _paginator;
 	private readonly ISortOrdererFactory _sortOrdererFactory;
@@ -11,17 +11,19 @@ internal class PostCommentFluent : MongoDbFluent<PostComment, PostCommentId>, IP
 	private readonly IPostCommentsSortTermerFactory _sortTermerFactory;
 	private readonly IPostCommentResponseFluentFactory _responseFluentFactory;
 	private readonly IPostCommentsForUserSortTermerFactory _forUserSortTermerFactory;
+	private readonly IMongoDbFluentHandler<PostComment, PostCommentId> _fluentHandler;
 
 	public PostCommentFluent(
 		IPaginator paginator,
-		IAggregateFluent<PostComment> fluent,
 		ISortOrdererFactory sortOrdererFactory,
 		IPostCommentIncluderFactory includerFactory,
 		IPostCommentsSortTermerFactory sortTermerFactory,
 		IPostCommentResponseFluentFactory responseFluentFactory,
-		IPostCommentsForUserSortTermerFactory forUserSortTermerFactory) : base(fluent)
+		IPostCommentsForUserSortTermerFactory forUserSortTermerFactory,
+		IMongoDbFluentHandler<PostComment, PostCommentId> fluentHandler)
 	{
 		_paginator = paginator;
+		_fluentHandler = fluentHandler;
 		_includerFactory = includerFactory;
 		_sortTermerFactory = sortTermerFactory;
 		_sortOrdererFactory = sortOrdererFactory;
@@ -31,56 +33,56 @@ internal class PostCommentFluent : MongoDbFluent<PostComment, PostCommentId>, IP
 
 	public IPostCommentFluent ApplyIncludes(PostCommentInclude include)
 	{
-		ApplyIncludes(_includerFactory, include);
+		_fluentHandler.ApplyIncludes(_includerFactory, include);
 
 		return this;
 	}
 
 	public IPostCommentFluent Match(PostCommentsFilterQuery filter)
 	{
-		Match(filter.GetFilter());
+		_fluentHandler.Match(filter.GetFilter());
 
 		return this;
 	}
 
 	public IPostCommentFluent Match(PostCommentsForUserFilterQuery filter)
 	{
-		Match(filter.GetFilter());
+		_fluentHandler.Match(filter.GetFilter());
 
 		return this;
 	}
 
 	public IPostCommentFluent Match(PostCommentId filter)
 	{
-		Match(filter.GetFilter());
+		_fluentHandler.Match(filter.GetFilter());
 
 		return this;
 	}
 
 	public IPostCommentFluent Match(IEnumerable<PostCommentId> filter)
 	{
-		Match(filter.GetFilter());
+		_fluentHandler.Match(filter.GetFilter());
 
 		return this;
 	}
 
 	public IPostCommentFluent ApplySorting(PostCommentsSortingQuery query)
 	{
-		ApplySorting(_sortOrdererFactory, _sortTermerFactory, query);
+		_fluentHandler.ApplySorting(_sortOrdererFactory, _sortTermerFactory, query);
 
 		return this;
 	}
 
 	public IPostCommentFluent ApplySorting(PostCommentsForUserSortingQuery query)
 	{
-		ApplySorting(_sortOrdererFactory, _forUserSortTermerFactory, query);
+		_fluentHandler.ApplySorting(_sortOrdererFactory, _forUserSortTermerFactory, query);
 
 		return this;
 	}
 
 	public IPostCommentFluent ApplyPagination(PostCommentsPaginationQuery query)
 	{
-		ApplyPagination(_paginator, query);
+		_fluentHandler.ApplyPagination(_paginator, query);
 
 		return this;
 	}
@@ -139,7 +141,7 @@ internal class PostCommentFluent : MongoDbFluent<PostComment, PostCommentId>, IP
 				p.PostCommentLikes.Count,
 				p.CreatedAtUtc,
 				p.UpdatedAtUtc));
-		var fluent = Project(projection);
+		var fluent = _fluentHandler.Project(projection);
 
 		return _responseFluentFactory.Create(fluent);
 	}
@@ -190,7 +192,7 @@ internal class PostCommentFluent : MongoDbFluent<PostComment, PostCommentId>, IP
 				p.PostCommentLikes.Count,
 				p.CreatedAtUtc,
 				p.UpdatedAtUtc));
-		var fluent = Project(projection);
+		var fluent = _fluentHandler.Project(projection);
 
 		return _responseFluentFactory.Create(fluent);
 	}
@@ -224,8 +226,40 @@ internal class PostCommentFluent : MongoDbFluent<PostComment, PostCommentId>, IP
 				p.PostCommentLikes.Count,
 				p.CreatedAtUtc,
 				p.UpdatedAtUtc));
-		var fluent = Project(projection);
+		var fluent = _fluentHandler.Project(projection);
 
 		return _responseFluentFactory.Create(fluent);
+	}
+
+	public IMongoDbFluent<PostComment, PostCommentId> Match(FilterDefinition<PostComment> filterDefinition)
+	{
+		_fluentHandler.Match(filterDefinition);
+
+		return this;
+	}
+
+	public async Task<PostComment?> FirstOrDefaultAsync(CancellationToken cancellationToken)
+	{
+		return await _fluentHandler.FirstOrDefaultAsync(cancellationToken);
+	}
+
+	public async Task<long> GetCountAsync(CancellationToken cancellationToken)
+	{
+		return await _fluentHandler.GetCountAsync(cancellationToken);
+	}
+
+	public async Task<ICollection<PostComment>> ToListAsync(CancellationToken cancellationToken)
+	{
+		return await _fluentHandler.ToListAsync(cancellationToken);
+	}
+
+	public async Task<bool> AnyAsync(CancellationToken cancellationToken)
+	{
+		return await _fluentHandler.AnyAsync(cancellationToken);
+	}
+
+	public async Task<ICollection<PostCommentId>> GetIdsAsync(CancellationToken cancellationToken)
+	{
+		return await _fluentHandler.GetIdsAsync(cancellationToken);
 	}
 }

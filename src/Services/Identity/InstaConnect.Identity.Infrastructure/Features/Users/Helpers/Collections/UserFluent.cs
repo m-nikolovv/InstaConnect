@@ -1,22 +1,24 @@
 namespace InstaConnect.Identity.Infrastructure.Features.Users.Helpers.Collections;
 
-internal class UserFluent : MongoDbFluent<User, UserId>, IUserFluent
+internal class UserFluent : IUserFluent
 {
 	private readonly IPaginator _paginator;
 	private readonly IUserIncluderFactory _includerFactory;
 	private readonly ISortOrdererFactory _sortOrdererFactory;
 	private readonly IUsersSortTermerFactory _sortTermerFactory;
 	private readonly IUserResponseFluentFactory _responseFluentFactory;
+	private readonly IMongoDbFluentHandler<User, UserId> _fluentHandler;
 
 	public UserFluent(
 		IPaginator paginator,
-		IAggregateFluent<User> fluent,
 		IUserIncluderFactory includerFactory,
 		ISortOrdererFactory sortOrdererFactory,
 		IUsersSortTermerFactory sortTermerFactory,
-		IUserResponseFluentFactory responseFluentFactory) : base(fluent)
+		IUserResponseFluentFactory responseFluentFactory,
+		IMongoDbFluentHandler<User, UserId> fluentHandler)
 	{
 		_paginator = paginator;
+		_fluentHandler = fluentHandler;
 		_includerFactory = includerFactory;
 		_sortTermerFactory = sortTermerFactory;
 		_sortOrdererFactory = sortOrdererFactory;
@@ -25,49 +27,49 @@ internal class UserFluent : MongoDbFluent<User, UserId>, IUserFluent
 
 	public IUserFluent ApplyIncludes(UserInclude include)
 	{
-		ApplyIncludes(_includerFactory, include);
+		_fluentHandler.ApplyIncludes(_includerFactory, include);
 
 		return this;
 	}
 
 	public IUserFluent Match(UsersFilterQuery filter)
 	{
-		Match(filter.GetFilter());
+		_fluentHandler.Match(filter.GetFilter());
 
 		return this;
 	}
 
 	public IUserFluent Match(UserId filter)
 	{
-		Match(filter.GetFilter());
+		_fluentHandler.Match(filter.GetFilter());
 
 		return this;
 	}
 
 	public IUserFluent Match(Name filter)
 	{
-		Match(filter.GetFilter());
+		_fluentHandler.Match(filter.GetFilter());
 
 		return this;
 	}
 
 	public IUserFluent Match(Email filter)
 	{
-		Match(filter.GetFilter());
+		_fluentHandler.Match(filter.GetFilter());
 
 		return this;
 	}
 
 	public IUserFluent ApplySorting(UsersSortingQuery query)
 	{
-		ApplySorting(_sortOrdererFactory, _sortTermerFactory, query);
+		_fluentHandler.ApplySorting(_sortOrdererFactory, _sortTermerFactory, query);
 
 		return this;
 	}
 
 	public IUserFluent ApplyPagination(UsersPaginationQuery query)
 	{
-		ApplyPagination(_paginator, query);
+		_fluentHandler.ApplyPagination(_paginator, query);
 
 		return this;
 	}
@@ -84,8 +86,40 @@ internal class UserFluent : MongoDbFluent<User, UserId>, IUserFluent
 				u.ProfileImageUrl,
 				u.CreatedAtUtc,
 				u.UpdatedAtUtc));
-		var fluent = Project(projection);
+		var fluent = _fluentHandler.Project(projection);
 
 		return _responseFluentFactory.Create(fluent);
+	}
+
+	public IMongoDbFluent<User, UserId> Match(FilterDefinition<User> filterDefinition)
+	{
+		_fluentHandler.Match(filterDefinition);
+
+		return this;
+	}
+
+	public async Task<User?> FirstOrDefaultAsync(CancellationToken cancellationToken)
+	{
+		return await _fluentHandler.FirstOrDefaultAsync(cancellationToken);
+	}
+
+	public async Task<long> GetCountAsync(CancellationToken cancellationToken)
+	{
+		return await _fluentHandler.GetCountAsync(cancellationToken);
+	}
+
+	public async Task<ICollection<User>> ToListAsync(CancellationToken cancellationToken)
+	{
+		return await _fluentHandler.ToListAsync(cancellationToken);
+	}
+
+	public async Task<bool> AnyAsync(CancellationToken cancellationToken)
+	{
+		return await _fluentHandler.AnyAsync(cancellationToken);
+	}
+
+	public async Task<ICollection<UserId>> GetIdsAsync(CancellationToken cancellationToken)
+	{
+		return await _fluentHandler.GetIdsAsync(cancellationToken);
 	}
 }

@@ -6,6 +6,7 @@ internal class PostCommentFluentFactory : IPostCommentFluentFactory
 	private readonly ISortOrdererFactory _sortOrdererFactory;
 	private readonly IPostCommentIncluderFactory _includerFactory;
 	private readonly IPostCommentsSortTermerFactory _sortTermerFactory;
+	private readonly IMongoDbFluentHandlerFactory _fluentHandlerFactory;
 	private readonly IPostCommentResponseFluentFactory _responseFluentFactory;
 	private readonly IPostCommentsForUserSortTermerFactory _forUserSortTermerFactory;
 
@@ -14,6 +15,7 @@ internal class PostCommentFluentFactory : IPostCommentFluentFactory
 		ISortOrdererFactory sortOrdererFactory,
 		IPostCommentIncluderFactory includerFactory,
 		IPostCommentsSortTermerFactory sortTermerFactory,
+		IMongoDbFluentHandlerFactory fluentHandlerFactory,
 		IPostCommentResponseFluentFactory responseFluentFactory,
 		IPostCommentsForUserSortTermerFactory forUserSortTermerFactory)
 	{
@@ -21,6 +23,7 @@ internal class PostCommentFluentFactory : IPostCommentFluentFactory
 		_includerFactory = includerFactory;
 		_sortTermerFactory = sortTermerFactory;
 		_sortOrdererFactory = sortOrdererFactory;
+		_fluentHandlerFactory = fluentHandlerFactory;
 		_responseFluentFactory = responseFluentFactory;
 		_forUserSortTermerFactory = forUserSortTermerFactory;
 	}
@@ -29,11 +32,11 @@ internal class PostCommentFluentFactory : IPostCommentFluentFactory
 	{
 		return new PostCommentFluent(
 			_paginator,
-			fluent,
 			_sortOrdererFactory,
 			_includerFactory,
 			_sortTermerFactory,
 			_responseFluentFactory,
-			_forUserSortTermerFactory);
+			_forUserSortTermerFactory,
+			_fluentHandlerFactory.Create<PostComment, PostCommentId>(fluent));
 	}
 }

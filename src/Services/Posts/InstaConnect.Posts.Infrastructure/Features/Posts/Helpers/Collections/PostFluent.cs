@@ -2,25 +2,27 @@ using InstaConnect.Posts.Domain.Features.PostImages.Models.Responses;
 
 namespace InstaConnect.Posts.Infrastructure.Features.Posts.Helpers.Collections;
 
-internal class PostFluent : MongoDbFluent<Post, PostId>, IPostFluent
+internal class PostFluent : IPostFluent
 {
 	private readonly IPaginator _paginator;
 	private readonly IPostIncluderFactory _includerFactory;
 	private readonly ISortOrdererFactory _sortOrdererFactory;
 	private readonly IPostsSortTermerFactory _sortTermerFactory;
 	private readonly IPostResponseFluentFactory _responseFluentFactory;
+	private readonly IMongoDbFluentHandler<Post, PostId> _fluentHandler;
 	private readonly IPostsForUserSortTermerFactory _forUserSortTermerFactory;
 
 	public PostFluent(
 		IPaginator paginator,
-		IAggregateFluent<Post> fluent,
 		IPostIncluderFactory includerFactory,
 		ISortOrdererFactory sortOrdererFactory,
 		IPostsSortTermerFactory sortTermerFactory,
 		IPostResponseFluentFactory responseFluentFactory,
-		IPostsForUserSortTermerFactory forUserSortTermerFactory) : base(fluent)
+		IMongoDbFluentHandler<Post, PostId> fluentHandler,
+		IPostsForUserSortTermerFactory forUserSortTermerFactory)
 	{
 		_paginator = paginator;
+		_fluentHandler = fluentHandler;
 		_includerFactory = includerFactory;
 		_sortTermerFactory = sortTermerFactory;
 		_sortOrdererFactory = sortOrdererFactory;
@@ -30,56 +32,56 @@ internal class PostFluent : MongoDbFluent<Post, PostId>, IPostFluent
 
 	public IPostFluent ApplyIncludes(PostInclude include)
 	{
-		ApplyIncludes(_includerFactory, include);
+		_fluentHandler.ApplyIncludes(_includerFactory, include);
 
 		return this;
 	}
 
 	public IPostFluent Match(PostsFilterQuery filter)
 	{
-		Match(filter.GetFilter());
+		_fluentHandler.Match(filter.GetFilter());
 
 		return this;
 	}
 
 	public IPostFluent Match(PostsForUserFilterQuery filter)
 	{
-		Match(filter.GetFilter());
+		_fluentHandler.Match(filter.GetFilter());
 
 		return this;
 	}
 
 	public IPostFluent Match(PostId filter)
 	{
-		Match(filter.GetFilter());
+		_fluentHandler.Match(filter.GetFilter());
 
 		return this;
 	}
 
 	public IPostFluent Match(IEnumerable<PostId> filter)
 	{
-		Match(filter.GetFilter());
+		_fluentHandler.Match(filter.GetFilter());
 
 		return this;
 	}
 
 	public IPostFluent ApplySorting(PostsSortingQuery query)
 	{
-		ApplySorting(_sortOrdererFactory, _sortTermerFactory, query);
+		_fluentHandler.ApplySorting(_sortOrdererFactory, _sortTermerFactory, query);
 
 		return this;
 	}
 
 	public IPostFluent ApplySorting(PostsForUserSortingQuery query)
 	{
-		ApplySorting(_sortOrdererFactory, _forUserSortTermerFactory, query);
+		_fluentHandler.ApplySorting(_sortOrdererFactory, _forUserSortTermerFactory, query);
 
 		return this;
 	}
 
 	public IPostFluent ApplyPagination(PostsPaginationQuery query)
 	{
-		ApplyPagination(_paginator, query);
+		_fluentHandler.ApplyPagination(_paginator, query);
 
 		return this;
 	}
@@ -114,7 +116,7 @@ internal class PostFluent : MongoDbFluent<Post, PostId>, IPostFluent
 				 p.PostComments.Count,
 				 p.CreatedAtUtc,
 				 p.UpdatedAtUtc));
-		var fluent = Project(projection);
+		var fluent = _fluentHandler.Project(projection);
 
 		return _responseFluentFactory.Create(fluent);
 	}
@@ -141,8 +143,40 @@ internal class PostFluent : MongoDbFluent<Post, PostId>, IPostFluent
 				 p.PostComments.Count,
 				 p.CreatedAtUtc,
 				 p.UpdatedAtUtc));
-		var fluent = Project(projection);
+		var fluent = _fluentHandler.Project(projection);
 
 		return _responseFluentFactory.Create(fluent);
+	}
+
+	public IMongoDbFluent<Post, PostId> Match(FilterDefinition<Post> filterDefinition)
+	{
+		_fluentHandler.Match(filterDefinition);
+
+		return this;
+	}
+
+	public async Task<Post?> FirstOrDefaultAsync(CancellationToken cancellationToken)
+	{
+		return await _fluentHandler.FirstOrDefaultAsync(cancellationToken);
+	}
+
+	public async Task<long> GetCountAsync(CancellationToken cancellationToken)
+	{
+		return await _fluentHandler.GetCountAsync(cancellationToken);
+	}
+
+	public async Task<ICollection<Post>> ToListAsync(CancellationToken cancellationToken)
+	{
+		return await _fluentHandler.ToListAsync(cancellationToken);
+	}
+
+	public async Task<bool> AnyAsync(CancellationToken cancellationToken)
+	{
+		return await _fluentHandler.AnyAsync(cancellationToken);
+	}
+
+	public async Task<ICollection<PostId>> GetIdsAsync(CancellationToken cancellationToken)
+	{
+		return await _fluentHandler.GetIdsAsync(cancellationToken);
 	}
 }
