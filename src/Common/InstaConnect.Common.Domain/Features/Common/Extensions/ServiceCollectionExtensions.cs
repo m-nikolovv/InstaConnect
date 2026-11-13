@@ -3,7 +3,6 @@ using System.Reflection;
 using InstaConnect.Common.Domain.Features.Common.Helpers;
 
 using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection.Extensions;
 using Microsoft.Extensions.Options;
 
 using Scrutor;
@@ -50,7 +49,7 @@ public static class ServiceCollectionExtensions
 
 			serviceCollection.AddSingleton(sp => sp.GetRequiredService<IOptions<TOptions>>().Value);
 
-			serviceCollection.TryAddTransient<IOptionsFactory<TOptions>>(serviceProvider => new ConfigurationOptionsFactory<TOptions>(
+			serviceCollection.AddTransient<IOptionsFactory<TOptions>>(serviceProvider => new ConfigurationOptionsFactory<TOptions>(
 				sectionName,
 				serviceProvider.GetRequiredService<IConfiguration>(),
 				serviceProvider.GetServices<IConfigureOptions<TOptions>>(),
