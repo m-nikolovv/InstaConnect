@@ -27,11 +27,6 @@ public abstract class DataFaker
 		};
 	}
 
-	public static IFormFile GetAverageFormFile(int maxLength, int minLength = default)
-	{
-		return GetFormFile(GetAverageNumber(maxLength, minLength));
-	}
-
 	public static string GetGuid()
 	{
 		return _faker.Random.Guid().ToString();

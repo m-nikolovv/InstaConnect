@@ -20,7 +20,7 @@ public static class PostImageGenerator
 		{
 			return [basePostImage, .. posts
 				.SelectMany(post =>
-					Enumerable.Range(default, DataFaker.GetAverageNumber(PostConfigurations.ImagesMaxCount)).Select(_ =>
+					Enumerable.Range(default, PostImageDataFaker.GetImagesCount()).Select(_ =>
 					{
 						var postImage = new PostImage(
 							new(post.Id, PostImageDataFaker.GetImageId()),
