@@ -7,6 +7,7 @@ using Microsoft.Extensions.Caching.StackExchangeRedis;
 using StackExchange.Redis;
 
 using ZiggyCreatures.Caching.Fusion;
+using ZiggyCreatures.Caching.Fusion.Backplane.StackExchangeRedis;
 
 namespace InstaConnect.Common.Infrastructure.Features.Caches.Extensions;
 
@@ -19,22 +20,28 @@ public static class ServiceCollectionExtensions
 			serviceCollection.AddValidatedOptions<RedisOptions>(RedisOptions.SectionName);
 			var options = configuration.GetOptions<RedisOptions>(RedisOptions.SectionName);
 
-			serviceCollection.AddFusionCache()
-							 .WithDefaultEntryOptions(entryOptions => entryOptions.EnableAutoClone = true)
-							 .WithSerializer(new BsonCacheSerializer())
-							 .WithDistributedCache(new RedisCache(new RedisCacheOptions { Configuration = options.ConnectionString }))
-							 .WithStackExchangeRedisBackplane(backplaneOptions => backplaneOptions.Configuration = options.ConnectionString);
-
 			serviceCollection.AddSingleton<IConnectionMultiplexer>(_ =>
 				ConnectionMultiplexer.Connect(options.ConnectionString));
 
 			serviceCollection.AddSingleton(sp =>
 				sp.GetRequiredService<IConnectionMultiplexer>().GetDatabase());
 
+			serviceCollection.AddFusionCache()
+							 .WithDefaultEntryOptions(entryOptions => entryOptions.EnableAutoClone = true)
+							 .WithSerializer(new BsonCacheSerializer())
+							 .WithDistributedCache(sp => new RedisCache(new RedisCacheOptions
+							 {
+								 ConnectionMultiplexerFactory = () => Task.FromResult(sp.GetRequiredService<IConnectionMultiplexer>())
+							 }))
+							 .WithBackplane(sp => new RedisBackplane(new RedisBackplaneOptions
+							 {
+								 ConnectionMultiplexerFactory = () => Task.FromResult(sp.GetRequiredService<IConnectionMultiplexer>())
+							 }));
+
 			serviceCollection.AddScoped<ICacheHandler, CacheHandler>();
 
 			serviceCollection.AddHealthChecks()
-							 .AddRedis(options.ConnectionString);
+							 .AddRedis(sp => sp.GetRequiredService<IConnectionMultiplexer>());
 
 			return serviceCollection;
 		}
