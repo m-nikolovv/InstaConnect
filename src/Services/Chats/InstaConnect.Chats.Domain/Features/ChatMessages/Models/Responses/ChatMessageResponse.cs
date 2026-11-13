@@ -10,6 +10,5 @@ public record ChatMessageResponse(
 	ChatResponse? Chat,
 	UserResponse? Sender,
 	ICollection<ChatMessageImageResponse> ChatMessageImages,
-	int ImageCount,
 	DateTimeOffset CreatedAtUtc,
 	DateTimeOffset UpdatedAtUtc) : IEntityResponse;

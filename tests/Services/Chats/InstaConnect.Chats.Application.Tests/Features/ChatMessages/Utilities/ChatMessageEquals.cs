@@ -724,7 +724,6 @@ public static class ChatMessageEquals
 				   chatMessage.Content == response.Content &&
 				   chatMessage.Summary.Matches(response.Summary) &&
 				   response.ChatMessageImages.MatchesFull(chatMessage.ChatMessageImages) &&
-				   response.ImageCount == chatMessage.ChatMessageImages.Count &&
 				   chatMessage.CreatedAtUtc == response.CreatedAtUtc &&
 				   chatMessage.UpdatedAtUtc == response.UpdatedAtUtc &&
 				   response.Sender.MatchesFull(chatMessage.Sender) &&
@@ -741,7 +740,6 @@ public static class ChatMessageEquals
 				   chatMessage.Content == response.Content &&
 				   chatMessage.Summary.Matches(response.Summary) &&
 				   response.ChatMessageImages.MatchesFull(chatMessage.ChatMessageImages) &&
-				   response.ImageCount == chatMessage.ChatMessageImages.Count &&
 				   chatMessage.CreatedAtUtc == response.CreatedAtUtc &&
 				   chatMessage.UpdatedAtUtc == response.UpdatedAtUtc &&
 				   response.Sender == null &&
@@ -758,7 +756,6 @@ public static class ChatMessageEquals
 				   chatMessage.Content == response.Content &&
 				   chatMessage.Summary.Matches(response.Summary) &&
 				   response.ChatMessageImages.MatchesFull(chatMessage.ChatMessageImages) &&
-				   response.ImageCount == chatMessage.ChatMessageImages.Count &&
 				   chatMessage.CreatedAtUtc == response.CreatedAtUtc &&
 				   chatMessage.UpdatedAtUtc == response.UpdatedAtUtc &&
 				   response.Sender.MatchesFull(chatMessage.Sender) &&
@@ -775,7 +772,6 @@ public static class ChatMessageEquals
 				   chatMessage.Content == response.Content &&
 				   chatMessage.Summary.Matches(response.Summary) &&
 				   response.ChatMessageImages.MatchesFullInverted(chatMessage.ChatMessageImages) &&
-				   response.ImageCount == chatMessage.ChatMessageImages.Count &&
 				   chatMessage.CreatedAtUtc == response.CreatedAtUtc &&
 				   chatMessage.UpdatedAtUtc == response.UpdatedAtUtc &&
 				   response.Sender.MatchesFull(chatMessage.Sender) &&
@@ -792,7 +788,6 @@ public static class ChatMessageEquals
 				   chatMessage.Content == response.Content &&
 				   chatMessage.Summary.Matches(response.Summary) &&
 				   response.ChatMessageImages.MatchesFullInverted(chatMessage.ChatMessageImages) &&
-				   response.ImageCount == chatMessage.ChatMessageImages.Count &&
 				   chatMessage.CreatedAtUtc == response.CreatedAtUtc &&
 				   chatMessage.UpdatedAtUtc == response.UpdatedAtUtc &&
 				   response.Sender == null &&
@@ -809,7 +804,6 @@ public static class ChatMessageEquals
 				   chatMessage.Content == response.Content &&
 				   chatMessage.Summary.Matches(response.Summary) &&
 				   response.ChatMessageImages.MatchesFullInverted(chatMessage.ChatMessageImages) &&
-				   response.ImageCount == chatMessage.ChatMessageImages.Count &&
 				   chatMessage.CreatedAtUtc == response.CreatedAtUtc &&
 				   chatMessage.UpdatedAtUtc == response.UpdatedAtUtc &&
 				   response.Sender.MatchesFull(chatMessage.Sender) &&

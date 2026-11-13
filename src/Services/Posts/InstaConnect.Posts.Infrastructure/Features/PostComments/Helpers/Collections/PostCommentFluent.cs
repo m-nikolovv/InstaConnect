@@ -96,7 +96,6 @@ internal class PostCommentFluent : IPostCommentFluent
 						pl => pl.Id.UserId.Id.ToLower() == currentUserId),
 					p.Post.PostLikes.Count,
 					p.Post.PostComments.Count,
-					p.Post.PostImages.Count,
 					p.Post.CreatedAtUtc,
 					p.Post.UpdatedAtUtc),
 				p.PostCommentImages.Select(
@@ -107,7 +106,6 @@ internal class PostCommentFluent : IPostCommentFluent
 				p.PostCommentLikes.Any(
 							pl => pl.Id.UserId.Id.ToLower() == currentUserId),
 				p.PostCommentLikes.Count,
-				p.PostCommentImages.Count,
 				p.CreatedAtUtc,
 				p.UpdatedAtUtc));
 		var fluent = _fluentHandler.Project(projection);
@@ -149,7 +147,6 @@ internal class PostCommentFluent : IPostCommentFluent
 						pl => pl.Id.UserId.Id.ToLower() == currentUserId),
 					p.Post.PostLikes.Count,
 					p.Post.PostComments.Count,
-					p.Post.PostImages.Count,
 					p.Post.CreatedAtUtc,
 					p.Post.UpdatedAtUtc),
 				p.PostCommentImages.Select(
@@ -160,7 +157,6 @@ internal class PostCommentFluent : IPostCommentFluent
 				p.PostCommentLikes.Any(
 							pl => pl.Id.UserId.Id.ToLower() == currentUserId),
 				p.PostCommentLikes.Count,
-				p.PostCommentImages.Count,
 				p.CreatedAtUtc,
 				p.UpdatedAtUtc));
 		var fluent = _fluentHandler.Project(projection);
@@ -195,7 +191,6 @@ internal class PostCommentFluent : IPostCommentFluent
 				p.PostCommentLikes.Any(
 							pl => pl.Id.UserId.Id.ToLower() == currentUserId),
 				p.PostCommentLikes.Count,
-				p.PostCommentImages.Count,
 				p.CreatedAtUtc,
 				p.UpdatedAtUtc));
 		var fluent = _fluentHandler.Project(projection);

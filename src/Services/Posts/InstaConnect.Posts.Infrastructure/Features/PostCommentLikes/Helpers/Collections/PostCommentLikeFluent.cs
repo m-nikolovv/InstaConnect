@@ -109,7 +109,6 @@ internal class PostCommentLikeFluent : IPostCommentLikeFluent
 								pl => pl.Id.UserId.Id.ToLower() == currentUserId),
 							p.PostComment.Post.PostLikes!.Count,
 							p.PostComment.Post.PostComments.Count,
-							p.PostComment.Post.PostImages.Count,
 							p.PostComment.Post.CreatedAtUtc,
 							p.PostComment.Post.UpdatedAtUtc),
 					p.PostComment.PostCommentImages.Select(
@@ -120,7 +119,6 @@ internal class PostCommentLikeFluent : IPostCommentLikeFluent
 					p.PostComment.PostCommentLikes != null && p.PostComment.PostCommentLikes.Any(
 						pl => pl.Id.UserId.Id.ToLower() == currentUserId),
 					p.PostComment.PostCommentLikes!.Count,
-					p.PostComment.PostCommentImages.Count,
 					p.PostComment.CreatedAtUtc,
 					p.PostComment.UpdatedAtUtc),
 				p.CreatedAtUtc));
@@ -175,7 +173,6 @@ internal class PostCommentLikeFluent : IPostCommentLikeFluent
 								pl => pl.Id.UserId.Id.ToLower() == currentUserId),
 							p.PostComment.Post.PostLikes!.Count,
 							p.PostComment.Post.PostComments.Count,
-							p.PostComment.Post.PostImages.Count,
 							p.PostComment.Post.CreatedAtUtc,
 							p.PostComment.Post.UpdatedAtUtc),
 					p.PostComment.PostCommentImages.Select(
@@ -186,7 +183,6 @@ internal class PostCommentLikeFluent : IPostCommentLikeFluent
 					p.PostComment.PostCommentLikes != null && p.PostComment.PostCommentLikes.Any(
 						pl => pl.Id.UserId.Id.ToLower() == currentUserId),
 					p.PostComment.PostCommentLikes!.Count,
-					p.PostComment.PostCommentImages.Count,
 					p.PostComment.CreatedAtUtc,
 					p.PostComment.UpdatedAtUtc),
 				p.CreatedAtUtc));

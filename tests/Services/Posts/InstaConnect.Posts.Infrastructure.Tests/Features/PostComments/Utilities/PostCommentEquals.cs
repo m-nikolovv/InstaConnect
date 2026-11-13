@@ -61,7 +61,6 @@ public static class PostCommentEquals
 				   response.PostCommentImages.MatchesFull(postComment.PostCommentImages) &&
 				   response.IsLikedByCurrentUser == postComment.PostCommentLikes.Any(pl => pl.Id.UserId.Matches(currentUserQuery.Id)) &&
 				   response.LikeCount == postComment.PostCommentLikes.Count &&
-				   response.ImageCount == postComment.PostCommentImages.Count &&
 				   postComment.CreatedAtUtc == response.CreatedAtUtc &&
 				   postComment.UpdatedAtUtc == response.UpdatedAtUtc &&
 				   response.User.MatchesFull(postComment.User) &&
@@ -81,7 +80,6 @@ public static class PostCommentEquals
 				   response.PostCommentImages.MatchesFull(postComment.PostCommentImages) &&
 				   response.IsLikedByCurrentUser == postComment.PostCommentLikes.Any(pl => pl.Id.UserId.Matches(currentUserQuery.Id)) &&
 				   response.LikeCount == postComment.PostCommentLikes.Count &&
-				   response.ImageCount == postComment.PostCommentImages.Count &&
 				   postComment.CreatedAtUtc == response.CreatedAtUtc &&
 				   postComment.UpdatedAtUtc == response.UpdatedAtUtc &&
 				   response.User == null &&
@@ -101,7 +99,6 @@ public static class PostCommentEquals
 				   response.PostCommentImages.MatchesFull(postComment.PostCommentImages) &&
 				   response.IsLikedByCurrentUser == postComment.PostCommentLikes.Any(pl => pl.Id.UserId.Matches(currentUserQuery.Id)) &&
 				   response.LikeCount == postComment.PostCommentLikes.Count &&
-				   response.ImageCount == postComment.PostCommentImages.Count &&
 				   postComment.CreatedAtUtc == response.CreatedAtUtc &&
 				   postComment.UpdatedAtUtc == response.UpdatedAtUtc &&
 				   response.User.MatchesFull(postComment.User) &&

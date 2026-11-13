@@ -13,6 +13,5 @@ public record PostCommentApiResponse(
 	ICollection<PostCommentImageApiResponse> PostCommentImages,
 	bool IsLikedByCurrentUser,
 	int LikeCount,
-	int ImageCount,
 	DateTimeOffset CreatedAtUtc,
 	DateTimeOffset UpdatedAtUtc);

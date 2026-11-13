@@ -304,7 +304,6 @@ public static class PostEquals
 				   response.IsLikedByCurrentUser == post.PostLikes.Any(pl => pl.Id.UserId.Matches(request.CurrentUser.Id)) &&
 				   response.LikeCount == post.PostLikes.Count &&
 				   response.CommentCount == post.PostComments.Count &&
-				   response.ImageCount == post.PostImages.Count &&
 				   post.CreatedAtUtc == response.CreatedAtUtc &&
 				   post.UpdatedAtUtc == response.UpdatedAtUtc &&
 				   response.User.MatchesFull(post.User);
@@ -324,7 +323,6 @@ public static class PostEquals
 				   response.IsLikedByCurrentUser == post.PostLikes.Any(pl => pl.Id.UserId.Matches(request.CurrentUser.Id)) &&
 				   response.LikeCount == post.PostLikes.Count &&
 				   response.CommentCount == post.PostComments.Count &&
-				   response.ImageCount == post.PostImages.Count &&
 				   post.CreatedAtUtc == response.CreatedAtUtc &&
 				   post.UpdatedAtUtc == response.UpdatedAtUtc &&
 				   response.User == null;
