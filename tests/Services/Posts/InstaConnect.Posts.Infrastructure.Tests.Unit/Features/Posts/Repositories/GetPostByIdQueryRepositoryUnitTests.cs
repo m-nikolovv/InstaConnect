@@ -16,12 +16,12 @@ public class GetPostByIdQueryRepositoryUnitTests : BasePostInfrastructureQueryUn
 		_currentUserQueryBuilder = _currentUserQueryBuilderFactory.Create(User);
 		_currentUserQuery = _currentUserQueryBuilder.Build();
 
-		_include = IncludeBuilderFactory.Create().WithUser().WithPostLikes().WithPostImages().Build();
+		_include = IncludeBuilderFactory.Create().WithUser().WithPostLikes().WithPostComments().WithPostImages().Build();
 
 		_repository = new(Collection, IncludeBuilderFactory);
 
 		Collection.SetupAggregateFluent(PostId, _currentUserQuery, Fluent);
-		Fluent.SetupApplyIncludes(PostId, _currentUserQuery, _include);
+		Fluent.SetupInclude(PostId, _currentUserQuery, _include);
 		Fluent.SetupMatch(PostId, _currentUserQuery);
 		Fluent.SetupProjectToFullResponse(PostId, _currentUserQuery, ResponseFluent);
 		ResponseFluent.SetupFirstOrDefaultAsync(PostId, _currentUserQuery, Post, CancellationToken);
@@ -48,13 +48,13 @@ public class GetPostByIdQueryRepositoryUnitTests : BasePostInfrastructureQueryUn
 	}
 
 	[Fact]
-	public async Task GetByIdAsync_ShouldCallTheFluentApplyIncludes_WhenQueryIsValid()
+	public async Task GetByIdAsync_ShouldCallTheFluentInclude_WhenQueryIsValid()
 	{
 		// Act
 		await _repository.GetByIdAsync(PostId, _currentUserQuery, CancellationToken);
 
 		// Assert
-		Fluent.ShouldHaveReceivedOneApplyIncludes(PostId, _currentUserQuery, _include);
+		Fluent.ShouldHaveReceivedOneInclude(PostId, _currentUserQuery, _include);
 	}
 
 	[Fact]

@@ -9,7 +9,7 @@ internal static class PostLikeFilterExtensions
 			var id = filter.Id.GetFilterForIdEquals<PostLike>(p => p.Id.Id.Id);
 			var userName = filter.UserName.GetFilterForNameStartsWith<PostLike>(p => p.User!.Name.Value);
 
-			return Builders<PostLike>.Filter.And(id, userName);
+			return Builders<PostLike>.Filter.AndAll(id, userName);
 		}
 	}
 
@@ -35,7 +35,46 @@ internal static class PostLikeFilterExtensions
 			var id = filter.Id.GetFilterForIdEquals(idField);
 			var userId = filter.UserId.GetFilterForIdEquals(userIdField);
 
-			return Builders<T>.Filter.And(id, userId);
+			return Builders<T>.Filter.AndAll(id, userId);
+		}
+	}
+
+	extension(IEnumerable<PostLikeId> filter)
+	{
+		public FilterDefinition<PostLike> GetFilter()
+		{
+			return filter.GetFilterForIdRange<PostLike>(p => p.Id.Id.Id, p => p.Id.UserId.Id);
+		}
+
+		public FilterDefinition<T> GetFilterForIdRange<T>(
+			Expression<Func<T, object>> idField,
+			Expression<Func<T, object>> userIdField)
+		{
+			return Builders<T>.Filter.OrRange(filter.Select(item => item.GetFilterForIdEquals(idField, userIdField)));
+		}
+	}
+
+	extension(PostId filter)
+	{
+		public FilterDefinition<PostLike> GetPostLikeByParentFilter()
+		{
+			return filter.GetFilterForIdEquals<PostLike>(p => p.Id.Id.Id);
+		}
+	}
+
+	extension(IEnumerable<PostId> filter)
+	{
+		public FilterDefinition<PostLike> GetPostLikeByParentFilter()
+		{
+			return filter.GetFilterForIdRange<PostLike>(p => p.Id.Id.Id);
+		}
+	}
+
+	extension(UserId filter)
+	{
+		public FilterDefinition<PostLike> GetPostLikeByParentFilter()
+		{
+			return filter.GetFilterForIdEquals<PostLike>(p => p.Id.UserId.Id);
 		}
 	}
 }

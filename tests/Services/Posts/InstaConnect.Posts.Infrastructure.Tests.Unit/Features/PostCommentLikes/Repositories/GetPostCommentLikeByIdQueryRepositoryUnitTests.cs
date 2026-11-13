@@ -16,12 +16,12 @@ public class GetPostCommentLikeByIdQueryRepositoryUnitTests : BasePostCommentLik
 		_currentUserQueryBuilder = _currentUserQueryBuilderFactory.Create(User);
 		_currentUserQuery = _currentUserQueryBuilder.Build();
 
-		_include = CommentLikeIncludeBuilderFactory.Create().WithUser().WithPostComment(CommentIncludeBuilderFactory.Create().WithUser().WithPost(IncludeBuilderFactory.Create().WithUser().WithPostLikes().WithPostImages().Build()).WithPostCommentLikes().WithPostCommentImages().Build()).Build();
+		_include = CommentLikeIncludeBuilderFactory.Create().WithUser().WithPostComment(CommentIncludeBuilderFactory.Create().WithUser().WithPost(IncludeBuilderFactory.Create().WithUser().WithPostLikes().WithPostComments().WithPostImages().Build()).WithPostCommentLikes().WithPostCommentImages().Build()).Build();
 
 		_repository = new(Collection, IncludeBuilderFactory, CommentIncludeBuilderFactory, CommentLikeIncludeBuilderFactory);
 
 		Collection.SetupAggregateFluent(PostCommentLikeId, _currentUserQuery, Fluent);
-		Fluent.SetupApplyIncludes(PostCommentLikeId, _currentUserQuery, _include);
+		Fluent.SetupInclude(PostCommentLikeId, _currentUserQuery, _include);
 		Fluent.SetupMatch(PostCommentLikeId, _currentUserQuery);
 		Fluent.SetupProjectToFullResponse(PostCommentLikeId, _currentUserQuery, ResponseFluent);
 		ResponseFluent.SetupFirstOrDefaultAsync(PostCommentLikeId, _currentUserQuery, PostCommentLike, CancellationToken);
@@ -48,13 +48,13 @@ public class GetPostCommentLikeByIdQueryRepositoryUnitTests : BasePostCommentLik
 	}
 
 	[Fact]
-	public async Task GetByIdAsync_ShouldCallTheFluentApplyIncludes_WhenQueryIsValid()
+	public async Task GetByIdAsync_ShouldCallTheFluentInclude_WhenQueryIsValid()
 	{
 		// Act
 		await _repository.GetByIdAsync(PostCommentLikeId, _currentUserQuery, CancellationToken);
 
 		// Assert
-		Fluent.ShouldHaveReceivedOneApplyIncludes(PostCommentLikeId, _currentUserQuery, _include);
+		Fluent.ShouldHaveReceivedOneInclude(PostCommentLikeId, _currentUserQuery, _include);
 	}
 
 	[Fact]

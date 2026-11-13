@@ -34,6 +34,7 @@ public static class PostCommentMapper
 					   postComment.Post?.ToFullResponse(request),
 					   postComment.PostCommentImages.ToFullResponse(),
 					   postComment.PostCommentLikes.Any(pl => pl.Id.UserId.Matches(request.CurrentUser.Id)),
+					   postComment.PostCommentLikes.Count,
 					   postComment.CreatedAtUtc,
 					   postComment.UpdatedAtUtc);
 		}
@@ -50,6 +51,7 @@ public static class PostCommentMapper
 					   postComment.Post?.ToFullResponse(request),
 					   postComment.PostCommentImages.ToFullResponse(),
 					   postComment.PostCommentLikes.Any(pl => pl.Id.UserId.Matches(request.CurrentUser.Id)),
+					   postComment.PostCommentLikes.Count,
 					   postComment.CreatedAtUtc,
 					   postComment.UpdatedAtUtc);
 		}
@@ -66,6 +68,7 @@ public static class PostCommentMapper
 					   null,
 					   postComment.PostCommentImages.ToFullResponse(),
 					   postComment.PostCommentLikes.Any(pl => pl.Id.UserId.Matches(request.CurrentUser.Id)),
+					   postComment.PostCommentLikes.Count,
 					   postComment.CreatedAtUtc,
 					   postComment.UpdatedAtUtc);
 		}

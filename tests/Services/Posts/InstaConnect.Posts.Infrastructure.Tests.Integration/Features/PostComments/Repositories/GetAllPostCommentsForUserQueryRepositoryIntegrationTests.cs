@@ -43,11 +43,6 @@ public class GetAllPostCommentsForUserQueryRepositoryIntegrationTests : BasePost
 		_currentUserQuery = _currentUserQueryBuilder.Build();
 	}
 
-	protected override async Task OnInitializeAsync()
-	{
-		await ServiceScope.AddRangeAsync(PostComments, CancellationToken);
-	}
-
 	[Fact]
 	public async Task GetAllForUserAsync_ShouldReturnResponse_WhenQueryIsValid()
 	{

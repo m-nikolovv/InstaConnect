@@ -22,6 +22,20 @@ public static class ChatMessageImageMockAssertions
 			collection.ShouldHaveReceivedOne().AggregateFluent();
 		}
 
+		public async Task ShouldHaveReceivedOneAddAsync(
+			ChatMessageImage chatMessageImage,
+			CancellationToken cancellationToken)
+		{
+			await collection.ShouldHaveReceivedOne().AddAsync(chatMessageImage, cancellationToken);
+		}
+
+		public async Task ShouldHaveReceivedOneAddRangeAsync(
+			ICollection<ChatMessageImage> chatMessageImages,
+			CancellationToken cancellationToken)
+		{
+			await collection.ShouldHaveReceivedOne().AddRangeAsync(chatMessageImages, cancellationToken);
+		}
+
 		public async Task ShouldHaveReceivedOneDeleteAsync(
 			ChatMessageImage chatMessageImage,
 			CancellationToken cancellationToken)

@@ -17,11 +17,6 @@ public class GetPostsTotalCountQueryRepositoryIntegrationTests : BasePostInfrast
 		_filterQuery = _filterQueryBuilder.Build();
 	}
 
-	protected override async Task OnInitializeAsync()
-	{
-		await ServiceScope.AddRangeAsync(Posts, CancellationToken);
-	}
-
 	[Fact]
 	public async Task GetTotalCountAsync_ShouldReturnResponse_WhenQueryIsValid()
 	{

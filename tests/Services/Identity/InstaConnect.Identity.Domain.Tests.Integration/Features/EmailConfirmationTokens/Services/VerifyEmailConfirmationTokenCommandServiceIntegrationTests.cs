@@ -23,7 +23,7 @@ public class VerifyEmailConfirmationTokenCommandServiceIntegrationTests : BaseEm
 
 	protected override async Task OnInitializeAsync()
 	{
-		await ServiceScope.AddRangeAsync(User.EmailConfirmationTokens, CancellationToken);
+		await ServiceScope.AddRangeAsync(EmailConfirmationTokens, CancellationToken);
 	}
 
 	[Fact]

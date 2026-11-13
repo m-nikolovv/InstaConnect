@@ -4,7 +4,7 @@ public class UserIncludeDescriptorFactory : IUserIncludeDescriptorFactory
 {
 	public FollowsIncludeDescriptor CreateFollowFollowers()
 	{
-		return new(FollowsDestinationType.User, FollowsIncludeType.FollowFollower);
+		return new(FollowsDestinationType.User, FollowsIncludeType.Follower);
 	}
 
 	public FollowsIncludeDescriptor CreateFollowFollowings()

@@ -31,11 +31,6 @@ public class GetAllChatsFunctionalTests : BaseChatPresentationQueryFunctionalTes
 		_invertedRequest = _invertedRequestBuilder.Build();
 	}
 
-	protected override async Task OnInitializeAsync()
-	{
-		await ServiceScope.AddRangeAsync(Chats, CancellationToken);
-	}
-
 	[Fact]
 	public async Task GetAllAsync_ShouldReturnUnauthorizedStatusCode_WhenRequestIsUnauthorized()
 	{

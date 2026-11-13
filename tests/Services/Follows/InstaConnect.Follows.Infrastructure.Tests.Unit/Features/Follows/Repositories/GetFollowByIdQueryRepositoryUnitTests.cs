@@ -23,7 +23,7 @@ public class GetFollowByIdQueryRepositoryUnitTests : BaseFollowInfrastructureQue
 		_repository = new(Collection, IncludeBuilderFactory);
 
 		Collection.SetupAggregateFluent(FollowId, _currentUserQuery, Fluent);
-		Fluent.SetupApplyIncludes(FollowId, _currentUserQuery, _include);
+		Fluent.SetupInclude(FollowId, _currentUserQuery, _include);
 		Fluent.SetupMatch(FollowId, _currentUserQuery);
 		Fluent.SetupProjectToFullResponse(FollowId, _currentUserQuery, ResponseFluent);
 		ResponseFluent.SetupFirstOrDefaultAsync(FollowId, _currentUserQuery, Follow, CancellationToken);
@@ -50,13 +50,13 @@ public class GetFollowByIdQueryRepositoryUnitTests : BaseFollowInfrastructureQue
 	}
 
 	[Fact]
-	public async Task GetByIdAsync_ShouldCallTheFluentApplyIncludes_WhenQueryIsValid()
+	public async Task GetByIdAsync_ShouldCallTheFluentInclude_WhenQueryIsValid()
 	{
 		// Act
 		await _repository.GetByIdAsync(FollowId, _currentUserQuery, CancellationToken);
 
 		// Assert
-		Fluent.ShouldHaveReceivedOneApplyIncludes(FollowId, _currentUserQuery, _include);
+		Fluent.ShouldHaveReceivedOneInclude(FollowId, _currentUserQuery, _include);
 	}
 
 	[Fact]

@@ -14,11 +14,6 @@ public class GetUserByIdQueryServiceIntegrationTests : BaseUserDomainQueryIntegr
 		_query = _queryBuilder.Build();
 	}
 
-	protected override async Task OnInitializeAsync()
-	{
-		await ServiceScope.AddAsync(User, CancellationToken);
-	}
-
 	[Fact]
 	public async Task GetByIdAsync_ShouldThrowUserNotFoundException_WhenUserNotFound()
 	{

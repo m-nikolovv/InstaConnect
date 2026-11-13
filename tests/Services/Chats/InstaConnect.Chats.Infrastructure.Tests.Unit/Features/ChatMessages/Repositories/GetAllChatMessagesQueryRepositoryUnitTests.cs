@@ -48,11 +48,11 @@ public class GetAllChatMessagesQueryRepositoryUnitTests : BaseChatMessageInfrast
 		_repository = new(Collection, IncludeBuilderFactory, MessageIncludeBuilderFactory);
 
 		Collection.SetupAggregateFluent(_filterQuery, _sortingQuery, _paginationQuery, _currentUserQuery, Fluent);
-		Fluent.SetupApplyIncludes(_filterQuery, _sortingQuery, _paginationQuery, _currentUserQuery, _messageInclude);
+		Fluent.SetupInclude(_filterQuery, _sortingQuery, _paginationQuery, _currentUserQuery, _messageInclude);
 		Fluent.SetupMatch(_filterQuery, _sortingQuery, _paginationQuery, _currentUserQuery);
 		Fluent.SetupProjectToResponseWithoutChat(_filterQuery, _sortingQuery, _paginationQuery, _currentUserQuery, ResponseFluent);
-		ResponseFluent.SetupApplySorting(_filterQuery, _sortingQuery, _paginationQuery, _currentUserQuery);
-		ResponseFluent.SetupApplyPagination(_filterQuery, _sortingQuery, _paginationQuery, _currentUserQuery);
+		ResponseFluent.SetupSort(_filterQuery, _sortingQuery, _paginationQuery, _currentUserQuery);
+		ResponseFluent.SetupPaginate(_filterQuery, _sortingQuery, _paginationQuery, _currentUserQuery);
 		ResponseFluent.SetupToListAsync(_filterQuery, _sortingQuery, _paginationQuery, _currentUserQuery, ChatMessages, CancellationToken);
 	}
 
@@ -77,13 +77,13 @@ public class GetAllChatMessagesQueryRepositoryUnitTests : BaseChatMessageInfrast
 	}
 
 	[Fact]
-	public async Task GetAllAsync_ShouldCallTheFluentApplyIncludes_WhenQueryIsValid()
+	public async Task GetAllAsync_ShouldCallTheFluentInclude_WhenQueryIsValid()
 	{
 		// Act
 		await _repository.GetAllAsync(_filterQuery, _sortingQuery, _paginationQuery, _currentUserQuery, CancellationToken);
 
 		// Assert
-		Fluent.ShouldHaveReceivedOneApplyIncludes(_filterQuery, _sortingQuery, _paginationQuery, _currentUserQuery, _messageInclude);
+		Fluent.ShouldHaveReceivedOneInclude(_filterQuery, _sortingQuery, _paginationQuery, _currentUserQuery, _messageInclude);
 	}
 
 	[Fact]
@@ -107,23 +107,23 @@ public class GetAllChatMessagesQueryRepositoryUnitTests : BaseChatMessageInfrast
 	}
 
 	[Fact]
-	public async Task GetAllAsync_ShouldCallTheResponseFluentApplySorting_WhenQueryIsValid()
+	public async Task GetAllAsync_ShouldCallTheResponseFluentSort_WhenQueryIsValid()
 	{
 		// Act
 		await _repository.GetAllAsync(_filterQuery, _sortingQuery, _paginationQuery, _currentUserQuery, CancellationToken);
 
 		// Assert
-		ResponseFluent.ShouldHaveReceivedOneApplySorting(_filterQuery, _sortingQuery, _paginationQuery, _currentUserQuery);
+		ResponseFluent.ShouldHaveReceivedOneSort(_filterQuery, _sortingQuery, _paginationQuery, _currentUserQuery);
 	}
 
 	[Fact]
-	public async Task GetAllAsync_ShouldCallTheResponseFluentApplyPagination_WhenQueryIsValid()
+	public async Task GetAllAsync_ShouldCallTheResponseFluentPaginate_WhenQueryIsValid()
 	{
 		// Act
 		await _repository.GetAllAsync(_filterQuery, _sortingQuery, _paginationQuery, _currentUserQuery, CancellationToken);
 
 		// Assert
-		ResponseFluent.ShouldHaveReceivedOneApplyPagination(_filterQuery, _sortingQuery, _paginationQuery, _currentUserQuery);
+		ResponseFluent.ShouldHaveReceivedOnePaginate(_filterQuery, _sortingQuery, _paginationQuery, _currentUserQuery);
 	}
 
 	[Fact]

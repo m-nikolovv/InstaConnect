@@ -17,12 +17,14 @@ public class OutboxEvent : IEntityWithId<OutboxEventId>
 		string topic,
 		string key,
 		string payload,
+		DateTimeOffset expiresAtUtc,
 		DateTimeOffset createdAtUtc)
 	{
 		Id = id;
 		Topic = topic;
 		Key = key;
 		Payload = payload;
+		ExpiresAtUtc = expiresAtUtc;
 		CreatedAtUtc = createdAtUtc;
 	}
 
@@ -33,6 +35,8 @@ public class OutboxEvent : IEntityWithId<OutboxEventId>
 	public string Key { get; }
 
 	public string Payload { get; }
+
+	public DateTimeOffset ExpiresAtUtc { get; }
 
 	public DateTimeOffset CreatedAtUtc { get; }
 }

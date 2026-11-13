@@ -65,10 +65,7 @@ public static class UserSetups
 			UserId id,
 			CancellationToken cancellationToken)
 		{
-			var followFollowerInclude = serviceScope.GetFollowFollowerIncludeBuilderFactory().Create().WithFollower().Build();
-			var followFollowingInclude = serviceScope.GetFollowFollowingIncludeBuilderFactory().Create().WithFollowing().Build();
-
-			var include = serviceScope.GetUserIncludeBuilderFactory().Create().WithFollowFollowers(followFollowerInclude).WithFollowFollowings(followFollowingInclude).Build();
+			var include = serviceScope.GetUserIncludeBuilderFactory().Create().WithFollowers().WithFollowings().Build();
 
 			return (await serviceScope.GetUserCommandRepository().GetByIdAsync(id, include, cancellationToken)).SetFollowFollowers().SetFollowFollowings();
 		}
@@ -77,10 +74,7 @@ public static class UserSetups
 			Name name,
 			CancellationToken cancellationToken)
 		{
-			var followFollowerInclude = serviceScope.GetFollowFollowerIncludeBuilderFactory().Create().WithFollower().Build();
-			var followFollowingInclude = serviceScope.GetFollowFollowingIncludeBuilderFactory().Create().WithFollowing().Build();
-
-			var include = serviceScope.GetUserIncludeBuilderFactory().Create().WithFollowFollowers(followFollowerInclude).WithFollowFollowings(followFollowingInclude).Build();
+			var include = serviceScope.GetUserIncludeBuilderFactory().Create().WithFollowers().WithFollowings().Build();
 
 			return (await serviceScope.GetUserCommandRepository().GetByNameAsync(name, include, cancellationToken)).SetFollowFollowers().SetFollowFollowings();
 		}
@@ -89,10 +83,7 @@ public static class UserSetups
 			Email email,
 			CancellationToken cancellationToken)
 		{
-			var followFollowerInclude = serviceScope.GetFollowFollowerIncludeBuilderFactory().Create().WithFollower().Build();
-			var followFollowingInclude = serviceScope.GetFollowFollowingIncludeBuilderFactory().Create().WithFollowing().Build();
-
-			var include = serviceScope.GetUserIncludeBuilderFactory().Create().WithFollowFollowers(followFollowerInclude).WithFollowFollowings(followFollowingInclude).Build();
+			var include = serviceScope.GetUserIncludeBuilderFactory().Create().WithFollowers().WithFollowings().Build();
 
 			return (await serviceScope.GetUserCommandRepository().GetByEmailAsync(email, include, cancellationToken)).SetFollowFollowers().SetFollowFollowings();
 		}

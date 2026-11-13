@@ -4,7 +4,7 @@ using InstaConnect.Identity.Tests.Features.UserClaims.Utilities;
 
 namespace InstaConnect.Identity.Infrastructure.Tests.Unit.Features.UserClaims.Utilities;
 
-public abstract class BaseUserClaimInfrastructureCommandUnitTest : BaseUserClaimTest
+public abstract class BaseUserClaimInfrastructureCommandUnitTest : BaseUserClaimCommandTest
 {
 	protected IUserClaimFluent Fluent { get; }
 

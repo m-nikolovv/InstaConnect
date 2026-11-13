@@ -28,6 +28,16 @@ public static class PostEquals
 		}
 	}
 
+	extension(ICollection<Post> p)
+	{
+		public bool Matches(
+			ICollection<PostId> ids,
+			ICollection<Post> posts)
+		{
+			return p.Matches(posts);
+		}
+	}
+
 	extension(User? u)
 	{
 		public bool MatchesFilter(PostsFilterQuery query)
@@ -52,6 +62,8 @@ public static class PostEquals
 				   post.Summary.Matches(response.Summary) &&
 				   response.PostImages.MatchesFull(post.PostImages) &&
 				   response.IsLikedByCurrentUser == post.PostLikes.Any(pl => pl.Id.UserId.Matches(currentUserQuery.Id)) &&
+				   response.LikeCount == post.PostLikes.Count &&
+				   response.CommentCount == post.PostComments.Count &&
 				   post.CreatedAtUtc == response.CreatedAtUtc &&
 				   post.UpdatedAtUtc == response.UpdatedAtUtc &&
 				   response.User.MatchesFull(post.User);
@@ -70,6 +82,8 @@ public static class PostEquals
 				   post.Summary.Matches(response.Summary) &&
 				   response.PostImages.MatchesFull(post.PostImages) &&
 				   response.IsLikedByCurrentUser == post.PostLikes.Any(pl => pl.Id.UserId.Matches(currentUserQuery.Id)) &&
+				   response.LikeCount == post.PostLikes.Count &&
+				   response.CommentCount == post.PostComments.Count &&
 				   post.CreatedAtUtc == response.CreatedAtUtc &&
 				   post.UpdatedAtUtc == response.UpdatedAtUtc &&
 				   response.User == null;

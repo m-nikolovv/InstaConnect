@@ -4,8 +4,15 @@ namespace InstaConnect.Chats.Infrastructure.Features.ChatMessageImages.Helpers.C
 
 internal class ChatMessageImageFluentFactory : IChatMessageImageFluentFactory
 {
+	private readonly IMongoDbFluentHandlerFactory _fluentHandlerFactory;
+
+	public ChatMessageImageFluentFactory(IMongoDbFluentHandlerFactory fluentHandlerFactory)
+	{
+		_fluentHandlerFactory = fluentHandlerFactory;
+	}
+
 	public IChatMessageImageFluent Create(IAggregateFluent<ChatMessageImage> fluent)
 	{
-		return new ChatMessageImageFluent(fluent);
+		return new ChatMessageImageFluent(_fluentHandlerFactory.Create<ChatMessageImage, ChatMessageImageId>(fluent));
 	}
 }

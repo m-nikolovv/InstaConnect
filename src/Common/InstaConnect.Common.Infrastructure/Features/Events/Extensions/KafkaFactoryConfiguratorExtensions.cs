@@ -3,6 +3,7 @@ using Confluent.Kafka;
 using InstaConnect.Common.Events.Features.Events.Abstractions;
 using InstaConnect.Common.Infrastructure.Features.Events.Abstractions;
 using InstaConnect.Common.Infrastructure.Features.Events.Models;
+using InstaConnect.Common.Infrastructure.Features.Events.Utilities;
 
 using MassTransit;
 
@@ -15,14 +16,13 @@ public static class KafkaFactoryConfiguratorExtensions
 		public IKafkaFactoryConfigurator MapEventHandler<TEvent, TEventHandler>(
 			IRiderRegistrationContext context,
 			string prefix,
-			IDictionary<string, KafkaConsumerOptions> consumerOptions)
+			KafkaConsumerOptions consumerOptions)
 			where TEvent : class, IEventRequest
 			where TEventHandler : class, IEventHandler<TEvent>
 		{
 			const string GroupIdFormat = "{0}-{1}";
 
-			var topicName = KebabCaseEndpointNameFormatter.Instance.Message<TEvent>();
-			var topicConsumerOptions = consumerOptions[topicName];
+			var topicName = EventUtilities.GetName<TEvent>();
 
 			kafkaConfigurator.TopicEndpoint<string, TEvent>(
 				topicName,
@@ -30,20 +30,20 @@ public static class KafkaFactoryConfiguratorExtensions
 				endpointConfigurator =>
 				{
 					endpointConfigurator.AutoOffsetReset = AutoOffsetReset.Earliest;
-					endpointConfigurator.ConcurrentMessageLimit = topicConsumerOptions.ConcurrentMessageLimit;
+					endpointConfigurator.ConcurrentMessageLimit = consumerOptions.ConcurrentMessageLimit;
 					endpointConfigurator.CreateIfMissing(topicOptions =>
 					{
-						topicOptions.NumPartitions = topicConsumerOptions.PartitionCount;
-						topicOptions.ReplicationFactor = topicConsumerOptions.ReplicationFactor;
+						topicOptions.NumPartitions = consumerOptions.PartitionCount;
+						topicOptions.ReplicationFactor = consumerOptions.ReplicationFactor;
 					});
 
 					endpointConfigurator.UseMessageRetry(retryConfigurator =>
 					{
 						retryConfigurator.Exponential(
-							topicConsumerOptions.Retry.Limit,
-							topicConsumerOptions.Retry.MinInterval,
-							topicConsumerOptions.Retry.MaxInterval,
-							topicConsumerOptions.Retry.IntervalDelta);
+							consumerOptions.Retry.Limit,
+							consumerOptions.Retry.MinInterval,
+							consumerOptions.Retry.MaxInterval,
+							consumerOptions.Retry.IntervalDelta);
 
 						retryConfigurator.Handle<MongoException>();
 						retryConfigurator.Handle<TimeoutException>();

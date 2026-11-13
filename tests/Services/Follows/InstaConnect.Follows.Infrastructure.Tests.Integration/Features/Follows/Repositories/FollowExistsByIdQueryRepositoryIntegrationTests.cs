@@ -9,11 +9,6 @@ public class FollowExistsByIdQueryRepositoryIntegrationTests : BaseFollowInfrast
 	{
 	}
 
-	protected override async Task OnInitializeAsync()
-	{
-		await ServiceScope.AddAsync(Follow, CancellationToken);
-	}
-
 	[Fact]
 	public async Task ExistsByIdAsync_ShouldReturnNull_WhenIdIsInvalid()
 	{

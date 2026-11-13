@@ -1,100 +1,30 @@
-using InstaConnect.Chats.Tests.Features.Chats.Builders;
-using InstaConnect.Chats.Tests.Features.Users.Builders;
+using InstaConnect.Chats.Tests.Features.ChatMessageImages.Builders;
+using InstaConnect.Chats.Tests.Features.ChatMessages.Builders;
 
 namespace InstaConnect.Chats.Tests.Features.Chats.Utilities;
 
-public abstract class BaseChatTest : BaseTest
+public abstract class BaseChatTest : BaseChatsTest
 {
-	protected UserBuilderFactory ParticipantOneBuilderFactory { get; }
-	protected UserBuilder ParticipantOneBuilder { get; }
-	protected User ParticipantOne { get; }
-	protected ICollection<User> ParticipantOnes { get; }
+	protected ICollection<ChatMessage> ChatChatMessages { get; }
+	protected ChatMessageIdRangeBuilderFactory ChatChatMessageIdRangeBuilderFactory { get; }
+	protected ChatMessageIdRangeBuilder ChatChatMessageIdRangeBuilder { get; }
+	protected ICollection<ChatMessageId> ChatChatMessageIds { get; }
 
-	protected UserIdBuilderFactory ParticipantOneIdBuilderFactory { get; }
-	protected UserIdBuilder ParticipantOneIdBuilder { get; }
-	protected UserId ParticipantOneId { get; }
-
-	protected UserIdRangeBuilderFactory ParticipantOneIdRangeBuilderFactory { get; }
-	protected UserIdRangeBuilder ParticipantOneIdRangeBuilder { get; }
-	protected ICollection<UserId> ParticipantOneIds { get; }
-
-	protected UserBuilderFactory ParticipantTwoBuilderFactory { get; }
-	protected UserBuilder ParticipantTwoBuilder { get; }
-	protected User ParticipantTwo { get; }
-	protected ICollection<User> ParticipantTwos { get; }
-
-	protected UserIdBuilderFactory ParticipantTwoIdBuilderFactory { get; }
-	protected UserIdBuilder ParticipantTwoIdBuilder { get; }
-	protected UserId ParticipantTwoId { get; }
-
-	protected UserIdRangeBuilderFactory ParticipantTwoIdRangeBuilderFactory { get; }
-	protected UserIdRangeBuilder ParticipantTwoIdRangeBuilder { get; }
-	protected ICollection<UserId> ParticipantTwoIds { get; }
-
-	protected ChatBuilderFactory ChatBuilderFactory { get; }
-	protected ChatBuilder ChatBuilder { get; }
-	protected Chat Chat { get; }
-	protected ICollection<Chat> Chats { get; }
-	protected Chat InvertedChat { get; }
-	protected ICollection<Chat> InvertedChats { get; }
-
-	protected ChatIdBuilderFactory ChatIdBuilderFactory { get; }
-	protected ChatIdBuilder ChatIdBuilder { get; }
-	protected ChatId ChatId { get; }
-	protected ChatIdBuilder InvertedChatIdBuilder { get; }
-	protected ChatId InvertedChatId { get; }
-
-	protected ChatIdRangeBuilderFactory ChatIdRangeBuilderFactory { get; }
-	protected ChatIdRangeBuilder ChatIdRangeBuilder { get; }
-	protected ICollection<ChatId> ChatIds { get; }
-	protected ChatIdRangeBuilder InvertedChatIdRangeBuilder { get; }
-	protected ICollection<ChatId> InvertedChatIds { get; }
+	protected ICollection<ChatMessageImage> ChatChatMessagesChatMessageImages { get; }
+	protected ChatMessageImageIdRangeBuilderFactory ChatChatMessagesChatMessageImageIdRangeBuilderFactory { get; }
+	protected ChatMessageImageIdRangeBuilder ChatChatMessagesChatMessageImageIdRangeBuilder { get; }
+	protected ICollection<ChatMessageImageId> ChatChatMessagesChatMessageImageIds { get; }
 
 	protected BaseChatTest()
 	{
-		ParticipantOneBuilderFactory = new();
-		ParticipantOneBuilder = ParticipantOneBuilderFactory.Create();
-		ParticipantOne = ParticipantOneBuilder.Build();
-		ParticipantOnes = ParticipantOne.Generate();
+		ChatChatMessages = [.. Chat.ChatMessages];
+		ChatChatMessageIdRangeBuilderFactory = new();
+		ChatChatMessageIdRangeBuilder = ChatChatMessageIdRangeBuilderFactory.Create([.. ChatChatMessages.Select(c => c.Id)]);
+		ChatChatMessageIds = ChatChatMessageIdRangeBuilder.Build();
 
-		ParticipantOneIdBuilderFactory = new();
-		ParticipantOneIdBuilder = ParticipantOneIdBuilderFactory.Create(ParticipantOne.Id);
-		ParticipantOneId = ParticipantOneIdBuilder.Build();
-
-		ParticipantOneIdRangeBuilderFactory = new();
-		ParticipantOneIdRangeBuilder = ParticipantOneIdRangeBuilderFactory.Create([.. ParticipantOnes.Select(p => p.Id)]);
-		ParticipantOneIds = ParticipantOneIdRangeBuilder.Build();
-
-		ParticipantTwoBuilderFactory = new();
-		ParticipantTwoBuilder = ParticipantTwoBuilderFactory.Create();
-		ParticipantTwo = ParticipantTwoBuilder.Build();
-		ParticipantTwos = ParticipantTwo.Generate();
-
-		ParticipantTwoIdBuilderFactory = new();
-		ParticipantTwoIdBuilder = ParticipantTwoIdBuilderFactory.Create(ParticipantTwo.Id);
-		ParticipantTwoId = ParticipantTwoIdBuilder.Build();
-
-		ParticipantTwoIdRangeBuilderFactory = new();
-		ParticipantTwoIdRangeBuilder = ParticipantTwoIdRangeBuilderFactory.Create([.. ParticipantTwos.Select(p => p.Id)]);
-		ParticipantTwoIds = ParticipantTwoIdRangeBuilder.Build();
-
-		ChatBuilderFactory = new();
-		ChatBuilder = ChatBuilderFactory.Create(ParticipantOne, ParticipantTwo);
-		Chat = ChatBuilder.Build();
-		Chats = Chat.Generate(ParticipantOnes, ParticipantTwos);
-		InvertedChat = ChatBuilder.WithParticipantOne(ParticipantTwo).WithParticipantTwo(ParticipantOne).Build();
-		InvertedChats = InvertedChat.Generate(ParticipantTwos, ParticipantOnes);
-
-		ChatIdBuilderFactory = new();
-		ChatIdBuilder = ChatIdBuilderFactory.Create(Chat.Id);
-		ChatId = ChatIdBuilder.Build();
-		InvertedChatIdBuilder = ChatIdBuilderFactory.Create(InvertedChat.Id);
-		InvertedChatId = InvertedChatIdBuilder.Build();
-
-		ChatIdRangeBuilderFactory = new();
-		ChatIdRangeBuilder = ChatIdRangeBuilderFactory.Create([.. Chats.Select(c => c.Id)]);
-		ChatIds = ChatIdRangeBuilder.Build();
-		InvertedChatIdRangeBuilder = ChatIdRangeBuilderFactory.Create([.. InvertedChats.Select(c => c.Id)]);
-		InvertedChatIds = InvertedChatIdRangeBuilder.Build();
+		ChatChatMessagesChatMessageImages = [.. Chat.ChatMessages.SelectMany(c => c.ChatMessageImages)];
+		ChatChatMessagesChatMessageImageIdRangeBuilderFactory = new();
+		ChatChatMessagesChatMessageImageIdRangeBuilder = ChatChatMessagesChatMessageImageIdRangeBuilderFactory.Create([.. ChatChatMessagesChatMessageImages.Select(c => c.Id)]);
+		ChatChatMessagesChatMessageImageIds = ChatChatMessagesChatMessageImageIdRangeBuilder.Build();
 	}
 }

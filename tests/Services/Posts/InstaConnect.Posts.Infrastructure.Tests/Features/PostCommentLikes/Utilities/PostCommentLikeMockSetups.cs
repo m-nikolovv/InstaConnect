@@ -15,6 +15,13 @@ public static class PostCommentLikeMockSetups
 		}
 
 		public void SetupAggregateFluent(
+			ICollection<PostCommentLikeId> ids,
+			IPostCommentLikeFluent fluent)
+		{
+			collection.SetupAggregateFluent(fluent);
+		}
+
+		public void SetupAggregateFluent(
 			PostCommentLikeId id,
 			CurrentUserQuery currentUserQuery,
 			IPostCommentLikeFluent fluent)
@@ -88,63 +95,75 @@ public static class PostCommentLikeMockSetups
 			fluent.SetupAnyAsync(postCommentLike != null, cancellationToken);
 		}
 
-		public void SetupApplyIncludes(
+		public void SetupInclude(
 			PostCommentLikeId id,
 			PostCommentLikeInclude include)
 		{
-			fluent.SetupApplyIncludes(include);
+			fluent.SetupInclude(include);
 		}
 
-		public void SetupApplyIncludes(
+		public void SetupInclude(
+			ICollection<PostCommentLikeId> ids,
+			PostCommentLikeInclude include)
+		{
+			fluent.SetupInclude(include);
+		}
+
+		public void SetupInclude(
 			PostCommentLikeId id,
 			CurrentUserQuery currentUserQuery,
 			PostCommentLikeInclude include)
 		{
-			fluent.SetupApplyIncludes(include);
+			fluent.SetupInclude(include);
 		}
 
-		public void SetupApplyIncludes(
+		public void SetupInclude(
 			PostCommentLikesFilterQuery filterQuery,
 			PostCommentLikeInclude include)
 		{
-			fluent.SetupApplyIncludes(include);
+			fluent.SetupInclude(include);
 		}
 
-		public void SetupApplyIncludes(
+		public void SetupInclude(
 			PostCommentLikesForUserFilterQuery filterQuery,
 			PostCommentLikeInclude include)
 		{
-			fluent.SetupApplyIncludes(include);
+			fluent.SetupInclude(include);
 		}
 
-		public void SetupApplyIncludes(
+		public void SetupInclude(
 			PostCommentLikesFilterQuery filterQuery,
 			PostCommentLikesSortingQuery sortingQuery,
 			PostCommentLikesPaginationQuery paginationQuery,
 			CurrentUserQuery currentUserQuery,
 			PostCommentLikeInclude include)
 		{
-			fluent.SetupApplyIncludes(include);
+			fluent.SetupInclude(include);
 		}
 
-		public void SetupApplyIncludes(
+		public void SetupInclude(
 			PostCommentLikesForUserFilterQuery filterQuery,
 			PostCommentLikesForUserSortingQuery sortingQuery,
 			PostCommentLikesPaginationQuery paginationQuery,
 			CurrentUserQuery currentUserQuery,
 			PostCommentLikeInclude include)
 		{
-			fluent.SetupApplyIncludes(include);
+			fluent.SetupInclude(include);
 		}
 
-		public void SetupApplyIncludes(PostCommentLikeInclude include)
+		public void SetupInclude(PostCommentLikeInclude include)
 		{
-			fluent.ApplyIncludes(include).ReturnsResponse(fluent);
+			fluent.Include(include).ReturnsResponse(fluent);
 		}
 
 		public void SetupMatch(PostCommentLikeId id)
 		{
 			fluent.Match(id).ReturnsResponse(fluent);
+		}
+
+		public void SetupMatch(ICollection<PostCommentLikeId> ids)
+		{
+			fluent.Match(ids).ReturnsResponse(fluent);
 		}
 
 		public void SetupMatch(
@@ -238,59 +257,67 @@ public static class PostCommentLikeMockSetups
 		{
 			fluent.SetupFirstOrDefaultAsync(postCommentLike, cancellationToken);
 		}
+
+		public void SetupToListAsync(
+			ICollection<PostCommentLikeId> ids,
+			ICollection<PostCommentLike> postCommentLikes,
+			CancellationToken cancellationToken)
+		{
+			fluent.SetupToListAsync(postCommentLikes, cancellationToken);
+		}
 	}
 
 	extension(IPostCommentLikeResponseFluent fluent)
 	{
-		public void SetupApplySorting(
+		public void SetupSort(
 			PostCommentLikesFilterQuery filterQuery,
 			PostCommentLikesSortingQuery sortingQuery,
 			PostCommentLikesPaginationQuery paginationQuery,
 			CurrentUserQuery currentUserQuery)
 		{
-			fluent.SetupApplySorting(sortingQuery);
+			fluent.SetupSort(sortingQuery);
 		}
 
-		public void SetupApplySorting(
+		public void SetupSort(
 			PostCommentLikesForUserFilterQuery filterQuery,
 			PostCommentLikesForUserSortingQuery sortingQuery,
 			PostCommentLikesPaginationQuery paginationQuery,
 			CurrentUserQuery currentUserQuery)
 		{
-			fluent.SetupApplySorting(sortingQuery);
+			fluent.SetupSort(sortingQuery);
 		}
 
-		public void SetupApplySorting(PostCommentLikesSortingQuery sortingQuery)
+		public void SetupSort(PostCommentLikesSortingQuery sortingQuery)
 		{
-			fluent.ApplySorting(sortingQuery).ReturnsResponse(fluent);
+			fluent.Sort(sortingQuery).ReturnsResponse(fluent);
 		}
 
-		public void SetupApplySorting(PostCommentLikesForUserSortingQuery sortingQuery)
+		public void SetupSort(PostCommentLikesForUserSortingQuery sortingQuery)
 		{
-			fluent.ApplySorting(sortingQuery).ReturnsResponse(fluent);
+			fluent.Sort(sortingQuery).ReturnsResponse(fluent);
 		}
 
-		public void SetupApplyPagination(
+		public void SetupPaginate(
 			PostCommentLikesFilterQuery filterQuery,
 			PostCommentLikesSortingQuery sortingQuery,
 			PostCommentLikesPaginationQuery paginationQuery,
 			CurrentUserQuery currentUserQuery)
 		{
-			fluent.SetupApplyPagination(paginationQuery);
+			fluent.SetupPaginate(paginationQuery);
 		}
 
-		public void SetupApplyPagination(
+		public void SetupPaginate(
 			PostCommentLikesForUserFilterQuery filterQuery,
 			PostCommentLikesForUserSortingQuery sortingQuery,
 			PostCommentLikesPaginationQuery paginationQuery,
 			CurrentUserQuery currentUserQuery)
 		{
-			fluent.SetupApplyPagination(paginationQuery);
+			fluent.SetupPaginate(paginationQuery);
 		}
 
-		public void SetupApplyPagination(PostCommentLikesPaginationQuery paginationQuery)
+		public void SetupPaginate(PostCommentLikesPaginationQuery paginationQuery)
 		{
-			fluent.ApplyPagination(paginationQuery).ReturnsResponse(fluent);
+			fluent.Paginate(paginationQuery).ReturnsResponse(fluent);
 		}
 
 		public void SetupToListAsync(

@@ -4,10 +4,25 @@ public static class ChatMessageGenerator
 {
 	extension(ChatMessage baseChatMessage)
 	{
-		public ICollection<ChatMessage> Generate(IEnumerable<Chat> chats, int numberOfIterations = 3)
+		public ICollection<ChatMessage> GenerateAttached(IEnumerable<Chat> chats)
 		{
+			var chatMessages = baseChatMessage.Generate(chats);
+
+			foreach (var chatMessage in chatMessages.Where(c => c != baseChatMessage))
+			{
+				chatMessage.Sender!.AddChatMessage(chatMessage);
+				chatMessage.Chat!.AddChatMessage(chatMessage);
+			}
+
+			return chatMessages;
+		}
+
+		public ICollection<ChatMessage> Generate(IEnumerable<Chat> chats)
+		{
+			const int NumberOfIterations = 3;
+
 			return [baseChatMessage, ..chats.SelectMany(chat =>
-				 Enumerable.Range(default, numberOfIterations).Select(_ =>
+				 Enumerable.Range(default, NumberOfIterations).Select(_ =>
 				 {
 					 var chatMessage = new ChatMessage(
 						 new(chat.Id, ChatMessageDataFaker.GetId()),
@@ -20,13 +35,11 @@ public static class ChatMessageGenerator
 
 					 chatMessage.AddSender(chat.ParticipantOne);
 					 chatMessage.AddChat(chat);
-					 chat.ParticipantOne!.AddChatMessage(chatMessage);
-					 chat.AddChatMessage(chatMessage);
 
 					 return chatMessage;
 				 })),
 				 ..chats.SelectMany(chat =>
-				 Enumerable.Range(default, numberOfIterations).Select(_ =>
+				 Enumerable.Range(default, NumberOfIterations).Select(_ =>
 				 {
 					 var chatMessage = new ChatMessage(
 						 new(chat.Id, ChatMessageDataFaker.GetId()),
@@ -39,8 +52,6 @@ public static class ChatMessageGenerator
 
 					 chatMessage.AddSender(chat.ParticipantTwo);
 					 chatMessage.AddChat(chat);
-					 chat.ParticipantTwo!.AddChatMessage(chatMessage);
-					 chat.AddChatMessage(chatMessage);
 
 					 return chatMessage;
 				 }))];

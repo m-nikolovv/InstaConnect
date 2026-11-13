@@ -3,7 +3,7 @@ using InstaConnect.Follows.Tests.Features.Users.Utilities;
 
 namespace InstaConnect.Follows.Domain.Tests.Unit.Features.Users.Utilities;
 
-public abstract class BaseUserDomainCommandUnitTest : BaseUserTest
+public abstract class BaseUserDomainCommandUnitTest : BaseUserCommandTest
 {
 	protected IUserFactory UserFactory { get; }
 

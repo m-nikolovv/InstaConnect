@@ -7,7 +7,7 @@ using InstaConnect.Common.Events.Features.Events.Abstractions;
 
 namespace InstaConnect.Chats.Domain.Tests.Unit.Features.Chats.Utilities;
 
-public abstract class BaseChatDomainCommandUnitTest : BaseChatTest
+public abstract class BaseChatDomainCommandUnitTest : BaseChatCommandTest
 {
 	protected IChatFactory Factory { get; }
 

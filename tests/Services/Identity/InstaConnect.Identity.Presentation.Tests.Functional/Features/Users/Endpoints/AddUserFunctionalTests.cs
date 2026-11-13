@@ -25,6 +25,11 @@ public class AddUserFunctionalTests : BaseUserPresentationCommandFunctionalTest
 		_request = _requestBuilder.Build();
 	}
 
+	protected override async Task OnInitializeAsync()
+	{
+		await ServiceScope.AddAsync(User, CancellationToken);
+	}
+
 	[Theory]
 	[UserNameNullData]
 	[UserNameEmptyData]
@@ -273,7 +278,6 @@ public class AddUserFunctionalTests : BaseUserPresentationCommandFunctionalTest
 	public async Task AddAsync_ShouldHaveBadRequestStatusCode_WhenUserEmailAlreadyTaken()
 	{
 		// Arrange
-		await ServiceScope.AddAsync(User, CancellationToken);
 		var request = _requestBuilder.WithEmail(User.Email).Build();
 
 		// Act
@@ -289,7 +293,6 @@ public class AddUserFunctionalTests : BaseUserPresentationCommandFunctionalTest
 		IStringTransformer transformer)
 	{
 		// Arrange
-		await ServiceScope.AddAsync(User, CancellationToken);
 		var request = _requestBuilder.WithEmail(User.Email, transformer).Build();
 
 		// Act
@@ -303,7 +306,6 @@ public class AddUserFunctionalTests : BaseUserPresentationCommandFunctionalTest
 	public async Task AddAsync_ShouldHaveUserEmailAlreadyTakenProblemDetails_WhenUserEmailAlreadyTaken()
 	{
 		// Arrange
-		await ServiceScope.AddAsync(User, CancellationToken);
 		var request = _requestBuilder.WithEmail(User.Email).Build();
 
 		// Act
@@ -319,7 +321,6 @@ public class AddUserFunctionalTests : BaseUserPresentationCommandFunctionalTest
 		IStringTransformer transformer)
 	{
 		// Arrange
-		await ServiceScope.AddAsync(User, CancellationToken);
 		var request = _requestBuilder.WithEmail(User.Email, transformer).Build();
 
 		// Act
@@ -333,7 +334,6 @@ public class AddUserFunctionalTests : BaseUserPresentationCommandFunctionalTest
 	public async Task AddAsync_ShouldHaveBadRequestStatusCode_WhenUserNameAlreadyTaken()
 	{
 		// Arrange
-		await ServiceScope.AddAsync(User, CancellationToken);
 		var request = _requestBuilder.WithName(User.Name).Build();
 
 		// Act
@@ -349,7 +349,6 @@ public class AddUserFunctionalTests : BaseUserPresentationCommandFunctionalTest
 		IStringTransformer transformer)
 	{
 		// Arrange
-		await ServiceScope.AddAsync(User, CancellationToken);
 		var request = _requestBuilder.WithName(User.Name, transformer).Build();
 
 		// Act
@@ -363,7 +362,6 @@ public class AddUserFunctionalTests : BaseUserPresentationCommandFunctionalTest
 	public async Task AddAsync_ShouldHaveUserNameAlreadyTakenProblemDetails_WhenUserNameAlreadyTaken()
 	{
 		// Arrange
-		await ServiceScope.AddAsync(User, CancellationToken);
 		var request = _requestBuilder.WithName(User.Name).Build();
 
 		// Act
@@ -379,7 +377,6 @@ public class AddUserFunctionalTests : BaseUserPresentationCommandFunctionalTest
 		IStringTransformer transformer)
 	{
 		// Arrange
-		await ServiceScope.AddAsync(User, CancellationToken);
 		var request = _requestBuilder.WithName(User.Name, transformer).Build();
 
 		// Act

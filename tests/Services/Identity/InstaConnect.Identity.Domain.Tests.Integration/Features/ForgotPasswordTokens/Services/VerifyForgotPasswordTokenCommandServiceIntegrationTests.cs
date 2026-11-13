@@ -24,7 +24,7 @@ public class VerifyForgotPasswordTokenCommandServiceIntegrationTests : BaseForgo
 
 	protected override async Task OnInitializeAsync()
 	{
-		await ServiceScope.AddRangeAsync(User.ForgotPasswordTokens, CancellationToken);
+		await ServiceScope.AddRangeAsync(ForgotPasswordTokens, CancellationToken);
 	}
 
 	[Fact]

@@ -7,7 +7,7 @@ using InstaConnect.Posts.Tests.Features.Users.Utilities;
 
 namespace InstaConnect.Posts.Infrastructure.Tests.Functional.Features.Users.Utilities;
 
-public abstract class BaseUserInfrastructureCommandFunctionalTest : BaseUserWebTest
+public abstract class BaseUserInfrastructureCommandFunctionalTest : BaseUserWebCommandTest
 {
 	protected IUserEventClient UserEventClient { get; }
 
@@ -21,7 +21,7 @@ public abstract class BaseUserInfrastructureCommandFunctionalTest : BaseUserWebT
 
 	public override async Task InitializeAsync()
 	{
-		await OnInitializeAsync();
+		await base.InitializeAsync();
 		await UserEventClient.StartAsync(CancellationToken);
 	}
 

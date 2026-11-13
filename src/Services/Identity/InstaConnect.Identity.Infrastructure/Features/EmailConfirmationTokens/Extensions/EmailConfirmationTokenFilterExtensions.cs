@@ -1,9 +1,8 @@
 using InstaConnect.Identity.Domain.Features.EmailConfirmationTokens.Models.ValueObjects;
-using InstaConnect.Identity.Infrastructure.Features.EmailConfirmationTokens.Extensions;
 
 namespace InstaConnect.Identity.Infrastructure.Features.EmailConfirmationTokens.Extensions;
 
-public static class EmailConfirmationTokenFilterExtensions
+internal static class EmailConfirmationTokenFilterExtensions
 {
 	extension(EmailConfirmationTokenId filter)
 	{
@@ -17,9 +16,9 @@ public static class EmailConfirmationTokenFilterExtensions
 			Expression<Func<T, object>> valueField)
 		{
 			var id = filter.Id.GetFilterForIdEquals(idField);
-			var value = Builders<T>.Filter.EqualsIgnoreCase(valueField, filter.Value, filter.Value.IsNullOrEmptyOrWhiteSpace());
+			var value = Builders<T>.Filter.EqualsIgnoreCaseOrFalse(valueField, filter.Value);
 
-			return Builders<T>.Filter.And(id, value);
+			return Builders<T>.Filter.AndAll(id, value);
 		}
 	}
 
@@ -34,7 +33,15 @@ public static class EmailConfirmationTokenFilterExtensions
 			Expression<Func<T, object>> idField,
 			Expression<Func<T, object>> valueField)
 		{
-			return Builders<T>.Filter.Or(filter.Select(item => item.GetFilterForIdEquals(idField, valueField)));
+			return Builders<T>.Filter.OrRange(filter.Select(item => item.GetFilterForIdEquals(idField, valueField)));
+		}
+	}
+
+	extension(UserId filter)
+	{
+		public FilterDefinition<EmailConfirmationToken> GetEmailConfirmationTokenByParentFilter()
+		{
+			return filter.GetFilterForIdEquals<EmailConfirmationToken>(p => p.Id.Id.Id);
 		}
 	}
 }

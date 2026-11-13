@@ -5,7 +5,7 @@ using InstaConnect.Posts.Tests.Features.PostImages.Utilities;
 
 namespace InstaConnect.Posts.Domain.Tests.Unit.Features.PostImages.Utilities;
 
-public abstract class BasePostImageDomainCommandUnitTest : BasePostImageTest
+public abstract class BasePostImageDomainCommandUnitTest : BasePostImageCommandTest
 {
 	protected IPostImageFactory Factory { get; }
 

@@ -1,5 +1,3 @@
-using System.Net.Mime;
-
 namespace InstaConnect.Common.Presentation.Features.Exceptions.Helpers;
 
 public class ApplicationProblemDetailsService : IApplicationProblemDetailsService
@@ -17,9 +15,6 @@ public class ApplicationProblemDetailsService : IApplicationProblemDetailsServic
 		ApplicationProblemDetails details,
 		CancellationToken cancellationToken)
 	{
-		httpContext.Response.ContentType = MediaTypeNames.Application.Json;
-		httpContext.Response.StatusCode = details.Status ?? StatusCodes.Status500InternalServerError;
-
 		var problemDetailsContext = new ProblemDetailsContext
 		{
 			HttpContext = httpContext,
@@ -27,6 +22,6 @@ public class ApplicationProblemDetailsService : IApplicationProblemDetailsServic
 			ProblemDetails = details,
 		};
 
-		await _problemDetailsService.WriteAsync(problemDetailsContext);
+		await _problemDetailsService.TryWriteAsync(problemDetailsContext);
 	}
 }

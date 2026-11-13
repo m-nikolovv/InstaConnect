@@ -36,7 +36,7 @@ internal static class ServiceCollectionExtensions
 				.AddValidations(IdentityPresentationReference.Assembly, CommonPresentationReference.Assembly)
 				.AddAuthorizationPolicies()
 				.AddCorsPolicies(configuration)
-				.AddRateLimiterPolicies()
+				.AddRateLimiterPolicies(configuration)
 				.AddEmailRenderers(IdentityPresentationReference.Assembly, RootNamespace)
 				.AddExceptions();
 

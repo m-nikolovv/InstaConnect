@@ -1,3 +1,8 @@
+using InstaConnect.Posts.Domain.Features.PostImages.Abstractions;
+using InstaConnect.Posts.Domain.Features.PostImages.Models.ValueObjects;
+using InstaConnect.Posts.Infrastructure.Features.PostImages.Helpers.Repositories;
+using InstaConnect.Posts.Infrastructure.Features.PostImages.Models.Options;
+
 namespace InstaConnect.Posts.Infrastructure.Features.PostImages.Extensions;
 
 internal static class ServiceCollectionExtensions
@@ -8,7 +13,12 @@ internal static class ServiceCollectionExtensions
 		{
 			const string CollectionName = "post_images";
 
-			serviceCollection.AddCollection<PostImage>(CollectionName);
+			serviceCollection.AddValidatedOptions<PostImageCacheOptions>(PostImageCacheOptions.SectionName);
+
+			serviceCollection.AddCollection<PostImage, PostImageId>(CollectionName);
+
+			serviceCollection.AddScoped<IPostImageCommandRepository, PostImageCommandRepository>()
+							 .Decorate<IPostImageCommandRepository, CachedPostImageCommandRepository>();
 
 			BsonClassMap.TryRegisterClassMap<PostImage>(cm =>
 			{
@@ -16,7 +26,7 @@ internal static class ServiceCollectionExtensions
 
 				cm.MapMember(c => c.Id);
 				cm.MapMember(c => c.Url);
-				cm.MapMember(c => c.CreatedAtUtc);
+				cm.MapDateTimeMember(c => c.CreatedAtUtc);
 
 				cm.MapMemberWithoutSerialization(c => c.Post);
 
@@ -25,7 +35,7 @@ internal static class ServiceCollectionExtensions
 					c.Url,
 					c.CreatedAtUtc));
 
-				cm.SetIgnoreExtraElements(true);
+				cm.IgnoreExtraElements();
 			});
 
 			return serviceCollection;

@@ -2,7 +2,7 @@ using InstaConnect.Posts.Domain.Features.PostCommentImages.Abstractions;
 
 namespace InstaConnect.Posts.Infrastructure.Tests.Integration.Features.PostCommentImages.Utilities;
 
-public abstract class BasePostCommentImageInfrastructureCommandIntegrationTest : BasePostCommentImageWebTest
+public abstract class BasePostCommentImageInfrastructureCommandIntegrationTest : BasePostCommentImageWebCommandTest
 {
 	protected IPostCommentImageCommandRepository Repository { get; }
 
@@ -10,13 +10,5 @@ public abstract class BasePostCommentImageInfrastructureCommandIntegrationTest :
 		: base(webApplicationFactory)
 	{
 		Repository = ServiceScope.GetPostCommentImageCommandRepository();
-	}
-
-	public override async Task InitializeAsync()
-	{
-		await ServiceScope.AddAsync(User, CancellationToken);
-		await ServiceScope.AddAsync(Post, CancellationToken);
-		await ServiceScope.AddAsync(PostComment, CancellationToken);
-		await OnInitializeAsync();
 	}
 }

@@ -24,11 +24,6 @@ public class GetChatByIdQueryHandlerIntegrationTests : BaseChatApplicationQueryI
 		_invertedRequest = _invertedRequestBuilder.Build();
 	}
 
-	protected override async Task OnInitializeAsync()
-	{
-		await ServiceScope.AddAsync(Chat, CancellationToken);
-	}
-
 	[Theory]
 	[UserIdNullWithMessageData]
 	[UserIdEmptyWithMessageData]

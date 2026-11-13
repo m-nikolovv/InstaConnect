@@ -2,7 +2,7 @@ using InstaConnect.Posts.Tests.Features.PostLikes.Utilities;
 
 namespace InstaConnect.Posts.Presentation.Tests.Unit.Features.PostLikes.Utilities;
 
-public abstract class BasePostLikePresentationCommandUnitTest : BasePostLikeTest
+public abstract class BasePostLikePresentationCommandUnitTest : BasePostLikeCommandTest
 {
 	protected IApplicationSender Sender { get; }
 

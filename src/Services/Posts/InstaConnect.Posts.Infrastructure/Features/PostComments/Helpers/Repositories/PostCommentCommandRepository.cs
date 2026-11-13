@@ -22,8 +22,8 @@ internal class PostCommentCommandRepository : IPostCommentCommandRepository
 	{
 		return await _collection
 			.AggregateFluent()
-			.ApplyIncludes(include)
 			.Match(id)
+			.Include(include)
 			.FirstOrDefaultAsync(cancellationToken);
 	}
 
@@ -34,6 +34,27 @@ internal class PostCommentCommandRepository : IPostCommentCommandRepository
 		var include = _includeBuilderFactory.Create().Build();
 
 		return await GetByIdAsync(id, include, cancellationToken);
+	}
+
+	public async Task<ICollection<PostComment>> GetByIdRangeAsync(
+		IEnumerable<PostCommentId> ids,
+		PostCommentInclude include,
+		CancellationToken cancellationToken)
+	{
+		return await _collection
+			.AggregateFluent()
+			.Match(ids)
+			.Include(include)
+			.ToListAsync(cancellationToken);
+	}
+
+	public async Task<ICollection<PostComment>> GetByIdRangeAsync(
+		IEnumerable<PostCommentId> ids,
+		CancellationToken cancellationToken)
+	{
+		var include = _includeBuilderFactory.Create().Build();
+
+		return await GetByIdRangeAsync(ids, include, cancellationToken);
 	}
 
 	public async Task<bool> ExistsByIdAsync(

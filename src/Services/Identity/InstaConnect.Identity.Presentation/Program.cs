@@ -1,5 +1,4 @@
 using InstaConnect.Common.Infrastructure.Features.Telemetries.Extensions;
-using InstaConnect.Common.Presentation.Features.Seeders.Extensions;
 using InstaConnect.Common.Presentation.Features.Telemetries.Extensions;
 using InstaConnect.Identity.Application.Features.Common.Extensions;
 using InstaConnect.Identity.Domain.Features.Common.Extensions;
@@ -20,13 +19,9 @@ builder.Logging.AddTelemetries(builder.Configuration, builder.Environment);
 
 var app = builder.Build();
 
-app.UsePresentation();
-
-await app.StartAsync();
-
-await app.UseSeedersAsync(CancellationToken.None);
-
-await app.WaitForShutdownAsync();
+await app
+	.UsePresentation()
+	.RunPresentationAsync(CancellationToken.None);
 
 
 // Utils for testing

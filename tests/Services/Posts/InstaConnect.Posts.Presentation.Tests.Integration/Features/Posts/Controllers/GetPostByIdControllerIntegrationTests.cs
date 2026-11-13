@@ -14,11 +14,6 @@ public class GetPostByIdControllerIntegrationTests : BasePostPresentationQueryIn
 		_request = _requestBuilder.Build();
 	}
 
-	protected override async Task OnInitializeAsync()
-	{
-		await ServiceScope.AddAsync(Post, CancellationToken);
-	}
-
 	[Theory]
 	[PostIdNullWithMessageData]
 	[PostIdEmptyWithMessageData]

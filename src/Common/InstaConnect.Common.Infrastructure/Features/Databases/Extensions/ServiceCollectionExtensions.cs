@@ -15,15 +15,18 @@ public static class ServiceCollectionExtensions
 {
 	extension(IServiceCollection serviceCollection)
 	{
-		public IServiceCollection AddCollection<TEntity>(string name)
-			where TEntity : IEntity
+		public IServiceCollection AddCollection<TEntity, TEntityId>(string name)
+			where TEntity : IEntity, IEntityWithId<TEntityId>
+			where TEntityId : IEntityId
 		{
-			serviceCollection.AddScoped(sp => sp.GetRequiredService<IMongoDatabase>().GetCollection<TEntity>(name));
+			serviceCollection
+				.AddScoped(sp => sp.GetRequiredService<IMongoDatabase>().GetCollection<TEntity>(name))
+				.AddScoped<IMongoDbCollectionHandler<TEntity, TEntityId>, MongoDbCollectionHandler<TEntity, TEntityId>>();
 
 			return serviceCollection;
 		}
 
-		public IServiceCollection AddDatabases(IConfiguration configuration)
+		public IServiceCollection AddDatabases(IConfiguration configuration, params Assembly[] assemblies)
 		{
 			const string ConventionName = "ApplicationConventionPack";
 
@@ -40,7 +43,20 @@ public static class ServiceCollectionExtensions
 			serviceCollection
 				.AddScoped<IPaginator, Paginator>()
 				.AddScoped<IUnitOfWork, UnitOfWork>()
-				.AddScoped<ISessionHandler, SessionHandler>();
+				.AddScoped<ISessionHandler, SessionHandler>()
+				.AddScoped<IMongoDbFluentHandlerFactory, MongoDbFluentHandlerFactory>();
+
+			serviceCollection
+				.AddScoped<ISortOrdererFactory, SortOrdererFactory>()
+				.AddImplementationsOf<ISortOrderer>(CommonInfrastructureReference.Assembly);
+
+			serviceCollection
+				.AddScoped<IDatabaseInitializer, DatabaseInitializer>()
+				.AddImplementationsOf<IMongoDbCollectionInitializer>(assemblies);
+
+			serviceCollection
+				.AddScoped<IDatabaseSeeder, DatabaseSeeder>()
+				.AddImplementationsOf<IMongoDbCollectionSeeder>(assemblies);
 
 			var conventionPack = new ConventionPack
 			{
@@ -55,24 +71,6 @@ public static class ServiceCollectionExtensions
 							 _ => options.Name);
 
 			return serviceCollection;
-		}
-
-		public IServiceCollection AddDatabaseSortOrders()
-		{
-			serviceCollection.AddScoped<ISortOrdererFactory, SortOrdererFactory>()
-							 .AddImplementationsOf<ISortOrderer>(CommonInfrastructureReference.Assembly);
-
-			return serviceCollection;
-		}
-
-		public IServiceCollection AddServicesWithMatchingInterfacesExceptFluents(params Assembly[] assemblies)
-		{
-			Type[] fluentTypes = [typeof(MongoDbFluent<>), typeof(MongoDbResponseFluent<>)];
-
-			return serviceCollection.AddServicesWithMatchingInterfaces(
-				type => type.BaseType is not { IsGenericType: true } baseType ||
-						!fluentTypes.Contains(baseType.GetGenericTypeDefinition()),
-				assemblies);
 		}
 	}
 }

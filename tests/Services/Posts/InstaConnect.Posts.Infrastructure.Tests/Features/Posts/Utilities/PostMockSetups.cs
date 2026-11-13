@@ -14,6 +14,13 @@ public static class PostMockSetups
 		}
 
 		public void SetupAggregateFluent(
+			ICollection<PostId> ids,
+			IPostFluent fluent)
+		{
+			collection.SetupAggregateFluent(fluent);
+		}
+
+		public void SetupAggregateFluent(
 			PostId id,
 			CurrentUserQuery currentUserQuery,
 			IPostFluent fluent)
@@ -87,63 +94,75 @@ public static class PostMockSetups
 			fluent.SetupAnyAsync(post != null, cancellationToken);
 		}
 
-		public void SetupApplyIncludes(
+		public void SetupInclude(
 			PostId id,
 			PostInclude include)
 		{
-			fluent.SetupApplyIncludes(include);
+			fluent.SetupInclude(include);
 		}
 
-		public void SetupApplyIncludes(
+		public void SetupInclude(
+			ICollection<PostId> ids,
+			PostInclude include)
+		{
+			fluent.SetupInclude(include);
+		}
+
+		public void SetupInclude(
 			PostId id,
 			CurrentUserQuery currentUserQuery,
 			PostInclude include)
 		{
-			fluent.SetupApplyIncludes(include);
+			fluent.SetupInclude(include);
 		}
 
-		public void SetupApplyIncludes(
+		public void SetupInclude(
 			PostsFilterQuery filterQuery,
 			PostInclude include)
 		{
-			fluent.SetupApplyIncludes(include);
+			fluent.SetupInclude(include);
 		}
 
-		public void SetupApplyIncludes(
+		public void SetupInclude(
 			PostsForUserFilterQuery filterQuery,
 			PostInclude include)
 		{
-			fluent.SetupApplyIncludes(include);
+			fluent.SetupInclude(include);
 		}
 
-		public void SetupApplyIncludes(
+		public void SetupInclude(
 			PostsFilterQuery filterQuery,
 			PostsSortingQuery sortingQuery,
 			PostsPaginationQuery paginationQuery,
 			CurrentUserQuery currentUserQuery,
 			PostInclude include)
 		{
-			fluent.SetupApplyIncludes(include);
+			fluent.SetupInclude(include);
 		}
 
-		public void SetupApplyIncludes(
+		public void SetupInclude(
 			PostsForUserFilterQuery filterQuery,
 			PostsForUserSortingQuery sortingQuery,
 			PostsPaginationQuery paginationQuery,
 			CurrentUserQuery currentUserQuery,
 			PostInclude include)
 		{
-			fluent.SetupApplyIncludes(include);
+			fluent.SetupInclude(include);
 		}
 
-		public void SetupApplyIncludes(PostInclude include)
+		public void SetupInclude(PostInclude include)
 		{
-			fluent.ApplyIncludes(include).ReturnsResponse(fluent);
+			fluent.Include(include).ReturnsResponse(fluent);
 		}
 
 		public void SetupMatch(PostId id)
 		{
 			fluent.Match(id).ReturnsResponse(fluent);
+		}
+
+		public void SetupMatch(ICollection<PostId> ids)
+		{
+			fluent.Match(ids).ReturnsResponse(fluent);
 		}
 
 		public void SetupMatch(
@@ -239,59 +258,67 @@ public static class PostMockSetups
 		{
 			fluent.SetupFirstOrDefaultAsync(post, cancellationToken);
 		}
+
+		public void SetupToListAsync(
+			ICollection<PostId> ids,
+			ICollection<Post> posts,
+			CancellationToken cancellationToken)
+		{
+			fluent.SetupToListAsync(posts, cancellationToken);
+		}
 	}
 
 	extension(IPostResponseFluent fluent)
 	{
-		public void SetupApplySorting(
+		public void SetupSort(
 			PostsFilterQuery filterQuery,
 			PostsSortingQuery sortingQuery,
 			PostsPaginationQuery paginationQuery,
 			CurrentUserQuery currentUserQuery)
 		{
-			fluent.SetupApplySorting(sortingQuery);
+			fluent.SetupSort(sortingQuery);
 		}
 
-		public void SetupApplySorting(
+		public void SetupSort(
 			PostsForUserFilterQuery filterQuery,
 			PostsForUserSortingQuery sortingQuery,
 			PostsPaginationQuery paginationQuery,
 			CurrentUserQuery currentUserQuery)
 		{
-			fluent.SetupApplySorting(sortingQuery);
+			fluent.SetupSort(sortingQuery);
 		}
 
-		public void SetupApplySorting(PostsSortingQuery sortingQuery)
+		public void SetupSort(PostsSortingQuery sortingQuery)
 		{
-			fluent.ApplySorting(sortingQuery).ReturnsResponse(fluent);
+			fluent.Sort(sortingQuery).ReturnsResponse(fluent);
 		}
 
-		public void SetupApplySorting(PostsForUserSortingQuery sortingQuery)
+		public void SetupSort(PostsForUserSortingQuery sortingQuery)
 		{
-			fluent.ApplySorting(sortingQuery).ReturnsResponse(fluent);
+			fluent.Sort(sortingQuery).ReturnsResponse(fluent);
 		}
 
-		public void SetupApplyPagination(
+		public void SetupPaginate(
 			PostsFilterQuery filterQuery,
 			PostsSortingQuery sortingQuery,
 			PostsPaginationQuery paginationQuery,
 			CurrentUserQuery currentUserQuery)
 		{
-			fluent.SetupApplyPagination(paginationQuery);
+			fluent.SetupPaginate(paginationQuery);
 		}
 
-		public void SetupApplyPagination(
+		public void SetupPaginate(
 			PostsForUserFilterQuery filterQuery,
 			PostsForUserSortingQuery sortingQuery,
 			PostsPaginationQuery paginationQuery,
 			CurrentUserQuery currentUserQuery)
 		{
-			fluent.SetupApplyPagination(paginationQuery);
+			fluent.SetupPaginate(paginationQuery);
 		}
 
-		public void SetupApplyPagination(PostsPaginationQuery paginationQuery)
+		public void SetupPaginate(PostsPaginationQuery paginationQuery)
 		{
-			fluent.ApplyPagination(paginationQuery).ReturnsResponse(fluent);
+			fluent.Paginate(paginationQuery).ReturnsResponse(fluent);
 		}
 
 		public void SetupToListAsync(

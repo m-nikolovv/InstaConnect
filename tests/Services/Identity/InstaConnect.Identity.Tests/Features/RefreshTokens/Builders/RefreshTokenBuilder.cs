@@ -1,8 +1,10 @@
+using InstaConnect.Common.Tests.Features.DataAttributes.Base;
+
 namespace InstaConnect.Identity.Tests.Features.RefreshTokens.Builders;
 
 public class RefreshTokenBuilder
 {
-	private readonly string _id;
+	private string _id;
 	private readonly User _user;
 	private string _value;
 	private DateTimeOffset _expiresAtUtc;
@@ -26,9 +28,23 @@ public class RefreshTokenBuilder
 		_createdAtUtc = refreshToken.CreatedAtUtc;
 	}
 
-	public RefreshTokenBuilder WithValue(RefreshTokenId value)
+	public RefreshTokenBuilder WithId(IStringTransformer transformer)
 	{
-		_value = value.Value;
+		_id = transformer.Transform(_id);
+
+		return this;
+	}
+
+	public RefreshTokenBuilder WithValue(RefreshTokenId value, IStringTransformer? transformer = null)
+	{
+		_value = transformer.TryTransform(value.Value);
+
+		return this;
+	}
+
+	public RefreshTokenBuilder WithValue(IStringTransformer transformer)
+	{
+		_value = transformer.Transform(_value);
 
 		return this;
 	}
@@ -38,6 +54,15 @@ public class RefreshTokenBuilder
 		_expiresAtUtc = DataFaker.GetPastDate(_expiresAtUtc);
 
 		return this;
+	}
+
+	public RefreshToken BuildAttached()
+	{
+		var refreshToken = Build();
+
+		_user.AddRefreshToken(refreshToken);
+
+		return refreshToken;
 	}
 
 	public RefreshToken Build()
@@ -50,7 +75,6 @@ public class RefreshTokenBuilder
 			_createdAtUtc);
 
 		refreshToken.AddUser(_user);
-		_user.AddRefreshToken(refreshToken);
 
 		return refreshToken;
 	}

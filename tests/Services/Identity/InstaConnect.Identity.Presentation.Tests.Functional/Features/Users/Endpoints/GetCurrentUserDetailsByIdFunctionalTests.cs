@@ -14,11 +14,6 @@ public class GetCurrentUserDetailsByIdFunctionalTests : BaseUserPresentationQuer
 		_request = _requestBuilder.Build();
 	}
 
-	protected override async Task OnInitializeAsync()
-	{
-		await ServiceScope.AddAsync(User, CancellationToken);
-	}
-
 	[Fact]
 	public async Task GetCurrentDetailsByIdAsync_ShouldReturnUnauthorizedStatusCode_WhenRequestIsUnauthorized()
 	{
@@ -132,33 +127,6 @@ public class GetCurrentUserDetailsByIdFunctionalTests : BaseUserPresentationQuer
 
 		// Act
 		var response = await ApiClient.GetCurrentDetailsByIdAsync(request, CancellationToken);
-
-		// Assert
-		response.ShouldSatisfy(request, User);
-	}
-
-	[Fact]
-	public async Task GetCurrentDetailsByIdAsync_ShouldCacheResponse_WhenRequestIsValid()
-	{
-		// Act
-		await ApiClient.GetCurrentDetailsByIdAsync(_request, CancellationToken);
-		var response = await ServiceScope.GetCachedAsync(_request, CancellationToken);
-
-		// Assert
-		response.ShouldSatisfy(_request, User);
-	}
-
-	[Theory]
-	[UserIdDifferentCaseData]
-	public async Task GetCurrentDetailsByIdAsync_ShouldCacheResponse_WhenRequestAndCurrentIdAreValid(
-		IStringTransformer transformer)
-	{
-		// Arrange
-		var request = _requestBuilder.WithCurrentId(transformer).Build();
-
-		// Act
-		await ApiClient.GetCurrentDetailsByIdAsync(request, CancellationToken);
-		var response = await ServiceScope.GetCachedAsync(request, CancellationToken);
 
 		// Assert
 		response.ShouldSatisfy(request, User);

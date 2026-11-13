@@ -33,7 +33,7 @@ public static class ServiceCollectionExtensions
 				.AddValidations(PostsPresentationReference.Assembly, CommonPresentationReference.Assembly)
 				.AddAuthorizationPolicies()
 				.AddCorsPolicies(configuration)
-				.AddRateLimiterPolicies()
+				.AddRateLimiterPolicies(configuration)
 				.AddExceptions();
 
 			return serviceCollection;

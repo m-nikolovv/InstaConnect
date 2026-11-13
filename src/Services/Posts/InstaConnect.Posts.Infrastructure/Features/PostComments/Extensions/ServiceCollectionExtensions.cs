@@ -1,3 +1,7 @@
+using InstaConnect.Posts.Domain.Features.PostComments.Abstractions;
+using InstaConnect.Posts.Infrastructure.Features.PostComments.Helpers.Repositories;
+using InstaConnect.Posts.Infrastructure.Features.PostComments.Models.Options;
+
 namespace InstaConnect.Posts.Infrastructure.Features.PostComments.Extensions;
 
 internal static class ServiceCollectionExtensions
@@ -12,7 +16,15 @@ internal static class ServiceCollectionExtensions
 			serviceCollection.AddImplementationsOf<IPostCommentsForUserSortTermer>(PostsInfrastructureReference.Assembly);
 			serviceCollection.AddImplementationsOf<IPostCommentIncluder>(PostsInfrastructureReference.Assembly);
 
-			serviceCollection.AddCollection<PostComment>(CollectionName);
+			serviceCollection.AddValidatedOptions<PostCommentCacheOptions>(PostCommentCacheOptions.SectionName);
+
+			serviceCollection.AddCollection<PostComment, PostCommentId>(CollectionName);
+
+			serviceCollection.AddScoped<IPostCommentCommandRepository, PostCommentCommandRepository>()
+							 .Decorate<IPostCommentCommandRepository, CachedPostCommentCommandRepository>();
+
+			serviceCollection.AddScoped<IPostCommentQueryRepository, PostCommentQueryRepository>()
+							 .Decorate<IPostCommentQueryRepository, CachedPostCommentQueryRepository>();
 
 			BsonClassMap.TryRegisterClassMap<PostComment>(cm =>
 			{
@@ -22,8 +34,8 @@ internal static class ServiceCollectionExtensions
 				cm.MapMember(c => c.UserId);
 				cm.MapMember(c => c.Content);
 				cm.MapMember(c => c.Summary);
-				cm.MapMember(c => c.CreatedAtUtc);
-				cm.MapMember(c => c.UpdatedAtUtc);
+				cm.MapDateTimeMember(c => c.CreatedAtUtc);
+				cm.MapDateTimeMember(c => c.UpdatedAtUtc);
 
 				cm.MapMemberWithoutSerialization(c => c.User);
 				cm.MapMemberWithoutSerialization(c => c.Post);
@@ -38,7 +50,7 @@ internal static class ServiceCollectionExtensions
 					c.CreatedAtUtc,
 					c.UpdatedAtUtc));
 
-				cm.SetIgnoreExtraElements(true);
+				cm.IgnoreExtraElements();
 			});
 
 			return serviceCollection;

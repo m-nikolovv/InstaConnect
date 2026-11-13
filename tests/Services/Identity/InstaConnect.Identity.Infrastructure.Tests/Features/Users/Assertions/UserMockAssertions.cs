@@ -47,6 +47,20 @@ public static class UserMockAssertions
 			collection.ShouldHaveReceivedOne().AggregateFluent();
 		}
 
+		public async Task ShouldHaveReceivedOneAddAsync(
+			User user,
+			CancellationToken cancellationToken)
+		{
+			await collection.ShouldHaveReceivedOne().AddAsync(user, cancellationToken);
+		}
+
+		public async Task ShouldHaveReceivedOneAddRangeAsync(
+			ICollection<User> users,
+			CancellationToken cancellationToken)
+		{
+			await collection.ShouldHaveReceivedOne().AddRangeAsync(users, cancellationToken);
+		}
+
 		public async Task ShouldHaveReceivedOneUpdateAsync(
 			User user,
 			CancellationToken cancellationToken)
@@ -100,30 +114,30 @@ public static class UserMockAssertions
 			fluent.ShouldHaveReceivedOne().Match(email);
 		}
 
-		public void ShouldHaveReceivedOneApplyIncludes(
+		public void ShouldHaveReceivedOneInclude(
 			UserId id,
 			UserInclude include)
 		{
-			fluent.ShouldHaveReceivedOneApplyIncludes(include);
+			fluent.ShouldHaveReceivedOneInclude(include);
 		}
 
-		public void ShouldHaveReceivedOneApplyIncludes(
+		public void ShouldHaveReceivedOneInclude(
 			Name name,
 			UserInclude include)
 		{
-			fluent.ShouldHaveReceivedOneApplyIncludes(include);
+			fluent.ShouldHaveReceivedOneInclude(include);
 		}
 
-		public void ShouldHaveReceivedOneApplyIncludes(
+		public void ShouldHaveReceivedOneInclude(
 			Email email,
 			UserInclude include)
 		{
-			fluent.ShouldHaveReceivedOneApplyIncludes(include);
+			fluent.ShouldHaveReceivedOneInclude(include);
 		}
 
-		public void ShouldHaveReceivedOneApplyIncludes(UserInclude include)
+		public void ShouldHaveReceivedOneInclude(UserInclude include)
 		{
-			fluent.ShouldHaveReceivedOne().ApplyIncludes(include);
+			fluent.ShouldHaveReceivedOne().Include(include);
 		}
 
 		public void ShouldHaveReceivedOneProjectToFullResponse(
@@ -199,32 +213,32 @@ public static class UserMockAssertions
 
 	extension(IUserResponseFluent fluent)
 	{
-		public void ShouldHaveReceivedOneApplySorting(
+		public void ShouldHaveReceivedOneSort(
 			UsersFilterQuery filterQuery,
 			UsersSortingQuery sortingQuery,
 			UsersPaginationQuery paginationQuery,
 			CurrentUserQuery currentUserQuery)
 		{
-			fluent.ShouldHaveReceivedOneApplySorting(sortingQuery);
+			fluent.ShouldHaveReceivedOneSort(sortingQuery);
 		}
 
-		public void ShouldHaveReceivedOneApplySorting(UsersSortingQuery sortingQuery)
+		public void ShouldHaveReceivedOneSort(UsersSortingQuery sortingQuery)
 		{
-			fluent.ShouldHaveReceivedOne().ApplySorting(sortingQuery);
+			fluent.ShouldHaveReceivedOne().Sort(sortingQuery);
 		}
 
-		public void ShouldHaveReceivedOneApplyPagination(
+		public void ShouldHaveReceivedOnePaginate(
 			UsersFilterQuery filterQuery,
 			UsersSortingQuery sortingQuery,
 			UsersPaginationQuery paginationQuery,
 			CurrentUserQuery currentUserQuery)
 		{
-			fluent.ShouldHaveReceivedOneApplyPagination(paginationQuery);
+			fluent.ShouldHaveReceivedOnePaginate(paginationQuery);
 		}
 
-		public void ShouldHaveReceivedOneApplyPagination(UsersPaginationQuery paginationQuery)
+		public void ShouldHaveReceivedOnePaginate(UsersPaginationQuery paginationQuery)
 		{
-			fluent.ShouldHaveReceivedOne().ApplyPagination(paginationQuery);
+			fluent.ShouldHaveReceivedOne().Paginate(paginationQuery);
 		}
 
 		public async Task ShouldHaveReceivedOneFirstOrDefaultAsync(

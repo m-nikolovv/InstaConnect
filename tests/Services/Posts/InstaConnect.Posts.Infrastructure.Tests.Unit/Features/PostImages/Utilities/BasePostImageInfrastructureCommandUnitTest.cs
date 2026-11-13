@@ -4,7 +4,7 @@ using InstaConnect.Posts.Tests.Features.PostImages.Utilities;
 
 namespace InstaConnect.Posts.Infrastructure.Tests.Unit.Features.PostImages.Utilities;
 
-public abstract class BasePostImageInfrastructureCommandUnitTest : BasePostImageTest
+public abstract class BasePostImageInfrastructureCommandUnitTest : BasePostImageCommandTest
 {
 	protected IPostImageFluent Fluent { get; }
 

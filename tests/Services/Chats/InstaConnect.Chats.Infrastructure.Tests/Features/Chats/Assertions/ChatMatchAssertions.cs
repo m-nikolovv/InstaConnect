@@ -14,6 +14,14 @@ public static class ChatMatchAssertions
 		}
 	}
 
+	extension(ICollection<Chat> response)
+	{
+		public void ShouldSatisfy(ICollection<ChatId> ids, ICollection<Chat> chats)
+		{
+			response.ShouldSatisfy(p => p.Matches(ids, chats));
+		}
+	}
+
 	extension(ChatResponse response)
 	{
 		public void ShouldSatisfy(ChatId id, CurrentUserQuery currentUserQuery, Chat chat)

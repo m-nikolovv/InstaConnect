@@ -5,7 +5,7 @@ using InstaConnect.Common.Domain.Features.Guids.Abstractions;
 
 namespace InstaConnect.Chats.Domain.Tests.Unit.Features.ChatMessageImages.Utilities;
 
-public abstract class BaseChatMessageImageDomainCommandUnitTest : BaseChatMessageImageTest
+public abstract class BaseChatMessageImageDomainCommandUnitTest : BaseChatMessageImageCommandTest
 {
 	protected IGuidProvider GuidProvider { get; }
 

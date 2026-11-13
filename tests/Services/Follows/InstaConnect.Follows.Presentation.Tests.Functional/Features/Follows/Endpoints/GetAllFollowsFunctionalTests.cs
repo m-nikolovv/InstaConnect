@@ -22,11 +22,6 @@ public class GetAllFollowsFunctionalTests : BaseFollowPresentationQueryFunctiona
 		_request = _requestBuilder.Build();
 	}
 
-	protected override async Task OnInitializeAsync()
-	{
-		await ServiceScope.AddRangeAsync(Follows, CancellationToken);
-	}
-
 	[Theory]
 	[UserIdTooShortData]
 	[UserIdTooLongData]

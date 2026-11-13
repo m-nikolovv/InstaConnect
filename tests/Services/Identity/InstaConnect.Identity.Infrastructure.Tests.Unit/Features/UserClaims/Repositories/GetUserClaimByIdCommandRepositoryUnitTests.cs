@@ -15,7 +15,7 @@ public class GetUserClaimByIdCommandRepositoryUnitTests : BaseUserClaimInfrastru
 		_repository = new(Collection, IncludeBuilderFactory);
 
 		Collection.SetupAggregateFluent(UserClaimId, Fluent);
-		Fluent.SetupApplyIncludes(UserClaimId, _include);
+		Fluent.SetupInclude(UserClaimId, _include);
 		Fluent.SetupMatch(UserClaimId);
 		Fluent.SetupFirstOrDefaultAsync(UserClaimId, UserClaim, CancellationToken);
 	}
@@ -41,13 +41,13 @@ public class GetUserClaimByIdCommandRepositoryUnitTests : BaseUserClaimInfrastru
 	}
 
 	[Fact]
-	public async Task GetByIdAsync_ShouldCallTheFluentApplyIncludes_WhenCommandIsValid()
+	public async Task GetByIdAsync_ShouldCallTheFluentInclude_WhenCommandIsValid()
 	{
 		// Act
 		await _repository.GetByIdAsync(UserClaimId, _include, CancellationToken);
 
 		// Assert
-		Fluent.ShouldHaveReceivedOneApplyIncludes(UserClaimId, _include);
+		Fluent.ShouldHaveReceivedOneInclude(UserClaimId, _include);
 	}
 
 	[Fact]

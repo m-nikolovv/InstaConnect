@@ -27,4 +27,5 @@ public class UpdateChatMessageCommandRepositoryIntegrationTests : BaseChatMessag
 		// Assert
 		chatMessage.ShouldSatisfy(updatedChatMessage);
 	}
+
 }

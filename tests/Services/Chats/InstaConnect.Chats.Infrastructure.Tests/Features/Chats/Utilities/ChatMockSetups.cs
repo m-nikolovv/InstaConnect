@@ -15,6 +15,13 @@ public static class ChatMockSetups
 		}
 
 		public void SetupAggregateFluent(
+			ICollection<ChatId> ids,
+			IChatFluent fluent)
+		{
+			collection.SetupAggregateFluent(fluent);
+		}
+
+		public void SetupAggregateFluent(
 			ChatId id,
 			CurrentUserQuery currentUserQuery,
 			IChatFluent fluent)
@@ -63,46 +70,58 @@ public static class ChatMockSetups
 			fluent.SetupAnyAsync(chat != null, cancellationToken);
 		}
 
-		public void SetupApplyIncludes(
+		public void SetupInclude(
 			ChatId id,
 			ChatInclude include)
 		{
-			fluent.SetupApplyIncludes(include);
+			fluent.SetupInclude(include);
 		}
 
-		public void SetupApplyIncludes(
+		public void SetupInclude(
+			ICollection<ChatId> ids,
+			ChatInclude include)
+		{
+			fluent.SetupInclude(include);
+		}
+
+		public void SetupInclude(
 			ChatId id,
 			CurrentUserQuery currentUserQuery,
 			ChatInclude include)
 		{
-			fluent.SetupApplyIncludes(include);
+			fluent.SetupInclude(include);
 		}
 
-		public void SetupApplyIncludes(
+		public void SetupInclude(
 			ChatsFilterQuery filterQuery,
 			ChatInclude include)
 		{
-			fluent.SetupApplyIncludes(include);
+			fluent.SetupInclude(include);
 		}
 
-		public void SetupApplyIncludes(
+		public void SetupInclude(
 			ChatsFilterQuery filterQuery,
 			ChatsSortingQuery sortingQuery,
 			ChatsPaginationQuery paginationQuery,
 			CurrentUserQuery currentUserQuery,
 			ChatInclude include)
 		{
-			fluent.SetupApplyIncludes(include);
+			fluent.SetupInclude(include);
 		}
 
-		public void SetupApplyIncludes(ChatInclude include)
+		public void SetupInclude(ChatInclude include)
 		{
-			fluent.ApplyIncludes(include).ReturnsResponse(fluent);
+			fluent.Include(include).ReturnsResponse(fluent);
 		}
 
 		public void SetupMatch(ChatId id)
 		{
 			fluent.Match(id).ReturnsResponse(fluent);
+		}
+
+		public void SetupMatch(ICollection<ChatId> ids)
+		{
+			fluent.Match(ids).ReturnsResponse(fluent);
 		}
 
 		public void SetupMatch(
@@ -165,36 +184,44 @@ public static class ChatMockSetups
 		{
 			fluent.SetupFirstOrDefaultAsync(chat, cancellationToken);
 		}
+
+		public void SetupToListAsync(
+			ICollection<ChatId> ids,
+			ICollection<Chat> chats,
+			CancellationToken cancellationToken)
+		{
+			fluent.SetupToListAsync(chats, cancellationToken);
+		}
 	}
 
 	extension(IChatResponseFluent fluent)
 	{
-		public void SetupApplySorting(
+		public void SetupSort(
 			ChatsFilterQuery filterQuery,
 			ChatsSortingQuery sortingQuery,
 			ChatsPaginationQuery paginationQuery,
 			CurrentUserQuery currentUserQuery)
 		{
-			fluent.SetupApplySorting(sortingQuery);
+			fluent.SetupSort(sortingQuery);
 		}
 
-		public void SetupApplySorting(ChatsSortingQuery sortingQuery)
+		public void SetupSort(ChatsSortingQuery sortingQuery)
 		{
-			fluent.ApplySorting(sortingQuery).ReturnsResponse(fluent);
+			fluent.Sort(sortingQuery).ReturnsResponse(fluent);
 		}
 
-		public void SetupApplyPagination(
+		public void SetupPaginate(
 			ChatsFilterQuery filterQuery,
 			ChatsSortingQuery sortingQuery,
 			ChatsPaginationQuery paginationQuery,
 			CurrentUserQuery currentUserQuery)
 		{
-			fluent.SetupApplyPagination(paginationQuery);
+			fluent.SetupPaginate(paginationQuery);
 		}
 
-		public void SetupApplyPagination(ChatsPaginationQuery paginationQuery)
+		public void SetupPaginate(ChatsPaginationQuery paginationQuery)
 		{
-			fluent.ApplyPagination(paginationQuery).ReturnsResponse(fluent);
+			fluent.Paginate(paginationQuery).ReturnsResponse(fluent);
 		}
 
 		public void SetupToListAsync(

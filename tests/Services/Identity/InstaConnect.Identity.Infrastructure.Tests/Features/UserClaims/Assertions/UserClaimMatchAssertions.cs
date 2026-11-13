@@ -13,6 +13,14 @@ public static class UserClaimMatchAssertions
 		}
 	}
 
+	extension(ICollection<UserClaim> response)
+	{
+		public void ShouldSatisfy(ICollection<UserClaimId> ids, ICollection<UserClaim> userClaims)
+		{
+			response.ShouldSatisfy(p => p.Matches(ids, userClaims));
+		}
+	}
+
 	extension(UserClaimResponse response)
 	{
 		public void ShouldSatisfy(UserClaimId id, CurrentUserQuery currentUserQuery, UserClaim userClaim)

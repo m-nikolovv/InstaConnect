@@ -57,6 +57,7 @@ public class ChatApplicationMappings : IRegister
 				src.Id.ParticipantTwoId.Id,
 				src.ParticipantOne.Adapt<UserQueryResponse>(config),
 				src.ParticipantTwo.Adapt<UserQueryResponse>(config),
+				src.MessageCount,
 				src.CreatedAtUtc));
 
 		config.NewConfig<ChatCollectionResponse, ChatCollectionQueryResponse>()

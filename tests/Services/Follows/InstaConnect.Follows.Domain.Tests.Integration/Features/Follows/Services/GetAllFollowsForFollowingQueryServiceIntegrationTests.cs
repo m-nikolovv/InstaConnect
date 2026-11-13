@@ -19,11 +19,6 @@ public class GetAllFollowsForFollowingQueryServiceIntegrationTests : BaseFollowD
 		_query = _queryBuilder.Build();
 	}
 
-	protected override async Task OnInitializeAsync()
-	{
-		await ServiceScope.AddRangeAsync(Follows, CancellationToken);
-	}
-
 	[Fact]
 	public async Task GetAllForFollowingAsync_ShouldThrowFollowingNotFoundException_WhenFollowingNotFound()
 	{

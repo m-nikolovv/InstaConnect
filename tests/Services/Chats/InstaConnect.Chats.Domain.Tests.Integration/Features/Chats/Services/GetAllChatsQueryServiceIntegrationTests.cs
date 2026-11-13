@@ -29,11 +29,6 @@ public class GetAllChatsQueryServiceIntegrationTests : BaseChatDomainQueryIntegr
 		_invertedQuery = _invertedQueryBuilder.Build();
 	}
 
-	protected override async Task OnInitializeAsync()
-	{
-		await ServiceScope.AddRangeAsync(Chats, CancellationToken);
-	}
-
 	[Fact]
 	public async Task GetAllAsync_ShouldThrowParticipantOneNotFoundException_WhenParticipantOneNotFound()
 	{

@@ -6,26 +6,9 @@ namespace InstaConnect.Common.Infrastructure.Tests.Features.Assertions;
 
 public static class MockAssertions
 {
-	extension<TEntity>(IMongoDbCollection<TEntity> collection)
-		where TEntity : IEntity
-	{
-		public async Task ShouldHaveReceivedOneAddAsync(
-			TEntity entity,
-			CancellationToken cancellationToken)
-		{
-			await collection.ShouldHaveReceivedOne().AddAsync(entity, cancellationToken);
-		}
-
-		public async Task ShouldHaveReceivedOneAddRangeAsync(
-			ICollection<TEntity> entities,
-			CancellationToken cancellationToken)
-		{
-			await collection.ShouldHaveReceivedOne().AddRangeAsync(entities, cancellationToken);
-		}
-	}
-
-	extension<TEntity>(IMongoDbFluent<TEntity> fluent)
-		where TEntity : ICreatable
+	extension<TEntity, TEntityId>(IMongoDbFluent<TEntity, TEntityId> fluent)
+		where TEntity : ICreatable, IEntityWithId<TEntityId>
+		where TEntityId : IEntityId
 	{
 		public async Task ShouldHaveReceivedOneAnyAsync(CancellationToken cancellationToken)
 		{

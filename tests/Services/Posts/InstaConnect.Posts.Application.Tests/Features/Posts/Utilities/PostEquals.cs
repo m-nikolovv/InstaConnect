@@ -429,6 +429,8 @@ public static class PostEquals
 				   post.Summary.Matches(response.Summary) &&
 				   response.PostImages.MatchesFull(post.PostImages) &&
 				   response.IsLikedByCurrentUser == post.PostLikes.Any(pl => pl.Id.UserId.Matches(request.CurrentUserId)) &&
+				   response.LikeCount == post.PostLikes.Count &&
+				   response.CommentCount == post.PostComments.Count &&
 				   post.CreatedAtUtc == response.CreatedAtUtc &&
 				   post.UpdatedAtUtc == response.UpdatedAtUtc &&
 				   response.User.MatchesFull(post.User);
@@ -446,6 +448,8 @@ public static class PostEquals
 				   post.Summary.Matches(response.Summary) &&
 				   response.PostImages.MatchesFull(post.PostImages) &&
 				   response.IsLikedByCurrentUser == post.PostLikes.Any(pl => pl.Id.UserId.Matches(request.CurrentUserId)) &&
+				   response.LikeCount == post.PostLikes.Count &&
+				   response.CommentCount == post.PostComments.Count &&
 				   post.CreatedAtUtc == response.CreatedAtUtc &&
 				   post.UpdatedAtUtc == response.UpdatedAtUtc &&
 				   response.User == null;

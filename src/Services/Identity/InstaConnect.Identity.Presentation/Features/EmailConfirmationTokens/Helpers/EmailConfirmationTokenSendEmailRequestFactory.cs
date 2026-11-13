@@ -5,8 +5,6 @@ using InstaConnect.Identity.Domain.Features.EmailConfirmationTokens.Models.Entit
 using InstaConnect.Identity.Presentation.Features.EmailConfirmationTokens.Abstractions;
 using InstaConnect.Identity.Presentation.Features.EmailConfirmationTokens.Utilities;
 
-using Microsoft.Extensions.Options;
-
 namespace InstaConnect.Identity.Presentation.Features.EmailConfirmationTokens.Helpers;
 
 public class EmailConfirmationTokenSendEmailRequestFactory : IEmailConfirmationTokenSendEmailRequestFactory
@@ -15,10 +13,10 @@ public class EmailConfirmationTokenSendEmailRequestFactory : IEmailConfirmationT
 	private readonly IEmailConfirmationTokenTemplateFactory _templateFactory;
 
 	public EmailConfirmationTokenSendEmailRequestFactory(
-		IOptions<MainOptions> mainOptions,
+		MainOptions mainOptions,
 		IEmailConfirmationTokenTemplateFactory templateFactory)
 	{
-		_mainOptions = mainOptions.Value;
+		_mainOptions = mainOptions;
 		_templateFactory = templateFactory;
 	}
 

@@ -4,7 +4,7 @@ using InstaConnect.Posts.Tests.Features.PostComments.Utilities;
 
 namespace InstaConnect.Posts.Infrastructure.Tests.Unit.Features.PostComments.Utilities;
 
-public abstract class BasePostCommentInfrastructureQueryUnitTest : BasePostCommentTest
+public abstract class BasePostCommentInfrastructureQueryUnitTest : BasePostCommentQueryTest
 {
 	protected IPostCommentFluent Fluent { get; }
 

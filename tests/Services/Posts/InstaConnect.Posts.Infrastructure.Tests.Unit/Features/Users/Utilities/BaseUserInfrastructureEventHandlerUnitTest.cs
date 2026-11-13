@@ -5,7 +5,7 @@ using InstaConnect.Posts.Tests.Features.Users.Utilities;
 
 namespace InstaConnect.Posts.Infrastructure.Tests.Unit.Features.Users.Utilities;
 
-public abstract class BaseUserInfrastructureEventHandlerUnitTest : BaseUserTest
+public abstract class BaseUserInfrastructureEventHandlerUnitTest : BaseUserCommandTest
 {
 	protected IApplicationSender Sender { get; }
 

@@ -3,7 +3,6 @@ using System.Reflection;
 using InstaConnect.Common.Domain.Features.Common.Helpers;
 
 using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection.Extensions;
 using Microsoft.Extensions.Options;
 
 using Scrutor;
@@ -16,15 +15,10 @@ public static class ServiceCollectionExtensions
 	{
 		public IServiceCollection AddServicesWithMatchingInterfaces(params Assembly[] assemblies)
 		{
-			return serviceCollection.AddServicesWithMatchingInterfaces(_ => true, assemblies);
-		}
-
-		public IServiceCollection AddServicesWithMatchingInterfaces(Func<Type, bool> predicate, params Assembly[] assemblies)
-		{
 			serviceCollection
 				.Scan(selector => selector
 					.FromAssemblies(assemblies)
-					.AddClasses(classes => classes.Where(predicate), false)
+					.AddClasses(false)
 					.UsingRegistrationStrategy(RegistrationStrategy.Skip)
 					.AsMatchingInterface()
 					.WithScopedLifetime());
@@ -53,7 +47,9 @@ public static class ServiceCollectionExtensions
 				.ValidateFluentValidation(sectionName)
 				.ValidateOnStart();
 
-			serviceCollection.TryAddTransient<IOptionsFactory<TOptions>>(serviceProvider => new ConfigurationOptionsFactory<TOptions>(
+			serviceCollection.AddSingleton(sp => sp.GetRequiredService<IOptions<TOptions>>().Value);
+
+			serviceCollection.AddTransient<IOptionsFactory<TOptions>>(serviceProvider => new ConfigurationOptionsFactory<TOptions>(
 				sectionName,
 				serviceProvider.GetRequiredService<IConfiguration>(),
 				serviceProvider.GetServices<IConfigureOptions<TOptions>>(),

@@ -10,6 +10,4 @@ public record KafkaOptions(
 	SaslMechanism SaslMechanism) : IApplicationOptions
 {
 	public const string SectionName = "KafkaConfiguration";
-
-	public IDictionary<string, KafkaConsumerOptions> Consumers { get; init; } = new Dictionary<string, KafkaConsumerOptions>();
 }

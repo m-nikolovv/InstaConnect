@@ -5,8 +5,8 @@ using InstaConnect.Common.Tests.Features.Helpers;
 
 using MassTransit;
 
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Options;
 
 namespace InstaConnect.Common.Tests.Features.Extensions;
 
@@ -15,11 +15,11 @@ public static class ServiceCollectionExtensions
 	extension(IServiceCollection serviceCollection)
 	{
 		public IServiceCollection AddTestEventClient(
-			Action<IRiderRegistrationContext, IKafkaFactoryConfigurator, IDictionary<string, KafkaConsumerOptions>>? mapEventHandlers,
+			Action<IRiderRegistrationContext, IKafkaFactoryConfigurator>? mapEventHandlers,
 			params Assembly[] assemblies)
 		{
 			serviceCollection.AddSingleton<ITestHarnessFactory>(sp =>
-				new TestHarnessFactory(sp.GetRequiredService<IOptions<KafkaOptions>>().Value, mapEventHandlers, assemblies));
+				new TestHarnessFactory(assemblies, sp.GetRequiredService<KafkaOptions>(), sp.GetRequiredService<IConfiguration>(), mapEventHandlers));
 			serviceCollection.AddSingleton<IEventClient, EventClient>();
 			serviceCollection.AddScoped<IEventPublisher, TestEventPublisher>();
 
@@ -42,7 +42,7 @@ public static class ServiceCollectionExtensions
 
 		internal IServiceCollection AddMassTransitTestEventClient(
 			KafkaOptions options,
-			Action<IRiderRegistrationContext, IKafkaFactoryConfigurator, IDictionary<string, KafkaConsumerOptions>>? mapEventHandlers,
+			Action<IRiderRegistrationContext, IKafkaFactoryConfigurator>? mapEventHandlers,
 			params Assembly[] assemblies)
 		{
 			serviceCollection.AddMassTransitTestHarness(busConfigurator =>

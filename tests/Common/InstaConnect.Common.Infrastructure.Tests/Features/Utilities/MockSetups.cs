@@ -6,8 +6,9 @@ namespace InstaConnect.Common.Infrastructure.Tests.Features.Utilities;
 
 public static class MockSetups
 {
-	extension<TEntity>(IMongoDbFluent<TEntity> fluent)
-		where TEntity : ICreatable
+	extension<TEntity, TEntityId>(IMongoDbFluent<TEntity, TEntityId> fluent)
+		where TEntity : ICreatable, IEntityWithId<TEntityId>
+		where TEntityId : IEntityId
 	{
 		public void SetupAnyAsync(
 			bool exists,

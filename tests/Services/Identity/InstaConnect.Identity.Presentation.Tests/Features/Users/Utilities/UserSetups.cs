@@ -1,5 +1,3 @@
-using InstaConnect.Identity.Application.Features.Users.Queries.GetCurrentById;
-using InstaConnect.Identity.Application.Features.Users.Queries.GetCurrentDetailsById;
 using InstaConnect.Identity.Presentation.Features.Users.Controllers.v1;
 
 namespace InstaConnect.Identity.Presentation.Tests.Features.Users.Utilities;
@@ -64,20 +62,6 @@ public static class UserSetups
 			return await serviceScope.GetByIdAsync(
 				response.GetValue(),
 				cancellationToken);
-		}
-
-		public async Task<GetCurrentUserByIdApiResponse> GetCachedAsync(
-		GetCurrentUserByIdApiRequest request,
-		CancellationToken cancellationToken)
-		{
-			return (await serviceScope.GetCacheHandler().GetAsync<GetCurrentUserByIdApiResponse>(new GetCurrentUserByIdQueryRequest(request.CurrentId).Key, cancellationToken))!;
-		}
-
-		public async Task<GetCurrentUserDetailsByIdApiResponse?> GetCachedAsync(
-		GetCurrentUserDetailsByIdApiRequest request,
-		CancellationToken cancellationToken)
-		{
-			return (await serviceScope.GetCacheHandler().GetAsync<GetCurrentUserDetailsByIdApiResponse>(new GetCurrentUserDetailsByIdQueryRequest(request.CurrentId).Key, cancellationToken))!;
 		}
 	}
 }

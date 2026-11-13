@@ -4,7 +4,7 @@ public abstract class BaseUserClaimWebTest : BaseUserClaimTest, IClassFixture<Id
 {
 	protected IServiceScope ServiceScope { get; }
 
-	protected BaseUserClaimWebTest(IdentityWebApplicationFactory webApplicationFactory) : base(webApplicationFactory.Services.GetPasswordHasher())
+	protected BaseUserClaimWebTest(IdentityWebApplicationFactory webApplicationFactory, bool isEmailConfirmed = true) : base(webApplicationFactory.Services.GetPasswordHasher(), isEmailConfirmed)
 	{
 		ServiceScope = webApplicationFactory.Services.CreateScope();
 	}

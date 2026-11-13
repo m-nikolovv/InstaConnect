@@ -5,7 +5,7 @@ using InstaConnect.Posts.Tests.Features.PostCommentImages.Utilities;
 
 namespace InstaConnect.Posts.Domain.Tests.Unit.Features.PostCommentImages.Utilities;
 
-public abstract class BasePostCommentImageDomainCommandUnitTest : BasePostCommentImageTest
+public abstract class BasePostCommentImageDomainCommandUnitTest : BasePostCommentImageCommandTest
 {
 	protected IGuidProvider GuidProvider { get; }
 

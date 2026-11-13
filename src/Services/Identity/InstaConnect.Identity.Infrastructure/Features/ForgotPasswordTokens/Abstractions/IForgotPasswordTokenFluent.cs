@@ -3,9 +3,9 @@ using InstaConnect.Identity.Domain.Features.ForgotPasswordTokens.Models.ValueObj
 
 namespace InstaConnect.Identity.Infrastructure.Features.ForgotPasswordTokens.Abstractions;
 
-public interface IForgotPasswordTokenFluent : IMongoDbFluent<ForgotPasswordToken>
+public interface IForgotPasswordTokenFluent : IMongoDbFluent<ForgotPasswordToken, ForgotPasswordTokenId>
 {
 	public IForgotPasswordTokenFluent Match(ForgotPasswordTokenId filter);
 	public IForgotPasswordTokenFluent Match(IEnumerable<ForgotPasswordTokenId> filter);
-	public IForgotPasswordTokenFluent ApplyIncludes(ForgotPasswordTokenInclude include);
+	public IForgotPasswordTokenFluent Include(ForgotPasswordTokenInclude include);
 }

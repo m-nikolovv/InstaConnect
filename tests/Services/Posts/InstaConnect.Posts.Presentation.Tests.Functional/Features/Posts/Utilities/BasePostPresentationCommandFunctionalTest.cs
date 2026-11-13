@@ -5,7 +5,7 @@ using InstaConnect.Posts.Tests.Features.Posts.Extensions;
 
 namespace InstaConnect.Posts.Presentation.Tests.Functional.Features.Posts.Utilities;
 
-public abstract class BasePostPresentationCommandFunctionalTest : BasePostWebTest
+public abstract class BasePostPresentationCommandFunctionalTest : BasePostWebCommandTest
 {
 	protected IPostApiClient ApiClient { get; }
 
@@ -19,8 +19,7 @@ public abstract class BasePostPresentationCommandFunctionalTest : BasePostWebTes
 
 	public override async Task InitializeAsync()
 	{
-		await ServiceScope.AddAsync(User, CancellationToken);
-		await OnInitializeAsync();
+		await base.InitializeAsync();
 		await EventClient.StartAsync(CancellationToken);
 	}
 

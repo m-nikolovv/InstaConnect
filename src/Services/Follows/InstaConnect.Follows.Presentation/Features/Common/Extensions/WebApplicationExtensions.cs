@@ -1,5 +1,6 @@
 using InstaConnect.Common.Presentation.Features.AccessTokens.Extensions;
 using InstaConnect.Common.Presentation.Features.Controllers.Extensions;
+using InstaConnect.Common.Presentation.Features.Databases.Extensions;
 using InstaConnect.Common.Presentation.Features.Exceptions.Extensions;
 using InstaConnect.Follows.Presentation.Features.Follows.Extensions;
 
@@ -11,16 +12,26 @@ public static class WebApplicationExtensions
 	{
 		public WebApplication UsePresentation()
 		{
-			application
-				.UseCorsPolicies()
-				.UseRateLimiterPolicies()
-				.UseAccessTokens()
-				.MapApiControllers()
+			return application
+				.UseForwardedHeaderPolicies()
 				.UseExceptions()
+				.UseCorsPolicies()
+				.UseAccessTokens()
+				.UseRateLimiterPolicies()
+				.MapApiControllers()
 				.MapHealthCheckEndpoints()
 				.MapFollowHub();
+		}
 
-			return application;
+		public async Task RunPresentationAsync(CancellationToken cancellationToken)
+		{
+			await application.UseDatabaseInitializerAsync(cancellationToken);
+
+			await application.StartAsync(cancellationToken);
+
+			await application.UseDatabaseSeederAsync(cancellationToken);
+
+			await application.WaitForShutdownAsync(cancellationToken);
 		}
 	}
 }

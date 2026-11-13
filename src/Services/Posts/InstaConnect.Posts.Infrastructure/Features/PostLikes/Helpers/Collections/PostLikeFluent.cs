@@ -3,44 +3,53 @@ using InstaConnect.Posts.Infrastructure.Features.PostLikes.Extensions;
 
 namespace InstaConnect.Posts.Infrastructure.Features.PostLikes.Helpers.Collections;
 
-internal class PostLikeFluent : MongoDbFluent<PostLike>, IPostLikeFluent
+internal class PostLikeFluent : IPostLikeFluent
 {
 	private readonly IPostLikeIncluderFactory _includerFactory;
 	private readonly IPostLikeResponseFluentFactory _responseFluentFactory;
+	private readonly IMongoDbFluentHandler<PostLike, PostLikeId> _fluentHandler;
 
 	public PostLikeFluent(
-		IAggregateFluent<PostLike> fluent,
 		IPostLikeIncluderFactory includerFactory,
-		IPostLikeResponseFluentFactory responseFluentFactory) : base(fluent)
+		IPostLikeResponseFluentFactory responseFluentFactory,
+		IMongoDbFluentHandler<PostLike, PostLikeId> fluentHandler)
 	{
+		_fluentHandler = fluentHandler;
 		_includerFactory = includerFactory;
 		_responseFluentFactory = responseFluentFactory;
 	}
 
-	public IPostLikeFluent ApplyIncludes(PostLikeInclude include)
+	public IPostLikeFluent Include(PostLikeInclude include)
 	{
-		ApplyIncludes(_includerFactory, include);
+		_fluentHandler.Include(_includerFactory, include);
 
 		return this;
 	}
 
 	public IPostLikeFluent Match(PostLikesFilterQuery filter)
 	{
-		Match(filter.GetFilter());
+		_fluentHandler.Match(filter.GetFilter());
 
 		return this;
 	}
 
 	public IPostLikeFluent Match(PostLikesForUserFilterQuery filter)
 	{
-		Match(filter.GetFilter());
+		_fluentHandler.Match(filter.GetFilter());
 
 		return this;
 	}
 
 	public IPostLikeFluent Match(PostLikeId filter)
 	{
-		Match(filter.GetFilter());
+		_fluentHandler.Match(filter.GetFilter());
+
+		return this;
+	}
+
+	public IPostLikeFluent Match(IEnumerable<PostLikeId> filter)
+	{
+		_fluentHandler.Match(filter.GetFilter());
 
 		return this;
 	}
@@ -82,10 +91,12 @@ internal class PostLikeFluent : MongoDbFluent<PostLike>, IPostLikeFluent
 							pi.CreatedAtUtc)).ToList(),
 					p.Post.PostLikes.Any(
 						pl => pl.Id.UserId.Id.ToLower() == currentUserId),
+					p.Post.PostLikes.Count,
+					p.Post.PostComments.Count,
 					p.Post.CreatedAtUtc,
 					p.Post.UpdatedAtUtc),
 				p.CreatedAtUtc));
-		var fluent = Project(projection);
+		var fluent = _fluentHandler.Project(projection);
 
 		return _responseFluentFactory.Create(fluent);
 	}
@@ -119,10 +130,12 @@ internal class PostLikeFluent : MongoDbFluent<PostLike>, IPostLikeFluent
 							pi.CreatedAtUtc)).ToList(),
 					p.Post.PostLikes.Any(
 						pl => pl.Id.UserId.Id.ToLower() == currentUserId),
+					p.Post.PostLikes.Count,
+					p.Post.PostComments.Count,
 					p.Post.CreatedAtUtc,
 					p.Post.UpdatedAtUtc),
 				p.CreatedAtUtc));
-		var fluent = Project(projection);
+		var fluent = _fluentHandler.Project(projection);
 
 		return _responseFluentFactory.Create(fluent);
 	}
@@ -143,8 +156,40 @@ internal class PostLikeFluent : MongoDbFluent<PostLike>, IPostLikeFluent
 					p.User.UpdatedAtUtc),
 				null,
 				p.CreatedAtUtc));
-		var fluent = Project(projection);
+		var fluent = _fluentHandler.Project(projection);
 
 		return _responseFluentFactory.Create(fluent);
+	}
+
+	public IMongoDbFluent<PostLike, PostLikeId> Match(FilterDefinition<PostLike> filterDefinition)
+	{
+		_fluentHandler.Match(filterDefinition);
+
+		return this;
+	}
+
+	public async Task<PostLike?> FirstOrDefaultAsync(CancellationToken cancellationToken)
+	{
+		return await _fluentHandler.FirstOrDefaultAsync(cancellationToken);
+	}
+
+	public async Task<long> GetCountAsync(CancellationToken cancellationToken)
+	{
+		return await _fluentHandler.GetCountAsync(cancellationToken);
+	}
+
+	public async Task<ICollection<PostLike>> ToListAsync(CancellationToken cancellationToken)
+	{
+		return await _fluentHandler.ToListAsync(cancellationToken);
+	}
+
+	public async Task<bool> AnyAsync(CancellationToken cancellationToken)
+	{
+		return await _fluentHandler.AnyAsync(cancellationToken);
+	}
+
+	public async Task<ICollection<PostLikeId>> GetIdsAsync(CancellationToken cancellationToken)
+	{
+		return await _fluentHandler.GetIdsAsync(cancellationToken);
 	}
 }

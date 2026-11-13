@@ -3,11 +3,9 @@ using InstaConnect.Identity.Domain.Features.RefreshTokens.Abstractions;
 using InstaConnect.Identity.Domain.Features.RefreshTokens.Models.Options;
 using InstaConnect.Identity.Tests.Features.RefreshTokens.Utilities;
 
-using Microsoft.Extensions.Options;
-
 namespace InstaConnect.Identity.Domain.Tests.Unit.Features.RefreshTokens.Utilities;
 
-public abstract class BaseRefreshTokenDomainCommandUnitTest : BaseRefreshTokenTest
+public abstract class BaseRefreshTokenDomainCommandUnitTest : BaseRefreshTokenCommandTest
 {
 	protected IGuidProvider GuidProvider { get; }
 
@@ -21,7 +19,7 @@ public abstract class BaseRefreshTokenDomainCommandUnitTest : BaseRefreshTokenTe
 
 	protected IUserIncludeBuilderFactory IncludeBuilderFactory { get; }
 
-	protected IOptions<RefreshTokenOptions> RefreshTokenOptions { get; }
+	protected RefreshTokenOptions RefreshTokenOptions { get; }
 
 	protected IRefreshTokenCommandRepository RefreshTokenRepository { get; }
 

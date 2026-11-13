@@ -3,7 +3,7 @@ using InstaConnect.Chats.Tests.Features.Chats.Utilities;
 
 namespace InstaConnect.Chats.Application.Tests.Unit.Features.Chats.Utilities;
 
-public abstract class BaseChatApplicationQueryUnitTest : BaseChatTest
+public abstract class BaseChatApplicationQueryUnitTest : BaseChatQueryTest
 {
 	protected IApplicationMapper Mapper { get; }
 

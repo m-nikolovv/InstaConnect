@@ -3,7 +3,7 @@ using InstaConnect.Posts.Tests.Features.PostComments.Utilities;
 
 namespace InstaConnect.Posts.Application.Tests.Unit.Features.PostComments.Utilities;
 
-public abstract class BasePostCommentApplicationQueryUnitTest : BasePostCommentTest
+public abstract class BasePostCommentApplicationQueryUnitTest : BasePostCommentQueryTest
 {
 	protected IApplicationMapper Mapper { get; }
 

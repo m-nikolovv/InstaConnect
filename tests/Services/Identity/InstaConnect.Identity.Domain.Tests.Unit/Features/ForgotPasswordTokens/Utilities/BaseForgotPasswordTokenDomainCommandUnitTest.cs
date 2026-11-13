@@ -7,11 +7,9 @@ using InstaConnect.Identity.Domain.Features.ForgotPasswordTokens.Models.Options;
 using InstaConnect.Identity.Domain.Tests.Features.ForgotPasswordTokens.Utilities;
 using InstaConnect.Identity.Tests.Features.ForgotPasswordTokens.Utilities;
 
-using Microsoft.Extensions.Options;
-
 namespace InstaConnect.Identity.Domain.Tests.Unit.Features.ForgotPasswordTokens.Utilities;
 
-public abstract class BaseForgotPasswordTokenDomainCommandUnitTest : BaseForgotPasswordTokenTest
+public abstract class BaseForgotPasswordTokenDomainCommandUnitTest : BaseForgotPasswordTokenCommandTest
 {
 	protected IApplicationMapper Mapper { get; }
 
@@ -29,7 +27,7 @@ public abstract class BaseForgotPasswordTokenDomainCommandUnitTest : BaseForgotP
 
 	protected IForgotPasswordTokenEmailSender EmailSender { get; }
 
-	protected IOptions<ForgotPasswordTokenOptions> ForgotPasswordTokenOptions { get; }
+	protected ForgotPasswordTokenOptions ForgotPasswordTokenOptions { get; }
 
 	protected IForgotPasswordTokenCommandRepository ForgotPasswordTokenRepository { get; }
 

@@ -38,6 +38,13 @@ public static class RefreshTokenSetups
 			return (await serviceScope.GetRefreshTokenCommandRepository().GetByIdAsync(id, refreshTokenInclude, cancellationToken)).SetUser();
 		}
 
+		public async Task<ICollection<RefreshToken>> GetByIdRangeAsync(
+			IEnumerable<RefreshTokenId> ids,
+			CancellationToken cancellationToken)
+		{
+			return await serviceScope.GetRefreshTokenCommandRepository().GetByIdRangeAsync(ids, cancellationToken);
+		}
+
 		public async Task AddAsync(
 			RefreshToken refreshToken,
 			CancellationToken cancellationToken)

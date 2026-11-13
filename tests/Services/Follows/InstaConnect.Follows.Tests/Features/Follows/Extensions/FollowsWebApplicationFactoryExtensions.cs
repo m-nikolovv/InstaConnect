@@ -4,8 +4,6 @@ using InstaConnect.Follows.Tests.Features.Common.Utilities;
 using InstaConnect.Follows.Tests.Features.Follows.Abstractions;
 using InstaConnect.Follows.Tests.Features.Follows.Helpers;
 
-using Microsoft.Extensions.Options;
-
 namespace InstaConnect.Follows.Tests.Features.Follows.Extensions;
 
 public static class FollowsWebApplicationFactoryExtensions
@@ -15,8 +13,7 @@ public static class FollowsWebApplicationFactoryExtensions
 		public IFollowNotificationClient CreateNotificationClient(UserId followingId)
 		{
 			var hubRoute = webApplicationFactory.Services
-				.GetRequiredService<IOptions<FollowOptions>>()
-				.Value
+				.GetRequiredService<FollowOptions>()
 				.HubRoute;
 
 			var connection = webApplicationFactory.CreateHubConnection(followingId.Id, hubRoute.TrimLeadingSlash());

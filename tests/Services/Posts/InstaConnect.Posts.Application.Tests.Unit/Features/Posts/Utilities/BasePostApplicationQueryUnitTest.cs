@@ -3,7 +3,7 @@ using InstaConnect.Posts.Tests.Features.Posts.Utilities;
 
 namespace InstaConnect.Posts.Application.Tests.Unit.Features.Posts.Utilities;
 
-public abstract class BasePostApplicationQueryUnitTest : BasePostTest
+public abstract class BasePostApplicationQueryUnitTest : BasePostQueryTest
 {
 	protected IApplicationMapper Mapper { get; }
 

@@ -1,8 +1,6 @@
 using InstaConnect.Common.Domain.Features.Guids.Abstractions;
 using InstaConnect.Identity.Domain.Features.EmailConfirmationTokens.Models.Options;
 
-using Microsoft.Extensions.Options;
-
 namespace InstaConnect.Identity.Domain.Features.EmailConfirmationTokens.Helpers;
 
 internal class EmailConfirmationTokenFactory : IEmailConfirmationTokenFactory
@@ -14,11 +12,11 @@ internal class EmailConfirmationTokenFactory : IEmailConfirmationTokenFactory
 	public EmailConfirmationTokenFactory(
 		IGuidProvider guidProvider,
 		IDateTimeProvider dateTimeProvider,
-		IOptions<EmailConfirmationTokenOptions> emailConfirmationTokenOptions)
+		EmailConfirmationTokenOptions emailConfirmationTokenOptions)
 	{
 		_guidProvider = guidProvider;
 		_dateTimeProvider = dateTimeProvider;
-		_emailConfirmationTokenOptions = emailConfirmationTokenOptions.Value;
+		_emailConfirmationTokenOptions = emailConfirmationTokenOptions;
 	}
 
 	public EmailConfirmationToken Create(UserId id)

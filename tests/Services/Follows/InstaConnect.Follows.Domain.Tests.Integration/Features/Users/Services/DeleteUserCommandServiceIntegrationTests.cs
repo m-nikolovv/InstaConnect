@@ -22,6 +22,9 @@ public class DeleteUserCommandServiceIntegrationTests : BaseUserDomainCommandInt
 	protected override async Task OnInitializeAsync()
 	{
 		await ServiceScope.AddAsync(User, CancellationToken);
+		await ServiceScope.AddRangeAsync(Follows, CancellationToken);
+		await ServiceScope.AddRangeAsync(UserFollowFollowers, CancellationToken);
+		await ServiceScope.AddRangeAsync(UserFollowFollowings, CancellationToken);
 	}
 
 	[Fact]
@@ -59,5 +62,59 @@ public class DeleteUserCommandServiceIntegrationTests : BaseUserDomainCommandInt
 
 		// Assert
 		user.ShouldBeNull();
+	}
+
+	[Fact]
+	public async Task DeleteAsync_ShouldDeleteUserFollowFollowers_WhenCommandIsValid()
+	{
+		// Act
+		await UserService.DeleteAsync(_command, CancellationToken);
+		var userFollowFollowers = await ServiceScope.GetByIdRangeAsync(UserFollowFollowerIds, CancellationToken);
+
+		// Assert
+		userFollowFollowers.ShouldBeEmpty();
+	}
+
+	[Theory]
+	[UserIdDifferentCaseData]
+	public async Task DeleteAsync_ShouldDeleteUserFollowFollowers_WhenCommandAndIdAreValid(
+		IStringTransformer transformer)
+	{
+		// Arrange
+		var command = _commandBuilder.WithId(transformer).Build();
+
+		// Act
+		await UserService.DeleteAsync(command, CancellationToken);
+		var userFollowFollowers = await ServiceScope.GetByIdRangeAsync(UserFollowFollowerIds, CancellationToken);
+
+		// Assert
+		userFollowFollowers.ShouldBeEmpty();
+	}
+
+	[Fact]
+	public async Task DeleteAsync_ShouldDeleteUserFollowFollowings_WhenCommandIsValid()
+	{
+		// Act
+		await UserService.DeleteAsync(_command, CancellationToken);
+		var userFollowFollowings = await ServiceScope.GetByIdRangeAsync(UserFollowFollowingIds, CancellationToken);
+
+		// Assert
+		userFollowFollowings.ShouldBeEmpty();
+	}
+
+	[Theory]
+	[UserIdDifferentCaseData]
+	public async Task DeleteAsync_ShouldDeleteUserFollowFollowings_WhenCommandAndIdAreValid(
+		IStringTransformer transformer)
+	{
+		// Arrange
+		var command = _commandBuilder.WithId(transformer).Build();
+
+		// Act
+		await UserService.DeleteAsync(command, CancellationToken);
+		var userFollowFollowings = await ServiceScope.GetByIdRangeAsync(UserFollowFollowingIds, CancellationToken);
+
+		// Assert
+		userFollowFollowings.ShouldBeEmpty();
 	}
 }

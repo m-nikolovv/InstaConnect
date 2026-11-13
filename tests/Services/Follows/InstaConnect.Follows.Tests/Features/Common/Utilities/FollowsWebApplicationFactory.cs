@@ -28,7 +28,7 @@ public class FollowsWebApplicationFactory : WebApplicationFactory<Program>, IAsy
 
 	protected override void ConfigureWebHost(IWebHostBuilder builder)
 	{
-		builder.ConfigureTestServices(serviceCollection => serviceCollection.AddTestEventClient((context, kafkaConfigurator, consumerOptions) => kafkaConfigurator.MapUserEventHandler(context, FollowsEventHandlerUtilities.Prefix.GetTest(), consumerOptions), FollowsInfrastructureReference.Assembly));
+		builder.ConfigureTestServices(serviceCollection => serviceCollection.AddTestEventClient((context, kafkaConfigurator) => kafkaConfigurator.MapUserEventHandler(context, FollowsEventHandlerUtilities.Prefix.GetTest()), FollowsInfrastructureReference.Assembly));
 
 		builder.UpdateKafkaConfiguration(_kafkaContainer.GetBootstrapServers());
 		builder.UpdateRedisConfiguration(_redisContainer.GetConnectionString());

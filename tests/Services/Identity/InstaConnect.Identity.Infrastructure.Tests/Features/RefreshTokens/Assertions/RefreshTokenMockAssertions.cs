@@ -14,9 +14,28 @@ public static class RefreshTokenMockAssertions
 			collection.ShouldHaveReceivedOneAggregateFluent();
 		}
 
+		public void ShouldHaveReceivedOneAggregateFluent(ICollection<RefreshTokenId> ids)
+		{
+			collection.ShouldHaveReceivedOneAggregateFluent();
+		}
+
 		public void ShouldHaveReceivedOneAggregateFluent()
 		{
 			collection.ShouldHaveReceivedOne().AggregateFluent();
+		}
+
+		public async Task ShouldHaveReceivedOneAddAsync(
+			RefreshToken refreshToken,
+			CancellationToken cancellationToken)
+		{
+			await collection.ShouldHaveReceivedOne().AddAsync(refreshToken, cancellationToken);
+		}
+
+		public async Task ShouldHaveReceivedOneAddRangeAsync(
+			ICollection<RefreshToken> refreshTokens,
+			CancellationToken cancellationToken)
+		{
+			await collection.ShouldHaveReceivedOne().AddRangeAsync(refreshTokens, cancellationToken);
 		}
 
 		public async Task ShouldHaveReceivedOneUpdateAsync(
@@ -41,16 +60,21 @@ public static class RefreshTokenMockAssertions
 			fluent.ShouldHaveReceivedOne().Match(id);
 		}
 
-		public void ShouldHaveReceivedOneApplyIncludes(
+		public void ShouldHaveReceivedOneMatch(ICollection<RefreshTokenId> ids)
+		{
+			fluent.ShouldHaveReceivedOne().Match(ids);
+		}
+
+		public void ShouldHaveReceivedOneInclude(
 			RefreshTokenId id,
 			RefreshTokenInclude include)
 		{
-			fluent.ShouldHaveReceivedOneApplyIncludes(include);
+			fluent.ShouldHaveReceivedOneInclude(include);
 		}
 
-		public void ShouldHaveReceivedOneApplyIncludes(RefreshTokenInclude include)
+		public void ShouldHaveReceivedOneInclude(RefreshTokenInclude include)
 		{
-			fluent.ShouldHaveReceivedOne().ApplyIncludes(include);
+			fluent.ShouldHaveReceivedOne().Include(include);
 		}
 
 		public async Task ShouldHaveReceivedOneFirstOrDefaultAsync(
@@ -58,6 +82,13 @@ public static class RefreshTokenMockAssertions
 			CancellationToken cancellationToken)
 		{
 			await fluent.ShouldHaveReceivedOneFirstOrDefaultAsync(cancellationToken);
+		}
+
+		public async Task ShouldHaveReceivedOneToListAsync(
+			ICollection<RefreshTokenId> ids,
+			CancellationToken cancellationToken)
+		{
+			await fluent.ShouldHaveReceivedOneToListAsync(cancellationToken);
 		}
 	}
 }

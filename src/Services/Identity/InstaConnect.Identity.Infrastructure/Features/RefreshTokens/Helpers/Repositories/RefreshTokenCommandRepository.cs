@@ -24,8 +24,8 @@ internal class RefreshTokenCommandRepository : IRefreshTokenCommandRepository
 	{
 		return await _collection
 			.AggregateFluent()
-			.ApplyIncludes(include)
 			.Match(id)
+			.Include(include)
 			.FirstOrDefaultAsync(cancellationToken);
 	}
 
@@ -36,6 +36,16 @@ internal class RefreshTokenCommandRepository : IRefreshTokenCommandRepository
 		var include = _includeBuilderFactory.Create().Build();
 
 		return await GetByIdAsync(id, include, cancellationToken);
+	}
+
+	public async Task<ICollection<RefreshToken>> GetByIdRangeAsync(
+		IEnumerable<RefreshTokenId> ids,
+		CancellationToken cancellationToken)
+	{
+		return await _collection
+			.AggregateFluent()
+			.Match(ids)
+			.ToListAsync(cancellationToken);
 	}
 
 	public async Task AddAsync(RefreshToken entity, CancellationToken cancellationToken)

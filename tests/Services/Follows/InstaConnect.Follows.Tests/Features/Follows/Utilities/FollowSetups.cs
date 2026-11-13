@@ -48,6 +48,13 @@ public static class FollowSetups
 			return (await serviceScope.GetFollowCommandRepository().GetByIdAsync(id, include, cancellationToken)).SetFollower().SetFollowing();
 		}
 
+		public async Task<ICollection<Follow>> GetByIdRangeAsync(
+			IEnumerable<FollowId> ids,
+			CancellationToken cancellationToken)
+		{
+			return await serviceScope.GetFollowCommandRepository().GetByIdRangeAsync(ids, cancellationToken);
+		}
+
 		public async Task AddAsync(
 			Follow follow,
 			CancellationToken cancellationToken)
@@ -67,6 +74,16 @@ public static class FollowSetups
 			CancellationToken cancellationToken)
 		{
 			await serviceScope.GetFollowCommandRepository().DeleteAsync(follow, cancellationToken);
+		}
+
+		public async Task DeleteRangeAsync(
+			IEnumerable<Follow> follows,
+			CancellationToken cancellationToken)
+		{
+			foreach (var follow in follows)
+			{
+				await serviceScope.DeleteAsync(follow, cancellationToken);
+			}
 		}
 	}
 }

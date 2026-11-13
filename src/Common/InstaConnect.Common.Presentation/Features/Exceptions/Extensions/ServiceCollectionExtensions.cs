@@ -14,7 +14,9 @@ public static class ServiceCollectionExtensions
 							 .AddSingleton<IApplicationProblemDetailsService, ApplicationProblemDetailsService>()
 							 .AddImplementationsOf<IBaseExceptionStatus>(CommonPresentationReference.Assembly);
 
-			serviceCollection.AddProblemDetails();
+			serviceCollection.AddProblemDetails(options =>
+				options.CustomizeProblemDetails = context =>
+					context.HttpContext.Response.StatusCode = context.ProblemDetails.Status ?? StatusCodes.Status500InternalServerError);
 
 			serviceCollection.AddExceptionHandler<InvalidValidationExceptionHandler>()
 							 .AddExceptionHandler<BaseExceptionHandler>()

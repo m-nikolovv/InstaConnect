@@ -3,7 +3,7 @@ using InstaConnect.Identity.Tests.Features.UserClaims.Utilities;
 
 namespace InstaConnect.Identity.Domain.Tests.Unit.Features.UserClaims.Utilities;
 
-public abstract class BaseUserClaimDomainQueryUnitTest : BaseUserClaimTest
+public abstract class BaseUserClaimDomainQueryUnitTest : BaseUserClaimQueryTest
 {
 	protected IUserQueryRepository Repository { get; }
 

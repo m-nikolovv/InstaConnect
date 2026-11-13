@@ -3,20 +3,12 @@ using InstaConnect.Posts.Presentation.Tests.Features.Posts.Extensions;
 
 namespace InstaConnect.Posts.Presentation.Tests.Functional.Features.Posts.Utilities;
 
-public abstract class BasePostPresentationQueryFunctionalTest : BasePostWebTest
+public abstract class BasePostPresentationQueryFunctionalTest : BasePostWebQueryTest
 {
 	protected IPostApiClient ApiClient { get; }
 
 	protected BasePostPresentationQueryFunctionalTest(PostsWebApplicationFactory webApplicationFactory) : base(webApplicationFactory)
 	{
 		ApiClient = webApplicationFactory.CreateApiClient();
-	}
-
-	public override async Task InitializeAsync()
-	{
-		await ServiceScope.AddRangeAsync(Users, CancellationToken);
-		await ServiceScope.AddRangeAsync(PostLikes, CancellationToken);
-		await ServiceScope.AddRangeAsync(PostImages, CancellationToken);
-		await OnInitializeAsync();
 	}
 }

@@ -11,7 +11,7 @@ internal static class FollowFilterExtensions
 			var followerId = filter.FollowerId.GetFilterForIdEquals<Follow>(p => p.Id.FollowerId.Id);
 			var followingName = filter.FollowingName.GetFilterForNameStartsWith<Follow>(p => p.Following!.Name.Value);
 
-			return Builders<Follow>.Filter.And(followerId, followingName);
+			return Builders<Follow>.Filter.AndAll(followerId, followingName);
 		}
 	}
 
@@ -22,7 +22,7 @@ internal static class FollowFilterExtensions
 			var followingId = filter.FollowingId.GetFilterForIdEquals<Follow>(p => p.Id.FollowingId.Id);
 			var followerName = filter.FollowerName.GetFilterForNameStartsWith<Follow>(p => p.Follower!.Name.Value);
 
-			return Builders<Follow>.Filter.And(followingId, followerName);
+			return Builders<Follow>.Filter.AndAll(followingId, followerName);
 		}
 	}
 
@@ -40,7 +40,33 @@ internal static class FollowFilterExtensions
 			var followerId = filter.FollowerId.GetFilterForIdEquals(followerIdField);
 			var followingId = filter.FollowingId.GetFilterForIdEquals(followingIdField);
 
-			return Builders<T>.Filter.And(followerId, followingId);
+			return Builders<T>.Filter.AndAll(followerId, followingId);
+		}
+	}
+
+	extension(IEnumerable<FollowId> filter)
+	{
+		public FilterDefinition<Follow> GetFilter()
+		{
+			return filter.GetFilterForIdRange<Follow>(p => p.Id.FollowerId.Id, p => p.Id.FollowingId.Id);
+		}
+
+		public FilterDefinition<T> GetFilterForIdRange<T>(
+			Expression<Func<T, object>> followerIdField,
+			Expression<Func<T, object>> followingIdField)
+		{
+			return Builders<T>.Filter.OrRange(filter.Select(item => item.GetFilterForIdEquals(followerIdField, followingIdField)));
+		}
+	}
+
+	extension(UserId filter)
+	{
+		public FilterDefinition<Follow> GetFollowByParentFilter()
+		{
+			var followerId = filter.GetFilterForIdEquals<Follow>(p => p.Id.FollowerId.Id);
+			var followingId = filter.GetFilterForIdEquals<Follow>(p => p.Id.FollowingId.Id);
+
+			return Builders<Follow>.Filter.OrRange([followerId, followingId]);
 		}
 	}
 }

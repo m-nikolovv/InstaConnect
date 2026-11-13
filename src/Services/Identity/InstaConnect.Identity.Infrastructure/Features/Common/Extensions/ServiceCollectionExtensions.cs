@@ -10,10 +10,8 @@ using InstaConnect.Common.Infrastructure.Features.Guids.Extensions;
 using InstaConnect.Common.Infrastructure.Features.Images.Extensions;
 using InstaConnect.Common.Infrastructure.Features.Jsons.Extensions;
 using InstaConnect.Common.Infrastructure.Features.OutboxEvents.Extensions;
-using InstaConnect.Common.Infrastructure.Features.Seeders.Extensions;
 using InstaConnect.Common.Infrastructure.Features.Telemetries.Extensions;
 using InstaConnect.Identity.Domain.Features.Common.Helpers;
-using InstaConnect.Identity.Infrastructure.Features.Common.Abstractions;
 using InstaConnect.Identity.Infrastructure.Features.Common.Helpers;
 using InstaConnect.Identity.Infrastructure.Features.Common.Models.Options;
 using InstaConnect.Identity.Infrastructure.Features.EmailConfirmationTokens.Extensions;
@@ -49,18 +47,16 @@ public static class ServiceCollectionExtensions
 				.AddMappers(IdentityInfrastructureReference.Assembly)
 				.AddValidations(IdentityInfrastructureReference.Assembly, CommonInfrastructureReference.Assembly)
 				.AddEmailSenders(configuration)
-				.AddServicesWithMatchingInterfacesExceptFluents(IdentityInfrastructureReference.Assembly)
 				.AddCaches(configuration)
-				.AddDatabases(configuration)
-				.AddSeeders<IIdentityDatabaseSeeder>()
+				.AddServicesWithMatchingInterfaces(IdentityInfrastructureReference.Assembly)
+				.AddDatabases(configuration, IdentityInfrastructureReference.Assembly, CommonInfrastructureReference.Assembly)
 				.AddImages(configuration)
 				.AddEvents(configuration, riderConfigurator => riderConfigurator.MapUserEventProducer().MapUserClaimEventProducer().MapEmailConfirmationTokenEventProducer().MapForgotPasswordTokenEventProducer(), null, IdentityInfrastructureReference.Assembly)
 				.AddOutboxEvents()
 				.AddAccessTokens(configuration)
 				.AddJsons()
 				.AddGuids()
-				.AddDateTimes()
-				.AddDatabaseSortOrders();
+				.AddDateTimes();
 
 			return serviceCollection;
 		}

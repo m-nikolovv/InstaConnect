@@ -1,6 +1,6 @@
 namespace InstaConnect.Identity.Infrastructure.Features.Users.Extensions;
 
-public static class UserFilterExtensions
+internal static class UserFilterExtensions
 {
 	extension(UsersFilterQuery filter)
 	{
@@ -8,11 +8,11 @@ public static class UserFilterExtensions
 		{
 			var name = filter.Name.GetFilterForNameStartsWith<User>(p => p.Name.Value);
 			var firstName = Builders<User>.Filter.StartsWithIgnoreCase(
-				p => p.FirstName, filter.FirstName, filter.FirstName.IsNullOrEmptyOrWhiteSpace());
+				p => p.FirstName, filter.FirstName);
 			var lastName = Builders<User>.Filter.StartsWithIgnoreCase(
-				p => p.LastName, filter.LastName, filter.LastName.IsNullOrEmptyOrWhiteSpace());
+				p => p.LastName, filter.LastName);
 
-			return Builders<User>.Filter.And(name, firstName, lastName);
+			return Builders<User>.Filter.AndAll(name, firstName, lastName);
 		}
 	}
 
@@ -25,7 +25,7 @@ public static class UserFilterExtensions
 
 		public FilterDefinition<T> GetFilterForIdEquals<T>(Expression<Func<T, object>> idField)
 		{
-			return Builders<T>.Filter.EqualsIgnoreCase(idField, filter.Id, filter.Id.IsEmpty());
+			return Builders<T>.Filter.EqualsIgnoreCaseOrFalse(idField, filter.Id);
 		}
 	}
 

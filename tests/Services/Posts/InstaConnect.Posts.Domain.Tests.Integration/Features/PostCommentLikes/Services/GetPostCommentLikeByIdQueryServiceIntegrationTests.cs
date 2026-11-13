@@ -14,11 +14,6 @@ public class GetPostCommentLikeByIdQueryServiceIntegrationTests : BasePostCommen
 		_query = _queryBuilder.Build();
 	}
 
-	protected override async Task OnInitializeAsync()
-	{
-		await ServiceScope.AddAsync(PostCommentLike, CancellationToken);
-	}
-
 	[Fact]
 	public async Task GetByIdAsync_ShouldThrowPostNotFoundException_WhenPostNotFound()
 	{

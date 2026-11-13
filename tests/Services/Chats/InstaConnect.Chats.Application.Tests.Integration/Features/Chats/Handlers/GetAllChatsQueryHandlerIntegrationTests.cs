@@ -31,11 +31,6 @@ public class GetAllChatsQueryHandlerIntegrationTests : BaseChatApplicationQueryI
 		_invertedRequest = _invertedRequestBuilder.Build();
 	}
 
-	protected override async Task OnInitializeAsync()
-	{
-		await ServiceScope.AddRangeAsync(Chats, CancellationToken);
-	}
-
 	[Theory]
 	[UserNameTooLongWithMessageData]
 	public async Task SendAsync_ShouldThrowValidationException_WhenParticipantTwoNameIsInvalid(

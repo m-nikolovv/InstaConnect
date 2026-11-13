@@ -14,11 +14,6 @@ public class GetPostLikeByIdQueryServiceIntegrationTests : BasePostLikeDomainQue
 		_query = _queryBuilder.Build();
 	}
 
-	protected override async Task OnInitializeAsync()
-	{
-		await ServiceScope.AddAsync(PostLike, CancellationToken);
-	}
-
 	[Fact]
 	public async Task GetByIdAsync_ShouldThrowPostNotFoundException_WhenPostNotFound()
 	{

@@ -21,11 +21,6 @@ public class GetAllPostCommentsForUserFunctionalTests : BasePostCommentPresentat
 		_request = _requestBuilder.Build();
 	}
 
-	protected override async Task OnInitializeAsync()
-	{
-		await ServiceScope.AddRangeAsync(PostComments, CancellationToken);
-	}
-
 	[Theory]
 	[UserIdTooShortData]
 	[UserIdTooLongData]

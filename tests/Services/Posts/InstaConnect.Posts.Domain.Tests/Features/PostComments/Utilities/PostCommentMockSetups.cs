@@ -419,10 +419,18 @@ public static class PostCommentMockSetups
 			AddPostCommentCommand command,
 			PostComment postComment)
 		{
+			factory.SetupCreateRange(command, postComment, postComment.PostCommentImages);
+		}
+
+		public void SetupCreateRange(
+			AddPostCommentCommand command,
+			PostComment postComment,
+			ICollection<PostCommentImage> postCommentImages)
+		{
 			factory.SetupCreateRange(
 				postComment.Id,
 				command.IsImages(),
-				postComment.PostCommentImages.To(command));
+				postCommentImages.To(command));
 		}
 
 		public void SetupCreateRange(

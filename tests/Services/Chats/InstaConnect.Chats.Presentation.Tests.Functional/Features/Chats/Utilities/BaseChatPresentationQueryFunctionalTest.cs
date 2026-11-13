@@ -3,19 +3,12 @@ using InstaConnect.Chats.Presentation.Tests.Features.Chats.Extensions;
 
 namespace InstaConnect.Chats.Presentation.Tests.Functional.Features.Chats.Utilities;
 
-public abstract class BaseChatPresentationQueryFunctionalTest : BaseChatWebTest
+public abstract class BaseChatPresentationQueryFunctionalTest : BaseChatWebQueryTest
 {
 	protected IChatApiClient ApiClient { get; }
 
 	protected BaseChatPresentationQueryFunctionalTest(ChatsWebApplicationFactory webApplicationFactory) : base(webApplicationFactory)
 	{
 		ApiClient = webApplicationFactory.CreateApiClient();
-	}
-
-	public override async Task InitializeAsync()
-	{
-		await ServiceScope.AddRangeAsync(ParticipantOnes, CancellationToken);
-		await ServiceScope.AddRangeAsync(ParticipantTwos, CancellationToken);
-		await OnInitializeAsync();
 	}
 }

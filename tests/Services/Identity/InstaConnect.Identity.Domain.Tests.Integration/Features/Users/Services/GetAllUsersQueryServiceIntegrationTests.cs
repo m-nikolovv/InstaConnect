@@ -20,11 +20,6 @@ public class GetAllUsersQueryServiceIntegrationTests : BaseUserDomainQueryIntegr
 		_query = _queryBuilder.Build();
 	}
 
-	protected override async Task OnInitializeAsync()
-	{
-		await ServiceScope.AddRangeAsync(Users, CancellationToken);
-	}
-
 	[Fact]
 	public async Task GetAllAsync_ShouldReturnResponse_WhenQueryIsValid()
 	{

@@ -17,10 +17,9 @@ internal static class PostCommentImageFilterExtensions
 			Expression<Func<T, object>> imageIdField)
 		{
 			var id = filter.Id.GetFilterForIdEquals(idField, commentIdField);
-			var imageId = Builders<T>.Filter.EqualsIgnoreCase(
-				imageIdField, filter.ImageId, filter.ImageId.IsNullOrEmptyOrWhiteSpace());
+			var imageId = Builders<T>.Filter.EqualsIgnoreCaseOrFalse(imageIdField, filter.ImageId);
 
-			return Builders<T>.Filter.And(id, imageId);
+			return Builders<T>.Filter.AndAll(id, imageId);
 		}
 	}
 
@@ -36,7 +35,23 @@ internal static class PostCommentImageFilterExtensions
 			Expression<Func<T, object>> commentIdField,
 			Expression<Func<T, object>> imageIdField)
 		{
-			return Builders<T>.Filter.Or(filter.Select(item => item.GetFilterForIdEquals(idField, commentIdField, imageIdField)));
+			return Builders<T>.Filter.OrRange(filter.Select(item => item.GetFilterForIdEquals(idField, commentIdField, imageIdField)));
+		}
+	}
+
+	extension(PostCommentId filter)
+	{
+		public FilterDefinition<PostCommentImage> GetPostCommentImageByParentFilter()
+		{
+			return filter.GetFilterForIdEquals<PostCommentImage>(p => p.Id.Id.Id.Id, p => p.Id.Id.CommentId);
+		}
+	}
+
+	extension(IEnumerable<PostCommentId> filter)
+	{
+		public FilterDefinition<PostCommentImage> GetPostCommentImageByParentFilter()
+		{
+			return filter.GetFilterForIdRange<PostCommentImage>(p => p.Id.Id.Id.Id, p => p.Id.Id.CommentId);
 		}
 	}
 }

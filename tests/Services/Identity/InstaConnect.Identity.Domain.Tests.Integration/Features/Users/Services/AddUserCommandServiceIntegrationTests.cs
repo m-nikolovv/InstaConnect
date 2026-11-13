@@ -21,11 +21,15 @@ public class AddUserCommandServiceIntegrationTests : BaseUserDomainCommandIntegr
 		_command = _commandBuilder.Build();
 	}
 
+	protected override async Task OnInitializeAsync()
+	{
+		await ServiceScope.AddAsync(User, CancellationToken);
+	}
+
 	[Fact]
 	public async Task AddAsync_ShouldThrowUserEmailAlreadyTakenException_WhenUserEmailAlreadyTaken()
 	{
 		// Arrange
-		await ServiceScope.AddAsync(User, CancellationToken);
 		var command = _commandBuilder.WithEmail(User.Email).Build();
 
 		// Assert
@@ -38,7 +42,6 @@ public class AddUserCommandServiceIntegrationTests : BaseUserDomainCommandIntegr
 		IStringTransformer transformer)
 	{
 		// Arrange
-		await ServiceScope.AddAsync(User, CancellationToken);
 		var command = _commandBuilder.WithEmail(User.Email, transformer).Build();
 
 		// Assert
@@ -49,7 +52,6 @@ public class AddUserCommandServiceIntegrationTests : BaseUserDomainCommandIntegr
 	public async Task AddAsync_ShouldThrowUserNameAlreadyTakenException_WhenUserNameAlreadyTaken()
 	{
 		// Arrange
-		await ServiceScope.AddAsync(User, CancellationToken);
 		var command = _commandBuilder.WithName(User.Name).Build();
 
 		// Assert
@@ -62,7 +64,6 @@ public class AddUserCommandServiceIntegrationTests : BaseUserDomainCommandIntegr
 		IStringTransformer transformer)
 	{
 		// Arrange
-		await ServiceScope.AddAsync(User, CancellationToken);
 		var command = _commandBuilder.WithName(User.Name, transformer).Build();
 
 		// Assert
