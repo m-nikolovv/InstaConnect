@@ -1,4 +1,6 @@
 using InstaConnect.Chats.Domain.Features.Users.Abstractions;
+using InstaConnect.Chats.Infrastructure.Features.Users.Abstractions;
+using InstaConnect.Chats.Infrastructure.Features.Users.Helpers.Repositories;
 using InstaConnect.Common.Domain.Features.ValueObjects.Models;
 
 namespace InstaConnect.Chats.Tests.Features.Users.Utilities;
@@ -9,17 +11,24 @@ public static class UserSetups
 	{
 		public IUserQueryRepository GetUserQueryRepository()
 		{
-			return serviceProvider.GetRequiredService<IUserQueryRepository>();
+			return new UserQueryRepository(serviceProvider.GetUserCollection());
 		}
 
 		public IUserCommandRepository GetUserCommandRepository()
 		{
-			return serviceProvider.GetRequiredService<IUserCommandRepository>();
+			return new UserCommandRepository(
+				serviceProvider.GetUserCollection(),
+				serviceProvider.GetUserIncludeBuilderFactory());
 		}
 
 		public IUserIncludeBuilderFactory GetUserIncludeBuilderFactory()
 		{
 			return serviceProvider.GetRequiredService<IUserIncludeBuilderFactory>();
+		}
+
+		public IUserCollection GetUserCollection()
+		{
+			return serviceProvider.GetRequiredService<IUserCollection>();
 		}
 	}
 

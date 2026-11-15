@@ -1,4 +1,6 @@
 using InstaConnect.Posts.Domain.Features.PostCommentLikes.Abstractions;
+using InstaConnect.Posts.Infrastructure.Features.PostCommentLikes.Abstractions;
+using InstaConnect.Posts.Infrastructure.Features.PostCommentLikes.Helpers.Repositories;
 
 namespace InstaConnect.Posts.Tests.Features.PostCommentLikes.Utilities;
 
@@ -8,17 +10,28 @@ public static class PostCommentLikeSetups
 	{
 		public IPostCommentLikeQueryRepository GetPostCommentLikeQueryRepository()
 		{
-			return serviceProvider.GetRequiredService<IPostCommentLikeQueryRepository>();
+			return new PostCommentLikeQueryRepository(
+				serviceProvider.GetPostCommentLikeCollection(),
+				serviceProvider.GetPostIncludeBuilderFactory(),
+				serviceProvider.GetPostCommentIncludeBuilderFactory(),
+				serviceProvider.GetPostCommentLikeIncludeBuilderFactory());
 		}
 
 		public IPostCommentLikeCommandRepository GetPostCommentLikeCommandRepository()
 		{
-			return serviceProvider.GetRequiredService<IPostCommentLikeCommandRepository>();
+			return new PostCommentLikeCommandRepository(
+				serviceProvider.GetPostCommentLikeCollection(),
+				serviceProvider.GetPostCommentLikeIncludeBuilderFactory());
 		}
 
 		public IPostCommentLikeIncludeBuilderFactory GetPostCommentLikeIncludeBuilderFactory()
 		{
 			return serviceProvider.GetRequiredService<IPostCommentLikeIncludeBuilderFactory>();
+		}
+
+		public IPostCommentLikeCollection GetPostCommentLikeCollection()
+		{
+			return serviceProvider.GetRequiredService<IPostCommentLikeCollection>();
 		}
 	}
 

@@ -1,4 +1,6 @@
 using InstaConnect.Follows.Domain.Features.Follows.Abstractions;
+using InstaConnect.Follows.Infrastructure.Features.Follows.Abstractions;
+using InstaConnect.Follows.Infrastructure.Features.Follows.Helpers.Repositories;
 
 namespace InstaConnect.Follows.Tests.Features.Follows.Utilities;
 
@@ -8,17 +10,26 @@ public static class FollowSetups
 	{
 		public IFollowQueryRepository GetFollowQueryRepository()
 		{
-			return serviceProvider.GetRequiredService<IFollowQueryRepository>();
+			return new FollowQueryRepository(
+				serviceProvider.GetFollowCollection(),
+				serviceProvider.GetFollowIncludeBuilderFactory());
 		}
 
 		public IFollowCommandRepository GetFollowCommandRepository()
 		{
-			return serviceProvider.GetRequiredService<IFollowCommandRepository>();
+			return new FollowCommandRepository(
+				serviceProvider.GetFollowCollection(),
+				serviceProvider.GetFollowIncludeBuilderFactory());
 		}
 
 		public IFollowIncludeBuilderFactory GetFollowIncludeBuilderFactory()
 		{
 			return serviceProvider.GetRequiredService<IFollowIncludeBuilderFactory>();
+		}
+
+		public IFollowCollection GetFollowCollection()
+		{
+			return serviceProvider.GetRequiredService<IFollowCollection>();
 		}
 	}
 

@@ -1,4 +1,6 @@
 using InstaConnect.Identity.Domain.Features.UserClaims.Abstractions;
+using InstaConnect.Identity.Infrastructure.Features.UserClaims.Abstractions;
+using InstaConnect.Identity.Infrastructure.Features.UserClaims.Helpers.Repositories;
 
 namespace InstaConnect.Identity.Tests.Features.UserClaims.Utilities;
 
@@ -8,17 +10,26 @@ public static class UserClaimSetups
 	{
 		public IUserClaimQueryRepository GetClaimQueryRepository()
 		{
-			return serviceProvider.GetRequiredService<IUserClaimQueryRepository>();
+			return new UserClaimQueryRepository(
+				serviceProvider.GetClaimCollection(),
+				serviceProvider.GetClaimIncludeBuilderFactory());
 		}
 
 		public IUserClaimCommandRepository GetClaimCommandRepository()
 		{
-			return serviceProvider.GetRequiredService<IUserClaimCommandRepository>();
+			return new UserClaimCommandRepository(
+				serviceProvider.GetClaimCollection(),
+				serviceProvider.GetClaimIncludeBuilderFactory());
 		}
 
 		public IUserClaimIncludeBuilderFactory GetClaimIncludeBuilderFactory()
 		{
 			return serviceProvider.GetRequiredService<IUserClaimIncludeBuilderFactory>();
+		}
+
+		public IUserClaimCollection GetClaimCollection()
+		{
+			return serviceProvider.GetRequiredService<IUserClaimCollection>();
 		}
 	}
 

@@ -1,4 +1,6 @@
 using InstaConnect.Posts.Domain.Features.Posts.Abstractions;
+using InstaConnect.Posts.Infrastructure.Features.Posts.Abstractions;
+using InstaConnect.Posts.Infrastructure.Features.Posts.Helpers.Repositories;
 
 namespace InstaConnect.Posts.Tests.Features.Posts.Utilities;
 
@@ -8,17 +10,26 @@ public static class PostSetups
 	{
 		public IPostQueryRepository GetPostQueryRepository()
 		{
-			return serviceProvider.GetRequiredService<IPostQueryRepository>();
+			return new PostQueryRepository(
+				serviceProvider.GetPostCollection(),
+				serviceProvider.GetPostIncludeBuilderFactory());
 		}
 
 		public IPostCommandRepository GetPostCommandRepository()
 		{
-			return serviceProvider.GetRequiredService<IPostCommandRepository>();
+			return new PostCommandRepository(
+				serviceProvider.GetPostCollection(),
+				serviceProvider.GetPostIncludeBuilderFactory());
 		}
 
 		public IPostIncludeBuilderFactory GetPostIncludeBuilderFactory()
 		{
 			return serviceProvider.GetRequiredService<IPostIncludeBuilderFactory>();
+		}
+
+		public IPostCollection GetPostCollection()
+		{
+			return serviceProvider.GetRequiredService<IPostCollection>();
 		}
 	}
 

@@ -1,4 +1,6 @@
 using InstaConnect.Posts.Domain.Features.PostCommentImages.Abstractions;
+using InstaConnect.Posts.Infrastructure.Features.PostCommentImages.Abstractions;
+using InstaConnect.Posts.Infrastructure.Features.PostCommentImages.Helpers.Repositories;
 
 namespace InstaConnect.Posts.Tests.Features.PostCommentImages.Utilities;
 
@@ -8,7 +10,12 @@ public static class PostCommentImageSetups
 	{
 		public IPostCommentImageCommandRepository GetPostCommentImageCommandRepository()
 		{
-			return serviceProvider.GetRequiredService<IPostCommentImageCommandRepository>();
+			return new PostCommentImageCommandRepository(serviceProvider.GetPostCommentImageCollection());
+		}
+
+		public IPostCommentImageCollection GetPostCommentImageCollection()
+		{
+			return serviceProvider.GetRequiredService<IPostCommentImageCollection>();
 		}
 	}
 

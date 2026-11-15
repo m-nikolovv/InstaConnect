@@ -1,4 +1,6 @@
 using InstaConnect.Identity.Domain.Features.EmailConfirmationTokens.Abstractions;
+using InstaConnect.Identity.Infrastructure.Features.EmailConfirmationTokens.Abstractions;
+using InstaConnect.Identity.Infrastructure.Features.EmailConfirmationTokens.Helpers.Repositories;
 
 namespace InstaConnect.Identity.Tests.Features.EmailConfirmationTokens.Utilities;
 
@@ -8,12 +10,19 @@ public static class EmailConfirmationTokenSetups
 	{
 		public IEmailConfirmationTokenCommandRepository GetEmailConfirmationTokenCommandRepository()
 		{
-			return serviceProvider.GetRequiredService<IEmailConfirmationTokenCommandRepository>();
+			return new EmailConfirmationTokenCommandRepository(
+				serviceProvider.GetEmailConfirmationTokenCollection(),
+				serviceProvider.GetEmailConfirmationTokenIncludeBuilderFactory());
 		}
 
 		public IEmailConfirmationTokenIncludeBuilderFactory GetEmailConfirmationTokenIncludeBuilderFactory()
 		{
 			return serviceProvider.GetRequiredService<IEmailConfirmationTokenIncludeBuilderFactory>();
+		}
+
+		public IEmailConfirmationTokenCollection GetEmailConfirmationTokenCollection()
+		{
+			return serviceProvider.GetRequiredService<IEmailConfirmationTokenCollection>();
 		}
 	}
 

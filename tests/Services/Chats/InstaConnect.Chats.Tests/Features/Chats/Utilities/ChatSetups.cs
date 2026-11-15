@@ -1,4 +1,6 @@
 using InstaConnect.Chats.Domain.Features.Chats.Abstractions;
+using InstaConnect.Chats.Infrastructure.Features.Chats.Abstractions;
+using InstaConnect.Chats.Infrastructure.Features.Chats.Helpers.Repositories;
 
 namespace InstaConnect.Chats.Tests.Features.Chats.Utilities;
 
@@ -8,17 +10,26 @@ public static class ChatSetups
 	{
 		public IChatQueryRepository GetQueryRepository()
 		{
-			return serviceProvider.GetRequiredService<IChatQueryRepository>();
+			return new ChatQueryRepository(
+				serviceProvider.GetCollection(),
+				serviceProvider.GetIncludeBuilderFactory());
 		}
 
 		public IChatCommandRepository GetCommandRepository()
 		{
-			return serviceProvider.GetRequiredService<IChatCommandRepository>();
+			return new ChatCommandRepository(
+				serviceProvider.GetCollection(),
+				serviceProvider.GetIncludeBuilderFactory());
 		}
 
 		public IChatIncludeBuilderFactory GetIncludeBuilderFactory()
 		{
 			return serviceProvider.GetRequiredService<IChatIncludeBuilderFactory>();
+		}
+
+		public IChatCollection GetCollection()
+		{
+			return serviceProvider.GetRequiredService<IChatCollection>();
 		}
 	}
 

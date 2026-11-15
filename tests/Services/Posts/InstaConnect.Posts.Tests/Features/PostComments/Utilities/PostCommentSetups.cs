@@ -1,4 +1,6 @@
 using InstaConnect.Posts.Domain.Features.PostComments.Abstractions;
+using InstaConnect.Posts.Infrastructure.Features.PostComments.Abstractions;
+using InstaConnect.Posts.Infrastructure.Features.PostComments.Helpers.Repositories;
 
 namespace InstaConnect.Posts.Tests.Features.PostComments.Utilities;
 
@@ -8,17 +10,27 @@ public static class PostCommentSetups
 	{
 		public IPostCommentQueryRepository GetPostCommentQueryRepository()
 		{
-			return serviceProvider.GetRequiredService<IPostCommentQueryRepository>();
+			return new PostCommentQueryRepository(
+				serviceProvider.GetPostCommentCollection(),
+				serviceProvider.GetPostIncludeBuilderFactory(),
+				serviceProvider.GetPostCommentIncludeBuilderFactory());
 		}
 
 		public IPostCommentCommandRepository GetPostCommentCommandRepository()
 		{
-			return serviceProvider.GetRequiredService<IPostCommentCommandRepository>();
+			return new PostCommentCommandRepository(
+				serviceProvider.GetPostCommentCollection(),
+				serviceProvider.GetPostCommentIncludeBuilderFactory());
 		}
 
 		public IPostCommentIncludeBuilderFactory GetPostCommentIncludeBuilderFactory()
 		{
 			return serviceProvider.GetRequiredService<IPostCommentIncludeBuilderFactory>();
+		}
+
+		public IPostCommentCollection GetPostCommentCollection()
+		{
+			return serviceProvider.GetRequiredService<IPostCommentCollection>();
 		}
 	}
 

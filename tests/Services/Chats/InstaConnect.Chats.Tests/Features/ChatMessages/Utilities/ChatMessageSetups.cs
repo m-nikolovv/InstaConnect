@@ -1,4 +1,6 @@
 using InstaConnect.Chats.Domain.Features.ChatMessages.Abstractions;
+using InstaConnect.Chats.Infrastructure.Features.ChatMessages.Abstractions;
+using InstaConnect.Chats.Infrastructure.Features.ChatMessages.Helpers.Repositories;
 using InstaConnect.Chats.Tests.Features.ChatMessageImages.Utilities;
 
 namespace InstaConnect.Chats.Tests.Features.ChatMessages.Utilities;
@@ -9,17 +11,27 @@ public static class ChatMessageSetups
 	{
 		public IChatMessageQueryRepository GetMessageQueryRepository()
 		{
-			return serviceProvider.GetRequiredService<IChatMessageQueryRepository>();
+			return new ChatMessageQueryRepository(
+				serviceProvider.GetMessageCollection(),
+				serviceProvider.GetIncludeBuilderFactory(),
+				serviceProvider.GetMessageIncludeBuilderFactory());
 		}
 
 		public IChatMessageCommandRepository GetMessageCommandRepository()
 		{
-			return serviceProvider.GetRequiredService<IChatMessageCommandRepository>();
+			return new ChatMessageCommandRepository(
+				serviceProvider.GetMessageCollection(),
+				serviceProvider.GetMessageIncludeBuilderFactory());
 		}
 
 		public IChatMessageIncludeBuilderFactory GetMessageIncludeBuilderFactory()
 		{
 			return serviceProvider.GetRequiredService<IChatMessageIncludeBuilderFactory>();
+		}
+
+		public IChatMessageCollection GetMessageCollection()
+		{
+			return serviceProvider.GetRequiredService<IChatMessageCollection>();
 		}
 	}
 

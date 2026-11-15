@@ -1,4 +1,6 @@
 using InstaConnect.Posts.Domain.Features.Users.Abstractions;
+using InstaConnect.Posts.Infrastructure.Features.Users.Abstractions;
+using InstaConnect.Posts.Infrastructure.Features.Users.Helpers.Repositories;
 
 namespace InstaConnect.Posts.Tests.Features.Users.Utilities;
 
@@ -8,17 +10,24 @@ public static class UserSetups
 	{
 		public IUserQueryRepository GetUserQueryRepository()
 		{
-			return serviceProvider.GetRequiredService<IUserQueryRepository>();
+			return new UserQueryRepository(serviceProvider.GetUserCollection());
 		}
 
 		public IUserCommandRepository GetUserCommandRepository()
 		{
-			return serviceProvider.GetRequiredService<IUserCommandRepository>();
+			return new UserCommandRepository(
+				serviceProvider.GetUserCollection(),
+				serviceProvider.GetUserIncludeBuilderFactory());
 		}
 
 		public IUserIncludeBuilderFactory GetUserIncludeBuilderFactory()
 		{
 			return serviceProvider.GetRequiredService<IUserIncludeBuilderFactory>();
+		}
+
+		public IUserCollection GetUserCollection()
+		{
+			return serviceProvider.GetRequiredService<IUserCollection>();
 		}
 	}
 

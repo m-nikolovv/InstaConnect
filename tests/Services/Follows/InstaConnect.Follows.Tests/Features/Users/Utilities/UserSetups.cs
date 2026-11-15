@@ -1,6 +1,8 @@
 using InstaConnect.Common.Domain.Features.ValueObjects.Models;
 using InstaConnect.Follows.Domain.Features.Follows.Abstractions;
 using InstaConnect.Follows.Domain.Features.Users.Abstractions;
+using InstaConnect.Follows.Infrastructure.Features.Users.Abstractions;
+using InstaConnect.Follows.Infrastructure.Features.Users.Helpers.Repositories;
 
 namespace InstaConnect.Follows.Tests.Features.Users.Utilities;
 
@@ -10,12 +12,14 @@ public static class UserSetups
 	{
 		public IUserQueryRepository GetUserQueryRepository()
 		{
-			return serviceProvider.GetRequiredService<IUserQueryRepository>();
+			return new UserQueryRepository(serviceProvider.GetUserCollection());
 		}
 
 		public IUserCommandRepository GetUserCommandRepository()
 		{
-			return serviceProvider.GetRequiredService<IUserCommandRepository>();
+			return new UserCommandRepository(
+				serviceProvider.GetUserCollection(),
+				serviceProvider.GetUserIncludeBuilderFactory());
 		}
 
 		public IUserIncludeBuilderFactory GetUserIncludeBuilderFactory()
@@ -31,6 +35,11 @@ public static class UserSetups
 		public IFollowFollowingIncludeBuilderFactory GetFollowFollowingIncludeBuilderFactory()
 		{
 			return serviceProvider.GetRequiredService<IFollowFollowingIncludeBuilderFactory>();
+		}
+
+		public IUserCollection GetUserCollection()
+		{
+			return serviceProvider.GetRequiredService<IUserCollection>();
 		}
 	}
 
