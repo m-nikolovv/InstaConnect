@@ -1,3 +1,5 @@
+using InstaConnect.Posts.Domain.Features.PostLikes.Models.Responses;
+
 namespace InstaConnect.Posts.Tests.Features.PostLikes.Utilities;
 
 public static class PostLikeEquals
@@ -39,6 +41,49 @@ public static class PostLikeEquals
 		{
 			return p.Id.Matches(id) &&
 				   p.UserId.Matches(userId);
+		}
+	}
+
+	extension(PostLikeResponse? response)
+	{
+		public bool MatchesFull(UserId currentUserId, PostLike? postLike)
+		{
+			return response != null &&
+				   postLike != null &&
+				   postLike.Id.Matches(response.Id) &&
+				   postLike.CreatedAtUtc == response.CreatedAtUtc &&
+				   response.User.MatchesFull(postLike.User) &&
+				   response.Post.MatchesFull(currentUserId, postLike.Post);
+		}
+
+		public bool MatchesFull(string currentUserId, PostLike? postLike)
+		{
+			return response.MatchesFull(new UserId(currentUserId), postLike);
+		}
+
+		public bool MatchesWithoutPost(PostLike? postLike)
+		{
+			return response != null &&
+				   postLike != null &&
+				   postLike.Id.Matches(response.Id) &&
+				   postLike.CreatedAtUtc == response.CreatedAtUtc &&
+				   response.User.MatchesFull(postLike.User) &&
+				   response.Post == null;
+		}
+
+		public bool MatchesWithoutUser(UserId currentUserId, PostLike? postLike)
+		{
+			return response != null &&
+				   postLike != null &&
+				   postLike.Id.Matches(response.Id) &&
+				   postLike.CreatedAtUtc == response.CreatedAtUtc &&
+				   response.User == null &&
+				   response.Post.MatchesFull(currentUserId, postLike.Post);
+		}
+
+		public bool MatchesWithoutUser(string currentUserId, PostLike? postLike)
+		{
+			return response.MatchesWithoutUser(new UserId(currentUserId), postLike);
 		}
 	}
 }

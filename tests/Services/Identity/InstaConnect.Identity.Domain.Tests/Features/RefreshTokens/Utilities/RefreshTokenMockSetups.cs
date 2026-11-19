@@ -185,27 +185,4 @@ public static class RefreshTokenMockSetups
 			repository.SetupGetByIdAsync(command.Id, null, cancellationToken);
 		}
 	}
-
-	extension(IRefreshTokenCommandService service)
-	{
-		public void SetupIssueAsync(
-			IssueRefreshTokenCommand command,
-			SessionToken sessionToken,
-			CancellationToken cancellationToken)
-		{
-			service
-				.IssueAsync(command, cancellationToken)
-				.ReturnsTaskResponse(sessionToken);
-		}
-
-		public void SetupRotateAsync(
-			RotateRefreshTokenCommand command,
-			SessionToken sessionToken,
-			CancellationToken cancellationToken)
-		{
-			service
-				.RotateAsync(command, cancellationToken)
-				.ReturnsTaskResponse(sessionToken);
-		}
-	}
 }

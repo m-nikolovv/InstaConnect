@@ -307,7 +307,7 @@ public static class PostCommentEquals
 				   postComment.CreatedAtUtc == response.CreatedAtUtc &&
 				   postComment.UpdatedAtUtc == response.UpdatedAtUtc &&
 				   response.User.MatchesFull(postComment.User) &&
-				   response.Post.MatchesFull(request, postComment.Post);
+				   response.Post.MatchesFull(request.CurrentUser.Id, postComment.Post);
 		}
 
 		public bool MatchesWithoutUser<TQuery>(TQuery request, PostComment? postComment)
@@ -325,7 +325,7 @@ public static class PostCommentEquals
 				   postComment.CreatedAtUtc == response.CreatedAtUtc &&
 				   postComment.UpdatedAtUtc == response.UpdatedAtUtc &&
 				   response.User == null &&
-				   response.Post.MatchesFull(request, postComment.Post);
+				   response.Post.MatchesFull(request.CurrentUser.Id, postComment.Post);
 		}
 
 		public bool MatchesWithoutPost<TQuery>(TQuery request, PostComment? postComment)
@@ -364,7 +364,7 @@ public static class PostCommentEquals
 		{
 			return response.MatchesCollectionResponse(request.Pagination, postComments.Count(matchesFilter)) &&
 				   response.User == null &&
-				   response.Post.MatchesFull(request, post) &&
+				   response.Post.MatchesFull(request.CurrentUser.Id, post) &&
 				   response.PostComments.MatchesCollectionAndNotEmpty(request.Pagination,
 													postComments,
 													response => response.Id,
@@ -384,7 +384,7 @@ public static class PostCommentEquals
 		{
 			return response.MatchesCollectionResponse(request.Pagination, postComments.Count(matchesFilter)) &&
 				   response.User == null &&
-				   response.Post.MatchesFull(request, post) &&
+				   response.Post.MatchesFull(request.CurrentUser.Id, post) &&
 				   response.PostComments.MatchesSortedCollection(request.Pagination,
 														  postComments,
 														  matches,

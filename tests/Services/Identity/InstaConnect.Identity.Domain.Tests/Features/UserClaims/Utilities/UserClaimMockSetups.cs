@@ -189,30 +189,4 @@ public static class UserClaimMockSetups
 				.ReturnsTaskResponse(totalCount);
 		}
 	}
-
-	extension(IUserClaimQueryService service)
-	{
-		public void SetupGetAllAsync(
-			GetAllUserClaimsQuery query,
-			UserClaimCollectionResponse response,
-			CancellationToken cancellationToken)
-		{
-			service
-				.GetAllAsync(query, cancellationToken)
-				.ReturnsTaskResponse(response);
-		}
-	}
-
-	extension(IUserClaimCommandService service)
-	{
-		public void SetupAddAsync(
-			AddUserClaimCommand command,
-			UserClaimId id,
-			CancellationToken cancellationToken)
-		{
-			service
-				.AddAsync(command, cancellationToken)
-				.ReturnsTaskResponse(id);
-		}
-	}
 }

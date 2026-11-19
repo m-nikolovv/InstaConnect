@@ -215,27 +215,4 @@ public static class UserMockSetups
 				.ReturnsTaskResponse(response);
 		}
 	}
-
-	extension(IUserCommandService service)
-	{
-		public void SetupAddAsync(
-			AddUserCommand command,
-			UserId id,
-			CancellationToken cancellationToken)
-		{
-			service
-				.AddAsync(command, cancellationToken)
-				.ReturnsTaskResponse(id);
-		}
-
-		public void SetupUpdateAsync(
-			UpdateUserCommand command,
-			UserId id,
-			CancellationToken cancellationToken)
-		{
-			service
-				.UpdateAsync(command, cancellationToken)
-				.ReturnsTaskResponse(id);
-		}
-	}
 }

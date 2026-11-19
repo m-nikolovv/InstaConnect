@@ -217,40 +217,4 @@ public static class ChatMockSetups
 				.ReturnsTaskResponse(exists);
 		}
 	}
-
-	extension(IChatQueryService service)
-	{
-		public void SetupGetAllAsync(
-			GetAllChatsQuery query,
-			ChatCollectionResponse response,
-			CancellationToken cancellationToken)
-		{
-			service
-				.GetAllAsync(query, cancellationToken)
-				.ReturnsTaskResponse(response);
-		}
-
-		public void SetupGetByIdAsync(
-			GetChatByIdQuery query,
-			ChatResponse response,
-			CancellationToken cancellationToken)
-		{
-			service
-				.GetByIdAsync(query, cancellationToken)
-				.ReturnsTaskResponse(response);
-		}
-	}
-
-	extension(IChatCommandService service)
-	{
-		public void SetupAddAsync(
-			AddChatCommand command,
-			ChatId id,
-			CancellationToken cancellationToken)
-		{
-			service
-				.AddAsync(command, cancellationToken)
-				.ReturnsTaskResponse(id);
-		}
-	}
 }

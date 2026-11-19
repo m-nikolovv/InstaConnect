@@ -149,21 +149,4 @@ public static class EmailConfirmationTokenMockAssertions
 			await repository.ShouldHaveReceivedZero().DeleteRangeAsync(emailConfirmationTokens, cancellationToken);
 		}
 	}
-
-	extension(IEmailConfirmationTokenCommandService service)
-	{
-		public async Task ShouldHaveReceivedOneAddAsync(
-			AddEmailConfirmationTokenCommand command,
-			CancellationToken cancellationToken)
-		{
-			await service.ShouldHaveReceivedOne().AddAsync(command, cancellationToken);
-		}
-
-		public async Task ShouldHaveReceivedOneVerifyAsync(
-			VerifyEmailConfirmationTokenCommand command,
-			CancellationToken cancellationToken)
-		{
-			await service.ShouldHaveReceivedOne().VerifyAsync(command, cancellationToken);
-		}
-	}
 }

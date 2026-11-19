@@ -151,41 +151,9 @@ public static class PostLikeEquals
 
 	extension(PostLikeResponse? response)
 	{
-		public bool MatchesFull<TQuery>(TQuery request, PostLike? postLike)
-		where TQuery : ICurrentUserableQuery
-		{
-			return response != null &&
-				   postLike != null &&
-				   postLike.Id.Matches(response.Id) &&
-				   postLike.CreatedAtUtc == response.CreatedAtUtc &&
-				   response.User.MatchesFull(postLike.User) &&
-				   response.Post.MatchesFull(request, postLike.Post);
-		}
-
-		public bool MatchesWithoutUser<TQuery>(TQuery request, PostLike? postLike)
-			where TQuery : ICurrentUserableQuery
-		{
-			return response != null &&
-				   postLike != null &&
-				   postLike.Id.Matches(response.Id) &&
-				   postLike.CreatedAtUtc == response.CreatedAtUtc &&
-				   response.User == null &&
-				   response.Post.MatchesFull(request, postLike.Post);
-		}
-
-		public bool MatchesWithoutPost(PostLike? postLike)
-		{
-			return response != null &&
-				   postLike != null &&
-				   postLike.Id.Matches(response.Id) &&
-				   postLike.CreatedAtUtc == response.CreatedAtUtc &&
-				   response.User.MatchesFull(postLike.User) &&
-				   response.Post == null;
-		}
-
 		public bool Matches(GetPostLikeByIdQuery query, PostLike postLike)
 		{
-			return response.MatchesFull(query, postLike);
+			return response.MatchesFull(query.CurrentUser.Id, postLike);
 		}
 	}
 
@@ -201,7 +169,7 @@ public static class PostLikeEquals
 		{
 			return response.MatchesCollectionResponse(request.Pagination, postLikes.Count(matchesFilter)) &&
 				   response.User == null &&
-				   response.Post.MatchesFull(request, post) &&
+				   response.Post.MatchesFull(request.CurrentUser.Id, post) &&
 				   response.PostLikes.MatchesCollectionAndNotEmpty(
 													request.Pagination,
 													postLikes,
@@ -222,7 +190,7 @@ public static class PostLikeEquals
 		{
 			return response.MatchesCollectionResponse(request.Pagination, postLikes.Count(matchesFilter)) &&
 				   response.User == null &&
-				   response.Post.MatchesFull(request, post) &&
+				   response.Post.MatchesFull(request.CurrentUser.Id, post) &&
 				   response.PostLikes.MatchesSortedCollection(
 														  request.Pagination,
 														  postLikes,
@@ -306,7 +274,7 @@ public static class PostLikeEquals
 		{
 			return response.MatchesWithoutPost(
 					   query,
-					   (response, postLike) => response.MatchesWithoutUser(query, postLike),
+					   (response, postLike) => response.MatchesWithoutUser(query.CurrentUser.Id, postLike),
 					   postLike => postLike.MatchesFilter(query.Filter),
 					   user,
 					   postLikes);
@@ -320,7 +288,7 @@ public static class PostLikeEquals
 		{
 			return response.MatchesWithoutPost(
 					   query,
-					   (response, postLike) => response.MatchesWithoutUser(query, postLike),
+					   (response, postLike) => response.MatchesWithoutUser(query.CurrentUser.Id, postLike),
 					   postLike => postLike.MatchesFilter(query.Filter),
 					   user,
 					   postLikes,

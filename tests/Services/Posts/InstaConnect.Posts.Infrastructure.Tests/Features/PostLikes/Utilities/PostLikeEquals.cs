@@ -47,46 +47,12 @@ public static class PostLikeEquals
 
 	extension(PostLikeResponse? response)
 	{
-		public bool MatchesFull(
-			CurrentUserQuery currentUserQuery,
-			PostLike? postLike)
-		{
-			return response != null &&
-				   postLike != null &&
-				   postLike.Id.Matches(response.Id) &&
-				   postLike.CreatedAtUtc == response.CreatedAtUtc &&
-				   response.User.MatchesFull(postLike.User) &&
-				   response.Post.MatchesFull(currentUserQuery, postLike.Post);
-		}
-
-		public bool MatchesWithoutUser(
-			CurrentUserQuery currentUserQuery,
-			PostLike? postLike)
-		{
-			return response != null &&
-				   postLike != null &&
-				   postLike.Id.Matches(response.Id) &&
-				   postLike.CreatedAtUtc == response.CreatedAtUtc &&
-				   response.User == null &&
-				   response.Post.MatchesFull(currentUserQuery, postLike.Post);
-		}
-
-		public bool MatchesWithoutPost(PostLike? postLike)
-		{
-			return response != null &&
-				   postLike != null &&
-				   postLike.Id.Matches(response.Id) &&
-				   postLike.CreatedAtUtc == response.CreatedAtUtc &&
-				   response.User.MatchesFull(postLike.User) &&
-				   response.Post == null;
-		}
-
 		public bool Matches(
 			PostLikeId id,
 			CurrentUserQuery currentUserQuery,
 			PostLike postLike)
 		{
-			return response.MatchesFull(currentUserQuery, postLike);
+			return response.MatchesFull(currentUserQuery.Id, postLike);
 		}
 	}
 
@@ -196,7 +162,7 @@ public static class PostLikeEquals
 		{
 			return response.MatchesWithoutPost(
 					   paginationQuery,
-					   (response, postLike) => response.MatchesWithoutUser(currentUserQuery, postLike),
+					   (response, postLike) => response.MatchesWithoutUser(currentUserQuery.Id, postLike),
 					   postLike => postLike.MatchesFilter(filterQuery),
 					   user,
 					   postLikes);
@@ -213,7 +179,7 @@ public static class PostLikeEquals
 		{
 			return response.MatchesWithoutPost(
 					   paginationQuery,
-					   (response, postLike) => response.MatchesWithoutUser(currentUserQuery, postLike),
+					   (response, postLike) => response.MatchesWithoutUser(currentUserQuery.Id, postLike),
 					   postLike => postLike.MatchesFilter(filterQuery),
 					   user,
 					   postLikes,

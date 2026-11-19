@@ -116,17 +116,4 @@ public static class ForgotPasswordTokenMockSetups
 			repository.SetupGetByIdAsync(command.Id, null, cancellationToken);
 		}
 	}
-
-	extension(IForgotPasswordTokenCommandService service)
-	{
-		public void SetupAddAsync(
-			AddForgotPasswordTokenCommand command,
-			ForgotPasswordTokenId id,
-			CancellationToken cancellationToken)
-		{
-			service
-				.AddAsync(command, cancellationToken)
-				.ReturnsTaskResponse(id);
-		}
-	}
 }

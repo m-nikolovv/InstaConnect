@@ -287,47 +287,6 @@ public static class ChatMessageMockAssertions
 		}
 	}
 
-	extension(IChatMessageQueryService service)
-	{
-		public async Task ShouldHaveReceivedOneGetAllAsync(
-			GetAllChatMessagesQuery query,
-			CancellationToken cancellationToken)
-		{
-			await service.ShouldHaveReceivedOne().GetAllAsync(query, cancellationToken);
-		}
-
-		public async Task ShouldHaveReceivedOneGetByIdAsync(
-			GetChatMessageByIdQuery query,
-			CancellationToken cancellationToken)
-		{
-			await service.ShouldHaveReceivedOne().GetByIdAsync(query, cancellationToken);
-		}
-	}
-
-	extension(IChatMessageCommandService service)
-	{
-		public async Task ShouldHaveReceivedOneAddAsync(
-			AddChatMessageCommand command,
-			CancellationToken cancellationToken)
-		{
-			await service.ShouldHaveReceivedOne().AddAsync(command, cancellationToken);
-		}
-
-		public async Task ShouldHaveReceivedOneUpdateAsync(
-			UpdateChatMessageCommand command,
-			CancellationToken cancellationToken)
-		{
-			await service.ShouldHaveReceivedOne().UpdateAsync(command, cancellationToken);
-		}
-
-		public async Task ShouldHaveReceivedOneDeleteAsync(
-			DeleteChatMessageCommand command,
-			CancellationToken cancellationToken)
-		{
-			await service.ShouldHaveReceivedOne().DeleteAsync(command, cancellationToken);
-		}
-	}
-
 	extension(IChatMessageSummarizer summarizer)
 	{
 		public async Task ShouldHaveReceivedOneSummarizeAsync(

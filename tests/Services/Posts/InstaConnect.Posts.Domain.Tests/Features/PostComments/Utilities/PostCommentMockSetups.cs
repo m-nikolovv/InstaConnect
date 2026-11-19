@@ -357,62 +357,6 @@ public static class PostCommentMockSetups
 		}
 	}
 
-	extension(IPostCommentQueryService service)
-	{
-		public void SetupGetAllAsync(
-			GetAllPostCommentsQuery query,
-			PostCommentCollectionResponse response,
-			CancellationToken cancellationToken)
-		{
-			service
-				.GetAllAsync(query, cancellationToken)
-				.ReturnsTaskResponse(response);
-		}
-
-		public void SetupGetAllForUserAsync(
-			GetAllPostCommentsForUserQuery query,
-			PostCommentCollectionResponse response,
-			CancellationToken cancellationToken)
-		{
-			service
-				.GetAllForUserAsync(query, cancellationToken)
-				.ReturnsTaskResponse(response);
-		}
-
-		public void SetupGetByIdAsync(
-			GetPostCommentByIdQuery query,
-			PostCommentResponse response,
-			CancellationToken cancellationToken)
-		{
-			service
-				.GetByIdAsync(query, cancellationToken)
-				.ReturnsTaskResponse(response);
-		}
-	}
-
-	extension(IPostCommentCommandService service)
-	{
-		public void SetupAddAsync(
-			AddPostCommentCommand command,
-			PostCommentId id,
-			CancellationToken cancellationToken)
-		{
-			service
-				.AddAsync(command, cancellationToken)
-				.ReturnsTaskResponse(id);
-		}
-
-		public void SetupUpdateAsync(
-			UpdatePostCommentCommand command,
-			PostCommentId id,
-			CancellationToken cancellationToken)
-		{
-			service
-				.UpdateAsync(command, cancellationToken)
-				.ReturnsTaskResponse(id);
-		}
-	}
-
 	extension(IPostCommentImageFactory factory)
 	{
 		public void SetupCreateRange(

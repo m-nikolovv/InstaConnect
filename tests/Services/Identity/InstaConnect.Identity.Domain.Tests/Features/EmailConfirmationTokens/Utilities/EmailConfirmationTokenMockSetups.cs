@@ -116,17 +116,4 @@ public static class EmailConfirmationTokenMockSetups
 			repository.SetupGetByIdAsync(command.Id, null, cancellationToken);
 		}
 	}
-
-	extension(IEmailConfirmationTokenCommandService service)
-	{
-		public void SetupAddAsync(
-			AddEmailConfirmationTokenCommand command,
-			EmailConfirmationTokenId id,
-			CancellationToken cancellationToken)
-		{
-			service
-				.AddAsync(command, cancellationToken)
-				.ReturnsTaskResponse(id);
-		}
-	}
 }

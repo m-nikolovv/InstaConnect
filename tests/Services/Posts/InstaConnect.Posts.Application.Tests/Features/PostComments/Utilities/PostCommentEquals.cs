@@ -4,7 +4,6 @@ using InstaConnect.Posts.Application.Features.PostComments.Models;
 using InstaConnect.Posts.Application.Tests.Features.PostCommentImages.Utilities;
 using InstaConnect.Posts.Application.Tests.Features.PostComments.Extensions;
 using InstaConnect.Posts.Domain.Features.PostCommentImages.Models.Entities;
-using InstaConnect.Posts.Domain.Tests.Features.PostCommentImages.Utilities;
 using InstaConnect.Posts.Events.Features.PostCommentImages;
 using InstaConnect.Posts.Events.Features.PostComments;
 using InstaConnect.Posts.Tests.Features.PostCommentImages.Utilities;

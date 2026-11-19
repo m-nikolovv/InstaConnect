@@ -199,31 +199,4 @@ public static class UserClaimMockAssertions
 			await eventPublisher.ShouldHaveReceivedOnePublishAsync(command.IsUserClaimDeletedEventRequest(userClaim), cancellationToken);
 		}
 	}
-
-	extension(IUserClaimQueryService service)
-	{
-		public async Task ShouldHaveReceivedOneGetAllAsync(
-			GetAllUserClaimsQuery query,
-			CancellationToken cancellationToken)
-		{
-			await service.ShouldHaveReceivedOne().GetAllAsync(query, cancellationToken);
-		}
-	}
-
-	extension(IUserClaimCommandService service)
-	{
-		public async Task ShouldHaveReceivedOneAddAsync(
-			AddUserClaimCommand command,
-			CancellationToken cancellationToken)
-		{
-			await service.ShouldHaveReceivedOne().AddAsync(command, cancellationToken);
-		}
-
-		public async Task ShouldHaveReceivedOneDeleteAsync(
-			DeleteUserClaimCommand command,
-			CancellationToken cancellationToken)
-		{
-			await service.ShouldHaveReceivedOne().DeleteAsync(command, cancellationToken);
-		}
-	}
 }

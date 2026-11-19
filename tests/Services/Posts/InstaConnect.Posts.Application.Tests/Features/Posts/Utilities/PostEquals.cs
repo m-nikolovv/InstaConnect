@@ -4,8 +4,6 @@ using InstaConnect.Posts.Application.Features.Posts.Models;
 using InstaConnect.Posts.Application.Tests.Features.PostImages.Utilities;
 using InstaConnect.Posts.Application.Tests.Features.Posts.Extensions;
 using InstaConnect.Posts.Domain.Features.PostImages.Models.Entities;
-using InstaConnect.Posts.Domain.Tests.Features.PostImages.Utilities;
-using InstaConnect.Posts.Domain.Tests.Features.Posts.Utilities;
 using InstaConnect.Posts.Events.Features.PostImages;
 using InstaConnect.Posts.Events.Features.Posts;
 using InstaConnect.Posts.Tests.Features.PostImages.Utilities;
@@ -528,4 +526,5 @@ public static class PostEquals
 														  matchesFilter);
 		}
 	}
+
 }

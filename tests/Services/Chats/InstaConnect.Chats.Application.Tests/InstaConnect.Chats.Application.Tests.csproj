@@ -2,7 +2,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\..\Common\InstaConnect.Common.Application.Tests\InstaConnect.Common.Application.Tests.csproj" />
-    <ProjectReference Include="..\InstaConnect.Chats.Domain.Tests\InstaConnect.Chats.Domain.Tests.csproj" />
     <ProjectReference Include="..\InstaConnect.Chats.Tests\InstaConnect.Chats.Tests.csproj" />
   </ItemGroup>
 

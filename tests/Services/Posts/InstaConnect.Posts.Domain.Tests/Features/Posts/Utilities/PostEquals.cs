@@ -2,6 +2,7 @@ using InstaConnect.Common.Domain.Features.Requests.Abstractions;
 using InstaConnect.Identity.Events.Features.Users;
 using InstaConnect.Posts.Domain.Tests.Features.Posts.Extensions;
 using InstaConnect.Posts.Events.Features.PostImages;
+using InstaConnect.Posts.Tests.Features.PostImages.Utilities;
 using InstaConnect.Posts.Tests.Features.Posts.Extensions;
 
 namespace InstaConnect.Posts.Domain.Tests.Features.Posts.Utilities;
@@ -290,47 +291,9 @@ public static class PostEquals
 
 	extension(PostResponse? response)
 	{
-		public bool MatchesFull<TQuery>(TQuery request, Post? post)
-		where TQuery : ICurrentUserableQuery
-		{
-			return response != null &&
-				   post != null &&
-				   post.Id.Matches(response.Id) &&
-				   post.UserId.Matches(response.UserId) &&
-				   post.Title == response.Title &&
-				   post.Content == response.Content &&
-				   post.Summary.Matches(response.Summary) &&
-				   response.PostImages.MatchesFull(post.PostImages) &&
-				   response.IsLikedByCurrentUser == post.PostLikes.Any(pl => pl.Id.UserId.Matches(request.CurrentUser.Id)) &&
-				   response.LikeCount == post.PostLikes.Count &&
-				   response.CommentCount == post.PostComments.Count &&
-				   post.CreatedAtUtc == response.CreatedAtUtc &&
-				   post.UpdatedAtUtc == response.UpdatedAtUtc &&
-				   response.User.MatchesFull(post.User);
-		}
-
-		public bool MatchesWithoutUser<TQuery>(TQuery request, Post? post)
-			where TQuery : ICurrentUserableQuery
-		{
-			return response != null &&
-				   post != null &&
-				   post.Id.Matches(response.Id) &&
-				   post.UserId.Matches(response.UserId) &&
-				   post.Title == response.Title &&
-				   post.Content == response.Content &&
-				   post.Summary.Matches(response.Summary) &&
-				   response.PostImages.MatchesFull(post.PostImages) &&
-				   response.IsLikedByCurrentUser == post.PostLikes.Any(pl => pl.Id.UserId.Matches(request.CurrentUser.Id)) &&
-				   response.LikeCount == post.PostLikes.Count &&
-				   response.CommentCount == post.PostComments.Count &&
-				   post.CreatedAtUtc == response.CreatedAtUtc &&
-				   post.UpdatedAtUtc == response.UpdatedAtUtc &&
-				   response.User == null;
-		}
-
 		public bool Matches(GetPostByIdQuery query, Post post)
 		{
-			return response.MatchesFull(query, post);
+			return response.MatchesFull(query.CurrentUser.Id, post);
 		}
 	}
 
@@ -412,7 +375,7 @@ public static class PostEquals
 		{
 			return response.MatchesWithoutUser(
 					   query,
-					   (response, post) => response.MatchesFull(query, post),
+					   (response, post) => response.MatchesFull(query.CurrentUser.Id, post),
 					   post => post.MatchesFilter(query.Filter),
 					   posts);
 		}
@@ -424,7 +387,7 @@ public static class PostEquals
 		{
 			return response.MatchesWithoutUser(
 					   query,
-					   (response, post) => response.MatchesFull(query, post),
+					   (response, post) => response.MatchesFull(query.CurrentUser.Id, post),
 					   post => post.MatchesFilter(query.Filter),
 					   posts,
 					   termTransformer);
@@ -437,7 +400,7 @@ public static class PostEquals
 		{
 			return response.MatchesFull(
 					   query,
-					   (response, post) => response.MatchesWithoutUser(query, post),
+					   (response, post) => response.MatchesWithoutUser(query.CurrentUser.Id, post),
 					   post => post.MatchesFilter(query.Filter),
 					   user,
 					   posts);
@@ -451,7 +414,7 @@ public static class PostEquals
 		{
 			return response.MatchesFull(
 					   query,
-					   (response, post) => response.MatchesWithoutUser(query, post),
+					   (response, post) => response.MatchesWithoutUser(query.CurrentUser.Id, post),
 					   post => post.MatchesFilter(query.Filter),
 					   user,
 					   posts,

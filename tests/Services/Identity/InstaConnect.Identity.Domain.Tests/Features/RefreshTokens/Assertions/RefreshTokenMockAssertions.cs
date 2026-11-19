@@ -164,28 +164,4 @@ public static class RefreshTokenMockAssertions
 			await repository.ShouldHaveReceivedOne().DeleteAsync(refreshToken, cancellationToken);
 		}
 	}
-
-	extension(IRefreshTokenCommandService service)
-	{
-		public async Task ShouldHaveReceivedOneIssueAsync(
-			IssueRefreshTokenCommand command,
-			CancellationToken cancellationToken)
-		{
-			await service.ShouldHaveReceivedOne().IssueAsync(command, cancellationToken);
-		}
-
-		public async Task ShouldHaveReceivedOneRotateAsync(
-			RotateRefreshTokenCommand command,
-			CancellationToken cancellationToken)
-		{
-			await service.ShouldHaveReceivedOne().RotateAsync(command, cancellationToken);
-		}
-
-		public async Task ShouldHaveReceivedOneDeleteAsync(
-			DeleteRefreshTokenCommand command,
-			CancellationToken cancellationToken)
-		{
-			await service.ShouldHaveReceivedOne().DeleteAsync(command, cancellationToken);
-		}
-	}
 }

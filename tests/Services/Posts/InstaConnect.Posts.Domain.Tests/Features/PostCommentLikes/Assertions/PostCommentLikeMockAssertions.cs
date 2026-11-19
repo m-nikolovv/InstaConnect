@@ -343,45 +343,4 @@ public static class PostCommentLikeMockAssertions
 			await eventPublisher.ShouldHaveReceivedOnePublishAsync(command.IsPostCommentLikeDeletedEventRequest(postCommentLike), cancellationToken);
 		}
 	}
-
-	extension(IPostCommentLikeQueryService service)
-	{
-		public async Task ShouldHaveReceivedOneGetAllAsync(
-			GetAllPostCommentLikesQuery query,
-			CancellationToken cancellationToken)
-		{
-			await service.ShouldHaveReceivedOne().GetAllAsync(query, cancellationToken);
-		}
-
-		public async Task ShouldHaveReceivedOneGetAllForUserAsync(
-			GetAllPostCommentLikesForUserQuery query,
-			CancellationToken cancellationToken)
-		{
-			await service.ShouldHaveReceivedOne().GetAllForUserAsync(query, cancellationToken);
-		}
-
-		public async Task ShouldHaveReceivedOneGetByIdAsync(
-			GetPostCommentLikeByIdQuery query,
-			CancellationToken cancellationToken)
-		{
-			await service.ShouldHaveReceivedOne().GetByIdAsync(query, cancellationToken);
-		}
-	}
-
-	extension(IPostCommentLikeCommandService service)
-	{
-		public async Task ShouldHaveReceivedOneAddAsync(
-			AddPostCommentLikeCommand command,
-			CancellationToken cancellationToken)
-		{
-			await service.ShouldHaveReceivedOne().AddAsync(command, cancellationToken);
-		}
-
-		public async Task ShouldHaveReceivedOneDeleteAsync(
-			DeletePostCommentLikeCommand command,
-			CancellationToken cancellationToken)
-		{
-			await service.ShouldHaveReceivedOne().DeleteAsync(command, cancellationToken);
-		}
-	}
 }

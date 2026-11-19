@@ -152,21 +152,4 @@ public static class ForgotPasswordTokenMockAssertions
 			await repository.ShouldHaveReceivedOne().DeleteRangeAsync(forgotPasswordTokens, cancellationToken);
 		}
 	}
-
-	extension(IForgotPasswordTokenCommandService service)
-	{
-		public async Task ShouldHaveReceivedOneAddAsync(
-			AddForgotPasswordTokenCommand command,
-			CancellationToken cancellationToken)
-		{
-			await service.ShouldHaveReceivedOne().AddAsync(command, cancellationToken);
-		}
-
-		public async Task ShouldHaveReceivedOneVerifyAsync(
-			VerifyForgotPasswordTokenCommand command,
-			CancellationToken cancellationToken)
-		{
-			await service.ShouldHaveReceivedOne().VerifyAsync(command, cancellationToken);
-		}
-	}
 }

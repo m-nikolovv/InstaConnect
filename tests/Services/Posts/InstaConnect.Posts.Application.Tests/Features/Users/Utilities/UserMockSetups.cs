@@ -1,5 +1,5 @@
 using InstaConnect.Posts.Domain.Features.Users.Abstractions;
-using InstaConnect.Posts.Domain.Tests.Features.Users.Utilities;
+using InstaConnect.Posts.Domain.Features.Users.Models.Requests;
 
 namespace InstaConnect.Posts.Application.Tests.Features.Users.Utilities;
 
@@ -15,12 +15,32 @@ public static class UserMockSetups
 			userService.SetupAddAsync(request.IsAddUserCommand(), user.ToResponse(request), cancellationToken);
 		}
 
+		public void SetupAddAsync(
+			AddUserCommand command,
+			UserId id,
+			CancellationToken cancellationToken)
+		{
+			userService
+				.AddAsync(command, cancellationToken)
+				.ReturnsTaskResponse(id);
+		}
+
 		public void SetupUpdateAsync(
 			UpdateUserCommandRequest request,
 			User user,
 			CancellationToken cancellationToken)
 		{
 			userService.SetupUpdateAsync(request.IsUpdateUserCommand(), user.ToResponse(request), cancellationToken);
+		}
+
+		public void SetupUpdateAsync(
+			UpdateUserCommand command,
+			UserId id,
+			CancellationToken cancellationToken)
+		{
+			userService
+				.UpdateAsync(command, cancellationToken)
+				.ReturnsTaskResponse(id);
 		}
 	}
 }
