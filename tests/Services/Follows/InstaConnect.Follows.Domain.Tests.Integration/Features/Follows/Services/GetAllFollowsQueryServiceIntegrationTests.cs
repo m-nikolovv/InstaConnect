@@ -15,13 +15,8 @@ public class GetAllFollowsQueryServiceIntegrationTests : BaseFollowDomainQueryIn
 		: base(webApplicationFactory)
 	{
 		_queryBuilderFactory = new();
-		_queryBuilder = _queryBuilderFactory.Create(Follow);
+		_queryBuilder = _queryBuilderFactory.Create(Follow, CurrentUserId);
 		_query = _queryBuilder.Build();
-	}
-
-	protected override async Task OnInitializeAsync()
-	{
-		await ServiceScope.AddRangeAsync(Follows, CancellationToken);
 	}
 
 	[Fact]

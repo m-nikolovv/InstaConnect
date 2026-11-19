@@ -16,11 +16,6 @@ public class GetPostCommentLikesForUserTotalCountQueryRepositoryIntegrationTests
 		_filterQuery = _filterQueryBuilder.Build();
 	}
 
-	protected override async Task OnInitializeAsync()
-	{
-		await ServiceScope.AddRangeAsync(PostCommentLikes, CancellationToken);
-	}
-
 	[Fact]
 	public async Task GetTotalCountForUserAsync_ShouldReturnResponse_WhenQueryIsValid()
 	{

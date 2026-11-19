@@ -4,7 +4,7 @@ using InstaConnect.Follows.Tests.Features.Users.Utilities;
 
 namespace InstaConnect.Follows.Infrastructure.Tests.Unit.Features.Users.Utilities;
 
-public abstract class BaseUserInfrastructureCommandUnitTest : BaseUserTest
+public abstract class BaseUserInfrastructureCommandUnitTest : BaseUserCommandTest
 {
 	protected IUserFluent Fluent { get; }
 

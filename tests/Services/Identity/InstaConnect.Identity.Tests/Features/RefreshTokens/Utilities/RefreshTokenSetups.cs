@@ -1,4 +1,6 @@
 using InstaConnect.Identity.Domain.Features.RefreshTokens.Abstractions;
+using InstaConnect.Identity.Infrastructure.Features.RefreshTokens.Abstractions;
+using InstaConnect.Identity.Infrastructure.Features.RefreshTokens.Helpers.Repositories;
 
 namespace InstaConnect.Identity.Tests.Features.RefreshTokens.Utilities;
 
@@ -8,12 +10,29 @@ public static class RefreshTokenSetups
 	{
 		public IRefreshTokenCommandRepository GetRefreshTokenCommandRepository()
 		{
+			return new RefreshTokenCommandRepository(
+				serviceProvider.GetRefreshTokenCollection(),
+				serviceProvider.GetRefreshTokenIncludeBuilderFactory());
+		}
+
+		public IRefreshTokenCommandRepository GetCachedRefreshTokenCommandRepository()
+		{
 			return serviceProvider.GetRequiredService<IRefreshTokenCommandRepository>();
 		}
 
 		public IRefreshTokenIncludeBuilderFactory GetRefreshTokenIncludeBuilderFactory()
 		{
 			return serviceProvider.GetRequiredService<IRefreshTokenIncludeBuilderFactory>();
+		}
+
+		public IRefreshTokenCollection GetRefreshTokenCollection()
+		{
+			return serviceProvider.GetRequiredService<IRefreshTokenCollection>();
+		}
+
+		public IRefreshTokenCacheHandler GetRefreshTokenCacheHandler()
+		{
+			return serviceProvider.GetRequiredService<IRefreshTokenCacheHandler>();
 		}
 	}
 
@@ -24,9 +43,19 @@ public static class RefreshTokenSetups
 			return serviceScope.ServiceProvider.GetRefreshTokenCommandRepository();
 		}
 
+		public IRefreshTokenCommandRepository GetCachedRefreshTokenCommandRepository()
+		{
+			return serviceScope.ServiceProvider.GetCachedRefreshTokenCommandRepository();
+		}
+
 		public IRefreshTokenIncludeBuilderFactory GetRefreshTokenIncludeBuilderFactory()
 		{
 			return serviceScope.ServiceProvider.GetRefreshTokenIncludeBuilderFactory();
+		}
+
+		public IRefreshTokenCacheHandler GetRefreshTokenCacheHandler()
+		{
+			return serviceScope.ServiceProvider.GetRefreshTokenCacheHandler();
 		}
 
 		public async Task<RefreshToken?> GetByIdAsync(
@@ -38,32 +67,49 @@ public static class RefreshTokenSetups
 			return (await serviceScope.GetRefreshTokenCommandRepository().GetByIdAsync(id, refreshTokenInclude, cancellationToken)).SetUser();
 		}
 
+		public async Task<ICollection<RefreshToken>> GetByIdRangeAsync(
+			IEnumerable<RefreshTokenId> ids,
+			CancellationToken cancellationToken)
+		{
+			return await serviceScope.GetRefreshTokenCommandRepository().GetByIdRangeAsync(ids, cancellationToken);
+		}
+
 		public async Task AddAsync(
 			RefreshToken refreshToken,
 			CancellationToken cancellationToken)
 		{
-			await serviceScope.GetRefreshTokenCommandRepository().AddAsync(refreshToken, cancellationToken);
+			var refreshTokenRepository = serviceScope.GetRefreshTokenCommandRepository();
+
+			await refreshTokenRepository.AddAsync(refreshToken, cancellationToken);
 		}
 
 		public async Task AddRangeAsync(
 			IEnumerable<RefreshToken> refreshTokens,
 			CancellationToken cancellationToken)
 		{
-			await serviceScope.GetRefreshTokenCommandRepository().AddRangeAsync(refreshTokens, cancellationToken);
+			var refreshTokenRepository = serviceScope.GetRefreshTokenCommandRepository();
+
+			await refreshTokenRepository.AddRangeAsync(refreshTokens, cancellationToken);
 		}
 
 		public async Task UpdateAsync(
 			RefreshToken refreshToken,
 			CancellationToken cancellationToken)
 		{
-			await serviceScope.GetRefreshTokenCommandRepository().UpdateAsync(refreshToken, cancellationToken);
+			var refreshTokenRepository = serviceScope.GetRefreshTokenCommandRepository();
+
+			await refreshTokenRepository.UpdateAsync(refreshToken, cancellationToken);
 		}
 
 		public async Task DeleteAsync(
 			RefreshToken refreshToken,
 			CancellationToken cancellationToken)
 		{
-			await serviceScope.GetRefreshTokenCommandRepository().DeleteAsync(refreshToken, cancellationToken);
+			var cacheHandler = serviceScope.GetRefreshTokenCacheHandler();
+			var refreshTokenRepository = serviceScope.GetRefreshTokenCommandRepository();
+
+			await refreshTokenRepository.DeleteAsync(refreshToken, cancellationToken);
+			await cacheHandler.DeleteAsync(refreshToken.Id, cancellationToken);
 		}
 	}
 }

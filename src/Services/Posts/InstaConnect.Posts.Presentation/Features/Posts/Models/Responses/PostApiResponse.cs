@@ -11,5 +11,7 @@ public record PostApiResponse(
 	UserApiResponse? User,
 	ICollection<PostImageApiResponse> PostImages,
 	bool IsLikedByCurrentUser,
+	int LikeCount,
+	int CommentCount,
 	DateTimeOffset CreatedAtUtc,
 	DateTimeOffset UpdatedAtUtc);

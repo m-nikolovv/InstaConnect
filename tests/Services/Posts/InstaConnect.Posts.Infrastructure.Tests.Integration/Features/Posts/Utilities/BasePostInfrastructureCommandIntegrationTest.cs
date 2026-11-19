@@ -2,7 +2,7 @@ using InstaConnect.Posts.Domain.Features.Posts.Abstractions;
 
 namespace InstaConnect.Posts.Infrastructure.Tests.Integration.Features.Posts.Utilities;
 
-public abstract class BasePostInfrastructureCommandIntegrationTest : BasePostWebTest
+public abstract class BasePostInfrastructureCommandIntegrationTest : BasePostWebCommandTest
 {
 	protected IPostCommandRepository Repository { get; }
 
@@ -11,14 +11,8 @@ public abstract class BasePostInfrastructureCommandIntegrationTest : BasePostWeb
 	protected BasePostInfrastructureCommandIntegrationTest(PostsWebApplicationFactory webApplicationFactory)
 		: base(webApplicationFactory)
 	{
-		Repository = ServiceScope.GetPostCommandRepository();
+		Repository = ServiceScope.GetCachedPostCommandRepository();
 		IncludeBuilderFactory = ServiceScope.GetPostIncludeBuilderFactory();
 
-	}
-
-	public override async Task InitializeAsync()
-	{
-		await ServiceScope.AddAsync(User, CancellationToken);
-		await OnInitializeAsync();
 	}
 }

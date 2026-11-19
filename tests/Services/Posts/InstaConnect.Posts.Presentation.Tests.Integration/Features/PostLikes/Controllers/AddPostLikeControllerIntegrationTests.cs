@@ -70,7 +70,7 @@ public class AddPostLikeControllerIntegrationTests : BasePostLikePresentationCom
 	public async Task AddAsync_ShouldThrowPostLikeAlreadyExistsException_WhenPostLikeAlreadyExists()
 	{
 		// Arrange
-		await ServiceScope.AddAsync(PostLike, CancellationToken);
+		await ServiceScope.AddAsync(PostLike, CurrentUserId, CancellationToken);
 
 		// Assert
 		await Controller.ShouldThrowPostLikeAlreadyExistsExceptionAsync(_request, CancellationToken);
@@ -82,7 +82,7 @@ public class AddPostLikeControllerIntegrationTests : BasePostLikePresentationCom
 		IStringTransformer transformer)
 	{
 		// Arrange
-		await ServiceScope.AddAsync(PostLike, CancellationToken);
+		await ServiceScope.AddAsync(PostLike, CurrentUserId, CancellationToken);
 		var request = _requestBuilder.WithId(transformer).Build();
 
 		// Assert
@@ -95,7 +95,7 @@ public class AddPostLikeControllerIntegrationTests : BasePostLikePresentationCom
 		IStringTransformer transformer)
 	{
 		// Arrange
-		await ServiceScope.AddAsync(PostLike, CancellationToken);
+		await ServiceScope.AddAsync(PostLike, CurrentUserId, CancellationToken);
 		var request = _requestBuilder.WithUserId(transformer).Build();
 
 		// Assert

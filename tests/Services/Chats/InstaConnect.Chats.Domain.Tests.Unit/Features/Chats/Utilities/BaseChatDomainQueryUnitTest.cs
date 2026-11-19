@@ -4,7 +4,7 @@ using InstaConnect.Chats.Tests.Features.Chats.Utilities;
 
 namespace InstaConnect.Chats.Domain.Tests.Unit.Features.Chats.Utilities;
 
-public abstract class BaseChatDomainQueryUnitTest : BaseChatTest
+public abstract class BaseChatDomainQueryUnitTest : BaseChatQueryTest
 {
 	protected IChatQueryRepository Repository { get; }
 

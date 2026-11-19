@@ -19,9 +19,9 @@ builder.Logging.AddTelemetries(builder.Configuration, builder.Environment);
 
 var app = builder.Build();
 
-app.UsePresentation();
-
-await app.RunAsync();
+await app
+	.UsePresentation()
+	.RunPresentationAsync(CancellationToken.None);
 
 
 // Utils for testing

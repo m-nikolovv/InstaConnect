@@ -26,11 +26,11 @@ internal class FollowQueryRepository : IFollowQueryRepository
 
 		return await _collection
 			.AggregateFluent()
-			.ApplyIncludes(include)
+			.Include(include)
 			.Match(filter)
 			.ProjectToResponseWithoutFollower(currentUser)
-			.ApplySorting(sorting)
-			.ApplyPagination(pagination)
+			.Sort(sorting)
+			.Paginate(pagination)
 			.ToListAsync(cancellationToken);
 	}
 
@@ -45,11 +45,11 @@ internal class FollowQueryRepository : IFollowQueryRepository
 
 		return await _collection
 			.AggregateFluent()
-			.ApplyIncludes(include)
+			.Include(include)
 			.Match(filter)
 			.ProjectToResponseWithoutFollowing(currentUser)
-			.ApplySorting(sorting)
-			.ApplyPagination(pagination)
+			.Sort(sorting)
+			.Paginate(pagination)
 			.ToListAsync(cancellationToken);
 	}
 
@@ -61,7 +61,7 @@ internal class FollowQueryRepository : IFollowQueryRepository
 
 		return await _collection
 			.AggregateFluent()
-			.ApplyIncludes(include)
+			.Include(include)
 			.Match(filter)
 			.GetCountAsync(cancellationToken);
 	}
@@ -74,7 +74,7 @@ internal class FollowQueryRepository : IFollowQueryRepository
 
 		return await _collection
 			.AggregateFluent()
-			.ApplyIncludes(include)
+			.Include(include)
 			.Match(filter)
 			.GetCountAsync(cancellationToken);
 	}
@@ -88,8 +88,8 @@ internal class FollowQueryRepository : IFollowQueryRepository
 
 		return await _collection
 			.AggregateFluent()
-			.ApplyIncludes(include)
 			.Match(id)
+			.Include(include)
 			.ProjectToFullResponse(currentUser)
 			.FirstOrDefaultAsync(cancellationToken);
 	}

@@ -10,11 +10,11 @@ public class GetAllPostsForUserQueryBuilder
 	private CommonSortOrder _sortOrder;
 	private PostsForUserSortTerm _sortTerm;
 
-	public GetAllPostsForUserQueryBuilder(Post post)
+	public GetAllPostsForUserQueryBuilder(Post post, UserId currentUserId)
 	{
 		_userId = post.UserId.Id;
 		_title = DataFaker.GetPrefixString(post.Title);
-		_currentUserId = post.UserId.Id;
+		_currentUserId = currentUserId.Id;
 		_page = PostDataFaker.GetPage();
 		_pageSize = PostDataFaker.GetPageSize();
 		_sortOrder = DataFaker.GetSortOrder();

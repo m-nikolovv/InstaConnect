@@ -19,7 +19,7 @@ public class GetAllFollowsQueryRequestValidatorUnitTests : BaseFollowApplication
 	public GetAllFollowsQueryRequestValidatorUnitTests()
 	{
 		_requestBuilderFactory = new();
-		_requestBuilder = _requestBuilderFactory.Create(Follow);
+		_requestBuilder = _requestBuilderFactory.Create(Follow, CurrentUserId);
 		_request = _requestBuilder.Build();
 
 		_requestValidator = new();

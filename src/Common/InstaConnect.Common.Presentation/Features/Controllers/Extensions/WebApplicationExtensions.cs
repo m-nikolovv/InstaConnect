@@ -8,6 +8,13 @@ public static class WebApplicationExtensions
 {
 	extension(WebApplication webApplication)
 	{
+		public WebApplication UseForwardedHeaderPolicies()
+		{
+			webApplication.UseForwardedHeaders();
+
+			return webApplication;
+		}
+
 		public WebApplication UseCorsPolicies()
 		{
 			webApplication.UseCors(CorsPolicies.SpecificOrigins);

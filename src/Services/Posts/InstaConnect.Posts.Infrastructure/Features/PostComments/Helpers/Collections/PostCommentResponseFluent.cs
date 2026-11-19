@@ -1,44 +1,55 @@
 namespace InstaConnect.Posts.Infrastructure.Features.PostComments.Helpers.Collections;
 
-internal class PostCommentResponseFluent :
-	MongoDbResponseFluent<PostCommentResponse>, IPostCommentResponseFluent
+internal class PostCommentResponseFluent : IPostCommentResponseFluent
 {
 	private readonly IPaginator _paginator;
 	private readonly ISortOrdererFactory _sortOrdererFactory;
 	private readonly IPostCommentsSortTermerFactory _sortTermerFactory;
 	private readonly IPostCommentsForUserSortTermerFactory _forUserSortTermerFactory;
+	private readonly IMongoDbResponseFluentHandler<PostCommentResponse> _fluentHandler;
 
 	public PostCommentResponseFluent(
 		IPaginator paginator,
-		IAggregateFluent<PostCommentResponse> fluent,
 		ISortOrdererFactory sortOrdererFactory,
 		IPostCommentsSortTermerFactory sortTermerFactory,
-		IPostCommentsForUserSortTermerFactory forUserSortTermerFactory) : base(fluent)
+		IPostCommentsForUserSortTermerFactory forUserSortTermerFactory,
+		IMongoDbResponseFluentHandler<PostCommentResponse> fluentHandler)
 	{
 		_paginator = paginator;
-		_sortOrdererFactory = sortOrdererFactory;
+		_fluentHandler = fluentHandler;
 		_sortTermerFactory = sortTermerFactory;
+		_sortOrdererFactory = sortOrdererFactory;
 		_forUserSortTermerFactory = forUserSortTermerFactory;
 	}
 
-	public IPostCommentResponseFluent ApplySorting(PostCommentsSortingQuery query)
+	public IPostCommentResponseFluent Sort(PostCommentsSortingQuery query)
 	{
-		ApplySorting(_sortOrdererFactory, _sortTermerFactory, query);
+		_fluentHandler.Sort(_sortOrdererFactory, _sortTermerFactory, query);
 
 		return this;
 	}
 
-	public IPostCommentResponseFluent ApplySorting(PostCommentsForUserSortingQuery query)
+	public IPostCommentResponseFluent Sort(PostCommentsForUserSortingQuery query)
 	{
-		ApplySorting(_sortOrdererFactory, _forUserSortTermerFactory, query);
+		_fluentHandler.Sort(_sortOrdererFactory, _forUserSortTermerFactory, query);
 
 		return this;
 	}
 
-	public IPostCommentResponseFluent ApplyPagination(PostCommentsPaginationQuery query)
+	public IPostCommentResponseFluent Paginate(PostCommentsPaginationQuery query)
 	{
-		ApplyPagination(_paginator, query);
+		_fluentHandler.Paginate(_paginator, query);
 
 		return this;
+	}
+
+	public async Task<PostCommentResponse?> FirstOrDefaultAsync(CancellationToken cancellationToken)
+	{
+		return await _fluentHandler.FirstOrDefaultAsync(cancellationToken);
+	}
+
+	public async Task<ICollection<PostCommentResponse>> ToListAsync(CancellationToken cancellationToken)
+	{
+		return await _fluentHandler.ToListAsync(cancellationToken);
 	}
 }

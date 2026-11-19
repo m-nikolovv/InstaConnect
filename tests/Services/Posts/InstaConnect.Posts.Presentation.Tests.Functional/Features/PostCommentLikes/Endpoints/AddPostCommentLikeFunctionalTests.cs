@@ -204,7 +204,7 @@ public class AddPostCommentLikeFunctionalTests : BasePostCommentLikePresentation
 	public async Task AddAsync_ShouldHaveBadRequestStatusCode_WhenPostCommentLikeAlreadyExists()
 	{
 		// Arrange
-		await ServiceScope.AddAsync(PostCommentLike, CancellationToken);
+		await ServiceScope.AddAsync(PostCommentLike, CurrentUserId, CancellationToken);
 
 		// Act
 		var response = await CommentLikeApiClient.AddStatusCodeAsync(_request, CancellationToken);
@@ -219,7 +219,7 @@ public class AddPostCommentLikeFunctionalTests : BasePostCommentLikePresentation
 		IStringTransformer transformer)
 	{
 		// Arrange
-		await ServiceScope.AddAsync(PostCommentLike, CancellationToken);
+		await ServiceScope.AddAsync(PostCommentLike, CurrentUserId, CancellationToken);
 		var request = _requestBuilder.WithId(transformer).Build();
 
 		// Act
@@ -235,7 +235,7 @@ public class AddPostCommentLikeFunctionalTests : BasePostCommentLikePresentation
 		IStringTransformer transformer)
 	{
 		// Arrange
-		await ServiceScope.AddAsync(PostCommentLike, CancellationToken);
+		await ServiceScope.AddAsync(PostCommentLike, CurrentUserId, CancellationToken);
 		var request = _requestBuilder.WithCommentId(transformer).Build();
 
 		// Act
@@ -251,7 +251,7 @@ public class AddPostCommentLikeFunctionalTests : BasePostCommentLikePresentation
 		IStringTransformer transformer)
 	{
 		// Arrange
-		await ServiceScope.AddAsync(PostCommentLike, CancellationToken);
+		await ServiceScope.AddAsync(PostCommentLike, CurrentUserId, CancellationToken);
 		var request = _requestBuilder.WithUserId(transformer).Build();
 
 		// Act
@@ -265,7 +265,7 @@ public class AddPostCommentLikeFunctionalTests : BasePostCommentLikePresentation
 	public async Task AddAsync_ShouldHavePostCommentLikeAlreadyExistsProblemDetails_WhenPostCommentLikeAlreadyExists()
 	{
 		// Arrange
-		await ServiceScope.AddAsync(PostCommentLike, CancellationToken);
+		await ServiceScope.AddAsync(PostCommentLike, CurrentUserId, CancellationToken);
 
 		// Act
 		var response = await CommentLikeApiClient.AddProblemDetailsAsync(_request, CancellationToken);
@@ -280,7 +280,7 @@ public class AddPostCommentLikeFunctionalTests : BasePostCommentLikePresentation
 		IStringTransformer transformer)
 	{
 		// Arrange
-		await ServiceScope.AddAsync(PostCommentLike, CancellationToken);
+		await ServiceScope.AddAsync(PostCommentLike, CurrentUserId, CancellationToken);
 		var request = _requestBuilder.WithId(transformer).Build();
 
 		// Act
@@ -296,7 +296,7 @@ public class AddPostCommentLikeFunctionalTests : BasePostCommentLikePresentation
 		IStringTransformer transformer)
 	{
 		// Arrange
-		await ServiceScope.AddAsync(PostCommentLike, CancellationToken);
+		await ServiceScope.AddAsync(PostCommentLike, CurrentUserId, CancellationToken);
 		var request = _requestBuilder.WithCommentId(transformer).Build();
 
 		// Act
@@ -312,7 +312,7 @@ public class AddPostCommentLikeFunctionalTests : BasePostCommentLikePresentation
 		IStringTransformer transformer)
 	{
 		// Arrange
-		await ServiceScope.AddAsync(PostCommentLike, CancellationToken);
+		await ServiceScope.AddAsync(PostCommentLike, CurrentUserId, CancellationToken);
 		var request = _requestBuilder.WithUserId(transformer).Build();
 
 		// Act

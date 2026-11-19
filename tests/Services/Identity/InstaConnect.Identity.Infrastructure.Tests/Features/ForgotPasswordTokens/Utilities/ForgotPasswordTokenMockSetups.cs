@@ -39,16 +39,16 @@ public static class ForgotPasswordTokenMockSetups
 			fluent.SetupAnyAsync(forgotPasswordToken != null, cancellationToken);
 		}
 
-		public void SetupApplyIncludes(
+		public void SetupInclude(
 			ForgotPasswordTokenId id,
 			ForgotPasswordTokenInclude include)
 		{
-			fluent.SetupApplyIncludes(include);
+			fluent.SetupInclude(include);
 		}
 
-		public void SetupApplyIncludes(ForgotPasswordTokenInclude include)
+		public void SetupInclude(ForgotPasswordTokenInclude include)
 		{
-			fluent.ApplyIncludes(include).ReturnsResponse(fluent);
+			fluent.Include(include).ReturnsResponse(fluent);
 		}
 
 		public void SetupMatch(ForgotPasswordTokenId id)

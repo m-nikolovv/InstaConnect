@@ -5,10 +5,10 @@ public class GetPostByIdApiRequestBuilder
 	private string _id;
 	private string _currentUserId;
 
-	public GetPostByIdApiRequestBuilder(Post post)
+	public GetPostByIdApiRequestBuilder(Post post, UserId currentUserId)
 	{
 		_id = post.Id.Id;
-		_currentUserId = post.UserId.Id;
+		_currentUserId = currentUserId.Id;
 	}
 
 	public GetPostByIdApiRequestBuilder WithId(PostId id, IStringTransformer? transformer = null)

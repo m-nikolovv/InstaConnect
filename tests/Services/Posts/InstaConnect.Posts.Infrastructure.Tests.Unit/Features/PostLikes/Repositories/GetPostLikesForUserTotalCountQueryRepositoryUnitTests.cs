@@ -8,8 +8,6 @@ public class GetPostLikesForUserTotalCountQueryRepositoryUnitTests : BasePostLik
 	private readonly PostLikesForUserFilterQueryBuilder _filterQueryBuilder;
 	private readonly PostLikesForUserFilterQuery _filterQuery;
 
-	private readonly PostLikeInclude _include;
-
 	private readonly PostLikeQueryRepository _repository;
 
 	public GetPostLikesForUserTotalCountQueryRepositoryUnitTests()
@@ -18,12 +16,9 @@ public class GetPostLikesForUserTotalCountQueryRepositoryUnitTests : BasePostLik
 		_filterQueryBuilder = _filterQueryBuilderFactory.Create(PostLike);
 		_filterQuery = _filterQueryBuilder.Build();
 
-		_include = LikeIncludeBuilderFactory.Create().WithPost(IncludeBuilderFactory.Create().WithUser().WithPostLikes().WithPostImages().Build()).Build();
-
 		_repository = new(Collection, IncludeBuilderFactory, LikeIncludeBuilderFactory);
 
 		Collection.SetupAggregateFluent(_filterQuery, Fluent);
-		Fluent.SetupApplyIncludes(_filterQuery, _include);
 		Fluent.SetupMatch(_filterQuery);
 		Fluent.SetupGetCountAsync(_filterQuery, PostLikes, CancellationToken);
 	}
@@ -46,16 +41,6 @@ public class GetPostLikesForUserTotalCountQueryRepositoryUnitTests : BasePostLik
 
 		// Assert
 		Collection.ShouldHaveReceivedOneAggregateFluent(_filterQuery);
-	}
-
-	[Fact]
-	public async Task GetTotalCountForUserAsync_ShouldCallTheFluentApplyIncludes_WhenQueryIsValid()
-	{
-		// Act
-		await _repository.GetTotalCountForUserAsync(_filterQuery, CancellationToken);
-
-		// Assert
-		Fluent.ShouldHaveReceivedOneApplyIncludes(_filterQuery, _include);
 	}
 
 	[Fact]

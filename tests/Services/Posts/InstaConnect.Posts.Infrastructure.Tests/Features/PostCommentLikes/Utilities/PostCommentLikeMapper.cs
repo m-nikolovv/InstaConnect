@@ -1,37 +1,9 @@
 using InstaConnect.Posts.Domain.Features.PostCommentLikes.Models.Responses;
-using InstaConnect.Posts.Infrastructure.Tests.Features.PostComments.Utilities;
 
 namespace InstaConnect.Posts.Infrastructure.Tests.Features.PostCommentLikes.Utilities;
 
 public static class PostCommentLikeMapper
 {
-	extension(PostCommentLike postCommentLike)
-	{
-		internal PostCommentLikeResponse ToFullResponse(CurrentUserQuery query)
-		{
-			return new(postCommentLike.Id,
-					   postCommentLike.User?.ToFullResponse(),
-					   postCommentLike.PostComment?.ToFullResponse(query),
-					   postCommentLike.CreatedAtUtc);
-		}
-
-		internal PostCommentLikeResponse ToResponseWithoutUser(CurrentUserQuery query)
-		{
-			return new(postCommentLike.Id,
-					   null,
-					   postCommentLike.PostComment?.ToFullResponse(query),
-					   postCommentLike.CreatedAtUtc);
-		}
-
-		internal PostCommentLikeResponse ToResponseWithoutPostComment()
-		{
-			return new(postCommentLike.Id,
-					   postCommentLike.User?.ToFullResponse(),
-					   null,
-					   postCommentLike.CreatedAtUtc);
-		}
-	}
-
 	extension(ICollection<PostCommentLike> postCommentLikes)
 	{
 		public ICollection<PostCommentLikeResponse> ToResponse(
@@ -47,7 +19,7 @@ public static class PostCommentLikeMapper
 			PostCommentLikesPaginationQuery paginationQuery,
 			CurrentUserQuery currentUserQuery)
 		{
-			return postCommentLikes.Filter(paginationQuery, postCommentLike => postCommentLike.MatchesFilter(filterQuery), postCommentLike => postCommentLike.ToResponseWithoutUser(currentUserQuery));
+			return postCommentLikes.Filter(paginationQuery, postCommentLike => postCommentLike.MatchesFilter(filterQuery), postCommentLike => postCommentLike.ToResponseWithoutUser(currentUserQuery.Id));
 		}
 
 		public long ToTotalCountResponse(

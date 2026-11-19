@@ -19,8 +19,8 @@ public static class EmailConfirmationTokenDomainMockFactory
 		return Mocker.Mock<IEmailConfirmationTokenEmailSender>();
 	}
 
-	public static IOptions<EmailConfirmationTokenOptions> CreateOptions()
+	public static EmailConfirmationTokenOptions CreateOptions()
 	{
-		return Options.Create(new EmailConfirmationTokenOptions(EmailConfirmationTokenDataFaker.GetLifetimeSeconds()));
+		return new EmailConfirmationTokenOptions(EmailConfirmationTokenDataFaker.GetLifetimeSeconds());
 	}
 }

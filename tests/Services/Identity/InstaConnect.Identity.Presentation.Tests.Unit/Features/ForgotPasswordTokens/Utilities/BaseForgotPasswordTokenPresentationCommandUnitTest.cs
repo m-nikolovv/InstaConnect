@@ -2,7 +2,7 @@ using InstaConnect.Identity.Tests.Features.ForgotPasswordTokens.Utilities;
 
 namespace InstaConnect.Identity.Presentation.Tests.Unit.Features.ForgotPasswordTokens.Utilities;
 
-public abstract class BaseForgotPasswordTokenPresentationCommandUnitTest : BaseForgotPasswordTokenTest
+public abstract class BaseForgotPasswordTokenPresentationCommandUnitTest : BaseForgotPasswordTokenCommandTest
 {
 	protected IApplicationSender Sender { get; }
 

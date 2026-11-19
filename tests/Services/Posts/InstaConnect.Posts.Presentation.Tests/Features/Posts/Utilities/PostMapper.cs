@@ -31,6 +31,8 @@ public static class PostMapper
 					   post.User?.ToFullQueryResponse(),
 					   post.PostImages.ToFullQueryResponse(),
 					   post.PostLikes.Any(pl => pl.Id.UserId.Matches(request.CurrentUserId)),
+					   post.PostLikes.Count,
+					   post.PostComments.Count,
 					   post.CreatedAtUtc,
 					   post.UpdatedAtUtc);
 		}
@@ -47,6 +49,8 @@ public static class PostMapper
 					   null,
 					   post.PostImages.ToFullQueryResponse(),
 					   post.PostLikes.Any(pl => pl.Id.UserId.Matches(request.CurrentUserId)),
+					   post.PostLikes.Count,
+					   post.PostComments.Count,
 					   post.CreatedAtUtc,
 					   post.UpdatedAtUtc);
 		}

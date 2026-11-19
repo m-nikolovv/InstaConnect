@@ -4,7 +4,7 @@ public abstract class BaseForgotPasswordTokenWebTest : BaseForgotPasswordTokenTe
 {
 	protected IServiceScope ServiceScope { get; }
 
-	protected BaseForgotPasswordTokenWebTest(IdentityWebApplicationFactory webApplicationFactory) : base(webApplicationFactory.Services.GetPasswordHasher())
+	protected BaseForgotPasswordTokenWebTest(IdentityWebApplicationFactory webApplicationFactory, bool isEmailConfirmed = true) : base(webApplicationFactory.Services.GetPasswordHasher(), isEmailConfirmed)
 	{
 		ServiceScope = webApplicationFactory.Services.CreateScope();
 	}

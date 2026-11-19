@@ -1,7 +1,5 @@
 using InstaConnect.Identity.Domain.Features.UserClaims.Models.Responses;
 using InstaConnect.Identity.Infrastructure.Tests.Features.Users.Utilities;
-using InstaConnect.Identity.Tests.Features.UserClaims.Utilities;
-using InstaConnect.Identity.Tests.Features.Users.Utilities;
 
 namespace InstaConnect.Identity.Infrastructure.Tests.Features.UserClaims.Utilities;
 
@@ -19,6 +17,16 @@ public static class UserClaimEquals
 		public bool MatchesFilter(UserClaimsFilterQuery query)
 		{
 			return p.Id.Id.Matches(query.Id);
+		}
+	}
+
+	extension(ICollection<UserClaim> p)
+	{
+		public bool Matches(
+			ICollection<UserClaimId> ids,
+			ICollection<UserClaim> userClaims)
+		{
+			return p.Matches(userClaims);
 		}
 	}
 

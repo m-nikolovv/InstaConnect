@@ -10,13 +10,8 @@ public class GetUserByIdQueryServiceIntegrationTests : BaseUserDomainQueryIntegr
 		: base(webApplicationFactory)
 	{
 		_queryBuilderFactory = new();
-		_queryBuilder = _queryBuilderFactory.Create(User);
+		_queryBuilder = _queryBuilderFactory.Create(User, CurrentUserId);
 		_query = _queryBuilder.Build();
-	}
-
-	protected override async Task OnInitializeAsync()
-	{
-		await ServiceScope.AddAsync(User, CancellationToken);
 	}
 
 	[Fact]

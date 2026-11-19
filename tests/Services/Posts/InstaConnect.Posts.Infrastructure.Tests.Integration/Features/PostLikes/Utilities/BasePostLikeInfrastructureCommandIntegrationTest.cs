@@ -2,7 +2,7 @@ using InstaConnect.Posts.Domain.Features.PostLikes.Abstractions;
 
 namespace InstaConnect.Posts.Infrastructure.Tests.Integration.Features.PostLikes.Utilities;
 
-public abstract class BasePostLikeInfrastructureCommandIntegrationTest : BasePostLikeWebTest
+public abstract class BasePostLikeInfrastructureCommandIntegrationTest : BasePostLikeWebCommandTest
 {
 	protected IPostLikeCommandRepository Repository { get; }
 
@@ -11,15 +11,8 @@ public abstract class BasePostLikeInfrastructureCommandIntegrationTest : BasePos
 	protected BasePostLikeInfrastructureCommandIntegrationTest(PostsWebApplicationFactory webApplicationFactory)
 		: base(webApplicationFactory)
 	{
-		Repository = ServiceScope.GetPostLikeCommandRepository();
+		Repository = ServiceScope.GetCachedPostLikeCommandRepository();
 		IncludeBuilderFactory = ServiceScope.GetPostLikeIncludeBuilderFactory();
 
-	}
-
-	public override async Task InitializeAsync()
-	{
-		await ServiceScope.AddAsync(User, CancellationToken);
-		await ServiceScope.AddAsync(Post, CancellationToken);
-		await OnInitializeAsync();
 	}
 }

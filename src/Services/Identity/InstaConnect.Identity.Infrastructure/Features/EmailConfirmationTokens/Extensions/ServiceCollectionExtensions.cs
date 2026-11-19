@@ -1,4 +1,7 @@
+using InstaConnect.Identity.Domain.Features.EmailConfirmationTokens.Abstractions;
 using InstaConnect.Identity.Domain.Features.EmailConfirmationTokens.Models.Options;
+using InstaConnect.Identity.Domain.Features.EmailConfirmationTokens.Models.ValueObjects;
+using InstaConnect.Identity.Infrastructure.Features.EmailConfirmationTokens.Helpers.Repositories;
 
 namespace InstaConnect.Identity.Infrastructure.Features.EmailConfirmationTokens.Extensions;
 
@@ -14,15 +17,18 @@ internal static class ServiceCollectionExtensions
 
 			serviceCollection.AddImplementationsOf<IEmailConfirmationTokenIncluder>(IdentityInfrastructureReference.Assembly);
 
-			serviceCollection.AddCollection<EmailConfirmationToken>(CollectionName);
+			serviceCollection.AddCollection<EmailConfirmationToken, EmailConfirmationTokenId>(CollectionName);
+
+			serviceCollection.AddScoped<IEmailConfirmationTokenCommandRepository, EmailConfirmationTokenCommandRepository>()
+							 .Decorate<IEmailConfirmationTokenCommandRepository, CachedEmailConfirmationTokenCommandRepository>();
 
 			BsonClassMap.TryRegisterClassMap<EmailConfirmationToken>(cm =>
 			{
 				cm.MapIdMember(c => c.Id);
 
 				cm.MapMember(c => c.Id);
-				cm.MapMember(c => c.ExpiresAtUtc);
-				cm.MapMember(c => c.CreatedAtUtc);
+				cm.MapDateTimeMember(c => c.ExpiresAtUtc);
+				cm.MapDateTimeMember(c => c.CreatedAtUtc);
 
 				cm.MapMemberWithoutSerialization(c => c.User);
 
@@ -31,7 +37,7 @@ internal static class ServiceCollectionExtensions
 					c.ExpiresAtUtc,
 					c.CreatedAtUtc));
 
-				cm.SetIgnoreExtraElements(true);
+				cm.IgnoreExtraElements();
 			});
 
 			return serviceCollection;

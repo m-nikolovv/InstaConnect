@@ -14,6 +14,14 @@ public static class FollowMatchAssertions
 		}
 	}
 
+	extension(ICollection<Follow> response)
+	{
+		public void ShouldSatisfy(ICollection<FollowId> ids, ICollection<Follow> follows)
+		{
+			response.ShouldSatisfy(f => f.Matches(ids, follows));
+		}
+	}
+
 	extension(FollowResponse response)
 	{
 		public void ShouldSatisfy(FollowId id, CurrentUserQuery currentUserQuery, Follow follow)

@@ -1,25 +1,75 @@
-using InstaConnect.Chats.Tests.Features.Users.Builders;
+using InstaConnect.Chats.Domain.Features.ChatMessageImages.Models.Responses;
+using InstaConnect.Chats.Domain.Features.ChatMessages.Models.Responses;
+using InstaConnect.Chats.Domain.Features.Chats.Models.Responses;
+using InstaConnect.Chats.Tests.Features.ChatMessageImages.Builders;
+using InstaConnect.Chats.Tests.Features.ChatMessageImages.Utilities;
+using InstaConnect.Chats.Tests.Features.ChatMessages.Builders;
+using InstaConnect.Chats.Tests.Features.Chats.Builders;
 
 namespace InstaConnect.Chats.Tests.Features.Users.Utilities;
 
-public abstract class BaseUserTest : BaseTest
+public abstract class BaseUserTest : BaseChatsTest
 {
-	protected UserBuilderFactory UserBuilderFactory { get; }
-	protected UserBuilder UserBuilder { get; }
-	protected User User { get; }
+	protected ICollection<Chat> UserChats { get; }
+	protected ChatIdRangeBuilderFactory UserChatIdRangeBuilderFactory { get; }
+	protected ChatIdRangeBuilder UserChatIdRangeBuilder { get; }
+	protected ICollection<ChatId> UserChatIds { get; }
+	protected ICollection<ChatResponse> UserChatResponses { get; }
 
-	protected UserIdBuilderFactory UserIdBuilderFactory { get; }
-	protected UserIdBuilder UserIdBuilder { get; }
-	protected UserId UserId { get; }
+	protected ICollection<ChatMessage> UserChatsChatMessages { get; }
+	protected ChatMessageIdRangeBuilderFactory UserChatsChatMessageIdRangeBuilderFactory { get; }
+	protected ChatMessageIdRangeBuilder UserChatsChatMessageIdRangeBuilder { get; }
+	protected ICollection<ChatMessageId> UserChatsChatMessageIds { get; }
+	protected ICollection<ChatMessageResponse> UserChatsChatMessageResponses { get; }
+
+	protected ICollection<ChatMessageImage> UserChatsChatMessagesChatMessageImages { get; }
+	protected ChatMessageImageIdRangeBuilderFactory UserChatsChatMessagesChatMessageImageIdRangeBuilderFactory { get; }
+	protected ChatMessageImageIdRangeBuilder UserChatsChatMessagesChatMessageImageIdRangeBuilder { get; }
+	protected ICollection<ChatMessageImageId> UserChatsChatMessagesChatMessageImageIds { get; }
+	protected ICollection<ChatMessageImageResponse> UserChatsChatMessagesChatMessageImageResponses { get; }
+
+	protected ICollection<ChatMessage> UserChatMessages { get; }
+	protected ChatMessageIdRangeBuilderFactory UserChatMessageIdRangeBuilderFactory { get; }
+	protected ChatMessageIdRangeBuilder UserChatMessageIdRangeBuilder { get; }
+	protected ICollection<ChatMessageId> UserChatMessageIds { get; }
+	protected ICollection<ChatMessageResponse> UserChatMessageResponses { get; }
+
+	protected ICollection<ChatMessageImage> UserChatMessagesChatMessageImages { get; }
+	protected ChatMessageImageIdRangeBuilderFactory UserChatMessagesChatMessageImageIdRangeBuilderFactory { get; }
+	protected ChatMessageImageIdRangeBuilder UserChatMessagesChatMessageImageIdRangeBuilder { get; }
+	protected ICollection<ChatMessageImageId> UserChatMessagesChatMessageImageIds { get; }
+	protected ICollection<ChatMessageImageResponse> UserChatMessagesChatMessageImageResponses { get; }
 
 	protected BaseUserTest()
 	{
-		UserBuilderFactory = new();
-		UserBuilder = UserBuilderFactory.Create();
-		User = UserBuilder.Build();
+		UserChats = [.. User.Chats];
+		UserChatIdRangeBuilderFactory = new();
+		UserChatIdRangeBuilder = UserChatIdRangeBuilderFactory.Create([.. UserChats.Select(c => c.Id)]);
+		UserChatIds = UserChatIdRangeBuilder.Build();
+		UserChatResponses = UserChats.ToFullResponse();
 
-		UserIdBuilderFactory = new();
-		UserIdBuilder = UserIdBuilderFactory.Create(User.Id);
-		UserId = UserIdBuilder.Build();
+		UserChatsChatMessages = [.. User.Chats.SelectMany(c => c.ChatMessages)];
+		UserChatsChatMessageIdRangeBuilderFactory = new();
+		UserChatsChatMessageIdRangeBuilder = UserChatsChatMessageIdRangeBuilderFactory.Create([.. UserChatsChatMessages.Select(c => c.Id)]);
+		UserChatsChatMessageIds = UserChatsChatMessageIdRangeBuilder.Build();
+		UserChatsChatMessageResponses = UserChatsChatMessages.ToFullResponse();
+
+		UserChatsChatMessagesChatMessageImages = [.. User.Chats.SelectMany(c => c.ChatMessages).SelectMany(c => c.ChatMessageImages)];
+		UserChatsChatMessagesChatMessageImageIdRangeBuilderFactory = new();
+		UserChatsChatMessagesChatMessageImageIdRangeBuilder = UserChatsChatMessagesChatMessageImageIdRangeBuilderFactory.Create([.. UserChatsChatMessagesChatMessageImages.Select(c => c.Id)]);
+		UserChatsChatMessagesChatMessageImageIds = UserChatsChatMessagesChatMessageImageIdRangeBuilder.Build();
+		UserChatsChatMessagesChatMessageImageResponses = UserChatsChatMessagesChatMessageImages.ToFullResponse();
+
+		UserChatMessages = [.. User.ChatMessages];
+		UserChatMessageIdRangeBuilderFactory = new();
+		UserChatMessageIdRangeBuilder = UserChatMessageIdRangeBuilderFactory.Create([.. UserChatMessages.Select(c => c.Id)]);
+		UserChatMessageIds = UserChatMessageIdRangeBuilder.Build();
+		UserChatMessageResponses = UserChatMessages.ToFullResponse();
+
+		UserChatMessagesChatMessageImages = [.. User.ChatMessages.SelectMany(c => c.ChatMessageImages)];
+		UserChatMessagesChatMessageImageIdRangeBuilderFactory = new();
+		UserChatMessagesChatMessageImageIdRangeBuilder = UserChatMessagesChatMessageImageIdRangeBuilderFactory.Create([.. UserChatMessagesChatMessageImages.Select(c => c.Id)]);
+		UserChatMessagesChatMessageImageIds = UserChatMessagesChatMessageImageIdRangeBuilder.Build();
+		UserChatMessagesChatMessageImageResponses = UserChatMessagesChatMessageImages.ToFullResponse();
 	}
 }

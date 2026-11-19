@@ -6,7 +6,7 @@ using InstaConnect.Identity.Tests.Features.UserClaims.Utilities;
 
 namespace InstaConnect.Identity.Domain.Tests.Unit.Features.UserClaims.Utilities;
 
-public abstract class BaseUserClaimDomainCommandUnitTest : BaseUserClaimTest
+public abstract class BaseUserClaimDomainCommandUnitTest : BaseUserClaimCommandTest
 {
 	protected IUserClaimFactory Factory { get; }
 

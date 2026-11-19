@@ -20,13 +20,8 @@ public class GetAllUserClaimsControllerIntegrationTests : BaseUserClaimPresentat
 		: base(webApplicationFactory)
 	{
 		_requestBuilderFactory = new();
-		_requestBuilder = _requestBuilderFactory.Create(UserClaim);
+		_requestBuilder = _requestBuilderFactory.Create(UserClaim, CurrentUserId);
 		_request = _requestBuilder.Build();
-	}
-
-	protected override async Task OnInitializeAsync()
-	{
-		await ServiceScope.AddRangeAsync(UserClaims, CancellationToken);
 	}
 
 	[Theory]

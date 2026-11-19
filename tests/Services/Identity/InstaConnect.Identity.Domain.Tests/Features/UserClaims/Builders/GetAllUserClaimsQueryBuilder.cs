@@ -9,10 +9,10 @@ public class GetAllUserClaimsQueryBuilder
 	private CommonSortOrder _sortOrder;
 	private UserClaimsSortTerm _sortTerm;
 
-	public GetAllUserClaimsQueryBuilder(UserClaim userClaim)
+	public GetAllUserClaimsQueryBuilder(UserClaim userClaim, UserId currentUserId)
 	{
 		_id = userClaim.Id.Id.Id;
-		_currentUserId = userClaim.Id.Id.Id;
+		_currentUserId = currentUserId.Id;
 		_page = UserClaimDataFaker.GetPage();
 		_pageSize = UserClaimDataFaker.GetPageSize();
 		_sortOrder = DataFaker.GetSortOrder();

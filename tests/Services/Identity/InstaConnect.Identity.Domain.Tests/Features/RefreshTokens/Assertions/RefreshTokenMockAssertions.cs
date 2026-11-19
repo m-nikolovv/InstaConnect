@@ -10,9 +10,9 @@ public static class RefreshTokenMockAssertions
 {
 	extension(IDateTimeProvider dateTimeProvider)
 	{
-		public void ShouldHaveReceivedOneGetOffsetUtcNow(IOptions<RefreshTokenOptions> refreshTokenOptions)
+		public void ShouldHaveReceivedOneGetOffsetUtcNow(RefreshTokenOptions refreshTokenOptions)
 		{
-			dateTimeProvider.ShouldHaveReceivedOneGetOffsetUtcNow(refreshTokenOptions.Value.LifetimeSeconds);
+			dateTimeProvider.ShouldHaveReceivedOneGetOffsetUtcNow(refreshTokenOptions.LifetimeSeconds);
 		}
 
 		public void ShouldHaveReceivedOneGetOffsetUtcNow(RotateRefreshTokenCommand command)

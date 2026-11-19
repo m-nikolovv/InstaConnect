@@ -33,7 +33,7 @@ public class RotateRefreshTokenCommandServiceUnitTests : BaseRefreshTokenDomainC
 
 		Repository.SetupGetByIdAsync(_command, _include, User, CancellationToken);
 		RefreshTokenRepository.SetupGetByIdAsync(_command, RefreshToken, CancellationToken);
-		DateTimeProvider.SetupGetOffsetUtcNow(_command, UnexpiredDate);
+		DateTimeProvider.SetupGetOffsetUtcNow(_command, RefreshTokenUnexpiredDate);
 		Factory.SetupCreate(_command, _refreshToken);
 		SessionTokenGenerator.SetupGenerate(_command, _refreshToken);
 	}
@@ -73,7 +73,7 @@ public class RotateRefreshTokenCommandServiceUnitTests : BaseRefreshTokenDomainC
 	public async Task RotateAsync_ShouldThrowRefreshTokenExpiredException_WhenRefreshTokenExpired()
 	{
 		// Arrange
-		DateTimeProvider.SetupGetOffsetUtcNow(_command, ExpiredDate);
+		DateTimeProvider.SetupGetOffsetUtcNow(_command, RefreshTokenExpiredDate);
 
 		// Assert
 		await _service.ShouldThrowRefreshTokenExpiredExceptionAsync(_command, CancellationToken);

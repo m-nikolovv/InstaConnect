@@ -10,7 +10,7 @@ using InstaConnect.Posts.Tests.Features.PostComments.Utilities;
 
 namespace InstaConnect.Posts.Domain.Tests.Unit.Features.PostComments.Utilities;
 
-public abstract class BasePostCommentDomainCommandUnitTest : BasePostCommentTest
+public abstract class BasePostCommentDomainCommandUnitTest : BasePostCommentCommandTest
 {
 	protected IApplicationMapper Mapper { get; }
 

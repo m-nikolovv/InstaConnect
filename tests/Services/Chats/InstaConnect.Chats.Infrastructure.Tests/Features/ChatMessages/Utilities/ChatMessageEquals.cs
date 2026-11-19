@@ -2,7 +2,6 @@ using InstaConnect.Chats.Domain.Features.ChatMessages.Models.Responses;
 using InstaConnect.Chats.Domain.Features.ChatMessages.Models.ValueObjects;
 using InstaConnect.Chats.Infrastructure.Tests.Features.ChatMessageImages.Utilities;
 using InstaConnect.Chats.Infrastructure.Tests.Features.Chats.Utilities;
-using InstaConnect.Chats.Tests.Features.ChatMessages.Utilities;
 
 namespace InstaConnect.Chats.Infrastructure.Tests.Features.ChatMessages.Utilities;
 
@@ -23,6 +22,16 @@ public static class ChatMessageEquals
 				   m.Id.Id.ParticipantTwoId.Matches(query.Id.ParticipantTwoId)) ||
 				   (m.Id.Id.ParticipantOneId.Matches(query.Id.ParticipantTwoId) &&
 				   m.Id.Id.ParticipantTwoId.Matches(query.Id.ParticipantOneId));
+		}
+	}
+
+	extension(ICollection<ChatMessage> p)
+	{
+		public bool Matches(
+			ICollection<ChatMessageId> ids,
+			ICollection<ChatMessage> chatMessages)
+		{
+			return p.Matches(chatMessages);
 		}
 	}
 

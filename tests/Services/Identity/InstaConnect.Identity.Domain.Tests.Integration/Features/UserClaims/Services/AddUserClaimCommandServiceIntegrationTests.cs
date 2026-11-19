@@ -34,7 +34,7 @@ public class AddUserClaimCommandServiceIntegrationTests : BaseUserClaimDomainCom
 	public async Task AddAsync_ShouldThrowUserClaimAlreadyExistsException_WhenUserClaimAlreadyExists()
 	{
 		// Arrange
-		await ServiceScope.AddAsync(UserClaim, CancellationToken);
+		await ServiceScope.AddAsync(UserClaim, CurrentUserId, CancellationToken);
 
 		// Assert
 		await Service.ShouldThrowUserClaimAlreadyExistsExceptionAsync(_command, CancellationToken);
@@ -46,7 +46,7 @@ public class AddUserClaimCommandServiceIntegrationTests : BaseUserClaimDomainCom
 		IStringTransformer transformer)
 	{
 		// Arrange
-		await ServiceScope.AddAsync(UserClaim, CancellationToken);
+		await ServiceScope.AddAsync(UserClaim, CurrentUserId, CancellationToken);
 		var command = _commandBuilder.WithId(transformer).Build();
 
 		// Assert

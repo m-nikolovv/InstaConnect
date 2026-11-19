@@ -2,7 +2,7 @@ using InstaConnect.Identity.Domain.Features.ForgotPasswordTokens.Abstractions;
 
 namespace InstaConnect.Identity.Infrastructure.Tests.Integration.Features.ForgotPasswordTokens.Utilities;
 
-public abstract class BaseForgotPasswordTokenInfrastructureCommandIntegrationTest : BaseForgotPasswordTokenWebTest
+public abstract class BaseForgotPasswordTokenInfrastructureCommandIntegrationTest : BaseForgotPasswordTokenWebCommandTest
 {
 	protected IForgotPasswordTokenCommandRepository Repository { get; }
 
@@ -11,13 +11,7 @@ public abstract class BaseForgotPasswordTokenInfrastructureCommandIntegrationTes
 	protected BaseForgotPasswordTokenInfrastructureCommandIntegrationTest(IdentityWebApplicationFactory webApplicationFactory)
 		: base(webApplicationFactory)
 	{
-		Repository = ServiceScope.GetForgotPasswordTokenCommandRepository();
+		Repository = ServiceScope.GetCachedForgotPasswordTokenCommandRepository();
 		IncludeBuilderFactory = ServiceScope.GetForgotPasswordTokenIncludeBuilderFactory();
-	}
-
-	public override async Task InitializeAsync()
-	{
-		await ServiceScope.AddAsync(User, CancellationToken);
-		await OnInitializeAsync();
 	}
 }

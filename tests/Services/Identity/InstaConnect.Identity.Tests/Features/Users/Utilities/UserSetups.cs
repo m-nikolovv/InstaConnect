@@ -1,5 +1,7 @@
 using InstaConnect.Common.Domain.Features.ValueObjects.Models;
 using InstaConnect.Identity.Domain.Features.Users.Abstractions;
+using InstaConnect.Identity.Infrastructure.Features.Users.Abstractions;
+using InstaConnect.Identity.Infrastructure.Features.Users.Helpers.Repositories;
 
 namespace InstaConnect.Identity.Tests.Features.Users.Utilities;
 
@@ -9,10 +11,22 @@ public static class UserSetups
 	{
 		public IUserQueryRepository GetQueryRepository()
 		{
+			return new UserQueryRepository(serviceProvider.GetCollection());
+		}
+
+		public IUserQueryRepository GetCachedQueryRepository()
+		{
 			return serviceProvider.GetRequiredService<IUserQueryRepository>();
 		}
 
 		public IUserCommandRepository GetCommandRepository()
+		{
+			return new UserCommandRepository(
+				serviceProvider.GetCollection(),
+				serviceProvider.GetIncludeBuilderFactory());
+		}
+
+		public IUserCommandRepository GetCachedCommandRepository()
 		{
 			return serviceProvider.GetRequiredService<IUserCommandRepository>();
 		}
@@ -20,6 +34,16 @@ public static class UserSetups
 		public IUserIncludeBuilderFactory GetIncludeBuilderFactory()
 		{
 			return serviceProvider.GetRequiredService<IUserIncludeBuilderFactory>();
+		}
+
+		public IUserCollection GetCollection()
+		{
+			return serviceProvider.GetRequiredService<IUserCollection>();
+		}
+
+		public IUserCacheHandler GetCacheHandler()
+		{
+			return serviceProvider.GetRequiredService<IUserCacheHandler>();
 		}
 	}
 
@@ -30,14 +54,29 @@ public static class UserSetups
 			return serviceScope.ServiceProvider.GetQueryRepository();
 		}
 
+		public IUserQueryRepository GetCachedQueryRepository()
+		{
+			return serviceScope.ServiceProvider.GetCachedQueryRepository();
+		}
+
 		public IUserCommandRepository GetCommandRepository()
 		{
 			return serviceScope.ServiceProvider.GetCommandRepository();
 		}
 
+		public IUserCommandRepository GetCachedCommandRepository()
+		{
+			return serviceScope.ServiceProvider.GetCachedCommandRepository();
+		}
+
 		public IUserIncludeBuilderFactory GetIncludeBuilderFactory()
 		{
 			return serviceScope.ServiceProvider.GetIncludeBuilderFactory();
+		}
+
+		public IUserCacheHandler GetCacheHandler()
+		{
+			return serviceScope.ServiceProvider.GetCacheHandler();
 		}
 
 		public async Task<User?> GetByIdAsync(
@@ -69,30 +108,44 @@ public static class UserSetups
 
 		public async Task AddAsync(
 			User user,
+			UserId currentUserId,
 			CancellationToken cancellationToken)
 		{
-			await serviceScope.GetCommandRepository().AddAsync(user, cancellationToken);
+			var cacheHandler = serviceScope.GetCacheHandler();
+
+			await cacheHandler.AddAsync(user.ToFullResponse(), currentUserId, cancellationToken);
 		}
 
 		public async Task UpdateAsync(
 			User user,
 			CancellationToken cancellationToken)
 		{
-			await serviceScope.GetCommandRepository().UpdateAsync(user, cancellationToken);
+			var cacheHandler = serviceScope.GetCacheHandler();
+			var repository = serviceScope.GetCommandRepository();
+
+			await repository.UpdateAsync(user, cancellationToken);
+			await cacheHandler.DeleteAsync(user.Id, cancellationToken);
 		}
 
 		public async Task AddRangeAsync(
-			IEnumerable<User> users,
+			ICollection<User> users,
+			UserId currentUserId,
 			CancellationToken cancellationToken)
 		{
-			await serviceScope.GetCommandRepository().AddRangeAsync(users, cancellationToken);
+			var cacheHandler = serviceScope.GetCacheHandler();
+
+			await cacheHandler.AddRangeAsync(users.ToFullResponse(), currentUserId, cancellationToken);
 		}
 
 		public async Task DeleteAsync(
 			User user,
 			CancellationToken cancellationToken)
 		{
-			await serviceScope.GetCommandRepository().DeleteAsync(user, cancellationToken);
+			var cacheHandler = serviceScope.GetCacheHandler();
+			var repository = serviceScope.GetCommandRepository();
+
+			await repository.DeleteAsync(user, cancellationToken);
+			await cacheHandler.DeleteAsync(user.Id, cancellationToken);
 		}
 	}
 }

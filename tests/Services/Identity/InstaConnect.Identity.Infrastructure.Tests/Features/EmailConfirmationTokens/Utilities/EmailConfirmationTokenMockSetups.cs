@@ -39,16 +39,16 @@ public static class EmailConfirmationTokenMockSetups
 			fluent.SetupAnyAsync(emailConfirmationToken != null, cancellationToken);
 		}
 
-		public void SetupApplyIncludes(
+		public void SetupInclude(
 			EmailConfirmationTokenId id,
 			EmailConfirmationTokenInclude include)
 		{
-			fluent.SetupApplyIncludes(include);
+			fluent.SetupInclude(include);
 		}
 
-		public void SetupApplyIncludes(EmailConfirmationTokenInclude include)
+		public void SetupInclude(EmailConfirmationTokenInclude include)
 		{
-			fluent.ApplyIncludes(include).ReturnsResponse(fluent);
+			fluent.Include(include).ReturnsResponse(fluent);
 		}
 
 		public void SetupMatch(EmailConfirmationTokenId id)

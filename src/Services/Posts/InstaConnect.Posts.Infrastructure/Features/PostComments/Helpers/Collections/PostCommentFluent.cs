@@ -3,44 +3,53 @@ using InstaConnect.Posts.Domain.Features.PostImages.Models.Responses;
 
 namespace InstaConnect.Posts.Infrastructure.Features.PostComments.Helpers.Collections;
 
-internal class PostCommentFluent : MongoDbFluent<PostComment>, IPostCommentFluent
+internal class PostCommentFluent : IPostCommentFluent
 {
 	private readonly IPostCommentIncluderFactory _includerFactory;
 	private readonly IPostCommentResponseFluentFactory _responseFluentFactory;
+	private readonly IMongoDbFluentHandler<PostComment, PostCommentId> _fluentHandler;
 
 	public PostCommentFluent(
-		IAggregateFluent<PostComment> fluent,
 		IPostCommentIncluderFactory includerFactory,
-		IPostCommentResponseFluentFactory responseFluentFactory) : base(fluent)
+		IPostCommentResponseFluentFactory responseFluentFactory,
+		IMongoDbFluentHandler<PostComment, PostCommentId> fluentHandler)
 	{
+		_fluentHandler = fluentHandler;
 		_includerFactory = includerFactory;
 		_responseFluentFactory = responseFluentFactory;
 	}
 
-	public IPostCommentFluent ApplyIncludes(PostCommentInclude include)
+	public IPostCommentFluent Include(PostCommentInclude include)
 	{
-		ApplyIncludes(_includerFactory, include);
+		_fluentHandler.Include(_includerFactory, include);
 
 		return this;
 	}
 
 	public IPostCommentFluent Match(PostCommentsFilterQuery filter)
 	{
-		Match(filter.GetFilter());
+		_fluentHandler.Match(filter.GetFilter());
 
 		return this;
 	}
 
 	public IPostCommentFluent Match(PostCommentsForUserFilterQuery filter)
 	{
-		Match(filter.GetFilter());
+		_fluentHandler.Match(filter.GetFilter());
 
 		return this;
 	}
 
 	public IPostCommentFluent Match(PostCommentId filter)
 	{
-		Match(filter.GetFilter());
+		_fluentHandler.Match(filter.GetFilter());
+
+		return this;
+	}
+
+	public IPostCommentFluent Match(IEnumerable<PostCommentId> filter)
+	{
+		_fluentHandler.Match(filter.GetFilter());
 
 		return this;
 	}
@@ -85,6 +94,8 @@ internal class PostCommentFluent : MongoDbFluent<PostComment>, IPostCommentFluen
 							pi.CreatedAtUtc)).ToList(),
 					p.Post.PostLikes.Any(
 						pl => pl.Id.UserId.Id.ToLower() == currentUserId),
+					p.Post.PostLikes.Count,
+					p.Post.PostComments.Count,
 					p.Post.CreatedAtUtc,
 					p.Post.UpdatedAtUtc),
 				p.PostCommentImages.Select(
@@ -94,9 +105,10 @@ internal class PostCommentFluent : MongoDbFluent<PostComment>, IPostCommentFluen
 						pi.CreatedAtUtc)).ToList(),
 				p.PostCommentLikes.Any(
 							pl => pl.Id.UserId.Id.ToLower() == currentUserId),
+				p.PostCommentLikes.Count,
 				p.CreatedAtUtc,
 				p.UpdatedAtUtc));
-		var fluent = Project(projection);
+		var fluent = _fluentHandler.Project(projection);
 
 		return _responseFluentFactory.Create(fluent);
 	}
@@ -133,6 +145,8 @@ internal class PostCommentFluent : MongoDbFluent<PostComment>, IPostCommentFluen
 							pi.CreatedAtUtc)).ToList(),
 					p.Post.PostLikes.Any(
 						pl => pl.Id.UserId.Id.ToLower() == currentUserId),
+					p.Post.PostLikes.Count,
+					p.Post.PostComments.Count,
 					p.Post.CreatedAtUtc,
 					p.Post.UpdatedAtUtc),
 				p.PostCommentImages.Select(
@@ -142,9 +156,10 @@ internal class PostCommentFluent : MongoDbFluent<PostComment>, IPostCommentFluen
 						pi.CreatedAtUtc)).ToList(),
 				p.PostCommentLikes.Any(
 							pl => pl.Id.UserId.Id.ToLower() == currentUserId),
+				p.PostCommentLikes.Count,
 				p.CreatedAtUtc,
 				p.UpdatedAtUtc));
-		var fluent = Project(projection);
+		var fluent = _fluentHandler.Project(projection);
 
 		return _responseFluentFactory.Create(fluent);
 	}
@@ -175,10 +190,43 @@ internal class PostCommentFluent : MongoDbFluent<PostComment>, IPostCommentFluen
 						pi.CreatedAtUtc)).ToList(),
 				p.PostCommentLikes.Any(
 							pl => pl.Id.UserId.Id.ToLower() == currentUserId),
+				p.PostCommentLikes.Count,
 				p.CreatedAtUtc,
 				p.UpdatedAtUtc));
-		var fluent = Project(projection);
+		var fluent = _fluentHandler.Project(projection);
 
 		return _responseFluentFactory.Create(fluent);
+	}
+
+	public IMongoDbFluent<PostComment, PostCommentId> Match(FilterDefinition<PostComment> filterDefinition)
+	{
+		_fluentHandler.Match(filterDefinition);
+
+		return this;
+	}
+
+	public async Task<PostComment?> FirstOrDefaultAsync(CancellationToken cancellationToken)
+	{
+		return await _fluentHandler.FirstOrDefaultAsync(cancellationToken);
+	}
+
+	public async Task<long> GetCountAsync(CancellationToken cancellationToken)
+	{
+		return await _fluentHandler.GetCountAsync(cancellationToken);
+	}
+
+	public async Task<ICollection<PostComment>> ToListAsync(CancellationToken cancellationToken)
+	{
+		return await _fluentHandler.ToListAsync(cancellationToken);
+	}
+
+	public async Task<bool> AnyAsync(CancellationToken cancellationToken)
+	{
+		return await _fluentHandler.AnyAsync(cancellationToken);
+	}
+
+	public async Task<ICollection<PostCommentId>> GetIdsAsync(CancellationToken cancellationToken)
+	{
+		return await _fluentHandler.GetIdsAsync(cancellationToken);
 	}
 }

@@ -1,4 +1,6 @@
 using InstaConnect.Chats.Domain.Features.ChatMessageImages.Abstractions;
+using InstaConnect.Chats.Infrastructure.Features.ChatMessageImages.Abstractions;
+using InstaConnect.Chats.Infrastructure.Features.ChatMessageImages.Helpers.Repositories;
 
 namespace InstaConnect.Chats.Tests.Features.ChatMessageImages.Utilities;
 
@@ -8,7 +10,22 @@ public static class ChatMessageImageSetups
 	{
 		public IChatMessageImageCommandRepository GetMessageImageCommandRepository()
 		{
+			return new ChatMessageImageCommandRepository(serviceProvider.GetMessageImageCollection());
+		}
+
+		public IChatMessageImageCommandRepository GetCachedMessageImageCommandRepository()
+		{
 			return serviceProvider.GetRequiredService<IChatMessageImageCommandRepository>();
+		}
+
+		public IChatMessageImageCollection GetMessageImageCollection()
+		{
+			return serviceProvider.GetRequiredService<IChatMessageImageCollection>();
+		}
+
+		public IChatMessageImageCacheHandler GetMessageImageCacheHandler()
+		{
+			return serviceProvider.GetRequiredService<IChatMessageImageCacheHandler>();
 		}
 	}
 
@@ -17,6 +34,16 @@ public static class ChatMessageImageSetups
 		public IChatMessageImageCommandRepository GetMessageImageCommandRepository()
 		{
 			return serviceScope.ServiceProvider.GetMessageImageCommandRepository();
+		}
+
+		public IChatMessageImageCommandRepository GetCachedMessageImageCommandRepository()
+		{
+			return serviceScope.ServiceProvider.GetCachedMessageImageCommandRepository();
+		}
+
+		public IChatMessageImageCacheHandler GetMessageImageCacheHandler()
+		{
+			return serviceScope.ServiceProvider.GetMessageImageCacheHandler();
 		}
 
 		public async Task<ChatMessageImage?> GetByIdAsync(
@@ -37,28 +64,44 @@ public static class ChatMessageImageSetups
 			ChatMessageImage chatMessageImage,
 			CancellationToken cancellationToken)
 		{
-			await serviceScope.GetMessageImageCommandRepository().AddAsync(chatMessageImage, cancellationToken);
+			var messageImageRepository = serviceScope.GetMessageImageCommandRepository();
+
+			await messageImageRepository.AddAsync(chatMessageImage, cancellationToken);
 		}
 
 		public async Task AddRangeAsync(
 			IEnumerable<ChatMessageImage> chatMessageImages,
 			CancellationToken cancellationToken)
 		{
-			await serviceScope.GetMessageImageCommandRepository().AddRangeAsync(chatMessageImages, cancellationToken);
+			var messageImageRepository = serviceScope.GetMessageImageCommandRepository();
+
+			await messageImageRepository.AddRangeAsync(chatMessageImages, cancellationToken);
 		}
 
 		public async Task DeleteAsync(
 			ChatMessageImage chatMessageImage,
 			CancellationToken cancellationToken)
 		{
-			await serviceScope.GetMessageImageCommandRepository().DeleteAsync(chatMessageImage, cancellationToken);
+			var messageCacheHandler = serviceScope.GetMessageCacheHandler();
+			var messageImageCacheHandler = serviceScope.GetMessageImageCacheHandler();
+			var messageImageRepository = serviceScope.GetMessageImageCommandRepository();
+
+			await messageImageRepository.DeleteAsync(chatMessageImage, cancellationToken);
+			await messageCacheHandler.DeleteResponseAsync(chatMessageImage.Id.Id, cancellationToken);
+			await messageImageCacheHandler.DeleteAsync(chatMessageImage.Id, cancellationToken);
 		}
 
 		public async Task DeleteRangeAsync(
 			IEnumerable<ChatMessageImage> chatMessageImages,
 			CancellationToken cancellationToken)
 		{
-			await serviceScope.GetMessageImageCommandRepository().DeleteRangeAsync(chatMessageImages, cancellationToken);
+			var messageCacheHandler = serviceScope.GetMessageCacheHandler();
+			var messageImageCacheHandler = serviceScope.GetMessageImageCacheHandler();
+			var messageImageRepository = serviceScope.GetMessageImageCommandRepository();
+
+			await messageImageRepository.DeleteRangeAsync(chatMessageImages, cancellationToken);
+			await messageCacheHandler.DeleteResponseRangeAsync(chatMessageImages.Select(p => p.Id.Id), cancellationToken);
+			await messageImageCacheHandler.DeleteRangeAsync(chatMessageImages.Select(p => p.Id), cancellationToken);
 		}
 	}
 }

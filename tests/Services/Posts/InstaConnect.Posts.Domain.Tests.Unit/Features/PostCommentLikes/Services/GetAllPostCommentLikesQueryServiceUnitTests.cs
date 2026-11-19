@@ -11,7 +11,7 @@ public class GetAllPostCommentLikesQueryServiceUnitTests : BasePostCommentLikeDo
 	public GetAllPostCommentLikesQueryServiceUnitTests()
 	{
 		_queryBuilderFactory = new();
-		_queryBuilder = _queryBuilderFactory.Create(PostCommentLike);
+		_queryBuilder = _queryBuilderFactory.Create(PostCommentLike, CurrentUserId);
 		_query = _queryBuilder.Build();
 
 		_service = new(Repository, UserRepository, CommentRepository, CommentLikeRepository, CollectionResponseFactory);

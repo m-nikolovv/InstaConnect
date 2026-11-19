@@ -12,5 +12,9 @@ public interface IChatCommandRepository
 
 	public Task<Chat?> GetByIdAsync(ChatId id, ChatInclude include, CancellationToken cancellationToken);
 
+	public Task<ICollection<Chat>> GetByIdRangeAsync(IEnumerable<ChatId> ids, CancellationToken cancellationToken);
+
+	public Task<ICollection<Chat>> GetByIdRangeAsync(IEnumerable<ChatId> ids, ChatInclude include, CancellationToken cancellationToken);
+
 	public Task<bool> ExistsByIdAsync(ChatId id, CancellationToken cancellationToken);
 }

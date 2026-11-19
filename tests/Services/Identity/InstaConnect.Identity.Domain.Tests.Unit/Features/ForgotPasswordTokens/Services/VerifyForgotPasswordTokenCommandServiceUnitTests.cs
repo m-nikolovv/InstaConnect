@@ -38,7 +38,7 @@ public class VerifyForgotPasswordTokenCommandServiceUnitTests : BaseForgotPasswo
 
 		Repository.SetupGetByIdAsync(_command, _include, User, CancellationToken);
 		ForgotPasswordTokenRepository.SetupGetByIdAsync(_command, ForgotPasswordToken, CancellationToken);
-		DateTimeProvider.SetupGetOffsetUtcNow(_command, UnexpiredDate);
+		DateTimeProvider.SetupGetOffsetUtcNow(_command, ForgotPasswordTokenUnexpiredDate);
 	}
 
 	[Fact]
@@ -65,7 +65,7 @@ public class VerifyForgotPasswordTokenCommandServiceUnitTests : BaseForgotPasswo
 	public async Task VerifyAsync_ShouldThrowForgotPasswordTokenExpiredException_WhenForgotPasswordTokenExpired()
 	{
 		// Arrange
-		DateTimeProvider.SetupGetOffsetUtcNow(_command, ExpiredDate);
+		DateTimeProvider.SetupGetOffsetUtcNow(_command, ForgotPasswordTokenExpiredDate);
 
 		// Assert
 		await _service.ShouldThrowForgotPasswordTokenExpiredExceptionAsync(_command, CancellationToken);

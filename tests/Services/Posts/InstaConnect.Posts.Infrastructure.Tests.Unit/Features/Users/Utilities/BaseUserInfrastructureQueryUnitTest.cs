@@ -3,7 +3,7 @@ using InstaConnect.Posts.Tests.Features.Users.Utilities;
 
 namespace InstaConnect.Posts.Infrastructure.Tests.Unit.Features.Users.Utilities;
 
-public abstract class BaseUserInfrastructureQueryUnitTest : BaseUserTest
+public abstract class BaseUserInfrastructureQueryUnitTest : BaseUserQueryTest
 {
 	protected IUserFluent Fluent { get; }
 

@@ -80,7 +80,7 @@ public class AddChatCommandHandlerIntegrationTests : BaseChatApplicationCommandI
 	public async Task SendAsync_ShouldThrowChatAlreadyExistsException_WhenChatAlreadyExists()
 	{
 		// Arrange
-		await ServiceScope.AddAsync(Chat, CancellationToken);
+		await ServiceScope.AddAsync(Chat, CurrentUserId, CancellationToken);
 
 		// Assert
 		await Sender.ShouldThrowChatAlreadyExistsExceptionAsync(_request, CancellationToken);
@@ -92,7 +92,7 @@ public class AddChatCommandHandlerIntegrationTests : BaseChatApplicationCommandI
 		IStringTransformer transformer)
 	{
 		// Arrange
-		await ServiceScope.AddAsync(Chat, CancellationToken);
+		await ServiceScope.AddAsync(Chat, CurrentUserId, CancellationToken);
 		var request = _requestBuilder.WithParticipantOneId(transformer).Build();
 
 		// Assert
@@ -105,7 +105,7 @@ public class AddChatCommandHandlerIntegrationTests : BaseChatApplicationCommandI
 		IStringTransformer transformer)
 	{
 		// Arrange
-		await ServiceScope.AddAsync(Chat, CancellationToken);
+		await ServiceScope.AddAsync(Chat, CurrentUserId, CancellationToken);
 		var request = _requestBuilder.WithParticipantTwoId(transformer).Build();
 
 		// Assert
@@ -116,7 +116,7 @@ public class AddChatCommandHandlerIntegrationTests : BaseChatApplicationCommandI
 	public async Task SendAsync_ShouldThrowChatAlreadyExistsException_WhenInvertedChatAlreadyExists()
 	{
 		// Arrange
-		await ServiceScope.AddAsync(Chat, CancellationToken);
+		await ServiceScope.AddAsync(Chat, CurrentUserId, CancellationToken);
 
 		// Assert
 		await Sender.ShouldThrowChatAlreadyExistsExceptionAsync(_invertedRequest, CancellationToken);
@@ -128,7 +128,7 @@ public class AddChatCommandHandlerIntegrationTests : BaseChatApplicationCommandI
 		IStringTransformer transformer)
 	{
 		// Arrange
-		await ServiceScope.AddAsync(Chat, CancellationToken);
+		await ServiceScope.AddAsync(Chat, CurrentUserId, CancellationToken);
 		var invertedRequest = _invertedRequestBuilder.WithParticipantOneId(transformer).Build();
 
 		// Assert
@@ -141,7 +141,7 @@ public class AddChatCommandHandlerIntegrationTests : BaseChatApplicationCommandI
 		IStringTransformer transformer)
 	{
 		// Arrange
-		await ServiceScope.AddAsync(Chat, CancellationToken);
+		await ServiceScope.AddAsync(Chat, CurrentUserId, CancellationToken);
 		var invertedRequest = _invertedRequestBuilder.WithParticipantTwoId(transformer).Build();
 
 		// Assert

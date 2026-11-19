@@ -10,13 +10,8 @@ public class GetFollowByIdControllerIntegrationTests : BaseFollowPresentationQue
 		: base(webApplicationFactory)
 	{
 		_requestBuilderFactory = new();
-		_requestBuilder = _requestBuilderFactory.Create(Follow);
+		_requestBuilder = _requestBuilderFactory.Create(Follow, CurrentUserId);
 		_request = _requestBuilder.Build();
-	}
-
-	protected override async Task OnInitializeAsync()
-	{
-		await ServiceScope.AddAsync(Follow, CancellationToken);
 	}
 
 	[Theory]

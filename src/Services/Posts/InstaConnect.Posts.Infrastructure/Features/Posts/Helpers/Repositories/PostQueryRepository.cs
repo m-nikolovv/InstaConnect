@@ -20,15 +20,15 @@ internal class PostQueryRepository : IPostQueryRepository
 		CurrentUserQuery currentUser,
 		CancellationToken cancellationToken)
 	{
-		var include = _includeBuilderFactory.Create().WithUser().WithPostLikes().WithPostImages().Build();
+		var include = _includeBuilderFactory.Create().WithUser().WithPostLikes().WithPostComments().WithPostImages().Build();
 
 		return await _collection
 			.AggregateFluent()
-			.ApplyIncludes(include)
+			.Include(include)
 			.Match(filter)
 			.ProjectToFullResponse(currentUser)
-			.ApplySorting(sorting)
-			.ApplyPagination(pagination)
+			.Sort(sorting)
+			.Paginate(pagination)
 			.ToListAsync(cancellationToken);
 	}
 
@@ -39,15 +39,15 @@ internal class PostQueryRepository : IPostQueryRepository
 		CurrentUserQuery currentUser,
 		CancellationToken cancellationToken)
 	{
-		var include = _includeBuilderFactory.Create().WithPostLikes().WithPostImages().Build();
+		var include = _includeBuilderFactory.Create().WithPostLikes().WithPostComments().WithPostImages().Build();
 
 		return await _collection
 			.AggregateFluent()
-			.ApplyIncludes(include)
 			.Match(filter)
+			.Include(include)
 			.ProjectToResponseWithoutUser(currentUser)
-			.ApplySorting(sorting)
-			.ApplyPagination(pagination)
+			.Sort(sorting)
+			.Paginate(pagination)
 			.ToListAsync(cancellationToken);
 	}
 
@@ -55,11 +55,11 @@ internal class PostQueryRepository : IPostQueryRepository
 		PostsFilterQuery filter,
 		CancellationToken cancellationToken)
 	{
-		var include = _includeBuilderFactory.Create().WithUser().WithPostLikes().WithPostImages().Build();
+		var include = _includeBuilderFactory.Create().WithUser().Build();
 
 		return await _collection
 			.AggregateFluent()
-			.ApplyIncludes(include)
+			.Include(include)
 			.Match(filter)
 			.GetCountAsync(cancellationToken);
 	}
@@ -68,11 +68,8 @@ internal class PostQueryRepository : IPostQueryRepository
 		PostsForUserFilterQuery filter,
 		CancellationToken cancellationToken)
 	{
-		var include = _includeBuilderFactory.Create().WithPostLikes().WithPostImages().Build();
-
 		return await _collection
 			.AggregateFluent()
-			.ApplyIncludes(include)
 			.Match(filter)
 			.GetCountAsync(cancellationToken);
 	}
@@ -82,12 +79,12 @@ internal class PostQueryRepository : IPostQueryRepository
 		CurrentUserQuery currentUser,
 		CancellationToken cancellationToken)
 	{
-		var include = _includeBuilderFactory.Create().WithUser().WithPostLikes().WithPostImages().Build();
+		var include = _includeBuilderFactory.Create().WithUser().WithPostLikes().WithPostComments().WithPostImages().Build();
 
 		return await _collection
 			.AggregateFluent()
-			.ApplyIncludes(include)
 			.Match(id)
+			.Include(include)
 			.ProjectToFullResponse(currentUser)
 			.FirstOrDefaultAsync(cancellationToken);
 	}

@@ -2,7 +2,7 @@ using InstaConnect.Identity.Domain.Features.UserClaims.Abstractions;
 
 namespace InstaConnect.Identity.Infrastructure.Tests.Integration.Features.UserClaims.Utilities;
 
-public abstract class BaseUserClaimInfrastructureCommandIntegrationTest : BaseUserClaimWebTest
+public abstract class BaseUserClaimInfrastructureCommandIntegrationTest : BaseUserClaimWebCommandTest
 {
 	protected IUserClaimCommandRepository Repository { get; }
 
@@ -11,13 +11,7 @@ public abstract class BaseUserClaimInfrastructureCommandIntegrationTest : BaseUs
 	protected BaseUserClaimInfrastructureCommandIntegrationTest(IdentityWebApplicationFactory webApplicationFactory)
 		: base(webApplicationFactory)
 	{
-		Repository = ServiceScope.GetClaimCommandRepository();
+		Repository = ServiceScope.GetCachedClaimCommandRepository();
 		IncludeBuilderFactory = ServiceScope.GetClaimIncludeBuilderFactory();
-	}
-
-	public override async Task InitializeAsync()
-	{
-		await ServiceScope.AddAsync(User, CancellationToken);
-		await OnInitializeAsync();
 	}
 }

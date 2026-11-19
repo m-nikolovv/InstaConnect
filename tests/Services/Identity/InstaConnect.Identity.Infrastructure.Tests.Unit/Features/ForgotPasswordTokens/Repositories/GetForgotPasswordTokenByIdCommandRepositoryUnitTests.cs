@@ -16,7 +16,7 @@ public class GetForgotPasswordTokenByIdCommandRepositoryUnitTests : BaseForgotPa
 		_repository = new(Collection, IncludeBuilderFactory);
 
 		Collection.SetupAggregateFluent(ForgotPasswordTokenId, Fluent);
-		Fluent.SetupApplyIncludes(ForgotPasswordTokenId, _include);
+		Fluent.SetupInclude(ForgotPasswordTokenId, _include);
 		Fluent.SetupMatch(ForgotPasswordTokenId);
 		Fluent.SetupFirstOrDefaultAsync(ForgotPasswordTokenId, ForgotPasswordToken, CancellationToken);
 	}
@@ -42,13 +42,13 @@ public class GetForgotPasswordTokenByIdCommandRepositoryUnitTests : BaseForgotPa
 	}
 
 	[Fact]
-	public async Task GetByIdAsync_ShouldCallTheFluentApplyIncludes_WhenCommandIsValid()
+	public async Task GetByIdAsync_ShouldCallTheFluentInclude_WhenCommandIsValid()
 	{
 		// Act
 		await _repository.GetByIdAsync(ForgotPasswordTokenId, _include, CancellationToken);
 
 		// Assert
-		Fluent.ShouldHaveReceivedOneApplyIncludes(ForgotPasswordTokenId, _include);
+		Fluent.ShouldHaveReceivedOneInclude(ForgotPasswordTokenId, _include);
 	}
 
 	[Fact]

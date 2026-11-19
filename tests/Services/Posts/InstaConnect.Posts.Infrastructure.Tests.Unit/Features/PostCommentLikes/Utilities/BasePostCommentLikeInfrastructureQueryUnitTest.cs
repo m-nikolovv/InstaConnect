@@ -6,7 +6,7 @@ using InstaConnect.Posts.Tests.Features.PostComments.Utilities;
 
 namespace InstaConnect.Posts.Infrastructure.Tests.Unit.Features.PostCommentLikes.Utilities;
 
-public abstract class BasePostCommentLikeInfrastructureQueryUnitTest : BasePostCommentLikeTest
+public abstract class BasePostCommentLikeInfrastructureQueryUnitTest : BasePostCommentLikeQueryTest
 {
 	protected IPostCommentLikeFluent Fluent { get; }
 

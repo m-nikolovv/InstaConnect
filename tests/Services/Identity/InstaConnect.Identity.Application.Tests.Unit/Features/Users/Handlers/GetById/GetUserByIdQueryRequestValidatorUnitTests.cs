@@ -13,7 +13,7 @@ public class GetUserByIdQueryRequestValidatorUnitTests : BaseUserApplicationQuer
 	public GetUserByIdQueryRequestValidatorUnitTests()
 	{
 		_requestBuilderFactory = new();
-		_requestBuilder = _requestBuilderFactory.Create(User);
+		_requestBuilder = _requestBuilderFactory.Create(User, CurrentUserId);
 		_request = _requestBuilder.Build();
 
 		_requestValidator = new();

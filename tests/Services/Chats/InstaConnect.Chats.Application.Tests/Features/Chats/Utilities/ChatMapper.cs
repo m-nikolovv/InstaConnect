@@ -8,30 +8,6 @@ public static class ChatMapper
 {
 	extension(Chat chat)
 	{
-		internal ChatResponse ToFullResponse()
-		{
-			return new(chat.Id,
-					   chat.ParticipantOne?.ToFullResponse(),
-					   chat.ParticipantTwo?.ToFullResponse(),
-					   chat.CreatedAtUtc);
-		}
-
-		internal ChatResponse ToResponseWithoutParticipantOne()
-		{
-			return new(chat.Id,
-					   null,
-					   chat.ParticipantTwo?.ToFullResponse(),
-					   chat.CreatedAtUtc);
-		}
-
-		internal ChatResponse ToResponseWithoutParticipantTwo()
-		{
-			return new(chat.Id,
-					   chat.ParticipantOne?.ToFullResponse(),
-					   null,
-					   chat.CreatedAtUtc);
-		}
-
 		public ChatId ToResponse(
 			AddChatCommandRequest request)
 		{

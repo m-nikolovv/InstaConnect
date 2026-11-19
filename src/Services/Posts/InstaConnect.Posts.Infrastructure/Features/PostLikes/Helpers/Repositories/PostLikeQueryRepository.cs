@@ -29,11 +29,11 @@ internal class PostLikeQueryRepository : IPostLikeQueryRepository
 
 		return await _collection
 			.AggregateFluent()
-			.ApplyIncludes(likeInclude)
+			.Include(likeInclude)
 			.Match(filter)
 			.ProjectToResponseWithoutPost(currentUser)
-			.ApplySorting(sorting)
-			.ApplyPagination(pagination)
+			.Sort(sorting)
+			.Paginate(pagination)
 			.ToListAsync(cancellationToken);
 	}
 
@@ -44,16 +44,16 @@ internal class PostLikeQueryRepository : IPostLikeQueryRepository
 		CurrentUserQuery currentUser,
 		CancellationToken cancellationToken)
 	{
-		var include = _includeBuilderFactory.Create().WithUser().WithPostLikes().WithPostImages().Build();
+		var include = _includeBuilderFactory.Create().WithUser().WithPostLikes().WithPostComments().WithPostImages().Build();
 		var likeInclude = _likeIncludeBuilderFactory.Create().WithPost(include).Build();
 
 		return await _collection
 			.AggregateFluent()
-			.ApplyIncludes(likeInclude)
 			.Match(filter)
+			.Include(likeInclude)
 			.ProjectToResponseWithoutUser(currentUser)
-			.ApplySorting(sorting)
-			.ApplyPagination(pagination)
+			.Sort(sorting)
+			.Paginate(pagination)
 			.ToListAsync(cancellationToken);
 	}
 
@@ -65,7 +65,7 @@ internal class PostLikeQueryRepository : IPostLikeQueryRepository
 
 		return await _collection
 			.AggregateFluent()
-			.ApplyIncludes(likeInclude)
+			.Include(likeInclude)
 			.Match(filter)
 			.GetCountAsync(cancellationToken);
 	}
@@ -74,12 +74,8 @@ internal class PostLikeQueryRepository : IPostLikeQueryRepository
 		PostLikesForUserFilterQuery filter,
 		CancellationToken cancellationToken)
 	{
-		var include = _includeBuilderFactory.Create().WithUser().WithPostLikes().WithPostImages().Build();
-		var likeInclude = _likeIncludeBuilderFactory.Create().WithPost(include).Build();
-
 		return await _collection
 			.AggregateFluent()
-			.ApplyIncludes(likeInclude)
 			.Match(filter)
 			.GetCountAsync(cancellationToken);
 	}
@@ -89,13 +85,13 @@ internal class PostLikeQueryRepository : IPostLikeQueryRepository
 		CurrentUserQuery currentUser,
 		CancellationToken cancellationToken)
 	{
-		var include = _includeBuilderFactory.Create().WithUser().WithPostLikes().WithPostImages().Build();
+		var include = _includeBuilderFactory.Create().WithUser().WithPostLikes().WithPostComments().WithPostImages().Build();
 		var likeInclude = _likeIncludeBuilderFactory.Create().WithUser().WithPost(include).Build();
 
 		return await _collection
 			.AggregateFluent()
-			.ApplyIncludes(likeInclude)
 			.Match(id)
+			.Include(likeInclude)
 			.ProjectToFullResponse(currentUser)
 			.FirstOrDefaultAsync(cancellationToken);
 	}

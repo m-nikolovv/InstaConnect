@@ -78,6 +78,8 @@ internal class PostPresentationMappings : IRegister
 					src.User.Adapt<UserApiResponse>(config),
 					src.PostImages.Adapt<ICollection<PostImageApiResponse>>(config),
 					src.IsLikedByCurrentUser,
+					src.LikeCount,
+					src.CommentCount,
 					src.CreatedAtUtc,
 					src.UpdatedAtUtc));
 

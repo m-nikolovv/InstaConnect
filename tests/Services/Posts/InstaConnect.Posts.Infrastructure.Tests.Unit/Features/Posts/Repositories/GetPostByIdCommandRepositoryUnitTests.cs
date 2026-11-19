@@ -15,7 +15,7 @@ public class GetPostByIdCommandRepositoryUnitTests : BasePostInfrastructureComma
 		_repository = new(Collection, IncludeBuilderFactory);
 
 		Collection.SetupAggregateFluent(PostId, Fluent);
-		Fluent.SetupApplyIncludes(PostId, _include);
+		Fluent.SetupInclude(PostId, _include);
 		Fluent.SetupMatch(PostId);
 		Fluent.SetupFirstOrDefaultAsync(PostId, Post, CancellationToken);
 	}
@@ -41,13 +41,13 @@ public class GetPostByIdCommandRepositoryUnitTests : BasePostInfrastructureComma
 	}
 
 	[Fact]
-	public async Task GetByIdAsync_ShouldCallTheFluentApplyIncludes_WhenCommandIsValid()
+	public async Task GetByIdAsync_ShouldCallTheFluentInclude_WhenCommandIsValid()
 	{
 		// Act
 		await _repository.GetByIdAsync(PostId, _include, CancellationToken);
 
 		// Assert
-		Fluent.ShouldHaveReceivedOneApplyIncludes(PostId, _include);
+		Fluent.ShouldHaveReceivedOneInclude(PostId, _include);
 	}
 
 	[Fact]

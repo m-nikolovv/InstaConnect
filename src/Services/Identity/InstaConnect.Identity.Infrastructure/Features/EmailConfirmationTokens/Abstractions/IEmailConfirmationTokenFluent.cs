@@ -3,9 +3,9 @@ using InstaConnect.Identity.Domain.Features.EmailConfirmationTokens.Models.Value
 
 namespace InstaConnect.Identity.Infrastructure.Features.EmailConfirmationTokens.Abstractions;
 
-public interface IEmailConfirmationTokenFluent : IMongoDbFluent<EmailConfirmationToken>
+public interface IEmailConfirmationTokenFluent : IMongoDbFluent<EmailConfirmationToken, EmailConfirmationTokenId>
 {
 	public IEmailConfirmationTokenFluent Match(EmailConfirmationTokenId filter);
 	public IEmailConfirmationTokenFluent Match(IEnumerable<EmailConfirmationTokenId> filter);
-	public IEmailConfirmationTokenFluent ApplyIncludes(EmailConfirmationTokenInclude include);
+	public IEmailConfirmationTokenFluent Include(EmailConfirmationTokenInclude include);
 }

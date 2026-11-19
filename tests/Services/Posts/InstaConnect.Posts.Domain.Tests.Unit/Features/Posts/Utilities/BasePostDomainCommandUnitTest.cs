@@ -8,7 +8,7 @@ using InstaConnect.Posts.Domain.Tests.Features.PostImages.Utilities;
 
 namespace InstaConnect.Posts.Domain.Tests.Unit.Features.Posts.Utilities;
 
-public abstract class BasePostDomainCommandUnitTest : BasePostTest
+public abstract class BasePostDomainCommandUnitTest : BasePostCommandTest
 {
 	protected IPostFactory Factory { get; }
 

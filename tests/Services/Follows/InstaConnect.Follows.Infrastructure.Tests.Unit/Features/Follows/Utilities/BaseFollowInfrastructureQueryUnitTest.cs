@@ -4,7 +4,7 @@ using InstaConnect.Follows.Tests.Features.Follows.Utilities;
 
 namespace InstaConnect.Follows.Infrastructure.Tests.Unit.Features.Follows.Utilities;
 
-public abstract class BaseFollowInfrastructureQueryUnitTest : BaseFollowTest
+public abstract class BaseFollowInfrastructureQueryUnitTest : BaseFollowQueryTest
 {
 	protected IFollowFluent Fluent { get; }
 

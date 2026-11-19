@@ -1,20 +1,9 @@
 namespace InstaConnect.Identity.Infrastructure.Features.EmailConfirmationTokens.Helpers.Includers;
 
-internal class EmailConfirmationTokenIncluderFactory : IEmailConfirmationTokenIncluderFactory
+internal class EmailConfirmationTokenIncluderFactory
+	: IncluderFactory<IdentityIncludeType, IdentityDestinationType, IdentityIncludeDescriptor, IEmailConfirmationTokenIncluder, EmailConfirmationToken>, IEmailConfirmationTokenIncluderFactory
 {
-	private readonly IEnumerable<IEmailConfirmationTokenIncluder> _includers;
-
-	public EmailConfirmationTokenIncluderFactory(IEnumerable<IEmailConfirmationTokenIncluder> includers)
+	public EmailConfirmationTokenIncluderFactory(IEnumerable<IEmailConfirmationTokenIncluder> includers) : base(includers)
 	{
-		_includers = includers;
-	}
-
-	public IEnumerable<IEmailConfirmationTokenIncluder> Create(ICollection<IdentityIncludeDescriptor> descriptors)
-	{
-		var includers = _includers.Where(s => descriptors.Any(p =>
-														p.IncludeType == s.IncludeType &&
-														p.DestinationType == s.DestinationType));
-
-		return includers;
 	}
 }

@@ -10,11 +10,11 @@ public class GetAllPostsApiRequestBuilder
 	private CommonSortOrder _sortOrder;
 	private PostsSortTerm _sortTerm;
 
-	public GetAllPostsApiRequestBuilder(Post post)
+	public GetAllPostsApiRequestBuilder(Post post, UserId currentUserId)
 	{
 		_userName = DataFaker.GetPrefixString(post.User!.Name.Value);
 		_title = DataFaker.GetPrefixString(post.Title);
-		_currentUserId = post.UserId.Id;
+		_currentUserId = currentUserId.Id;
 		_page = PostDataFaker.GetPage();
 		_pageSize = PostDataFaker.GetPageSize();
 		_sortOrder = DataFaker.GetSortOrder();

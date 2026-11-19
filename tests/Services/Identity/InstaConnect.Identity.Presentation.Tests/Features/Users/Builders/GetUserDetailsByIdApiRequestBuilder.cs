@@ -5,10 +5,10 @@ public class GetUserDetailsByIdApiRequestBuilder
 	private string _id;
 	private string _currentId;
 
-	public GetUserDetailsByIdApiRequestBuilder(User user)
+	public GetUserDetailsByIdApiRequestBuilder(User user, UserId currentId)
 	{
 		_id = user.Id.Id;
-		_currentId = user.Id.Id;
+		_currentId = currentId.Id;
 	}
 
 	public GetUserDetailsByIdApiRequestBuilder WithId(UserId id, IStringTransformer? transformer = null)

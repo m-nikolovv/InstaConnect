@@ -6,11 +6,11 @@ public class GetChatMessageByIdApiRequestBuilder
 	private string _messageId;
 	private string _currentUserId;
 
-	public GetChatMessageByIdApiRequestBuilder(ChatMessage chatMessage)
+	public GetChatMessageByIdApiRequestBuilder(ChatMessage chatMessage, UserId currentUserId)
 	{
 		_participantTwoId = chatMessage.Id.Id.ParticipantTwoId.Id;
 		_messageId = chatMessage.Id.MessageId;
-		_currentUserId = chatMessage.Id.Id.ParticipantOneId.Id;
+		_currentUserId = currentUserId.Id;
 	}
 
 	public GetChatMessageByIdApiRequestBuilder WithParticipantTwoId(UserId participantTwoId, IStringTransformer? transformer = null)

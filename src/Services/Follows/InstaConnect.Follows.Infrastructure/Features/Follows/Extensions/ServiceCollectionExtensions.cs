@@ -1,4 +1,7 @@
+using InstaConnect.Follows.Domain.Features.Follows.Abstractions;
 using InstaConnect.Follows.Infrastructure.Features.Common.Extensions;
+using InstaConnect.Follows.Infrastructure.Features.Follows.Helpers.Repositories;
+using InstaConnect.Follows.Infrastructure.Features.Follows.Models.Options;
 
 namespace InstaConnect.Follows.Infrastructure.Features.Follows.Extensions;
 
@@ -14,14 +17,22 @@ internal static class ServiceCollectionExtensions
 			serviceCollection.AddImplementationsOf<IFollowsForFollowingSortTermer>(FollowsInfrastructureReference.Assembly);
 			serviceCollection.AddImplementationsOf<IFollowIncluder>(FollowsInfrastructureReference.Assembly);
 
-			serviceCollection.AddCollection<Follow>(CollectionName);
+			serviceCollection.AddValidatedOptions<FollowCacheOptions>(FollowCacheOptions.SectionName);
+
+			serviceCollection.AddCollection<Follow, FollowId>(CollectionName);
+
+			serviceCollection.AddScoped<IFollowCommandRepository, FollowCommandRepository>()
+							 .Decorate<IFollowCommandRepository, CachedFollowCommandRepository>();
+
+			serviceCollection.AddScoped<IFollowQueryRepository, FollowQueryRepository>()
+							 .Decorate<IFollowQueryRepository, CachedFollowQueryRepository>();
 
 			BsonClassMap.TryRegisterClassMap<Follow>(cm =>
 			{
 				cm.MapIdMember(c => c.Id);
 
 				cm.MapMember(c => c.Id);
-				cm.MapMember(c => c.CreatedAtUtc);
+				cm.MapDateTimeMember(c => c.CreatedAtUtc);
 
 				cm.MapMemberWithoutSerialization(c => c.Follower);
 				cm.MapMemberWithoutSerialization(c => c.Following);
@@ -30,7 +41,7 @@ internal static class ServiceCollectionExtensions
 					c.Id,
 					c.CreatedAtUtc));
 
-				cm.SetIgnoreExtraElements(true);
+				cm.IgnoreExtraElements();
 			});
 
 			return serviceCollection;

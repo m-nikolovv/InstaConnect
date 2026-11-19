@@ -12,6 +12,10 @@ public interface IPostCommandRepository
 
 	public Task<Post?> GetByIdAsync(PostId id, PostInclude include, CancellationToken cancellationToken);
 
+	public Task<ICollection<Post>> GetByIdRangeAsync(IEnumerable<PostId> ids, CancellationToken cancellationToken);
+
+	public Task<ICollection<Post>> GetByIdRangeAsync(IEnumerable<PostId> ids, PostInclude include, CancellationToken cancellationToken);
+
 	public Task<bool> ExistsByIdAsync(PostId id, CancellationToken cancellationToken);
 
 	public Task UpdateAsync(Post entity, CancellationToken cancellationToken);

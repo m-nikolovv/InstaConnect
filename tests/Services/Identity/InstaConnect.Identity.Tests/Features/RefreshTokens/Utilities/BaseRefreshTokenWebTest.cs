@@ -4,7 +4,7 @@ public abstract class BaseRefreshTokenWebTest : BaseRefreshTokenTest, IClassFixt
 {
 	protected IServiceScope ServiceScope { get; }
 
-	protected BaseRefreshTokenWebTest(IdentityWebApplicationFactory webApplicationFactory) : base(webApplicationFactory.Services.GetPasswordHasher())
+	protected BaseRefreshTokenWebTest(IdentityWebApplicationFactory webApplicationFactory, bool isEmailConfirmed = true) : base(webApplicationFactory.Services.GetPasswordHasher(), isEmailConfirmed)
 	{
 		ServiceScope = webApplicationFactory.Services.CreateScope();
 	}

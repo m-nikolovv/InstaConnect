@@ -1,5 +1,4 @@
 using InstaConnect.Chats.Domain.Features.ChatMessages.Models.Responses;
-using InstaConnect.Chats.Domain.Tests.Features.ChatMessageImages.Utilities;
 using InstaConnect.Common.Tests.Features.Extensions;
 
 namespace InstaConnect.Chats.Domain.Tests.Features.ChatMessages.Utilities;
@@ -17,45 +16,6 @@ public static class ChatMessageMapper
 
 	extension(ChatMessage chatMessage)
 	{
-		internal ChatMessageResponse ToFullResponse()
-		{
-			return new(chatMessage.Id,
-					   chatMessage.Content,
-					   chatMessage.Summary,
-					   chatMessage.SenderId,
-					   chatMessage.Chat?.ToFullResponse(),
-					   chatMessage.Sender?.ToFullResponse(),
-					   chatMessage.ChatMessageImages.ToFullResponse(),
-					   chatMessage.CreatedAtUtc,
-					   chatMessage.UpdatedAtUtc);
-		}
-
-		internal ChatMessageResponse ToResponseWithoutSender()
-		{
-			return new(chatMessage.Id,
-					   chatMessage.Content,
-					   chatMessage.Summary,
-					   chatMessage.SenderId,
-					   chatMessage.Chat?.ToFullResponse(),
-					   null,
-					   chatMessage.ChatMessageImages.ToFullResponse(),
-					   chatMessage.CreatedAtUtc,
-					   chatMessage.UpdatedAtUtc);
-		}
-
-		internal ChatMessageResponse ToResponseWithoutChat()
-		{
-			return new(chatMessage.Id,
-					   chatMessage.Content,
-					   chatMessage.Summary,
-					   chatMessage.SenderId,
-					   null,
-					   chatMessage.Sender?.ToFullResponse(),
-					   chatMessage.ChatMessageImages.ToFullResponse(),
-					   chatMessage.CreatedAtUtc,
-					   chatMessage.UpdatedAtUtc);
-		}
-
 		public ChatMessage To(AddChatMessageCommand command)
 		{
 			return new(

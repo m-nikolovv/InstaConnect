@@ -11,7 +11,7 @@ public class ChatExistsByIdCommandRepositoryIntegrationTests : BaseChatInfrastru
 
 	protected override async Task OnInitializeAsync()
 	{
-		await ServiceScope.AddAsync(Chat, CancellationToken);
+		await ServiceScope.AddAsync(Chat, CurrentUserId, CancellationToken);
 	}
 
 	[Fact]

@@ -21,8 +21,18 @@ public static class PostCommentImageDataFaker
 		return DataFaker.GetSoonDate();
 	}
 
+	public static int GetImageSize()
+	{
+		return DataFaker.GetAverageNumber(PostCommentImageConfigurations.ImageMaxSize);
+	}
+
+	public static int GetImagesCount()
+	{
+		return DataFaker.GetAverageNumber(PostCommentConfigurations.ImagesMaxCount);
+	}
+
 	public static ICollection<IFormFile> GetImages()
 	{
-		return [.. Enumerable.Range(default, DataFaker.GetAverageNumber(PostCommentConfigurations.ImagesMaxCount)).Select(_ => DataFaker.GetAverageFormFile(PostCommentImageConfigurations.ImageMaxSize))];
+		return [.. Enumerable.Range(default, GetImagesCount()).Select(_ => DataFaker.GetFormFile(GetImageSize()))];
 	}
 }

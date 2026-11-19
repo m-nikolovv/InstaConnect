@@ -4,9 +4,11 @@ public static class UserGenerator
 {
 	extension(User baseUser)
 	{
-		public ICollection<User> Generate(int numberOfIterations = 5)
+		public ICollection<User> Generate()
 		{
-			return [baseUser, .. Enumerable.Range(default, numberOfIterations)
+			const int NumberOfIterations = 5;
+
+			return [baseUser, .. Enumerable.Range(default, NumberOfIterations)
 			.Select(_ => new User(new(UserDataFaker.GetId()),
 								  UserDataFaker.GetFirstNameWithPrefix(baseUser.FirstName),
 								  UserDataFaker.GetLastNameWithPrefix(baseUser.LastName),

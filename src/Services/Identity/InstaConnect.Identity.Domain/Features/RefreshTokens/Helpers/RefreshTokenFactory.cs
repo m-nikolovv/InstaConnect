@@ -1,8 +1,6 @@
 using InstaConnect.Common.Domain.Features.Guids.Abstractions;
 using InstaConnect.Identity.Domain.Features.RefreshTokens.Models.Options;
 
-using Microsoft.Extensions.Options;
-
 namespace InstaConnect.Identity.Domain.Features.RefreshTokens.Helpers;
 
 internal class RefreshTokenFactory : IRefreshTokenFactory
@@ -14,11 +12,11 @@ internal class RefreshTokenFactory : IRefreshTokenFactory
 	public RefreshTokenFactory(
 		IGuidProvider guidProvider,
 		IDateTimeProvider dateTimeProvider,
-		IOptions<RefreshTokenOptions> refreshTokenOptions)
+		RefreshTokenOptions refreshTokenOptions)
 	{
 		_guidProvider = guidProvider;
 		_dateTimeProvider = dateTimeProvider;
-		_refreshTokenOptions = refreshTokenOptions.Value;
+		_refreshTokenOptions = refreshTokenOptions;
 	}
 
 	public RefreshToken Create(UserId id)

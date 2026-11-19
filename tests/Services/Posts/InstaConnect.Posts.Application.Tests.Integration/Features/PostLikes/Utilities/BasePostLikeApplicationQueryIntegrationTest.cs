@@ -1,19 +1,11 @@
 namespace InstaConnect.Posts.Application.Tests.Integration.Features.PostLikes.Utilities;
 
-public abstract class BasePostLikeApplicationQueryIntegrationTest : BasePostLikeWebTest
+public abstract class BasePostLikeApplicationQueryIntegrationTest : BasePostLikeWebQueryTest
 {
 	protected IApplicationSender Sender { get; }
 
 	protected BasePostLikeApplicationQueryIntegrationTest(PostsWebApplicationFactory webApplicationFactory) : base(webApplicationFactory)
 	{
 		Sender = ServiceScope.GetSender();
-	}
-
-	public override async Task InitializeAsync()
-	{
-		await ServiceScope.AddRangeAsync(Users, CancellationToken);
-		await ServiceScope.AddRangeAsync(Posts, CancellationToken);
-		await ServiceScope.AddRangeAsync(PostImages, CancellationToken);
-		await OnInitializeAsync();
 	}
 }

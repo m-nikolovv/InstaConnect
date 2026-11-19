@@ -27,7 +27,7 @@ public static class ServiceCollectionExtensions
 				.AddValidations(FollowsPresentationReference.Assembly, CommonPresentationReference.Assembly)
 				.AddAuthorizationPolicies()
 				.AddCorsPolicies(configuration)
-				.AddRateLimiterPolicies()
+				.AddRateLimiterPolicies(configuration)
 				.AddExceptions();
 
 			return serviceCollection;

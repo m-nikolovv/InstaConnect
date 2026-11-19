@@ -19,16 +19,19 @@
 
   <ItemGroup Label="ChatMessageImages">
     <Using Include="InstaConnect.Chats.Domain.Features.ChatMessageImages.Models.Entities" />
+    <Using Include="InstaConnect.Chats.Tests.Features.ChatMessageImages.Utilities" />
   </ItemGroup>
 
   <ItemGroup Label="ChatMessages">
     <Using Include="InstaConnect.Chats.Domain.Features.ChatMessages.Models.Entities" />
     <Using Include="InstaConnect.Chats.Domain.Features.ChatMessages.Models.Requests" />
+    <Using Include="InstaConnect.Chats.Tests.Features.ChatMessages.Utilities" />
   </ItemGroup>
 
   <ItemGroup Label="Chats">
     <Using Include="InstaConnect.Chats.Domain.Features.Chats.Models.Entities" />
     <Using Include="InstaConnect.Chats.Domain.Features.Chats.Models.Requests" />
+    <Using Include="InstaConnect.Chats.Tests.Features.Chats.Utilities" />
   </ItemGroup>
 
 </Project>

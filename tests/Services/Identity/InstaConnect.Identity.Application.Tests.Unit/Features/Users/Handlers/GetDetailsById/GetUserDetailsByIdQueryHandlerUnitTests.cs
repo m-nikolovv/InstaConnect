@@ -13,7 +13,7 @@ public class GetUserDetailsByIdQueryHandlerUnitTests : BaseUserApplicationQueryU
 	public GetUserDetailsByIdQueryHandlerUnitTests()
 	{
 		_requestBuilderFactory = new();
-		_requestBuilder = _requestBuilderFactory.Create(User);
+		_requestBuilder = _requestBuilderFactory.Create(User, CurrentUserId);
 		_request = _requestBuilder.Build();
 
 		_handler = new(Mapper, Service);

@@ -1,4 +1,7 @@
+using InstaConnect.Identity.Domain.Features.ForgotPasswordTokens.Abstractions;
 using InstaConnect.Identity.Domain.Features.ForgotPasswordTokens.Models.Options;
+using InstaConnect.Identity.Domain.Features.ForgotPasswordTokens.Models.ValueObjects;
+using InstaConnect.Identity.Infrastructure.Features.ForgotPasswordTokens.Helpers.Repositories;
 
 namespace InstaConnect.Identity.Infrastructure.Features.ForgotPasswordTokens.Extensions;
 
@@ -14,15 +17,18 @@ internal static class ServiceCollectionExtensions
 
 			serviceCollection.AddImplementationsOf<IForgotPasswordTokenIncluder>(IdentityInfrastructureReference.Assembly);
 
-			serviceCollection.AddCollection<ForgotPasswordToken>(CollectionName);
+			serviceCollection.AddCollection<ForgotPasswordToken, ForgotPasswordTokenId>(CollectionName);
+
+			serviceCollection.AddScoped<IForgotPasswordTokenCommandRepository, ForgotPasswordTokenCommandRepository>()
+							 .Decorate<IForgotPasswordTokenCommandRepository, CachedForgotPasswordTokenCommandRepository>();
 
 			BsonClassMap.TryRegisterClassMap<ForgotPasswordToken>(cm =>
 			{
 				cm.MapIdMember(c => c.Id);
 
 				cm.MapMember(c => c.Id);
-				cm.MapMember(c => c.ExpiresAtUtc);
-				cm.MapMember(c => c.CreatedAtUtc);
+				cm.MapDateTimeMember(c => c.ExpiresAtUtc);
+				cm.MapDateTimeMember(c => c.CreatedAtUtc);
 
 				cm.MapMemberWithoutSerialization(c => c.User);
 
@@ -31,7 +37,7 @@ internal static class ServiceCollectionExtensions
 					c.ExpiresAtUtc,
 					c.CreatedAtUtc));
 
-				cm.SetIgnoreExtraElements(true);
+				cm.IgnoreExtraElements();
 			});
 
 			return serviceCollection;

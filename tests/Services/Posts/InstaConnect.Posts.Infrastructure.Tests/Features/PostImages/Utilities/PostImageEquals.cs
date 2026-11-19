@@ -1,6 +1,5 @@
 using InstaConnect.Posts.Domain.Features.PostImages.Models.Responses;
 using InstaConnect.Posts.Domain.Features.PostImages.Models.ValueObjects;
-using InstaConnect.Posts.Tests.Features.PostImages.Utilities;
 
 namespace InstaConnect.Posts.Infrastructure.Tests.Features.PostImages.Utilities;
 

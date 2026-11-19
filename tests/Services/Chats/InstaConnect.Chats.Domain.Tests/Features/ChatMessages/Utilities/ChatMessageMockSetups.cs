@@ -310,10 +310,18 @@ public static class ChatMessageMockSetups
 			AddChatMessageCommand command,
 			ChatMessage chatMessage)
 		{
+			factory.SetupCreateRange(command, chatMessage, chatMessage.ChatMessageImages);
+		}
+
+		public void SetupCreateRange(
+			AddChatMessageCommand command,
+			ChatMessage chatMessage,
+			ICollection<ChatMessageImage> chatMessageImages)
+		{
 			factory.SetupCreateRange(
 				chatMessage.Id,
 				command.IsImages(),
-				chatMessage.ChatMessageImages.To(command));
+				chatMessageImages.To(command));
 		}
 
 		public void SetupCreateRange(

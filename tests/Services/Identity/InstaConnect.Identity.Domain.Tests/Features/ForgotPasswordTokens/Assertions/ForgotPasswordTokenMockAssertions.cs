@@ -11,9 +11,9 @@ public static class ForgotPasswordTokenMockAssertions
 {
 	extension(IDateTimeProvider dateTimeProvider)
 	{
-		public void ShouldHaveReceivedOneGetOffsetUtcNow(IOptions<ForgotPasswordTokenOptions> forgotPasswordTokenOptions)
+		public void ShouldHaveReceivedOneGetOffsetUtcNow(ForgotPasswordTokenOptions forgotPasswordTokenOptions)
 		{
-			dateTimeProvider.ShouldHaveReceivedOneGetOffsetUtcNow(forgotPasswordTokenOptions.Value.LifetimeSeconds);
+			dateTimeProvider.ShouldHaveReceivedOneGetOffsetUtcNow(forgotPasswordTokenOptions.LifetimeSeconds);
 		}
 
 		public void ShouldHaveReceivedOneGetOffsetUtcNow(VerifyForgotPasswordTokenCommand command)

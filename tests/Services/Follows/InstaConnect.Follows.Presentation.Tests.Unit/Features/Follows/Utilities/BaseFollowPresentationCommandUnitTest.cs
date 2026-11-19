@@ -3,7 +3,7 @@ using InstaConnect.Follows.Tests.Features.Follows.Utilities;
 
 namespace InstaConnect.Follows.Presentation.Tests.Unit.Features.Follows.Utilities;
 
-public abstract class BaseFollowPresentationCommandUnitTest : BaseFollowTest
+public abstract class BaseFollowPresentationCommandUnitTest : BaseFollowCommandTest
 {
 	protected IApplicationSender Sender { get; }
 

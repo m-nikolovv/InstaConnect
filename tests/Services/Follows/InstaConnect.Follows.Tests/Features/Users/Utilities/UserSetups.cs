@@ -1,6 +1,8 @@
 using InstaConnect.Common.Domain.Features.ValueObjects.Models;
 using InstaConnect.Follows.Domain.Features.Follows.Abstractions;
 using InstaConnect.Follows.Domain.Features.Users.Abstractions;
+using InstaConnect.Follows.Infrastructure.Features.Users.Abstractions;
+using InstaConnect.Follows.Infrastructure.Features.Users.Helpers.Repositories;
 
 namespace InstaConnect.Follows.Tests.Features.Users.Utilities;
 
@@ -10,10 +12,22 @@ public static class UserSetups
 	{
 		public IUserQueryRepository GetUserQueryRepository()
 		{
+			return new UserQueryRepository(serviceProvider.GetUserCollection());
+		}
+
+		public IUserQueryRepository GetCachedUserQueryRepository()
+		{
 			return serviceProvider.GetRequiredService<IUserQueryRepository>();
 		}
 
 		public IUserCommandRepository GetUserCommandRepository()
+		{
+			return new UserCommandRepository(
+				serviceProvider.GetUserCollection(),
+				serviceProvider.GetUserIncludeBuilderFactory());
+		}
+
+		public IUserCommandRepository GetCachedUserCommandRepository()
 		{
 			return serviceProvider.GetRequiredService<IUserCommandRepository>();
 		}
@@ -32,6 +46,16 @@ public static class UserSetups
 		{
 			return serviceProvider.GetRequiredService<IFollowFollowingIncludeBuilderFactory>();
 		}
+
+		public IUserCollection GetUserCollection()
+		{
+			return serviceProvider.GetRequiredService<IUserCollection>();
+		}
+
+		public IUserCacheHandler GetUserCacheHandler()
+		{
+			return serviceProvider.GetRequiredService<IUserCacheHandler>();
+		}
 	}
 
 	extension(IServiceScope serviceScope)
@@ -41,9 +65,19 @@ public static class UserSetups
 			return serviceScope.ServiceProvider.GetUserQueryRepository();
 		}
 
+		public IUserQueryRepository GetCachedUserQueryRepository()
+		{
+			return serviceScope.ServiceProvider.GetCachedUserQueryRepository();
+		}
+
 		public IUserCommandRepository GetUserCommandRepository()
 		{
 			return serviceScope.ServiceProvider.GetUserCommandRepository();
+		}
+
+		public IUserCommandRepository GetCachedUserCommandRepository()
+		{
+			return serviceScope.ServiceProvider.GetCachedUserCommandRepository();
 		}
 
 		public IUserIncludeBuilderFactory GetUserIncludeBuilderFactory()
@@ -61,14 +95,16 @@ public static class UserSetups
 			return serviceScope.ServiceProvider.GetFollowFollowingIncludeBuilderFactory();
 		}
 
+		public IUserCacheHandler GetUserCacheHandler()
+		{
+			return serviceScope.ServiceProvider.GetUserCacheHandler();
+		}
+
 		public async Task<User?> GetByIdAsync(
 			UserId id,
 			CancellationToken cancellationToken)
 		{
-			var followFollowerInclude = serviceScope.GetFollowFollowerIncludeBuilderFactory().Create().WithFollower().Build();
-			var followFollowingInclude = serviceScope.GetFollowFollowingIncludeBuilderFactory().Create().WithFollowing().Build();
-
-			var include = serviceScope.GetUserIncludeBuilderFactory().Create().WithFollowFollowers(followFollowerInclude).WithFollowFollowings(followFollowingInclude).Build();
+			var include = serviceScope.GetUserIncludeBuilderFactory().Create().WithFollowers().WithFollowings().Build();
 
 			return (await serviceScope.GetUserCommandRepository().GetByIdAsync(id, include, cancellationToken)).SetFollowFollowers().SetFollowFollowings();
 		}
@@ -77,10 +113,7 @@ public static class UserSetups
 			Name name,
 			CancellationToken cancellationToken)
 		{
-			var followFollowerInclude = serviceScope.GetFollowFollowerIncludeBuilderFactory().Create().WithFollower().Build();
-			var followFollowingInclude = serviceScope.GetFollowFollowingIncludeBuilderFactory().Create().WithFollowing().Build();
-
-			var include = serviceScope.GetUserIncludeBuilderFactory().Create().WithFollowFollowers(followFollowerInclude).WithFollowFollowings(followFollowingInclude).Build();
+			var include = serviceScope.GetUserIncludeBuilderFactory().Create().WithFollowers().WithFollowings().Build();
 
 			return (await serviceScope.GetUserCommandRepository().GetByNameAsync(name, include, cancellationToken)).SetFollowFollowers().SetFollowFollowings();
 		}
@@ -89,33 +122,44 @@ public static class UserSetups
 			Email email,
 			CancellationToken cancellationToken)
 		{
-			var followFollowerInclude = serviceScope.GetFollowFollowerIncludeBuilderFactory().Create().WithFollower().Build();
-			var followFollowingInclude = serviceScope.GetFollowFollowingIncludeBuilderFactory().Create().WithFollowing().Build();
-
-			var include = serviceScope.GetUserIncludeBuilderFactory().Create().WithFollowFollowers(followFollowerInclude).WithFollowFollowings(followFollowingInclude).Build();
+			var include = serviceScope.GetUserIncludeBuilderFactory().Create().WithFollowers().WithFollowings().Build();
 
 			return (await serviceScope.GetUserCommandRepository().GetByEmailAsync(email, include, cancellationToken)).SetFollowFollowers().SetFollowFollowings();
 		}
 
 		public async Task AddAsync(
 			User user,
+			UserId currentUserId,
 			CancellationToken cancellationToken)
 		{
-			await serviceScope.GetUserCommandRepository().AddAsync(user, cancellationToken);
+			var cacheHandler = serviceScope.GetUserCacheHandler();
+			var userRepository = serviceScope.GetUserCommandRepository();
+
+			await userRepository.AddAsync(user, cancellationToken);
+			await cacheHandler.AddAsync(user.ToFullResponse(), currentUserId, cancellationToken);
 		}
 
 		public async Task AddRangeAsync(
-			IEnumerable<User> users,
+			ICollection<User> users,
+			UserId currentUserId,
 			CancellationToken cancellationToken)
 		{
-			await serviceScope.GetUserCommandRepository().AddRangeAsync(users, cancellationToken);
+			var cacheHandler = serviceScope.GetUserCacheHandler();
+			var userRepository = serviceScope.GetUserCommandRepository();
+
+			await userRepository.AddRangeAsync(users, cancellationToken);
+			await cacheHandler.AddRangeAsync(users.ToFullResponse(), currentUserId, cancellationToken);
 		}
 
 		public async Task DeleteAsync(
 			User user,
 			CancellationToken cancellationToken)
 		{
-			await serviceScope.GetUserCommandRepository().DeleteAsync(user, cancellationToken);
+			var cacheHandler = serviceScope.GetUserCacheHandler();
+			var userRepository = serviceScope.GetUserCommandRepository();
+
+			await userRepository.DeleteAsync(user, cancellationToken);
+			await cacheHandler.DeleteAsync(user.Id, cancellationToken);
 		}
 	}
 }

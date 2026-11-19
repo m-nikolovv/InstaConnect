@@ -10,13 +10,8 @@ public class GetPostCommentByIdQueryServiceIntegrationTests : BasePostCommentDom
 		: base(webApplicationFactory)
 	{
 		_queryBuilderFactory = new();
-		_queryBuilder = _queryBuilderFactory.Create(PostComment);
+		_queryBuilder = _queryBuilderFactory.Create(PostComment, CurrentUserId);
 		_query = _queryBuilder.Build();
-	}
-
-	protected override async Task OnInitializeAsync()
-	{
-		await ServiceScope.AddAsync(PostComment, CancellationToken);
 	}
 
 	[Fact]

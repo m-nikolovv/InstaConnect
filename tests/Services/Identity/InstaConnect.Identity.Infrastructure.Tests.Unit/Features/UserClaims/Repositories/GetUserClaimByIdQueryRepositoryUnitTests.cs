@@ -24,7 +24,7 @@ public class GetUserClaimByIdQueryRepositoryUnitTests : BaseUserClaimInfrastruct
 		_repository = new(Collection, IncludeBuilderFactory);
 
 		Collection.SetupAggregateFluent(UserClaimId, _currentUserQuery, Fluent);
-		Fluent.SetupApplyIncludes(UserClaimId, _currentUserQuery, _include);
+		Fluent.SetupInclude(UserClaimId, _currentUserQuery, _include);
 		Fluent.SetupMatch(UserClaimId, _currentUserQuery);
 		Fluent.SetupProjectToFullResponse(UserClaimId, _currentUserQuery, ResponseFluent);
 		ResponseFluent.SetupFirstOrDefaultAsync(UserClaimId, _currentUserQuery, UserClaim, CancellationToken);
@@ -51,13 +51,13 @@ public class GetUserClaimByIdQueryRepositoryUnitTests : BaseUserClaimInfrastruct
 	}
 
 	[Fact]
-	public async Task GetByIdAsync_ShouldCallTheFluentApplyIncludes_WhenQueryIsValid()
+	public async Task GetByIdAsync_ShouldCallTheFluentInclude_WhenQueryIsValid()
 	{
 		// Act
 		await _repository.GetByIdAsync(UserClaimId, _currentUserQuery, CancellationToken);
 
 		// Assert
-		Fluent.ShouldHaveReceivedOneApplyIncludes(UserClaimId, _currentUserQuery, _include);
+		Fluent.ShouldHaveReceivedOneInclude(UserClaimId, _currentUserQuery, _include);
 	}
 
 	[Fact]

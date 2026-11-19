@@ -4,7 +4,7 @@ using InstaConnect.Chats.Tests.Features.Chats.Utilities;
 
 namespace InstaConnect.Chats.Infrastructure.Tests.Unit.Features.Chats.Utilities;
 
-public abstract class BaseChatInfrastructureCommandUnitTest : BaseChatTest
+public abstract class BaseChatInfrastructureCommandUnitTest : BaseChatCommandTest
 {
 	protected IChatFluent Fluent { get; }
 

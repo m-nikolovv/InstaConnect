@@ -10,11 +10,11 @@ public class GetAllFollowsForFollowingApiRequestBuilder
 	private CommonSortOrder _sortOrder;
 	private FollowsForFollowingSortTerm _sortTerm;
 
-	public GetAllFollowsForFollowingApiRequestBuilder(Follow follow)
+	public GetAllFollowsForFollowingApiRequestBuilder(Follow follow, UserId currentUserId)
 	{
 		_followingId = follow.Id.FollowingId.Id;
 		_followerName = DataFaker.GetPrefixString(follow.Follower!.Name.Value);
-		_currentUserId = follow.Id.FollowingId.Id;
+		_currentUserId = currentUserId.Id;
 		_page = FollowDataFaker.GetPage();
 		_pageSize = FollowDataFaker.GetPageSize();
 		_sortOrder = DataFaker.GetSortOrder();

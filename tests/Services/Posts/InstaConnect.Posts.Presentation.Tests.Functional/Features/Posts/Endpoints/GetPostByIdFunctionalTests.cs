@@ -10,13 +10,8 @@ public class GetPostByIdFunctionalTests : BasePostPresentationQueryFunctionalTes
 		: base(webApplicationFactory)
 	{
 		_requestBuilderFactory = new();
-		_requestBuilder = _requestBuilderFactory.Create(Post);
+		_requestBuilder = _requestBuilderFactory.Create(Post, CurrentUserId);
 		_request = _requestBuilder.Build();
-	}
-
-	protected override async Task OnInitializeAsync()
-	{
-		await ServiceScope.AddAsync(Post, CancellationToken);
 	}
 
 	[Theory]

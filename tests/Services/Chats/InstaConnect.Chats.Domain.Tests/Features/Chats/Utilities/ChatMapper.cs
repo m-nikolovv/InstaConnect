@@ -1,6 +1,4 @@
 using InstaConnect.Chats.Domain.Features.Users.Models.Responses;
-using InstaConnect.Chats.Domain.Tests.Features.ChatMessageImages.Utilities;
-
 namespace InstaConnect.Chats.Domain.Tests.Features.Chats.Utilities;
 
 public static class ChatMapper
@@ -16,22 +14,6 @@ public static class ChatMapper
 
 	extension(Chat chat)
 	{
-		internal ChatResponse ToFullResponse()
-		{
-			return new(chat.Id,
-					   chat.ParticipantOne?.ToFullResponse(),
-					   chat.ParticipantTwo?.ToFullResponse(),
-					   chat.CreatedAtUtc);
-		}
-
-		internal ChatResponse ToResponseWithoutParticipantOne()
-		{
-			return new(chat.Id,
-					   null,
-					   chat.ParticipantTwo?.ToFullResponse(),
-					   chat.CreatedAtUtc);
-		}
-
 		public Chat To(AddChatCommand command)
 		{
 			return new(

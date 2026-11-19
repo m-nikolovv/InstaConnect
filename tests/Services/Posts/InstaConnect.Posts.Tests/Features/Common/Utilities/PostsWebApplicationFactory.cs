@@ -10,17 +10,20 @@ using Microsoft.AspNetCore.TestHost;
 
 using Testcontainers.Kafka;
 using Testcontainers.MongoDb;
+using Testcontainers.Redis;
 
 namespace InstaConnect.Posts.Tests.Features.Common.Utilities;
 
 public class PostsWebApplicationFactory : WebApplicationFactory<Program>, IAsyncLifetime
 {
 	private readonly KafkaContainer _kafkaContainer;
+	private readonly RedisContainer _redisContainer;
 	private readonly MongoDbContainer _mongoDbContainer;
 
 	public PostsWebApplicationFactory()
 	{
 		_kafkaContainer = ContainerFactory.GetKafkaContainer();
+		_redisContainer = ContainerFactory.GetRedisContainer();
 		_mongoDbContainer = ContainerFactory.GetMongoDbContainer();
 	}
 
@@ -31,10 +34,11 @@ public class PostsWebApplicationFactory : WebApplicationFactory<Program>, IAsync
 			serviceCollection.AddMockImageHandler();
 			serviceCollection.AddPostMockSummarizer();
 			serviceCollection.AddPostCommentMockSummarizer();
-			serviceCollection.AddTestEventClient((context, kafkaConfigurator, consumerOptions) => kafkaConfigurator.MapUserEventHandler(context, PostsEventHandlerUtilities.Prefix.GetTest(), consumerOptions), PostsInfrastructureReference.Assembly);
+			serviceCollection.AddTestEventClient((context, kafkaConfigurator) => kafkaConfigurator.MapUserEventHandler(context, PostsEventHandlerUtilities.Prefix.GetTest()), PostsInfrastructureReference.Assembly);
 		});
 
 		builder.UpdateKafkaConfiguration(_kafkaContainer.GetBootstrapServers());
+		builder.UpdateRedisConfiguration(_redisContainer.GetConnectionString());
 		builder.UpdateMongoConfiguration(_mongoDbContainer.GetConnectionString());
 		builder.UpdateAccessTokenConfiguration();
 		builder.UpdateCloudinaryConfiguration();
@@ -47,12 +51,14 @@ public class PostsWebApplicationFactory : WebApplicationFactory<Program>, IAsync
 	public async Task InitializeAsync()
 	{
 		await _kafkaContainer.StartAsync();
+		await _redisContainer.StartAsync();
 		await _mongoDbContainer.StartAsync();
 	}
 
 	public new async Task DisposeAsync()
 	{
 		await _kafkaContainer.DisposeAsync().AsTask();
+		await _redisContainer.DisposeAsync().AsTask();
 		await _mongoDbContainer.DisposeAsync().AsTask();
 	}
 }

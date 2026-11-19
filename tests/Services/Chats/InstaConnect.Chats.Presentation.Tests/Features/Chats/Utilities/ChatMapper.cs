@@ -23,6 +23,7 @@ public static class ChatMapper
 					   chat.Id.ParticipantTwoId.Id,
 					   chat.ParticipantOne?.ToFullQueryResponse(),
 					   chat.ParticipantTwo?.ToFullQueryResponse(),
+					   chat.ChatMessages.Count,
 					   chat.CreatedAtUtc);
 		}
 
@@ -32,6 +33,7 @@ public static class ChatMapper
 					   chat.Id.ParticipantTwoId.Id,
 					   null,
 					   chat.ParticipantTwo?.ToFullQueryResponse(),
+					   chat.ChatMessages.Count,
 					   chat.CreatedAtUtc);
 		}
 
@@ -41,6 +43,7 @@ public static class ChatMapper
 					   chat.Id.ParticipantTwoId.Id,
 					   chat.ParticipantOne?.ToFullQueryResponse(),
 					   null,
+					   chat.ChatMessages.Count,
 					   chat.CreatedAtUtc);
 		}
 

@@ -4,7 +4,7 @@ using InstaConnect.Chats.Tests.Features.Users.Utilities;
 
 namespace InstaConnect.Chats.Infrastructure.Tests.Unit.Features.Users.Utilities;
 
-public abstract class BaseUserInfrastructureCommandUnitTest : BaseUserTest
+public abstract class BaseUserInfrastructureCommandUnitTest : BaseUserCommandTest
 {
 	protected IUserFluent Fluent { get; }
 

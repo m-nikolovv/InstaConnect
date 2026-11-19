@@ -1,3 +1,5 @@
+using InstaConnect.Posts.Infrastructure.Tests.Features.PostCommentImages.Assertions;
+
 namespace InstaConnect.Posts.Infrastructure.Tests.Unit.Features.PostCommentImages.Repositories;
 
 public class AddPostCommentImageCommandRepositoryUnitTests : BasePostCommentImageInfrastructureCommandUnitTest

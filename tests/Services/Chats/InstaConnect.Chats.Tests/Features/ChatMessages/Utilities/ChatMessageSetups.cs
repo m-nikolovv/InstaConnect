@@ -1,4 +1,6 @@
 using InstaConnect.Chats.Domain.Features.ChatMessages.Abstractions;
+using InstaConnect.Chats.Infrastructure.Features.ChatMessages.Abstractions;
+using InstaConnect.Chats.Infrastructure.Features.ChatMessages.Helpers.Repositories;
 using InstaConnect.Chats.Tests.Features.ChatMessageImages.Utilities;
 
 namespace InstaConnect.Chats.Tests.Features.ChatMessages.Utilities;
@@ -9,10 +11,25 @@ public static class ChatMessageSetups
 	{
 		public IChatMessageQueryRepository GetMessageQueryRepository()
 		{
+			return new ChatMessageQueryRepository(
+				serviceProvider.GetMessageCollection(),
+				serviceProvider.GetIncludeBuilderFactory(),
+				serviceProvider.GetMessageIncludeBuilderFactory());
+		}
+
+		public IChatMessageQueryRepository GetCachedMessageQueryRepository()
+		{
 			return serviceProvider.GetRequiredService<IChatMessageQueryRepository>();
 		}
 
 		public IChatMessageCommandRepository GetMessageCommandRepository()
+		{
+			return new ChatMessageCommandRepository(
+				serviceProvider.GetMessageCollection(),
+				serviceProvider.GetMessageIncludeBuilderFactory());
+		}
+
+		public IChatMessageCommandRepository GetCachedMessageCommandRepository()
 		{
 			return serviceProvider.GetRequiredService<IChatMessageCommandRepository>();
 		}
@@ -20,6 +37,16 @@ public static class ChatMessageSetups
 		public IChatMessageIncludeBuilderFactory GetMessageIncludeBuilderFactory()
 		{
 			return serviceProvider.GetRequiredService<IChatMessageIncludeBuilderFactory>();
+		}
+
+		public IChatMessageCollection GetMessageCollection()
+		{
+			return serviceProvider.GetRequiredService<IChatMessageCollection>();
+		}
+
+		public IChatMessageCacheHandler GetMessageCacheHandler()
+		{
+			return serviceProvider.GetRequiredService<IChatMessageCacheHandler>();
 		}
 	}
 
@@ -30,14 +57,29 @@ public static class ChatMessageSetups
 			return serviceScope.ServiceProvider.GetMessageQueryRepository();
 		}
 
+		public IChatMessageQueryRepository GetCachedMessageQueryRepository()
+		{
+			return serviceScope.ServiceProvider.GetCachedMessageQueryRepository();
+		}
+
 		public IChatMessageCommandRepository GetMessageCommandRepository()
 		{
 			return serviceScope.ServiceProvider.GetMessageCommandRepository();
 		}
 
+		public IChatMessageCommandRepository GetCachedMessageCommandRepository()
+		{
+			return serviceScope.ServiceProvider.GetCachedMessageCommandRepository();
+		}
+
 		public IChatMessageIncludeBuilderFactory GetMessageIncludeBuilderFactory()
 		{
 			return serviceScope.ServiceProvider.GetMessageIncludeBuilderFactory();
+		}
+
+		public IChatMessageCacheHandler GetMessageCacheHandler()
+		{
+			return serviceScope.ServiceProvider.GetMessageCacheHandler();
 		}
 
 		public async Task<ChatMessage?> GetByIdAsync(
@@ -50,32 +92,78 @@ public static class ChatMessageSetups
 			return (await serviceScope.GetMessageCommandRepository().GetByIdAsync(id, messageInclude, cancellationToken)).SetSender().SetChat().SetChatMessageImages();
 		}
 
-		public async Task AddAsync(
-			ChatMessage chatMessage,
+		public async Task<ICollection<ChatMessage>> GetByIdRangeAsync(
+			IEnumerable<ChatMessageId> ids,
 			CancellationToken cancellationToken)
 		{
-			await serviceScope.GetMessageCommandRepository().AddAsync(chatMessage, cancellationToken);
+			var include = serviceScope.GetIncludeBuilderFactory().Create().WithParticipantOne().WithParticipantTwo().Build();
+			var messageInclude = serviceScope.GetMessageIncludeBuilderFactory().Create().WithSender().WithChat(include).WithChatMessageImages().Build();
+
+			return (await serviceScope.GetMessageCommandRepository().GetByIdRangeAsync(ids, messageInclude, cancellationToken)).SetSender().SetChat().SetChatMessageImages();
+		}
+
+		public async Task AddAsync(
+			ChatMessage chatMessage,
+			UserId currentUserId,
+			CancellationToken cancellationToken)
+		{
+			var messageCacheHandler = serviceScope.GetMessageCacheHandler();
+			var messageRepository = serviceScope.GetMessageCommandRepository();
+
+			await messageRepository.AddAsync(chatMessage, cancellationToken);
+			await messageCacheHandler.AddAsync(chatMessage.ToFullResponse(), currentUserId, cancellationToken);
 		}
 
 		public async Task AddRangeAsync(
-			IEnumerable<ChatMessage> chatMessages,
+			ICollection<ChatMessage> chatMessages,
+			UserId currentUserId,
 			CancellationToken cancellationToken)
 		{
-			await serviceScope.GetMessageCommandRepository().AddRangeAsync(chatMessages, cancellationToken);
+			var messageCacheHandler = serviceScope.GetMessageCacheHandler();
+			var messageRepository = serviceScope.GetMessageCommandRepository();
+
+			await messageRepository.AddRangeAsync(chatMessages, cancellationToken);
+			await messageCacheHandler.AddRangeAsync(chatMessages.ToFullResponse(), currentUserId, cancellationToken);
 		}
 
 		public async Task UpdateAsync(
 			ChatMessage chatMessage,
 			CancellationToken cancellationToken)
 		{
-			await serviceScope.GetMessageCommandRepository().UpdateAsync(chatMessage, cancellationToken);
+			var messageCacheHandler = serviceScope.GetMessageCacheHandler();
+			var messageRepository = serviceScope.GetMessageCommandRepository();
+
+			await messageRepository.UpdateAsync(chatMessage, cancellationToken);
+			await messageCacheHandler.DeleteAsync(chatMessage.Id, cancellationToken);
 		}
 
 		public async Task DeleteAsync(
 			ChatMessage chatMessage,
 			CancellationToken cancellationToken)
 		{
-			await serviceScope.GetMessageCommandRepository().DeleteAsync(chatMessage, cancellationToken);
+			var cacheHandler = serviceScope.GetCacheHandler();
+			var messageCacheHandler = serviceScope.GetMessageCacheHandler();
+			var messageRepository = serviceScope.GetMessageCommandRepository();
+
+			await messageRepository.DeleteAsync(chatMessage, cancellationToken);
+			await cacheHandler.DeleteResponseAsync(chatMessage.Id.Id, cancellationToken);
+			await messageCacheHandler.DeleteAsync(chatMessage.Id, cancellationToken);
+		}
+
+		public async Task DeleteRangeAsync(
+			IEnumerable<ChatMessage> chatMessages,
+			CancellationToken cancellationToken)
+		{
+			var cacheHandler = serviceScope.GetCacheHandler();
+			var messageCacheHandler = serviceScope.GetMessageCacheHandler();
+			var messageRepository = serviceScope.GetMessageCommandRepository();
+
+			foreach (var chatMessage in chatMessages)
+			{
+				await messageRepository.DeleteAsync(chatMessage, cancellationToken);
+				await cacheHandler.DeleteResponseAsync(chatMessage.Id.Id, cancellationToken);
+				await messageCacheHandler.DeleteAsync(chatMessage.Id, cancellationToken);
+			}
 		}
 	}
 }

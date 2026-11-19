@@ -14,7 +14,7 @@ public class GetPostCommentByIdCommandRepositoryIntegrationTests : BasePostComme
 
 	protected override async Task OnInitializeAsync()
 	{
-		await ServiceScope.AddAsync(PostComment, CancellationToken);
+		await ServiceScope.AddAsync(PostComment, CurrentUserId, CancellationToken);
 	}
 
 	[Fact]

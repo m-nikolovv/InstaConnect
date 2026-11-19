@@ -35,17 +35,16 @@ public static class ServiceCollectionExtensions
 				.AddTelemetries(configuration, webHostEnvironment)
 				.AddMappers(FollowsInfrastructureReference.Assembly)
 				.AddValidations(FollowsInfrastructureReference.Assembly, CommonInfrastructureReference.Assembly)
-				.AddServicesWithMatchingInterfacesExceptFluents(FollowsInfrastructureReference.Assembly)
-				.AddDatabases(configuration)
-				.AddEvents(configuration, riderConfigurator => riderConfigurator.MapFollowEventProducer(), (context, kafkaConfigurator, consumerOptions) => kafkaConfigurator.MapUserEventHandler(context, FollowsEventHandlerUtilities.Prefix, consumerOptions), FollowsInfrastructureReference.Assembly)
+				.AddServicesWithMatchingInterfaces(FollowsInfrastructureReference.Assembly)
+				.AddDatabases(configuration, FollowsInfrastructureReference.Assembly, CommonInfrastructureReference.Assembly)
+				.AddEvents(configuration, riderConfigurator => riderConfigurator.MapFollowEventProducer(), (context, kafkaConfigurator) => kafkaConfigurator.MapUserEventHandler(context, FollowsEventHandlerUtilities.Prefix), FollowsInfrastructureReference.Assembly)
 				.AddOutboxEvents()
 				.AddAccessTokens(configuration)
 				.AddCaches(configuration)
 				.AddHubs(configuration)
 				.AddJsons()
 				.AddGuids()
-				.AddDateTimes()
-				.AddDatabaseSortOrders();
+				.AddDateTimes();
 
 			return serviceCollection;
 		}

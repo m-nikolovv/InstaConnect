@@ -5,10 +5,10 @@ public class GetUserByIdQueryBuilder
 	private string _id;
 	private string _currentUserId;
 
-	public GetUserByIdQueryBuilder(User user)
+	public GetUserByIdQueryBuilder(User user, UserId currentUserId)
 	{
 		_id = user.Id.Id;
-		_currentUserId = user.Id.Id;
+		_currentUserId = currentUserId.Id;
 	}
 
 	public GetUserByIdQueryBuilder WithId(UserId id, IStringTransformer? transformer = null)

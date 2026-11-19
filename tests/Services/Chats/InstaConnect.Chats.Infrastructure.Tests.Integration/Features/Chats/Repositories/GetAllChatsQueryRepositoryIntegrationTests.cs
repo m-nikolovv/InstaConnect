@@ -56,11 +56,6 @@ public class GetAllChatsQueryRepositoryIntegrationTests : BaseChatInfrastructure
 		_invertedCurrentUserQuery = _invertedCurrentUserQueryBuilder.Build();
 	}
 
-	protected override async Task OnInitializeAsync()
-	{
-		await ServiceScope.AddRangeAsync(Chats, CancellationToken);
-	}
-
 	[Fact]
 	public async Task GetAllAsync_ShouldReturnResponse_WhenQueryIsValid()
 	{

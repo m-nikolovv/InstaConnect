@@ -1,20 +1,9 @@
 namespace InstaConnect.Posts.Infrastructure.Features.Users.Helpers.Includers;
 
-internal class UserIncluderFactory : IUserIncluderFactory
+internal class UserIncluderFactory
+	: IncluderFactory<PostsIncludeType, PostsDestinationType, PostsIncludeDescriptor, IUserIncluder, User>, IUserIncluderFactory
 {
-	private readonly IEnumerable<IUserIncluder> _includers;
-
-	public UserIncluderFactory(IEnumerable<IUserIncluder> includers)
+	public UserIncluderFactory(IEnumerable<IUserIncluder> includers) : base(includers)
 	{
-		_includers = includers;
-	}
-
-	public IEnumerable<IUserIncluder> Create(ICollection<PostsIncludeDescriptor> descriptors)
-	{
-		var includers = _includers.Where(s => descriptors.Any(p =>
-														p.IncludeType == s.IncludeType &&
-														p.DestinationType == s.DestinationType));
-
-		return includers;
 	}
 }

@@ -25,7 +25,7 @@ public class AddChatMessageCommandServiceUnitTests : BaseChatMessageDomainComman
 
 		Repository.SetupGetByIdAsync(_command, _include, Chat, CancellationToken);
 		Factory.SetupCreate(_command, ChatMessage);
-		MessageImageFactory.SetupCreateRange(_command, ChatMessage);
+		MessageImageFactory.SetupCreateRange(_command, ChatMessage, ChatMessageChatMessageImages);
 	}
 
 	[Fact]

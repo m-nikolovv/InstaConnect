@@ -23,9 +23,9 @@ public static class EmailConfirmationTokenMockSetups
 
 		public void SetupGetOffsetUtcNow(
 			EmailConfirmationToken emailConfirmationToken,
-			IOptions<EmailConfirmationTokenOptions> emailConfirmationTokenOptions)
+			EmailConfirmationTokenOptions emailConfirmationTokenOptions)
 		{
-			dateTimeProvider.SetupGetOffsetUtcNow(emailConfirmationTokenOptions.Value.LifetimeSeconds, emailConfirmationToken.ExpiresAtUtc);
+			dateTimeProvider.SetupGetOffsetUtcNow(emailConfirmationTokenOptions.LifetimeSeconds, emailConfirmationToken.ExpiresAtUtc);
 		}
 
 		public void SetupGetOffsetUtcNow(VerifyEmailConfirmationTokenCommand command, DateTimeOffset utcNow)

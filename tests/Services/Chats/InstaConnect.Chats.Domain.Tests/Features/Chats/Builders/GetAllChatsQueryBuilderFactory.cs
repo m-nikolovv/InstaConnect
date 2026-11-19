@@ -2,8 +2,8 @@ namespace InstaConnect.Chats.Domain.Tests.Features.Chats.Builders;
 
 public class GetAllChatsQueryBuilderFactory
 {
-	public GetAllChatsQueryBuilder Create(Chat chat)
+	public GetAllChatsQueryBuilder Create(Chat chat, UserId currentUserId)
 	{
-		return new(chat);
+		return new(chat, currentUserId);
 	}
 }

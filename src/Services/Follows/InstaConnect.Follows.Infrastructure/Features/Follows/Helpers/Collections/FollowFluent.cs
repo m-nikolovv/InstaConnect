@@ -2,44 +2,53 @@ using InstaConnect.Follows.Infrastructure.Features.Follows.Extensions;
 
 namespace InstaConnect.Follows.Infrastructure.Features.Follows.Helpers.Collections;
 
-internal class FollowFluent : MongoDbFluent<Follow>, IFollowFluent
+internal class FollowFluent : IFollowFluent
 {
 	private readonly IFollowIncluderFactory _includerFactory;
 	private readonly IFollowResponseFluentFactory _responseFluentFactory;
+	private readonly IMongoDbFluentHandler<Follow, FollowId> _fluentHandler;
 
 	public FollowFluent(
-		IAggregateFluent<Follow> fluent,
 		IFollowIncluderFactory includerFactory,
-		IFollowResponseFluentFactory responseFluentFactory) : base(fluent)
+		IFollowResponseFluentFactory responseFluentFactory,
+		IMongoDbFluentHandler<Follow, FollowId> fluentHandler)
 	{
+		_fluentHandler = fluentHandler;
 		_includerFactory = includerFactory;
 		_responseFluentFactory = responseFluentFactory;
 	}
 
-	public IFollowFluent ApplyIncludes(FollowInclude include)
+	public IFollowFluent Include(FollowInclude include)
 	{
-		ApplyIncludes(_includerFactory, include);
+		_fluentHandler.Include(_includerFactory, include);
 
 		return this;
 	}
 
 	public IFollowFluent Match(FollowsFilterQuery filter)
 	{
-		Match(filter.GetFilter());
+		_fluentHandler.Match(filter.GetFilter());
 
 		return this;
 	}
 
 	public IFollowFluent Match(FollowsForFollowingFilterQuery filter)
 	{
-		Match(filter.GetFilter());
+		_fluentHandler.Match(filter.GetFilter());
 
 		return this;
 	}
 
 	public IFollowFluent Match(FollowId filter)
 	{
-		Match(filter.GetFilter());
+		_fluentHandler.Match(filter.GetFilter());
+
+		return this;
+	}
+
+	public IFollowFluent Match(IEnumerable<FollowId> filter)
+	{
+		_fluentHandler.Match(filter.GetFilter());
 
 		return this;
 	}
@@ -70,7 +79,7 @@ internal class FollowFluent : MongoDbFluent<Follow>, IFollowFluent
 					 p.Following.UpdatedAtUtc),
 				 p.Id.FollowerId.Id.ToLower() == currentUserId,
 				 p.CreatedAtUtc));
-		var fluent = Project(projection);
+		var fluent = _fluentHandler.Project(projection);
 
 		return _responseFluentFactory.Create(fluent);
 	}
@@ -93,7 +102,7 @@ internal class FollowFluent : MongoDbFluent<Follow>, IFollowFluent
 					 p.Following.UpdatedAtUtc),
 				 p.Id.FollowerId.Id.ToLower() == currentUserId,
 				 p.CreatedAtUtc));
-		var fluent = Project(projection);
+		var fluent = _fluentHandler.Project(projection);
 
 		return _responseFluentFactory.Create(fluent);
 	}
@@ -116,8 +125,40 @@ internal class FollowFluent : MongoDbFluent<Follow>, IFollowFluent
 				 null,
 				 p.Id.FollowerId.Id.ToLower() == currentUserId,
 				 p.CreatedAtUtc));
-		var fluent = Project(projection);
+		var fluent = _fluentHandler.Project(projection);
 
 		return _responseFluentFactory.Create(fluent);
+	}
+
+	public IMongoDbFluent<Follow, FollowId> Match(FilterDefinition<Follow> filterDefinition)
+	{
+		_fluentHandler.Match(filterDefinition);
+
+		return this;
+	}
+
+	public async Task<Follow?> FirstOrDefaultAsync(CancellationToken cancellationToken)
+	{
+		return await _fluentHandler.FirstOrDefaultAsync(cancellationToken);
+	}
+
+	public async Task<long> GetCountAsync(CancellationToken cancellationToken)
+	{
+		return await _fluentHandler.GetCountAsync(cancellationToken);
+	}
+
+	public async Task<ICollection<Follow>> ToListAsync(CancellationToken cancellationToken)
+	{
+		return await _fluentHandler.ToListAsync(cancellationToken);
+	}
+
+	public async Task<bool> AnyAsync(CancellationToken cancellationToken)
+	{
+		return await _fluentHandler.AnyAsync(cancellationToken);
+	}
+
+	public async Task<ICollection<FollowId>> GetIdsAsync(CancellationToken cancellationToken)
+	{
+		return await _fluentHandler.GetIdsAsync(cancellationToken);
 	}
 }

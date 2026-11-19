@@ -1,34 +1,45 @@
 namespace InstaConnect.Chats.Infrastructure.Features.Chats.Helpers.Collections;
 
-internal class ChatResponseFluent :
-	MongoDbResponseFluent<ChatResponse>, IChatResponseFluent
+internal class ChatResponseFluent : IChatResponseFluent
 {
 	private readonly IPaginator _paginator;
 	private readonly ISortOrdererFactory _sortOrdererFactory;
 	private readonly IChatsSortTermerFactory _sortTermerFactory;
+	private readonly IMongoDbResponseFluentHandler<ChatResponse> _fluentHandler;
 
 	public ChatResponseFluent(
 		IPaginator paginator,
-		IAggregateFluent<ChatResponse> fluent,
 		ISortOrdererFactory sortOrdererFactory,
-		IChatsSortTermerFactory sortTermerFactory) : base(fluent)
+		IChatsSortTermerFactory sortTermerFactory,
+		IMongoDbResponseFluentHandler<ChatResponse> fluentHandler)
 	{
 		_paginator = paginator;
-		_sortOrdererFactory = sortOrdererFactory;
+		_fluentHandler = fluentHandler;
 		_sortTermerFactory = sortTermerFactory;
+		_sortOrdererFactory = sortOrdererFactory;
 	}
 
-	public IChatResponseFluent ApplySorting(ChatsSortingQuery query)
+	public IChatResponseFluent Sort(ChatsSortingQuery query)
 	{
-		ApplySorting(_sortOrdererFactory, _sortTermerFactory, query);
+		_fluentHandler.Sort(_sortOrdererFactory, _sortTermerFactory, query);
 
 		return this;
 	}
 
-	public IChatResponseFluent ApplyPagination(ChatsPaginationQuery query)
+	public IChatResponseFluent Paginate(ChatsPaginationQuery query)
 	{
-		ApplyPagination(_paginator, query);
+		_fluentHandler.Paginate(_paginator, query);
 
 		return this;
+	}
+
+	public async Task<ChatResponse?> FirstOrDefaultAsync(CancellationToken cancellationToken)
+	{
+		return await _fluentHandler.FirstOrDefaultAsync(cancellationToken);
+	}
+
+	public async Task<ICollection<ChatResponse>> ToListAsync(CancellationToken cancellationToken)
+	{
+		return await _fluentHandler.ToListAsync(cancellationToken);
 	}
 }

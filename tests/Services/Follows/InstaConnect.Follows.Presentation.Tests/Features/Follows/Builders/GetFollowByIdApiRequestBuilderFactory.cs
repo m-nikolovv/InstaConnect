@@ -2,8 +2,8 @@ namespace InstaConnect.Follows.Presentation.Tests.Features.Follows.Builders;
 
 public class GetFollowByIdApiRequestBuilderFactory
 {
-	public GetFollowByIdApiRequestBuilder Create(Follow follow)
+	public GetFollowByIdApiRequestBuilder Create(Follow follow, UserId currentUserId)
 	{
-		return new(follow);
+		return new(follow, currentUserId);
 	}
 }

@@ -12,6 +12,11 @@ public static class PostLikeMockAssertions
 			collection.ShouldHaveReceivedOneAggregateFluent();
 		}
 
+		public void ShouldHaveReceivedOneAggregateFluent(ICollection<PostLikeId> ids)
+		{
+			collection.ShouldHaveReceivedOneAggregateFluent();
+		}
+
 		public void ShouldHaveReceivedOneAggregateFluent(
 			PostLikeId id,
 			CurrentUserQuery currentUserQuery)
@@ -50,6 +55,20 @@ public static class PostLikeMockAssertions
 		public void ShouldHaveReceivedOneAggregateFluent()
 		{
 			collection.ShouldHaveReceivedOne().AggregateFluent();
+		}
+
+		public async Task ShouldHaveReceivedOneAddAsync(
+			PostLike postLike,
+			CancellationToken cancellationToken)
+		{
+			await collection.ShouldHaveReceivedOne().AddAsync(postLike, cancellationToken);
+		}
+
+		public async Task ShouldHaveReceivedOneAddRangeAsync(
+			ICollection<PostLike> postLikes,
+			CancellationToken cancellationToken)
+		{
+			await collection.ShouldHaveReceivedOne().AddRangeAsync(postLikes, cancellationToken);
 		}
 
 		public async Task ShouldHaveReceivedOneDeleteAsync(
@@ -97,64 +116,77 @@ public static class PostLikeMockAssertions
 		}
 
 		public void ShouldHaveReceivedOneMatch(
+			ICollection<PostLikeId> ids)
+		{
+			fluent.ShouldHaveReceivedOne().Match(ids);
+		}
+
+		public void ShouldHaveReceivedOneMatch(
 			PostLikeId filterQuery,
 			CurrentUserQuery currentUserQuery)
 		{
 			fluent.ShouldHaveReceivedOneMatch(filterQuery);
 		}
 
-		public void ShouldHaveReceivedOneApplyIncludes(
+		public void ShouldHaveReceivedOneInclude(
 			PostLikeId id,
 			PostLikeInclude include)
 		{
-			fluent.ShouldHaveReceivedOneApplyIncludes(include);
+			fluent.ShouldHaveReceivedOneInclude(include);
 		}
 
-		public void ShouldHaveReceivedOneApplyIncludes(
+		public void ShouldHaveReceivedOneInclude(
+			ICollection<PostLikeId> ids,
+			PostLikeInclude include)
+		{
+			fluent.ShouldHaveReceivedOneInclude(include);
+		}
+
+		public void ShouldHaveReceivedOneInclude(
 			PostLikeId id,
 			CurrentUserQuery currentUserQuery,
 			PostLikeInclude include)
 		{
-			fluent.ShouldHaveReceivedOneApplyIncludes(include);
+			fluent.ShouldHaveReceivedOneInclude(include);
 		}
 
-		public void ShouldHaveReceivedOneApplyIncludes(
+		public void ShouldHaveReceivedOneInclude(
 			PostLikesFilterQuery filterQuery,
 			PostLikeInclude include)
 		{
-			fluent.ShouldHaveReceivedOneApplyIncludes(include);
+			fluent.ShouldHaveReceivedOneInclude(include);
 		}
 
-		public void ShouldHaveReceivedOneApplyIncludes(
+		public void ShouldHaveReceivedOneInclude(
 			PostLikesForUserFilterQuery filterQuery,
 			PostLikeInclude include)
 		{
-			fluent.ShouldHaveReceivedOneApplyIncludes(include);
+			fluent.ShouldHaveReceivedOneInclude(include);
 		}
 
-		public void ShouldHaveReceivedOneApplyIncludes(
+		public void ShouldHaveReceivedOneInclude(
 			PostLikesFilterQuery filterQuery,
 			PostLikesSortingQuery sortingQuery,
 			PostLikesPaginationQuery paginationQuery,
 			CurrentUserQuery currentUserQuery,
 			PostLikeInclude include)
 		{
-			fluent.ShouldHaveReceivedOneApplyIncludes(include);
+			fluent.ShouldHaveReceivedOneInclude(include);
 		}
 
-		public void ShouldHaveReceivedOneApplyIncludes(
+		public void ShouldHaveReceivedOneInclude(
 			PostLikesForUserFilterQuery filterQuery,
 			PostLikesForUserSortingQuery sortingQuery,
 			PostLikesPaginationQuery paginationQuery,
 			CurrentUserQuery currentUserQuery,
 			PostLikeInclude include)
 		{
-			fluent.ShouldHaveReceivedOneApplyIncludes(include);
+			fluent.ShouldHaveReceivedOneInclude(include);
 		}
 
-		public void ShouldHaveReceivedOneApplyIncludes(PostLikeInclude include)
+		public void ShouldHaveReceivedOneInclude(PostLikeInclude include)
 		{
-			fluent.ShouldHaveReceivedOne().ApplyIncludes(include);
+			fluent.ShouldHaveReceivedOne().Include(include);
 		}
 
 		public void ShouldHaveReceivedOneProjectToFullResponse(
@@ -224,59 +256,66 @@ public static class PostLikeMockAssertions
 		{
 			await fluent.ShouldHaveReceivedOneFirstOrDefaultAsync(cancellationToken);
 		}
+
+		public async Task ShouldHaveReceivedOneToListAsync(
+			ICollection<PostLikeId> ids,
+			CancellationToken cancellationToken)
+		{
+			await fluent.ShouldHaveReceivedOneToListAsync(cancellationToken);
+		}
 	}
 
 	extension(IPostLikeResponseFluent fluent)
 	{
-		public void ShouldHaveReceivedOneApplySorting(
+		public void ShouldHaveReceivedOneSort(
 			PostLikesFilterQuery filterQuery,
 			PostLikesSortingQuery sortingQuery,
 			PostLikesPaginationQuery paginationQuery,
 			CurrentUserQuery currentUserQuery)
 		{
-			fluent.ShouldHaveReceivedOneApplySorting(sortingQuery);
+			fluent.ShouldHaveReceivedOneSort(sortingQuery);
 		}
 
-		public void ShouldHaveReceivedOneApplySorting(
+		public void ShouldHaveReceivedOneSort(
 			PostLikesForUserFilterQuery filterQuery,
 			PostLikesForUserSortingQuery sortingQuery,
 			PostLikesPaginationQuery paginationQuery,
 			CurrentUserQuery currentUserQuery)
 		{
-			fluent.ShouldHaveReceivedOneApplySorting(sortingQuery);
+			fluent.ShouldHaveReceivedOneSort(sortingQuery);
 		}
 
-		public void ShouldHaveReceivedOneApplySorting(PostLikesSortingQuery sortingQuery)
+		public void ShouldHaveReceivedOneSort(PostLikesSortingQuery sortingQuery)
 		{
-			fluent.ShouldHaveReceivedOne().ApplySorting(sortingQuery);
+			fluent.ShouldHaveReceivedOne().Sort(sortingQuery);
 		}
 
-		public void ShouldHaveReceivedOneApplySorting(PostLikesForUserSortingQuery sortingQuery)
+		public void ShouldHaveReceivedOneSort(PostLikesForUserSortingQuery sortingQuery)
 		{
-			fluent.ShouldHaveReceivedOne().ApplySorting(sortingQuery);
+			fluent.ShouldHaveReceivedOne().Sort(sortingQuery);
 		}
 
-		public void ShouldHaveReceivedOneApplyPagination(
+		public void ShouldHaveReceivedOnePaginate(
 			PostLikesFilterQuery filterQuery,
 			PostLikesSortingQuery sortingQuery,
 			PostLikesPaginationQuery paginationQuery,
 			CurrentUserQuery currentUserQuery)
 		{
-			fluent.ShouldHaveReceivedOneApplyPagination(paginationQuery);
+			fluent.ShouldHaveReceivedOnePaginate(paginationQuery);
 		}
 
-		public void ShouldHaveReceivedOneApplyPagination(
+		public void ShouldHaveReceivedOnePaginate(
 			PostLikesForUserFilterQuery filterQuery,
 			PostLikesForUserSortingQuery sortingQuery,
 			PostLikesPaginationQuery paginationQuery,
 			CurrentUserQuery currentUserQuery)
 		{
-			fluent.ShouldHaveReceivedOneApplyPagination(paginationQuery);
+			fluent.ShouldHaveReceivedOnePaginate(paginationQuery);
 		}
 
-		public void ShouldHaveReceivedOneApplyPagination(PostLikesPaginationQuery paginationQuery)
+		public void ShouldHaveReceivedOnePaginate(PostLikesPaginationQuery paginationQuery)
 		{
-			fluent.ShouldHaveReceivedOne().ApplyPagination(paginationQuery);
+			fluent.ShouldHaveReceivedOne().Paginate(paginationQuery);
 		}
 
 		public async Task ShouldHaveReceivedOneFirstOrDefaultAsync(

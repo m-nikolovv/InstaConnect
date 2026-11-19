@@ -14,13 +14,8 @@ public class GetAllPostLikesQueryServiceIntegrationTests : BasePostLikeDomainQue
 		: base(webApplicationFactory)
 	{
 		_queryBuilderFactory = new();
-		_queryBuilder = _queryBuilderFactory.Create(PostLike);
+		_queryBuilder = _queryBuilderFactory.Create(PostLike, CurrentUserId);
 		_query = _queryBuilder.Build();
-	}
-
-	protected override async Task OnInitializeAsync()
-	{
-		await ServiceScope.AddRangeAsync(PostLikes, CancellationToken);
 	}
 
 	[Fact]

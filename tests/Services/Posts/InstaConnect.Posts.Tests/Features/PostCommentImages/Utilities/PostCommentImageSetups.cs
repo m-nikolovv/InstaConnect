@@ -1,4 +1,6 @@
 using InstaConnect.Posts.Domain.Features.PostCommentImages.Abstractions;
+using InstaConnect.Posts.Infrastructure.Features.PostCommentImages.Abstractions;
+using InstaConnect.Posts.Infrastructure.Features.PostCommentImages.Helpers.Repositories;
 
 namespace InstaConnect.Posts.Tests.Features.PostCommentImages.Utilities;
 
@@ -8,7 +10,22 @@ public static class PostCommentImageSetups
 	{
 		public IPostCommentImageCommandRepository GetPostCommentImageCommandRepository()
 		{
+			return new PostCommentImageCommandRepository(serviceProvider.GetPostCommentImageCollection());
+		}
+
+		public IPostCommentImageCommandRepository GetCachedPostCommentImageCommandRepository()
+		{
 			return serviceProvider.GetRequiredService<IPostCommentImageCommandRepository>();
+		}
+
+		public IPostCommentImageCollection GetPostCommentImageCollection()
+		{
+			return serviceProvider.GetRequiredService<IPostCommentImageCollection>();
+		}
+
+		public IPostCommentImageCacheHandler GetPostCommentImageCacheHandler()
+		{
+			return serviceProvider.GetRequiredService<IPostCommentImageCacheHandler>();
 		}
 	}
 
@@ -17,6 +34,16 @@ public static class PostCommentImageSetups
 		public IPostCommentImageCommandRepository GetPostCommentImageCommandRepository()
 		{
 			return serviceScope.ServiceProvider.GetPostCommentImageCommandRepository();
+		}
+
+		public IPostCommentImageCommandRepository GetCachedPostCommentImageCommandRepository()
+		{
+			return serviceScope.ServiceProvider.GetCachedPostCommentImageCommandRepository();
+		}
+
+		public IPostCommentImageCacheHandler GetPostCommentImageCacheHandler()
+		{
+			return serviceScope.ServiceProvider.GetPostCommentImageCacheHandler();
 		}
 
 		public async Task<PostCommentImage?> GetByIdAsync(
@@ -37,28 +64,44 @@ public static class PostCommentImageSetups
 			PostCommentImage postCommentImage,
 			CancellationToken cancellationToken)
 		{
-			await serviceScope.GetPostCommentImageCommandRepository().AddAsync(postCommentImage, cancellationToken);
+			var postCommentImageRepository = serviceScope.GetPostCommentImageCommandRepository();
+
+			await postCommentImageRepository.AddAsync(postCommentImage, cancellationToken);
 		}
 
 		public async Task AddRangeAsync(
 			IEnumerable<PostCommentImage> postCommentImages,
 			CancellationToken cancellationToken)
 		{
-			await serviceScope.GetPostCommentImageCommandRepository().AddRangeAsync(postCommentImages, cancellationToken);
+			var postCommentImageRepository = serviceScope.GetPostCommentImageCommandRepository();
+
+			await postCommentImageRepository.AddRangeAsync(postCommentImages, cancellationToken);
 		}
 
 		public async Task DeleteAsync(
 			PostCommentImage postCommentImage,
 			CancellationToken cancellationToken)
 		{
-			await serviceScope.GetPostCommentImageCommandRepository().DeleteAsync(postCommentImage, cancellationToken);
+			var commentCacheHandler = serviceScope.GetPostCommentCacheHandler();
+			var commentImageCacheHandler = serviceScope.GetPostCommentImageCacheHandler();
+			var postCommentImageRepository = serviceScope.GetPostCommentImageCommandRepository();
+
+			await postCommentImageRepository.DeleteAsync(postCommentImage, cancellationToken);
+			await commentCacheHandler.DeleteResponseAsync(postCommentImage.Id.Id, cancellationToken);
+			await commentImageCacheHandler.DeleteAsync(postCommentImage.Id, cancellationToken);
 		}
 
 		public async Task DeleteRangeAsync(
 			IEnumerable<PostCommentImage> postCommentImages,
 			CancellationToken cancellationToken)
 		{
-			await serviceScope.GetPostCommentImageCommandRepository().DeleteRangeAsync(postCommentImages, cancellationToken);
+			var commentCacheHandler = serviceScope.GetPostCommentCacheHandler();
+			var commentImageCacheHandler = serviceScope.GetPostCommentImageCacheHandler();
+			var postCommentImageRepository = serviceScope.GetPostCommentImageCommandRepository();
+
+			await postCommentImageRepository.DeleteRangeAsync(postCommentImages, cancellationToken);
+			await commentCacheHandler.DeleteResponseRangeAsync(postCommentImages.Select(p => p.Id.Id), cancellationToken);
+			await commentImageCacheHandler.DeleteRangeAsync(postCommentImages.Select(p => p.Id), cancellationToken);
 		}
 	}
 }

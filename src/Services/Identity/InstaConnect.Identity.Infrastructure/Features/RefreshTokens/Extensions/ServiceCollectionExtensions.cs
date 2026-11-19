@@ -1,4 +1,7 @@
+using InstaConnect.Identity.Domain.Features.RefreshTokens.Abstractions;
 using InstaConnect.Identity.Domain.Features.RefreshTokens.Models.Options;
+using InstaConnect.Identity.Domain.Features.RefreshTokens.Models.ValueObjects;
+using InstaConnect.Identity.Infrastructure.Features.RefreshTokens.Helpers.Repositories;
 
 namespace InstaConnect.Identity.Infrastructure.Features.RefreshTokens.Extensions;
 
@@ -14,15 +17,18 @@ internal static class ServiceCollectionExtensions
 
 			serviceCollection.AddImplementationsOf<IRefreshTokenIncluder>(IdentityInfrastructureReference.Assembly);
 
-			serviceCollection.AddCollection<RefreshToken>(CollectionName);
+			serviceCollection.AddCollection<RefreshToken, RefreshTokenId>(CollectionName);
+
+			serviceCollection.AddScoped<IRefreshTokenCommandRepository, RefreshTokenCommandRepository>()
+							 .Decorate<IRefreshTokenCommandRepository, CachedRefreshTokenCommandRepository>();
 
 			BsonClassMap.TryRegisterClassMap<RefreshToken>(cm =>
 			{
 				cm.MapIdMember(c => c.Id);
 
 				cm.MapMember(c => c.Id);
-				cm.MapMember(c => c.ExpiresAtUtc);
-				cm.MapMember(c => c.CreatedAtUtc);
+				cm.MapDateTimeMember(c => c.ExpiresAtUtc);
+				cm.MapDateTimeMember(c => c.CreatedAtUtc);
 
 				cm.MapMemberWithoutSerialization(c => c.User);
 
@@ -31,7 +37,7 @@ internal static class ServiceCollectionExtensions
 					c.ExpiresAtUtc,
 					c.CreatedAtUtc));
 
-				cm.SetIgnoreExtraElements(true);
+				cm.IgnoreExtraElements();
 			});
 
 			return serviceCollection;

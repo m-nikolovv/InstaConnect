@@ -11,4 +11,9 @@ public class ChatIncludeDescriptorFactory : IChatIncludeDescriptorFactory
 	{
 		return new(ChatsDestinationType.Chat, ChatsIncludeType.ParticipantTwo);
 	}
+
+	public ChatsIncludeDescriptor CreateChatMessages()
+	{
+		return new(ChatsDestinationType.Chat, ChatsIncludeType.ChatMessage);
+	}
 }

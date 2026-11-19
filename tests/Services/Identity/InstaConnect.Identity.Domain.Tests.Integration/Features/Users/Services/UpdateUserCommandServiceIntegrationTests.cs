@@ -24,8 +24,8 @@ public class UpdateUserCommandServiceIntegrationTests : BaseUserDomainCommandInt
 
 	protected override async Task OnInitializeAsync()
 	{
-		await ServiceScope.AddAsync(User, CancellationToken);
-		await ServiceScope.AddRangeAsync(User.EmailConfirmationTokens, CancellationToken);
+		await ServiceScope.AddAsync(User, CurrentUserId, CancellationToken);
+		await ServiceScope.AddRangeAsync(EmailConfirmationTokens, CancellationToken);
 	}
 
 	[Fact]
@@ -43,7 +43,7 @@ public class UpdateUserCommandServiceIntegrationTests : BaseUserDomainCommandInt
 	{
 		// Arrange
 		var user = UserBuilderFactory.Create(User.PasswordHash).Build();
-		await ServiceScope.AddAsync(user, CancellationToken);
+		await ServiceScope.AddAsync(user, CurrentUserId, CancellationToken);
 
 		var command = _commandBuilder.WithEmail(user.Email).Build();
 
@@ -58,7 +58,7 @@ public class UpdateUserCommandServiceIntegrationTests : BaseUserDomainCommandInt
 	{
 		// Arrange
 		var user = UserBuilderFactory.Create(User.PasswordHash).Build();
-		await ServiceScope.AddAsync(user, CancellationToken);
+		await ServiceScope.AddAsync(user, CurrentUserId, CancellationToken);
 
 		var command = _commandBuilder.WithEmail(user.Email, transformer).Build();
 
@@ -71,7 +71,7 @@ public class UpdateUserCommandServiceIntegrationTests : BaseUserDomainCommandInt
 	{
 		// Arrange
 		var user = UserBuilderFactory.Create(User.PasswordHash).Build();
-		await ServiceScope.AddAsync(user, CancellationToken);
+		await ServiceScope.AddAsync(user, CurrentUserId, CancellationToken);
 
 		var command = _commandBuilder.WithName(user.Name).Build();
 
@@ -86,7 +86,7 @@ public class UpdateUserCommandServiceIntegrationTests : BaseUserDomainCommandInt
 	{
 		// Arrange
 		var user = UserBuilderFactory.Create(User.PasswordHash).Build();
-		await ServiceScope.AddAsync(user, CancellationToken);
+		await ServiceScope.AddAsync(user, CurrentUserId, CancellationToken);
 
 		var command = _commandBuilder.WithName(user.Name, transformer).Build();
 
@@ -652,7 +652,7 @@ public class UpdateUserCommandServiceIntegrationTests : BaseUserDomainCommandInt
 		var eventRequests = await EmailConfirmationTokenEventClient.PublishedDeletedRangeAsync(CancellationToken);
 
 		// Assert
-		eventRequests.ShouldSatisfy(_command, User.EmailConfirmationTokens.AddUser(user));
+		eventRequests.ShouldSatisfy(_command, UserEmailConfirmationTokens.AddUser(user));
 	}
 
 	[Theory]
@@ -669,7 +669,7 @@ public class UpdateUserCommandServiceIntegrationTests : BaseUserDomainCommandInt
 		var eventRequests = await EmailConfirmationTokenEventClient.PublishedDeletedRangeAsync(CancellationToken);
 
 		// Assert
-		eventRequests.ShouldSatisfy(command, User.EmailConfirmationTokens.AddUser(user));
+		eventRequests.ShouldSatisfy(command, UserEmailConfirmationTokens.AddUser(user));
 	}
 
 	[Theory]
@@ -686,7 +686,7 @@ public class UpdateUserCommandServiceIntegrationTests : BaseUserDomainCommandInt
 		var eventRequests = await EmailConfirmationTokenEventClient.PublishedDeletedRangeAsync(CancellationToken);
 
 		// Assert
-		eventRequests.ShouldSatisfy(command, User.EmailConfirmationTokens.AddUser(user));
+		eventRequests.ShouldSatisfy(command, UserEmailConfirmationTokens.AddUser(user));
 	}
 
 	[Fact]
@@ -701,7 +701,7 @@ public class UpdateUserCommandServiceIntegrationTests : BaseUserDomainCommandInt
 		var eventRequests = await EmailConfirmationTokenEventClient.PublishedDeletedRangeAsync(CancellationToken);
 
 		// Assert
-		eventRequests.ShouldSatisfy(command, User.EmailConfirmationTokens.AddUser(user));
+		eventRequests.ShouldSatisfy(command, UserEmailConfirmationTokens.AddUser(user));
 	}
 
 	[Theory]
@@ -718,7 +718,7 @@ public class UpdateUserCommandServiceIntegrationTests : BaseUserDomainCommandInt
 		var eventRequests = await EmailConfirmationTokenEventClient.PublishedDeletedRangeAsync(CancellationToken);
 
 		// Assert
-		eventRequests.ShouldSatisfy(command, User.EmailConfirmationTokens.AddUser(user));
+		eventRequests.ShouldSatisfy(command, UserEmailConfirmationTokens.AddUser(user));
 	}
 
 	[Fact]
@@ -765,7 +765,7 @@ public class UpdateUserCommandServiceIntegrationTests : BaseUserDomainCommandInt
 		var eventRequests = await EmailConfirmationTokenEventClient.PublishedDeletedRangeAsync(CancellationToken);
 
 		// Assert
-		eventRequests.ShouldSatisfy(command, User.EmailConfirmationTokens.AddUser(user));
+		eventRequests.ShouldSatisfy(command, UserEmailConfirmationTokens.AddUser(user));
 	}
 
 	[Theory]
@@ -782,6 +782,6 @@ public class UpdateUserCommandServiceIntegrationTests : BaseUserDomainCommandInt
 		var eventRequests = await EmailConfirmationTokenEventClient.PublishedDeletedRangeAsync(CancellationToken);
 
 		// Assert
-		eventRequests.ShouldSatisfy(command, User.EmailConfirmationTokens.AddUser(user));
+		eventRequests.ShouldSatisfy(command, UserEmailConfirmationTokens.AddUser(user));
 	}
 }

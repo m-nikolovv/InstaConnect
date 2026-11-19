@@ -1,4 +1,3 @@
-using InstaConnect.Common.Application.Features.Caches.Abstractions;
 using InstaConnect.Common.Application.Features.Requests.Abstractions;
 using InstaConnect.Common.Domain.Features.Images.Abstractions;
 using InstaConnect.Common.Infrastructure.Features.AccessTokens.Abstractions;
@@ -26,11 +25,6 @@ public static class Setups
 			return serviceProvider.GetRequiredService<IApplicationSender>();
 		}
 
-		public ICacheHandler GetCacheHandler()
-		{
-			return serviceProvider.GetRequiredService<ICacheHandler>();
-		}
-
 		public IBaseAccessTokenGenerator GetBaseAccessTokenGenerator()
 		{
 			return serviceProvider.GetRequiredService<IBaseAccessTokenGenerator>();
@@ -52,11 +46,6 @@ public static class Setups
 		public IApplicationSender GetSender()
 		{
 			return serviceScope.ServiceProvider.GetSender();
-		}
-
-		public ICacheHandler GetCacheHandler()
-		{
-			return serviceScope.ServiceProvider.GetCacheHandler();
 		}
 
 		public IBaseAccessTokenGenerator GetBaseAccessTokenGenerator()

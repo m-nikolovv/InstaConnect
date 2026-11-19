@@ -18,7 +18,7 @@ public class DeleteFollowFunctionalTests : BaseFollowPresentationCommandFunction
 
 	protected override async Task OnInitializeAsync()
 	{
-		await ServiceScope.AddAsync(Follow, CancellationToken);
+		await ServiceScope.AddAsync(Follow, CurrentUserId, CancellationToken);
 	}
 
 	[Fact]

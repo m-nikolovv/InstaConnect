@@ -3,7 +3,7 @@ using InstaConnect.Identity.Tests.Features.UserClaims.Utilities;
 
 namespace InstaConnect.Identity.Application.Tests.Unit.Features.UserClaims.Utilities;
 
-public abstract class BaseUserClaimApplicationCommandUnitTest : BaseUserClaimTest
+public abstract class BaseUserClaimApplicationCommandUnitTest : BaseUserClaimCommandTest
 {
 	protected IApplicationMapper Mapper { get; }
 

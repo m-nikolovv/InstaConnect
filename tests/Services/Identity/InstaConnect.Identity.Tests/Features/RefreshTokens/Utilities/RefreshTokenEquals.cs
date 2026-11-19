@@ -30,4 +30,16 @@ public static class RefreshTokenEquals
 				   entity.CreatedAtUtc == e.CreatedAtUtc;
 		}
 	}
+
+	extension(ICollection<RefreshToken> entities)
+	{
+		public bool Matches(ICollection<RefreshToken> refreshTokens)
+		{
+			return entities.MatchesCollectionAndNotEmpty(
+				refreshTokens,
+				r => r.Id,
+				r => r.Id,
+				(entity, refreshToken) => entity.Matches(refreshToken));
+		}
+	}
 }

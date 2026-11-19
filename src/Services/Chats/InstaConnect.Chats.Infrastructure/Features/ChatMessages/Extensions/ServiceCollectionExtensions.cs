@@ -1,3 +1,6 @@
+using InstaConnect.Chats.Domain.Features.ChatMessages.Abstractions;
+using InstaConnect.Chats.Infrastructure.Features.ChatMessages.Helpers.Repositories;
+using InstaConnect.Chats.Infrastructure.Features.ChatMessages.Models.Options;
 using InstaConnect.Chats.Infrastructure.Features.Common.Extensions;
 
 namespace InstaConnect.Chats.Infrastructure.Features.ChatMessages.Extensions;
@@ -13,7 +16,15 @@ internal static class ServiceCollectionExtensions
 			serviceCollection.AddImplementationsOf<IChatMessagesSortTermer>(ChatsInfrastructureReference.Assembly);
 			serviceCollection.AddImplementationsOf<IChatMessageIncluder>(ChatsInfrastructureReference.Assembly);
 
-			serviceCollection.AddCollection<ChatMessage>(CollectionName);
+			serviceCollection.AddValidatedOptions<ChatMessageCacheOptions>(ChatMessageCacheOptions.SectionName);
+
+			serviceCollection.AddCollection<ChatMessage, ChatMessageId>(CollectionName);
+
+			serviceCollection.AddScoped<IChatMessageCommandRepository, ChatMessageCommandRepository>()
+							 .Decorate<IChatMessageCommandRepository, CachedChatMessageCommandRepository>();
+
+			serviceCollection.AddScoped<IChatMessageQueryRepository, ChatMessageQueryRepository>()
+							 .Decorate<IChatMessageQueryRepository, CachedChatMessageQueryRepository>();
 
 			BsonClassMap.TryRegisterClassMap<ChatMessage>(cm =>
 			{
@@ -23,8 +34,8 @@ internal static class ServiceCollectionExtensions
 				cm.MapMember(c => c.SenderId);
 				cm.MapMember(c => c.Content);
 				cm.MapMember(c => c.Summary);
-				cm.MapMember(c => c.CreatedAtUtc);
-				cm.MapMember(c => c.UpdatedAtUtc);
+				cm.MapDateTimeMember(c => c.CreatedAtUtc);
+				cm.MapDateTimeMember(c => c.UpdatedAtUtc);
 
 				cm.MapMemberWithoutSerialization(c => c.Chat);
 				cm.MapMemberWithoutSerialization(c => c.Sender);
@@ -38,7 +49,7 @@ internal static class ServiceCollectionExtensions
 					c.CreatedAtUtc,
 					c.UpdatedAtUtc));
 
-				cm.SetIgnoreExtraElements(true);
+				cm.IgnoreExtraElements();
 			});
 
 			return serviceCollection;

@@ -5,7 +5,7 @@ using InstaConnect.Identity.Tests.Features.RefreshTokens.Utilities;
 
 namespace InstaConnect.Identity.Infrastructure.Tests.Unit.Features.RefreshTokens.Utilities;
 
-public abstract class BaseRefreshTokenInfrastructureCommandUnitTest : BaseRefreshTokenTest
+public abstract class BaseRefreshTokenInfrastructureCommandUnitTest : BaseRefreshTokenCommandTest
 {
 	protected IRefreshTokenFluent Fluent { get; }
 

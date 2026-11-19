@@ -1,4 +1,6 @@
 using InstaConnect.Follows.Domain.Features.Follows.Abstractions;
+using InstaConnect.Follows.Infrastructure.Features.Follows.Abstractions;
+using InstaConnect.Follows.Infrastructure.Features.Follows.Helpers.Repositories;
 
 namespace InstaConnect.Follows.Tests.Features.Follows.Utilities;
 
@@ -8,10 +10,24 @@ public static class FollowSetups
 	{
 		public IFollowQueryRepository GetFollowQueryRepository()
 		{
+			return new FollowQueryRepository(
+				serviceProvider.GetFollowCollection(),
+				serviceProvider.GetFollowIncludeBuilderFactory());
+		}
+
+		public IFollowQueryRepository GetCachedFollowQueryRepository()
+		{
 			return serviceProvider.GetRequiredService<IFollowQueryRepository>();
 		}
 
 		public IFollowCommandRepository GetFollowCommandRepository()
+		{
+			return new FollowCommandRepository(
+				serviceProvider.GetFollowCollection(),
+				serviceProvider.GetFollowIncludeBuilderFactory());
+		}
+
+		public IFollowCommandRepository GetCachedFollowCommandRepository()
 		{
 			return serviceProvider.GetRequiredService<IFollowCommandRepository>();
 		}
@@ -19,6 +35,16 @@ public static class FollowSetups
 		public IFollowIncludeBuilderFactory GetFollowIncludeBuilderFactory()
 		{
 			return serviceProvider.GetRequiredService<IFollowIncludeBuilderFactory>();
+		}
+
+		public IFollowCollection GetFollowCollection()
+		{
+			return serviceProvider.GetRequiredService<IFollowCollection>();
+		}
+
+		public IFollowCacheHandler GetFollowCacheHandler()
+		{
+			return serviceProvider.GetRequiredService<IFollowCacheHandler>();
 		}
 	}
 
@@ -29,14 +55,29 @@ public static class FollowSetups
 			return serviceScope.ServiceProvider.GetFollowQueryRepository();
 		}
 
+		public IFollowQueryRepository GetCachedFollowQueryRepository()
+		{
+			return serviceScope.ServiceProvider.GetCachedFollowQueryRepository();
+		}
+
 		public IFollowCommandRepository GetFollowCommandRepository()
 		{
 			return serviceScope.ServiceProvider.GetFollowCommandRepository();
 		}
 
+		public IFollowCommandRepository GetCachedFollowCommandRepository()
+		{
+			return serviceScope.ServiceProvider.GetCachedFollowCommandRepository();
+		}
+
 		public IFollowIncludeBuilderFactory GetFollowIncludeBuilderFactory()
 		{
 			return serviceScope.ServiceProvider.GetFollowIncludeBuilderFactory();
+		}
+
+		public IFollowCacheHandler GetFollowCacheHandler()
+		{
+			return serviceScope.ServiceProvider.GetFollowCacheHandler();
 		}
 
 		public async Task<Follow?> GetByIdAsync(
@@ -48,25 +89,56 @@ public static class FollowSetups
 			return (await serviceScope.GetFollowCommandRepository().GetByIdAsync(id, include, cancellationToken)).SetFollower().SetFollowing();
 		}
 
-		public async Task AddAsync(
-			Follow follow,
+		public async Task<ICollection<Follow>> GetByIdRangeAsync(
+			IEnumerable<FollowId> ids,
 			CancellationToken cancellationToken)
 		{
-			await serviceScope.GetFollowCommandRepository().AddAsync(follow, cancellationToken);
+			return await serviceScope.GetFollowCommandRepository().GetByIdRangeAsync(ids, cancellationToken);
+		}
+
+		public async Task AddAsync(
+			Follow follow,
+			UserId currentUserId,
+			CancellationToken cancellationToken)
+		{
+			var cacheHandler = serviceScope.GetFollowCacheHandler();
+			var followRepository = serviceScope.GetFollowCommandRepository();
+
+			await followRepository.AddAsync(follow, cancellationToken);
+			await cacheHandler.AddAsync(follow.ToFullResponse(currentUserId), currentUserId, cancellationToken);
 		}
 
 		public async Task AddRangeAsync(
-			IEnumerable<Follow> follows,
+			ICollection<Follow> follows,
+			UserId currentUserId,
 			CancellationToken cancellationToken)
 		{
-			await serviceScope.GetFollowCommandRepository().AddRangeAsync(follows, cancellationToken);
+			var cacheHandler = serviceScope.GetFollowCacheHandler();
+			var followRepository = serviceScope.GetFollowCommandRepository();
+
+			await followRepository.AddRangeAsync(follows, cancellationToken);
+			await cacheHandler.AddRangeAsync(follows.ToFullResponse(currentUserId), currentUserId, cancellationToken);
 		}
 
 		public async Task DeleteAsync(
 			Follow follow,
 			CancellationToken cancellationToken)
 		{
-			await serviceScope.GetFollowCommandRepository().DeleteAsync(follow, cancellationToken);
+			var cacheHandler = serviceScope.GetFollowCacheHandler();
+			var followRepository = serviceScope.GetFollowCommandRepository();
+
+			await followRepository.DeleteAsync(follow, cancellationToken);
+			await cacheHandler.DeleteAsync(follow.Id, cancellationToken);
+		}
+
+		public async Task DeleteRangeAsync(
+			IEnumerable<Follow> follows,
+			CancellationToken cancellationToken)
+		{
+			foreach (var follow in follows)
+			{
+				await serviceScope.DeleteAsync(follow, cancellationToken);
+			}
 		}
 	}
 }

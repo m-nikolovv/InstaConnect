@@ -17,13 +17,8 @@ public class GetAllPostCommentsForUserControllerIntegrationTests : BasePostComme
 		: base(webApplicationFactory)
 	{
 		_requestBuilderFactory = new();
-		_requestBuilder = _requestBuilderFactory.Create(PostComment);
+		_requestBuilder = _requestBuilderFactory.Create(PostComment, CurrentUserId);
 		_request = _requestBuilder.Build();
-	}
-
-	protected override async Task OnInitializeAsync()
-	{
-		await ServiceScope.AddRangeAsync(PostComments, CancellationToken);
 	}
 
 	[Theory]

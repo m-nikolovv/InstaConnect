@@ -2,7 +2,7 @@ using InstaConnect.Posts.Domain.Features.Users.Abstractions;
 
 namespace InstaConnect.Posts.Infrastructure.Tests.Integration.Features.Users.Utilities;
 
-public abstract class BaseUserInfrastructureCommandIntegrationTest : BaseUserWebTest
+public abstract class BaseUserInfrastructureCommandIntegrationTest : BaseUserWebCommandTest
 {
 	protected IUserCommandRepository Repository { get; }
 
@@ -11,7 +11,7 @@ public abstract class BaseUserInfrastructureCommandIntegrationTest : BaseUserWeb
 	protected BaseUserInfrastructureCommandIntegrationTest(PostsWebApplicationFactory webApplicationFactory)
 		: base(webApplicationFactory)
 	{
-		Repository = ServiceScope.GetUserCommandRepository();
+		Repository = ServiceScope.GetCachedUserCommandRepository();
 		IncludeBuilderFactory = ServiceScope.GetUserIncludeBuilderFactory();
 
 	}

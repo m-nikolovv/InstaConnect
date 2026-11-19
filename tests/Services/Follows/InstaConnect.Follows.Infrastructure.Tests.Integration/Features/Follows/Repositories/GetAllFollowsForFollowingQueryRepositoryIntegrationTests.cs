@@ -44,11 +44,6 @@ public class GetAllFollowsForFollowingQueryRepositoryIntegrationTests : BaseFoll
 		_currentUserQuery = _currentUserQueryBuilder.Build();
 	}
 
-	protected override async Task OnInitializeAsync()
-	{
-		await ServiceScope.AddRangeAsync(Follows, CancellationToken);
-	}
-
 	[Fact]
 	public async Task GetAllForFollowingAsync_ShouldReturnResponse_WhenQueryIsValid()
 	{

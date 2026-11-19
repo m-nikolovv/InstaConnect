@@ -22,8 +22,8 @@ internal class FollowCommandRepository : IFollowCommandRepository
 	{
 		return await _collection
 			.AggregateFluent()
-			.ApplyIncludes(include)
 			.Match(id)
+			.Include(include)
 			.FirstOrDefaultAsync(cancellationToken);
 	}
 
@@ -34,6 +34,27 @@ internal class FollowCommandRepository : IFollowCommandRepository
 		var include = _includeBuilderFactory.Create().Build();
 
 		return await GetByIdAsync(id, include, cancellationToken);
+	}
+
+	public async Task<ICollection<Follow>> GetByIdRangeAsync(
+		IEnumerable<FollowId> ids,
+		FollowInclude include,
+		CancellationToken cancellationToken)
+	{
+		return await _collection
+			.AggregateFluent()
+			.Match(ids)
+			.Include(include)
+			.ToListAsync(cancellationToken);
+	}
+
+	public async Task<ICollection<Follow>> GetByIdRangeAsync(
+		IEnumerable<FollowId> ids,
+		CancellationToken cancellationToken)
+	{
+		var include = _includeBuilderFactory.Create().Build();
+
+		return await GetByIdRangeAsync(ids, include, cancellationToken);
 	}
 
 	public async Task<bool> ExistsByIdAsync(

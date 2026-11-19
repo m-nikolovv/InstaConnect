@@ -2,20 +2,13 @@ using InstaConnect.Follows.Domain.Features.Follows.Abstractions;
 
 namespace InstaConnect.Follows.Infrastructure.Tests.Integration.Features.Follows.Utilities;
 
-public abstract class BaseFollowInfrastructureQueryIntegrationTest : BaseFollowWebTest
+public abstract class BaseFollowInfrastructureQueryIntegrationTest : BaseFollowWebQueryTest
 {
 	protected IFollowQueryRepository Repository { get; }
 
 	protected BaseFollowInfrastructureQueryIntegrationTest(FollowsWebApplicationFactory webApplicationFactory)
 		: base(webApplicationFactory)
 	{
-		Repository = ServiceScope.GetFollowQueryRepository();
-	}
-
-	public override async Task InitializeAsync()
-	{
-		await ServiceScope.AddRangeAsync(Followers, CancellationToken);
-		await ServiceScope.AddRangeAsync(Followings, CancellationToken);
-		await OnInitializeAsync();
+		Repository = ServiceScope.GetCachedFollowQueryRepository();
 	}
 }

@@ -25,9 +25,9 @@ public static class RefreshTokenMockSetups
 
 		public void SetupGetOffsetUtcNow(
 			RefreshToken refreshToken,
-			IOptions<RefreshTokenOptions> refreshTokenOptions)
+			RefreshTokenOptions refreshTokenOptions)
 		{
-			dateTimeProvider.SetupGetOffsetUtcNow(refreshTokenOptions.Value.LifetimeSeconds, refreshToken.ExpiresAtUtc);
+			dateTimeProvider.SetupGetOffsetUtcNow(refreshTokenOptions.LifetimeSeconds, refreshToken.ExpiresAtUtc);
 		}
 
 		public void SetupGetOffsetUtcNow(RotateRefreshTokenCommand command, DateTimeOffset utcNow)

@@ -11,7 +11,7 @@ public class FollowExistsByIdCommandRepositoryIntegrationTests : BaseFollowInfra
 
 	protected override async Task OnInitializeAsync()
 	{
-		await ServiceScope.AddAsync(Follow, CancellationToken);
+		await ServiceScope.AddAsync(Follow, CurrentUserId, CancellationToken);
 	}
 
 	[Fact]

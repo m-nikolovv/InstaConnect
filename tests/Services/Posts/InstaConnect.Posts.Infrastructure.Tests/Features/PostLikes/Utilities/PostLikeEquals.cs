@@ -1,6 +1,5 @@
 using InstaConnect.Posts.Domain.Features.PostLikes.Models.Responses;
 using InstaConnect.Posts.Domain.Features.PostLikes.Models.ValueObjects;
-using InstaConnect.Posts.Tests.Features.PostLikes.Utilities;
 
 namespace InstaConnect.Posts.Infrastructure.Tests.Features.PostLikes.Utilities;
 
@@ -24,6 +23,16 @@ public static class PostLikeEquals
 		public bool MatchesFilter(PostLikesForUserFilterQuery query)
 		{
 			return p.Id.UserId.Matches(query.UserId);
+		}
+	}
+
+	extension(ICollection<PostLike> p)
+	{
+		public bool Matches(
+			ICollection<PostLikeId> ids,
+			ICollection<PostLike> postLikes)
+		{
+			return p.Matches(postLikes);
 		}
 	}
 

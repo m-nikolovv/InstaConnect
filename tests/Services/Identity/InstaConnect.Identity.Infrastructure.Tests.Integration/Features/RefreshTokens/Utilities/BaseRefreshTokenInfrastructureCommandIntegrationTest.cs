@@ -2,7 +2,7 @@ using InstaConnect.Identity.Domain.Features.RefreshTokens.Abstractions;
 
 namespace InstaConnect.Identity.Infrastructure.Tests.Integration.Features.RefreshTokens.Utilities;
 
-public abstract class BaseRefreshTokenInfrastructureCommandIntegrationTest : BaseRefreshTokenWebTest
+public abstract class BaseRefreshTokenInfrastructureCommandIntegrationTest : BaseRefreshTokenWebCommandTest
 {
 	protected IRefreshTokenCommandRepository Repository { get; }
 
@@ -11,14 +11,7 @@ public abstract class BaseRefreshTokenInfrastructureCommandIntegrationTest : Bas
 	protected BaseRefreshTokenInfrastructureCommandIntegrationTest(IdentityWebApplicationFactory webApplicationFactory)
 		: base(webApplicationFactory)
 	{
-		Repository = ServiceScope.GetRefreshTokenCommandRepository();
+		Repository = ServiceScope.GetCachedRefreshTokenCommandRepository();
 		IncludeBuilderFactory = ServiceScope.GetRefreshTokenIncludeBuilderFactory();
-	}
-
-	public override async Task InitializeAsync()
-	{
-		await ServiceScope.AddAsync(User, CancellationToken);
-		await ServiceScope.AddAsync(UserClaim, CancellationToken);
-		await OnInitializeAsync();
 	}
 }

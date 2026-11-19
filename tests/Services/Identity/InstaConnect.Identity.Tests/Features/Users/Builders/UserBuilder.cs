@@ -1,3 +1,5 @@
+using InstaConnect.Common.Tests.Features.DataAttributes.Base;
+
 namespace InstaConnect.Identity.Tests.Features.Users.Builders;
 
 public class UserBuilder
@@ -53,9 +55,16 @@ public class UserBuilder
 		_updatedAtUtc = user.UpdatedAtUtc;
 	}
 
-	public UserBuilder WithId(UserId id)
+	public UserBuilder WithId(UserId id, IStringTransformer? transformer = null)
 	{
-		_id = id.Id;
+		_id = transformer.TryTransform(id.Id);
+
+		return this;
+	}
+
+	public UserBuilder WithId(IStringTransformer transformer)
+	{
+		_id = transformer.Transform(_id);
 
 		return this;
 	}

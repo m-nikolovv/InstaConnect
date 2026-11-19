@@ -29,7 +29,7 @@ public static class ServiceCollectionExtensions
 				.AddValidations(ChatsPresentationReference.Assembly, CommonPresentationReference.Assembly)
 				.AddAuthorizationPolicies()
 				.AddCorsPolicies(configuration)
-				.AddRateLimiterPolicies()
+				.AddRateLimiterPolicies(configuration)
 				.AddExceptions();
 
 			return serviceCollection;

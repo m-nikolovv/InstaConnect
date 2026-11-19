@@ -50,7 +50,7 @@ public class AddPostCommentLikeCommandServiceIntegrationTests : BasePostCommentL
 	public async Task AddAsync_ShouldThrowPostCommentLikeAlreadyExistsException_WhenPostCommentLikeAlreadyExists()
 	{
 		// Arrange
-		await ServiceScope.AddAsync(PostCommentLike, CancellationToken);
+		await ServiceScope.AddAsync(PostCommentLike, CurrentUserId, CancellationToken);
 
 		// Assert
 		await Service.ShouldThrowPostCommentLikeAlreadyExistsExceptionAsync(_command, CancellationToken);
@@ -62,7 +62,7 @@ public class AddPostCommentLikeCommandServiceIntegrationTests : BasePostCommentL
 		IStringTransformer transformer)
 	{
 		// Arrange
-		await ServiceScope.AddAsync(PostCommentLike, CancellationToken);
+		await ServiceScope.AddAsync(PostCommentLike, CurrentUserId, CancellationToken);
 		var command = _commandBuilder.WithId(transformer).Build();
 
 		// Assert
@@ -75,7 +75,7 @@ public class AddPostCommentLikeCommandServiceIntegrationTests : BasePostCommentL
 		IStringTransformer transformer)
 	{
 		// Arrange
-		await ServiceScope.AddAsync(PostCommentLike, CancellationToken);
+		await ServiceScope.AddAsync(PostCommentLike, CurrentUserId, CancellationToken);
 		var command = _commandBuilder.WithCommentId(transformer).Build();
 
 		// Assert
@@ -88,7 +88,7 @@ public class AddPostCommentLikeCommandServiceIntegrationTests : BasePostCommentL
 		IStringTransformer transformer)
 	{
 		// Arrange
-		await ServiceScope.AddAsync(PostCommentLike, CancellationToken);
+		await ServiceScope.AddAsync(PostCommentLike, CurrentUserId, CancellationToken);
 		var command = _commandBuilder.WithUserId(transformer).Build();
 
 		// Assert

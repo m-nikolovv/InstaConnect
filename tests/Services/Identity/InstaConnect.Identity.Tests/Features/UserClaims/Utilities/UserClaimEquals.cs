@@ -11,6 +11,18 @@ public static class UserClaimEquals
 		}
 	}
 
+	extension(ICollection<UserClaim> entities)
+	{
+		public bool Matches(ICollection<UserClaim> userClaims)
+		{
+			return entities.MatchesCollectionAndNotEmpty(
+				userClaims,
+				u => u.Id,
+				u => u.Id,
+				(entity, userClaim) => entity.Matches(userClaim));
+		}
+	}
+
 	extension(UserClaimId p)
 	{
 		public bool Matches(UserClaimId id)

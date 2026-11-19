@@ -1,4 +1,7 @@
+using InstaConnect.Chats.Domain.Features.Users.Abstractions;
 using InstaConnect.Chats.Infrastructure.Features.Common.Extensions;
+using InstaConnect.Chats.Infrastructure.Features.Users.Helpers.Repositories;
+using InstaConnect.Chats.Infrastructure.Features.Users.Models.Options;
 
 namespace InstaConnect.Chats.Infrastructure.Features.Users.Extensions;
 
@@ -12,7 +15,16 @@ internal static class ServiceCollectionExtensions
 
 			serviceCollection.AddImplementationsOf<IUserIncluder>(ChatsInfrastructureReference.Assembly);
 
-			serviceCollection.AddCollection<User>(CollectionName);
+			serviceCollection.AddValidatedOptions<UserCacheOptions>(UserCacheOptions.SectionName);
+			serviceCollection.AddValidatedOptions<UserEventHandlerOptions>(UserEventHandlerOptions.SectionName);
+
+			serviceCollection.AddCollection<User, UserId>(CollectionName);
+
+			serviceCollection.AddScoped<IUserCommandRepository, UserCommandRepository>()
+							 .Decorate<IUserCommandRepository, CachedUserCommandRepository>();
+
+			serviceCollection.AddScoped<IUserQueryRepository, UserQueryRepository>()
+							 .Decorate<IUserQueryRepository, CachedUserQueryRepository>();
 
 			BsonClassMap.TryRegisterClassMap<User>(cm =>
 			{
@@ -23,8 +35,8 @@ internal static class ServiceCollectionExtensions
 				cm.MapMember(c => c.Name);
 				cm.MapMember(c => c.Email);
 				cm.MapMember(c => c.ProfileImageUrl);
-				cm.MapMember(c => c.CreatedAtUtc);
-				cm.MapMember(c => c.UpdatedAtUtc);
+				cm.MapDateTimeMember(c => c.CreatedAtUtc);
+				cm.MapDateTimeMember(c => c.UpdatedAtUtc);
 
 				cm.MapMemberWithoutSerialization(c => c.Chats);
 				cm.MapMemberWithoutSerialization(c => c.ChatMessages);
@@ -38,6 +50,8 @@ internal static class ServiceCollectionExtensions
 					c.ProfileImageUrl,
 					c.CreatedAtUtc,
 					c.UpdatedAtUtc));
+
+				cm.IgnoreExtraElements();
 			});
 
 			return serviceCollection;

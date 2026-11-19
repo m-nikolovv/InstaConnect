@@ -3,7 +3,7 @@ using InstaConnect.Chats.Tests.Features.ChatMessages.Extensions;
 
 namespace InstaConnect.Chats.Application.Tests.Integration.Features.ChatMessages.Utilities;
 
-public abstract class BaseChatMessageApplicationCommandIntegrationTest : BaseChatMessageWebTest
+public abstract class BaseChatMessageApplicationCommandIntegrationTest : BaseChatMessageWebCommandTest
 {
 	protected IApplicationSender Sender { get; }
 
@@ -18,10 +18,7 @@ public abstract class BaseChatMessageApplicationCommandIntegrationTest : BaseCha
 
 	public override async Task InitializeAsync()
 	{
-		await ServiceScope.AddAsync(ParticipantOne, CancellationToken);
-		await ServiceScope.AddAsync(ParticipantTwo, CancellationToken);
-		await ServiceScope.AddAsync(Chat, CancellationToken);
-		await OnInitializeAsync();
+		await base.InitializeAsync();
 		await MessageNotificationClient.StartAsync(CancellationToken);
 	}
 

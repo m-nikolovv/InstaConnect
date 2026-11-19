@@ -4,7 +4,7 @@ using InstaConnect.Posts.Tests.Features.PostCommentLikes.Utilities;
 
 namespace InstaConnect.Posts.Infrastructure.Tests.Unit.Features.PostCommentLikes.Utilities;
 
-public abstract class BasePostCommentLikeInfrastructureCommandUnitTest : BasePostCommentLikeTest
+public abstract class BasePostCommentLikeInfrastructureCommandUnitTest : BasePostCommentLikeCommandTest
 {
 	protected IPostCommentLikeFluent Fluent { get; }
 

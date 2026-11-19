@@ -1,6 +1,5 @@
 using InstaConnect.Chats.Domain.Features.Chats.Models.Responses;
 using InstaConnect.Chats.Domain.Features.Chats.Models.ValueObjects;
-using InstaConnect.Chats.Tests.Features.Chats.Utilities;
 
 namespace InstaConnect.Chats.Infrastructure.Tests.Features.Chats.Utilities;
 
@@ -24,6 +23,16 @@ public static class ChatEquals
 		}
 	}
 
+	extension(ICollection<Chat> p)
+	{
+		public bool Matches(
+			ICollection<ChatId> ids,
+			ICollection<Chat> chats)
+		{
+			return p.Matches(chats);
+		}
+	}
+
 	extension(User? u)
 	{
 		public bool MatchesFilter(ChatsFilterQuery query)
@@ -42,6 +51,7 @@ public static class ChatEquals
 			return response != null &&
 				   chat != null &&
 				   chat.Id.Matches(response.Id) &&
+				   chat.ChatMessages.Count == response.MessageCount &&
 				   chat.CreatedAtUtc == response.CreatedAtUtc &&
 				   response.ParticipantOne.MatchesFull(chat.ParticipantOne) &&
 				   response.ParticipantTwo.MatchesFull(chat.ParticipantTwo);
@@ -54,6 +64,7 @@ public static class ChatEquals
 			return response != null &&
 				   chat != null &&
 				   chat.Id.Matches(response.Id.ParticipantTwoId, response.Id.ParticipantOneId) &&
+				   chat.ChatMessages.Count == response.MessageCount &&
 				   chat.CreatedAtUtc == response.CreatedAtUtc &&
 				   response.ParticipantOne.MatchesFull(chat.ParticipantTwo) &&
 				   response.ParticipantTwo.MatchesFull(chat.ParticipantOne);
@@ -66,6 +77,7 @@ public static class ChatEquals
 			return response != null &&
 				   chat != null &&
 				   chat.Id.Matches(response.Id) &&
+				   chat.ChatMessages.Count == response.MessageCount &&
 				   chat.CreatedAtUtc == response.CreatedAtUtc &&
 				   response.ParticipantOne == null &&
 				   response.ParticipantTwo.MatchesFull(chat.ParticipantTwo);
@@ -78,6 +90,7 @@ public static class ChatEquals
 			return response != null &&
 				   chat != null &&
 				   chat.Id.Matches(response.Id.ParticipantTwoId, response.Id.ParticipantOneId) &&
+				   chat.ChatMessages.Count == response.MessageCount &&
 				   chat.CreatedAtUtc == response.CreatedAtUtc &&
 				   response.ParticipantOne == null &&
 				   response.ParticipantTwo.MatchesFull(chat.ParticipantOne);

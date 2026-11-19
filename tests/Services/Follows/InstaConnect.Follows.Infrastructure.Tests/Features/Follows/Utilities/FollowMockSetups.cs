@@ -22,6 +22,13 @@ public static class FollowMockSetups
 		}
 
 		public void SetupAggregateFluent(
+			ICollection<FollowId> ids,
+			IFollowFluent fluent)
+		{
+			collection.SetupAggregateFluent(fluent);
+		}
+
+		public void SetupAggregateFluent(
 			FollowsFilterQuery filterQuery,
 			FollowsSortingQuery sortingQuery,
 			FollowsPaginationQuery paginationQuery,
@@ -87,58 +94,65 @@ public static class FollowMockSetups
 			fluent.SetupAnyAsync(follow != null, cancellationToken);
 		}
 
-		public void SetupApplyIncludes(
+		public void SetupInclude(
 			FollowId id,
 			FollowInclude include)
 		{
-			fluent.SetupApplyIncludes(include);
+			fluent.SetupInclude(include);
 		}
 
-		public void SetupApplyIncludes(
+		public void SetupInclude(
 			FollowId id,
 			CurrentUserQuery currentUserQuery,
 			FollowInclude include)
 		{
-			fluent.SetupApplyIncludes(include);
+			fluent.SetupInclude(include);
 		}
 
-		public void SetupApplyIncludes(
+		public void SetupInclude(
+			ICollection<FollowId> ids,
+			FollowInclude include)
+		{
+			fluent.SetupInclude(include);
+		}
+
+		public void SetupInclude(
 			FollowsFilterQuery filterQuery,
 			FollowInclude include)
 		{
-			fluent.SetupApplyIncludes(include);
+			fluent.SetupInclude(include);
 		}
 
-		public void SetupApplyIncludes(
+		public void SetupInclude(
 			FollowsForFollowingFilterQuery filterQuery,
 			FollowInclude include)
 		{
-			fluent.SetupApplyIncludes(include);
+			fluent.SetupInclude(include);
 		}
 
-		public void SetupApplyIncludes(
+		public void SetupInclude(
 			FollowsFilterQuery filterQuery,
 			FollowsSortingQuery sortingQuery,
 			FollowsPaginationQuery paginationQuery,
 			CurrentUserQuery currentUserQuery,
 			FollowInclude include)
 		{
-			fluent.SetupApplyIncludes(include);
+			fluent.SetupInclude(include);
 		}
 
-		public void SetupApplyIncludes(
+		public void SetupInclude(
 			FollowsForFollowingFilterQuery filterQuery,
 			FollowsForFollowingSortingQuery sortingQuery,
 			FollowsPaginationQuery paginationQuery,
 			CurrentUserQuery currentUserQuery,
 			FollowInclude include)
 		{
-			fluent.SetupApplyIncludes(include);
+			fluent.SetupInclude(include);
 		}
 
-		public void SetupApplyIncludes(FollowInclude include)
+		public void SetupInclude(FollowInclude include)
 		{
-			fluent.ApplyIncludes(include).ReturnsResponse(fluent);
+			fluent.Include(include).ReturnsResponse(fluent);
 		}
 
 		public void SetupMatch(FollowId id)
@@ -151,6 +165,11 @@ public static class FollowMockSetups
 			CurrentUserQuery currentUserQuery)
 		{
 			fluent.SetupMatch(id);
+		}
+
+		public void SetupMatch(ICollection<FollowId> ids)
+		{
+			fluent.Match(ids).ReturnsResponse(fluent);
 		}
 
 		public void SetupMatch(FollowsFilterQuery filterQuery)
@@ -237,59 +256,67 @@ public static class FollowMockSetups
 		{
 			fluent.SetupFirstOrDefaultAsync(follow, cancellationToken);
 		}
+
+		public void SetupToListAsync(
+			ICollection<FollowId> ids,
+			ICollection<Follow> follows,
+			CancellationToken cancellationToken)
+		{
+			fluent.SetupToListAsync(follows, cancellationToken);
+		}
 	}
 
 	extension(IFollowResponseFluent fluent)
 	{
-		public void SetupApplySorting(
+		public void SetupSort(
 			FollowsFilterQuery filterQuery,
 			FollowsSortingQuery sortingQuery,
 			FollowsPaginationQuery paginationQuery,
 			CurrentUserQuery currentUserQuery)
 		{
-			fluent.SetupApplySorting(sortingQuery);
+			fluent.SetupSort(sortingQuery);
 		}
 
-		public void SetupApplySorting(
+		public void SetupSort(
 			FollowsForFollowingFilterQuery filterQuery,
 			FollowsForFollowingSortingQuery sortingQuery,
 			FollowsPaginationQuery paginationQuery,
 			CurrentUserQuery currentUserQuery)
 		{
-			fluent.SetupApplySorting(sortingQuery);
+			fluent.SetupSort(sortingQuery);
 		}
 
-		public void SetupApplySorting(FollowsSortingQuery sortingQuery)
+		public void SetupSort(FollowsSortingQuery sortingQuery)
 		{
-			fluent.ApplySorting(sortingQuery).ReturnsResponse(fluent);
+			fluent.Sort(sortingQuery).ReturnsResponse(fluent);
 		}
 
-		public void SetupApplySorting(FollowsForFollowingSortingQuery sortingQuery)
+		public void SetupSort(FollowsForFollowingSortingQuery sortingQuery)
 		{
-			fluent.ApplySorting(sortingQuery).ReturnsResponse(fluent);
+			fluent.Sort(sortingQuery).ReturnsResponse(fluent);
 		}
 
-		public void SetupApplyPagination(
+		public void SetupPaginate(
 			FollowsFilterQuery filterQuery,
 			FollowsSortingQuery sortingQuery,
 			FollowsPaginationQuery paginationQuery,
 			CurrentUserQuery currentUserQuery)
 		{
-			fluent.SetupApplyPagination(paginationQuery);
+			fluent.SetupPaginate(paginationQuery);
 		}
 
-		public void SetupApplyPagination(
+		public void SetupPaginate(
 			FollowsForFollowingFilterQuery filterQuery,
 			FollowsForFollowingSortingQuery sortingQuery,
 			FollowsPaginationQuery paginationQuery,
 			CurrentUserQuery currentUserQuery)
 		{
-			fluent.SetupApplyPagination(paginationQuery);
+			fluent.SetupPaginate(paginationQuery);
 		}
 
-		public void SetupApplyPagination(FollowsPaginationQuery paginationQuery)
+		public void SetupPaginate(FollowsPaginationQuery paginationQuery)
 		{
-			fluent.ApplyPagination(paginationQuery).ReturnsResponse(fluent);
+			fluent.Paginate(paginationQuery).ReturnsResponse(fluent);
 		}
 
 		public void SetupToListAsync(

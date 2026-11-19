@@ -1,3 +1,4 @@
+using System.Security.Claims;
 using System.Text.Json.Serialization;
 using System.Threading.RateLimiting;
 
@@ -12,6 +13,7 @@ using InstaConnect.Common.Presentation.Features.Controllers.Models;
 using InstaConnect.Common.Presentation.Features.Controllers.Utilities;
 
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.HttpOverrides;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 
@@ -80,19 +82,30 @@ public static class ServiceCollectionExtensions
 			return serviceCollection;
 		}
 
-		public IServiceCollection AddRateLimiterPolicies()
+		public IServiceCollection AddRateLimiterPolicies(IConfiguration configuration)
 		{
+			serviceCollection.AddValidatedOptions<RateLimiterPolicyOptions>(RateLimiterPolicyOptions.SectionName);
+			var rateLimiterOptions = configuration.GetOptions<RateLimiterPolicyOptions>(RateLimiterPolicyOptions.SectionName);
+
+			serviceCollection.Configure<ForwardedHeadersOptions>(options =>
+			{
+				options.ForwardedHeaders = ForwardedHeaders.XForwardedFor | ForwardedHeaders.XForwardedProto;
+				options.KnownIPNetworks.Clear();
+				options.KnownProxies.Clear();
+			});
+
 			serviceCollection.AddRateLimiter(options =>
 			{
 				options.RejectionStatusCode = StatusCodes.Status429TooManyRequests;
 
 				options.AddPolicy(RateLimiterPolicies.Default,
-					httpContext => RateLimitPartition.GetFixedWindowLimiter(
-						partitionKey: httpContext.Connection.RemoteIpAddress?.ToString(),
-						factory: _ => new FixedWindowRateLimiterOptions
+					httpContext => RateLimitPartition.GetSlidingWindowLimiter(
+						partitionKey: httpContext.User.FindFirstValue(DefaultClaims.Id) ?? httpContext.Connection.RemoteIpAddress?.ToString(),
+						factory: _ => new SlidingWindowRateLimiterOptions
 						{
-							PermitLimit = 100,
-							Window = TimeSpan.FromSeconds(10),
+							PermitLimit = rateLimiterOptions.PermitLimit,
+							Window = rateLimiterOptions.Window,
+							SegmentsPerWindow = rateLimiterOptions.SegmentsPerWindow,
 						}));
 			});
 

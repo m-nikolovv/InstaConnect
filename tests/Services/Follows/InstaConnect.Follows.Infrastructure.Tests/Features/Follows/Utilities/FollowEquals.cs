@@ -1,6 +1,5 @@
 using InstaConnect.Follows.Domain.Features.Follows.Models.Responses;
 using InstaConnect.Follows.Infrastructure.Tests.Features.Users.Utilities;
-using InstaConnect.Follows.Tests.Features.Follows.Utilities;
 
 namespace InstaConnect.Follows.Infrastructure.Tests.Features.Follows.Utilities;
 
@@ -25,6 +24,16 @@ public static class FollowEquals
 		{
 			return f.Id.FollowingId.Matches(query.FollowingId) &&
 				   f.Follower.MatchesFilter(query);
+		}
+	}
+
+	extension(ICollection<Follow> f)
+	{
+		public bool Matches(
+			ICollection<FollowId> ids,
+			ICollection<Follow> follows)
+		{
+			return f.Matches(follows);
 		}
 	}
 

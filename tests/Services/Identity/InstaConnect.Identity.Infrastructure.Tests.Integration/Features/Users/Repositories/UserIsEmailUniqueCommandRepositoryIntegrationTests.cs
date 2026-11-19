@@ -20,7 +20,7 @@ public class UserIsEmailUniqueCommandRepositoryIntegrationTests : BaseUserInfras
 
 	protected override async Task OnInitializeAsync()
 	{
-		await ServiceScope.AddAsync(User, CancellationToken);
+		await ServiceScope.AddAsync(User, CurrentUserId, CancellationToken);
 	}
 
 	[Fact]

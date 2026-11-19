@@ -11,7 +11,7 @@ public class GetAllPostLikesForUserQueryServiceUnitTests : BasePostLikeDomainQue
 	public GetAllPostLikesForUserQueryServiceUnitTests()
 	{
 		_queryBuilderFactory = new();
-		_queryBuilder = _queryBuilderFactory.Create(PostLike);
+		_queryBuilder = _queryBuilderFactory.Create(PostLike, CurrentUserId);
 		_query = _queryBuilder.Build();
 
 		_service = new(Repository, UserRepository, LikeRepository, CollectionResponseFactory);

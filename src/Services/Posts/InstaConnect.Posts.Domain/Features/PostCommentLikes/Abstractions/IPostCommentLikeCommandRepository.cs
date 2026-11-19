@@ -11,6 +11,15 @@ public interface IPostCommentLikeCommandRepository
 		PostCommentLikeId id,
 		CancellationToken cancellationToken);
 
+	public Task<ICollection<PostCommentLike>> GetByIdRangeAsync(
+		IEnumerable<PostCommentLikeId> ids,
+		PostCommentLikeInclude include,
+		CancellationToken cancellationToken);
+
+	public Task<ICollection<PostCommentLike>> GetByIdRangeAsync(
+		IEnumerable<PostCommentLikeId> ids,
+		CancellationToken cancellationToken);
+
 	public Task<bool> ExistsByIdAsync(
 		PostCommentLikeId id,
 		CancellationToken cancellationToken);

@@ -183,7 +183,7 @@ public class AddUserInfrastructureFunctionalTests : BaseUserInfrastructureComman
 	{
 		// Arrange
 		var newUser = UserBuilderFactory.Create().Build();
-		await ServiceScope.AddAsync(newUser, CancellationToken);
+		await ServiceScope.AddAsync(newUser, CurrentUserId, CancellationToken);
 		var request = _requestBuilder.WithId(newUser.Id).Build();
 
 		// Act
@@ -201,7 +201,7 @@ public class AddUserInfrastructureFunctionalTests : BaseUserInfrastructureComman
 	{
 		// Arrange
 		var newUser = UserBuilderFactory.Create().Build();
-		await ServiceScope.AddAsync(newUser, CancellationToken);
+		await ServiceScope.AddAsync(newUser, CurrentUserId, CancellationToken);
 		var request = _requestBuilder.WithId(newUser.Id, transformer).Build();
 
 		// Act
@@ -217,7 +217,7 @@ public class AddUserInfrastructureFunctionalTests : BaseUserInfrastructureComman
 	{
 		// Arrange
 		var newUser = UserBuilderFactory.Create().Build();
-		await ServiceScope.AddAsync(newUser, CancellationToken);
+		await ServiceScope.AddAsync(newUser, CurrentUserId, CancellationToken);
 		var request = _requestBuilder.WithEmail(newUser.Email).Build();
 
 		// Act
@@ -235,7 +235,7 @@ public class AddUserInfrastructureFunctionalTests : BaseUserInfrastructureComman
 	{
 		// Arrange
 		var newUser = UserBuilderFactory.Create().Build();
-		await ServiceScope.AddAsync(newUser, CancellationToken);
+		await ServiceScope.AddAsync(newUser, CurrentUserId, CancellationToken);
 		var request = _requestBuilder.WithEmail(newUser.Email, transformer).Build();
 
 		// Act
@@ -251,7 +251,7 @@ public class AddUserInfrastructureFunctionalTests : BaseUserInfrastructureComman
 	{
 		// Arrange
 		var newUser = UserBuilderFactory.Create().Build();
-		await ServiceScope.AddAsync(newUser, CancellationToken);
+		await ServiceScope.AddAsync(newUser, CurrentUserId, CancellationToken);
 		var request = _requestBuilder.WithName(newUser.Name).Build();
 
 		// Act
@@ -269,7 +269,7 @@ public class AddUserInfrastructureFunctionalTests : BaseUserInfrastructureComman
 	{
 		// Arrange
 		var newUser = UserBuilderFactory.Create().Build();
-		await ServiceScope.AddAsync(newUser, CancellationToken);
+		await ServiceScope.AddAsync(newUser, CurrentUserId, CancellationToken);
 		var request = _requestBuilder.WithName(newUser.Name, transformer).Build();
 
 		// Act

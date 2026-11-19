@@ -14,13 +14,8 @@ public class GetAllPostCommentsForUserQueryServiceIntegrationTests : BasePostCom
 		: base(webApplicationFactory)
 	{
 		_queryBuilderFactory = new();
-		_queryBuilder = _queryBuilderFactory.Create(PostComment);
+		_queryBuilder = _queryBuilderFactory.Create(PostComment, CurrentUserId);
 		_query = _queryBuilder.Build();
-	}
-
-	protected override async Task OnInitializeAsync()
-	{
-		await ServiceScope.AddRangeAsync(PostComments, CancellationToken);
 	}
 
 	[Fact]
