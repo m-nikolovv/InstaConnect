@@ -38,14 +38,12 @@ internal class CachedPostImageCommandRepository : IPostImageCommandRepository
 	{
 		await _repository.AddAsync(entity, cancellationToken);
 		await _cacheHandler.DeleteResponseAsync(entity.Id.Id, cancellationToken);
-		await _imageCacheHandler.DeleteAsync(entity.Id, cancellationToken);
 	}
 
 	public async Task AddRangeAsync(IEnumerable<PostImage> entities, CancellationToken cancellationToken)
 	{
 		await _repository.AddRangeAsync(entities, cancellationToken);
 		await _cacheHandler.DeleteResponseRangeAsync(entities.Select(p => p.Id.Id), cancellationToken);
-		await _imageCacheHandler.DeleteRangeAsync(entities.Select(p => p.Id), cancellationToken);
 	}
 
 	public async Task DeleteAsync(PostImage entity, CancellationToken cancellationToken)

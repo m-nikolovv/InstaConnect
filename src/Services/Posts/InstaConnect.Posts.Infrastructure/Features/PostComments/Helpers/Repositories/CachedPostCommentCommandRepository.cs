@@ -59,14 +59,12 @@ internal class CachedPostCommentCommandRepository : IPostCommentCommandRepositor
 	{
 		await _repository.AddAsync(entity, cancellationToken);
 		await _cacheHandler.DeleteResponseAsync(entity.Id.Id, cancellationToken);
-		await _commentCacheHandler.DeleteAsync(entity.Id, cancellationToken);
 	}
 
 	public async Task AddRangeAsync(IEnumerable<PostComment> entities, CancellationToken cancellationToken)
 	{
 		await _repository.AddRangeAsync(entities, cancellationToken);
 		await _cacheHandler.DeleteResponseRangeAsync(entities.Select(p => p.Id.Id), cancellationToken);
-		await _commentCacheHandler.DeleteRangeAsync(entities.Select(p => p.Id), cancellationToken);
 	}
 
 	public async Task UpdateAsync(PostComment entity, CancellationToken cancellationToken)

@@ -47,13 +47,11 @@ internal class CachedUserClaimCommandRepository : IUserClaimCommandRepository
 	public async Task AddAsync(UserClaim entity, CancellationToken cancellationToken)
 	{
 		await _repository.AddAsync(entity, cancellationToken);
-		await _cacheHandler.DeleteAsync(entity.Id, cancellationToken);
 	}
 
 	public async Task AddRangeAsync(IEnumerable<UserClaim> entities, CancellationToken cancellationToken)
 	{
 		await _repository.AddRangeAsync(entities, cancellationToken);
-		await _cacheHandler.DeleteRangeAsync(entities.Select(p => p.Id), cancellationToken);
 	}
 
 	public async Task DeleteAsync(UserClaim entity, CancellationToken cancellationToken)

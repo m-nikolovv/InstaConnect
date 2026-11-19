@@ -42,13 +42,11 @@ internal class CachedRefreshTokenCommandRepository : IRefreshTokenCommandReposit
 	public async Task AddAsync(RefreshToken entity, CancellationToken cancellationToken)
 	{
 		await _repository.AddAsync(entity, cancellationToken);
-		await _cacheHandler.DeleteAsync(entity.Id, cancellationToken);
 	}
 
 	public async Task AddRangeAsync(IEnumerable<RefreshToken> entities, CancellationToken cancellationToken)
 	{
 		await _repository.AddRangeAsync(entities, cancellationToken);
-		await _cacheHandler.DeleteRangeAsync(entities.Select(p => p.Id), cancellationToken);
 	}
 
 	public async Task UpdateAsync(RefreshToken entity, CancellationToken cancellationToken)

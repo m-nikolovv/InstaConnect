@@ -38,14 +38,12 @@ internal class CachedPostCommentImageCommandRepository : IPostCommentImageComman
 	{
 		await _repository.AddAsync(entity, cancellationToken);
 		await _commentCacheHandler.DeleteResponseAsync(entity.Id.Id, cancellationToken);
-		await _commentImageCacheHandler.DeleteAsync(entity.Id, cancellationToken);
 	}
 
 	public async Task AddRangeAsync(IEnumerable<PostCommentImage> entities, CancellationToken cancellationToken)
 	{
 		await _repository.AddRangeAsync(entities, cancellationToken);
 		await _commentCacheHandler.DeleteResponseRangeAsync(entities.Select(p => p.Id.Id), cancellationToken);
-		await _commentImageCacheHandler.DeleteRangeAsync(entities.Select(p => p.Id), cancellationToken);
 	}
 
 	public async Task DeleteAsync(PostCommentImage entity, CancellationToken cancellationToken)

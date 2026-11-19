@@ -55,13 +55,11 @@ internal class CachedFollowCommandRepository : IFollowCommandRepository
 	public async Task AddAsync(Follow entity, CancellationToken cancellationToken)
 	{
 		await _repository.AddAsync(entity, cancellationToken);
-		await _cacheHandler.DeleteAsync(entity.Id, cancellationToken);
 	}
 
 	public async Task AddRangeAsync(IEnumerable<Follow> entities, CancellationToken cancellationToken)
 	{
 		await _repository.AddRangeAsync(entities, cancellationToken);
-		await _cacheHandler.DeleteRangeAsync(entities.Select(p => p.Id), cancellationToken);
 	}
 
 	public async Task DeleteAsync(Follow entity, CancellationToken cancellationToken)
