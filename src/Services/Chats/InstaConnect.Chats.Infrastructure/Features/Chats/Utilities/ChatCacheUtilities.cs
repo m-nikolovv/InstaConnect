@@ -2,31 +2,9 @@ namespace InstaConnect.Chats.Infrastructure.Features.Chats.Utilities;
 
 public static class ChatCacheUtilities
 {
-	public const string GetByIdKeyPrefix = "chats-chats-get-by-id";
-	public const string ExistsByIdKeyPrefix = "chats-chats-exists-by-id";
 	public const string GetResponseByIdKeyPrefix = "chats-chats-get-by-id-response";
 
-	public static string GetByIdKey(ChatId id)
-	{
-		const string Format = "{0}:{1}:{2}";
-
-		return Format.FormatCurrentCulture(
-			GetByIdKeyPrefix,
-			id.ParticipantOneId.Id,
-			id.ParticipantTwoId.Id);
-	}
-
-	public static string ExistsByIdKey(ChatId id)
-	{
-		const string Format = "{0}:{1}:{2}";
-
-		return Format.FormatCurrentCulture(
-			ExistsByIdKeyPrefix,
-			id.ParticipantOneId.Id,
-			id.ParticipantTwoId.Id);
-	}
-
-	public static string GetResponseByIdKey(ChatId id, CurrentUserQuery currentUser)
+	public static string GetResponseByIdKey(ChatId id, UserId currentUserId)
 	{
 		const string Format = "{0}:{1}:{2}:{3}";
 
@@ -34,7 +12,7 @@ public static class ChatCacheUtilities
 			GetResponseByIdKeyPrefix,
 			id.ParticipantOneId.Id,
 			id.ParticipantTwoId.Id,
-			currentUser.Id.Id);
+			currentUserId.Id);
 	}
 
 	public static string GetTag(ChatId id)

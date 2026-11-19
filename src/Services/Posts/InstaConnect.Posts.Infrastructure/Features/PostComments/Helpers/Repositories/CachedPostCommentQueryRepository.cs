@@ -54,7 +54,7 @@ internal class CachedPostCommentQueryRepository : IPostCommentQueryRepository
 		CurrentUserQuery currentUser,
 		CancellationToken cancellationToken)
 	{
-		var cachedResponse = await _commentCacheHandler.GetByIdAsync(id, currentUser, cancellationToken);
+		var cachedResponse = await _commentCacheHandler.GetByIdAsync(id, currentUser.Id, cancellationToken);
 
 		if (cachedResponse != null)
 		{
@@ -65,7 +65,7 @@ internal class CachedPostCommentQueryRepository : IPostCommentQueryRepository
 
 		if (response != null)
 		{
-			await _commentCacheHandler.AddAsync(response, currentUser, cancellationToken);
+			await _commentCacheHandler.AddAsync(response, currentUser.Id, cancellationToken);
 		}
 
 		return response;
@@ -75,17 +75,6 @@ internal class CachedPostCommentQueryRepository : IPostCommentQueryRepository
 		PostCommentId id,
 		CancellationToken cancellationToken)
 	{
-		var cachedExists = await _commentCacheHandler.ExistsByIdAsync(id, cancellationToken);
-
-		if (cachedExists != null)
-		{
-			return cachedExists.Value;
-		}
-
-		var exists = await _repository.ExistsByIdAsync(id, cancellationToken);
-
-		await _commentCacheHandler.AddExistsByIdAsync(id, exists, cancellationToken);
-
-		return exists;
+		return await _repository.ExistsByIdAsync(id, cancellationToken);
 	}
 }

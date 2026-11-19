@@ -20,7 +20,7 @@ public class GetAllUserClaimsQueryHandlerIntegrationTests : BaseUserClaimApplica
 		: base(webApplicationFactory)
 	{
 		_requestBuilderFactory = new();
-		_requestBuilder = _requestBuilderFactory.Create(UserClaim);
+		_requestBuilder = _requestBuilderFactory.Create(UserClaim, CurrentUserId);
 		_request = _requestBuilder.Build();
 	}
 

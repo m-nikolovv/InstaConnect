@@ -16,32 +16,15 @@ internal class FollowCacheHandler : IFollowCacheHandler
 		_cacheOptions = cacheOptions;
 	}
 
-	public async Task<Follow?> GetByIdAsync(FollowId id, CancellationToken cancellationToken)
+	public async Task<FollowResponse?> GetByIdAsync(FollowId id, UserId currentUserId, CancellationToken cancellationToken)
 	{
-		return await _cacheHandler.GetAsync<Follow>(FollowCacheUtilities.GetByIdKey(id), cancellationToken);
+		return await _cacheHandler.GetAsync<FollowResponse>(FollowCacheUtilities.GetResponseByIdKey(id, currentUserId), cancellationToken);
 	}
 
-	public async Task<FollowResponse?> GetByIdAsync(FollowId id, CurrentUserQuery currentUser, CancellationToken cancellationToken)
-	{
-		return await _cacheHandler.GetAsync<FollowResponse>(FollowCacheUtilities.GetResponseByIdKey(id, currentUser), cancellationToken);
-	}
-
-	public async Task AddAsync(Follow entity, CancellationToken cancellationToken)
+	public async Task AddAsync(FollowResponse response, UserId currentUserId, CancellationToken cancellationToken)
 	{
 		await _cacheHandler.SetAsync(
-			FollowCacheUtilities.GetByIdKey(entity.Id),
-			entity,
-			_cacheOptions.Expirations[FollowCacheUtilities.GetByIdKeyPrefix],
-			[FollowCacheUtilities.GetTag(entity.Id)],
-			[UserCacheUtilities.GetTag(entity.Id.FollowerId),
-			 UserCacheUtilities.GetTag(entity.Id.FollowingId)],
-			cancellationToken);
-	}
-
-	public async Task AddAsync(FollowResponse response, CurrentUserQuery currentUser, CancellationToken cancellationToken)
-	{
-		await _cacheHandler.SetAsync(
-			FollowCacheUtilities.GetResponseByIdKey(response.Id, currentUser),
+			FollowCacheUtilities.GetResponseByIdKey(response.Id, currentUserId),
 			response,
 			_cacheOptions.Expirations[FollowCacheUtilities.GetResponseByIdKeyPrefix],
 			[FollowCacheUtilities.GetTag(response.Id)],
@@ -50,29 +33,12 @@ internal class FollowCacheHandler : IFollowCacheHandler
 			cancellationToken);
 	}
 
-	public async Task AddRangeAsync(IEnumerable<Follow> entities, CancellationToken cancellationToken)
+	public async Task AddRangeAsync(IEnumerable<FollowResponse> responses, UserId currentUserId, CancellationToken cancellationToken)
 	{
-		foreach (var entity in entities)
+		foreach (var response in responses)
 		{
-			await AddAsync(entity, cancellationToken);
+			await AddAsync(response, currentUserId, cancellationToken);
 		}
-	}
-
-	public async Task<bool?> ExistsByIdAsync(FollowId id, CancellationToken cancellationToken)
-	{
-		return await _cacheHandler.GetAsync<bool?>(FollowCacheUtilities.ExistsByIdKey(id), cancellationToken);
-	}
-
-	public async Task AddExistsByIdAsync(FollowId id, bool exists, CancellationToken cancellationToken)
-	{
-		await _cacheHandler.SetAsync<bool?>(
-			FollowCacheUtilities.ExistsByIdKey(id),
-			exists,
-			_cacheOptions.Expirations[FollowCacheUtilities.ExistsByIdKeyPrefix],
-			[FollowCacheUtilities.GetTag(id)],
-			[UserCacheUtilities.GetTag(id.FollowerId),
-			 UserCacheUtilities.GetTag(id.FollowingId)],
-			cancellationToken);
 	}
 
 	public async Task DeleteAsync(FollowId id, CancellationToken cancellationToken)

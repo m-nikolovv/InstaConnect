@@ -9,9 +9,9 @@ public abstract class BasePostCommentImageWebCommandTest : BasePostCommentImageW
 
 	public override async Task InitializeAsync()
 	{
-		await ServiceScope.AddAsync(User, CancellationToken);
-		await ServiceScope.AddAsync(Post, CancellationToken);
-		await ServiceScope.AddAsync(PostComment, CancellationToken);
+		await ServiceScope.AddAsync(User, CurrentUserId, CancellationToken);
+		await ServiceScope.AddAsync(Post, CurrentUserId, CancellationToken);
+		await ServiceScope.AddAsync(PostComment, CurrentUserId, CancellationToken);
 		await OnInitializeAsync();
 	}
 }

@@ -19,6 +19,7 @@
     <Using Include="InstaConnect.Follows.Domain.Features.Follows.Models.Entities" />
     <Using Include="InstaConnect.Follows.Domain.Features.Follows.Models.Requests" />
     <Using Include="InstaConnect.Follows.Domain.Features.Follows.Models.ValueObjects" />
+    <Using Include="InstaConnect.Follows.Tests.Features.Follows.Utilities" />
   </ItemGroup>
 
 </Project>

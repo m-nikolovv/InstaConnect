@@ -5,10 +5,10 @@ public class GetChatByIdQueryBuilder
 	private string _participantTwoId;
 	private string _currentUserId;
 
-	public GetChatByIdQueryBuilder(Chat chat)
+	public GetChatByIdQueryBuilder(Chat chat, UserId currentUserId)
 	{
 		_participantTwoId = chat.Id.ParticipantTwoId.Id;
-		_currentUserId = chat.Id.ParticipantOneId.Id;
+		_currentUserId = currentUserId.Id;
 	}
 
 	public GetChatByIdQueryBuilder WithParticipantTwoId(UserId participantTwoId, IStringTransformer? transformer = null)

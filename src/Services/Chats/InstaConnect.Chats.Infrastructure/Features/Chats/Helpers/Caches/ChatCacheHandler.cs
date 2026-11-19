@@ -16,32 +16,15 @@ internal class ChatCacheHandler : IChatCacheHandler
 		_cacheOptions = cacheOptions;
 	}
 
-	public async Task<Chat?> GetByIdAsync(ChatId id, CancellationToken cancellationToken)
+	public async Task<ChatResponse?> GetByIdAsync(ChatId id, UserId currentUserId, CancellationToken cancellationToken)
 	{
-		return await _cacheHandler.GetAsync<Chat>(ChatCacheUtilities.GetByIdKey(id), cancellationToken);
+		return await _cacheHandler.GetAsync<ChatResponse>(ChatCacheUtilities.GetResponseByIdKey(id, currentUserId), cancellationToken);
 	}
 
-	public async Task<ChatResponse?> GetByIdAsync(ChatId id, CurrentUserQuery currentUser, CancellationToken cancellationToken)
-	{
-		return await _cacheHandler.GetAsync<ChatResponse>(ChatCacheUtilities.GetResponseByIdKey(id, currentUser), cancellationToken);
-	}
-
-	public async Task AddAsync(Chat entity, CancellationToken cancellationToken)
+	public async Task AddAsync(ChatResponse response, UserId currentUserId, CancellationToken cancellationToken)
 	{
 		await _cacheHandler.SetAsync(
-			ChatCacheUtilities.GetByIdKey(entity.Id),
-			entity,
-			_cacheOptions.Expirations[ChatCacheUtilities.GetByIdKeyPrefix],
-			[ChatCacheUtilities.GetTag(entity.Id)],
-			[UserCacheUtilities.GetTag(entity.Id.ParticipantOneId),
-			 UserCacheUtilities.GetTag(entity.Id.ParticipantTwoId)],
-			cancellationToken);
-	}
-
-	public async Task AddAsync(ChatResponse response, CurrentUserQuery currentUser, CancellationToken cancellationToken)
-	{
-		await _cacheHandler.SetAsync(
-			ChatCacheUtilities.GetResponseByIdKey(response.Id, currentUser),
+			ChatCacheUtilities.GetResponseByIdKey(response.Id, currentUserId),
 			response,
 			_cacheOptions.Expirations[ChatCacheUtilities.GetResponseByIdKeyPrefix],
 			[ChatCacheUtilities.GetTag(response.Id),
@@ -51,29 +34,12 @@ internal class ChatCacheHandler : IChatCacheHandler
 			cancellationToken);
 	}
 
-	public async Task AddRangeAsync(IEnumerable<Chat> entities, CancellationToken cancellationToken)
+	public async Task AddRangeAsync(IEnumerable<ChatResponse> responses, UserId currentUserId, CancellationToken cancellationToken)
 	{
-		foreach (var entity in entities)
+		foreach (var response in responses)
 		{
-			await AddAsync(entity, cancellationToken);
+			await AddAsync(response, currentUserId, cancellationToken);
 		}
-	}
-
-	public async Task<bool?> ExistsByIdAsync(ChatId id, CancellationToken cancellationToken)
-	{
-		return await _cacheHandler.GetAsync<bool?>(ChatCacheUtilities.ExistsByIdKey(id), cancellationToken);
-	}
-
-	public async Task AddExistsByIdAsync(ChatId id, bool exists, CancellationToken cancellationToken)
-	{
-		await _cacheHandler.SetAsync<bool?>(
-			ChatCacheUtilities.ExistsByIdKey(id),
-			exists,
-			_cacheOptions.Expirations[ChatCacheUtilities.ExistsByIdKeyPrefix],
-			[ChatCacheUtilities.GetTag(id)],
-			[UserCacheUtilities.GetTag(id.ParticipantOneId),
-			 UserCacheUtilities.GetTag(id.ParticipantTwoId)],
-			cancellationToken);
 	}
 
 	public async Task DeleteAsync(ChatId id, CancellationToken cancellationToken)

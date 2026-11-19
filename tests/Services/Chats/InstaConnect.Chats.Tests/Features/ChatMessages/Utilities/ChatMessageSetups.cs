@@ -33,6 +33,11 @@ public static class ChatMessageSetups
 		{
 			return serviceProvider.GetRequiredService<IChatMessageCollection>();
 		}
+
+		public IChatMessageCacheHandler GetMessageCacheHandler()
+		{
+			return serviceProvider.GetRequiredService<IChatMessageCacheHandler>();
+		}
 	}
 
 	extension(IServiceScope serviceScope)
@@ -50,6 +55,11 @@ public static class ChatMessageSetups
 		public IChatMessageIncludeBuilderFactory GetMessageIncludeBuilderFactory()
 		{
 			return serviceScope.ServiceProvider.GetMessageIncludeBuilderFactory();
+		}
+
+		public IChatMessageCacheHandler GetMessageCacheHandler()
+		{
+			return serviceScope.ServiceProvider.GetMessageCacheHandler();
 		}
 
 		public async Task<ChatMessage?> GetByIdAsync(
@@ -74,39 +84,65 @@ public static class ChatMessageSetups
 
 		public async Task AddAsync(
 			ChatMessage chatMessage,
+			UserId currentUserId,
 			CancellationToken cancellationToken)
 		{
-			await serviceScope.GetMessageCommandRepository().AddAsync(chatMessage, cancellationToken);
+			var messageCacheHandler = serviceScope.GetMessageCacheHandler();
+			var messageRepository = serviceScope.GetMessageCommandRepository();
+
+			await messageRepository.AddAsync(chatMessage, cancellationToken);
+			await messageCacheHandler.AddAsync(chatMessage.ToFullResponse(), currentUserId, cancellationToken);
 		}
 
 		public async Task AddRangeAsync(
-			IEnumerable<ChatMessage> chatMessages,
+			ICollection<ChatMessage> chatMessages,
+			UserId currentUserId,
 			CancellationToken cancellationToken)
 		{
-			await serviceScope.GetMessageCommandRepository().AddRangeAsync(chatMessages, cancellationToken);
+			var messageCacheHandler = serviceScope.GetMessageCacheHandler();
+			var messageRepository = serviceScope.GetMessageCommandRepository();
+
+			await messageRepository.AddRangeAsync(chatMessages, cancellationToken);
+			await messageCacheHandler.AddRangeAsync(chatMessages.ToFullResponse(), currentUserId, cancellationToken);
 		}
 
 		public async Task UpdateAsync(
 			ChatMessage chatMessage,
 			CancellationToken cancellationToken)
 		{
-			await serviceScope.GetMessageCommandRepository().UpdateAsync(chatMessage, cancellationToken);
+			var messageCacheHandler = serviceScope.GetMessageCacheHandler();
+			var messageRepository = serviceScope.GetMessageCommandRepository();
+
+			await messageRepository.UpdateAsync(chatMessage, cancellationToken);
+			await messageCacheHandler.DeleteAsync(chatMessage.Id, cancellationToken);
 		}
 
 		public async Task DeleteAsync(
 			ChatMessage chatMessage,
 			CancellationToken cancellationToken)
 		{
-			await serviceScope.GetMessageCommandRepository().DeleteAsync(chatMessage, cancellationToken);
+			var cacheHandler = serviceScope.GetCacheHandler();
+			var messageCacheHandler = serviceScope.GetMessageCacheHandler();
+			var messageRepository = serviceScope.GetMessageCommandRepository();
+
+			await messageRepository.DeleteAsync(chatMessage, cancellationToken);
+			await cacheHandler.DeleteResponseAsync(chatMessage.Id.Id, cancellationToken);
+			await messageCacheHandler.DeleteAsync(chatMessage.Id, cancellationToken);
 		}
 
 		public async Task DeleteRangeAsync(
 			IEnumerable<ChatMessage> chatMessages,
 			CancellationToken cancellationToken)
 		{
+			var cacheHandler = serviceScope.GetCacheHandler();
+			var messageCacheHandler = serviceScope.GetMessageCacheHandler();
+			var messageRepository = serviceScope.GetMessageCommandRepository();
+
 			foreach (var chatMessage in chatMessages)
 			{
-				await serviceScope.GetMessageCommandRepository().DeleteAsync(chatMessage, cancellationToken);
+				await messageRepository.DeleteAsync(chatMessage, cancellationToken);
+				await cacheHandler.DeleteResponseAsync(chatMessage.Id.Id, cancellationToken);
+				await messageCacheHandler.DeleteAsync(chatMessage.Id, cancellationToken);
 			}
 		}
 	}

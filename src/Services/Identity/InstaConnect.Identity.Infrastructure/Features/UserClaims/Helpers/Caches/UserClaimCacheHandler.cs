@@ -16,31 +16,15 @@ internal class UserClaimCacheHandler : IUserClaimCacheHandler
 		_cacheOptions = cacheOptions;
 	}
 
-	public async Task<UserClaim?> GetByIdAsync(UserClaimId id, CancellationToken cancellationToken)
+	public async Task<UserClaimResponse?> GetByIdAsync(UserClaimId id, UserId currentUserId, CancellationToken cancellationToken)
 	{
-		return await _cacheHandler.GetAsync<UserClaim>(UserClaimCacheUtilities.GetByIdKey(id), cancellationToken);
+		return await _cacheHandler.GetAsync<UserClaimResponse>(UserClaimCacheUtilities.GetResponseByIdKey(id, currentUserId), cancellationToken);
 	}
 
-	public async Task<UserClaimResponse?> GetByIdAsync(UserClaimId id, CurrentUserQuery currentUser, CancellationToken cancellationToken)
-	{
-		return await _cacheHandler.GetAsync<UserClaimResponse>(UserClaimCacheUtilities.GetResponseByIdKey(id, currentUser), cancellationToken);
-	}
-
-	public async Task AddAsync(UserClaim entity, CancellationToken cancellationToken)
+	public async Task AddAsync(UserClaimResponse response, UserId currentUserId, CancellationToken cancellationToken)
 	{
 		await _cacheHandler.SetAsync(
-			UserClaimCacheUtilities.GetByIdKey(entity.Id),
-			entity,
-			_cacheOptions.Expirations[UserClaimCacheUtilities.GetByIdKeyPrefix],
-			[UserClaimCacheUtilities.GetTag(entity.Id)],
-			[UserCacheUtilities.GetTag(entity.Id.Id)],
-			cancellationToken);
-	}
-
-	public async Task AddAsync(UserClaimResponse response, CurrentUserQuery currentUser, CancellationToken cancellationToken)
-	{
-		await _cacheHandler.SetAsync(
-			UserClaimCacheUtilities.GetResponseByIdKey(response.Id, currentUser),
+			UserClaimCacheUtilities.GetResponseByIdKey(response.Id, currentUserId),
 			response,
 			_cacheOptions.Expirations[UserClaimCacheUtilities.GetResponseByIdKeyPrefix],
 			[UserClaimCacheUtilities.GetTag(response.Id)],
@@ -48,28 +32,12 @@ internal class UserClaimCacheHandler : IUserClaimCacheHandler
 			cancellationToken);
 	}
 
-	public async Task AddRangeAsync(IEnumerable<UserClaim> entities, CancellationToken cancellationToken)
+	public async Task AddRangeAsync(IEnumerable<UserClaimResponse> responses, UserId currentUserId, CancellationToken cancellationToken)
 	{
-		foreach (var entity in entities)
+		foreach (var response in responses)
 		{
-			await AddAsync(entity, cancellationToken);
+			await AddAsync(response, currentUserId, cancellationToken);
 		}
-	}
-
-	public async Task<bool?> ExistsByIdAsync(UserClaimId id, CancellationToken cancellationToken)
-	{
-		return await _cacheHandler.GetAsync<bool?>(UserClaimCacheUtilities.ExistsByIdKey(id), cancellationToken);
-	}
-
-	public async Task AddExistsByIdAsync(UserClaimId id, bool exists, CancellationToken cancellationToken)
-	{
-		await _cacheHandler.SetAsync<bool?>(
-			UserClaimCacheUtilities.ExistsByIdKey(id),
-			exists,
-			_cacheOptions.Expirations[UserClaimCacheUtilities.ExistsByIdKeyPrefix],
-			[UserClaimCacheUtilities.GetTag(id)],
-			[UserCacheUtilities.GetTag(id.Id)],
-			cancellationToken);
 	}
 
 	public async Task DeleteAsync(UserClaimId id, CancellationToken cancellationToken)

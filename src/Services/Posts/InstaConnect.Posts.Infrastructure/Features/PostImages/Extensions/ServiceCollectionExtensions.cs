@@ -1,7 +1,6 @@
 using InstaConnect.Posts.Domain.Features.PostImages.Abstractions;
 using InstaConnect.Posts.Domain.Features.PostImages.Models.ValueObjects;
 using InstaConnect.Posts.Infrastructure.Features.PostImages.Helpers.Repositories;
-using InstaConnect.Posts.Infrastructure.Features.PostImages.Models.Options;
 
 namespace InstaConnect.Posts.Infrastructure.Features.PostImages.Extensions;
 
@@ -12,8 +11,6 @@ internal static class ServiceCollectionExtensions
 		internal IServiceCollection AddPostImageServices()
 		{
 			const string CollectionName = "post_images";
-
-			serviceCollection.AddValidatedOptions<PostImageCacheOptions>(PostImageCacheOptions.SectionName);
 
 			serviceCollection.AddCollection<PostImage, PostImageId>(CollectionName);
 

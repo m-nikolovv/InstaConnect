@@ -1,3 +1,10 @@
+using InstaConnect.Posts.Domain.Features.PostCommentImages.Models.Responses;
+using InstaConnect.Posts.Domain.Features.PostCommentLikes.Models.Responses;
+using InstaConnect.Posts.Domain.Features.PostComments.Models.Responses;
+using InstaConnect.Posts.Domain.Features.PostImages.Models.Responses;
+using InstaConnect.Posts.Domain.Features.PostLikes.Models.Responses;
+using InstaConnect.Posts.Domain.Features.Posts.Models.Responses;
+using InstaConnect.Posts.Domain.Features.Users.Models.Responses;
 using InstaConnect.Posts.Tests.Features.PostCommentImages.Builders;
 using InstaConnect.Posts.Tests.Features.PostCommentLikes.Builders;
 using InstaConnect.Posts.Tests.Features.PostComments.Builders;
@@ -11,10 +18,13 @@ public abstract class BasePostsTest : BaseTest
 	protected UserBuilder UserBuilder { get; }
 	protected User User { get; }
 	protected ICollection<User> Users { get; }
+	protected UserResponse UserResponse { get; }
+	protected ICollection<UserResponse> UserResponses { get; }
 
 	protected UserIdBuilderFactory UserIdBuilderFactory { get; }
 	protected UserIdBuilder UserIdBuilder { get; }
 	protected UserId UserId { get; }
+	protected UserId CurrentUserId { get; }
 
 	protected UserIdRangeBuilderFactory UserIdRangeBuilderFactory { get; }
 	protected UserIdRangeBuilder UserIdRangeBuilder { get; }
@@ -24,6 +34,8 @@ public abstract class BasePostsTest : BaseTest
 	protected PostBuilder PostBuilder { get; }
 	protected Post Post { get; }
 	protected ICollection<Post> Posts { get; }
+	protected PostResponse PostResponse { get; }
+	protected ICollection<PostResponse> PostResponses { get; }
 
 	protected PostIdBuilderFactory PostIdBuilderFactory { get; }
 	protected PostIdBuilder PostIdBuilder { get; }
@@ -37,6 +49,8 @@ public abstract class BasePostsTest : BaseTest
 	protected PostLikeBuilder PostLikeBuilder { get; }
 	protected PostLike PostLike { get; }
 	protected ICollection<PostLike> PostLikes { get; }
+	protected PostLikeResponse PostLikeResponse { get; }
+	protected ICollection<PostLikeResponse> PostLikeResponses { get; }
 
 	protected PostLikeIdBuilderFactory PostLikeIdBuilderFactory { get; }
 	protected PostLikeIdBuilder PostLikeIdBuilder { get; }
@@ -50,6 +64,8 @@ public abstract class BasePostsTest : BaseTest
 	protected PostImageBuilder PostImageBuilder { get; }
 	protected PostImage PostImage { get; }
 	protected ICollection<PostImage> PostImages { get; }
+	protected PostImageResponse PostImageResponse { get; }
+	protected ICollection<PostImageResponse> PostImageResponses { get; }
 
 	protected PostImageIdBuilderFactory PostImageIdBuilderFactory { get; }
 	protected PostImageIdBuilder PostImageIdBuilder { get; }
@@ -63,6 +79,8 @@ public abstract class BasePostsTest : BaseTest
 	protected PostCommentBuilder PostCommentBuilder { get; }
 	protected PostComment PostComment { get; }
 	protected ICollection<PostComment> PostComments { get; }
+	protected PostCommentResponse PostCommentResponse { get; }
+	protected ICollection<PostCommentResponse> PostCommentResponses { get; }
 
 	protected PostCommentIdBuilderFactory PostCommentIdBuilderFactory { get; }
 	protected PostCommentIdBuilder PostCommentIdBuilder { get; }
@@ -76,6 +94,8 @@ public abstract class BasePostsTest : BaseTest
 	protected PostCommentImageBuilder PostCommentImageBuilder { get; }
 	protected PostCommentImage PostCommentImage { get; }
 	protected ICollection<PostCommentImage> PostCommentImages { get; }
+	protected PostCommentImageResponse PostCommentImageResponse { get; }
+	protected ICollection<PostCommentImageResponse> PostCommentImageResponses { get; }
 
 	protected PostCommentImageIdBuilderFactory PostCommentImageIdBuilderFactory { get; }
 	protected PostCommentImageIdBuilder PostCommentImageIdBuilder { get; }
@@ -89,6 +109,8 @@ public abstract class BasePostsTest : BaseTest
 	protected PostCommentLikeBuilder PostCommentLikeBuilder { get; }
 	protected PostCommentLike PostCommentLike { get; }
 	protected ICollection<PostCommentLike> PostCommentLikes { get; }
+	protected PostCommentLikeResponse PostCommentLikeResponse { get; }
+	protected ICollection<PostCommentLikeResponse> PostCommentLikeResponses { get; }
 
 	protected PostCommentLikeIdBuilderFactory PostCommentLikeIdBuilderFactory { get; }
 	protected PostCommentLikeIdBuilder PostCommentLikeIdBuilder { get; }
@@ -104,10 +126,13 @@ public abstract class BasePostsTest : BaseTest
 		UserBuilder = UserBuilderFactory.Create();
 		User = UserBuilder.Build();
 		Users = User.Generate();
+		UserResponse = User.ToFullResponse();
+		UserResponses = Users.ToFullResponse();
 
 		UserIdBuilderFactory = new();
 		UserIdBuilder = UserIdBuilderFactory.Create(User.Id);
 		UserId = UserIdBuilder.Build();
+		CurrentUserId = UserId;
 
 		UserIdRangeBuilderFactory = new();
 		UserIdRangeBuilder = UserIdRangeBuilderFactory.Create([.. Users.Select(p => p.Id)]);
@@ -117,6 +142,8 @@ public abstract class BasePostsTest : BaseTest
 		PostBuilder = PostBuilderFactory.Create(User);
 		Post = PostBuilder.BuildAttached();
 		Posts = Post.GenerateAttached(Users);
+		PostResponse = Post.ToFullResponse(CurrentUserId);
+		PostResponses = Posts.ToFullResponse(CurrentUserId);
 
 		PostIdBuilderFactory = new();
 		PostIdBuilder = PostIdBuilderFactory.Create(Post.Id);
@@ -130,6 +157,8 @@ public abstract class BasePostsTest : BaseTest
 		PostLikeBuilder = PostLikeBuilderFactory.Create(Post, User);
 		PostLike = PostLikeBuilder.BuildAttached();
 		PostLikes = PostLike.GenerateAttached(Posts, Users);
+		PostLikeResponse = PostLike.ToFullResponse(CurrentUserId);
+		PostLikeResponses = PostLikes.ToFullResponse(CurrentUserId);
 
 		PostLikeIdBuilderFactory = new();
 		PostLikeIdBuilder = PostLikeIdBuilderFactory.Create(PostLike.Id);
@@ -143,6 +172,8 @@ public abstract class BasePostsTest : BaseTest
 		PostImageBuilder = PostImageBuilderFactory.Create(Post);
 		PostImage = PostImageBuilder.BuildAttached();
 		PostImages = PostImage.GenerateAttached(Posts);
+		PostImageResponse = PostImage.ToFullResponse();
+		PostImageResponses = PostImages.ToFullResponse();
 
 		PostImageIdBuilderFactory = new();
 		PostImageIdBuilder = PostImageIdBuilderFactory.Create(PostImage.Id);
@@ -156,6 +187,8 @@ public abstract class BasePostsTest : BaseTest
 		PostCommentBuilder = PostCommentBuilderFactory.Create(Post, User);
 		PostComment = PostCommentBuilder.BuildAttached();
 		PostComments = PostComment.GenerateAttached(Posts, Users);
+		PostCommentResponse = PostComment.ToFullResponse(CurrentUserId);
+		PostCommentResponses = PostComments.ToFullResponse(CurrentUserId);
 
 		PostCommentIdBuilderFactory = new();
 		PostCommentIdBuilder = PostCommentIdBuilderFactory.Create(PostComment.Id);
@@ -169,6 +202,8 @@ public abstract class BasePostsTest : BaseTest
 		PostCommentImageBuilder = PostCommentImageBuilderFactory.Create(PostComment);
 		PostCommentImage = PostCommentImageBuilder.BuildAttached();
 		PostCommentImages = PostCommentImage.GenerateAttached(PostComments);
+		PostCommentImageResponse = PostCommentImage.ToFullResponse();
+		PostCommentImageResponses = PostCommentImages.ToFullResponse();
 
 		PostCommentImageIdBuilderFactory = new();
 		PostCommentImageIdBuilder = PostCommentImageIdBuilderFactory.Create(PostCommentImage.Id);
@@ -182,6 +217,8 @@ public abstract class BasePostsTest : BaseTest
 		PostCommentLikeBuilder = PostCommentLikeBuilderFactory.Create(PostComment, User);
 		PostCommentLike = PostCommentLikeBuilder.BuildAttached();
 		PostCommentLikes = PostCommentLike.GenerateAttached(PostComments, Users);
+		PostCommentLikeResponse = PostCommentLike.ToFullResponse(CurrentUserId);
+		PostCommentLikeResponses = PostCommentLikes.ToFullResponse(CurrentUserId);
 
 		PostCommentLikeIdBuilderFactory = new();
 		PostCommentLikeIdBuilder = PostCommentLikeIdBuilderFactory.Create(PostCommentLike.Id);

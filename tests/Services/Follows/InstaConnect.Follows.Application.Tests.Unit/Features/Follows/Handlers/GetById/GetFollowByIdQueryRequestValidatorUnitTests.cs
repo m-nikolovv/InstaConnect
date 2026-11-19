@@ -13,7 +13,7 @@ public class GetFollowByIdQueryRequestValidatorUnitTests : BaseFollowApplication
 	public GetFollowByIdQueryRequestValidatorUnitTests()
 	{
 		_requestBuilderFactory = new();
-		_requestBuilder = _requestBuilderFactory.Create(Follow);
+		_requestBuilder = _requestBuilderFactory.Create(Follow, CurrentUserId);
 		_request = _requestBuilder.Build();
 
 		_requestValidator = new();

@@ -31,6 +31,11 @@ public static class PostSetups
 		{
 			return serviceProvider.GetRequiredService<IPostCollection>();
 		}
+
+		public IPostCacheHandler GetPostCacheHandler()
+		{
+			return serviceProvider.GetRequiredService<IPostCacheHandler>();
+		}
 	}
 
 	extension(IServiceScope serviceScope)
@@ -48,6 +53,11 @@ public static class PostSetups
 		public IPostIncludeBuilderFactory GetPostIncludeBuilderFactory()
 		{
 			return serviceScope.ServiceProvider.GetPostIncludeBuilderFactory();
+		}
+
+		public IPostCacheHandler GetPostCacheHandler()
+		{
+			return serviceScope.ServiceProvider.GetPostCacheHandler();
 		}
 
 		public async Task<Post?> GetByIdAsync(
@@ -70,23 +80,37 @@ public static class PostSetups
 
 		public async Task AddAsync(
 			Post post,
+			UserId currentUserId,
 			CancellationToken cancellationToken)
 		{
-			await serviceScope.GetPostCommandRepository().AddAsync(post, cancellationToken);
+			var cacheHandler = serviceScope.GetPostCacheHandler();
+			var postRepository = serviceScope.GetPostCommandRepository();
+
+			await postRepository.AddAsync(post, cancellationToken);
+			await cacheHandler.AddAsync(post.ToFullResponse(currentUserId), currentUserId, cancellationToken);
 		}
 
 		public async Task AddRangeAsync(
-			IEnumerable<Post> posts,
+			ICollection<Post> posts,
+			UserId currentUserId,
 			CancellationToken cancellationToken)
 		{
-			await serviceScope.GetPostCommandRepository().AddRangeAsync(posts, cancellationToken);
+			var cacheHandler = serviceScope.GetPostCacheHandler();
+			var postRepository = serviceScope.GetPostCommandRepository();
+
+			await postRepository.AddRangeAsync(posts, cancellationToken);
+			await cacheHandler.AddRangeAsync(posts.ToFullResponse(currentUserId), currentUserId, cancellationToken);
 		}
 
 		public async Task DeleteAsync(
 			Post post,
 			CancellationToken cancellationToken)
 		{
-			await serviceScope.GetPostCommandRepository().DeleteAsync(post, cancellationToken);
+			var cacheHandler = serviceScope.GetPostCacheHandler();
+			var postRepository = serviceScope.GetPostCommandRepository();
+
+			await postRepository.DeleteAsync(post, cancellationToken);
+			await cacheHandler.DeleteAsync(post.Id, cancellationToken);
 		}
 
 		public async Task DeleteRangeAsync(

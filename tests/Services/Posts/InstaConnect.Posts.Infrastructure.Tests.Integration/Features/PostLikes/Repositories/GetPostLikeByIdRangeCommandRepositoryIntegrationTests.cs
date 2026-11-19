@@ -14,7 +14,7 @@ public class GetPostLikeByIdRangeCommandRepositoryIntegrationTests : BasePostLik
 
 	protected override async Task OnInitializeAsync()
 	{
-		await ServiceScope.AddRangeAsync(PostLikes, CancellationToken);
+		await ServiceScope.AddRangeAsync(PostLikes, CurrentUserId, CancellationToken);
 	}
 
 	[Fact]

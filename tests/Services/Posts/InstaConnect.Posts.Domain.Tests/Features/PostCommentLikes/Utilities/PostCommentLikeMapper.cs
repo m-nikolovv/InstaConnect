@@ -18,40 +18,13 @@ public static class PostCommentLikeMapper
 		public PostCommentResponse ToResponse(
 			GetAllPostCommentLikesQuery query)
 		{
-			return postComment.ToFullResponse(query);
+			return postComment.ToFullResponse(query.CurrentUser.Id);
 		}
 	}
 
+
 	extension(PostCommentLike postCommentLike)
 	{
-		internal PostCommentLikeResponse ToFullResponse<TQuery>(
-			TQuery request)
-			where TQuery : ICurrentUserableQuery
-		{
-			return new(postCommentLike.Id,
-					   postCommentLike.User?.ToFullResponse(),
-					   postCommentLike.PostComment?.ToFullResponse(request),
-					   postCommentLike.CreatedAtUtc);
-		}
-
-		internal PostCommentLikeResponse ToResponseWithoutUser<TQuery>(
-			TQuery request)
-			where TQuery : ICurrentUserableQuery
-		{
-			return new(postCommentLike.Id,
-					   null,
-					   postCommentLike.PostComment?.ToFullResponse(request),
-					   postCommentLike.CreatedAtUtc);
-		}
-
-		internal PostCommentLikeResponse ToResponseWithoutPostComment()
-		{
-			return new(postCommentLike.Id,
-					   postCommentLike.User?.ToFullResponse(),
-					   null,
-					   postCommentLike.CreatedAtUtc);
-		}
-
 		public PostCommentLike To(AddPostCommentLikeCommand command)
 		{
 			return new(
@@ -68,7 +41,7 @@ public static class PostCommentLikeMapper
 		public PostCommentLikeResponse ToResponse(
 			GetPostCommentLikeByIdQuery query)
 		{
-			return postCommentLike.ToFullResponse(query);
+			return postCommentLike.ToFullResponse(query.CurrentUser.Id);
 		}
 	}
 
@@ -83,7 +56,7 @@ public static class PostCommentLikeMapper
 		public ICollection<PostCommentLikeResponse> ToResponse(
 			GetAllPostCommentLikesForUserQuery query)
 		{
-			return postCommentLikes.Filter(query.Pagination, postCommentLike => postCommentLike.MatchesFilter(query.Filter), postCommentLike => postCommentLike.ToResponseWithoutUser(query));
+			return postCommentLikes.Filter(query.Pagination, postCommentLike => postCommentLike.MatchesFilter(query.Filter), postCommentLike => postCommentLike.ToResponseWithoutUser(query.CurrentUser.Id));
 		}
 
 		public long ToTotalCountResponse(

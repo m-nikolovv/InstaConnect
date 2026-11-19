@@ -12,7 +12,7 @@ public class GetPostLikeByIdQueryHandlerIntegrationTests : BasePostLikeApplicati
 		: base(webApplicationFactory)
 	{
 		_requestBuilderFactory = new();
-		_requestBuilder = _requestBuilderFactory.Create(PostLike);
+		_requestBuilder = _requestBuilderFactory.Create(PostLike, CurrentUserId);
 		_request = _requestBuilder.Build();
 	}
 

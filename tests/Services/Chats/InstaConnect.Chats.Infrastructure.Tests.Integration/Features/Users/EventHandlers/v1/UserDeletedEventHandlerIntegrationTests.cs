@@ -26,9 +26,9 @@ public class UserDeletedEventHandlerIntegrationTests : BaseUserInfrastructureEve
 
 	protected override async Task OnInitializeAsync()
 	{
-		await ServiceScope.AddAsync(User, CancellationToken);
-		await ServiceScope.AddRangeAsync(Chats, CancellationToken);
-		await ServiceScope.AddRangeAsync(ChatMessages, CancellationToken);
+		await ServiceScope.AddAsync(User, CurrentUserId, CancellationToken);
+		await ServiceScope.AddRangeAsync(Chats, CurrentUserId, CancellationToken);
+		await ServiceScope.AddRangeAsync(ChatMessages, CurrentUserId, CancellationToken);
 		await ServiceScope.AddRangeAsync(ChatMessageImages, CancellationToken);
 	}
 

@@ -26,7 +26,7 @@ public class DeleteChatMessageFunctionalTests : BaseChatMessagePresentationComma
 
 	protected override async Task OnInitializeAsync()
 	{
-		await ServiceScope.AddAsync(ChatMessage, CancellationToken);
+		await ServiceScope.AddAsync(ChatMessage, CurrentUserId, CancellationToken);
 		await ServiceScope.AddRangeAsync(ChatMessageImages, CancellationToken);
 	}
 

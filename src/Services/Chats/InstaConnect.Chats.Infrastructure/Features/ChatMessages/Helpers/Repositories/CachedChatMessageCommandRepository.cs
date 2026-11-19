@@ -30,21 +30,7 @@ internal class CachedChatMessageCommandRepository : IChatMessageCommandRepositor
 		ChatMessageId id,
 		CancellationToken cancellationToken)
 	{
-		var cachedEntity = await _messageCacheHandler.GetByIdAsync(id, cancellationToken);
-
-		if (cachedEntity != null)
-		{
-			return cachedEntity;
-		}
-
-		var entity = await _repository.GetByIdAsync(id, cancellationToken);
-
-		if (entity != null)
-		{
-			await _messageCacheHandler.AddAsync(entity, cancellationToken);
-		}
-
-		return entity;
+		return await _repository.GetByIdAsync(id, cancellationToken);
 	}
 
 	public async Task<ICollection<ChatMessage>> GetByIdRangeAsync(
@@ -66,18 +52,7 @@ internal class CachedChatMessageCommandRepository : IChatMessageCommandRepositor
 		ChatMessageId id,
 		CancellationToken cancellationToken)
 	{
-		var cachedExists = await _messageCacheHandler.ExistsByIdAsync(id, cancellationToken);
-
-		if (cachedExists != null)
-		{
-			return cachedExists.Value;
-		}
-
-		var exists = await _repository.ExistsByIdAsync(id, cancellationToken);
-
-		await _messageCacheHandler.AddExistsByIdAsync(id, exists, cancellationToken);
-
-		return exists;
+		return await _repository.ExistsByIdAsync(id, cancellationToken);
 	}
 
 	public async Task AddAsync(ChatMessage entity, CancellationToken cancellationToken)

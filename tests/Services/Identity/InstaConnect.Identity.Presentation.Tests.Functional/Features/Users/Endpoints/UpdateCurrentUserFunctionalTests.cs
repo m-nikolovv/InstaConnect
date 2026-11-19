@@ -23,7 +23,7 @@ public class UpdateCurrentUserFunctionalTests : BaseUserPresentationCommandFunct
 
 	protected override async Task OnInitializeAsync()
 	{
-		await ServiceScope.AddAsync(User, CancellationToken);
+		await ServiceScope.AddAsync(User, CurrentUserId, CancellationToken);
 		await ServiceScope.AddRangeAsync(EmailConfirmationTokens, CancellationToken);
 	}
 
@@ -285,7 +285,7 @@ public class UpdateCurrentUserFunctionalTests : BaseUserPresentationCommandFunct
 	{
 		// Arrange
 		var user = UserBuilderFactory.Create(User.PasswordHash).Build();
-		await ServiceScope.AddAsync(user, CancellationToken);
+		await ServiceScope.AddAsync(user, CurrentUserId, CancellationToken);
 		var request = _requestBuilder.WithEmail(user.Email).Build();
 
 		// Act
@@ -302,7 +302,7 @@ public class UpdateCurrentUserFunctionalTests : BaseUserPresentationCommandFunct
 	{
 		// Arrange
 		var user = UserBuilderFactory.Create(User.PasswordHash).Build();
-		await ServiceScope.AddAsync(user, CancellationToken);
+		await ServiceScope.AddAsync(user, CurrentUserId, CancellationToken);
 		var request = _requestBuilder.WithEmail(user.Email, transformer).Build();
 
 		// Act
@@ -317,7 +317,7 @@ public class UpdateCurrentUserFunctionalTests : BaseUserPresentationCommandFunct
 	{
 		// Arrange
 		var user = UserBuilderFactory.Create(User.PasswordHash).Build();
-		await ServiceScope.AddAsync(user, CancellationToken);
+		await ServiceScope.AddAsync(user, CurrentUserId, CancellationToken);
 		var request = _requestBuilder.WithEmail(user.Email).Build();
 
 		// Act
@@ -334,7 +334,7 @@ public class UpdateCurrentUserFunctionalTests : BaseUserPresentationCommandFunct
 	{
 		// Arrange
 		var user = UserBuilderFactory.Create(User.PasswordHash).Build();
-		await ServiceScope.AddAsync(user, CancellationToken);
+		await ServiceScope.AddAsync(user, CurrentUserId, CancellationToken);
 		var request = _requestBuilder.WithEmail(user.Email, transformer).Build();
 
 		// Act
@@ -349,7 +349,7 @@ public class UpdateCurrentUserFunctionalTests : BaseUserPresentationCommandFunct
 	{
 		// Arrange
 		var user = UserBuilderFactory.Create(User.PasswordHash).Build();
-		await ServiceScope.AddAsync(user, CancellationToken);
+		await ServiceScope.AddAsync(user, CurrentUserId, CancellationToken);
 		var request = _requestBuilder.WithName(user.Name).Build();
 
 		// Act
@@ -366,7 +366,7 @@ public class UpdateCurrentUserFunctionalTests : BaseUserPresentationCommandFunct
 	{
 		// Arrange
 		var user = UserBuilderFactory.Create(User.PasswordHash).Build();
-		await ServiceScope.AddAsync(user, CancellationToken);
+		await ServiceScope.AddAsync(user, CurrentUserId, CancellationToken);
 		var request = _requestBuilder.WithName(user.Name, transformer).Build();
 
 		// Act
@@ -381,7 +381,7 @@ public class UpdateCurrentUserFunctionalTests : BaseUserPresentationCommandFunct
 	{
 		// Arrange
 		var user = UserBuilderFactory.Create(User.PasswordHash).Build();
-		await ServiceScope.AddAsync(user, CancellationToken);
+		await ServiceScope.AddAsync(user, CurrentUserId, CancellationToken);
 		var request = _requestBuilder.WithName(user.Name).Build();
 
 		// Act
@@ -398,7 +398,7 @@ public class UpdateCurrentUserFunctionalTests : BaseUserPresentationCommandFunct
 	{
 		// Arrange
 		var user = UserBuilderFactory.Create(User.PasswordHash).Build();
-		await ServiceScope.AddAsync(user, CancellationToken);
+		await ServiceScope.AddAsync(user, CurrentUserId, CancellationToken);
 		var request = _requestBuilder.WithName(user.Name, transformer).Build();
 
 		// Act

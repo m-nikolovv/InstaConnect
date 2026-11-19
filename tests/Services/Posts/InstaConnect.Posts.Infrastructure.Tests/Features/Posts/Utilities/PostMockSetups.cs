@@ -349,7 +349,7 @@ public static class PostMockSetups
 			Post post,
 			CancellationToken cancellationToken)
 		{
-			fluent.SetupFirstOrDefaultAsync(post.ToFullResponse(currentUserQuery), cancellationToken);
+			fluent.SetupFirstOrDefaultAsync(post.ToFullResponse(currentUserQuery.Id), cancellationToken);
 		}
 	}
 }

@@ -5,10 +5,10 @@ public class GetChatByIdApiRequestBuilder
 	private string _participantTwoId;
 	private string _currentUserId;
 
-	public GetChatByIdApiRequestBuilder(Chat chat)
+	public GetChatByIdApiRequestBuilder(Chat chat, UserId currentUserId)
 	{
 		_participantTwoId = chat.Id.ParticipantTwoId.Id;
-		_currentUserId = chat.Id.ParticipantOneId.Id;
+		_currentUserId = currentUserId.Id;
 	}
 
 	public GetChatByIdApiRequestBuilder WithParticipantTwoId(UserId participantTwoId, IStringTransformer? transformer = null)

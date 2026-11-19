@@ -9,9 +9,9 @@ public abstract class BasePostCommentImageWebQueryTest : BasePostCommentImageWeb
 
 	public override async Task InitializeAsync()
 	{
-		await ServiceScope.AddRangeAsync(Users, CancellationToken);
-		await ServiceScope.AddRangeAsync(Posts, CancellationToken);
-		await ServiceScope.AddRangeAsync(PostComments, CancellationToken);
+		await ServiceScope.AddRangeAsync(Users, CurrentUserId, CancellationToken);
+		await ServiceScope.AddRangeAsync(Posts, CurrentUserId, CancellationToken);
+		await ServiceScope.AddRangeAsync(PostComments, CurrentUserId, CancellationToken);
 		await ServiceScope.AddRangeAsync(PostCommentImages, CancellationToken);
 		await OnInitializeAsync();
 	}

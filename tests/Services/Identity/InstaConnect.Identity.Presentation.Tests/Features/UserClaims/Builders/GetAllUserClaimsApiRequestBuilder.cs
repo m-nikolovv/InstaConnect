@@ -11,10 +11,10 @@ public class GetAllUserClaimsApiRequestBuilder
 	private CommonSortOrder _sortOrder;
 	private UserClaimsSortTerm _sortTerm;
 
-	public GetAllUserClaimsApiRequestBuilder(UserClaim userClaim)
+	public GetAllUserClaimsApiRequestBuilder(UserClaim userClaim, UserId currentId)
 	{
 		_id = userClaim.Id.Id.Id;
-		_currentId = userClaim.Id.Id.Id;
+		_currentId = currentId.Id;
 		_page = UserClaimDataFaker.GetPage();
 		_pageSize = UserClaimDataFaker.GetPageSize();
 		_sortOrder = DataFaker.GetSortOrder();

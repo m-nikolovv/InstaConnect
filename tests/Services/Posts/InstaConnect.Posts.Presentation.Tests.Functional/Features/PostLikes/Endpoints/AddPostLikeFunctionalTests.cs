@@ -146,7 +146,7 @@ public class AddPostLikeFunctionalTests : BasePostLikePresentationCommandFunctio
 	public async Task AddAsync_ShouldHaveBadRequestStatusCode_WhenPostLikeAlreadyExists()
 	{
 		// Arrange
-		await ServiceScope.AddAsync(PostLike, CancellationToken);
+		await ServiceScope.AddAsync(PostLike, CurrentUserId, CancellationToken);
 
 		// Act
 		var response = await LikeApiClient.AddStatusCodeAsync(_request, CancellationToken);
@@ -161,7 +161,7 @@ public class AddPostLikeFunctionalTests : BasePostLikePresentationCommandFunctio
 		IStringTransformer transformer)
 	{
 		// Arrange
-		await ServiceScope.AddAsync(PostLike, CancellationToken);
+		await ServiceScope.AddAsync(PostLike, CurrentUserId, CancellationToken);
 		var request = _requestBuilder.WithId(transformer).Build();
 
 		// Act
@@ -177,7 +177,7 @@ public class AddPostLikeFunctionalTests : BasePostLikePresentationCommandFunctio
 		IStringTransformer transformer)
 	{
 		// Arrange
-		await ServiceScope.AddAsync(PostLike, CancellationToken);
+		await ServiceScope.AddAsync(PostLike, CurrentUserId, CancellationToken);
 		var request = _requestBuilder.WithUserId(transformer).Build();
 
 		// Act
@@ -191,7 +191,7 @@ public class AddPostLikeFunctionalTests : BasePostLikePresentationCommandFunctio
 	public async Task AddAsync_ShouldHavePostLikeAlreadyExistsProblemDetails_WhenPostLikeAlreadyExists()
 	{
 		// Arrange
-		await ServiceScope.AddAsync(PostLike, CancellationToken);
+		await ServiceScope.AddAsync(PostLike, CurrentUserId, CancellationToken);
 
 		// Act
 		var response = await LikeApiClient.AddProblemDetailsAsync(_request, CancellationToken);
@@ -206,7 +206,7 @@ public class AddPostLikeFunctionalTests : BasePostLikePresentationCommandFunctio
 		IStringTransformer transformer)
 	{
 		// Arrange
-		await ServiceScope.AddAsync(PostLike, CancellationToken);
+		await ServiceScope.AddAsync(PostLike, CurrentUserId, CancellationToken);
 		var request = _requestBuilder.WithId(transformer).Build();
 
 		// Act
@@ -222,7 +222,7 @@ public class AddPostLikeFunctionalTests : BasePostLikePresentationCommandFunctio
 		IStringTransformer transformer)
 	{
 		// Arrange
-		await ServiceScope.AddAsync(PostLike, CancellationToken);
+		await ServiceScope.AddAsync(PostLike, CurrentUserId, CancellationToken);
 		var request = _requestBuilder.WithUserId(transformer).Build();
 
 		// Act

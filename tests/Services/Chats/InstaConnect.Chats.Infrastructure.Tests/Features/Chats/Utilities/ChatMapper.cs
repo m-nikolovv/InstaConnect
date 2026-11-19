@@ -4,27 +4,6 @@ namespace InstaConnect.Chats.Infrastructure.Tests.Features.Chats.Utilities;
 
 public static class ChatMapper
 {
-	extension(Chat chat)
-	{
-		internal ChatResponse ToFullResponse()
-		{
-			return new(chat.Id,
-					   chat.ParticipantOne?.ToFullResponse(),
-					   chat.ParticipantTwo?.ToFullResponse(),
-					   chat.ChatMessages.Count,
-					   chat.CreatedAtUtc);
-		}
-
-		internal ChatResponse ToResponseWithoutParticipantOne()
-		{
-			return new(chat.Id,
-					   null,
-					   chat.ParticipantTwo?.ToFullResponse(),
-					   chat.ChatMessages.Count,
-					   chat.CreatedAtUtc);
-		}
-	}
-
 	extension(ICollection<Chat> chats)
 	{
 		public ICollection<ChatResponse> ToResponse(

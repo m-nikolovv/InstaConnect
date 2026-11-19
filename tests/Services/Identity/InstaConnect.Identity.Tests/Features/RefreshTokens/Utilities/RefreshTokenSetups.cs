@@ -24,6 +24,11 @@ public static class RefreshTokenSetups
 		{
 			return serviceProvider.GetRequiredService<IRefreshTokenCollection>();
 		}
+
+		public IRefreshTokenCacheHandler GetRefreshTokenCacheHandler()
+		{
+			return serviceProvider.GetRequiredService<IRefreshTokenCacheHandler>();
+		}
 	}
 
 	extension(IServiceScope serviceScope)
@@ -36,6 +41,11 @@ public static class RefreshTokenSetups
 		public IRefreshTokenIncludeBuilderFactory GetRefreshTokenIncludeBuilderFactory()
 		{
 			return serviceScope.ServiceProvider.GetRefreshTokenIncludeBuilderFactory();
+		}
+
+		public IRefreshTokenCacheHandler GetRefreshTokenCacheHandler()
+		{
+			return serviceScope.ServiceProvider.GetRefreshTokenCacheHandler();
 		}
 
 		public async Task<RefreshToken?> GetByIdAsync(
@@ -58,28 +68,38 @@ public static class RefreshTokenSetups
 			RefreshToken refreshToken,
 			CancellationToken cancellationToken)
 		{
-			await serviceScope.GetRefreshTokenCommandRepository().AddAsync(refreshToken, cancellationToken);
+			var refreshTokenRepository = serviceScope.GetRefreshTokenCommandRepository();
+
+			await refreshTokenRepository.AddAsync(refreshToken, cancellationToken);
 		}
 
 		public async Task AddRangeAsync(
 			IEnumerable<RefreshToken> refreshTokens,
 			CancellationToken cancellationToken)
 		{
-			await serviceScope.GetRefreshTokenCommandRepository().AddRangeAsync(refreshTokens, cancellationToken);
+			var refreshTokenRepository = serviceScope.GetRefreshTokenCommandRepository();
+
+			await refreshTokenRepository.AddRangeAsync(refreshTokens, cancellationToken);
 		}
 
 		public async Task UpdateAsync(
 			RefreshToken refreshToken,
 			CancellationToken cancellationToken)
 		{
-			await serviceScope.GetRefreshTokenCommandRepository().UpdateAsync(refreshToken, cancellationToken);
+			var refreshTokenRepository = serviceScope.GetRefreshTokenCommandRepository();
+
+			await refreshTokenRepository.UpdateAsync(refreshToken, cancellationToken);
 		}
 
 		public async Task DeleteAsync(
 			RefreshToken refreshToken,
 			CancellationToken cancellationToken)
 		{
-			await serviceScope.GetRefreshTokenCommandRepository().DeleteAsync(refreshToken, cancellationToken);
+			var cacheHandler = serviceScope.GetRefreshTokenCacheHandler();
+			var refreshTokenRepository = serviceScope.GetRefreshTokenCommandRepository();
+
+			await refreshTokenRepository.DeleteAsync(refreshToken, cancellationToken);
+			await cacheHandler.DeleteAsync(refreshToken.Id, cancellationToken);
 		}
 	}
 }

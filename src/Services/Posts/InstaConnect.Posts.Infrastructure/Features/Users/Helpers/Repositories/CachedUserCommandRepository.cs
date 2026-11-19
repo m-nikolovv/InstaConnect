@@ -27,39 +27,14 @@ internal class CachedUserCommandRepository : IUserCommandRepository
 		UserId id,
 		CancellationToken cancellationToken)
 	{
-		var cachedEntity = await _cacheHandler.GetByIdAsync(id, cancellationToken);
-
-		if (cachedEntity != null)
-		{
-			return cachedEntity;
-		}
-
-		var entity = await _repository.GetByIdAsync(id, cancellationToken);
-
-		if (entity != null)
-		{
-			await _cacheHandler.AddAsync(entity, cancellationToken);
-		}
-
-		return entity;
+		return await _repository.GetByIdAsync(id, cancellationToken);
 	}
 
 	public async Task<bool> ExistsByIdAsync(
 		UserId id,
 		CancellationToken cancellationToken)
 	{
-		var cachedExists = await _cacheHandler.ExistsByIdAsync(id, cancellationToken);
-
-		if (cachedExists != null)
-		{
-			return cachedExists.Value;
-		}
-
-		var exists = await _repository.ExistsByIdAsync(id, cancellationToken);
-
-		await _cacheHandler.AddExistsByIdAsync(id, exists, cancellationToken);
-
-		return exists;
+		return await _repository.ExistsByIdAsync(id, cancellationToken);
 	}
 
 	public async Task<User?> GetByNameAsync(
@@ -74,21 +49,7 @@ internal class CachedUserCommandRepository : IUserCommandRepository
 		Name name,
 		CancellationToken cancellationToken)
 	{
-		var cachedEntity = await _cacheHandler.GetByNameAsync(name, cancellationToken);
-
-		if (cachedEntity != null)
-		{
-			return cachedEntity;
-		}
-
-		var entity = await _repository.GetByNameAsync(name, cancellationToken);
-
-		if (entity != null)
-		{
-			await _cacheHandler.AddByNameAsync(entity, cancellationToken);
-		}
-
-		return entity;
+		return await _repository.GetByNameAsync(name, cancellationToken);
 	}
 
 	public async Task<bool> IsNameUniqueAsync(
@@ -110,21 +71,7 @@ internal class CachedUserCommandRepository : IUserCommandRepository
 		Email email,
 		CancellationToken cancellationToken)
 	{
-		var cachedEntity = await _cacheHandler.GetByEmailAsync(email, cancellationToken);
-
-		if (cachedEntity != null)
-		{
-			return cachedEntity;
-		}
-
-		var entity = await _repository.GetByEmailAsync(email, cancellationToken);
-
-		if (entity != null)
-		{
-			await _cacheHandler.AddByEmailAsync(entity, cancellationToken);
-		}
-
-		return entity;
+		return await _repository.GetByEmailAsync(email, cancellationToken);
 	}
 
 	public async Task<bool> IsEmailUniqueAsync(

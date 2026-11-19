@@ -32,6 +32,11 @@ public static class PostCommentSetups
 		{
 			return serviceProvider.GetRequiredService<IPostCommentCollection>();
 		}
+
+		public IPostCommentCacheHandler GetPostCommentCacheHandler()
+		{
+			return serviceProvider.GetRequiredService<IPostCommentCacheHandler>();
+		}
 	}
 
 	extension(IServiceScope serviceScope)
@@ -49,6 +54,11 @@ public static class PostCommentSetups
 		public IPostCommentIncludeBuilderFactory GetPostCommentIncludeBuilderFactory()
 		{
 			return serviceScope.ServiceProvider.GetPostCommentIncludeBuilderFactory();
+		}
+
+		public IPostCommentCacheHandler GetPostCommentCacheHandler()
+		{
+			return serviceScope.ServiceProvider.GetPostCommentCacheHandler();
 		}
 
 		public async Task<PostComment?> GetByIdAsync(
@@ -73,23 +83,39 @@ public static class PostCommentSetups
 
 		public async Task AddAsync(
 			PostComment postComment,
+			UserId currentUserId,
 			CancellationToken cancellationToken)
 		{
-			await serviceScope.GetPostCommentCommandRepository().AddAsync(postComment, cancellationToken);
+			var commentCacheHandler = serviceScope.GetPostCommentCacheHandler();
+			var postCommentRepository = serviceScope.GetPostCommentCommandRepository();
+
+			await postCommentRepository.AddAsync(postComment, cancellationToken);
+			await commentCacheHandler.AddAsync(postComment.ToFullResponse(currentUserId), currentUserId, cancellationToken);
 		}
 
 		public async Task AddRangeAsync(
-			IEnumerable<PostComment> postComments,
+			ICollection<PostComment> postComments,
+			UserId currentUserId,
 			CancellationToken cancellationToken)
 		{
-			await serviceScope.GetPostCommentCommandRepository().AddRangeAsync(postComments, cancellationToken);
+			var commentCacheHandler = serviceScope.GetPostCommentCacheHandler();
+			var postCommentRepository = serviceScope.GetPostCommentCommandRepository();
+
+			await postCommentRepository.AddRangeAsync(postComments, cancellationToken);
+			await commentCacheHandler.AddRangeAsync(postComments.ToFullResponse(currentUserId), currentUserId, cancellationToken);
 		}
 
 		public async Task DeleteAsync(
 			PostComment postComment,
 			CancellationToken cancellationToken)
 		{
-			await serviceScope.GetPostCommentCommandRepository().DeleteAsync(postComment, cancellationToken);
+			var cacheHandler = serviceScope.GetPostCacheHandler();
+			var commentCacheHandler = serviceScope.GetPostCommentCacheHandler();
+			var postCommentRepository = serviceScope.GetPostCommentCommandRepository();
+
+			await postCommentRepository.DeleteAsync(postComment, cancellationToken);
+			await cacheHandler.DeleteResponseAsync(postComment.Id.Id, cancellationToken);
+			await commentCacheHandler.DeleteAsync(postComment.Id, cancellationToken);
 		}
 
 		public async Task DeleteRangeAsync(

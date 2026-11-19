@@ -1,45 +1,9 @@
 using InstaConnect.Posts.Domain.Features.Posts.Models.Responses;
-using InstaConnect.Posts.Infrastructure.Tests.Features.PostImages.Utilities;
 
 namespace InstaConnect.Posts.Infrastructure.Tests.Features.Posts.Utilities;
 
 public static class PostMapper
 {
-	extension(Post post)
-	{
-		internal PostResponse ToFullResponse(CurrentUserQuery query)
-		{
-			return new(post.Id,
-					   post.UserId,
-					   post.Title,
-					   post.Content,
-					   post.Summary,
-					   post.User?.ToFullResponse(),
-					   post.PostImages.ToFullResponse(),
-					   post.PostLikes.Any(pl => pl.Id.UserId.Matches(query.Id)),
-					   post.PostLikes.Count,
-					   post.PostComments.Count,
-					   post.CreatedAtUtc,
-					   post.UpdatedAtUtc);
-		}
-
-		internal PostResponse ToResponseWithoutUser(CurrentUserQuery query)
-		{
-			return new(post.Id,
-					   post.UserId,
-					   post.Title,
-					   post.Content,
-					   post.Summary,
-					   null,
-					   post.PostImages.ToFullResponse(),
-					   post.PostLikes.Any(pl => pl.Id.UserId.Matches(query.Id)),
-					   post.PostLikes.Count,
-					   post.PostComments.Count,
-					   post.CreatedAtUtc,
-					   post.UpdatedAtUtc);
-		}
-	}
-
 	extension(ICollection<Post> posts)
 	{
 		public ICollection<PostResponse> ToResponse(
@@ -47,7 +11,7 @@ public static class PostMapper
 			PostsPaginationQuery paginationQuery,
 			CurrentUserQuery currentUserQuery)
 		{
-			return posts.Filter(paginationQuery, post => post.MatchesFilter(filterQuery), post => post.ToFullResponse(currentUserQuery));
+			return posts.Filter(paginationQuery, post => post.MatchesFilter(filterQuery), post => post.ToFullResponse(currentUserQuery.Id));
 		}
 
 		public ICollection<PostResponse> ToResponse(
@@ -55,7 +19,7 @@ public static class PostMapper
 			PostsPaginationQuery paginationQuery,
 			CurrentUserQuery currentUserQuery)
 		{
-			return posts.Filter(paginationQuery, post => post.MatchesFilter(filterQuery), post => post.ToResponseWithoutUser(currentUserQuery));
+			return posts.Filter(paginationQuery, post => post.MatchesFilter(filterQuery), post => post.ToResponseWithoutUser(currentUserQuery.Id));
 		}
 
 		public long ToTotalCountResponse(

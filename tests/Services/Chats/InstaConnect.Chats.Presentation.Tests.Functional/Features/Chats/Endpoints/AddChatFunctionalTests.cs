@@ -162,7 +162,7 @@ public class AddChatFunctionalTests : BaseChatPresentationCommandFunctionalTest
 	public async Task AddAsync_ShouldHaveBadRequestStatusCode_WhenChatAlreadyExists()
 	{
 		// Arrange
-		await ServiceScope.AddAsync(Chat, CancellationToken);
+		await ServiceScope.AddAsync(Chat, CurrentUserId, CancellationToken);
 
 		// Act
 		var response = await ApiClient.AddStatusCodeAsync(_request, CancellationToken);
@@ -175,7 +175,7 @@ public class AddChatFunctionalTests : BaseChatPresentationCommandFunctionalTest
 	public async Task AddAsync_ShouldHaveChatAlreadyExistsProblemDetails_WhenChatAlreadyExists()
 	{
 		// Arrange
-		await ServiceScope.AddAsync(Chat, CancellationToken);
+		await ServiceScope.AddAsync(Chat, CurrentUserId, CancellationToken);
 
 		// Act
 		var response = await ApiClient.AddProblemDetailsAsync(_request, CancellationToken);
@@ -190,7 +190,7 @@ public class AddChatFunctionalTests : BaseChatPresentationCommandFunctionalTest
 		IStringTransformer transformer)
 	{
 		// Arrange
-		await ServiceScope.AddAsync(Chat, CancellationToken);
+		await ServiceScope.AddAsync(Chat, CurrentUserId, CancellationToken);
 		var request = _requestBuilder.WithParticipantOneId(transformer).Build();
 
 		// Act
@@ -206,7 +206,7 @@ public class AddChatFunctionalTests : BaseChatPresentationCommandFunctionalTest
 		IStringTransformer transformer)
 	{
 		// Arrange
-		await ServiceScope.AddAsync(Chat, CancellationToken);
+		await ServiceScope.AddAsync(Chat, CurrentUserId, CancellationToken);
 		var request = _requestBuilder.WithParticipantOneId(transformer).Build();
 
 		// Act
@@ -222,7 +222,7 @@ public class AddChatFunctionalTests : BaseChatPresentationCommandFunctionalTest
 		IStringTransformer transformer)
 	{
 		// Arrange
-		await ServiceScope.AddAsync(Chat, CancellationToken);
+		await ServiceScope.AddAsync(Chat, CurrentUserId, CancellationToken);
 		var request = _requestBuilder.WithParticipantTwoId(transformer).Build();
 
 		// Act
@@ -238,7 +238,7 @@ public class AddChatFunctionalTests : BaseChatPresentationCommandFunctionalTest
 		IStringTransformer transformer)
 	{
 		// Arrange
-		await ServiceScope.AddAsync(Chat, CancellationToken);
+		await ServiceScope.AddAsync(Chat, CurrentUserId, CancellationToken);
 		var request = _requestBuilder.WithParticipantTwoId(transformer).Build();
 
 		// Act
@@ -252,7 +252,7 @@ public class AddChatFunctionalTests : BaseChatPresentationCommandFunctionalTest
 	public async Task AddAsync_ShouldHaveBadRequestStatusCode_WhenInvertedChatAlreadyExists()
 	{
 		// Arrange
-		await ServiceScope.AddAsync(Chat, CancellationToken);
+		await ServiceScope.AddAsync(Chat, CurrentUserId, CancellationToken);
 
 		// Act
 		var response = await ApiClient.AddStatusCodeAsync(_invertedRequest, CancellationToken);
@@ -265,7 +265,7 @@ public class AddChatFunctionalTests : BaseChatPresentationCommandFunctionalTest
 	public async Task AddAsync_ShouldHaveChatAlreadyExistsProblemDetails_WhenInvertedChatAlreadyExists()
 	{
 		// Arrange
-		await ServiceScope.AddAsync(Chat, CancellationToken);
+		await ServiceScope.AddAsync(Chat, CurrentUserId, CancellationToken);
 
 		// Act
 		var response = await ApiClient.AddProblemDetailsAsync(_invertedRequest, CancellationToken);
@@ -280,7 +280,7 @@ public class AddChatFunctionalTests : BaseChatPresentationCommandFunctionalTest
 		IStringTransformer transformer)
 	{
 		// Arrange
-		await ServiceScope.AddAsync(Chat, CancellationToken);
+		await ServiceScope.AddAsync(Chat, CurrentUserId, CancellationToken);
 		var invertedRequest = _invertedRequestBuilder.WithParticipantOneId(transformer).Build();
 
 		// Act
@@ -296,7 +296,7 @@ public class AddChatFunctionalTests : BaseChatPresentationCommandFunctionalTest
 		IStringTransformer transformer)
 	{
 		// Arrange
-		await ServiceScope.AddAsync(Chat, CancellationToken);
+		await ServiceScope.AddAsync(Chat, CurrentUserId, CancellationToken);
 		var invertedRequest = _invertedRequestBuilder.WithParticipantOneId(transformer).Build();
 
 		// Act
@@ -312,7 +312,7 @@ public class AddChatFunctionalTests : BaseChatPresentationCommandFunctionalTest
 		IStringTransformer transformer)
 	{
 		// Arrange
-		await ServiceScope.AddAsync(Chat, CancellationToken);
+		await ServiceScope.AddAsync(Chat, CurrentUserId, CancellationToken);
 		var invertedRequest = _invertedRequestBuilder.WithParticipantTwoId(transformer).Build();
 
 		// Act
@@ -328,7 +328,7 @@ public class AddChatFunctionalTests : BaseChatPresentationCommandFunctionalTest
 		IStringTransformer transformer)
 	{
 		// Arrange
-		await ServiceScope.AddAsync(Chat, CancellationToken);
+		await ServiceScope.AddAsync(Chat, CurrentUserId, CancellationToken);
 		var invertedRequest = _invertedRequestBuilder.WithParticipantTwoId(transformer).Build();
 
 		// Act

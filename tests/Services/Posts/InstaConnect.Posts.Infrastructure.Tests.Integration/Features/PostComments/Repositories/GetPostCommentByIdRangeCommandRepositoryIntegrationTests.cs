@@ -14,7 +14,7 @@ public class GetPostCommentByIdRangeCommandRepositoryIntegrationTests : BasePost
 
 	protected override async Task OnInitializeAsync()
 	{
-		await ServiceScope.AddRangeAsync(PostComments, CancellationToken);
+		await ServiceScope.AddRangeAsync(PostComments, CurrentUserId, CancellationToken);
 	}
 
 	[Fact]

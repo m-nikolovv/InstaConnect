@@ -23,21 +23,7 @@ internal class CachedChatMessageImageCommandRepository : IChatMessageImageComman
 		ChatMessageImageId id,
 		CancellationToken cancellationToken)
 	{
-		var cachedEntity = await _messageImageCacheHandler.GetByIdAsync(id, cancellationToken);
-
-		if (cachedEntity != null)
-		{
-			return cachedEntity;
-		}
-
-		var entity = await _repository.GetByIdAsync(id, cancellationToken);
-
-		if (entity != null)
-		{
-			await _messageImageCacheHandler.AddAsync(entity, cancellationToken);
-		}
-
-		return entity;
+		return await _repository.GetByIdAsync(id, cancellationToken);
 	}
 
 	public async Task<ICollection<ChatMessageImage>> GetByIdRangeAsync(

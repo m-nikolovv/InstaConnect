@@ -1,4 +1,3 @@
-using InstaConnect.Chats.Tests.Features.Chats.Utilities;
 using InstaConnect.Common.Tests.Features.DataAttributes.Ints.Base;
 
 namespace InstaConnect.Chats.Infrastructure.Tests.Features.Chats.Builders;

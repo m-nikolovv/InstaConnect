@@ -9,10 +9,10 @@ public abstract class BasePostLikeWebQueryTest : BasePostLikeWebTest
 
 	public override async Task InitializeAsync()
 	{
-		await ServiceScope.AddRangeAsync(Users, CancellationToken);
-		await ServiceScope.AddRangeAsync(Posts, CancellationToken);
-		await ServiceScope.AddRangeAsync(PostLikes, CancellationToken);
-		await ServiceScope.AddRangeAsync(PostComments, CancellationToken);
+		await ServiceScope.AddRangeAsync(Users, CurrentUserId, CancellationToken);
+		await ServiceScope.AddRangeAsync(Posts, CurrentUserId, CancellationToken);
+		await ServiceScope.AddRangeAsync(PostLikes, CurrentUserId, CancellationToken);
+		await ServiceScope.AddRangeAsync(PostComments, CurrentUserId, CancellationToken);
 		await ServiceScope.AddRangeAsync(PostImages, CancellationToken);
 		await OnInitializeAsync();
 	}

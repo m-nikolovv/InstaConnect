@@ -1,7 +1,6 @@
 using InstaConnect.Posts.Domain.Features.PostCommentLikes.Models.Responses;
 using InstaConnect.Posts.Domain.Features.PostCommentLikes.Models.ValueObjects;
 using InstaConnect.Posts.Infrastructure.Tests.Features.PostComments.Utilities;
-using InstaConnect.Posts.Tests.Features.PostCommentLikes.Utilities;
 
 namespace InstaConnect.Posts.Infrastructure.Tests.Features.PostCommentLikes.Utilities;
 

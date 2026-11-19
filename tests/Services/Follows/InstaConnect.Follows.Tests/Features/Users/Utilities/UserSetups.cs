@@ -41,6 +41,11 @@ public static class UserSetups
 		{
 			return serviceProvider.GetRequiredService<IUserCollection>();
 		}
+
+		public IUserCacheHandler GetUserCacheHandler()
+		{
+			return serviceProvider.GetRequiredService<IUserCacheHandler>();
+		}
 	}
 
 	extension(IServiceScope serviceScope)
@@ -68,6 +73,11 @@ public static class UserSetups
 		public IFollowFollowingIncludeBuilderFactory GetFollowFollowingIncludeBuilderFactory()
 		{
 			return serviceScope.ServiceProvider.GetFollowFollowingIncludeBuilderFactory();
+		}
+
+		public IUserCacheHandler GetUserCacheHandler()
+		{
+			return serviceScope.ServiceProvider.GetUserCacheHandler();
 		}
 
 		public async Task<User?> GetByIdAsync(
@@ -99,23 +109,37 @@ public static class UserSetups
 
 		public async Task AddAsync(
 			User user,
+			UserId currentUserId,
 			CancellationToken cancellationToken)
 		{
-			await serviceScope.GetUserCommandRepository().AddAsync(user, cancellationToken);
+			var cacheHandler = serviceScope.GetUserCacheHandler();
+			var userRepository = serviceScope.GetUserCommandRepository();
+
+			await userRepository.AddAsync(user, cancellationToken);
+			await cacheHandler.AddAsync(user.ToFullResponse(), currentUserId, cancellationToken);
 		}
 
 		public async Task AddRangeAsync(
-			IEnumerable<User> users,
+			ICollection<User> users,
+			UserId currentUserId,
 			CancellationToken cancellationToken)
 		{
-			await serviceScope.GetUserCommandRepository().AddRangeAsync(users, cancellationToken);
+			var cacheHandler = serviceScope.GetUserCacheHandler();
+			var userRepository = serviceScope.GetUserCommandRepository();
+
+			await userRepository.AddRangeAsync(users, cancellationToken);
+			await cacheHandler.AddRangeAsync(users.ToFullResponse(), currentUserId, cancellationToken);
 		}
 
 		public async Task DeleteAsync(
 			User user,
 			CancellationToken cancellationToken)
 		{
-			await serviceScope.GetUserCommandRepository().DeleteAsync(user, cancellationToken);
+			var cacheHandler = serviceScope.GetUserCacheHandler();
+			var userRepository = serviceScope.GetUserCommandRepository();
+
+			await userRepository.DeleteAsync(user, cancellationToken);
+			await cacheHandler.DeleteAsync(user.Id, cancellationToken);
 		}
 	}
 }

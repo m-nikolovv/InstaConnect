@@ -1,6 +1,5 @@
 using InstaConnect.Chats.Domain.Features.ChatMessageImages.Abstractions;
 using InstaConnect.Chats.Infrastructure.Features.ChatMessageImages.Helpers.Repositories;
-using InstaConnect.Chats.Infrastructure.Features.ChatMessageImages.Models.Options;
 
 namespace InstaConnect.Chats.Infrastructure.Features.ChatMessageImages.Extensions;
 
@@ -11,8 +10,6 @@ internal static class ServiceCollectionExtensions
 		internal IServiceCollection AddChatMessageImageServices()
 		{
 			const string CollectionName = "chat_message_images";
-
-			serviceCollection.AddValidatedOptions<ChatMessageImageCacheOptions>(ChatMessageImageCacheOptions.SectionName);
 
 			serviceCollection.AddCollection<ChatMessageImage, ChatMessageImageId>(CollectionName);
 

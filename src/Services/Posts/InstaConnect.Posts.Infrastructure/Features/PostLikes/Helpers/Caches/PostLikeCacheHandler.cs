@@ -17,33 +17,15 @@ internal class PostLikeCacheHandler : IPostLikeCacheHandler
 		_cacheOptions = cacheOptions;
 	}
 
-	public async Task<PostLike?> GetByIdAsync(PostLikeId id, CancellationToken cancellationToken)
+	public async Task<PostLikeResponse?> GetByIdAsync(PostLikeId id, UserId currentUserId, CancellationToken cancellationToken)
 	{
-		return await _cacheHandler.GetAsync<PostLike>(PostLikeCacheUtilities.GetByIdKey(id), cancellationToken);
+		return await _cacheHandler.GetAsync<PostLikeResponse>(PostLikeCacheUtilities.GetResponseByIdKey(id, currentUserId), cancellationToken);
 	}
 
-	public async Task<PostLikeResponse?> GetByIdAsync(PostLikeId id, CurrentUserQuery currentUser, CancellationToken cancellationToken)
-	{
-		return await _cacheHandler.GetAsync<PostLikeResponse>(PostLikeCacheUtilities.GetResponseByIdKey(id, currentUser), cancellationToken);
-	}
-
-	public async Task AddAsync(PostLike entity, CancellationToken cancellationToken)
+	public async Task AddAsync(PostLikeResponse response, UserId currentUserId, CancellationToken cancellationToken)
 	{
 		await _cacheHandler.SetAsync(
-			PostLikeCacheUtilities.GetByIdKey(entity.Id),
-			entity,
-			_cacheOptions.Expirations[PostLikeCacheUtilities.GetByIdKeyPrefix],
-			[PostLikeCacheUtilities.GetTag(entity.Id),
-			 PostCacheUtilities.GetResponseTag(entity.Id.Id)],
-			[PostCacheUtilities.GetTag(entity.Id.Id),
-			 UserCacheUtilities.GetTag(entity.Id.UserId)],
-			cancellationToken);
-	}
-
-	public async Task AddAsync(PostLikeResponse response, CurrentUserQuery currentUser, CancellationToken cancellationToken)
-	{
-		await _cacheHandler.SetAsync(
-			PostLikeCacheUtilities.GetResponseByIdKey(response.Id, currentUser),
+			PostLikeCacheUtilities.GetResponseByIdKey(response.Id, currentUserId),
 			response,
 			_cacheOptions.Expirations[PostLikeCacheUtilities.GetResponseByIdKeyPrefix],
 			[PostLikeCacheUtilities.GetTag(response.Id),
@@ -53,29 +35,12 @@ internal class PostLikeCacheHandler : IPostLikeCacheHandler
 			cancellationToken);
 	}
 
-	public async Task AddRangeAsync(IEnumerable<PostLike> entities, CancellationToken cancellationToken)
+	public async Task AddRangeAsync(IEnumerable<PostLikeResponse> responses, UserId currentUserId, CancellationToken cancellationToken)
 	{
-		foreach (var entity in entities)
+		foreach (var response in responses)
 		{
-			await AddAsync(entity, cancellationToken);
+			await AddAsync(response, currentUserId, cancellationToken);
 		}
-	}
-
-	public async Task<bool?> ExistsByIdAsync(PostLikeId id, CancellationToken cancellationToken)
-	{
-		return await _cacheHandler.GetAsync<bool?>(PostLikeCacheUtilities.ExistsByIdKey(id), cancellationToken);
-	}
-
-	public async Task AddExistsByIdAsync(PostLikeId id, bool exists, CancellationToken cancellationToken)
-	{
-		await _cacheHandler.SetAsync<bool?>(
-			PostLikeCacheUtilities.ExistsByIdKey(id),
-			exists,
-			_cacheOptions.Expirations[PostLikeCacheUtilities.ExistsByIdKeyPrefix],
-			[PostLikeCacheUtilities.GetTag(id)],
-			[PostCacheUtilities.GetTag(id.Id),
-			 UserCacheUtilities.GetTag(id.UserId)],
-			cancellationToken);
 	}
 
 	public async Task DeleteAsync(PostLikeId id, CancellationToken cancellationToken)

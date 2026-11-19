@@ -12,7 +12,7 @@ public class GetPostCommentByIdQueryHandlerIntegrationTests : BasePostCommentApp
 		: base(webApplicationFactory)
 	{
 		_requestBuilderFactory = new();
-		_requestBuilder = _requestBuilderFactory.Create(PostComment);
+		_requestBuilder = _requestBuilderFactory.Create(PostComment, CurrentUserId);
 		_request = _requestBuilder.Build();
 	}
 
@@ -80,7 +80,6 @@ public class GetPostCommentByIdQueryHandlerIntegrationTests : BasePostCommentApp
 		// Assert
 		await Sender.ShouldThrowPostCommentNotFoundExceptionAsync(_request, CancellationToken);
 	}
-
 
 	[Fact]
 	public async Task SendAsync_ShouldReturnResponse_WhenRequestIsValid()

@@ -31,6 +31,11 @@ public static class UserClaimSetups
 		{
 			return serviceProvider.GetRequiredService<IUserClaimCollection>();
 		}
+
+		public IUserClaimCacheHandler GetClaimCacheHandler()
+		{
+			return serviceProvider.GetRequiredService<IUserClaimCacheHandler>();
+		}
 	}
 
 	extension(IServiceScope serviceScope)
@@ -48,6 +53,11 @@ public static class UserClaimSetups
 		public IUserClaimIncludeBuilderFactory GetClaimIncludeBuilderFactory()
 		{
 			return serviceScope.ServiceProvider.GetClaimIncludeBuilderFactory();
+		}
+
+		public IUserClaimCacheHandler GetClaimCacheHandler()
+		{
+			return serviceScope.ServiceProvider.GetClaimCacheHandler();
 		}
 
 		public async Task<UserClaim?> GetByIdAsync(
@@ -68,23 +78,37 @@ public static class UserClaimSetups
 
 		public async Task AddAsync(
 			UserClaim userClaim,
+			UserId currentUserId,
 			CancellationToken cancellationToken)
 		{
-			await serviceScope.GetClaimCommandRepository().AddAsync(userClaim, cancellationToken);
+			var cacheHandler = serviceScope.GetClaimCacheHandler();
+			var claimRepository = serviceScope.GetClaimCommandRepository();
+
+			await claimRepository.AddAsync(userClaim, cancellationToken);
+			await cacheHandler.AddAsync(userClaim.ToFullResponse(), currentUserId, cancellationToken);
 		}
 
 		public async Task AddRangeAsync(
-			IEnumerable<UserClaim> userClaims,
+			ICollection<UserClaim> userClaims,
+			UserId currentUserId,
 			CancellationToken cancellationToken)
 		{
-			await serviceScope.GetClaimCommandRepository().AddRangeAsync(userClaims, cancellationToken);
+			var cacheHandler = serviceScope.GetClaimCacheHandler();
+			var claimRepository = serviceScope.GetClaimCommandRepository();
+
+			await claimRepository.AddRangeAsync(userClaims, cancellationToken);
+			await cacheHandler.AddRangeAsync(userClaims.ToFullResponse(), currentUserId, cancellationToken);
 		}
 
 		public async Task DeleteAsync(
 			UserClaim userClaim,
 			CancellationToken cancellationToken)
 		{
-			await serviceScope.GetClaimCommandRepository().DeleteAsync(userClaim, cancellationToken);
+			var cacheHandler = serviceScope.GetClaimCacheHandler();
+			var claimRepository = serviceScope.GetClaimCommandRepository();
+
+			await claimRepository.DeleteAsync(userClaim, cancellationToken);
+			await cacheHandler.DeleteAsync(userClaim.Id, cancellationToken);
 		}
 	}
 }

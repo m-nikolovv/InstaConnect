@@ -2,31 +2,9 @@ namespace InstaConnect.Posts.Infrastructure.Features.PostLikes.Utilities;
 
 public static class PostLikeCacheUtilities
 {
-	public const string GetByIdKeyPrefix = "posts-post-likes-get-by-id";
-	public const string ExistsByIdKeyPrefix = "posts-post-likes-exists-by-id";
 	public const string GetResponseByIdKeyPrefix = "posts-post-likes-get-by-id-response";
 
-	public static string GetByIdKey(PostLikeId id)
-	{
-		const string Format = "{0}:{1}:{2}";
-
-		return Format.FormatCurrentCulture(
-			GetByIdKeyPrefix,
-			id.Id.Id,
-			id.UserId.Id);
-	}
-
-	public static string ExistsByIdKey(PostLikeId id)
-	{
-		const string Format = "{0}:{1}:{2}";
-
-		return Format.FormatCurrentCulture(
-			ExistsByIdKeyPrefix,
-			id.Id.Id,
-			id.UserId.Id);
-	}
-
-	public static string GetResponseByIdKey(PostLikeId id, CurrentUserQuery currentUser)
+	public static string GetResponseByIdKey(PostLikeId id, UserId currentUserId)
 	{
 		const string Format = "{0}:{1}:{2}:{3}";
 
@@ -34,7 +12,7 @@ public static class PostLikeCacheUtilities
 			GetResponseByIdKeyPrefix,
 			id.Id.Id,
 			id.UserId.Id,
-			currentUser.Id.Id);
+			currentUserId.Id);
 	}
 
 	public static string GetTag(PostLikeId id)

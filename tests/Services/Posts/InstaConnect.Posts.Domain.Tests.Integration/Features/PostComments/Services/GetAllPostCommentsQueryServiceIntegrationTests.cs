@@ -14,7 +14,7 @@ public class GetAllPostCommentsQueryServiceIntegrationTests : BasePostCommentDom
 		: base(webApplicationFactory)
 	{
 		_queryBuilderFactory = new();
-		_queryBuilder = _queryBuilderFactory.Create(PostComment);
+		_queryBuilder = _queryBuilderFactory.Create(PostComment, CurrentUserId);
 		_query = _queryBuilder.Build();
 	}
 

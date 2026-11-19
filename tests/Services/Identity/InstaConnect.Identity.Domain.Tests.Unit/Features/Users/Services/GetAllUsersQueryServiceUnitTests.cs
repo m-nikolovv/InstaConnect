@@ -11,7 +11,7 @@ public class GetAllUsersQueryServiceUnitTests : BaseUserDomainQueryUnitTest
 	public GetAllUsersQueryServiceUnitTests()
 	{
 		_queryBuilderFactory = new();
-		_queryBuilder = _queryBuilderFactory.Create(User);
+		_queryBuilder = _queryBuilderFactory.Create(User, CurrentUserId);
 		_query = _queryBuilder.Build();
 
 		_service = new(Repository, CollectionResponseFactory);

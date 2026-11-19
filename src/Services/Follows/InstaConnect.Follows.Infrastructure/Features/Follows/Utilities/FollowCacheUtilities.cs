@@ -2,31 +2,9 @@ namespace InstaConnect.Follows.Infrastructure.Features.Follows.Utilities;
 
 public static class FollowCacheUtilities
 {
-	public const string GetByIdKeyPrefix = "follows-follows-get-by-id";
-	public const string ExistsByIdKeyPrefix = "follows-follows-exists-by-id";
 	public const string GetResponseByIdKeyPrefix = "follows-follows-get-by-id-response";
 
-	public static string GetByIdKey(FollowId id)
-	{
-		const string Format = "{0}:{1}:{2}";
-
-		return Format.FormatCurrentCulture(
-			GetByIdKeyPrefix,
-			id.FollowerId.Id,
-			id.FollowingId.Id);
-	}
-
-	public static string ExistsByIdKey(FollowId id)
-	{
-		const string Format = "{0}:{1}:{2}";
-
-		return Format.FormatCurrentCulture(
-			ExistsByIdKeyPrefix,
-			id.FollowerId.Id,
-			id.FollowingId.Id);
-	}
-
-	public static string GetResponseByIdKey(FollowId id, CurrentUserQuery currentUser)
+	public static string GetResponseByIdKey(FollowId id, UserId currentUserId)
 	{
 		const string Format = "{0}:{1}:{2}:{3}";
 
@@ -34,7 +12,7 @@ public static class FollowCacheUtilities
 			GetResponseByIdKeyPrefix,
 			id.FollowerId.Id,
 			id.FollowingId.Id,
-			currentUser.Id.Id);
+			currentUserId.Id);
 	}
 
 	public static string GetTag(FollowId id)

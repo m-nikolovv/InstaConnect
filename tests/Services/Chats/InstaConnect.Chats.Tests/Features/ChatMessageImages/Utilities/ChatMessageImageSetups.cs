@@ -17,6 +17,11 @@ public static class ChatMessageImageSetups
 		{
 			return serviceProvider.GetRequiredService<IChatMessageImageCollection>();
 		}
+
+		public IChatMessageImageCacheHandler GetMessageImageCacheHandler()
+		{
+			return serviceProvider.GetRequiredService<IChatMessageImageCacheHandler>();
+		}
 	}
 
 	extension(IServiceScope serviceScope)
@@ -24,6 +29,11 @@ public static class ChatMessageImageSetups
 		public IChatMessageImageCommandRepository GetMessageImageCommandRepository()
 		{
 			return serviceScope.ServiceProvider.GetMessageImageCommandRepository();
+		}
+
+		public IChatMessageImageCacheHandler GetMessageImageCacheHandler()
+		{
+			return serviceScope.ServiceProvider.GetMessageImageCacheHandler();
 		}
 
 		public async Task<ChatMessageImage?> GetByIdAsync(
@@ -44,28 +54,44 @@ public static class ChatMessageImageSetups
 			ChatMessageImage chatMessageImage,
 			CancellationToken cancellationToken)
 		{
-			await serviceScope.GetMessageImageCommandRepository().AddAsync(chatMessageImage, cancellationToken);
+			var messageImageRepository = serviceScope.GetMessageImageCommandRepository();
+
+			await messageImageRepository.AddAsync(chatMessageImage, cancellationToken);
 		}
 
 		public async Task AddRangeAsync(
 			IEnumerable<ChatMessageImage> chatMessageImages,
 			CancellationToken cancellationToken)
 		{
-			await serviceScope.GetMessageImageCommandRepository().AddRangeAsync(chatMessageImages, cancellationToken);
+			var messageImageRepository = serviceScope.GetMessageImageCommandRepository();
+
+			await messageImageRepository.AddRangeAsync(chatMessageImages, cancellationToken);
 		}
 
 		public async Task DeleteAsync(
 			ChatMessageImage chatMessageImage,
 			CancellationToken cancellationToken)
 		{
-			await serviceScope.GetMessageImageCommandRepository().DeleteAsync(chatMessageImage, cancellationToken);
+			var messageCacheHandler = serviceScope.GetMessageCacheHandler();
+			var messageImageCacheHandler = serviceScope.GetMessageImageCacheHandler();
+			var messageImageRepository = serviceScope.GetMessageImageCommandRepository();
+
+			await messageImageRepository.DeleteAsync(chatMessageImage, cancellationToken);
+			await messageCacheHandler.DeleteResponseAsync(chatMessageImage.Id.Id, cancellationToken);
+			await messageImageCacheHandler.DeleteAsync(chatMessageImage.Id, cancellationToken);
 		}
 
 		public async Task DeleteRangeAsync(
 			IEnumerable<ChatMessageImage> chatMessageImages,
 			CancellationToken cancellationToken)
 		{
-			await serviceScope.GetMessageImageCommandRepository().DeleteRangeAsync(chatMessageImages, cancellationToken);
+			var messageCacheHandler = serviceScope.GetMessageCacheHandler();
+			var messageImageCacheHandler = serviceScope.GetMessageImageCacheHandler();
+			var messageImageRepository = serviceScope.GetMessageImageCommandRepository();
+
+			await messageImageRepository.DeleteRangeAsync(chatMessageImages, cancellationToken);
+			await messageCacheHandler.DeleteResponseRangeAsync(chatMessageImages.Select(p => p.Id.Id), cancellationToken);
+			await messageImageCacheHandler.DeleteRangeAsync(chatMessageImages.Select(p => p.Id), cancellationToken);
 		}
 	}
 }

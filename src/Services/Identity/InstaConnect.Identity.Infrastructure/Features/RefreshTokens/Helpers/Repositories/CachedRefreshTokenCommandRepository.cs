@@ -29,21 +29,7 @@ internal class CachedRefreshTokenCommandRepository : IRefreshTokenCommandReposit
 		RefreshTokenId id,
 		CancellationToken cancellationToken)
 	{
-		var cachedEntity = await _cacheHandler.GetByIdAsync(id, cancellationToken);
-
-		if (cachedEntity != null)
-		{
-			return cachedEntity;
-		}
-
-		var entity = await _repository.GetByIdAsync(id, cancellationToken);
-
-		if (entity != null)
-		{
-			await _cacheHandler.AddAsync(entity, cancellationToken);
-		}
-
-		return entity;
+		return await _repository.GetByIdAsync(id, cancellationToken);
 	}
 
 	public async Task<ICollection<RefreshToken>> GetByIdRangeAsync(

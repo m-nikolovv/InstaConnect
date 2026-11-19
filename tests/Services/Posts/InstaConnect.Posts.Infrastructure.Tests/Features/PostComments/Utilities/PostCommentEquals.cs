@@ -1,6 +1,5 @@
 using InstaConnect.Posts.Domain.Features.PostComments.Models.Responses;
 using InstaConnect.Posts.Infrastructure.Tests.Features.PostCommentImages.Utilities;
-using InstaConnect.Posts.Tests.Features.PostCommentImages.Utilities;
 
 namespace InstaConnect.Posts.Infrastructure.Tests.Features.PostComments.Utilities;
 

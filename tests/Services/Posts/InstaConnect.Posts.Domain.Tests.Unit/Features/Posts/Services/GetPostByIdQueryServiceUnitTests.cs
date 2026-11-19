@@ -11,7 +11,7 @@ public class GetPostByIdQueryServiceUnitTests : BasePostDomainQueryUnitTest
 	public GetPostByIdQueryServiceUnitTests()
 	{
 		_queryBuilderFactory = new();
-		_queryBuilder = _queryBuilderFactory.Create(Post);
+		_queryBuilder = _queryBuilderFactory.Create(Post, CurrentUserId);
 		_query = _queryBuilder.Build();
 
 		_service = new(Repository, UserRepository, CollectionResponseFactory);

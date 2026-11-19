@@ -17,7 +17,7 @@ public class GetAllPostCommentLikesForUserControllerIntegrationTests : BasePostC
 		: base(webApplicationFactory)
 	{
 		_requestBuilderFactory = new();
-		_requestBuilder = _requestBuilderFactory.Create(PostCommentLike);
+		_requestBuilder = _requestBuilderFactory.Create(PostCommentLike, CurrentUserId);
 		_request = _requestBuilder.Build();
 	}
 

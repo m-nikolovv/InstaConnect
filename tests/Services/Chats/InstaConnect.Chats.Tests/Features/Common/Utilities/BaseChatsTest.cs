@@ -1,3 +1,7 @@
+using InstaConnect.Chats.Domain.Features.ChatMessageImages.Models.Responses;
+using InstaConnect.Chats.Domain.Features.ChatMessages.Models.Responses;
+using InstaConnect.Chats.Domain.Features.Chats.Models.Responses;
+using InstaConnect.Chats.Domain.Features.Users.Models.Responses;
 using InstaConnect.Chats.Tests.Features.ChatMessageImages.Builders;
 using InstaConnect.Chats.Tests.Features.ChatMessageImages.Utilities;
 using InstaConnect.Chats.Tests.Features.ChatMessages.Builders;
@@ -12,10 +16,13 @@ public abstract class BaseChatsTest : BaseTest
 	protected UserBuilder UserBuilder { get; }
 	protected User User { get; }
 	protected ICollection<User> Users { get; }
+	protected UserResponse UserResponse { get; }
+	protected ICollection<UserResponse> UserResponses { get; }
 
 	protected UserIdBuilderFactory UserIdBuilderFactory { get; }
 	protected UserIdBuilder UserIdBuilder { get; }
 	protected UserId UserId { get; }
+	protected UserId CurrentUserId { get; }
 
 	protected UserIdRangeBuilderFactory UserIdRangeBuilderFactory { get; }
 	protected UserIdRangeBuilder UserIdRangeBuilder { get; }
@@ -25,6 +32,8 @@ public abstract class BaseChatsTest : BaseTest
 	protected UserBuilder ParticipantOneBuilder { get; }
 	protected User ParticipantOne { get; }
 	protected ICollection<User> ParticipantOnes { get; }
+	protected UserResponse ParticipantOneResponse { get; }
+	protected ICollection<UserResponse> ParticipantOneResponses { get; }
 
 	protected UserIdBuilderFactory ParticipantOneIdBuilderFactory { get; }
 	protected UserIdBuilder ParticipantOneIdBuilder { get; }
@@ -38,6 +47,8 @@ public abstract class BaseChatsTest : BaseTest
 	protected UserBuilder ParticipantTwoBuilder { get; }
 	protected User ParticipantTwo { get; }
 	protected ICollection<User> ParticipantTwos { get; }
+	protected UserResponse ParticipantTwoResponse { get; }
+	protected ICollection<UserResponse> ParticipantTwoResponses { get; }
 
 	protected UserIdBuilderFactory ParticipantTwoIdBuilderFactory { get; }
 	protected UserIdBuilder ParticipantTwoIdBuilder { get; }
@@ -54,6 +65,10 @@ public abstract class BaseChatsTest : BaseTest
 	protected ChatBuilder InvertedChatBuilder { get; }
 	protected Chat InvertedChat { get; }
 	protected ICollection<Chat> InvertedChats { get; }
+	protected ChatResponse ChatResponse { get; }
+	protected ICollection<ChatResponse> ChatResponses { get; }
+	protected ChatResponse InvertedChatResponse { get; }
+	protected ICollection<ChatResponse> InvertedChatResponses { get; }
 
 	protected ChatIdBuilderFactory ChatIdBuilderFactory { get; }
 	protected ChatIdBuilder ChatIdBuilder { get; }
@@ -72,6 +87,9 @@ public abstract class BaseChatsTest : BaseTest
 	protected ChatMessage ChatMessage { get; }
 	protected ICollection<ChatMessage> ChatMessages { get; }
 	protected ChatMessage InvertedChatMessage { get; }
+	protected ChatMessageResponse ChatMessageResponse { get; }
+	protected ICollection<ChatMessageResponse> ChatMessageResponses { get; }
+	protected ChatMessageResponse InvertedChatMessageResponse { get; }
 
 	protected ChatMessageIdBuilderFactory ChatMessageIdBuilderFactory { get; }
 	protected ChatMessageIdBuilder ChatMessageIdBuilder { get; }
@@ -89,6 +107,8 @@ public abstract class BaseChatsTest : BaseTest
 	protected ChatMessageImageBuilder ChatMessageImageBuilder { get; }
 	protected ChatMessageImage ChatMessageImage { get; }
 	protected ICollection<ChatMessageImage> ChatMessageImages { get; }
+	protected ChatMessageImageResponse ChatMessageImageResponse { get; }
+	protected ICollection<ChatMessageImageResponse> ChatMessageImageResponses { get; }
 
 	protected ChatMessageImageIdBuilderFactory ChatMessageImageIdBuilderFactory { get; }
 	protected ChatMessageImageIdBuilder ChatMessageImageIdBuilder { get; }
@@ -104,10 +124,13 @@ public abstract class BaseChatsTest : BaseTest
 		UserBuilder = UserBuilderFactory.Create();
 		User = UserBuilder.Build();
 		Users = User.Generate();
+		UserResponse = User.ToFullResponse();
+		UserResponses = Users.ToFullResponse();
 
 		UserIdBuilderFactory = new();
 		UserIdBuilder = UserIdBuilderFactory.Create(User.Id);
 		UserId = UserIdBuilder.Build();
+		CurrentUserId = UserId;
 
 		UserIdRangeBuilderFactory = new();
 		UserIdRangeBuilder = UserIdRangeBuilderFactory.Create([.. Users.Select(p => p.Id)]);
@@ -117,6 +140,8 @@ public abstract class BaseChatsTest : BaseTest
 		ParticipantOneBuilder = UserBuilder;
 		ParticipantOne = User;
 		ParticipantOnes = Users;
+		ParticipantOneResponse = ParticipantOne.ToFullResponse();
+		ParticipantOneResponses = ParticipantOnes.ToFullResponse();
 
 		ParticipantOneIdBuilderFactory = UserIdBuilderFactory;
 		ParticipantOneIdBuilder = UserIdBuilder;
@@ -130,6 +155,8 @@ public abstract class BaseChatsTest : BaseTest
 		ParticipantTwoBuilder = ParticipantTwoBuilderFactory.Create();
 		ParticipantTwo = ParticipantTwoBuilder.Build();
 		ParticipantTwos = ParticipantTwo.Generate();
+		ParticipantTwoResponse = ParticipantTwo.ToFullResponse();
+		ParticipantTwoResponses = ParticipantTwos.ToFullResponse();
 
 		ParticipantTwoIdBuilderFactory = new();
 		ParticipantTwoIdBuilder = ParticipantTwoIdBuilderFactory.Create(ParticipantTwo.Id);
@@ -146,6 +173,10 @@ public abstract class BaseChatsTest : BaseTest
 		InvertedChatBuilder = ChatBuilderFactory.Create(ParticipantTwo, ParticipantOne);
 		InvertedChat = InvertedChatBuilder.BuildAttached();
 		InvertedChats = InvertedChat.GenerateAttached(ParticipantTwos, ParticipantOnes);
+		ChatResponse = Chat.ToFullResponse();
+		ChatResponses = Chats.ToFullResponse();
+		InvertedChatResponse = InvertedChat.ToFullResponse();
+		InvertedChatResponses = InvertedChats.ToFullResponse();
 
 		ChatIdBuilderFactory = new();
 		ChatIdBuilder = ChatIdBuilderFactory.Create(Chat.Id);
@@ -163,6 +194,8 @@ public abstract class BaseChatsTest : BaseTest
 		ChatMessageBuilder = ChatMessageBuilderFactory.Create(Chat);
 		ChatMessage = ChatMessageBuilder.BuildAttached();
 		ChatMessages = ChatMessage.GenerateAttached(Chats);
+		ChatMessageResponse = ChatMessage.ToFullResponse();
+		ChatMessageResponses = ChatMessages.ToFullResponse();
 
 		ChatMessageIdBuilderFactory = new();
 		ChatMessageIdBuilder = ChatMessageIdBuilderFactory.Create(ChatMessage.Id);
@@ -181,6 +214,9 @@ public abstract class BaseChatsTest : BaseTest
 		ChatMessageImage = ChatMessageImageBuilder.BuildAttached();
 		ChatMessageImages = ChatMessageImage.GenerateAttached(ChatMessages);
 		InvertedChatMessage = ChatMessageBuilderFactory.Create(ChatMessage).WithSender(ParticipantTwo).Build();
+		ChatMessageImageResponse = ChatMessageImage.ToFullResponse();
+		ChatMessageImageResponses = ChatMessageImages.ToFullResponse();
+		InvertedChatMessageResponse = InvertedChatMessage.ToFullResponse();
 
 		ChatMessageImageIdBuilderFactory = new();
 		ChatMessageImageIdBuilder = ChatMessageImageIdBuilderFactory.Create(ChatMessageImage.Id);

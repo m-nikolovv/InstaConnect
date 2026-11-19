@@ -19,7 +19,7 @@ public class UpdatePostCommentCommandServiceIntegrationTests : BasePostCommentDo
 
 	protected override async Task OnInitializeAsync()
 	{
-		await ServiceScope.AddAsync(PostComment, CancellationToken);
+		await ServiceScope.AddAsync(PostComment, CurrentUserId, CancellationToken);
 		await ServiceScope.AddRangeAsync(PostCommentImages, CancellationToken);
 	}
 
@@ -48,7 +48,7 @@ public class UpdatePostCommentCommandServiceIntegrationTests : BasePostCommentDo
 	{
 		// Arrange
 		var user = UserBuilderFactory.Create().Build();
-		await ServiceScope.AddAsync(user, CancellationToken);
+		await ServiceScope.AddAsync(user, CurrentUserId, CancellationToken);
 		var command = _commandBuilder.WithUserId(user.Id).Build();
 
 		// Assert

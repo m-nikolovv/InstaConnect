@@ -14,7 +14,7 @@ public class GetAllPostLikesForUserQueryServiceIntegrationTests : BasePostLikeDo
 		: base(webApplicationFactory)
 	{
 		_queryBuilderFactory = new();
-		_queryBuilder = _queryBuilderFactory.Create(PostLike);
+		_queryBuilder = _queryBuilderFactory.Create(PostLike, CurrentUserId);
 		_query = _queryBuilder.Build();
 	}
 

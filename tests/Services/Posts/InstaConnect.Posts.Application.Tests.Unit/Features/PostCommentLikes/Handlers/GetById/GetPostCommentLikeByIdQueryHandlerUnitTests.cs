@@ -13,7 +13,7 @@ public class GetPostCommentLikeByIdQueryHandlerUnitTests : BasePostCommentLikeAp
 	public GetPostCommentLikeByIdQueryHandlerUnitTests()
 	{
 		_requestBuilderFactory = new();
-		_requestBuilder = _requestBuilderFactory.Create(PostCommentLike);
+		_requestBuilder = _requestBuilderFactory.Create(PostCommentLike, CurrentUserId);
 		_request = _requestBuilder.Build();
 
 		_handler = new(Mapper, CommentLikeService);

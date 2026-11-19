@@ -13,12 +13,12 @@ public class GetAllUsersApiRequestBuilder
 	private CommonSortOrder _sortOrder;
 	private UsersSortTerm _sortTerm;
 
-	public GetAllUsersApiRequestBuilder(User user)
+	public GetAllUsersApiRequestBuilder(User user, UserId currentId)
 	{
 		_name = DataFaker.GetPrefixString(user.Name.Value);
 		_firstName = DataFaker.GetPrefixString(user.FirstName);
 		_lastName = DataFaker.GetPrefixString(user.LastName);
-		_currentId = user.Id.Id;
+		_currentId = currentId.Id;
 		_page = UserDataFaker.GetPage();
 		_pageSize = UserDataFaker.GetPageSize();
 		_sortOrder = DataFaker.GetSortOrder();

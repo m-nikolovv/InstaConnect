@@ -14,7 +14,7 @@ public class GetPostLikeByIdCommandRepositoryIntegrationTests : BasePostLikeInfr
 
 	protected override async Task OnInitializeAsync()
 	{
-		await ServiceScope.AddAsync(PostLike, CancellationToken);
+		await ServiceScope.AddAsync(PostLike, CurrentUserId, CancellationToken);
 	}
 
 	[Fact]

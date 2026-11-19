@@ -4,9 +4,9 @@ public class GetCurrentUserDetailsByIdApiRequestBuilder
 {
 	private string _currentId;
 
-	public GetCurrentUserDetailsByIdApiRequestBuilder(User user)
+	public GetCurrentUserDetailsByIdApiRequestBuilder(User user, UserId currentId)
 	{
-		_currentId = user.Id.Id;
+		_currentId = currentId.Id;
 	}
 
 	public GetCurrentUserDetailsByIdApiRequestBuilder WithCurrentId(UserId currentId, IStringTransformer? transformer = null)

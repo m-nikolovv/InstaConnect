@@ -9,7 +9,7 @@ public abstract class BaseRefreshTokenWebCommandTest : BaseRefreshTokenWebTest
 
 	public override async Task InitializeAsync()
 	{
-		await ServiceScope.AddAsync(User, CancellationToken);
+		await ServiceScope.AddAsync(User, CurrentUserId, CancellationToken);
 		await OnInitializeAsync();
 	}
 }

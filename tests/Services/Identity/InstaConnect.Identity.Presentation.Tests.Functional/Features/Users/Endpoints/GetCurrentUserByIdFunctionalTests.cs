@@ -10,7 +10,7 @@ public class GetCurrentUserByIdFunctionalTests : BaseUserPresentationQueryFuncti
 		: base(webApplicationFactory)
 	{
 		_requestBuilderFactory = new();
-		_requestBuilder = _requestBuilderFactory.Create(User);
+		_requestBuilder = _requestBuilderFactory.Create(User, CurrentUserId);
 		_request = _requestBuilder.Build();
 	}
 

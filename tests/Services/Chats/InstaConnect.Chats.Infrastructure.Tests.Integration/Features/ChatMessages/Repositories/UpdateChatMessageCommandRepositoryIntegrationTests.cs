@@ -11,7 +11,7 @@ public class UpdateChatMessageCommandRepositoryIntegrationTests : BaseChatMessag
 
 	protected override async Task OnInitializeAsync()
 	{
-		await ServiceScope.AddAsync(ChatMessage, CancellationToken);
+		await ServiceScope.AddAsync(ChatMessage, CurrentUserId, CancellationToken);
 	}
 
 	[Fact]

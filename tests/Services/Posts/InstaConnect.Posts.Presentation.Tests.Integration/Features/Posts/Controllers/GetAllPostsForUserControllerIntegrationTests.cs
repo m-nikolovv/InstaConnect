@@ -18,7 +18,7 @@ public class GetAllPostsForUserControllerIntegrationTests : BasePostPresentation
 		: base(webApplicationFactory)
 	{
 		_requestBuilderFactory = new();
-		_requestBuilder = _requestBuilderFactory.Create(Post);
+		_requestBuilder = _requestBuilderFactory.Create(Post, CurrentUserId);
 		_request = _requestBuilder.Build();
 	}
 

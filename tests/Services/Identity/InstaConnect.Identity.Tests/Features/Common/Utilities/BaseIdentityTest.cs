@@ -1,3 +1,5 @@
+using InstaConnect.Identity.Domain.Features.UserClaims.Models.Responses;
+using InstaConnect.Identity.Domain.Features.Users.Models.Responses;
 using InstaConnect.Identity.Tests.Features.EmailConfirmationTokens.Builders;
 using InstaConnect.Identity.Tests.Features.ForgotPasswordTokens.Builders;
 using InstaConnect.Identity.Tests.Features.RefreshTokens.Builders;
@@ -24,10 +26,13 @@ public abstract class BaseIdentityTest : BaseTest
 	protected UserBuilder UserBuilder { get; }
 	protected User User { get; }
 	protected ICollection<User> Users { get; }
+	protected UserResponse UserResponse { get; }
+	protected ICollection<UserResponse> UserResponses { get; }
 
 	protected UserIdBuilderFactory UserIdBuilderFactory { get; }
 	protected UserIdBuilder UserIdBuilder { get; }
 	protected UserId UserId { get; }
+	protected UserId CurrentUserId { get; }
 
 	protected UserIdRangeBuilderFactory UserIdRangeBuilderFactory { get; }
 	protected UserIdRangeBuilder UserIdRangeBuilder { get; }
@@ -37,6 +42,8 @@ public abstract class BaseIdentityTest : BaseTest
 	protected UserClaimBuilder UserClaimBuilder { get; }
 	protected UserClaim UserClaim { get; }
 	protected ICollection<UserClaim> UserClaims { get; }
+	protected UserClaimResponse UserClaimResponse { get; }
+	protected ICollection<UserClaimResponse> UserClaimResponses { get; }
 
 	protected UserClaimIdBuilderFactory UserClaimIdBuilderFactory { get; }
 	protected UserClaimIdBuilder UserClaimIdBuilder { get; }
@@ -95,10 +102,13 @@ public abstract class BaseIdentityTest : BaseTest
 		UserBuilder = UserBuilderFactory.Create(PasswordHasher.Hash(Password));
 		User = isEmailConfirmed ? UserBuilder.Build() : UserBuilder.WithUnconfirmedEmail().Build();
 		Users = User.Generate();
+		UserResponse = User.ToFullResponse();
+		UserResponses = Users.ToFullResponse();
 
 		UserIdBuilderFactory = new();
 		UserIdBuilder = UserIdBuilderFactory.Create(User.Id);
 		UserId = UserIdBuilder.Build();
+		CurrentUserId = UserId;
 
 		UserIdRangeBuilderFactory = new();
 		UserIdRangeBuilder = UserIdRangeBuilderFactory.Create([.. Users.Select(u => u.Id)]);
@@ -108,6 +118,8 @@ public abstract class BaseIdentityTest : BaseTest
 		UserClaimBuilder = UserClaimBuilderFactory.Create(User);
 		UserClaim = UserClaimBuilder.BuildAttached();
 		UserClaims = UserClaim.GenerateAttached(Users);
+		UserClaimResponse = UserClaim.ToFullResponse();
+		UserClaimResponses = UserClaims.ToFullResponse();
 
 		UserClaimIdBuilderFactory = new();
 		UserClaimIdBuilder = UserClaimIdBuilderFactory.Create(UserClaim.Id);

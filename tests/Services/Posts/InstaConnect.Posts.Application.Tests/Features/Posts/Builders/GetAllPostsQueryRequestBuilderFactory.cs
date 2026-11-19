@@ -2,8 +2,8 @@ namespace InstaConnect.Posts.Application.Tests.Features.Posts.Builders;
 
 public class GetAllPostsQueryRequestBuilderFactory
 {
-	public GetAllPostsQueryRequestBuilder Create(Post post)
+	public GetAllPostsQueryRequestBuilder Create(Post post, UserId currentUserId)
 	{
-		return new(post);
+		return new(post, currentUserId);
 	}
 }

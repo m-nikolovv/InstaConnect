@@ -32,6 +32,11 @@ public static class PostLikeSetups
 		{
 			return serviceProvider.GetRequiredService<IPostLikeCollection>();
 		}
+
+		public IPostLikeCacheHandler GetPostLikeCacheHandler()
+		{
+			return serviceProvider.GetRequiredService<IPostLikeCacheHandler>();
+		}
 	}
 
 	extension(IServiceScope serviceScope)
@@ -49,6 +54,11 @@ public static class PostLikeSetups
 		public IPostLikeIncludeBuilderFactory GetPostLikeIncludeBuilderFactory()
 		{
 			return serviceScope.ServiceProvider.GetPostLikeIncludeBuilderFactory();
+		}
+
+		public IPostLikeCacheHandler GetPostLikeCacheHandler()
+		{
+			return serviceScope.ServiceProvider.GetPostLikeCacheHandler();
 		}
 
 		public async Task<PostLike?> GetByIdAsync(
@@ -73,23 +83,39 @@ public static class PostLikeSetups
 
 		public async Task AddAsync(
 			PostLike postLike,
+			UserId currentUserId,
 			CancellationToken cancellationToken)
 		{
-			await serviceScope.GetPostLikeCommandRepository().AddAsync(postLike, cancellationToken);
+			var likeCacheHandler = serviceScope.GetPostLikeCacheHandler();
+			var postLikeRepository = serviceScope.GetPostLikeCommandRepository();
+
+			await postLikeRepository.AddAsync(postLike, cancellationToken);
+			await likeCacheHandler.AddAsync(postLike.ToFullResponse(currentUserId), currentUserId, cancellationToken);
 		}
 
 		public async Task AddRangeAsync(
-			IEnumerable<PostLike> postLikes,
+			ICollection<PostLike> postLikes,
+			UserId currentUserId,
 			CancellationToken cancellationToken)
 		{
-			await serviceScope.GetPostLikeCommandRepository().AddRangeAsync(postLikes, cancellationToken);
+			var likeCacheHandler = serviceScope.GetPostLikeCacheHandler();
+			var postLikeRepository = serviceScope.GetPostLikeCommandRepository();
+
+			await postLikeRepository.AddRangeAsync(postLikes, cancellationToken);
+			await likeCacheHandler.AddRangeAsync(postLikes.ToFullResponse(currentUserId), currentUserId, cancellationToken);
 		}
 
 		public async Task DeleteAsync(
 			PostLike postLike,
 			CancellationToken cancellationToken)
 		{
-			await serviceScope.GetPostLikeCommandRepository().DeleteAsync(postLike, cancellationToken);
+			var cacheHandler = serviceScope.GetPostCacheHandler();
+			var likeCacheHandler = serviceScope.GetPostLikeCacheHandler();
+			var postLikeRepository = serviceScope.GetPostLikeCommandRepository();
+
+			await postLikeRepository.DeleteAsync(postLike, cancellationToken);
+			await cacheHandler.DeleteResponseAsync(postLike.Id.Id, cancellationToken);
+			await likeCacheHandler.DeleteAsync(postLike.Id, cancellationToken);
 		}
 
 		public async Task DeleteRangeAsync(

@@ -9,9 +9,9 @@ public class DeletePostCommentCommandRepositoryIntegrationTests : BasePostCommen
 
 	protected override async Task OnInitializeAsync()
 	{
-		await ServiceScope.AddAsync(PostComment, CancellationToken);
+		await ServiceScope.AddAsync(PostComment, CurrentUserId, CancellationToken);
 		await ServiceScope.AddRangeAsync(PostCommentImages, CancellationToken);
-		await ServiceScope.AddRangeAsync(PostCommentLikes, CancellationToken);
+		await ServiceScope.AddRangeAsync(PostCommentLikes, CurrentUserId, CancellationToken);
 	}
 
 	[Fact]

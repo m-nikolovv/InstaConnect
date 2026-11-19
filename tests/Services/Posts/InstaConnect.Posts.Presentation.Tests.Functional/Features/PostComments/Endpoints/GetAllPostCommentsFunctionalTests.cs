@@ -18,7 +18,7 @@ public class GetAllPostCommentsFunctionalTests : BasePostCommentPresentationQuer
 		: base(webApplicationFactory)
 	{
 		_requestBuilderFactory = new();
-		_requestBuilder = _requestBuilderFactory.Create(PostComment);
+		_requestBuilder = _requestBuilderFactory.Create(PostComment, CurrentUserId);
 		_request = _requestBuilder.Build();
 	}
 

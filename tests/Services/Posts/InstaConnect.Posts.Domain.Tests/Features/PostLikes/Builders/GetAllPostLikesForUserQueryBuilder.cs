@@ -9,10 +9,10 @@ public class GetAllPostLikesForUserQueryBuilder
 	private CommonSortOrder _sortOrder;
 	private PostLikesForUserSortTerm _sortTerm;
 
-	public GetAllPostLikesForUserQueryBuilder(PostLike postLike)
+	public GetAllPostLikesForUserQueryBuilder(PostLike postLike, UserId currentUserId)
 	{
 		_userId = postLike.Id.UserId.Id;
-		_currentUserId = postLike.Id.UserId.Id;
+		_currentUserId = currentUserId.Id;
 		_page = PostLikeDataFaker.GetPage();
 		_pageSize = PostLikeDataFaker.GetPageSize();
 		_sortOrder = DataFaker.GetSortOrder();

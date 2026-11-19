@@ -148,7 +148,7 @@ public class AddFollowFunctionalTests : BaseFollowPresentationCommandFunctionalT
 	public async Task AddAsync_ShouldHaveBadRequestStatusCode_WhenFollowAlreadyExists()
 	{
 		// Arrange
-		await ServiceScope.AddAsync(Follow, CancellationToken);
+		await ServiceScope.AddAsync(Follow, CurrentUserId, CancellationToken);
 
 		// Act
 		var response = await ApiClient.AddStatusCodeAsync(_request, CancellationToken);
@@ -163,7 +163,7 @@ public class AddFollowFunctionalTests : BaseFollowPresentationCommandFunctionalT
 		IStringTransformer transformer)
 	{
 		// Arrange
-		await ServiceScope.AddAsync(Follow, CancellationToken);
+		await ServiceScope.AddAsync(Follow, CurrentUserId, CancellationToken);
 		var request = _requestBuilder.WithFollowerId(transformer).Build();
 
 		// Act
@@ -179,7 +179,7 @@ public class AddFollowFunctionalTests : BaseFollowPresentationCommandFunctionalT
 		IStringTransformer transformer)
 	{
 		// Arrange
-		await ServiceScope.AddAsync(Follow, CancellationToken);
+		await ServiceScope.AddAsync(Follow, CurrentUserId, CancellationToken);
 		var request = _requestBuilder.WithFollowingId(transformer).Build();
 
 		// Act
@@ -193,7 +193,7 @@ public class AddFollowFunctionalTests : BaseFollowPresentationCommandFunctionalT
 	public async Task AddAsync_ShouldHaveFollowAlreadyExistsProblemDetails_WhenFollowAlreadyExists()
 	{
 		// Arrange
-		await ServiceScope.AddAsync(Follow, CancellationToken);
+		await ServiceScope.AddAsync(Follow, CurrentUserId, CancellationToken);
 
 		// Act
 		var response = await ApiClient.AddProblemDetailsAsync(_request, CancellationToken);
@@ -208,7 +208,7 @@ public class AddFollowFunctionalTests : BaseFollowPresentationCommandFunctionalT
 		IStringTransformer transformer)
 	{
 		// Arrange
-		await ServiceScope.AddAsync(Follow, CancellationToken);
+		await ServiceScope.AddAsync(Follow, CurrentUserId, CancellationToken);
 		var request = _requestBuilder.WithFollowerId(transformer).Build();
 
 		// Act
@@ -224,7 +224,7 @@ public class AddFollowFunctionalTests : BaseFollowPresentationCommandFunctionalT
 		IStringTransformer transformer)
 	{
 		// Arrange
-		await ServiceScope.AddAsync(Follow, CancellationToken);
+		await ServiceScope.AddAsync(Follow, CurrentUserId, CancellationToken);
 		var request = _requestBuilder.WithFollowingId(transformer).Build();
 
 		// Act

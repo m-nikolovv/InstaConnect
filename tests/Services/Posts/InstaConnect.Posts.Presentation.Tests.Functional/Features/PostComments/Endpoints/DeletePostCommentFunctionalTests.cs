@@ -19,9 +19,9 @@ public class DeletePostCommentFunctionalTests : BasePostCommentPresentationComma
 
 	protected override async Task OnInitializeAsync()
 	{
-		await ServiceScope.AddAsync(PostComment, CancellationToken);
+		await ServiceScope.AddAsync(PostComment, CurrentUserId, CancellationToken);
 		await ServiceScope.AddRangeAsync(PostCommentImages, CancellationToken);
-		await ServiceScope.AddRangeAsync(PostCommentLikes, CancellationToken);
+		await ServiceScope.AddRangeAsync(PostCommentLikes, CurrentUserId, CancellationToken);
 	}
 
 	[Fact]
@@ -189,7 +189,7 @@ public class DeletePostCommentFunctionalTests : BasePostCommentPresentationComma
 	{
 		// Arrange
 		var user = UserBuilderFactory.Create().Build();
-		await ServiceScope.AddAsync(user, CancellationToken);
+		await ServiceScope.AddAsync(user, CurrentUserId, CancellationToken);
 		var request = _requestBuilder.WithUserId(user.Id).Build();
 
 		// Act
@@ -204,7 +204,7 @@ public class DeletePostCommentFunctionalTests : BasePostCommentPresentationComma
 	{
 		// Arrange
 		var user = UserBuilderFactory.Create().Build();
-		await ServiceScope.AddAsync(user, CancellationToken);
+		await ServiceScope.AddAsync(user, CurrentUserId, CancellationToken);
 		var request = _requestBuilder.WithUserId(user.Id).Build();
 
 		// Act

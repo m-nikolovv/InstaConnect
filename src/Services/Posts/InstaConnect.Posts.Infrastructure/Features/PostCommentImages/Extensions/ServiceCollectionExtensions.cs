@@ -1,7 +1,6 @@
 using InstaConnect.Posts.Domain.Features.PostCommentImages.Abstractions;
 using InstaConnect.Posts.Domain.Features.PostCommentImages.Models.ValueObjects;
 using InstaConnect.Posts.Infrastructure.Features.PostCommentImages.Helpers.Repositories;
-using InstaConnect.Posts.Infrastructure.Features.PostCommentImages.Models.Options;
 
 namespace InstaConnect.Posts.Infrastructure.Features.PostCommentImages.Extensions;
 
@@ -12,8 +11,6 @@ internal static class ServiceCollectionExtensions
 		internal IServiceCollection AddPostCommentImageServices()
 		{
 			const string CollectionName = "post_comment_images";
-
-			serviceCollection.AddValidatedOptions<PostCommentImageCacheOptions>(PostCommentImageCacheOptions.SectionName);
 
 			serviceCollection.AddCollection<PostCommentImage, PostCommentImageId>(CollectionName);
 

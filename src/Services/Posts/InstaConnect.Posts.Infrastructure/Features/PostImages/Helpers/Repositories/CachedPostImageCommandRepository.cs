@@ -24,21 +24,7 @@ internal class CachedPostImageCommandRepository : IPostImageCommandRepository
 		PostImageId id,
 		CancellationToken cancellationToken)
 	{
-		var cachedEntity = await _imageCacheHandler.GetByIdAsync(id, cancellationToken);
-
-		if (cachedEntity != null)
-		{
-			return cachedEntity;
-		}
-
-		var entity = await _repository.GetByIdAsync(id, cancellationToken);
-
-		if (entity != null)
-		{
-			await _imageCacheHandler.AddAsync(entity, cancellationToken);
-		}
-
-		return entity;
+		return await _repository.GetByIdAsync(id, cancellationToken);
 	}
 
 	public async Task<ICollection<PostImage>> GetByIdRangeAsync(

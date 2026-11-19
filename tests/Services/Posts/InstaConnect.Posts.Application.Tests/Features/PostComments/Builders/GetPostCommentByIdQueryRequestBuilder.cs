@@ -6,11 +6,11 @@ public class GetPostCommentByIdQueryRequestBuilder
 	private string _commentId;
 	private string _currentUserId;
 
-	public GetPostCommentByIdQueryRequestBuilder(PostComment postComment)
+	public GetPostCommentByIdQueryRequestBuilder(PostComment postComment, UserId currentUserId)
 	{
 		_id = postComment.Id.Id.Id;
 		_commentId = postComment.Id.CommentId;
-		_currentUserId = postComment.UserId.Id;
+		_currentUserId = currentUserId.Id;
 	}
 
 	public GetPostCommentByIdQueryRequestBuilder WithId(PostId id, IStringTransformer? transformer = null)

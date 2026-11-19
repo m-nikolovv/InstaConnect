@@ -1,3 +1,5 @@
+using InstaConnect.Identity.Domain.Features.Users.Models.Responses;
+
 namespace InstaConnect.Identity.Tests.Features.Users.Utilities;
 
 public static class UserMapper
@@ -8,6 +10,26 @@ public static class UserMapper
 )
 		{
 			return user.Id;
+		}
+
+		public UserResponse ToFullResponse()
+		{
+			return new(user.Id,
+					   user.FirstName,
+					   user.LastName,
+					   user.Email,
+					   user.Name,
+					   user.ProfileImageUrl,
+					   user.CreatedAtUtc,
+					   user.UpdatedAtUtc);
+		}
+	}
+
+	extension(ICollection<User> users)
+	{
+		public ICollection<UserResponse> ToFullResponse()
+		{
+			return [.. users.Select(user => user.ToFullResponse())];
 		}
 	}
 }

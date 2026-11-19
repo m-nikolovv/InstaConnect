@@ -16,31 +16,15 @@ internal class PostCacheHandler : IPostCacheHandler
 		_cacheOptions = cacheOptions;
 	}
 
-	public async Task<Post?> GetByIdAsync(PostId id, CancellationToken cancellationToken)
+	public async Task<PostResponse?> GetByIdAsync(PostId id, UserId currentUserId, CancellationToken cancellationToken)
 	{
-		return await _cacheHandler.GetAsync<Post>(PostCacheUtilities.GetByIdKey(id), cancellationToken);
+		return await _cacheHandler.GetAsync<PostResponse>(PostCacheUtilities.GetResponseByIdKey(id, currentUserId), cancellationToken);
 	}
 
-	public async Task<PostResponse?> GetByIdAsync(PostId id, CurrentUserQuery currentUser, CancellationToken cancellationToken)
-	{
-		return await _cacheHandler.GetAsync<PostResponse>(PostCacheUtilities.GetResponseByIdKey(id, currentUser), cancellationToken);
-	}
-
-	public async Task AddAsync(Post entity, CancellationToken cancellationToken)
+	public async Task AddAsync(PostResponse response, UserId currentUserId, CancellationToken cancellationToken)
 	{
 		await _cacheHandler.SetAsync(
-			PostCacheUtilities.GetByIdKey(entity.Id),
-			entity,
-			_cacheOptions.Expirations[PostCacheUtilities.GetByIdKeyPrefix],
-			[PostCacheUtilities.GetTag(entity.Id)],
-			[UserCacheUtilities.GetTag(entity.UserId)],
-			cancellationToken);
-	}
-
-	public async Task AddAsync(PostResponse response, CurrentUserQuery currentUser, CancellationToken cancellationToken)
-	{
-		await _cacheHandler.SetAsync(
-			PostCacheUtilities.GetResponseByIdKey(response.Id, currentUser),
+			PostCacheUtilities.GetResponseByIdKey(response.Id, currentUserId),
 			response,
 			_cacheOptions.Expirations[PostCacheUtilities.GetResponseByIdKeyPrefix],
 			[PostCacheUtilities.GetTag(response.Id),
@@ -49,27 +33,12 @@ internal class PostCacheHandler : IPostCacheHandler
 			cancellationToken);
 	}
 
-	public async Task AddRangeAsync(IEnumerable<Post> entities, CancellationToken cancellationToken)
+	public async Task AddRangeAsync(IEnumerable<PostResponse> responses, UserId currentUserId, CancellationToken cancellationToken)
 	{
-		foreach (var entity in entities)
+		foreach (var response in responses)
 		{
-			await AddAsync(entity, cancellationToken);
+			await AddAsync(response, currentUserId, cancellationToken);
 		}
-	}
-
-	public async Task<bool?> ExistsByIdAsync(PostId id, CancellationToken cancellationToken)
-	{
-		return await _cacheHandler.GetAsync<bool?>(PostCacheUtilities.ExistsByIdKey(id), cancellationToken);
-	}
-
-	public async Task AddExistsByIdAsync(PostId id, bool exists, CancellationToken cancellationToken)
-	{
-		await _cacheHandler.SetAsync<bool?>(
-			PostCacheUtilities.ExistsByIdKey(id),
-			exists,
-			_cacheOptions.Expirations[PostCacheUtilities.ExistsByIdKeyPrefix],
-			[PostCacheUtilities.GetTag(id)],
-			cancellationToken);
 	}
 
 	public async Task DeleteAsync(PostId id, CancellationToken cancellationToken)

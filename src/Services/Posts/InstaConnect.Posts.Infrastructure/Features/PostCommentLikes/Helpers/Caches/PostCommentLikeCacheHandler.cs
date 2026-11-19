@@ -18,33 +18,15 @@ internal class PostCommentLikeCacheHandler : IPostCommentLikeCacheHandler
 		_cacheOptions = cacheOptions;
 	}
 
-	public async Task<PostCommentLike?> GetByIdAsync(PostCommentLikeId id, CancellationToken cancellationToken)
+	public async Task<PostCommentLikeResponse?> GetByIdAsync(PostCommentLikeId id, UserId currentUserId, CancellationToken cancellationToken)
 	{
-		return await _cacheHandler.GetAsync<PostCommentLike>(PostCommentLikeCacheUtilities.GetByIdKey(id), cancellationToken);
+		return await _cacheHandler.GetAsync<PostCommentLikeResponse>(PostCommentLikeCacheUtilities.GetResponseByIdKey(id, currentUserId), cancellationToken);
 	}
 
-	public async Task<PostCommentLikeResponse?> GetByIdAsync(PostCommentLikeId id, CurrentUserQuery currentUser, CancellationToken cancellationToken)
-	{
-		return await _cacheHandler.GetAsync<PostCommentLikeResponse>(PostCommentLikeCacheUtilities.GetResponseByIdKey(id, currentUser), cancellationToken);
-	}
-
-	public async Task AddAsync(PostCommentLike entity, CancellationToken cancellationToken)
+	public async Task AddAsync(PostCommentLikeResponse response, UserId currentUserId, CancellationToken cancellationToken)
 	{
 		await _cacheHandler.SetAsync(
-			PostCommentLikeCacheUtilities.GetByIdKey(entity.Id),
-			entity,
-			_cacheOptions.Expirations[PostCommentLikeCacheUtilities.GetByIdKeyPrefix],
-			[PostCommentLikeCacheUtilities.GetTag(entity.Id),
-			 PostCommentCacheUtilities.GetResponseTag(entity.Id.CommentId)],
-			[PostCommentCacheUtilities.GetTag(entity.Id.CommentId),
-			 UserCacheUtilities.GetTag(entity.Id.UserId)],
-			cancellationToken);
-	}
-
-	public async Task AddAsync(PostCommentLikeResponse response, CurrentUserQuery currentUser, CancellationToken cancellationToken)
-	{
-		await _cacheHandler.SetAsync(
-			PostCommentLikeCacheUtilities.GetResponseByIdKey(response.Id, currentUser),
+			PostCommentLikeCacheUtilities.GetResponseByIdKey(response.Id, currentUserId),
 			response,
 			_cacheOptions.Expirations[PostCommentLikeCacheUtilities.GetResponseByIdKeyPrefix],
 			[PostCommentLikeCacheUtilities.GetTag(response.Id),
@@ -55,29 +37,12 @@ internal class PostCommentLikeCacheHandler : IPostCommentLikeCacheHandler
 			cancellationToken);
 	}
 
-	public async Task AddRangeAsync(IEnumerable<PostCommentLike> entities, CancellationToken cancellationToken)
+	public async Task AddRangeAsync(IEnumerable<PostCommentLikeResponse> responses, UserId currentUserId, CancellationToken cancellationToken)
 	{
-		foreach (var entity in entities)
+		foreach (var response in responses)
 		{
-			await AddAsync(entity, cancellationToken);
+			await AddAsync(response, currentUserId, cancellationToken);
 		}
-	}
-
-	public async Task<bool?> ExistsByIdAsync(PostCommentLikeId id, CancellationToken cancellationToken)
-	{
-		return await _cacheHandler.GetAsync<bool?>(PostCommentLikeCacheUtilities.ExistsByIdKey(id), cancellationToken);
-	}
-
-	public async Task AddExistsByIdAsync(PostCommentLikeId id, bool exists, CancellationToken cancellationToken)
-	{
-		await _cacheHandler.SetAsync<bool?>(
-			PostCommentLikeCacheUtilities.ExistsByIdKey(id),
-			exists,
-			_cacheOptions.Expirations[PostCommentLikeCacheUtilities.ExistsByIdKeyPrefix],
-			[PostCommentLikeCacheUtilities.GetTag(id)],
-			[PostCommentCacheUtilities.GetTag(id.CommentId),
-			 UserCacheUtilities.GetTag(id.UserId)],
-			cancellationToken);
 	}
 
 	public async Task DeleteAsync(PostCommentLikeId id, CancellationToken cancellationToken)

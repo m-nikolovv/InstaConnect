@@ -1,5 +1,3 @@
-using InstaConnect.Chats.Tests.Features.ChatMessages.Utilities;
-
 namespace InstaConnect.Chats.Infrastructure.Tests.Features.ChatMessages.Builders;
 
 public class ChatMessagesSortingQueryBuilder

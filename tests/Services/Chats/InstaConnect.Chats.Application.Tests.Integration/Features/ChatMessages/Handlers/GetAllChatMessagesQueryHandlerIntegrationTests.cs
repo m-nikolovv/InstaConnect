@@ -21,10 +21,10 @@ public class GetAllChatMessagesQueryHandlerIntegrationTests : BaseChatMessageApp
 		: base(webApplicationFactory)
 	{
 		_requestBuilderFactory = new();
-		_requestBuilder = _requestBuilderFactory.Create(ChatMessage);
+		_requestBuilder = _requestBuilderFactory.Create(ChatMessage, CurrentUserId);
 		_request = _requestBuilder.Build();
 
-		_invertedRequestBuilder = _requestBuilderFactory.Create(ChatMessage).WithCurrentUserId(ParticipantTwoId).WithParticipantTwoId(ParticipantOneId);
+		_invertedRequestBuilder = _requestBuilderFactory.Create(ChatMessage, CurrentUserId).WithCurrentUserId(ParticipantTwoId).WithParticipantTwoId(ParticipantOneId);
 		_invertedRequest = _invertedRequestBuilder.Build();
 	}
 

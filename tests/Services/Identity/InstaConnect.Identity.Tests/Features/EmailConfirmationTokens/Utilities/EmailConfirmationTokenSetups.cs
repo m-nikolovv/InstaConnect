@@ -24,6 +24,11 @@ public static class EmailConfirmationTokenSetups
 		{
 			return serviceProvider.GetRequiredService<IEmailConfirmationTokenCollection>();
 		}
+
+		public IEmailConfirmationTokenCacheHandler GetEmailConfirmationTokenCacheHandler()
+		{
+			return serviceProvider.GetRequiredService<IEmailConfirmationTokenCacheHandler>();
+		}
 	}
 
 	extension(IServiceScope serviceScope)
@@ -36,6 +41,11 @@ public static class EmailConfirmationTokenSetups
 		public IEmailConfirmationTokenIncludeBuilderFactory GetEmailConfirmationTokenIncludeBuilderFactory()
 		{
 			return serviceScope.ServiceProvider.GetEmailConfirmationTokenIncludeBuilderFactory();
+		}
+
+		public IEmailConfirmationTokenCacheHandler GetEmailConfirmationTokenCacheHandler()
+		{
+			return serviceScope.ServiceProvider.GetEmailConfirmationTokenCacheHandler();
 		}
 
 		public async Task<EmailConfirmationToken?> GetByIdAsync(
@@ -58,35 +68,49 @@ public static class EmailConfirmationTokenSetups
 			EmailConfirmationToken emailConfirmationToken,
 			CancellationToken cancellationToken)
 		{
-			await serviceScope.GetEmailConfirmationTokenCommandRepository().AddAsync(emailConfirmationToken, cancellationToken);
+			var emailConfirmationTokenRepository = serviceScope.GetEmailConfirmationTokenCommandRepository();
+
+			await emailConfirmationTokenRepository.AddAsync(emailConfirmationToken, cancellationToken);
 		}
 
 		public async Task AddRangeAsync(
 			IEnumerable<EmailConfirmationToken> emailConfirmationTokens,
 			CancellationToken cancellationToken)
 		{
-			await serviceScope.GetEmailConfirmationTokenCommandRepository().AddRangeAsync(emailConfirmationTokens, cancellationToken);
+			var emailConfirmationTokenRepository = serviceScope.GetEmailConfirmationTokenCommandRepository();
+
+			await emailConfirmationTokenRepository.AddRangeAsync(emailConfirmationTokens, cancellationToken);
 		}
 
 		public async Task UpdateAsync(
 			EmailConfirmationToken emailConfirmationToken,
 			CancellationToken cancellationToken)
 		{
-			await serviceScope.GetEmailConfirmationTokenCommandRepository().UpdateAsync(emailConfirmationToken, cancellationToken);
+			var emailConfirmationTokenRepository = serviceScope.GetEmailConfirmationTokenCommandRepository();
+
+			await emailConfirmationTokenRepository.UpdateAsync(emailConfirmationToken, cancellationToken);
 		}
 
 		public async Task DeleteAsync(
 			EmailConfirmationToken emailConfirmationToken,
 			CancellationToken cancellationToken)
 		{
-			await serviceScope.GetEmailConfirmationTokenCommandRepository().DeleteAsync(emailConfirmationToken, cancellationToken);
+			var cacheHandler = serviceScope.GetEmailConfirmationTokenCacheHandler();
+			var emailConfirmationTokenRepository = serviceScope.GetEmailConfirmationTokenCommandRepository();
+
+			await emailConfirmationTokenRepository.DeleteAsync(emailConfirmationToken, cancellationToken);
+			await cacheHandler.DeleteAsync(emailConfirmationToken.Id, cancellationToken);
 		}
 
 		public async Task DeleteRangeAsync(
 			IEnumerable<EmailConfirmationToken> emailConfirmationTokens,
 			CancellationToken cancellationToken)
 		{
-			await serviceScope.GetEmailConfirmationTokenCommandRepository().DeleteRangeAsync(emailConfirmationTokens, cancellationToken);
+			var cacheHandler = serviceScope.GetEmailConfirmationTokenCacheHandler();
+			var emailConfirmationTokenRepository = serviceScope.GetEmailConfirmationTokenCommandRepository();
+
+			await emailConfirmationTokenRepository.DeleteRangeAsync(emailConfirmationTokens, cancellationToken);
+			await cacheHandler.DeleteRangeAsync(emailConfirmationTokens.Select(p => p.Id), cancellationToken);
 		}
 	}
 }

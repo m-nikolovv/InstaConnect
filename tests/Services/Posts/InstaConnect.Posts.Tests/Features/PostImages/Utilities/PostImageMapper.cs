@@ -1,12 +1,12 @@
 using InstaConnect.Posts.Domain.Features.PostImages.Models.Responses;
 
-namespace InstaConnect.Posts.Infrastructure.Tests.Features.PostImages.Utilities;
+namespace InstaConnect.Posts.Tests.Features.PostImages.Utilities;
 
 public static class PostImageMapper
 {
 	extension(PostImage postImage)
 	{
-		internal PostImageResponse ToFullResponse()
+		public PostImageResponse ToFullResponse()
 		{
 			return new(
 				postImage.Id,
@@ -17,7 +17,7 @@ public static class PostImageMapper
 
 	extension(ICollection<PostImage> postImages)
 	{
-		internal ICollection<PostImageResponse> ToFullResponse()
+		public ICollection<PostImageResponse> ToFullResponse()
 		{
 			return [.. postImages.Select(postImage => postImage.ToFullResponse())];
 		}

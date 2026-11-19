@@ -2,33 +2,9 @@ namespace InstaConnect.Chats.Infrastructure.Features.ChatMessages.Utilities;
 
 public static class ChatMessageCacheUtilities
 {
-	public const string GetByIdKeyPrefix = "chats-chat-messages-get-by-id";
-	public const string ExistsByIdKeyPrefix = "chats-chat-messages-exists-by-id";
 	public const string GetResponseByIdKeyPrefix = "chats-chat-messages-get-by-id-response";
 
-	public static string GetByIdKey(ChatMessageId id)
-	{
-		const string Format = "{0}:{1}:{2}:{3}";
-
-		return Format.FormatCurrentCulture(
-			GetByIdKeyPrefix,
-			id.Id.ParticipantOneId.Id,
-			id.Id.ParticipantTwoId.Id,
-			id.MessageId);
-	}
-
-	public static string ExistsByIdKey(ChatMessageId id)
-	{
-		const string Format = "{0}:{1}:{2}:{3}";
-
-		return Format.FormatCurrentCulture(
-			ExistsByIdKeyPrefix,
-			id.Id.ParticipantOneId.Id,
-			id.Id.ParticipantTwoId.Id,
-			id.MessageId);
-	}
-
-	public static string GetResponseByIdKey(ChatMessageId id, CurrentUserQuery currentUser)
+	public static string GetResponseByIdKey(ChatMessageId id, UserId currentUserId)
 	{
 		const string Format = "{0}:{1}:{2}:{3}:{4}";
 
@@ -37,7 +13,7 @@ public static class ChatMessageCacheUtilities
 			id.Id.ParticipantOneId.Id,
 			id.Id.ParticipantTwoId.Id,
 			id.MessageId,
-			currentUser.Id.Id);
+			currentUserId.Id);
 	}
 
 	public static string GetTag(ChatMessageId id)

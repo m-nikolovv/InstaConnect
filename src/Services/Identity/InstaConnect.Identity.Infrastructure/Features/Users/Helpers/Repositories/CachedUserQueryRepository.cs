@@ -37,7 +37,7 @@ internal class CachedUserQueryRepository : IUserQueryRepository
 		CurrentUserQuery current,
 		CancellationToken cancellationToken)
 	{
-		var cachedResponse = await _cacheHandler.GetByIdAsync(id, current, cancellationToken);
+		var cachedResponse = await _cacheHandler.GetByIdAsync(id, current.Id, cancellationToken);
 
 		if (cachedResponse != null)
 		{
@@ -48,7 +48,7 @@ internal class CachedUserQueryRepository : IUserQueryRepository
 
 		if (response != null)
 		{
-			await _cacheHandler.AddAsync(response, current, cancellationToken);
+			await _cacheHandler.AddAsync(response, current.Id, cancellationToken);
 		}
 
 		return response;
@@ -58,17 +58,6 @@ internal class CachedUserQueryRepository : IUserQueryRepository
 		UserId id,
 		CancellationToken cancellationToken)
 	{
-		var cachedExists = await _cacheHandler.ExistsByIdAsync(id, cancellationToken);
-
-		if (cachedExists != null)
-		{
-			return cachedExists.Value;
-		}
-
-		var exists = await _repository.ExistsByIdAsync(id, cancellationToken);
-
-		await _cacheHandler.AddExistsByIdAsync(id, exists, cancellationToken);
-
-		return exists;
+		return await _repository.ExistsByIdAsync(id, cancellationToken);
 	}
 }

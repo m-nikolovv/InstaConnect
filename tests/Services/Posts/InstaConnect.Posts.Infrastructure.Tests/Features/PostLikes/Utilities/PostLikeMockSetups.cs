@@ -348,7 +348,7 @@ public static class PostLikeMockSetups
 			PostLike postLike,
 			CancellationToken cancellationToken)
 		{
-			fluent.SetupFirstOrDefaultAsync(postLike.ToFullResponse(currentUserQuery), cancellationToken);
+			fluent.SetupFirstOrDefaultAsync(postLike.ToFullResponse(currentUserQuery.Id), cancellationToken);
 		}
 	}
 }

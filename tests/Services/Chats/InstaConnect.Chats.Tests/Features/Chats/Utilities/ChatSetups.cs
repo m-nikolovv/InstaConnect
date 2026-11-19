@@ -31,6 +31,11 @@ public static class ChatSetups
 		{
 			return serviceProvider.GetRequiredService<IChatCollection>();
 		}
+
+		public IChatCacheHandler GetCacheHandler()
+		{
+			return serviceProvider.GetRequiredService<IChatCacheHandler>();
+		}
 	}
 
 	extension(IServiceScope serviceScope)
@@ -48,6 +53,11 @@ public static class ChatSetups
 		public IChatIncludeBuilderFactory GetIncludeBuilderFactory()
 		{
 			return serviceScope.ServiceProvider.GetIncludeBuilderFactory();
+		}
+
+		public IChatCacheHandler GetCacheHandler()
+		{
+			return serviceScope.ServiceProvider.GetCacheHandler();
 		}
 
 		public async Task<Chat?> GetByIdAsync(
@@ -70,32 +80,46 @@ public static class ChatSetups
 
 		public async Task AddAsync(
 			Chat chat,
+			UserId currentUserId,
 			CancellationToken cancellationToken)
 		{
-			await serviceScope.GetCommandRepository().AddAsync(chat, cancellationToken);
+			var cacheHandler = serviceScope.GetCacheHandler();
+
+			await cacheHandler.AddAsync(chat.ToFullResponse(), currentUserId, cancellationToken);
 		}
 
 		public async Task AddRangeAsync(
-			IEnumerable<Chat> chats,
+			ICollection<Chat> chats,
+			UserId currentUserId,
 			CancellationToken cancellationToken)
 		{
-			await serviceScope.GetCommandRepository().AddRangeAsync(chats, cancellationToken);
+			var cacheHandler = serviceScope.GetCacheHandler();
+
+			await cacheHandler.AddRangeAsync(chats.ToFullResponse(), currentUserId, cancellationToken);
 		}
 
 		public async Task DeleteAsync(
 			Chat chat,
 			CancellationToken cancellationToken)
 		{
-			await serviceScope.GetCommandRepository().DeleteAsync(chat, cancellationToken);
+			var cacheHandler = serviceScope.GetCacheHandler();
+			var repository = serviceScope.GetCommandRepository();
+
+			await repository.DeleteAsync(chat, cancellationToken);
+			await cacheHandler.DeleteAsync(chat.Id, cancellationToken);
 		}
 
 		public async Task DeleteRangeAsync(
 			IEnumerable<Chat> chats,
 			CancellationToken cancellationToken)
 		{
+			var cacheHandler = serviceScope.GetCacheHandler();
+			var repository = serviceScope.GetCommandRepository();
+
 			foreach (var chat in chats)
 			{
-				await serviceScope.GetCommandRepository().DeleteAsync(chat, cancellationToken);
+				await repository.DeleteAsync(chat, cancellationToken);
+				await cacheHandler.DeleteAsync(chat.Id, cancellationToken);
 			}
 		}
 	}

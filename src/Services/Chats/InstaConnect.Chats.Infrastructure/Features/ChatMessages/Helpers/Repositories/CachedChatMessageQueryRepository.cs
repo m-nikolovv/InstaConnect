@@ -37,7 +37,7 @@ internal class CachedChatMessageQueryRepository : IChatMessageQueryRepository
 		CurrentUserQuery currentUser,
 		CancellationToken cancellationToken)
 	{
-		var cachedResponse = await _messageCacheHandler.GetByIdAsync(id, currentUser, cancellationToken);
+		var cachedResponse = await _messageCacheHandler.GetByIdAsync(id, currentUser.Id, cancellationToken);
 
 		if (cachedResponse != null)
 		{
@@ -48,7 +48,7 @@ internal class CachedChatMessageQueryRepository : IChatMessageQueryRepository
 
 		if (response != null)
 		{
-			await _messageCacheHandler.AddAsync(response, currentUser, cancellationToken);
+			await _messageCacheHandler.AddAsync(response, currentUser.Id, cancellationToken);
 		}
 
 		return response;
@@ -58,17 +58,6 @@ internal class CachedChatMessageQueryRepository : IChatMessageQueryRepository
 		ChatMessageId id,
 		CancellationToken cancellationToken)
 	{
-		var cachedExists = await _messageCacheHandler.ExistsByIdAsync(id, cancellationToken);
-
-		if (cachedExists != null)
-		{
-			return cachedExists.Value;
-		}
-
-		var exists = await _repository.ExistsByIdAsync(id, cancellationToken);
-
-		await _messageCacheHandler.AddExistsByIdAsync(id, exists, cancellationToken);
-
-		return exists;
+		return await _repository.ExistsByIdAsync(id, cancellationToken);
 	}
 }

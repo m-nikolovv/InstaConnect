@@ -15,42 +15,6 @@ public static class PostMapper
 
 	extension(Post post)
 	{
-		internal PostResponse ToFullResponse<TQuery>(
-			TQuery request)
-			where TQuery : ICurrentUserableQuery
-		{
-			return new(post.Id,
-					   post.UserId,
-					   post.Title,
-					   post.Content,
-					   post.Summary,
-					   post.User?.ToFullResponse(),
-					   post.PostImages.ToFullResponse(),
-					   post.PostLikes.Any(pl => pl.Id.UserId.Matches(request.CurrentUser.Id)),
-					   post.PostLikes.Count,
-					   post.PostComments.Count,
-					   post.CreatedAtUtc,
-					   post.UpdatedAtUtc);
-		}
-
-		internal PostResponse ToResponseWithoutUser<TQuery>(
-			TQuery request)
-			where TQuery : ICurrentUserableQuery
-		{
-			return new(post.Id,
-					   post.UserId,
-					   post.Title,
-					   post.Content,
-					   post.Summary,
-					   null,
-					   post.PostImages.ToFullResponse(),
-					   post.PostLikes.Any(pl => pl.Id.UserId.Matches(request.CurrentUser.Id)),
-					   post.PostLikes.Count,
-					   post.PostComments.Count,
-					   post.CreatedAtUtc,
-					   post.UpdatedAtUtc);
-		}
-
 		public Post To(AddPostCommand command)
 		{
 			return new(post.Id,
@@ -77,7 +41,7 @@ public static class PostMapper
 		public PostResponse ToResponse(
 			GetPostByIdQuery query)
 		{
-			return post.ToFullResponse(query);
+			return post.ToFullResponse(query.CurrentUser.Id);
 		}
 	}
 
@@ -86,13 +50,13 @@ public static class PostMapper
 		public ICollection<PostResponse> ToResponse(
 			GetAllPostsQuery query)
 		{
-			return posts.Filter(query.Pagination, post => post.MatchesFilter(query.Filter), post => post.ToFullResponse(query));
+			return posts.Filter(query.Pagination, post => post.MatchesFilter(query.Filter), post => post.ToFullResponse(query.CurrentUser.Id));
 		}
 
 		public ICollection<PostResponse> ToResponse(
 			GetAllPostsForUserQuery query)
 		{
-			return posts.Filter(query.Pagination, post => post.MatchesFilter(query.Filter), post => post.ToResponseWithoutUser(query));
+			return posts.Filter(query.Pagination, post => post.MatchesFilter(query.Filter), post => post.ToResponseWithoutUser(query.CurrentUser.Id));
 		}
 
 		public long ToTotalCountResponse(

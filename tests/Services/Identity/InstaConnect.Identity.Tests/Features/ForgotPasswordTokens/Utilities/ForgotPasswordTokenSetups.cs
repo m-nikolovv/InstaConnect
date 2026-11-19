@@ -24,6 +24,11 @@ public static class ForgotPasswordTokenSetups
 		{
 			return serviceProvider.GetRequiredService<IForgotPasswordTokenCollection>();
 		}
+
+		public IForgotPasswordTokenCacheHandler GetForgotPasswordTokenCacheHandler()
+		{
+			return serviceProvider.GetRequiredService<IForgotPasswordTokenCacheHandler>();
+		}
 	}
 
 	extension(IServiceScope serviceScope)
@@ -36,6 +41,11 @@ public static class ForgotPasswordTokenSetups
 		public IForgotPasswordTokenIncludeBuilderFactory GetForgotPasswordTokenIncludeBuilderFactory()
 		{
 			return serviceScope.ServiceProvider.GetForgotPasswordTokenIncludeBuilderFactory();
+		}
+
+		public IForgotPasswordTokenCacheHandler GetForgotPasswordTokenCacheHandler()
+		{
+			return serviceScope.ServiceProvider.GetForgotPasswordTokenCacheHandler();
 		}
 
 		public async Task<ForgotPasswordToken?> GetByIdAsync(
@@ -58,35 +68,49 @@ public static class ForgotPasswordTokenSetups
 			ForgotPasswordToken forgotPasswordToken,
 			CancellationToken cancellationToken)
 		{
-			await serviceScope.GetForgotPasswordTokenCommandRepository().AddAsync(forgotPasswordToken, cancellationToken);
+			var forgotPasswordTokenRepository = serviceScope.GetForgotPasswordTokenCommandRepository();
+
+			await forgotPasswordTokenRepository.AddAsync(forgotPasswordToken, cancellationToken);
 		}
 
 		public async Task AddRangeAsync(
 			IEnumerable<ForgotPasswordToken> forgotPasswordTokens,
 			CancellationToken cancellationToken)
 		{
-			await serviceScope.GetForgotPasswordTokenCommandRepository().AddRangeAsync(forgotPasswordTokens, cancellationToken);
+			var forgotPasswordTokenRepository = serviceScope.GetForgotPasswordTokenCommandRepository();
+
+			await forgotPasswordTokenRepository.AddRangeAsync(forgotPasswordTokens, cancellationToken);
 		}
 
 		public async Task UpdateAsync(
 			ForgotPasswordToken forgotPasswordToken,
 			CancellationToken cancellationToken)
 		{
-			await serviceScope.GetForgotPasswordTokenCommandRepository().UpdateAsync(forgotPasswordToken, cancellationToken);
+			var forgotPasswordTokenRepository = serviceScope.GetForgotPasswordTokenCommandRepository();
+
+			await forgotPasswordTokenRepository.UpdateAsync(forgotPasswordToken, cancellationToken);
 		}
 
 		public async Task DeleteAsync(
 			ForgotPasswordToken forgotPasswordToken,
 			CancellationToken cancellationToken)
 		{
-			await serviceScope.GetForgotPasswordTokenCommandRepository().DeleteAsync(forgotPasswordToken, cancellationToken);
+			var cacheHandler = serviceScope.GetForgotPasswordTokenCacheHandler();
+			var forgotPasswordTokenRepository = serviceScope.GetForgotPasswordTokenCommandRepository();
+
+			await forgotPasswordTokenRepository.DeleteAsync(forgotPasswordToken, cancellationToken);
+			await cacheHandler.DeleteAsync(forgotPasswordToken.Id, cancellationToken);
 		}
 
 		public async Task DeleteRangeAsync(
 			IEnumerable<ForgotPasswordToken> forgotPasswordTokens,
 			CancellationToken cancellationToken)
 		{
-			await serviceScope.GetForgotPasswordTokenCommandRepository().DeleteRangeAsync(forgotPasswordTokens, cancellationToken);
+			var cacheHandler = serviceScope.GetForgotPasswordTokenCacheHandler();
+			var forgotPasswordTokenRepository = serviceScope.GetForgotPasswordTokenCommandRepository();
+
+			await forgotPasswordTokenRepository.DeleteRangeAsync(forgotPasswordTokens, cancellationToken);
+			await cacheHandler.DeleteRangeAsync(forgotPasswordTokens.Select(p => p.Id), cancellationToken);
 		}
 	}
 }

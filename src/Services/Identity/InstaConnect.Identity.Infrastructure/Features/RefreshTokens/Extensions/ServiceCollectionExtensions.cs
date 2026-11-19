@@ -2,7 +2,6 @@ using InstaConnect.Identity.Domain.Features.RefreshTokens.Abstractions;
 using InstaConnect.Identity.Domain.Features.RefreshTokens.Models.Options;
 using InstaConnect.Identity.Domain.Features.RefreshTokens.Models.ValueObjects;
 using InstaConnect.Identity.Infrastructure.Features.RefreshTokens.Helpers.Repositories;
-using InstaConnect.Identity.Infrastructure.Features.RefreshTokens.Models.Options;
 
 namespace InstaConnect.Identity.Infrastructure.Features.RefreshTokens.Extensions;
 
@@ -17,8 +16,6 @@ internal static class ServiceCollectionExtensions
 			serviceCollection.AddValidatedOptions<RefreshTokenOptions>(RefreshTokenOptions.SectionName);
 
 			serviceCollection.AddImplementationsOf<IRefreshTokenIncluder>(IdentityInfrastructureReference.Assembly);
-
-			serviceCollection.AddValidatedOptions<RefreshTokenCacheOptions>(RefreshTokenCacheOptions.SectionName);
 
 			serviceCollection.AddCollection<RefreshToken, RefreshTokenId>(CollectionName);
 

@@ -13,7 +13,7 @@ public class GetAllPostCommentsForUserQueryHandlerUnitTests : BasePostCommentApp
 	public GetAllPostCommentsForUserQueryHandlerUnitTests()
 	{
 		_requestBuilderFactory = new();
-		_requestBuilder = _requestBuilderFactory.Create(PostComment);
+		_requestBuilder = _requestBuilderFactory.Create(PostComment, CurrentUserId);
 		_request = _requestBuilder.Build();
 
 		_handler = new(Mapper, CommentService);

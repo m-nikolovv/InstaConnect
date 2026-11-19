@@ -9,8 +9,8 @@ public class DeleteUserCommandRepositoryIntegrationTests : BaseUserInfrastructur
 
 	protected override async Task OnInitializeAsync()
 	{
-		await ServiceScope.AddAsync(User, CancellationToken);
-		await ServiceScope.AddRangeAsync(UserClaims, CancellationToken);
+		await ServiceScope.AddAsync(User, CurrentUserId, CancellationToken);
+		await ServiceScope.AddRangeAsync(UserClaims, CurrentUserId, CancellationToken);
 		await ServiceScope.AddRangeAsync(RefreshTokens, CancellationToken);
 		await ServiceScope.AddRangeAsync(ForgotPasswordTokens, CancellationToken);
 		await ServiceScope.AddRangeAsync(EmailConfirmationTokens, CancellationToken);

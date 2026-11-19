@@ -24,10 +24,10 @@ public class GetAllChatsQueryHandlerIntegrationTests : BaseChatApplicationQueryI
 		: base(webApplicationFactory)
 	{
 		_requestBuilderFactory = new();
-		_requestBuilder = _requestBuilderFactory.Create(Chat);
+		_requestBuilder = _requestBuilderFactory.Create(Chat, CurrentUserId);
 		_request = _requestBuilder.Build();
 
-		_invertedRequestBuilder = _requestBuilderFactory.Create(Chat).WithCurrentUserId(ParticipantTwoId).WithParticipantTwoName(ParticipantOne.Name);
+		_invertedRequestBuilder = _requestBuilderFactory.Create(Chat, CurrentUserId).WithCurrentUserId(ParticipantTwoId).WithParticipantTwoName(ParticipantOne.Name);
 		_invertedRequest = _invertedRequestBuilder.Build();
 	}
 

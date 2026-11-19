@@ -30,21 +30,7 @@ internal class CachedPostLikeCommandRepository : IPostLikeCommandRepository
 		PostLikeId id,
 		CancellationToken cancellationToken)
 	{
-		var cachedEntity = await _likeCacheHandler.GetByIdAsync(id, cancellationToken);
-
-		if (cachedEntity != null)
-		{
-			return cachedEntity;
-		}
-
-		var entity = await _repository.GetByIdAsync(id, cancellationToken);
-
-		if (entity != null)
-		{
-			await _likeCacheHandler.AddAsync(entity, cancellationToken);
-		}
-
-		return entity;
+		return await _repository.GetByIdAsync(id, cancellationToken);
 	}
 
 	public async Task<ICollection<PostLike>> GetByIdRangeAsync(
@@ -66,18 +52,7 @@ internal class CachedPostLikeCommandRepository : IPostLikeCommandRepository
 		PostLikeId id,
 		CancellationToken cancellationToken)
 	{
-		var cachedExists = await _likeCacheHandler.ExistsByIdAsync(id, cancellationToken);
-
-		if (cachedExists != null)
-		{
-			return cachedExists.Value;
-		}
-
-		var exists = await _repository.ExistsByIdAsync(id, cancellationToken);
-
-		await _likeCacheHandler.AddExistsByIdAsync(id, exists, cancellationToken);
-
-		return exists;
+		return await _repository.ExistsByIdAsync(id, cancellationToken);
 	}
 
 	public async Task AddAsync(PostLike entity, CancellationToken cancellationToken)

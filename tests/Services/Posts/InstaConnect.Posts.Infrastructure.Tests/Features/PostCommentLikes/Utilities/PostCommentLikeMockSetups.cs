@@ -348,7 +348,7 @@ public static class PostCommentLikeMockSetups
 			PostCommentLike postCommentLike,
 			CancellationToken cancellationToken)
 		{
-			fluent.SetupFirstOrDefaultAsync(postCommentLike.ToFullResponse(currentUserQuery), cancellationToken);
+			fluent.SetupFirstOrDefaultAsync(postCommentLike.ToFullResponse(currentUserQuery.Id), cancellationToken);
 		}
 	}
 }

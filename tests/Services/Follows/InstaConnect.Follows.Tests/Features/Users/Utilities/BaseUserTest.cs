@@ -1,3 +1,4 @@
+using InstaConnect.Follows.Domain.Features.Follows.Models.Responses;
 using InstaConnect.Follows.Tests.Features.Common.Utilities;
 using InstaConnect.Follows.Tests.Features.Follows.Builders;
 
@@ -9,11 +10,13 @@ public abstract class BaseUserTest : BaseFollowsTest
 	protected FollowIdRangeBuilderFactory UserFollowFollowerIdRangeBuilderFactory { get; }
 	protected FollowIdRangeBuilder UserFollowFollowerIdRangeBuilder { get; }
 	protected ICollection<FollowId> UserFollowFollowerIds { get; }
+	protected ICollection<FollowResponse> UserFollowFollowerResponses { get; }
 
 	protected ICollection<Follow> UserFollowFollowings { get; }
 	protected FollowIdRangeBuilderFactory UserFollowFollowingIdRangeBuilderFactory { get; }
 	protected FollowIdRangeBuilder UserFollowFollowingIdRangeBuilder { get; }
 	protected ICollection<FollowId> UserFollowFollowingIds { get; }
+	protected ICollection<FollowResponse> UserFollowFollowingResponses { get; }
 
 	protected BaseUserTest()
 	{
@@ -21,10 +24,12 @@ public abstract class BaseUserTest : BaseFollowsTest
 		UserFollowFollowerIdRangeBuilderFactory = new();
 		UserFollowFollowerIdRangeBuilder = UserFollowFollowerIdRangeBuilderFactory.Create([.. UserFollowFollowers.Select(f => f.Id)]);
 		UserFollowFollowerIds = UserFollowFollowerIdRangeBuilder.Build();
+		UserFollowFollowerResponses = UserFollowFollowers.ToFullResponse(CurrentUserId);
 
 		UserFollowFollowings = [.. User.FollowFollowings];
 		UserFollowFollowingIdRangeBuilderFactory = new();
 		UserFollowFollowingIdRangeBuilder = UserFollowFollowingIdRangeBuilderFactory.Create([.. UserFollowFollowings.Select(f => f.Id)]);
 		UserFollowFollowingIds = UserFollowFollowingIdRangeBuilder.Build();
+		UserFollowFollowingResponses = UserFollowFollowings.ToFullResponse(CurrentUserId);
 	}
 }

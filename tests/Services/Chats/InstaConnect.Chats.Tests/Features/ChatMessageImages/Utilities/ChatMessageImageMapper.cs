@@ -1,12 +1,12 @@
 using InstaConnect.Chats.Domain.Features.ChatMessageImages.Models.Responses;
 
-namespace InstaConnect.Chats.Domain.Tests.Features.ChatMessageImages.Utilities;
+namespace InstaConnect.Chats.Tests.Features.ChatMessageImages.Utilities;
 
 public static class ChatMessageImageMapper
 {
 	extension(ChatMessageImage chatMessageImage)
 	{
-		internal ChatMessageImageResponse ToFullResponse()
+		public ChatMessageImageResponse ToFullResponse()
 		{
 			return new(
 				chatMessageImage.Id,
@@ -17,7 +17,7 @@ public static class ChatMessageImageMapper
 
 	extension(ICollection<ChatMessageImage> chatMessageImages)
 	{
-		internal ICollection<ChatMessageImageResponse> ToFullResponse()
+		public ICollection<ChatMessageImageResponse> ToFullResponse()
 		{
 			return [.. chatMessageImages.Select(chatMessageImage => chatMessageImage.ToFullResponse())];
 		}

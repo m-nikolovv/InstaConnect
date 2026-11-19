@@ -54,7 +54,7 @@ internal class CachedPostLikeQueryRepository : IPostLikeQueryRepository
 		CurrentUserQuery currentUser,
 		CancellationToken cancellationToken)
 	{
-		var cachedResponse = await _likeCacheHandler.GetByIdAsync(id, currentUser, cancellationToken);
+		var cachedResponse = await _likeCacheHandler.GetByIdAsync(id, currentUser.Id, cancellationToken);
 
 		if (cachedResponse != null)
 		{
@@ -65,7 +65,7 @@ internal class CachedPostLikeQueryRepository : IPostLikeQueryRepository
 
 		if (response != null)
 		{
-			await _likeCacheHandler.AddAsync(response, currentUser, cancellationToken);
+			await _likeCacheHandler.AddAsync(response, currentUser.Id, cancellationToken);
 		}
 
 		return response;
@@ -75,17 +75,6 @@ internal class CachedPostLikeQueryRepository : IPostLikeQueryRepository
 		PostLikeId id,
 		CancellationToken cancellationToken)
 	{
-		var cachedExists = await _likeCacheHandler.ExistsByIdAsync(id, cancellationToken);
-
-		if (cachedExists != null)
-		{
-			return cachedExists.Value;
-		}
-
-		var exists = await _repository.ExistsByIdAsync(id, cancellationToken);
-
-		await _likeCacheHandler.AddExistsByIdAsync(id, exists, cancellationToken);
-
-		return exists;
+		return await _repository.ExistsByIdAsync(id, cancellationToken);
 	}
 }

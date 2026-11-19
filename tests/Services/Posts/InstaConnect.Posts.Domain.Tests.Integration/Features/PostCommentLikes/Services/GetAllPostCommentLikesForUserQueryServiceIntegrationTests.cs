@@ -14,7 +14,7 @@ public class GetAllPostCommentLikesForUserQueryServiceIntegrationTests : BasePos
 		: base(webApplicationFactory)
 	{
 		_queryBuilderFactory = new();
-		_queryBuilder = _queryBuilderFactory.Create(PostCommentLike);
+		_queryBuilder = _queryBuilderFactory.Create(PostCommentLike, CurrentUserId);
 		_query = _queryBuilder.Build();
 	}
 

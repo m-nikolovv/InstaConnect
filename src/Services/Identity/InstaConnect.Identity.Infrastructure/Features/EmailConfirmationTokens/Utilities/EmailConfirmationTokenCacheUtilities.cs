@@ -4,29 +4,6 @@ namespace InstaConnect.Identity.Infrastructure.Features.EmailConfirmationTokens.
 
 public static class EmailConfirmationTokenCacheUtilities
 {
-	public const string GetByIdKeyPrefix = "identity-email-confirmation-tokens-get-by-id";
-	public const string ExistsByIdKeyPrefix = "identity-email-confirmation-tokens-exists-by-id";
-
-	public static string GetByIdKey(EmailConfirmationTokenId id)
-	{
-		const string Format = "{0}:{1}:{2}";
-
-		return Format.FormatCurrentCulture(
-			GetByIdKeyPrefix,
-			id.Id.Id,
-			id.Value);
-	}
-
-	public static string ExistsByIdKey(EmailConfirmationTokenId id)
-	{
-		const string Format = "{0}:{1}:{2}";
-
-		return Format.FormatCurrentCulture(
-			ExistsByIdKeyPrefix,
-			id.Id.Id,
-			id.Value);
-	}
-
 	public static string GetTag(EmailConfirmationTokenId id)
 	{
 		const string Format = "identity:tags:email-confirmation-tokens:{0}:{1}";

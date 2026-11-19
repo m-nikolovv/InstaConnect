@@ -1,3 +1,4 @@
+using InstaConnect.Identity.Domain.Features.UserClaims.Models.Responses;
 using InstaConnect.Identity.Tests.Features.EmailConfirmationTokens.Builders;
 using InstaConnect.Identity.Tests.Features.ForgotPasswordTokens.Builders;
 using InstaConnect.Identity.Tests.Features.RefreshTokens.Builders;
@@ -11,6 +12,7 @@ public abstract class BaseUserTest : BaseIdentityTest
 	protected UserClaimIdRangeBuilderFactory UserUserClaimIdRangeBuilderFactory { get; }
 	protected UserClaimIdRangeBuilder UserUserClaimIdRangeBuilder { get; }
 	protected ICollection<UserClaimId> UserUserClaimIds { get; }
+	protected ICollection<UserClaimResponse> UserUserClaimResponses { get; }
 
 	protected ICollection<RefreshToken> UserRefreshTokens { get; }
 	protected RefreshTokenIdRangeBuilderFactory UserRefreshTokenIdRangeBuilderFactory { get; }
@@ -33,6 +35,7 @@ public abstract class BaseUserTest : BaseIdentityTest
 		UserUserClaimIdRangeBuilderFactory = new();
 		UserUserClaimIdRangeBuilder = UserUserClaimIdRangeBuilderFactory.Create([.. UserUserClaims.Select(u => u.Id)]);
 		UserUserClaimIds = UserUserClaimIdRangeBuilder.Build();
+		UserUserClaimResponses = UserUserClaims.ToFullResponse();
 
 		UserRefreshTokens = [.. User.RefreshTokens];
 		UserRefreshTokenIdRangeBuilderFactory = new();

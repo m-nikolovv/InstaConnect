@@ -1,6 +1,6 @@
 using InstaConnect.Common.Infrastructure.Features.Databases.Helpers;
-using InstaConnect.Posts.Application.Tests.Features.PostCommentImages.Utilities;
 using InstaConnect.Posts.Domain.Features.PostComments.Models.Responses;
+using InstaConnect.Posts.Tests.Features.PostCommentImages.Utilities;
 
 namespace InstaConnect.Posts.Application.Tests.Features.PostComments.Utilities;
 
@@ -8,57 +8,6 @@ public static class PostCommentMapper
 {
 	extension(PostComment postComment)
 	{
-		internal PostCommentResponse ToFullResponse<TRequest>(
-			TRequest request)
-			where TRequest : ICurrentUserableQueryRequest
-		{
-			return new(postComment.Id,
-					   postComment.UserId,
-					   postComment.Content,
-					   postComment.Summary,
-					   postComment.User?.ToFullResponse(),
-					   postComment.Post?.ToFullResponse(request),
-					   postComment.PostCommentImages.ToFullResponse(),
-					   postComment.PostCommentLikes.Any(pl => pl.Id.UserId.Matches(request.CurrentUserId)),
-					   postComment.PostCommentLikes.Count,
-					   postComment.CreatedAtUtc,
-					   postComment.UpdatedAtUtc);
-		}
-
-		internal PostCommentResponse ToResponseWithoutUser<TRequest>(
-			TRequest request)
-			where TRequest : ICurrentUserableQueryRequest
-		{
-			return new(postComment.Id,
-					   postComment.UserId,
-					   postComment.Content,
-					   postComment.Summary,
-					   null,
-					   postComment.Post?.ToFullResponse(request),
-					   postComment.PostCommentImages.ToFullResponse(),
-					   postComment.PostCommentLikes.Any(pl => pl.Id.UserId.Matches(request.CurrentUserId)),
-					   postComment.PostCommentLikes.Count,
-					   postComment.CreatedAtUtc,
-					   postComment.UpdatedAtUtc);
-		}
-
-		internal PostCommentResponse ToResponseWithoutPost<TRequest>(
-			TRequest request)
-			where TRequest : ICurrentUserableQueryRequest
-		{
-			return new(postComment.Id,
-					   postComment.UserId,
-					   postComment.Content,
-					   postComment.Summary,
-					   postComment.User?.ToFullResponse(),
-					   null,
-					   postComment.PostCommentImages.ToFullResponse(),
-					   postComment.PostCommentLikes.Any(pl => pl.Id.UserId.Matches(request.CurrentUserId)),
-					   postComment.PostCommentLikes.Count,
-					   postComment.CreatedAtUtc,
-					   postComment.UpdatedAtUtc);
-		}
-
 		public PostCommentId ToResponse(
 			AddPostCommentCommandRequest request)
 		{
@@ -74,7 +23,7 @@ public static class PostCommentMapper
 		public PostCommentResponse ToResponse(
 			GetPostCommentByIdQueryRequest request)
 		{
-			return postComment.ToFullResponse(request);
+			return postComment.ToFullResponse(request.CurrentUserId);
 		}
 	}
 
@@ -90,7 +39,7 @@ public static class PostCommentMapper
 			var paginator = new Paginator();
 			var totalCount = postComments.Count(postComment => filter(request, postComment));
 
-			return new(post.ToFullResponse(request),
+			return new(post.ToFullResponse(request.CurrentUserId),
 					   null,
 					   postComments.Filter(request, postComment => filter(request, postComment), postComment => transform(request, postComment)),
 					   request.Page,
@@ -128,7 +77,7 @@ public static class PostCommentMapper
 													  request,
 													  post,
 													  (request, postComment) => postComment.MatchesFilter(request),
-													  (request, postComment) => postComment.ToResponseWithoutPost(request));
+													  (request, postComment) => postComment.ToResponseWithoutPost(request.CurrentUserId));
 		}
 
 		public PostCommentCollectionResponse ToResponse(
@@ -139,7 +88,7 @@ public static class PostCommentMapper
 													  request,
 													  user,
 													  (request, postComment) => postComment.MatchesFilter(request),
-													  (request, postComment) => postComment.ToResponseWithoutUser(request));
+													  (request, postComment) => postComment.ToResponseWithoutUser(request.CurrentUserId));
 		}
 	}
 }

@@ -1,13 +1,12 @@
-using InstaConnect.Posts.Domain.Features.PostCommentImages.Models.Entities;
 using InstaConnect.Posts.Domain.Features.PostCommentImages.Models.Responses;
 
-namespace InstaConnect.Posts.Application.Tests.Features.PostCommentImages.Utilities;
+namespace InstaConnect.Posts.Tests.Features.PostCommentImages.Utilities;
 
 public static class PostCommentImageMapper
 {
 	extension(PostCommentImage postCommentImage)
 	{
-		internal PostCommentImageResponse ToFullResponse()
+		public PostCommentImageResponse ToFullResponse()
 		{
 			return new(
 				postCommentImage.Id,
@@ -18,7 +17,7 @@ public static class PostCommentImageMapper
 
 	extension(ICollection<PostCommentImage> postCommentImages)
 	{
-		internal ICollection<PostCommentImageResponse> ToFullResponse()
+		public ICollection<PostCommentImageResponse> ToFullResponse()
 		{
 			return [.. postCommentImages.Select(postCommentImage => postCommentImage.ToFullResponse())];
 		}

@@ -18,7 +18,7 @@ public class GetAllUserClaimsQueryServiceIntegrationTests : BaseUserClaimDomainQ
 		: base(webApplicationFactory)
 	{
 		_queryBuilderFactory = new();
-		_queryBuilder = _queryBuilderFactory.Create(UserClaim);
+		_queryBuilder = _queryBuilderFactory.Create(UserClaim, CurrentUserId);
 		_query = _queryBuilder.Build();
 	}
 

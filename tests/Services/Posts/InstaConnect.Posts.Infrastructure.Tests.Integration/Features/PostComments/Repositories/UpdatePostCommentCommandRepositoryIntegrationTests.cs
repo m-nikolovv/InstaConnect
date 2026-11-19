@@ -11,7 +11,7 @@ public class UpdatePostCommentCommandRepositoryIntegrationTests : BasePostCommen
 
 	protected override async Task OnInitializeAsync()
 	{
-		await ServiceScope.AddAsync(PostComment, CancellationToken);
+		await ServiceScope.AddAsync(PostComment, CurrentUserId, CancellationToken);
 	}
 
 	[Fact]

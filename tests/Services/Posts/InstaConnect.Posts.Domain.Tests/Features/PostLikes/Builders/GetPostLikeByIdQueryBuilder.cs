@@ -6,11 +6,11 @@ public class GetPostLikeByIdQueryBuilder
 	private string _userId;
 	private string _currentUserId;
 
-	public GetPostLikeByIdQueryBuilder(PostLike postLike)
+	public GetPostLikeByIdQueryBuilder(PostLike postLike, UserId currentUserId)
 	{
 		_id = postLike.Id.Id.Id;
 		_userId = postLike.Id.UserId.Id;
-		_currentUserId = postLike.Id.UserId.Id;
+		_currentUserId = currentUserId.Id;
 	}
 
 	public GetPostLikeByIdQueryBuilder WithId(PostId id, IStringTransformer? transformer = null)

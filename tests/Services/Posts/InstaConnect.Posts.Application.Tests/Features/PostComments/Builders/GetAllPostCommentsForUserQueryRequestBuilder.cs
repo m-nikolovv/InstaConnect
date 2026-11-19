@@ -9,10 +9,10 @@ public class GetAllPostCommentsForUserQueryRequestBuilder
 	private CommonSortOrder _sortOrder;
 	private PostCommentsForUserSortTerm _sortTerm;
 
-	public GetAllPostCommentsForUserQueryRequestBuilder(PostComment postComment)
+	public GetAllPostCommentsForUserQueryRequestBuilder(PostComment postComment, UserId currentUserId)
 	{
 		_userId = postComment.UserId.Id;
-		_currentUserId = postComment.UserId.Id;
+		_currentUserId = currentUserId.Id;
 		_page = PostCommentDataFaker.GetPage();
 		_pageSize = PostCommentDataFaker.GetPageSize();
 		_sortOrder = DataFaker.GetSortOrder();

@@ -17,6 +17,11 @@ public static class PostImageSetups
 		{
 			return serviceProvider.GetRequiredService<IPostImageCollection>();
 		}
+
+		public IPostImageCacheHandler GetPostImageCacheHandler()
+		{
+			return serviceProvider.GetRequiredService<IPostImageCacheHandler>();
+		}
 	}
 
 	extension(IServiceScope serviceScope)
@@ -24,6 +29,11 @@ public static class PostImageSetups
 		public IPostImageCommandRepository GetPostImageCommandRepository()
 		{
 			return serviceScope.ServiceProvider.GetPostImageCommandRepository();
+		}
+
+		public IPostImageCacheHandler GetPostImageCacheHandler()
+		{
+			return serviceScope.ServiceProvider.GetPostImageCacheHandler();
 		}
 
 		public async Task<PostImage?> GetByIdAsync(
@@ -44,28 +54,44 @@ public static class PostImageSetups
 			PostImage postImage,
 			CancellationToken cancellationToken)
 		{
-			await serviceScope.GetPostImageCommandRepository().AddAsync(postImage, cancellationToken);
+			var postImageRepository = serviceScope.GetPostImageCommandRepository();
+
+			await postImageRepository.AddAsync(postImage, cancellationToken);
 		}
 
 		public async Task AddRangeAsync(
 			IEnumerable<PostImage> postImages,
 			CancellationToken cancellationToken)
 		{
-			await serviceScope.GetPostImageCommandRepository().AddRangeAsync(postImages, cancellationToken);
+			var postImageRepository = serviceScope.GetPostImageCommandRepository();
+
+			await postImageRepository.AddRangeAsync(postImages, cancellationToken);
 		}
 
 		public async Task DeleteAsync(
 			PostImage postImage,
 			CancellationToken cancellationToken)
 		{
-			await serviceScope.GetPostImageCommandRepository().DeleteAsync(postImage, cancellationToken);
+			var cacheHandler = serviceScope.GetPostCacheHandler();
+			var imageCacheHandler = serviceScope.GetPostImageCacheHandler();
+			var postImageRepository = serviceScope.GetPostImageCommandRepository();
+
+			await postImageRepository.DeleteAsync(postImage, cancellationToken);
+			await cacheHandler.DeleteResponseAsync(postImage.Id.Id, cancellationToken);
+			await imageCacheHandler.DeleteAsync(postImage.Id, cancellationToken);
 		}
 
 		public async Task DeleteRangeAsync(
 			IEnumerable<PostImage> postImages,
 			CancellationToken cancellationToken)
 		{
-			await serviceScope.GetPostImageCommandRepository().DeleteRangeAsync(postImages, cancellationToken);
+			var cacheHandler = serviceScope.GetPostCacheHandler();
+			var imageCacheHandler = serviceScope.GetPostImageCacheHandler();
+			var postImageRepository = serviceScope.GetPostImageCommandRepository();
+
+			await postImageRepository.DeleteRangeAsync(postImages, cancellationToken);
+			await cacheHandler.DeleteResponseRangeAsync(postImages.Select(p => p.Id.Id), cancellationToken);
+			await imageCacheHandler.DeleteRangeAsync(postImages.Select(p => p.Id), cancellationToken);
 		}
 	}
 }

@@ -33,6 +33,11 @@ public static class PostCommentLikeSetups
 		{
 			return serviceProvider.GetRequiredService<IPostCommentLikeCollection>();
 		}
+
+		public IPostCommentLikeCacheHandler GetPostCommentLikeCacheHandler()
+		{
+			return serviceProvider.GetRequiredService<IPostCommentLikeCacheHandler>();
+		}
 	}
 
 	extension(IServiceScope serviceScope)
@@ -50,6 +55,11 @@ public static class PostCommentLikeSetups
 		public IPostCommentLikeIncludeBuilderFactory GetPostCommentLikeIncludeBuilderFactory()
 		{
 			return serviceScope.ServiceProvider.GetPostCommentLikeIncludeBuilderFactory();
+		}
+
+		public IPostCommentLikeCacheHandler GetPostCommentLikeCacheHandler()
+		{
+			return serviceScope.ServiceProvider.GetPostCommentLikeCacheHandler();
 		}
 
 		public async Task<PostCommentLike?> GetByIdAsync(
@@ -76,23 +86,39 @@ public static class PostCommentLikeSetups
 
 		public async Task AddAsync(
 			PostCommentLike postCommentLike,
+			UserId currentUserId,
 			CancellationToken cancellationToken)
 		{
-			await serviceScope.GetPostCommentLikeCommandRepository().AddAsync(postCommentLike, cancellationToken);
+			var commentLikeCacheHandler = serviceScope.GetPostCommentLikeCacheHandler();
+			var postCommentLikeRepository = serviceScope.GetPostCommentLikeCommandRepository();
+
+			await postCommentLikeRepository.AddAsync(postCommentLike, cancellationToken);
+			await commentLikeCacheHandler.AddAsync(postCommentLike.ToFullResponse(currentUserId), currentUserId, cancellationToken);
 		}
 
 		public async Task AddRangeAsync(
-			IEnumerable<PostCommentLike> postCommentLikes,
+			ICollection<PostCommentLike> postCommentLikes,
+			UserId currentUserId,
 			CancellationToken cancellationToken)
 		{
-			await serviceScope.GetPostCommentLikeCommandRepository().AddRangeAsync(postCommentLikes, cancellationToken);
+			var commentLikeCacheHandler = serviceScope.GetPostCommentLikeCacheHandler();
+			var postCommentLikeRepository = serviceScope.GetPostCommentLikeCommandRepository();
+
+			await postCommentLikeRepository.AddRangeAsync(postCommentLikes, cancellationToken);
+			await commentLikeCacheHandler.AddRangeAsync(postCommentLikes.ToFullResponse(currentUserId), currentUserId, cancellationToken);
 		}
 
 		public async Task DeleteAsync(
 			PostCommentLike postCommentLike,
 			CancellationToken cancellationToken)
 		{
-			await serviceScope.GetPostCommentLikeCommandRepository().DeleteAsync(postCommentLike, cancellationToken);
+			var commentCacheHandler = serviceScope.GetPostCommentCacheHandler();
+			var commentLikeCacheHandler = serviceScope.GetPostCommentLikeCacheHandler();
+			var postCommentLikeRepository = serviceScope.GetPostCommentLikeCommandRepository();
+
+			await postCommentLikeRepository.DeleteAsync(postCommentLike, cancellationToken);
+			await commentCacheHandler.DeleteResponseAsync(postCommentLike.Id.CommentId, cancellationToken);
+			await commentLikeCacheHandler.DeleteAsync(postCommentLike.Id, cancellationToken);
 		}
 
 		public async Task DeleteRangeAsync(

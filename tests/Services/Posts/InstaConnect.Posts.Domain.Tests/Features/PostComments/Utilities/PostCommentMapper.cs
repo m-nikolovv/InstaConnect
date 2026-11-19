@@ -16,63 +16,12 @@ public static class PostCommentMapper
 		public PostResponse ToResponse(
 			GetAllPostCommentsQuery query)
 		{
-			return post.ToFullResponse(query);
+			return post.ToFullResponse(query.CurrentUser.Id);
 		}
 	}
 
 	extension(PostComment postComment)
 	{
-		internal PostCommentResponse ToFullResponse<TQuery>(
-			TQuery request)
-			where TQuery : ICurrentUserableQuery
-		{
-			return new(postComment.Id,
-					   postComment.UserId,
-					   postComment.Content,
-					   postComment.Summary,
-					   postComment.User?.ToFullResponse(),
-					   postComment.Post?.ToFullResponse(request),
-					   postComment.PostCommentImages.ToFullResponse(),
-					   postComment.PostCommentLikes.Any(pl => pl.Id.UserId.Matches(request.CurrentUser.Id)),
-					   postComment.PostCommentLikes.Count,
-					   postComment.CreatedAtUtc,
-					   postComment.UpdatedAtUtc);
-		}
-
-		internal PostCommentResponse ToResponseWithoutUser<TQuery>(
-			TQuery request)
-			where TQuery : ICurrentUserableQuery
-		{
-			return new(postComment.Id,
-					   postComment.UserId,
-					   postComment.Content,
-					   postComment.Summary,
-					   null,
-					   postComment.Post?.ToFullResponse(request),
-					   postComment.PostCommentImages.ToFullResponse(),
-					   postComment.PostCommentLikes.Any(pl => pl.Id.UserId.Matches(request.CurrentUser.Id)),
-					   postComment.PostCommentLikes.Count,
-					   postComment.CreatedAtUtc,
-					   postComment.UpdatedAtUtc);
-		}
-
-		internal PostCommentResponse ToResponseWithoutPost<TQuery>(
-			TQuery request)
-			where TQuery : ICurrentUserableQuery
-		{
-			return new(postComment.Id,
-					   postComment.UserId,
-					   postComment.Content,
-					   postComment.Summary,
-					   postComment.User?.ToFullResponse(),
-					   null,
-					   postComment.PostCommentImages.ToFullResponse(),
-					   postComment.PostCommentLikes.Any(pl => pl.Id.UserId.Matches(request.CurrentUser.Id)),
-					   postComment.PostCommentLikes.Count,
-					   postComment.CreatedAtUtc,
-					   postComment.UpdatedAtUtc);
-		}
-
 		public PostComment To(AddPostCommentCommand command)
 		{
 			return new(postComment.Id,
@@ -98,7 +47,7 @@ public static class PostCommentMapper
 		public PostCommentResponse ToResponse(
 			GetPostCommentByIdQuery query)
 		{
-			return postComment.ToFullResponse(query);
+			return postComment.ToFullResponse(query.CurrentUser.Id);
 		}
 	}
 
@@ -107,13 +56,13 @@ public static class PostCommentMapper
 		public ICollection<PostCommentResponse> ToResponse(
 			GetAllPostCommentsQuery query)
 		{
-			return postComments.Filter(query.Pagination, postComment => postComment.MatchesFilter(query.Filter), postComment => postComment.ToResponseWithoutPost(query));
+			return postComments.Filter(query.Pagination, postComment => postComment.MatchesFilter(query.Filter), postComment => postComment.ToResponseWithoutPost(query.CurrentUser.Id));
 		}
 
 		public ICollection<PostCommentResponse> ToResponse(
 			GetAllPostCommentsForUserQuery query)
 		{
-			return postComments.Filter(query.Pagination, postComment => postComment.MatchesFilter(query.Filter), postComment => postComment.ToResponseWithoutUser(query));
+			return postComments.Filter(query.Pagination, postComment => postComment.MatchesFilter(query.Filter), postComment => postComment.ToResponseWithoutUser(query.CurrentUser.Id));
 		}
 
 		public long ToTotalCountResponse(

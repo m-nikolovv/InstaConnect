@@ -1,6 +1,5 @@
 using InstaConnect.Follows.Domain.Features.Follows.Models.Responses;
 using InstaConnect.Follows.Infrastructure.Tests.Features.Users.Utilities;
-using InstaConnect.Follows.Tests.Features.Follows.Utilities;
 
 namespace InstaConnect.Follows.Infrastructure.Tests.Features.Follows.Utilities;
 

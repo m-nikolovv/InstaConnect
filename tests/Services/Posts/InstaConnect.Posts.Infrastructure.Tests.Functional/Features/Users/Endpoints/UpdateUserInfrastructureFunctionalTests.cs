@@ -35,7 +35,7 @@ public class UpdateUserInfrastructureFunctionalTests : BaseUserInfrastructureCom
 
 	protected override async Task OnInitializeAsync()
 	{
-		await ServiceScope.AddAsync(User, CancellationToken);
+		await ServiceScope.AddAsync(User, CurrentUserId, CancellationToken);
 	}
 
 	[Theory]
@@ -185,7 +185,7 @@ public class UpdateUserInfrastructureFunctionalTests : BaseUserInfrastructureCom
 	{
 		// Arrange
 		var newUser = UserBuilderFactory.Create().Build();
-		await ServiceScope.AddAsync(newUser, CancellationToken);
+		await ServiceScope.AddAsync(newUser, CurrentUserId, CancellationToken);
 
 		var request = _requestBuilder.WithEmail(newUser.Email).Build();
 
@@ -204,7 +204,7 @@ public class UpdateUserInfrastructureFunctionalTests : BaseUserInfrastructureCom
 	{
 		// Arrange
 		var newUser = UserBuilderFactory.Create().Build();
-		await ServiceScope.AddAsync(newUser, CancellationToken);
+		await ServiceScope.AddAsync(newUser, CurrentUserId, CancellationToken);
 
 		var request = _requestBuilder.WithEmail(newUser.Email, transformer).Build();
 
@@ -221,7 +221,7 @@ public class UpdateUserInfrastructureFunctionalTests : BaseUserInfrastructureCom
 	{
 		// Arrange
 		var newUser = UserBuilderFactory.Create().Build();
-		await ServiceScope.AddAsync(newUser, CancellationToken);
+		await ServiceScope.AddAsync(newUser, CurrentUserId, CancellationToken);
 
 		var request = _requestBuilder.WithName(newUser.Name).Build();
 
@@ -240,7 +240,7 @@ public class UpdateUserInfrastructureFunctionalTests : BaseUserInfrastructureCom
 	{
 		// Arrange
 		var newUser = UserBuilderFactory.Create().Build();
-		await ServiceScope.AddAsync(newUser, CancellationToken);
+		await ServiceScope.AddAsync(newUser, CurrentUserId, CancellationToken);
 
 		var request = _requestBuilder.WithName(newUser.Name, transformer).Build();
 
