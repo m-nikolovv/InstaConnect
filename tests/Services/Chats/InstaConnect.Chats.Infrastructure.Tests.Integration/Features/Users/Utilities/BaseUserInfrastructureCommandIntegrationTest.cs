@@ -11,7 +11,7 @@ public abstract class BaseUserInfrastructureCommandIntegrationTest : BaseUserWeb
 	protected BaseUserInfrastructureCommandIntegrationTest(ChatsWebApplicationFactory webApplicationFactory)
 		: base(webApplicationFactory)
 	{
-		Repository = ServiceScope.GetUserCommandRepository();
+		Repository = ServiceScope.GetCachedUserCommandRepository();
 		IncludeBuilderFactory = ServiceScope.GetUserIncludeBuilderFactory();
 	}
 }

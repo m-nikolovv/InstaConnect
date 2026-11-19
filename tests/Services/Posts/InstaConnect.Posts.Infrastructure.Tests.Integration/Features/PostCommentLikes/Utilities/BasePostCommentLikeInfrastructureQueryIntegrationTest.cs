@@ -9,7 +9,7 @@ public abstract class BasePostCommentLikeInfrastructureQueryIntegrationTest : Ba
 	protected BasePostCommentLikeInfrastructureQueryIntegrationTest(PostsWebApplicationFactory webApplicationFactory)
 		: base(webApplicationFactory)
 	{
-		Repository = ServiceScope.GetPostCommentLikeQueryRepository();
+		Repository = ServiceScope.GetCachedPostCommentLikeQueryRepository();
 
 	}
 }

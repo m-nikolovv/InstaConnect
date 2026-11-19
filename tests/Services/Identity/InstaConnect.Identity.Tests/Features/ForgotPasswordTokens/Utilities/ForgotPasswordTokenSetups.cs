@@ -15,6 +15,11 @@ public static class ForgotPasswordTokenSetups
 				serviceProvider.GetForgotPasswordTokenIncludeBuilderFactory());
 		}
 
+		public IForgotPasswordTokenCommandRepository GetCachedForgotPasswordTokenCommandRepository()
+		{
+			return serviceProvider.GetRequiredService<IForgotPasswordTokenCommandRepository>();
+		}
+
 		public IForgotPasswordTokenIncludeBuilderFactory GetForgotPasswordTokenIncludeBuilderFactory()
 		{
 			return serviceProvider.GetRequiredService<IForgotPasswordTokenIncludeBuilderFactory>();
@@ -36,6 +41,11 @@ public static class ForgotPasswordTokenSetups
 		public IForgotPasswordTokenCommandRepository GetForgotPasswordTokenCommandRepository()
 		{
 			return serviceScope.ServiceProvider.GetForgotPasswordTokenCommandRepository();
+		}
+
+		public IForgotPasswordTokenCommandRepository GetCachedForgotPasswordTokenCommandRepository()
+		{
+			return serviceScope.ServiceProvider.GetCachedForgotPasswordTokenCommandRepository();
 		}
 
 		public IForgotPasswordTokenIncludeBuilderFactory GetForgotPasswordTokenIncludeBuilderFactory()

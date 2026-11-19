@@ -9,6 +9,6 @@ public abstract class BaseFollowInfrastructureQueryIntegrationTest : BaseFollowW
 	protected BaseFollowInfrastructureQueryIntegrationTest(FollowsWebApplicationFactory webApplicationFactory)
 		: base(webApplicationFactory)
 	{
-		Repository = ServiceScope.GetFollowQueryRepository();
+		Repository = ServiceScope.GetCachedFollowQueryRepository();
 	}
 }

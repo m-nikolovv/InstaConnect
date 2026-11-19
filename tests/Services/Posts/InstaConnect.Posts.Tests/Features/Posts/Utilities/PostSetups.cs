@@ -15,11 +15,21 @@ public static class PostSetups
 				serviceProvider.GetPostIncludeBuilderFactory());
 		}
 
+		public IPostQueryRepository GetCachedPostQueryRepository()
+		{
+			return serviceProvider.GetRequiredService<IPostQueryRepository>();
+		}
+
 		public IPostCommandRepository GetPostCommandRepository()
 		{
 			return new PostCommandRepository(
 				serviceProvider.GetPostCollection(),
 				serviceProvider.GetPostIncludeBuilderFactory());
+		}
+
+		public IPostCommandRepository GetCachedPostCommandRepository()
+		{
+			return serviceProvider.GetRequiredService<IPostCommandRepository>();
 		}
 
 		public IPostIncludeBuilderFactory GetPostIncludeBuilderFactory()
@@ -45,9 +55,19 @@ public static class PostSetups
 			return serviceScope.ServiceProvider.GetPostQueryRepository();
 		}
 
+		public IPostQueryRepository GetCachedPostQueryRepository()
+		{
+			return serviceScope.ServiceProvider.GetCachedPostQueryRepository();
+		}
+
 		public IPostCommandRepository GetPostCommandRepository()
 		{
 			return serviceScope.ServiceProvider.GetPostCommandRepository();
+		}
+
+		public IPostCommandRepository GetCachedPostCommandRepository()
+		{
+			return serviceScope.ServiceProvider.GetCachedPostCommandRepository();
 		}
 
 		public IPostIncludeBuilderFactory GetPostIncludeBuilderFactory()

@@ -17,11 +17,21 @@ public static class PostCommentLikeSetups
 				serviceProvider.GetPostCommentLikeIncludeBuilderFactory());
 		}
 
+		public IPostCommentLikeQueryRepository GetCachedPostCommentLikeQueryRepository()
+		{
+			return serviceProvider.GetRequiredService<IPostCommentLikeQueryRepository>();
+		}
+
 		public IPostCommentLikeCommandRepository GetPostCommentLikeCommandRepository()
 		{
 			return new PostCommentLikeCommandRepository(
 				serviceProvider.GetPostCommentLikeCollection(),
 				serviceProvider.GetPostCommentLikeIncludeBuilderFactory());
+		}
+
+		public IPostCommentLikeCommandRepository GetCachedPostCommentLikeCommandRepository()
+		{
+			return serviceProvider.GetRequiredService<IPostCommentLikeCommandRepository>();
 		}
 
 		public IPostCommentLikeIncludeBuilderFactory GetPostCommentLikeIncludeBuilderFactory()
@@ -47,9 +57,19 @@ public static class PostCommentLikeSetups
 			return serviceScope.ServiceProvider.GetPostCommentLikeQueryRepository();
 		}
 
+		public IPostCommentLikeQueryRepository GetCachedPostCommentLikeQueryRepository()
+		{
+			return serviceScope.ServiceProvider.GetCachedPostCommentLikeQueryRepository();
+		}
+
 		public IPostCommentLikeCommandRepository GetPostCommentLikeCommandRepository()
 		{
 			return serviceScope.ServiceProvider.GetPostCommentLikeCommandRepository();
+		}
+
+		public IPostCommentLikeCommandRepository GetCachedPostCommentLikeCommandRepository()
+		{
+			return serviceScope.ServiceProvider.GetCachedPostCommentLikeCommandRepository();
 		}
 
 		public IPostCommentLikeIncludeBuilderFactory GetPostCommentLikeIncludeBuilderFactory()

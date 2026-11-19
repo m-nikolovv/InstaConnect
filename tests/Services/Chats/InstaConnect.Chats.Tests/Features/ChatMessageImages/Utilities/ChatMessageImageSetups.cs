@@ -13,6 +13,11 @@ public static class ChatMessageImageSetups
 			return new ChatMessageImageCommandRepository(serviceProvider.GetMessageImageCollection());
 		}
 
+		public IChatMessageImageCommandRepository GetCachedMessageImageCommandRepository()
+		{
+			return serviceProvider.GetRequiredService<IChatMessageImageCommandRepository>();
+		}
+
 		public IChatMessageImageCollection GetMessageImageCollection()
 		{
 			return serviceProvider.GetRequiredService<IChatMessageImageCollection>();
@@ -29,6 +34,11 @@ public static class ChatMessageImageSetups
 		public IChatMessageImageCommandRepository GetMessageImageCommandRepository()
 		{
 			return serviceScope.ServiceProvider.GetMessageImageCommandRepository();
+		}
+
+		public IChatMessageImageCommandRepository GetCachedMessageImageCommandRepository()
+		{
+			return serviceScope.ServiceProvider.GetCachedMessageImageCommandRepository();
 		}
 
 		public IChatMessageImageCacheHandler GetMessageImageCacheHandler()

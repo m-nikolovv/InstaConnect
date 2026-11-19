@@ -11,7 +11,7 @@ public abstract class BaseRefreshTokenInfrastructureCommandIntegrationTest : Bas
 	protected BaseRefreshTokenInfrastructureCommandIntegrationTest(IdentityWebApplicationFactory webApplicationFactory)
 		: base(webApplicationFactory)
 	{
-		Repository = ServiceScope.GetRefreshTokenCommandRepository();
+		Repository = ServiceScope.GetCachedRefreshTokenCommandRepository();
 		IncludeBuilderFactory = ServiceScope.GetRefreshTokenIncludeBuilderFactory();
 	}
 }

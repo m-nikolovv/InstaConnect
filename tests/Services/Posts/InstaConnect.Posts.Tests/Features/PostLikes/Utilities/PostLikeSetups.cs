@@ -16,11 +16,21 @@ public static class PostLikeSetups
 				serviceProvider.GetPostLikeIncludeBuilderFactory());
 		}
 
+		public IPostLikeQueryRepository GetCachedPostLikeQueryRepository()
+		{
+			return serviceProvider.GetRequiredService<IPostLikeQueryRepository>();
+		}
+
 		public IPostLikeCommandRepository GetPostLikeCommandRepository()
 		{
 			return new PostLikeCommandRepository(
 				serviceProvider.GetPostLikeCollection(),
 				serviceProvider.GetPostLikeIncludeBuilderFactory());
+		}
+
+		public IPostLikeCommandRepository GetCachedPostLikeCommandRepository()
+		{
+			return serviceProvider.GetRequiredService<IPostLikeCommandRepository>();
 		}
 
 		public IPostLikeIncludeBuilderFactory GetPostLikeIncludeBuilderFactory()
@@ -46,9 +56,19 @@ public static class PostLikeSetups
 			return serviceScope.ServiceProvider.GetPostLikeQueryRepository();
 		}
 
+		public IPostLikeQueryRepository GetCachedPostLikeQueryRepository()
+		{
+			return serviceScope.ServiceProvider.GetCachedPostLikeQueryRepository();
+		}
+
 		public IPostLikeCommandRepository GetPostLikeCommandRepository()
 		{
 			return serviceScope.ServiceProvider.GetPostLikeCommandRepository();
+		}
+
+		public IPostLikeCommandRepository GetCachedPostLikeCommandRepository()
+		{
+			return serviceScope.ServiceProvider.GetCachedPostLikeCommandRepository();
 		}
 
 		public IPostLikeIncludeBuilderFactory GetPostLikeIncludeBuilderFactory()

@@ -9,6 +9,6 @@ public abstract class BasePostCommentImageInfrastructureCommandIntegrationTest :
 	protected BasePostCommentImageInfrastructureCommandIntegrationTest(PostsWebApplicationFactory webApplicationFactory)
 		: base(webApplicationFactory)
 	{
-		Repository = ServiceScope.GetPostCommentImageCommandRepository();
+		Repository = ServiceScope.GetCachedPostCommentImageCommandRepository();
 	}
 }

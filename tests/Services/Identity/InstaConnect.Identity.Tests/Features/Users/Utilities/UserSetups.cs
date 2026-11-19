@@ -14,11 +14,21 @@ public static class UserSetups
 			return new UserQueryRepository(serviceProvider.GetCollection());
 		}
 
+		public IUserQueryRepository GetCachedQueryRepository()
+		{
+			return serviceProvider.GetRequiredService<IUserQueryRepository>();
+		}
+
 		public IUserCommandRepository GetCommandRepository()
 		{
 			return new UserCommandRepository(
 				serviceProvider.GetCollection(),
 				serviceProvider.GetIncludeBuilderFactory());
+		}
+
+		public IUserCommandRepository GetCachedCommandRepository()
+		{
+			return serviceProvider.GetRequiredService<IUserCommandRepository>();
 		}
 
 		public IUserIncludeBuilderFactory GetIncludeBuilderFactory()
@@ -44,9 +54,19 @@ public static class UserSetups
 			return serviceScope.ServiceProvider.GetQueryRepository();
 		}
 
+		public IUserQueryRepository GetCachedQueryRepository()
+		{
+			return serviceScope.ServiceProvider.GetCachedQueryRepository();
+		}
+
 		public IUserCommandRepository GetCommandRepository()
 		{
 			return serviceScope.ServiceProvider.GetCommandRepository();
+		}
+
+		public IUserCommandRepository GetCachedCommandRepository()
+		{
+			return serviceScope.ServiceProvider.GetCachedCommandRepository();
 		}
 
 		public IUserIncludeBuilderFactory GetIncludeBuilderFactory()

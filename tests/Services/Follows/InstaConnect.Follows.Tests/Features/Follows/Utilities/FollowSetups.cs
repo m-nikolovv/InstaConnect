@@ -15,11 +15,21 @@ public static class FollowSetups
 				serviceProvider.GetFollowIncludeBuilderFactory());
 		}
 
+		public IFollowQueryRepository GetCachedFollowQueryRepository()
+		{
+			return serviceProvider.GetRequiredService<IFollowQueryRepository>();
+		}
+
 		public IFollowCommandRepository GetFollowCommandRepository()
 		{
 			return new FollowCommandRepository(
 				serviceProvider.GetFollowCollection(),
 				serviceProvider.GetFollowIncludeBuilderFactory());
+		}
+
+		public IFollowCommandRepository GetCachedFollowCommandRepository()
+		{
+			return serviceProvider.GetRequiredService<IFollowCommandRepository>();
 		}
 
 		public IFollowIncludeBuilderFactory GetFollowIncludeBuilderFactory()
@@ -45,9 +55,19 @@ public static class FollowSetups
 			return serviceScope.ServiceProvider.GetFollowQueryRepository();
 		}
 
+		public IFollowQueryRepository GetCachedFollowQueryRepository()
+		{
+			return serviceScope.ServiceProvider.GetCachedFollowQueryRepository();
+		}
+
 		public IFollowCommandRepository GetFollowCommandRepository()
 		{
 			return serviceScope.ServiceProvider.GetFollowCommandRepository();
+		}
+
+		public IFollowCommandRepository GetCachedFollowCommandRepository()
+		{
+			return serviceScope.ServiceProvider.GetCachedFollowCommandRepository();
 		}
 
 		public IFollowIncludeBuilderFactory GetFollowIncludeBuilderFactory()

@@ -11,7 +11,7 @@ public abstract class BaseEmailConfirmationTokenInfrastructureCommandIntegration
 	protected BaseEmailConfirmationTokenInfrastructureCommandIntegrationTest(IdentityWebApplicationFactory webApplicationFactory)
 		: base(webApplicationFactory, isEmailConfirmed: false)
 	{
-		Repository = ServiceScope.GetEmailConfirmationTokenCommandRepository();
+		Repository = ServiceScope.GetCachedEmailConfirmationTokenCommandRepository();
 		IncludeBuilderFactory = ServiceScope.GetEmailConfirmationTokenIncludeBuilderFactory();
 	}
 }

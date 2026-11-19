@@ -11,7 +11,7 @@ public abstract class BaseFollowInfrastructureCommandIntegrationTest : BaseFollo
 	protected BaseFollowInfrastructureCommandIntegrationTest(FollowsWebApplicationFactory webApplicationFactory)
 		: base(webApplicationFactory)
 	{
-		Repository = ServiceScope.GetFollowCommandRepository();
+		Repository = ServiceScope.GetCachedFollowCommandRepository();
 		IncludeBuilderFactory = ServiceScope.GetFollowIncludeBuilderFactory();
 	}
 }

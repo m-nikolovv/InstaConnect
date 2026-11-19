@@ -9,6 +9,6 @@ public abstract class BaseUserClaimInfrastructureQueryIntegrationTest : BaseUser
 	protected BaseUserClaimInfrastructureQueryIntegrationTest(IdentityWebApplicationFactory webApplicationFactory)
 		: base(webApplicationFactory)
 	{
-		Repository = ServiceScope.GetClaimQueryRepository();
+		Repository = ServiceScope.GetCachedClaimQueryRepository();
 	}
 }

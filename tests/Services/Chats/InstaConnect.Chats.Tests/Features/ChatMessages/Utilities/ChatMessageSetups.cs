@@ -17,11 +17,21 @@ public static class ChatMessageSetups
 				serviceProvider.GetMessageIncludeBuilderFactory());
 		}
 
+		public IChatMessageQueryRepository GetCachedMessageQueryRepository()
+		{
+			return serviceProvider.GetRequiredService<IChatMessageQueryRepository>();
+		}
+
 		public IChatMessageCommandRepository GetMessageCommandRepository()
 		{
 			return new ChatMessageCommandRepository(
 				serviceProvider.GetMessageCollection(),
 				serviceProvider.GetMessageIncludeBuilderFactory());
+		}
+
+		public IChatMessageCommandRepository GetCachedMessageCommandRepository()
+		{
+			return serviceProvider.GetRequiredService<IChatMessageCommandRepository>();
 		}
 
 		public IChatMessageIncludeBuilderFactory GetMessageIncludeBuilderFactory()
@@ -47,9 +57,19 @@ public static class ChatMessageSetups
 			return serviceScope.ServiceProvider.GetMessageQueryRepository();
 		}
 
+		public IChatMessageQueryRepository GetCachedMessageQueryRepository()
+		{
+			return serviceScope.ServiceProvider.GetCachedMessageQueryRepository();
+		}
+
 		public IChatMessageCommandRepository GetMessageCommandRepository()
 		{
 			return serviceScope.ServiceProvider.GetMessageCommandRepository();
+		}
+
+		public IChatMessageCommandRepository GetCachedMessageCommandRepository()
+		{
+			return serviceScope.ServiceProvider.GetCachedMessageCommandRepository();
 		}
 
 		public IChatMessageIncludeBuilderFactory GetMessageIncludeBuilderFactory()

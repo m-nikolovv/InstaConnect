@@ -13,6 +13,11 @@ public static class PostImageSetups
 			return new PostImageCommandRepository(serviceProvider.GetPostImageCollection());
 		}
 
+		public IPostImageCommandRepository GetCachedPostImageCommandRepository()
+		{
+			return serviceProvider.GetRequiredService<IPostImageCommandRepository>();
+		}
+
 		public IPostImageCollection GetPostImageCollection()
 		{
 			return serviceProvider.GetRequiredService<IPostImageCollection>();
@@ -29,6 +34,11 @@ public static class PostImageSetups
 		public IPostImageCommandRepository GetPostImageCommandRepository()
 		{
 			return serviceScope.ServiceProvider.GetPostImageCommandRepository();
+		}
+
+		public IPostImageCommandRepository GetCachedPostImageCommandRepository()
+		{
+			return serviceScope.ServiceProvider.GetCachedPostImageCommandRepository();
 		}
 
 		public IPostImageCacheHandler GetPostImageCacheHandler()

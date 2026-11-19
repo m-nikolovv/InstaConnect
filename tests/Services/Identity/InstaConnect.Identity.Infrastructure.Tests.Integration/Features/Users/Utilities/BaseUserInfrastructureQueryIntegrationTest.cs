@@ -9,6 +9,6 @@ public abstract class BaseUserInfrastructureQueryIntegrationTest : BaseUserWebQu
 	protected BaseUserInfrastructureQueryIntegrationTest(IdentityWebApplicationFactory webApplicationFactory)
 		: base(webApplicationFactory)
 	{
-		Repository = ServiceScope.GetQueryRepository();
+		Repository = ServiceScope.GetCachedQueryRepository();
 	}
 }

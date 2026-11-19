@@ -15,11 +15,21 @@ public static class UserClaimSetups
 				serviceProvider.GetClaimIncludeBuilderFactory());
 		}
 
+		public IUserClaimQueryRepository GetCachedClaimQueryRepository()
+		{
+			return serviceProvider.GetRequiredService<IUserClaimQueryRepository>();
+		}
+
 		public IUserClaimCommandRepository GetClaimCommandRepository()
 		{
 			return new UserClaimCommandRepository(
 				serviceProvider.GetClaimCollection(),
 				serviceProvider.GetClaimIncludeBuilderFactory());
+		}
+
+		public IUserClaimCommandRepository GetCachedClaimCommandRepository()
+		{
+			return serviceProvider.GetRequiredService<IUserClaimCommandRepository>();
 		}
 
 		public IUserClaimIncludeBuilderFactory GetClaimIncludeBuilderFactory()
@@ -45,9 +55,19 @@ public static class UserClaimSetups
 			return serviceScope.ServiceProvider.GetClaimQueryRepository();
 		}
 
+		public IUserClaimQueryRepository GetCachedClaimQueryRepository()
+		{
+			return serviceScope.ServiceProvider.GetCachedClaimQueryRepository();
+		}
+
 		public IUserClaimCommandRepository GetClaimCommandRepository()
 		{
 			return serviceScope.ServiceProvider.GetClaimCommandRepository();
+		}
+
+		public IUserClaimCommandRepository GetCachedClaimCommandRepository()
+		{
+			return serviceScope.ServiceProvider.GetCachedClaimCommandRepository();
 		}
 
 		public IUserClaimIncludeBuilderFactory GetClaimIncludeBuilderFactory()

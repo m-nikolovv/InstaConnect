@@ -15,6 +15,11 @@ public static class RefreshTokenSetups
 				serviceProvider.GetRefreshTokenIncludeBuilderFactory());
 		}
 
+		public IRefreshTokenCommandRepository GetCachedRefreshTokenCommandRepository()
+		{
+			return serviceProvider.GetRequiredService<IRefreshTokenCommandRepository>();
+		}
+
 		public IRefreshTokenIncludeBuilderFactory GetRefreshTokenIncludeBuilderFactory()
 		{
 			return serviceProvider.GetRequiredService<IRefreshTokenIncludeBuilderFactory>();
@@ -36,6 +41,11 @@ public static class RefreshTokenSetups
 		public IRefreshTokenCommandRepository GetRefreshTokenCommandRepository()
 		{
 			return serviceScope.ServiceProvider.GetRefreshTokenCommandRepository();
+		}
+
+		public IRefreshTokenCommandRepository GetCachedRefreshTokenCommandRepository()
+		{
+			return serviceScope.ServiceProvider.GetCachedRefreshTokenCommandRepository();
 		}
 
 		public IRefreshTokenIncludeBuilderFactory GetRefreshTokenIncludeBuilderFactory()

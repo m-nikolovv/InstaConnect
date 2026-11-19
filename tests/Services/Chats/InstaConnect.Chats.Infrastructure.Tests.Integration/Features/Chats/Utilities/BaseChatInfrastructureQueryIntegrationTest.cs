@@ -9,6 +9,6 @@ public abstract class BaseChatInfrastructureQueryIntegrationTest : BaseChatWebQu
 	protected BaseChatInfrastructureQueryIntegrationTest(ChatsWebApplicationFactory webApplicationFactory)
 		: base(webApplicationFactory)
 	{
-		Repository = ServiceScope.GetQueryRepository();
+		Repository = ServiceScope.GetCachedQueryRepository();
 	}
 }

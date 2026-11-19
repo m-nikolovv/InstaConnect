@@ -11,7 +11,7 @@ public abstract class BaseChatMessageInfrastructureCommandIntegrationTest : Base
 	protected BaseChatMessageInfrastructureCommandIntegrationTest(ChatsWebApplicationFactory webApplicationFactory)
 		: base(webApplicationFactory)
 	{
-		Repository = ServiceScope.GetMessageCommandRepository();
+		Repository = ServiceScope.GetCachedMessageCommandRepository();
 		MessageIncludeBuilderFactory = ServiceScope.GetMessageIncludeBuilderFactory();
 	}
 }

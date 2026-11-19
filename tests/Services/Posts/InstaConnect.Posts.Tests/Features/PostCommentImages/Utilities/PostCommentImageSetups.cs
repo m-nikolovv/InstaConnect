@@ -13,6 +13,11 @@ public static class PostCommentImageSetups
 			return new PostCommentImageCommandRepository(serviceProvider.GetPostCommentImageCollection());
 		}
 
+		public IPostCommentImageCommandRepository GetCachedPostCommentImageCommandRepository()
+		{
+			return serviceProvider.GetRequiredService<IPostCommentImageCommandRepository>();
+		}
+
 		public IPostCommentImageCollection GetPostCommentImageCollection()
 		{
 			return serviceProvider.GetRequiredService<IPostCommentImageCollection>();
@@ -29,6 +34,11 @@ public static class PostCommentImageSetups
 		public IPostCommentImageCommandRepository GetPostCommentImageCommandRepository()
 		{
 			return serviceScope.ServiceProvider.GetPostCommentImageCommandRepository();
+		}
+
+		public IPostCommentImageCommandRepository GetCachedPostCommentImageCommandRepository()
+		{
+			return serviceScope.ServiceProvider.GetCachedPostCommentImageCommandRepository();
 		}
 
 		public IPostCommentImageCacheHandler GetPostCommentImageCacheHandler()

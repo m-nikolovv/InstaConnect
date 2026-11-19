@@ -11,7 +11,7 @@ public abstract class BasePostInfrastructureCommandIntegrationTest : BasePostWeb
 	protected BasePostInfrastructureCommandIntegrationTest(PostsWebApplicationFactory webApplicationFactory)
 		: base(webApplicationFactory)
 	{
-		Repository = ServiceScope.GetPostCommandRepository();
+		Repository = ServiceScope.GetCachedPostCommandRepository();
 		IncludeBuilderFactory = ServiceScope.GetPostIncludeBuilderFactory();
 
 	}

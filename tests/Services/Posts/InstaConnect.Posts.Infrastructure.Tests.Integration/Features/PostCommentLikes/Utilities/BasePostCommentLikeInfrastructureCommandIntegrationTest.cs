@@ -11,7 +11,7 @@ public abstract class BasePostCommentLikeInfrastructureCommandIntegrationTest : 
 	protected BasePostCommentLikeInfrastructureCommandIntegrationTest(PostsWebApplicationFactory webApplicationFactory)
 		: base(webApplicationFactory)
 	{
-		Repository = ServiceScope.GetPostCommentLikeCommandRepository();
+		Repository = ServiceScope.GetCachedPostCommentLikeCommandRepository();
 		IncludeBuilderFactory = ServiceScope.GetPostCommentLikeIncludeBuilderFactory();
 
 	}

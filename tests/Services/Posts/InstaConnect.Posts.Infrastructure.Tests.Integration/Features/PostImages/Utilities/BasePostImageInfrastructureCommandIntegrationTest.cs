@@ -9,6 +9,6 @@ public abstract class BasePostImageInfrastructureCommandIntegrationTest : BasePo
 	protected BasePostImageInfrastructureCommandIntegrationTest(PostsWebApplicationFactory webApplicationFactory)
 		: base(webApplicationFactory)
 	{
-		Repository = ServiceScope.GetPostImageCommandRepository();
+		Repository = ServiceScope.GetCachedPostImageCommandRepository();
 	}
 }

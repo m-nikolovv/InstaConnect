@@ -15,6 +15,11 @@ public static class EmailConfirmationTokenSetups
 				serviceProvider.GetEmailConfirmationTokenIncludeBuilderFactory());
 		}
 
+		public IEmailConfirmationTokenCommandRepository GetCachedEmailConfirmationTokenCommandRepository()
+		{
+			return serviceProvider.GetRequiredService<IEmailConfirmationTokenCommandRepository>();
+		}
+
 		public IEmailConfirmationTokenIncludeBuilderFactory GetEmailConfirmationTokenIncludeBuilderFactory()
 		{
 			return serviceProvider.GetRequiredService<IEmailConfirmationTokenIncludeBuilderFactory>();
@@ -36,6 +41,11 @@ public static class EmailConfirmationTokenSetups
 		public IEmailConfirmationTokenCommandRepository GetEmailConfirmationTokenCommandRepository()
 		{
 			return serviceScope.ServiceProvider.GetEmailConfirmationTokenCommandRepository();
+		}
+
+		public IEmailConfirmationTokenCommandRepository GetCachedEmailConfirmationTokenCommandRepository()
+		{
+			return serviceScope.ServiceProvider.GetCachedEmailConfirmationTokenCommandRepository();
 		}
 
 		public IEmailConfirmationTokenIncludeBuilderFactory GetEmailConfirmationTokenIncludeBuilderFactory()

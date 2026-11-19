@@ -9,7 +9,7 @@ public abstract class BasePostInfrastructureQueryIntegrationTest : BasePostWebQu
 	protected BasePostInfrastructureQueryIntegrationTest(PostsWebApplicationFactory webApplicationFactory)
 		: base(webApplicationFactory)
 	{
-		Repository = ServiceScope.GetPostQueryRepository();
+		Repository = ServiceScope.GetCachedPostQueryRepository();
 
 	}
 }

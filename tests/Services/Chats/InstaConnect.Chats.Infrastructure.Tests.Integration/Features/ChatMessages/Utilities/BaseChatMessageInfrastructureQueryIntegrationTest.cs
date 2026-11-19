@@ -9,6 +9,6 @@ public abstract class BaseChatMessageInfrastructureQueryIntegrationTest : BaseCh
 	protected BaseChatMessageInfrastructureQueryIntegrationTest(ChatsWebApplicationFactory webApplicationFactory)
 		: base(webApplicationFactory)
 	{
-		Repository = ServiceScope.GetMessageQueryRepository();
+		Repository = ServiceScope.GetCachedMessageQueryRepository();
 	}
 }
