@@ -1,3 +1,4 @@
+using InstaConnect.Posts.Infrastructure.Tests.Features.PostComments.Utilities;
 using InstaConnect.Posts.Tests.Features.PostComments.Assertions;
 
 namespace InstaConnect.Posts.Infrastructure.Tests.Integration.Features.PostComments.Repositories;
@@ -18,5 +19,16 @@ public class AddPostCommentCommandRepositoryIntegrationTests : BasePostCommentIn
 
 		// Assert
 		postComment.ShouldSatisfy(PostComment);
+	}
+
+	[Fact]
+	public async Task AddAsync_ShouldDeleteCachedPost_WhenCommandIsValid()
+	{
+		// Act
+		await Repository.AddAsync(PostComment, CancellationToken);
+		var cachedPost = await CacheHandler.GetByIdAsync(PostComment, CancellationToken);
+
+		// Assert
+		cachedPost.ShouldBeNull();
 	}
 }

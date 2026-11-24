@@ -190,4 +190,64 @@ public class GetPostCommentByIdControllerIntegrationTests : BasePostCommentPrese
 		// Assert
 		response.ShouldSatisfy(request, PostComment);
 	}
+
+	[Fact]
+	public async Task GetByIdAsync_ShouldCachePostComment_WhenRequestIsValid()
+	{
+		// Act
+		await Controller.GetByIdAsync(_request, CancellationToken);
+		var cachedPostComment = await CommentCacheHandler.GetByIdAsync(_request, CancellationToken);
+
+		// Assert
+		cachedPostComment.ShouldSatisfy(_request, PostComment);
+	}
+
+	[Theory]
+	[PostIdDifferentCaseData]
+	public async Task GetByIdAsync_ShouldCachePostComment_WhenRequestAndIdAreValid(
+		IStringTransformer transformer)
+	{
+		// Arrange
+		var request = _requestBuilder.WithId(transformer).Build();
+
+		// Act
+		await Controller.GetByIdAsync(request, CancellationToken);
+		var cachedPostComment = await CommentCacheHandler.GetByIdAsync(request, CancellationToken);
+
+		// Assert
+		cachedPostComment.ShouldSatisfy(request, PostComment);
+	}
+
+	[Theory]
+	[PostCommentIdDifferentCaseData]
+	public async Task GetByIdAsync_ShouldCachePostComment_WhenRequestAndCommentIdAreValid(
+		IStringTransformer transformer)
+	{
+		// Arrange
+		var request = _requestBuilder.WithCommentId(transformer).Build();
+
+		// Act
+		await Controller.GetByIdAsync(request, CancellationToken);
+		var cachedPostComment = await CommentCacheHandler.GetByIdAsync(request, CancellationToken);
+
+		// Assert
+		cachedPostComment.ShouldSatisfy(request, PostComment);
+	}
+
+	[Theory]
+	[UserIdEmptyData]
+	[UserIdDifferentCaseData]
+	public async Task GetByIdAsync_ShouldCachePostComment_WhenRequestAndCurrentUserIdAreValid(
+		IStringTransformer transformer)
+	{
+		// Arrange
+		var request = _requestBuilder.WithCurrentUserId(transformer).Build();
+
+		// Act
+		await Controller.GetByIdAsync(request, CancellationToken);
+		var cachedPostComment = await CommentCacheHandler.GetByIdAsync(request, CancellationToken);
+
+		// Assert
+		cachedPostComment.ShouldSatisfy(request, PostComment);
+	}
 }

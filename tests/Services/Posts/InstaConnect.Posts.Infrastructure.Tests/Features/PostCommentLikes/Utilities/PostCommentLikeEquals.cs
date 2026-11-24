@@ -57,7 +57,7 @@ public static class PostCommentLikeEquals
 				   postCommentLike.Id.Matches(response.Id) &&
 				   postCommentLike.CreatedAtUtc == response.CreatedAtUtc &&
 				   response.User.MatchesFull(postCommentLike.User) &&
-				   response.PostComment.MatchesFull(currentUserQuery, postCommentLike.PostComment);
+				   response.PostComment.MatchesFull(currentUserQuery.Id, postCommentLike.PostComment);
 		}
 
 		public bool MatchesWithoutUser(
@@ -69,7 +69,7 @@ public static class PostCommentLikeEquals
 				   postCommentLike.Id.Matches(response.Id) &&
 				   postCommentLike.CreatedAtUtc == response.CreatedAtUtc &&
 				   response.User == null &&
-				   response.PostComment.MatchesFull(currentUserQuery, postCommentLike.PostComment);
+				   response.PostComment.MatchesFull(currentUserQuery.Id, postCommentLike.PostComment);
 		}
 
 		public bool MatchesWithoutPostComment(

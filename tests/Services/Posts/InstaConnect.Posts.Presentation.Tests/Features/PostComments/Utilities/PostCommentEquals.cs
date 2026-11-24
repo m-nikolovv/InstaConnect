@@ -7,6 +7,7 @@ using InstaConnect.Posts.Application.Features.PostComments.Queries.GetAll;
 using InstaConnect.Posts.Application.Features.PostComments.Queries.GetAllForUser;
 using InstaConnect.Posts.Application.Features.PostComments.Queries.GetById;
 using InstaConnect.Posts.Domain.Features.PostCommentImages.Models.Entities;
+using InstaConnect.Posts.Domain.Features.PostComments.Models.Responses;
 using InstaConnect.Posts.Events.Features.PostCommentImages;
 using InstaConnect.Posts.Events.Features.PostComments;
 using InstaConnect.Posts.Presentation.Tests.Features.PostCommentImages.Utilities;
@@ -561,6 +562,14 @@ public static class PostCommentEquals
 															  matches,
 															  termTransformer,
 															  matchesFilter);
+		}
+	}
+
+	extension(PostCommentResponse? response)
+	{
+		public bool Matches(GetPostCommentByIdApiRequest request, PostComment postComment)
+		{
+			return response.MatchesFull(request.CurrentUserId, postComment);
 		}
 	}
 }

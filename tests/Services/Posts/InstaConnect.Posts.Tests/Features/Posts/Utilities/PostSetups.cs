@@ -1,4 +1,5 @@
 using InstaConnect.Posts.Domain.Features.Posts.Abstractions;
+using InstaConnect.Posts.Domain.Features.Posts.Models.Responses;
 using InstaConnect.Posts.Infrastructure.Features.Posts.Abstractions;
 using InstaConnect.Posts.Infrastructure.Features.Posts.Helpers.Repositories;
 
@@ -141,6 +142,17 @@ public static class PostSetups
 			{
 				await serviceScope.DeleteAsync(post, cancellationToken);
 			}
+		}
+	}
+
+	extension(IPostCacheHandler cacheHandler)
+	{
+		public async Task<PostResponse?> GetByIdAsync(
+			string id,
+			string currentUserId,
+			CancellationToken cancellationToken)
+		{
+			return await cacheHandler.GetByIdAsync(new(id), new(currentUserId), cancellationToken);
 		}
 	}
 }

@@ -1,4 +1,5 @@
 using InstaConnect.Posts.Domain.Features.PostCommentImages.Models.Entities;
+using InstaConnect.Posts.Domain.Features.PostComments.Models.Responses;
 using InstaConnect.Posts.Events.Features.PostComments;
 
 namespace InstaConnect.Posts.Application.Tests.Features.PostComments.Assertions;
@@ -97,6 +98,16 @@ public static class PostCommentMatchAssertions
 		public void ShouldSatisfy(DeletePostCommentCommandRequest request, PostComment entity)
 		{
 			r.ShouldSatisfy(r => r.Matches(request, entity));
+		}
+	}
+
+	extension(PostCommentResponse? response)
+	{
+		public void ShouldSatisfy(
+		GetPostCommentByIdQueryRequest request,
+		PostComment postComment)
+		{
+			response.ShouldSatisfy(p => p.Matches(request, postComment));
 		}
 	}
 }

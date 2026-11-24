@@ -1,3 +1,4 @@
+using InstaConnect.Posts.Infrastructure.Features.PostComments.Abstractions;
 using InstaConnect.Posts.Presentation.Features.PostComments.Controllers.v1;
 
 namespace InstaConnect.Posts.Presentation.Tests.Integration.Features.PostComments.Utilities;
@@ -8,9 +9,12 @@ public abstract class BasePostCommentPresentationQueryIntegrationTest : BasePost
 
 	protected UserPostCommentController UserController { get; }
 
+	protected IPostCommentCacheHandler CommentCacheHandler { get; }
+
 	protected BasePostCommentPresentationQueryIntegrationTest(PostsWebApplicationFactory webApplicationFactory) : base(webApplicationFactory)
 	{
 		Controller = ServiceScope.GetPostCommentController();
 		UserController = ServiceScope.GetUserPostCommentController();
+		CommentCacheHandler = ServiceScope.GetPostCommentCacheHandler();
 	}
 }

@@ -1,4 +1,5 @@
 using InstaConnect.Common.Tests.Features.DataAttributes.FormFileCollections.Base;
+using InstaConnect.Posts.Domain.Tests.Features.PostComments.Utilities;
 using InstaConnect.Posts.Tests.Features.PostComments.Assertions;
 using InstaConnect.Posts.Tests.Features.PostComments.DataAttributes.Images;
 
@@ -154,6 +155,65 @@ public class AddPostCommentCommandServiceIntegrationTests : BasePostCommentDomai
 
 		// Assert
 		postComment.ShouldSatisfy(command);
+	}
+
+	[Fact]
+	public async Task AddAsync_ShouldDeleteCachedPost_WhenCommandIsValid()
+	{
+		// Act
+		await Service.AddAsync(_command, CancellationToken);
+		var cachedPost = await CacheHandler.GetByIdAsync(_command, CancellationToken);
+
+		// Assert
+		cachedPost.ShouldBeNull();
+	}
+
+	[Theory]
+	[PostIdDifferentCaseData]
+	public async Task AddAsync_ShouldDeleteCachedPost_WhenCommandAndIdAreValid(
+		IStringTransformer transformer)
+	{
+		// Arrange
+		var command = _commandBuilder.WithId(transformer).Build();
+
+		// Act
+		await Service.AddAsync(command, CancellationToken);
+		var cachedPost = await CacheHandler.GetByIdAsync(command, CancellationToken);
+
+		// Assert
+		cachedPost.ShouldBeNull();
+	}
+
+	[Theory]
+	[UserIdDifferentCaseData]
+	public async Task AddAsync_ShouldDeleteCachedPost_WhenCommandAndUserIdAreValid(
+		IStringTransformer transformer)
+	{
+		// Arrange
+		var command = _commandBuilder.WithUserId(transformer).Build();
+
+		// Act
+		await Service.AddAsync(command, CancellationToken);
+		var cachedPost = await CacheHandler.GetByIdAsync(command, CancellationToken);
+
+		// Assert
+		cachedPost.ShouldBeNull();
+	}
+
+	[Theory]
+	[PostCommentImagesEmptyData]
+	public async Task AddAsync_ShouldDeleteCachedPost_WhenCommandAndImagesAreValid(
+		IFormFileCollectionTransformer transformer)
+	{
+		// Arrange
+		var command = _commandBuilder.WithImages(transformer).Build();
+
+		// Act
+		await Service.AddAsync(command, CancellationToken);
+		var cachedPost = await CacheHandler.GetByIdAsync(command, CancellationToken);
+
+		// Assert
+		cachedPost.ShouldBeNull();
 	}
 
 	[Fact]

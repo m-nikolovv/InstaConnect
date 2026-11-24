@@ -189,7 +189,7 @@ public static class PostCommentLikeEquals
 				   postCommentLike.Id.Matches(response.Id) &&
 				   postCommentLike.CreatedAtUtc == response.CreatedAtUtc &&
 				   response.User.MatchesFull(postCommentLike.User) &&
-				   response.PostComment.MatchesFull(request, postCommentLike.PostComment);
+				   response.PostComment.MatchesFull(request.CurrentUser.Id, postCommentLike.PostComment);
 		}
 
 		public bool MatchesWithoutUser<TQuery>(TQuery request, PostCommentLike? postCommentLike)
@@ -200,7 +200,7 @@ public static class PostCommentLikeEquals
 				   postCommentLike.Id.Matches(response.Id) &&
 				   postCommentLike.CreatedAtUtc == response.CreatedAtUtc &&
 				   response.User == null &&
-				   response.PostComment.MatchesFull(request, postCommentLike.PostComment);
+				   response.PostComment.MatchesFull(request.CurrentUser.Id, postCommentLike.PostComment);
 		}
 
 		public bool MatchesWithoutPostComment<TQuery>(TQuery request, PostCommentLike? postCommentLike)
@@ -232,7 +232,7 @@ public static class PostCommentLikeEquals
 		{
 			return response.MatchesCollectionResponse(request.Pagination, postCommentLikes.Count(matchesFilter)) &&
 				   response.User == null &&
-				   response.PostComment.MatchesFull(request, postComment) &&
+				   response.PostComment.MatchesFull(request.CurrentUser.Id, postComment) &&
 				   response.PostCommentLikes.MatchesCollectionAndNotEmpty(request.Pagination,
 													postCommentLikes,
 													response => response.Id,
@@ -252,7 +252,7 @@ public static class PostCommentLikeEquals
 		{
 			return response.MatchesCollectionResponse(request.Pagination, postCommentLikes.Count(matchesFilter)) &&
 				   response.User == null &&
-				   response.PostComment.MatchesFull(request, postComment) &&
+				   response.PostComment.MatchesFull(request.CurrentUser.Id, postComment) &&
 				   response.PostCommentLikes.MatchesSortedCollection(request.Pagination,
 														  postCommentLikes,
 														  matches,

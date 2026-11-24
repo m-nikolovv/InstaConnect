@@ -1,3 +1,5 @@
+using InstaConnect.Posts.Domain.Tests.Features.PostComments.Utilities;
+
 namespace InstaConnect.Posts.Domain.Tests.Integration.Features.PostComments.Services;
 
 public class GetPostCommentByIdQueryServiceIntegrationTests : BasePostCommentDomainQueryIntegrationTest
@@ -89,5 +91,66 @@ public class GetPostCommentByIdQueryServiceIntegrationTests : BasePostCommentDom
 
 		// Assert
 		response.ShouldSatisfy(query, PostComment);
+	}
+
+	[Fact]
+	public async Task GetByIdAsync_ShouldCachePostComment_WhenQueryIsValid()
+	{
+		// Act
+		await Service.GetByIdAsync(_query, CancellationToken);
+		var cachedPostComment = await CommentCacheHandler.GetByIdAsync(_query, CancellationToken);
+
+		// Assert
+		cachedPostComment.ShouldSatisfy(_query, PostComment);
+	}
+
+	[Theory]
+	[PostIdDifferentCaseData]
+	public async Task GetByIdAsync_ShouldCachePostComment_WhenQueryAndIdAreValid(
+		IStringTransformer transformer)
+	{
+		// Arrange
+		var query = _queryBuilder.WithId(transformer).Build();
+
+		// Act
+		await Service.GetByIdAsync(query, CancellationToken);
+		var cachedPostComment = await CommentCacheHandler.GetByIdAsync(query, CancellationToken);
+
+		// Assert
+		cachedPostComment.ShouldSatisfy(query, PostComment);
+	}
+
+	[Theory]
+	[PostCommentIdDifferentCaseData]
+	public async Task GetByIdAsync_ShouldCachePostComment_WhenQueryAndCommentIdAreValid(
+		IStringTransformer transformer)
+	{
+		// Arrange
+		var query = _queryBuilder.WithCommentId(transformer).Build();
+
+		// Act
+		await Service.GetByIdAsync(query, CancellationToken);
+		var cachedPostComment = await CommentCacheHandler.GetByIdAsync(query, CancellationToken);
+
+		// Assert
+		cachedPostComment.ShouldSatisfy(query, PostComment);
+	}
+
+	[Theory]
+	[UserIdNullData]
+	[UserIdEmptyData]
+	[UserIdDifferentCaseData]
+	public async Task GetByIdAsync_ShouldCachePostComment_WhenQueryAndCurrentUserIdAreValid(
+		IStringTransformer transformer)
+	{
+		// Arrange
+		var query = _queryBuilder.WithCurrentUserId(transformer).Build();
+
+		// Act
+		await Service.GetByIdAsync(query, CancellationToken);
+		var cachedPostComment = await CommentCacheHandler.GetByIdAsync(query, CancellationToken);
+
+		// Assert
+		cachedPostComment.ShouldSatisfy(query, PostComment);
 	}
 }

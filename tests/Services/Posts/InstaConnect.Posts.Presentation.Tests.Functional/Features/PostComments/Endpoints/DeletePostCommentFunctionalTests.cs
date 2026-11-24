@@ -329,6 +329,124 @@ public class DeletePostCommentFunctionalTests : BasePostCommentPresentationComma
 	}
 
 	[Fact]
+	public async Task DeleteAsync_ShouldDeleteCachedPostComment_WhenRequestIsValid()
+	{
+		// Act
+		await CommentApiClient.DeleteAsync(_request, CancellationToken);
+		var cachedPostComment = await CommentCacheHandler.GetByIdAsync(_request, CancellationToken);
+
+		// Assert
+		cachedPostComment.ShouldBeNull();
+	}
+
+	[Theory]
+	[PostIdDifferentCaseData]
+	public async Task DeleteAsync_ShouldDeleteCachedPostComment_WhenRequestAndIdAreValid(
+		IStringTransformer transformer)
+	{
+		// Arrange
+		var request = _requestBuilder.WithId(transformer).Build();
+
+		// Act
+		await CommentApiClient.DeleteAsync(request, CancellationToken);
+		var cachedPostComment = await CommentCacheHandler.GetByIdAsync(request, CancellationToken);
+
+		// Assert
+		cachedPostComment.ShouldBeNull();
+	}
+
+	[Theory]
+	[PostCommentIdDifferentCaseData]
+	public async Task DeleteAsync_ShouldDeleteCachedPostComment_WhenRequestAndCommentIdAreValid(
+		IStringTransformer transformer)
+	{
+		// Arrange
+		var request = _requestBuilder.WithCommentId(transformer).Build();
+
+		// Act
+		await CommentApiClient.DeleteAsync(request, CancellationToken);
+		var cachedPostComment = await CommentCacheHandler.GetByIdAsync(request, CancellationToken);
+
+		// Assert
+		cachedPostComment.ShouldBeNull();
+	}
+
+	[Theory]
+	[UserIdDifferentCaseData]
+	public async Task DeleteAsync_ShouldDeleteCachedPostComment_WhenRequestAndUserIdAreValid(
+		IStringTransformer transformer)
+	{
+		// Arrange
+		var request = _requestBuilder.WithUserId(transformer).Build();
+
+		// Act
+		await CommentApiClient.DeleteAsync(request, CancellationToken);
+		var cachedPostComment = await CommentCacheHandler.GetByIdAsync(request, CancellationToken);
+
+		// Assert
+		cachedPostComment.ShouldBeNull();
+	}
+
+	[Fact]
+	public async Task DeleteAsync_ShouldDeleteCachedPost_WhenRequestIsValid()
+	{
+		// Act
+		await CommentApiClient.DeleteAsync(_request, CancellationToken);
+		var cachedPost = await CacheHandler.GetByIdAsync(_request, CancellationToken);
+
+		// Assert
+		cachedPost.ShouldBeNull();
+	}
+
+	[Theory]
+	[PostIdDifferentCaseData]
+	public async Task DeleteAsync_ShouldDeleteCachedPost_WhenRequestAndIdAreValid(
+		IStringTransformer transformer)
+	{
+		// Arrange
+		var request = _requestBuilder.WithId(transformer).Build();
+
+		// Act
+		await CommentApiClient.DeleteAsync(request, CancellationToken);
+		var cachedPost = await CacheHandler.GetByIdAsync(request, CancellationToken);
+
+		// Assert
+		cachedPost.ShouldBeNull();
+	}
+
+	[Theory]
+	[PostCommentIdDifferentCaseData]
+	public async Task DeleteAsync_ShouldDeleteCachedPost_WhenRequestAndCommentIdAreValid(
+		IStringTransformer transformer)
+	{
+		// Arrange
+		var request = _requestBuilder.WithCommentId(transformer).Build();
+
+		// Act
+		await CommentApiClient.DeleteAsync(request, CancellationToken);
+		var cachedPost = await CacheHandler.GetByIdAsync(request, CancellationToken);
+
+		// Assert
+		cachedPost.ShouldBeNull();
+	}
+
+	[Theory]
+	[UserIdDifferentCaseData]
+	public async Task DeleteAsync_ShouldDeleteCachedPost_WhenRequestAndUserIdAreValid(
+		IStringTransformer transformer)
+	{
+		// Arrange
+		var request = _requestBuilder.WithUserId(transformer).Build();
+
+		// Act
+		await CommentApiClient.DeleteAsync(request, CancellationToken);
+		var cachedPost = await CacheHandler.GetByIdAsync(request, CancellationToken);
+
+		// Assert
+		cachedPost.ShouldBeNull();
+	}
+
+	[Fact]
 	public async Task DeleteAsync_ShouldDeletePostCommentPostCommentImages_WhenRequestIsValid()
 	{
 		// Act

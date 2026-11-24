@@ -1,3 +1,7 @@
+using InstaConnect.Posts.Domain.Features.PostComments.Models.Responses;
+using InstaConnect.Posts.Domain.Features.Posts.Models.Responses;
+using InstaConnect.Posts.Infrastructure.Features.PostComments.Abstractions;
+using InstaConnect.Posts.Infrastructure.Features.Posts.Abstractions;
 using InstaConnect.Posts.Presentation.Features.PostComments.Controllers.v1;
 
 namespace InstaConnect.Posts.Presentation.Tests.Features.PostComments.Utilities;
@@ -74,6 +78,47 @@ public static class PostCommentSetups
 			return await serviceScope.GetByIdAsync(
 				response.GetValue(),
 				cancellationToken);
+		}
+	}
+
+	extension(IPostCommentCacheHandler cacheHandler)
+	{
+		public async Task<PostCommentResponse?> GetByIdAsync(
+			UpdatePostCommentApiRequest request,
+			CancellationToken cancellationToken)
+		{
+			return await cacheHandler.GetByIdAsync(request.Id, request.CommentId, request.UserId, cancellationToken);
+		}
+
+		public async Task<PostCommentResponse?> GetByIdAsync(
+			DeletePostCommentApiRequest request,
+			CancellationToken cancellationToken)
+		{
+			return await cacheHandler.GetByIdAsync(request.Id, request.CommentId, request.UserId, cancellationToken);
+		}
+
+		public async Task<PostCommentResponse?> GetByIdAsync(
+			GetPostCommentByIdApiRequest request,
+			CancellationToken cancellationToken)
+		{
+			return await cacheHandler.GetByIdAsync(request.Id, request.CommentId, request.CurrentUserId, cancellationToken);
+		}
+	}
+
+	extension(IPostCacheHandler cacheHandler)
+	{
+		public async Task<PostResponse?> GetByIdAsync(
+			AddPostCommentApiRequest request,
+			CancellationToken cancellationToken)
+		{
+			return await cacheHandler.GetByIdAsync(request.Id, request.UserId, cancellationToken);
+		}
+
+		public async Task<PostResponse?> GetByIdAsync(
+			DeletePostCommentApiRequest request,
+			CancellationToken cancellationToken)
+		{
+			return await cacheHandler.GetByIdAsync(request.Id, request.UserId, cancellationToken);
 		}
 	}
 }

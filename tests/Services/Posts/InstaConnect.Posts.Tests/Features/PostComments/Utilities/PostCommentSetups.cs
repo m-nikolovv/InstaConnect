@@ -1,4 +1,5 @@
 using InstaConnect.Posts.Domain.Features.PostComments.Abstractions;
+using InstaConnect.Posts.Domain.Features.PostComments.Models.Responses;
 using InstaConnect.Posts.Infrastructure.Features.PostComments.Abstractions;
 using InstaConnect.Posts.Infrastructure.Features.PostComments.Helpers.Repositories;
 
@@ -146,6 +147,26 @@ public static class PostCommentSetups
 			{
 				await serviceScope.DeleteAsync(postComment, cancellationToken);
 			}
+		}
+	}
+
+	extension(IPostCommentCacheHandler cacheHandler)
+	{
+		public async Task<PostCommentResponse?> GetByIdAsync(
+			string id,
+			string commentId,
+			string currentUserId,
+			CancellationToken cancellationToken)
+		{
+			return await cacheHandler.GetByIdAsync(new(new(id), commentId), new(currentUserId), cancellationToken);
+		}
+
+		public async Task AddAsync(
+			PostCommentResponse response,
+			string currentUserId,
+			CancellationToken cancellationToken)
+		{
+			await cacheHandler.AddAsync(response, new(currentUserId), cancellationToken);
 		}
 	}
 }

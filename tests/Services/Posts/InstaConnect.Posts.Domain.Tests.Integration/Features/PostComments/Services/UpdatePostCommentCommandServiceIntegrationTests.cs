@@ -1,3 +1,4 @@
+using InstaConnect.Posts.Domain.Tests.Features.PostComments.Utilities;
 using InstaConnect.Posts.Tests.Features.PostCommentImages.Utilities;
 using InstaConnect.Posts.Tests.Features.PostComments.Assertions;
 
@@ -171,6 +172,65 @@ public class UpdatePostCommentCommandServiceIntegrationTests : BasePostCommentDo
 
 		// Assert
 		postComment.ShouldSatisfy(command);
+	}
+
+	[Fact]
+	public async Task UpdateAsync_ShouldDeleteCachedPostComment_WhenCommandIsValid()
+	{
+		// Act
+		await Service.UpdateAsync(_command, CancellationToken);
+		var cachedPostComment = await CommentCacheHandler.GetByIdAsync(_command, CancellationToken);
+
+		// Assert
+		cachedPostComment.ShouldBeNull();
+	}
+
+	[Theory]
+	[PostIdDifferentCaseData]
+	public async Task UpdateAsync_ShouldDeleteCachedPostComment_WhenCommandAndIdAreValid(
+		IStringTransformer transformer)
+	{
+		// Arrange
+		var command = _commandBuilder.WithId(transformer).Build();
+
+		// Act
+		await Service.UpdateAsync(command, CancellationToken);
+		var cachedPostComment = await CommentCacheHandler.GetByIdAsync(command, CancellationToken);
+
+		// Assert
+		cachedPostComment.ShouldBeNull();
+	}
+
+	[Theory]
+	[UserIdDifferentCaseData]
+	public async Task UpdateAsync_ShouldDeleteCachedPostComment_WhenCommandAndUserIdAreValid(
+		IStringTransformer transformer)
+	{
+		// Arrange
+		var command = _commandBuilder.WithUserId(transformer).Build();
+
+		// Act
+		await Service.UpdateAsync(command, CancellationToken);
+		var cachedPostComment = await CommentCacheHandler.GetByIdAsync(command, CancellationToken);
+
+		// Assert
+		cachedPostComment.ShouldBeNull();
+	}
+
+	[Theory]
+	[PostCommentIdDifferentCaseData]
+	public async Task UpdateAsync_ShouldDeleteCachedPostComment_WhenCommandAndCommentIdAreValid(
+		IStringTransformer transformer)
+	{
+		// Arrange
+		var command = _commandBuilder.WithCommentId(transformer).Build();
+
+		// Act
+		await Service.UpdateAsync(command, CancellationToken);
+		var cachedPostComment = await CommentCacheHandler.GetByIdAsync(command, CancellationToken);
+
+		// Assert
+		cachedPostComment.ShouldBeNull();
 	}
 
 	[Fact]

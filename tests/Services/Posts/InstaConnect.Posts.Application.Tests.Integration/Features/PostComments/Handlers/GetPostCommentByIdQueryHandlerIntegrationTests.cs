@@ -137,4 +137,65 @@ public class GetPostCommentByIdQueryHandlerIntegrationTests : BasePostCommentApp
 		// Assert
 		response.ShouldSatisfy(request, PostComment);
 	}
+
+	[Fact]
+	public async Task SendAsync_ShouldCachePostComment_WhenRequestIsValid()
+	{
+		// Act
+		await Sender.SendAsync(_request, CancellationToken);
+		var cachedPostComment = await CommentCacheHandler.GetByIdAsync(_request, CancellationToken);
+
+		// Assert
+		cachedPostComment.ShouldSatisfy(_request, PostComment);
+	}
+
+	[Theory]
+	[PostIdDifferentCaseData]
+	public async Task SendAsync_ShouldCachePostComment_WhenRequestAndIdAreValid(
+		IStringTransformer transformer)
+	{
+		// Arrange
+		var request = _requestBuilder.WithId(transformer).Build();
+
+		// Act
+		await Sender.SendAsync(request, CancellationToken);
+		var cachedPostComment = await CommentCacheHandler.GetByIdAsync(request, CancellationToken);
+
+		// Assert
+		cachedPostComment.ShouldSatisfy(request, PostComment);
+	}
+
+	[Theory]
+	[PostCommentIdDifferentCaseData]
+	public async Task SendAsync_ShouldCachePostComment_WhenRequestAndCommentIdAreValid(
+		IStringTransformer transformer)
+	{
+		// Arrange
+		var request = _requestBuilder.WithCommentId(transformer).Build();
+
+		// Act
+		await Sender.SendAsync(request, CancellationToken);
+		var cachedPostComment = await CommentCacheHandler.GetByIdAsync(request, CancellationToken);
+
+		// Assert
+		cachedPostComment.ShouldSatisfy(request, PostComment);
+	}
+
+	[Theory]
+	[UserIdNullData]
+	[UserIdEmptyData]
+	[UserIdDifferentCaseData]
+	public async Task SendAsync_ShouldCachePostComment_WhenRequestAndCurrentUserIdAreValid(
+		IStringTransformer transformer)
+	{
+		// Arrange
+		var request = _requestBuilder.WithCurrentUserId(transformer).Build();
+
+		// Act
+		await Sender.SendAsync(request, CancellationToken);
+		var cachedPostComment = await CommentCacheHandler.GetByIdAsync(request, CancellationToken);
+
+		// Assert
+		cachedPostComment.ShouldSatisfy(request, PostComment);
+	}
 }
