@@ -18,7 +18,7 @@ public abstract class BasePostCommentInfrastructureCommandIntegrationTest : Base
 		: base(webApplicationFactory)
 	{
 		CacheHandler = ServiceScope.GetPostCacheHandler();
-		Repository = ServiceScope.GetCachedPostCommentCommandRepository();
+		Repository = ServiceScope.GetPostCommentCommandRepository();
 		CommentCacheHandler = ServiceScope.GetPostCommentCacheHandler();
 		IncludeBuilderFactory = ServiceScope.GetPostCommentIncludeBuilderFactory();
 	}

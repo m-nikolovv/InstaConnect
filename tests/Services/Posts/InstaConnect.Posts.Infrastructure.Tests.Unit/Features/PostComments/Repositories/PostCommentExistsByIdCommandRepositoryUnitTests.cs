@@ -6,7 +6,7 @@ public class PostCommentExistsByIdCommandRepositoryUnitTests : BasePostCommentIn
 
 	public PostCommentExistsByIdCommandRepositoryUnitTests()
 	{
-		_repository = new(Collection, IncludeBuilderFactory);
+		_repository = new(CacheHandler, Collection, CommentCacheHandler, IncludeBuilderFactory);
 
 		Collection.SetupAggregateFluent(PostCommentId, Fluent);
 		Fluent.SetupMatch(PostCommentId);

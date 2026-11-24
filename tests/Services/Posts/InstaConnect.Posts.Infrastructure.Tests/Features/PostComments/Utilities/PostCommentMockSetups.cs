@@ -349,5 +349,25 @@ public static class PostCommentMockSetups
 		{
 			fluent.SetupFirstOrDefaultAsync(postComment.ToFullResponse(currentUserQuery.Id), cancellationToken);
 		}
+
+		public void RemoveFirstOrDefaultAsync(
+			PostCommentId id,
+			CurrentUserQuery currentUserQuery,
+			CancellationToken cancellationToken)
+		{
+			fluent.SetupFirstOrDefaultAsync(null, cancellationToken);
+		}
+	}
+
+	extension(IPostCommentCacheHandler cacheHandler)
+	{
+		public void SetupGetByIdAsync(
+			PostCommentId id,
+			CurrentUserQuery currentUserQuery,
+			PostComment postComment,
+			CancellationToken cancellationToken)
+		{
+			cacheHandler.GetByIdAsync(id, currentUserQuery.Id, cancellationToken).ReturnsTaskResponse(postComment.ToFullResponse(currentUserQuery.Id));
+		}
 	}
 }

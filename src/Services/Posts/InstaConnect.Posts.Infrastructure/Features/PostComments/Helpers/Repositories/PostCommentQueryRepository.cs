@@ -5,15 +5,18 @@ namespace InstaConnect.Posts.Infrastructure.Features.PostComments.Helpers.Reposi
 internal class PostCommentQueryRepository : IPostCommentQueryRepository
 {
 	private readonly IPostCommentCollection _collection;
+	private readonly IPostCommentCacheHandler _commentCacheHandler;
 	private readonly IPostIncludeBuilderFactory _includeBuilderFactory;
 	private readonly IPostCommentIncludeBuilderFactory _commentIncludeBuilderFactory;
 
 	public PostCommentQueryRepository(
 		IPostCommentCollection collection,
+		IPostCommentCacheHandler commentCacheHandler,
 		IPostIncludeBuilderFactory includeBuilderFactory,
 		IPostCommentIncludeBuilderFactory commentIncludeBuilderFactory)
 	{
 		_collection = collection;
+		_commentCacheHandler = commentCacheHandler;
 		_includeBuilderFactory = includeBuilderFactory;
 		_commentIncludeBuilderFactory = commentIncludeBuilderFactory;
 	}
@@ -85,15 +88,28 @@ internal class PostCommentQueryRepository : IPostCommentQueryRepository
 		CurrentUserQuery currentUser,
 		CancellationToken cancellationToken)
 	{
+		var cachedResponse = await _commentCacheHandler.GetByIdAsync(id, currentUser.Id, cancellationToken);
+
+		if (cachedResponse != null)
+		{
+			return cachedResponse;
+		}
+
 		var include = _includeBuilderFactory.Create().WithUser().WithPostLikes().WithPostComments().WithPostImages().Build();
 		var commentInclude = _commentIncludeBuilderFactory.Create().WithUser().WithPostCommentLikes().WithPost(include).WithPostCommentImages().Build();
-
-		return await _collection
+		var response = await _collection
 			.AggregateFluent()
 			.Match(id)
 			.Include(commentInclude)
 			.ProjectToFullResponse(currentUser)
 			.FirstOrDefaultAsync(cancellationToken);
+
+		if (response != null)
+		{
+			await _commentCacheHandler.AddAsync(response, currentUser.Id, cancellationToken);
+		}
+
+		return response;
 	}
 
 	public async Task<bool> ExistsByIdAsync(

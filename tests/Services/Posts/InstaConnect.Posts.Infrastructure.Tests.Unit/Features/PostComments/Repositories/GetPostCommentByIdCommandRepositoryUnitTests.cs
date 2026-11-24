@@ -10,7 +10,7 @@ public class GetPostCommentByIdCommandRepositoryUnitTests : BasePostCommentInfra
 	{
 		_include = IncludeBuilderFactory.Create().WithUser().WithPost().Build();
 
-		_repository = new(Collection, IncludeBuilderFactory);
+		_repository = new(CacheHandler, Collection, CommentCacheHandler, IncludeBuilderFactory);
 
 		Collection.SetupAggregateFluent(PostCommentId, Fluent);
 		Fluent.SetupInclude(PostCommentId, _include);

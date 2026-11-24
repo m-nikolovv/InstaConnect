@@ -44,7 +44,7 @@ public class GetAllPostCommentsQueryRepositoryUnitTests : BasePostCommentInfrast
 
 		_include = CommentIncludeBuilderFactory.Create().WithUser().WithPostCommentLikes().WithPostCommentImages().Build();
 
-		_repository = new(Collection, IncludeBuilderFactory, CommentIncludeBuilderFactory);
+		_repository = new(Collection, CommentCacheHandler, IncludeBuilderFactory, CommentIncludeBuilderFactory);
 
 		Collection.SetupAggregateFluent(_filterQuery, _sortingQuery, _paginationQuery, _currentUserQuery, Fluent);
 		Fluent.SetupInclude(_filterQuery, _sortingQuery, _paginationQuery, _currentUserQuery, _include);

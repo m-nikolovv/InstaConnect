@@ -4,14 +4,20 @@ namespace InstaConnect.Posts.Infrastructure.Features.PostComments.Helpers.Reposi
 
 internal class PostCommentCommandRepository : IPostCommentCommandRepository
 {
+	private readonly IPostCacheHandler _cacheHandler;
 	private readonly IPostCommentCollection _collection;
+	private readonly IPostCommentCacheHandler _commentCacheHandler;
 	private readonly IPostCommentIncludeBuilderFactory _includeBuilderFactory;
 
 	public PostCommentCommandRepository(
+		IPostCacheHandler cacheHandler,
 		IPostCommentCollection collection,
+		IPostCommentCacheHandler commentCacheHandler,
 		IPostCommentIncludeBuilderFactory includeBuilderFactory)
 	{
+		_cacheHandler = cacheHandler;
 		_collection = collection;
+		_commentCacheHandler = commentCacheHandler;
 		_includeBuilderFactory = includeBuilderFactory;
 	}
 
@@ -70,20 +76,25 @@ internal class PostCommentCommandRepository : IPostCommentCommandRepository
 	public async Task AddAsync(PostComment entity, CancellationToken cancellationToken)
 	{
 		await _collection.AddAsync(entity, cancellationToken);
+		await _cacheHandler.DeleteResponseAsync(entity.Id.Id, cancellationToken);
 	}
 
 	public async Task AddRangeAsync(IEnumerable<PostComment> entities, CancellationToken cancellationToken)
 	{
 		await _collection.AddRangeAsync(entities, cancellationToken);
+		await _cacheHandler.DeleteResponseRangeAsync(entities.Select(p => p.Id.Id), cancellationToken);
 	}
 
 	public async Task UpdateAsync(PostComment entity, CancellationToken cancellationToken)
 	{
 		await _collection.UpdateAsync(entity, cancellationToken);
+		await _commentCacheHandler.DeleteAsync(entity.Id, cancellationToken);
 	}
 
 	public async Task DeleteAsync(PostComment entity, CancellationToken cancellationToken)
 	{
 		await _collection.DeleteAsync(entity, cancellationToken);
+		await _cacheHandler.DeleteResponseAsync(entity.Id.Id, cancellationToken);
+		await _commentCacheHandler.DeleteAsync(entity.Id, cancellationToken);
 	}
 }

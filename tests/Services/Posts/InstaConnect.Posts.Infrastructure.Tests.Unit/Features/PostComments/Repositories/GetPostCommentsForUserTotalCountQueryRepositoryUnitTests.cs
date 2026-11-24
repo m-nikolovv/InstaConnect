@@ -16,7 +16,7 @@ public class GetPostCommentsForUserTotalCountQueryRepositoryUnitTests : BasePost
 		_filterQueryBuilder = _filterQueryBuilderFactory.Create(PostComment);
 		_filterQuery = _filterQueryBuilder.Build();
 
-		_repository = new(Collection, IncludeBuilderFactory, CommentIncludeBuilderFactory);
+		_repository = new(Collection, CommentCacheHandler, IncludeBuilderFactory, CommentIncludeBuilderFactory);
 
 		Collection.SetupAggregateFluent(_filterQuery, Fluent);
 		Fluent.SetupMatch(_filterQuery);

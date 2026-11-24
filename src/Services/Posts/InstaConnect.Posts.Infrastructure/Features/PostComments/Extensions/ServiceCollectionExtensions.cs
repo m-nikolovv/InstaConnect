@@ -20,11 +20,9 @@ internal static class ServiceCollectionExtensions
 
 			serviceCollection.AddCollection<PostComment, PostCommentId>(CollectionName);
 
-			serviceCollection.AddScoped<IPostCommentCommandRepository, PostCommentCommandRepository>()
-							 .Decorate<IPostCommentCommandRepository, CachedPostCommentCommandRepository>();
+			serviceCollection.AddScoped<IPostCommentCommandRepository, PostCommentCommandRepository>();
 
-			serviceCollection.AddScoped<IPostCommentQueryRepository, PostCommentQueryRepository>()
-							 .Decorate<IPostCommentQueryRepository, CachedPostCommentQueryRepository>();
+			serviceCollection.AddScoped<IPostCommentQueryRepository, PostCommentQueryRepository>();
 
 			BsonClassMap.TryRegisterClassMap<PostComment>(cm =>
 			{

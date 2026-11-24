@@ -10,7 +10,7 @@ public class GetPostCommentByIdRangeCommandRepositoryUnitTests : BasePostComment
 	{
 		_include = IncludeBuilderFactory.Create().WithUser().WithPost().Build();
 
-		_repository = new(Collection, IncludeBuilderFactory);
+		_repository = new(CacheHandler, Collection, CommentCacheHandler, IncludeBuilderFactory);
 
 		Collection.SetupAggregateFluent(PostCommentIds, Fluent);
 		Fluent.SetupInclude(PostCommentIds, _include);

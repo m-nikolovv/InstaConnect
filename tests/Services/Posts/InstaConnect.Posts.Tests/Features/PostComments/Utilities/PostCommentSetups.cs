@@ -1,7 +1,6 @@
 using InstaConnect.Posts.Domain.Features.PostComments.Abstractions;
 using InstaConnect.Posts.Domain.Features.PostComments.Models.Responses;
 using InstaConnect.Posts.Infrastructure.Features.PostComments.Abstractions;
-using InstaConnect.Posts.Infrastructure.Features.PostComments.Helpers.Repositories;
 
 namespace InstaConnect.Posts.Tests.Features.PostComments.Utilities;
 
@@ -11,25 +10,10 @@ public static class PostCommentSetups
 	{
 		public IPostCommentQueryRepository GetPostCommentQueryRepository()
 		{
-			return new PostCommentQueryRepository(
-				serviceProvider.GetPostCommentCollection(),
-				serviceProvider.GetPostIncludeBuilderFactory(),
-				serviceProvider.GetPostCommentIncludeBuilderFactory());
-		}
-
-		public IPostCommentQueryRepository GetCachedPostCommentQueryRepository()
-		{
 			return serviceProvider.GetRequiredService<IPostCommentQueryRepository>();
 		}
 
 		public IPostCommentCommandRepository GetPostCommentCommandRepository()
-		{
-			return new PostCommentCommandRepository(
-				serviceProvider.GetPostCommentCollection(),
-				serviceProvider.GetPostCommentIncludeBuilderFactory());
-		}
-
-		public IPostCommentCommandRepository GetCachedPostCommentCommandRepository()
 		{
 			return serviceProvider.GetRequiredService<IPostCommentCommandRepository>();
 		}
@@ -57,19 +41,9 @@ public static class PostCommentSetups
 			return serviceScope.ServiceProvider.GetPostCommentQueryRepository();
 		}
 
-		public IPostCommentQueryRepository GetCachedPostCommentQueryRepository()
-		{
-			return serviceScope.ServiceProvider.GetCachedPostCommentQueryRepository();
-		}
-
 		public IPostCommentCommandRepository GetPostCommentCommandRepository()
 		{
 			return serviceScope.ServiceProvider.GetPostCommentCommandRepository();
-		}
-
-		public IPostCommentCommandRepository GetCachedPostCommentCommandRepository()
-		{
-			return serviceScope.ServiceProvider.GetCachedPostCommentCommandRepository();
 		}
 
 		public IPostCommentIncludeBuilderFactory GetPostCommentIncludeBuilderFactory()

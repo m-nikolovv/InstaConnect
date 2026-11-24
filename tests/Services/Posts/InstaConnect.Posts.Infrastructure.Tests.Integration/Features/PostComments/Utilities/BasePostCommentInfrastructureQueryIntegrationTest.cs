@@ -12,7 +12,7 @@ public abstract class BasePostCommentInfrastructureQueryIntegrationTest : BasePo
 	protected BasePostCommentInfrastructureQueryIntegrationTest(PostsWebApplicationFactory webApplicationFactory)
 		: base(webApplicationFactory)
 	{
-		Repository = ServiceScope.GetCachedPostCommentQueryRepository();
+		Repository = ServiceScope.GetPostCommentQueryRepository();
 		CommentCacheHandler = ServiceScope.GetPostCommentCacheHandler();
 	}
 }
