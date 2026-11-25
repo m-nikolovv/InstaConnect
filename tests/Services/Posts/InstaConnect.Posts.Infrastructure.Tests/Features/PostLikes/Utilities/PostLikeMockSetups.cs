@@ -350,5 +350,25 @@ public static class PostLikeMockSetups
 		{
 			fluent.SetupFirstOrDefaultAsync(postLike.ToFullResponse(currentUserQuery.Id), cancellationToken);
 		}
+
+		public void RemoveFirstOrDefaultAsync(
+			PostLikeId id,
+			CurrentUserQuery currentUserQuery,
+			CancellationToken cancellationToken)
+		{
+			fluent.SetupFirstOrDefaultAsync(null, cancellationToken);
+		}
+	}
+
+	extension(IPostLikeCacheHandler cacheHandler)
+	{
+		public void SetupGetByIdAsync(
+			PostLikeId id,
+			CurrentUserQuery currentUserQuery,
+			PostLike postLike,
+			CancellationToken cancellationToken)
+		{
+			cacheHandler.GetByIdAsync(id, currentUserQuery.Id, cancellationToken).ReturnsTaskResponse(postLike.ToFullResponse(currentUserQuery.Id));
+		}
 	}
 }

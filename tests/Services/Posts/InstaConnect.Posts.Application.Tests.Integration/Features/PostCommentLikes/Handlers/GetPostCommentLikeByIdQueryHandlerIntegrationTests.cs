@@ -178,4 +178,81 @@ public class GetPostCommentLikeByIdQueryHandlerIntegrationTests : BasePostCommen
 		// Assert
 		response.ShouldSatisfy(request, PostCommentLike);
 	}
+
+	[Fact]
+	public async Task SendAsync_ShouldCachePostCommentLike_WhenRequestIsValid()
+	{
+		// Act
+		await Sender.SendAsync(_request, CancellationToken);
+		var cachedPostCommentLike = await CommentLikeCacheHandler.GetByIdAsync(_request, CancellationToken);
+
+		// Assert
+		cachedPostCommentLike.ShouldSatisfy(_request, PostCommentLike);
+	}
+
+	[Theory]
+	[PostIdDifferentCaseData]
+	public async Task SendAsync_ShouldCachePostCommentLike_WhenRequestAndIdAreValid(
+		IStringTransformer transformer)
+	{
+		// Arrange
+		var request = _requestBuilder.WithId(transformer).Build();
+
+		// Act
+		await Sender.SendAsync(request, CancellationToken);
+		var cachedPostCommentLike = await CommentLikeCacheHandler.GetByIdAsync(request, CancellationToken);
+
+		// Assert
+		cachedPostCommentLike.ShouldSatisfy(request, PostCommentLike);
+	}
+
+	[Theory]
+	[PostCommentIdDifferentCaseData]
+	public async Task SendAsync_ShouldCachePostCommentLike_WhenRequestAndCommentIdAreValid(
+		IStringTransformer transformer)
+	{
+		// Arrange
+		var request = _requestBuilder.WithCommentId(transformer).Build();
+
+		// Act
+		await Sender.SendAsync(request, CancellationToken);
+		var cachedPostCommentLike = await CommentLikeCacheHandler.GetByIdAsync(request, CancellationToken);
+
+		// Assert
+		cachedPostCommentLike.ShouldSatisfy(request, PostCommentLike);
+	}
+
+	[Theory]
+	[UserIdDifferentCaseData]
+	public async Task SendAsync_ShouldCachePostCommentLike_WhenRequestAndUserIdAreValid(
+		IStringTransformer transformer)
+	{
+		// Arrange
+		var request = _requestBuilder.WithUserId(transformer).Build();
+
+		// Act
+		await Sender.SendAsync(request, CancellationToken);
+		var cachedPostCommentLike = await CommentLikeCacheHandler.GetByIdAsync(request, CancellationToken);
+
+		// Assert
+		cachedPostCommentLike.ShouldSatisfy(request, PostCommentLike);
+	}
+
+	[Theory]
+	[UserIdNullData]
+	[UserIdEmptyData]
+	[UserIdDifferentCaseData]
+	public async Task SendAsync_ShouldCachePostCommentLike_WhenRequestAndCurrentUserIdAreValid(
+		IStringTransformer transformer)
+	{
+		// Arrange
+		var request = _requestBuilder.WithCurrentUserId(transformer).Build();
+
+		// Act
+		await Sender.SendAsync(request, CancellationToken);
+		var cachedPostCommentLike = await CommentLikeCacheHandler.GetByIdAsync(request, CancellationToken);
+
+		// Assert
+		cachedPostCommentLike.ShouldSatisfy(request, PostCommentLike);
+	}
 }

@@ -1,6 +1,6 @@
 using InstaConnect.Chats.Domain.Features.Chats.Abstractions;
+using InstaConnect.Chats.Domain.Features.Chats.Models.Responses;
 using InstaConnect.Chats.Infrastructure.Features.Chats.Abstractions;
-using InstaConnect.Chats.Infrastructure.Features.Chats.Helpers.Repositories;
 
 namespace InstaConnect.Chats.Tests.Features.Chats.Utilities;
 
@@ -10,24 +10,10 @@ public static class ChatSetups
 	{
 		public IChatQueryRepository GetQueryRepository()
 		{
-			return new ChatQueryRepository(
-				serviceProvider.GetCollection(),
-				serviceProvider.GetIncludeBuilderFactory());
-		}
-
-		public IChatQueryRepository GetCachedQueryRepository()
-		{
 			return serviceProvider.GetRequiredService<IChatQueryRepository>();
 		}
 
 		public IChatCommandRepository GetCommandRepository()
-		{
-			return new ChatCommandRepository(
-				serviceProvider.GetCollection(),
-				serviceProvider.GetIncludeBuilderFactory());
-		}
-
-		public IChatCommandRepository GetCachedCommandRepository()
 		{
 			return serviceProvider.GetRequiredService<IChatCommandRepository>();
 		}
@@ -55,19 +41,9 @@ public static class ChatSetups
 			return serviceScope.ServiceProvider.GetQueryRepository();
 		}
 
-		public IChatQueryRepository GetCachedQueryRepository()
-		{
-			return serviceScope.ServiceProvider.GetCachedQueryRepository();
-		}
-
 		public IChatCommandRepository GetCommandRepository()
 		{
 			return serviceScope.ServiceProvider.GetCommandRepository();
-		}
-
-		public IChatCommandRepository GetCachedCommandRepository()
-		{
-			return serviceScope.ServiceProvider.GetCachedCommandRepository();
 		}
 
 		public IChatIncludeBuilderFactory GetIncludeBuilderFactory()
@@ -141,6 +117,18 @@ public static class ChatSetups
 				await repository.DeleteAsync(chat, cancellationToken);
 				await cacheHandler.DeleteAsync(chat.Id, cancellationToken);
 			}
+		}
+	}
+
+	extension(IChatCacheHandler cacheHandler)
+	{
+		public async Task<ChatResponse?> GetByIdAsync(
+			string participantOneId,
+			string participantTwoId,
+			string currentUserId,
+			CancellationToken cancellationToken)
+		{
+			return await cacheHandler.GetByIdAsync(new(new(participantOneId), new(participantTwoId)), new(currentUserId), cancellationToken);
 		}
 	}
 }

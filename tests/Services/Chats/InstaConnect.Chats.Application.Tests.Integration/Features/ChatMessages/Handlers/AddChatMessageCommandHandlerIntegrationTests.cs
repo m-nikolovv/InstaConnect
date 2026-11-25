@@ -229,6 +229,71 @@ public class AddChatMessageCommandHandlerIntegrationTests : BaseChatMessageAppli
 	}
 
 	[Fact]
+	public async Task SendAsync_ShouldDeleteCachedChat_WhenRequestIsValid()
+	{
+		// Act
+		await Sender.SendAsync(_request, CancellationToken);
+		var cachedChat = await CacheHandler.GetByIdAsync(_request, CancellationToken);
+
+		// Assert
+		cachedChat.ShouldBeNull();
+	}
+
+	[Theory]
+	[UserIdDifferentCaseData]
+	public async Task SendAsync_ShouldDeleteCachedChat_WhenRequestAndParticipantOneIdAreValid(
+		IStringTransformer transformer)
+	{
+		// Arrange
+		var request = _requestBuilder.WithParticipantOneId(transformer).Build();
+
+		// Act
+		await Sender.SendAsync(request, CancellationToken);
+		var cachedChat = await CacheHandler.GetByIdAsync(request, CancellationToken);
+
+		// Assert
+		cachedChat.ShouldBeNull();
+	}
+
+	[Theory]
+	[UserIdDifferentCaseData]
+	public async Task SendAsync_ShouldDeleteCachedChat_WhenRequestAndParticipantTwoIdAreValid(
+		IStringTransformer transformer)
+	{
+		// Arrange
+		var request = _requestBuilder.WithParticipantTwoId(transformer).Build();
+
+		// Act
+		await Sender.SendAsync(request, CancellationToken);
+		var cachedChat = await CacheHandler.GetByIdAsync(request, CancellationToken);
+
+		// Assert
+		cachedChat.ShouldBeNull();
+	}
+
+	[Theory]
+	[ChatMessageImagesEmptyData]
+	[ChatMessageImagesJpegData]
+	[ChatMessageImagesPngData]
+	[ChatMessageImagesWebpData]
+	[ChatMessageImagesJpegDifferentCaseData]
+	[ChatMessageImagesPngDifferentCaseData]
+	[ChatMessageImagesWebpDifferentCaseData]
+	public async Task SendAsync_ShouldDeleteCachedChat_WhenRequestAndImagesAreValid(
+		IFormFileCollectionTransformer transformer)
+	{
+		// Arrange
+		var request = _requestBuilder.WithImages(transformer).Build();
+
+		// Act
+		await Sender.SendAsync(request, CancellationToken);
+		var cachedChat = await CacheHandler.GetByIdAsync(request, CancellationToken);
+
+		// Assert
+		cachedChat.ShouldBeNull();
+	}
+
+	[Fact]
 	public async Task SendAsync_ShouldPublishChatMessageAddedNotification_WhenRequestIsValid()
 	{
 		// Act

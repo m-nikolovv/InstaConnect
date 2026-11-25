@@ -11,12 +11,15 @@ public abstract class BaseRefreshTokenInfrastructureCommandUnitTest : BaseRefres
 
 	protected IRefreshTokenCollection Collection { get; }
 
+	protected IRefreshTokenCacheHandler CacheHandler { get; }
+
 	protected IRefreshTokenIncludeBuilderFactory IncludeBuilderFactory { get; }
 
 	protected BaseRefreshTokenInfrastructureCommandUnitTest() : base(IdentityMockFactory.CreatePasswordHasher())
 	{
 		Fluent = RefreshTokenInfrastructureMockFactory.CreateFluent();
 		Collection = RefreshTokenInfrastructureMockFactory.CreateCollection();
+		CacheHandler = RefreshTokenInfrastructureMockFactory.CreateCacheHandler();
 		IncludeBuilderFactory = RefreshTokenMockFactory.CreateIncludeBuilderFactory();
 
 		PasswordHasher.ClearCalls();

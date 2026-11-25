@@ -1,6 +1,6 @@
 using InstaConnect.Posts.Domain.Features.PostCommentLikes.Abstractions;
+using InstaConnect.Posts.Domain.Features.PostCommentLikes.Models.Responses;
 using InstaConnect.Posts.Infrastructure.Features.PostCommentLikes.Abstractions;
-using InstaConnect.Posts.Infrastructure.Features.PostCommentLikes.Helpers.Repositories;
 
 namespace InstaConnect.Posts.Tests.Features.PostCommentLikes.Utilities;
 
@@ -10,26 +10,10 @@ public static class PostCommentLikeSetups
 	{
 		public IPostCommentLikeQueryRepository GetPostCommentLikeQueryRepository()
 		{
-			return new PostCommentLikeQueryRepository(
-				serviceProvider.GetPostCommentLikeCollection(),
-				serviceProvider.GetPostIncludeBuilderFactory(),
-				serviceProvider.GetPostCommentIncludeBuilderFactory(),
-				serviceProvider.GetPostCommentLikeIncludeBuilderFactory());
-		}
-
-		public IPostCommentLikeQueryRepository GetCachedPostCommentLikeQueryRepository()
-		{
 			return serviceProvider.GetRequiredService<IPostCommentLikeQueryRepository>();
 		}
 
 		public IPostCommentLikeCommandRepository GetPostCommentLikeCommandRepository()
-		{
-			return new PostCommentLikeCommandRepository(
-				serviceProvider.GetPostCommentLikeCollection(),
-				serviceProvider.GetPostCommentLikeIncludeBuilderFactory());
-		}
-
-		public IPostCommentLikeCommandRepository GetCachedPostCommentLikeCommandRepository()
 		{
 			return serviceProvider.GetRequiredService<IPostCommentLikeCommandRepository>();
 		}
@@ -57,19 +41,9 @@ public static class PostCommentLikeSetups
 			return serviceScope.ServiceProvider.GetPostCommentLikeQueryRepository();
 		}
 
-		public IPostCommentLikeQueryRepository GetCachedPostCommentLikeQueryRepository()
-		{
-			return serviceScope.ServiceProvider.GetCachedPostCommentLikeQueryRepository();
-		}
-
 		public IPostCommentLikeCommandRepository GetPostCommentLikeCommandRepository()
 		{
 			return serviceScope.ServiceProvider.GetPostCommentLikeCommandRepository();
-		}
-
-		public IPostCommentLikeCommandRepository GetCachedPostCommentLikeCommandRepository()
-		{
-			return serviceScope.ServiceProvider.GetCachedPostCommentLikeCommandRepository();
 		}
 
 		public IPostCommentLikeIncludeBuilderFactory GetPostCommentLikeIncludeBuilderFactory()
@@ -151,5 +125,17 @@ public static class PostCommentLikeSetups
 			}
 		}
 	}
-}
 
+	extension(IPostCommentLikeCacheHandler cacheHandler)
+	{
+		public async Task<PostCommentLikeResponse?> GetByIdAsync(
+			string id,
+			string commentId,
+			string userId,
+			string currentUserId,
+			CancellationToken cancellationToken)
+		{
+			return await cacheHandler.GetByIdAsync(new(new(new(id), commentId), new(userId)), new(currentUserId), cancellationToken);
+		}
+	}
+}

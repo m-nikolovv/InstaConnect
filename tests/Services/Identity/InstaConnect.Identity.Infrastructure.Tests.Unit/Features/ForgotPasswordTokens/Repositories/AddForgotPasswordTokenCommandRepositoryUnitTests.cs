@@ -6,7 +6,7 @@ public class AddForgotPasswordTokenCommandRepositoryUnitTests : BaseForgotPasswo
 
 	public AddForgotPasswordTokenCommandRepositoryUnitTests()
 	{
-		_repository = new(Collection, IncludeBuilderFactory);
+		_repository = new(Collection, CacheHandler, IncludeBuilderFactory);
 	}
 
 	[Fact]

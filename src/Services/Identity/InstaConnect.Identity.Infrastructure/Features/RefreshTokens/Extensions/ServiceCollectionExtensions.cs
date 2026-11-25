@@ -19,8 +19,7 @@ internal static class ServiceCollectionExtensions
 
 			serviceCollection.AddCollection<RefreshToken, RefreshTokenId>(CollectionName);
 
-			serviceCollection.AddScoped<IRefreshTokenCommandRepository, RefreshTokenCommandRepository>()
-							 .Decorate<IRefreshTokenCommandRepository, CachedRefreshTokenCommandRepository>();
+			serviceCollection.AddScoped<IRefreshTokenCommandRepository, RefreshTokenCommandRepository>();
 
 			BsonClassMap.TryRegisterClassMap<RefreshToken>(cm =>
 			{

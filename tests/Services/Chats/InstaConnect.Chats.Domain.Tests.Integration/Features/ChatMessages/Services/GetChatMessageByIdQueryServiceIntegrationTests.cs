@@ -1,3 +1,4 @@
+using InstaConnect.Chats.Domain.Tests.Features.ChatMessages.Utilities;
 using InstaConnect.Chats.Tests.Features.ChatMessageImages.Utilities;
 using InstaConnect.Chats.Tests.Features.ChatMessages.DataAttributes.Id;
 
@@ -96,6 +97,65 @@ public class GetChatMessageByIdQueryServiceIntegrationTests : BaseChatMessageDom
 
 		// Assert
 		response.ShouldSatisfy(query, ChatMessage);
+	}
+
+	[Fact]
+	public async Task GetByIdAsync_ShouldCacheChatMessage_WhenQueryIsValid()
+	{
+		// Act
+		await Service.GetByIdAsync(_query, CancellationToken);
+		var cachedChatMessage = await MessageCacheHandler.GetByIdAsync(_query, CancellationToken);
+
+		// Assert
+		cachedChatMessage.ShouldSatisfy(_query, ChatMessage);
+	}
+
+	[Theory]
+	[UserIdDifferentCaseData]
+	public async Task GetByIdAsync_ShouldCacheChatMessage_WhenQueryAndParticipantTwoIdAreValid(
+		IStringTransformer transformer)
+	{
+		// Arrange
+		var query = _queryBuilder.WithParticipantTwoId(transformer).Build();
+
+		// Act
+		await Service.GetByIdAsync(query, CancellationToken);
+		var cachedChatMessage = await MessageCacheHandler.GetByIdAsync(query, CancellationToken);
+
+		// Assert
+		cachedChatMessage.ShouldSatisfy(query, ChatMessage);
+	}
+
+	[Theory]
+	[ChatMessageIdDifferentCaseData]
+	public async Task GetByIdAsync_ShouldCacheChatMessage_WhenQueryAndMessageIdAreValid(
+		IStringTransformer transformer)
+	{
+		// Arrange
+		var query = _queryBuilder.WithMessageId(transformer).Build();
+
+		// Act
+		await Service.GetByIdAsync(query, CancellationToken);
+		var cachedChatMessage = await MessageCacheHandler.GetByIdAsync(query, CancellationToken);
+
+		// Assert
+		cachedChatMessage.ShouldSatisfy(query, ChatMessage);
+	}
+
+	[Theory]
+	[UserIdDifferentCaseData]
+	public async Task GetByIdAsync_ShouldCacheChatMessage_WhenQueryAndCurrentUserIdAreValid(
+		IStringTransformer transformer)
+	{
+		// Arrange
+		var query = _queryBuilder.WithCurrentUserId(transformer).Build();
+
+		// Act
+		await Service.GetByIdAsync(query, CancellationToken);
+		var cachedChatMessage = await MessageCacheHandler.GetByIdAsync(query, CancellationToken);
+
+		// Assert
+		cachedChatMessage.ShouldSatisfy(query, ChatMessage);
 	}
 
 	[Fact]

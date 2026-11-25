@@ -1,7 +1,6 @@
 using InstaConnect.Posts.Domain.Features.Posts.Abstractions;
 using InstaConnect.Posts.Domain.Features.Posts.Models.Responses;
 using InstaConnect.Posts.Infrastructure.Features.Posts.Abstractions;
-using InstaConnect.Posts.Infrastructure.Features.Posts.Helpers.Repositories;
 
 namespace InstaConnect.Posts.Tests.Features.Posts.Utilities;
 
@@ -11,24 +10,10 @@ public static class PostSetups
 	{
 		public IPostQueryRepository GetPostQueryRepository()
 		{
-			return new PostQueryRepository(
-				serviceProvider.GetPostCollection(),
-				serviceProvider.GetPostIncludeBuilderFactory());
-		}
-
-		public IPostQueryRepository GetCachedPostQueryRepository()
-		{
 			return serviceProvider.GetRequiredService<IPostQueryRepository>();
 		}
 
 		public IPostCommandRepository GetPostCommandRepository()
-		{
-			return new PostCommandRepository(
-				serviceProvider.GetPostCollection(),
-				serviceProvider.GetPostIncludeBuilderFactory());
-		}
-
-		public IPostCommandRepository GetCachedPostCommandRepository()
 		{
 			return serviceProvider.GetRequiredService<IPostCommandRepository>();
 		}
@@ -56,19 +41,9 @@ public static class PostSetups
 			return serviceScope.ServiceProvider.GetPostQueryRepository();
 		}
 
-		public IPostQueryRepository GetCachedPostQueryRepository()
-		{
-			return serviceScope.ServiceProvider.GetCachedPostQueryRepository();
-		}
-
 		public IPostCommandRepository GetPostCommandRepository()
 		{
 			return serviceScope.ServiceProvider.GetPostCommandRepository();
-		}
-
-		public IPostCommandRepository GetCachedPostCommandRepository()
-		{
-			return serviceScope.ServiceProvider.GetCachedPostCommandRepository();
 		}
 
 		public IPostIncludeBuilderFactory GetPostIncludeBuilderFactory()

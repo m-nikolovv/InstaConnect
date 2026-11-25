@@ -21,11 +21,9 @@ internal static class ServiceCollectionExtensions
 
 			serviceCollection.AddCollection<Follow, FollowId>(CollectionName);
 
-			serviceCollection.AddScoped<IFollowCommandRepository, FollowCommandRepository>()
-							 .Decorate<IFollowCommandRepository, CachedFollowCommandRepository>();
+			serviceCollection.AddScoped<IFollowCommandRepository, FollowCommandRepository>();
 
-			serviceCollection.AddScoped<IFollowQueryRepository, FollowQueryRepository>()
-							 .Decorate<IFollowQueryRepository, CachedFollowQueryRepository>();
+			serviceCollection.AddScoped<IFollowQueryRepository, FollowQueryRepository>();
 
 			BsonClassMap.TryRegisterClassMap<Follow>(cm =>
 			{

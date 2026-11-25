@@ -1,3 +1,4 @@
+using InstaConnect.Chats.Domain.Features.Chats.Models.Responses;
 using InstaConnect.Chats.Events.Features.Chats.Models;
 using InstaConnect.Chats.Tests.Features.ChatMessages.Assertions;
 using InstaConnect.Chats.Tests.Features.Chats.Assertions;
@@ -148,6 +149,16 @@ public static class ChatMatchAssertions
 		public void ShouldSatisfy(AddChatApiRequest request, Chat entity)
 		{
 			r.ShouldSatisfy(r => r.Matches(request, entity));
+		}
+	}
+
+	extension(ChatResponse? response)
+	{
+		public void ShouldSatisfy(
+		GetChatByIdApiRequest request,
+		Chat chat)
+		{
+			response.ShouldSatisfy(p => p.Matches(request, chat));
 		}
 	}
 }

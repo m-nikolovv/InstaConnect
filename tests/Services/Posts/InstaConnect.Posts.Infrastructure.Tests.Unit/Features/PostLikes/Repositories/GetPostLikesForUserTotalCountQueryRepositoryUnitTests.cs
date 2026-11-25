@@ -16,7 +16,7 @@ public class GetPostLikesForUserTotalCountQueryRepositoryUnitTests : BasePostLik
 		_filterQueryBuilder = _filterQueryBuilderFactory.Create(PostLike);
 		_filterQuery = _filterQueryBuilder.Build();
 
-		_repository = new(Collection, IncludeBuilderFactory, LikeIncludeBuilderFactory);
+		_repository = new(Collection, LikeCacheHandler, IncludeBuilderFactory, LikeIncludeBuilderFactory);
 
 		Collection.SetupAggregateFluent(_filterQuery, Fluent);
 		Fluent.SetupMatch(_filterQuery);

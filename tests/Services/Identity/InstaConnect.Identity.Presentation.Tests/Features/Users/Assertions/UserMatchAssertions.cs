@@ -1,4 +1,5 @@
 using InstaConnect.Identity.Domain.Features.Common.Helpers;
+using InstaConnect.Identity.Domain.Features.Users.Models.Responses;
 using InstaConnect.Identity.Events.Features.EmailConfirmationTokens;
 
 namespace InstaConnect.Identity.Presentation.Tests.Features.Users.Assertions;
@@ -229,6 +230,37 @@ public static class UserMatchAssertions
 		public void ShouldSatisfy(UpdateCurrentUserApiRequest request, ICollection<EmailConfirmationToken> entities)
 		{
 			r.ShouldSatisfy(r => r.Matches(request, entities));
+		}
+	}
+
+	extension(UserResponse? response)
+	{
+		public void ShouldSatisfy(
+		GetUserByIdApiRequest request,
+		User user)
+		{
+			response.ShouldSatisfy(p => p.Matches(request, user));
+		}
+
+		public void ShouldSatisfy(
+		GetCurrentUserByIdApiRequest request,
+		User user)
+		{
+			response.ShouldSatisfy(p => p.Matches(request, user));
+		}
+
+		public void ShouldSatisfy(
+		GetUserDetailsByIdApiRequest request,
+		User user)
+		{
+			response.ShouldSatisfy(p => p.Matches(request, user));
+		}
+
+		public void ShouldSatisfy(
+		GetCurrentUserDetailsByIdApiRequest request,
+		User user)
+		{
+			response.ShouldSatisfy(p => p.Matches(request, user));
 		}
 	}
 }

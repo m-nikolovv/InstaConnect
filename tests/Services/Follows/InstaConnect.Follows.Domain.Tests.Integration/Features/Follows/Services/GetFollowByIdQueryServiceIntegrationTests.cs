@@ -1,3 +1,5 @@
+using InstaConnect.Follows.Domain.Tests.Features.Follows.Utilities;
+
 namespace InstaConnect.Follows.Domain.Tests.Integration.Features.Follows.Services;
 
 public class GetFollowByIdQueryServiceIntegrationTests : BaseFollowDomainQueryIntegrationTest
@@ -79,5 +81,66 @@ public class GetFollowByIdQueryServiceIntegrationTests : BaseFollowDomainQueryIn
 
 		// Assert
 		response.ShouldSatisfy(query, Follow);
+	}
+
+	[Fact]
+	public async Task GetByIdAsync_ShouldCacheFollow_WhenQueryIsValid()
+	{
+		// Act
+		await Service.GetByIdAsync(_query, CancellationToken);
+		var cachedFollow = await CacheHandler.GetByIdAsync(_query, CancellationToken);
+
+		// Assert
+		cachedFollow.ShouldSatisfy(_query, Follow);
+	}
+
+	[Theory]
+	[UserIdDifferentCaseData]
+	public async Task GetByIdAsync_ShouldCacheFollow_WhenQueryAndFollowerIdAreValid(
+		IStringTransformer transformer)
+	{
+		// Arrange
+		var query = _queryBuilder.WithFollowerId(transformer).Build();
+
+		// Act
+		await Service.GetByIdAsync(query, CancellationToken);
+		var cachedFollow = await CacheHandler.GetByIdAsync(query, CancellationToken);
+
+		// Assert
+		cachedFollow.ShouldSatisfy(query, Follow);
+	}
+
+	[Theory]
+	[UserIdDifferentCaseData]
+	public async Task GetByIdAsync_ShouldCacheFollow_WhenQueryAndFollowingIdAreValid(
+		IStringTransformer transformer)
+	{
+		// Arrange
+		var query = _queryBuilder.WithFollowingId(transformer).Build();
+
+		// Act
+		await Service.GetByIdAsync(query, CancellationToken);
+		var cachedFollow = await CacheHandler.GetByIdAsync(query, CancellationToken);
+
+		// Assert
+		cachedFollow.ShouldSatisfy(query, Follow);
+	}
+
+	[Theory]
+	[UserIdNullData]
+	[UserIdEmptyData]
+	[UserIdDifferentCaseData]
+	public async Task GetByIdAsync_ShouldCacheFollow_WhenQueryAndCurrentUserIdAreValid(
+		IStringTransformer transformer)
+	{
+		// Arrange
+		var query = _queryBuilder.WithCurrentUserId(transformer).Build();
+
+		// Act
+		await Service.GetByIdAsync(query, CancellationToken);
+		var cachedFollow = await CacheHandler.GetByIdAsync(query, CancellationToken);
+
+		// Assert
+		cachedFollow.ShouldSatisfy(query, Follow);
 	}
 }

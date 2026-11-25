@@ -1,4 +1,5 @@
 using InstaConnect.Chats.Application.Features.Chats.Models;
+using InstaConnect.Chats.Domain.Features.Chats.Models.Responses;
 using InstaConnect.Chats.Domain.Features.Chats.Models.ValueObjects;
 using InstaConnect.Chats.Events.Features.Chats.Models;
 using InstaConnect.Identity.Events.Features.Users;
@@ -433,6 +434,14 @@ public static class ChatEquals
 														  matches,
 														  termTransformer,
 														  matchesFilter);
+		}
+	}
+
+	extension(ChatResponse? response)
+	{
+		public bool Matches(GetChatByIdQueryRequest request, Chat chat)
+		{
+			return response.MatchesFull(chat);
 		}
 	}
 }

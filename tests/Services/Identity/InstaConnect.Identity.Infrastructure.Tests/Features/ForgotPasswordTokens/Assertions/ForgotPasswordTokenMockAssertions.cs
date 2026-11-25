@@ -105,4 +105,21 @@ public static class ForgotPasswordTokenMockAssertions
 			await fluent.ShouldHaveReceivedOneToListAsync(cancellationToken);
 		}
 	}
+
+	extension(IForgotPasswordTokenCacheHandler cacheHandler)
+	{
+		public async Task ShouldHaveReceivedOneDeleteAsync(
+			ForgotPasswordToken forgotPasswordToken,
+			CancellationToken cancellationToken)
+		{
+			await cacheHandler.ShouldHaveReceivedOne().DeleteAsync(forgotPasswordToken.Id, cancellationToken);
+		}
+
+		public async Task ShouldHaveReceivedOneDeleteRangeAsync(
+			ICollection<ForgotPasswordToken> forgotPasswordTokens,
+			CancellationToken cancellationToken)
+		{
+			await cacheHandler.ShouldHaveReceivedOne().DeleteRangeAsync(forgotPasswordTokens.Select(p => p.Id), cancellationToken);
+		}
+	}
 }

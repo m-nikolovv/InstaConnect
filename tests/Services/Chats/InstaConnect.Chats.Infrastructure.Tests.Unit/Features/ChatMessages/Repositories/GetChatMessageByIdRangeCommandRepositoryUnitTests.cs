@@ -12,7 +12,7 @@ public class GetChatMessageByIdRangeCommandRepositoryUnitTests : BaseChatMessage
 	{
 		_include = MessageIncludeBuilderFactory.Create().WithSender().WithChat().Build();
 
-		_repository = new(Collection, MessageIncludeBuilderFactory);
+		_repository = new(CacheHandler, Collection, MessageCacheHandler, MessageIncludeBuilderFactory);
 
 		Collection.SetupAggregateFluent(ChatMessageIds, Fluent);
 		Fluent.SetupInclude(ChatMessageIds, _include);

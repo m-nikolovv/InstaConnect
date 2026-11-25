@@ -44,64 +44,12 @@ public static class ChatEquals
 
 	extension(ChatResponse? response)
 	{
-		public bool MatchesFull(
-			CurrentUserQuery currentUserQuery,
-			Chat? chat)
-		{
-			return response != null &&
-				   chat != null &&
-				   chat.Id.Matches(response.Id) &&
-				   chat.ChatMessages.Count == response.MessageCount &&
-				   chat.CreatedAtUtc == response.CreatedAtUtc &&
-				   response.ParticipantOne.MatchesFull(chat.ParticipantOne) &&
-				   response.ParticipantTwo.MatchesFull(chat.ParticipantTwo);
-		}
-
-		public bool MatchesFullInverted(
-			CurrentUserQuery currentUserQuery,
-			Chat? chat)
-		{
-			return response != null &&
-				   chat != null &&
-				   chat.Id.Matches(response.Id.ParticipantTwoId, response.Id.ParticipantOneId) &&
-				   chat.ChatMessages.Count == response.MessageCount &&
-				   chat.CreatedAtUtc == response.CreatedAtUtc &&
-				   response.ParticipantOne.MatchesFull(chat.ParticipantTwo) &&
-				   response.ParticipantTwo.MatchesFull(chat.ParticipantOne);
-		}
-
-		public bool MatchesWithoutParticipantOne(
-			CurrentUserQuery currentUserQuery,
-			Chat? chat)
-		{
-			return response != null &&
-				   chat != null &&
-				   chat.Id.Matches(response.Id) &&
-				   chat.ChatMessages.Count == response.MessageCount &&
-				   chat.CreatedAtUtc == response.CreatedAtUtc &&
-				   response.ParticipantOne == null &&
-				   response.ParticipantTwo.MatchesFull(chat.ParticipantTwo);
-		}
-
-		public bool MatchesWithoutParticipantOneInverted(
-			CurrentUserQuery currentUserQuery,
-			Chat? chat)
-		{
-			return response != null &&
-				   chat != null &&
-				   chat.Id.Matches(response.Id.ParticipantTwoId, response.Id.ParticipantOneId) &&
-				   chat.ChatMessages.Count == response.MessageCount &&
-				   chat.CreatedAtUtc == response.CreatedAtUtc &&
-				   response.ParticipantOne == null &&
-				   response.ParticipantTwo.MatchesFull(chat.ParticipantOne);
-		}
-
 		public bool Matches(
 			ChatId id,
 			CurrentUserQuery currentUserQuery,
 			Chat chat)
 		{
-			return response.MatchesFull(currentUserQuery, chat);
+			return response.MatchesFull(chat);
 		}
 
 		public bool MatchesInverted(
@@ -109,7 +57,7 @@ public static class ChatEquals
 			CurrentUserQuery currentUserQuery,
 			Chat chat)
 		{
-			return response.MatchesFullInverted(currentUserQuery, chat);
+			return response.MatchesFullInverted(chat);
 		}
 	}
 
@@ -185,7 +133,7 @@ public static class ChatEquals
 		{
 			return response.MatchesWithoutParticipantTwo(
 					   paginationQuery,
-					   (response, chat) => response.MatchesWithoutParticipantOne(currentUserQuery, chat),
+					   (response, chat) => response.MatchesWithoutParticipantOne(chat),
 					   chat => chat.MatchesFilter(filterQuery),
 					   participantOne,
 					   chats);
@@ -202,7 +150,7 @@ public static class ChatEquals
 		{
 			return response.MatchesWithoutParticipantTwo(
 					   paginationQuery,
-					   (response, chat) => response.MatchesWithoutParticipantOne(currentUserQuery, chat),
+					   (response, chat) => response.MatchesWithoutParticipantOne(chat),
 					   chat => chat.MatchesFilter(filterQuery),
 					   participantOne,
 					   chats,
@@ -219,7 +167,7 @@ public static class ChatEquals
 		{
 			return response.MatchesWithoutParticipantTwoInverted(
 					   paginationQuery,
-					   (response, chat) => response.MatchesWithoutParticipantOneInverted(currentUserQuery, chat),
+					   (response, chat) => response.MatchesWithoutParticipantOneInverted(chat),
 					   chat => chat.MatchesFilter(filterQuery),
 					   participantTwo,
 					   chats);
@@ -236,7 +184,7 @@ public static class ChatEquals
 		{
 			return response.MatchesWithoutParticipantTwoInverted(
 					   paginationQuery,
-					   (response, chat) => response.MatchesWithoutParticipantOneInverted(currentUserQuery, chat),
+					   (response, chat) => response.MatchesWithoutParticipantOneInverted(chat),
 					   chat => chat.MatchesFilter(filterQuery),
 					   participantTwo,
 					   chats,

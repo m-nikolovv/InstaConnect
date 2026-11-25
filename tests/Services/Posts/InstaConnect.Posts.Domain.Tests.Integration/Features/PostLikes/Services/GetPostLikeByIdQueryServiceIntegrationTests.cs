@@ -1,3 +1,5 @@
+using InstaConnect.Posts.Domain.Tests.Features.PostLikes.Utilities;
+
 namespace InstaConnect.Posts.Domain.Tests.Integration.Features.PostLikes.Services;
 
 public class GetPostLikeByIdQueryServiceIntegrationTests : BasePostLikeDomainQueryIntegrationTest
@@ -89,5 +91,66 @@ public class GetPostLikeByIdQueryServiceIntegrationTests : BasePostLikeDomainQue
 
 		// Assert
 		response.ShouldSatisfy(query, PostLike);
+	}
+
+	[Fact]
+	public async Task GetByIdAsync_ShouldCachePostLike_WhenQueryIsValid()
+	{
+		// Act
+		await Service.GetByIdAsync(_query, CancellationToken);
+		var cachedPostLike = await LikeCacheHandler.GetByIdAsync(_query, CancellationToken);
+
+		// Assert
+		cachedPostLike.ShouldSatisfy(_query, PostLike);
+	}
+
+	[Theory]
+	[PostIdDifferentCaseData]
+	public async Task GetByIdAsync_ShouldCachePostLike_WhenQueryAndIdAreValid(
+		IStringTransformer transformer)
+	{
+		// Arrange
+		var query = _queryBuilder.WithId(transformer).Build();
+
+		// Act
+		await Service.GetByIdAsync(query, CancellationToken);
+		var cachedPostLike = await LikeCacheHandler.GetByIdAsync(query, CancellationToken);
+
+		// Assert
+		cachedPostLike.ShouldSatisfy(query, PostLike);
+	}
+
+	[Theory]
+	[UserIdDifferentCaseData]
+	public async Task GetByIdAsync_ShouldCachePostLike_WhenQueryAndUserIdAreValid(
+		IStringTransformer transformer)
+	{
+		// Arrange
+		var query = _queryBuilder.WithUserId(transformer).Build();
+
+		// Act
+		await Service.GetByIdAsync(query, CancellationToken);
+		var cachedPostLike = await LikeCacheHandler.GetByIdAsync(query, CancellationToken);
+
+		// Assert
+		cachedPostLike.ShouldSatisfy(query, PostLike);
+	}
+
+	[Theory]
+	[UserIdNullData]
+	[UserIdEmptyData]
+	[UserIdDifferentCaseData]
+	public async Task GetByIdAsync_ShouldCachePostLike_WhenQueryAndCurrentUserIdAreValid(
+		IStringTransformer transformer)
+	{
+		// Arrange
+		var query = _queryBuilder.WithCurrentUserId(transformer).Build();
+
+		// Act
+		await Service.GetByIdAsync(query, CancellationToken);
+		var cachedPostLike = await LikeCacheHandler.GetByIdAsync(query, CancellationToken);
+
+		// Assert
+		cachedPostLike.ShouldSatisfy(query, PostLike);
 	}
 }

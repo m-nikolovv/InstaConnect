@@ -1,6 +1,6 @@
 using InstaConnect.Chats.Domain.Features.ChatMessages.Abstractions;
+using InstaConnect.Chats.Domain.Features.ChatMessages.Models.Responses;
 using InstaConnect.Chats.Infrastructure.Features.ChatMessages.Abstractions;
-using InstaConnect.Chats.Infrastructure.Features.ChatMessages.Helpers.Repositories;
 using InstaConnect.Chats.Tests.Features.ChatMessageImages.Utilities;
 
 namespace InstaConnect.Chats.Tests.Features.ChatMessages.Utilities;
@@ -11,25 +11,10 @@ public static class ChatMessageSetups
 	{
 		public IChatMessageQueryRepository GetMessageQueryRepository()
 		{
-			return new ChatMessageQueryRepository(
-				serviceProvider.GetMessageCollection(),
-				serviceProvider.GetIncludeBuilderFactory(),
-				serviceProvider.GetMessageIncludeBuilderFactory());
-		}
-
-		public IChatMessageQueryRepository GetCachedMessageQueryRepository()
-		{
 			return serviceProvider.GetRequiredService<IChatMessageQueryRepository>();
 		}
 
 		public IChatMessageCommandRepository GetMessageCommandRepository()
-		{
-			return new ChatMessageCommandRepository(
-				serviceProvider.GetMessageCollection(),
-				serviceProvider.GetMessageIncludeBuilderFactory());
-		}
-
-		public IChatMessageCommandRepository GetCachedMessageCommandRepository()
 		{
 			return serviceProvider.GetRequiredService<IChatMessageCommandRepository>();
 		}
@@ -57,19 +42,9 @@ public static class ChatMessageSetups
 			return serviceScope.ServiceProvider.GetMessageQueryRepository();
 		}
 
-		public IChatMessageQueryRepository GetCachedMessageQueryRepository()
-		{
-			return serviceScope.ServiceProvider.GetCachedMessageQueryRepository();
-		}
-
 		public IChatMessageCommandRepository GetMessageCommandRepository()
 		{
 			return serviceScope.ServiceProvider.GetMessageCommandRepository();
-		}
-
-		public IChatMessageCommandRepository GetCachedMessageCommandRepository()
-		{
-			return serviceScope.ServiceProvider.GetCachedMessageCommandRepository();
 		}
 
 		public IChatMessageIncludeBuilderFactory GetMessageIncludeBuilderFactory()
@@ -164,6 +139,19 @@ public static class ChatMessageSetups
 				await cacheHandler.DeleteResponseAsync(chatMessage.Id.Id, cancellationToken);
 				await messageCacheHandler.DeleteAsync(chatMessage.Id, cancellationToken);
 			}
+		}
+	}
+
+	extension(IChatMessageCacheHandler cacheHandler)
+	{
+		public async Task<ChatMessageResponse?> GetByIdAsync(
+			string participantOneId,
+			string participantTwoId,
+			string messageId,
+			string currentUserId,
+			CancellationToken cancellationToken)
+		{
+			return await cacheHandler.GetByIdAsync(new(new(new(participantOneId), new(participantTwoId)), messageId), new(currentUserId), cancellationToken);
 		}
 	}
 }

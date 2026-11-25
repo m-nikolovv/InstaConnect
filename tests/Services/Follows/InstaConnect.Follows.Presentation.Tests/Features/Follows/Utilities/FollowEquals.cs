@@ -3,6 +3,7 @@ using InstaConnect.Follows.Application.Features.Follows.Commands.Delete;
 using InstaConnect.Follows.Application.Features.Follows.Queries.GetAll;
 using InstaConnect.Follows.Application.Features.Follows.Queries.GetAllForFollowing;
 using InstaConnect.Follows.Application.Features.Follows.Queries.GetById;
+using InstaConnect.Follows.Domain.Features.Follows.Models.Responses;
 using InstaConnect.Follows.Domain.Features.Follows.Models.ValueObjects;
 using InstaConnect.Follows.Domain.Features.Users.Models.Requests;
 using InstaConnect.Follows.Events.Features.Follows;
@@ -460,6 +461,14 @@ public static class FollowEquals
 															  matches,
 															  termTransformer,
 															  matchesFilter);
+		}
+	}
+
+	extension(FollowResponse? response)
+	{
+		public bool Matches(GetFollowByIdApiRequest request, Follow follow)
+		{
+			return response.MatchesFull(request.CurrentUserId, follow);
 		}
 	}
 }

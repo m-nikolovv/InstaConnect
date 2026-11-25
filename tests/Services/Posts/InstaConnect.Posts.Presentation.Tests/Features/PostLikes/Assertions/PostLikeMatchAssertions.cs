@@ -1,3 +1,4 @@
+using InstaConnect.Posts.Domain.Features.PostLikes.Models.Responses;
 using InstaConnect.Posts.Events.Features.PostLikes;
 
 namespace InstaConnect.Posts.Presentation.Tests.Features.PostLikes.Assertions;
@@ -145,6 +146,16 @@ public static class PostLikeMatchAssertions
 		public void ShouldSatisfy(DeletePostLikeApiRequest request, PostLike entity)
 		{
 			r.ShouldSatisfy(r => r.Matches(request, entity));
+		}
+	}
+
+	extension(PostLikeResponse? response)
+	{
+		public void ShouldSatisfy(
+		GetPostLikeByIdApiRequest request,
+		PostLike postLike)
+		{
+			response.ShouldSatisfy(p => p.Matches(request, postLike));
 		}
 	}
 }

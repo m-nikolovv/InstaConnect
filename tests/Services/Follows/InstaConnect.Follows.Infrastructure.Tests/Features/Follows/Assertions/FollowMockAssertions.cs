@@ -1,4 +1,5 @@
 using InstaConnect.Follows.Infrastructure.Features.Follows.Abstractions;
+using InstaConnect.Follows.Infrastructure.Tests.Features.Follows.Utilities;
 
 namespace InstaConnect.Follows.Infrastructure.Tests.Features.Follows.Assertions;
 
@@ -54,6 +55,13 @@ public static class FollowMockAssertions
 		public void ShouldHaveReceivedOneAggregateFluent()
 		{
 			collection.ShouldHaveReceivedOne().AggregateFluent();
+		}
+
+		public void ShouldHaveReceivedZeroAggregateFluent(
+			FollowId id,
+			CurrentUserQuery currentUserQuery)
+		{
+			collection.ShouldHaveReceivedZero().AggregateFluent();
 		}
 
 		public async Task ShouldHaveReceivedOneAddAsync(
@@ -125,6 +133,13 @@ public static class FollowMockAssertions
 			fluent.ShouldHaveReceivedOne().Match(ids);
 		}
 
+		public void ShouldHaveReceivedZeroMatch(
+			FollowId id,
+			CurrentUserQuery currentUserQuery)
+		{
+			fluent.ShouldHaveReceivedZero().Match(id);
+		}
+
 		public void ShouldHaveReceivedOneInclude(
 			FollowId id,
 			FollowInclude include)
@@ -186,6 +201,14 @@ public static class FollowMockAssertions
 			fluent.ShouldHaveReceivedOne().Include(include);
 		}
 
+		public void ShouldHaveReceivedZeroInclude(
+			FollowId id,
+			CurrentUserQuery currentUserQuery,
+			FollowInclude include)
+		{
+			fluent.ShouldHaveReceivedZero().Include(include);
+		}
+
 		public void ShouldHaveReceivedOneProjectToFullResponse(
 			FollowId id,
 			CurrentUserQuery currentUserQuery)
@@ -196,6 +219,13 @@ public static class FollowMockAssertions
 		public void ShouldHaveReceivedOneProjectToFullResponse(CurrentUserQuery currentUserQuery)
 		{
 			fluent.ShouldHaveReceivedOne().ProjectToFullResponse(currentUserQuery);
+		}
+
+		public void ShouldHaveReceivedZeroProjectToFullResponse(
+			FollowId id,
+			CurrentUserQuery currentUserQuery)
+		{
+			fluent.ShouldHaveReceivedZero().ProjectToFullResponse(currentUserQuery);
 		}
 
 		public void ShouldHaveReceivedOneProjectToResponseWithoutFollower(
@@ -323,6 +353,14 @@ public static class FollowMockAssertions
 			await fluent.ShouldHaveReceivedOneFirstOrDefaultAsync(cancellationToken);
 		}
 
+		public async Task ShouldHaveReceivedZeroFirstOrDefaultAsync(
+			FollowId id,
+			CurrentUserQuery currentUserQuery,
+			CancellationToken cancellationToken)
+		{
+			await fluent.ShouldHaveReceivedZero().FirstOrDefaultAsync(cancellationToken);
+		}
+
 		public async Task ShouldHaveReceivedOneToListAsync(
 			FollowsFilterQuery filterQuery,
 			FollowsSortingQuery sortingQuery,
@@ -341,6 +379,40 @@ public static class FollowMockAssertions
 			CancellationToken cancellationToken)
 		{
 			await fluent.ShouldHaveReceivedOneToListAsync(cancellationToken);
+		}
+	}
+
+	extension(IFollowCacheHandler cacheHandler)
+	{
+		public async Task ShouldHaveReceivedOneGetByIdAsync(
+			FollowId id,
+			CurrentUserQuery currentUserQuery,
+			CancellationToken cancellationToken)
+		{
+			await cacheHandler.ShouldHaveReceivedOne().GetByIdAsync(id, currentUserQuery.Id, cancellationToken);
+		}
+
+		public async Task ShouldHaveReceivedOneAddAsync(
+			Follow follow,
+			CurrentUserQuery currentUserQuery,
+			CancellationToken cancellationToken)
+		{
+			await cacheHandler.ShouldHaveReceivedOne().AddAsync(follow.IsFollowResponse(currentUserQuery), currentUserQuery.Id, cancellationToken);
+		}
+
+		public async Task ShouldHaveReceivedZeroAddAsync(
+			Follow follow,
+			CurrentUserQuery currentUserQuery,
+			CancellationToken cancellationToken)
+		{
+			await cacheHandler.ShouldHaveReceivedZero().AddAsync(follow.IsFollowResponse(currentUserQuery), currentUserQuery.Id, cancellationToken);
+		}
+
+		public async Task ShouldHaveReceivedOneDeleteAsync(
+			Follow follow,
+			CancellationToken cancellationToken)
+		{
+			await cacheHandler.ShouldHaveReceivedOne().DeleteAsync(follow.Id, cancellationToken);
 		}
 	}
 }

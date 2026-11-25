@@ -44,7 +44,7 @@ public class GetAllPostLikesForUserQueryRepositoryUnitTests : BasePostLikeInfras
 
 		_include = LikeIncludeBuilderFactory.Create().WithPost(IncludeBuilderFactory.Create().WithUser().WithPostLikes().WithPostComments().WithPostImages().Build()).Build();
 
-		_repository = new(Collection, IncludeBuilderFactory, LikeIncludeBuilderFactory);
+		_repository = new(Collection, LikeCacheHandler, IncludeBuilderFactory, LikeIncludeBuilderFactory);
 
 		Collection.SetupAggregateFluent(_filterQuery, _sortingQuery, _paginationQuery, _currentUserQuery, Fluent);
 		Fluent.SetupInclude(_filterQuery, _sortingQuery, _paginationQuery, _currentUserQuery, _include);

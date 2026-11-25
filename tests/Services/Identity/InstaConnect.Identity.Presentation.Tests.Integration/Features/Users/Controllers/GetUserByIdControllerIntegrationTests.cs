@@ -134,4 +134,48 @@ public class GetUserByIdControllerIntegrationTests : BaseUserPresentationQueryIn
 		// Assert
 		response.ShouldSatisfy(request, User);
 	}
+
+	[Fact]
+	public async Task GetByIdAsync_ShouldCacheUser_WhenRequestIsValid()
+	{
+		// Act
+		await Controller.GetByIdAsync(_request, CancellationToken);
+		var cachedUser = await CacheHandler.GetByIdAsync(_request, CancellationToken);
+
+		// Assert
+		cachedUser.ShouldSatisfy(_request, User);
+	}
+
+	[Theory]
+	[UserIdDifferentCaseData]
+	public async Task GetByIdAsync_ShouldCacheUser_WhenRequestAndIdAreValid(
+		IStringTransformer transformer)
+	{
+		// Arrange
+		var request = _requestBuilder.WithId(transformer).Build();
+
+		// Act
+		await Controller.GetByIdAsync(request, CancellationToken);
+		var cachedUser = await CacheHandler.GetByIdAsync(request, CancellationToken);
+
+		// Assert
+		cachedUser.ShouldSatisfy(request, User);
+	}
+
+	[Theory]
+	[UserIdEmptyData]
+	[UserIdDifferentCaseData]
+	public async Task GetByIdAsync_ShouldCacheUser_WhenRequestAndCurrentIdAreValid(
+		IStringTransformer transformer)
+	{
+		// Arrange
+		var request = _requestBuilder.WithCurrentId(transformer).Build();
+
+		// Act
+		await Controller.GetByIdAsync(request, CancellationToken);
+		var cachedUser = await CacheHandler.GetByIdAsync(request, CancellationToken);
+
+		// Assert
+		cachedUser.ShouldSatisfy(request, User);
+	}
 }

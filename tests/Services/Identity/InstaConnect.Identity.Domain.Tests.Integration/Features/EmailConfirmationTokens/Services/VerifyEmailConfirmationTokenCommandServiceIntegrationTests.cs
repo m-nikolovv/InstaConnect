@@ -1,6 +1,7 @@
 using InstaConnect.Identity.Domain.Features.EmailConfirmationTokens.Models.Requests;
 using InstaConnect.Identity.Domain.Tests.Features.EmailConfirmationTokens.Assertions;
 using InstaConnect.Identity.Domain.Tests.Features.EmailConfirmationTokens.Builders;
+using InstaConnect.Identity.Domain.Tests.Features.EmailConfirmationTokens.Utilities;
 using InstaConnect.Identity.Domain.Tests.Integration.Features.EmailConfirmationTokens.Utilities;
 using InstaConnect.Identity.Tests.Features.EmailConfirmationTokens.Assertions;
 using InstaConnect.Identity.Tests.Features.EmailConfirmationTokens.DataAttributes.Value;
@@ -109,6 +110,49 @@ public class VerifyEmailConfirmationTokenCommandServiceIntegrationTests : BaseEm
 
 		// Assert
 		user.ShouldSatisfy(_command);
+	}
+
+	[Fact]
+	public async Task VerifyAsync_ShouldDeleteCachedUser_WhenCommandIsValid()
+	{
+		// Act
+		await Service.VerifyAsync(_command, CancellationToken);
+		var cachedUser = await UserCacheHandler.GetByIdAsync(_command, CancellationToken);
+
+		// Assert
+		cachedUser.ShouldBeNull();
+	}
+
+	[Theory]
+	[UserIdDifferentCaseData]
+	public async Task VerifyAsync_ShouldDeleteCachedUser_WhenCommandAndIdAreValid(
+		IStringTransformer transformer)
+	{
+		// Arrange
+		var command = _commandBuilder.WithId(transformer).Build();
+
+		// Act
+		await Service.VerifyAsync(command, CancellationToken);
+		var cachedUser = await UserCacheHandler.GetByIdAsync(command, CancellationToken);
+
+		// Assert
+		cachedUser.ShouldBeNull();
+	}
+
+	[Theory]
+	[EmailConfirmationTokenValueDifferentCaseData]
+	public async Task VerifyAsync_ShouldDeleteCachedUser_WhenCommandAndValueAreValid(
+		IStringTransformer transformer)
+	{
+		// Arrange
+		var command = _commandBuilder.WithValue(transformer).Build();
+
+		// Act
+		await Service.VerifyAsync(command, CancellationToken);
+		var cachedUser = await UserCacheHandler.GetByIdAsync(command, CancellationToken);
+
+		// Assert
+		cachedUser.ShouldBeNull();
 	}
 
 	[Fact]

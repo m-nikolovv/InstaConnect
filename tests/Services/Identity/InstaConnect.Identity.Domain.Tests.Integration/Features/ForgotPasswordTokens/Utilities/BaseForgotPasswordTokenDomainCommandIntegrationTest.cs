@@ -1,5 +1,6 @@
 using InstaConnect.Identity.Domain.Features.ForgotPasswordTokens.Abstractions;
 using InstaConnect.Identity.Domain.Tests.Features.ForgotPasswordTokens.Utilities;
+using InstaConnect.Identity.Infrastructure.Features.Users.Abstractions;
 using InstaConnect.Identity.Tests.Features.ForgotPasswordTokens.Abstractions;
 using InstaConnect.Identity.Tests.Features.ForgotPasswordTokens.Extensions;
 using InstaConnect.Identity.Tests.Features.ForgotPasswordTokens.Utilities;
@@ -8,6 +9,8 @@ namespace InstaConnect.Identity.Domain.Tests.Integration.Features.ForgotPassword
 
 public abstract class BaseForgotPasswordTokenDomainCommandIntegrationTest : BaseForgotPasswordTokenWebCommandTest
 {
+	protected IUserCacheHandler UserCacheHandler { get; }
+
 	protected IForgotPasswordTokenCommandService Service { get; }
 
 	protected IForgotPasswordTokenEventClient ForgotPasswordTokenEventClient { get; }
@@ -15,6 +18,7 @@ public abstract class BaseForgotPasswordTokenDomainCommandIntegrationTest : Base
 	protected BaseForgotPasswordTokenDomainCommandIntegrationTest(IdentityWebApplicationFactory webApplicationFactory)
 		: base(webApplicationFactory)
 	{
+		UserCacheHandler = ServiceScope.GetCacheHandler();
 		Service = ServiceScope.GetForgotPasswordTokenCommandService();
 		ForgotPasswordTokenEventClient = webApplicationFactory.CreateForgotPasswordTokenEventClient();
 	}

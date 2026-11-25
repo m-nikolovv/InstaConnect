@@ -20,7 +20,7 @@ public class GetPostLikesTotalCountQueryRepositoryUnitTests : BasePostLikeInfras
 
 		_include = LikeIncludeBuilderFactory.Create().WithUser().Build();
 
-		_repository = new(Collection, IncludeBuilderFactory, LikeIncludeBuilderFactory);
+		_repository = new(Collection, LikeCacheHandler, IncludeBuilderFactory, LikeIncludeBuilderFactory);
 
 		Collection.SetupAggregateFluent(_filterQuery, Fluent);
 		Fluent.SetupInclude(_filterQuery, _include);

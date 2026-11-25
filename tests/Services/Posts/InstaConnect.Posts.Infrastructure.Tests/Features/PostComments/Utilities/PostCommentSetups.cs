@@ -11,9 +11,10 @@ public static class PostCommentSetups
 	{
 		public async Task<PostCommentResponse?> GetByIdAsync(
 			PostComment postComment,
+			UserId currentUserId,
 			CancellationToken cancellationToken)
 		{
-			return await cacheHandler.GetByIdAsync(postComment.Id, postComment.UserId, cancellationToken);
+			return await cacheHandler.GetByIdAsync(postComment.Id, currentUserId, cancellationToken);
 		}
 
 		public async Task<PostCommentResponse?> GetByIdAsync(
@@ -29,9 +30,10 @@ public static class PostCommentSetups
 	{
 		public async Task<PostResponse?> GetByIdAsync(
 			PostComment postComment,
+			UserId currentUserId,
 			CancellationToken cancellationToken)
 		{
-			return await cacheHandler.GetByIdAsync(postComment.Id.Id, postComment.UserId, cancellationToken);
+			return await cacheHandler.GetByIdAsync(postComment.Id.Id, currentUserId, cancellationToken);
 		}
 	}
 }

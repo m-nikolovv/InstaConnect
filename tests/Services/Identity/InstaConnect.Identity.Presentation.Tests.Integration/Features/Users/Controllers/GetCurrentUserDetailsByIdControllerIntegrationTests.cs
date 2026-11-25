@@ -89,4 +89,31 @@ public class GetCurrentUserDetailsByIdControllerIntegrationTests : BaseUserPrese
 		// Assert
 		response.ShouldSatisfy(request, User);
 	}
+
+	[Fact]
+	public async Task GetCurrentDetailsByIdAsync_ShouldCacheUser_WhenRequestIsValid()
+	{
+		// Act
+		await Controller.GetCurrentDetailsByIdAsync(_request, CancellationToken);
+		var cachedUser = await CacheHandler.GetByIdAsync(_request, CancellationToken);
+
+		// Assert
+		cachedUser.ShouldSatisfy(_request, User);
+	}
+
+	[Theory]
+	[UserIdDifferentCaseData]
+	public async Task GetCurrentDetailsByIdAsync_ShouldCacheUser_WhenRequestAndCurrentIdAreValid(
+		IStringTransformer transformer)
+	{
+		// Arrange
+		var request = _requestBuilder.WithCurrentId(transformer).Build();
+
+		// Act
+		await Controller.GetCurrentDetailsByIdAsync(request, CancellationToken);
+		var cachedUser = await CacheHandler.GetByIdAsync(request, CancellationToken);
+
+		// Assert
+		cachedUser.ShouldSatisfy(request, User);
+	}
 }

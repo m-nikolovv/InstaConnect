@@ -1,3 +1,4 @@
+using InstaConnect.Posts.Infrastructure.Tests.Features.PostLikes.Utilities;
 using InstaConnect.Posts.Tests.Features.PostLikes.Assertions;
 
 namespace InstaConnect.Posts.Infrastructure.Tests.Integration.Features.PostLikes.Repositories;
@@ -18,5 +19,16 @@ public class AddPostLikeCommandRepositoryIntegrationTests : BasePostLikeInfrastr
 
 		// Assert
 		postLike.ShouldSatisfy(PostLike);
+	}
+
+	[Fact]
+	public async Task AddAsync_ShouldDeleteCachedPost_WhenCommandIsValid()
+	{
+		// Act
+		await Repository.AddAsync(PostLike, CancellationToken);
+		var cachedPost = await CacheHandler.GetByIdAsync(PostLike, CurrentUserId, CancellationToken);
+
+		// Assert
+		cachedPost.ShouldBeNull();
 	}
 }

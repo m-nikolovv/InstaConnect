@@ -10,7 +10,7 @@ public class GetPostCommentLikeByIdCommandRepositoryUnitTests : BasePostCommentL
 	{
 		_include = IncludeBuilderFactory.Create().WithUser().WithPostComment().Build();
 
-		_repository = new(Collection, IncludeBuilderFactory);
+		_repository = new(Collection, CommentCacheHandler, CommentLikeCacheHandler, IncludeBuilderFactory);
 
 		Collection.SetupAggregateFluent(PostCommentLikeId, Fluent);
 		Fluent.SetupInclude(PostCommentLikeId, _include);

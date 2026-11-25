@@ -12,15 +12,18 @@ public abstract class BasePostLikeInfrastructureQueryUnitTest : BasePostLikeQuer
 
 	protected IPostLikeResponseFluent ResponseFluent { get; }
 
+	protected IPostLikeCacheHandler LikeCacheHandler { get; }
+
 	protected IPostIncludeBuilderFactory IncludeBuilderFactory { get; }
 
 	protected IPostLikeIncludeBuilderFactory LikeIncludeBuilderFactory { get; }
 
 	protected BasePostLikeInfrastructureQueryUnitTest()
 	{
-		Collection = PostLikeInfrastructureMockFactory.CreateCollection();
 		Fluent = PostLikeInfrastructureMockFactory.CreateFluent();
+		Collection = PostLikeInfrastructureMockFactory.CreateCollection();
 		ResponseFluent = PostLikeInfrastructureMockFactory.CreateResponseFluent();
+		LikeCacheHandler = PostLikeInfrastructureMockFactory.CreateCacheHandler();
 		IncludeBuilderFactory = PostMockFactory.CreateIncludeBuilderFactory();
 		LikeIncludeBuilderFactory = PostLikeMockFactory.CreateIncludeBuilderFactory();
 	}

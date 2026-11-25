@@ -1,4 +1,5 @@
 using InstaConnect.Follows.Application.Tests.Features.Follows.Utilities;
+using InstaConnect.Follows.Domain.Features.Follows.Models.Responses;
 using InstaConnect.Follows.Events.Features.Follows;
 using InstaConnect.Follows.Tests.Features.Follows.Assertions;
 using InstaConnect.Follows.Tests.Features.Users.Assertions;
@@ -98,6 +99,16 @@ public static class FollowMatchAssertions
 			Follow follow)
 		{
 			r.ShouldSatisfy(f => f.Matches(request, follow));
+		}
+	}
+
+	extension(FollowResponse? response)
+	{
+		public void ShouldSatisfy(
+		GetFollowByIdQueryRequest request,
+		Follow follow)
+		{
+			response.ShouldSatisfy(p => p.Matches(request, follow));
 		}
 	}
 }

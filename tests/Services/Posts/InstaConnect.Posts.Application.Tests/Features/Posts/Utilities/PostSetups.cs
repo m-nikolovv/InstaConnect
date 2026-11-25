@@ -1,4 +1,6 @@
 using InstaConnect.Posts.Application.Features.Posts.Models;
+using InstaConnect.Posts.Domain.Features.Posts.Models.Responses;
+using InstaConnect.Posts.Infrastructure.Features.Posts.Abstractions;
 
 namespace InstaConnect.Posts.Application.Tests.Features.Posts.Utilities;
 
@@ -31,6 +33,30 @@ public static class PostSetups
 			return await serviceScope.GetByIdAsync(
 				response.Response,
 				cancellationToken);
+		}
+	}
+
+	extension(IPostCacheHandler cacheHandler)
+	{
+		public async Task<PostResponse?> GetByIdAsync(
+			UpdatePostCommandRequest request,
+			CancellationToken cancellationToken)
+		{
+			return await cacheHandler.GetByIdAsync(request.Id, request.UserId, cancellationToken);
+		}
+
+		public async Task<PostResponse?> GetByIdAsync(
+			DeletePostCommandRequest request,
+			CancellationToken cancellationToken)
+		{
+			return await cacheHandler.GetByIdAsync(request.Id, request.UserId, cancellationToken);
+		}
+
+		public async Task<PostResponse?> GetByIdAsync(
+			GetPostByIdQueryRequest request,
+			CancellationToken cancellationToken)
+		{
+			return await cacheHandler.GetByIdAsync(request.Id, request.CurrentUserId, cancellationToken);
 		}
 	}
 }

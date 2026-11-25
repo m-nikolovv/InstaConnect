@@ -12,7 +12,7 @@ public class GetUserClaimByIdCommandRepositoryUnitTests : BaseUserClaimInfrastru
 	{
 		_include = IncludeBuilderFactory.Create().WithUser().Build();
 
-		_repository = new(Collection, IncludeBuilderFactory);
+		_repository = new(Collection, CacheHandler, IncludeBuilderFactory);
 
 		Collection.SetupAggregateFluent(UserClaimId, Fluent);
 		Fluent.SetupInclude(UserClaimId, _include);

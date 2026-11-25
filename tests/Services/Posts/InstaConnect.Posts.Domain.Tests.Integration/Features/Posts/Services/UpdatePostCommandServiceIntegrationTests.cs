@@ -1,3 +1,4 @@
+using InstaConnect.Posts.Domain.Tests.Features.Posts.Utilities;
 using InstaConnect.Posts.Tests.Features.Posts.Assertions;
 
 namespace InstaConnect.Posts.Domain.Tests.Integration.Features.Posts.Services;
@@ -128,6 +129,49 @@ public class UpdatePostCommandServiceIntegrationTests : BasePostDomainCommandInt
 
 		// Assert
 		post.ShouldSatisfy(command);
+	}
+
+	[Fact]
+	public async Task UpdateAsync_ShouldDeleteCachedPost_WhenCommandIsValid()
+	{
+		// Act
+		await Service.UpdateAsync(_command, CancellationToken);
+		var cachedPost = await CacheHandler.GetByIdAsync(_command, CancellationToken);
+
+		// Assert
+		cachedPost.ShouldBeNull();
+	}
+
+	[Theory]
+	[PostIdDifferentCaseData]
+	public async Task UpdateAsync_ShouldDeleteCachedPost_WhenCommandAndIdAreValid(
+		IStringTransformer transformer)
+	{
+		// Arrange
+		var command = _commandBuilder.WithId(transformer).Build();
+
+		// Act
+		await Service.UpdateAsync(command, CancellationToken);
+		var cachedPost = await CacheHandler.GetByIdAsync(command, CancellationToken);
+
+		// Assert
+		cachedPost.ShouldBeNull();
+	}
+
+	[Theory]
+	[UserIdDifferentCaseData]
+	public async Task UpdateAsync_ShouldDeleteCachedPost_WhenCommandAndUserIdAreValid(
+		IStringTransformer transformer)
+	{
+		// Arrange
+		var command = _commandBuilder.WithUserId(transformer).Build();
+
+		// Act
+		await Service.UpdateAsync(command, CancellationToken);
+		var cachedPost = await CacheHandler.GetByIdAsync(command, CancellationToken);
+
+		// Assert
+		cachedPost.ShouldBeNull();
 	}
 
 	[Fact]

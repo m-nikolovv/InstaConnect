@@ -1,4 +1,5 @@
 using InstaConnect.Posts.Infrastructure.Features.PostCommentImages.Abstractions;
+using InstaConnect.Posts.Infrastructure.Features.PostComments.Abstractions;
 using InstaConnect.Posts.Infrastructure.Tests.Features.PostCommentImages.Utilities;
 using InstaConnect.Posts.Tests.Features.PostCommentImages.Utilities;
 
@@ -10,9 +11,15 @@ public abstract class BasePostCommentImageInfrastructureCommandUnitTest : BasePo
 
 	protected IPostCommentImageCollection Collection { get; }
 
+	protected IPostCommentCacheHandler CommentCacheHandler { get; }
+
+	protected IPostCommentImageCacheHandler CommentImageCacheHandler { get; }
+
 	protected BasePostCommentImageInfrastructureCommandUnitTest()
 	{
 		Fluent = PostCommentImageInfrastructureMockFactory.CreateFluent();
 		Collection = PostCommentImageInfrastructureMockFactory.CreateCollection();
+		CommentCacheHandler = PostCommentInfrastructureMockFactory.CreateCacheHandler();
+		CommentImageCacheHandler = PostCommentImageInfrastructureMockFactory.CreateCacheHandler();
 	}
 }

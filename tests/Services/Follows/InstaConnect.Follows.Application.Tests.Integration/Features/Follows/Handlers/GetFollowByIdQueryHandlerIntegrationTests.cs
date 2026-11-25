@@ -127,4 +127,65 @@ public class GetFollowByIdQueryHandlerIntegrationTests : BaseFollowApplicationQu
 		// Assert
 		response.ShouldSatisfy(request, Follow);
 	}
+
+	[Fact]
+	public async Task SendAsync_ShouldCacheFollow_WhenRequestIsValid()
+	{
+		// Act
+		await Sender.SendAsync(_request, CancellationToken);
+		var cachedFollow = await CacheHandler.GetByIdAsync(_request, CancellationToken);
+
+		// Assert
+		cachedFollow.ShouldSatisfy(_request, Follow);
+	}
+
+	[Theory]
+	[UserIdDifferentCaseData]
+	public async Task SendAsync_ShouldCacheFollow_WhenRequestAndFollowerIdAreValid(
+		IStringTransformer transformer)
+	{
+		// Arrange
+		var request = _requestBuilder.WithFollowerId(transformer).Build();
+
+		// Act
+		await Sender.SendAsync(request, CancellationToken);
+		var cachedFollow = await CacheHandler.GetByIdAsync(request, CancellationToken);
+
+		// Assert
+		cachedFollow.ShouldSatisfy(request, Follow);
+	}
+
+	[Theory]
+	[UserIdDifferentCaseData]
+	public async Task SendAsync_ShouldCacheFollow_WhenRequestAndFollowingIdAreValid(
+		IStringTransformer transformer)
+	{
+		// Arrange
+		var request = _requestBuilder.WithFollowingId(transformer).Build();
+
+		// Act
+		await Sender.SendAsync(request, CancellationToken);
+		var cachedFollow = await CacheHandler.GetByIdAsync(request, CancellationToken);
+
+		// Assert
+		cachedFollow.ShouldSatisfy(request, Follow);
+	}
+
+	[Theory]
+	[UserIdNullData]
+	[UserIdEmptyData]
+	[UserIdDifferentCaseData]
+	public async Task SendAsync_ShouldCacheFollow_WhenRequestAndCurrentUserIdAreValid(
+		IStringTransformer transformer)
+	{
+		// Arrange
+		var request = _requestBuilder.WithCurrentUserId(transformer).Build();
+
+		// Act
+		await Sender.SendAsync(request, CancellationToken);
+		var cachedFollow = await CacheHandler.GetByIdAsync(request, CancellationToken);
+
+		// Assert
+		cachedFollow.ShouldSatisfy(request, Follow);
+	}
 }

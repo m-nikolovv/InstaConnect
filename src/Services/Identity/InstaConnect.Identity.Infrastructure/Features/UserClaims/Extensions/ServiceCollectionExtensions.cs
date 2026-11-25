@@ -19,11 +19,9 @@ internal static class ServiceCollectionExtensions
 
 			serviceCollection.AddCollection<UserClaim, UserClaimId>(CollectionName);
 
-			serviceCollection.AddScoped<IUserClaimCommandRepository, UserClaimCommandRepository>()
-							 .Decorate<IUserClaimCommandRepository, CachedUserClaimCommandRepository>();
+			serviceCollection.AddScoped<IUserClaimCommandRepository, UserClaimCommandRepository>();
 
-			serviceCollection.AddScoped<IUserClaimQueryRepository, UserClaimQueryRepository>()
-							 .Decorate<IUserClaimQueryRepository, CachedUserClaimQueryRepository>();
+			serviceCollection.AddScoped<IUserClaimQueryRepository, UserClaimQueryRepository>();
 
 			BsonClassMap.TryRegisterClassMap<UserClaim>(cm =>
 			{

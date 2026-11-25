@@ -349,5 +349,25 @@ public static class FollowMockSetups
 		{
 			fluent.SetupFirstOrDefaultAsync(follow.ToResponse(id, currentUserQuery), cancellationToken);
 		}
+
+		public void RemoveFirstOrDefaultAsync(
+			FollowId id,
+			CurrentUserQuery currentUserQuery,
+			CancellationToken cancellationToken)
+		{
+			fluent.SetupFirstOrDefaultAsync(null, cancellationToken);
+		}
+	}
+
+	extension(IFollowCacheHandler cacheHandler)
+	{
+		public void SetupGetByIdAsync(
+			FollowId id,
+			CurrentUserQuery currentUserQuery,
+			Follow follow,
+			CancellationToken cancellationToken)
+		{
+			cacheHandler.GetByIdAsync(id, currentUserQuery.Id, cancellationToken).ReturnsTaskResponse(follow.ToResponse(id, currentUserQuery));
+		}
 	}
 }

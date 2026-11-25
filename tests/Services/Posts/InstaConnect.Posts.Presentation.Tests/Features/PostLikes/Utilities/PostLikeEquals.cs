@@ -4,6 +4,7 @@ using InstaConnect.Posts.Application.Features.PostLikes.Commands.Delete;
 using InstaConnect.Posts.Application.Features.PostLikes.Queries.GetAll;
 using InstaConnect.Posts.Application.Features.PostLikes.Queries.GetAllForUser;
 using InstaConnect.Posts.Application.Features.PostLikes.Queries.GetById;
+using InstaConnect.Posts.Domain.Features.PostLikes.Models.Responses;
 using InstaConnect.Posts.Domain.Features.PostLikes.Models.ValueObjects;
 using InstaConnect.Posts.Events.Features.PostLikes;
 using InstaConnect.Posts.Events.Features.Posts;
@@ -399,6 +400,14 @@ public static class PostLikeEquals
 															  matches,
 															  termTransformer,
 															  matchesFilter);
+		}
+	}
+
+	extension(PostLikeResponse? response)
+	{
+		public bool Matches(GetPostLikeByIdApiRequest request, PostLike postLike)
+		{
+			return response.MatchesFull(request.CurrentUserId, postLike);
 		}
 	}
 }

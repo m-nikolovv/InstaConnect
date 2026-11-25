@@ -3,13 +3,16 @@ namespace InstaConnect.Posts.Infrastructure.Features.Posts.Helpers.Repositories;
 internal class PostCommandRepository : IPostCommandRepository
 {
 	private readonly IPostCollection _collection;
+	private readonly IPostCacheHandler _cacheHandler;
 	private readonly IPostIncludeBuilderFactory _includeBuilderFactory;
 
 	public PostCommandRepository(
 		IPostCollection collection,
+		IPostCacheHandler cacheHandler,
 		IPostIncludeBuilderFactory includeBuilderFactory)
 	{
 		_collection = collection;
+		_cacheHandler = cacheHandler;
 		_includeBuilderFactory = includeBuilderFactory;
 	}
 
@@ -78,10 +81,12 @@ internal class PostCommandRepository : IPostCommandRepository
 	public async Task UpdateAsync(Post entity, CancellationToken cancellationToken)
 	{
 		await _collection.UpdateAsync(entity, cancellationToken);
+		await _cacheHandler.DeleteAsync(entity.Id, cancellationToken);
 	}
 
 	public async Task DeleteAsync(Post entity, CancellationToken cancellationToken)
 	{
 		await _collection.DeleteAsync(entity, cancellationToken);
+		await _cacheHandler.DeleteAsync(entity.Id, cancellationToken);
 	}
 }

@@ -11,12 +11,15 @@ public abstract class BaseForgotPasswordTokenInfrastructureCommandUnitTest : Bas
 
 	protected IForgotPasswordTokenCollection Collection { get; }
 
+	protected IForgotPasswordTokenCacheHandler CacheHandler { get; }
+
 	protected IForgotPasswordTokenIncludeBuilderFactory IncludeBuilderFactory { get; }
 
 	protected BaseForgotPasswordTokenInfrastructureCommandUnitTest() : base(IdentityMockFactory.CreatePasswordHasher())
 	{
 		Fluent = ForgotPasswordTokenInfrastructureMockFactory.CreateFluent();
 		Collection = ForgotPasswordTokenInfrastructureMockFactory.CreateCollection();
+		CacheHandler = ForgotPasswordTokenInfrastructureMockFactory.CreateCacheHandler();
 		IncludeBuilderFactory = ForgotPasswordTokenMockFactory.CreateIncludeBuilderFactory();
 
 		PasswordHasher.ClearCalls();

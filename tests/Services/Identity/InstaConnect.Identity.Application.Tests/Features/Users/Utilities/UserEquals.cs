@@ -4,6 +4,7 @@ using InstaConnect.Identity.Application.Features.Users.Models;
 using InstaConnect.Identity.Application.Tests.Features.EmailConfirmationTokens.Utilities;
 using InstaConnect.Identity.Domain.Features.Common.Helpers;
 using InstaConnect.Identity.Domain.Features.Users.Abstractions;
+using InstaConnect.Identity.Domain.Features.Users.Models.Responses;
 using InstaConnect.Identity.Events.Features.EmailConfirmationTokens;
 
 namespace InstaConnect.Identity.Application.Tests.Features.Users.Utilities;
@@ -468,6 +469,29 @@ public static class UserEquals
 		where TQueryRequest : ICurrentUserableQueryRequest
 		{
 			return query.Current.Id.Matches(request.CurrentId);
+		}
+	}
+
+	extension(UserResponse? response)
+	{
+		public bool Matches(GetUserByIdQueryRequest request, User user)
+		{
+			return response.MatchesFull(user);
+		}
+
+		public bool Matches(GetCurrentUserByIdQueryRequest request, User user)
+		{
+			return response.MatchesFull(user);
+		}
+
+		public bool Matches(GetUserDetailsByIdQueryRequest request, User user)
+		{
+			return response.MatchesFull(user);
+		}
+
+		public bool Matches(GetCurrentUserDetailsByIdQueryRequest request, User user)
+		{
+			return response.MatchesFull(user);
 		}
 	}
 }

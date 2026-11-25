@@ -10,7 +10,7 @@ public class GetPostLikeByIdCommandRepositoryUnitTests : BasePostLikeInfrastruct
 	{
 		_include = IncludeBuilderFactory.Create().WithUser().WithPost().Build();
 
-		_repository = new(Collection, IncludeBuilderFactory);
+		_repository = new(Collection, CacheHandler, LikeCacheHandler, IncludeBuilderFactory);
 
 		Collection.SetupAggregateFluent(PostLikeId, Fluent);
 		Fluent.SetupInclude(PostLikeId, _include);

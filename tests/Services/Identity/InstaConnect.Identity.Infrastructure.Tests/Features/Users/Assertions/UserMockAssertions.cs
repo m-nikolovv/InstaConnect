@@ -1,4 +1,5 @@
 using InstaConnect.Identity.Infrastructure.Features.Users.Abstractions;
+using InstaConnect.Identity.Infrastructure.Tests.Features.Users.Utilities;
 
 namespace InstaConnect.Identity.Infrastructure.Tests.Features.Users.Assertions;
 
@@ -45,6 +46,13 @@ public static class UserMockAssertions
 		public void ShouldHaveReceivedOneAggregateFluent()
 		{
 			collection.ShouldHaveReceivedOne().AggregateFluent();
+		}
+
+		public void ShouldHaveReceivedZeroAggregateFluent(
+			UserId id,
+			CurrentUserQuery currentUserQuery)
+		{
+			collection.ShouldHaveReceivedZero().AggregateFluent();
 		}
 
 		public async Task ShouldHaveReceivedOneAddAsync(
@@ -114,6 +122,13 @@ public static class UserMockAssertions
 			fluent.ShouldHaveReceivedOne().Match(email);
 		}
 
+		public void ShouldHaveReceivedZeroMatch(
+			UserId id,
+			CurrentUserQuery currentUserQuery)
+		{
+			fluent.ShouldHaveReceivedZero().Match(id);
+		}
+
 		public void ShouldHaveReceivedOneInclude(
 			UserId id,
 			UserInclude include)
@@ -159,6 +174,13 @@ public static class UserMockAssertions
 		public void ShouldHaveReceivedOneProjectToFullResponse(CurrentUserQuery currentUserQuery)
 		{
 			fluent.ShouldHaveReceivedOne().ProjectToFullResponse(currentUserQuery);
+		}
+
+		public void ShouldHaveReceivedZeroProjectToFullResponse(
+			UserId id,
+			CurrentUserQuery currentUserQuery)
+		{
+			fluent.ShouldHaveReceivedZero().ProjectToFullResponse(currentUserQuery);
 		}
 
 		public async Task ShouldHaveReceivedOneAnyAsync(
@@ -249,6 +271,14 @@ public static class UserMockAssertions
 			await fluent.ShouldHaveReceivedOneFirstOrDefaultAsync(cancellationToken);
 		}
 
+		public async Task ShouldHaveReceivedZeroFirstOrDefaultAsync(
+			UserId id,
+			CurrentUserQuery currentUserQuery,
+			CancellationToken cancellationToken)
+		{
+			await fluent.ShouldHaveReceivedZero().FirstOrDefaultAsync(cancellationToken);
+		}
+
 		public async Task ShouldHaveReceivedOneToListAsync(
 			UsersFilterQuery filterQuery,
 			UsersSortingQuery sortingQuery,
@@ -257,6 +287,40 @@ public static class UserMockAssertions
 			CancellationToken cancellationToken)
 		{
 			await fluent.ShouldHaveReceivedOneToListAsync(cancellationToken);
+		}
+	}
+
+	extension(IUserCacheHandler cacheHandler)
+	{
+		public async Task ShouldHaveReceivedOneGetByIdAsync(
+			UserId id,
+			CurrentUserQuery currentUserQuery,
+			CancellationToken cancellationToken)
+		{
+			await cacheHandler.ShouldHaveReceivedOne().GetByIdAsync(id, currentUserQuery.Id, cancellationToken);
+		}
+
+		public async Task ShouldHaveReceivedOneAddAsync(
+			User user,
+			CurrentUserQuery currentUserQuery,
+			CancellationToken cancellationToken)
+		{
+			await cacheHandler.ShouldHaveReceivedOne().AddAsync(user.IsUserResponse(currentUserQuery), currentUserQuery.Id, cancellationToken);
+		}
+
+		public async Task ShouldHaveReceivedZeroAddAsync(
+			User user,
+			CurrentUserQuery currentUserQuery,
+			CancellationToken cancellationToken)
+		{
+			await cacheHandler.ShouldHaveReceivedZero().AddAsync(user.IsUserResponse(currentUserQuery), currentUserQuery.Id, cancellationToken);
+		}
+
+		public async Task ShouldHaveReceivedOneDeleteAsync(
+			User user,
+			CancellationToken cancellationToken)
+		{
+			await cacheHandler.ShouldHaveReceivedOne().DeleteAsync(user.Id, cancellationToken);
 		}
 	}
 }

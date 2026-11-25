@@ -352,6 +352,49 @@ public class UpdatePostFunctionalTests : BasePostPresentationCommandFunctionalTe
 	}
 
 	[Fact]
+	public async Task UpdateAsync_ShouldDeleteCachedPost_WhenRequestIsValid()
+	{
+		// Act
+		await ApiClient.UpdateAsync(_request, CancellationToken);
+		var cachedPost = await CacheHandler.GetByIdAsync(_request, CancellationToken);
+
+		// Assert
+		cachedPost.ShouldBeNull();
+	}
+
+	[Theory]
+	[PostIdDifferentCaseData]
+	public async Task UpdateAsync_ShouldDeleteCachedPost_WhenRequestAndIdAreValid(
+		IStringTransformer transformer)
+	{
+		// Arrange
+		var request = _requestBuilder.WithId(transformer).Build();
+
+		// Act
+		await ApiClient.UpdateAsync(request, CancellationToken);
+		var cachedPost = await CacheHandler.GetByIdAsync(request, CancellationToken);
+
+		// Assert
+		cachedPost.ShouldBeNull();
+	}
+
+	[Theory]
+	[UserIdDifferentCaseData]
+	public async Task UpdateAsync_ShouldDeleteCachedPost_WhenRequestAndUserIdAreValid(
+		IStringTransformer transformer)
+	{
+		// Arrange
+		var request = _requestBuilder.WithUserId(transformer).Build();
+
+		// Act
+		await ApiClient.UpdateAsync(request, CancellationToken);
+		var cachedPost = await CacheHandler.GetByIdAsync(request, CancellationToken);
+
+		// Assert
+		cachedPost.ShouldBeNull();
+	}
+
+	[Fact]
 	public async Task UpdateAsync_ShouldPublishPostUpdatedEvent_WhenRequestIsValid()
 	{
 		// Act

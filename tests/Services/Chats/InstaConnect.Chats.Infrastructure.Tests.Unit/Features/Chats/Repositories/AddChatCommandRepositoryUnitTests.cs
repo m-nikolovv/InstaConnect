@@ -6,7 +6,7 @@ public class AddChatCommandRepositoryUnitTests : BaseChatInfrastructureCommandUn
 
 	public AddChatCommandRepositoryUnitTests()
 	{
-		_repository = new(Collection, IncludeBuilderFactory);
+		_repository = new(Collection, CacheHandler, IncludeBuilderFactory);
 	}
 
 	[Fact]

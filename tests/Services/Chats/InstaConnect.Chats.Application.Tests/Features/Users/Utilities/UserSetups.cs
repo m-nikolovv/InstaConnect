@@ -1,4 +1,6 @@
 using InstaConnect.Chats.Application.Features.Users.Models;
+using InstaConnect.Chats.Domain.Features.Users.Models.Responses;
+using InstaConnect.Chats.Infrastructure.Features.Users.Abstractions;
 
 namespace InstaConnect.Chats.Application.Tests.Features.Users.Utilities;
 
@@ -31,6 +33,23 @@ public static class UserSetups
 			return await serviceScope.GetByIdAsync(
 				response.Response,
 				cancellationToken);
+		}
+	}
+
+	extension(IUserCacheHandler cacheHandler)
+	{
+		public async Task<UserResponse?> GetByIdAsync(
+			UpdateUserCommandRequest request,
+			CancellationToken cancellationToken)
+		{
+			return await cacheHandler.GetByIdAsync(request.Id, request.Id, cancellationToken);
+		}
+
+		public async Task<UserResponse?> GetByIdAsync(
+			DeleteUserCommandRequest request,
+			CancellationToken cancellationToken)
+		{
+			return await cacheHandler.GetByIdAsync(request.Id, request.Id, cancellationToken);
 		}
 	}
 }

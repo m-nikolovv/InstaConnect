@@ -262,6 +262,65 @@ public class AddPostCommentLikeCommandHandlerIntegrationTests : BasePostCommentL
 	}
 
 	[Fact]
+	public async Task SendAsync_ShouldDeleteCachedPostComment_WhenRequestIsValid()
+	{
+		// Act
+		await Sender.SendAsync(_request, CancellationToken);
+		var cachedPostComment = await CommentCacheHandler.GetByIdAsync(_request, CancellationToken);
+
+		// Assert
+		cachedPostComment.ShouldBeNull();
+	}
+
+	[Theory]
+	[PostIdDifferentCaseData]
+	public async Task SendAsync_ShouldDeleteCachedPostComment_WhenRequestAndIdAreValid(
+		IStringTransformer transformer)
+	{
+		// Arrange
+		var request = _requestBuilder.WithId(transformer).Build();
+
+		// Act
+		await Sender.SendAsync(request, CancellationToken);
+		var cachedPostComment = await CommentCacheHandler.GetByIdAsync(request, CancellationToken);
+
+		// Assert
+		cachedPostComment.ShouldBeNull();
+	}
+
+	[Theory]
+	[PostCommentIdDifferentCaseData]
+	public async Task SendAsync_ShouldDeleteCachedPostComment_WhenRequestAndCommentIdAreValid(
+		IStringTransformer transformer)
+	{
+		// Arrange
+		var request = _requestBuilder.WithCommentId(transformer).Build();
+
+		// Act
+		await Sender.SendAsync(request, CancellationToken);
+		var cachedPostComment = await CommentCacheHandler.GetByIdAsync(request, CancellationToken);
+
+		// Assert
+		cachedPostComment.ShouldBeNull();
+	}
+
+	[Theory]
+	[UserIdDifferentCaseData]
+	public async Task SendAsync_ShouldDeleteCachedPostComment_WhenRequestAndUserIdAreValid(
+		IStringTransformer transformer)
+	{
+		// Arrange
+		var request = _requestBuilder.WithUserId(transformer).Build();
+
+		// Act
+		await Sender.SendAsync(request, CancellationToken);
+		var cachedPostComment = await CommentCacheHandler.GetByIdAsync(request, CancellationToken);
+
+		// Assert
+		cachedPostComment.ShouldBeNull();
+	}
+
+	[Fact]
 	public async Task SendAsync_ShouldPublishPostCommentLikeAddedEvent_WhenRequestIsValid()
 	{
 		// Act

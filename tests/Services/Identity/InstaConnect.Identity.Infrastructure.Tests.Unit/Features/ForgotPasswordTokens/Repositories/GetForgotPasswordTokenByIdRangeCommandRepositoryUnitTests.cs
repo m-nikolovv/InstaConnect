@@ -8,7 +8,7 @@ public class GetForgotPasswordTokenByIdRangeCommandRepositoryUnitTests : BaseFor
 
 	public GetForgotPasswordTokenByIdRangeCommandRepositoryUnitTests()
 	{
-		_repository = new(Collection, IncludeBuilderFactory);
+		_repository = new(Collection, CacheHandler, IncludeBuilderFactory);
 
 		Collection.SetupAggregateFluent(ForgotPasswordTokenIds, Fluent);
 		Fluent.SetupMatch(ForgotPasswordTokenIds);

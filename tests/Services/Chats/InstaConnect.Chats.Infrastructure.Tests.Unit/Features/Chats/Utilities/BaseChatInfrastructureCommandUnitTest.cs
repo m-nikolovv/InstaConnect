@@ -10,12 +10,15 @@ public abstract class BaseChatInfrastructureCommandUnitTest : BaseChatCommandTes
 
 	protected IChatCollection Collection { get; }
 
+	protected IChatCacheHandler CacheHandler { get; }
+
 	protected IChatIncludeBuilderFactory IncludeBuilderFactory { get; }
 
 	protected BaseChatInfrastructureCommandUnitTest()
 	{
 		Fluent = ChatInfrastructureMockFactory.CreateFluent();
 		Collection = ChatInfrastructureMockFactory.CreateCollection();
+		CacheHandler = ChatInfrastructureMockFactory.CreateCacheHandler();
 		IncludeBuilderFactory = ChatMockFactory.CreateIncludeBuilderFactory();
 	}
 }

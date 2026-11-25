@@ -1,3 +1,5 @@
+using InstaConnect.Chats.Infrastructure.Tests.Features.Chats.Utilities;
+
 namespace InstaConnect.Chats.Infrastructure.Tests.Integration.Features.Chats.Repositories;
 
 public class DeleteChatCommandRepositoryIntegrationTests : BaseChatInfrastructureCommandIntegrationTest
@@ -26,6 +28,17 @@ public class DeleteChatCommandRepositoryIntegrationTests : BaseChatInfrastructur
 	}
 
 	[Fact]
+	public async Task DeleteAsync_ShouldDeleteCachedChat_WhenCommandIsValid()
+	{
+		// Act
+		await Repository.DeleteAsync(Chat, CancellationToken);
+		var cachedChat = await CacheHandler.GetByIdAsync(Chat, CurrentUserId, CancellationToken);
+
+		// Assert
+		cachedChat.ShouldBeNull();
+	}
+
+	[Fact]
 	public async Task DeleteAsync_ShouldDeleteChatChatMessages_WhenCommandIsValid()
 	{
 		// Act
@@ -46,5 +59,4 @@ public class DeleteChatCommandRepositoryIntegrationTests : BaseChatInfrastructur
 		// Assert
 		chatChatMessagesChatMessageImages.ShouldBeEmpty();
 	}
-
 }

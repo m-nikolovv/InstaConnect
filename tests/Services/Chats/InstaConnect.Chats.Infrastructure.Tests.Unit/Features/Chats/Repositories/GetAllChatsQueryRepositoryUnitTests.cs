@@ -44,7 +44,7 @@ public class GetAllChatsQueryRepositoryUnitTests : BaseChatInfrastructureQueryUn
 
 		_include = IncludeBuilderFactory.Create().WithChatMessages().Build();
 
-		_repository = new(Collection, IncludeBuilderFactory);
+		_repository = new(Collection, CacheHandler, IncludeBuilderFactory);
 
 		Collection.SetupAggregateFluent(_filterQuery, _sortingQuery, _paginationQuery, _currentUserQuery, Fluent);
 		Fluent.SetupInclude(_filterQuery, _sortingQuery, _paginationQuery, _currentUserQuery, _include);

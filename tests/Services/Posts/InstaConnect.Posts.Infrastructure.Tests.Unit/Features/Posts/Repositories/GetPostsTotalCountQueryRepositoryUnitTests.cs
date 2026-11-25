@@ -20,7 +20,7 @@ public class GetPostsTotalCountQueryRepositoryUnitTests : BasePostInfrastructure
 
 		_include = IncludeBuilderFactory.Create().WithUser().Build();
 
-		_repository = new(Collection, IncludeBuilderFactory);
+		_repository = new(Collection, CacheHandler, IncludeBuilderFactory);
 
 		Collection.SetupAggregateFluent(_filterQuery, Fluent);
 		Fluent.SetupInclude(_filterQuery, _include);

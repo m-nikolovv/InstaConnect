@@ -6,7 +6,7 @@ public class UserClaimExistsByIdCommandRepositoryUnitTests : BaseUserClaimInfras
 
 	public UserClaimExistsByIdCommandRepositoryUnitTests()
 	{
-		_repository = new(Collection, IncludeBuilderFactory);
+		_repository = new(Collection, CacheHandler, IncludeBuilderFactory);
 
 		Collection.SetupAggregateFluent(UserClaimId, Fluent);
 		Fluent.SetupMatch(UserClaimId);

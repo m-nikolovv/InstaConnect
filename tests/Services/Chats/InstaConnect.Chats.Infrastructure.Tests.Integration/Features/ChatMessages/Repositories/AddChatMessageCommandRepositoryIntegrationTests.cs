@@ -1,3 +1,4 @@
+using InstaConnect.Chats.Infrastructure.Tests.Features.ChatMessages.Utilities;
 using InstaConnect.Chats.Tests.Features.ChatMessages.Assertions;
 
 namespace InstaConnect.Chats.Infrastructure.Tests.Integration.Features.ChatMessages.Repositories;
@@ -18,5 +19,16 @@ public class AddChatMessageCommandRepositoryIntegrationTests : BaseChatMessageIn
 
 		// Assert
 		chatMessage.ShouldSatisfy(ChatMessage);
+	}
+
+	[Fact]
+	public async Task AddAsync_ShouldDeleteCachedChat_WhenCommandIsValid()
+	{
+		// Act
+		await Repository.AddAsync(ChatMessage, CancellationToken);
+		var cachedChat = await CacheHandler.GetByIdAsync(ChatMessage, CurrentUserId, CancellationToken);
+
+		// Assert
+		cachedChat.ShouldBeNull();
 	}
 }

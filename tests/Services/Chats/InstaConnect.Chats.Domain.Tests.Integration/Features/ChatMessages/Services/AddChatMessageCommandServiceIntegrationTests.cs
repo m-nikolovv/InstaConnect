@@ -1,3 +1,4 @@
+using InstaConnect.Chats.Domain.Tests.Features.ChatMessages.Utilities;
 using InstaConnect.Chats.Tests.Features.ChatMessages.Assertions;
 using InstaConnect.Chats.Tests.Features.ChatMessages.DataAttributes.Images;
 using InstaConnect.Common.Tests.Features.DataAttributes.FormFileCollections.Base;
@@ -150,6 +151,65 @@ public class AddChatMessageCommandServiceIntegrationTests : BaseChatMessageDomai
 
 		// Assert
 		chatMessage.ShouldSatisfy(command);
+	}
+
+	[Fact]
+	public async Task AddAsync_ShouldDeleteCachedChat_WhenCommandIsValid()
+	{
+		// Act
+		await Service.AddAsync(_command, CancellationToken);
+		var cachedChat = await CacheHandler.GetByIdAsync(_command, CancellationToken);
+
+		// Assert
+		cachedChat.ShouldBeNull();
+	}
+
+	[Theory]
+	[UserIdDifferentCaseData]
+	public async Task AddAsync_ShouldDeleteCachedChat_WhenCommandAndParticipantOneIdAreValid(
+		IStringTransformer transformer)
+	{
+		// Arrange
+		var command = _commandBuilder.WithParticipantOneId(transformer).Build();
+
+		// Act
+		await Service.AddAsync(command, CancellationToken);
+		var cachedChat = await CacheHandler.GetByIdAsync(command, CancellationToken);
+
+		// Assert
+		cachedChat.ShouldBeNull();
+	}
+
+	[Theory]
+	[UserIdDifferentCaseData]
+	public async Task AddAsync_ShouldDeleteCachedChat_WhenCommandAndParticipantTwoIdAreValid(
+		IStringTransformer transformer)
+	{
+		// Arrange
+		var command = _commandBuilder.WithParticipantTwoId(transformer).Build();
+
+		// Act
+		await Service.AddAsync(command, CancellationToken);
+		var cachedChat = await CacheHandler.GetByIdAsync(command, CancellationToken);
+
+		// Assert
+		cachedChat.ShouldBeNull();
+	}
+
+	[Theory]
+	[ChatMessageImagesEmptyData]
+	public async Task AddAsync_ShouldDeleteCachedChat_WhenCommandAndImagesAreValid(
+		IFormFileCollectionTransformer transformer)
+	{
+		// Arrange
+		var command = _commandBuilder.WithImages(transformer).Build();
+
+		// Act
+		await Service.AddAsync(command, CancellationToken);
+		var cachedChat = await CacheHandler.GetByIdAsync(command, CancellationToken);
+
+		// Assert
+		cachedChat.ShouldBeNull();
 	}
 
 	[Fact]

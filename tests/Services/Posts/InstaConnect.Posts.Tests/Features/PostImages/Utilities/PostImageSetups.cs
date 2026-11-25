@@ -1,6 +1,5 @@
 using InstaConnect.Posts.Domain.Features.PostImages.Abstractions;
 using InstaConnect.Posts.Infrastructure.Features.PostImages.Abstractions;
-using InstaConnect.Posts.Infrastructure.Features.PostImages.Helpers.Repositories;
 
 namespace InstaConnect.Posts.Tests.Features.PostImages.Utilities;
 
@@ -9,11 +8,6 @@ public static class PostImageSetups
 	extension(IServiceProvider serviceProvider)
 	{
 		public IPostImageCommandRepository GetPostImageCommandRepository()
-		{
-			return new PostImageCommandRepository(serviceProvider.GetPostImageCollection());
-		}
-
-		public IPostImageCommandRepository GetCachedPostImageCommandRepository()
 		{
 			return serviceProvider.GetRequiredService<IPostImageCommandRepository>();
 		}
@@ -34,11 +28,6 @@ public static class PostImageSetups
 		public IPostImageCommandRepository GetPostImageCommandRepository()
 		{
 			return serviceScope.ServiceProvider.GetPostImageCommandRepository();
-		}
-
-		public IPostImageCommandRepository GetCachedPostImageCommandRepository()
-		{
-			return serviceScope.ServiceProvider.GetCachedPostImageCommandRepository();
 		}
 
 		public IPostImageCacheHandler GetPostImageCacheHandler()

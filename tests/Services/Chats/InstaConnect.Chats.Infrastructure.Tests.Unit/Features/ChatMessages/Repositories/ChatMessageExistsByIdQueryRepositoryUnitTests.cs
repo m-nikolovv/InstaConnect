@@ -6,7 +6,7 @@ public class ChatMessageExistsByIdQueryRepositoryUnitTests : BaseChatMessageInfr
 
 	public ChatMessageExistsByIdQueryRepositoryUnitTests()
 	{
-		_repository = new(Collection, IncludeBuilderFactory, MessageIncludeBuilderFactory);
+		_repository = new(Collection, MessageCacheHandler, IncludeBuilderFactory, MessageIncludeBuilderFactory);
 
 		Collection.SetupAggregateFluent(ChatMessageId, Fluent);
 		Fluent.SetupMatch(ChatMessageId);

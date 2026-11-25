@@ -243,5 +243,25 @@ public static class ChatMessageMockSetups
 		{
 			fluent.SetupFirstOrDefaultAsync(chatMessage.ToFullResponse(), cancellationToken);
 		}
+
+		public void RemoveFirstOrDefaultAsync(
+			ChatMessageId id,
+			CurrentUserQuery currentUserQuery,
+			CancellationToken cancellationToken)
+		{
+			fluent.SetupFirstOrDefaultAsync(null, cancellationToken);
+		}
+	}
+
+	extension(IChatMessageCacheHandler cacheHandler)
+	{
+		public void SetupGetByIdAsync(
+			ChatMessageId id,
+			CurrentUserQuery currentUserQuery,
+			ChatMessage chatMessage,
+			CancellationToken cancellationToken)
+		{
+			cacheHandler.GetByIdAsync(id, currentUserQuery.Id, cancellationToken).ReturnsTaskResponse(chatMessage.ToFullResponse());
+		}
 	}
 }

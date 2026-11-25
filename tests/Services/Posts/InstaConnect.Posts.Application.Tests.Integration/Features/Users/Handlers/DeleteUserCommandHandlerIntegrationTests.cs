@@ -83,6 +83,33 @@ public class DeleteUserCommandHandlerIntegrationTests : BaseUserApplicationComma
 	}
 
 	[Fact]
+	public async Task SendAsync_ShouldDeleteCachedUser_WhenRequestIsValid()
+	{
+		// Act
+		await Sender.SendAsync(_request, CancellationToken);
+		var cachedUser = await CacheHandler.GetByIdAsync(_request, CancellationToken);
+
+		// Assert
+		cachedUser.ShouldBeNull();
+	}
+
+	[Theory]
+	[UserIdDifferentCaseData]
+	public async Task SendAsync_ShouldDeleteCachedUser_WhenRequestAndIdAreValid(
+		IStringTransformer transformer)
+	{
+		// Arrange
+		var request = _requestBuilder.WithId(transformer).Build();
+
+		// Act
+		await Sender.SendAsync(request, CancellationToken);
+		var cachedUser = await CacheHandler.GetByIdAsync(request, CancellationToken);
+
+		// Assert
+		cachedUser.ShouldBeNull();
+	}
+
+	[Fact]
 	public async Task SendAsync_ShouldDeleteUserPosts_WhenRequestIsValid()
 	{
 		// Act
@@ -378,5 +405,4 @@ public class DeleteUserCommandHandlerIntegrationTests : BaseUserApplicationComma
 		// Assert
 		userPostCommentsPostCommentLikes.ShouldBeEmpty();
 	}
-
 }

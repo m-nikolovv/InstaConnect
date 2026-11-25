@@ -8,7 +8,7 @@ public class AddRangePostCommentImagesCommandRepositoryUnitTests : BasePostComme
 
 	public AddRangePostCommentImagesCommandRepositoryUnitTests()
 	{
-		_repository = new(Collection);
+		_repository = new(Collection, CommentCacheHandler, CommentImageCacheHandler);
 	}
 
 	[Fact]
@@ -19,5 +19,15 @@ public class AddRangePostCommentImagesCommandRepositoryUnitTests : BasePostComme
 
 		// Assert
 		await Collection.ShouldHaveReceivedOneAddRangeAsync(PostCommentImages, CancellationToken);
+	}
+
+	[Fact]
+	public async Task AddRangeAsync_ShouldCallTheCommentCacheHandlerDeleteResponseRangeAsync_WhenCommandIsValid()
+	{
+		// Act
+		await _repository.AddRangeAsync(PostCommentImages, CancellationToken);
+
+		// Assert
+		await CommentCacheHandler.ShouldHaveReceivedOneDeleteResponseRangeAsync(PostCommentImages, CancellationToken);
 	}
 }

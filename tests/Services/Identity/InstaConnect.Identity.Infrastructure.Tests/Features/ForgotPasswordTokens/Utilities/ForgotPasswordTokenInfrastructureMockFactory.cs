@@ -13,4 +13,9 @@ public static class ForgotPasswordTokenInfrastructureMockFactory
 	{
 		return Mocker.Mock<IForgotPasswordTokenFluent>();
 	}
+
+	public static IForgotPasswordTokenCacheHandler CreateCacheHandler()
+	{
+		return Mocker.Mock<IForgotPasswordTokenCacheHandler>();
+	}
 }

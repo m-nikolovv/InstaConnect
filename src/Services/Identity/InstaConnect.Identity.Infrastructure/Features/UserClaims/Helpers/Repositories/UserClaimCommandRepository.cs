@@ -5,13 +5,16 @@ namespace InstaConnect.Identity.Infrastructure.Features.UserClaims.Helpers.Repos
 internal class UserClaimCommandRepository : IUserClaimCommandRepository
 {
 	private readonly IUserClaimCollection _collection;
+	private readonly IUserClaimCacheHandler _cacheHandler;
 	private readonly IUserClaimIncludeBuilderFactory _includeBuilderFactory;
 
 	public UserClaimCommandRepository(
 		IUserClaimCollection collection,
+		IUserClaimCacheHandler cacheHandler,
 		IUserClaimIncludeBuilderFactory includeBuilderFactory)
 	{
 		_collection = collection;
+		_cacheHandler = cacheHandler;
 		_includeBuilderFactory = includeBuilderFactory;
 	}
 
@@ -69,5 +72,6 @@ internal class UserClaimCommandRepository : IUserClaimCommandRepository
 	public async Task DeleteAsync(UserClaim entity, CancellationToken cancellationToken)
 	{
 		await _collection.DeleteAsync(entity, cancellationToken);
+		await _cacheHandler.DeleteAsync(entity.Id, cancellationToken);
 	}
 }

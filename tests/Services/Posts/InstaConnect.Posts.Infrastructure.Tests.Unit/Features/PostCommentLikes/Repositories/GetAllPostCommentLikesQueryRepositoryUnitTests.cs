@@ -44,7 +44,7 @@ public class GetAllPostCommentLikesQueryRepositoryUnitTests : BasePostCommentLik
 
 		_include = CommentLikeIncludeBuilderFactory.Create().WithUser().Build();
 
-		_repository = new(Collection, IncludeBuilderFactory, CommentIncludeBuilderFactory, CommentLikeIncludeBuilderFactory);
+		_repository = new(Collection, IncludeBuilderFactory, CommentLikeCacheHandler, CommentIncludeBuilderFactory, CommentLikeIncludeBuilderFactory);
 
 		Collection.SetupAggregateFluent(_filterQuery, _sortingQuery, _paginationQuery, _currentUserQuery, Fluent);
 		Fluent.SetupInclude(_filterQuery, _sortingQuery, _paginationQuery, _currentUserQuery, _include);

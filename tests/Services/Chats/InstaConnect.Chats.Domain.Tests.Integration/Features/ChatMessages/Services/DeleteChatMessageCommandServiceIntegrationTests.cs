@@ -1,3 +1,4 @@
+using InstaConnect.Chats.Domain.Tests.Features.ChatMessages.Utilities;
 using InstaConnect.Chats.Tests.Features.ChatMessageImages.Utilities;
 using InstaConnect.Chats.Tests.Features.ChatMessages.Assertions;
 using InstaConnect.Chats.Tests.Features.ChatMessages.DataAttributes.Id;
@@ -116,6 +117,124 @@ public class DeleteChatMessageCommandServiceIntegrationTests : BaseChatMessageDo
 
 		// Assert
 		chatMessage.ShouldBeNull();
+	}
+
+	[Fact]
+	public async Task DeleteAsync_ShouldDeleteCachedChatMessage_WhenCommandIsValid()
+	{
+		// Act
+		await Service.DeleteAsync(_command, CancellationToken);
+		var cachedChatMessage = await MessageCacheHandler.GetByIdAsync(_command, CancellationToken);
+
+		// Assert
+		cachedChatMessage.ShouldBeNull();
+	}
+
+	[Theory]
+	[UserIdDifferentCaseData]
+	public async Task DeleteAsync_ShouldDeleteCachedChatMessage_WhenCommandAndParticipantOneIdAreValid(
+		IStringTransformer transformer)
+	{
+		// Arrange
+		var command = _commandBuilder.WithParticipantOneId(transformer).Build();
+
+		// Act
+		await Service.DeleteAsync(command, CancellationToken);
+		var cachedChatMessage = await MessageCacheHandler.GetByIdAsync(command, CancellationToken);
+
+		// Assert
+		cachedChatMessage.ShouldBeNull();
+	}
+
+	[Theory]
+	[UserIdDifferentCaseData]
+	public async Task DeleteAsync_ShouldDeleteCachedChatMessage_WhenCommandAndParticipantTwoIdAreValid(
+		IStringTransformer transformer)
+	{
+		// Arrange
+		var command = _commandBuilder.WithParticipantTwoId(transformer).Build();
+
+		// Act
+		await Service.DeleteAsync(command, CancellationToken);
+		var cachedChatMessage = await MessageCacheHandler.GetByIdAsync(command, CancellationToken);
+
+		// Assert
+		cachedChatMessage.ShouldBeNull();
+	}
+
+	[Theory]
+	[ChatMessageIdDifferentCaseData]
+	public async Task DeleteAsync_ShouldDeleteCachedChatMessage_WhenCommandAndMessageIdAreValid(
+		IStringTransformer transformer)
+	{
+		// Arrange
+		var command = _commandBuilder.WithMessageId(transformer).Build();
+
+		// Act
+		await Service.DeleteAsync(command, CancellationToken);
+		var cachedChatMessage = await MessageCacheHandler.GetByIdAsync(command, CancellationToken);
+
+		// Assert
+		cachedChatMessage.ShouldBeNull();
+	}
+
+	[Fact]
+	public async Task DeleteAsync_ShouldDeleteCachedChat_WhenCommandIsValid()
+	{
+		// Act
+		await Service.DeleteAsync(_command, CancellationToken);
+		var cachedChat = await CacheHandler.GetByIdAsync(_command, CancellationToken);
+
+		// Assert
+		cachedChat.ShouldBeNull();
+	}
+
+	[Theory]
+	[UserIdDifferentCaseData]
+	public async Task DeleteAsync_ShouldDeleteCachedChat_WhenCommandAndParticipantOneIdAreValid(
+		IStringTransformer transformer)
+	{
+		// Arrange
+		var command = _commandBuilder.WithParticipantOneId(transformer).Build();
+
+		// Act
+		await Service.DeleteAsync(command, CancellationToken);
+		var cachedChat = await CacheHandler.GetByIdAsync(command, CancellationToken);
+
+		// Assert
+		cachedChat.ShouldBeNull();
+	}
+
+	[Theory]
+	[UserIdDifferentCaseData]
+	public async Task DeleteAsync_ShouldDeleteCachedChat_WhenCommandAndParticipantTwoIdAreValid(
+		IStringTransformer transformer)
+	{
+		// Arrange
+		var command = _commandBuilder.WithParticipantTwoId(transformer).Build();
+
+		// Act
+		await Service.DeleteAsync(command, CancellationToken);
+		var cachedChat = await CacheHandler.GetByIdAsync(command, CancellationToken);
+
+		// Assert
+		cachedChat.ShouldBeNull();
+	}
+
+	[Theory]
+	[ChatMessageIdDifferentCaseData]
+	public async Task DeleteAsync_ShouldDeleteCachedChat_WhenCommandAndMessageIdAreValid(
+		IStringTransformer transformer)
+	{
+		// Arrange
+		var command = _commandBuilder.WithMessageId(transformer).Build();
+
+		// Act
+		await Service.DeleteAsync(command, CancellationToken);
+		var cachedChat = await CacheHandler.GetByIdAsync(command, CancellationToken);
+
+		// Assert
+		cachedChat.ShouldBeNull();
 	}
 
 	[Fact]

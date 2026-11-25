@@ -1,6 +1,5 @@
 using InstaConnect.Chats.Domain.Features.ChatMessageImages.Abstractions;
 using InstaConnect.Chats.Infrastructure.Features.ChatMessageImages.Abstractions;
-using InstaConnect.Chats.Infrastructure.Features.ChatMessageImages.Helpers.Repositories;
 
 namespace InstaConnect.Chats.Tests.Features.ChatMessageImages.Utilities;
 
@@ -9,11 +8,6 @@ public static class ChatMessageImageSetups
 	extension(IServiceProvider serviceProvider)
 	{
 		public IChatMessageImageCommandRepository GetMessageImageCommandRepository()
-		{
-			return new ChatMessageImageCommandRepository(serviceProvider.GetMessageImageCollection());
-		}
-
-		public IChatMessageImageCommandRepository GetCachedMessageImageCommandRepository()
 		{
 			return serviceProvider.GetRequiredService<IChatMessageImageCommandRepository>();
 		}
@@ -34,11 +28,6 @@ public static class ChatMessageImageSetups
 		public IChatMessageImageCommandRepository GetMessageImageCommandRepository()
 		{
 			return serviceScope.ServiceProvider.GetMessageImageCommandRepository();
-		}
-
-		public IChatMessageImageCommandRepository GetCachedMessageImageCommandRepository()
-		{
-			return serviceScope.ServiceProvider.GetCachedMessageImageCommandRepository();
 		}
 
 		public IChatMessageImageCacheHandler GetMessageImageCacheHandler()

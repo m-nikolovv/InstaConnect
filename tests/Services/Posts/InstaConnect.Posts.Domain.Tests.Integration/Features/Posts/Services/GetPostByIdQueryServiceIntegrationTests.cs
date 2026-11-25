@@ -1,3 +1,5 @@
+using InstaConnect.Posts.Domain.Tests.Features.Posts.Utilities;
+
 namespace InstaConnect.Posts.Domain.Tests.Integration.Features.Posts.Services;
 
 public class GetPostByIdQueryServiceIntegrationTests : BasePostDomainQueryIntegrationTest
@@ -64,5 +66,50 @@ public class GetPostByIdQueryServiceIntegrationTests : BasePostDomainQueryIntegr
 
 		// Assert
 		response.ShouldSatisfy(query, Post);
+	}
+
+	[Fact]
+	public async Task GetByIdAsync_ShouldCachePost_WhenQueryIsValid()
+	{
+		// Act
+		await Service.GetByIdAsync(_query, CancellationToken);
+		var cachedPost = await CacheHandler.GetByIdAsync(_query, CancellationToken);
+
+		// Assert
+		cachedPost.ShouldSatisfy(_query, Post);
+	}
+
+	[Theory]
+	[PostIdDifferentCaseData]
+	public async Task GetByIdAsync_ShouldCachePost_WhenQueryAndIdAreValid(
+		IStringTransformer transformer)
+	{
+		// Arrange
+		var query = _queryBuilder.WithId(transformer).Build();
+
+		// Act
+		await Service.GetByIdAsync(query, CancellationToken);
+		var cachedPost = await CacheHandler.GetByIdAsync(query, CancellationToken);
+
+		// Assert
+		cachedPost.ShouldSatisfy(query, Post);
+	}
+
+	[Theory]
+	[UserIdNullData]
+	[UserIdEmptyData]
+	[UserIdDifferentCaseData]
+	public async Task GetByIdAsync_ShouldCachePost_WhenQueryAndCurrentUserIdAreValid(
+		IStringTransformer transformer)
+	{
+		// Arrange
+		var query = _queryBuilder.WithCurrentUserId(transformer).Build();
+
+		// Act
+		await Service.GetByIdAsync(query, CancellationToken);
+		var cachedPost = await CacheHandler.GetByIdAsync(query, CancellationToken);
+
+		// Assert
+		cachedPost.ShouldSatisfy(query, Post);
 	}
 }

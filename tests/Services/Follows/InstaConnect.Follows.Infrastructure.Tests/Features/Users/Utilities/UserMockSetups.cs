@@ -165,5 +165,25 @@ public static class UserMockSetups
 		{
 			fluent.SetupFirstOrDefaultAsync(user.ToResponse(id, currentUserQuery), cancellationToken);
 		}
+
+		public void RemoveFirstOrDefaultAsync(
+			UserId id,
+			CurrentUserQuery currentUserQuery,
+			CancellationToken cancellationToken)
+		{
+			fluent.SetupFirstOrDefaultAsync(null, cancellationToken);
+		}
+	}
+
+	extension(IUserCacheHandler cacheHandler)
+	{
+		public void SetupGetByIdAsync(
+			UserId id,
+			CurrentUserQuery currentUserQuery,
+			User user,
+			CancellationToken cancellationToken)
+		{
+			cacheHandler.GetByIdAsync(id, currentUserQuery.Id, cancellationToken).ReturnsTaskResponse(user.ToResponse(id, currentUserQuery));
+		}
 	}
 }

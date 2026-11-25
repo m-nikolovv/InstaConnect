@@ -60,6 +60,13 @@ public static class UserMockAssertions
 			collection.ShouldHaveReceivedOne().AggregateFluent();
 		}
 
+		public void ShouldHaveReceivedZeroAggregateFluent(
+			UserId id,
+			CurrentUserQuery currentUserQuery)
+		{
+			collection.ShouldHaveReceivedZero().AggregateFluent();
+		}
+
 		public async Task ShouldHaveReceivedOneAddAsync(
 			User user,
 			CancellationToken cancellationToken)
@@ -113,6 +120,13 @@ public static class UserMockAssertions
 			fluent.ShouldHaveReceivedOne().Match(email);
 		}
 
+		public void ShouldHaveReceivedZeroMatch(
+			UserId id,
+			CurrentUserQuery currentUserQuery)
+		{
+			fluent.ShouldHaveReceivedZero().Match(id);
+		}
+
 		public void ShouldHaveReceivedOneInclude(
 			UserId id,
 			UserInclude include)
@@ -149,6 +163,13 @@ public static class UserMockAssertions
 		public void ShouldHaveReceivedOneProjectToFullResponse(CurrentUserQuery currentUserQuery)
 		{
 			fluent.ShouldHaveReceivedOne().ProjectToFullResponse(currentUserQuery);
+		}
+
+		public void ShouldHaveReceivedZeroProjectToFullResponse(
+			UserId id,
+			CurrentUserQuery currentUserQuery)
+		{
+			fluent.ShouldHaveReceivedZero().ProjectToFullResponse(currentUserQuery);
 		}
 
 		public async Task ShouldHaveReceivedOneAnyAsync(
@@ -202,6 +223,48 @@ public static class UserMockAssertions
 			CancellationToken cancellationToken)
 		{
 			await fluent.ShouldHaveReceivedOneFirstOrDefaultAsync(cancellationToken);
+		}
+
+		public async Task ShouldHaveReceivedZeroFirstOrDefaultAsync(
+			UserId id,
+			CurrentUserQuery currentUserQuery,
+			CancellationToken cancellationToken)
+		{
+			await fluent.ShouldHaveReceivedZero().FirstOrDefaultAsync(cancellationToken);
+		}
+	}
+
+	extension(IUserCacheHandler cacheHandler)
+	{
+		public async Task ShouldHaveReceivedOneGetByIdAsync(
+			UserId id,
+			CurrentUserQuery currentUserQuery,
+			CancellationToken cancellationToken)
+		{
+			await cacheHandler.ShouldHaveReceivedOne().GetByIdAsync(id, currentUserQuery.Id, cancellationToken);
+		}
+
+		public async Task ShouldHaveReceivedOneAddAsync(
+			User user,
+			CurrentUserQuery currentUserQuery,
+			CancellationToken cancellationToken)
+		{
+			await cacheHandler.ShouldHaveReceivedOne().AddAsync(user.IsUserResponse(currentUserQuery), currentUserQuery.Id, cancellationToken);
+		}
+
+		public async Task ShouldHaveReceivedZeroAddAsync(
+			User user,
+			CurrentUserQuery currentUserQuery,
+			CancellationToken cancellationToken)
+		{
+			await cacheHandler.ShouldHaveReceivedZero().AddAsync(user.IsUserResponse(currentUserQuery), currentUserQuery.Id, cancellationToken);
+		}
+
+		public async Task ShouldHaveReceivedOneDeleteAsync(
+			User user,
+			CancellationToken cancellationToken)
+		{
+			await cacheHandler.ShouldHaveReceivedOne().DeleteAsync(user.Id, cancellationToken);
 		}
 	}
 }

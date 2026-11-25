@@ -10,7 +10,7 @@ public class DeleteRefreshTokenCommandRepositoryUnitTests : BaseRefreshTokenInfr
 
 	public DeleteRefreshTokenCommandRepositoryUnitTests()
 	{
-		_repository = new(Collection, IncludeBuilderFactory);
+		_repository = new(Collection, CacheHandler, IncludeBuilderFactory);
 	}
 
 	[Fact]
@@ -21,5 +21,15 @@ public class DeleteRefreshTokenCommandRepositoryUnitTests : BaseRefreshTokenInfr
 
 		// Assert
 		await Collection.ShouldHaveReceivedOneDeleteAsync(RefreshToken, CancellationToken);
+	}
+
+	[Fact]
+	public async Task DeleteAsync_ShouldCallTheCacheHandlerDeleteAsync_WhenCommandIsValid()
+	{
+		// Act
+		await _repository.DeleteAsync(RefreshToken, CancellationToken);
+
+		// Assert
+		await CacheHandler.ShouldHaveReceivedOneDeleteAsync(RefreshToken, CancellationToken);
 	}
 }

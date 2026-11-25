@@ -16,7 +16,7 @@ public class GetPostCommentLikesForUserTotalCountQueryRepositoryUnitTests : Base
 		_filterQueryBuilder = _filterQueryBuilderFactory.Create(PostCommentLike);
 		_filterQuery = _filterQueryBuilder.Build();
 
-		_repository = new(Collection, IncludeBuilderFactory, CommentIncludeBuilderFactory, CommentLikeIncludeBuilderFactory);
+		_repository = new(Collection, IncludeBuilderFactory, CommentLikeCacheHandler, CommentIncludeBuilderFactory, CommentLikeIncludeBuilderFactory);
 
 		Collection.SetupAggregateFluent(_filterQuery, Fluent);
 		Fluent.SetupMatch(_filterQuery);

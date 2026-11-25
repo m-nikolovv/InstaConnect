@@ -19,8 +19,7 @@ internal static class ServiceCollectionExtensions
 
 			serviceCollection.AddCollection<EmailConfirmationToken, EmailConfirmationTokenId>(CollectionName);
 
-			serviceCollection.AddScoped<IEmailConfirmationTokenCommandRepository, EmailConfirmationTokenCommandRepository>()
-							 .Decorate<IEmailConfirmationTokenCommandRepository, CachedEmailConfirmationTokenCommandRepository>();
+			serviceCollection.AddScoped<IEmailConfirmationTokenCommandRepository, EmailConfirmationTokenCommandRepository>();
 
 			BsonClassMap.TryRegisterClassMap<EmailConfirmationToken>(cm =>
 			{

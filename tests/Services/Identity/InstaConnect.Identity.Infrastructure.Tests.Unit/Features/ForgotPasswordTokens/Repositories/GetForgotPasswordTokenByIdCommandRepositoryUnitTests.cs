@@ -13,7 +13,7 @@ public class GetForgotPasswordTokenByIdCommandRepositoryUnitTests : BaseForgotPa
 	{
 		_include = IncludeBuilderFactory.Create().WithUser().Build();
 
-		_repository = new(Collection, IncludeBuilderFactory);
+		_repository = new(Collection, CacheHandler, IncludeBuilderFactory);
 
 		Collection.SetupAggregateFluent(ForgotPasswordTokenId, Fluent);
 		Fluent.SetupInclude(ForgotPasswordTokenId, _include);

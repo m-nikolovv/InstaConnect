@@ -1,3 +1,5 @@
+using InstaConnect.Posts.Infrastructure.Features.PostCommentLikes.Abstractions;
+using InstaConnect.Posts.Infrastructure.Features.PostComments.Abstractions;
 using InstaConnect.Posts.Tests.Features.PostCommentLikes.Abstractions;
 using InstaConnect.Posts.Tests.Features.PostCommentLikes.Extensions;
 
@@ -7,13 +9,19 @@ public abstract class BasePostCommentLikeApplicationCommandIntegrationTest : Bas
 {
 	protected IApplicationSender Sender { get; }
 
+	protected IPostCommentCacheHandler CommentCacheHandler { get; }
+
 	protected IPostCommentLikeEventClient CommentLikeEventClient { get; }
+
+	protected IPostCommentLikeCacheHandler CommentLikeCacheHandler { get; }
 
 	protected BasePostCommentLikeApplicationCommandIntegrationTest(PostsWebApplicationFactory webApplicationFactory)
 		: base(webApplicationFactory)
 	{
 		Sender = ServiceScope.GetSender();
+		CommentCacheHandler = ServiceScope.GetPostCommentCacheHandler();
 		CommentLikeEventClient = webApplicationFactory.CreateCommentLikeEventClient();
+		CommentLikeCacheHandler = ServiceScope.GetPostCommentLikeCacheHandler();
 	}
 
 	public override async Task InitializeAsync()

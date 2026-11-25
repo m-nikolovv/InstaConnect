@@ -1,3 +1,4 @@
+using InstaConnect.Follows.Domain.Tests.Features.Follows.Utilities;
 using InstaConnect.Follows.Tests.Features.Follows.Assertions;
 
 namespace InstaConnect.Follows.Domain.Tests.Integration.Features.Follows.Services;
@@ -72,6 +73,49 @@ public class DeleteFollowCommandServiceIntegrationTests : BaseFollowDomainComman
 
 		// Assert
 		follow.ShouldBeNull();
+	}
+
+	[Fact]
+	public async Task DeleteAsync_ShouldDeleteCachedFollow_WhenCommandIsValid()
+	{
+		// Act
+		await Service.DeleteAsync(_command, CancellationToken);
+		var cachedFollow = await CacheHandler.GetByIdAsync(_command, CancellationToken);
+
+		// Assert
+		cachedFollow.ShouldBeNull();
+	}
+
+	[Theory]
+	[UserIdDifferentCaseData]
+	public async Task DeleteAsync_ShouldDeleteCachedFollow_WhenCommandAndFollowerIdAreValid(
+		IStringTransformer transformer)
+	{
+		// Arrange
+		var command = _commandBuilder.WithFollowerId(transformer).Build();
+
+		// Act
+		await Service.DeleteAsync(command, CancellationToken);
+		var cachedFollow = await CacheHandler.GetByIdAsync(command, CancellationToken);
+
+		// Assert
+		cachedFollow.ShouldBeNull();
+	}
+
+	[Theory]
+	[UserIdDifferentCaseData]
+	public async Task DeleteAsync_ShouldDeleteCachedFollow_WhenCommandAndFollowingIdAreValid(
+		IStringTransformer transformer)
+	{
+		// Arrange
+		var command = _commandBuilder.WithFollowingId(transformer).Build();
+
+		// Act
+		await Service.DeleteAsync(command, CancellationToken);
+		var cachedFollow = await CacheHandler.GetByIdAsync(command, CancellationToken);
+
+		// Assert
+		cachedFollow.ShouldBeNull();
 	}
 
 	[Fact]

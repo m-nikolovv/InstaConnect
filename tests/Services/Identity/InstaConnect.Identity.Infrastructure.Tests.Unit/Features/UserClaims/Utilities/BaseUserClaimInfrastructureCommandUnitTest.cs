@@ -10,12 +10,15 @@ public abstract class BaseUserClaimInfrastructureCommandUnitTest : BaseUserClaim
 
 	protected IUserClaimCollection Collection { get; }
 
+	protected IUserClaimCacheHandler CacheHandler { get; }
+
 	protected IUserClaimIncludeBuilderFactory IncludeBuilderFactory { get; }
 
 	protected BaseUserClaimInfrastructureCommandUnitTest() : base(IdentityMockFactory.CreatePasswordHasher())
 	{
 		Fluent = UserClaimInfrastructureMockFactory.CreateFluent();
 		Collection = UserClaimInfrastructureMockFactory.CreateCollection();
+		CacheHandler = UserClaimInfrastructureMockFactory.CreateCacheHandler();
 		IncludeBuilderFactory = UserClaimMockFactory.CreateIncludeBuilderFactory();
 
 		PasswordHasher.ClearCalls();

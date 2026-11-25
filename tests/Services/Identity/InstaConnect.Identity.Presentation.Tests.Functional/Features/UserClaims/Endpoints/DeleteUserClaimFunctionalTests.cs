@@ -213,6 +213,33 @@ public class DeleteUserClaimFunctionalTests : BaseUserClaimPresentationCommandFu
 	}
 
 	[Fact]
+	public async Task DeleteAsync_ShouldDeleteCachedUserClaim_WhenRequestIsValid()
+	{
+		// Act
+		await ClaimApiClient.DeleteAsync(_request, CancellationToken);
+		var cachedUserClaim = await CacheHandler.GetByIdAsync(_request, CancellationToken);
+
+		// Assert
+		cachedUserClaim.ShouldBeNull();
+	}
+
+	[Theory]
+	[UserIdDifferentCaseData]
+	public async Task DeleteAsync_ShouldDeleteCachedUserClaim_WhenRequestAndIdAreValid(
+		IStringTransformer transformer)
+	{
+		// Arrange
+		var request = _requestBuilder.WithId(transformer).Build();
+
+		// Act
+		await ClaimApiClient.DeleteAsync(request, CancellationToken);
+		var cachedUserClaim = await CacheHandler.GetByIdAsync(request, CancellationToken);
+
+		// Assert
+		cachedUserClaim.ShouldBeNull();
+	}
+
+	[Fact]
 	public async Task DeleteAsync_ShouldPublishUserClaimDeletedEvent_WhenRequestIsValid()
 	{
 		// Act

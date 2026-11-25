@@ -191,6 +191,49 @@ public class AddPostLikeCommandHandlerIntegrationTests : BasePostLikeApplication
 	}
 
 	[Fact]
+	public async Task SendAsync_ShouldDeleteCachedPost_WhenRequestIsValid()
+	{
+		// Act
+		await Sender.SendAsync(_request, CancellationToken);
+		var cachedPost = await CacheHandler.GetByIdAsync(_request, CancellationToken);
+
+		// Assert
+		cachedPost.ShouldBeNull();
+	}
+
+	[Theory]
+	[PostIdDifferentCaseData]
+	public async Task SendAsync_ShouldDeleteCachedPost_WhenRequestAndIdAreValid(
+		IStringTransformer transformer)
+	{
+		// Arrange
+		var request = _requestBuilder.WithId(transformer).Build();
+
+		// Act
+		await Sender.SendAsync(request, CancellationToken);
+		var cachedPost = await CacheHandler.GetByIdAsync(request, CancellationToken);
+
+		// Assert
+		cachedPost.ShouldBeNull();
+	}
+
+	[Theory]
+	[UserIdDifferentCaseData]
+	public async Task SendAsync_ShouldDeleteCachedPost_WhenRequestAndUserIdAreValid(
+		IStringTransformer transformer)
+	{
+		// Arrange
+		var request = _requestBuilder.WithUserId(transformer).Build();
+
+		// Act
+		await Sender.SendAsync(request, CancellationToken);
+		var cachedPost = await CacheHandler.GetByIdAsync(request, CancellationToken);
+
+		// Assert
+		cachedPost.ShouldBeNull();
+	}
+
+	[Fact]
 	public async Task SendAsync_ShouldPublishPostLikeAddedEvent_WhenRequestIsValid()
 	{
 		// Act

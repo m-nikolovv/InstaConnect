@@ -19,8 +19,7 @@ internal static class ServiceCollectionExtensions
 
 			serviceCollection.AddCollection<ForgotPasswordToken, ForgotPasswordTokenId>(CollectionName);
 
-			serviceCollection.AddScoped<IForgotPasswordTokenCommandRepository, ForgotPasswordTokenCommandRepository>()
-							 .Decorate<IForgotPasswordTokenCommandRepository, CachedForgotPasswordTokenCommandRepository>();
+			serviceCollection.AddScoped<IForgotPasswordTokenCommandRepository, ForgotPasswordTokenCommandRepository>();
 
 			BsonClassMap.TryRegisterClassMap<ForgotPasswordToken>(cm =>
 			{

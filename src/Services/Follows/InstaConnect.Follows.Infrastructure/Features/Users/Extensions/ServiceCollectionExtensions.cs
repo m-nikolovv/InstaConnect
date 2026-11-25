@@ -20,11 +20,9 @@ internal static class ServiceCollectionExtensions
 
 			serviceCollection.AddCollection<User, UserId>(CollectionName);
 
-			serviceCollection.AddScoped<IUserCommandRepository, UserCommandRepository>()
-							 .Decorate<IUserCommandRepository, CachedUserCommandRepository>();
+			serviceCollection.AddScoped<IUserCommandRepository, UserCommandRepository>();
 
-			serviceCollection.AddScoped<IUserQueryRepository, UserQueryRepository>()
-							 .Decorate<IUserQueryRepository, CachedUserQueryRepository>();
+			serviceCollection.AddScoped<IUserQueryRepository, UserQueryRepository>();
 
 			BsonClassMap.TryRegisterClassMap<User>(cm =>
 			{

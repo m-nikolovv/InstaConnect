@@ -11,7 +11,7 @@ public class GetRefreshTokenByIdRangeCommandRepositoryUnitTests : BaseRefreshTok
 
 	public GetRefreshTokenByIdRangeCommandRepositoryUnitTests()
 	{
-		_repository = new(Collection, IncludeBuilderFactory);
+		_repository = new(Collection, CacheHandler, IncludeBuilderFactory);
 
 		Collection.SetupAggregateFluent(RefreshTokenIds, Fluent);
 		Fluent.SetupMatch(RefreshTokenIds);

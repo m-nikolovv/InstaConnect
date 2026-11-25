@@ -1,3 +1,4 @@
+using InstaConnect.Posts.Domain.Tests.Features.Posts.Utilities;
 using InstaConnect.Posts.Tests.Features.PostCommentImages.Utilities;
 using InstaConnect.Posts.Tests.Features.Posts.Assertions;
 
@@ -90,6 +91,49 @@ public class DeletePostCommandServiceIntegrationTests : BasePostDomainCommandInt
 
 		// Assert
 		post.ShouldBeNull();
+	}
+
+	[Fact]
+	public async Task DeleteAsync_ShouldDeleteCachedPost_WhenCommandIsValid()
+	{
+		// Act
+		await Service.DeleteAsync(_command, CancellationToken);
+		var cachedPost = await CacheHandler.GetByIdAsync(_command, CancellationToken);
+
+		// Assert
+		cachedPost.ShouldBeNull();
+	}
+
+	[Theory]
+	[PostIdDifferentCaseData]
+	public async Task DeleteAsync_ShouldDeleteCachedPost_WhenCommandAndIdAreValid(
+		IStringTransformer transformer)
+	{
+		// Arrange
+		var command = _commandBuilder.WithId(transformer).Build();
+
+		// Act
+		await Service.DeleteAsync(command, CancellationToken);
+		var cachedPost = await CacheHandler.GetByIdAsync(command, CancellationToken);
+
+		// Assert
+		cachedPost.ShouldBeNull();
+	}
+
+	[Theory]
+	[UserIdDifferentCaseData]
+	public async Task DeleteAsync_ShouldDeleteCachedPost_WhenCommandAndUserIdAreValid(
+		IStringTransformer transformer)
+	{
+		// Arrange
+		var command = _commandBuilder.WithUserId(transformer).Build();
+
+		// Act
+		await Service.DeleteAsync(command, CancellationToken);
+		var cachedPost = await CacheHandler.GetByIdAsync(command, CancellationToken);
+
+		// Assert
+		cachedPost.ShouldBeNull();
 	}
 
 	[Fact]

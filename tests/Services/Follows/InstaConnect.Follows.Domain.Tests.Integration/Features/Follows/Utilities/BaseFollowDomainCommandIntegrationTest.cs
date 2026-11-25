@@ -1,5 +1,6 @@
 using InstaConnect.Follows.Domain.Features.Follows.Abstractions;
 using InstaConnect.Follows.Domain.Tests.Features.Follows.Utilities;
+using InstaConnect.Follows.Infrastructure.Features.Follows.Abstractions;
 using InstaConnect.Follows.Tests.Features.Follows.Abstractions;
 using InstaConnect.Follows.Tests.Features.Follows.Extensions;
 
@@ -11,12 +12,15 @@ public abstract class BaseFollowDomainCommandIntegrationTest : BaseFollowWebComm
 
 	protected IFollowEventClient EventClient { get; }
 
+	protected IFollowCacheHandler CacheHandler { get; }
+
 	protected IFollowNotificationClient NotificationClient { get; }
 
 	protected BaseFollowDomainCommandIntegrationTest(FollowsWebApplicationFactory webApplicationFactory) : base(webApplicationFactory)
 	{
 		Service = ServiceScope.GetFollowCommandService();
 		EventClient = webApplicationFactory.CreateEventClient();
+		CacheHandler = ServiceScope.GetFollowCacheHandler();
 		NotificationClient = webApplicationFactory.CreateNotificationClient(FollowingId);
 	}
 

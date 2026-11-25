@@ -8,12 +8,15 @@ public abstract class BasePostInfrastructureCommandUnitTest : BasePostCommandTes
 
 	protected IPostCollection Collection { get; }
 
+	protected IPostCacheHandler CacheHandler { get; }
+
 	protected IPostIncludeBuilderFactory IncludeBuilderFactory { get; }
 
 	protected BasePostInfrastructureCommandUnitTest()
 	{
 		Fluent = PostInfrastructureMockFactory.CreateFluent();
 		Collection = PostInfrastructureMockFactory.CreateCollection();
+		CacheHandler = PostInfrastructureMockFactory.CreateCacheHandler();
 		IncludeBuilderFactory = PostMockFactory.CreateIncludeBuilderFactory();
 	}
 }

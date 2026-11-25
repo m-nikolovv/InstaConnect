@@ -1,6 +1,6 @@
 using InstaConnect.Follows.Domain.Features.Follows.Abstractions;
+using InstaConnect.Follows.Domain.Features.Follows.Models.Responses;
 using InstaConnect.Follows.Infrastructure.Features.Follows.Abstractions;
-using InstaConnect.Follows.Infrastructure.Features.Follows.Helpers.Repositories;
 
 namespace InstaConnect.Follows.Tests.Features.Follows.Utilities;
 
@@ -10,24 +10,10 @@ public static class FollowSetups
 	{
 		public IFollowQueryRepository GetFollowQueryRepository()
 		{
-			return new FollowQueryRepository(
-				serviceProvider.GetFollowCollection(),
-				serviceProvider.GetFollowIncludeBuilderFactory());
-		}
-
-		public IFollowQueryRepository GetCachedFollowQueryRepository()
-		{
 			return serviceProvider.GetRequiredService<IFollowQueryRepository>();
 		}
 
 		public IFollowCommandRepository GetFollowCommandRepository()
-		{
-			return new FollowCommandRepository(
-				serviceProvider.GetFollowCollection(),
-				serviceProvider.GetFollowIncludeBuilderFactory());
-		}
-
-		public IFollowCommandRepository GetCachedFollowCommandRepository()
 		{
 			return serviceProvider.GetRequiredService<IFollowCommandRepository>();
 		}
@@ -55,19 +41,9 @@ public static class FollowSetups
 			return serviceScope.ServiceProvider.GetFollowQueryRepository();
 		}
 
-		public IFollowQueryRepository GetCachedFollowQueryRepository()
-		{
-			return serviceScope.ServiceProvider.GetCachedFollowQueryRepository();
-		}
-
 		public IFollowCommandRepository GetFollowCommandRepository()
 		{
 			return serviceScope.ServiceProvider.GetFollowCommandRepository();
-		}
-
-		public IFollowCommandRepository GetCachedFollowCommandRepository()
-		{
-			return serviceScope.ServiceProvider.GetCachedFollowCommandRepository();
 		}
 
 		public IFollowIncludeBuilderFactory GetFollowIncludeBuilderFactory()
@@ -139,6 +115,18 @@ public static class FollowSetups
 			{
 				await serviceScope.DeleteAsync(follow, cancellationToken);
 			}
+		}
+	}
+
+	extension(IFollowCacheHandler cacheHandler)
+	{
+		public async Task<FollowResponse?> GetByIdAsync(
+			string followerId,
+			string followingId,
+			string currentUserId,
+			CancellationToken cancellationToken)
+		{
+			return await cacheHandler.GetByIdAsync(new(new(followerId), new(followingId)), new(currentUserId), cancellationToken);
 		}
 	}
 }

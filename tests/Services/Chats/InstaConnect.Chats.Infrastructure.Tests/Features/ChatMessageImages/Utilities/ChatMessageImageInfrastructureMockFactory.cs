@@ -13,4 +13,9 @@ public static class ChatMessageImageInfrastructureMockFactory
 	{
 		return Mocker.Mock<IChatMessageImageFluent>();
 	}
+
+	public static IChatMessageImageCacheHandler CreateCacheHandler()
+	{
+		return Mocker.Mock<IChatMessageImageCacheHandler>();
+	}
 }

@@ -419,6 +419,65 @@ public class UpdateChatMessageFunctionalTests : BaseChatMessagePresentationComma
 	}
 
 	[Fact]
+	public async Task UpdateAsync_ShouldDeleteCachedChatMessage_WhenRequestIsValid()
+	{
+		// Act
+		await ApiClient.UpdateAsync(_request, CancellationToken);
+		var cachedChatMessage = await MessageCacheHandler.GetByIdAsync(_request, CancellationToken);
+
+		// Assert
+		cachedChatMessage.ShouldBeNull();
+	}
+
+	[Theory]
+	[UserIdDifferentCaseData]
+	public async Task UpdateAsync_ShouldDeleteCachedChatMessage_WhenRequestAndParticipantOneIdAreValid(
+		IStringTransformer transformer)
+	{
+		// Arrange
+		var request = _requestBuilder.WithParticipantOneId(transformer).Build();
+
+		// Act
+		await ApiClient.UpdateAsync(request, CancellationToken);
+		var cachedChatMessage = await MessageCacheHandler.GetByIdAsync(request, CancellationToken);
+
+		// Assert
+		cachedChatMessage.ShouldBeNull();
+	}
+
+	[Theory]
+	[UserIdDifferentCaseData]
+	public async Task UpdateAsync_ShouldDeleteCachedChatMessage_WhenRequestAndParticipantTwoIdAreValid(
+		IStringTransformer transformer)
+	{
+		// Arrange
+		var request = _requestBuilder.WithParticipantTwoId(transformer).Build();
+
+		// Act
+		await ApiClient.UpdateAsync(request, CancellationToken);
+		var cachedChatMessage = await MessageCacheHandler.GetByIdAsync(request, CancellationToken);
+
+		// Assert
+		cachedChatMessage.ShouldBeNull();
+	}
+
+	[Theory]
+	[ChatMessageIdDifferentCaseData]
+	public async Task UpdateAsync_ShouldDeleteCachedChatMessage_WhenRequestAndMessageIdAreValid(
+		IStringTransformer transformer)
+	{
+		// Arrange
+		var request = _requestBuilder.WithMessageId(transformer).Build();
+
+		// Act
+		await ApiClient.UpdateAsync(request, CancellationToken);
+		var cachedChatMessage = await MessageCacheHandler.GetByIdAsync(request, CancellationToken);
+
+		// Assert
+		cachedChatMessage.ShouldBeNull();
+	}
+
+	[Fact]
 	public async Task UpdateAsync_ShouldPublishChatMessageUpdatedNotification_WhenRequestIsValid()
 	{
 		// Act

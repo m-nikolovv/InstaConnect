@@ -218,5 +218,25 @@ public static class UserClaimMockSetups
 		{
 			fluent.SetupFirstOrDefaultAsync(userClaim.ToResponse(id, currentUserQuery), cancellationToken);
 		}
+
+		public void RemoveFirstOrDefaultAsync(
+			UserClaimId id,
+			CurrentUserQuery currentUserQuery,
+			CancellationToken cancellationToken)
+		{
+			fluent.SetupFirstOrDefaultAsync(null, cancellationToken);
+		}
+	}
+
+	extension(IUserClaimCacheHandler cacheHandler)
+	{
+		public void SetupGetByIdAsync(
+			UserClaimId id,
+			CurrentUserQuery currentUserQuery,
+			UserClaim userClaim,
+			CancellationToken cancellationToken)
+		{
+			cacheHandler.GetByIdAsync(id, currentUserQuery.Id, cancellationToken).ReturnsTaskResponse(userClaim.ToResponse(id, currentUserQuery));
+		}
 	}
 }

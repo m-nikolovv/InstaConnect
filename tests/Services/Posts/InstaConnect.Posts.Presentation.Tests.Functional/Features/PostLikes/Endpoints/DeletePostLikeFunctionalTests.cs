@@ -231,6 +231,92 @@ public class DeletePostLikeFunctionalTests : BasePostLikePresentationCommandFunc
 	}
 
 	[Fact]
+	public async Task DeleteAsync_ShouldDeleteCachedPostLike_WhenRequestIsValid()
+	{
+		// Act
+		await LikeApiClient.DeleteAsync(_request, CancellationToken);
+		var cachedPostLike = await LikeCacheHandler.GetByIdAsync(_request, CancellationToken);
+
+		// Assert
+		cachedPostLike.ShouldBeNull();
+	}
+
+	[Theory]
+	[PostIdDifferentCaseData]
+	public async Task DeleteAsync_ShouldDeleteCachedPostLike_WhenRequestAndIdAreValid(
+		IStringTransformer transformer)
+	{
+		// Arrange
+		var request = _requestBuilder.WithId(transformer).Build();
+
+		// Act
+		await LikeApiClient.DeleteAsync(request, CancellationToken);
+		var cachedPostLike = await LikeCacheHandler.GetByIdAsync(request, CancellationToken);
+
+		// Assert
+		cachedPostLike.ShouldBeNull();
+	}
+
+	[Theory]
+	[UserIdDifferentCaseData]
+	public async Task DeleteAsync_ShouldDeleteCachedPostLike_WhenRequestAndUserIdAreValid(
+		IStringTransformer transformer)
+	{
+		// Arrange
+		var request = _requestBuilder.WithUserId(transformer).Build();
+
+		// Act
+		await LikeApiClient.DeleteAsync(request, CancellationToken);
+		var cachedPostLike = await LikeCacheHandler.GetByIdAsync(request, CancellationToken);
+
+		// Assert
+		cachedPostLike.ShouldBeNull();
+	}
+
+	[Fact]
+	public async Task DeleteAsync_ShouldDeleteCachedPost_WhenRequestIsValid()
+	{
+		// Act
+		await LikeApiClient.DeleteAsync(_request, CancellationToken);
+		var cachedPost = await CacheHandler.GetByIdAsync(_request, CancellationToken);
+
+		// Assert
+		cachedPost.ShouldBeNull();
+	}
+
+	[Theory]
+	[PostIdDifferentCaseData]
+	public async Task DeleteAsync_ShouldDeleteCachedPost_WhenRequestAndIdAreValid(
+		IStringTransformer transformer)
+	{
+		// Arrange
+		var request = _requestBuilder.WithId(transformer).Build();
+
+		// Act
+		await LikeApiClient.DeleteAsync(request, CancellationToken);
+		var cachedPost = await CacheHandler.GetByIdAsync(request, CancellationToken);
+
+		// Assert
+		cachedPost.ShouldBeNull();
+	}
+
+	[Theory]
+	[UserIdDifferentCaseData]
+	public async Task DeleteAsync_ShouldDeleteCachedPost_WhenRequestAndUserIdAreValid(
+		IStringTransformer transformer)
+	{
+		// Arrange
+		var request = _requestBuilder.WithUserId(transformer).Build();
+
+		// Act
+		await LikeApiClient.DeleteAsync(request, CancellationToken);
+		var cachedPost = await CacheHandler.GetByIdAsync(request, CancellationToken);
+
+		// Assert
+		cachedPost.ShouldBeNull();
+	}
+
+	[Fact]
 	public async Task DeleteAsync_ShouldPublishPostLikeDeletedEvent_WhenRequestIsValid()
 	{
 		// Act

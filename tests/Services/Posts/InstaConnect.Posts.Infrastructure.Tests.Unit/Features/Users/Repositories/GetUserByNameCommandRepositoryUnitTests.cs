@@ -22,7 +22,7 @@ public class GetUserByNameCommandRepositoryUnitTests : BaseUserInfrastructureCom
 
 		_include = IncludeBuilderFactory.Create().WithPosts().WithPostLikes().Build();
 
-		_repository = new(Collection, IncludeBuilderFactory);
+		_repository = new(Collection, CacheHandler, IncludeBuilderFactory);
 
 		Collection.SetupAggregateFluent(_name, Fluent);
 		Fluent.SetupInclude(_name, _include);

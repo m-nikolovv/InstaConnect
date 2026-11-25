@@ -1,3 +1,5 @@
+using InstaConnect.Posts.Domain.Tests.Features.PostCommentLikes.Utilities;
+
 namespace InstaConnect.Posts.Domain.Tests.Integration.Features.PostCommentLikes.Services;
 
 public class GetPostCommentLikeByIdQueryServiceIntegrationTests : BasePostCommentLikeDomainQueryIntegrationTest
@@ -114,5 +116,82 @@ public class GetPostCommentLikeByIdQueryServiceIntegrationTests : BasePostCommen
 
 		// Assert
 		response.ShouldSatisfy(query, PostCommentLike);
+	}
+
+	[Fact]
+	public async Task GetByIdAsync_ShouldCachePostCommentLike_WhenQueryIsValid()
+	{
+		// Act
+		await Service.GetByIdAsync(_query, CancellationToken);
+		var cachedPostCommentLike = await CommentLikeCacheHandler.GetByIdAsync(_query, CancellationToken);
+
+		// Assert
+		cachedPostCommentLike.ShouldSatisfy(_query, PostCommentLike);
+	}
+
+	[Theory]
+	[PostIdDifferentCaseData]
+	public async Task GetByIdAsync_ShouldCachePostCommentLike_WhenQueryAndIdAreValid(
+		IStringTransformer transformer)
+	{
+		// Arrange
+		var query = _queryBuilder.WithId(transformer).Build();
+
+		// Act
+		await Service.GetByIdAsync(query, CancellationToken);
+		var cachedPostCommentLike = await CommentLikeCacheHandler.GetByIdAsync(query, CancellationToken);
+
+		// Assert
+		cachedPostCommentLike.ShouldSatisfy(query, PostCommentLike);
+	}
+
+	[Theory]
+	[PostCommentIdDifferentCaseData]
+	public async Task GetByIdAsync_ShouldCachePostCommentLike_WhenQueryAndCommentIdAreValid(
+		IStringTransformer transformer)
+	{
+		// Arrange
+		var query = _queryBuilder.WithCommentId(transformer).Build();
+
+		// Act
+		await Service.GetByIdAsync(query, CancellationToken);
+		var cachedPostCommentLike = await CommentLikeCacheHandler.GetByIdAsync(query, CancellationToken);
+
+		// Assert
+		cachedPostCommentLike.ShouldSatisfy(query, PostCommentLike);
+	}
+
+	[Theory]
+	[UserIdDifferentCaseData]
+	public async Task GetByIdAsync_ShouldCachePostCommentLike_WhenQueryAndUserIdAreValid(
+		IStringTransformer transformer)
+	{
+		// Arrange
+		var query = _queryBuilder.WithUserId(transformer).Build();
+
+		// Act
+		await Service.GetByIdAsync(query, CancellationToken);
+		var cachedPostCommentLike = await CommentLikeCacheHandler.GetByIdAsync(query, CancellationToken);
+
+		// Assert
+		cachedPostCommentLike.ShouldSatisfy(query, PostCommentLike);
+	}
+
+	[Theory]
+	[UserIdNullData]
+	[UserIdEmptyData]
+	[UserIdDifferentCaseData]
+	public async Task GetByIdAsync_ShouldCachePostCommentLike_WhenQueryAndCurrentUserIdAreValid(
+		IStringTransformer transformer)
+	{
+		// Arrange
+		var query = _queryBuilder.WithCurrentUserId(transformer).Build();
+
+		// Act
+		await Service.GetByIdAsync(query, CancellationToken);
+		var cachedPostCommentLike = await CommentLikeCacheHandler.GetByIdAsync(query, CancellationToken);
+
+		// Assert
+		cachedPostCommentLike.ShouldSatisfy(query, PostCommentLike);
 	}
 }

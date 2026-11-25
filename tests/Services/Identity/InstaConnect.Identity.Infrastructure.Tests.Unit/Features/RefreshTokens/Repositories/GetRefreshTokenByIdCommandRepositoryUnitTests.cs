@@ -16,7 +16,7 @@ public class GetRefreshTokenByIdCommandRepositoryUnitTests : BaseRefreshTokenInf
 	{
 		_include = IncludeBuilderFactory.Create().WithUser().Build();
 
-		_repository = new(Collection, IncludeBuilderFactory);
+		_repository = new(Collection, CacheHandler, IncludeBuilderFactory);
 
 		Collection.SetupAggregateFluent(RefreshTokenId, Fluent);
 		Fluent.SetupInclude(RefreshTokenId, _include);

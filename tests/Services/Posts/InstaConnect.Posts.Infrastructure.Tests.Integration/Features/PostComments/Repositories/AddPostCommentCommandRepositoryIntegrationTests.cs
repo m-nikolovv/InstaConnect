@@ -26,7 +26,7 @@ public class AddPostCommentCommandRepositoryIntegrationTests : BasePostCommentIn
 	{
 		// Act
 		await Repository.AddAsync(PostComment, CancellationToken);
-		var cachedPost = await CacheHandler.GetByIdAsync(PostComment, CancellationToken);
+		var cachedPost = await CacheHandler.GetByIdAsync(PostComment, CurrentUserId, CancellationToken);
 
 		// Assert
 		cachedPost.ShouldBeNull();

@@ -147,6 +147,65 @@ public class GetChatMessageByIdQueryHandlerIntegrationTests : BaseChatMessageApp
 	}
 
 	[Fact]
+	public async Task SendAsync_ShouldCacheChatMessage_WhenRequestIsValid()
+	{
+		// Act
+		await Sender.SendAsync(_request, CancellationToken);
+		var cachedChatMessage = await MessageCacheHandler.GetByIdAsync(_request, CancellationToken);
+
+		// Assert
+		cachedChatMessage.ShouldSatisfy(_request, ChatMessage);
+	}
+
+	[Theory]
+	[UserIdDifferentCaseData]
+	public async Task SendAsync_ShouldCacheChatMessage_WhenRequestAndParticipantTwoIdAreValid(
+		IStringTransformer transformer)
+	{
+		// Arrange
+		var request = _requestBuilder.WithParticipantTwoId(transformer).Build();
+
+		// Act
+		await Sender.SendAsync(request, CancellationToken);
+		var cachedChatMessage = await MessageCacheHandler.GetByIdAsync(request, CancellationToken);
+
+		// Assert
+		cachedChatMessage.ShouldSatisfy(request, ChatMessage);
+	}
+
+	[Theory]
+	[ChatMessageIdDifferentCaseData]
+	public async Task SendAsync_ShouldCacheChatMessage_WhenRequestAndMessageIdAreValid(
+		IStringTransformer transformer)
+	{
+		// Arrange
+		var request = _requestBuilder.WithMessageId(transformer).Build();
+
+		// Act
+		await Sender.SendAsync(request, CancellationToken);
+		var cachedChatMessage = await MessageCacheHandler.GetByIdAsync(request, CancellationToken);
+
+		// Assert
+		cachedChatMessage.ShouldSatisfy(request, ChatMessage);
+	}
+
+	[Theory]
+	[UserIdDifferentCaseData]
+	public async Task SendAsync_ShouldCacheChatMessage_WhenRequestAndCurrentUserIdAreValid(
+		IStringTransformer transformer)
+	{
+		// Arrange
+		var request = _requestBuilder.WithCurrentUserId(transformer).Build();
+
+		// Act
+		await Sender.SendAsync(request, CancellationToken);
+		var cachedChatMessage = await MessageCacheHandler.GetByIdAsync(request, CancellationToken);
+
+		// Assert
+		cachedChatMessage.ShouldSatisfy(request, ChatMessage);
+	}
+
+	[Fact]
 	public async Task SendAsync_ShouldReturnInvertedResponse_WhenRequestIsValid()
 	{
 		// Act

@@ -10,7 +10,7 @@ public class GetChatByIdRangeCommandRepositoryUnitTests : BaseChatInfrastructure
 	{
 		_include = IncludeBuilderFactory.Create().WithParticipantOne().WithParticipantTwo().Build();
 
-		_repository = new(Collection, IncludeBuilderFactory);
+		_repository = new(Collection, CacheHandler, IncludeBuilderFactory);
 
 		Collection.SetupAggregateFluent(ChatIds, Fluent);
 		Fluent.SetupInclude(ChatIds, _include);

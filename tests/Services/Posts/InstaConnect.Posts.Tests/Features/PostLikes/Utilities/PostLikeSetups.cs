@@ -1,6 +1,6 @@
 using InstaConnect.Posts.Domain.Features.PostLikes.Abstractions;
+using InstaConnect.Posts.Domain.Features.PostLikes.Models.Responses;
 using InstaConnect.Posts.Infrastructure.Features.PostLikes.Abstractions;
-using InstaConnect.Posts.Infrastructure.Features.PostLikes.Helpers.Repositories;
 
 namespace InstaConnect.Posts.Tests.Features.PostLikes.Utilities;
 
@@ -10,25 +10,10 @@ public static class PostLikeSetups
 	{
 		public IPostLikeQueryRepository GetPostLikeQueryRepository()
 		{
-			return new PostLikeQueryRepository(
-				serviceProvider.GetPostLikeCollection(),
-				serviceProvider.GetPostIncludeBuilderFactory(),
-				serviceProvider.GetPostLikeIncludeBuilderFactory());
-		}
-
-		public IPostLikeQueryRepository GetCachedPostLikeQueryRepository()
-		{
 			return serviceProvider.GetRequiredService<IPostLikeQueryRepository>();
 		}
 
 		public IPostLikeCommandRepository GetPostLikeCommandRepository()
-		{
-			return new PostLikeCommandRepository(
-				serviceProvider.GetPostLikeCollection(),
-				serviceProvider.GetPostLikeIncludeBuilderFactory());
-		}
-
-		public IPostLikeCommandRepository GetCachedPostLikeCommandRepository()
 		{
 			return serviceProvider.GetRequiredService<IPostLikeCommandRepository>();
 		}
@@ -56,19 +41,9 @@ public static class PostLikeSetups
 			return serviceScope.ServiceProvider.GetPostLikeQueryRepository();
 		}
 
-		public IPostLikeQueryRepository GetCachedPostLikeQueryRepository()
-		{
-			return serviceScope.ServiceProvider.GetCachedPostLikeQueryRepository();
-		}
-
 		public IPostLikeCommandRepository GetPostLikeCommandRepository()
 		{
 			return serviceScope.ServiceProvider.GetPostLikeCommandRepository();
-		}
-
-		public IPostLikeCommandRepository GetCachedPostLikeCommandRepository()
-		{
-			return serviceScope.ServiceProvider.GetCachedPostLikeCommandRepository();
 		}
 
 		public IPostLikeIncludeBuilderFactory GetPostLikeIncludeBuilderFactory()
@@ -146,6 +121,18 @@ public static class PostLikeSetups
 			{
 				await serviceScope.DeleteAsync(postLike, cancellationToken);
 			}
+		}
+	}
+
+	extension(IPostLikeCacheHandler cacheHandler)
+	{
+		public async Task<PostLikeResponse?> GetByIdAsync(
+			string id,
+			string userId,
+			string currentUserId,
+			CancellationToken cancellationToken)
+		{
+			return await cacheHandler.GetByIdAsync(new(new(id), new(userId)), new(currentUserId), cancellationToken);
 		}
 	}
 }

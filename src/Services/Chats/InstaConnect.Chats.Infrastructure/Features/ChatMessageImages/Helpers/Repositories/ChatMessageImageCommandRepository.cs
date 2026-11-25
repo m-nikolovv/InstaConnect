@@ -6,10 +6,17 @@ namespace InstaConnect.Chats.Infrastructure.Features.ChatMessageImages.Helpers.R
 internal class ChatMessageImageCommandRepository : IChatMessageImageCommandRepository
 {
 	private readonly IChatMessageImageCollection _collection;
+	private readonly IChatMessageCacheHandler _messageCacheHandler;
+	private readonly IChatMessageImageCacheHandler _messageImageCacheHandler;
 
-	public ChatMessageImageCommandRepository(IChatMessageImageCollection collection)
+	public ChatMessageImageCommandRepository(
+		IChatMessageImageCollection collection,
+		IChatMessageCacheHandler messageCacheHandler,
+		IChatMessageImageCacheHandler messageImageCacheHandler)
 	{
 		_collection = collection;
+		_messageCacheHandler = messageCacheHandler;
+		_messageImageCacheHandler = messageImageCacheHandler;
 	}
 
 	public async Task<ChatMessageImage?> GetByIdAsync(
@@ -35,20 +42,26 @@ internal class ChatMessageImageCommandRepository : IChatMessageImageCommandRepos
 	public async Task AddAsync(ChatMessageImage entity, CancellationToken cancellationToken)
 	{
 		await _collection.AddAsync(entity, cancellationToken);
+		await _messageCacheHandler.DeleteResponseAsync(entity.Id.Id, cancellationToken);
 	}
 
 	public async Task AddRangeAsync(IEnumerable<ChatMessageImage> entities, CancellationToken cancellationToken)
 	{
 		await _collection.AddRangeAsync(entities, cancellationToken);
+		await _messageCacheHandler.DeleteResponseRangeAsync(entities.Select(p => p.Id.Id), cancellationToken);
 	}
 
 	public async Task DeleteAsync(ChatMessageImage entity, CancellationToken cancellationToken)
 	{
 		await _collection.DeleteAsync(entity, cancellationToken);
+		await _messageCacheHandler.DeleteResponseAsync(entity.Id.Id, cancellationToken);
+		await _messageImageCacheHandler.DeleteAsync(entity.Id, cancellationToken);
 	}
 
 	public async Task DeleteRangeAsync(IEnumerable<ChatMessageImage> entities, CancellationToken cancellationToken)
 	{
 		await _collection.DeleteRangeAsync(entities, cancellationToken);
+		await _messageCacheHandler.DeleteResponseRangeAsync(entities.Select(p => p.Id.Id), cancellationToken);
+		await _messageImageCacheHandler.DeleteRangeAsync(entities.Select(p => p.Id), cancellationToken);
 	}
 }

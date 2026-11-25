@@ -19,11 +19,9 @@ internal static class ServiceCollectionExtensions
 
 			serviceCollection.AddCollection<Post, PostId>(CollectionName);
 
-			serviceCollection.AddScoped<IPostCommandRepository, PostCommandRepository>()
-							 .Decorate<IPostCommandRepository, CachedPostCommandRepository>();
+			serviceCollection.AddScoped<IPostCommandRepository, PostCommandRepository>();
 
-			serviceCollection.AddScoped<IPostQueryRepository, PostQueryRepository>()
-							 .Decorate<IPostQueryRepository, CachedPostQueryRepository>();
+			serviceCollection.AddScoped<IPostQueryRepository, PostQueryRepository>();
 
 			BsonClassMap.TryRegisterClassMap<Post>(cm =>
 			{

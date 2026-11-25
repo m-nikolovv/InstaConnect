@@ -5,6 +5,7 @@ using InstaConnect.Chats.Application.Features.ChatMessages.Queries.GetAll;
 using InstaConnect.Chats.Application.Features.ChatMessages.Queries.GetById;
 using InstaConnect.Chats.Domain.Features.ChatMessageImages.Models.Entities;
 using InstaConnect.Chats.Domain.Features.ChatMessageImages.Models.Requests;
+using InstaConnect.Chats.Domain.Features.ChatMessages.Models.Responses;
 using InstaConnect.Chats.Domain.Features.Users.Models.Requests;
 using InstaConnect.Chats.Presentation.Tests.Features.ChatMessageImages.Utilities;
 using InstaConnect.Chats.Presentation.Tests.Features.ChatMessages.Extensions;
@@ -956,6 +957,14 @@ public static class ChatMessageEquals
 					   termTransformer,
 					   matchesFilter
 				   );
+		}
+	}
+
+	extension(ChatMessageResponse? response)
+	{
+		public bool Matches(GetChatMessageByIdApiRequest request, ChatMessage chatMessage)
+		{
+			return response.MatchesFull(chatMessage);
 		}
 	}
 }

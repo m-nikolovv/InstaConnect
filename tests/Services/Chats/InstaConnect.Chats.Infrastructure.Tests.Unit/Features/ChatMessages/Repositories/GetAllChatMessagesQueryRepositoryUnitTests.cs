@@ -45,7 +45,7 @@ public class GetAllChatMessagesQueryRepositoryUnitTests : BaseChatMessageInfrast
 
 		_messageInclude = MessageIncludeBuilderFactory.Create().WithSender().WithChatMessageImages().Build();
 
-		_repository = new(Collection, IncludeBuilderFactory, MessageIncludeBuilderFactory);
+		_repository = new(Collection, MessageCacheHandler, IncludeBuilderFactory, MessageIncludeBuilderFactory);
 
 		Collection.SetupAggregateFluent(_filterQuery, _sortingQuery, _paginationQuery, _currentUserQuery, Fluent);
 		Fluent.SetupInclude(_filterQuery, _sortingQuery, _paginationQuery, _currentUserQuery, _messageInclude);

@@ -20,11 +20,9 @@ internal static class ServiceCollectionExtensions
 
 			serviceCollection.AddCollection<PostCommentLike, PostCommentLikeId>(CollectionName);
 
-			serviceCollection.AddScoped<IPostCommentLikeCommandRepository, PostCommentLikeCommandRepository>()
-							 .Decorate<IPostCommentLikeCommandRepository, CachedPostCommentLikeCommandRepository>();
+			serviceCollection.AddScoped<IPostCommentLikeCommandRepository, PostCommentLikeCommandRepository>();
 
-			serviceCollection.AddScoped<IPostCommentLikeQueryRepository, PostCommentLikeQueryRepository>()
-							 .Decorate<IPostCommentLikeQueryRepository, CachedPostCommentLikeQueryRepository>();
+			serviceCollection.AddScoped<IPostCommentLikeQueryRepository, PostCommentLikeQueryRepository>();
 
 			BsonClassMap.TryRegisterClassMap<PostCommentLike>(cm =>
 			{
@@ -47,4 +45,3 @@ internal static class ServiceCollectionExtensions
 		}
 	}
 }
-

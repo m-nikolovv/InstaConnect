@@ -351,5 +351,25 @@ public static class PostMockSetups
 		{
 			fluent.SetupFirstOrDefaultAsync(post.ToFullResponse(currentUserQuery.Id), cancellationToken);
 		}
+
+		public void RemoveFirstOrDefaultAsync(
+			PostId id,
+			CurrentUserQuery currentUserQuery,
+			CancellationToken cancellationToken)
+		{
+			fluent.SetupFirstOrDefaultAsync(null, cancellationToken);
+		}
+	}
+
+	extension(IPostCacheHandler cacheHandler)
+	{
+		public void SetupGetByIdAsync(
+			PostId id,
+			CurrentUserQuery currentUserQuery,
+			Post post,
+			CancellationToken cancellationToken)
+		{
+			cacheHandler.GetByIdAsync(id, currentUserQuery.Id, cancellationToken).ReturnsTaskResponse(post.ToFullResponse(currentUserQuery.Id));
+		}
 	}
 }

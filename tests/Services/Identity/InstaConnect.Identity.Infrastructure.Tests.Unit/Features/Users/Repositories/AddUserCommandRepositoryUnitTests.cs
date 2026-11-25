@@ -6,7 +6,7 @@ public class AddUserCommandRepositoryUnitTests : BaseUserInfrastructureCommandUn
 
 	public AddUserCommandRepositoryUnitTests()
 	{
-		_repository = new(Collection, IncludeBuilderFactory);
+		_repository = new(Collection, CacheHandler, IncludeBuilderFactory);
 	}
 
 	[Fact]

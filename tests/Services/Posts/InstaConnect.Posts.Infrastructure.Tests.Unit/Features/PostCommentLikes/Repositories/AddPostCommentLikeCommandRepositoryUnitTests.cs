@@ -6,7 +6,7 @@ public class AddPostCommentLikeCommandRepositoryUnitTests : BasePostCommentLikeI
 
 	public AddPostCommentLikeCommandRepositoryUnitTests()
 	{
-		_repository = new(Collection, IncludeBuilderFactory);
+		_repository = new(Collection, CommentCacheHandler, CommentLikeCacheHandler, IncludeBuilderFactory);
 	}
 
 	[Fact]
@@ -17,5 +17,15 @@ public class AddPostCommentLikeCommandRepositoryUnitTests : BasePostCommentLikeI
 
 		// Assert
 		await Collection.ShouldHaveReceivedOneAddAsync(PostCommentLike, CancellationToken);
+	}
+
+	[Fact]
+	public async Task AddAsync_ShouldCallTheCommentCacheHandlerDeleteResponseAsync_WhenCommandIsValid()
+	{
+		// Act
+		await _repository.AddAsync(PostCommentLike, CancellationToken);
+
+		// Assert
+		await CommentCacheHandler.ShouldHaveReceivedOneDeleteResponseAsync(PostCommentLike, CancellationToken);
 	}
 }

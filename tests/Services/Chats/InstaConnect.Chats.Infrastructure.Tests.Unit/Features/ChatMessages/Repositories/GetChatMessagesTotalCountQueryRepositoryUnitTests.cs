@@ -17,7 +17,7 @@ public class GetChatMessagesTotalCountQueryRepositoryUnitTests : BaseChatMessage
 		_filterQueryBuilder = _filterQueryBuilderFactory.Create(ChatMessage);
 		_filterQuery = _filterQueryBuilder.Build();
 
-		_repository = new(Collection, IncludeBuilderFactory, MessageIncludeBuilderFactory);
+		_repository = new(Collection, MessageCacheHandler, IncludeBuilderFactory, MessageIncludeBuilderFactory);
 
 		Collection.SetupAggregateFluent(_filterQuery, Fluent);
 		Fluent.SetupMatch(_filterQuery);

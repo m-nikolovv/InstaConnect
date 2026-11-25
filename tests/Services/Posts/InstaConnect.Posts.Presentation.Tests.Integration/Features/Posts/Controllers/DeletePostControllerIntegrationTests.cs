@@ -164,6 +164,49 @@ public class DeletePostControllerIntegrationTests : BasePostPresentationCommandI
 	}
 
 	[Fact]
+	public async Task DeleteAsync_ShouldDeleteCachedPost_WhenRequestIsValid()
+	{
+		// Act
+		await Controller.DeleteAsync(_request, CancellationToken);
+		var cachedPost = await CacheHandler.GetByIdAsync(_request, CancellationToken);
+
+		// Assert
+		cachedPost.ShouldBeNull();
+	}
+
+	[Theory]
+	[PostIdDifferentCaseData]
+	public async Task DeleteAsync_ShouldDeleteCachedPost_WhenRequestAndIdAreValid(
+		IStringTransformer transformer)
+	{
+		// Arrange
+		var request = _requestBuilder.WithId(transformer).Build();
+
+		// Act
+		await Controller.DeleteAsync(request, CancellationToken);
+		var cachedPost = await CacheHandler.GetByIdAsync(request, CancellationToken);
+
+		// Assert
+		cachedPost.ShouldBeNull();
+	}
+
+	[Theory]
+	[UserIdDifferentCaseData]
+	public async Task DeleteAsync_ShouldDeleteCachedPost_WhenRequestAndUserIdAreValid(
+		IStringTransformer transformer)
+	{
+		// Arrange
+		var request = _requestBuilder.WithUserId(transformer).Build();
+
+		// Act
+		await Controller.DeleteAsync(request, CancellationToken);
+		var cachedPost = await CacheHandler.GetByIdAsync(request, CancellationToken);
+
+		// Assert
+		cachedPost.ShouldBeNull();
+	}
+
+	[Fact]
 	public async Task DeleteAsync_ShouldDeletePostPostImages_WhenRequestIsValid()
 	{
 		// Act

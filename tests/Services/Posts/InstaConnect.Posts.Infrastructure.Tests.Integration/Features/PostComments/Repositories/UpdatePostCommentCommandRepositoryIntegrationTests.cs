@@ -36,7 +36,7 @@ public class UpdatePostCommentCommandRepositoryIntegrationTests : BasePostCommen
 
 		// Act
 		await Repository.UpdateAsync(updatedPostComment, CancellationToken);
-		var cachedPostComment = await CommentCacheHandler.GetByIdAsync(updatedPostComment, CancellationToken);
+		var cachedPostComment = await CommentCacheHandler.GetByIdAsync(updatedPostComment, CurrentUserId, CancellationToken);
 
 		// Assert
 		cachedPostComment.ShouldBeNull();

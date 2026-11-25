@@ -1,3 +1,5 @@
+using InstaConnect.Chats.Infrastructure.Features.Chats.Abstractions;
+
 namespace InstaConnect.Chats.Domain.Tests.Features.Chats.Utilities;
 
 public static class ChatDomainSetups
@@ -25,6 +27,16 @@ public static class ChatDomainSetups
 		public IChatQueryService GetChatQueryService()
 		{
 			return serviceScope.ServiceProvider.GetChatQueryService();
+		}
+	}
+
+	extension(IChatCacheHandler cacheHandler)
+	{
+		public async Task<ChatResponse?> GetByIdAsync(
+			GetChatByIdQuery query,
+			CancellationToken cancellationToken)
+		{
+			return await cacheHandler.GetByIdAsync(query.Id, query.CurrentUser.Id, cancellationToken);
 		}
 	}
 }

@@ -1,5 +1,6 @@
 using InstaConnect.Posts.Domain.Features.Posts.Abstractions;
 using InstaConnect.Posts.Domain.Tests.Features.Posts.Utilities;
+using InstaConnect.Posts.Infrastructure.Features.Posts.Abstractions;
 using InstaConnect.Posts.Tests.Features.Posts.Abstractions;
 using InstaConnect.Posts.Tests.Features.Posts.Extensions;
 
@@ -11,10 +12,13 @@ public abstract class BasePostDomainCommandIntegrationTest : BasePostWebCommandT
 
 	protected IPostEventClient EventClient { get; }
 
+	protected IPostCacheHandler CacheHandler { get; }
+
 	protected BasePostDomainCommandIntegrationTest(PostsWebApplicationFactory webApplicationFactory) : base(webApplicationFactory)
 	{
 		Service = ServiceScope.GetPostCommandService();
 		EventClient = webApplicationFactory.CreateEventClient();
+		CacheHandler = ServiceScope.GetPostCacheHandler();
 	}
 
 	public override async Task InitializeAsync()

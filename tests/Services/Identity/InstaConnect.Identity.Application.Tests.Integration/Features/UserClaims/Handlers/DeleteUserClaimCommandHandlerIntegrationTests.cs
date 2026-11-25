@@ -100,6 +100,33 @@ public class DeleteUserClaimCommandHandlerIntegrationTests : BaseUserClaimApplic
 	}
 
 	[Fact]
+	public async Task SendAsync_ShouldDeleteCachedUserClaim_WhenRequestIsValid()
+	{
+		// Act
+		await Sender.SendAsync(_request, CancellationToken);
+		var cachedUserClaim = await CacheHandler.GetByIdAsync(_request, CancellationToken);
+
+		// Assert
+		cachedUserClaim.ShouldBeNull();
+	}
+
+	[Theory]
+	[UserIdDifferentCaseData]
+	public async Task SendAsync_ShouldDeleteCachedUserClaim_WhenRequestAndIdAreValid(
+		IStringTransformer transformer)
+	{
+		// Arrange
+		var request = _requestBuilder.WithId(transformer).Build();
+
+		// Act
+		await Sender.SendAsync(request, CancellationToken);
+		var cachedUserClaim = await CacheHandler.GetByIdAsync(request, CancellationToken);
+
+		// Assert
+		cachedUserClaim.ShouldBeNull();
+	}
+
+	[Fact]
 	public async Task SendAsync_ShouldPublishUserClaimDeletedEvent_WhenRequestIsValid()
 	{
 		// Act

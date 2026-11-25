@@ -12,7 +12,7 @@ public class GetChatMessageByIdCommandRepositoryUnitTests : BaseChatMessageInfra
 	{
 		_include = MessageIncludeBuilderFactory.Create().WithSender().WithChat().Build();
 
-		_repository = new(Collection, MessageIncludeBuilderFactory);
+		_repository = new(CacheHandler, Collection, MessageCacheHandler, MessageIncludeBuilderFactory);
 
 		Collection.SetupAggregateFluent(ChatMessageId, Fluent);
 		Fluent.SetupInclude(ChatMessageId, _include);

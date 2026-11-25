@@ -1,5 +1,6 @@
 using InstaConnect.Posts.Domain.Features.PostLikes.Abstractions;
 using InstaConnect.Posts.Infrastructure.Features.PostLikes.Abstractions;
+using InstaConnect.Posts.Infrastructure.Features.Posts.Abstractions;
 using InstaConnect.Posts.Tests.Features.PostLikes.Utilities;
 
 namespace InstaConnect.Posts.Infrastructure.Tests.Unit.Features.PostLikes.Utilities;
@@ -10,12 +11,18 @@ public abstract class BasePostLikeInfrastructureCommandUnitTest : BasePostLikeCo
 
 	protected IPostLikeCollection Collection { get; }
 
+	protected IPostCacheHandler CacheHandler { get; }
+
+	protected IPostLikeCacheHandler LikeCacheHandler { get; }
+
 	protected IPostLikeIncludeBuilderFactory IncludeBuilderFactory { get; }
 
 	protected BasePostLikeInfrastructureCommandUnitTest()
 	{
 		Fluent = PostLikeInfrastructureMockFactory.CreateFluent();
 		Collection = PostLikeInfrastructureMockFactory.CreateCollection();
+		CacheHandler = PostInfrastructureMockFactory.CreateCacheHandler();
+		LikeCacheHandler = PostLikeInfrastructureMockFactory.CreateCacheHandler();
 		IncludeBuilderFactory = PostLikeMockFactory.CreateIncludeBuilderFactory();
 	}
 }

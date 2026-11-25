@@ -6,7 +6,7 @@ public class ChatExistsByIdQueryRepositoryUnitTests : BaseChatInfrastructureQuer
 
 	public ChatExistsByIdQueryRepositoryUnitTests()
 	{
-		_repository = new(Collection, IncludeBuilderFactory);
+		_repository = new(Collection, CacheHandler, IncludeBuilderFactory);
 
 		Collection.SetupAggregateFluent(ChatId, Fluent);
 		Fluent.SetupMatch(ChatId);

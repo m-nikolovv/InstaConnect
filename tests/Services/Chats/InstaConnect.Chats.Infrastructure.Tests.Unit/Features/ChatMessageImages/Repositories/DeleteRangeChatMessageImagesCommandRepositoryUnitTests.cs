@@ -8,7 +8,7 @@ public class DeleteRangeChatMessageImagesCommandRepositoryUnitTests : BaseChatMe
 
 	public DeleteRangeChatMessageImagesCommandRepositoryUnitTests()
 	{
-		_repository = new(Collection);
+		_repository = new(Collection, MessageCacheHandler, MessageImageCacheHandler);
 	}
 
 	[Fact]
@@ -19,5 +19,25 @@ public class DeleteRangeChatMessageImagesCommandRepositoryUnitTests : BaseChatMe
 
 		// Assert
 		await Collection.ShouldHaveReceivedOneDeleteRangeAsync(ChatMessageImages, CancellationToken);
+	}
+
+	[Fact]
+	public async Task DeleteRangeAsync_ShouldCallTheMessageCacheHandlerDeleteResponseRangeAsync_WhenCommandIsValid()
+	{
+		// Act
+		await _repository.DeleteRangeAsync(ChatMessageImages, CancellationToken);
+
+		// Assert
+		await MessageCacheHandler.ShouldHaveReceivedOneDeleteResponseRangeAsync(ChatMessageImages, CancellationToken);
+	}
+
+	[Fact]
+	public async Task DeleteRangeAsync_ShouldCallTheMessageImageCacheHandlerDeleteRangeAsync_WhenCommandIsValid()
+	{
+		// Act
+		await _repository.DeleteRangeAsync(ChatMessageImages, CancellationToken);
+
+		// Assert
+		await MessageImageCacheHandler.ShouldHaveReceivedOneDeleteRangeAsync(ChatMessageImages, CancellationToken);
 	}
 }

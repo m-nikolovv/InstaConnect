@@ -147,6 +147,49 @@ public class DeleteFollowControllerIntegrationTests : BaseFollowPresentationComm
 	}
 
 	[Fact]
+	public async Task DeleteAsync_ShouldDeleteCachedFollow_WhenRequestIsValid()
+	{
+		// Act
+		await Controller.DeleteAsync(_request, CancellationToken);
+		var cachedFollow = await CacheHandler.GetByIdAsync(_request, CancellationToken);
+
+		// Assert
+		cachedFollow.ShouldBeNull();
+	}
+
+	[Theory]
+	[UserIdDifferentCaseData]
+	public async Task DeleteAsync_ShouldDeleteCachedFollow_WhenRequestAndFollowerIdAreValid(
+		IStringTransformer transformer)
+	{
+		// Arrange
+		var request = _requestBuilder.WithFollowerId(transformer).Build();
+
+		// Act
+		await Controller.DeleteAsync(request, CancellationToken);
+		var cachedFollow = await CacheHandler.GetByIdAsync(request, CancellationToken);
+
+		// Assert
+		cachedFollow.ShouldBeNull();
+	}
+
+	[Theory]
+	[UserIdDifferentCaseData]
+	public async Task DeleteAsync_ShouldDeleteCachedFollow_WhenRequestAndFollowingIdAreValid(
+		IStringTransformer transformer)
+	{
+		// Arrange
+		var request = _requestBuilder.WithFollowingId(transformer).Build();
+
+		// Act
+		await Controller.DeleteAsync(request, CancellationToken);
+		var cachedFollow = await CacheHandler.GetByIdAsync(request, CancellationToken);
+
+		// Assert
+		cachedFollow.ShouldBeNull();
+	}
+
+	[Fact]
 	public async Task DeleteAsync_ShouldPublishFollowDeletedEvent_WhenRequestIsValid()
 	{
 		// Act

@@ -1,6 +1,6 @@
 using InstaConnect.Identity.Domain.Features.UserClaims.Abstractions;
+using InstaConnect.Identity.Domain.Features.UserClaims.Models.Responses;
 using InstaConnect.Identity.Infrastructure.Features.UserClaims.Abstractions;
-using InstaConnect.Identity.Infrastructure.Features.UserClaims.Helpers.Repositories;
 
 namespace InstaConnect.Identity.Tests.Features.UserClaims.Utilities;
 
@@ -10,24 +10,10 @@ public static class UserClaimSetups
 	{
 		public IUserClaimQueryRepository GetClaimQueryRepository()
 		{
-			return new UserClaimQueryRepository(
-				serviceProvider.GetClaimCollection(),
-				serviceProvider.GetClaimIncludeBuilderFactory());
-		}
-
-		public IUserClaimQueryRepository GetCachedClaimQueryRepository()
-		{
 			return serviceProvider.GetRequiredService<IUserClaimQueryRepository>();
 		}
 
 		public IUserClaimCommandRepository GetClaimCommandRepository()
-		{
-			return new UserClaimCommandRepository(
-				serviceProvider.GetClaimCollection(),
-				serviceProvider.GetClaimIncludeBuilderFactory());
-		}
-
-		public IUserClaimCommandRepository GetCachedClaimCommandRepository()
 		{
 			return serviceProvider.GetRequiredService<IUserClaimCommandRepository>();
 		}
@@ -55,19 +41,9 @@ public static class UserClaimSetups
 			return serviceScope.ServiceProvider.GetClaimQueryRepository();
 		}
 
-		public IUserClaimQueryRepository GetCachedClaimQueryRepository()
-		{
-			return serviceScope.ServiceProvider.GetCachedClaimQueryRepository();
-		}
-
 		public IUserClaimCommandRepository GetClaimCommandRepository()
 		{
 			return serviceScope.ServiceProvider.GetClaimCommandRepository();
-		}
-
-		public IUserClaimCommandRepository GetCachedClaimCommandRepository()
-		{
-			return serviceScope.ServiceProvider.GetCachedClaimCommandRepository();
 		}
 
 		public IUserClaimIncludeBuilderFactory GetClaimIncludeBuilderFactory()
@@ -129,6 +105,18 @@ public static class UserClaimSetups
 
 			await claimRepository.DeleteAsync(userClaim, cancellationToken);
 			await cacheHandler.DeleteAsync(userClaim.Id, cancellationToken);
+		}
+	}
+
+	extension(IUserClaimCacheHandler cacheHandler)
+	{
+		public async Task<UserClaimResponse?> GetByIdAsync(
+			string id,
+			ApplicationClaims claim,
+			string currentUserId,
+			CancellationToken cancellationToken)
+		{
+			return await cacheHandler.GetByIdAsync(new(new(id), claim), new(currentUserId), cancellationToken);
 		}
 	}
 }

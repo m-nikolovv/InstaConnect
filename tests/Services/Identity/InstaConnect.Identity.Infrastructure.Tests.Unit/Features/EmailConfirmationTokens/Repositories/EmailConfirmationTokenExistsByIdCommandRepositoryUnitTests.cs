@@ -8,7 +8,7 @@ public class EmailConfirmationTokenExistsByIdCommandRepositoryUnitTests : BaseEm
 
 	public EmailConfirmationTokenExistsByIdCommandRepositoryUnitTests()
 	{
-		_repository = new(Collection, IncludeBuilderFactory);
+		_repository = new(Collection, CacheHandler, IncludeBuilderFactory);
 
 		Collection.SetupAggregateFluent(EmailConfirmationTokenId, Fluent);
 		Fluent.SetupMatch(EmailConfirmationTokenId);

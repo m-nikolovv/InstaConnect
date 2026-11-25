@@ -10,14 +10,17 @@ public abstract class BaseFollowInfrastructureQueryUnitTest : BaseFollowQueryTes
 
 	protected IFollowCollection Collection { get; }
 
+	protected IFollowCacheHandler CacheHandler { get; }
+
 	protected IFollowResponseFluent ResponseFluent { get; }
 
 	protected IFollowIncludeBuilderFactory IncludeBuilderFactory { get; }
 
 	protected BaseFollowInfrastructureQueryUnitTest()
 	{
-		Collection = FollowInfrastructureMockFactory.CreateCollection();
 		Fluent = FollowInfrastructureMockFactory.CreateFluent();
+		Collection = FollowInfrastructureMockFactory.CreateCollection();
+		CacheHandler = FollowInfrastructureMockFactory.CreateCacheHandler();
 		ResponseFluent = FollowInfrastructureMockFactory.CreateResponseFluent();
 		IncludeBuilderFactory = FollowMockFactory.CreateIncludeBuilderFactory();
 	}

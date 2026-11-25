@@ -1,4 +1,6 @@
+using InstaConnect.Identity.Domain.Features.UserClaims.Models.Responses;
 using InstaConnect.Identity.Domain.Features.UserClaims.Models.ValueObjects;
+using InstaConnect.Identity.Infrastructure.Features.UserClaims.Abstractions;
 using InstaConnect.Identity.Presentation.Features.UserClaims.Controllers.v1;
 
 namespace InstaConnect.Identity.Presentation.Tests.Features.UserClaims.Utilities;
@@ -45,6 +47,16 @@ public static class UserClaimSetups
 			return await serviceScope.GetByIdAsync(
 				response.GetValue(),
 				cancellationToken);
+		}
+	}
+
+	extension(IUserClaimCacheHandler cacheHandler)
+	{
+		public async Task<UserClaimResponse?> GetByIdAsync(
+			DeleteUserClaimApiRequest request,
+			CancellationToken cancellationToken)
+		{
+			return await cacheHandler.GetByIdAsync(request.Id, request.Claim, request.Id, cancellationToken);
 		}
 	}
 }

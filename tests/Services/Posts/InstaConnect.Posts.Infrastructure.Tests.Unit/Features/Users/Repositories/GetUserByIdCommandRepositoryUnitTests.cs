@@ -10,7 +10,7 @@ public class GetUserByIdCommandRepositoryUnitTests : BaseUserInfrastructureComma
 	{
 		_include = IncludeBuilderFactory.Create().WithPosts().WithPostLikes().Build();
 
-		_repository = new(Collection, IncludeBuilderFactory);
+		_repository = new(Collection, CacheHandler, IncludeBuilderFactory);
 
 		Collection.SetupAggregateFluent(UserId, Fluent);
 		Fluent.SetupInclude(UserId, _include);

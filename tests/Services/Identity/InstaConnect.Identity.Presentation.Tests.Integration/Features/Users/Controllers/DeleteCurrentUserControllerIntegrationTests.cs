@@ -102,6 +102,33 @@ public class DeleteCurrentUserControllerIntegrationTests : BaseUserPresentationC
 	}
 
 	[Fact]
+	public async Task DeleteCurrentAsync_ShouldDeleteCachedUser_WhenRequestIsValid()
+	{
+		// Act
+		await Controller.DeleteCurrentAsync(_request, CancellationToken);
+		var cachedUser = await CacheHandler.GetByIdAsync(_request, CancellationToken);
+
+		// Assert
+		cachedUser.ShouldBeNull();
+	}
+
+	[Theory]
+	[UserIdDifferentCaseData]
+	public async Task DeleteCurrentAsync_ShouldDeleteCachedUser_WhenRequestAndIdAreValid(
+		IStringTransformer transformer)
+	{
+		// Arrange
+		var request = _requestBuilder.WithId(transformer).Build();
+
+		// Act
+		await Controller.DeleteCurrentAsync(request, CancellationToken);
+		var cachedUser = await CacheHandler.GetByIdAsync(request, CancellationToken);
+
+		// Assert
+		cachedUser.ShouldBeNull();
+	}
+
+	[Fact]
 	public async Task DeleteCurrentAsync_ShouldDeleteUserUserClaims_WhenRequestIsValid()
 	{
 		// Act

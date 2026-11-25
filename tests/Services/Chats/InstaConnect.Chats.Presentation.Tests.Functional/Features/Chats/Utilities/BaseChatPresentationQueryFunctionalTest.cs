@@ -1,3 +1,4 @@
+using InstaConnect.Chats.Infrastructure.Features.Chats.Abstractions;
 using InstaConnect.Chats.Presentation.Tests.Features.Chats.Abstractions;
 using InstaConnect.Chats.Presentation.Tests.Features.Chats.Extensions;
 
@@ -7,8 +8,11 @@ public abstract class BaseChatPresentationQueryFunctionalTest : BaseChatWebQuery
 {
 	protected IChatApiClient ApiClient { get; }
 
+	protected IChatCacheHandler CacheHandler { get; }
+
 	protected BaseChatPresentationQueryFunctionalTest(ChatsWebApplicationFactory webApplicationFactory) : base(webApplicationFactory)
 	{
 		ApiClient = webApplicationFactory.CreateApiClient();
+		CacheHandler = ServiceScope.GetCacheHandler();
 	}
 }

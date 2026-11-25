@@ -10,7 +10,7 @@ public class GetFollowByIdRangeCommandRepositoryUnitTests : BaseFollowInfrastruc
 	{
 		_include = IncludeBuilderFactory.Create().WithFollower().WithFollowing().Build();
 
-		_repository = new(Collection, IncludeBuilderFactory);
+		_repository = new(Collection, CacheHandler, IncludeBuilderFactory);
 
 		Collection.SetupAggregateFluent(FollowIds, Fluent);
 		Fluent.SetupInclude(FollowIds, _include);

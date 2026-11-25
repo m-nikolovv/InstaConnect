@@ -107,6 +107,49 @@ public class GetChatByIdQueryHandlerIntegrationTests : BaseChatApplicationQueryI
 	}
 
 	[Fact]
+	public async Task SendAsync_ShouldCacheChat_WhenRequestIsValid()
+	{
+		// Act
+		await Sender.SendAsync(_request, CancellationToken);
+		var cachedChat = await CacheHandler.GetByIdAsync(_request, CancellationToken);
+
+		// Assert
+		cachedChat.ShouldSatisfy(_request, Chat);
+	}
+
+	[Theory]
+	[UserIdDifferentCaseData]
+	public async Task SendAsync_ShouldCacheChat_WhenRequestAndParticipantTwoIdAreValid(
+		IStringTransformer transformer)
+	{
+		// Arrange
+		var request = _requestBuilder.WithParticipantTwoId(transformer).Build();
+
+		// Act
+		await Sender.SendAsync(request, CancellationToken);
+		var cachedChat = await CacheHandler.GetByIdAsync(request, CancellationToken);
+
+		// Assert
+		cachedChat.ShouldSatisfy(request, Chat);
+	}
+
+	[Theory]
+	[UserIdDifferentCaseData]
+	public async Task SendAsync_ShouldCacheChat_WhenRequestAndCurrentUserIdAreValid(
+		IStringTransformer transformer)
+	{
+		// Arrange
+		var request = _requestBuilder.WithCurrentUserId(transformer).Build();
+
+		// Act
+		await Sender.SendAsync(request, CancellationToken);
+		var cachedChat = await CacheHandler.GetByIdAsync(request, CancellationToken);
+
+		// Assert
+		cachedChat.ShouldSatisfy(request, Chat);
+	}
+
+	[Fact]
 	public async Task SendAsync_ShouldReturnInvertedResponse_WhenRequestIsValid()
 	{
 		// Act

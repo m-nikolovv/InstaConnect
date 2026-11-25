@@ -5,13 +5,16 @@ namespace InstaConnect.Follows.Infrastructure.Features.Follows.Helpers.Repositor
 internal class FollowCommandRepository : IFollowCommandRepository
 {
 	private readonly IFollowCollection _collection;
+	private readonly IFollowCacheHandler _cacheHandler;
 	private readonly IFollowIncludeBuilderFactory _includeBuilderFactory;
 
 	public FollowCommandRepository(
 		IFollowCollection collection,
+		IFollowCacheHandler cacheHandler,
 		IFollowIncludeBuilderFactory includeBuilderFactory)
 	{
 		_collection = collection;
+		_cacheHandler = cacheHandler;
 		_includeBuilderFactory = includeBuilderFactory;
 	}
 
@@ -80,5 +83,6 @@ internal class FollowCommandRepository : IFollowCommandRepository
 	public async Task DeleteAsync(Follow entity, CancellationToken cancellationToken)
 	{
 		await _collection.DeleteAsync(entity, cancellationToken);
+		await _cacheHandler.DeleteAsync(entity.Id, cancellationToken);
 	}
 }

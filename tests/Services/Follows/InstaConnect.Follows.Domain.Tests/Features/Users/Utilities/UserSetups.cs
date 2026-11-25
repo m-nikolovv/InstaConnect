@@ -1,3 +1,6 @@
+using InstaConnect.Follows.Domain.Features.Users.Models.Responses;
+using InstaConnect.Follows.Infrastructure.Features.Users.Abstractions;
+
 namespace InstaConnect.Follows.Domain.Tests.Features.Users.Utilities;
 
 public static class UserSetups
@@ -15,6 +18,23 @@ public static class UserSetups
 		public IUserCommandService GetUserCommandService()
 		{
 			return serviceScope.ServiceProvider.GetUserCommandService();
+		}
+	}
+
+	extension(IUserCacheHandler cacheHandler)
+	{
+		public async Task<UserResponse?> GetByIdAsync(
+			UpdateUserCommand command,
+			CancellationToken cancellationToken)
+		{
+			return await cacheHandler.GetByIdAsync(command.Id, command.Id, cancellationToken);
+		}
+
+		public async Task<UserResponse?> GetByIdAsync(
+			DeleteUserCommand command,
+			CancellationToken cancellationToken)
+		{
+			return await cacheHandler.GetByIdAsync(command.Id, command.Id, cancellationToken);
 		}
 	}
 }

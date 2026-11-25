@@ -11,12 +11,15 @@ public abstract class BaseEmailConfirmationTokenInfrastructureCommandUnitTest : 
 
 	protected IEmailConfirmationTokenCollection Collection { get; }
 
+	protected IEmailConfirmationTokenCacheHandler CacheHandler { get; }
+
 	protected IEmailConfirmationTokenIncludeBuilderFactory IncludeBuilderFactory { get; }
 
 	protected BaseEmailConfirmationTokenInfrastructureCommandUnitTest() : base(IdentityMockFactory.CreatePasswordHasher(), false)
 	{
 		Fluent = EmailConfirmationTokenInfrastructureMockFactory.CreateFluent();
 		Collection = EmailConfirmationTokenInfrastructureMockFactory.CreateCollection();
+		CacheHandler = EmailConfirmationTokenInfrastructureMockFactory.CreateCacheHandler();
 		IncludeBuilderFactory = EmailConfirmationTokenMockFactory.CreateIncludeBuilderFactory();
 
 		PasswordHasher.ClearCalls();

@@ -44,7 +44,7 @@ public class GetAllPostsForUserQueryRepositoryUnitTests : BasePostInfrastructure
 
 		_include = IncludeBuilderFactory.Create().WithPostLikes().WithPostComments().WithPostImages().Build();
 
-		_repository = new(Collection, IncludeBuilderFactory);
+		_repository = new(Collection, CacheHandler, IncludeBuilderFactory);
 
 		Collection.SetupAggregateFluent(_filterQuery, _sortingQuery, _paginationQuery, _currentUserQuery, Fluent);
 		Fluent.SetupInclude(_filterQuery, _sortingQuery, _paginationQuery, _currentUserQuery, _include);

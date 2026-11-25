@@ -8,7 +8,7 @@ public class DeleteRangePostImagesCommandRepositoryUnitTests : BasePostImageInfr
 
 	public DeleteRangePostImagesCommandRepositoryUnitTests()
 	{
-		_repository = new(Collection);
+		_repository = new(CacheHandler, Collection, ImageCacheHandler);
 	}
 
 	[Fact]
@@ -19,5 +19,25 @@ public class DeleteRangePostImagesCommandRepositoryUnitTests : BasePostImageInfr
 
 		// Assert
 		await Collection.ShouldHaveReceivedOneDeleteRangeAsync(PostImages, CancellationToken);
+	}
+
+	[Fact]
+	public async Task DeleteRangeAsync_ShouldCallTheCacheHandlerDeleteResponseRangeAsync_WhenCommandIsValid()
+	{
+		// Act
+		await _repository.DeleteRangeAsync(PostImages, CancellationToken);
+
+		// Assert
+		await CacheHandler.ShouldHaveReceivedOneDeleteResponseRangeAsync(PostImages, CancellationToken);
+	}
+
+	[Fact]
+	public async Task DeleteRangeAsync_ShouldCallTheImageCacheHandlerDeleteRangeAsync_WhenCommandIsValid()
+	{
+		// Act
+		await _repository.DeleteRangeAsync(PostImages, CancellationToken);
+
+		// Assert
+		await ImageCacheHandler.ShouldHaveReceivedOneDeleteRangeAsync(PostImages, CancellationToken);
 	}
 }

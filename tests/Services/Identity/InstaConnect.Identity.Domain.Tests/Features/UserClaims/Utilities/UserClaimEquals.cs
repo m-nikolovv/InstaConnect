@@ -101,27 +101,6 @@ public static class UserClaimEquals
 		}
 	}
 
-	extension(UserClaimResponse? response)
-	{
-		public bool MatchesFull(UserClaim? userClaim)
-		{
-			return response != null &&
-				   userClaim != null &&
-				   userClaim.Id.Matches(response.Id) &&
-				   response.User.MatchesFull(userClaim.User) &&
-				   userClaim.CreatedAtUtc == response.CreatedAtUtc;
-		}
-
-		public bool MatchesWithoutUser(UserClaim? userClaim)
-		{
-			return response != null &&
-				   userClaim != null &&
-				   userClaim.Id.Matches(response.Id) &&
-				   response.User == null &&
-				   userClaim.CreatedAtUtc == response.CreatedAtUtc;
-		}
-	}
-
 	extension(UserClaimCollectionResponse response)
 	{
 		public bool Matches(

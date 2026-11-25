@@ -1,3 +1,5 @@
+using InstaConnect.Follows.Infrastructure.Tests.Features.Users.Utilities;
+
 namespace InstaConnect.Follows.Infrastructure.Tests.Integration.Features.Users.Repositories;
 
 public class DeleteUserCommandRepositoryIntegrationTests : BaseUserInfrastructureCommandIntegrationTest
@@ -24,6 +26,17 @@ public class DeleteUserCommandRepositoryIntegrationTests : BaseUserInfrastructur
 
 		// Assert
 		user.ShouldBeNull();
+	}
+
+	[Fact]
+	public async Task DeleteAsync_ShouldDeleteCachedUser_WhenCommandIsValid()
+	{
+		// Act
+		await Repository.DeleteAsync(User, CancellationToken);
+		var cachedUser = await CacheHandler.GetByIdAsync(User, CurrentUserId, CancellationToken);
+
+		// Assert
+		cachedUser.ShouldBeNull();
 	}
 
 	[Fact]

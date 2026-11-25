@@ -1,8 +1,8 @@
 using InstaConnect.Common.Domain.Features.ValueObjects.Models;
 using InstaConnect.Follows.Domain.Features.Follows.Abstractions;
 using InstaConnect.Follows.Domain.Features.Users.Abstractions;
+using InstaConnect.Follows.Domain.Features.Users.Models.Responses;
 using InstaConnect.Follows.Infrastructure.Features.Users.Abstractions;
-using InstaConnect.Follows.Infrastructure.Features.Users.Helpers.Repositories;
 
 namespace InstaConnect.Follows.Tests.Features.Users.Utilities;
 
@@ -12,22 +12,10 @@ public static class UserSetups
 	{
 		public IUserQueryRepository GetUserQueryRepository()
 		{
-			return new UserQueryRepository(serviceProvider.GetUserCollection());
-		}
-
-		public IUserQueryRepository GetCachedUserQueryRepository()
-		{
 			return serviceProvider.GetRequiredService<IUserQueryRepository>();
 		}
 
 		public IUserCommandRepository GetUserCommandRepository()
-		{
-			return new UserCommandRepository(
-				serviceProvider.GetUserCollection(),
-				serviceProvider.GetUserIncludeBuilderFactory());
-		}
-
-		public IUserCommandRepository GetCachedUserCommandRepository()
 		{
 			return serviceProvider.GetRequiredService<IUserCommandRepository>();
 		}
@@ -65,19 +53,9 @@ public static class UserSetups
 			return serviceScope.ServiceProvider.GetUserQueryRepository();
 		}
 
-		public IUserQueryRepository GetCachedUserQueryRepository()
-		{
-			return serviceScope.ServiceProvider.GetCachedUserQueryRepository();
-		}
-
 		public IUserCommandRepository GetUserCommandRepository()
 		{
 			return serviceScope.ServiceProvider.GetUserCommandRepository();
-		}
-
-		public IUserCommandRepository GetCachedUserCommandRepository()
-		{
-			return serviceScope.ServiceProvider.GetCachedUserCommandRepository();
 		}
 
 		public IUserIncludeBuilderFactory GetUserIncludeBuilderFactory()
@@ -160,6 +138,17 @@ public static class UserSetups
 
 			await userRepository.DeleteAsync(user, cancellationToken);
 			await cacheHandler.DeleteAsync(user.Id, cancellationToken);
+		}
+	}
+
+	extension(IUserCacheHandler cacheHandler)
+	{
+		public async Task<UserResponse?> GetByIdAsync(
+			string id,
+			string currentUserId,
+			CancellationToken cancellationToken)
+		{
+			return await cacheHandler.GetByIdAsync(new(id), new(currentUserId), cancellationToken);
 		}
 	}
 }

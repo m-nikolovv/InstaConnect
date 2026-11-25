@@ -6,7 +6,7 @@ public class DeleteFollowCommandRepositoryUnitTests : BaseFollowInfrastructureCo
 
 	public DeleteFollowCommandRepositoryUnitTests()
 	{
-		_repository = new(Collection, IncludeBuilderFactory);
+		_repository = new(Collection, CacheHandler, IncludeBuilderFactory);
 	}
 
 	[Fact]
@@ -17,5 +17,15 @@ public class DeleteFollowCommandRepositoryUnitTests : BaseFollowInfrastructureCo
 
 		// Assert
 		await Collection.ShouldHaveReceivedOneDeleteAsync(Follow, CancellationToken);
+	}
+
+	[Fact]
+	public async Task DeleteAsync_ShouldCallTheCacheHandlerDeleteAsync_WhenCommandIsValid()
+	{
+		// Act
+		await _repository.DeleteAsync(Follow, CancellationToken);
+
+		// Assert
+		await CacheHandler.ShouldHaveReceivedOneDeleteAsync(Follow, CancellationToken);
 	}
 }

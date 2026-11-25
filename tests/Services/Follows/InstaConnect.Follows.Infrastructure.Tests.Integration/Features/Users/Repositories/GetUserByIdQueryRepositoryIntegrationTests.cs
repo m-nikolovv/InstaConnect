@@ -1,4 +1,5 @@
 using InstaConnect.Follows.Infrastructure.Tests.Features.Common.Builders;
+using InstaConnect.Follows.Infrastructure.Tests.Features.Users.Utilities;
 
 namespace InstaConnect.Follows.Infrastructure.Tests.Integration.Features.Users.Repositories;
 
@@ -69,5 +70,50 @@ public class GetUserByIdQueryRepositoryIntegrationTests : BaseUserInfrastructure
 
 		// Assert
 		response.ShouldSatisfy(UserId, currentUserQuery, User);
+	}
+
+	[Fact]
+	public async Task GetByIdAsync_ShouldCacheUser_WhenQueryIsValid()
+	{
+		// Act
+		await Repository.GetByIdAsync(UserId, _currentUserQuery, CancellationToken);
+		var cachedUser = await CacheHandler.GetByIdAsync(UserId, _currentUserQuery, CancellationToken);
+
+		// Assert
+		cachedUser.ShouldSatisfy(UserId, _currentUserQuery, User);
+	}
+
+	[Theory]
+	[UserIdDifferentCaseData]
+	public async Task GetByIdAsync_ShouldCacheUser_WhenQueryAndIdAreValid(
+		IStringTransformer transformer)
+	{
+		// Arrange
+		var id = UserIdBuilder.WithId(transformer).Build();
+
+		// Act
+		await Repository.GetByIdAsync(id, _currentUserQuery, CancellationToken);
+		var cachedUser = await CacheHandler.GetByIdAsync(id, _currentUserQuery, CancellationToken);
+
+		// Assert
+		cachedUser.ShouldSatisfy(id, _currentUserQuery, User);
+	}
+
+	[Theory]
+	[UserIdNullData]
+	[UserIdEmptyData]
+	[UserIdDifferentCaseData]
+	public async Task GetByIdAsync_ShouldCacheUser_WhenQueryAndCurrentUserIdAreValid(
+		IStringTransformer transformer)
+	{
+		// Arrange
+		var currentUserQuery = _currentUserQueryBuilder.WithCurrentUserId(transformer).Build();
+
+		// Act
+		await Repository.GetByIdAsync(UserId, currentUserQuery, CancellationToken);
+		var cachedUser = await CacheHandler.GetByIdAsync(UserId, currentUserQuery, CancellationToken);
+
+		// Assert
+		cachedUser.ShouldSatisfy(UserId, currentUserQuery, User);
 	}
 }

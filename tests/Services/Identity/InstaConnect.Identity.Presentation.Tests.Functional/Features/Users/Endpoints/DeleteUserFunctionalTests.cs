@@ -155,6 +155,33 @@ public class DeleteUserFunctionalTests : BaseUserPresentationCommandFunctionalTe
 	}
 
 	[Fact]
+	public async Task DeleteAsync_ShouldDeleteCachedUser_WhenRequestIsValid()
+	{
+		// Act
+		await ApiClient.DeleteAsync(_request, CancellationToken);
+		var cachedUser = await CacheHandler.GetByIdAsync(_request, CancellationToken);
+
+		// Assert
+		cachedUser.ShouldBeNull();
+	}
+
+	[Theory]
+	[UserIdDifferentCaseData]
+	public async Task DeleteAsync_ShouldDeleteCachedUser_WhenRequestAndIdAreValid(
+		IStringTransformer transformer)
+	{
+		// Arrange
+		var request = _requestBuilder.WithId(transformer).Build();
+
+		// Act
+		await ApiClient.DeleteAsync(request, CancellationToken);
+		var cachedUser = await CacheHandler.GetByIdAsync(request, CancellationToken);
+
+		// Assert
+		cachedUser.ShouldBeNull();
+	}
+
+	[Fact]
 	public async Task DeleteAsync_ShouldDeleteUserUserClaims_WhenRequestIsValid()
 	{
 		// Act

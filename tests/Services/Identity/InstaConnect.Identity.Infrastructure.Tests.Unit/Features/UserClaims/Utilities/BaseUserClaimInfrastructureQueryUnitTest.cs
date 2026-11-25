@@ -10,14 +10,17 @@ public abstract class BaseUserClaimInfrastructureQueryUnitTest : BaseUserClaimQu
 
 	protected IUserClaimCollection Collection { get; }
 
+	protected IUserClaimCacheHandler CacheHandler { get; }
+
 	protected IUserClaimResponseFluent ResponseFluent { get; }
 
 	protected IUserClaimIncludeBuilderFactory IncludeBuilderFactory { get; }
 
 	protected BaseUserClaimInfrastructureQueryUnitTest() : base(IdentityMockFactory.CreatePasswordHasher())
 	{
-		Collection = UserClaimInfrastructureMockFactory.CreateCollection();
 		Fluent = UserClaimInfrastructureMockFactory.CreateFluent();
+		Collection = UserClaimInfrastructureMockFactory.CreateCollection();
+		CacheHandler = UserClaimInfrastructureMockFactory.CreateCacheHandler();
 		ResponseFluent = UserClaimInfrastructureMockFactory.CreateResponseFluent();
 		IncludeBuilderFactory = UserClaimMockFactory.CreateIncludeBuilderFactory();
 

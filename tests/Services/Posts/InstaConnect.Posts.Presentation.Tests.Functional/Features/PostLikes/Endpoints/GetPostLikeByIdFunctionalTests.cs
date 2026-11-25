@@ -271,4 +271,64 @@ public class GetPostLikeByIdFunctionalTests : BasePostLikePresentationQueryFunct
 		// Assert
 		response.ShouldSatisfy(request, PostLike);
 	}
+
+	[Fact]
+	public async Task GetByIdAsync_ShouldCachePostLike_WhenRequestIsValid()
+	{
+		// Act
+		await LikeApiClient.GetByIdAsync(_request, CancellationToken);
+		var cachedPostLike = await LikeCacheHandler.GetByIdAsync(_request, CancellationToken);
+
+		// Assert
+		cachedPostLike.ShouldSatisfy(_request, PostLike);
+	}
+
+	[Theory]
+	[PostIdDifferentCaseData]
+	public async Task GetByIdAsync_ShouldCachePostLike_WhenRequestAndIdAreValid(
+		IStringTransformer transformer)
+	{
+		// Arrange
+		var request = _requestBuilder.WithId(transformer).Build();
+
+		// Act
+		await LikeApiClient.GetByIdAsync(request, CancellationToken);
+		var cachedPostLike = await LikeCacheHandler.GetByIdAsync(request, CancellationToken);
+
+		// Assert
+		cachedPostLike.ShouldSatisfy(request, PostLike);
+	}
+
+	[Theory]
+	[UserIdDifferentCaseData]
+	public async Task GetByIdAsync_ShouldCachePostLike_WhenRequestAndUserIdAreValid(
+		IStringTransformer transformer)
+	{
+		// Arrange
+		var request = _requestBuilder.WithUserId(transformer).Build();
+
+		// Act
+		await LikeApiClient.GetByIdAsync(request, CancellationToken);
+		var cachedPostLike = await LikeCacheHandler.GetByIdAsync(request, CancellationToken);
+
+		// Assert
+		cachedPostLike.ShouldSatisfy(request, PostLike);
+	}
+
+	[Theory]
+	[UserIdEmptyData]
+	[UserIdDifferentCaseData]
+	public async Task GetByIdAsync_ShouldCachePostLike_WhenRequestAndCurrentUserIdAreValid(
+		IStringTransformer transformer)
+	{
+		// Arrange
+		var request = _requestBuilder.WithCurrentUserId(transformer).Build();
+
+		// Act
+		await LikeApiClient.GetByIdAsync(request, CancellationToken);
+		var cachedPostLike = await LikeCacheHandler.GetByIdAsync(request, CancellationToken);
+
+		// Assert
+		cachedPostLike.ShouldSatisfy(request, PostLike);
+	}
 }

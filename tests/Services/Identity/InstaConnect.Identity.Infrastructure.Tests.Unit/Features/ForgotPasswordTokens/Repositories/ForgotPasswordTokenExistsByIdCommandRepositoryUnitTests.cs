@@ -8,7 +8,7 @@ public class ForgotPasswordTokenExistsByIdCommandRepositoryUnitTests : BaseForgo
 
 	public ForgotPasswordTokenExistsByIdCommandRepositoryUnitTests()
 	{
-		_repository = new(Collection, IncludeBuilderFactory);
+		_repository = new(Collection, CacheHandler, IncludeBuilderFactory);
 
 		Collection.SetupAggregateFluent(ForgotPasswordTokenId, Fluent);
 		Fluent.SetupMatch(ForgotPasswordTokenId);

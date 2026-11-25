@@ -1,6 +1,5 @@
 using InstaConnect.Identity.Domain.Features.ForgotPasswordTokens.Abstractions;
 using InstaConnect.Identity.Infrastructure.Features.ForgotPasswordTokens.Abstractions;
-using InstaConnect.Identity.Infrastructure.Features.ForgotPasswordTokens.Helpers.Repositories;
 
 namespace InstaConnect.Identity.Tests.Features.ForgotPasswordTokens.Utilities;
 
@@ -9,13 +8,6 @@ public static class ForgotPasswordTokenSetups
 	extension(IServiceProvider serviceProvider)
 	{
 		public IForgotPasswordTokenCommandRepository GetForgotPasswordTokenCommandRepository()
-		{
-			return new ForgotPasswordTokenCommandRepository(
-				serviceProvider.GetForgotPasswordTokenCollection(),
-				serviceProvider.GetForgotPasswordTokenIncludeBuilderFactory());
-		}
-
-		public IForgotPasswordTokenCommandRepository GetCachedForgotPasswordTokenCommandRepository()
 		{
 			return serviceProvider.GetRequiredService<IForgotPasswordTokenCommandRepository>();
 		}
@@ -41,11 +33,6 @@ public static class ForgotPasswordTokenSetups
 		public IForgotPasswordTokenCommandRepository GetForgotPasswordTokenCommandRepository()
 		{
 			return serviceScope.ServiceProvider.GetForgotPasswordTokenCommandRepository();
-		}
-
-		public IForgotPasswordTokenCommandRepository GetCachedForgotPasswordTokenCommandRepository()
-		{
-			return serviceScope.ServiceProvider.GetCachedForgotPasswordTokenCommandRepository();
 		}
 
 		public IForgotPasswordTokenIncludeBuilderFactory GetForgotPasswordTokenIncludeBuilderFactory()

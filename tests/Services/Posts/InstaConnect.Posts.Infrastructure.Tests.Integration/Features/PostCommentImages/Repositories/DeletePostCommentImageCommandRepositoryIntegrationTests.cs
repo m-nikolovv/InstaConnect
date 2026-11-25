@@ -1,3 +1,5 @@
+using InstaConnect.Posts.Infrastructure.Tests.Features.PostComments.Utilities;
+
 namespace InstaConnect.Posts.Infrastructure.Tests.Integration.Features.PostCommentImages.Repositories;
 
 public class DeletePostCommentImageCommandRepositoryIntegrationTests : BasePostCommentImageInfrastructureCommandIntegrationTest
@@ -21,5 +23,16 @@ public class DeletePostCommentImageCommandRepositoryIntegrationTests : BasePostC
 
 		// Assert
 		postCommentImage.ShouldBeNull();
+	}
+
+	[Fact]
+	public async Task DeleteAsync_ShouldDeleteCachedPostComment_WhenCommandIsValid()
+	{
+		// Act
+		await Repository.DeleteAsync(PostCommentImage, CancellationToken);
+		var cachedPostComment = await CommentCacheHandler.GetByIdAsync(PostComment, CurrentUserId, CancellationToken);
+
+		// Assert
+		cachedPostComment.ShouldBeNull();
 	}
 }

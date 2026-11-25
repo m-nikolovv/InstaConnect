@@ -18,4 +18,9 @@ public static class PostLikeInfrastructureMockFactory
 	{
 		return Mocker.Mock<IPostLikeResponseFluent>();
 	}
+
+	public static IPostLikeCacheHandler CreateCacheHandler()
+	{
+		return Mocker.Mock<IPostLikeCacheHandler>();
+	}
 }

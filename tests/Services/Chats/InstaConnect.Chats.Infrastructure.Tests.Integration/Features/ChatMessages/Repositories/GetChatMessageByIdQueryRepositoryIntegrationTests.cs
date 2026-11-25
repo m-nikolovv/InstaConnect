@@ -1,3 +1,4 @@
+using InstaConnect.Chats.Infrastructure.Tests.Features.ChatMessages.Utilities;
 using InstaConnect.Chats.Tests.Features.ChatMessages.Builders;
 using InstaConnect.Chats.Tests.Features.ChatMessages.DataAttributes.Id;
 
@@ -104,6 +105,81 @@ public class GetChatMessageByIdQueryRepositoryIntegrationTests : BaseChatMessage
 
 		// Assert
 		response.ShouldSatisfy(ChatMessageId, currentUserQuery, ChatMessage);
+	}
+
+	[Fact]
+	public async Task GetByIdAsync_ShouldCacheChatMessage_WhenQueryIsValid()
+	{
+		// Act
+		await Repository.GetByIdAsync(ChatMessageId, _currentUserQuery, CancellationToken);
+		var cachedChatMessage = await MessageCacheHandler.GetByIdAsync(ChatMessageId, _currentUserQuery, CancellationToken);
+
+		// Assert
+		cachedChatMessage.ShouldSatisfy(ChatMessageId, _currentUserQuery, ChatMessage);
+	}
+
+	[Theory]
+	[UserIdDifferentCaseData]
+	public async Task GetByIdAsync_ShouldCacheChatMessage_WhenQueryAndParticipantOneIdAreValid(
+		IStringTransformer transformer)
+	{
+		// Arrange
+		var id = ChatMessageIdBuilder.WithParticipantOneId(transformer).Build();
+
+		// Act
+		await Repository.GetByIdAsync(id, _currentUserQuery, CancellationToken);
+		var cachedChatMessage = await MessageCacheHandler.GetByIdAsync(id, _currentUserQuery, CancellationToken);
+
+		// Assert
+		cachedChatMessage.ShouldSatisfy(id, _currentUserQuery, ChatMessage);
+	}
+
+	[Theory]
+	[UserIdDifferentCaseData]
+	public async Task GetByIdAsync_ShouldCacheChatMessage_WhenQueryAndParticipantTwoIdAreValid(
+		IStringTransformer transformer)
+	{
+		// Arrange
+		var id = ChatMessageIdBuilder.WithParticipantTwoId(transformer).Build();
+
+		// Act
+		await Repository.GetByIdAsync(id, _currentUserQuery, CancellationToken);
+		var cachedChatMessage = await MessageCacheHandler.GetByIdAsync(id, _currentUserQuery, CancellationToken);
+
+		// Assert
+		cachedChatMessage.ShouldSatisfy(id, _currentUserQuery, ChatMessage);
+	}
+
+	[Theory]
+	[ChatMessageIdDifferentCaseData]
+	public async Task GetByIdAsync_ShouldCacheChatMessage_WhenQueryAndMessageIdAreValid(
+		IStringTransformer transformer)
+	{
+		// Arrange
+		var id = ChatMessageIdBuilder.WithMessageId(transformer).Build();
+
+		// Act
+		await Repository.GetByIdAsync(id, _currentUserQuery, CancellationToken);
+		var cachedChatMessage = await MessageCacheHandler.GetByIdAsync(id, _currentUserQuery, CancellationToken);
+
+		// Assert
+		cachedChatMessage.ShouldSatisfy(id, _currentUserQuery, ChatMessage);
+	}
+
+	[Theory]
+	[UserIdDifferentCaseData]
+	public async Task GetByIdAsync_ShouldCacheChatMessage_WhenQueryAndCurrentUserIdAreValid(
+		IStringTransformer transformer)
+	{
+		// Arrange
+		var currentUserQuery = _currentUserQueryBuilder.WithCurrentUserId(transformer).Build();
+
+		// Act
+		await Repository.GetByIdAsync(ChatMessageId, currentUserQuery, CancellationToken);
+		var cachedChatMessage = await MessageCacheHandler.GetByIdAsync(ChatMessageId, currentUserQuery, CancellationToken);
+
+		// Assert
+		cachedChatMessage.ShouldSatisfy(ChatMessageId, currentUserQuery, ChatMessage);
 	}
 
 	[Fact]

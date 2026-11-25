@@ -10,7 +10,7 @@ public class GetChatByIdCommandRepositoryUnitTests : BaseChatInfrastructureComma
 	{
 		_include = IncludeBuilderFactory.Create().WithParticipantOne().WithParticipantTwo().Build();
 
-		_repository = new(Collection, IncludeBuilderFactory);
+		_repository = new(Collection, CacheHandler, IncludeBuilderFactory);
 
 		Collection.SetupAggregateFluent(ChatId, Fluent);
 		Fluent.SetupInclude(ChatId, _include);

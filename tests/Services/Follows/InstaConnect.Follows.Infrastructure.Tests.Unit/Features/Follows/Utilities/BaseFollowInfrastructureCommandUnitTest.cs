@@ -10,12 +10,15 @@ public abstract class BaseFollowInfrastructureCommandUnitTest : BaseFollowComman
 
 	protected IFollowCollection Collection { get; }
 
+	protected IFollowCacheHandler CacheHandler { get; }
+
 	protected IFollowIncludeBuilderFactory IncludeBuilderFactory { get; }
 
 	protected BaseFollowInfrastructureCommandUnitTest()
 	{
 		Fluent = FollowInfrastructureMockFactory.CreateFluent();
 		Collection = FollowInfrastructureMockFactory.CreateCollection();
+		CacheHandler = FollowInfrastructureMockFactory.CreateCacheHandler();
 		IncludeBuilderFactory = FollowMockFactory.CreateIncludeBuilderFactory();
 	}
 }

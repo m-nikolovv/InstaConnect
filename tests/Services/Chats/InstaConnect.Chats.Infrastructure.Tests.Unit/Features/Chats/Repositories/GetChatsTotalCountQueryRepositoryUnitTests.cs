@@ -16,7 +16,7 @@ public class GetChatsTotalCountQueryRepositoryUnitTests : BaseChatInfrastructure
 		_filterQueryBuilder = _filterQueryBuilderFactory.Create(Chat);
 		_filterQuery = _filterQueryBuilder.Build();
 
-		_repository = new(Collection, IncludeBuilderFactory);
+		_repository = new(Collection, CacheHandler, IncludeBuilderFactory);
 
 		Collection.SetupAggregateFluent(_filterQuery, Fluent);
 		Fluent.SetupMatch(_filterQuery);

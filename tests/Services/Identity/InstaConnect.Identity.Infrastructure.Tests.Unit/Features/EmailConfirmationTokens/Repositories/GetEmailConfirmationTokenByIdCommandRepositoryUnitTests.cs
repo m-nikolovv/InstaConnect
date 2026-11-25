@@ -13,7 +13,7 @@ public class GetEmailConfirmationTokenByIdCommandRepositoryUnitTests : BaseEmail
 	{
 		_include = IncludeBuilderFactory.Create().WithUser().Build();
 
-		_repository = new(Collection, IncludeBuilderFactory);
+		_repository = new(Collection, CacheHandler, IncludeBuilderFactory);
 
 		Collection.SetupAggregateFluent(EmailConfirmationTokenId, Fluent);
 		Fluent.SetupInclude(EmailConfirmationTokenId, _include);

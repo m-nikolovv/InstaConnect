@@ -1,3 +1,4 @@
+using InstaConnect.Chats.Infrastructure.Features.ChatMessages.Abstractions;
 using InstaConnect.Chats.Presentation.Tests.Features.ChatMessages.Abstractions;
 using InstaConnect.Chats.Presentation.Tests.Features.ChatMessages.Extensions;
 
@@ -7,8 +8,11 @@ public abstract class BaseChatMessagePresentationQueryFunctionalTest : BaseChatM
 {
 	protected IChatMessageApiClient ApiClient { get; }
 
+	protected IChatMessageCacheHandler MessageCacheHandler { get; }
+
 	protected BaseChatMessagePresentationQueryFunctionalTest(ChatsWebApplicationFactory webApplicationFactory) : base(webApplicationFactory)
 	{
 		ApiClient = webApplicationFactory.CreateMessageApiClient();
+		MessageCacheHandler = ServiceScope.GetMessageCacheHandler();
 	}
 }

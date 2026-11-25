@@ -105,4 +105,21 @@ public static class EmailConfirmationTokenMockAssertions
 			await fluent.ShouldHaveReceivedOneToListAsync(cancellationToken);
 		}
 	}
+
+	extension(IEmailConfirmationTokenCacheHandler cacheHandler)
+	{
+		public async Task ShouldHaveReceivedOneDeleteAsync(
+			EmailConfirmationToken emailConfirmationToken,
+			CancellationToken cancellationToken)
+		{
+			await cacheHandler.ShouldHaveReceivedOne().DeleteAsync(emailConfirmationToken.Id, cancellationToken);
+		}
+
+		public async Task ShouldHaveReceivedOneDeleteRangeAsync(
+			ICollection<EmailConfirmationToken> emailConfirmationTokens,
+			CancellationToken cancellationToken)
+		{
+			await cacheHandler.ShouldHaveReceivedOne().DeleteRangeAsync(emailConfirmationTokens.Select(p => p.Id), cancellationToken);
+		}
+	}
 }

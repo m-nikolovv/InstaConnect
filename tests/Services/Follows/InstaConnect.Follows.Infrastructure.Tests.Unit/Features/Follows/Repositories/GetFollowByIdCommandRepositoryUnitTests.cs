@@ -10,7 +10,7 @@ public class GetFollowByIdCommandRepositoryUnitTests : BaseFollowInfrastructureC
 	{
 		_include = IncludeBuilderFactory.Create().WithFollower().WithFollowing().Build();
 
-		_repository = new(Collection, IncludeBuilderFactory);
+		_repository = new(Collection, CacheHandler, IncludeBuilderFactory);
 
 		Collection.SetupAggregateFluent(FollowId, Fluent);
 		Fluent.SetupInclude(FollowId, _include);

@@ -56,6 +56,13 @@ public static class PostMockAssertions
 			collection.ShouldHaveReceivedOne().AggregateFluent();
 		}
 
+		public void ShouldHaveReceivedZeroAggregateFluent(
+			PostId id,
+			CurrentUserQuery currentUserQuery)
+		{
+			collection.ShouldHaveReceivedZero().AggregateFluent();
+		}
+
 		public async Task ShouldHaveReceivedOneAddAsync(
 			Post post,
 			CancellationToken cancellationToken)
@@ -134,6 +141,13 @@ public static class PostMockAssertions
 			fluent.ShouldHaveReceivedOneMatch(filterQuery);
 		}
 
+		public void ShouldHaveReceivedZeroMatch(
+			PostId filterQuery,
+			CurrentUserQuery currentUserQuery)
+		{
+			fluent.ShouldHaveReceivedZero().Match(filterQuery);
+		}
+
 		public void ShouldHaveReceivedOneInclude(
 			PostId id,
 			PostInclude include)
@@ -195,6 +209,14 @@ public static class PostMockAssertions
 			fluent.ShouldHaveReceivedOne().Include(include);
 		}
 
+		public void ShouldHaveReceivedZeroInclude(
+			PostId id,
+			CurrentUserQuery currentUserQuery,
+			PostInclude include)
+		{
+			fluent.ShouldHaveReceivedZero().Include(include);
+		}
+
 		public void ShouldHaveReceivedOneProjectToFullResponse(
 			PostsFilterQuery filterQuery,
 			PostsSortingQuery sortingQuery,
@@ -214,6 +236,13 @@ public static class PostMockAssertions
 		public void ShouldHaveReceivedOneProjectToFullResponse(CurrentUserQuery currentUserQuery)
 		{
 			fluent.ShouldHaveReceivedOne().ProjectToFullResponse(currentUserQuery);
+		}
+
+		public void ShouldHaveReceivedZeroProjectToFullResponse(
+			PostId id,
+			CurrentUserQuery currentUserQuery)
+		{
+			fluent.ShouldHaveReceivedZero().ProjectToFullResponse(currentUserQuery);
 		}
 
 		public void ShouldHaveReceivedOneProjectToResponseWithoutUser(
@@ -327,6 +356,14 @@ public static class PostMockAssertions
 			await fluent.ShouldHaveReceivedOneFirstOrDefaultAsync(cancellationToken);
 		}
 
+		public async Task ShouldHaveReceivedZeroFirstOrDefaultAsync(
+			PostId id,
+			CurrentUserQuery currentUserQuery,
+			CancellationToken cancellationToken)
+		{
+			await fluent.ShouldHaveReceivedZero().FirstOrDefaultAsync(cancellationToken);
+		}
+
 		public async Task ShouldHaveReceivedOneToListAsync(
 			PostsFilterQuery filterQuery,
 			PostsSortingQuery sortingQuery,
@@ -345,6 +382,40 @@ public static class PostMockAssertions
 			CancellationToken cancellationToken)
 		{
 			await fluent.ShouldHaveReceivedOneToListAsync(cancellationToken);
+		}
+	}
+
+	extension(IPostCacheHandler cacheHandler)
+	{
+		public async Task ShouldHaveReceivedOneGetByIdAsync(
+			PostId id,
+			CurrentUserQuery currentUserQuery,
+			CancellationToken cancellationToken)
+		{
+			await cacheHandler.ShouldHaveReceivedOne().GetByIdAsync(id, currentUserQuery.Id, cancellationToken);
+		}
+
+		public async Task ShouldHaveReceivedOneAddAsync(
+			Post post,
+			CurrentUserQuery currentUserQuery,
+			CancellationToken cancellationToken)
+		{
+			await cacheHandler.ShouldHaveReceivedOne().AddAsync(post.IsPostResponse(currentUserQuery), currentUserQuery.Id, cancellationToken);
+		}
+
+		public async Task ShouldHaveReceivedZeroAddAsync(
+			Post post,
+			CurrentUserQuery currentUserQuery,
+			CancellationToken cancellationToken)
+		{
+			await cacheHandler.ShouldHaveReceivedZero().AddAsync(post.IsPostResponse(currentUserQuery), currentUserQuery.Id, cancellationToken);
+		}
+
+		public async Task ShouldHaveReceivedOneDeleteAsync(
+			Post post,
+			CancellationToken cancellationToken)
+		{
+			await cacheHandler.ShouldHaveReceivedOne().DeleteAsync(post.Id, cancellationToken);
 		}
 	}
 }

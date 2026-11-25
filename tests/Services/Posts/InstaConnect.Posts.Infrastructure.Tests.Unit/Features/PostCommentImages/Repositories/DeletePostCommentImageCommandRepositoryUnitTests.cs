@@ -8,7 +8,7 @@ public class DeletePostCommentImageCommandRepositoryUnitTests : BasePostCommentI
 
 	public DeletePostCommentImageCommandRepositoryUnitTests()
 	{
-		_repository = new(Collection);
+		_repository = new(Collection, CommentCacheHandler, CommentImageCacheHandler);
 	}
 
 	[Fact]
@@ -19,5 +19,25 @@ public class DeletePostCommentImageCommandRepositoryUnitTests : BasePostCommentI
 
 		// Assert
 		await Collection.ShouldHaveReceivedOneDeleteAsync(PostCommentImage, CancellationToken);
+	}
+
+	[Fact]
+	public async Task DeleteAsync_ShouldCallTheCommentCacheHandlerDeleteResponseAsync_WhenCommandIsValid()
+	{
+		// Act
+		await _repository.DeleteAsync(PostCommentImage, CancellationToken);
+
+		// Assert
+		await CommentCacheHandler.ShouldHaveReceivedOneDeleteResponseAsync(PostCommentImage, CancellationToken);
+	}
+
+	[Fact]
+	public async Task DeleteAsync_ShouldCallTheCommentImageCacheHandlerDeleteAsync_WhenCommandIsValid()
+	{
+		// Act
+		await _repository.DeleteAsync(PostCommentImage, CancellationToken);
+
+		// Assert
+		await CommentImageCacheHandler.ShouldHaveReceivedOneDeleteAsync(PostCommentImage, CancellationToken);
 	}
 }

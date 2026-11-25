@@ -12,7 +12,7 @@ public class GetPostByIdRangeCommandRepositoryUnitTests : BasePostInfrastructure
 	{
 		_include = IncludeBuilderFactory.Create().WithUser().WithPostLikes().Build();
 
-		_repository = new(Collection, IncludeBuilderFactory);
+		_repository = new(Collection, CacheHandler, IncludeBuilderFactory);
 
 		Collection.SetupAggregateFluent(PostIds, Fluent);
 		Fluent.SetupInclude(PostIds, _include);

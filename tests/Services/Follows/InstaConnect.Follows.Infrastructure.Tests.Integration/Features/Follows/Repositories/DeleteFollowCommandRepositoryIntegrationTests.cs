@@ -1,3 +1,5 @@
+using InstaConnect.Follows.Infrastructure.Tests.Features.Follows.Utilities;
+
 namespace InstaConnect.Follows.Infrastructure.Tests.Integration.Features.Follows.Repositories;
 
 public class DeleteFollowCommandRepositoryIntegrationTests : BaseFollowInfrastructureCommandIntegrationTest
@@ -21,5 +23,16 @@ public class DeleteFollowCommandRepositoryIntegrationTests : BaseFollowInfrastru
 
 		// Assert
 		follow.ShouldBeNull();
+	}
+
+	[Fact]
+	public async Task DeleteAsync_ShouldDeleteCachedFollow_WhenCommandIsValid()
+	{
+		// Act
+		await Repository.DeleteAsync(Follow, CancellationToken);
+		var cachedFollow = await CacheHandler.GetByIdAsync(Follow, CurrentUserId, CancellationToken);
+
+		// Assert
+		cachedFollow.ShouldBeNull();
 	}
 }

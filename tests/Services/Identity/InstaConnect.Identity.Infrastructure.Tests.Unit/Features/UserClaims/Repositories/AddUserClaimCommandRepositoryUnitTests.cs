@@ -6,7 +6,7 @@ public class AddUserClaimCommandRepositoryUnitTests : BaseUserClaimInfrastructur
 
 	public AddUserClaimCommandRepositoryUnitTests()
 	{
-		_repository = new(Collection, IncludeBuilderFactory);
+		_repository = new(Collection, CacheHandler, IncludeBuilderFactory);
 	}
 
 	[Fact]

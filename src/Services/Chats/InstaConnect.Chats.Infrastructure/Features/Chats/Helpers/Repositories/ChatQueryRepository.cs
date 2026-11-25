@@ -5,13 +5,16 @@ namespace InstaConnect.Chats.Infrastructure.Features.Chats.Helpers.Repositories;
 internal class ChatQueryRepository : IChatQueryRepository
 {
 	private readonly IChatCollection _collection;
+	private readonly IChatCacheHandler _cacheHandler;
 	private readonly IChatIncludeBuilderFactory _includeBuilderFactory;
 
 	public ChatQueryRepository(
 		IChatCollection collection,
+		IChatCacheHandler cacheHandler,
 		IChatIncludeBuilderFactory includeBuilderFactory)
 	{
 		_collection = collection;
+		_cacheHandler = cacheHandler;
 		_includeBuilderFactory = includeBuilderFactory;
 	}
 
@@ -49,14 +52,27 @@ internal class ChatQueryRepository : IChatQueryRepository
 		CurrentUserQuery currentUser,
 		CancellationToken cancellationToken)
 	{
-		var include = _includeBuilderFactory.Create().WithParticipantOne().WithParticipantTwo().WithChatMessages().Build();
+		var cachedResponse = await _cacheHandler.GetByIdAsync(id, currentUser.Id, cancellationToken);
 
-		return await _collection
+		if (cachedResponse != null)
+		{
+			return cachedResponse;
+		}
+
+		var include = _includeBuilderFactory.Create().WithParticipantOne().WithParticipantTwo().WithChatMessages().Build();
+		var response = await _collection
 			.AggregateFluent()
 			.Match(id)
 			.Include(include)
 			.ProjectToFullResponse(currentUser)
 			.FirstOrDefaultAsync(cancellationToken);
+
+		if (response != null)
+		{
+			await _cacheHandler.AddAsync(response, currentUser.Id, cancellationToken);
+		}
+
+		return response;
 	}
 
 	public async Task<bool> ExistsByIdAsync(

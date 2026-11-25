@@ -91,4 +91,14 @@ public static class RefreshTokenMockAssertions
 			await fluent.ShouldHaveReceivedOneToListAsync(cancellationToken);
 		}
 	}
+
+	extension(IRefreshTokenCacheHandler cacheHandler)
+	{
+		public async Task ShouldHaveReceivedOneDeleteAsync(
+			RefreshToken refreshToken,
+			CancellationToken cancellationToken)
+		{
+			await cacheHandler.ShouldHaveReceivedOne().DeleteAsync(refreshToken.Id, cancellationToken);
+		}
+	}
 }

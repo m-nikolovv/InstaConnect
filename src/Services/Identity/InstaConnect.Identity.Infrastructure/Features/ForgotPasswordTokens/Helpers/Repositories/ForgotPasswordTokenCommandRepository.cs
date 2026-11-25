@@ -7,13 +7,16 @@ namespace InstaConnect.Identity.Infrastructure.Features.ForgotPasswordTokens.Hel
 internal class ForgotPasswordTokenCommandRepository : IForgotPasswordTokenCommandRepository
 {
 	private readonly IForgotPasswordTokenCollection _collection;
+	private readonly IForgotPasswordTokenCacheHandler _cacheHandler;
 	private readonly IForgotPasswordTokenIncludeBuilderFactory _includeBuilderFactory;
 
 	public ForgotPasswordTokenCommandRepository(
 		IForgotPasswordTokenCollection collection,
+		IForgotPasswordTokenCacheHandler cacheHandler,
 		IForgotPasswordTokenIncludeBuilderFactory includeBuilderFactory)
 	{
 		_collection = collection;
+		_cacheHandler = cacheHandler;
 		_includeBuilderFactory = includeBuilderFactory;
 	}
 
@@ -71,15 +74,18 @@ internal class ForgotPasswordTokenCommandRepository : IForgotPasswordTokenComman
 	public async Task UpdateAsync(ForgotPasswordToken entity, CancellationToken cancellationToken)
 	{
 		await _collection.UpdateAsync(entity, cancellationToken);
+		await _cacheHandler.DeleteAsync(entity.Id, cancellationToken);
 	}
 
 	public async Task DeleteAsync(ForgotPasswordToken entity, CancellationToken cancellationToken)
 	{
 		await _collection.DeleteAsync(entity, cancellationToken);
+		await _cacheHandler.DeleteAsync(entity.Id, cancellationToken);
 	}
 
 	public async Task DeleteRangeAsync(IEnumerable<ForgotPasswordToken> entities, CancellationToken cancellationToken)
 	{
 		await _collection.DeleteRangeAsync(entities, cancellationToken);
+		await _cacheHandler.DeleteRangeAsync(entities.Select(p => p.Id), cancellationToken);
 	}
 }

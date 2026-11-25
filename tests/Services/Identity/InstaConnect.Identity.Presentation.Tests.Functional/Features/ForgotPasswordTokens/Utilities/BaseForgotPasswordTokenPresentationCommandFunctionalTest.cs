@@ -1,3 +1,4 @@
+using InstaConnect.Identity.Infrastructure.Features.Users.Abstractions;
 using InstaConnect.Identity.Presentation.Tests.Features.ForgotPasswordTokens.Abstractions;
 using InstaConnect.Identity.Presentation.Tests.Features.ForgotPasswordTokens.Extensions;
 using InstaConnect.Identity.Tests.Features.ForgotPasswordTokens.Abstractions;
@@ -7,12 +8,15 @@ namespace InstaConnect.Identity.Presentation.Tests.Functional.Features.ForgotPas
 
 public abstract class BaseForgotPasswordTokenPresentationCommandFunctionalTest : BaseForgotPasswordTokenWebCommandTest
 {
+	protected IUserCacheHandler UserCacheHandler { get; }
+
 	protected IForgotPasswordTokenApiClient ForgotPasswordTokenApiClient { get; }
 
 	protected IForgotPasswordTokenEventClient ForgotPasswordTokenEventClient { get; }
 
 	protected BaseForgotPasswordTokenPresentationCommandFunctionalTest(IdentityWebApplicationFactory webApplicationFactory) : base(webApplicationFactory)
 	{
+		UserCacheHandler = ServiceScope.GetCacheHandler();
 		ForgotPasswordTokenApiClient = webApplicationFactory.CreateForgotPasswordTokenApiClient();
 		ForgotPasswordTokenEventClient = webApplicationFactory.CreateForgotPasswordTokenEventClient();
 	}

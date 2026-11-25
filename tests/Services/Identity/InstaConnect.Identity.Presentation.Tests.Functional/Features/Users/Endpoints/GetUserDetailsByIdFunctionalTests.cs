@@ -203,4 +203,48 @@ public class GetUserDetailsByIdFunctionalTests : BaseUserPresentationQueryFuncti
 		// Assert
 		response.ShouldSatisfy(request, User);
 	}
+
+	[Fact]
+	public async Task GetDetailsByIdAsync_ShouldCacheUser_WhenRequestIsValid()
+	{
+		// Act
+		await ApiClient.GetDetailsByIdAsync(_request, CancellationToken);
+		var cachedUser = await CacheHandler.GetByIdAsync(_request, CancellationToken);
+
+		// Assert
+		cachedUser.ShouldSatisfy(_request, User);
+	}
+
+	[Theory]
+	[UserIdDifferentCaseData]
+	public async Task GetDetailsByIdAsync_ShouldCacheUser_WhenRequestAndIdAreValid(
+		IStringTransformer transformer)
+	{
+		// Arrange
+		var request = _requestBuilder.WithId(transformer).Build();
+
+		// Act
+		await ApiClient.GetDetailsByIdAsync(request, CancellationToken);
+		var cachedUser = await CacheHandler.GetByIdAsync(request, CancellationToken);
+
+		// Assert
+		cachedUser.ShouldSatisfy(request, User);
+	}
+
+	[Theory]
+	[UserIdEmptyData]
+	[UserIdDifferentCaseData]
+	public async Task GetDetailsByIdAsync_ShouldCacheUser_WhenRequestAndCurrentIdAreValid(
+		IStringTransformer transformer)
+	{
+		// Arrange
+		var request = _requestBuilder.WithCurrentId(transformer).Build();
+
+		// Act
+		await ApiClient.GetDetailsByIdAsync(request, CancellationToken);
+		var cachedUser = await CacheHandler.GetByIdAsync(request, CancellationToken);
+
+		// Assert
+		cachedUser.ShouldSatisfy(request, User);
+	}
 }

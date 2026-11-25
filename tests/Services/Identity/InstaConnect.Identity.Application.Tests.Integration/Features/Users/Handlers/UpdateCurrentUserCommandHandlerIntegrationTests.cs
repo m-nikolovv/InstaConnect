@@ -473,6 +473,147 @@ public class UpdateCurrentUserCommandHandlerIntegrationTests : BaseUserApplicati
 	}
 
 	[Fact]
+	public async Task SendAsync_ShouldDeleteCachedUser_WhenRequestIsValid()
+	{
+		// Act
+		await Sender.SendAsync(_request, CancellationToken);
+		var cachedUser = await CacheHandler.GetByIdAsync(_request, CancellationToken);
+
+		// Assert
+		cachedUser.ShouldBeNull();
+	}
+
+	[Theory]
+	[UserIdDifferentCaseData]
+	public async Task SendAsync_ShouldDeleteCachedUser_WhenRequestAndIdAreValid(
+		IStringTransformer transformer)
+	{
+		// Arrange
+		var request = _requestBuilder.WithId(transformer).Build();
+
+		// Act
+		await Sender.SendAsync(request, CancellationToken);
+		var cachedUser = await CacheHandler.GetByIdAsync(request, CancellationToken);
+
+		// Assert
+		cachedUser.ShouldBeNull();
+	}
+
+	[Theory]
+	[UserNameDifferentCaseData]
+	public async Task SendAsync_ShouldDeleteCachedUser_WhenRequestAndNameAreValid(
+		IStringTransformer transformer)
+	{
+		// Arrange
+		var request = _requestBuilder.WithName(transformer).Build();
+
+		// Act
+		await Sender.SendAsync(request, CancellationToken);
+		var cachedUser = await CacheHandler.GetByIdAsync(request, CancellationToken);
+
+		// Assert
+		cachedUser.ShouldBeNull();
+	}
+
+	[Fact]
+	public async Task SendAsync_ShouldDeleteCachedUser_WhenNameHasNotChanged()
+	{
+		// Arrange
+		var request = _requestBuilder.WithName(User.Name).Build();
+
+		// Act
+		await Sender.SendAsync(request, CancellationToken);
+		var cachedUser = await CacheHandler.GetByIdAsync(request, CancellationToken);
+
+		// Assert
+		cachedUser.ShouldBeNull();
+	}
+
+	[Theory]
+	[UserNameDifferentCaseData]
+	public async Task SendAsync_ShouldDeleteCachedUser_WhenNameIsValidAndHasNotChanged(
+		IStringTransformer transformer)
+	{
+		// Arrange
+		var request = _requestBuilder.WithName(User.Name, transformer).Build();
+
+		// Act
+		await Sender.SendAsync(request, CancellationToken);
+		var cachedUser = await CacheHandler.GetByIdAsync(request, CancellationToken);
+
+		// Assert
+		cachedUser.ShouldBeNull();
+	}
+
+	[Theory]
+	[UserEmailDifferentCaseData]
+	public async Task SendAsync_ShouldDeleteCachedUser_WhenRequestAndEmailAreValid(
+		IStringTransformer transformer)
+	{
+		// Arrange
+		var request = _requestBuilder.WithEmail(transformer).Build();
+
+		// Act
+		await Sender.SendAsync(request, CancellationToken);
+		var cachedUser = await CacheHandler.GetByIdAsync(request, CancellationToken);
+
+		// Assert
+		cachedUser.ShouldBeNull();
+	}
+
+	[Fact]
+	public async Task SendAsync_ShouldDeleteCachedUser_WhenEmailHasNotChanged()
+	{
+		// Arrange
+		var request = _requestBuilder.WithEmail(User.Email).Build();
+
+		// Act
+		await Sender.SendAsync(request, CancellationToken);
+		var cachedUser = await CacheHandler.GetByIdAsync(request, CancellationToken);
+
+		// Assert
+		cachedUser.ShouldBeNull();
+	}
+
+	[Theory]
+	[UserEmailDifferentCaseData]
+	public async Task SendAsync_ShouldDeleteCachedUser_WhenEmailIsValidAndHasNotChanged(
+		IStringTransformer transformer)
+	{
+		// Arrange
+		var request = _requestBuilder.WithEmail(User.Email, transformer).Build();
+
+		// Act
+		await Sender.SendAsync(request, CancellationToken);
+		var cachedUser = await CacheHandler.GetByIdAsync(request, CancellationToken);
+
+		// Assert
+		cachedUser.ShouldBeNull();
+	}
+
+	[Theory]
+	[UserProfileImageNullData]
+	[UserProfileImageJpegData]
+	[UserProfileImagePngData]
+	[UserProfileImageWebpData]
+	[UserProfileImageJpegDifferentCaseData]
+	[UserProfileImagePngDifferentCaseData]
+	[UserProfileImageWebpDifferentCaseData]
+	public async Task SendAsync_ShouldDeleteCachedUser_WhenRequestAndProfileImageAreValid(
+		IFormFileTransformer transformer)
+	{
+		// Arrange
+		var request = _requestBuilder.WithProfileImage(transformer).Build();
+
+		// Act
+		await Sender.SendAsync(request, CancellationToken);
+		var cachedUser = await CacheHandler.GetByIdAsync(request, CancellationToken);
+
+		// Assert
+		cachedUser.ShouldBeNull();
+	}
+
+	[Fact]
 	public async Task SendAsync_ShouldPublishUserUpdatedEvent_WhenRequestIsValid()
 	{
 		// Act

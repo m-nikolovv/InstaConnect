@@ -8,7 +8,7 @@ public class GetEmailConfirmationTokenByIdRangeCommandRepositoryUnitTests : Base
 
 	public GetEmailConfirmationTokenByIdRangeCommandRepositoryUnitTests()
 	{
-		_repository = new(Collection, IncludeBuilderFactory);
+		_repository = new(Collection, CacheHandler, IncludeBuilderFactory);
 
 		Collection.SetupAggregateFluent(EmailConfirmationTokenIds, Fluent);
 		Fluent.SetupMatch(EmailConfirmationTokenIds);

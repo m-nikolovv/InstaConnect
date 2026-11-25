@@ -1,3 +1,4 @@
+using InstaConnect.Identity.Infrastructure.Features.Users.Abstractions;
 using InstaConnect.Identity.Tests.Features.ForgotPasswordTokens.Abstractions;
 using InstaConnect.Identity.Tests.Features.ForgotPasswordTokens.Extensions;
 
@@ -7,11 +8,14 @@ public abstract class BaseForgotPasswordTokenApplicationCommandIntegrationTest :
 {
 	protected IApplicationSender Sender { get; }
 
+	protected IUserCacheHandler UserCacheHandler { get; }
+
 	protected IForgotPasswordTokenEventClient ForgotPasswordTokenEventClient { get; }
 
 	protected BaseForgotPasswordTokenApplicationCommandIntegrationTest(IdentityWebApplicationFactory webApplicationFactory) : base(webApplicationFactory)
 	{
 		Sender = ServiceScope.GetSender();
+		UserCacheHandler = ServiceScope.GetCacheHandler();
 		ForgotPasswordTokenEventClient = webApplicationFactory.CreateForgotPasswordTokenEventClient();
 	}
 

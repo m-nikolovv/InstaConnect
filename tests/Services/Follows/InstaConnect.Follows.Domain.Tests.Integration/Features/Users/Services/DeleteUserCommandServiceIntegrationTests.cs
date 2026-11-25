@@ -1,6 +1,7 @@
 using InstaConnect.Follows.Domain.Features.Users.Models.Requests;
 using InstaConnect.Follows.Domain.Tests.Features.Users.Assertions;
 using InstaConnect.Follows.Domain.Tests.Features.Users.Builders;
+using InstaConnect.Follows.Domain.Tests.Features.Users.Utilities;
 using InstaConnect.Follows.Domain.Tests.Integration.Features.Users.Utilities;
 
 namespace InstaConnect.Follows.Domain.Tests.Integration.Features.Users.Services;
@@ -62,6 +63,33 @@ public class DeleteUserCommandServiceIntegrationTests : BaseUserDomainCommandInt
 
 		// Assert
 		user.ShouldBeNull();
+	}
+
+	[Fact]
+	public async Task DeleteAsync_ShouldDeleteCachedUser_WhenCommandIsValid()
+	{
+		// Act
+		await UserService.DeleteAsync(_command, CancellationToken);
+		var cachedUser = await CacheHandler.GetByIdAsync(_command, CancellationToken);
+
+		// Assert
+		cachedUser.ShouldBeNull();
+	}
+
+	[Theory]
+	[UserIdDifferentCaseData]
+	public async Task DeleteAsync_ShouldDeleteCachedUser_WhenCommandAndIdAreValid(
+		IStringTransformer transformer)
+	{
+		// Arrange
+		var command = _commandBuilder.WithId(transformer).Build();
+
+		// Act
+		await UserService.DeleteAsync(command, CancellationToken);
+		var cachedUser = await CacheHandler.GetByIdAsync(command, CancellationToken);
+
+		// Assert
+		cachedUser.ShouldBeNull();
 	}
 
 	[Fact]

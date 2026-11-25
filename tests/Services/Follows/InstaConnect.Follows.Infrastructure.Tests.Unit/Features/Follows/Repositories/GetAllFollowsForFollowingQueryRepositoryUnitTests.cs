@@ -45,7 +45,7 @@ public class GetAllFollowsForFollowingQueryRepositoryUnitTests : BaseFollowInfra
 
 		_include = IncludeBuilderFactory.Create().WithFollower().Build();
 
-		_repository = new(Collection, IncludeBuilderFactory);
+		_repository = new(Collection, CacheHandler, IncludeBuilderFactory);
 
 		Collection.SetupAggregateFluent(_filterQuery, _sortingQuery, _paginationQuery, _currentUserQuery, Fluent);
 		Fluent.SetupInclude(_filterQuery, _sortingQuery, _paginationQuery, _currentUserQuery, _include);

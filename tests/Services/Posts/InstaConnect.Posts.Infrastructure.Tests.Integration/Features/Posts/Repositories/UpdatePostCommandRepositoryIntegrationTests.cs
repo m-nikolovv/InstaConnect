@@ -1,3 +1,5 @@
+using InstaConnect.Posts.Infrastructure.Tests.Features.Posts.Utilities;
+
 namespace InstaConnect.Posts.Infrastructure.Tests.Integration.Features.Posts.Repositories;
 
 public class UpdatePostCommandRepositoryIntegrationTests : BasePostInfrastructureCommandIntegrationTest
@@ -23,5 +25,19 @@ public class UpdatePostCommandRepositoryIntegrationTests : BasePostInfrastructur
 
 		// Assert
 		post.ShouldSatisfy(updatedPost);
+	}
+
+	[Fact]
+	public async Task UpdateAsync_ShouldDeleteCachedPost_WhenCommandIsValid()
+	{
+		// Arrange
+		var updatedPost = PostBuilderFactory.Create(User).WithId(PostId).Build();
+
+		// Act
+		await Repository.UpdateAsync(updatedPost, CancellationToken);
+		var cachedPost = await CacheHandler.GetByIdAsync(updatedPost, CurrentUserId, CancellationToken);
+
+		// Assert
+		cachedPost.ShouldBeNull();
 	}
 }

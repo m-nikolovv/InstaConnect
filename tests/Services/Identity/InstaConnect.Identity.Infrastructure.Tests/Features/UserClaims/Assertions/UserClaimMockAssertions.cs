@@ -1,4 +1,5 @@
 using InstaConnect.Identity.Infrastructure.Features.UserClaims.Abstractions;
+using InstaConnect.Identity.Infrastructure.Tests.Features.UserClaims.Utilities;
 
 namespace InstaConnect.Identity.Infrastructure.Tests.Features.UserClaims.Assertions;
 
@@ -40,6 +41,13 @@ public static class UserClaimMockAssertions
 		public void ShouldHaveReceivedOneAggregateFluent()
 		{
 			collection.ShouldHaveReceivedOne().AggregateFluent();
+		}
+
+		public void ShouldHaveReceivedZeroAggregateFluent(
+			UserClaimId id,
+			CurrentUserQuery currentUserQuery)
+		{
+			collection.ShouldHaveReceivedZero().AggregateFluent();
 		}
 
 		public async Task ShouldHaveReceivedOneAddAsync(
@@ -97,6 +105,13 @@ public static class UserClaimMockAssertions
 			fluent.ShouldHaveReceivedOneMatch(id);
 		}
 
+		public void ShouldHaveReceivedZeroMatch(
+			UserClaimId id,
+			CurrentUserQuery currentUserQuery)
+		{
+			fluent.ShouldHaveReceivedZero().Match(id);
+		}
+
 		public void ShouldHaveReceivedOneInclude(
 			UserClaimId id,
 			UserClaimInclude include)
@@ -117,6 +132,14 @@ public static class UserClaimMockAssertions
 			fluent.ShouldHaveReceivedOne().Include(include);
 		}
 
+		public void ShouldHaveReceivedZeroInclude(
+			UserClaimId id,
+			CurrentUserQuery currentUserQuery,
+			UserClaimInclude include)
+		{
+			fluent.ShouldHaveReceivedZero().Include(include);
+		}
+
 		public void ShouldHaveReceivedOneProjectToFullResponse(
 			UserClaimId id,
 			CurrentUserQuery currentUserQuery)
@@ -127,6 +150,13 @@ public static class UserClaimMockAssertions
 		public void ShouldHaveReceivedOneProjectToFullResponse(CurrentUserQuery currentUserQuery)
 		{
 			fluent.ShouldHaveReceivedOne().ProjectToFullResponse(currentUserQuery);
+		}
+
+		public void ShouldHaveReceivedZeroProjectToFullResponse(
+			UserClaimId id,
+			CurrentUserQuery currentUserQuery)
+		{
+			fluent.ShouldHaveReceivedZero().ProjectToFullResponse(currentUserQuery);
 		}
 
 		public void ShouldHaveReceivedOneProjectToResponseWithoutUser(
@@ -210,6 +240,14 @@ public static class UserClaimMockAssertions
 			await fluent.ShouldHaveReceivedOneFirstOrDefaultAsync(cancellationToken);
 		}
 
+		public async Task ShouldHaveReceivedZeroFirstOrDefaultAsync(
+			UserClaimId id,
+			CurrentUserQuery currentUserQuery,
+			CancellationToken cancellationToken)
+		{
+			await fluent.ShouldHaveReceivedZero().FirstOrDefaultAsync(cancellationToken);
+		}
+
 		public async Task ShouldHaveReceivedOneToListAsync(
 			UserClaimsFilterQuery filterQuery,
 			UserClaimsSortingQuery sortingQuery,
@@ -218,6 +256,40 @@ public static class UserClaimMockAssertions
 			CancellationToken cancellationToken)
 		{
 			await fluent.ShouldHaveReceivedOneToListAsync(cancellationToken);
+		}
+	}
+
+	extension(IUserClaimCacheHandler cacheHandler)
+	{
+		public async Task ShouldHaveReceivedOneGetByIdAsync(
+			UserClaimId id,
+			CurrentUserQuery currentUserQuery,
+			CancellationToken cancellationToken)
+		{
+			await cacheHandler.ShouldHaveReceivedOne().GetByIdAsync(id, currentUserQuery.Id, cancellationToken);
+		}
+
+		public async Task ShouldHaveReceivedOneAddAsync(
+			UserClaim userClaim,
+			CurrentUserQuery currentUserQuery,
+			CancellationToken cancellationToken)
+		{
+			await cacheHandler.ShouldHaveReceivedOne().AddAsync(userClaim.IsUserClaimResponse(currentUserQuery), currentUserQuery.Id, cancellationToken);
+		}
+
+		public async Task ShouldHaveReceivedZeroAddAsync(
+			UserClaim userClaim,
+			CurrentUserQuery currentUserQuery,
+			CancellationToken cancellationToken)
+		{
+			await cacheHandler.ShouldHaveReceivedZero().AddAsync(userClaim.IsUserClaimResponse(currentUserQuery), currentUserQuery.Id, cancellationToken);
+		}
+
+		public async Task ShouldHaveReceivedOneDeleteAsync(
+			UserClaim userClaim,
+			CancellationToken cancellationToken)
+		{
+			await cacheHandler.ShouldHaveReceivedOne().DeleteAsync(userClaim.Id, cancellationToken);
 		}
 	}
 }

@@ -12,7 +12,7 @@ public class GetPostByIdCommandRepositoryUnitTests : BasePostInfrastructureComma
 	{
 		_include = IncludeBuilderFactory.Create().WithUser().WithPostLikes().Build();
 
-		_repository = new(Collection, IncludeBuilderFactory);
+		_repository = new(Collection, CacheHandler, IncludeBuilderFactory);
 
 		Collection.SetupAggregateFluent(PostId, Fluent);
 		Fluent.SetupInclude(PostId, _include);

@@ -1,3 +1,4 @@
+using InstaConnect.Identity.Infrastructure.Features.Users.Abstractions;
 using InstaConnect.Identity.Presentation.Tests.Features.Users.Abstractions;
 using InstaConnect.Identity.Presentation.Tests.Features.Users.Extensions;
 
@@ -7,8 +8,11 @@ public abstract class BaseUserPresentationQueryFunctionalTest : BaseUserWebQuery
 {
 	protected IUserApiClient ApiClient { get; }
 
+	protected IUserCacheHandler CacheHandler { get; }
+
 	protected BaseUserPresentationQueryFunctionalTest(IdentityWebApplicationFactory webApplicationFactory) : base(webApplicationFactory)
 	{
 		ApiClient = webApplicationFactory.CreateApiClient();
+		CacheHandler = ServiceScope.GetCacheHandler();
 	}
 }

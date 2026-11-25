@@ -13,8 +13,7 @@ internal static class ServiceCollectionExtensions
 
 			serviceCollection.AddCollection<ChatMessageImage, ChatMessageImageId>(CollectionName);
 
-			serviceCollection.AddScoped<IChatMessageImageCommandRepository, ChatMessageImageCommandRepository>()
-							 .Decorate<IChatMessageImageCommandRepository, CachedChatMessageImageCommandRepository>();
+			serviceCollection.AddScoped<IChatMessageImageCommandRepository, ChatMessageImageCommandRepository>();
 
 			BsonClassMap.TryRegisterClassMap<ChatMessageImage>(cm =>
 			{

@@ -10,7 +10,7 @@ public class GetPostLikeByIdRangeCommandRepositoryUnitTests : BasePostLikeInfras
 	{
 		_include = IncludeBuilderFactory.Create().WithUser().WithPost().Build();
 
-		_repository = new(Collection, IncludeBuilderFactory);
+		_repository = new(Collection, CacheHandler, LikeCacheHandler, IncludeBuilderFactory);
 
 		Collection.SetupAggregateFluent(PostLikeIds, Fluent);
 		Fluent.SetupInclude(PostLikeIds, _include);

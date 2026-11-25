@@ -1,4 +1,6 @@
+using InstaConnect.Follows.Domain.Features.Follows.Models.Responses;
 using InstaConnect.Follows.Domain.Features.Follows.Models.ValueObjects;
+using InstaConnect.Follows.Infrastructure.Features.Follows.Abstractions;
 using InstaConnect.Follows.Presentation.Features.Follows.Controllers.v1;
 
 namespace InstaConnect.Follows.Presentation.Tests.Features.Follows.Utilities;
@@ -57,6 +59,23 @@ public static class FollowSetups
 			return await serviceScope.GetByIdAsync(
 				response.GetValue(),
 				cancellationToken);
+		}
+	}
+
+	extension(IFollowCacheHandler cacheHandler)
+	{
+		public async Task<FollowResponse?> GetByIdAsync(
+			DeleteFollowApiRequest request,
+			CancellationToken cancellationToken)
+		{
+			return await cacheHandler.GetByIdAsync(request.FollowerId, request.FollowingId, request.FollowerId, cancellationToken);
+		}
+
+		public async Task<FollowResponse?> GetByIdAsync(
+			GetFollowByIdApiRequest request,
+			CancellationToken cancellationToken)
+		{
+			return await cacheHandler.GetByIdAsync(request.FollowerId, request.FollowingId, request.CurrentUserId, cancellationToken);
 		}
 	}
 }

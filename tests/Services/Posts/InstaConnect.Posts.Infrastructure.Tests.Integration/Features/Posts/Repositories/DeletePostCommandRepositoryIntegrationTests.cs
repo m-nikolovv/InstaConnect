@@ -1,3 +1,5 @@
+using InstaConnect.Posts.Infrastructure.Tests.Features.Posts.Utilities;
+
 namespace InstaConnect.Posts.Infrastructure.Tests.Integration.Features.Posts.Repositories;
 
 public class DeletePostCommandRepositoryIntegrationTests : BasePostInfrastructureCommandIntegrationTest
@@ -26,6 +28,17 @@ public class DeletePostCommandRepositoryIntegrationTests : BasePostInfrastructur
 
 		// Assert
 		post.ShouldBeNull();
+	}
+
+	[Fact]
+	public async Task DeleteAsync_ShouldDeleteCachedPost_WhenCommandIsValid()
+	{
+		// Act
+		await Repository.DeleteAsync(Post, CancellationToken);
+		var cachedPost = await CacheHandler.GetByIdAsync(Post, CurrentUserId, CancellationToken);
+
+		// Assert
+		cachedPost.ShouldBeNull();
 	}
 
 	[Fact]
@@ -82,5 +95,4 @@ public class DeletePostCommandRepositoryIntegrationTests : BasePostInfrastructur
 		// Assert
 		postPostCommentsPostCommentLikes.ShouldBeEmpty();
 	}
-
 }

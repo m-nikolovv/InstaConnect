@@ -14,8 +14,7 @@ internal static class ServiceCollectionExtensions
 
 			serviceCollection.AddCollection<PostCommentImage, PostCommentImageId>(CollectionName);
 
-			serviceCollection.AddScoped<IPostCommentImageCommandRepository, PostCommentImageCommandRepository>()
-							 .Decorate<IPostCommentImageCommandRepository, CachedPostCommentImageCommandRepository>();
+			serviceCollection.AddScoped<IPostCommentImageCommandRepository, PostCommentImageCommandRepository>();
 
 			BsonClassMap.TryRegisterClassMap<PostCommentImage>(cm =>
 			{

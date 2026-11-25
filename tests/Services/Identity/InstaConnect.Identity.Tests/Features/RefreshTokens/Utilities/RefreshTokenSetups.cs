@@ -1,6 +1,5 @@
 using InstaConnect.Identity.Domain.Features.RefreshTokens.Abstractions;
 using InstaConnect.Identity.Infrastructure.Features.RefreshTokens.Abstractions;
-using InstaConnect.Identity.Infrastructure.Features.RefreshTokens.Helpers.Repositories;
 
 namespace InstaConnect.Identity.Tests.Features.RefreshTokens.Utilities;
 
@@ -9,13 +8,6 @@ public static class RefreshTokenSetups
 	extension(IServiceProvider serviceProvider)
 	{
 		public IRefreshTokenCommandRepository GetRefreshTokenCommandRepository()
-		{
-			return new RefreshTokenCommandRepository(
-				serviceProvider.GetRefreshTokenCollection(),
-				serviceProvider.GetRefreshTokenIncludeBuilderFactory());
-		}
-
-		public IRefreshTokenCommandRepository GetCachedRefreshTokenCommandRepository()
 		{
 			return serviceProvider.GetRequiredService<IRefreshTokenCommandRepository>();
 		}
@@ -41,11 +33,6 @@ public static class RefreshTokenSetups
 		public IRefreshTokenCommandRepository GetRefreshTokenCommandRepository()
 		{
 			return serviceScope.ServiceProvider.GetRefreshTokenCommandRepository();
-		}
-
-		public IRefreshTokenCommandRepository GetCachedRefreshTokenCommandRepository()
-		{
-			return serviceScope.ServiceProvider.GetCachedRefreshTokenCommandRepository();
 		}
 
 		public IRefreshTokenIncludeBuilderFactory GetRefreshTokenIncludeBuilderFactory()
@@ -113,4 +100,3 @@ public static class RefreshTokenSetups
 		}
 	}
 }
-

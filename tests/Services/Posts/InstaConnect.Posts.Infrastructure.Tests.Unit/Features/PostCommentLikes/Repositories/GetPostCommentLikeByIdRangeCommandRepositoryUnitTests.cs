@@ -10,7 +10,7 @@ public class GetPostCommentLikeByIdRangeCommandRepositoryUnitTests : BasePostCom
 	{
 		_include = IncludeBuilderFactory.Create().WithUser().WithPostComment().Build();
 
-		_repository = new(Collection, IncludeBuilderFactory);
+		_repository = new(Collection, CommentCacheHandler, CommentLikeCacheHandler, IncludeBuilderFactory);
 
 		Collection.SetupAggregateFluent(PostCommentLikeIds, Fluent);
 		Fluent.SetupInclude(PostCommentLikeIds, _include);

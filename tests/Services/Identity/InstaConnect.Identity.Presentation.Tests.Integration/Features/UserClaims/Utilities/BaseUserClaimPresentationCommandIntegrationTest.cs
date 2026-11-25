@@ -1,3 +1,4 @@
+using InstaConnect.Identity.Infrastructure.Features.UserClaims.Abstractions;
 using InstaConnect.Identity.Presentation.Features.UserClaims.Controllers.v1;
 using InstaConnect.Identity.Tests.Features.UserClaims.Abstractions;
 using InstaConnect.Identity.Tests.Features.UserClaims.Extensions;
@@ -8,11 +9,14 @@ public abstract class BaseUserClaimPresentationCommandIntegrationTest : BaseUser
 {
 	protected UserClaimController Controller { get; }
 
+	protected IUserClaimCacheHandler CacheHandler { get; }
+
 	protected IUserClaimEventClient ClaimEventClient { get; }
 
 	protected BaseUserClaimPresentationCommandIntegrationTest(IdentityWebApplicationFactory webApplicationFactory) : base(webApplicationFactory)
 	{
 		Controller = ServiceScope.GetUserClaimController();
+		CacheHandler = ServiceScope.GetClaimCacheHandler();
 		ClaimEventClient = webApplicationFactory.CreateClaimEventClient();
 	}
 

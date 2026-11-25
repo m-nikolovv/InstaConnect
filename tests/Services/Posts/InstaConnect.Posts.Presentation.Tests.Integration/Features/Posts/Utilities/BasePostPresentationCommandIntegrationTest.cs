@@ -1,3 +1,4 @@
+using InstaConnect.Posts.Infrastructure.Features.Posts.Abstractions;
 using InstaConnect.Posts.Presentation.Features.Posts.Controllers.v1;
 using InstaConnect.Posts.Tests.Features.Posts.Abstractions;
 using InstaConnect.Posts.Tests.Features.Posts.Extensions;
@@ -10,10 +11,13 @@ public abstract class BasePostPresentationCommandIntegrationTest : BasePostWebCo
 
 	protected IPostEventClient EventClient { get; }
 
+	protected IPostCacheHandler CacheHandler { get; }
+
 	protected BasePostPresentationCommandIntegrationTest(PostsWebApplicationFactory webApplicationFactory) : base(webApplicationFactory)
 	{
 		Controller = ServiceScope.GetPostController();
 		EventClient = webApplicationFactory.CreateEventClient();
+		CacheHandler = ServiceScope.GetPostCacheHandler();
 	}
 
 	public override async Task InitializeAsync()

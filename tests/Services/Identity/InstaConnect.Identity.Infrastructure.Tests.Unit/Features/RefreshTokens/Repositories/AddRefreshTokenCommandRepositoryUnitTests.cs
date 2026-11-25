@@ -10,7 +10,7 @@ public class AddRefreshTokenCommandRepositoryUnitTests : BaseRefreshTokenInfrast
 
 	public AddRefreshTokenCommandRepositoryUnitTests()
 	{
-		_repository = new(Collection, IncludeBuilderFactory);
+		_repository = new(Collection, CacheHandler, IncludeBuilderFactory);
 	}
 
 	[Fact]

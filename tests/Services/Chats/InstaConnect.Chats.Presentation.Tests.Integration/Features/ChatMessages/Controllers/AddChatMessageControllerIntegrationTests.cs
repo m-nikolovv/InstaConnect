@@ -415,6 +415,71 @@ public class AddChatMessageControllerIntegrationTests : BaseChatMessagePresentat
 	}
 
 	[Fact]
+	public async Task AddAsync_ShouldDeleteCachedChat_WhenRequestIsValid()
+	{
+		// Act
+		await Controller.AddAsync(_request, CancellationToken);
+		var cachedChat = await CacheHandler.GetByIdAsync(_request, CancellationToken);
+
+		// Assert
+		cachedChat.ShouldBeNull();
+	}
+
+	[Theory]
+	[UserIdDifferentCaseData]
+	public async Task AddAsync_ShouldDeleteCachedChat_WhenRequestAndParticipantOneIdAreValid(
+		IStringTransformer transformer)
+	{
+		// Arrange
+		var request = _requestBuilder.WithParticipantOneId(transformer).Build();
+
+		// Act
+		await Controller.AddAsync(request, CancellationToken);
+		var cachedChat = await CacheHandler.GetByIdAsync(request, CancellationToken);
+
+		// Assert
+		cachedChat.ShouldBeNull();
+	}
+
+	[Theory]
+	[UserIdDifferentCaseData]
+	public async Task AddAsync_ShouldDeleteCachedChat_WhenRequestAndParticipantTwoIdAreValid(
+		IStringTransformer transformer)
+	{
+		// Arrange
+		var request = _requestBuilder.WithParticipantTwoId(transformer).Build();
+
+		// Act
+		await Controller.AddAsync(request, CancellationToken);
+		var cachedChat = await CacheHandler.GetByIdAsync(request, CancellationToken);
+
+		// Assert
+		cachedChat.ShouldBeNull();
+	}
+
+	[Theory]
+	[ChatMessageImagesEmptyData]
+	[ChatMessageImagesJpegData]
+	[ChatMessageImagesPngData]
+	[ChatMessageImagesWebpData]
+	[ChatMessageImagesJpegDifferentCaseData]
+	[ChatMessageImagesPngDifferentCaseData]
+	[ChatMessageImagesWebpDifferentCaseData]
+	public async Task AddAsync_ShouldDeleteCachedChat_WhenRequestAndImagesAreValid(
+		IFormFileCollectionTransformer transformer)
+	{
+		// Arrange
+		var request = _requestBuilder.WithImages(transformer).Build();
+
+		// Act
+		await Controller.AddAsync(request, CancellationToken);
+		var cachedChat = await CacheHandler.GetByIdAsync(request, CancellationToken);
+
+		// Assert
+		cachedChat.ShouldBeNull();
+	}
+
+	[Fact]
 	public async Task AddAsync_ShouldAddInvertedChatMessage_WhenRequestIsValid()
 	{
 		// Act

@@ -6,7 +6,7 @@ public class UpdateUserCommandRepositoryUnitTests : BaseUserInfrastructureComman
 
 	public UpdateUserCommandRepositoryUnitTests()
 	{
-		_repository = new(Collection, IncludeBuilderFactory);
+		_repository = new(Collection, CacheHandler, IncludeBuilderFactory);
 	}
 
 	[Fact]
@@ -17,5 +17,15 @@ public class UpdateUserCommandRepositoryUnitTests : BaseUserInfrastructureComman
 
 		// Assert
 		await Collection.ShouldHaveReceivedOneUpdateAsync(User, CancellationToken);
+	}
+
+	[Fact]
+	public async Task UpdateAsync_ShouldCallTheCacheHandlerDeleteAsync_WhenCommandIsValid()
+	{
+		// Act
+		await _repository.UpdateAsync(User, CancellationToken);
+
+		// Assert
+		await CacheHandler.ShouldHaveReceivedOneDeleteAsync(User, CancellationToken);
 	}
 }

@@ -20,11 +20,9 @@ internal static class ServiceCollectionExtensions
 
 			serviceCollection.AddCollection<PostLike, PostLikeId>(CollectionName);
 
-			serviceCollection.AddScoped<IPostLikeCommandRepository, PostLikeCommandRepository>()
-							 .Decorate<IPostLikeCommandRepository, CachedPostLikeCommandRepository>();
+			serviceCollection.AddScoped<IPostLikeCommandRepository, PostLikeCommandRepository>();
 
-			serviceCollection.AddScoped<IPostLikeQueryRepository, PostLikeQueryRepository>()
-							 .Decorate<IPostLikeQueryRepository, CachedPostLikeQueryRepository>();
+			serviceCollection.AddScoped<IPostLikeQueryRepository, PostLikeQueryRepository>();
 
 			BsonClassMap.TryRegisterClassMap<PostLike>(cm =>
 			{

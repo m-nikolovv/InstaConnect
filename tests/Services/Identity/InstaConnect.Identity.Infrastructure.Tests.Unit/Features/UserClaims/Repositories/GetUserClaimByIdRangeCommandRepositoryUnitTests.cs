@@ -6,7 +6,7 @@ public class GetUserClaimByIdRangeCommandRepositoryUnitTests : BaseUserClaimInfr
 
 	public GetUserClaimByIdRangeCommandRepositoryUnitTests()
 	{
-		_repository = new(Collection, IncludeBuilderFactory);
+		_repository = new(Collection, CacheHandler, IncludeBuilderFactory);
 
 		Collection.SetupAggregateFluent(UserClaimIds, Fluent);
 		Fluent.SetupMatch(UserClaimIds);

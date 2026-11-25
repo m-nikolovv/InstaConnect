@@ -11,7 +11,7 @@ public abstract class BaseForgotPasswordTokenInfrastructureCommandIntegrationTes
 	protected BaseForgotPasswordTokenInfrastructureCommandIntegrationTest(IdentityWebApplicationFactory webApplicationFactory)
 		: base(webApplicationFactory)
 	{
-		Repository = ServiceScope.GetCachedForgotPasswordTokenCommandRepository();
+		Repository = ServiceScope.GetForgotPasswordTokenCommandRepository();
 		IncludeBuilderFactory = ServiceScope.GetForgotPasswordTokenIncludeBuilderFactory();
 	}
 }

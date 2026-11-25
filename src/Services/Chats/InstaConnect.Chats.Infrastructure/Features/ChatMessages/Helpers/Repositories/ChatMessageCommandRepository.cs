@@ -4,14 +4,20 @@ namespace InstaConnect.Chats.Infrastructure.Features.ChatMessages.Helpers.Reposi
 
 internal class ChatMessageCommandRepository : IChatMessageCommandRepository
 {
+	private readonly IChatCacheHandler _cacheHandler;
 	private readonly IChatMessageCollection _collection;
+	private readonly IChatMessageCacheHandler _messageCacheHandler;
 	private readonly IChatMessageIncludeBuilderFactory _includeBuilderFactory;
 
 	public ChatMessageCommandRepository(
+		IChatCacheHandler cacheHandler,
 		IChatMessageCollection collection,
+		IChatMessageCacheHandler messageCacheHandler,
 		IChatMessageIncludeBuilderFactory includeBuilderFactory)
 	{
+		_cacheHandler = cacheHandler;
 		_collection = collection;
+		_messageCacheHandler = messageCacheHandler;
 		_includeBuilderFactory = includeBuilderFactory;
 	}
 
@@ -70,20 +76,25 @@ internal class ChatMessageCommandRepository : IChatMessageCommandRepository
 	public async Task AddAsync(ChatMessage entity, CancellationToken cancellationToken)
 	{
 		await _collection.AddAsync(entity, cancellationToken);
+		await _cacheHandler.DeleteResponseAsync(entity.Id.Id, cancellationToken);
 	}
 
 	public async Task AddRangeAsync(IEnumerable<ChatMessage> entities, CancellationToken cancellationToken)
 	{
 		await _collection.AddRangeAsync(entities, cancellationToken);
+		await _cacheHandler.DeleteResponseRangeAsync(entities.Select(p => p.Id.Id), cancellationToken);
 	}
 
 	public async Task UpdateAsync(ChatMessage entity, CancellationToken cancellationToken)
 	{
 		await _collection.UpdateAsync(entity, cancellationToken);
+		await _messageCacheHandler.DeleteAsync(entity.Id, cancellationToken);
 	}
 
 	public async Task DeleteAsync(ChatMessage entity, CancellationToken cancellationToken)
 	{
 		await _collection.DeleteAsync(entity, cancellationToken);
+		await _cacheHandler.DeleteResponseAsync(entity.Id.Id, cancellationToken);
+		await _messageCacheHandler.DeleteAsync(entity.Id, cancellationToken);
 	}
 }

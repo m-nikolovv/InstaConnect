@@ -54,51 +54,12 @@ public static class FollowEquals
 
 	extension(FollowResponse? response)
 	{
-		public bool MatchesFull(
-			CurrentUserQuery currentUserQuery,
-			Follow? follow)
-		{
-			return response != null &&
-				   follow != null &&
-				   follow.Id.Matches(response.Id) &&
-				   response.IsFollowedByCurrentUser == follow.Id.FollowerId.Matches(currentUserQuery.Id) &&
-				   follow.CreatedAtUtc == response.CreatedAtUtc &&
-				   response.Following.MatchesFull(follow.Following) &&
-				   response.Follower.MatchesFull(follow.Follower);
-		}
-
-		public bool MatchesWithoutFollowing(
-			CurrentUserQuery currentUserQuery,
-			Follow? follow)
-		{
-			return response != null &&
-				   follow != null &&
-				   follow.Id.Matches(response.Id) &&
-				   response.IsFollowedByCurrentUser == follow.Id.FollowerId.Matches(currentUserQuery.Id) &&
-				   follow.CreatedAtUtc == response.CreatedAtUtc &&
-				   response.Following == null &&
-				   response.Follower.MatchesFull(follow.Follower);
-		}
-
-		public bool MatchesWithoutFollower(
-			CurrentUserQuery currentUserQuery,
-			Follow? follow)
-		{
-			return response != null &&
-				   follow != null &&
-				   follow.Id.Matches(response.Id) &&
-				   response.IsFollowedByCurrentUser == follow.Id.FollowerId.Matches(currentUserQuery.Id) &&
-				   follow.CreatedAtUtc == response.CreatedAtUtc &&
-				   response.Following.MatchesFull(follow.Following) &&
-				   response.Follower == null;
-		}
-
 		public bool Matches(
 			FollowId id,
 			CurrentUserQuery currentUserQuery,
 			Follow follow)
 		{
-			return response.MatchesFull(currentUserQuery, follow);
+			return response.MatchesFull(currentUserQuery.Id, follow);
 		}
 	}
 
@@ -174,7 +135,7 @@ public static class FollowEquals
 		{
 			return response.MatchesWithoutFollowing(
 					   paginationQuery,
-					   (response, follow) => response.MatchesWithoutFollower(currentUserQuery, follow),
+					   (response, follow) => response.MatchesWithoutFollower(currentUserQuery.Id, follow),
 					   follow => follow.MatchesFilter(filterQuery),
 					   follower,
 					   follows);
@@ -191,7 +152,7 @@ public static class FollowEquals
 		{
 			return response.MatchesWithoutFollowing(
 					   paginationQuery,
-					   (response, follow) => response.MatchesWithoutFollower(currentUserQuery, follow),
+					   (response, follow) => response.MatchesWithoutFollower(currentUserQuery.Id, follow),
 					   follow => follow.MatchesFilter(filterQuery),
 					   follower,
 					   follows,
@@ -208,7 +169,7 @@ public static class FollowEquals
 		{
 			return response.MatchesWithoutFollower(
 					   paginationQuery,
-					   (response, follow) => response.MatchesWithoutFollowing(currentUserQuery, follow),
+					   (response, follow) => response.MatchesWithoutFollowing(currentUserQuery.Id, follow),
 					   follow => follow.MatchesFilter(filterQuery),
 					   following,
 					   follows);
@@ -225,7 +186,7 @@ public static class FollowEquals
 		{
 			return response.MatchesWithoutFollower(
 					   paginationQuery,
-					   (response, follow) => response.MatchesWithoutFollowing(currentUserQuery, follow),
+					   (response, follow) => response.MatchesWithoutFollowing(currentUserQuery.Id, follow),
 					   follow => follow.MatchesFilter(filterQuery),
 					   following,
 					   follows,

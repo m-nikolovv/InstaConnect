@@ -1,6 +1,7 @@
 using InstaConnect.Identity.Presentation.Features.ForgotPasswordTokens.Models.Bodies;
 using InstaConnect.Identity.Presentation.Features.ForgotPasswordTokens.Models.Requests;
 using InstaConnect.Identity.Presentation.Tests.Features.ForgotPasswordTokens.Builders;
+using InstaConnect.Identity.Presentation.Tests.Features.ForgotPasswordTokens.Utilities;
 using InstaConnect.Identity.Presentation.Tests.Integration.Features.ForgotPasswordTokens.Utilities;
 using InstaConnect.Identity.Tests.Features.ForgotPasswordTokens.Builders;
 using InstaConnect.Identity.Tests.Features.ForgotPasswordTokens.DataAttributes.Value;
@@ -203,6 +204,49 @@ public class VerifyForgotPasswordTokenControllerIntegrationTests : BaseForgotPas
 
 		// Assert
 		user.ShouldSatisfy(request, PasswordHasher);
+	}
+
+	[Fact]
+	public async Task VerifyAsync_ShouldDeleteCachedUser_WhenRequestIsValid()
+	{
+		// Act
+		await Controller.VerifyAsync(_request, CancellationToken);
+		var cachedUser = await UserCacheHandler.GetByIdAsync(_request, CancellationToken);
+
+		// Assert
+		cachedUser.ShouldBeNull();
+	}
+
+	[Theory]
+	[UserIdDifferentCaseData]
+	public async Task VerifyAsync_ShouldDeleteCachedUser_WhenRequestAndIdAreValid(
+		IStringTransformer transformer)
+	{
+		// Arrange
+		var request = _requestBuilder.WithId(transformer).Build();
+
+		// Act
+		await Controller.VerifyAsync(request, CancellationToken);
+		var cachedUser = await UserCacheHandler.GetByIdAsync(request, CancellationToken);
+
+		// Assert
+		cachedUser.ShouldBeNull();
+	}
+
+	[Theory]
+	[ForgotPasswordTokenValueDifferentCaseData]
+	public async Task VerifyAsync_ShouldDeleteCachedUser_WhenRequestAndValueAreValid(
+		IStringTransformer transformer)
+	{
+		// Arrange
+		var request = _requestBuilder.WithValue(transformer).Build();
+
+		// Act
+		await Controller.VerifyAsync(request, CancellationToken);
+		var cachedUser = await UserCacheHandler.GetByIdAsync(request, CancellationToken);
+
+		// Assert
+		cachedUser.ShouldBeNull();
 	}
 
 	[Fact]

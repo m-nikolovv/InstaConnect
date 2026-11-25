@@ -20,11 +20,9 @@ internal static class ServiceCollectionExtensions
 
 			serviceCollection.AddCollection<ChatMessage, ChatMessageId>(CollectionName);
 
-			serviceCollection.AddScoped<IChatMessageCommandRepository, ChatMessageCommandRepository>()
-							 .Decorate<IChatMessageCommandRepository, CachedChatMessageCommandRepository>();
+			serviceCollection.AddScoped<IChatMessageCommandRepository, ChatMessageCommandRepository>();
 
-			serviceCollection.AddScoped<IChatMessageQueryRepository, ChatMessageQueryRepository>()
-							 .Decorate<IChatMessageQueryRepository, CachedChatMessageQueryRepository>();
+			serviceCollection.AddScoped<IChatMessageQueryRepository, ChatMessageQueryRepository>();
 
 			BsonClassMap.TryRegisterClassMap<ChatMessage>(cm =>
 			{

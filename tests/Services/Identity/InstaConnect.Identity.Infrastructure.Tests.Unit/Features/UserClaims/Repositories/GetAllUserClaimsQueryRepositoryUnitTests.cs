@@ -42,7 +42,7 @@ public class GetAllUserClaimsQueryRepositoryUnitTests : BaseUserClaimInfrastruct
 		_currentUserQueryBuilder = _currentUserQueryBuilderFactory.Create(User);
 		_currentUserQuery = _currentUserQueryBuilder.Build();
 
-		_repository = new(Collection, IncludeBuilderFactory);
+		_repository = new(Collection, CacheHandler, IncludeBuilderFactory);
 
 		Collection.SetupAggregateFluent(_filterQuery, _sortingQuery, _paginationQuery, _currentUserQuery, Fluent);
 		Fluent.SetupMatch(_filterQuery, _sortingQuery, _paginationQuery, _currentUserQuery);

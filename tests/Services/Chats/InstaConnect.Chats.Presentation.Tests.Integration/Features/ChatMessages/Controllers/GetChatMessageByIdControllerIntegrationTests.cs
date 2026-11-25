@@ -256,6 +256,65 @@ public class GetChatMessageByIdControllerIntegrationTests : BaseChatMessagePrese
 	}
 
 	[Fact]
+	public async Task GetByIdAsync_ShouldCacheChatMessage_WhenRequestIsValid()
+	{
+		// Act
+		await Controller.GetByIdAsync(_request, CancellationToken);
+		var cachedChatMessage = await MessageCacheHandler.GetByIdAsync(_request, CancellationToken);
+
+		// Assert
+		cachedChatMessage.ShouldSatisfy(_request, ChatMessage);
+	}
+
+	[Theory]
+	[UserIdDifferentCaseData]
+	public async Task GetByIdAsync_ShouldCacheChatMessage_WhenRequestAndParticipantTwoIdAreValid(
+		IStringTransformer transformer)
+	{
+		// Arrange
+		var request = _requestBuilder.WithParticipantTwoId(transformer).Build();
+
+		// Act
+		await Controller.GetByIdAsync(request, CancellationToken);
+		var cachedChatMessage = await MessageCacheHandler.GetByIdAsync(request, CancellationToken);
+
+		// Assert
+		cachedChatMessage.ShouldSatisfy(request, ChatMessage);
+	}
+
+	[Theory]
+	[ChatMessageIdDifferentCaseData]
+	public async Task GetByIdAsync_ShouldCacheChatMessage_WhenRequestAndMessageIdAreValid(
+		IStringTransformer transformer)
+	{
+		// Arrange
+		var request = _requestBuilder.WithMessageId(transformer).Build();
+
+		// Act
+		await Controller.GetByIdAsync(request, CancellationToken);
+		var cachedChatMessage = await MessageCacheHandler.GetByIdAsync(request, CancellationToken);
+
+		// Assert
+		cachedChatMessage.ShouldSatisfy(request, ChatMessage);
+	}
+
+	[Theory]
+	[UserIdDifferentCaseData]
+	public async Task GetByIdAsync_ShouldCacheChatMessage_WhenRequestAndCurrentUserIdAreValid(
+		IStringTransformer transformer)
+	{
+		// Arrange
+		var request = _requestBuilder.WithCurrentUserId(transformer).Build();
+
+		// Act
+		await Controller.GetByIdAsync(request, CancellationToken);
+		var cachedChatMessage = await MessageCacheHandler.GetByIdAsync(request, CancellationToken);
+
+		// Assert
+		cachedChatMessage.ShouldSatisfy(request, ChatMessage);
+	}
+
+	[Fact]
 	public async Task GetByIdAsync_ShouldReturnInvertedResponse_WhenRequestIsValid()
 	{
 		// Act

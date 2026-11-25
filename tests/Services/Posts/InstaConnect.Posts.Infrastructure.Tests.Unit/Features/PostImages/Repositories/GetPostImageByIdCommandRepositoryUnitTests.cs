@@ -9,7 +9,7 @@ public class GetPostImageByIdCommandRepositoryUnitTests : BasePostImageInfrastru
 
 	public GetPostImageByIdCommandRepositoryUnitTests()
 	{
-		_repository = new(Collection);
+		_repository = new(CacheHandler, Collection, ImageCacheHandler);
 
 		Collection.SetupAggregateFluent(PostImageId, Fluent);
 		Fluent.SetupMatch(PostImageId);

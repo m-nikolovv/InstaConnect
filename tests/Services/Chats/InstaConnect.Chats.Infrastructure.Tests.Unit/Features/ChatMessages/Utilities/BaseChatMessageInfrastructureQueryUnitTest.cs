@@ -14,15 +14,18 @@ public abstract class BaseChatMessageInfrastructureQueryUnitTest : BaseChatMessa
 
 	protected IChatMessageResponseFluent ResponseFluent { get; }
 
+	protected IChatMessageCacheHandler MessageCacheHandler { get; }
+
 	protected IChatIncludeBuilderFactory IncludeBuilderFactory { get; }
 
 	protected IChatMessageIncludeBuilderFactory MessageIncludeBuilderFactory { get; }
 
 	protected BaseChatMessageInfrastructureQueryUnitTest()
 	{
-		Collection = ChatMessageInfrastructureMockFactory.CreateCollection();
 		Fluent = ChatMessageInfrastructureMockFactory.CreateFluent();
+		Collection = ChatMessageInfrastructureMockFactory.CreateCollection();
 		ResponseFluent = ChatMessageInfrastructureMockFactory.CreateResponseFluent();
+		MessageCacheHandler = ChatMessageInfrastructureMockFactory.CreateCacheHandler();
 		IncludeBuilderFactory = ChatMockFactory.CreateIncludeBuilderFactory();
 		MessageIncludeBuilderFactory = ChatMessageMockFactory.CreateIncludeBuilderFactory();
 	}

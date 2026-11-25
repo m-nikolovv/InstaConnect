@@ -1,3 +1,4 @@
+using InstaConnect.Identity.Infrastructure.Features.Users.Abstractions;
 using InstaConnect.Identity.Presentation.Features.Users.Controllers.v1;
 
 namespace InstaConnect.Identity.Presentation.Tests.Integration.Features.Users.Utilities;
@@ -6,8 +7,11 @@ public abstract class BaseUserPresentationQueryIntegrationTest : BaseUserWebQuer
 {
 	protected UserController Controller { get; }
 
+	protected IUserCacheHandler CacheHandler { get; }
+
 	protected BaseUserPresentationQueryIntegrationTest(IdentityWebApplicationFactory webApplicationFactory) : base(webApplicationFactory)
 	{
 		Controller = ServiceScope.GetUserController();
+		CacheHandler = ServiceScope.GetCacheHandler();
 	}
 }

@@ -22,7 +22,7 @@ public class GetUserByEmailCommandRepositoryUnitTests : BaseUserInfrastructureCo
 
 		_include = IncludeBuilderFactory.Create().WithPosts().WithPostLikes().Build();
 
-		_repository = new(Collection, IncludeBuilderFactory);
+		_repository = new(Collection, CacheHandler, IncludeBuilderFactory);
 
 		Collection.SetupAggregateFluent(_email, Fluent);
 		Fluent.SetupInclude(_email, _include);

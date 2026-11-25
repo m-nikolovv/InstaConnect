@@ -7,6 +7,7 @@ using InstaConnect.Posts.Application.Features.Posts.Queries.GetAll;
 using InstaConnect.Posts.Application.Features.Posts.Queries.GetAllForUser;
 using InstaConnect.Posts.Application.Features.Posts.Queries.GetById;
 using InstaConnect.Posts.Domain.Features.PostImages.Models.Entities;
+using InstaConnect.Posts.Domain.Features.Posts.Models.Responses;
 using InstaConnect.Posts.Events.Features.PostImages;
 using InstaConnect.Posts.Events.Features.Posts;
 using InstaConnect.Posts.Presentation.Tests.Features.PostImages.Utilities;
@@ -535,4 +536,11 @@ public static class PostEquals
 		}
 	}
 
+	extension(PostResponse? response)
+	{
+		public bool Matches(GetPostByIdApiRequest request, Post post)
+		{
+			return response.MatchesFull(request.CurrentUserId, post);
+		}
+	}
 }

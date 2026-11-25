@@ -16,7 +16,7 @@ public class GetPostsForUserTotalCountQueryRepositoryUnitTests : BasePostInfrast
 		_filterQueryBuilder = _filterQueryBuilderFactory.Create(Post);
 		_filterQuery = _filterQueryBuilder.Build();
 
-		_repository = new(Collection, IncludeBuilderFactory);
+		_repository = new(Collection, CacheHandler, IncludeBuilderFactory);
 
 		Collection.SetupAggregateFluent(_filterQuery, Fluent);
 		Fluent.SetupMatch(_filterQuery);

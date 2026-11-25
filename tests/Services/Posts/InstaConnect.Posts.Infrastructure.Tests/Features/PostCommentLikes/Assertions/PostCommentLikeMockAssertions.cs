@@ -1,5 +1,7 @@
 using InstaConnect.Posts.Domain.Features.PostCommentLikes.Models.ValueObjects;
 using InstaConnect.Posts.Infrastructure.Features.PostCommentLikes.Abstractions;
+using InstaConnect.Posts.Infrastructure.Features.PostComments.Abstractions;
+using InstaConnect.Posts.Infrastructure.Tests.Features.PostCommentLikes.Utilities;
 
 namespace InstaConnect.Posts.Infrastructure.Tests.Features.PostCommentLikes.Assertions;
 
@@ -55,6 +57,13 @@ public static class PostCommentLikeMockAssertions
 		public void ShouldHaveReceivedOneAggregateFluent()
 		{
 			collection.ShouldHaveReceivedOne().AggregateFluent();
+		}
+
+		public void ShouldHaveReceivedZeroAggregateFluent(
+			PostCommentLikeId id,
+			CurrentUserQuery currentUserQuery)
+		{
+			collection.ShouldHaveReceivedZero().AggregateFluent();
 		}
 
 		public async Task ShouldHaveReceivedOneAddAsync(
@@ -128,6 +137,13 @@ public static class PostCommentLikeMockAssertions
 			fluent.ShouldHaveReceivedOneMatch(filterQuery);
 		}
 
+		public void ShouldHaveReceivedZeroMatch(
+			PostCommentLikeId filterQuery,
+			CurrentUserQuery currentUserQuery)
+		{
+			fluent.ShouldHaveReceivedZero().Match(filterQuery);
+		}
+
 		public void ShouldHaveReceivedOneInclude(
 			PostCommentLikeId id,
 			PostCommentLikeInclude include)
@@ -189,6 +205,14 @@ public static class PostCommentLikeMockAssertions
 			fluent.ShouldHaveReceivedOne().Include(include);
 		}
 
+		public void ShouldHaveReceivedZeroInclude(
+			PostCommentLikeId id,
+			CurrentUserQuery currentUserQuery,
+			PostCommentLikeInclude include)
+		{
+			fluent.ShouldHaveReceivedZero().Include(include);
+		}
+
 		public void ShouldHaveReceivedOneProjectToFullResponse(
 			PostCommentLikeId id,
 			CurrentUserQuery currentUserQuery)
@@ -199,6 +223,13 @@ public static class PostCommentLikeMockAssertions
 		public void ShouldHaveReceivedOneProjectToFullResponse(CurrentUserQuery currentUserQuery)
 		{
 			fluent.ShouldHaveReceivedOne().ProjectToFullResponse(currentUserQuery);
+		}
+
+		public void ShouldHaveReceivedZeroProjectToFullResponse(
+			PostCommentLikeId id,
+			CurrentUserQuery currentUserQuery)
+		{
+			fluent.ShouldHaveReceivedZero().ProjectToFullResponse(currentUserQuery);
 		}
 
 		public void ShouldHaveReceivedOneProjectToResponseWithoutPostComment(
@@ -326,6 +357,14 @@ public static class PostCommentLikeMockAssertions
 			await fluent.ShouldHaveReceivedOneFirstOrDefaultAsync(cancellationToken);
 		}
 
+		public async Task ShouldHaveReceivedZeroFirstOrDefaultAsync(
+			PostCommentLikeId id,
+			CurrentUserQuery currentUserQuery,
+			CancellationToken cancellationToken)
+		{
+			await fluent.ShouldHaveReceivedZero().FirstOrDefaultAsync(cancellationToken);
+		}
+
 		public async Task ShouldHaveReceivedOneToListAsync(
 			PostCommentLikesFilterQuery filterQuery,
 			PostCommentLikesSortingQuery sortingQuery,
@@ -344,6 +383,57 @@ public static class PostCommentLikeMockAssertions
 			CancellationToken cancellationToken)
 		{
 			await fluent.ShouldHaveReceivedOneToListAsync(cancellationToken);
+		}
+	}
+
+	extension(IPostCommentLikeCacheHandler cacheHandler)
+	{
+		public async Task ShouldHaveReceivedOneGetByIdAsync(
+			PostCommentLikeId id,
+			CurrentUserQuery currentUserQuery,
+			CancellationToken cancellationToken)
+		{
+			await cacheHandler.ShouldHaveReceivedOne().GetByIdAsync(id, currentUserQuery.Id, cancellationToken);
+		}
+
+		public async Task ShouldHaveReceivedOneAddAsync(
+			PostCommentLike postCommentLike,
+			CurrentUserQuery currentUserQuery,
+			CancellationToken cancellationToken)
+		{
+			await cacheHandler.ShouldHaveReceivedOne().AddAsync(postCommentLike.IsPostCommentLikeResponse(currentUserQuery), currentUserQuery.Id, cancellationToken);
+		}
+
+		public async Task ShouldHaveReceivedZeroAddAsync(
+			PostCommentLike postCommentLike,
+			CurrentUserQuery currentUserQuery,
+			CancellationToken cancellationToken)
+		{
+			await cacheHandler.ShouldHaveReceivedZero().AddAsync(postCommentLike.IsPostCommentLikeResponse(currentUserQuery), currentUserQuery.Id, cancellationToken);
+		}
+
+		public async Task ShouldHaveReceivedOneDeleteAsync(
+			PostCommentLike postCommentLike,
+			CancellationToken cancellationToken)
+		{
+			await cacheHandler.ShouldHaveReceivedOne().DeleteAsync(postCommentLike.Id, cancellationToken);
+		}
+	}
+
+	extension(IPostCommentCacheHandler cacheHandler)
+	{
+		public async Task ShouldHaveReceivedOneDeleteResponseAsync(
+			PostCommentLike postCommentLike,
+			CancellationToken cancellationToken)
+		{
+			await cacheHandler.ShouldHaveReceivedOne().DeleteResponseAsync(postCommentLike.Id.CommentId, cancellationToken);
+		}
+
+		public async Task ShouldHaveReceivedOneDeleteResponseRangeAsync(
+			ICollection<PostCommentLike> postCommentLikes,
+			CancellationToken cancellationToken)
+		{
+			await cacheHandler.ShouldHaveReceivedOne().DeleteResponseRangeAsync(postCommentLikes.Select(p => p.Id.CommentId), cancellationToken);
 		}
 	}
 }

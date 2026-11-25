@@ -32,7 +32,7 @@ public class DeletePostCommentCommandRepositoryIntegrationTests : BasePostCommen
 	{
 		// Act
 		await Repository.DeleteAsync(PostComment, CancellationToken);
-		var cachedPostComment = await CommentCacheHandler.GetByIdAsync(PostComment, CancellationToken);
+		var cachedPostComment = await CommentCacheHandler.GetByIdAsync(PostComment, CurrentUserId, CancellationToken);
 
 		// Assert
 		cachedPostComment.ShouldBeNull();
@@ -43,7 +43,7 @@ public class DeletePostCommentCommandRepositoryIntegrationTests : BasePostCommen
 	{
 		// Act
 		await Repository.DeleteAsync(PostComment, CancellationToken);
-		var cachedPost = await CacheHandler.GetByIdAsync(PostComment, CancellationToken);
+		var cachedPost = await CacheHandler.GetByIdAsync(PostComment, CurrentUserId, CancellationToken);
 
 		// Assert
 		cachedPost.ShouldBeNull();

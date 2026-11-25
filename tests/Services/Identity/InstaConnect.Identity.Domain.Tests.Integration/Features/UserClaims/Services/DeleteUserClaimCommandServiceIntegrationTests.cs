@@ -1,6 +1,7 @@
 using InstaConnect.Identity.Domain.Features.UserClaims.Models.Requests;
 using InstaConnect.Identity.Domain.Tests.Features.UserClaims.Assertions;
 using InstaConnect.Identity.Domain.Tests.Features.UserClaims.Builders;
+using InstaConnect.Identity.Domain.Tests.Features.UserClaims.Utilities;
 using InstaConnect.Identity.Domain.Tests.Integration.Features.UserClaims.Utilities;
 using InstaConnect.Identity.Tests.Features.UserClaims.Assertions;
 
@@ -70,6 +71,33 @@ public class DeleteUserClaimCommandServiceIntegrationTests : BaseUserClaimDomain
 
 		// Assert
 		userClaim.ShouldBeNull();
+	}
+
+	[Fact]
+	public async Task DeleteAsync_ShouldDeleteCachedUserClaim_WhenCommandIsValid()
+	{
+		// Act
+		await Service.DeleteAsync(_command, CancellationToken);
+		var cachedUserClaim = await CacheHandler.GetByIdAsync(_command, CancellationToken);
+
+		// Assert
+		cachedUserClaim.ShouldBeNull();
+	}
+
+	[Theory]
+	[UserIdDifferentCaseData]
+	public async Task DeleteAsync_ShouldDeleteCachedUserClaim_WhenCommandAndIdAreValid(
+		IStringTransformer transformer)
+	{
+		// Arrange
+		var command = _commandBuilder.WithId(transformer).Build();
+
+		// Act
+		await Service.DeleteAsync(command, CancellationToken);
+		var cachedUserClaim = await CacheHandler.GetByIdAsync(command, CancellationToken);
+
+		// Assert
+		cachedUserClaim.ShouldBeNull();
 	}
 
 	[Fact]

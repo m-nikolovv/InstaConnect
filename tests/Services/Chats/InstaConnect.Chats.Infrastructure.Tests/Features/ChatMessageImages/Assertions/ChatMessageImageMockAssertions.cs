@@ -1,5 +1,6 @@
 using InstaConnect.Chats.Domain.Features.ChatMessageImages.Models.ValueObjects;
 using InstaConnect.Chats.Infrastructure.Features.ChatMessageImages.Abstractions;
+using InstaConnect.Chats.Infrastructure.Features.ChatMessages.Abstractions;
 
 namespace InstaConnect.Chats.Infrastructure.Tests.Features.ChatMessageImages.Assertions;
 
@@ -75,6 +76,40 @@ public static class ChatMessageImageMockAssertions
 			CancellationToken cancellationToken)
 		{
 			await fluent.ShouldHaveReceivedOneToListAsync(cancellationToken);
+		}
+	}
+
+	extension(IChatMessageImageCacheHandler cacheHandler)
+	{
+		public async Task ShouldHaveReceivedOneDeleteAsync(
+			ChatMessageImage chatMessageImage,
+			CancellationToken cancellationToken)
+		{
+			await cacheHandler.ShouldHaveReceivedOne().DeleteAsync(chatMessageImage.Id, cancellationToken);
+		}
+
+		public async Task ShouldHaveReceivedOneDeleteRangeAsync(
+			ICollection<ChatMessageImage> chatMessageImages,
+			CancellationToken cancellationToken)
+		{
+			await cacheHandler.ShouldHaveReceivedOne().DeleteRangeAsync(chatMessageImages.Select(p => p.Id), cancellationToken);
+		}
+	}
+
+	extension(IChatMessageCacheHandler cacheHandler)
+	{
+		public async Task ShouldHaveReceivedOneDeleteResponseAsync(
+			ChatMessageImage chatMessageImage,
+			CancellationToken cancellationToken)
+		{
+			await cacheHandler.ShouldHaveReceivedOne().DeleteResponseAsync(chatMessageImage.Id.Id, cancellationToken);
+		}
+
+		public async Task ShouldHaveReceivedOneDeleteResponseRangeAsync(
+			ICollection<ChatMessageImage> chatMessageImages,
+			CancellationToken cancellationToken)
+		{
+			await cacheHandler.ShouldHaveReceivedOne().DeleteResponseRangeAsync(chatMessageImages.Select(p => p.Id.Id), cancellationToken);
 		}
 	}
 }

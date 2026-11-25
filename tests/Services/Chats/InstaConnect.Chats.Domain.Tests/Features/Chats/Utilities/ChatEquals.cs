@@ -1,4 +1,3 @@
-using InstaConnect.Chats.Domain.Tests.Features.ChatMessageImages.Utilities;
 using InstaConnect.Chats.Events.Features.Chats.Models;
 using InstaConnect.Common.Domain.Features.Requests.Abstractions;
 using InstaConnect.Identity.Events.Features.Users;
@@ -95,62 +94,14 @@ public static class ChatEquals
 
 	extension(ChatResponse? response)
 	{
-		public bool MatchesFull<TQuery>(TQuery request, Chat? chat)
-			where TQuery : ICurrentUserableQuery
-		{
-			return response != null &&
-				   chat != null &&
-				   chat.Id.Matches(response.Id) &&
-				   chat.ChatMessages.Count == response.MessageCount &&
-				   chat.CreatedAtUtc == response.CreatedAtUtc &&
-				   response.ParticipantOne.MatchesFull(chat.ParticipantOne) &&
-				   response.ParticipantTwo.MatchesFull(chat.ParticipantTwo);
-		}
-
-		public bool MatchesFullInverted<TQuery>(TQuery request, Chat? chat)
-			where TQuery : ICurrentUserableQuery
-		{
-			return response != null &&
-				   chat != null &&
-				   chat.Id.Matches(response.Id.ParticipantTwoId, response.Id.ParticipantOneId) &&
-				   chat.ChatMessages.Count == response.MessageCount &&
-				   chat.CreatedAtUtc == response.CreatedAtUtc &&
-				   response.ParticipantOne.MatchesFull(chat.ParticipantTwo) &&
-				   response.ParticipantTwo.MatchesFull(chat.ParticipantOne);
-		}
-
-		public bool MatchesWithoutParticipantOne<TQuery>(TQuery request, Chat? chat)
-			where TQuery : ICurrentUserableQuery
-		{
-			return response != null &&
-				   chat != null &&
-				   chat.Id.Matches(response.Id) &&
-				   chat.ChatMessages.Count == response.MessageCount &&
-				   chat.CreatedAtUtc == response.CreatedAtUtc &&
-				   response.ParticipantOne == null &&
-				   response.ParticipantTwo.MatchesFull(chat.ParticipantTwo);
-		}
-
-		public bool MatchesWithoutParticipantOneInverted<TQuery>(TQuery request, Chat? chat)
-			where TQuery : ICurrentUserableQuery
-		{
-			return response != null &&
-				   chat != null &&
-				   chat.Id.Matches(response.Id.ParticipantTwoId, response.Id.ParticipantOneId) &&
-				   chat.ChatMessages.Count == response.MessageCount &&
-				   chat.CreatedAtUtc == response.CreatedAtUtc &&
-				   response.ParticipantOne == null &&
-				   response.ParticipantTwo.MatchesFull(chat.ParticipantOne);
-		}
-
 		public bool Matches(GetChatByIdQuery query, Chat chat)
 		{
-			return response.MatchesFull(query, chat);
+			return response.MatchesFull(chat);
 		}
 
 		public bool MatchesInverted(GetChatByIdQuery query, Chat chat)
 		{
-			return response.MatchesFullInverted(query, chat);
+			return response.MatchesFullInverted(chat);
 		}
 	}
 
@@ -239,7 +190,7 @@ public static class ChatEquals
 		{
 			return response.MatchesWithoutParticipantTwo(
 					   query,
-					   (response, chat) => response.MatchesWithoutParticipantOne(query, chat),
+					   (response, chat) => response.MatchesWithoutParticipantOne(chat),
 					   chat => chat.MatchesFilter(query.Filter),
 					   participantOne,
 					   chats);
@@ -253,7 +204,7 @@ public static class ChatEquals
 		{
 			return response.MatchesWithoutParticipantTwo(
 					   query,
-					   (response, chat) => response.MatchesWithoutParticipantOne(query, chat),
+					   (response, chat) => response.MatchesWithoutParticipantOne(chat),
 					   chat => chat.MatchesFilter(query.Filter),
 					   participantOne,
 					   chats,
@@ -267,7 +218,7 @@ public static class ChatEquals
 		{
 			return response.MatchesWithoutParticipantTwoInverted(
 					   query,
-					   (response, chat) => response.MatchesWithoutParticipantOneInverted(query, chat),
+					   (response, chat) => response.MatchesWithoutParticipantOneInverted(chat),
 					   chat => chat.MatchesFilter(query.Filter),
 					   participantTwo,
 					   chats);
@@ -281,7 +232,7 @@ public static class ChatEquals
 		{
 			return response.MatchesWithoutParticipantTwoInverted(
 					   query,
-					   (response, chat) => response.MatchesWithoutParticipantOneInverted(query, chat),
+					   (response, chat) => response.MatchesWithoutParticipantOneInverted(chat),
 					   chat => chat.MatchesFilter(query.Filter),
 					   participantTwo,
 					   chats,

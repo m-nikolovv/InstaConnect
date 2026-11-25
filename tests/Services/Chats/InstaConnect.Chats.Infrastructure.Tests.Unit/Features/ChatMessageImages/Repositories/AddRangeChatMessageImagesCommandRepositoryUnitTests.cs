@@ -8,7 +8,7 @@ public class AddRangeChatMessageImagesCommandRepositoryUnitTests : BaseChatMessa
 
 	public AddRangeChatMessageImagesCommandRepositoryUnitTests()
 	{
-		_repository = new(Collection);
+		_repository = new(Collection, MessageCacheHandler, MessageImageCacheHandler);
 	}
 
 	[Fact]
@@ -19,5 +19,15 @@ public class AddRangeChatMessageImagesCommandRepositoryUnitTests : BaseChatMessa
 
 		// Assert
 		await Collection.ShouldHaveReceivedOneAddRangeAsync(ChatMessageImages, CancellationToken);
+	}
+
+	[Fact]
+	public async Task AddRangeAsync_ShouldCallTheMessageCacheHandlerDeleteResponseRangeAsync_WhenCommandIsValid()
+	{
+		// Act
+		await _repository.AddRangeAsync(ChatMessageImages, CancellationToken);
+
+		// Assert
+		await MessageCacheHandler.ShouldHaveReceivedOneDeleteResponseRangeAsync(ChatMessageImages, CancellationToken);
 	}
 }

@@ -8,7 +8,7 @@ public class AddPostImageCommandRepositoryUnitTests : BasePostImageInfrastructur
 
 	public AddPostImageCommandRepositoryUnitTests()
 	{
-		_repository = new(Collection);
+		_repository = new(CacheHandler, Collection, ImageCacheHandler);
 	}
 
 	[Fact]
@@ -19,5 +19,15 @@ public class AddPostImageCommandRepositoryUnitTests : BasePostImageInfrastructur
 
 		// Assert
 		await Collection.ShouldHaveReceivedOneAddAsync(PostImage, CancellationToken);
+	}
+
+	[Fact]
+	public async Task AddAsync_ShouldCallTheCacheHandlerDeleteResponseAsync_WhenCommandIsValid()
+	{
+		// Act
+		await _repository.AddAsync(PostImage, CancellationToken);
+
+		// Assert
+		await CacheHandler.ShouldHaveReceivedOneDeleteResponseAsync(PostImage, CancellationToken);
 	}
 }
