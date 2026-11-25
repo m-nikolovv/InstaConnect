@@ -40,7 +40,7 @@ public class AddFollowCommandServiceIntegrationTests : BaseFollowDomainCommandIn
 	public async Task AddAsync_ShouldThrowFollowAlreadyExistsException_WhenFollowAlreadyExists()
 	{
 		// Arrange
-		await ServiceScope.AddAsync(Follow, CurrentUserId, CancellationToken);
+		await ServiceScope.AddAsync(Follow, CancellationToken);
 
 		// Assert
 		await Service.ShouldThrowFollowAlreadyExistsExceptionAsync(_command, CancellationToken);
@@ -52,7 +52,7 @@ public class AddFollowCommandServiceIntegrationTests : BaseFollowDomainCommandIn
 		IStringTransformer transformer)
 	{
 		// Arrange
-		await ServiceScope.AddAsync(Follow, CurrentUserId, CancellationToken);
+		await ServiceScope.AddAsync(Follow, CancellationToken);
 		var command = _commandBuilder.WithFollowerId(transformer).Build();
 
 		// Assert
@@ -65,7 +65,7 @@ public class AddFollowCommandServiceIntegrationTests : BaseFollowDomainCommandIn
 		IStringTransformer transformer)
 	{
 		// Arrange
-		await ServiceScope.AddAsync(Follow, CurrentUserId, CancellationToken);
+		await ServiceScope.AddAsync(Follow, CancellationToken);
 		var command = _commandBuilder.WithFollowingId(transformer).Build();
 
 		// Assert

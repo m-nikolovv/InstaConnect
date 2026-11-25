@@ -16,7 +16,7 @@ public class DeletePostLikeControllerIntegrationTests : BasePostLikePresentation
 
 	protected override async Task OnInitializeAsync()
 	{
-		await ServiceScope.AddAsync(PostLike, CurrentUserId, CancellationToken);
+		await ServiceScope.AddAsync(PostLike, CancellationToken);
 	}
 
 	[Theory]

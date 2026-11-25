@@ -10,14 +10,6 @@ public static class PostCommentSetups
 	extension(IPostCommentCacheHandler cacheHandler)
 	{
 		public async Task<PostCommentResponse?> GetByIdAsync(
-			PostComment postComment,
-			UserId currentUserId,
-			CancellationToken cancellationToken)
-		{
-			return await cacheHandler.GetByIdAsync(postComment.Id, currentUserId, cancellationToken);
-		}
-
-		public async Task<PostCommentResponse?> GetByIdAsync(
 			PostCommentId id,
 			CurrentUserQuery currentUserQuery,
 			CancellationToken cancellationToken)

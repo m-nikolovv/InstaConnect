@@ -132,7 +132,7 @@ public class AddUserClaimFunctionalTests : BaseUserClaimPresentationCommandFunct
 	public async Task AddAsync_ShouldHaveBadRequestStatusCode_WhenUserClaimAlreadyExists()
 	{
 		// Arrange
-		await ServiceScope.AddAsync(UserClaim, CurrentUserId, CancellationToken);
+		await ServiceScope.AddAsync(UserClaim, CancellationToken);
 
 		// Act
 		var response = await ClaimApiClient.AddStatusCodeAsync(_request, CancellationToken);
@@ -147,7 +147,7 @@ public class AddUserClaimFunctionalTests : BaseUserClaimPresentationCommandFunct
 		IStringTransformer transformer)
 	{
 		// Arrange
-		await ServiceScope.AddAsync(UserClaim, CurrentUserId, CancellationToken);
+		await ServiceScope.AddAsync(UserClaim, CancellationToken);
 		var request = _requestBuilder.WithId(transformer).Build();
 
 		// Act
@@ -161,7 +161,7 @@ public class AddUserClaimFunctionalTests : BaseUserClaimPresentationCommandFunct
 	public async Task AddAsync_ShouldHaveUserClaimAlreadyExistsProblemDetails_WhenUserClaimAlreadyExists()
 	{
 		// Arrange
-		await ServiceScope.AddAsync(UserClaim, CurrentUserId, CancellationToken);
+		await ServiceScope.AddAsync(UserClaim, CancellationToken);
 
 		// Act
 		var response = await ClaimApiClient.AddProblemDetailsAsync(_request, CancellationToken);
@@ -176,7 +176,7 @@ public class AddUserClaimFunctionalTests : BaseUserClaimPresentationCommandFunct
 		IStringTransformer transformer)
 	{
 		// Arrange
-		await ServiceScope.AddAsync(UserClaim, CurrentUserId, CancellationToken);
+		await ServiceScope.AddAsync(UserClaim, CancellationToken);
 		var request = _requestBuilder.WithId(transformer).Build();
 
 		// Act

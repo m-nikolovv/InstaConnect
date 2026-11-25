@@ -61,7 +61,7 @@ public class AddUserClaimCommandHandlerIntegrationTests : BaseUserClaimApplicati
 	public async Task SendAsync_ShouldThrowUserClaimAlreadyExistsException_WhenUserClaimAlreadyExists()
 	{
 		// Arrange
-		await ServiceScope.AddAsync(UserClaim, CurrentUserId, CancellationToken);
+		await ServiceScope.AddAsync(UserClaim, CancellationToken);
 
 		// Assert
 		await Sender.ShouldThrowUserClaimAlreadyExistsExceptionAsync(_request, CancellationToken);
@@ -73,7 +73,7 @@ public class AddUserClaimCommandHandlerIntegrationTests : BaseUserClaimApplicati
 		IStringTransformer transformer)
 	{
 		// Arrange
-		await ServiceScope.AddAsync(UserClaim, CurrentUserId, CancellationToken);
+		await ServiceScope.AddAsync(UserClaim, CancellationToken);
 		var request = _requestBuilder.WithId(transformer).Build();
 
 		// Assert

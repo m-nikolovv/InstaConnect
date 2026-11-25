@@ -144,7 +144,7 @@ public class AddUserCommandHandlerIntegrationTests : BaseUserApplicationCommandI
 	public async Task SendAsync_ShouldThrowUserAlreadyExistsException_WhenUserAlreadyExists()
 	{
 		// Arrange
-		await ServiceScope.AddAsync(User, CurrentUserId, CancellationToken);
+		await ServiceScope.AddAsync(User, CancellationToken);
 		var request = _requestBuilder.WithId(UserId).Build();
 
 		// Assert
@@ -157,7 +157,7 @@ public class AddUserCommandHandlerIntegrationTests : BaseUserApplicationCommandI
 		IStringTransformer transformer)
 	{
 		// Arrange
-		await ServiceScope.AddAsync(User, CurrentUserId, CancellationToken);
+		await ServiceScope.AddAsync(User, CancellationToken);
 		var request = _requestBuilder.WithId(UserId, transformer).Build();
 
 		// Assert
@@ -168,7 +168,7 @@ public class AddUserCommandHandlerIntegrationTests : BaseUserApplicationCommandI
 	public async Task SendAsync_ShouldThrowUserEmailAlreadyExistsException_WhenUserEmailAlreadyExists()
 	{
 		// Arrange
-		await ServiceScope.AddAsync(User, CurrentUserId, CancellationToken);
+		await ServiceScope.AddAsync(User, CancellationToken);
 		var request = _requestBuilder.WithEmail(User.Email).Build();
 
 		// Assert
@@ -181,7 +181,7 @@ public class AddUserCommandHandlerIntegrationTests : BaseUserApplicationCommandI
 		IStringTransformer transformer)
 	{
 		// Arrange
-		await ServiceScope.AddAsync(User, CurrentUserId, CancellationToken);
+		await ServiceScope.AddAsync(User, CancellationToken);
 		var request = _requestBuilder.WithEmail(User.Email, transformer).Build();
 
 		// Assert
@@ -192,7 +192,7 @@ public class AddUserCommandHandlerIntegrationTests : BaseUserApplicationCommandI
 	public async Task SendAsync_ShouldThrowUserNameAlreadyExistsException_WhenUserNameAlreadyExists()
 	{
 		// Arrange
-		await ServiceScope.AddAsync(User, CurrentUserId, CancellationToken);
+		await ServiceScope.AddAsync(User, CancellationToken);
 		var request = _requestBuilder.WithName(User.Name).Build();
 
 		// Assert
@@ -205,7 +205,7 @@ public class AddUserCommandHandlerIntegrationTests : BaseUserApplicationCommandI
 		IStringTransformer transformer)
 	{
 		// Arrange
-		await ServiceScope.AddAsync(User, CurrentUserId, CancellationToken);
+		await ServiceScope.AddAsync(User, CancellationToken);
 		var request = _requestBuilder.WithName(User.Name, transformer).Build();
 
 		// Assert

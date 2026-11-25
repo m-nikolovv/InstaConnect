@@ -26,13 +26,13 @@ public class UserDeletedEventHandlerIntegrationTests : BaseUserInfrastructureEve
 
 	protected override async Task OnInitializeAsync()
 	{
-		await ServiceScope.AddAsync(User, CurrentUserId, CancellationToken);
-		await ServiceScope.AddRangeAsync(Posts, CurrentUserId, CancellationToken);
-		await ServiceScope.AddRangeAsync(PostLikes, CurrentUserId, CancellationToken);
+		await ServiceScope.AddAsync(User, CancellationToken);
+		await ServiceScope.AddRangeAsync(Posts, CancellationToken);
+		await ServiceScope.AddRangeAsync(PostLikes, CancellationToken);
 		await ServiceScope.AddRangeAsync(PostImages, CancellationToken);
-		await ServiceScope.AddRangeAsync(PostComments, CurrentUserId, CancellationToken);
+		await ServiceScope.AddRangeAsync(PostComments, CancellationToken);
 		await ServiceScope.AddRangeAsync(PostCommentImages, CancellationToken);
-		await ServiceScope.AddRangeAsync(PostCommentLikes, CurrentUserId, CancellationToken);
+		await ServiceScope.AddRangeAsync(PostCommentLikes, CancellationToken);
 	}
 
 	[Theory]

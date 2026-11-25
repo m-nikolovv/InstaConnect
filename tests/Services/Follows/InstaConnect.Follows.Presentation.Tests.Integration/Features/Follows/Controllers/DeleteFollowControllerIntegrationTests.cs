@@ -18,7 +18,7 @@ public class DeleteFollowControllerIntegrationTests : BaseFollowPresentationComm
 
 	protected override async Task OnInitializeAsync()
 	{
-		await ServiceScope.AddAsync(Follow, CurrentUserId, CancellationToken);
+		await ServiceScope.AddAsync(Follow, CancellationToken);
 	}
 
 	[Theory]

@@ -23,7 +23,7 @@ public class GetUserByNameCommandRepositoryIntegrationTests : BaseUserInfrastruc
 
 	protected override async Task OnInitializeAsync()
 	{
-		await ServiceScope.AddAsync(User, CurrentUserId, CancellationToken);
+		await ServiceScope.AddAsync(User, CancellationToken);
 	}
 
 	[Fact]

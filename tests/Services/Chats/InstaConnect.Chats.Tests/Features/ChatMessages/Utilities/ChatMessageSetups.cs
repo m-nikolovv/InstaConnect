@@ -79,26 +79,20 @@ public static class ChatMessageSetups
 
 		public async Task AddAsync(
 			ChatMessage chatMessage,
-			UserId currentUserId,
 			CancellationToken cancellationToken)
 		{
-			var messageCacheHandler = serviceScope.GetMessageCacheHandler();
 			var messageRepository = serviceScope.GetMessageCommandRepository();
 
 			await messageRepository.AddAsync(chatMessage, cancellationToken);
-			await messageCacheHandler.AddAsync(chatMessage.ToFullResponse(), currentUserId, cancellationToken);
 		}
 
 		public async Task AddRangeAsync(
 			ICollection<ChatMessage> chatMessages,
-			UserId currentUserId,
 			CancellationToken cancellationToken)
 		{
-			var messageCacheHandler = serviceScope.GetMessageCacheHandler();
 			var messageRepository = serviceScope.GetMessageCommandRepository();
 
 			await messageRepository.AddRangeAsync(chatMessages, cancellationToken);
-			await messageCacheHandler.AddRangeAsync(chatMessages.ToFullResponse(), currentUserId, cancellationToken);
 		}
 
 		public async Task UpdateAsync(

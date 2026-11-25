@@ -20,12 +20,12 @@ public class DeletePostCommandServiceIntegrationTests : BasePostDomainCommandInt
 
 	protected override async Task OnInitializeAsync()
 	{
-		await ServiceScope.AddAsync(Post, CurrentUserId, CancellationToken);
+		await ServiceScope.AddAsync(Post, CancellationToken);
 		await ServiceScope.AddRangeAsync(PostImages, CancellationToken);
-		await ServiceScope.AddRangeAsync(PostLikes, CurrentUserId, CancellationToken);
-		await ServiceScope.AddRangeAsync(PostComments, CurrentUserId, CancellationToken);
+		await ServiceScope.AddRangeAsync(PostLikes, CancellationToken);
+		await ServiceScope.AddRangeAsync(PostComments, CancellationToken);
 		await ServiceScope.AddRangeAsync(PostCommentImages, CancellationToken);
-		await ServiceScope.AddRangeAsync(PostCommentLikes, CurrentUserId, CancellationToken);
+		await ServiceScope.AddRangeAsync(PostCommentLikes, CancellationToken);
 	}
 
 	[Fact]
@@ -43,7 +43,7 @@ public class DeletePostCommandServiceIntegrationTests : BasePostDomainCommandInt
 	{
 		// Arrange
 		var user = UserBuilderFactory.Create().Build();
-		await ServiceScope.AddAsync(user, CurrentUserId, CancellationToken);
+		await ServiceScope.AddAsync(user, CancellationToken);
 		var command = _commandBuilder.WithUserId(user.Id).Build();
 
 		// Assert

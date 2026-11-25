@@ -53,6 +53,22 @@ public static class PostCommentSetups
 		{
 			return await cacheHandler.GetByIdAsync(query.Id, query.CurrentUser.Id, cancellationToken);
 		}
+
+		public async Task AddAsync(
+			UpdatePostCommentCommand command,
+			PostComment postComment,
+			CancellationToken cancellationToken)
+		{
+			await cacheHandler.AddAsync(postComment, command.UserId, cancellationToken);
+		}
+
+		public async Task AddAsync(
+			DeletePostCommentCommand command,
+			PostComment postComment,
+			CancellationToken cancellationToken)
+		{
+			await cacheHandler.AddAsync(postComment, command.UserId, cancellationToken);
+		}
 	}
 
 	extension(IPostCacheHandler cacheHandler)

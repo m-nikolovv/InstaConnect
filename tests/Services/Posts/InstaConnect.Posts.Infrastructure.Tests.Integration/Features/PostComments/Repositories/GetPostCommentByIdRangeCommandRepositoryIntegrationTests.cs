@@ -12,9 +12,12 @@ public class GetPostCommentByIdRangeCommandRepositoryIntegrationTests : BasePost
 		_include = IncludeBuilderFactory.Create().WithUser().WithPost().WithPostCommentImages().Build();
 	}
 
-	protected override async Task OnInitializeAsync()
+	public override async Task InitializeAsync()
 	{
-		await ServiceScope.AddRangeAsync(PostComments, CurrentUserId, CancellationToken);
+		await ServiceScope.AddAsync(User, CancellationToken);
+		await ServiceScope.AddAsync(Post, CancellationToken);
+		await ServiceScope.AddRangeAsync(PostComments, CancellationToken);
+		await base.InitializeAsync();
 	}
 
 	[Fact]

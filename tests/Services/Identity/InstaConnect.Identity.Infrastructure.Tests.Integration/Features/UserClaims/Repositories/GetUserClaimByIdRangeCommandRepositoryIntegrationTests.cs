@@ -9,7 +9,7 @@ public class GetUserClaimByIdRangeCommandRepositoryIntegrationTests : BaseUserCl
 
 	protected override async Task OnInitializeAsync()
 	{
-		await ServiceScope.AddRangeAsync(UserClaims, CurrentUserId, CancellationToken);
+		await ServiceScope.AddRangeAsync(UserClaims, CancellationToken);
 	}
 
 	[Fact]

@@ -19,6 +19,13 @@ public class AddPostCommentCommandServiceIntegrationTests : BasePostCommentDomai
 		_command = _commandBuilder.Build();
 	}
 
+	public override async Task InitializeAsync()
+	{
+		await ServiceScope.AddAsync(User, CancellationToken);
+		await ServiceScope.AddAsync(Post, CancellationToken);
+		await base.InitializeAsync();
+	}
+
 	[Fact]
 	public async Task AddAsync_ShouldThrowPostNotFoundException_WhenPostNotFound()
 	{

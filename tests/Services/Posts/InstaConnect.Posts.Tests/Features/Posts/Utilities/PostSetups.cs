@@ -76,26 +76,20 @@ public static class PostSetups
 
 		public async Task AddAsync(
 			Post post,
-			UserId currentUserId,
 			CancellationToken cancellationToken)
 		{
-			var cacheHandler = serviceScope.GetPostCacheHandler();
 			var postRepository = serviceScope.GetPostCommandRepository();
 
 			await postRepository.AddAsync(post, cancellationToken);
-			await cacheHandler.AddAsync(post.ToFullResponse(currentUserId), currentUserId, cancellationToken);
 		}
 
 		public async Task AddRangeAsync(
 			ICollection<Post> posts,
-			UserId currentUserId,
 			CancellationToken cancellationToken)
 		{
-			var cacheHandler = serviceScope.GetPostCacheHandler();
 			var postRepository = serviceScope.GetPostCommandRepository();
 
 			await postRepository.AddRangeAsync(posts, cancellationToken);
-			await cacheHandler.AddRangeAsync(posts.ToFullResponse(currentUserId), currentUserId, cancellationToken);
 		}
 
 		public async Task DeleteAsync(

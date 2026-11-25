@@ -11,8 +11,8 @@ public abstract class BaseFollowWebCommandTest : BaseFollowWebTest
 
 	public override async Task InitializeAsync()
 	{
-		await ServiceScope.AddAsync(Follower, CurrentUserId, CancellationToken);
-		await ServiceScope.AddAsync(Following, CurrentUserId, CancellationToken);
+		await ServiceScope.AddAsync(Follower, CancellationToken);
+		await ServiceScope.AddAsync(Following, CancellationToken);
 		await OnInitializeAsync();
 	}
 }

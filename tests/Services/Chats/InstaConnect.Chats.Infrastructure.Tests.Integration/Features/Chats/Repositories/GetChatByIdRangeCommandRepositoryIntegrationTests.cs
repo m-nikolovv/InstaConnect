@@ -11,7 +11,7 @@ public class GetChatByIdRangeCommandRepositoryIntegrationTests : BaseChatInfrast
 
 	protected override async Task OnInitializeAsync()
 	{
-		await ServiceScope.AddRangeAsync(Chats, CurrentUserId, CancellationToken);
+		await ServiceScope.AddRangeAsync(Chats, CancellationToken);
 	}
 
 	[Fact]

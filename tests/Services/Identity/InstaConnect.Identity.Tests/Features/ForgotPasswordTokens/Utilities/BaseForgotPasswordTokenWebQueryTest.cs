@@ -9,7 +9,7 @@ public abstract class BaseForgotPasswordTokenWebQueryTest : BaseForgotPasswordTo
 
 	public override async Task InitializeAsync()
 	{
-		await ServiceScope.AddRangeAsync(Users, CurrentUserId, CancellationToken);
+		await ServiceScope.AddRangeAsync(Users, CancellationToken);
 		await ServiceScope.AddRangeAsync(ForgotPasswordTokens, CancellationToken);
 		await OnInitializeAsync();
 	}

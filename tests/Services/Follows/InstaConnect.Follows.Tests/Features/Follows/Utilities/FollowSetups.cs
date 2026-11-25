@@ -74,26 +74,20 @@ public static class FollowSetups
 
 		public async Task AddAsync(
 			Follow follow,
-			UserId currentUserId,
 			CancellationToken cancellationToken)
 		{
-			var cacheHandler = serviceScope.GetFollowCacheHandler();
 			var followRepository = serviceScope.GetFollowCommandRepository();
 
 			await followRepository.AddAsync(follow, cancellationToken);
-			await cacheHandler.AddAsync(follow.ToFullResponse(currentUserId), currentUserId, cancellationToken);
 		}
 
 		public async Task AddRangeAsync(
 			ICollection<Follow> follows,
-			UserId currentUserId,
 			CancellationToken cancellationToken)
 		{
-			var cacheHandler = serviceScope.GetFollowCacheHandler();
 			var followRepository = serviceScope.GetFollowCommandRepository();
 
 			await followRepository.AddRangeAsync(follows, cancellationToken);
-			await cacheHandler.AddRangeAsync(follows.ToFullResponse(currentUserId), currentUserId, cancellationToken);
 		}
 
 		public async Task DeleteAsync(

@@ -23,7 +23,7 @@ public class UpdateCurrentUserControllerIntegrationTests : BaseUserPresentationC
 
 	protected override async Task OnInitializeAsync()
 	{
-		await ServiceScope.AddAsync(User, CurrentUserId, CancellationToken);
+		await ServiceScope.AddAsync(User, CancellationToken);
 		await ServiceScope.AddRangeAsync(EmailConfirmationTokens, CancellationToken);
 	}
 
@@ -137,7 +137,7 @@ public class UpdateCurrentUserControllerIntegrationTests : BaseUserPresentationC
 	{
 		// Arrange
 		var user = UserBuilderFactory.Create(User.PasswordHash).Build();
-		await ServiceScope.AddAsync(user, CurrentUserId, CancellationToken);
+		await ServiceScope.AddAsync(user, CancellationToken);
 		var request = _requestBuilder.WithEmail(user.Email).Build();
 
 		// Assert
@@ -151,7 +151,7 @@ public class UpdateCurrentUserControllerIntegrationTests : BaseUserPresentationC
 	{
 		// Arrange
 		var user = UserBuilderFactory.Create(User.PasswordHash).Build();
-		await ServiceScope.AddAsync(user, CurrentUserId, CancellationToken);
+		await ServiceScope.AddAsync(user, CancellationToken);
 		var request = _requestBuilder.WithEmail(user.Email, transformer).Build();
 
 		// Assert
@@ -163,7 +163,7 @@ public class UpdateCurrentUserControllerIntegrationTests : BaseUserPresentationC
 	{
 		// Arrange
 		var user = UserBuilderFactory.Create(User.PasswordHash).Build();
-		await ServiceScope.AddAsync(user, CurrentUserId, CancellationToken);
+		await ServiceScope.AddAsync(user, CancellationToken);
 		var request = _requestBuilder.WithName(user.Name).Build();
 
 		// Assert
@@ -177,7 +177,7 @@ public class UpdateCurrentUserControllerIntegrationTests : BaseUserPresentationC
 	{
 		// Arrange
 		var user = UserBuilderFactory.Create(User.PasswordHash).Build();
-		await ServiceScope.AddAsync(user, CurrentUserId, CancellationToken);
+		await ServiceScope.AddAsync(user, CancellationToken);
 		var request = _requestBuilder.WithName(user.Name, transformer).Build();
 
 		// Assert

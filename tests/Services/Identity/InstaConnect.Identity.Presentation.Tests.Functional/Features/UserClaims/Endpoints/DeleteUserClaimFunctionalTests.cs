@@ -22,7 +22,7 @@ public class DeleteUserClaimFunctionalTests : BaseUserClaimPresentationCommandFu
 
 	protected override async Task OnInitializeAsync()
 	{
-		await ServiceScope.AddAsync(UserClaim, CurrentUserId, CancellationToken);
+		await ServiceScope.AddAsync(UserClaim, CancellationToken);
 	}
 
 	[Fact]

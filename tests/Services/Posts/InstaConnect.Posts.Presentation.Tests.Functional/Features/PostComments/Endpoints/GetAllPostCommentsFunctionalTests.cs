@@ -1,5 +1,6 @@
 using InstaConnect.Posts.Domain.Features.PostComments.Models.Entities;
 using InstaConnect.Posts.Domain.Features.PostComments.Models.Requests;
+using InstaConnect.Posts.Tests.Features.PostCommentImages.Utilities;
 using InstaConnect.Posts.Tests.Features.PostComments.DataAttributes.Page;
 using InstaConnect.Posts.Tests.Features.PostComments.DataAttributes.PageSize;
 using InstaConnect.Posts.Tests.Features.PostComments.DataAttributes.SortOrder;
@@ -20,6 +21,18 @@ public class GetAllPostCommentsFunctionalTests : BasePostCommentPresentationQuer
 		_requestBuilderFactory = new();
 		_requestBuilder = _requestBuilderFactory.Create(PostComment, CurrentUserId);
 		_request = _requestBuilder.Build();
+	}
+
+	public override async Task InitializeAsync()
+	{
+		await ServiceScope.AddRangeAsync(Users, CancellationToken);
+		await ServiceScope.AddRangeAsync(Posts, CancellationToken);
+		await ServiceScope.AddRangeAsync(PostLikes, CancellationToken);
+		await ServiceScope.AddRangeAsync(PostComments, CancellationToken);
+		await ServiceScope.AddRangeAsync(PostImages, CancellationToken);
+		await ServiceScope.AddRangeAsync(PostCommentLikes, CancellationToken);
+		await ServiceScope.AddRangeAsync(PostCommentImages, CancellationToken);
+		await base.InitializeAsync();
 	}
 
 	[Theory]

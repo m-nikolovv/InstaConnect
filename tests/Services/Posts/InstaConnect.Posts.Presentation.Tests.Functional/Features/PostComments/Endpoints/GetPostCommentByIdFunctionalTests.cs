@@ -1,3 +1,5 @@
+using InstaConnect.Posts.Tests.Features.PostCommentImages.Utilities;
+
 namespace InstaConnect.Posts.Presentation.Tests.Functional.Features.PostComments.Endpoints;
 
 public class GetPostCommentByIdFunctionalTests : BasePostCommentPresentationQueryFunctionalTest
@@ -12,6 +14,18 @@ public class GetPostCommentByIdFunctionalTests : BasePostCommentPresentationQuer
 		_requestBuilderFactory = new();
 		_requestBuilder = _requestBuilderFactory.Create(PostComment, CurrentUserId);
 		_request = _requestBuilder.Build();
+	}
+
+	public override async Task InitializeAsync()
+	{
+		await ServiceScope.AddRangeAsync(Users, CancellationToken);
+		await ServiceScope.AddRangeAsync(Posts, CancellationToken);
+		await ServiceScope.AddRangeAsync(PostLikes, CancellationToken);
+		await ServiceScope.AddRangeAsync(PostComments, CancellationToken);
+		await ServiceScope.AddRangeAsync(PostImages, CancellationToken);
+		await ServiceScope.AddRangeAsync(PostCommentLikes, CancellationToken);
+		await ServiceScope.AddRangeAsync(PostCommentImages, CancellationToken);
+		await base.InitializeAsync();
 	}
 
 	[Theory]

@@ -19,7 +19,7 @@ public class UpdatePostCommandServiceIntegrationTests : BasePostDomainCommandInt
 
 	protected override async Task OnInitializeAsync()
 	{
-		await ServiceScope.AddAsync(Post, CurrentUserId, CancellationToken);
+		await ServiceScope.AddAsync(Post, CancellationToken);
 		await ServiceScope.AddRangeAsync(PostImages, CancellationToken);
 	}
 
@@ -38,7 +38,7 @@ public class UpdatePostCommandServiceIntegrationTests : BasePostDomainCommandInt
 	{
 		// Arrange
 		var user = UserBuilderFactory.Create().Build();
-		await ServiceScope.AddAsync(user, CurrentUserId, CancellationToken);
+		await ServiceScope.AddAsync(user, CancellationToken);
 		var command = _commandBuilder.WithUserId(user.Id).Build();
 
 		// Assert

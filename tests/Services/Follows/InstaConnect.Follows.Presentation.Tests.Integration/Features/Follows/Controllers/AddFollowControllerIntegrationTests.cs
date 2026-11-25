@@ -72,7 +72,7 @@ public class AddFollowControllerIntegrationTests : BaseFollowPresentationCommand
 	public async Task AddAsync_ShouldThrowFollowAlreadyExistsException_WhenFollowAlreadyExists()
 	{
 		// Arrange
-		await ServiceScope.AddAsync(Follow, CurrentUserId, CancellationToken);
+		await ServiceScope.AddAsync(Follow, CancellationToken);
 
 		// Assert
 		await Controller.ShouldThrowFollowAlreadyExistsExceptionAsync(_request, CancellationToken);
@@ -84,7 +84,7 @@ public class AddFollowControllerIntegrationTests : BaseFollowPresentationCommand
 		IStringTransformer transformer)
 	{
 		// Arrange
-		await ServiceScope.AddAsync(Follow, CurrentUserId, CancellationToken);
+		await ServiceScope.AddAsync(Follow, CancellationToken);
 		var request = _requestBuilder.WithFollowerId(transformer).Build();
 
 		// Assert
@@ -97,7 +97,7 @@ public class AddFollowControllerIntegrationTests : BaseFollowPresentationCommand
 		IStringTransformer transformer)
 	{
 		// Arrange
-		await ServiceScope.AddAsync(Follow, CurrentUserId, CancellationToken);
+		await ServiceScope.AddAsync(Follow, CancellationToken);
 		var request = _requestBuilder.WithFollowingId(transformer).Build();
 
 		// Assert

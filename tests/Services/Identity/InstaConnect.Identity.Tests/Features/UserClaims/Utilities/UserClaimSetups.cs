@@ -74,26 +74,20 @@ public static class UserClaimSetups
 
 		public async Task AddAsync(
 			UserClaim userClaim,
-			UserId currentUserId,
 			CancellationToken cancellationToken)
 		{
-			var cacheHandler = serviceScope.GetClaimCacheHandler();
 			var claimRepository = serviceScope.GetClaimCommandRepository();
 
 			await claimRepository.AddAsync(userClaim, cancellationToken);
-			await cacheHandler.AddAsync(userClaim.ToFullResponse(), currentUserId, cancellationToken);
 		}
 
 		public async Task AddRangeAsync(
 			ICollection<UserClaim> userClaims,
-			UserId currentUserId,
 			CancellationToken cancellationToken)
 		{
-			var cacheHandler = serviceScope.GetClaimCacheHandler();
 			var claimRepository = serviceScope.GetClaimCommandRepository();
 
 			await claimRepository.AddRangeAsync(userClaims, cancellationToken);
-			await cacheHandler.AddRangeAsync(userClaims.ToFullResponse(), currentUserId, cancellationToken);
 		}
 
 		public async Task DeleteAsync(

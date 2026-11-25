@@ -27,7 +27,7 @@ public class AddUserControllerIntegrationTests : BaseUserPresentationCommandInte
 
 	protected override async Task OnInitializeAsync()
 	{
-		await ServiceScope.AddAsync(User, CurrentUserId, CancellationToken);
+		await ServiceScope.AddAsync(User, CancellationToken);
 	}
 
 	[Theory]

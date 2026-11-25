@@ -9,11 +9,14 @@ public class DeletePostCommentCommandRepositoryIntegrationTests : BasePostCommen
 	{
 	}
 
-	protected override async Task OnInitializeAsync()
+	public override async Task InitializeAsync()
 	{
-		await ServiceScope.AddAsync(PostComment, CurrentUserId, CancellationToken);
+		await ServiceScope.AddAsync(User, CancellationToken);
+		await ServiceScope.AddAsync(Post, CancellationToken);
+		await ServiceScope.AddAsync(PostComment, CancellationToken);
 		await ServiceScope.AddRangeAsync(PostCommentImages, CancellationToken);
-		await ServiceScope.AddRangeAsync(PostCommentLikes, CurrentUserId, CancellationToken);
+		await ServiceScope.AddRangeAsync(PostCommentLikes, CancellationToken);
+		await base.InitializeAsync();
 	}
 
 	[Fact]
@@ -30,6 +33,9 @@ public class DeletePostCommentCommandRepositoryIntegrationTests : BasePostCommen
 	[Fact]
 	public async Task DeleteAsync_ShouldDeleteCachedPostComment_WhenCommandIsValid()
 	{
+		// Arrange
+		await CommentCacheHandler.AddAsync(PostComment, CurrentUserId, CancellationToken);
+
 		// Act
 		await Repository.DeleteAsync(PostComment, CancellationToken);
 		var cachedPostComment = await CommentCacheHandler.GetByIdAsync(PostComment, CurrentUserId, CancellationToken);

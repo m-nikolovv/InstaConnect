@@ -12,7 +12,7 @@ public class GetChatMessageByIdRangeCommandRepositoryIntegrationTests : BaseChat
 
 	protected override async Task OnInitializeAsync()
 	{
-		await ServiceScope.AddRangeAsync(ChatMessages, CurrentUserId, CancellationToken);
+		await ServiceScope.AddRangeAsync(ChatMessages, CancellationToken);
 	}
 
 	[Fact]

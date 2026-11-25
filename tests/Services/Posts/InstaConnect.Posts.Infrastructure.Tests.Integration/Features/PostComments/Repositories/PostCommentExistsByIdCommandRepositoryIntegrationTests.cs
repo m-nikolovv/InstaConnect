@@ -9,9 +9,12 @@ public class PostCommentExistsByIdCommandRepositoryIntegrationTests : BasePostCo
 	{
 	}
 
-	protected override async Task OnInitializeAsync()
+	public override async Task InitializeAsync()
 	{
-		await ServiceScope.AddAsync(PostComment, CurrentUserId, CancellationToken);
+		await ServiceScope.AddAsync(User, CancellationToken);
+		await ServiceScope.AddAsync(Post, CancellationToken);
+		await ServiceScope.AddAsync(PostComment, CancellationToken);
+		await base.InitializeAsync();
 	}
 
 	[Fact]

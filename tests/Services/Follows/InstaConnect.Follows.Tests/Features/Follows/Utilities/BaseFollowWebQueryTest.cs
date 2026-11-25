@@ -11,10 +11,10 @@ public abstract class BaseFollowWebQueryTest : BaseFollowWebTest
 
 	public override async Task InitializeAsync()
 	{
-		await ServiceScope.AddAsync(User, CurrentUserId, CancellationToken);
-		await ServiceScope.AddRangeAsync(Followers, CurrentUserId, CancellationToken);
-		await ServiceScope.AddRangeAsync(Followings, CurrentUserId, CancellationToken);
-		await ServiceScope.AddRangeAsync(Follows, CurrentUserId, CancellationToken);
+		await ServiceScope.AddAsync(User, CancellationToken);
+		await ServiceScope.AddRangeAsync(Followers, CancellationToken);
+		await ServiceScope.AddRangeAsync(Followings, CancellationToken);
+		await ServiceScope.AddRangeAsync(Follows, CancellationToken);
 		await OnInitializeAsync();
 	}
 }

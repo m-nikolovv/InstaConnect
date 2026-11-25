@@ -10,9 +10,12 @@ public class UpdatePostCommentCommandRepositoryIntegrationTests : BasePostCommen
 	{
 	}
 
-	protected override async Task OnInitializeAsync()
+	public override async Task InitializeAsync()
 	{
-		await ServiceScope.AddAsync(PostComment, CurrentUserId, CancellationToken);
+		await ServiceScope.AddAsync(User, CancellationToken);
+		await ServiceScope.AddAsync(Post, CancellationToken);
+		await ServiceScope.AddAsync(PostComment, CancellationToken);
+		await base.InitializeAsync();
 	}
 
 	[Fact]
@@ -33,6 +36,7 @@ public class UpdatePostCommentCommandRepositoryIntegrationTests : BasePostCommen
 	{
 		// Arrange
 		var updatedPostComment = PostCommentBuilderFactory.Create(Post, User).WithCommentId(PostCommentId).Build();
+		await CommentCacheHandler.AddAsync(updatedPostComment, CurrentUserId, CancellationToken);
 
 		// Act
 		await Repository.UpdateAsync(updatedPostComment, CancellationToken);

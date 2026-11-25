@@ -32,7 +32,7 @@ public class UserUpdatedEventHandlerIntegrationTests : BaseUserInfrastructureEve
 
 	protected override async Task OnInitializeAsync()
 	{
-		await ServiceScope.AddAsync(User, CurrentUserId, CancellationToken);
+		await ServiceScope.AddAsync(User, CancellationToken);
 	}
 
 	[Theory]
@@ -150,7 +150,7 @@ public class UserUpdatedEventHandlerIntegrationTests : BaseUserInfrastructureEve
 	{
 		// Arrange
 		var newUser = UserBuilderFactory.Create().Build();
-		await ServiceScope.AddAsync(newUser, CurrentUserId, CancellationToken);
+		await ServiceScope.AddAsync(newUser, CancellationToken);
 		var request = _requestBuilder.WithEmail(newUser.Email).Build();
 
 		// Assert
@@ -164,7 +164,7 @@ public class UserUpdatedEventHandlerIntegrationTests : BaseUserInfrastructureEve
 	{
 		// Arrange
 		var newUser = UserBuilderFactory.Create().Build();
-		await ServiceScope.AddAsync(newUser, CurrentUserId, CancellationToken);
+		await ServiceScope.AddAsync(newUser, CancellationToken);
 		var request = _requestBuilder.WithEmail(newUser.Email, transformer).Build();
 
 		// Assert
@@ -176,7 +176,7 @@ public class UserUpdatedEventHandlerIntegrationTests : BaseUserInfrastructureEve
 	{
 		// Arrange
 		var newUser = UserBuilderFactory.Create().Build();
-		await ServiceScope.AddAsync(newUser, CurrentUserId, CancellationToken);
+		await ServiceScope.AddAsync(newUser, CancellationToken);
 		var request = _requestBuilder.WithName(newUser.Name).Build();
 
 		// Assert
@@ -190,7 +190,7 @@ public class UserUpdatedEventHandlerIntegrationTests : BaseUserInfrastructureEve
 	{
 		// Arrange
 		var newUser = UserBuilderFactory.Create().Build();
-		await ServiceScope.AddAsync(newUser, CurrentUserId, CancellationToken);
+		await ServiceScope.AddAsync(newUser, CancellationToken);
 		var request = _requestBuilder.WithName(newUser.Name, transformer).Build();
 
 		// Assert

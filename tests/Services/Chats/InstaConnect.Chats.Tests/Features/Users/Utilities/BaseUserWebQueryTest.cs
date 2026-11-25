@@ -9,8 +9,8 @@ public abstract class BaseUserWebQueryTest : BaseUserWebTest
 
 	public override async Task InitializeAsync()
 	{
-		await ServiceScope.AddRangeAsync(ParticipantOnes, CurrentUserId, CancellationToken);
-		await ServiceScope.AddRangeAsync(ParticipantTwos, CurrentUserId, CancellationToken);
+		await ServiceScope.AddRangeAsync(ParticipantOnes, CancellationToken);
+		await ServiceScope.AddRangeAsync(ParticipantTwos, CancellationToken);
 		await OnInitializeAsync();
 	}
 }

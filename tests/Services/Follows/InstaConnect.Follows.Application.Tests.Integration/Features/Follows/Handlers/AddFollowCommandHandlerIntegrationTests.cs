@@ -72,7 +72,7 @@ public class AddFollowCommandHandlerIntegrationTests : BaseFollowApplicationComm
 	public async Task SendAsync_ShouldThrowFollowAlreadyExistsException_WhenFollowAlreadyExists()
 	{
 		// Arrange
-		await ServiceScope.AddAsync(Follow, CurrentUserId, CancellationToken);
+		await ServiceScope.AddAsync(Follow, CancellationToken);
 
 		// Assert
 		await Sender.ShouldThrowFollowAlreadyExistsExceptionAsync(_request, CancellationToken);
@@ -84,7 +84,7 @@ public class AddFollowCommandHandlerIntegrationTests : BaseFollowApplicationComm
 		IStringTransformer transformer)
 	{
 		// Arrange
-		await ServiceScope.AddAsync(Follow, CurrentUserId, CancellationToken);
+		await ServiceScope.AddAsync(Follow, CancellationToken);
 		var request = _requestBuilder.WithFollowerId(transformer).Build();
 
 		// Assert
@@ -97,7 +97,7 @@ public class AddFollowCommandHandlerIntegrationTests : BaseFollowApplicationComm
 		IStringTransformer transformer)
 	{
 		// Arrange
-		await ServiceScope.AddAsync(Follow, CurrentUserId, CancellationToken);
+		await ServiceScope.AddAsync(Follow, CancellationToken);
 		var request = _requestBuilder.WithFollowingId(transformer).Build();
 
 		// Assert

@@ -25,7 +25,7 @@ public class UpdateCurrentUserCommandHandlerIntegrationTests : BaseUserApplicati
 
 	protected override async Task OnInitializeAsync()
 	{
-		await ServiceScope.AddAsync(User, CurrentUserId, CancellationToken);
+		await ServiceScope.AddAsync(User, CancellationToken);
 		await ServiceScope.AddRangeAsync(EmailConfirmationTokens, CancellationToken);
 	}
 
@@ -139,7 +139,7 @@ public class UpdateCurrentUserCommandHandlerIntegrationTests : BaseUserApplicati
 	{
 		// Arrange
 		var user = UserBuilderFactory.Create(User.PasswordHash).Build();
-		await ServiceScope.AddAsync(user, CurrentUserId, CancellationToken);
+		await ServiceScope.AddAsync(user, CancellationToken);
 
 		var request = _requestBuilder.WithEmail(user.Email).Build();
 
@@ -154,7 +154,7 @@ public class UpdateCurrentUserCommandHandlerIntegrationTests : BaseUserApplicati
 	{
 		// Arrange
 		var user = UserBuilderFactory.Create(User.PasswordHash).Build();
-		await ServiceScope.AddAsync(user, CurrentUserId, CancellationToken);
+		await ServiceScope.AddAsync(user, CancellationToken);
 
 		var request = _requestBuilder.WithEmail(user.Email, transformer).Build();
 
@@ -167,7 +167,7 @@ public class UpdateCurrentUserCommandHandlerIntegrationTests : BaseUserApplicati
 	{
 		// Arrange
 		var user = UserBuilderFactory.Create(User.PasswordHash).Build();
-		await ServiceScope.AddAsync(user, CurrentUserId, CancellationToken);
+		await ServiceScope.AddAsync(user, CancellationToken);
 
 		var request = _requestBuilder.WithName(user.Name).Build();
 
@@ -182,7 +182,7 @@ public class UpdateCurrentUserCommandHandlerIntegrationTests : BaseUserApplicati
 	{
 		// Arrange
 		var user = UserBuilderFactory.Create(User.PasswordHash).Build();
-		await ServiceScope.AddAsync(user, CurrentUserId, CancellationToken);
+		await ServiceScope.AddAsync(user, CancellationToken);
 
 		var request = _requestBuilder.WithName(user.Name, transformer).Build();
 

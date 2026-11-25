@@ -18,10 +18,13 @@ public class UpdatePostCommentCommandServiceIntegrationTests : BasePostCommentDo
 		_command = _commandBuilder.Build();
 	}
 
-	protected override async Task OnInitializeAsync()
+	public override async Task InitializeAsync()
 	{
-		await ServiceScope.AddAsync(PostComment, CurrentUserId, CancellationToken);
+		await ServiceScope.AddAsync(User, CancellationToken);
+		await ServiceScope.AddAsync(Post, CancellationToken);
+		await ServiceScope.AddAsync(PostComment, CancellationToken);
 		await ServiceScope.AddRangeAsync(PostCommentImages, CancellationToken);
+		await base.InitializeAsync();
 	}
 
 	[Fact]
@@ -49,7 +52,7 @@ public class UpdatePostCommentCommandServiceIntegrationTests : BasePostCommentDo
 	{
 		// Arrange
 		var user = UserBuilderFactory.Create().Build();
-		await ServiceScope.AddAsync(user, CurrentUserId, CancellationToken);
+		await ServiceScope.AddAsync(user, CancellationToken);
 		var command = _commandBuilder.WithUserId(user.Id).Build();
 
 		// Assert
@@ -177,6 +180,9 @@ public class UpdatePostCommentCommandServiceIntegrationTests : BasePostCommentDo
 	[Fact]
 	public async Task UpdateAsync_ShouldDeleteCachedPostComment_WhenCommandIsValid()
 	{
+		// Arrange
+		await CommentCacheHandler.AddAsync(_command, PostComment, CancellationToken);
+
 		// Act
 		await Service.UpdateAsync(_command, CancellationToken);
 		var cachedPostComment = await CommentCacheHandler.GetByIdAsync(_command, CancellationToken);
@@ -192,6 +198,7 @@ public class UpdatePostCommentCommandServiceIntegrationTests : BasePostCommentDo
 	{
 		// Arrange
 		var command = _commandBuilder.WithId(transformer).Build();
+		await CommentCacheHandler.AddAsync(command, PostComment, CancellationToken);
 
 		// Act
 		await Service.UpdateAsync(command, CancellationToken);
@@ -208,6 +215,7 @@ public class UpdatePostCommentCommandServiceIntegrationTests : BasePostCommentDo
 	{
 		// Arrange
 		var command = _commandBuilder.WithUserId(transformer).Build();
+		await CommentCacheHandler.AddAsync(command, PostComment, CancellationToken);
 
 		// Act
 		await Service.UpdateAsync(command, CancellationToken);
@@ -224,6 +232,7 @@ public class UpdatePostCommentCommandServiceIntegrationTests : BasePostCommentDo
 	{
 		// Arrange
 		var command = _commandBuilder.WithCommentId(transformer).Build();
+		await CommentCacheHandler.AddAsync(command, PostComment, CancellationToken);
 
 		// Act
 		await Service.UpdateAsync(command, CancellationToken);

@@ -86,12 +86,11 @@ public static class UserSetups
 
 		public async Task AddAsync(
 			User user,
-			UserId currentUserId,
 			CancellationToken cancellationToken)
 		{
-			var cacheHandler = serviceScope.GetCacheHandler();
+			var repository = serviceScope.GetCommandRepository();
 
-			await cacheHandler.AddAsync(user.ToFullResponse(), currentUserId, cancellationToken);
+			await repository.AddAsync(user, cancellationToken);
 		}
 
 		public async Task UpdateAsync(
@@ -107,12 +106,11 @@ public static class UserSetups
 
 		public async Task AddRangeAsync(
 			ICollection<User> users,
-			UserId currentUserId,
 			CancellationToken cancellationToken)
 		{
-			var cacheHandler = serviceScope.GetCacheHandler();
+			var repository = serviceScope.GetCommandRepository();
 
-			await cacheHandler.AddRangeAsync(users.ToFullResponse(), currentUserId, cancellationToken);
+			await repository.AddRangeAsync(users, cancellationToken);
 		}
 
 		public async Task DeleteAsync(

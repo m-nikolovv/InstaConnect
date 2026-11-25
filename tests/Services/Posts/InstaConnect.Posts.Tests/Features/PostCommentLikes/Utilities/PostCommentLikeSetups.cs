@@ -80,26 +80,20 @@ public static class PostCommentLikeSetups
 
 		public async Task AddAsync(
 			PostCommentLike postCommentLike,
-			UserId currentUserId,
 			CancellationToken cancellationToken)
 		{
-			var commentLikeCacheHandler = serviceScope.GetPostCommentLikeCacheHandler();
 			var postCommentLikeRepository = serviceScope.GetPostCommentLikeCommandRepository();
 
 			await postCommentLikeRepository.AddAsync(postCommentLike, cancellationToken);
-			await commentLikeCacheHandler.AddAsync(postCommentLike.ToFullResponse(currentUserId), currentUserId, cancellationToken);
 		}
 
 		public async Task AddRangeAsync(
 			ICollection<PostCommentLike> postCommentLikes,
-			UserId currentUserId,
 			CancellationToken cancellationToken)
 		{
-			var commentLikeCacheHandler = serviceScope.GetPostCommentLikeCacheHandler();
 			var postCommentLikeRepository = serviceScope.GetPostCommentLikeCommandRepository();
 
 			await postCommentLikeRepository.AddRangeAsync(postCommentLikes, cancellationToken);
-			await commentLikeCacheHandler.AddRangeAsync(postCommentLikes.ToFullResponse(currentUserId), currentUserId, cancellationToken);
 		}
 
 		public async Task DeleteAsync(

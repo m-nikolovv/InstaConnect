@@ -63,7 +63,7 @@ public class AddUserClaimControllerIntegrationTests : BaseUserClaimPresentationC
 	public async Task AddAsync_ShouldThrowUserClaimAlreadyExistsException_WhenUserClaimAlreadyExists()
 	{
 		// Arrange
-		await ServiceScope.AddAsync(UserClaim, CurrentUserId, CancellationToken);
+		await ServiceScope.AddAsync(UserClaim, CancellationToken);
 
 		// Assert
 		await Controller.ShouldThrowUserClaimAlreadyExistsExceptionAsync(_request, CancellationToken);
@@ -75,7 +75,7 @@ public class AddUserClaimControllerIntegrationTests : BaseUserClaimPresentationC
 		IStringTransformer transformer)
 	{
 		// Arrange
-		await ServiceScope.AddAsync(UserClaim, CurrentUserId, CancellationToken);
+		await ServiceScope.AddAsync(UserClaim, CancellationToken);
 		var request = _requestBuilder.WithId(transformer).Build();
 
 		// Assert

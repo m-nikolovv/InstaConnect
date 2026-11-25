@@ -9,7 +9,7 @@ public abstract class BaseEmailConfirmationTokenWebQueryTest : BaseEmailConfirma
 
 	public override async Task InitializeAsync()
 	{
-		await ServiceScope.AddRangeAsync(Users, CurrentUserId, CancellationToken);
+		await ServiceScope.AddRangeAsync(Users, CancellationToken);
 		await ServiceScope.AddRangeAsync(EmailConfirmationTokens, CancellationToken);
 		await OnInitializeAsync();
 	}

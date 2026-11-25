@@ -11,12 +11,12 @@ public class DeletePostCommandRepositoryIntegrationTests : BasePostInfrastructur
 
 	protected override async Task OnInitializeAsync()
 	{
-		await ServiceScope.AddAsync(Post, CurrentUserId, CancellationToken);
+		await ServiceScope.AddAsync(Post, CancellationToken);
 		await ServiceScope.AddRangeAsync(PostImages, CancellationToken);
-		await ServiceScope.AddRangeAsync(PostLikes, CurrentUserId, CancellationToken);
-		await ServiceScope.AddRangeAsync(PostComments, CurrentUserId, CancellationToken);
+		await ServiceScope.AddRangeAsync(PostLikes, CancellationToken);
+		await ServiceScope.AddRangeAsync(PostComments, CancellationToken);
 		await ServiceScope.AddRangeAsync(PostCommentImages, CancellationToken);
-		await ServiceScope.AddRangeAsync(PostCommentLikes, CurrentUserId, CancellationToken);
+		await ServiceScope.AddRangeAsync(PostCommentLikes, CancellationToken);
 	}
 
 	[Fact]

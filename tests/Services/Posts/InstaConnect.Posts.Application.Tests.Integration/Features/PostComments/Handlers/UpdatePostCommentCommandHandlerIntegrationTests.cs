@@ -18,10 +18,13 @@ public class UpdatePostCommentCommandHandlerIntegrationTests : BasePostCommentAp
 		_request = _requestBuilder.Build();
 	}
 
-	protected override async Task OnInitializeAsync()
+	public override async Task InitializeAsync()
 	{
-		await ServiceScope.AddAsync(PostComment, CurrentUserId, CancellationToken);
+		await ServiceScope.AddAsync(User, CancellationToken);
+		await ServiceScope.AddAsync(Post, CancellationToken);
+		await ServiceScope.AddAsync(PostComment, CancellationToken);
 		await ServiceScope.AddRangeAsync(PostCommentImages, CancellationToken);
+		await base.InitializeAsync();
 	}
 
 	[Theory]
@@ -113,7 +116,7 @@ public class UpdatePostCommentCommandHandlerIntegrationTests : BasePostCommentAp
 	{
 		// Arrange
 		var user = UserBuilderFactory.Create().Build();
-		await ServiceScope.AddAsync(user, CurrentUserId, CancellationToken);
+		await ServiceScope.AddAsync(user, CancellationToken);
 
 		var request = _requestBuilder.WithUserId(user.Id).Build();
 
@@ -242,6 +245,9 @@ public class UpdatePostCommentCommandHandlerIntegrationTests : BasePostCommentAp
 	[Fact]
 	public async Task SendAsync_ShouldDeleteCachedPostComment_WhenRequestIsValid()
 	{
+		// Arrange
+		await CommentCacheHandler.AddAsync(_request, PostComment, CancellationToken);
+
 		// Act
 		await Sender.SendAsync(_request, CancellationToken);
 		var cachedPostComment = await CommentCacheHandler.GetByIdAsync(_request, CancellationToken);
@@ -257,6 +263,7 @@ public class UpdatePostCommentCommandHandlerIntegrationTests : BasePostCommentAp
 	{
 		// Arrange
 		var request = _requestBuilder.WithId(transformer).Build();
+		await CommentCacheHandler.AddAsync(request, PostComment, CancellationToken);
 
 		// Act
 		await Sender.SendAsync(request, CancellationToken);
@@ -273,6 +280,7 @@ public class UpdatePostCommentCommandHandlerIntegrationTests : BasePostCommentAp
 	{
 		// Arrange
 		var request = _requestBuilder.WithCommentId(transformer).Build();
+		await CommentCacheHandler.AddAsync(request, PostComment, CancellationToken);
 
 		// Act
 		await Sender.SendAsync(request, CancellationToken);
@@ -289,6 +297,7 @@ public class UpdatePostCommentCommandHandlerIntegrationTests : BasePostCommentAp
 	{
 		// Arrange
 		var request = _requestBuilder.WithUserId(transformer).Build();
+		await CommentCacheHandler.AddAsync(request, PostComment, CancellationToken);
 
 		// Act
 		await Sender.SendAsync(request, CancellationToken);

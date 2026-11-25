@@ -12,7 +12,7 @@ public class GetPostByIdRangeCommandRepositoryIntegrationTests : BasePostInfrast
 
 	protected override async Task OnInitializeAsync()
 	{
-		await ServiceScope.AddRangeAsync(Posts, CurrentUserId, CancellationToken);
+		await ServiceScope.AddRangeAsync(Posts, CancellationToken);
 	}
 
 	[Fact]
