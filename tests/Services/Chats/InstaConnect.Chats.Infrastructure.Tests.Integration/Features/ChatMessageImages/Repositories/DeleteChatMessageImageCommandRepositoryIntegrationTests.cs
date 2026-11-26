@@ -11,7 +11,7 @@ public class DeleteChatMessageImageCommandRepositoryIntegrationTests : BaseChatM
 
 	public override async Task InitializeAsync()
 	{
-		await ServiceScope.SetupDeleteAsync(ChatMessageImage, CurrentUserId, CancellationToken);
+		await ServiceScope.SetupDeleteAsync(ChatMessageImage, UserId, CancellationToken);
 	}
 
 	[Fact]
@@ -30,7 +30,7 @@ public class DeleteChatMessageImageCommandRepositoryIntegrationTests : BaseChatM
 	{
 		// Act
 		await Repository.DeleteAsync(ChatMessageImage, CancellationToken);
-		var cachedChatMessage = await ServiceScope.GetChatMessageCacheByIdAsync(ChatMessage, CurrentUserId, CancellationToken);
+		var cachedChatMessage = await ServiceScope.GetChatMessageCacheByIdAsync(ChatMessage, UserId, CancellationToken);
 
 		// Assert
 		cachedChatMessage.ShouldBeNull();

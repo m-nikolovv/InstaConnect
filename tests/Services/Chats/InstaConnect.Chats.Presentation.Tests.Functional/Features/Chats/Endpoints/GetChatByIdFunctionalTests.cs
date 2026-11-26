@@ -18,10 +18,10 @@ public class GetChatByIdFunctionalTests : BaseChatPresentationQueryFunctionalTes
 		: base(webApplicationFactory)
 	{
 		_requestBuilderFactory = new();
-		_requestBuilder = _requestBuilderFactory.Create(Chat, CurrentUserId);
+		_requestBuilder = _requestBuilderFactory.Create(Chat, UserId);
 		_request = _requestBuilder.Build();
 
-		_invertedRequestBuilder = _requestBuilderFactory.Create(Chat, CurrentUserId).WithCurrentUserId(ParticipantTwoId).WithParticipantTwoId(ParticipantOneId);
+		_invertedRequestBuilder = _requestBuilderFactory.Create(Chat, UserId).WithCurrentUserId(ParticipantTwoId).WithParticipantTwoId(ParticipantOneId);
 		_invertedRequest = _invertedRequestBuilder.Build();
 	}
 

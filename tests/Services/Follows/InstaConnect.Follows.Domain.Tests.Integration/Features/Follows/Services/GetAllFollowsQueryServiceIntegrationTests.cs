@@ -16,7 +16,7 @@ public class GetAllFollowsQueryServiceIntegrationTests : BaseFollowDomainQueryIn
 		: base(webApplicationFactory)
 	{
 		_queryBuilderFactory = new();
-		_queryBuilder = _queryBuilderFactory.Create(Follow, CurrentUserId);
+		_queryBuilder = _queryBuilderFactory.Create(Follow, UserId);
 		_query = _queryBuilder.Build();
 	}
 

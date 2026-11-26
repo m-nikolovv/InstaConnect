@@ -30,7 +30,7 @@ public class DeletePostLikeCommandRepositoryIntegrationTests : BasePostLikeInfra
 	{
 		// Act
 		await Repository.DeleteAsync(PostLike, CancellationToken);
-		var cachedPostLike = await ServiceScope.GetPostLikeCacheByIdAsync(PostLike, CurrentUserId, CancellationToken);
+		var cachedPostLike = await ServiceScope.GetPostLikeCacheByIdAsync(PostLike, UserId, CancellationToken);
 
 		// Assert
 		cachedPostLike.ShouldBeNull();
@@ -41,7 +41,7 @@ public class DeletePostLikeCommandRepositoryIntegrationTests : BasePostLikeInfra
 	{
 		// Act
 		await Repository.DeleteAsync(PostLike, CancellationToken);
-		var cachedPost = await ServiceScope.GetPostCacheByIdAsync(PostLike, CurrentUserId, CancellationToken);
+		var cachedPost = await ServiceScope.GetPostCacheByIdAsync(PostLike, UserId, CancellationToken);
 
 		// Assert
 		cachedPost.ShouldBeNull();

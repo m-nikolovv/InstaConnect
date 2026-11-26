@@ -35,7 +35,7 @@ public class UpdateUserInfrastructureFunctionalTests : BaseUserInfrastructureCom
 
 	public override async Task InitializeAsync()
 	{
-		await ServiceScope.SetupUpdateAsync(User, CurrentUserId, CancellationToken);
+		await ServiceScope.SetupUpdateAsync(User, UserId, CancellationToken);
 		await base.InitializeAsync();
 	}
 

@@ -11,7 +11,7 @@ public class AddRangeChatMessageImagesCommandRepositoryIntegrationTests : BaseCh
 
 	public override async Task InitializeAsync()
 	{
-		await ServiceScope.SetupAddAsync(ChatMessageImage, CurrentUserId, CancellationToken);
+		await ServiceScope.SetupAddAsync(ChatMessageImage, UserId, CancellationToken);
 	}
 
 	[Fact]

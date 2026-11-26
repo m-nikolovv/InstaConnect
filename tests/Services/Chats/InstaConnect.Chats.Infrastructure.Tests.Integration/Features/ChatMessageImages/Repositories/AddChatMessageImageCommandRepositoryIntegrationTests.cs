@@ -12,7 +12,7 @@ public class AddChatMessageImageCommandRepositoryIntegrationTests : BaseChatMess
 
 	public override async Task InitializeAsync()
 	{
-		await ServiceScope.SetupAddAsync(ChatMessageImage, CurrentUserId, CancellationToken);
+		await ServiceScope.SetupAddAsync(ChatMessageImage, UserId, CancellationToken);
 	}
 
 	[Fact]
@@ -31,7 +31,7 @@ public class AddChatMessageImageCommandRepositoryIntegrationTests : BaseChatMess
 	{
 		// Act
 		await Repository.AddAsync(ChatMessageImage, CancellationToken);
-		var cachedChatMessage = await ServiceScope.GetChatMessageCacheByIdAsync(ChatMessage, CurrentUserId, CancellationToken);
+		var cachedChatMessage = await ServiceScope.GetChatMessageCacheByIdAsync(ChatMessage, UserId, CancellationToken);
 
 		// Assert
 		cachedChatMessage.ShouldBeNull();

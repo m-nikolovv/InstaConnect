@@ -10,7 +10,7 @@ public class GetPostLikeByIdFunctionalTests : BasePostLikePresentationQueryFunct
 		: base(webApplicationFactory)
 	{
 		_requestBuilderFactory = new();
-		_requestBuilder = _requestBuilderFactory.Create(PostLike, CurrentUserId);
+		_requestBuilder = _requestBuilderFactory.Create(PostLike, UserId);
 		_request = _requestBuilder.Build();
 	}
 

@@ -11,7 +11,7 @@ public class GetPostCommentLikeByIdControllerUnitTests : BasePostCommentLikePres
 	public GetPostCommentLikeByIdControllerUnitTests()
 	{
 		_requestBuilderFactory = new();
-		_requestBuilder = _requestBuilderFactory.Create(PostCommentLike, CurrentUserId);
+		_requestBuilder = _requestBuilderFactory.Create(PostCommentLike, UserId);
 		_request = _requestBuilder.Build();
 
 		_controller = new(Mapper, Sender);

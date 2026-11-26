@@ -11,7 +11,7 @@ public class DeleteUserClaimCommandRepositoryIntegrationTests : BaseUserClaimInf
 
 	public override async Task InitializeAsync()
 	{
-		await ServiceScope.SetupDeleteAsync(UserClaim, CurrentUserId, CancellationToken);
+		await ServiceScope.SetupDeleteAsync(UserClaim, UserId, CancellationToken);
 	}
 
 	[Fact]
@@ -30,7 +30,7 @@ public class DeleteUserClaimCommandRepositoryIntegrationTests : BaseUserClaimInf
 	{
 		// Act
 		await Repository.DeleteAsync(UserClaim, CancellationToken);
-		var cachedUserClaim = await ServiceScope.GetUserClaimCacheByIdAsync(UserClaim, CurrentUserId, CancellationToken);
+		var cachedUserClaim = await ServiceScope.GetUserClaimCacheByIdAsync(UserClaim, UserId, CancellationToken);
 
 		// Assert
 		cachedUserClaim.ShouldBeNull();

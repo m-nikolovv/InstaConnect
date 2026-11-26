@@ -20,7 +20,7 @@ public class GetAllUserClaimsControllerIntegrationTests : BaseUserClaimPresentat
 		: base(webApplicationFactory)
 	{
 		_requestBuilderFactory = new();
-		_requestBuilder = _requestBuilderFactory.Create(UserClaim, CurrentUserId);
+		_requestBuilder = _requestBuilderFactory.Create(UserClaim, UserId);
 		_request = _requestBuilder.Build();
 	}
 

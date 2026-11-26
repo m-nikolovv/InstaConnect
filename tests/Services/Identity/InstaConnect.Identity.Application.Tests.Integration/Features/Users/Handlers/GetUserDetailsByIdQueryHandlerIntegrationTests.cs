@@ -12,7 +12,7 @@ public class GetUserDetailsByIdQueryHandlerIntegrationTests : BaseUserApplicatio
 		: base(webApplicationFactory)
 	{
 		_requestBuilderFactory = new();
-		_requestBuilder = _requestBuilderFactory.Create(User, CurrentUserId);
+		_requestBuilder = _requestBuilderFactory.Create(User, UserId);
 		_request = _requestBuilder.Build();
 	}
 

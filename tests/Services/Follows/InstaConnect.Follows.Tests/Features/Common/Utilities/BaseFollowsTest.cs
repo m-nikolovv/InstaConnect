@@ -15,7 +15,6 @@ public abstract class BaseFollowsTest : BaseTest
 	protected UserIdBuilderFactory UserIdBuilderFactory { get; }
 	protected UserIdBuilder UserIdBuilder { get; }
 	protected UserId UserId { get; }
-	protected UserId CurrentUserId { get; }
 
 	protected UserBuilderFactory FollowerBuilderFactory { get; }
 	protected UserBuilder FollowerBuilder { get; }
@@ -78,7 +77,6 @@ public abstract class BaseFollowsTest : BaseTest
 		UserIdBuilderFactory = new();
 		UserIdBuilder = UserIdBuilderFactory.Create(User.Id);
 		UserId = UserIdBuilder.Build();
-		CurrentUserId = UserId;
 
 		FollowerBuilderFactory = new();
 		FollowerBuilder = FollowerBuilderFactory.Create();
@@ -118,10 +116,10 @@ public abstract class BaseFollowsTest : BaseTest
 		FollowFollower = FollowFollowerBuilder.BuildAttached();
 		FollowFollowingBuilder = FollowBuilderFactory.Create(User, Following);
 		FollowFollowing = FollowFollowingBuilder.BuildAttached();
-		FollowResponse = Follow.ToFullResponse(CurrentUserId);
-		FollowResponses = Follows.ToFullResponse(CurrentUserId);
-		FollowFollowerResponse = FollowFollower.ToFullResponse(CurrentUserId);
-		FollowFollowingResponse = FollowFollowing.ToFullResponse(CurrentUserId);
+		FollowResponse = Follow.ToFullResponse(UserId);
+		FollowResponses = Follows.ToFullResponse(UserId);
+		FollowFollowerResponse = FollowFollower.ToFullResponse(UserId);
+		FollowFollowingResponse = FollowFollowing.ToFullResponse(UserId);
 
 		FollowIdBuilderFactory = new();
 		FollowIdBuilder = FollowIdBuilderFactory.Create(Follow.Id);

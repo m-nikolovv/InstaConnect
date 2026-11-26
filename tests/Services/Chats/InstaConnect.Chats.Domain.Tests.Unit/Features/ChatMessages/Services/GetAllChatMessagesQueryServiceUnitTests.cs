@@ -11,7 +11,7 @@ public class GetAllChatMessagesQueryServiceUnitTests : BaseChatMessageDomainQuer
 	public GetAllChatMessagesQueryServiceUnitTests()
 	{
 		_queryBuilderFactory = new();
-		_queryBuilder = _queryBuilderFactory.Create(ChatMessage, CurrentUserId);
+		_queryBuilder = _queryBuilderFactory.Create(ChatMessage, UserId);
 		_query = _queryBuilder.Build();
 
 		_service = new(Repository, MessageRepository, CollectionResponseFactory);

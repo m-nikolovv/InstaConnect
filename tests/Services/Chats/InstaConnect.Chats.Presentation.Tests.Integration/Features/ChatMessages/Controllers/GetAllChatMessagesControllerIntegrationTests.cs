@@ -20,10 +20,10 @@ public class GetAllChatMessagesControllerIntegrationTests : BaseChatMessagePrese
 		: base(webApplicationFactory)
 	{
 		_requestBuilderFactory = new();
-		_requestBuilder = _requestBuilderFactory.Create(ChatMessage, CurrentUserId);
+		_requestBuilder = _requestBuilderFactory.Create(ChatMessage, UserId);
 		_request = _requestBuilder.Build();
 
-		_invertedRequestBuilder = _requestBuilderFactory.Create(ChatMessage, CurrentUserId).WithCurrentUserId(ParticipantTwoId).WithParticipantTwoId(ParticipantOneId);
+		_invertedRequestBuilder = _requestBuilderFactory.Create(ChatMessage, UserId).WithCurrentUserId(ParticipantTwoId).WithParticipantTwoId(ParticipantOneId);
 		_invertedRequest = _invertedRequestBuilder.Build();
 	}
 

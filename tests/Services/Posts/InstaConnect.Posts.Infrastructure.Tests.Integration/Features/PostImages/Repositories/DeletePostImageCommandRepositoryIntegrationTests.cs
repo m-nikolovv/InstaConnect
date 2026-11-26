@@ -30,7 +30,7 @@ public class DeletePostImageCommandRepositoryIntegrationTests : BasePostImageInf
 	{
 		// Act
 		await Repository.DeleteAsync(PostImage, CancellationToken);
-		var cachedPost = await ServiceScope.GetPostCacheByIdAsync(Post, CurrentUserId, CancellationToken);
+		var cachedPost = await ServiceScope.GetPostCacheByIdAsync(Post, UserId, CancellationToken);
 
 		// Assert
 		cachedPost.ShouldBeNull();

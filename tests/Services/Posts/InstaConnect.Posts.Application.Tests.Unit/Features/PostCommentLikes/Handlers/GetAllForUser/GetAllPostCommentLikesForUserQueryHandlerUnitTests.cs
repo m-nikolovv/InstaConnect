@@ -13,7 +13,7 @@ public class GetAllPostCommentLikesForUserQueryHandlerUnitTests : BasePostCommen
 	public GetAllPostCommentLikesForUserQueryHandlerUnitTests()
 	{
 		_requestBuilderFactory = new();
-		_requestBuilder = _requestBuilderFactory.Create(PostCommentLike, CurrentUserId);
+		_requestBuilder = _requestBuilderFactory.Create(PostCommentLike, UserId);
 		_request = _requestBuilder.Build();
 
 		_handler = new(Mapper, CommentLikeService);

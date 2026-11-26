@@ -11,7 +11,7 @@ public class DeleteChatCommandRepositoryIntegrationTests : BaseChatInfrastructur
 
 	public override async Task InitializeAsync()
 	{
-		await ServiceScope.SetupDeleteAsync(Chat, CurrentUserId, CancellationToken);
+		await ServiceScope.SetupDeleteAsync(Chat, UserId, CancellationToken);
 	}
 
 	[Fact]
@@ -30,7 +30,7 @@ public class DeleteChatCommandRepositoryIntegrationTests : BaseChatInfrastructur
 	{
 		// Act
 		await Repository.DeleteAsync(Chat, CancellationToken);
-		var cachedChat = await ServiceScope.GetChatCacheByIdAsync(Chat, CurrentUserId, CancellationToken);
+		var cachedChat = await ServiceScope.GetChatCacheByIdAsync(Chat, UserId, CancellationToken);
 
 		// Assert
 		cachedChat.ShouldBeNull();

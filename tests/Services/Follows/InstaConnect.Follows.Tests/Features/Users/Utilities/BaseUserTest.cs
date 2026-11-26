@@ -24,12 +24,12 @@ public abstract class BaseUserTest : BaseFollowsTest
 		UserFollowFollowerIdRangeBuilderFactory = new();
 		UserFollowFollowerIdRangeBuilder = UserFollowFollowerIdRangeBuilderFactory.Create([.. UserFollowFollowers.Select(f => f.Id)]);
 		UserFollowFollowerIds = UserFollowFollowerIdRangeBuilder.Build();
-		UserFollowFollowerResponses = UserFollowFollowers.ToFullResponse(CurrentUserId);
+		UserFollowFollowerResponses = UserFollowFollowers.ToFullResponse(UserId);
 
 		UserFollowFollowings = [.. User.FollowFollowings];
 		UserFollowFollowingIdRangeBuilderFactory = new();
 		UserFollowFollowingIdRangeBuilder = UserFollowFollowingIdRangeBuilderFactory.Create([.. UserFollowFollowings.Select(f => f.Id)]);
 		UserFollowFollowingIds = UserFollowFollowingIdRangeBuilder.Build();
-		UserFollowFollowingResponses = UserFollowFollowings.ToFullResponse(CurrentUserId);
+		UserFollowFollowingResponses = UserFollowFollowings.ToFullResponse(UserId);
 	}
 }

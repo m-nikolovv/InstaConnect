@@ -13,7 +13,7 @@ public class GetAllPostLikesForUserQueryHandlerUnitTests : BasePostLikeApplicati
 	public GetAllPostLikesForUserQueryHandlerUnitTests()
 	{
 		_requestBuilderFactory = new();
-		_requestBuilder = _requestBuilderFactory.Create(PostLike, CurrentUserId);
+		_requestBuilder = _requestBuilderFactory.Create(PostLike, UserId);
 		_request = _requestBuilder.Build();
 
 		_handler = new(Mapper, LikeService);

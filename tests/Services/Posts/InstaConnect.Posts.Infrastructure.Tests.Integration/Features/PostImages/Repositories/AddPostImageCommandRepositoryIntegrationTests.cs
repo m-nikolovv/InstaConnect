@@ -30,7 +30,7 @@ public class AddPostImageCommandRepositoryIntegrationTests : BasePostImageInfras
 	{
 		// Act
 		await Repository.AddAsync(PostImage, CancellationToken);
-		var cachedPost = await ServiceScope.GetPostCacheByIdAsync(Post, CurrentUserId, CancellationToken);
+		var cachedPost = await ServiceScope.GetPostCacheByIdAsync(Post, UserId, CancellationToken);
 
 		// Assert
 		cachedPost.ShouldBeNull();

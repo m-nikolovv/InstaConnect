@@ -13,7 +13,7 @@ public class GetAllUserClaimsQueryHandlerUnitTests : BaseUserClaimApplicationQue
 	public GetAllUserClaimsQueryHandlerUnitTests()
 	{
 		_requestBuilderFactory = new();
-		_requestBuilder = _requestBuilderFactory.Create(UserClaim, CurrentUserId);
+		_requestBuilder = _requestBuilderFactory.Create(UserClaim, UserId);
 		_request = _requestBuilder.Build();
 
 		_handler = new(Mapper, Service);

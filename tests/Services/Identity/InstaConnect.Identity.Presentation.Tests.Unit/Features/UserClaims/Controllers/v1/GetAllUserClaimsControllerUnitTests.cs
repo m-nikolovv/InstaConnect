@@ -16,7 +16,7 @@ public class GetAllUserClaimsControllerUnitTests : BaseUserClaimPresentationQuer
 	public GetAllUserClaimsControllerUnitTests()
 	{
 		_requestBuilderFactory = new();
-		_requestBuilder = _requestBuilderFactory.Create(UserClaim, CurrentUserId);
+		_requestBuilder = _requestBuilderFactory.Create(UserClaim, UserId);
 		_request = _requestBuilder.Build();
 
 		_controller = new(Mapper, Sender);

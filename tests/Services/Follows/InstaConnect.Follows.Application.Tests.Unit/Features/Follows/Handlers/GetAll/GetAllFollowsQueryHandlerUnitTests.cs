@@ -13,7 +13,7 @@ public class GetAllFollowsQueryHandlerUnitTests : BaseFollowApplicationQueryUnit
 	public GetAllFollowsQueryHandlerUnitTests()
 	{
 		_requestBuilderFactory = new();
-		_requestBuilder = _requestBuilderFactory.Create(Follow, CurrentUserId);
+		_requestBuilder = _requestBuilderFactory.Create(Follow, UserId);
 		_request = _requestBuilder.Build();
 
 		_handler = new(Mapper, Service);

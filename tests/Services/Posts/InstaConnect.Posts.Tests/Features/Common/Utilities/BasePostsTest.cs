@@ -24,7 +24,6 @@ public abstract class BasePostsTest : BaseTest
 	protected UserIdBuilderFactory UserIdBuilderFactory { get; }
 	protected UserIdBuilder UserIdBuilder { get; }
 	protected UserId UserId { get; }
-	protected UserId CurrentUserId { get; }
 
 	protected UserIdRangeBuilderFactory UserIdRangeBuilderFactory { get; }
 	protected UserIdRangeBuilder UserIdRangeBuilder { get; }
@@ -132,7 +131,6 @@ public abstract class BasePostsTest : BaseTest
 		UserIdBuilderFactory = new();
 		UserIdBuilder = UserIdBuilderFactory.Create(User.Id);
 		UserId = UserIdBuilder.Build();
-		CurrentUserId = UserId;
 
 		UserIdRangeBuilderFactory = new();
 		UserIdRangeBuilder = UserIdRangeBuilderFactory.Create([.. Users.Select(p => p.Id)]);
@@ -142,8 +140,8 @@ public abstract class BasePostsTest : BaseTest
 		PostBuilder = PostBuilderFactory.Create(User);
 		Post = PostBuilder.BuildAttached();
 		Posts = Post.GenerateAttached(Users);
-		PostResponse = Post.ToFullResponse(CurrentUserId);
-		PostResponses = Posts.ToFullResponse(CurrentUserId);
+		PostResponse = Post.ToFullResponse(UserId);
+		PostResponses = Posts.ToFullResponse(UserId);
 
 		PostIdBuilderFactory = new();
 		PostIdBuilder = PostIdBuilderFactory.Create(Post.Id);
@@ -157,8 +155,8 @@ public abstract class BasePostsTest : BaseTest
 		PostLikeBuilder = PostLikeBuilderFactory.Create(Post, User);
 		PostLike = PostLikeBuilder.BuildAttached();
 		PostLikes = PostLike.GenerateAttached(Posts, Users);
-		PostLikeResponse = PostLike.ToFullResponse(CurrentUserId);
-		PostLikeResponses = PostLikes.ToFullResponse(CurrentUserId);
+		PostLikeResponse = PostLike.ToFullResponse(UserId);
+		PostLikeResponses = PostLikes.ToFullResponse(UserId);
 
 		PostLikeIdBuilderFactory = new();
 		PostLikeIdBuilder = PostLikeIdBuilderFactory.Create(PostLike.Id);
@@ -187,8 +185,8 @@ public abstract class BasePostsTest : BaseTest
 		PostCommentBuilder = PostCommentBuilderFactory.Create(Post, User);
 		PostComment = PostCommentBuilder.BuildAttached();
 		PostComments = PostComment.GenerateAttached(Posts, Users);
-		PostCommentResponse = PostComment.ToFullResponse(CurrentUserId);
-		PostCommentResponses = PostComments.ToFullResponse(CurrentUserId);
+		PostCommentResponse = PostComment.ToFullResponse(UserId);
+		PostCommentResponses = PostComments.ToFullResponse(UserId);
 
 		PostCommentIdBuilderFactory = new();
 		PostCommentIdBuilder = PostCommentIdBuilderFactory.Create(PostComment.Id);
@@ -217,8 +215,8 @@ public abstract class BasePostsTest : BaseTest
 		PostCommentLikeBuilder = PostCommentLikeBuilderFactory.Create(PostComment, User);
 		PostCommentLike = PostCommentLikeBuilder.BuildAttached();
 		PostCommentLikes = PostCommentLike.GenerateAttached(PostComments, Users);
-		PostCommentLikeResponse = PostCommentLike.ToFullResponse(CurrentUserId);
-		PostCommentLikeResponses = PostCommentLikes.ToFullResponse(CurrentUserId);
+		PostCommentLikeResponse = PostCommentLike.ToFullResponse(UserId);
+		PostCommentLikeResponses = PostCommentLikes.ToFullResponse(UserId);
 
 		PostCommentLikeIdBuilderFactory = new();
 		PostCommentLikeIdBuilder = PostCommentLikeIdBuilderFactory.Create(PostCommentLike.Id);

@@ -17,7 +17,7 @@ public class GetAllUsersQueryServiceIntegrationTests : BaseUserDomainQueryIntegr
 		: base(webApplicationFactory)
 	{
 		_queryBuilderFactory = new();
-		_queryBuilder = _queryBuilderFactory.Create(User, CurrentUserId);
+		_queryBuilder = _queryBuilderFactory.Create(User, UserId);
 		_query = _queryBuilder.Build();
 	}
 

@@ -31,7 +31,7 @@ public class AddPostLikeCommandRepositoryIntegrationTests : BasePostLikeInfrastr
 	{
 		// Act
 		await Repository.AddAsync(PostLike, CancellationToken);
-		var cachedPost = await ServiceScope.GetPostCacheByIdAsync(PostLike, CurrentUserId, CancellationToken);
+		var cachedPost = await ServiceScope.GetPostCacheByIdAsync(PostLike, UserId, CancellationToken);
 
 		// Assert
 		cachedPost.ShouldBeNull();

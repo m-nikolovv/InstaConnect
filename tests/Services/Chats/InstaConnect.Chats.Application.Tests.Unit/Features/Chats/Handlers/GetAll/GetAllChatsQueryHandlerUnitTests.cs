@@ -13,7 +13,7 @@ public class GetAllChatsQueryHandlerUnitTests : BaseChatApplicationQueryUnitTest
 	public GetAllChatsQueryHandlerUnitTests()
 	{
 		_requestBuilderFactory = new();
-		_requestBuilder = _requestBuilderFactory.Create(Chat, CurrentUserId);
+		_requestBuilder = _requestBuilderFactory.Create(Chat, UserId);
 		_request = _requestBuilder.Build();
 
 		_handler = new(Mapper, Service);

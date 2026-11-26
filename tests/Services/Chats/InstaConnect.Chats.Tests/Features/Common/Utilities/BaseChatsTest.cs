@@ -22,7 +22,6 @@ public abstract class BaseChatsTest : BaseTest
 	protected UserIdBuilderFactory UserIdBuilderFactory { get; }
 	protected UserIdBuilder UserIdBuilder { get; }
 	protected UserId UserId { get; }
-	protected UserId CurrentUserId { get; }
 
 	protected UserIdRangeBuilderFactory UserIdRangeBuilderFactory { get; }
 	protected UserIdRangeBuilder UserIdRangeBuilder { get; }
@@ -130,7 +129,6 @@ public abstract class BaseChatsTest : BaseTest
 		UserIdBuilderFactory = new();
 		UserIdBuilder = UserIdBuilderFactory.Create(User.Id);
 		UserId = UserIdBuilder.Build();
-		CurrentUserId = UserId;
 
 		UserIdRangeBuilderFactory = new();
 		UserIdRangeBuilder = UserIdRangeBuilderFactory.Create([.. Users.Select(p => p.Id)]);

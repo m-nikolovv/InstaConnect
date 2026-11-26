@@ -30,7 +30,7 @@ public class AddPostCommentImageCommandRepositoryIntegrationTests : BasePostComm
 	{
 		// Act
 		await Repository.AddAsync(PostCommentImage, CancellationToken);
-		var cachedPostComment = await ServiceScope.GetPostCommentCacheByIdAsync(PostComment, CurrentUserId, CancellationToken);
+		var cachedPostComment = await ServiceScope.GetPostCommentCacheByIdAsync(PostComment, UserId, CancellationToken);
 
 		// Assert
 		cachedPostComment.ShouldBeNull();

@@ -19,10 +19,10 @@ public class GetChatByIdQueryServiceIntegrationTests : BaseChatDomainQueryIntegr
 		: base(webApplicationFactory)
 	{
 		_queryBuilderFactory = new();
-		_queryBuilder = _queryBuilderFactory.Create(Chat, CurrentUserId);
+		_queryBuilder = _queryBuilderFactory.Create(Chat, UserId);
 		_query = _queryBuilder.Build();
 
-		_invertedQueryBuilder = _queryBuilderFactory.Create(Chat, CurrentUserId).WithCurrentUserId(ParticipantTwoId).WithParticipantTwoId(ParticipantOneId);
+		_invertedQueryBuilder = _queryBuilderFactory.Create(Chat, UserId).WithCurrentUserId(ParticipantTwoId).WithParticipantTwoId(ParticipantOneId);
 		_invertedQuery = _invertedQueryBuilder.Build();
 	}
 

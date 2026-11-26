@@ -11,7 +11,7 @@ public class GetAllFollowsForFollowingQueryServiceUnitTests : BaseFollowDomainQu
 	public GetAllFollowsForFollowingQueryServiceUnitTests()
 	{
 		_queryBuilderFactory = new();
-		_queryBuilder = _queryBuilderFactory.Create(Follow, CurrentUserId);
+		_queryBuilder = _queryBuilderFactory.Create(Follow, UserId);
 		_query = _queryBuilder.Build();
 
 		_service = new(Repository, UserRepository, CollectionResponseFactory);

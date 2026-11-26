@@ -30,7 +30,7 @@ public class DeleteUserCommandRepositoryIntegrationTests : BaseUserInfrastructur
 	{
 		// Act
 		await Repository.DeleteAsync(User, CancellationToken);
-		var cachedUser = await ServiceScope.GetUserCacheByIdAsync(User, CurrentUserId, CancellationToken);
+		var cachedUser = await ServiceScope.GetUserCacheByIdAsync(User, UserId, CancellationToken);
 
 		// Assert
 		cachedUser.ShouldBeNull();

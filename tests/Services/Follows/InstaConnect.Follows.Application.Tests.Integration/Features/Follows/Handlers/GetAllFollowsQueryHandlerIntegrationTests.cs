@@ -19,7 +19,7 @@ public class GetAllFollowsQueryHandlerIntegrationTests : BaseFollowApplicationQu
 		: base(webApplicationFactory)
 	{
 		_requestBuilderFactory = new();
-		_requestBuilder = _requestBuilderFactory.Create(Follow, CurrentUserId);
+		_requestBuilder = _requestBuilderFactory.Create(Follow, UserId);
 		_request = _requestBuilder.Build();
 	}
 

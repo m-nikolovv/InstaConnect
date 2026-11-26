@@ -36,7 +36,7 @@ public class UpdateUserCommandRepositoryIntegrationTests : BaseUserInfrastructur
 
 		// Act
 		await Repository.UpdateAsync(updatedUser, CancellationToken);
-		var cachedUser = await ServiceScope.GetUserCacheByIdAsync(updatedUser, CurrentUserId, CancellationToken);
+		var cachedUser = await ServiceScope.GetUserCacheByIdAsync(updatedUser, UserId, CancellationToken);
 
 		// Assert
 		cachedUser.ShouldBeNull();

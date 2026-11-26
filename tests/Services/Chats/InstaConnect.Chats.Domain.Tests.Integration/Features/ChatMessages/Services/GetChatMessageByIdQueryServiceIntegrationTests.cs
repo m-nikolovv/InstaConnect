@@ -17,10 +17,10 @@ public class GetChatMessageByIdQueryServiceIntegrationTests : BaseChatMessageDom
 		: base(webApplicationFactory)
 	{
 		_queryBuilderFactory = new();
-		_queryBuilder = _queryBuilderFactory.Create(ChatMessage, CurrentUserId);
+		_queryBuilder = _queryBuilderFactory.Create(ChatMessage, UserId);
 		_query = _queryBuilder.Build();
 
-		_invertedQueryBuilder = _queryBuilderFactory.Create(ChatMessage, CurrentUserId).WithCurrentUserId(ParticipantTwoId).WithParticipantTwoId(ParticipantOneId);
+		_invertedQueryBuilder = _queryBuilderFactory.Create(ChatMessage, UserId).WithCurrentUserId(ParticipantTwoId).WithParticipantTwoId(ParticipantOneId);
 		_invertedQuery = _invertedQueryBuilder.Build();
 	}
 

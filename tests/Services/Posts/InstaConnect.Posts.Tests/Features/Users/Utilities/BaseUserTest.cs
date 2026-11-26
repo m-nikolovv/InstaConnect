@@ -85,25 +85,25 @@ public abstract class BaseUserTest : BasePostsTest
 		UserPostIdRangeBuilderFactory = new();
 		UserPostIdRangeBuilder = UserPostIdRangeBuilderFactory.Create([.. UserPosts.Select(p => p.Id)]);
 		UserPostIds = UserPostIdRangeBuilder.Build();
-		UserPostResponses = UserPosts.ToFullResponse(CurrentUserId);
+		UserPostResponses = UserPosts.ToFullResponse(UserId);
 
 		UserPostLikes = [.. User.PostLikes];
 		UserPostLikeIdRangeBuilderFactory = new();
 		UserPostLikeIdRangeBuilder = UserPostLikeIdRangeBuilderFactory.Create([.. UserPostLikes.Select(p => p.Id)]);
 		UserPostLikeIds = UserPostLikeIdRangeBuilder.Build();
-		UserPostLikeResponses = UserPostLikes.ToFullResponse(CurrentUserId);
+		UserPostLikeResponses = UserPostLikes.ToFullResponse(UserId);
 
 		UserPostComments = [.. User.PostComments];
 		UserPostCommentIdRangeBuilderFactory = new();
 		UserPostCommentIdRangeBuilder = UserPostCommentIdRangeBuilderFactory.Create([.. UserPostComments.Select(p => p.Id)]);
 		UserPostCommentIds = UserPostCommentIdRangeBuilder.Build();
-		UserPostCommentResponses = UserPostComments.ToFullResponse(CurrentUserId);
+		UserPostCommentResponses = UserPostComments.ToFullResponse(UserId);
 
 		UserPostCommentLikes = [.. User.PostCommentLikes];
 		UserPostCommentLikeIdRangeBuilderFactory = new();
 		UserPostCommentLikeIdRangeBuilder = UserPostCommentLikeIdRangeBuilderFactory.Create([.. UserPostCommentLikes.Select(p => p.Id)]);
 		UserPostCommentLikeIds = UserPostCommentLikeIdRangeBuilder.Build();
-		UserPostCommentLikeResponses = UserPostCommentLikes.ToFullResponse(CurrentUserId);
+		UserPostCommentLikeResponses = UserPostCommentLikes.ToFullResponse(UserId);
 
 		UserPostsPostImages = [.. User.Posts.SelectMany(p => p.PostImages)];
 		UserPostsPostImageIdRangeBuilderFactory = new();
@@ -115,13 +115,13 @@ public abstract class BaseUserTest : BasePostsTest
 		UserPostsPostLikeIdRangeBuilderFactory = new();
 		UserPostsPostLikeIdRangeBuilder = UserPostsPostLikeIdRangeBuilderFactory.Create([.. UserPostsPostLikes.Select(p => p.Id)]);
 		UserPostsPostLikeIds = UserPostsPostLikeIdRangeBuilder.Build();
-		UserPostsPostLikeResponses = UserPostsPostLikes.ToFullResponse(CurrentUserId);
+		UserPostsPostLikeResponses = UserPostsPostLikes.ToFullResponse(UserId);
 
 		UserPostsPostComments = [.. User.Posts.SelectMany(p => p.PostComments)];
 		UserPostsPostCommentIdRangeBuilderFactory = new();
 		UserPostsPostCommentIdRangeBuilder = UserPostsPostCommentIdRangeBuilderFactory.Create([.. UserPostsPostComments.Select(p => p.Id)]);
 		UserPostsPostCommentIds = UserPostsPostCommentIdRangeBuilder.Build();
-		UserPostsPostCommentResponses = UserPostsPostComments.ToFullResponse(CurrentUserId);
+		UserPostsPostCommentResponses = UserPostsPostComments.ToFullResponse(UserId);
 
 		UserPostsPostCommentsPostCommentImages = [.. User.Posts.SelectMany(p => p.PostComments).SelectMany(p => p.PostCommentImages)];
 		UserPostsPostCommentsPostCommentImageIdRangeBuilderFactory = new();
@@ -133,7 +133,7 @@ public abstract class BaseUserTest : BasePostsTest
 		UserPostsPostCommentsPostCommentLikeIdRangeBuilderFactory = new();
 		UserPostsPostCommentsPostCommentLikeIdRangeBuilder = UserPostsPostCommentsPostCommentLikeIdRangeBuilderFactory.Create([.. UserPostsPostCommentsPostCommentLikes.Select(p => p.Id)]);
 		UserPostsPostCommentsPostCommentLikeIds = UserPostsPostCommentsPostCommentLikeIdRangeBuilder.Build();
-		UserPostsPostCommentsPostCommentLikeResponses = UserPostsPostCommentsPostCommentLikes.ToFullResponse(CurrentUserId);
+		UserPostsPostCommentsPostCommentLikeResponses = UserPostsPostCommentsPostCommentLikes.ToFullResponse(UserId);
 
 		UserPostCommentsPostCommentImages = [.. User.PostComments.SelectMany(p => p.PostCommentImages)];
 		UserPostCommentsPostCommentImageIdRangeBuilderFactory = new();
@@ -145,6 +145,6 @@ public abstract class BaseUserTest : BasePostsTest
 		UserPostCommentsPostCommentLikeIdRangeBuilderFactory = new();
 		UserPostCommentsPostCommentLikeIdRangeBuilder = UserPostCommentsPostCommentLikeIdRangeBuilderFactory.Create([.. UserPostCommentsPostCommentLikes.Select(p => p.Id)]);
 		UserPostCommentsPostCommentLikeIds = UserPostCommentsPostCommentLikeIdRangeBuilder.Build();
-		UserPostCommentsPostCommentLikeResponses = UserPostCommentsPostCommentLikes.ToFullResponse(CurrentUserId);
+		UserPostCommentsPostCommentLikeResponses = UserPostCommentsPostCommentLikes.ToFullResponse(UserId);
 	}
 }

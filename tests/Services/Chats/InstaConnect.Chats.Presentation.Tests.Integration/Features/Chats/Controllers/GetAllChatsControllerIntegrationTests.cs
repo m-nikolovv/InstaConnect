@@ -24,10 +24,10 @@ public class GetAllChatsControllerIntegrationTests : BaseChatPresentationQueryIn
 		: base(webApplicationFactory)
 	{
 		_requestBuilderFactory = new();
-		_requestBuilder = _requestBuilderFactory.Create(Chat, CurrentUserId);
+		_requestBuilder = _requestBuilderFactory.Create(Chat, UserId);
 		_request = _requestBuilder.Build();
 
-		_invertedRequestBuilder = _requestBuilderFactory.Create(Chat, CurrentUserId).WithCurrentUserId(ParticipantTwoId).WithParticipantTwoName(ParticipantOne.Name);
+		_invertedRequestBuilder = _requestBuilderFactory.Create(Chat, UserId).WithCurrentUserId(ParticipantTwoId).WithParticipantTwoName(ParticipantOne.Name);
 		_invertedRequest = _invertedRequestBuilder.Build();
 	}
 
