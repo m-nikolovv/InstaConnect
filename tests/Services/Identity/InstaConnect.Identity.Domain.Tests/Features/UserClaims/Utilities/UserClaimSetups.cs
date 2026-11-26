@@ -38,18 +38,19 @@ public static class UserClaimDomainSetups
 
 		public async Task SetupAddAsync(
 			AddUserClaimCommand command,
-			UserClaim userClaim,
+			User user,
 			CancellationToken cancellationToken)
 		{
-			await serviceScope.SetupAddAsync(userClaim, cancellationToken);
+			await serviceScope.SetupAddUserClaimAsync(user, cancellationToken);
 		}
 
 		public async Task SetupDeleteAsync(
 			DeleteUserClaimCommand command,
+			User user,
 			UserClaim userClaim,
 			CancellationToken cancellationToken)
 		{
-			await serviceScope.SetupDeleteAsync(userClaim, command.Id.Id, cancellationToken);
+			await serviceScope.SetupDeleteUserClaimAsync(user, userClaim, command.Id.Id, cancellationToken);
 		}
 
 		public async Task AddUserClaimCacheAsync(
@@ -62,10 +63,11 @@ public static class UserClaimDomainSetups
 
 		public async Task SetupGetAllAsync(
 			GetAllUserClaimsQuery query,
+			ICollection<User> users,
 			ICollection<UserClaim> userClaims,
 			CancellationToken cancellationToken)
 		{
-			await serviceScope.SetupGetAllAsync(userClaims, cancellationToken);
+			await serviceScope.SetupGetAllUserClaimsAsync(users, userClaims, cancellationToken);
 		}
 	}
 }

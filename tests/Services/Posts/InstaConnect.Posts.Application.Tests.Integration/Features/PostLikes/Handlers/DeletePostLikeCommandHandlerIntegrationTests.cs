@@ -18,7 +18,12 @@ public class DeletePostLikeCommandHandlerIntegrationTests : BasePostLikeApplicat
 
 	public override async Task InitializeAsync()
 	{
-		await ServiceScope.SetupDeleteAsync(_request, PostLike, CancellationToken);
+		await ServiceScope.SetupDeleteAsync(
+			_request,
+			User,
+			Post,
+			PostLike,
+			CancellationToken);
 		await base.InitializeAsync();
 	}
 

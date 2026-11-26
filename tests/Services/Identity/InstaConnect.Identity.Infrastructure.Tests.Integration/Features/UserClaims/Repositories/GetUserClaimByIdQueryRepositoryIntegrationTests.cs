@@ -20,7 +20,7 @@ public class GetUserClaimByIdQueryRepositoryIntegrationTests : BaseUserClaimInfr
 
 	public override async Task InitializeAsync()
 	{
-		await ServiceScope.SetupGetByIdAsync(UserClaim, CancellationToken);
+		await ServiceScope.SetupGetUserClaimByIdAsync(User, UserClaim, CancellationToken);
 	}
 
 	[Fact]

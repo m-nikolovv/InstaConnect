@@ -1,4 +1,5 @@
 using InstaConnect.Chats.Application.Features.Users.Models;
+using InstaConnect.Chats.Domain.Features.ChatMessageImages.Models.Entities;
 using InstaConnect.Chats.Domain.Features.Users.Models.Responses;
 
 namespace InstaConnect.Chats.Application.Tests.Features.Users.Utilities;
@@ -51,9 +52,12 @@ public static class UserSetups
 		public async Task SetupDeleteAsync(
 			DeleteUserCommandRequest request,
 			User user,
+			ICollection<Chat> chats,
+			ICollection<ChatMessage> chatMessages,
+			ICollection<ChatMessageImage> chatMessageImages,
 			CancellationToken cancellationToken)
 		{
-			await serviceScope.SetupDeleteAsync(user, request.Id, cancellationToken);
+			await serviceScope.SetupDeleteUserAsync(user, chats, chatMessages, chatMessageImages, request.Id, cancellationToken);
 		}
 
 		public async Task AddUserCacheAsync(
@@ -77,7 +81,7 @@ public static class UserSetups
 			User user,
 			CancellationToken cancellationToken)
 		{
-			await serviceScope.SetupUpdateAsync(user, request.Id, cancellationToken);
+			await serviceScope.SetupUpdateUserAsync(user, request.Id, cancellationToken);
 		}
 	}
 }

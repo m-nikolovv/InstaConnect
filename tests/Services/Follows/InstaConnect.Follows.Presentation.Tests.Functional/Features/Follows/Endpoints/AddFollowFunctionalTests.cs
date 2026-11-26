@@ -18,7 +18,11 @@ public class AddFollowFunctionalTests : BaseFollowPresentationCommandFunctionalT
 
 	public override async Task InitializeAsync()
 	{
-		await ServiceScope.SetupAddAsync(_request, Follow, CancellationToken);
+		await ServiceScope.SetupAddAsync(
+			_request,
+			Follower,
+			Following,
+			CancellationToken);
 		await base.InitializeAsync();
 	}
 

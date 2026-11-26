@@ -14,7 +14,11 @@ public class DeletePostImageCommandRepositoryIntegrationTests : BasePostImageInf
 
 	public override async Task InitializeAsync()
 	{
-		await ServiceScope.SetupDeleteAsync(PostImage, CancellationToken);
+		await ServiceScope.SetupDeletePostImageAsync(
+			User,
+			Post,
+			PostImage,
+			CancellationToken);
 	}
 
 	[Fact]

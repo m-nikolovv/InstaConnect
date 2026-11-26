@@ -19,7 +19,13 @@ public class GetPostCommentLikeByIdQueryRepositoryIntegrationTests : BasePostCom
 
 	public override async Task InitializeAsync()
 	{
-		await ServiceScope.SetupGetByIdAsync(PostCommentLike, CancellationToken);
+		await ServiceScope.SetupGetPostCommentLikeByIdAsync(
+			User,
+			Post,
+			PostComment,
+			PostCommentLike,
+			PostCommentImages,
+			CancellationToken);
 	}
 
 	[Fact]

@@ -17,7 +17,14 @@ public class DeleteUserFunctionalTests : BaseUserPresentationCommandFunctionalTe
 
 	public override async Task InitializeAsync()
 	{
-		await ServiceScope.SetupDeleteAsync(_request, User, CancellationToken);
+		await ServiceScope.SetupDeleteAsync(
+			_request,
+			User,
+			UserUserClaims,
+			UserRefreshTokens,
+			UserForgotPasswordTokens,
+			UserEmailConfirmationTokens,
+			CancellationToken);
 		await base.InitializeAsync();
 	}
 

@@ -17,7 +17,7 @@ public class GetEmailConfirmationTokenByIdCommandRepositoryIntegrationTests : Ba
 
 	public override async Task InitializeAsync()
 	{
-		await ServiceScope.SetupGetByIdAsync(EmailConfirmationToken, CancellationToken);
+		await ServiceScope.SetupGetEmailConfirmationTokenByIdAsync(User, EmailConfirmationToken, CancellationToken);
 	}
 
 	[Fact]

@@ -10,7 +10,7 @@ public class DeleteRangeEmailConfirmationTokensCommandRepositoryIntegrationTests
 
 	public override async Task InitializeAsync()
 	{
-		await ServiceScope.SetupGetAllAsync(EmailConfirmationTokens, CancellationToken);
+		await ServiceScope.SetupGetAllEmailConfirmationTokensAsync(Users, EmailConfirmationTokens, CancellationToken);
 	}
 
 	[Fact]

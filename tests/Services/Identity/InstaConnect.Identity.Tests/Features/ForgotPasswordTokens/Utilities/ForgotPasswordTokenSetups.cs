@@ -110,74 +110,67 @@ public static class ForgotPasswordTokenSetups
 			await cacheHandler.DeleteRangeAsync(forgotPasswordTokens.Select(p => p.Id), cancellationToken);
 		}
 
-		public async Task SetupAddAsync(
-			ForgotPasswordToken forgotPasswordToken,
+		public async Task SetupAddForgotPasswordTokenAsync(
+			User user,
 			CancellationToken cancellationToken)
 		{
-			var user = forgotPasswordToken.User!;
-
 			await serviceScope.AddAsync(user, cancellationToken);
 		}
 
-		public async Task SetupDeleteAsync(
+		public async Task SetupDeleteForgotPasswordTokenAsync(
+			User user,
 			ForgotPasswordToken forgotPasswordToken,
 			CancellationToken cancellationToken)
 		{
-			var user = forgotPasswordToken.User!;
-
 			await serviceScope.AddAsync(user, cancellationToken);
 			await serviceScope.AddAsync(forgotPasswordToken, cancellationToken);
 		}
 
-		public async Task SetupGetAllAsync(
+		public async Task SetupGetAllForgotPasswordTokensAsync(
+			ICollection<User> users,
 			ICollection<ForgotPasswordToken> forgotPasswordTokens,
 			CancellationToken cancellationToken)
 		{
-			var users = forgotPasswordTokens.Select(p => p.User!).DistinctBy(p => p.Id).ToList();
-
 			await serviceScope.AddRangeAsync(users, cancellationToken);
 			await serviceScope.AddRangeAsync(forgotPasswordTokens, cancellationToken);
 		}
 
-		public async Task SetupGetByIdAsync(
+		public async Task SetupGetForgotPasswordTokenByIdAsync(
+			User user,
 			ForgotPasswordToken forgotPasswordToken,
 			CancellationToken cancellationToken)
 		{
-			var user = forgotPasswordToken.User!;
-
 			await serviceScope.AddAsync(user, cancellationToken);
 			await serviceScope.AddAsync(forgotPasswordToken, cancellationToken);
 		}
 
-		public async Task SetupUpdateAsync(
+		public async Task SetupUpdateForgotPasswordTokenAsync(
+			User user,
 			ForgotPasswordToken forgotPasswordToken,
 			CancellationToken cancellationToken)
 		{
-			var user = forgotPasswordToken.User!;
-
 			await serviceScope.AddAsync(user, cancellationToken);
 			await serviceScope.AddAsync(forgotPasswordToken, cancellationToken);
 		}
 
-		public async Task SetupVerifyAsync(
-			ForgotPasswordToken forgotPasswordToken,
+		public async Task SetupVerifyForgotPasswordTokenAsync(
+			User user,
+			ICollection<ForgotPasswordToken> forgotPasswordTokens,
 			string currentUserId,
 			CancellationToken cancellationToken)
 		{
-			var user = forgotPasswordToken.User!;
-			var forgotPasswordTokens = user.ForgotPasswordTokens;
-
 			await serviceScope.AddAsync(user, cancellationToken);
 			await serviceScope.AddRangeAsync(forgotPasswordTokens, cancellationToken);
 			await serviceScope.AddUserCacheAsync(user, currentUserId, cancellationToken);
 		}
 
-		public async Task SetupVerifyAsync(
-			ForgotPasswordToken forgotPasswordToken,
+		public async Task SetupVerifyForgotPasswordTokenAsync(
+			User user,
+			ICollection<ForgotPasswordToken> forgotPasswordTokens,
 			UserId currentUserId,
 			CancellationToken cancellationToken)
 		{
-			await serviceScope.SetupVerifyAsync(forgotPasswordToken, currentUserId.Id, cancellationToken);
+			await serviceScope.SetupVerifyForgotPasswordTokenAsync(user, forgotPasswordTokens, currentUserId.Id, cancellationToken);
 		}
 	}
 }

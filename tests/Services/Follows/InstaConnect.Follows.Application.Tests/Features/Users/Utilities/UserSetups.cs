@@ -51,9 +51,13 @@ public static class UserSetups
 		public async Task SetupDeleteAsync(
 			DeleteUserCommandRequest request,
 			User user,
+			User follower,
+			User following,
+			ICollection<Follow> followFollowers,
+			ICollection<Follow> followFollowings,
 			CancellationToken cancellationToken)
 		{
-			await serviceScope.SetupDeleteAsync(user, request.Id, cancellationToken);
+			await serviceScope.SetupDeleteUserAsync(user, follower, following, followFollowers, followFollowings, request.Id, cancellationToken);
 		}
 
 		public async Task AddUserCacheAsync(
@@ -77,7 +81,7 @@ public static class UserSetups
 			User user,
 			CancellationToken cancellationToken)
 		{
-			await serviceScope.SetupUpdateAsync(user, request.Id, cancellationToken);
+			await serviceScope.SetupUpdateUserAsync(user, request.Id, cancellationToken);
 		}
 	}
 }

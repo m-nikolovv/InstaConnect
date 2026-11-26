@@ -132,56 +132,57 @@ public static class FollowSetups
 			return await cacheHandler.GetByIdAsync(id, currentUserId, cancellationToken);
 		}
 
-		public async Task SetupAddAsync(
-			Follow follow,
+		public async Task SetupAddFollowAsync(
+			User follower,
+			User following,
 			CancellationToken cancellationToken)
 		{
-			var users = new List<User> { follow.Follower!, follow.Following! }.DistinctBy(p => p.Id).ToList();
-
-			await serviceScope.AddRangeAsync(users, cancellationToken);
+			await serviceScope.AddAsync(follower, cancellationToken);
+			await serviceScope.AddAsync(following, cancellationToken);
 		}
 
-		public async Task SetupDeleteAsync(
+		public async Task SetupDeleteFollowAsync(
+			User follower,
+			User following,
 			Follow follow,
 			string currentUserId,
 			CancellationToken cancellationToken)
 		{
-			var users = new List<User> { follow.Follower!, follow.Following! }.DistinctBy(p => p.Id).ToList();
-
-			await serviceScope.AddRangeAsync(users, cancellationToken);
+			await serviceScope.AddAsync(follower, cancellationToken);
+			await serviceScope.AddAsync(following, cancellationToken);
 			await serviceScope.AddAsync(follow, cancellationToken);
 			await serviceScope.AddFollowCacheAsync(follow, currentUserId, cancellationToken);
 		}
 
-		public async Task SetupDeleteAsync(
+		public async Task SetupDeleteFollowAsync(
+			User follower,
+			User following,
 			Follow follow,
 			UserId currentUserId,
 			CancellationToken cancellationToken)
 		{
-			await serviceScope.SetupDeleteAsync(follow, currentUserId.Id, cancellationToken);
+			await serviceScope.SetupDeleteFollowAsync(follower, following, follow, currentUserId.Id, cancellationToken);
 		}
 
-		public async Task SetupGetAllAsync(
+		public async Task SetupGetAllFollowsAsync(
+			ICollection<User> followers,
+			ICollection<User> followings,
 			ICollection<Follow> follows,
 			CancellationToken cancellationToken)
 		{
-			var users = follows
-				.Select(p => p.Follower!)
-				.Concat(follows.Select(p => p.Following!))
-				.DistinctBy(p => p.Id)
-				.ToList();
-
-			await serviceScope.AddRangeAsync(users, cancellationToken);
+			await serviceScope.AddRangeAsync(followers, cancellationToken);
+			await serviceScope.AddRangeAsync(followings, cancellationToken);
 			await serviceScope.AddRangeAsync(follows, cancellationToken);
 		}
 
-		public async Task SetupGetByIdAsync(
+		public async Task SetupGetFollowByIdAsync(
+			User follower,
+			User following,
 			Follow follow,
 			CancellationToken cancellationToken)
 		{
-			var users = new List<User> { follow.Follower!, follow.Following! }.DistinctBy(p => p.Id).ToList();
-
-			await serviceScope.AddRangeAsync(users, cancellationToken);
+			await serviceScope.AddAsync(follower, cancellationToken);
+			await serviceScope.AddAsync(following, cancellationToken);
 			await serviceScope.AddAsync(follow, cancellationToken);
 		}
 

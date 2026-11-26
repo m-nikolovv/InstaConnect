@@ -154,55 +154,57 @@ public static class UserSetups
 			return await cacheHandler.GetByIdAsync(id, currentUserId, cancellationToken);
 		}
 
-		public async Task SetupDeleteAsync(
+		public async Task SetupDeleteUserAsync(
 			User user,
-			string currentUserId,
-			CancellationToken cancellationToken)
-		{
-			var follows = user.FollowFollowers.Concat(user.FollowFollowings).DistinctBy(p => p.Id).ToList();
-			var users = follows
-				.Select(p => p.Follower!)
-				.Concat(follows.Select(p => p.Following!))
-				.Where(p => p.Id != user.Id)
-				.DistinctBy(p => p.Id)
-				.ToList();
-
-			await serviceScope.AddAsync(user, cancellationToken);
-			await serviceScope.AddRangeAsync(users, cancellationToken);
-			await serviceScope.AddRangeAsync(follows, cancellationToken);
-			await serviceScope.AddUserCacheAsync(user, currentUserId, cancellationToken);
-		}
-
-		public async Task SetupDeleteAsync(
-			User user,
-			UserId currentUserId,
-			CancellationToken cancellationToken)
-		{
-			await serviceScope.SetupDeleteAsync(user, currentUserId.Id, cancellationToken);
-		}
-
-		public async Task SetupGetByIdAsync(
-			User user,
-			CancellationToken cancellationToken)
-		{
-			await serviceScope.AddAsync(user, cancellationToken);
-		}
-
-		public async Task SetupUpdateAsync(
-			User user,
+			User follower,
+			User following,
+			ICollection<Follow> followFollowers,
+			ICollection<Follow> followFollowings,
 			string currentUserId,
 			CancellationToken cancellationToken)
 		{
 			await serviceScope.AddAsync(user, cancellationToken);
+			await serviceScope.AddAsync(follower, cancellationToken);
+			await serviceScope.AddAsync(following, cancellationToken);
+			await serviceScope.AddRangeAsync(followFollowers, cancellationToken);
+			await serviceScope.AddRangeAsync(followFollowings, cancellationToken);
 			await serviceScope.AddUserCacheAsync(user, currentUserId, cancellationToken);
 		}
 
-		public async Task SetupUpdateAsync(
+		public async Task SetupDeleteUserAsync(
+			User user,
+			User follower,
+			User following,
+			ICollection<Follow> followFollowers,
+			ICollection<Follow> followFollowings,
+			UserId currentUserId,
+			CancellationToken cancellationToken)
+		{
+			await serviceScope.SetupDeleteUserAsync(user, follower, following, followFollowers, followFollowings, currentUserId.Id, cancellationToken);
+		}
+
+		public async Task SetupGetUserByIdAsync(
+			User user,
+			CancellationToken cancellationToken)
+		{
+			await serviceScope.AddAsync(user, cancellationToken);
+		}
+
+		public async Task SetupUpdateUserAsync(
+			User user,
+			string currentUserId,
+			CancellationToken cancellationToken)
+		{
+			await serviceScope.AddAsync(user, cancellationToken);
+			await serviceScope.AddUserCacheAsync(user, currentUserId, cancellationToken);
+		}
+
+		public async Task SetupUpdateUserAsync(
 			User user,
 			UserId currentUserId,
 			CancellationToken cancellationToken)
 		{
-			await serviceScope.SetupUpdateAsync(user, currentUserId.Id, cancellationToken);
+			await serviceScope.SetupUpdateUserAsync(user, currentUserId.Id, cancellationToken);
 		}
 
 		public async Task AddUserCacheAsync(

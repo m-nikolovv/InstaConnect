@@ -22,7 +22,7 @@ public class AddEmailConfirmationTokenCommandServiceIntegrationTests : BaseEmail
 
 	public override async Task InitializeAsync()
 	{
-		await ServiceScope.SetupAddAsync(_command, EmailConfirmationToken, CancellationToken);
+		await ServiceScope.SetupAddAsync(_command, User, CancellationToken);
 		await base.InitializeAsync();
 	}
 

@@ -19,7 +19,11 @@ public class AddFollowCommandServiceIntegrationTests : BaseFollowDomainCommandIn
 
 	public override async Task InitializeAsync()
 	{
-		await ServiceScope.SetupAddAsync(_command, Follow, CancellationToken);
+		await ServiceScope.SetupAddAsync(
+			_command,
+			Follower,
+			Following,
+			CancellationToken);
 		await base.InitializeAsync();
 	}
 

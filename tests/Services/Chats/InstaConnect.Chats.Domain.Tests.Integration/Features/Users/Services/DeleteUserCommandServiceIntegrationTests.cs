@@ -23,7 +23,13 @@ public class DeleteUserCommandServiceIntegrationTests : BaseUserDomainCommandInt
 
 	public override async Task InitializeAsync()
 	{
-		await ServiceScope.SetupDeleteAsync(_command, User, CancellationToken);
+		await ServiceScope.SetupDeleteAsync(
+			_command,
+			User,
+			UserChats,
+			UserChatMessages,
+			UserChatMessagesChatMessageImages,
+			CancellationToken);
 	}
 
 	[Fact]

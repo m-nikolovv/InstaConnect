@@ -18,7 +18,15 @@ public class GetPostCommentsForUserTotalCountQueryRepositoryIntegrationTests : B
 
 	public override async Task InitializeAsync()
 	{
-		await ServiceScope.SetupGetAllForUserAsync(PostComments, CancellationToken);
+		await ServiceScope.SetupGetAllPostCommentsForUserAsync(
+			Users,
+			Posts,
+			PostLikes,
+			PostImages,
+			PostComments,
+			PostCommentLikes,
+			PostCommentImages,
+			CancellationToken);
 	}
 
 	[Fact]

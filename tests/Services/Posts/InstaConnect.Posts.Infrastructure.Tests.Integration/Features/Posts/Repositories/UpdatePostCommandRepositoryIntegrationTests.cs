@@ -11,7 +11,11 @@ public class UpdatePostCommandRepositoryIntegrationTests : BasePostInfrastructur
 
 	public override async Task InitializeAsync()
 	{
-		await ServiceScope.SetupUpdateAsync(Post, CancellationToken);
+		await ServiceScope.SetupUpdatePostAsync(
+			User,
+			Post,
+			PostPostImages,
+			CancellationToken);
 	}
 
 	[Fact]

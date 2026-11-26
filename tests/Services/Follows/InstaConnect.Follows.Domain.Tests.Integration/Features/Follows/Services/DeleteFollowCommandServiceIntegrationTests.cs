@@ -19,7 +19,12 @@ public class DeleteFollowCommandServiceIntegrationTests : BaseFollowDomainComman
 
 	public override async Task InitializeAsync()
 	{
-		await ServiceScope.SetupDeleteAsync(_command, Follow, CancellationToken);
+		await ServiceScope.SetupDeleteAsync(
+			_command,
+			Follower,
+			Following,
+			Follow,
+			CancellationToken);
 		await base.InitializeAsync();
 	}
 

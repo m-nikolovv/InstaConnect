@@ -19,7 +19,15 @@ public class GetPostByIdQueryRepositoryIntegrationTests : BasePostInfrastructure
 
 	public override async Task InitializeAsync()
 	{
-		await ServiceScope.SetupGetByIdAsync(Post, CancellationToken);
+		await ServiceScope.SetupGetPostByIdAsync(
+			Users,
+			Post,
+			PostPostLikes,
+			PostPostImages,
+			PostPostComments,
+			PostPostCommentsPostCommentLikes,
+			PostPostCommentsPostCommentImages,
+			CancellationToken);
 	}
 
 	[Fact]

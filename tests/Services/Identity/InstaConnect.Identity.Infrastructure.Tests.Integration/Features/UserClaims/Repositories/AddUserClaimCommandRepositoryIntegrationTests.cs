@@ -11,7 +11,7 @@ public class AddUserClaimCommandRepositoryIntegrationTests : BaseUserClaimInfras
 
 	public override async Task InitializeAsync()
 	{
-		await ServiceScope.SetupAddAsync(UserClaim, CancellationToken);
+		await ServiceScope.SetupAddUserClaimAsync(User, CancellationToken);
 	}
 
 	[Fact]

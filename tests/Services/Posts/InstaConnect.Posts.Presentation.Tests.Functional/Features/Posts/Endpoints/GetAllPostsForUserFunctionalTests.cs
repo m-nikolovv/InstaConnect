@@ -24,7 +24,16 @@ public class GetAllPostsForUserFunctionalTests : BasePostPresentationQueryFuncti
 
 	public override async Task InitializeAsync()
 	{
-		await ServiceScope.SetupGetAllForUserAsync(_request, Posts, CancellationToken);
+		await ServiceScope.SetupGetAllForUserAsync(
+			_request,
+			Users,
+			Posts,
+			PostLikes,
+			PostImages,
+			PostComments,
+			PostCommentLikes,
+			PostCommentImages,
+			CancellationToken);
 	}
 
 	[Theory]

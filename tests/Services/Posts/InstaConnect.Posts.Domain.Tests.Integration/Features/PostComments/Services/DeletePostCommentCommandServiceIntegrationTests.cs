@@ -20,7 +20,14 @@ public class DeletePostCommentCommandServiceIntegrationTests : BasePostCommentDo
 
 	public override async Task InitializeAsync()
 	{
-		await ServiceScope.SetupDeleteAsync(_command, PostComment, CancellationToken);
+		await ServiceScope.SetupDeleteAsync(
+			_command,
+			Users,
+			Post,
+			PostComment,
+			PostCommentPostCommentLikes,
+			PostCommentPostCommentImages,
+			CancellationToken);
 		await base.InitializeAsync();
 	}
 

@@ -1,4 +1,6 @@
 using InstaConnect.Posts.Application.Features.Users.Models;
+using InstaConnect.Posts.Domain.Features.PostCommentImages.Models.Entities;
+using InstaConnect.Posts.Domain.Features.PostImages.Models.Entities;
 using InstaConnect.Posts.Domain.Features.Users.Models.Responses;
 
 namespace InstaConnect.Posts.Application.Tests.Features.Users.Utilities;
@@ -51,9 +53,15 @@ public static class UserSetups
 		public async Task SetupDeleteAsync(
 			DeleteUserCommandRequest request,
 			User user,
+			ICollection<Post> posts,
+			ICollection<PostLike> postLikes,
+			ICollection<PostImage> postImages,
+			ICollection<PostComment> postComments,
+			ICollection<PostCommentLike> postCommentLikes,
+			ICollection<PostCommentImage> postCommentImages,
 			CancellationToken cancellationToken)
 		{
-			await serviceScope.SetupDeleteAsync(user, request.Id, cancellationToken);
+			await serviceScope.SetupDeleteUserAsync(user, posts, postLikes, postImages, postComments, postCommentLikes, postCommentImages, request.Id, cancellationToken);
 		}
 
 		public async Task AddUserCacheAsync(
@@ -77,7 +85,7 @@ public static class UserSetups
 			User user,
 			CancellationToken cancellationToken)
 		{
-			await serviceScope.SetupUpdateAsync(user, request.Id, cancellationToken);
+			await serviceScope.SetupUpdateUserAsync(user, request.Id, cancellationToken);
 		}
 	}
 }

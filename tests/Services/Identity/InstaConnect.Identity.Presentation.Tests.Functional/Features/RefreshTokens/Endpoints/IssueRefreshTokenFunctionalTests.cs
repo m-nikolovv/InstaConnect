@@ -21,7 +21,7 @@ public class IssueRefreshTokenFunctionalTests : BaseRefreshTokenPresentationComm
 
 	public override async Task InitializeAsync()
 	{
-		await ServiceScope.SetupAddAsync(_request, RefreshToken, CancellationToken);
+		await ServiceScope.SetupAddAsync(_request, User, CancellationToken);
 	}
 
 	[Theory]

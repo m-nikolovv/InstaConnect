@@ -189,149 +189,126 @@ public static class PostSetups
 			await cacheHandler.DeleteRangeAsync(posts.Select(p => p.Id), cancellationToken);
 		}
 
-		public async Task SetupAddAsync(
-			Post post,
+		public async Task SetupAddPostAsync(
+			User user,
 			CancellationToken cancellationToken)
 		{
-			var user = post.User!;
-
 			await serviceScope.AddAsync(user, cancellationToken);
 		}
 
-		public async Task SetupUpdateAsync(
+		public async Task SetupUpdatePostAsync(
+			User user,
 			Post post,
+			ICollection<PostImage> postImages,
 			string currentUserId,
 			CancellationToken cancellationToken)
 		{
-			var user = post.User!;
-			var postImages = post.PostImages;
-
 			await serviceScope.AddAsync(user, cancellationToken);
 			await serviceScope.AddAsync(post, cancellationToken);
 			await serviceScope.AddRangeAsync(postImages, cancellationToken);
 			await serviceScope.AddPostCacheAsync(post, currentUserId, cancellationToken);
 		}
 
-		public async Task SetupUpdateAsync(
+		public async Task SetupUpdatePostAsync(
+			User user,
 			Post post,
+			ICollection<PostImage> postImages,
 			UserId currentUserId,
 			CancellationToken cancellationToken)
 		{
-			await serviceScope.SetupUpdateAsync(post, currentUserId.Id, cancellationToken);
+			await serviceScope.SetupUpdatePostAsync(user, post, postImages, currentUserId.Id, cancellationToken);
 		}
 
-		public async Task SetupDeleteAsync(
+		public async Task SetupDeletePostAsync(
+			ICollection<User> users,
 			Post post,
+			ICollection<PostLike> postLikes,
+			ICollection<PostImage> postImages,
+			ICollection<PostComment> postComments,
+			ICollection<PostCommentLike> postCommentLikes,
+			ICollection<PostCommentImage> postCommentImages,
 			string currentUserId,
 			CancellationToken cancellationToken)
 		{
-			var postLikes = post.PostLikes;
-			var postImages = post.PostImages;
-			var postComments = post.PostComments;
-			var postCommentLikes = postComments.SelectMany(p => p.PostCommentLikes).ToList();
-			var postCommentImages = postComments.SelectMany(p => p.PostCommentImages).ToList();
-			var users = postLikes
-				.Select(p => p.User!)
-				.Concat(postComments.Select(p => p.User!))
-				.Concat(postCommentLikes.Select(p => p.User!))
-				.Prepend(post.User!)
-				.DistinctBy(p => p.Id)
-				.ToList();
-
 			await serviceScope.AddRangeAsync(users, cancellationToken);
 			await serviceScope.AddAsync(post, cancellationToken);
-			await serviceScope.AddRangeAsync(postImages, cancellationToken);
 			await serviceScope.AddRangeAsync(postLikes, cancellationToken);
+			await serviceScope.AddRangeAsync(postImages, cancellationToken);
 			await serviceScope.AddRangeAsync(postComments, cancellationToken);
-			await serviceScope.AddRangeAsync(postCommentImages, cancellationToken);
 			await serviceScope.AddRangeAsync(postCommentLikes, cancellationToken);
+			await serviceScope.AddRangeAsync(postCommentImages, cancellationToken);
 			await serviceScope.AddPostCacheAsync(post, currentUserId, cancellationToken);
 		}
 
-		public async Task SetupDeleteAsync(
+		public async Task SetupDeletePostAsync(
+			ICollection<User> users,
 			Post post,
+			ICollection<PostLike> postLikes,
+			ICollection<PostImage> postImages,
+			ICollection<PostComment> postComments,
+			ICollection<PostCommentLike> postCommentLikes,
+			ICollection<PostCommentImage> postCommentImages,
 			UserId currentUserId,
 			CancellationToken cancellationToken)
 		{
-			await serviceScope.SetupDeleteAsync(post, currentUserId.Id, cancellationToken);
+			await serviceScope.SetupDeletePostAsync(users, post, postLikes, postImages, postComments, postCommentLikes, postCommentImages, currentUserId.Id, cancellationToken);
 		}
 
-		public async Task SetupGetByIdAsync(
+		public async Task SetupGetPostByIdAsync(
+			ICollection<User> users,
 			Post post,
+			ICollection<PostLike> postLikes,
+			ICollection<PostImage> postImages,
+			ICollection<PostComment> postComments,
+			ICollection<PostCommentLike> postCommentLikes,
+			ICollection<PostCommentImage> postCommentImages,
 			CancellationToken cancellationToken)
 		{
-			var postLikes = post.PostLikes;
-			var postImages = post.PostImages;
-			var postComments = post.PostComments;
-			var postCommentLikes = postComments.SelectMany(p => p.PostCommentLikes).ToList();
-			var postCommentImages = postComments.SelectMany(p => p.PostCommentImages).ToList();
-			var users = postLikes
-				.Select(p => p.User!)
-				.Concat(postComments.Select(p => p.User!))
-				.Concat(postCommentLikes.Select(p => p.User!))
-				.Prepend(post.User!)
-				.DistinctBy(p => p.Id)
-				.ToList();
-
 			await serviceScope.AddRangeAsync(users, cancellationToken);
 			await serviceScope.AddAsync(post, cancellationToken);
-			await serviceScope.AddRangeAsync(postImages, cancellationToken);
 			await serviceScope.AddRangeAsync(postLikes, cancellationToken);
+			await serviceScope.AddRangeAsync(postImages, cancellationToken);
 			await serviceScope.AddRangeAsync(postComments, cancellationToken);
-			await serviceScope.AddRangeAsync(postCommentImages, cancellationToken);
 			await serviceScope.AddRangeAsync(postCommentLikes, cancellationToken);
+			await serviceScope.AddRangeAsync(postCommentImages, cancellationToken);
 		}
 
-		public async Task SetupGetAllAsync(
+		public async Task SetupGetAllPostsAsync(
+			ICollection<User> users,
 			ICollection<Post> posts,
+			ICollection<PostLike> postLikes,
+			ICollection<PostImage> postImages,
+			ICollection<PostComment> postComments,
+			ICollection<PostCommentLike> postCommentLikes,
+			ICollection<PostCommentImage> postCommentImages,
 			CancellationToken cancellationToken)
 		{
-			var postLikes = posts.SelectMany(p => p.PostLikes).ToList();
-			var postImages = posts.SelectMany(p => p.PostImages).ToList();
-			var postComments = posts.SelectMany(p => p.PostComments).ToList();
-			var postCommentLikes = postComments.SelectMany(p => p.PostCommentLikes).ToList();
-			var postCommentImages = postComments.SelectMany(p => p.PostCommentImages).ToList();
-			var users = posts
-				.Select(p => p.User!)
-				.Concat(postLikes.Select(p => p.User!))
-				.Concat(postComments.Select(p => p.User!))
-				.Concat(postCommentLikes.Select(p => p.User!))
-				.DistinctBy(p => p.Id)
-				.ToList();
-
 			await serviceScope.AddRangeAsync(users, cancellationToken);
 			await serviceScope.AddRangeAsync(posts, cancellationToken);
-			await serviceScope.AddRangeAsync(postImages, cancellationToken);
 			await serviceScope.AddRangeAsync(postLikes, cancellationToken);
+			await serviceScope.AddRangeAsync(postImages, cancellationToken);
 			await serviceScope.AddRangeAsync(postComments, cancellationToken);
-			await serviceScope.AddRangeAsync(postCommentImages, cancellationToken);
 			await serviceScope.AddRangeAsync(postCommentLikes, cancellationToken);
+			await serviceScope.AddRangeAsync(postCommentImages, cancellationToken);
 		}
 
-		public async Task SetupGetAllForUserAsync(
+		public async Task SetupGetAllPostsForUserAsync(
+			ICollection<User> users,
 			ICollection<Post> posts,
+			ICollection<PostLike> postLikes,
+			ICollection<PostImage> postImages,
+			ICollection<PostComment> postComments,
+			ICollection<PostCommentLike> postCommentLikes,
+			ICollection<PostCommentImage> postCommentImages,
 			CancellationToken cancellationToken)
 		{
-			var postLikes = posts.SelectMany(p => p.PostLikes).ToList();
-			var postImages = posts.SelectMany(p => p.PostImages).ToList();
-			var postComments = posts.SelectMany(p => p.PostComments).ToList();
-			var postCommentLikes = postComments.SelectMany(p => p.PostCommentLikes).ToList();
-			var postCommentImages = postComments.SelectMany(p => p.PostCommentImages).ToList();
-			var users = posts
-				.Select(p => p.User!)
-				.Concat(postLikes.Select(p => p.User!))
-				.Concat(postComments.Select(p => p.User!))
-				.Concat(postCommentLikes.Select(p => p.User!))
-				.DistinctBy(p => p.Id)
-				.ToList();
-
 			await serviceScope.AddRangeAsync(users, cancellationToken);
 			await serviceScope.AddRangeAsync(posts, cancellationToken);
-			await serviceScope.AddRangeAsync(postImages, cancellationToken);
 			await serviceScope.AddRangeAsync(postLikes, cancellationToken);
+			await serviceScope.AddRangeAsync(postImages, cancellationToken);
 			await serviceScope.AddRangeAsync(postComments, cancellationToken);
-			await serviceScope.AddRangeAsync(postCommentImages, cancellationToken);
 			await serviceScope.AddRangeAsync(postCommentLikes, cancellationToken);
+			await serviceScope.AddRangeAsync(postCommentImages, cancellationToken);
 		}
 
 

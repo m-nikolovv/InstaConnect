@@ -114,44 +114,49 @@ public static class UserSetups
 			return await cacheHandler.GetByIdAsync(id, currentUserId, cancellationToken);
 		}
 
-		public async Task SetupDeleteAsync(
+		public async Task SetupDeleteUserAsync(
 			User user,
+			ICollection<Post> posts,
+			ICollection<PostLike> postLikes,
+			ICollection<PostImage> postImages,
+			ICollection<PostComment> postComments,
+			ICollection<PostCommentLike> postCommentLikes,
+			ICollection<PostCommentImage> postCommentImages,
 			string currentUserId,
 			CancellationToken cancellationToken)
 		{
-			var posts = user.Posts;
-			var postLikes = user.PostLikes;
-			var postComments = user.PostComments;
-			var postCommentLikes = user.PostCommentLikes;
-			var postImages = posts.SelectMany(p => p.PostImages).ToList();
-			var postCommentImages = postComments.SelectMany(p => p.PostCommentImages).ToList();
-
 			await serviceScope.AddAsync(user, cancellationToken);
 			await serviceScope.AddRangeAsync(posts, cancellationToken);
-			await serviceScope.AddRangeAsync(postImages, cancellationToken);
 			await serviceScope.AddRangeAsync(postLikes, cancellationToken);
+			await serviceScope.AddRangeAsync(postImages, cancellationToken);
 			await serviceScope.AddRangeAsync(postComments, cancellationToken);
-			await serviceScope.AddRangeAsync(postCommentImages, cancellationToken);
 			await serviceScope.AddRangeAsync(postCommentLikes, cancellationToken);
+			await serviceScope.AddRangeAsync(postCommentImages, cancellationToken);
 			await serviceScope.AddUserCacheAsync(user, currentUserId, cancellationToken);
 		}
 
-		public async Task SetupDeleteAsync(
+		public async Task SetupDeleteUserAsync(
 			User user,
+			ICollection<Post> posts,
+			ICollection<PostLike> postLikes,
+			ICollection<PostImage> postImages,
+			ICollection<PostComment> postComments,
+			ICollection<PostCommentLike> postCommentLikes,
+			ICollection<PostCommentImage> postCommentImages,
 			UserId currentUserId,
 			CancellationToken cancellationToken)
 		{
-			await serviceScope.SetupDeleteAsync(user, currentUserId.Id, cancellationToken);
+			await serviceScope.SetupDeleteUserAsync(user, posts, postLikes, postImages, postComments, postCommentLikes, postCommentImages, currentUserId.Id, cancellationToken);
 		}
 
-		public async Task SetupGetByIdAsync(
+		public async Task SetupGetUserByIdAsync(
 			User user,
 			CancellationToken cancellationToken)
 		{
 			await serviceScope.AddAsync(user, cancellationToken);
 		}
 
-		public async Task SetupUpdateAsync(
+		public async Task SetupUpdateUserAsync(
 			User user,
 			string currentUserId,
 			CancellationToken cancellationToken)
@@ -160,12 +165,12 @@ public static class UserSetups
 			await serviceScope.AddUserCacheAsync(user, currentUserId, cancellationToken);
 		}
 
-		public async Task SetupUpdateAsync(
+		public async Task SetupUpdateUserAsync(
 			User user,
 			UserId currentUserId,
 			CancellationToken cancellationToken)
 		{
-			await serviceScope.SetupUpdateAsync(user, currentUserId.Id, cancellationToken);
+			await serviceScope.SetupUpdateUserAsync(user, currentUserId.Id, cancellationToken);
 		}
 
 		public async Task AddUserCacheAsync(

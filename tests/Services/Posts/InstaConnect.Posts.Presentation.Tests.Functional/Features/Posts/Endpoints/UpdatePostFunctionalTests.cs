@@ -20,7 +20,12 @@ public class UpdatePostFunctionalTests : BasePostPresentationCommandFunctionalTe
 
 	public override async Task InitializeAsync()
 	{
-		await ServiceScope.SetupUpdateAsync(_request, Post, CancellationToken);
+		await ServiceScope.SetupUpdateAsync(
+			_request,
+			User,
+			Post,
+			PostPostImages,
+			CancellationToken);
 		await base.InitializeAsync();
 	}
 

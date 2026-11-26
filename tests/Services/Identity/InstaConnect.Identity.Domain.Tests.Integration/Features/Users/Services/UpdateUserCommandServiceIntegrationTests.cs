@@ -25,7 +25,11 @@ public class UpdateUserCommandServiceIntegrationTests : BaseUserDomainCommandInt
 
 	public override async Task InitializeAsync()
 	{
-		await ServiceScope.SetupUpdateAsync(_command, User, CancellationToken);
+		await ServiceScope.SetupUpdateAsync(
+			_command,
+			User,
+			UserEmailConfirmationTokens,
+			CancellationToken);
 		await base.InitializeAsync();
 	}
 

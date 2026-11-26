@@ -35,26 +35,32 @@ public static class ChatSetups
 
 		public async Task SetupAddAsync(
 			AddChatCommandRequest request,
-			Chat chat,
+			User participantOne,
+			User participantTwo,
 			CancellationToken cancellationToken)
 		{
-			await serviceScope.SetupAddAsync(chat, cancellationToken);
+			await serviceScope.SetupAddChatAsync(participantOne, participantTwo, cancellationToken);
 		}
 
 		public async Task SetupGetAllAsync(
 			GetAllChatsQueryRequest request,
+			ICollection<User> participantOnes,
+			ICollection<User> participantTwos,
 			ICollection<Chat> chats,
+			ICollection<ChatMessage> chatMessages,
 			CancellationToken cancellationToken)
 		{
-			await serviceScope.SetupGetAllAsync(chats, cancellationToken);
+			await serviceScope.SetupGetAllChatsAsync(participantOnes, participantTwos, chats, chatMessages, cancellationToken);
 		}
 
 		public async Task SetupGetByIdAsync(
 			GetChatByIdQueryRequest request,
+			User participantOne,
+			User participantTwo,
 			Chat chat,
 			CancellationToken cancellationToken)
 		{
-			await serviceScope.SetupGetByIdAsync(chat, cancellationToken);
+			await serviceScope.SetupGetChatByIdAsync(participantOne, participantTwo, chat, cancellationToken);
 		}
 	}
 }

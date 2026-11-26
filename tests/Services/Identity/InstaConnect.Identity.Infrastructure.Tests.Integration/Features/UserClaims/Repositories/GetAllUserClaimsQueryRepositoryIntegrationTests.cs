@@ -47,7 +47,7 @@ public class GetAllUserClaimsQueryRepositoryIntegrationTests : BaseUserClaimInfr
 
 	public override async Task InitializeAsync()
 	{
-		await ServiceScope.SetupGetAllAsync(UserClaims, CancellationToken);
+		await ServiceScope.SetupGetAllUserClaimsAsync(Users, UserClaims, CancellationToken);
 	}
 
 	[Fact]

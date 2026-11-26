@@ -29,7 +29,11 @@ public class VerifyForgotPasswordTokenFunctionalTests : BaseForgotPasswordTokenP
 
 	public override async Task InitializeAsync()
 	{
-		await ServiceScope.SetupVerifyAsync(_request, ForgotPasswordToken, CancellationToken);
+		await ServiceScope.SetupVerifyAsync(
+			_request,
+			User,
+			ForgotPasswordTokens,
+			CancellationToken);
 		await base.InitializeAsync();
 	}
 

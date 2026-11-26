@@ -54,15 +54,19 @@ public static class UserSetups
 			User user,
 			CancellationToken cancellationToken)
 		{
-			await serviceScope.SetupAddAsync(user, cancellationToken);
+			await serviceScope.SetupAddUserAsync(user, cancellationToken);
 		}
 
 		public async Task SetupDeleteAsync(
 			DeleteUserCommand command,
 			User user,
+			ICollection<UserClaim> userClaims,
+			ICollection<RefreshToken> refreshTokens,
+			ICollection<ForgotPasswordToken> forgotPasswordTokens,
+			ICollection<EmailConfirmationToken> emailConfirmationTokens,
 			CancellationToken cancellationToken)
 		{
-			await serviceScope.SetupDeleteAsync(user, command.Id, cancellationToken);
+			await serviceScope.SetupDeleteUserAsync(user, userClaims, refreshTokens, forgotPasswordTokens, emailConfirmationTokens, command.Id, cancellationToken);
 		}
 
 		public async Task AddUserCacheAsync(
@@ -86,7 +90,7 @@ public static class UserSetups
 			ICollection<User> users,
 			CancellationToken cancellationToken)
 		{
-			await serviceScope.SetupGetAllAsync(users, cancellationToken);
+			await serviceScope.SetupGetAllUsersAsync(users, cancellationToken);
 		}
 
 		public async Task SetupGetByIdAsync(
@@ -94,15 +98,16 @@ public static class UserSetups
 			User user,
 			CancellationToken cancellationToken)
 		{
-			await serviceScope.SetupGetByIdAsync(user, cancellationToken);
+			await serviceScope.SetupGetUserByIdAsync(user, cancellationToken);
 		}
 
 		public async Task SetupUpdateAsync(
 			UpdateUserCommand command,
 			User user,
+			ICollection<EmailConfirmationToken> emailConfirmationTokens,
 			CancellationToken cancellationToken)
 		{
-			await serviceScope.SetupUpdateAsync(user, command.Id, cancellationToken);
+			await serviceScope.SetupUpdateUserAsync(user, emailConfirmationTokens, command.Id, cancellationToken);
 		}
 	}
 }

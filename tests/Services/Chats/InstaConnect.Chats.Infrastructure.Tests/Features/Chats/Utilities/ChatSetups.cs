@@ -23,11 +23,15 @@ public static class ChatSetups
 			return await serviceScope.GetChatCacheByIdAsync(id, currentUserQuery.Id, cancellationToken);
 		}
 
-		public async Task SetupDeleteAsync(
+		public async Task SetupDeleteChatAsync(
+			User participantOne,
+			User participantTwo,
 			Chat chat,
+			ICollection<ChatMessage> chatMessages,
+			ICollection<ChatMessageImage> chatMessageImages,
 			CancellationToken cancellationToken)
 		{
-			await serviceScope.SetupDeleteAsync(chat, chat.Id.ParticipantOneId, cancellationToken);
+			await serviceScope.SetupDeleteChatAsync(participantOne, participantTwo, chat, chatMessages, chatMessageImages, chat.Id.ParticipantOneId, cancellationToken);
 		}
 	}
 

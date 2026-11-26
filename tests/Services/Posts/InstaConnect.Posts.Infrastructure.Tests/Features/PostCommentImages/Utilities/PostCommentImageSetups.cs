@@ -6,18 +6,23 @@ public static class PostCommentImageSetups
 {
 	extension(IServiceScope serviceScope)
 	{
-		public async Task SetupAddAsync(
-			PostCommentImage postCommentImage,
+		public async Task SetupAddPostCommentImageAsync(
+			User user,
+			Post post,
+			PostComment postComment,
 			CancellationToken cancellationToken)
 		{
-			await serviceScope.SetupAddAsync(postCommentImage, postCommentImage.PostComment!.UserId, cancellationToken);
+			await serviceScope.SetupAddPostCommentImageAsync(user, post, postComment, postComment.UserId, cancellationToken);
 		}
 
-		public async Task SetupDeleteAsync(
+		public async Task SetupDeletePostCommentImageAsync(
+			User user,
+			Post post,
+			PostComment postComment,
 			PostCommentImage postCommentImage,
 			CancellationToken cancellationToken)
 		{
-			await serviceScope.SetupDeleteAsync(postCommentImage, postCommentImage.PostComment!.UserId, cancellationToken);
+			await serviceScope.SetupDeletePostCommentImageAsync(user, post, postComment, postCommentImage, postComment.UserId, cancellationToken);
 		}
 	}
 }

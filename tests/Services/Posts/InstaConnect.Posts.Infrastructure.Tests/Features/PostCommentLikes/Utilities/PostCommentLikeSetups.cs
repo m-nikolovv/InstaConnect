@@ -31,18 +31,23 @@ public static class PostCommentLikeSetups
 			return await serviceScope.GetPostCommentCacheByIdAsync(postCommentLike.Id.CommentId, postCommentLike.Id.UserId, cancellationToken);
 		}
 
-		public async Task SetupAddAsync(
-			PostCommentLike postCommentLike,
+		public async Task SetupAddPostCommentLikeAsync(
+			User user,
+			Post post,
+			PostComment postComment,
 			CancellationToken cancellationToken)
 		{
-			await serviceScope.SetupAddAsync(postCommentLike, postCommentLike.Id.UserId, cancellationToken);
+			await serviceScope.SetupAddPostCommentLikeAsync(user, post, postComment, user.Id, cancellationToken);
 		}
 
-		public async Task SetupDeleteAsync(
+		public async Task SetupDeletePostCommentLikeAsync(
+			User user,
+			Post post,
+			PostComment postComment,
 			PostCommentLike postCommentLike,
 			CancellationToken cancellationToken)
 		{
-			await serviceScope.SetupDeleteAsync(postCommentLike, postCommentLike.Id.UserId, cancellationToken);
+			await serviceScope.SetupDeletePostCommentLikeAsync(user, post, postComment, postCommentLike, postCommentLike.Id.UserId, cancellationToken);
 		}
 	}
 

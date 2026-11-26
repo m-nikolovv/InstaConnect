@@ -34,7 +34,13 @@ public class GetAllChatsFunctionalTests : BaseChatPresentationQueryFunctionalTes
 
 	public override async Task InitializeAsync()
 	{
-		await ServiceScope.SetupGetAllAsync(_request, Chats, CancellationToken);
+		await ServiceScope.SetupGetAllAsync(
+			_request,
+			ParticipantOnes,
+			ParticipantTwos,
+			Chats,
+			ChatMessages,
+			CancellationToken);
 	}
 
 	[Fact]

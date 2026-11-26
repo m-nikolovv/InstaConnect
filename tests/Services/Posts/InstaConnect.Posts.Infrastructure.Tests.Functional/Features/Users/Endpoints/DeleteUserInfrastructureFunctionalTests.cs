@@ -34,7 +34,15 @@ public class DeleteUserInfrastructureFunctionalTests : BaseUserInfrastructureCom
 
 	public override async Task InitializeAsync()
 	{
-		await ServiceScope.SetupDeleteAsync(User, CancellationToken);
+		await ServiceScope.SetupDeleteUserAsync(
+			User,
+			UserPosts,
+			UserPostLikes,
+			UserPostsPostImages,
+			UserPostComments,
+			UserPostCommentLikes,
+			UserPostCommentsPostCommentImages,
+			CancellationToken);
 		await base.InitializeAsync();
 	}
 

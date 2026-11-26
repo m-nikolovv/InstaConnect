@@ -19,7 +19,15 @@ public class GetPostsForUserTotalCountQueryRepositoryIntegrationTests : BasePost
 
 	public override async Task InitializeAsync()
 	{
-		await ServiceScope.SetupGetAllForUserAsync(Posts, CancellationToken);
+		await ServiceScope.SetupGetAllPostsForUserAsync(
+			Users,
+			Posts,
+			PostLikes,
+			PostImages,
+			PostComments,
+			PostCommentLikes,
+			PostCommentImages,
+			CancellationToken);
 	}
 
 	[Fact]

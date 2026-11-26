@@ -6,18 +6,21 @@ public static class PostImageSetups
 {
 	extension(IServiceScope serviceScope)
 	{
-		public async Task SetupAddAsync(
-			PostImage postImage,
+		public async Task SetupAddPostImageAsync(
+			User user,
+			Post post,
 			CancellationToken cancellationToken)
 		{
-			await serviceScope.SetupAddAsync(postImage, postImage.Post!.UserId, cancellationToken);
+			await serviceScope.SetupAddPostImageAsync(user, post, post.UserId, cancellationToken);
 		}
 
-		public async Task SetupDeleteAsync(
+		public async Task SetupDeletePostImageAsync(
+			User user,
+			Post post,
 			PostImage postImage,
 			CancellationToken cancellationToken)
 		{
-			await serviceScope.SetupDeleteAsync(postImage, postImage.Post!.UserId, cancellationToken);
+			await serviceScope.SetupDeletePostImageAsync(user, post, postImage, post.UserId, cancellationToken);
 		}
 	}
 }

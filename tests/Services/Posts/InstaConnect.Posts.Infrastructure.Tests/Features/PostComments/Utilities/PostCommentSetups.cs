@@ -30,25 +30,32 @@ public static class PostCommentSetups
 			return await serviceScope.GetPostCacheByIdAsync(postComment, postComment.UserId, cancellationToken);
 		}
 
-		public async Task SetupAddAsync(
-			PostComment postComment,
+		public async Task SetupAddPostCommentAsync(
+			User user,
+			Post post,
 			CancellationToken cancellationToken)
 		{
-			await serviceScope.SetupAddAsync(postComment, postComment.UserId, cancellationToken);
+			await serviceScope.SetupAddPostCommentAsync(user, post, user.Id, cancellationToken);
 		}
 
-		public async Task SetupUpdateAsync(
+		public async Task SetupUpdatePostCommentAsync(
+			User user,
+			Post post,
 			PostComment postComment,
 			CancellationToken cancellationToken)
 		{
-			await serviceScope.SetupUpdateAsync(postComment, postComment.UserId, cancellationToken);
+			await serviceScope.SetupUpdatePostCommentAsync(user, post, postComment, postComment.UserId, cancellationToken);
 		}
 
-		public async Task SetupDeleteAsync(
+		public async Task SetupDeletePostCommentAsync(
+			ICollection<User> users,
+			Post post,
 			PostComment postComment,
+			ICollection<PostCommentLike> postCommentLikes,
+			ICollection<PostCommentImage> postCommentImages,
 			CancellationToken cancellationToken)
 		{
-			await serviceScope.SetupDeleteAsync(postComment, postComment.UserId, cancellationToken);
+			await serviceScope.SetupDeletePostCommentAsync(users, post, postComment, postCommentLikes, postCommentImages, postComment.UserId, cancellationToken);
 		}
 	}
 }

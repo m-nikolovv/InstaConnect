@@ -29,7 +29,11 @@ public class AddChatCommandServiceIntegrationTests : BaseChatDomainCommandIntegr
 
 	public override async Task InitializeAsync()
 	{
-		await ServiceScope.SetupAddAsync(_command, Chat, CancellationToken);
+		await ServiceScope.SetupAddAsync(
+			_command,
+			ParticipantOne,
+			ParticipantTwo,
+			CancellationToken);
 		await base.InitializeAsync();
 	}
 

@@ -23,7 +23,14 @@ public class GetAllPostLikesForUserControllerIntegrationTests : BasePostLikePres
 
 	public override async Task InitializeAsync()
 	{
-		await ServiceScope.SetupGetAllForUserAsync(_request, PostLikes, CancellationToken);
+		await ServiceScope.SetupGetAllForUserAsync(
+			_request,
+			Users,
+			Posts,
+			PostLikes,
+			PostImages,
+			PostComments,
+			CancellationToken);
 	}
 
 	[Theory]

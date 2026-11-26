@@ -36,9 +36,12 @@ public static class UserSetups
 		public async Task SetupDeleteAsync(
 			DeleteUserCommand command,
 			User user,
+			ICollection<Chat> chats,
+			ICollection<ChatMessage> chatMessages,
+			ICollection<ChatMessageImage> chatMessageImages,
 			CancellationToken cancellationToken)
 		{
-			await serviceScope.SetupDeleteAsync(user, command.Id, cancellationToken);
+			await serviceScope.SetupDeleteUserAsync(user, chats, chatMessages, chatMessageImages, command.Id, cancellationToken);
 		}
 
 		public async Task AddUserCacheAsync(
@@ -62,7 +65,7 @@ public static class UserSetups
 			User user,
 			CancellationToken cancellationToken)
 		{
-			await serviceScope.SetupUpdateAsync(user, command.Id, cancellationToken);
+			await serviceScope.SetupUpdateUserAsync(user, command.Id, cancellationToken);
 		}
 	}
 }

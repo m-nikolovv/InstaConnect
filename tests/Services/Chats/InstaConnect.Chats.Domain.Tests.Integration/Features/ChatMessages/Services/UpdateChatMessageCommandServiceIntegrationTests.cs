@@ -27,7 +27,14 @@ public class UpdateChatMessageCommandServiceIntegrationTests : BaseChatMessageDo
 
 	public override async Task InitializeAsync()
 	{
-		await ServiceScope.SetupUpdateAsync(_command, ChatMessage, CancellationToken);
+		await ServiceScope.SetupUpdateAsync(
+			_command,
+			ParticipantOne,
+			ParticipantTwo,
+			Chat,
+			ChatMessage,
+			ChatMessageChatMessageImages,
+			CancellationToken);
 	}
 
 	[Fact]

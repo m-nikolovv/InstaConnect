@@ -22,7 +22,11 @@ public class RotateRefreshTokenCommandHandlerIntegrationTests : BaseRefreshToken
 
 	public override async Task InitializeAsync()
 	{
-		await ServiceScope.SetupUpdateAsync(_request, RefreshToken, CancellationToken);
+		await ServiceScope.SetupUpdateAsync(
+			_request,
+			User,
+			RefreshToken,
+			CancellationToken);
 	}
 
 	[Theory]

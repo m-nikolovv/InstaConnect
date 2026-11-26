@@ -27,7 +27,12 @@ public class GetChatByIdFunctionalTests : BaseChatPresentationQueryFunctionalTes
 
 	public override async Task InitializeAsync()
 	{
-		await ServiceScope.SetupGetByIdAsync(_request, Chat, CancellationToken);
+		await ServiceScope.SetupGetByIdAsync(
+			_request,
+			ParticipantOne,
+			ParticipantTwo,
+			Chat,
+			CancellationToken);
 	}
 
 	[Fact]

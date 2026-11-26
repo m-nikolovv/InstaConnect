@@ -99,51 +99,45 @@ public static class RefreshTokenSetups
 			await cacheHandler.DeleteAsync(refreshToken.Id, cancellationToken);
 		}
 
-		public async Task SetupAddAsync(
-			RefreshToken refreshToken,
+		public async Task SetupAddRefreshTokenAsync(
+			User user,
 			CancellationToken cancellationToken)
 		{
-			var user = refreshToken.User!;
-
 			await serviceScope.AddAsync(user, cancellationToken);
 		}
 
-		public async Task SetupDeleteAsync(
+		public async Task SetupDeleteRefreshTokenAsync(
+			User user,
 			RefreshToken refreshToken,
 			CancellationToken cancellationToken)
 		{
-			var user = refreshToken.User!;
-
 			await serviceScope.AddAsync(user, cancellationToken);
 			await serviceScope.AddAsync(refreshToken, cancellationToken);
 		}
 
-		public async Task SetupGetAllAsync(
+		public async Task SetupGetAllRefreshTokensAsync(
+			ICollection<User> users,
 			ICollection<RefreshToken> refreshTokens,
 			CancellationToken cancellationToken)
 		{
-			var users = refreshTokens.Select(p => p.User!).DistinctBy(p => p.Id).ToList();
-
 			await serviceScope.AddRangeAsync(users, cancellationToken);
 			await serviceScope.AddRangeAsync(refreshTokens, cancellationToken);
 		}
 
-		public async Task SetupGetByIdAsync(
+		public async Task SetupGetRefreshTokenByIdAsync(
+			User user,
 			RefreshToken refreshToken,
 			CancellationToken cancellationToken)
 		{
-			var user = refreshToken.User!;
-
 			await serviceScope.AddAsync(user, cancellationToken);
 			await serviceScope.AddAsync(refreshToken, cancellationToken);
 		}
 
-		public async Task SetupUpdateAsync(
+		public async Task SetupUpdateRefreshTokenAsync(
+			User user,
 			RefreshToken refreshToken,
 			CancellationToken cancellationToken)
 		{
-			var user = refreshToken.User!;
-
 			await serviceScope.AddAsync(user, cancellationToken);
 			await serviceScope.AddAsync(refreshToken, cancellationToken);
 		}

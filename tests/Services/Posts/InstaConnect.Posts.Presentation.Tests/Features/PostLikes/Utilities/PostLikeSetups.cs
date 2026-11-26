@@ -1,3 +1,4 @@
+using InstaConnect.Posts.Domain.Features.PostImages.Models.Entities;
 using InstaConnect.Posts.Domain.Features.PostLikes.Models.Responses;
 using InstaConnect.Posts.Domain.Features.PostLikes.Models.ValueObjects;
 using InstaConnect.Posts.Domain.Features.Posts.Models.Responses;
@@ -91,10 +92,11 @@ public static class PostLikeSetups
 
 		public async Task SetupAddAsync(
 			AddPostLikeApiRequest request,
-			PostLike postLike,
+			User user,
+			Post post,
 			CancellationToken cancellationToken)
 		{
-			await serviceScope.SetupAddAsync(postLike, request.UserId, cancellationToken);
+			await serviceScope.SetupAddPostLikeAsync(user, post, request.UserId, cancellationToken);
 		}
 
 		public async Task AddPostCacheAsync(
@@ -115,10 +117,12 @@ public static class PostLikeSetups
 
 		public async Task SetupDeleteAsync(
 			DeletePostLikeApiRequest request,
+			User user,
+			Post post,
 			PostLike postLike,
 			CancellationToken cancellationToken)
 		{
-			await serviceScope.SetupDeleteAsync(postLike, request.UserId, cancellationToken);
+			await serviceScope.SetupDeletePostLikeAsync(user, post, postLike, request.UserId, cancellationToken);
 		}
 
 		public async Task AddPostLikeCacheAsync(
@@ -131,26 +135,38 @@ public static class PostLikeSetups
 
 		public async Task SetupGetAllAsync(
 			GetAllPostLikesApiRequest request,
+			ICollection<User> users,
+			ICollection<Post> posts,
 			ICollection<PostLike> postLikes,
+			ICollection<PostImage> postImages,
+			ICollection<PostComment> postComments,
 			CancellationToken cancellationToken)
 		{
-			await serviceScope.SetupGetAllAsync(postLikes, cancellationToken);
+			await serviceScope.SetupGetAllPostLikesAsync(users, posts, postLikes, postImages, postComments, cancellationToken);
 		}
 
 		public async Task SetupGetAllForUserAsync(
 			GetAllPostLikesForUserApiRequest request,
+			ICollection<User> users,
+			ICollection<Post> posts,
 			ICollection<PostLike> postLikes,
+			ICollection<PostImage> postImages,
+			ICollection<PostComment> postComments,
 			CancellationToken cancellationToken)
 		{
-			await serviceScope.SetupGetAllForUserAsync(postLikes, cancellationToken);
+			await serviceScope.SetupGetAllPostLikesForUserAsync(users, posts, postLikes, postImages, postComments, cancellationToken);
 		}
 
 		public async Task SetupGetByIdAsync(
 			GetPostLikeByIdApiRequest request,
+			ICollection<User> users,
+			Post post,
 			PostLike postLike,
+			ICollection<PostImage> postImages,
+			ICollection<PostComment> postComments,
 			CancellationToken cancellationToken)
 		{
-			await serviceScope.SetupGetByIdAsync(postLike, cancellationToken);
+			await serviceScope.SetupGetPostLikeByIdAsync(users, post, postLike, postImages, postComments, cancellationToken);
 		}
 	}
 }

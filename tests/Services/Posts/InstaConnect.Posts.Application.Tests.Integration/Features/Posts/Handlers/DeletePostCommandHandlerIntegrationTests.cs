@@ -19,7 +19,16 @@ public class DeletePostCommandHandlerIntegrationTests : BasePostApplicationComma
 
 	public override async Task InitializeAsync()
 	{
-		await ServiceScope.SetupDeleteAsync(_request, Post, CancellationToken);
+		await ServiceScope.SetupDeleteAsync(
+			_request,
+			Users,
+			Post,
+			PostPostLikes,
+			PostPostImages,
+			PostPostComments,
+			PostPostCommentsPostCommentLikes,
+			PostPostCommentsPostCommentImages,
+			CancellationToken);
 		await base.InitializeAsync();
 	}
 

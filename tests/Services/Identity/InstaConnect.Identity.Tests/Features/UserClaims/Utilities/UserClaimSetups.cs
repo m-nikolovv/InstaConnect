@@ -122,51 +122,47 @@ public static class UserClaimSetups
 			return await cacheHandler.GetByIdAsync(id, currentUserId, cancellationToken);
 		}
 
-		public async Task SetupAddAsync(
-			UserClaim userClaim,
+		public async Task SetupAddUserClaimAsync(
+			User user,
 			CancellationToken cancellationToken)
 		{
-			var user = userClaim.User!;
-
 			await serviceScope.AddAsync(user, cancellationToken);
 		}
 
-		public async Task SetupDeleteAsync(
+		public async Task SetupDeleteUserClaimAsync(
+			User user,
 			UserClaim userClaim,
 			string currentUserId,
 			CancellationToken cancellationToken)
 		{
-			var user = userClaim.User!;
-
 			await serviceScope.AddAsync(user, cancellationToken);
 			await serviceScope.AddAsync(userClaim, cancellationToken);
 			await serviceScope.AddUserClaimCacheAsync(userClaim, currentUserId, cancellationToken);
 		}
 
-		public async Task SetupDeleteAsync(
+		public async Task SetupDeleteUserClaimAsync(
+			User user,
 			UserClaim userClaim,
 			UserId currentUserId,
 			CancellationToken cancellationToken)
 		{
-			await serviceScope.SetupDeleteAsync(userClaim, currentUserId.Id, cancellationToken);
+			await serviceScope.SetupDeleteUserClaimAsync(user, userClaim, currentUserId.Id, cancellationToken);
 		}
 
-		public async Task SetupGetAllAsync(
+		public async Task SetupGetAllUserClaimsAsync(
+			ICollection<User> users,
 			ICollection<UserClaim> userClaims,
 			CancellationToken cancellationToken)
 		{
-			var users = userClaims.Select(p => p.User!).DistinctBy(p => p.Id).ToList();
-
 			await serviceScope.AddRangeAsync(users, cancellationToken);
 			await serviceScope.AddRangeAsync(userClaims, cancellationToken);
 		}
 
-		public async Task SetupGetByIdAsync(
+		public async Task SetupGetUserClaimByIdAsync(
+			User user,
 			UserClaim userClaim,
 			CancellationToken cancellationToken)
 		{
-			var user = userClaim.User!;
-
 			await serviceScope.AddAsync(user, cancellationToken);
 			await serviceScope.AddAsync(userClaim, cancellationToken);
 		}

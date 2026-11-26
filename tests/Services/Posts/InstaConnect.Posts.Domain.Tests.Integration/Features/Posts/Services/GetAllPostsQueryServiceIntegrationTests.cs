@@ -22,7 +22,16 @@ public class GetAllPostsQueryServiceIntegrationTests : BasePostDomainQueryIntegr
 
 	public override async Task InitializeAsync()
 	{
-		await ServiceScope.SetupGetAllAsync(_query, Posts, CancellationToken);
+		await ServiceScope.SetupGetAllAsync(
+			_query,
+			Users,
+			Posts,
+			PostLikes,
+			PostImages,
+			PostComments,
+			PostCommentLikes,
+			PostCommentImages,
+			CancellationToken);
 	}
 
 	[Fact]

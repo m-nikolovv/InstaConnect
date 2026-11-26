@@ -66,10 +66,12 @@ public static class ChatMessageDomainSetups
 
 		public async Task SetupAddAsync(
 			AddChatMessageCommand command,
-			ChatMessage chatMessage,
+			User participantOne,
+			User participantTwo,
+			Chat chat,
 			CancellationToken cancellationToken)
 		{
-			await serviceScope.SetupAddAsync(chatMessage, command.Id.ParticipantOneId, cancellationToken);
+			await serviceScope.SetupAddChatMessageAsync(participantOne, participantTwo, chat, command.Id.ParticipantOneId, cancellationToken);
 		}
 
 		public async Task AddChatCacheAsync(
@@ -90,10 +92,14 @@ public static class ChatMessageDomainSetups
 
 		public async Task SetupDeleteAsync(
 			DeleteChatMessageCommand command,
+			User participantOne,
+			User participantTwo,
+			Chat chat,
 			ChatMessage chatMessage,
+			ICollection<ChatMessageImage> chatMessageImages,
 			CancellationToken cancellationToken)
 		{
-			await serviceScope.SetupDeleteAsync(chatMessage, command.Id.Id.ParticipantOneId, cancellationToken);
+			await serviceScope.SetupDeleteChatMessageAsync(participantOne, participantTwo, chat, chatMessage, chatMessageImages, command.Id.Id.ParticipantOneId, cancellationToken);
 		}
 
 		public async Task AddChatMessageCacheAsync(
@@ -114,26 +120,38 @@ public static class ChatMessageDomainSetups
 
 		public async Task SetupGetAllAsync(
 			GetAllChatMessagesQuery query,
+			ICollection<User> participantOnes,
+			ICollection<User> participantTwos,
+			ICollection<Chat> chats,
 			ICollection<ChatMessage> chatMessages,
+			ICollection<ChatMessageImage> chatMessageImages,
 			CancellationToken cancellationToken)
 		{
-			await serviceScope.SetupGetAllAsync(chatMessages, cancellationToken);
+			await serviceScope.SetupGetAllChatMessagesAsync(participantOnes, participantTwos, chats, chatMessages, chatMessageImages, cancellationToken);
 		}
 
 		public async Task SetupGetByIdAsync(
 			GetChatMessageByIdQuery query,
+			User participantOne,
+			User participantTwo,
+			Chat chat,
 			ChatMessage chatMessage,
+			ICollection<ChatMessageImage> chatMessageImages,
 			CancellationToken cancellationToken)
 		{
-			await serviceScope.SetupGetByIdAsync(chatMessage, cancellationToken);
+			await serviceScope.SetupGetChatMessageByIdAsync(participantOne, participantTwo, chat, chatMessage, chatMessageImages, cancellationToken);
 		}
 
 		public async Task SetupUpdateAsync(
 			UpdateChatMessageCommand command,
+			User participantOne,
+			User participantTwo,
+			Chat chat,
 			ChatMessage chatMessage,
+			ICollection<ChatMessageImage> chatMessageImages,
 			CancellationToken cancellationToken)
 		{
-			await serviceScope.SetupUpdateAsync(chatMessage, command.Id.Id.ParticipantOneId, cancellationToken);
+			await serviceScope.SetupUpdateChatMessageAsync(participantOne, participantTwo, chat, chatMessage, chatMessageImages, command.Id.Id.ParticipantOneId, cancellationToken);
 		}
 	}
 }

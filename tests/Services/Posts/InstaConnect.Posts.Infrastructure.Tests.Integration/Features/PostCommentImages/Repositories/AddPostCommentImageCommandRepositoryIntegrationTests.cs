@@ -13,7 +13,11 @@ public class AddPostCommentImageCommandRepositoryIntegrationTests : BasePostComm
 
 	public override async Task InitializeAsync()
 	{
-		await ServiceScope.SetupAddAsync(PostCommentImage, CancellationToken);
+		await ServiceScope.SetupAddPostCommentImageAsync(
+			User,
+			Post,
+			PostComment,
+			CancellationToken);
 	}
 
 	[Fact]

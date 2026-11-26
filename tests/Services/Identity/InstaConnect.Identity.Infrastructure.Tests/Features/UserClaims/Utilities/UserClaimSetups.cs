@@ -22,11 +22,12 @@ public static class UserClaimSetups
 			return await serviceScope.GetUserClaimCacheByIdAsync(id, currentUserQuery.Id, cancellationToken);
 		}
 
-		public async Task SetupDeleteAsync(
+		public async Task SetupDeleteUserClaimAsync(
+			User user,
 			UserClaim userClaim,
 			CancellationToken cancellationToken)
 		{
-			await serviceScope.SetupDeleteAsync(userClaim, userClaim.Id.Id, cancellationToken);
+			await serviceScope.SetupDeleteUserClaimAsync(user, userClaim, userClaim.Id.Id, cancellationToken);
 		}
 	}
 

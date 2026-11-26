@@ -57,18 +57,22 @@ public static class UserSetups
 			return await serviceScope.GetUserCacheByIdAsync(id, currentUserQuery.Id, cancellationToken);
 		}
 
-		public async Task SetupUpdateAsync(
+		public async Task SetupUpdateUserAsync(
 			User user,
 			CancellationToken cancellationToken)
 		{
-			await serviceScope.SetupUpdateAsync(user, user.Id, cancellationToken);
+			await serviceScope.SetupUpdateUserAsync(user, user.Id, cancellationToken);
 		}
 
-		public async Task SetupDeleteAsync(
+		public async Task SetupDeleteUserAsync(
 			User user,
+			User follower,
+			User following,
+			ICollection<Follow> followFollowers,
+			ICollection<Follow> followFollowings,
 			CancellationToken cancellationToken)
 		{
-			await serviceScope.SetupDeleteAsync(user, user.Id, cancellationToken);
+			await serviceScope.SetupDeleteUserAsync(user, follower, following, followFollowers, followFollowings, user.Id, cancellationToken);
 		}
 	}
 }

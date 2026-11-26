@@ -45,7 +45,13 @@ public class GetAllPostLikesQueryRepositoryIntegrationTests : BasePostLikeInfras
 
 	public override async Task InitializeAsync()
 	{
-		await ServiceScope.SetupGetAllAsync(PostLikes, CancellationToken);
+		await ServiceScope.SetupGetAllPostLikesAsync(
+			Users,
+			Posts,
+			PostLikes,
+			PostImages,
+			PostComments,
+			CancellationToken);
 	}
 
 	[Fact]

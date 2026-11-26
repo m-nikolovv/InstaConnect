@@ -31,25 +31,35 @@ public static class ChatMessageSetups
 			return await serviceScope.GetChatCacheByIdAsync(chatMessage.Id.Id, chatMessage.Id.Id.ParticipantOneId, cancellationToken);
 		}
 
-		public async Task SetupAddAsync(
-			ChatMessage chatMessage,
+		public async Task SetupAddChatMessageAsync(
+			User participantOne,
+			User participantTwo,
+			Chat chat,
 			CancellationToken cancellationToken)
 		{
-			await serviceScope.SetupAddAsync(chatMessage, chatMessage.Id.Id.ParticipantOneId, cancellationToken);
+			await serviceScope.SetupAddChatMessageAsync(participantOne, participantTwo, chat, chat.Id.ParticipantOneId, cancellationToken);
 		}
 
-		public async Task SetupUpdateAsync(
+		public async Task SetupUpdateChatMessageAsync(
+			User participantOne,
+			User participantTwo,
+			Chat chat,
 			ChatMessage chatMessage,
+			ICollection<ChatMessageImage> chatMessageImages,
 			CancellationToken cancellationToken)
 		{
-			await serviceScope.SetupUpdateAsync(chatMessage, chatMessage.Id.Id.ParticipantOneId, cancellationToken);
+			await serviceScope.SetupUpdateChatMessageAsync(participantOne, participantTwo, chat, chatMessage, chatMessageImages, chatMessage.Id.Id.ParticipantOneId, cancellationToken);
 		}
 
-		public async Task SetupDeleteAsync(
+		public async Task SetupDeleteChatMessageAsync(
+			User participantOne,
+			User participantTwo,
+			Chat chat,
 			ChatMessage chatMessage,
+			ICollection<ChatMessageImage> chatMessageImages,
 			CancellationToken cancellationToken)
 		{
-			await serviceScope.SetupDeleteAsync(chatMessage, chatMessage.Id.Id.ParticipantOneId, cancellationToken);
+			await serviceScope.SetupDeleteChatMessageAsync(participantOne, participantTwo, chat, chatMessage, chatMessageImages, chatMessage.Id.Id.ParticipantOneId, cancellationToken);
 		}
 	}
 

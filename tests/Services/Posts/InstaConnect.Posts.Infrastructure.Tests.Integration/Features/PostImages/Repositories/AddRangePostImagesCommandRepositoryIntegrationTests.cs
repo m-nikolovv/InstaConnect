@@ -12,7 +12,7 @@ public class AddRangePostImagesCommandRepositoryIntegrationTests : BasePostImage
 
 	public override async Task InitializeAsync()
 	{
-		await ServiceScope.SetupAddAsync(PostImage, CancellationToken);
+		await ServiceScope.SetupAddPostImageAsync(User, Post, CancellationToken);
 	}
 
 	[Fact]

@@ -35,9 +35,15 @@ public static class UserSetups
 		public async Task SetupDeleteAsync(
 			DeleteUserCommand command,
 			User user,
+			ICollection<Post> posts,
+			ICollection<PostLike> postLikes,
+			ICollection<PostImage> postImages,
+			ICollection<PostComment> postComments,
+			ICollection<PostCommentLike> postCommentLikes,
+			ICollection<PostCommentImage> postCommentImages,
 			CancellationToken cancellationToken)
 		{
-			await serviceScope.SetupDeleteAsync(user, command.Id, cancellationToken);
+			await serviceScope.SetupDeleteUserAsync(user, posts, postLikes, postImages, postComments, postCommentLikes, postCommentImages, command.Id, cancellationToken);
 		}
 
 		public async Task AddUserCacheAsync(
@@ -61,7 +67,7 @@ public static class UserSetups
 			User user,
 			CancellationToken cancellationToken)
 		{
-			await serviceScope.SetupUpdateAsync(user, command.Id, cancellationToken);
+			await serviceScope.SetupUpdateUserAsync(user, command.Id, cancellationToken);
 		}
 	}
 }

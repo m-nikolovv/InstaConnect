@@ -1,3 +1,6 @@
+using InstaConnect.Identity.Domain.Features.EmailConfirmationTokens.Models.Entities;
+using InstaConnect.Identity.Domain.Features.ForgotPasswordTokens.Models.Entities;
+using InstaConnect.Identity.Domain.Features.RefreshTokens.Models.Entities;
 using InstaConnect.Identity.Domain.Features.Users.Models.Responses;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -22,18 +25,23 @@ public static class UserSetups
 			return await serviceScope.GetUserCacheByIdAsync(id, currentUserQuery.Id, cancellationToken);
 		}
 
-		public async Task SetupUpdateAsync(
+		public async Task SetupUpdateUserAsync(
 			User user,
+			ICollection<EmailConfirmationToken> emailConfirmationTokens,
 			CancellationToken cancellationToken)
 		{
-			await serviceScope.SetupUpdateAsync(user, user.Id, cancellationToken);
+			await serviceScope.SetupUpdateUserAsync(user, emailConfirmationTokens, user.Id, cancellationToken);
 		}
 
-		public async Task SetupDeleteAsync(
+		public async Task SetupDeleteUserAsync(
 			User user,
+			ICollection<UserClaim> userClaims,
+			ICollection<RefreshToken> refreshTokens,
+			ICollection<ForgotPasswordToken> forgotPasswordTokens,
+			ICollection<EmailConfirmationToken> emailConfirmationTokens,
 			CancellationToken cancellationToken)
 		{
-			await serviceScope.SetupDeleteAsync(user, user.Id, cancellationToken);
+			await serviceScope.SetupDeleteUserAsync(user, userClaims, refreshTokens, forgotPasswordTokens, emailConfirmationTokens, user.Id, cancellationToken);
 		}
 	}
 

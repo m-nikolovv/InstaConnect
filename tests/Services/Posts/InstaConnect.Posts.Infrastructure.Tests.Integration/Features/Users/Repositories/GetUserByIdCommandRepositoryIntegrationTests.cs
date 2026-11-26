@@ -1,4 +1,3 @@
-using InstaConnect.Posts.Infrastructure.Tests.Features.Users.Utilities;
 
 
 namespace InstaConnect.Posts.Infrastructure.Tests.Integration.Features.Users.Repositories;
@@ -15,7 +14,7 @@ public class GetUserByIdCommandRepositoryIntegrationTests : BaseUserInfrastructu
 
 	public override async Task InitializeAsync()
 	{
-		await ServiceScope.SetupGetByIdAsync(User, CancellationToken);
+		await ServiceScope.SetupGetUserByIdAsync(User, CancellationToken);
 	}
 
 	[Fact]

@@ -11,7 +11,7 @@ public class AddEmailConfirmationTokenCommandRepositoryIntegrationTests : BaseEm
 
 	public override async Task InitializeAsync()
 	{
-		await ServiceScope.SetupAddAsync(EmailConfirmationToken, CancellationToken);
+		await ServiceScope.SetupAddEmailConfirmationTokenAsync(User, CancellationToken);
 	}
 
 	[Fact]

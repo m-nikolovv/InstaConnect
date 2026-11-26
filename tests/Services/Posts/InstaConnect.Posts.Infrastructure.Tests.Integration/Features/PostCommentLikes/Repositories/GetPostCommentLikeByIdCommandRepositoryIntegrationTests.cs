@@ -1,4 +1,3 @@
-using InstaConnect.Posts.Infrastructure.Tests.Features.PostCommentLikes.Utilities;
 using InstaConnect.Posts.Tests.Features.PostCommentLikes.Builders;
 
 namespace InstaConnect.Posts.Infrastructure.Tests.Integration.Features.PostCommentLikes.Repositories;
@@ -15,7 +14,13 @@ public class GetPostCommentLikeByIdCommandRepositoryIntegrationTests : BasePostC
 
 	public override async Task InitializeAsync()
 	{
-		await ServiceScope.SetupGetByIdAsync(PostCommentLike, CancellationToken);
+		await ServiceScope.SetupGetPostCommentLikeByIdAsync(
+			User,
+			Post,
+			PostComment,
+			PostCommentLike,
+			PostCommentImages,
+			CancellationToken);
 	}
 
 	[Fact]

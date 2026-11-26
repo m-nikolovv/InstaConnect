@@ -19,7 +19,13 @@ public class GetPostLikeByIdQueryRepositoryIntegrationTests : BasePostLikeInfras
 
 	public override async Task InitializeAsync()
 	{
-		await ServiceScope.SetupGetByIdAsync(PostLike, CancellationToken);
+		await ServiceScope.SetupGetPostLikeByIdAsync(
+			Users,
+			Post,
+			PostLike,
+			PostImages,
+			PostComments,
+			CancellationToken);
 	}
 
 	[Fact]

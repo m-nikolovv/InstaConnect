@@ -144,23 +144,22 @@ public static class UserSetups
 			return await cacheHandler.GetByIdAsync(id, currentUserId, cancellationToken);
 		}
 
-		public async Task SetupAddAsync(
+		public async Task SetupAddUserAsync(
 			User user,
 			CancellationToken cancellationToken)
 		{
 			await serviceScope.AddAsync(user, cancellationToken);
 		}
 
-		public async Task SetupDeleteAsync(
+		public async Task SetupDeleteUserAsync(
 			User user,
+			ICollection<UserClaim> userClaims,
+			ICollection<RefreshToken> refreshTokens,
+			ICollection<ForgotPasswordToken> forgotPasswordTokens,
+			ICollection<EmailConfirmationToken> emailConfirmationTokens,
 			string currentUserId,
 			CancellationToken cancellationToken)
 		{
-			var userClaims = user.UserClaims;
-			var refreshTokens = user.RefreshTokens;
-			var forgotPasswordTokens = user.ForgotPasswordTokens;
-			var emailConfirmationTokens = user.EmailConfirmationTokens;
-
 			await serviceScope.AddAsync(user, cancellationToken);
 			await serviceScope.AddRangeAsync(userClaims, cancellationToken);
 			await serviceScope.AddRangeAsync(refreshTokens, cancellationToken);
@@ -169,22 +168,26 @@ public static class UserSetups
 			await serviceScope.AddUserCacheAsync(user, currentUserId, cancellationToken);
 		}
 
-		public async Task SetupDeleteAsync(
+		public async Task SetupDeleteUserAsync(
 			User user,
+			ICollection<UserClaim> userClaims,
+			ICollection<RefreshToken> refreshTokens,
+			ICollection<ForgotPasswordToken> forgotPasswordTokens,
+			ICollection<EmailConfirmationToken> emailConfirmationTokens,
 			UserId currentUserId,
 			CancellationToken cancellationToken)
 		{
-			await serviceScope.SetupDeleteAsync(user, currentUserId.Id, cancellationToken);
+			await serviceScope.SetupDeleteUserAsync(user, userClaims, refreshTokens, forgotPasswordTokens, emailConfirmationTokens, currentUserId.Id, cancellationToken);
 		}
 
-		public async Task SetupGetAllAsync(
+		public async Task SetupGetAllUsersAsync(
 			ICollection<User> users,
 			CancellationToken cancellationToken)
 		{
 			await serviceScope.AddRangeAsync(users, cancellationToken);
 		}
 
-		public async Task SetupGetByIdAsync(
+		public async Task SetupGetUserByIdAsync(
 			User user,
 			CancellationToken cancellationToken)
 		{
@@ -192,24 +195,24 @@ public static class UserSetups
 		}
 
 
-		public async Task SetupUpdateAsync(
+		public async Task SetupUpdateUserAsync(
 			User user,
+			ICollection<EmailConfirmationToken> emailConfirmationTokens,
 			string currentUserId,
 			CancellationToken cancellationToken)
 		{
-			var emailConfirmationTokens = user.EmailConfirmationTokens;
-
 			await serviceScope.AddAsync(user, cancellationToken);
 			await serviceScope.AddRangeAsync(emailConfirmationTokens, cancellationToken);
 			await serviceScope.AddUserCacheAsync(user, currentUserId, cancellationToken);
 		}
 
-		public async Task SetupUpdateAsync(
+		public async Task SetupUpdateUserAsync(
 			User user,
+			ICollection<EmailConfirmationToken> emailConfirmationTokens,
 			UserId currentUserId,
 			CancellationToken cancellationToken)
 		{
-			await serviceScope.SetupUpdateAsync(user, currentUserId.Id, cancellationToken);
+			await serviceScope.SetupUpdateUserAsync(user, emailConfirmationTokens, currentUserId.Id, cancellationToken);
 		}
 
 		public async Task AddUserCacheAsync(

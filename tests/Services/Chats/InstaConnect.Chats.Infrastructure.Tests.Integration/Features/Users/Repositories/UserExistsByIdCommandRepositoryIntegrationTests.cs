@@ -1,4 +1,3 @@
-using InstaConnect.Chats.Infrastructure.Tests.Features.Users.Utilities;
 
 
 namespace InstaConnect.Chats.Infrastructure.Tests.Integration.Features.Users.Repositories;
@@ -12,7 +11,7 @@ public class UserExistsByIdCommandRepositoryIntegrationTests : BaseUserInfrastru
 
 	public override async Task InitializeAsync()
 	{
-		await ServiceScope.SetupGetByIdAsync(User, CancellationToken);
+		await ServiceScope.SetupGetUserByIdAsync(User, CancellationToken);
 	}
 
 	[Fact]

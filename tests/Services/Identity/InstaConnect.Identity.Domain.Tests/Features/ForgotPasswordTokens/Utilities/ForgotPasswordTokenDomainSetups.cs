@@ -27,18 +27,19 @@ public static class ForgotPasswordTokenDomainSetups
 
 		public async Task SetupAddAsync(
 			AddForgotPasswordTokenCommand command,
-			ForgotPasswordToken forgotPasswordToken,
+			User user,
 			CancellationToken cancellationToken)
 		{
-			await serviceScope.SetupAddAsync(forgotPasswordToken, cancellationToken);
+			await serviceScope.SetupAddForgotPasswordTokenAsync(user, cancellationToken);
 		}
 
 		public async Task SetupVerifyAsync(
 			VerifyForgotPasswordTokenCommand command,
-			ForgotPasswordToken forgotPasswordToken,
+			User user,
+			ICollection<ForgotPasswordToken> forgotPasswordTokens,
 			CancellationToken cancellationToken)
 		{
-			await serviceScope.SetupVerifyAsync(forgotPasswordToken, command.Id.Id, cancellationToken);
+			await serviceScope.SetupVerifyForgotPasswordTokenAsync(user, forgotPasswordTokens, command.Id.Id, cancellationToken);
 		}
 
 		public async Task AddUserCacheAsync(

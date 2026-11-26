@@ -1,3 +1,4 @@
+using InstaConnect.Identity.Domain.Features.ForgotPasswordTokens.Models.Entities;
 using InstaConnect.Identity.Domain.Features.Users.Models.Responses;
 using InstaConnect.Identity.Presentation.Features.Users.Controllers.v1;
 
@@ -119,23 +120,31 @@ public static class UserSetups
 			User user,
 			CancellationToken cancellationToken)
 		{
-			await serviceScope.SetupAddAsync(user, cancellationToken);
+			await serviceScope.SetupAddUserAsync(user, cancellationToken);
 		}
 
 		public async Task SetupDeleteAsync(
 			DeleteCurrentUserApiRequest request,
 			User user,
+			ICollection<UserClaim> userClaims,
+			ICollection<RefreshToken> refreshTokens,
+			ICollection<ForgotPasswordToken> forgotPasswordTokens,
+			ICollection<EmailConfirmationToken> emailConfirmationTokens,
 			CancellationToken cancellationToken)
 		{
-			await serviceScope.SetupDeleteAsync(user, request.CurrentId, cancellationToken);
+			await serviceScope.SetupDeleteUserAsync(user, userClaims, refreshTokens, forgotPasswordTokens, emailConfirmationTokens, request.CurrentId, cancellationToken);
 		}
 
 		public async Task SetupDeleteAsync(
 			DeleteUserApiRequest request,
 			User user,
+			ICollection<UserClaim> userClaims,
+			ICollection<RefreshToken> refreshTokens,
+			ICollection<ForgotPasswordToken> forgotPasswordTokens,
+			ICollection<EmailConfirmationToken> emailConfirmationTokens,
 			CancellationToken cancellationToken)
 		{
-			await serviceScope.SetupDeleteAsync(user, request.Id, cancellationToken);
+			await serviceScope.SetupDeleteUserAsync(user, userClaims, refreshTokens, forgotPasswordTokens, emailConfirmationTokens, request.Id, cancellationToken);
 		}
 
 
@@ -168,7 +177,7 @@ public static class UserSetups
 			ICollection<User> users,
 			CancellationToken cancellationToken)
 		{
-			await serviceScope.SetupGetAllAsync(users, cancellationToken);
+			await serviceScope.SetupGetAllUsersAsync(users, cancellationToken);
 		}
 
 		public async Task SetupGetByIdAsync(
@@ -176,7 +185,7 @@ public static class UserSetups
 			User user,
 			CancellationToken cancellationToken)
 		{
-			await serviceScope.SetupGetByIdAsync(user, cancellationToken);
+			await serviceScope.SetupGetUserByIdAsync(user, cancellationToken);
 		}
 
 		public async Task SetupGetByIdAsync(
@@ -184,7 +193,7 @@ public static class UserSetups
 			User user,
 			CancellationToken cancellationToken)
 		{
-			await serviceScope.SetupGetByIdAsync(user, cancellationToken);
+			await serviceScope.SetupGetUserByIdAsync(user, cancellationToken);
 		}
 
 		public async Task SetupGetByIdAsync(
@@ -192,7 +201,7 @@ public static class UserSetups
 			User user,
 			CancellationToken cancellationToken)
 		{
-			await serviceScope.SetupGetByIdAsync(user, cancellationToken);
+			await serviceScope.SetupGetUserByIdAsync(user, cancellationToken);
 		}
 
 		public async Task SetupGetByIdAsync(
@@ -200,7 +209,7 @@ public static class UserSetups
 			User user,
 			CancellationToken cancellationToken)
 		{
-			await serviceScope.SetupGetByIdAsync(user, cancellationToken);
+			await serviceScope.SetupGetUserByIdAsync(user, cancellationToken);
 		}
 
 
@@ -209,9 +218,10 @@ public static class UserSetups
 		public async Task SetupUpdateAsync(
 			UpdateCurrentUserApiRequest request,
 			User user,
+			ICollection<EmailConfirmationToken> emailConfirmationTokens,
 			CancellationToken cancellationToken)
 		{
-			await serviceScope.SetupUpdateAsync(user, request.Id, cancellationToken);
+			await serviceScope.SetupUpdateUserAsync(user, emailConfirmationTokens, request.Id, cancellationToken);
 		}
 	}
 }

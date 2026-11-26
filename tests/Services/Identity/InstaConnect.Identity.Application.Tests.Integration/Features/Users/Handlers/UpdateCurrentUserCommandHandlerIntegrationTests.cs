@@ -25,7 +25,11 @@ public class UpdateCurrentUserCommandHandlerIntegrationTests : BaseUserApplicati
 
 	public override async Task InitializeAsync()
 	{
-		await ServiceScope.SetupUpdateAsync(_request, User, CancellationToken);
+		await ServiceScope.SetupUpdateAsync(
+			_request,
+			User,
+			UserEmailConfirmationTokens,
+			CancellationToken);
 		await base.InitializeAsync();
 	}
 

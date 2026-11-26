@@ -11,7 +11,7 @@ public class AddForgotPasswordTokenCommandRepositoryIntegrationTests : BaseForgo
 
 	public override async Task InitializeAsync()
 	{
-		await ServiceScope.SetupAddAsync(ForgotPasswordToken, CancellationToken);
+		await ServiceScope.SetupAddForgotPasswordTokenAsync(User, CancellationToken);
 	}
 
 	[Fact]

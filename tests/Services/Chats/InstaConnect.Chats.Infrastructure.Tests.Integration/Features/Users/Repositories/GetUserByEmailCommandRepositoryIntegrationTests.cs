@@ -1,4 +1,3 @@
-using InstaConnect.Chats.Infrastructure.Tests.Features.Users.Utilities;
 using InstaConnect.Chats.Tests.Features.Users.DataAttributes.Email;
 using InstaConnect.Common.Domain.Features.ValueObjects.Models;
 using InstaConnect.Common.Infrastructure.Tests.Features.Builders;
@@ -25,7 +24,7 @@ public class GetUserByEmailCommandRepositoryIntegrationTests : BaseUserInfrastru
 
 	public override async Task InitializeAsync()
 	{
-		await ServiceScope.SetupGetByIdAsync(User, CancellationToken);
+		await ServiceScope.SetupGetUserByIdAsync(User, CancellationToken);
 	}
 
 	[Fact]

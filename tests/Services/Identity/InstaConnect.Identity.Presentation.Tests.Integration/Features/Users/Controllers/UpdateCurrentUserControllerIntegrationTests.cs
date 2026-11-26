@@ -23,7 +23,11 @@ public class UpdateCurrentUserControllerIntegrationTests : BaseUserPresentationC
 
 	public override async Task InitializeAsync()
 	{
-		await ServiceScope.SetupUpdateAsync(_request, User, CancellationToken);
+		await ServiceScope.SetupUpdateAsync(
+			_request,
+			User,
+			UserEmailConfirmationTokens,
+			CancellationToken);
 		await base.InitializeAsync();
 	}
 

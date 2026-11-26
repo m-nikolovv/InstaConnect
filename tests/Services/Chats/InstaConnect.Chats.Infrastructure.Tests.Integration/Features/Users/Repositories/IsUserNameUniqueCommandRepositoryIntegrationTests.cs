@@ -1,4 +1,3 @@
-using InstaConnect.Chats.Infrastructure.Tests.Features.Users.Utilities;
 using InstaConnect.Common.Domain.Features.ValueObjects.Models;
 using InstaConnect.Common.Infrastructure.Tests.Features.Builders;
 
@@ -20,7 +19,7 @@ public class IsUserNameUniqueCommandRepositoryIntegrationTests : BaseUserInfrast
 
 	public override async Task InitializeAsync()
 	{
-		await ServiceScope.SetupGetByIdAsync(User, CancellationToken);
+		await ServiceScope.SetupGetUserByIdAsync(User, CancellationToken);
 	}
 
 	[Fact]

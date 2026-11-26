@@ -18,7 +18,12 @@ public class DeleteFollowFunctionalTests : BaseFollowPresentationCommandFunction
 
 	public override async Task InitializeAsync()
 	{
-		await ServiceScope.SetupDeleteAsync(_request, Follow, CancellationToken);
+		await ServiceScope.SetupDeleteAsync(
+			_request,
+			Follower,
+			Following,
+			Follow,
+			CancellationToken);
 		await base.InitializeAsync();
 	}
 

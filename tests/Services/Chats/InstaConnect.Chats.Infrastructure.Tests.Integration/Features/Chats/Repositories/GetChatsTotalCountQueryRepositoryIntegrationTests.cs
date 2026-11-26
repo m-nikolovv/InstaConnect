@@ -25,7 +25,12 @@ public class GetChatsTotalCountQueryRepositoryIntegrationTests : BaseChatInfrast
 
 	public override async Task InitializeAsync()
 	{
-		await ServiceScope.SetupGetAllAsync(Chats, CancellationToken);
+		await ServiceScope.SetupGetAllChatsAsync(
+			ParticipantOnes,
+			ParticipantTwos,
+			Chats,
+			ChatMessages,
+			CancellationToken);
 	}
 
 	[Fact]

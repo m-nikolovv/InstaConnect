@@ -1,4 +1,3 @@
-using InstaConnect.Identity.Infrastructure.Tests.Features.UserClaims.Utilities;
 using InstaConnect.Identity.Tests.Features.UserClaims.Builders;
 
 namespace InstaConnect.Identity.Infrastructure.Tests.Integration.Features.UserClaims.Repositories;
@@ -12,7 +11,7 @@ public class UserClaimExistsByIdCommandRepositoryIntegrationTests : BaseUserClai
 
 	public override async Task InitializeAsync()
 	{
-		await ServiceScope.SetupGetByIdAsync(UserClaim, CancellationToken);
+		await ServiceScope.SetupGetUserClaimByIdAsync(User, UserClaim, CancellationToken);
 	}
 
 	[Fact]

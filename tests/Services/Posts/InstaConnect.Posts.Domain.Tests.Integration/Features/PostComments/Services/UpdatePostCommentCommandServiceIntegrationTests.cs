@@ -20,7 +20,12 @@ public class UpdatePostCommentCommandServiceIntegrationTests : BasePostCommentDo
 
 	public override async Task InitializeAsync()
 	{
-		await ServiceScope.SetupUpdateAsync(_command, PostComment, CancellationToken);
+		await ServiceScope.SetupUpdateAsync(
+			_command,
+			User,
+			Post,
+			PostComment,
+			CancellationToken);
 		await base.InitializeAsync();
 	}
 

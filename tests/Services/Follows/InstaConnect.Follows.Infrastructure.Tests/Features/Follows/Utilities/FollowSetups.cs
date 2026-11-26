@@ -22,11 +22,13 @@ public static class FollowSetups
 			return await serviceScope.GetFollowCacheByIdAsync(id, currentUserQuery.Id, cancellationToken);
 		}
 
-		public async Task SetupDeleteAsync(
+		public async Task SetupDeleteFollowAsync(
+			User follower,
+			User following,
 			Follow follow,
 			CancellationToken cancellationToken)
 		{
-			await serviceScope.SetupDeleteAsync(follow, follow.Id.FollowerId, cancellationToken);
+			await serviceScope.SetupDeleteFollowAsync(follower, following, follow, follow.Id.FollowerId, cancellationToken);
 		}
 	}
 

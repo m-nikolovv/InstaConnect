@@ -23,7 +23,16 @@ public class DeleteUserCommandServiceIntegrationTests : BaseUserDomainCommandInt
 
 	public override async Task InitializeAsync()
 	{
-		await ServiceScope.SetupDeleteAsync(_command, User, CancellationToken);
+		await ServiceScope.SetupDeleteAsync(
+			_command,
+			User,
+			UserPosts,
+			UserPostLikes,
+			UserPostsPostImages,
+			UserPostComments,
+			UserPostCommentLikes,
+			UserPostCommentsPostCommentImages,
+			CancellationToken);
 	}
 
 	[Fact]

@@ -22,7 +22,7 @@ public class AddUserClaimFunctionalTests : BaseUserClaimPresentationCommandFunct
 
 	public override async Task InitializeAsync()
 	{
-		await ServiceScope.SetupAddAsync(_request, UserClaim, CancellationToken);
+		await ServiceScope.SetupAddAsync(_request, User, CancellationToken);
 		await base.InitializeAsync();
 	}
 

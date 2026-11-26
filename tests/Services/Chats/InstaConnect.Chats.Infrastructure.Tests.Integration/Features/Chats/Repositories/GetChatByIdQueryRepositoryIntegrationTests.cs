@@ -25,7 +25,11 @@ public class GetChatByIdQueryRepositoryIntegrationTests : BaseChatInfrastructure
 
 	public override async Task InitializeAsync()
 	{
-		await ServiceScope.SetupGetByIdAsync(Chat, CancellationToken);
+		await ServiceScope.SetupGetChatByIdAsync(
+			ParticipantOne,
+			ParticipantTwo,
+			Chat,
+			CancellationToken);
 	}
 
 	[Fact]

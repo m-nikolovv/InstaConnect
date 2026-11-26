@@ -19,7 +19,16 @@ public class GetPostCommentByIdQueryServiceIntegrationTests : BasePostCommentDom
 
 	public override async Task InitializeAsync()
 	{
-		await ServiceScope.SetupGetByIdAsync(_query, PostComment, CancellationToken);
+		await ServiceScope.SetupGetByIdAsync(
+			_query,
+			Users,
+			Post,
+			PostLikes,
+			PostImages,
+			PostComment,
+			PostCommentPostCommentLikes,
+			PostCommentPostCommentImages,
+			CancellationToken);
 	}
 
 	[Fact]

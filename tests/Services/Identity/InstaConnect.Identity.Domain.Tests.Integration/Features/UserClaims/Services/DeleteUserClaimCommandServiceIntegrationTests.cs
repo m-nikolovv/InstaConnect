@@ -23,7 +23,11 @@ public class DeleteUserClaimCommandServiceIntegrationTests : BaseUserClaimDomain
 
 	public override async Task InitializeAsync()
 	{
-		await ServiceScope.SetupDeleteAsync(_command, UserClaim, CancellationToken);
+		await ServiceScope.SetupDeleteAsync(
+			_command,
+			User,
+			UserClaim,
+			CancellationToken);
 		await base.InitializeAsync();
 	}
 

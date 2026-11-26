@@ -22,7 +22,12 @@ public class GetAllFollowsForFollowingQueryServiceIntegrationTests : BaseFollowD
 
 	public override async Task InitializeAsync()
 	{
-		await ServiceScope.SetupGetAllAsync(_query, Follows, CancellationToken);
+		await ServiceScope.SetupGetAllAsync(
+			_query,
+			Followers,
+			Followings,
+			Follows,
+			CancellationToken);
 	}
 
 	[Fact]

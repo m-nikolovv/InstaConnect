@@ -1,4 +1,3 @@
-using InstaConnect.Posts.Infrastructure.Tests.Features.Posts.Utilities;
 using InstaConnect.Posts.Tests.Features.Posts.Builders;
 
 namespace InstaConnect.Posts.Infrastructure.Tests.Integration.Features.Posts.Repositories;
@@ -15,7 +14,15 @@ public class GetPostByIdCommandRepositoryIntegrationTests : BasePostInfrastructu
 
 	public override async Task InitializeAsync()
 	{
-		await ServiceScope.SetupGetByIdAsync(Post, CancellationToken);
+		await ServiceScope.SetupGetPostByIdAsync(
+			Users,
+			Post,
+			PostPostLikes,
+			PostPostImages,
+			PostPostComments,
+			PostPostCommentsPostCommentLikes,
+			PostPostCommentsPostCommentImages,
+			CancellationToken);
 	}
 
 	[Fact]

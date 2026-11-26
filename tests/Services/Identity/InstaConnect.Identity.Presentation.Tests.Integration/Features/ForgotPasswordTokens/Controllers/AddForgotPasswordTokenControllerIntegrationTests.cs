@@ -21,7 +21,7 @@ public class AddForgotPasswordTokenControllerIntegrationTests : BaseForgotPasswo
 
 	public override async Task InitializeAsync()
 	{
-		await ServiceScope.SetupAddAsync(_request, ForgotPasswordToken, CancellationToken);
+		await ServiceScope.SetupAddAsync(_request, User, CancellationToken);
 		await base.InitializeAsync();
 	}
 

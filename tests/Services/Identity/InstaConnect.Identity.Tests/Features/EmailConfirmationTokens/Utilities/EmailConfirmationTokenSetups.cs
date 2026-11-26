@@ -110,74 +110,67 @@ public static class EmailConfirmationTokenSetups
 			await cacheHandler.DeleteRangeAsync(emailConfirmationTokens.Select(p => p.Id), cancellationToken);
 		}
 
-		public async Task SetupAddAsync(
-			EmailConfirmationToken emailConfirmationToken,
+		public async Task SetupAddEmailConfirmationTokenAsync(
+			User user,
 			CancellationToken cancellationToken)
 		{
-			var user = emailConfirmationToken.User!;
-
 			await serviceScope.AddAsync(user, cancellationToken);
 		}
 
-		public async Task SetupDeleteAsync(
+		public async Task SetupDeleteEmailConfirmationTokenAsync(
+			User user,
 			EmailConfirmationToken emailConfirmationToken,
 			CancellationToken cancellationToken)
 		{
-			var user = emailConfirmationToken.User!;
-
 			await serviceScope.AddAsync(user, cancellationToken);
 			await serviceScope.AddAsync(emailConfirmationToken, cancellationToken);
 		}
 
-		public async Task SetupGetAllAsync(
+		public async Task SetupGetAllEmailConfirmationTokensAsync(
+			ICollection<User> users,
 			ICollection<EmailConfirmationToken> emailConfirmationTokens,
 			CancellationToken cancellationToken)
 		{
-			var users = emailConfirmationTokens.Select(p => p.User!).DistinctBy(p => p.Id).ToList();
-
 			await serviceScope.AddRangeAsync(users, cancellationToken);
 			await serviceScope.AddRangeAsync(emailConfirmationTokens, cancellationToken);
 		}
 
-		public async Task SetupGetByIdAsync(
+		public async Task SetupGetEmailConfirmationTokenByIdAsync(
+			User user,
 			EmailConfirmationToken emailConfirmationToken,
 			CancellationToken cancellationToken)
 		{
-			var user = emailConfirmationToken.User!;
-
 			await serviceScope.AddAsync(user, cancellationToken);
 			await serviceScope.AddAsync(emailConfirmationToken, cancellationToken);
 		}
 
-		public async Task SetupUpdateAsync(
+		public async Task SetupUpdateEmailConfirmationTokenAsync(
+			User user,
 			EmailConfirmationToken emailConfirmationToken,
 			CancellationToken cancellationToken)
 		{
-			var user = emailConfirmationToken.User!;
-
 			await serviceScope.AddAsync(user, cancellationToken);
 			await serviceScope.AddAsync(emailConfirmationToken, cancellationToken);
 		}
 
-		public async Task SetupVerifyAsync(
-			EmailConfirmationToken emailConfirmationToken,
+		public async Task SetupVerifyEmailConfirmationTokenAsync(
+			User user,
+			ICollection<EmailConfirmationToken> emailConfirmationTokens,
 			string currentUserId,
 			CancellationToken cancellationToken)
 		{
-			var user = emailConfirmationToken.User!;
-			var emailConfirmationTokens = user.EmailConfirmationTokens;
-
 			await serviceScope.AddAsync(user, cancellationToken);
 			await serviceScope.AddRangeAsync(emailConfirmationTokens, cancellationToken);
 			await serviceScope.AddUserCacheAsync(user, currentUserId, cancellationToken);
 		}
 
-		public async Task SetupVerifyAsync(
-			EmailConfirmationToken emailConfirmationToken,
+		public async Task SetupVerifyEmailConfirmationTokenAsync(
+			User user,
+			ICollection<EmailConfirmationToken> emailConfirmationTokens,
 			UserId currentUserId,
 			CancellationToken cancellationToken)
 		{
-			await serviceScope.SetupVerifyAsync(emailConfirmationToken, currentUserId.Id, cancellationToken);
+			await serviceScope.SetupVerifyEmailConfirmationTokenAsync(user, emailConfirmationTokens, currentUserId.Id, cancellationToken);
 		}
 	}
 }

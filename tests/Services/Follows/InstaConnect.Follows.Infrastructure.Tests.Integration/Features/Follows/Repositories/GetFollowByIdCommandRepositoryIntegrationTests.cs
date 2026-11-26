@@ -1,4 +1,3 @@
-using InstaConnect.Follows.Infrastructure.Tests.Features.Follows.Utilities;
 using InstaConnect.Follows.Tests.Features.Follows.Builders;
 
 namespace InstaConnect.Follows.Infrastructure.Tests.Integration.Features.Follows.Repositories;
@@ -15,7 +14,11 @@ public class GetFollowByIdCommandRepositoryIntegrationTests : BaseFollowInfrastr
 
 	public override async Task InitializeAsync()
 	{
-		await ServiceScope.SetupGetByIdAsync(Follow, CancellationToken);
+		await ServiceScope.SetupGetFollowByIdAsync(
+			Follower,
+			Following,
+			Follow,
+			CancellationToken);
 	}
 
 	[Fact]

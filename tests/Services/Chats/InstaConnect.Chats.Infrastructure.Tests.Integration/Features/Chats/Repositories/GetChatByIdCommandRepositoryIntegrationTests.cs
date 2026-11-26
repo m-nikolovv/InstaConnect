@@ -1,5 +1,4 @@
 using InstaConnect.Chats.Domain.Features.Chats.Models.Requests;
-using InstaConnect.Chats.Infrastructure.Tests.Features.Chats.Utilities;
 using InstaConnect.Chats.Tests.Features.Chats.Builders;
 
 namespace InstaConnect.Chats.Infrastructure.Tests.Integration.Features.Chats.Repositories;
@@ -16,7 +15,11 @@ public class GetChatByIdCommandRepositoryIntegrationTests : BaseChatInfrastructu
 
 	public override async Task InitializeAsync()
 	{
-		await ServiceScope.SetupGetByIdAsync(Chat, CancellationToken);
+		await ServiceScope.SetupGetChatByIdAsync(
+			ParticipantOne,
+			ParticipantTwo,
+			Chat,
+			CancellationToken);
 	}
 
 	[Fact]

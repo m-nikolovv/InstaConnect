@@ -29,18 +29,19 @@ public static class EmailConfirmationTokenSetups
 
 		public async Task SetupAddAsync(
 			AddEmailConfirmationTokenApiRequest request,
-			EmailConfirmationToken emailConfirmationToken,
+			User user,
 			CancellationToken cancellationToken)
 		{
-			await serviceScope.SetupAddAsync(emailConfirmationToken, cancellationToken);
+			await serviceScope.SetupAddEmailConfirmationTokenAsync(user, cancellationToken);
 		}
 
 		public async Task SetupVerifyAsync(
 			VerifyEmailConfirmationTokenApiRequest request,
-			EmailConfirmationToken emailConfirmationToken,
+			User user,
+			ICollection<EmailConfirmationToken> emailConfirmationTokens,
 			CancellationToken cancellationToken)
 		{
-			await serviceScope.SetupVerifyAsync(emailConfirmationToken, request.Id, cancellationToken);
+			await serviceScope.SetupVerifyEmailConfirmationTokenAsync(user, emailConfirmationTokens, request.Id, cancellationToken);
 		}
 
 		public async Task AddUserCacheAsync(

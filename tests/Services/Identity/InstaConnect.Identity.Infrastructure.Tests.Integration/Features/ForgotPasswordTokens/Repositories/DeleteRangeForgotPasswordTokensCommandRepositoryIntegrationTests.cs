@@ -10,7 +10,7 @@ public class DeleteRangeForgotPasswordTokensCommandRepositoryIntegrationTests : 
 
 	public override async Task InitializeAsync()
 	{
-		await ServiceScope.SetupGetAllAsync(ForgotPasswordTokens, CancellationToken);
+		await ServiceScope.SetupGetAllForgotPasswordTokensAsync(Users, ForgotPasswordTokens, CancellationToken);
 	}
 
 	[Fact]

@@ -10,7 +10,13 @@ public class DeleteRangeChatMessageImagesCommandRepositoryIntegrationTests : Bas
 
 	public override async Task InitializeAsync()
 	{
-		await ServiceScope.SetupGetAllAsync(ChatMessageImages, CancellationToken);
+		await ServiceScope.SetupGetAllChatMessageImagesAsync(
+			ParticipantOnes,
+			ParticipantTwos,
+			Chats,
+			ChatMessages,
+			ChatMessageImages,
+			CancellationToken);
 	}
 
 	[Fact]

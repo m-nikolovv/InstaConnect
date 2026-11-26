@@ -26,7 +26,11 @@ public class AddChatControllerIntegrationTests : BaseChatPresentationCommandInte
 
 	public override async Task InitializeAsync()
 	{
-		await ServiceScope.SetupAddAsync(_request, Chat, CancellationToken);
+		await ServiceScope.SetupAddAsync(
+			_request,
+			ParticipantOne,
+			ParticipantTwo,
+			CancellationToken);
 		await base.InitializeAsync();
 	}
 

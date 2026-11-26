@@ -23,7 +23,7 @@ public class AddPostCommandHandlerIntegrationTests : BasePostApplicationCommandI
 
 	public override async Task InitializeAsync()
 	{
-		await ServiceScope.SetupAddAsync(_request, Post, CancellationToken);
+		await ServiceScope.SetupAddAsync(_request, User, CancellationToken);
 		await base.InitializeAsync();
 	}
 

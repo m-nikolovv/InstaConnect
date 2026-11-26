@@ -26,7 +26,11 @@ public class GetAllUserClaimsControllerIntegrationTests : BaseUserClaimPresentat
 
 	public override async Task InitializeAsync()
 	{
-		await ServiceScope.SetupGetAllAsync(_request, UserClaims, CancellationToken);
+		await ServiceScope.SetupGetAllAsync(
+			_request,
+			Users,
+			UserClaims,
+			CancellationToken);
 	}
 
 	[Theory]

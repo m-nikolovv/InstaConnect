@@ -31,26 +31,28 @@ public static class RefreshTokenSetups
 
 		public async Task SetupAddAsync(
 			IssueRefreshTokenApiRequest request,
-			RefreshToken refreshToken,
+			User user,
 			CancellationToken cancellationToken)
 		{
-			await serviceScope.SetupAddAsync(refreshToken, cancellationToken);
+			await serviceScope.SetupAddRefreshTokenAsync(user, cancellationToken);
 		}
 
 		public async Task SetupDeleteAsync(
 			DeleteCurrentRefreshTokenApiRequest request,
+			User user,
 			RefreshToken refreshToken,
 			CancellationToken cancellationToken)
 		{
-			await serviceScope.SetupDeleteAsync(refreshToken, cancellationToken);
+			await serviceScope.SetupDeleteRefreshTokenAsync(user, refreshToken, cancellationToken);
 		}
 
 		public async Task SetupUpdateAsync(
 			RotateRefreshTokenApiRequest request,
+			User user,
 			RefreshToken refreshToken,
 			CancellationToken cancellationToken)
 		{
-			await serviceScope.SetupUpdateAsync(refreshToken, cancellationToken);
+			await serviceScope.SetupUpdateRefreshTokenAsync(user, refreshToken, cancellationToken);
 		}
 	}
 }

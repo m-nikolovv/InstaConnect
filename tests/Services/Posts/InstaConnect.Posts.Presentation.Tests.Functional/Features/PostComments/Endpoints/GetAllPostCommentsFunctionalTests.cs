@@ -25,7 +25,16 @@ public class GetAllPostCommentsFunctionalTests : BasePostCommentPresentationQuer
 
 	public override async Task InitializeAsync()
 	{
-		await ServiceScope.SetupGetAllAsync(_request, PostComments, CancellationToken);
+		await ServiceScope.SetupGetAllAsync(
+			_request,
+			Users,
+			Posts,
+			PostLikes,
+			PostImages,
+			PostComments,
+			PostCommentLikes,
+			PostCommentImages,
+			CancellationToken);
 	}
 
 	[Theory]

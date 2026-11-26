@@ -11,7 +11,7 @@ public class AddFollowCommandRepositoryIntegrationTests : BaseFollowInfrastructu
 
 	public override async Task InitializeAsync()
 	{
-		await ServiceScope.SetupAddAsync(Follow, CancellationToken);
+		await ServiceScope.SetupAddFollowAsync(Follower, Following, CancellationToken);
 	}
 
 	[Fact]

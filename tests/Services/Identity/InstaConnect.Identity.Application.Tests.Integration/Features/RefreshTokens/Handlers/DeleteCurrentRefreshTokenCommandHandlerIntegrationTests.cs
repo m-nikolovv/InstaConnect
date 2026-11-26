@@ -21,7 +21,11 @@ public class DeleteCurrentRefreshTokenCommandHandlerIntegrationTests : BaseRefre
 
 	public override async Task InitializeAsync()
 	{
-		await ServiceScope.SetupDeleteAsync(_request, RefreshToken, CancellationToken);
+		await ServiceScope.SetupDeleteAsync(
+			_request,
+			User,
+			RefreshToken,
+			CancellationToken);
 	}
 
 	[Theory]

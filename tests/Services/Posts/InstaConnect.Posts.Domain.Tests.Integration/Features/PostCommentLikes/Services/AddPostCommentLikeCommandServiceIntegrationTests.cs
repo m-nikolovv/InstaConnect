@@ -19,7 +19,12 @@ public class AddPostCommentLikeCommandServiceIntegrationTests : BasePostCommentL
 
 	public override async Task InitializeAsync()
 	{
-		await ServiceScope.SetupAddAsync(_command, PostCommentLike, CancellationToken);
+		await ServiceScope.SetupAddAsync(
+			_command,
+			User,
+			Post,
+			PostComment,
+			CancellationToken);
 		await base.InitializeAsync();
 	}
 

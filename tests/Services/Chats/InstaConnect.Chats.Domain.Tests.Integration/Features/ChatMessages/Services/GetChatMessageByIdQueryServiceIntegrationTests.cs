@@ -26,7 +26,14 @@ public class GetChatMessageByIdQueryServiceIntegrationTests : BaseChatMessageDom
 
 	public override async Task InitializeAsync()
 	{
-		await ServiceScope.SetupGetByIdAsync(_query, ChatMessage, CancellationToken);
+		await ServiceScope.SetupGetByIdAsync(
+			_query,
+			ParticipantOne,
+			ParticipantTwo,
+			Chat,
+			ChatMessage,
+			ChatMessageChatMessageImages,
+			CancellationToken);
 	}
 
 	[Fact]

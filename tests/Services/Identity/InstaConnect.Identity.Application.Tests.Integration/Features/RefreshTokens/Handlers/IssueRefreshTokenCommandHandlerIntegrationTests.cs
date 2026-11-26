@@ -22,7 +22,7 @@ public class IssueRefreshTokenCommandHandlerIntegrationTests : BaseRefreshTokenA
 
 	public override async Task InitializeAsync()
 	{
-		await ServiceScope.SetupAddAsync(_request, RefreshToken, CancellationToken);
+		await ServiceScope.SetupAddAsync(_request, User, CancellationToken);
 	}
 
 	[Theory]

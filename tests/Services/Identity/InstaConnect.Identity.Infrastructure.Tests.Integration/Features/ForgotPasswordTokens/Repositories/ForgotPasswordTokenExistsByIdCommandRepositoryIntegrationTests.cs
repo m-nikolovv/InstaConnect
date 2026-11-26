@@ -13,7 +13,7 @@ public class ForgotPasswordTokenExistsByIdCommandRepositoryIntegrationTests : Ba
 
 	public override async Task InitializeAsync()
 	{
-		await ServiceScope.SetupGetByIdAsync(ForgotPasswordToken, CancellationToken);
+		await ServiceScope.SetupGetForgotPasswordTokenByIdAsync(User, ForgotPasswordToken, CancellationToken);
 	}
 
 	[Fact]

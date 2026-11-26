@@ -1,4 +1,3 @@
-using InstaConnect.Posts.Infrastructure.Tests.Features.PostLikes.Utilities;
 using InstaConnect.Posts.Tests.Features.PostLikes.Builders;
 
 namespace InstaConnect.Posts.Infrastructure.Tests.Integration.Features.PostLikes.Repositories;
@@ -12,7 +11,13 @@ public class PostLikeExistsByIdCommandRepositoryIntegrationTests : BasePostLikeI
 
 	public override async Task InitializeAsync()
 	{
-		await ServiceScope.SetupGetByIdAsync(PostLike, CancellationToken);
+		await ServiceScope.SetupGetPostLikeByIdAsync(
+			Users,
+			Post,
+			PostLike,
+			PostImages,
+			PostComments,
+			CancellationToken);
 	}
 
 	[Fact]

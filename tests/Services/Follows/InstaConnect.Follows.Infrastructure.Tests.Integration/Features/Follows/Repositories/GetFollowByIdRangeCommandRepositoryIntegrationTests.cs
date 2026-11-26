@@ -14,7 +14,11 @@ public class GetFollowByIdRangeCommandRepositoryIntegrationTests : BaseFollowInf
 
 	public override async Task InitializeAsync()
 	{
-		await ServiceScope.SetupGetAllAsync(Follows, CancellationToken);
+		await ServiceScope.SetupGetAllFollowsAsync(
+			Followers,
+			Followings,
+			Follows,
+			CancellationToken);
 	}
 
 	[Fact]

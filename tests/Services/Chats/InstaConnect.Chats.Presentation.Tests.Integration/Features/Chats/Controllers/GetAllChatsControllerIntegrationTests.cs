@@ -33,7 +33,13 @@ public class GetAllChatsControllerIntegrationTests : BaseChatPresentationQueryIn
 
 	public override async Task InitializeAsync()
 	{
-		await ServiceScope.SetupGetAllAsync(_request, Chats, CancellationToken);
+		await ServiceScope.SetupGetAllAsync(
+			_request,
+			ParticipantOnes,
+			ParticipantTwos,
+			Chats,
+			ChatMessages,
+			CancellationToken);
 	}
 
 	[Theory]

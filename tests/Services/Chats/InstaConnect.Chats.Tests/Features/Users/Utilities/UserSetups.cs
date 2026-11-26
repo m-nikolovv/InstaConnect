@@ -134,15 +134,14 @@ public static class UserSetups
 			return await cacheHandler.GetByIdAsync(id, currentUserId, cancellationToken);
 		}
 
-		public async Task SetupDeleteAsync(
+		public async Task SetupDeleteUserAsync(
 			User user,
+			ICollection<Chat> chats,
+			ICollection<ChatMessage> chatMessages,
+			ICollection<ChatMessageImage> chatMessageImages,
 			string currentUserId,
 			CancellationToken cancellationToken)
 		{
-			var chats = user.Chats;
-			var chatMessages = user.ChatMessages;
-			var chatMessageImages = chatMessages.SelectMany(p => p.ChatMessageImages).ToList();
-
 			await serviceScope.AddAsync(user, cancellationToken);
 			await serviceScope.AddRangeAsync(chats, cancellationToken);
 			await serviceScope.AddRangeAsync(chatMessages, cancellationToken);
@@ -150,22 +149,25 @@ public static class UserSetups
 			await serviceScope.AddUserCacheAsync(user, currentUserId, cancellationToken);
 		}
 
-		public async Task SetupDeleteAsync(
+		public async Task SetupDeleteUserAsync(
 			User user,
+			ICollection<Chat> chats,
+			ICollection<ChatMessage> chatMessages,
+			ICollection<ChatMessageImage> chatMessageImages,
 			UserId currentUserId,
 			CancellationToken cancellationToken)
 		{
-			await serviceScope.SetupDeleteAsync(user, currentUserId.Id, cancellationToken);
+			await serviceScope.SetupDeleteUserAsync(user, chats, chatMessages, chatMessageImages, currentUserId.Id, cancellationToken);
 		}
 
-		public async Task SetupGetByIdAsync(
+		public async Task SetupGetUserByIdAsync(
 			User user,
 			CancellationToken cancellationToken)
 		{
 			await serviceScope.AddAsync(user, cancellationToken);
 		}
 
-		public async Task SetupUpdateAsync(
+		public async Task SetupUpdateUserAsync(
 			User user,
 			string currentUserId,
 			CancellationToken cancellationToken)
@@ -174,12 +176,12 @@ public static class UserSetups
 			await serviceScope.AddUserCacheAsync(user, currentUserId, cancellationToken);
 		}
 
-		public async Task SetupUpdateAsync(
+		public async Task SetupUpdateUserAsync(
 			User user,
 			UserId currentUserId,
 			CancellationToken cancellationToken)
 		{
-			await serviceScope.SetupUpdateAsync(user, currentUserId.Id, cancellationToken);
+			await serviceScope.SetupUpdateUserAsync(user, currentUserId.Id, cancellationToken);
 		}
 
 		public async Task AddUserCacheAsync(

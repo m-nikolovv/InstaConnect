@@ -12,7 +12,7 @@ public class UpdateUserCommandRepositoryIntegrationTests : BaseUserInfrastructur
 
 	public override async Task InitializeAsync()
 	{
-		await ServiceScope.SetupUpdateAsync(User, CancellationToken);
+		await ServiceScope.SetupUpdateUserAsync(User, UserEmailConfirmationTokens, CancellationToken);
 	}
 
 	[Fact]

@@ -1,4 +1,3 @@
-using InstaConnect.Chats.Infrastructure.Tests.Features.ChatMessages.Utilities;
 using InstaConnect.Chats.Tests.Features.ChatMessages.Builders;
 using InstaConnect.Chats.Tests.Features.ChatMessages.DataAttributes.Id;
 
@@ -13,7 +12,13 @@ public class ChatMessageExistsByIdQueryRepositoryIntegrationTests : BaseChatMess
 
 	public override async Task InitializeAsync()
 	{
-		await ServiceScope.SetupGetByIdAsync(ChatMessage, CancellationToken);
+		await ServiceScope.SetupGetChatMessageByIdAsync(
+			ParticipantOne,
+			ParticipantTwo,
+			Chat,
+			ChatMessage,
+			ChatMessageChatMessageImages,
+			CancellationToken);
 	}
 
 	[Fact]

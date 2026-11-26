@@ -25,7 +25,12 @@ public class GetAllFollowsForFollowingFunctionalTests : BaseFollowPresentationQu
 
 	public override async Task InitializeAsync()
 	{
-		await ServiceScope.SetupGetAllAsync(_request, Follows, CancellationToken);
+		await ServiceScope.SetupGetAllAsync(
+			_request,
+			Followers,
+			Followings,
+			Follows,
+			CancellationToken);
 	}
 
 	[Theory]

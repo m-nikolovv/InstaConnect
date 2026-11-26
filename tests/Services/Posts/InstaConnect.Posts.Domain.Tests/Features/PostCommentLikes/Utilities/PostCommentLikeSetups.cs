@@ -59,10 +59,12 @@ public static class PostCommentLikeSetups
 
 		public async Task SetupAddAsync(
 			AddPostCommentLikeCommand command,
-			PostCommentLike postCommentLike,
+			User user,
+			Post post,
+			PostComment postComment,
 			CancellationToken cancellationToken)
 		{
-			await serviceScope.SetupAddAsync(postCommentLike, command.UserId, cancellationToken);
+			await serviceScope.SetupAddPostCommentLikeAsync(user, post, postComment, command.UserId, cancellationToken);
 		}
 
 		public async Task AddPostCommentCacheAsync(
@@ -83,10 +85,13 @@ public static class PostCommentLikeSetups
 
 		public async Task SetupDeleteAsync(
 			DeletePostCommentLikeCommand command,
+			User user,
+			Post post,
+			PostComment postComment,
 			PostCommentLike postCommentLike,
 			CancellationToken cancellationToken)
 		{
-			await serviceScope.SetupDeleteAsync(postCommentLike, command.Id.UserId, cancellationToken);
+			await serviceScope.SetupDeletePostCommentLikeAsync(user, post, postComment, postCommentLike, command.Id.UserId, cancellationToken);
 		}
 
 		public async Task AddPostCommentLikeCacheAsync(
@@ -99,26 +104,42 @@ public static class PostCommentLikeSetups
 
 		public async Task SetupGetAllAsync(
 			GetAllPostCommentLikesQuery query,
+			ICollection<User> users,
+			ICollection<Post> posts,
+			ICollection<PostLike> postLikes,
+			ICollection<PostImage> postImages,
+			ICollection<PostComment> postComments,
 			ICollection<PostCommentLike> postCommentLikes,
+			ICollection<PostCommentImage> postCommentImages,
 			CancellationToken cancellationToken)
 		{
-			await serviceScope.SetupGetAllAsync(postCommentLikes, cancellationToken);
+			await serviceScope.SetupGetAllPostCommentLikesAsync(users, posts, postLikes, postImages, postComments, postCommentLikes, postCommentImages, cancellationToken);
 		}
 
 		public async Task SetupGetAllForUserAsync(
 			GetAllPostCommentLikesForUserQuery query,
+			ICollection<User> users,
+			ICollection<Post> posts,
+			ICollection<PostLike> postLikes,
+			ICollection<PostImage> postImages,
+			ICollection<PostComment> postComments,
 			ICollection<PostCommentLike> postCommentLikes,
+			ICollection<PostCommentImage> postCommentImages,
 			CancellationToken cancellationToken)
 		{
-			await serviceScope.SetupGetAllForUserAsync(postCommentLikes, cancellationToken);
+			await serviceScope.SetupGetAllPostCommentLikesForUserAsync(users, posts, postLikes, postImages, postComments, postCommentLikes, postCommentImages, cancellationToken);
 		}
 
 		public async Task SetupGetByIdAsync(
 			GetPostCommentLikeByIdQuery query,
+			User user,
+			Post post,
+			PostComment postComment,
 			PostCommentLike postCommentLike,
+			ICollection<PostCommentImage> postCommentImages,
 			CancellationToken cancellationToken)
 		{
-			await serviceScope.SetupGetByIdAsync(postCommentLike, cancellationToken);
+			await serviceScope.SetupGetPostCommentLikeByIdAsync(user, post, postComment, postCommentLike, postCommentImages, cancellationToken);
 		}
 	}
 }

@@ -19,7 +19,7 @@ public class GetUserClaimsTotalCountQueryRepositoryIntegrationTests : BaseUserCl
 
 	public override async Task InitializeAsync()
 	{
-		await ServiceScope.SetupGetAllAsync(UserClaims, CancellationToken);
+		await ServiceScope.SetupGetAllUserClaimsAsync(Users, UserClaims, CancellationToken);
 	}
 
 	[Fact]

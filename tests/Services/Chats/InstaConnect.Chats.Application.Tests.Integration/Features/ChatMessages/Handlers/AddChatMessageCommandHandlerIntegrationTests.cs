@@ -27,7 +27,12 @@ public class AddChatMessageCommandHandlerIntegrationTests : BaseChatMessageAppli
 
 	public override async Task InitializeAsync()
 	{
-		await ServiceScope.SetupAddAsync(_request, ChatMessage, CancellationToken);
+		await ServiceScope.SetupAddAsync(
+			_request,
+			ParticipantOne,
+			ParticipantTwo,
+			Chat,
+			CancellationToken);
 	}
 
 	[Theory]

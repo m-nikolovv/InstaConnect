@@ -26,7 +26,7 @@ public class UserDeletedEventHandlerIntegrationTests : BaseUserInfrastructureEve
 
 	public override async Task InitializeAsync()
 	{
-		await ServiceScope.SetupGetByIdAsync(User, CancellationToken);
+		await ServiceScope.SetupGetUserByIdAsync(User, CancellationToken);
 		await base.InitializeAsync();
 	}
 

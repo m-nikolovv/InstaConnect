@@ -24,7 +24,16 @@ public class GetAllPostCommentLikesControllerIntegrationTests : BasePostCommentL
 
 	public override async Task InitializeAsync()
 	{
-		await ServiceScope.SetupGetAllAsync(_request, PostCommentLikes, CancellationToken);
+		await ServiceScope.SetupGetAllAsync(
+			_request,
+			Users,
+			Posts,
+			PostLikes,
+			PostImages,
+			PostComments,
+			PostCommentLikes,
+			PostCommentImages,
+			CancellationToken);
 	}
 
 	[Theory]

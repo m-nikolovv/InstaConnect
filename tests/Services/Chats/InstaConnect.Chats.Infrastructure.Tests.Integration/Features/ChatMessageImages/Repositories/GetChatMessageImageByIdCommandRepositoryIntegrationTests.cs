@@ -12,7 +12,13 @@ public class GetChatMessageImageByIdCommandRepositoryIntegrationTests : BaseChat
 
 	public override async Task InitializeAsync()
 	{
-		await ServiceScope.SetupGetByIdAsync(ChatMessageImage, CancellationToken);
+		await ServiceScope.SetupGetChatMessageImageByIdAsync(
+			ParticipantOne,
+			ParticipantTwo,
+			Chat,
+			ChatMessage,
+			ChatMessageImage,
+			CancellationToken);
 	}
 
 	[Fact]

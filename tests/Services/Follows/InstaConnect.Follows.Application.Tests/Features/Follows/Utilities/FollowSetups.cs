@@ -44,18 +44,21 @@ public static class FollowSetups
 
 		public async Task SetupAddAsync(
 			AddFollowCommandRequest request,
-			Follow follow,
+			User follower,
+			User following,
 			CancellationToken cancellationToken)
 		{
-			await serviceScope.SetupAddAsync(follow, cancellationToken);
+			await serviceScope.SetupAddFollowAsync(follower, following, cancellationToken);
 		}
 
 		public async Task SetupDeleteAsync(
 			DeleteFollowCommandRequest request,
+			User follower,
+			User following,
 			Follow follow,
 			CancellationToken cancellationToken)
 		{
-			await serviceScope.SetupDeleteAsync(follow, request.FollowerId, cancellationToken);
+			await serviceScope.SetupDeleteFollowAsync(follower, following, follow, request.FollowerId, cancellationToken);
 		}
 
 		public async Task AddFollowCacheAsync(
@@ -68,27 +71,33 @@ public static class FollowSetups
 
 		public async Task SetupGetAllAsync(
 			GetAllFollowsForFollowingQueryRequest request,
+			ICollection<User> followers,
+			ICollection<User> followings,
 			ICollection<Follow> follows,
 			CancellationToken cancellationToken)
 		{
-			await serviceScope.SetupGetAllAsync(follows, cancellationToken);
+			await serviceScope.SetupGetAllFollowsAsync(followers, followings, follows, cancellationToken);
 		}
 
 		public async Task SetupGetAllAsync(
 			GetAllFollowsQueryRequest request,
+			ICollection<User> followers,
+			ICollection<User> followings,
 			ICollection<Follow> follows,
 			CancellationToken cancellationToken)
 		{
-			await serviceScope.SetupGetAllAsync(follows, cancellationToken);
+			await serviceScope.SetupGetAllFollowsAsync(followers, followings, follows, cancellationToken);
 		}
 
 
 		public async Task SetupGetByIdAsync(
 			GetFollowByIdQueryRequest request,
+			User follower,
+			User following,
 			Follow follow,
 			CancellationToken cancellationToken)
 		{
-			await serviceScope.SetupGetByIdAsync(follow, cancellationToken);
+			await serviceScope.SetupGetFollowByIdAsync(follower, following, follow, cancellationToken);
 		}
 	}
 }

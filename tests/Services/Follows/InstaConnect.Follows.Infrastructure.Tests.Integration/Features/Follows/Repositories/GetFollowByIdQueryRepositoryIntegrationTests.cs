@@ -20,7 +20,11 @@ public class GetFollowByIdQueryRepositoryIntegrationTests : BaseFollowInfrastruc
 
 	public override async Task InitializeAsync()
 	{
-		await ServiceScope.SetupGetByIdAsync(Follow, CancellationToken);
+		await ServiceScope.SetupGetFollowByIdAsync(
+			Follower,
+			Following,
+			Follow,
+			CancellationToken);
 	}
 
 	[Fact]

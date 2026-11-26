@@ -1,6 +1,5 @@
 using InstaConnect.Common.Domain.Features.ValueObjects.Models;
 using InstaConnect.Common.Infrastructure.Tests.Features.Builders;
-using InstaConnect.Identity.Infrastructure.Tests.Features.Users.Utilities;
 using InstaConnect.Identity.Tests.Features.Users.DataAttributes.Email;
 
 namespace InstaConnect.Identity.Infrastructure.Tests.Integration.Features.Users.Repositories;
@@ -21,7 +20,7 @@ public class UserIsEmailUniqueCommandRepositoryIntegrationTests : BaseUserInfras
 
 	public override async Task InitializeAsync()
 	{
-		await ServiceScope.SetupGetByIdAsync(User, CancellationToken);
+		await ServiceScope.SetupGetUserByIdAsync(User, CancellationToken);
 	}
 
 	[Fact]

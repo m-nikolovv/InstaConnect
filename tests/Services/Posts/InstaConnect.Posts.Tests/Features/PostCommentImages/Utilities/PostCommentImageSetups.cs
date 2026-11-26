@@ -93,80 +93,76 @@ public static class PostCommentImageSetups
 			await commentImageCacheHandler.DeleteRangeAsync(postCommentImages.Select(p => p.Id), cancellationToken);
 		}
 
-		public async Task SetupAddAsync(
-			PostCommentImage postCommentImage,
+		public async Task SetupAddPostCommentImageAsync(
+			User user,
+			Post post,
+			PostComment postComment,
 			string currentUserId,
 			CancellationToken cancellationToken)
 		{
-			var postComment = postCommentImage.PostComment!;
-			var post = postComment.Post!;
-			var users = new List<User> { postComment.User!, post.User! }.DistinctBy(p => p.Id).ToList();
-
-			await serviceScope.AddRangeAsync(users, cancellationToken);
+			await serviceScope.AddAsync(user, cancellationToken);
 			await serviceScope.AddAsync(post, cancellationToken);
 			await serviceScope.AddAsync(postComment, cancellationToken);
 			await serviceScope.AddPostCommentCacheAsync(postComment, currentUserId, cancellationToken);
 		}
 
-		public async Task SetupAddAsync(
-			PostCommentImage postCommentImage,
+		public async Task SetupAddPostCommentImageAsync(
+			User user,
+			Post post,
+			PostComment postComment,
 			UserId currentUserId,
 			CancellationToken cancellationToken)
 		{
-			await serviceScope.SetupAddAsync(postCommentImage, currentUserId.Id, cancellationToken);
+			await serviceScope.SetupAddPostCommentImageAsync(user, post, postComment, currentUserId.Id, cancellationToken);
 		}
 
-		public async Task SetupDeleteAsync(
+		public async Task SetupDeletePostCommentImageAsync(
+			User user,
+			Post post,
+			PostComment postComment,
 			PostCommentImage postCommentImage,
 			string currentUserId,
 			CancellationToken cancellationToken)
 		{
-			var postComment = postCommentImage.PostComment!;
-			var post = postComment.Post!;
-			var users = new List<User> { postComment.User!, post.User! }.DistinctBy(p => p.Id).ToList();
-
-			await serviceScope.AddRangeAsync(users, cancellationToken);
+			await serviceScope.AddAsync(user, cancellationToken);
 			await serviceScope.AddAsync(post, cancellationToken);
 			await serviceScope.AddAsync(postComment, cancellationToken);
 			await serviceScope.AddAsync(postCommentImage, cancellationToken);
 			await serviceScope.AddPostCommentCacheAsync(postComment, currentUserId, cancellationToken);
 		}
 
-		public async Task SetupDeleteAsync(
+		public async Task SetupDeletePostCommentImageAsync(
+			User user,
+			Post post,
+			PostComment postComment,
 			PostCommentImage postCommentImage,
 			UserId currentUserId,
 			CancellationToken cancellationToken)
 		{
-			await serviceScope.SetupDeleteAsync(postCommentImage, currentUserId.Id, cancellationToken);
+			await serviceScope.SetupDeletePostCommentImageAsync(user, post, postComment, postCommentImage, currentUserId.Id, cancellationToken);
 		}
 
-		public async Task SetupGetAllAsync(
+		public async Task SetupGetAllPostCommentImagesAsync(
+			ICollection<User> users,
+			ICollection<Post> posts,
+			ICollection<PostComment> postComments,
 			ICollection<PostCommentImage> postCommentImages,
 			CancellationToken cancellationToken)
 		{
-			var postComments = postCommentImages.Select(p => p.PostComment!).DistinctBy(p => p.Id).ToList();
-			var posts = postComments.Select(p => p.Post!).DistinctBy(p => p.Id).ToList();
-			var users = postComments
-				.Select(p => p.User!)
-				.Concat(posts.Select(p => p.User!))
-				.DistinctBy(p => p.Id)
-				.ToList();
-
 			await serviceScope.AddRangeAsync(users, cancellationToken);
 			await serviceScope.AddRangeAsync(posts, cancellationToken);
 			await serviceScope.AddRangeAsync(postComments, cancellationToken);
 			await serviceScope.AddRangeAsync(postCommentImages, cancellationToken);
 		}
 
-		public async Task SetupGetByIdAsync(
+		public async Task SetupGetPostCommentImageByIdAsync(
+			User user,
+			Post post,
+			PostComment postComment,
 			PostCommentImage postCommentImage,
 			CancellationToken cancellationToken)
 		{
-			var postComment = postCommentImage.PostComment!;
-			var post = postComment.Post!;
-			var users = new List<User> { postComment.User!, post.User! }.DistinctBy(p => p.Id).ToList();
-
-			await serviceScope.AddRangeAsync(users, cancellationToken);
+			await serviceScope.AddAsync(user, cancellationToken);
 			await serviceScope.AddAsync(post, cancellationToken);
 			await serviceScope.AddAsync(postComment, cancellationToken);
 			await serviceScope.AddAsync(postCommentImage, cancellationToken);

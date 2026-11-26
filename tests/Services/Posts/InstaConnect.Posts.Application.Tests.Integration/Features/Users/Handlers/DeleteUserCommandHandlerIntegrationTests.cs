@@ -21,7 +21,16 @@ public class DeleteUserCommandHandlerIntegrationTests : BaseUserApplicationComma
 
 	public override async Task InitializeAsync()
 	{
-		await ServiceScope.SetupDeleteAsync(_request, User, CancellationToken);
+		await ServiceScope.SetupDeleteAsync(
+			_request,
+			User,
+			UserPosts,
+			UserPostLikes,
+			UserPostsPostImages,
+			UserPostComments,
+			UserPostCommentLikes,
+			UserPostCommentsPostCommentImages,
+			CancellationToken);
 	}
 
 	[Theory]

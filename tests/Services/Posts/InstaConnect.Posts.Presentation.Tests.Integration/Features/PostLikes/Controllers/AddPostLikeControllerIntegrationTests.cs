@@ -16,7 +16,11 @@ public class AddPostLikeControllerIntegrationTests : BasePostLikePresentationCom
 
 	public override async Task InitializeAsync()
 	{
-		await ServiceScope.SetupAddAsync(_request, PostLike, CancellationToken);
+		await ServiceScope.SetupAddAsync(
+			_request,
+			User,
+			Post,
+			CancellationToken);
 		await base.InitializeAsync();
 	}
 

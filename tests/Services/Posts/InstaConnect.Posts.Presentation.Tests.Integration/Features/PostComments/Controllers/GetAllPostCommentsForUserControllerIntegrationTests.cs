@@ -23,7 +23,16 @@ public class GetAllPostCommentsForUserControllerIntegrationTests : BasePostComme
 
 	public override async Task InitializeAsync()
 	{
-		await ServiceScope.SetupGetAllForUserAsync(_request, PostComments, CancellationToken);
+		await ServiceScope.SetupGetAllForUserAsync(
+			_request,
+			Users,
+			Posts,
+			PostLikes,
+			PostImages,
+			PostComments,
+			PostCommentLikes,
+			PostCommentImages,
+			CancellationToken);
 	}
 
 	[Theory]
