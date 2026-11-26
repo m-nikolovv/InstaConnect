@@ -300,45 +300,4 @@ public static class PostLikeMockAssertions
 			await eventPublisher.ShouldHaveReceivedOnePublishAsync(command.IsPostLikeDeletedEventRequest(postLike), cancellationToken);
 		}
 	}
-
-	extension(IPostLikeQueryService service)
-	{
-		public async Task ShouldHaveReceivedOneGetAllAsync(
-			GetAllPostLikesQuery query,
-			CancellationToken cancellationToken)
-		{
-			await service.ShouldHaveReceivedOne().GetAllAsync(query, cancellationToken);
-		}
-
-		public async Task ShouldHaveReceivedOneGetAllForUserAsync(
-			GetAllPostLikesForUserQuery query,
-			CancellationToken cancellationToken)
-		{
-			await service.ShouldHaveReceivedOne().GetAllForUserAsync(query, cancellationToken);
-		}
-
-		public async Task ShouldHaveReceivedOneGetByIdAsync(
-			GetPostLikeByIdQuery query,
-			CancellationToken cancellationToken)
-		{
-			await service.ShouldHaveReceivedOne().GetByIdAsync(query, cancellationToken);
-		}
-	}
-
-	extension(IPostLikeCommandService service)
-	{
-		public async Task ShouldHaveReceivedOneAddAsync(
-			AddPostLikeCommand command,
-			CancellationToken cancellationToken)
-		{
-			await service.ShouldHaveReceivedOne().AddAsync(command, cancellationToken);
-		}
-
-		public async Task ShouldHaveReceivedOneDeleteAsync(
-			DeletePostLikeCommand command,
-			CancellationToken cancellationToken)
-		{
-			await service.ShouldHaveReceivedOne().DeleteAsync(command, cancellationToken);
-		}
-	}
 }

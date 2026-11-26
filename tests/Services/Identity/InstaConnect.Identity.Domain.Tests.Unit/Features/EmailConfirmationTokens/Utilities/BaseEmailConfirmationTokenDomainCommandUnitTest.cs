@@ -6,11 +6,9 @@ using InstaConnect.Identity.Domain.Features.EmailConfirmationTokens.Abstractions
 using InstaConnect.Identity.Domain.Features.EmailConfirmationTokens.Models.Options;
 using InstaConnect.Identity.Tests.Features.EmailConfirmationTokens.Utilities;
 
-using Microsoft.Extensions.Options;
-
 namespace InstaConnect.Identity.Domain.Tests.Unit.Features.EmailConfirmationTokens.Utilities;
 
-public abstract class BaseEmailConfirmationTokenDomainCommandUnitTest : BaseEmailConfirmationTokenTest
+public abstract class BaseEmailConfirmationTokenDomainCommandUnitTest : BaseEmailConfirmationTokenCommandTest
 {
 	protected IApplicationMapper Mapper { get; }
 
@@ -28,11 +26,11 @@ public abstract class BaseEmailConfirmationTokenDomainCommandUnitTest : BaseEmai
 
 	protected IEmailConfirmationTokenEmailSender EmailSender { get; }
 
-	protected IOptions<EmailConfirmationTokenOptions> EmailConfirmationTokenOptions { get; }
+	protected EmailConfirmationTokenOptions EmailConfirmationTokenOptions { get; }
 
 	protected IEmailConfirmationTokenCommandRepository EmailConfirmationTokenRepository { get; }
 
-	protected BaseEmailConfirmationTokenDomainCommandUnitTest() : base(IdentityMockFactory.CreatePasswordHasher())
+	protected BaseEmailConfirmationTokenDomainCommandUnitTest() : base(IdentityMockFactory.CreatePasswordHasher(), false)
 	{
 		Mapper = MockFactory.CreateMapper(IdentityDomainReference.Assembly);
 		GuidProvider = DomainMockFactory.CreateGuidProvider();

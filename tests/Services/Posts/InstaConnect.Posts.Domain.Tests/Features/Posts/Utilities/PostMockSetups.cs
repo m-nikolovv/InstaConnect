@@ -276,72 +276,24 @@ public static class PostMockSetups
 		}
 	}
 
-	extension(IPostQueryService service)
-	{
-		public void SetupGetAllAsync(
-			GetAllPostsQuery query,
-			PostCollectionResponse response,
-			CancellationToken cancellationToken)
-		{
-			service
-				.GetAllAsync(query, cancellationToken)
-				.ReturnsTaskResponse(response);
-		}
-
-		public void SetupGetAllForUserAsync(
-			GetAllPostsForUserQuery query,
-			PostCollectionResponse response,
-			CancellationToken cancellationToken)
-		{
-			service
-				.GetAllForUserAsync(query, cancellationToken)
-				.ReturnsTaskResponse(response);
-		}
-
-		public void SetupGetByIdAsync(
-			GetPostByIdQuery query,
-			PostResponse response,
-			CancellationToken cancellationToken)
-		{
-			service
-				.GetByIdAsync(query, cancellationToken)
-				.ReturnsTaskResponse(response);
-		}
-	}
-
-	extension(IPostCommandService service)
-	{
-		public void SetupAddAsync(
-			AddPostCommand command,
-			PostId id,
-			CancellationToken cancellationToken)
-		{
-			service
-				.AddAsync(command, cancellationToken)
-				.ReturnsTaskResponse(id);
-		}
-
-		public void SetupUpdateAsync(
-			UpdatePostCommand command,
-			PostId id,
-			CancellationToken cancellationToken)
-		{
-			service
-				.UpdateAsync(command, cancellationToken)
-				.ReturnsTaskResponse(id);
-		}
-	}
-
 	extension(IPostImageFactory factory)
 	{
 		public void SetupCreateRange(
 			AddPostCommand command,
 			Post post)
 		{
+			factory.SetupCreateRange(command, post, post.PostImages);
+		}
+
+		public void SetupCreateRange(
+			AddPostCommand command,
+			Post post,
+			ICollection<PostImage> postImages)
+		{
 			factory.SetupCreateRange(
 				post.Id,
 				command.IsImages(),
-				post.PostImages.To(command));
+				postImages.To(command));
 		}
 
 		public void SetupCreateRange(

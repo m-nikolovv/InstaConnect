@@ -9,9 +9,15 @@ public class PostCommentLikeExistsByIdCommandRepositoryIntegrationTests : BasePo
 	{
 	}
 
-	protected override async Task OnInitializeAsync()
+	public override async Task InitializeAsync()
 	{
-		await ServiceScope.AddAsync(PostCommentLike, CancellationToken);
+		await ServiceScope.SetupGetPostCommentLikeByIdAsync(
+			User,
+			Post,
+			PostComment,
+			PostCommentLike,
+			PostCommentImages,
+			CancellationToken);
 	}
 
 	[Fact]

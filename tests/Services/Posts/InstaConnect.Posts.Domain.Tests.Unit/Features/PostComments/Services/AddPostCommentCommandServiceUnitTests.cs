@@ -26,7 +26,7 @@ public class AddPostCommentCommandServiceUnitTests : BasePostCommentDomainComman
 		UserRepository.SetupGetByIdAsync(_command, User, CancellationToken);
 		Repository.SetupGetByIdAsync(_command, _include, Post, CancellationToken);
 		Factory.SetupCreate(_command, PostComment);
-		CommentImageFactory.SetupCreateRange(_command, PostComment);
+		CommentImageFactory.SetupCreateRange(_command, PostComment, PostCommentPostCommentImages);
 	}
 
 	[Fact]

@@ -11,7 +11,7 @@ internal static class UserFilterExtensions
 
 		public FilterDefinition<T> GetFilterForIdEquals<T>(Expression<Func<T, object>> idField)
 		{
-			return Builders<T>.Filter.EqualsIgnoreCase(idField, filter.Id, filter.Id.IsEmpty());
+			return Builders<T>.Filter.EqualsIgnoreCaseOrFalse(idField, filter.Id);
 		}
 	}
 

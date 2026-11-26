@@ -354,54 +354,6 @@ public static class PostCommentMockAssertions
 		}
 	}
 
-	extension(IPostCommentQueryService service)
-	{
-		public async Task ShouldHaveReceivedOneGetAllAsync(
-			GetAllPostCommentsQuery query,
-			CancellationToken cancellationToken)
-		{
-			await service.ShouldHaveReceivedOne().GetAllAsync(query, cancellationToken);
-		}
-
-		public async Task ShouldHaveReceivedOneGetAllForUserAsync(
-			GetAllPostCommentsForUserQuery query,
-			CancellationToken cancellationToken)
-		{
-			await service.ShouldHaveReceivedOne().GetAllForUserAsync(query, cancellationToken);
-		}
-
-		public async Task ShouldHaveReceivedOneGetByIdAsync(
-			GetPostCommentByIdQuery query,
-			CancellationToken cancellationToken)
-		{
-			await service.ShouldHaveReceivedOne().GetByIdAsync(query, cancellationToken);
-		}
-	}
-
-	extension(IPostCommentCommandService service)
-	{
-		public async Task ShouldHaveReceivedOneAddAsync(
-			AddPostCommentCommand command,
-			CancellationToken cancellationToken)
-		{
-			await service.ShouldHaveReceivedOne().AddAsync(command, cancellationToken);
-		}
-
-		public async Task ShouldHaveReceivedOneUpdateAsync(
-			UpdatePostCommentCommand command,
-			CancellationToken cancellationToken)
-		{
-			await service.ShouldHaveReceivedOne().UpdateAsync(command, cancellationToken);
-		}
-
-		public async Task ShouldHaveReceivedOneDeleteAsync(
-			DeletePostCommentCommand command,
-			CancellationToken cancellationToken)
-		{
-			await service.ShouldHaveReceivedOne().DeleteAsync(command, cancellationToken);
-		}
-	}
-
 	extension(IPostCommentSummarizer summarizer)
 	{
 		public async Task ShouldHaveReceivedOneSummarizeAsync(

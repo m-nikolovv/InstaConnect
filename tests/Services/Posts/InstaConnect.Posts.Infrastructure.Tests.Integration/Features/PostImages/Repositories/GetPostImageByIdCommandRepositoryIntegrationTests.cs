@@ -10,9 +10,13 @@ public class GetPostImageByIdCommandRepositoryIntegrationTests : BasePostImageIn
 	{
 	}
 
-	protected override async Task OnInitializeAsync()
+	public override async Task InitializeAsync()
 	{
-		await ServiceScope.AddAsync(PostImage, CancellationToken);
+		await ServiceScope.SetupGetPostImageByIdAsync(
+			User,
+			Post,
+			PostImage,
+			CancellationToken);
 	}
 
 	[Fact]

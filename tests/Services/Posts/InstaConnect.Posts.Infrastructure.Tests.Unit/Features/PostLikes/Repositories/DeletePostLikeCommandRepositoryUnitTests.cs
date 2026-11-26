@@ -6,7 +6,7 @@ public class DeletePostLikeCommandRepositoryUnitTests : BasePostLikeInfrastructu
 
 	public DeletePostLikeCommandRepositoryUnitTests()
 	{
-		_repository = new(Collection, IncludeBuilderFactory);
+		_repository = new(Collection, CacheHandler, LikeCacheHandler, IncludeBuilderFactory);
 	}
 
 	[Fact]
@@ -17,5 +17,25 @@ public class DeletePostLikeCommandRepositoryUnitTests : BasePostLikeInfrastructu
 
 		// Assert
 		await Collection.ShouldHaveReceivedOneDeleteAsync(PostLike, CancellationToken);
+	}
+
+	[Fact]
+	public async Task DeleteAsync_ShouldCallTheCacheHandlerDeleteResponseAsync_WhenCommandIsValid()
+	{
+		// Act
+		await _repository.DeleteAsync(PostLike, CancellationToken);
+
+		// Assert
+		await CacheHandler.ShouldHaveReceivedOneDeleteResponseAsync(PostLike, CancellationToken);
+	}
+
+	[Fact]
+	public async Task DeleteAsync_ShouldCallTheLikeCacheHandlerDeleteAsync_WhenCommandIsValid()
+	{
+		// Act
+		await _repository.DeleteAsync(PostLike, CancellationToken);
+
+		// Assert
+		await LikeCacheHandler.ShouldHaveReceivedOneDeleteAsync(PostLike, CancellationToken);
 	}
 }

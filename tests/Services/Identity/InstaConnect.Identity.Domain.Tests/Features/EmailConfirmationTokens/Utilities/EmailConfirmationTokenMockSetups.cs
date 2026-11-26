@@ -23,9 +23,9 @@ public static class EmailConfirmationTokenMockSetups
 
 		public void SetupGetOffsetUtcNow(
 			EmailConfirmationToken emailConfirmationToken,
-			IOptions<EmailConfirmationTokenOptions> emailConfirmationTokenOptions)
+			EmailConfirmationTokenOptions emailConfirmationTokenOptions)
 		{
-			dateTimeProvider.SetupGetOffsetUtcNow(emailConfirmationTokenOptions.Value.LifetimeSeconds, emailConfirmationToken.ExpiresAtUtc);
+			dateTimeProvider.SetupGetOffsetUtcNow(emailConfirmationTokenOptions.LifetimeSeconds, emailConfirmationToken.ExpiresAtUtc);
 		}
 
 		public void SetupGetOffsetUtcNow(VerifyEmailConfirmationTokenCommand command, DateTimeOffset utcNow)
@@ -114,19 +114,6 @@ public static class EmailConfirmationTokenMockSetups
 			CancellationToken cancellationToken)
 		{
 			repository.SetupGetByIdAsync(command.Id, null, cancellationToken);
-		}
-	}
-
-	extension(IEmailConfirmationTokenCommandService service)
-	{
-		public void SetupAddAsync(
-			AddEmailConfirmationTokenCommand command,
-			EmailConfirmationTokenId id,
-			CancellationToken cancellationToken)
-		{
-			service
-				.AddAsync(command, cancellationToken)
-				.ReturnsTaskResponse(id);
 		}
 	}
 }

@@ -1,3 +1,8 @@
+using InstaConnect.Posts.Infrastructure.Tests.Features.PostImages.Utilities;
+using InstaConnect.Posts.Infrastructure.Tests.Features.Posts.Utilities;
+
+
+
 namespace InstaConnect.Posts.Infrastructure.Tests.Integration.Features.PostImages.Repositories;
 
 public class DeletePostImageCommandRepositoryIntegrationTests : BasePostImageInfrastructureCommandIntegrationTest
@@ -7,9 +12,13 @@ public class DeletePostImageCommandRepositoryIntegrationTests : BasePostImageInf
 	{
 	}
 
-	protected override async Task OnInitializeAsync()
+	public override async Task InitializeAsync()
 	{
-		await ServiceScope.AddAsync(PostImage, CancellationToken);
+		await ServiceScope.SetupDeletePostImageAsync(
+			User,
+			Post,
+			PostImage,
+			CancellationToken);
 	}
 
 	[Fact]
@@ -21,5 +30,16 @@ public class DeletePostImageCommandRepositoryIntegrationTests : BasePostImageInf
 
 		// Assert
 		postImage.ShouldBeNull();
+	}
+
+	[Fact]
+	public async Task DeleteAsync_ShouldDeleteCachedPost_WhenCommandIsValid()
+	{
+		// Act
+		await Repository.DeleteAsync(PostImage, CancellationToken);
+		var cachedPost = await ServiceScope.GetPostCacheByIdAsync(Post, CancellationToken);
+
+		// Assert
+		cachedPost.ShouldBeNull();
 	}
 }

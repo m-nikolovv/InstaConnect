@@ -13,4 +13,12 @@ public static class PostCommentMatchAssertions
 			p.ShouldSatisfy(u => u.Matches(postComment));
 		}
 	}
+
+	extension(ICollection<PostComment> p)
+	{
+		public void ShouldSatisfy(ICollection<PostComment> postComments)
+		{
+			p.ShouldSatisfy(u => u.Matches(postComments));
+		}
+	}
 }

@@ -17,7 +17,7 @@ public class UserIsEmailUniqueCommandRepositoryUnitTests : BaseUserInfrastructur
 		_emailBuilder = _emailBuilderFactory.Create(User.Email);
 		_email = _emailBuilder.Build();
 
-		_repository = new(Collection, IncludeBuilderFactory);
+		_repository = new(Collection, CacheHandler, IncludeBuilderFactory);
 
 		Collection.SetupAggregateFluent(_email, Fluent);
 		Fluent.SetupMatch(_email);

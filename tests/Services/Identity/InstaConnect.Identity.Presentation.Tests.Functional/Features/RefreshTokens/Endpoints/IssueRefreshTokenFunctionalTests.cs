@@ -19,6 +19,11 @@ public class IssueRefreshTokenFunctionalTests : BaseRefreshTokenPresentationComm
 		_request = _requestBuilder.Build();
 	}
 
+	public override async Task InitializeAsync()
+	{
+		await ServiceScope.SetupAddAsync(_request, User, CancellationToken);
+	}
+
 	[Theory]
 	[UserNameTooShortData]
 	[UserNameTooLongData]

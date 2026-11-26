@@ -6,7 +6,7 @@ public class PostCommentLikeExistsByIdQueryRepositoryUnitTests : BasePostComment
 
 	public PostCommentLikeExistsByIdQueryRepositoryUnitTests()
 	{
-		_repository = new(Collection, IncludeBuilderFactory, CommentIncludeBuilderFactory, CommentLikeIncludeBuilderFactory);
+		_repository = new(Collection, IncludeBuilderFactory, CommentLikeCacheHandler, CommentIncludeBuilderFactory, CommentLikeIncludeBuilderFactory);
 
 		Collection.SetupAggregateFluent(PostCommentLikeId, Fluent);
 		Fluent.SetupMatch(PostCommentLikeId);

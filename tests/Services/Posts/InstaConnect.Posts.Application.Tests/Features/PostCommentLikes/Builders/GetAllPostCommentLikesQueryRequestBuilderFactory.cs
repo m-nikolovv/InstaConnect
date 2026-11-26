@@ -2,8 +2,8 @@ namespace InstaConnect.Posts.Application.Tests.Features.PostCommentLikes.Builder
 
 public class GetAllPostCommentLikesQueryRequestBuilderFactory
 {
-	public GetAllPostCommentLikesQueryRequestBuilder Create(PostCommentLike postCommentLike)
+	public GetAllPostCommentLikesQueryRequestBuilder Create(PostCommentLike postCommentLike, UserId currentUserId)
 	{
-		return new(postCommentLike);
+		return new(postCommentLike, currentUserId);
 	}
 }

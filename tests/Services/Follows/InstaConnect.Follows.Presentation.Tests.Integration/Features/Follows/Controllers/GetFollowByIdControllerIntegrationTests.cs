@@ -1,3 +1,5 @@
+using InstaConnect.Follows.Presentation.Tests.Features.Follows.Utilities;
+
 namespace InstaConnect.Follows.Presentation.Tests.Integration.Features.Follows.Controllers;
 
 public class GetFollowByIdControllerIntegrationTests : BaseFollowPresentationQueryIntegrationTest
@@ -10,13 +12,18 @@ public class GetFollowByIdControllerIntegrationTests : BaseFollowPresentationQue
 		: base(webApplicationFactory)
 	{
 		_requestBuilderFactory = new();
-		_requestBuilder = _requestBuilderFactory.Create(Follow);
+		_requestBuilder = _requestBuilderFactory.Create(Follow, UserId);
 		_request = _requestBuilder.Build();
 	}
 
-	protected override async Task OnInitializeAsync()
+	public override async Task InitializeAsync()
 	{
-		await ServiceScope.AddAsync(Follow, CancellationToken);
+		await ServiceScope.SetupGetByIdAsync(
+			_request,
+			Follower,
+			Following,
+			Follow,
+			CancellationToken);
 	}
 
 	[Theory]
@@ -184,5 +191,65 @@ public class GetFollowByIdControllerIntegrationTests : BaseFollowPresentationQue
 
 		// Assert
 		response.ShouldSatisfy(request, Follow);
+	}
+
+	[Fact]
+	public async Task GetByIdAsync_ShouldCacheFollow_WhenRequestIsValid()
+	{
+		// Act
+		await Controller.GetByIdAsync(_request, CancellationToken);
+		var cachedFollow = await ServiceScope.GetFollowCacheByIdAsync(_request, CancellationToken);
+
+		// Assert
+		cachedFollow.ShouldSatisfy(_request, Follow);
+	}
+
+	[Theory]
+	[UserIdDifferentCaseData]
+	public async Task GetByIdAsync_ShouldCacheFollow_WhenRequestAndFollowerIdAreValid(
+		IStringTransformer transformer)
+	{
+		// Arrange
+		var request = _requestBuilder.WithFollowerId(transformer).Build();
+
+		// Act
+		await Controller.GetByIdAsync(request, CancellationToken);
+		var cachedFollow = await ServiceScope.GetFollowCacheByIdAsync(request, CancellationToken);
+
+		// Assert
+		cachedFollow.ShouldSatisfy(request, Follow);
+	}
+
+	[Theory]
+	[UserIdDifferentCaseData]
+	public async Task GetByIdAsync_ShouldCacheFollow_WhenRequestAndFollowingIdAreValid(
+		IStringTransformer transformer)
+	{
+		// Arrange
+		var request = _requestBuilder.WithFollowingId(transformer).Build();
+
+		// Act
+		await Controller.GetByIdAsync(request, CancellationToken);
+		var cachedFollow = await ServiceScope.GetFollowCacheByIdAsync(request, CancellationToken);
+
+		// Assert
+		cachedFollow.ShouldSatisfy(request, Follow);
+	}
+
+	[Theory]
+	[UserIdEmptyData]
+	[UserIdDifferentCaseData]
+	public async Task GetByIdAsync_ShouldCacheFollow_WhenRequestAndCurrentUserIdAreValid(
+		IStringTransformer transformer)
+	{
+		// Arrange
+		var request = _requestBuilder.WithCurrentUserId(transformer).Build();
+
+		// Act
+		await Controller.GetByIdAsync(request, CancellationToken);
+		var cachedFollow = await ServiceScope.GetFollowCacheByIdAsync(request, CancellationToken);
+
+		// Assert
+		cachedFollow.ShouldSatisfy(request, Follow);
 	}
 }

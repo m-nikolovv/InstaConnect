@@ -10,10 +10,10 @@ public class GetUserByIdCommandRepositoryUnitTests : BaseUserInfrastructureComma
 	{
 		_include = IncludeBuilderFactory.Create().WithUserClaims().WithRefreshTokens().WithForgotPasswordTokens().WithEmailConfirmationTokens().Build();
 
-		_repository = new(Collection, IncludeBuilderFactory);
+		_repository = new(Collection, CacheHandler, IncludeBuilderFactory);
 
 		Collection.SetupAggregateFluent(UserId, Fluent);
-		Fluent.SetupApplyIncludes(UserId, _include);
+		Fluent.SetupInclude(UserId, _include);
 		Fluent.SetupMatch(UserId);
 		Fluent.SetupFirstOrDefaultAsync(UserId, User, CancellationToken);
 	}
@@ -39,13 +39,13 @@ public class GetUserByIdCommandRepositoryUnitTests : BaseUserInfrastructureComma
 	}
 
 	[Fact]
-	public async Task GetByIdAsync_ShouldCallTheFluentApplyIncludes_WhenCommandIsValid()
+	public async Task GetByIdAsync_ShouldCallTheFluentInclude_WhenCommandIsValid()
 	{
 		// Act
 		await _repository.GetByIdAsync(UserId, _include, CancellationToken);
 
 		// Assert
-		Fluent.ShouldHaveReceivedOneApplyIncludes(UserId, _include);
+		Fluent.ShouldHaveReceivedOneInclude(UserId, _include);
 	}
 
 	[Fact]

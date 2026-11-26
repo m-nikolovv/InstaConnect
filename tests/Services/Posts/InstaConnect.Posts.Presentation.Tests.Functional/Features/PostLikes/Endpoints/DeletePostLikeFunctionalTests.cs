@@ -14,9 +14,15 @@ public class DeletePostLikeFunctionalTests : BasePostLikePresentationCommandFunc
 		_request = _requestBuilder.Build();
 	}
 
-	protected override async Task OnInitializeAsync()
+	public override async Task InitializeAsync()
 	{
-		await ServiceScope.AddAsync(PostLike, CancellationToken);
+		await ServiceScope.SetupDeleteAsync(
+			_request,
+			User,
+			Post,
+			PostLike,
+			CancellationToken);
+		await base.InitializeAsync();
 	}
 
 	[Fact]
@@ -228,6 +234,96 @@ public class DeletePostLikeFunctionalTests : BasePostLikePresentationCommandFunc
 
 		// Assert
 		postLike.ShouldBeNull();
+	}
+
+	[Fact]
+	public async Task DeleteAsync_ShouldDeleteCachedPostLike_WhenRequestIsValid()
+	{
+		// Act
+		await LikeApiClient.DeleteAsync(_request, CancellationToken);
+		var cachedPostLike = await ServiceScope.GetPostLikeCacheByIdAsync(_request, CancellationToken);
+
+		// Assert
+		cachedPostLike.ShouldBeNull();
+	}
+
+	[Theory]
+	[PostIdDifferentCaseData]
+	public async Task DeleteAsync_ShouldDeleteCachedPostLike_WhenRequestAndIdAreValid(
+		IStringTransformer transformer)
+	{
+		// Arrange
+		var request = _requestBuilder.WithId(transformer).Build();
+		await ServiceScope.AddPostLikeCacheAsync(request, PostLike, CancellationToken);
+
+		// Act
+		await LikeApiClient.DeleteAsync(request, CancellationToken);
+		var cachedPostLike = await ServiceScope.GetPostLikeCacheByIdAsync(request, CancellationToken);
+
+		// Assert
+		cachedPostLike.ShouldBeNull();
+	}
+
+	[Theory]
+	[UserIdDifferentCaseData]
+	public async Task DeleteAsync_ShouldDeleteCachedPostLike_WhenRequestAndUserIdAreValid(
+		IStringTransformer transformer)
+	{
+		// Arrange
+		var request = _requestBuilder.WithUserId(transformer).Build();
+		await ServiceScope.AddPostLikeCacheAsync(request, PostLike, CancellationToken);
+
+		// Act
+		await LikeApiClient.DeleteAsync(request, CancellationToken);
+		var cachedPostLike = await ServiceScope.GetPostLikeCacheByIdAsync(request, CancellationToken);
+
+		// Assert
+		cachedPostLike.ShouldBeNull();
+	}
+
+	[Fact]
+	public async Task DeleteAsync_ShouldDeleteCachedPost_WhenRequestIsValid()
+	{
+		// Act
+		await LikeApiClient.DeleteAsync(_request, CancellationToken);
+		var cachedPost = await ServiceScope.GetPostCacheByIdAsync(_request, CancellationToken);
+
+		// Assert
+		cachedPost.ShouldBeNull();
+	}
+
+	[Theory]
+	[PostIdDifferentCaseData]
+	public async Task DeleteAsync_ShouldDeleteCachedPost_WhenRequestAndIdAreValid(
+		IStringTransformer transformer)
+	{
+		// Arrange
+		var request = _requestBuilder.WithId(transformer).Build();
+		await ServiceScope.AddPostCacheAsync(request, Post, CancellationToken);
+
+		// Act
+		await LikeApiClient.DeleteAsync(request, CancellationToken);
+		var cachedPost = await ServiceScope.GetPostCacheByIdAsync(request, CancellationToken);
+
+		// Assert
+		cachedPost.ShouldBeNull();
+	}
+
+	[Theory]
+	[UserIdDifferentCaseData]
+	public async Task DeleteAsync_ShouldDeleteCachedPost_WhenRequestAndUserIdAreValid(
+		IStringTransformer transformer)
+	{
+		// Arrange
+		var request = _requestBuilder.WithUserId(transformer).Build();
+		await ServiceScope.AddPostCacheAsync(request, Post, CancellationToken);
+
+		// Act
+		await LikeApiClient.DeleteAsync(request, CancellationToken);
+		var cachedPost = await ServiceScope.GetPostCacheByIdAsync(request, CancellationToken);
+
+		// Assert
+		cachedPost.ShouldBeNull();
 	}
 
 	[Fact]

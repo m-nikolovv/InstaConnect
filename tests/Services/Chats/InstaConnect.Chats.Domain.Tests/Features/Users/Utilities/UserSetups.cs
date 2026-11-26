@@ -1,3 +1,5 @@
+using InstaConnect.Chats.Domain.Features.Users.Models.Responses;
+
 namespace InstaConnect.Chats.Domain.Tests.Features.Users.Utilities;
 
 public static class UserSetups
@@ -15,6 +17,55 @@ public static class UserSetups
 		public IUserCommandService GetUserCommandService()
 		{
 			return serviceScope.ServiceProvider.GetUserCommandService();
+		}
+
+		public async Task<UserResponse?> GetUserCacheByIdAsync(
+			UpdateUserCommand command,
+			CancellationToken cancellationToken)
+		{
+			return await serviceScope.GetUserCacheByIdAsync(command.Id, command.Id, cancellationToken);
+		}
+
+		public async Task<UserResponse?> GetUserCacheByIdAsync(
+			DeleteUserCommand command,
+			CancellationToken cancellationToken)
+		{
+			return await serviceScope.GetUserCacheByIdAsync(command.Id, command.Id, cancellationToken);
+		}
+
+		public async Task SetupDeleteAsync(
+			DeleteUserCommand command,
+			User user,
+			ICollection<Chat> chats,
+			ICollection<ChatMessage> chatMessages,
+			ICollection<ChatMessageImage> chatMessageImages,
+			CancellationToken cancellationToken)
+		{
+			await serviceScope.SetupDeleteUserAsync(user, chats, chatMessages, chatMessageImages, command.Id, cancellationToken);
+		}
+
+		public async Task AddUserCacheAsync(
+			DeleteUserCommand command,
+			User user,
+			CancellationToken cancellationToken)
+		{
+			await serviceScope.AddUserCacheAsync(user, command.Id, cancellationToken);
+		}
+
+		public async Task AddUserCacheAsync(
+			UpdateUserCommand command,
+			User user,
+			CancellationToken cancellationToken)
+		{
+			await serviceScope.AddUserCacheAsync(user, command.Id, cancellationToken);
+		}
+
+		public async Task SetupUpdateAsync(
+			UpdateUserCommand command,
+			User user,
+			CancellationToken cancellationToken)
+		{
+			await serviceScope.SetupUpdateUserAsync(user, command.Id, cancellationToken);
 		}
 	}
 }

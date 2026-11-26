@@ -6,11 +6,11 @@ public class GetChatMessageByIdQueryBuilder
 	private string _messageId;
 	private string _currentUserId;
 
-	public GetChatMessageByIdQueryBuilder(ChatMessage chatMessage)
+	public GetChatMessageByIdQueryBuilder(ChatMessage chatMessage, UserId currentUserId)
 	{
 		_participantTwoId = chatMessage.Id.Id.ParticipantTwoId.Id;
 		_messageId = chatMessage.Id.MessageId;
-		_currentUserId = chatMessage.Id.Id.ParticipantOneId.Id;
+		_currentUserId = currentUserId.Id;
 	}
 
 	public GetChatMessageByIdQueryBuilder WithParticipantTwoId(UserId participantTwoId, IStringTransformer? transformer = null)

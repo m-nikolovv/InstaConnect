@@ -11,7 +11,7 @@ using InstaConnect.Common.Domain.Features.Mappers.Abstractions;
 
 namespace InstaConnect.Chats.Domain.Tests.Unit.Features.ChatMessages.Utilities;
 
-public abstract class BaseChatMessageDomainCommandUnitTest : BaseChatMessageTest
+public abstract class BaseChatMessageDomainCommandUnitTest : BaseChatMessageCommandTest
 {
 	protected IApplicationMapper Mapper { get; }
 

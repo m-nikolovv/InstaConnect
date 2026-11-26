@@ -2,10 +2,10 @@ namespace InstaConnect.Posts.Tests.Features.PostCommentImages.Builders;
 
 public class PostCommentImageBuilder
 {
-	private readonly string _id;
+	private string _id;
 	private readonly string _url;
-	private readonly string _imageId;
-	private readonly string _commentId;
+	private string _imageId;
+	private string _commentId;
 	private readonly PostComment _postComment;
 	private readonly DateTimeOffset _createdAtUtc;
 
@@ -29,6 +29,43 @@ public class PostCommentImageBuilder
 		_createdAtUtc = postCommentImage.CreatedAtUtc;
 	}
 
+	public PostCommentImageBuilder WithId(IStringTransformer transformer)
+	{
+		_id = transformer.Transform(_id);
+
+		return this;
+	}
+
+	public PostCommentImageBuilder WithCommentId(IStringTransformer transformer)
+	{
+		_commentId = transformer.Transform(_commentId);
+
+		return this;
+	}
+
+	public PostCommentImageBuilder WithImageId(PostCommentImageId imageId, IStringTransformer? transformer = null)
+	{
+		_imageId = transformer.TryTransform(imageId.ImageId);
+
+		return this;
+	}
+
+	public PostCommentImageBuilder WithImageId(IStringTransformer transformer)
+	{
+		_imageId = transformer.Transform(_imageId);
+
+		return this;
+	}
+
+	public PostCommentImage BuildAttached()
+	{
+		var postCommentImage = Build();
+
+		_postComment.AddPostCommentImage(postCommentImage);
+
+		return postCommentImage;
+	}
+
 	public PostCommentImage Build()
 	{
 		var postCommentImage = new PostCommentImage(
@@ -40,7 +77,6 @@ public class PostCommentImageBuilder
 				new(_url),
 				_createdAtUtc);
 
-		_postComment.AddPostCommentImage(postCommentImage);
 		postCommentImage.AddPostComment(_postComment);
 
 		return postCommentImage;

@@ -17,13 +17,20 @@ public class GetAllPostLikesForUserControllerIntegrationTests : BasePostLikePres
 		: base(webApplicationFactory)
 	{
 		_requestBuilderFactory = new();
-		_requestBuilder = _requestBuilderFactory.Create(PostLike);
+		_requestBuilder = _requestBuilderFactory.Create(PostLike, UserId);
 		_request = _requestBuilder.Build();
 	}
 
-	protected override async Task OnInitializeAsync()
+	public override async Task InitializeAsync()
 	{
-		await ServiceScope.AddRangeAsync(PostLikes, CancellationToken);
+		await ServiceScope.SetupGetAllForUserAsync(
+			_request,
+			Users,
+			Posts,
+			PostLikes,
+			PostImages,
+			PostComments,
+			CancellationToken);
 	}
 
 	[Theory]

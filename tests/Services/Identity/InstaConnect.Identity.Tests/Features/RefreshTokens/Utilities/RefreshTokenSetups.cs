@@ -1,4 +1,5 @@
 using InstaConnect.Identity.Domain.Features.RefreshTokens.Abstractions;
+using InstaConnect.Identity.Infrastructure.Features.RefreshTokens.Abstractions;
 
 namespace InstaConnect.Identity.Tests.Features.RefreshTokens.Utilities;
 
@@ -15,6 +16,16 @@ public static class RefreshTokenSetups
 		{
 			return serviceProvider.GetRequiredService<IRefreshTokenIncludeBuilderFactory>();
 		}
+
+		public IRefreshTokenCollection GetRefreshTokenCollection()
+		{
+			return serviceProvider.GetRequiredService<IRefreshTokenCollection>();
+		}
+
+		public IRefreshTokenCacheHandler GetRefreshTokenCacheHandler()
+		{
+			return serviceProvider.GetRequiredService<IRefreshTokenCacheHandler>();
+		}
 	}
 
 	extension(IServiceScope serviceScope)
@@ -29,6 +40,11 @@ public static class RefreshTokenSetups
 			return serviceScope.ServiceProvider.GetRefreshTokenIncludeBuilderFactory();
 		}
 
+		public IRefreshTokenCacheHandler GetRefreshTokenCacheHandler()
+		{
+			return serviceScope.ServiceProvider.GetRefreshTokenCacheHandler();
+		}
+
 		public async Task<RefreshToken?> GetByIdAsync(
 			RefreshTokenId id,
 			CancellationToken cancellationToken)
@@ -38,33 +54,92 @@ public static class RefreshTokenSetups
 			return (await serviceScope.GetRefreshTokenCommandRepository().GetByIdAsync(id, refreshTokenInclude, cancellationToken)).SetUser();
 		}
 
+		public async Task<ICollection<RefreshToken>> GetByIdRangeAsync(
+			IEnumerable<RefreshTokenId> ids,
+			CancellationToken cancellationToken)
+		{
+			return await serviceScope.GetRefreshTokenCommandRepository().GetByIdRangeAsync(ids, cancellationToken);
+		}
+
 		public async Task AddAsync(
 			RefreshToken refreshToken,
 			CancellationToken cancellationToken)
 		{
-			await serviceScope.GetRefreshTokenCommandRepository().AddAsync(refreshToken, cancellationToken);
+			var refreshTokenRepository = serviceScope.GetRefreshTokenCommandRepository();
+
+			await refreshTokenRepository.AddAsync(refreshToken, cancellationToken);
 		}
 
 		public async Task AddRangeAsync(
 			IEnumerable<RefreshToken> refreshTokens,
 			CancellationToken cancellationToken)
 		{
-			await serviceScope.GetRefreshTokenCommandRepository().AddRangeAsync(refreshTokens, cancellationToken);
+			var refreshTokenRepository = serviceScope.GetRefreshTokenCommandRepository();
+
+			await refreshTokenRepository.AddRangeAsync(refreshTokens, cancellationToken);
 		}
 
 		public async Task UpdateAsync(
 			RefreshToken refreshToken,
 			CancellationToken cancellationToken)
 		{
-			await serviceScope.GetRefreshTokenCommandRepository().UpdateAsync(refreshToken, cancellationToken);
+			var refreshTokenRepository = serviceScope.GetRefreshTokenCommandRepository();
+
+			await refreshTokenRepository.UpdateAsync(refreshToken, cancellationToken);
 		}
 
 		public async Task DeleteAsync(
 			RefreshToken refreshToken,
 			CancellationToken cancellationToken)
 		{
-			await serviceScope.GetRefreshTokenCommandRepository().DeleteAsync(refreshToken, cancellationToken);
+			var cacheHandler = serviceScope.GetRefreshTokenCacheHandler();
+			var refreshTokenRepository = serviceScope.GetRefreshTokenCommandRepository();
+
+			await refreshTokenRepository.DeleteAsync(refreshToken, cancellationToken);
+			await cacheHandler.DeleteAsync(refreshToken.Id, cancellationToken);
+		}
+
+		public async Task SetupAddRefreshTokenAsync(
+			User user,
+			CancellationToken cancellationToken)
+		{
+			await serviceScope.AddAsync(user, cancellationToken);
+		}
+
+		public async Task SetupDeleteRefreshTokenAsync(
+			User user,
+			RefreshToken refreshToken,
+			CancellationToken cancellationToken)
+		{
+			await serviceScope.AddAsync(user, cancellationToken);
+			await serviceScope.AddAsync(refreshToken, cancellationToken);
+		}
+
+		public async Task SetupGetAllRefreshTokensAsync(
+			ICollection<User> users,
+			ICollection<RefreshToken> refreshTokens,
+			CancellationToken cancellationToken)
+		{
+			await serviceScope.AddRangeAsync(users, cancellationToken);
+			await serviceScope.AddRangeAsync(refreshTokens, cancellationToken);
+		}
+
+		public async Task SetupGetRefreshTokenByIdAsync(
+			User user,
+			RefreshToken refreshToken,
+			CancellationToken cancellationToken)
+		{
+			await serviceScope.AddAsync(user, cancellationToken);
+			await serviceScope.AddAsync(refreshToken, cancellationToken);
+		}
+
+		public async Task SetupUpdateRefreshTokenAsync(
+			User user,
+			RefreshToken refreshToken,
+			CancellationToken cancellationToken)
+		{
+			await serviceScope.AddAsync(user, cancellationToken);
+			await serviceScope.AddAsync(refreshToken, cancellationToken);
 		}
 	}
 }
-

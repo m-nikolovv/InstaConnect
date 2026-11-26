@@ -2,7 +2,7 @@ namespace InstaConnect.Posts.Infrastructure.Features.PostComments.Abstractions;
 
 public interface IPostCommentResponseFluent : IMongoDbResponseFluent<PostCommentResponse>
 {
-	public IPostCommentResponseFluent ApplySorting(PostCommentsSortingQuery query);
-	public IPostCommentResponseFluent ApplySorting(PostCommentsForUserSortingQuery query);
-	public IPostCommentResponseFluent ApplyPagination(PostCommentsPaginationQuery query);
+	public IPostCommentResponseFluent Sort(PostCommentsSortingQuery query);
+	public IPostCommentResponseFluent Sort(PostCommentsForUserSortingQuery query);
+	public IPostCommentResponseFluent Paginate(PostCommentsPaginationQuery query);
 }

@@ -13,7 +13,7 @@ public class GetFollowByIdControllerUnitTests : BaseFollowPresentationQueryUnitT
 	public GetFollowByIdControllerUnitTests()
 	{
 		_requestBuilderFactory = new();
-		_requestBuilder = _requestBuilderFactory.Create(Follow);
+		_requestBuilder = _requestBuilderFactory.Create(Follow, UserId);
 		_request = _requestBuilder.Build();
 
 		_controller = new(Mapper, Sender);

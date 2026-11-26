@@ -16,9 +16,9 @@ public class GetRefreshTokenByIdCommandRepositoryIntegrationTests : BaseRefreshT
 		_include = IncludeBuilderFactory.Create().WithUser().Build();
 	}
 
-	protected override async Task OnInitializeAsync()
+	public override async Task InitializeAsync()
 	{
-		await ServiceScope.AddAsync(RefreshToken, CancellationToken);
+		await ServiceScope.SetupGetRefreshTokenByIdAsync(User, RefreshToken, CancellationToken);
 	}
 
 	[Fact]

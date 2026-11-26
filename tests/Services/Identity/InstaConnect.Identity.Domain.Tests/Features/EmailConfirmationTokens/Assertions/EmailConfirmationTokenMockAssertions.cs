@@ -10,9 +10,9 @@ public static class EmailConfirmationTokenMockAssertions
 {
 	extension(IDateTimeProvider dateTimeProvider)
 	{
-		public void ShouldHaveReceivedOneGetOffsetUtcNow(IOptions<EmailConfirmationTokenOptions> emailConfirmationTokenOptions)
+		public void ShouldHaveReceivedOneGetOffsetUtcNow(EmailConfirmationTokenOptions emailConfirmationTokenOptions)
 		{
-			dateTimeProvider.ShouldHaveReceivedOneGetOffsetUtcNow(emailConfirmationTokenOptions.Value.LifetimeSeconds);
+			dateTimeProvider.ShouldHaveReceivedOneGetOffsetUtcNow(emailConfirmationTokenOptions.LifetimeSeconds);
 		}
 
 		public void ShouldHaveReceivedOneGetOffsetUtcNow(VerifyEmailConfirmationTokenCommand command)
@@ -147,23 +147,6 @@ public static class EmailConfirmationTokenMockAssertions
 			CancellationToken cancellationToken)
 		{
 			await repository.ShouldHaveReceivedZero().DeleteRangeAsync(emailConfirmationTokens, cancellationToken);
-		}
-	}
-
-	extension(IEmailConfirmationTokenCommandService service)
-	{
-		public async Task ShouldHaveReceivedOneAddAsync(
-			AddEmailConfirmationTokenCommand command,
-			CancellationToken cancellationToken)
-		{
-			await service.ShouldHaveReceivedOne().AddAsync(command, cancellationToken);
-		}
-
-		public async Task ShouldHaveReceivedOneVerifyAsync(
-			VerifyEmailConfirmationTokenCommand command,
-			CancellationToken cancellationToken)
-		{
-			await service.ShouldHaveReceivedOne().VerifyAsync(command, cancellationToken);
 		}
 	}
 }

@@ -19,6 +19,12 @@ public class AddPostFunctionalTests : BasePostPresentationCommandFunctionalTest
 		_request = _requestBuilder.Build();
 	}
 
+	public override async Task InitializeAsync()
+	{
+		await ServiceScope.SetupAddAsync(_request, User, CancellationToken);
+		await base.InitializeAsync();
+	}
+
 	[Fact]
 	public async Task AddAsync_ShouldReturnUnauthorizedStatusCode_WhenRequestIsUnauthorized()
 	{

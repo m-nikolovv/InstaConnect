@@ -7,13 +7,16 @@ namespace InstaConnect.Identity.Infrastructure.Features.EmailConfirmationTokens.
 internal class EmailConfirmationTokenCommandRepository : IEmailConfirmationTokenCommandRepository
 {
 	private readonly IEmailConfirmationTokenCollection _collection;
+	private readonly IEmailConfirmationTokenCacheHandler _cacheHandler;
 	private readonly IEmailConfirmationTokenIncludeBuilderFactory _includeBuilderFactory;
 
 	public EmailConfirmationTokenCommandRepository(
 		IEmailConfirmationTokenCollection collection,
+		IEmailConfirmationTokenCacheHandler cacheHandler,
 		IEmailConfirmationTokenIncludeBuilderFactory includeBuilderFactory)
 	{
 		_collection = collection;
+		_cacheHandler = cacheHandler;
 		_includeBuilderFactory = includeBuilderFactory;
 	}
 
@@ -24,8 +27,8 @@ internal class EmailConfirmationTokenCommandRepository : IEmailConfirmationToken
 	{
 		return await _collection
 			.AggregateFluent()
-			.ApplyIncludes(include)
 			.Match(id)
+			.Include(include)
 			.FirstOrDefaultAsync(cancellationToken);
 	}
 
@@ -71,15 +74,18 @@ internal class EmailConfirmationTokenCommandRepository : IEmailConfirmationToken
 	public async Task UpdateAsync(EmailConfirmationToken entity, CancellationToken cancellationToken)
 	{
 		await _collection.UpdateAsync(entity, cancellationToken);
+		await _cacheHandler.DeleteAsync(entity.Id, cancellationToken);
 	}
 
 	public async Task DeleteAsync(EmailConfirmationToken entity, CancellationToken cancellationToken)
 	{
 		await _collection.DeleteAsync(entity, cancellationToken);
+		await _cacheHandler.DeleteAsync(entity.Id, cancellationToken);
 	}
 
 	public async Task DeleteRangeAsync(IEnumerable<EmailConfirmationToken> entities, CancellationToken cancellationToken)
 	{
 		await _collection.DeleteRangeAsync(entities, cancellationToken);
+		await _cacheHandler.DeleteRangeAsync(entities.Select(p => p.Id), cancellationToken);
 	}
 }

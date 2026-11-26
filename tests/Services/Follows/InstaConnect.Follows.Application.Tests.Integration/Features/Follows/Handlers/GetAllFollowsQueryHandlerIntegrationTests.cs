@@ -19,13 +19,18 @@ public class GetAllFollowsQueryHandlerIntegrationTests : BaseFollowApplicationQu
 		: base(webApplicationFactory)
 	{
 		_requestBuilderFactory = new();
-		_requestBuilder = _requestBuilderFactory.Create(Follow);
+		_requestBuilder = _requestBuilderFactory.Create(Follow, UserId);
 		_request = _requestBuilder.Build();
 	}
 
-	protected override async Task OnInitializeAsync()
+	public override async Task InitializeAsync()
 	{
-		await ServiceScope.AddRangeAsync(Follows, CancellationToken);
+		await ServiceScope.SetupGetAllAsync(
+			_request,
+			Followers,
+			Followings,
+			Follows,
+			CancellationToken);
 	}
 
 	[Theory]

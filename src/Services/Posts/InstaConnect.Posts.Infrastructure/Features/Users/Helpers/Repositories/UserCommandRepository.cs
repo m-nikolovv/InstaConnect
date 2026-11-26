@@ -5,13 +5,16 @@ namespace InstaConnect.Posts.Infrastructure.Features.Users.Helpers.Repositories;
 internal class UserCommandRepository : IUserCommandRepository
 {
 	private readonly IUserCollection _collection;
+	private readonly IUserCacheHandler _cacheHandler;
 	private readonly IUserIncludeBuilderFactory _includeBuilderFactory;
 
 	public UserCommandRepository(
 		IUserCollection collection,
+		IUserCacheHandler cacheHandler,
 		IUserIncludeBuilderFactory includeBuilderFactory)
 	{
 		_collection = collection;
+		_cacheHandler = cacheHandler;
 		_includeBuilderFactory = includeBuilderFactory;
 	}
 
@@ -22,8 +25,8 @@ internal class UserCommandRepository : IUserCommandRepository
 	{
 		return await _collection
 			.AggregateFluent()
-			.ApplyIncludes(include)
 			.Match(id)
+			.Include(include)
 			.FirstOrDefaultAsync(cancellationToken);
 	}
 
@@ -53,8 +56,8 @@ internal class UserCommandRepository : IUserCommandRepository
 	{
 		return await _collection
 			.AggregateFluent()
-			.ApplyIncludes(include)
 			.Match(name)
+			.Include(include)
 			.FirstOrDefaultAsync(cancellationToken);
 	}
 
@@ -84,8 +87,8 @@ internal class UserCommandRepository : IUserCommandRepository
 	{
 		return await _collection
 			.AggregateFluent()
-			.ApplyIncludes(include)
 			.Match(email)
+			.Include(include)
 			.FirstOrDefaultAsync(cancellationToken);
 	}
 
@@ -121,10 +124,12 @@ internal class UserCommandRepository : IUserCommandRepository
 	public async Task UpdateAsync(User entity, CancellationToken cancellationToken)
 	{
 		await _collection.UpdateAsync(entity, cancellationToken);
+		await _cacheHandler.DeleteAsync(entity.Id, cancellationToken);
 	}
 
 	public async Task DeleteAsync(User entity, CancellationToken cancellationToken)
 	{
 		await _collection.DeleteAsync(entity, cancellationToken);
+		await _cacheHandler.DeleteAsync(entity.Id, cancellationToken);
 	}
 }

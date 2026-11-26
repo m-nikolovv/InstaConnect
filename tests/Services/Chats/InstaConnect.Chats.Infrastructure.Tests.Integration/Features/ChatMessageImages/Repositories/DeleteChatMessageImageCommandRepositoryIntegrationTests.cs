@@ -1,3 +1,6 @@
+using InstaConnect.Chats.Infrastructure.Tests.Features.ChatMessageImages.Utilities;
+using InstaConnect.Chats.Infrastructure.Tests.Features.ChatMessages.Utilities;
+
 namespace InstaConnect.Chats.Infrastructure.Tests.Integration.Features.ChatMessageImages.Repositories;
 
 public class DeleteChatMessageImageCommandRepositoryIntegrationTests : BaseChatMessageImageInfrastructureCommandIntegrationTest
@@ -7,9 +10,15 @@ public class DeleteChatMessageImageCommandRepositoryIntegrationTests : BaseChatM
 	{
 	}
 
-	protected override async Task OnInitializeAsync()
+	public override async Task InitializeAsync()
 	{
-		await ServiceScope.AddAsync(ChatMessageImage, CancellationToken);
+		await ServiceScope.SetupDeleteChatMessageImageAsync(
+			ParticipantOne,
+			ParticipantTwo,
+			Chat,
+			ChatMessage,
+			ChatMessageImage,
+			CancellationToken);
 	}
 
 	[Fact]
@@ -21,5 +30,16 @@ public class DeleteChatMessageImageCommandRepositoryIntegrationTests : BaseChatM
 
 		// Assert
 		chatMessageImage.ShouldBeNull();
+	}
+
+	[Fact]
+	public async Task DeleteAsync_ShouldDeleteCachedChatMessage_WhenCommandIsValid()
+	{
+		// Act
+		await Repository.DeleteAsync(ChatMessageImage, CancellationToken);
+		var cachedChatMessage = await ServiceScope.GetChatMessageCacheByIdAsync(ChatMessage, CancellationToken);
+
+		// Assert
+		cachedChatMessage.ShouldBeNull();
 	}
 }

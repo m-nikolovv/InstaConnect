@@ -7,12 +7,12 @@ public class GetPostCommentLikeByIdQueryBuilder
 	private string _userId;
 	private string _currentUserId;
 
-	public GetPostCommentLikeByIdQueryBuilder(PostCommentLike postCommentLike)
+	public GetPostCommentLikeByIdQueryBuilder(PostCommentLike postCommentLike, UserId currentUserId)
 	{
 		_id = postCommentLike.Id.CommentId.Id.Id;
 		_commentId = postCommentLike.Id.CommentId.CommentId;
 		_userId = postCommentLike.Id.UserId.Id;
-		_currentUserId = postCommentLike.Id.UserId.Id;
+		_currentUserId = currentUserId.Id;
 	}
 
 	public GetPostCommentLikeByIdQueryBuilder WithId(PostId id, IStringTransformer? transformer = null)

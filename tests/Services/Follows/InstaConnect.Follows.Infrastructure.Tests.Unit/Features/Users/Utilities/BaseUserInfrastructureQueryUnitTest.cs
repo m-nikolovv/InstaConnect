@@ -3,18 +3,21 @@ using InstaConnect.Follows.Tests.Features.Users.Utilities;
 
 namespace InstaConnect.Follows.Infrastructure.Tests.Unit.Features.Users.Utilities;
 
-public abstract class BaseUserInfrastructureQueryUnitTest : BaseUserTest
+public abstract class BaseUserInfrastructureQueryUnitTest : BaseUserQueryTest
 {
 	protected IUserFluent Fluent { get; }
 
 	protected IUserCollection Collection { get; }
 
+	protected IUserCacheHandler CacheHandler { get; }
+
 	protected IUserResponseFluent ResponseFluent { get; }
 
 	protected BaseUserInfrastructureQueryUnitTest()
 	{
-		Collection = UserInfrastructureMockFactory.CreateCollection();
 		Fluent = UserInfrastructureMockFactory.CreateFluent();
+		Collection = UserInfrastructureMockFactory.CreateCollection();
+		CacheHandler = UserInfrastructureMockFactory.CreateCacheHandler();
 		ResponseFluent = UserInfrastructureMockFactory.CreateResponseFluent();
 	}
 }

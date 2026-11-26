@@ -2,8 +2,8 @@ namespace InstaConnect.Posts.Presentation.Tests.Features.PostLikes.Builders;
 
 public class GetAllPostLikesForUserApiRequestBuilderFactory
 {
-	public GetAllPostLikesForUserApiRequestBuilder Create(PostLike postLike)
+	public GetAllPostLikesForUserApiRequestBuilder Create(PostLike postLike, UserId currentUserId)
 	{
-		return new(postLike);
+		return new(postLike, currentUserId);
 	}
 }

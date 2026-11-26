@@ -9,9 +9,13 @@ public class FollowExistsByIdCommandRepositoryIntegrationTests : BaseFollowInfra
 	{
 	}
 
-	protected override async Task OnInitializeAsync()
+	public override async Task InitializeAsync()
 	{
-		await ServiceScope.AddAsync(Follow, CancellationToken);
+		await ServiceScope.SetupGetFollowByIdAsync(
+			Follower,
+			Following,
+			Follow,
+			CancellationToken);
 	}
 
 	[Fact]

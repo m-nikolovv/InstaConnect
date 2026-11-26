@@ -1,6 +1,7 @@
 using InstaConnect.Posts.Application.Features.Users.Commands.Add;
 using InstaConnect.Posts.Application.Features.Users.Commands.Delete;
 using InstaConnect.Posts.Application.Features.Users.Commands.Update;
+using InstaConnect.Posts.Domain.Features.Users.Models.Responses;
 
 namespace InstaConnect.Posts.Infrastructure.Tests.Features.Users.Utilities;
 
@@ -27,6 +28,14 @@ public static class UserInfrastructureMatcher
 		public DeleteUserCommandRequest IsDeleteUserCommandRequest()
 		{
 			return Matcher.Is<DeleteUserCommandRequest>(u => u.Matches(request));
+		}
+	}
+
+	extension(User user)
+	{
+		public UserResponse IsUserResponse(CurrentUserQuery currentUserQuery)
+		{
+			return Matcher.Is<UserResponse>(p => p.Matches(user.Id, currentUserQuery, user));
 		}
 	}
 }

@@ -1,3 +1,5 @@
+using InstaConnect.Posts.Infrastructure.Tests.Features.Posts.Utilities;
+
 namespace InstaConnect.Posts.Infrastructure.Tests.Integration.Features.Posts.Repositories;
 
 public class UpdatePostCommandRepositoryIntegrationTests : BasePostInfrastructureCommandIntegrationTest
@@ -7,9 +9,13 @@ public class UpdatePostCommandRepositoryIntegrationTests : BasePostInfrastructur
 	{
 	}
 
-	protected override async Task OnInitializeAsync()
+	public override async Task InitializeAsync()
 	{
-		await ServiceScope.AddAsync(Post, CancellationToken);
+		await ServiceScope.SetupUpdatePostAsync(
+			User,
+			Post,
+			PostPostImages,
+			CancellationToken);
 	}
 
 	[Fact]
@@ -23,5 +29,19 @@ public class UpdatePostCommandRepositoryIntegrationTests : BasePostInfrastructur
 
 		// Assert
 		post.ShouldSatisfy(updatedPost);
+	}
+
+	[Fact]
+	public async Task UpdateAsync_ShouldDeleteCachedPost_WhenCommandIsValid()
+	{
+		// Arrange
+		var updatedPost = PostBuilderFactory.Create(User).WithId(PostId).Build();
+
+		// Act
+		await Repository.UpdateAsync(updatedPost, CancellationToken);
+		var cachedPost = await ServiceScope.GetPostCacheByIdAsync(updatedPost, CancellationToken);
+
+		// Assert
+		cachedPost.ShouldBeNull();
 	}
 }

@@ -4,7 +4,7 @@ using InstaConnect.Posts.Tests.Features.PostComments.Utilities;
 
 namespace InstaConnect.Posts.Infrastructure.Tests.Unit.Features.PostComments.Utilities;
 
-public abstract class BasePostCommentInfrastructureQueryUnitTest : BasePostCommentTest
+public abstract class BasePostCommentInfrastructureQueryUnitTest : BasePostCommentQueryTest
 {
 	protected IPostCommentFluent Fluent { get; }
 
@@ -12,15 +12,18 @@ public abstract class BasePostCommentInfrastructureQueryUnitTest : BasePostComme
 
 	protected IPostCommentResponseFluent ResponseFluent { get; }
 
+	protected IPostCommentCacheHandler CommentCacheHandler { get; }
+
 	protected IPostIncludeBuilderFactory IncludeBuilderFactory { get; }
 
 	protected IPostCommentIncludeBuilderFactory CommentIncludeBuilderFactory { get; }
 
 	protected BasePostCommentInfrastructureQueryUnitTest()
 	{
-		Collection = PostCommentInfrastructureMockFactory.CreateCollection();
 		Fluent = PostCommentInfrastructureMockFactory.CreateFluent();
+		Collection = PostCommentInfrastructureMockFactory.CreateCollection();
 		ResponseFluent = PostCommentInfrastructureMockFactory.CreateResponseFluent();
+		CommentCacheHandler = PostCommentInfrastructureMockFactory.CreateCacheHandler();
 		IncludeBuilderFactory = PostMockFactory.CreateIncludeBuilderFactory();
 		CommentIncludeBuilderFactory = PostCommentMockFactory.CreateIncludeBuilderFactory();
 	}

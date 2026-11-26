@@ -6,7 +6,7 @@ public class UpdateChatMessageCommandRepositoryUnitTests : BaseChatMessageInfras
 
 	public UpdateChatMessageCommandRepositoryUnitTests()
 	{
-		_repository = new(Collection, MessageIncludeBuilderFactory);
+		_repository = new(CacheHandler, Collection, MessageCacheHandler, MessageIncludeBuilderFactory);
 	}
 
 	[Fact]
@@ -17,5 +17,15 @@ public class UpdateChatMessageCommandRepositoryUnitTests : BaseChatMessageInfras
 
 		// Assert
 		await Collection.ShouldHaveReceivedOneUpdateAsync(ChatMessage, CancellationToken);
+	}
+
+	[Fact]
+	public async Task UpdateAsync_ShouldCallTheMessageCacheHandlerDeleteAsync_WhenCommandIsValid()
+	{
+		// Act
+		await _repository.UpdateAsync(ChatMessage, CancellationToken);
+
+		// Assert
+		await MessageCacheHandler.ShouldHaveReceivedOneDeleteAsync(ChatMessage, CancellationToken);
 	}
 }

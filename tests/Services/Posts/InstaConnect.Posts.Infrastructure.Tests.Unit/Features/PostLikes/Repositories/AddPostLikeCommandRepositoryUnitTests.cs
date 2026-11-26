@@ -6,7 +6,7 @@ public class AddPostLikeCommandRepositoryUnitTests : BasePostLikeInfrastructureC
 
 	public AddPostLikeCommandRepositoryUnitTests()
 	{
-		_repository = new(Collection, IncludeBuilderFactory);
+		_repository = new(Collection, CacheHandler, LikeCacheHandler, IncludeBuilderFactory);
 	}
 
 	[Fact]
@@ -17,5 +17,15 @@ public class AddPostLikeCommandRepositoryUnitTests : BasePostLikeInfrastructureC
 
 		// Assert
 		await Collection.ShouldHaveReceivedOneAddAsync(PostLike, CancellationToken);
+	}
+
+	[Fact]
+	public async Task AddAsync_ShouldCallTheCacheHandlerDeleteResponseAsync_WhenCommandIsValid()
+	{
+		// Act
+		await _repository.AddAsync(PostLike, CancellationToken);
+
+		// Assert
+		await CacheHandler.ShouldHaveReceivedOneDeleteResponseAsync(PostLike, CancellationToken);
 	}
 }

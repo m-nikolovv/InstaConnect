@@ -1,3 +1,4 @@
+
 namespace InstaConnect.Posts.Infrastructure.Tests.Integration.Features.PostCommentImages.Repositories;
 
 public class DeleteRangePostCommentImagesCommandRepositoryIntegrationTests : BasePostCommentImageInfrastructureCommandIntegrationTest
@@ -7,9 +8,14 @@ public class DeleteRangePostCommentImagesCommandRepositoryIntegrationTests : Bas
 	{
 	}
 
-	protected override async Task OnInitializeAsync()
+	public override async Task InitializeAsync()
 	{
-		await ServiceScope.AddRangeAsync(PostCommentImages, CancellationToken);
+		await ServiceScope.SetupGetAllPostCommentImagesAsync(
+			Users,
+			Posts,
+			PostComments,
+			PostCommentImages,
+			CancellationToken);
 	}
 
 	[Fact]

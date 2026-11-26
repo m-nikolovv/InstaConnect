@@ -24,6 +24,16 @@ public class AddChatCommandHandlerIntegrationTests : BaseChatApplicationCommandI
 		_invertedRequest = _invertedRequestBuilder.Build();
 	}
 
+	public override async Task InitializeAsync()
+	{
+		await ServiceScope.SetupAddAsync(
+			_request,
+			ParticipantOne,
+			ParticipantTwo,
+			CancellationToken);
+		await base.InitializeAsync();
+	}
+
 	[Theory]
 	[UserIdNullWithMessageData]
 	[UserIdEmptyWithMessageData]

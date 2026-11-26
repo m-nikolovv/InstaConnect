@@ -1,6 +1,7 @@
 using InstaConnect.Chats.Application.Features.Chats.Commands.Add;
 using InstaConnect.Chats.Application.Features.Chats.Queries.GetAll;
 using InstaConnect.Chats.Application.Features.Chats.Queries.GetById;
+using InstaConnect.Chats.Domain.Features.Chats.Models.Responses;
 using InstaConnect.Chats.Domain.Features.Chats.Models.ValueObjects;
 using InstaConnect.Chats.Events.Features.Chats.Models;
 using InstaConnect.Chats.Presentation.Tests.Features.Users.Utilities;
@@ -218,6 +219,7 @@ public static class ChatEquals
 			return response != null &&
 				   chat != null &&
 				   chat.Id.Matches(response.ParticipantOneId, response.ParticipantTwoId) &&
+				   chat.ChatMessages.Count == response.MessageCount &&
 				   chat.CreatedAtUtc == response.CreatedAtUtc &&
 				   response.ParticipantOne.MatchesFull(chat.ParticipantOne) &&
 				   response.ParticipantTwo.MatchesFull(chat.ParticipantTwo);
@@ -229,6 +231,7 @@ public static class ChatEquals
 			return response != null &&
 				   chat != null &&
 				   chat.Id.Matches(response.ParticipantOneId, response.ParticipantTwoId) &&
+				   chat.ChatMessages.Count == response.MessageCount &&
 				   chat.CreatedAtUtc == response.CreatedAtUtc &&
 				   response.ParticipantOne == null &&
 				   response.ParticipantTwo.MatchesFull(chat.ParticipantTwo);
@@ -240,6 +243,7 @@ public static class ChatEquals
 			return response != null &&
 				   chat != null &&
 				   chat.Id.Matches(response.ParticipantOneId, response.ParticipantTwoId) &&
+				   chat.ChatMessages.Count == response.MessageCount &&
 				   chat.CreatedAtUtc == response.CreatedAtUtc &&
 				   response.ParticipantOne.MatchesFull(chat.ParticipantOne) &&
 				   response.ParticipantTwo == null;
@@ -251,6 +255,7 @@ public static class ChatEquals
 			return response != null &&
 				   chat != null &&
 				   chat.Id.Matches(response.ParticipantTwoId, response.ParticipantOneId) &&
+				   chat.ChatMessages.Count == response.MessageCount &&
 				   chat.CreatedAtUtc == response.CreatedAtUtc &&
 				   response.ParticipantOne.MatchesFull(chat.ParticipantTwo) &&
 				   response.ParticipantTwo.MatchesFull(chat.ParticipantOne);
@@ -262,6 +267,7 @@ public static class ChatEquals
 			return response != null &&
 				   chat != null &&
 				   chat.Id.Matches(response.ParticipantTwoId, response.ParticipantOneId) &&
+				   chat.ChatMessages.Count == response.MessageCount &&
 				   chat.CreatedAtUtc == response.CreatedAtUtc &&
 				   response.ParticipantOne == null &&
 				   response.ParticipantTwo.MatchesFull(chat.ParticipantOne);
@@ -273,6 +279,7 @@ public static class ChatEquals
 			return response != null &&
 				   chat != null &&
 				   chat.Id.Matches(response.ParticipantTwoId, response.ParticipantOneId) &&
+				   chat.ChatMessages.Count == response.MessageCount &&
 				   chat.CreatedAtUtc == response.CreatedAtUtc &&
 				   response.ParticipantOne.MatchesFull(chat.ParticipantTwo) &&
 				   response.ParticipantTwo == null;
@@ -431,6 +438,14 @@ public static class ChatEquals
 														  matches,
 														  termTransformer,
 														  matchesFilter);
+		}
+	}
+
+	extension(ChatResponse? response)
+	{
+		public bool Matches(GetChatByIdApiRequest request, Chat chat)
+		{
+			return response.MatchesFull(chat);
 		}
 	}
 }

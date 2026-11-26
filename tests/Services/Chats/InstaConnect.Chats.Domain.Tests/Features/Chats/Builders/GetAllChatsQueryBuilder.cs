@@ -9,10 +9,10 @@ public class GetAllChatsQueryBuilder
 	private CommonSortOrder _sortOrder;
 	private ChatsSortTerm _sortTerm;
 
-	public GetAllChatsQueryBuilder(Chat chat)
+	public GetAllChatsQueryBuilder(Chat chat, UserId currentUserId)
 	{
 		_participantTwoName = DataFaker.GetPrefixString(chat.ParticipantTwo!.Name.Value);
-		_currentUserId = chat.Id.ParticipantOneId.Id;
+		_currentUserId = currentUserId.Id;
 		_page = ChatDataFaker.GetPage();
 		_pageSize = ChatDataFaker.GetPageSize();
 		_sortOrder = DataFaker.GetSortOrder();

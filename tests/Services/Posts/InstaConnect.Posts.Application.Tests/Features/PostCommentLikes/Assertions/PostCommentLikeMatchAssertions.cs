@@ -1,3 +1,4 @@
+using InstaConnect.Posts.Domain.Features.PostCommentLikes.Models.Responses;
 using InstaConnect.Posts.Events.Features.PostCommentLikes;
 
 namespace InstaConnect.Posts.Application.Tests.Features.PostCommentLikes.Assertions;
@@ -67,6 +68,16 @@ public static class PostCommentLikeMatchAssertions
 		public void ShouldSatisfy(DeletePostCommentLikeCommandRequest request, PostCommentLike entity)
 		{
 			r.ShouldSatisfy(r => r.Matches(request, entity));
+		}
+	}
+
+	extension(PostCommentLikeResponse? response)
+	{
+		public void ShouldSatisfy(
+		GetPostCommentLikeByIdQueryRequest request,
+		PostCommentLike postCommentLike)
+		{
+			response.ShouldSatisfy(p => p.Matches(request, postCommentLike));
 		}
 	}
 }

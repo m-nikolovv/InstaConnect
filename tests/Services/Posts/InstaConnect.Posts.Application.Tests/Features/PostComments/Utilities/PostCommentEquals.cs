@@ -4,7 +4,7 @@ using InstaConnect.Posts.Application.Features.PostComments.Models;
 using InstaConnect.Posts.Application.Tests.Features.PostCommentImages.Utilities;
 using InstaConnect.Posts.Application.Tests.Features.PostComments.Extensions;
 using InstaConnect.Posts.Domain.Features.PostCommentImages.Models.Entities;
-using InstaConnect.Posts.Domain.Tests.Features.PostCommentImages.Utilities;
+using InstaConnect.Posts.Domain.Features.PostComments.Models.Responses;
 using InstaConnect.Posts.Events.Features.PostCommentImages;
 using InstaConnect.Posts.Events.Features.PostComments;
 using InstaConnect.Posts.Tests.Features.PostCommentImages.Utilities;
@@ -421,6 +421,7 @@ public static class PostCommentEquals
 				   postComment.Summary.Matches(response.Summary) &&
 				   response.PostCommentImages.MatchesFull(postComment.PostCommentImages) &&
 				   response.IsLikedByCurrentUser == postComment.PostCommentLikes.Any(pl => pl.Id.UserId.Matches(request.CurrentUserId)) &&
+				   response.LikeCount == postComment.PostCommentLikes.Count &&
 				   postComment.CreatedAtUtc == response.CreatedAtUtc &&
 				   postComment.UpdatedAtUtc == response.UpdatedAtUtc &&
 				   response.User.MatchesFull(postComment.User) &&
@@ -438,6 +439,7 @@ public static class PostCommentEquals
 				   postComment.Summary.Matches(response.Summary) &&
 				   response.PostCommentImages.MatchesFull(postComment.PostCommentImages) &&
 				   response.IsLikedByCurrentUser == postComment.PostCommentLikes.Any(pl => pl.Id.UserId.Matches(request.CurrentUserId)) &&
+				   response.LikeCount == postComment.PostCommentLikes.Count &&
 				   postComment.CreatedAtUtc == response.CreatedAtUtc &&
 				   postComment.UpdatedAtUtc == response.UpdatedAtUtc &&
 				   response.User == null &&
@@ -455,6 +457,7 @@ public static class PostCommentEquals
 				   postComment.Summary.Matches(response.Summary) &&
 				   response.PostCommentImages.MatchesFull(postComment.PostCommentImages) &&
 				   response.IsLikedByCurrentUser == postComment.PostCommentLikes.Any(pl => pl.Id.UserId.Matches(request.CurrentUserId)) &&
+				   response.LikeCount == postComment.PostCommentLikes.Count &&
 				   postComment.CreatedAtUtc == response.CreatedAtUtc &&
 				   postComment.UpdatedAtUtc == response.UpdatedAtUtc &&
 				   response.User.MatchesFull(postComment.User) &&
@@ -524,6 +527,14 @@ public static class PostCommentEquals
 					   termTransformer,
 					   matchesFilter
 				   );
+		}
+	}
+
+	extension(PostCommentResponse? response)
+	{
+		public bool Matches(GetPostCommentByIdQueryRequest request, PostComment postComment)
+		{
+			return response.MatchesFull(request.CurrentUserId, postComment);
 		}
 	}
 }

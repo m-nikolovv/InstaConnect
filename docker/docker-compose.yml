@@ -191,7 +191,7 @@ services:
       SendGridConfiguration__ApiKey: "${SEND_GRID_API_KEY}"
       AccessTokenConfiguration__SecurityKey: "${ACCESS_TOKEN_SECURITY_KEY}"
       MongoConfiguration__Name: "instaconnect_identity"
-      MongoConfiguration__ConnectionString: "mongodb://${MONGO_USERNAME}:${MONGO_PASSWORD}@mongo:27017/instaconnect_identity?replicaSet=rs0&authSource=admin"
+      MongoConfiguration__ConnectionString: "mongodb://${MONGO_USERNAME}:${MONGO_PASSWORD}@mongo:27017/instaconnect_identity?replicaSet=rs0&authSource=admin&maxPoolSize=200&minPoolSize=10&retryWrites=true&retryReads=true&connectTimeoutMS=5000&serverSelectionTimeoutMS=5000"
       KafkaConfiguration__ConnectionString: "kafka:9092"
       KafkaConfiguration__Username: "${KAFKA_USERNAME}"
       KafkaConfiguration__Password: "${KAFKA_PASSWORD}"
@@ -229,10 +229,11 @@ services:
       ASPNETCORE_URLS: http://+:80
       AccessTokenConfiguration__SecurityKey: "${ACCESS_TOKEN_SECURITY_KEY}"
       MongoConfiguration__Name: "instaconnect_posts"
-      MongoConfiguration__ConnectionString: "mongodb://${MONGO_USERNAME}:${MONGO_PASSWORD}@mongo:27017/instaconnect_posts?replicaSet=rs0&authSource=admin"
+      MongoConfiguration__ConnectionString: "mongodb://${MONGO_USERNAME}:${MONGO_PASSWORD}@mongo:27017/instaconnect_posts?replicaSet=rs0&authSource=admin&maxPoolSize=200&minPoolSize=10&retryWrites=true&retryReads=true&connectTimeoutMS=5000&serverSelectionTimeoutMS=5000"
       KafkaConfiguration__ConnectionString: "kafka:9092"
       KafkaConfiguration__Username: "${KAFKA_USERNAME}"
       KafkaConfiguration__Password: "${KAFKA_PASSWORD}"
+      RedisConfiguration__ConnectionString: "redis:6379,password=${REDIS_PASSWORD},abortConnect=False"
       CloudinaryConfiguration__CloudName: ${CLOUDINARY_CLOUD_NAME}
       CloudinaryConfiguration__ApiKey: ${CLOUDINARY_API_KEY}
       CloudinaryConfiguration__ApiSecret: ${CLOUDINARY_API_SECRET}
@@ -266,7 +267,7 @@ services:
       ASPNETCORE_URLS: http://+:80
       AccessTokenConfiguration__SecurityKey: "${ACCESS_TOKEN_SECURITY_KEY}"
       MongoConfiguration__Name: "instaconnect_chats"
-      MongoConfiguration__ConnectionString: "mongodb://${MONGO_USERNAME}:${MONGO_PASSWORD}@mongo:27017/instaconnect_chats?replicaSet=rs0&authSource=admin"
+      MongoConfiguration__ConnectionString: "mongodb://${MONGO_USERNAME}:${MONGO_PASSWORD}@mongo:27017/instaconnect_chats?replicaSet=rs0&authSource=admin&maxPoolSize=200&minPoolSize=10&retryWrites=true&retryReads=true&connectTimeoutMS=5000&serverSelectionTimeoutMS=5000"
       KafkaConfiguration__ConnectionString: "kafka:9092"
       KafkaConfiguration__Username: "${KAFKA_USERNAME}"
       KafkaConfiguration__Password: "${KAFKA_PASSWORD}"
@@ -304,7 +305,7 @@ services:
       ASPNETCORE_URLS: http://+:80
       AccessTokenConfiguration__SecurityKey: "${ACCESS_TOKEN_SECURITY_KEY}"
       MongoConfiguration__Name: "instaconnect_follows"
-      MongoConfiguration__ConnectionString: "mongodb://${MONGO_USERNAME}:${MONGO_PASSWORD}@mongo:27017/instaconnect_follows?replicaSet=rs0&authSource=admin"
+      MongoConfiguration__ConnectionString: "mongodb://${MONGO_USERNAME}:${MONGO_PASSWORD}@mongo:27017/instaconnect_follows?replicaSet=rs0&authSource=admin&maxPoolSize=200&minPoolSize=10&retryWrites=true&retryReads=true&connectTimeoutMS=5000&serverSelectionTimeoutMS=5000"
       KafkaConfiguration__ConnectionString: "kafka:9092"
       KafkaConfiguration__Username: "${KAFKA_USERNAME}"
       KafkaConfiguration__Password: "${KAFKA_PASSWORD}"

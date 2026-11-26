@@ -3,7 +3,7 @@ using InstaConnect.Identity.Tests.Features.RefreshTokens.Utilities;
 
 namespace InstaConnect.Identity.Presentation.Tests.Unit.Features.RefreshTokens.Utilities;
 
-public abstract class BaseRefreshTokenPresentationCommandUnitTest : BaseRefreshTokenTest
+public abstract class BaseRefreshTokenPresentationCommandUnitTest : BaseRefreshTokenCommandTest
 {
 	protected IApplicationSender Sender { get; }
 

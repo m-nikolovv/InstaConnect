@@ -6,7 +6,7 @@ public class FollowExistsByIdQueryRepositoryUnitTests : BaseFollowInfrastructure
 
 	public FollowExistsByIdQueryRepositoryUnitTests()
 	{
-		_repository = new(Collection, IncludeBuilderFactory);
+		_repository = new(Collection, CacheHandler, IncludeBuilderFactory);
 
 		Collection.SetupAggregateFluent(FollowId, Fluent);
 		Fluent.SetupMatch(FollowId);

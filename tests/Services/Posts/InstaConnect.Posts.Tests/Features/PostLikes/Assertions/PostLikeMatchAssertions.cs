@@ -12,4 +12,12 @@ public static class PostLikeMatchAssertions
 			p.ShouldSatisfy(u => u.Matches(postLike));
 		}
 	}
+
+	extension(ICollection<PostLike> p)
+	{
+		public void ShouldSatisfy(ICollection<PostLike> postLikes)
+		{
+			p.ShouldSatisfy(u => u.Matches(postLikes));
+		}
+	}
 }

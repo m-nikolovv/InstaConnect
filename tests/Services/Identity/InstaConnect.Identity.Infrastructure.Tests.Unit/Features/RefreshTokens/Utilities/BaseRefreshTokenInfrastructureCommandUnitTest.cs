@@ -5,11 +5,13 @@ using InstaConnect.Identity.Tests.Features.RefreshTokens.Utilities;
 
 namespace InstaConnect.Identity.Infrastructure.Tests.Unit.Features.RefreshTokens.Utilities;
 
-public abstract class BaseRefreshTokenInfrastructureCommandUnitTest : BaseRefreshTokenTest
+public abstract class BaseRefreshTokenInfrastructureCommandUnitTest : BaseRefreshTokenCommandTest
 {
 	protected IRefreshTokenFluent Fluent { get; }
 
 	protected IRefreshTokenCollection Collection { get; }
+
+	protected IRefreshTokenCacheHandler CacheHandler { get; }
 
 	protected IRefreshTokenIncludeBuilderFactory IncludeBuilderFactory { get; }
 
@@ -17,6 +19,7 @@ public abstract class BaseRefreshTokenInfrastructureCommandUnitTest : BaseRefres
 	{
 		Fluent = RefreshTokenInfrastructureMockFactory.CreateFluent();
 		Collection = RefreshTokenInfrastructureMockFactory.CreateCollection();
+		CacheHandler = RefreshTokenInfrastructureMockFactory.CreateCacheHandler();
 		IncludeBuilderFactory = RefreshTokenMockFactory.CreateIncludeBuilderFactory();
 
 		PasswordHasher.ClearCalls();

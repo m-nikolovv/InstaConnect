@@ -4,11 +4,13 @@ using InstaConnect.Identity.Tests.Features.UserClaims.Utilities;
 
 namespace InstaConnect.Identity.Infrastructure.Tests.Unit.Features.UserClaims.Utilities;
 
-public abstract class BaseUserClaimInfrastructureQueryUnitTest : BaseUserClaimTest
+public abstract class BaseUserClaimInfrastructureQueryUnitTest : BaseUserClaimQueryTest
 {
 	protected IUserClaimFluent Fluent { get; }
 
 	protected IUserClaimCollection Collection { get; }
+
+	protected IUserClaimCacheHandler CacheHandler { get; }
 
 	protected IUserClaimResponseFluent ResponseFluent { get; }
 
@@ -16,8 +18,9 @@ public abstract class BaseUserClaimInfrastructureQueryUnitTest : BaseUserClaimTe
 
 	protected BaseUserClaimInfrastructureQueryUnitTest() : base(IdentityMockFactory.CreatePasswordHasher())
 	{
-		Collection = UserClaimInfrastructureMockFactory.CreateCollection();
 		Fluent = UserClaimInfrastructureMockFactory.CreateFluent();
+		Collection = UserClaimInfrastructureMockFactory.CreateCollection();
+		CacheHandler = UserClaimInfrastructureMockFactory.CreateCacheHandler();
 		ResponseFluent = UserClaimInfrastructureMockFactory.CreateResponseFluent();
 		IncludeBuilderFactory = UserClaimMockFactory.CreateIncludeBuilderFactory();
 

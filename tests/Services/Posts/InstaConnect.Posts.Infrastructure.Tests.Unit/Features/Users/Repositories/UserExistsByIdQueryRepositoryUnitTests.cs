@@ -6,7 +6,7 @@ public class UserExistsByIdQueryRepositoryUnitTests : BaseUserInfrastructureQuer
 
 	public UserExistsByIdQueryRepositoryUnitTests()
 	{
-		_repository = new(Collection);
+		_repository = new(Collection, CacheHandler);
 
 		Collection.SetupAggregateFluent(UserId, Fluent);
 		Fluent.SetupMatch(UserId);

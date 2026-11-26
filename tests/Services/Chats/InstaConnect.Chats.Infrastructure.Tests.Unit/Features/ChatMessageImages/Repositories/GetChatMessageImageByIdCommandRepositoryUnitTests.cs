@@ -9,7 +9,7 @@ public class GetChatMessageImageByIdCommandRepositoryUnitTests : BaseChatMessage
 
 	public GetChatMessageImageByIdCommandRepositoryUnitTests()
 	{
-		_repository = new(Collection);
+		_repository = new(Collection, MessageCacheHandler, MessageImageCacheHandler);
 
 		Collection.SetupAggregateFluent(ChatMessageImageId, Fluent);
 		Fluent.SetupMatch(ChatMessageImageId);

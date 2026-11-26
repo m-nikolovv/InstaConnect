@@ -5,11 +5,13 @@ using InstaConnect.Identity.Tests.Features.ForgotPasswordTokens.Utilities;
 
 namespace InstaConnect.Identity.Infrastructure.Tests.Unit.Features.ForgotPasswordTokens.Utilities;
 
-public abstract class BaseForgotPasswordTokenInfrastructureCommandUnitTest : BaseForgotPasswordTokenTest
+public abstract class BaseForgotPasswordTokenInfrastructureCommandUnitTest : BaseForgotPasswordTokenCommandTest
 {
 	protected IForgotPasswordTokenFluent Fluent { get; }
 
 	protected IForgotPasswordTokenCollection Collection { get; }
+
+	protected IForgotPasswordTokenCacheHandler CacheHandler { get; }
 
 	protected IForgotPasswordTokenIncludeBuilderFactory IncludeBuilderFactory { get; }
 
@@ -17,6 +19,7 @@ public abstract class BaseForgotPasswordTokenInfrastructureCommandUnitTest : Bas
 	{
 		Fluent = ForgotPasswordTokenInfrastructureMockFactory.CreateFluent();
 		Collection = ForgotPasswordTokenInfrastructureMockFactory.CreateCollection();
+		CacheHandler = ForgotPasswordTokenInfrastructureMockFactory.CreateCacheHandler();
 		IncludeBuilderFactory = ForgotPasswordTokenMockFactory.CreateIncludeBuilderFactory();
 
 		PasswordHasher.ClearCalls();

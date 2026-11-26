@@ -12,9 +12,17 @@ public class GetPostCommentByIdCommandRepositoryIntegrationTests : BasePostComme
 		_include = IncludeBuilderFactory.Create().WithUser().WithPost().WithPostCommentImages().Build();
 	}
 
-	protected override async Task OnInitializeAsync()
+	public override async Task InitializeAsync()
 	{
-		await ServiceScope.AddAsync(PostComment, CancellationToken);
+		await ServiceScope.SetupGetPostCommentByIdAsync(
+			Users,
+			Post,
+			PostLikes,
+			PostImages,
+			PostComment,
+			PostCommentPostCommentLikes,
+			PostCommentPostCommentImages,
+			CancellationToken);
 	}
 
 	[Fact]

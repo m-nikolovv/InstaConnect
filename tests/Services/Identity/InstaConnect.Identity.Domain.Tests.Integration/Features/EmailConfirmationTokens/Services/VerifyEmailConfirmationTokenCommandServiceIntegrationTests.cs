@@ -1,6 +1,7 @@
 using InstaConnect.Identity.Domain.Features.EmailConfirmationTokens.Models.Requests;
 using InstaConnect.Identity.Domain.Tests.Features.EmailConfirmationTokens.Assertions;
 using InstaConnect.Identity.Domain.Tests.Features.EmailConfirmationTokens.Builders;
+using InstaConnect.Identity.Domain.Tests.Features.EmailConfirmationTokens.Utilities;
 using InstaConnect.Identity.Domain.Tests.Integration.Features.EmailConfirmationTokens.Utilities;
 using InstaConnect.Identity.Tests.Features.EmailConfirmationTokens.Assertions;
 using InstaConnect.Identity.Tests.Features.EmailConfirmationTokens.DataAttributes.Value;
@@ -21,9 +22,14 @@ public class VerifyEmailConfirmationTokenCommandServiceIntegrationTests : BaseEm
 		_command = _commandBuilder.Build();
 	}
 
-	protected override async Task OnInitializeAsync()
+	public override async Task InitializeAsync()
 	{
-		await ServiceScope.AddRangeAsync(User.EmailConfirmationTokens, CancellationToken);
+		await ServiceScope.SetupVerifyAsync(
+			_command,
+			User,
+			EmailConfirmationTokens,
+			CancellationToken);
+		await base.InitializeAsync();
 	}
 
 	[Fact]
@@ -109,6 +115,51 @@ public class VerifyEmailConfirmationTokenCommandServiceIntegrationTests : BaseEm
 
 		// Assert
 		user.ShouldSatisfy(_command);
+	}
+
+	[Fact]
+	public async Task VerifyAsync_ShouldDeleteCachedUser_WhenCommandIsValid()
+	{
+		// Act
+		await Service.VerifyAsync(_command, CancellationToken);
+		var cachedUser = await ServiceScope.GetUserCacheByIdAsync(_command, CancellationToken);
+
+		// Assert
+		cachedUser.ShouldBeNull();
+	}
+
+	[Theory]
+	[UserIdDifferentCaseData]
+	public async Task VerifyAsync_ShouldDeleteCachedUser_WhenCommandAndIdAreValid(
+		IStringTransformer transformer)
+	{
+		// Arrange
+		var command = _commandBuilder.WithId(transformer).Build();
+		await ServiceScope.AddUserCacheAsync(command, User, CancellationToken);
+
+		// Act
+		await Service.VerifyAsync(command, CancellationToken);
+		var cachedUser = await ServiceScope.GetUserCacheByIdAsync(command, CancellationToken);
+
+		// Assert
+		cachedUser.ShouldBeNull();
+	}
+
+	[Theory]
+	[EmailConfirmationTokenValueDifferentCaseData]
+	public async Task VerifyAsync_ShouldDeleteCachedUser_WhenCommandAndValueAreValid(
+		IStringTransformer transformer)
+	{
+		// Arrange
+		var command = _commandBuilder.WithValue(transformer).Build();
+		await ServiceScope.AddUserCacheAsync(command, User, CancellationToken);
+
+		// Act
+		await Service.VerifyAsync(command, CancellationToken);
+		var cachedUser = await ServiceScope.GetUserCacheByIdAsync(command, CancellationToken);
+
+		// Assert
+		cachedUser.ShouldBeNull();
 	}
 
 	[Fact]

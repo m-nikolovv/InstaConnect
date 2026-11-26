@@ -4,6 +4,19 @@ public static class ChatGenerator
 {
 	extension(Chat baseChat)
 	{
+		public ICollection<Chat> GenerateAttached(IEnumerable<User> participantOnes, IEnumerable<User> participantTwos)
+		{
+			var chats = baseChat.Generate(participantOnes, participantTwos);
+
+			foreach (var chat in chats.Where(c => c != baseChat))
+			{
+				chat.ParticipantOne!.AddChat(chat);
+				chat.ParticipantTwo!.AddChat(chat);
+			}
+
+			return chats;
+		}
+
 		public ICollection<Chat> Generate(IEnumerable<User> participantOnes, IEnumerable<User> participantTwos)
 		{
 			return [.. participantOnes
@@ -19,8 +32,6 @@ public static class ChatGenerator
 						  return baseChat;
 					  }
 
-					  participantOne.AddChat(chat);
-					  participantTwo.AddChat(chat);
 					  chat.AddParticipantOne(participantOne);
 					  chat.AddParticipantTwo(participantTwo);
 

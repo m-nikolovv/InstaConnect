@@ -6,7 +6,7 @@ public class PostLikeExistsByIdQueryRepositoryUnitTests : BasePostLikeInfrastruc
 
 	public PostLikeExistsByIdQueryRepositoryUnitTests()
 	{
-		_repository = new(Collection, IncludeBuilderFactory, LikeIncludeBuilderFactory);
+		_repository = new(Collection, LikeCacheHandler, IncludeBuilderFactory, LikeIncludeBuilderFactory);
 
 		Collection.SetupAggregateFluent(PostLikeId, Fluent);
 		Fluent.SetupMatch(PostLikeId);

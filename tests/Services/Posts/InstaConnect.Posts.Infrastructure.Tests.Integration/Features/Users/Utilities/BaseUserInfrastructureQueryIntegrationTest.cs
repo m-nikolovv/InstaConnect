@@ -2,7 +2,7 @@ using InstaConnect.Posts.Domain.Features.Users.Abstractions;
 
 namespace InstaConnect.Posts.Infrastructure.Tests.Integration.Features.Users.Utilities;
 
-public abstract class BaseUserInfrastructureQueryIntegrationTest : BaseUserWebTest
+public abstract class BaseUserInfrastructureQueryIntegrationTest : BaseUserWebQueryTest
 {
 	protected IUserQueryRepository Repository { get; }
 
@@ -10,6 +10,5 @@ public abstract class BaseUserInfrastructureQueryIntegrationTest : BaseUserWebTe
 		: base(webApplicationFactory)
 	{
 		Repository = ServiceScope.GetUserQueryRepository();
-
 	}
 }

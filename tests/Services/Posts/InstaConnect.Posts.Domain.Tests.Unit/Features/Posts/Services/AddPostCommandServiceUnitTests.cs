@@ -21,7 +21,7 @@ public class AddPostCommandServiceUnitTests : BasePostDomainCommandUnitTest
 
 		UserRepository.SetupGetByIdAsync(_command, User, CancellationToken);
 		Factory.SetupCreate(_command, Post);
-		ImageFactory.SetupCreateRange(_command, Post);
+		ImageFactory.SetupCreateRange(_command, Post, PostPostImages);
 	}
 
 	[Fact]

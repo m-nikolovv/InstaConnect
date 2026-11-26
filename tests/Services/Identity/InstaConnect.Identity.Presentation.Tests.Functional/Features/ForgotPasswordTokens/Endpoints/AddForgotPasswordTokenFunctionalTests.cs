@@ -1,5 +1,6 @@
 using InstaConnect.Identity.Presentation.Features.ForgotPasswordTokens.Models.Requests;
 using InstaConnect.Identity.Presentation.Tests.Features.ForgotPasswordTokens.Builders;
+using InstaConnect.Identity.Presentation.Tests.Features.ForgotPasswordTokens.Utilities;
 using InstaConnect.Identity.Presentation.Tests.Functional.Features.ForgotPasswordTokens.Utilities;
 
 namespace InstaConnect.Identity.Presentation.Tests.Functional.Features.ForgotPasswordTokens.Endpoints;
@@ -16,6 +17,12 @@ public class AddForgotPasswordTokenFunctionalTests : BaseForgotPasswordTokenPres
 		_requestBuilderFactory = new();
 		_requestBuilder = _requestBuilderFactory.Create(User);
 		_request = _requestBuilder.Build();
+	}
+
+	public override async Task InitializeAsync()
+	{
+		await ServiceScope.SetupAddAsync(_request, User, CancellationToken);
+		await base.InitializeAsync();
 	}
 
 	[Theory]

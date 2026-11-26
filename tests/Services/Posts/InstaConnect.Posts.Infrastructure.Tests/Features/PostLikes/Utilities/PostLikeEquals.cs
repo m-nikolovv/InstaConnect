@@ -1,6 +1,5 @@
 using InstaConnect.Posts.Domain.Features.PostLikes.Models.Responses;
 using InstaConnect.Posts.Domain.Features.PostLikes.Models.ValueObjects;
-using InstaConnect.Posts.Tests.Features.PostLikes.Utilities;
 
 namespace InstaConnect.Posts.Infrastructure.Tests.Features.PostLikes.Utilities;
 
@@ -27,6 +26,16 @@ public static class PostLikeEquals
 		}
 	}
 
+	extension(ICollection<PostLike> p)
+	{
+		public bool Matches(
+			ICollection<PostLikeId> ids,
+			ICollection<PostLike> postLikes)
+		{
+			return p.Matches(postLikes);
+		}
+	}
+
 	extension(User? u)
 	{
 		public bool MatchesFilter(PostLikesFilterQuery query)
@@ -38,46 +47,12 @@ public static class PostLikeEquals
 
 	extension(PostLikeResponse? response)
 	{
-		public bool MatchesFull(
-			CurrentUserQuery currentUserQuery,
-			PostLike? postLike)
-		{
-			return response != null &&
-				   postLike != null &&
-				   postLike.Id.Matches(response.Id) &&
-				   postLike.CreatedAtUtc == response.CreatedAtUtc &&
-				   response.User.MatchesFull(postLike.User) &&
-				   response.Post.MatchesFull(currentUserQuery, postLike.Post);
-		}
-
-		public bool MatchesWithoutUser(
-			CurrentUserQuery currentUserQuery,
-			PostLike? postLike)
-		{
-			return response != null &&
-				   postLike != null &&
-				   postLike.Id.Matches(response.Id) &&
-				   postLike.CreatedAtUtc == response.CreatedAtUtc &&
-				   response.User == null &&
-				   response.Post.MatchesFull(currentUserQuery, postLike.Post);
-		}
-
-		public bool MatchesWithoutPost(PostLike? postLike)
-		{
-			return response != null &&
-				   postLike != null &&
-				   postLike.Id.Matches(response.Id) &&
-				   postLike.CreatedAtUtc == response.CreatedAtUtc &&
-				   response.User.MatchesFull(postLike.User) &&
-				   response.Post == null;
-		}
-
 		public bool Matches(
 			PostLikeId id,
 			CurrentUserQuery currentUserQuery,
 			PostLike postLike)
 		{
-			return response.MatchesFull(currentUserQuery, postLike);
+			return response.MatchesFull(currentUserQuery.Id, postLike);
 		}
 	}
 
@@ -187,7 +162,7 @@ public static class PostLikeEquals
 		{
 			return response.MatchesWithoutPost(
 					   paginationQuery,
-					   (response, postLike) => response.MatchesWithoutUser(currentUserQuery, postLike),
+					   (response, postLike) => response.MatchesWithoutUser(currentUserQuery.Id, postLike),
 					   postLike => postLike.MatchesFilter(filterQuery),
 					   user,
 					   postLikes);
@@ -204,7 +179,7 @@ public static class PostLikeEquals
 		{
 			return response.MatchesWithoutPost(
 					   paginationQuery,
-					   (response, postLike) => response.MatchesWithoutUser(currentUserQuery, postLike),
+					   (response, postLike) => response.MatchesWithoutUser(currentUserQuery.Id, postLike),
 					   postLike => postLike.MatchesFilter(filterQuery),
 					   user,
 					   postLikes,

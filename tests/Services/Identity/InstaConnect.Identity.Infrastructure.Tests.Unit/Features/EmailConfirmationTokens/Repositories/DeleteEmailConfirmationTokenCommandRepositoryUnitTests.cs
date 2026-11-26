@@ -6,7 +6,7 @@ public class DeleteEmailConfirmationTokenCommandRepositoryUnitTests : BaseEmailC
 
 	public DeleteEmailConfirmationTokenCommandRepositoryUnitTests()
 	{
-		_repository = new(Collection, IncludeBuilderFactory);
+		_repository = new(Collection, CacheHandler, IncludeBuilderFactory);
 	}
 
 	[Fact]
@@ -17,5 +17,15 @@ public class DeleteEmailConfirmationTokenCommandRepositoryUnitTests : BaseEmailC
 
 		// Assert
 		await Collection.ShouldHaveReceivedOneDeleteAsync(EmailConfirmationToken, CancellationToken);
+	}
+
+	[Fact]
+	public async Task DeleteAsync_ShouldCallTheCacheHandlerDeleteAsync_WhenCommandIsValid()
+	{
+		// Act
+		await _repository.DeleteAsync(EmailConfirmationToken, CancellationToken);
+
+		// Assert
+		await CacheHandler.ShouldHaveReceivedOneDeleteAsync(EmailConfirmationToken, CancellationToken);
 	}
 }

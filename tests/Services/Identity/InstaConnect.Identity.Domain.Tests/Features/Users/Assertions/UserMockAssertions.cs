@@ -384,45 +384,4 @@ public static class UserMockAssertions
 			await emailSender.ShouldHaveReceivedOneSendAsync(command.IsEmailConfirmationToken(), cancellationToken);
 		}
 	}
-
-	extension(IUserQueryService service)
-	{
-		public async Task ShouldHaveReceivedOneGetAllAsync(
-			GetAllUsersQuery query,
-			CancellationToken cancellationToken)
-		{
-			await service.ShouldHaveReceivedOne().GetAllAsync(query, cancellationToken);
-		}
-
-		public async Task ShouldHaveReceivedOneGetByIdAsync(
-			GetUserByIdQuery query,
-			CancellationToken cancellationToken)
-		{
-			await service.ShouldHaveReceivedOne().GetByIdAsync(query, cancellationToken);
-		}
-	}
-
-	extension(IUserCommandService service)
-	{
-		public async Task ShouldHaveReceivedOneAddAsync(
-			AddUserCommand command,
-			CancellationToken cancellationToken)
-		{
-			await service.ShouldHaveReceivedOne().AddAsync(command, cancellationToken);
-		}
-
-		public async Task ShouldHaveReceivedOneUpdateAsync(
-			UpdateUserCommand command,
-			CancellationToken cancellationToken)
-		{
-			await service.ShouldHaveReceivedOne().UpdateAsync(command, cancellationToken);
-		}
-
-		public async Task ShouldHaveReceivedOneDeleteAsync(
-			DeleteUserCommand command,
-			CancellationToken cancellationToken)
-		{
-			await service.ShouldHaveReceivedOne().DeleteAsync(command, cancellationToken);
-		}
-	}
 }

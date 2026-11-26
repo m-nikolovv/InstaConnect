@@ -5,13 +5,16 @@ namespace InstaConnect.Chats.Infrastructure.Features.Chats.Helpers.Repositories;
 internal class ChatCommandRepository : IChatCommandRepository
 {
 	private readonly IChatCollection _collection;
+	private readonly IChatCacheHandler _cacheHandler;
 	private readonly IChatIncludeBuilderFactory _includeBuilderFactory;
 
 	public ChatCommandRepository(
 		IChatCollection collection,
+		IChatCacheHandler cacheHandler,
 		IChatIncludeBuilderFactory includeBuilderFactory)
 	{
 		_collection = collection;
+		_cacheHandler = cacheHandler;
 		_includeBuilderFactory = includeBuilderFactory;
 	}
 
@@ -22,8 +25,8 @@ internal class ChatCommandRepository : IChatCommandRepository
 	{
 		return await _collection
 			.AggregateFluent()
-			.ApplyIncludes(include)
 			.Match(id)
+			.Include(include)
 			.FirstOrDefaultAsync(cancellationToken);
 	}
 
@@ -34,6 +37,27 @@ internal class ChatCommandRepository : IChatCommandRepository
 		var include = _includeBuilderFactory.Create().Build();
 
 		return await GetByIdAsync(id, include, cancellationToken);
+	}
+
+	public async Task<ICollection<Chat>> GetByIdRangeAsync(
+		IEnumerable<ChatId> ids,
+		ChatInclude include,
+		CancellationToken cancellationToken)
+	{
+		return await _collection
+			.AggregateFluent()
+			.Match(ids)
+			.Include(include)
+			.ToListAsync(cancellationToken);
+	}
+
+	public async Task<ICollection<Chat>> GetByIdRangeAsync(
+		IEnumerable<ChatId> ids,
+		CancellationToken cancellationToken)
+	{
+		var include = _includeBuilderFactory.Create().Build();
+
+		return await GetByIdRangeAsync(ids, include, cancellationToken);
 	}
 
 	public async Task<bool> ExistsByIdAsync(
@@ -59,5 +83,6 @@ internal class ChatCommandRepository : IChatCommandRepository
 	public async Task DeleteAsync(Chat entity, CancellationToken cancellationToken)
 	{
 		await _collection.DeleteAsync(entity, cancellationToken);
+		await _cacheHandler.DeleteAsync(entity.Id, cancellationToken);
 	}
 }

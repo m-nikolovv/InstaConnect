@@ -1,3 +1,4 @@
+using InstaConnect.Follows.Domain.Tests.Features.Follows.Utilities;
 using InstaConnect.Follows.Tests.Features.Follows.Assertions;
 
 namespace InstaConnect.Follows.Domain.Tests.Integration.Features.Follows.Services;
@@ -14,6 +15,16 @@ public class AddFollowCommandServiceIntegrationTests : BaseFollowDomainCommandIn
 		_commandBuilderFactory = new();
 		_commandBuilder = _commandBuilderFactory.Create(Follower, Following);
 		_command = _commandBuilder.Build();
+	}
+
+	public override async Task InitializeAsync()
+	{
+		await ServiceScope.SetupAddAsync(
+			_command,
+			Follower,
+			Following,
+			CancellationToken);
+		await base.InitializeAsync();
 	}
 
 	[Fact]

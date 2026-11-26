@@ -56,9 +56,14 @@ public class GetAllChatsQueryRepositoryIntegrationTests : BaseChatInfrastructure
 		_invertedCurrentUserQuery = _invertedCurrentUserQueryBuilder.Build();
 	}
 
-	protected override async Task OnInitializeAsync()
+	public override async Task InitializeAsync()
 	{
-		await ServiceScope.AddRangeAsync(Chats, CancellationToken);
+		await ServiceScope.SetupGetAllChatsAsync(
+			ParticipantOnes,
+			ParticipantTwos,
+			Chats,
+			ChatMessages,
+			CancellationToken);
 	}
 
 	[Fact]

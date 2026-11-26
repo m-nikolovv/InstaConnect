@@ -11,5 +11,7 @@ public record PostResponse(
 	UserResponse? User,
 	ICollection<PostImageResponse> PostImages,
 	bool IsLikedByCurrentUser,
+	int LikeCount,
+	int CommentCount,
 	DateTimeOffset CreatedAtUtc,
 	DateTimeOffset UpdatedAtUtc) : IEntityResponse;

@@ -6,11 +6,18 @@ namespace InstaConnect.Posts.Infrastructure.Features.PostImages.Helpers.Reposito
 
 internal class PostImageCommandRepository : IPostImageCommandRepository
 {
+	private readonly IPostCacheHandler _cacheHandler;
 	private readonly IPostImageCollection _collection;
+	private readonly IPostImageCacheHandler _imageCacheHandler;
 
-	public PostImageCommandRepository(IPostImageCollection collection)
+	public PostImageCommandRepository(
+		IPostCacheHandler cacheHandler,
+		IPostImageCollection collection,
+		IPostImageCacheHandler imageCacheHandler)
 	{
+		_cacheHandler = cacheHandler;
 		_collection = collection;
+		_imageCacheHandler = imageCacheHandler;
 	}
 
 	public async Task<PostImage?> GetByIdAsync(
@@ -36,20 +43,26 @@ internal class PostImageCommandRepository : IPostImageCommandRepository
 	public async Task AddAsync(PostImage entity, CancellationToken cancellationToken)
 	{
 		await _collection.AddAsync(entity, cancellationToken);
+		await _cacheHandler.DeleteResponseAsync(entity.Id.Id, cancellationToken);
 	}
 
 	public async Task AddRangeAsync(IEnumerable<PostImage> entities, CancellationToken cancellationToken)
 	{
 		await _collection.AddRangeAsync(entities, cancellationToken);
+		await _cacheHandler.DeleteResponseRangeAsync(entities.Select(p => p.Id.Id), cancellationToken);
 	}
 
 	public async Task DeleteAsync(PostImage entity, CancellationToken cancellationToken)
 	{
 		await _collection.DeleteAsync(entity, cancellationToken);
+		await _cacheHandler.DeleteResponseAsync(entity.Id.Id, cancellationToken);
+		await _imageCacheHandler.DeleteAsync(entity.Id, cancellationToken);
 	}
 
 	public async Task DeleteRangeAsync(IEnumerable<PostImage> entities, CancellationToken cancellationToken)
 	{
 		await _collection.DeleteRangeAsync(entities, cancellationToken);
+		await _cacheHandler.DeleteResponseRangeAsync(entities.Select(p => p.Id.Id), cancellationToken);
+		await _imageCacheHandler.DeleteRangeAsync(entities.Select(p => p.Id), cancellationToken);
 	}
 }

@@ -10,10 +10,10 @@ public class GetFollowByIdCommandRepositoryUnitTests : BaseFollowInfrastructureC
 	{
 		_include = IncludeBuilderFactory.Create().WithFollower().WithFollowing().Build();
 
-		_repository = new(Collection, IncludeBuilderFactory);
+		_repository = new(Collection, CacheHandler, IncludeBuilderFactory);
 
 		Collection.SetupAggregateFluent(FollowId, Fluent);
-		Fluent.SetupApplyIncludes(FollowId, _include);
+		Fluent.SetupInclude(FollowId, _include);
 		Fluent.SetupMatch(FollowId);
 		Fluent.SetupFirstOrDefaultAsync(FollowId, Follow, CancellationToken);
 	}
@@ -39,13 +39,13 @@ public class GetFollowByIdCommandRepositoryUnitTests : BaseFollowInfrastructureC
 	}
 
 	[Fact]
-	public async Task GetByIdAsync_ShouldCallTheFluentApplyIncludes_WhenCommandIsValid()
+	public async Task GetByIdAsync_ShouldCallTheFluentInclude_WhenCommandIsValid()
 	{
 		// Act
 		await _repository.GetByIdAsync(FollowId, _include, CancellationToken);
 
 		// Assert
-		Fluent.ShouldHaveReceivedOneApplyIncludes(FollowId, _include);
+		Fluent.ShouldHaveReceivedOneInclude(FollowId, _include);
 	}
 
 	[Fact]

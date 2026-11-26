@@ -1,3 +1,4 @@
+using InstaConnect.Posts.Infrastructure.Tests.Features.Posts.Utilities;
 using InstaConnect.Posts.Tests.Features.Posts.Builders;
 
 namespace InstaConnect.Posts.Infrastructure.Tests.Integration.Features.Posts.Repositories;
@@ -16,9 +17,17 @@ public class GetPostByIdQueryRepositoryIntegrationTests : BasePostInfrastructure
 		_currentUserQuery = _currentUserQueryBuilder.Build();
 	}
 
-	protected override async Task OnInitializeAsync()
+	public override async Task InitializeAsync()
 	{
-		await ServiceScope.AddAsync(Post, CancellationToken);
+		await ServiceScope.SetupGetPostByIdAsync(
+			Users,
+			Post,
+			PostPostLikes,
+			PostPostImages,
+			PostPostComments,
+			PostPostCommentsPostCommentLikes,
+			PostPostCommentsPostCommentImages,
+			CancellationToken);
 	}
 
 	[Fact]
@@ -74,5 +83,50 @@ public class GetPostByIdQueryRepositoryIntegrationTests : BasePostInfrastructure
 
 		// Assert
 		response.ShouldSatisfy(PostId, currentUserQuery, Post);
+	}
+
+	[Fact]
+	public async Task GetByIdAsync_ShouldCachePost_WhenQueryIsValid()
+	{
+		// Act
+		await Repository.GetByIdAsync(PostId, _currentUserQuery, CancellationToken);
+		var cachedPost = await ServiceScope.GetPostCacheByIdAsync(PostId, _currentUserQuery, CancellationToken);
+
+		// Assert
+		cachedPost.ShouldSatisfy(PostId, _currentUserQuery, Post);
+	}
+
+	[Theory]
+	[PostIdDifferentCaseData]
+	public async Task GetByIdAsync_ShouldCachePost_WhenQueryAndIdAreValid(
+		IStringTransformer transformer)
+	{
+		// Arrange
+		var id = PostIdBuilder.WithId(transformer).Build();
+
+		// Act
+		await Repository.GetByIdAsync(id, _currentUserQuery, CancellationToken);
+		var cachedPost = await ServiceScope.GetPostCacheByIdAsync(id, _currentUserQuery, CancellationToken);
+
+		// Assert
+		cachedPost.ShouldSatisfy(id, _currentUserQuery, Post);
+	}
+
+	[Theory]
+	[UserIdNullData]
+	[UserIdEmptyData]
+	[UserIdDifferentCaseData]
+	public async Task GetByIdAsync_ShouldCachePost_WhenQueryAndCurrentUserIdAreValid(
+		IStringTransformer transformer)
+	{
+		// Arrange
+		var currentUserQuery = _currentUserQueryBuilder.WithCurrentUserId(transformer).Build();
+
+		// Act
+		await Repository.GetByIdAsync(PostId, currentUserQuery, CancellationToken);
+		var cachedPost = await ServiceScope.GetPostCacheByIdAsync(PostId, currentUserQuery, CancellationToken);
+
+		// Assert
+		cachedPost.ShouldSatisfy(PostId, currentUserQuery, Post);
 	}
 }

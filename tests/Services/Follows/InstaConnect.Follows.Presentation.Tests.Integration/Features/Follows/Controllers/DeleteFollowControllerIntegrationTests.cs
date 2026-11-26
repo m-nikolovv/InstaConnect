@@ -16,9 +16,15 @@ public class DeleteFollowControllerIntegrationTests : BaseFollowPresentationComm
 		_request = _requestBuilder.Build();
 	}
 
-	protected override async Task OnInitializeAsync()
+	public override async Task InitializeAsync()
 	{
-		await ServiceScope.AddAsync(Follow, CancellationToken);
+		await ServiceScope.SetupDeleteAsync(
+			_request,
+			Follower,
+			Following,
+			Follow,
+			CancellationToken);
+		await base.InitializeAsync();
 	}
 
 	[Theory]
@@ -144,6 +150,51 @@ public class DeleteFollowControllerIntegrationTests : BaseFollowPresentationComm
 
 		// Assert
 		follow.ShouldBeNull();
+	}
+
+	[Fact]
+	public async Task DeleteAsync_ShouldDeleteCachedFollow_WhenRequestIsValid()
+	{
+		// Act
+		await Controller.DeleteAsync(_request, CancellationToken);
+		var cachedFollow = await ServiceScope.GetFollowCacheByIdAsync(_request, CancellationToken);
+
+		// Assert
+		cachedFollow.ShouldBeNull();
+	}
+
+	[Theory]
+	[UserIdDifferentCaseData]
+	public async Task DeleteAsync_ShouldDeleteCachedFollow_WhenRequestAndFollowerIdAreValid(
+		IStringTransformer transformer)
+	{
+		// Arrange
+		var request = _requestBuilder.WithFollowerId(transformer).Build();
+		await ServiceScope.AddFollowCacheAsync(request, Follow, CancellationToken);
+
+		// Act
+		await Controller.DeleteAsync(request, CancellationToken);
+		var cachedFollow = await ServiceScope.GetFollowCacheByIdAsync(request, CancellationToken);
+
+		// Assert
+		cachedFollow.ShouldBeNull();
+	}
+
+	[Theory]
+	[UserIdDifferentCaseData]
+	public async Task DeleteAsync_ShouldDeleteCachedFollow_WhenRequestAndFollowingIdAreValid(
+		IStringTransformer transformer)
+	{
+		// Arrange
+		var request = _requestBuilder.WithFollowingId(transformer).Build();
+		await ServiceScope.AddFollowCacheAsync(request, Follow, CancellationToken);
+
+		// Act
+		await Controller.DeleteAsync(request, CancellationToken);
+		var cachedFollow = await ServiceScope.GetFollowCacheByIdAsync(request, CancellationToken);
+
+		// Assert
+		cachedFollow.ShouldBeNull();
 	}
 
 	[Fact]

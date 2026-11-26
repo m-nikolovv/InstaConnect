@@ -1,4 +1,5 @@
 using InstaConnect.Follows.Domain.Features.Follows.Models.Entities;
+using InstaConnect.Follows.Domain.Tests.Features.Follows.Utilities;
 using InstaConnect.Follows.Tests.Features.Follows.DataAttributes.SortOrder;
 using InstaConnect.Follows.Tests.Features.Follows.DataAttributes.SortTerm;
 using InstaConnect.Follows.Tests.Features.Users.DataAttributes.Name;
@@ -15,13 +16,18 @@ public class GetAllFollowsQueryServiceIntegrationTests : BaseFollowDomainQueryIn
 		: base(webApplicationFactory)
 	{
 		_queryBuilderFactory = new();
-		_queryBuilder = _queryBuilderFactory.Create(Follow);
+		_queryBuilder = _queryBuilderFactory.Create(Follow, UserId);
 		_query = _queryBuilder.Build();
 	}
 
-	protected override async Task OnInitializeAsync()
+	public override async Task InitializeAsync()
 	{
-		await ServiceScope.AddRangeAsync(Follows, CancellationToken);
+		await ServiceScope.SetupGetAllAsync(
+			_query,
+			Followers,
+			Followings,
+			Follows,
+			CancellationToken);
 	}
 
 	[Fact]

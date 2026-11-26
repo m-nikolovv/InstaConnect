@@ -6,7 +6,7 @@ public class AddPostCommandRepositoryUnitTests : BasePostInfrastructureCommandUn
 
 	public AddPostCommandRepositoryUnitTests()
 	{
-		_repository = new(Collection, IncludeBuilderFactory);
+		_repository = new(Collection, CacheHandler, IncludeBuilderFactory);
 	}
 
 	[Fact]

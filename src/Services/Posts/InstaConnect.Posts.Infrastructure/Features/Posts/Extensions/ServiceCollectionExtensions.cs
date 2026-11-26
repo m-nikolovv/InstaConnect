@@ -1,3 +1,6 @@
+using InstaConnect.Posts.Infrastructure.Features.Posts.Helpers.Repositories;
+using InstaConnect.Posts.Infrastructure.Features.Posts.Models.Options;
+
 namespace InstaConnect.Posts.Infrastructure.Features.Posts.Extensions;
 
 internal static class ServiceCollectionExtensions
@@ -12,7 +15,13 @@ internal static class ServiceCollectionExtensions
 			serviceCollection.AddImplementationsOf<IPostsForUserSortTermer>(PostsInfrastructureReference.Assembly);
 			serviceCollection.AddImplementationsOf<IPostIncluder>(PostsInfrastructureReference.Assembly);
 
-			serviceCollection.AddCollection<Post>(CollectionName);
+			serviceCollection.AddValidatedOptions<PostCacheOptions>(PostCacheOptions.SectionName);
+
+			serviceCollection.AddCollection<Post, PostId>(CollectionName);
+
+			serviceCollection.AddScoped<IPostCommandRepository, PostCommandRepository>();
+
+			serviceCollection.AddScoped<IPostQueryRepository, PostQueryRepository>();
 
 			BsonClassMap.TryRegisterClassMap<Post>(cm =>
 			{
@@ -23,8 +32,8 @@ internal static class ServiceCollectionExtensions
 				cm.MapMember(c => c.Title);
 				cm.MapMember(c => c.Content);
 				cm.MapMember(c => c.Summary);
-				cm.MapMember(c => c.CreatedAtUtc);
-				cm.MapMember(c => c.UpdatedAtUtc);
+				cm.MapDateTimeMember(c => c.CreatedAtUtc);
+				cm.MapDateTimeMember(c => c.UpdatedAtUtc);
 
 				cm.MapMemberWithoutSerialization(c => c.User);
 				cm.MapMemberWithoutSerialization(c => c.PostLikes);
@@ -40,7 +49,7 @@ internal static class ServiceCollectionExtensions
 					c.CreatedAtUtc,
 					c.UpdatedAtUtc));
 
-				cm.SetIgnoreExtraElements(true);
+				cm.IgnoreExtraElements();
 			});
 
 			return serviceCollection;

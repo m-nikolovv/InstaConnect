@@ -13,7 +13,7 @@ public class GetAllUsersQueryHandlerUnitTests : BaseUserApplicationQueryUnitTest
 	public GetAllUsersQueryHandlerUnitTests()
 	{
 		_requestBuilderFactory = new();
-		_requestBuilder = _requestBuilderFactory.Create(User);
+		_requestBuilder = _requestBuilderFactory.Create(User, UserId);
 		_request = _requestBuilder.Build();
 
 		_handler = new(Mapper, Service);

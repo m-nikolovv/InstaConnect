@@ -1,4 +1,5 @@
 using InstaConnect.Common.Events.Features.Events.Abstractions;
+using InstaConnect.Common.Infrastructure.Features.Events.Utilities;
 
 using MassTransit;
 using MassTransit.Testing;
@@ -23,7 +24,7 @@ public class EventClient : IEventClient
 		where TRequest : class, IEventRequest
 	{
 		var producerProvider = _testHarness.Scope.ServiceProvider.GetRequiredService<ITopicProducerProvider>();
-		var producer = producerProvider.GetProducer<TRequest>(new Uri($"topic:{KebabCaseEndpointNameFormatter.Instance.Message<TRequest>()}"));
+		var producer = producerProvider.GetProducer<TRequest>(new Uri($"topic:{EventUtilities.GetName<TRequest>()}"));
 
 		await producer.Produce(message, cancellationToken);
 		await _testHarness.InactivityTask;

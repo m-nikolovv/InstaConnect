@@ -1,4 +1,6 @@
 using InstaConnect.Posts.Domain.Features.Users.Abstractions;
+using InstaConnect.Posts.Domain.Features.Users.Models.Responses;
+using InstaConnect.Posts.Infrastructure.Features.Users.Abstractions;
 
 namespace InstaConnect.Posts.Tests.Features.Users.Utilities;
 
@@ -20,6 +22,16 @@ public static class UserSetups
 		{
 			return serviceProvider.GetRequiredService<IUserIncludeBuilderFactory>();
 		}
+
+		public IUserCollection GetUserCollection()
+		{
+			return serviceProvider.GetRequiredService<IUserCollection>();
+		}
+
+		public IUserCacheHandler GetUserCacheHandler()
+		{
+			return serviceProvider.GetRequiredService<IUserCacheHandler>();
+		}
 	}
 
 	extension(IServiceScope serviceScope)
@@ -39,16 +51,16 @@ public static class UserSetups
 			return serviceScope.ServiceProvider.GetUserIncludeBuilderFactory();
 		}
 
+		public IUserCacheHandler GetUserCacheHandler()
+		{
+			return serviceScope.ServiceProvider.GetUserCacheHandler();
+		}
+
 		public async Task<User?> GetByIdAsync(
 			UserId id,
 			CancellationToken cancellationToken)
 		{
-			var postInclude = serviceScope.GetPostIncludeBuilderFactory().Create().WithUser().Build();
-			var postCommentInclude = serviceScope.GetPostCommentIncludeBuilderFactory().Create().WithUser().WithPost(postInclude).Build();
-			var postLikeInclude = serviceScope.GetPostLikeIncludeBuilderFactory().Create().WithUser().WithPost(postInclude).Build();
-			var postCommentLikeInclude = serviceScope.GetPostCommentLikeIncludeBuilderFactory().Create().WithPostComment(postCommentInclude).WithUser().Build();
-
-			var include = serviceScope.GetUserIncludeBuilderFactory().Create().WithPosts().WithPostLikes(postLikeInclude).WithPostComments(postCommentInclude).WithPostCommentLikes(postCommentLikeInclude).Build();
+			var include = serviceScope.GetUserIncludeBuilderFactory().Create().WithPosts().WithPostLikes().WithPostComments().WithPostCommentLikes().Build();
 
 			return (await serviceScope.GetUserCommandRepository().GetByIdAsync(id, include, cancellationToken)).SetPosts().SetPostLikes().SetPostComments().SetPostCommentLikes();
 		}
@@ -57,21 +69,126 @@ public static class UserSetups
 			User user,
 			CancellationToken cancellationToken)
 		{
-			await serviceScope.GetUserCommandRepository().AddAsync(user, cancellationToken);
+			var userRepository = serviceScope.GetUserCommandRepository();
+
+			await userRepository.AddAsync(user, cancellationToken);
 		}
 
 		public async Task AddRangeAsync(
-			IEnumerable<User> users,
+			ICollection<User> users,
 			CancellationToken cancellationToken)
 		{
-			await serviceScope.GetUserCommandRepository().AddRangeAsync(users, cancellationToken);
+			var userRepository = serviceScope.GetUserCommandRepository();
+
+			await userRepository.AddRangeAsync(users, cancellationToken);
 		}
 
 		public async Task DeleteAsync(
 			User user,
 			CancellationToken cancellationToken)
 		{
-			await serviceScope.GetUserCommandRepository().DeleteAsync(user, cancellationToken);
+			var cacheHandler = serviceScope.GetUserCacheHandler();
+			var userRepository = serviceScope.GetUserCommandRepository();
+
+			await userRepository.DeleteAsync(user, cancellationToken);
+			await cacheHandler.DeleteAsync(user.Id, cancellationToken);
+		}
+
+		public async Task<UserResponse?> GetUserCacheByIdAsync(
+			string id,
+			string currentUserId,
+			CancellationToken cancellationToken)
+		{
+			var cacheHandler = serviceScope.GetUserCacheHandler();
+
+			return await cacheHandler.GetByIdAsync(new(id), new(currentUserId), cancellationToken);
+		}
+
+		public async Task<UserResponse?> GetUserCacheByIdAsync(
+			UserId id,
+			UserId currentUserId,
+			CancellationToken cancellationToken)
+		{
+			var cacheHandler = serviceScope.GetUserCacheHandler();
+
+			return await cacheHandler.GetByIdAsync(id, currentUserId, cancellationToken);
+		}
+
+		public async Task SetupDeleteUserAsync(
+			User user,
+			ICollection<Post> posts,
+			ICollection<PostLike> postLikes,
+			ICollection<PostImage> postImages,
+			ICollection<PostComment> postComments,
+			ICollection<PostCommentLike> postCommentLikes,
+			ICollection<PostCommentImage> postCommentImages,
+			string currentUserId,
+			CancellationToken cancellationToken)
+		{
+			await serviceScope.AddAsync(user, cancellationToken);
+			await serviceScope.AddRangeAsync(posts, cancellationToken);
+			await serviceScope.AddRangeAsync(postLikes, cancellationToken);
+			await serviceScope.AddRangeAsync(postImages, cancellationToken);
+			await serviceScope.AddRangeAsync(postComments, cancellationToken);
+			await serviceScope.AddRangeAsync(postCommentLikes, cancellationToken);
+			await serviceScope.AddRangeAsync(postCommentImages, cancellationToken);
+			await serviceScope.AddUserCacheAsync(user, currentUserId, cancellationToken);
+		}
+
+		public async Task SetupDeleteUserAsync(
+			User user,
+			ICollection<Post> posts,
+			ICollection<PostLike> postLikes,
+			ICollection<PostImage> postImages,
+			ICollection<PostComment> postComments,
+			ICollection<PostCommentLike> postCommentLikes,
+			ICollection<PostCommentImage> postCommentImages,
+			UserId currentUserId,
+			CancellationToken cancellationToken)
+		{
+			await serviceScope.SetupDeleteUserAsync(user, posts, postLikes, postImages, postComments, postCommentLikes, postCommentImages, currentUserId.Id, cancellationToken);
+		}
+
+		public async Task SetupGetUserByIdAsync(
+			User user,
+			CancellationToken cancellationToken)
+		{
+			await serviceScope.AddAsync(user, cancellationToken);
+		}
+
+		public async Task SetupUpdateUserAsync(
+			User user,
+			string currentUserId,
+			CancellationToken cancellationToken)
+		{
+			await serviceScope.AddAsync(user, cancellationToken);
+			await serviceScope.AddUserCacheAsync(user, currentUserId, cancellationToken);
+		}
+
+		public async Task SetupUpdateUserAsync(
+			User user,
+			UserId currentUserId,
+			CancellationToken cancellationToken)
+		{
+			await serviceScope.SetupUpdateUserAsync(user, currentUserId.Id, cancellationToken);
+		}
+
+		public async Task AddUserCacheAsync(
+			User user,
+			string currentUserId,
+			CancellationToken cancellationToken)
+		{
+			var cacheHandler = serviceScope.GetUserCacheHandler();
+
+			await cacheHandler.AddAsync(user.ToFullResponse(), new(currentUserId), cancellationToken);
+		}
+
+		public async Task AddUserCacheAsync(
+			User user,
+			UserId currentUserId,
+			CancellationToken cancellationToken)
+		{
+			await serviceScope.AddUserCacheAsync(user, currentUserId.Id, cancellationToken);
 		}
 	}
 }

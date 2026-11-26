@@ -6,7 +6,7 @@ public class DeleteRangeForgotPasswordTokensCommandRepositoryUnitTests : BaseFor
 
 	public DeleteRangeForgotPasswordTokensCommandRepositoryUnitTests()
 	{
-		_repository = new(Collection, IncludeBuilderFactory);
+		_repository = new(Collection, CacheHandler, IncludeBuilderFactory);
 	}
 
 	[Fact]
@@ -17,5 +17,15 @@ public class DeleteRangeForgotPasswordTokensCommandRepositoryUnitTests : BaseFor
 
 		// Assert
 		await Collection.ShouldHaveReceivedOneDeleteRangeAsync(ForgotPasswordTokens, CancellationToken);
+	}
+
+	[Fact]
+	public async Task DeleteRangeAsync_ShouldCallTheCacheHandlerDeleteRangeAsync_WhenCommandIsValid()
+	{
+		// Act
+		await _repository.DeleteRangeAsync(ForgotPasswordTokens, CancellationToken);
+
+		// Assert
+		await CacheHandler.ShouldHaveReceivedOneDeleteRangeAsync(ForgotPasswordTokens, CancellationToken);
 	}
 }

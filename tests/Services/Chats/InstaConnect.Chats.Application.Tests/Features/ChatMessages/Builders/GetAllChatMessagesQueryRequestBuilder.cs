@@ -9,10 +9,10 @@ public class GetAllChatMessagesQueryRequestBuilder
 	private CommonSortOrder _sortOrder;
 	private ChatMessagesSortTerm _sortTerm;
 
-	public GetAllChatMessagesQueryRequestBuilder(ChatMessage chatMessage)
+	public GetAllChatMessagesQueryRequestBuilder(ChatMessage chatMessage, UserId currentUserId)
 	{
 		_participantTwoId = chatMessage.Id.Id.ParticipantTwoId.Id;
-		_currentUserId = chatMessage.Id.Id.ParticipantOneId.Id;
+		_currentUserId = currentUserId.Id;
 		_page = ChatMessageDataFaker.GetPage();
 		_pageSize = ChatMessageDataFaker.GetPageSize();
 		_sortOrder = DataFaker.GetSortOrder();

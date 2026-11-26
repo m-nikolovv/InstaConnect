@@ -19,8 +19,8 @@ public static class RefreshTokenDomainMockFactory
 		return Mocker.Mock<IRefreshTokenCommandRepository>();
 	}
 
-	public static IOptions<RefreshTokenOptions> CreateOptions()
+	public static RefreshTokenOptions CreateOptions()
 	{
-		return Options.Create(new RefreshTokenOptions(RefreshTokenDataFaker.GetLifetimeSeconds()));
+		return new RefreshTokenOptions(RefreshTokenDataFaker.GetLifetimeSeconds());
 	}
 }

@@ -11,9 +11,9 @@ public static class ForgotPasswordTokenMockAssertions
 {
 	extension(IDateTimeProvider dateTimeProvider)
 	{
-		public void ShouldHaveReceivedOneGetOffsetUtcNow(IOptions<ForgotPasswordTokenOptions> forgotPasswordTokenOptions)
+		public void ShouldHaveReceivedOneGetOffsetUtcNow(ForgotPasswordTokenOptions forgotPasswordTokenOptions)
 		{
-			dateTimeProvider.ShouldHaveReceivedOneGetOffsetUtcNow(forgotPasswordTokenOptions.Value.LifetimeSeconds);
+			dateTimeProvider.ShouldHaveReceivedOneGetOffsetUtcNow(forgotPasswordTokenOptions.LifetimeSeconds);
 		}
 
 		public void ShouldHaveReceivedOneGetOffsetUtcNow(VerifyForgotPasswordTokenCommand command)
@@ -150,23 +150,6 @@ public static class ForgotPasswordTokenMockAssertions
 			CancellationToken cancellationToken)
 		{
 			await repository.ShouldHaveReceivedOne().DeleteRangeAsync(forgotPasswordTokens, cancellationToken);
-		}
-	}
-
-	extension(IForgotPasswordTokenCommandService service)
-	{
-		public async Task ShouldHaveReceivedOneAddAsync(
-			AddForgotPasswordTokenCommand command,
-			CancellationToken cancellationToken)
-		{
-			await service.ShouldHaveReceivedOne().AddAsync(command, cancellationToken);
-		}
-
-		public async Task ShouldHaveReceivedOneVerifyAsync(
-			VerifyForgotPasswordTokenCommand command,
-			CancellationToken cancellationToken)
-		{
-			await service.ShouldHaveReceivedOne().VerifyAsync(command, cancellationToken);
 		}
 	}
 }

@@ -6,7 +6,6 @@ using InstaConnect.Common.Domain.Features.DateTimes.Abstractions;
 using InstaConnect.Common.Infrastructure.Features.AccessTokens.Abstractions;
 using InstaConnect.Common.Infrastructure.Features.AccessTokens.Models;
 
-using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 
 namespace InstaConnect.Common.Infrastructure.Features.AccessTokens.Helpers;
@@ -20,11 +19,11 @@ internal class BaseAccessTokenGenerator : IBaseAccessTokenGenerator
 	public BaseAccessTokenGenerator(
 		IEncoder encoder,
 		IDateTimeProvider dateTimeProvider,
-		IOptions<AccessTokenOptions> accessTokenOptions)
+		AccessTokenOptions accessTokenOptions)
 	{
 		_encoder = encoder;
 		_dateTimeProvider = dateTimeProvider;
-		_accessTokenOptions = accessTokenOptions.Value;
+		_accessTokenOptions = accessTokenOptions;
 	}
 
 	public AccessToken Generate(IEnumerable<Claim> claims)

@@ -11,7 +11,7 @@ public class GetChatMessageByIdControllerUnitTests : BaseChatMessagePresentation
 	public GetChatMessageByIdControllerUnitTests()
 	{
 		_requestBuilderFactory = new();
-		_requestBuilder = _requestBuilderFactory.Create(ChatMessage);
+		_requestBuilder = _requestBuilderFactory.Create(ChatMessage, UserId);
 		_request = _requestBuilder.Build();
 
 		_controller = new(Mapper, Sender);

@@ -1,5 +1,6 @@
 using InstaConnect.Identity.Events.Features.Users;
 using InstaConnect.Posts.Application.Features.PostCommentLikes.Models;
+using InstaConnect.Posts.Domain.Features.PostCommentLikes.Models.Responses;
 using InstaConnect.Posts.Domain.Features.PostCommentLikes.Models.ValueObjects;
 using InstaConnect.Posts.Events.Features.PostCommentLikes;
 using InstaConnect.Posts.Events.Features.PostComments;
@@ -407,6 +408,14 @@ public static class PostCommentLikeEquals
 															  matches,
 															  termTransformer,
 															  matchesFilter);
+		}
+	}
+
+	extension(PostCommentLikeResponse? response)
+	{
+		public bool Matches(GetPostCommentLikeByIdQueryRequest request, PostCommentLike postCommentLike)
+		{
+			return response.MatchesFull(request.CurrentUserId, postCommentLike);
 		}
 	}
 }

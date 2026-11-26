@@ -1,6 +1,7 @@
 using InstaConnect.Identity.Domain.Features.UserClaims.Models.Requests;
 using InstaConnect.Identity.Domain.Tests.Features.UserClaims.Assertions;
 using InstaConnect.Identity.Domain.Tests.Features.UserClaims.Builders;
+using InstaConnect.Identity.Domain.Tests.Features.UserClaims.Utilities;
 using InstaConnect.Identity.Domain.Tests.Integration.Features.UserClaims.Utilities;
 using InstaConnect.Identity.Tests.Features.UserClaims.Assertions;
 
@@ -18,6 +19,12 @@ public class AddUserClaimCommandServiceIntegrationTests : BaseUserClaimDomainCom
 		_commandBuilderFactory = new();
 		_commandBuilder = _commandBuilderFactory.Create(User);
 		_command = _commandBuilder.Build();
+	}
+
+	public override async Task InitializeAsync()
+	{
+		await ServiceScope.SetupAddAsync(_command, User, CancellationToken);
+		await base.InitializeAsync();
 	}
 
 	[Fact]

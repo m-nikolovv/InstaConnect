@@ -15,20 +15,6 @@ public static class UserClaimMapper
 
 	extension(UserClaim userClaim)
 	{
-		internal UserClaimResponse ToFullResponse()
-		{
-			return new(userClaim.Id,
-					   userClaim.User?.ToFullResponse(),
-					   userClaim.CreatedAtUtc);
-		}
-
-		internal UserClaimResponse ToResponseWithoutUser()
-		{
-			return new(userClaim.Id,
-					   null,
-					   userClaim.CreatedAtUtc);
-		}
-
 		public UserClaim To(AddUserClaimCommand command)
 		{
 			return new(

@@ -1,3 +1,4 @@
+
 namespace InstaConnect.Identity.Presentation.Tests.Integration.Features.Users.Controllers;
 
 public class GetCurrentUserByIdControllerIntegrationTests : BaseUserPresentationQueryIntegrationTest
@@ -10,13 +11,13 @@ public class GetCurrentUserByIdControllerIntegrationTests : BaseUserPresentation
 		: base(webApplicationFactory)
 	{
 		_requestBuilderFactory = new();
-		_requestBuilder = _requestBuilderFactory.Create(User);
+		_requestBuilder = _requestBuilderFactory.Create(User, UserId);
 		_request = _requestBuilder.Build();
 	}
 
-	protected override async Task OnInitializeAsync()
+	public override async Task InitializeAsync()
 	{
-		await ServiceScope.AddAsync(User, CancellationToken);
+		await ServiceScope.SetupGetByIdAsync(_request, User, CancellationToken);
 	}
 
 	[Theory]
@@ -96,19 +97,19 @@ public class GetCurrentUserByIdControllerIntegrationTests : BaseUserPresentation
 	}
 
 	[Fact]
-	public async Task GetCurrentByIdAsync_ShouldCacheResponse_WhenRequestIsValid()
+	public async Task GetCurrentByIdAsync_ShouldCacheUser_WhenRequestIsValid()
 	{
 		// Act
 		await Controller.GetCurrentByIdAsync(_request, CancellationToken);
-		var response = await ServiceScope.GetCachedAsync(_request, CancellationToken);
+		var cachedUser = await ServiceScope.GetUserCacheByIdAsync(_request, CancellationToken);
 
 		// Assert
-		response.ShouldSatisfy(_request, User);
+		cachedUser.ShouldSatisfy(_request, User);
 	}
 
 	[Theory]
 	[UserIdDifferentCaseData]
-	public async Task GetCurrentByIdAsync_ShouldCacheResponse_WhenRequestAndCurrentIdAreValid(
+	public async Task GetCurrentByIdAsync_ShouldCacheUser_WhenRequestAndCurrentIdAreValid(
 		IStringTransformer transformer)
 	{
 		// Arrange
@@ -116,9 +117,9 @@ public class GetCurrentUserByIdControllerIntegrationTests : BaseUserPresentation
 
 		// Act
 		await Controller.GetCurrentByIdAsync(request, CancellationToken);
-		var response = await ServiceScope.GetCachedAsync(request, CancellationToken);
+		var cachedUser = await ServiceScope.GetUserCacheByIdAsync(request, CancellationToken);
 
 		// Assert
-		response.ShouldSatisfy(request, User);
+		cachedUser.ShouldSatisfy(request, User);
 	}
 }

@@ -12,5 +12,7 @@ public interface IUserClaimCommandRepository
 
 	public Task<UserClaim?> GetByIdAsync(UserClaimId id, UserClaimInclude include, CancellationToken cancellationToken);
 
+	public Task<ICollection<UserClaim>> GetByIdRangeAsync(IEnumerable<UserClaimId> ids, CancellationToken cancellationToken);
+
 	public Task<bool> ExistsByIdAsync(UserClaimId id, CancellationToken cancellationToken);
 }

@@ -1,3 +1,4 @@
+using InstaConnect.Posts.Infrastructure.Tests.Features.PostCommentImages.Utilities;
 using InstaConnect.Posts.Tests.Features.PostCommentImages.Assertions;
 
 namespace InstaConnect.Posts.Infrastructure.Tests.Integration.Features.PostCommentImages.Repositories;
@@ -7,6 +8,15 @@ public class AddRangePostCommentImagesCommandRepositoryIntegrationTests : BasePo
 	public AddRangePostCommentImagesCommandRepositoryIntegrationTests(PostsWebApplicationFactory webApplicationFactory)
 		: base(webApplicationFactory)
 	{
+	}
+
+	public override async Task InitializeAsync()
+	{
+		await ServiceScope.SetupAddPostCommentImageAsync(
+			User,
+			Post,
+			PostComment,
+			CancellationToken);
 	}
 
 	[Fact]

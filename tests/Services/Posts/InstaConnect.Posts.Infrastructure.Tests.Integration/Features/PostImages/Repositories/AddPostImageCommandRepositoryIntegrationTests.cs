@@ -1,3 +1,5 @@
+using InstaConnect.Posts.Infrastructure.Tests.Features.PostImages.Utilities;
+using InstaConnect.Posts.Infrastructure.Tests.Features.Posts.Utilities;
 using InstaConnect.Posts.Tests.Features.PostImages.Assertions;
 
 namespace InstaConnect.Posts.Infrastructure.Tests.Integration.Features.PostImages.Repositories;
@@ -9,6 +11,11 @@ public class AddPostImageCommandRepositoryIntegrationTests : BasePostImageInfras
 	{
 	}
 
+	public override async Task InitializeAsync()
+	{
+		await ServiceScope.SetupAddPostImageAsync(User, Post, CancellationToken);
+	}
+
 	[Fact]
 	public async Task AddAsync_ShouldAddPostImage_WhenCommandIsValid()
 	{
@@ -18,5 +25,16 @@ public class AddPostImageCommandRepositoryIntegrationTests : BasePostImageInfras
 
 		// Assert
 		postImage.ShouldSatisfy(PostImage);
+	}
+
+	[Fact]
+	public async Task AddAsync_ShouldDeleteCachedPost_WhenCommandIsValid()
+	{
+		// Act
+		await Repository.AddAsync(PostImage, CancellationToken);
+		var cachedPost = await ServiceScope.GetPostCacheByIdAsync(Post, CancellationToken);
+
+		// Assert
+		cachedPost.ShouldBeNull();
 	}
 }

@@ -6,7 +6,7 @@ public class DeleteChatCommandRepositoryUnitTests : BaseChatInfrastructureComman
 
 	public DeleteChatCommandRepositoryUnitTests()
 	{
-		_repository = new(Collection, IncludeBuilderFactory);
+		_repository = new(Collection, CacheHandler, IncludeBuilderFactory);
 	}
 
 	[Fact]
@@ -17,5 +17,15 @@ public class DeleteChatCommandRepositoryUnitTests : BaseChatInfrastructureComman
 
 		// Assert
 		await Collection.ShouldHaveReceivedOneDeleteAsync(Chat, CancellationToken);
+	}
+
+	[Fact]
+	public async Task DeleteAsync_ShouldCallTheCacheHandlerDeleteAsync_WhenCommandIsValid()
+	{
+		// Act
+		await _repository.DeleteAsync(Chat, CancellationToken);
+
+		// Assert
+		await CacheHandler.ShouldHaveReceivedOneDeleteAsync(Chat, CancellationToken);
 	}
 }

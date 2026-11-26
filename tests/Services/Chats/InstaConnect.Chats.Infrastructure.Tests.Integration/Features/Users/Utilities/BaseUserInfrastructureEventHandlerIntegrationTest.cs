@@ -5,7 +5,7 @@ using InstaConnect.Common.Infrastructure.Tests.Features.Utilities;
 
 namespace InstaConnect.Chats.Infrastructure.Tests.Integration.Features.Users.Utilities;
 
-public abstract class BaseUserInfrastructureEventHandlerIntegrationTest : BaseUserWebTest
+public abstract class BaseUserInfrastructureEventHandlerIntegrationTest : BaseUserWebCommandTest
 {
 	protected IUserEventClient UserEventClient { get; }
 
@@ -20,7 +20,7 @@ public abstract class BaseUserInfrastructureEventHandlerIntegrationTest : BaseUs
 
 	public override async Task InitializeAsync()
 	{
-		await OnInitializeAsync();
+		await base.InitializeAsync();
 		await UserEventClient.StartAsync(CancellationToken);
 	}
 

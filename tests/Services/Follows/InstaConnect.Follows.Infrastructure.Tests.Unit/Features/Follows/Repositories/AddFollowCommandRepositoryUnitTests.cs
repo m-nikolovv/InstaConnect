@@ -6,7 +6,7 @@ public class AddFollowCommandRepositoryUnitTests : BaseFollowInfrastructureComma
 
 	public AddFollowCommandRepositoryUnitTests()
 	{
-		_repository = new(Collection, IncludeBuilderFactory);
+		_repository = new(Collection, CacheHandler, IncludeBuilderFactory);
 	}
 
 	[Fact]

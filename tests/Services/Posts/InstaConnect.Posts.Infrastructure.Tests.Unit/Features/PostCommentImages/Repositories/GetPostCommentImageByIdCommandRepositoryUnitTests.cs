@@ -9,7 +9,7 @@ public class GetPostCommentImageByIdCommandRepositoryUnitTests : BasePostComment
 
 	public GetPostCommentImageByIdCommandRepositoryUnitTests()
 	{
-		_repository = new(Collection);
+		_repository = new(Collection, CommentCacheHandler, CommentImageCacheHandler);
 
 		Collection.SetupAggregateFluent(PostCommentImageId, Fluent);
 		Fluent.SetupMatch(PostCommentImageId);

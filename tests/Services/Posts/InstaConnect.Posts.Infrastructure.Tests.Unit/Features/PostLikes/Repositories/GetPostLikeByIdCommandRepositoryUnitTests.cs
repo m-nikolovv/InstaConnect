@@ -10,10 +10,10 @@ public class GetPostLikeByIdCommandRepositoryUnitTests : BasePostLikeInfrastruct
 	{
 		_include = IncludeBuilderFactory.Create().WithUser().WithPost().Build();
 
-		_repository = new(Collection, IncludeBuilderFactory);
+		_repository = new(Collection, CacheHandler, LikeCacheHandler, IncludeBuilderFactory);
 
 		Collection.SetupAggregateFluent(PostLikeId, Fluent);
-		Fluent.SetupApplyIncludes(PostLikeId, _include);
+		Fluent.SetupInclude(PostLikeId, _include);
 		Fluent.SetupMatch(PostLikeId);
 		Fluent.SetupFirstOrDefaultAsync(PostLikeId, PostLike, CancellationToken);
 	}
@@ -39,13 +39,13 @@ public class GetPostLikeByIdCommandRepositoryUnitTests : BasePostLikeInfrastruct
 	}
 
 	[Fact]
-	public async Task GetByIdAsync_ShouldCallTheFluentApplyIncludes_WhenCommandIsValid()
+	public async Task GetByIdAsync_ShouldCallTheFluentInclude_WhenCommandIsValid()
 	{
 		// Act
 		await _repository.GetByIdAsync(PostLikeId, _include, CancellationToken);
 
 		// Assert
-		Fluent.ShouldHaveReceivedOneApplyIncludes(PostLikeId, _include);
+		Fluent.ShouldHaveReceivedOneInclude(PostLikeId, _include);
 	}
 
 	[Fact]

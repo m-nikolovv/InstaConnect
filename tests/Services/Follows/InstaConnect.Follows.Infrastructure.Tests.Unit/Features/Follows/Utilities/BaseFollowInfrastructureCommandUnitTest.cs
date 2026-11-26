@@ -4,11 +4,13 @@ using InstaConnect.Follows.Tests.Features.Follows.Utilities;
 
 namespace InstaConnect.Follows.Infrastructure.Tests.Unit.Features.Follows.Utilities;
 
-public abstract class BaseFollowInfrastructureCommandUnitTest : BaseFollowTest
+public abstract class BaseFollowInfrastructureCommandUnitTest : BaseFollowCommandTest
 {
 	protected IFollowFluent Fluent { get; }
 
 	protected IFollowCollection Collection { get; }
+
+	protected IFollowCacheHandler CacheHandler { get; }
 
 	protected IFollowIncludeBuilderFactory IncludeBuilderFactory { get; }
 
@@ -16,6 +18,7 @@ public abstract class BaseFollowInfrastructureCommandUnitTest : BaseFollowTest
 	{
 		Fluent = FollowInfrastructureMockFactory.CreateFluent();
 		Collection = FollowInfrastructureMockFactory.CreateCollection();
+		CacheHandler = FollowInfrastructureMockFactory.CreateCacheHandler();
 		IncludeBuilderFactory = FollowMockFactory.CreateIncludeBuilderFactory();
 	}
 }

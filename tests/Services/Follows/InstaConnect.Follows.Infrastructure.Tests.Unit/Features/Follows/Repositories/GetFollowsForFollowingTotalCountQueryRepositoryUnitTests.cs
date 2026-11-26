@@ -20,10 +20,10 @@ public class GetFollowsForFollowingTotalCountQueryRepositoryUnitTests : BaseFoll
 
 		_include = IncludeBuilderFactory.Create().WithFollower().Build();
 
-		_repository = new(Collection, IncludeBuilderFactory);
+		_repository = new(Collection, CacheHandler, IncludeBuilderFactory);
 
 		Collection.SetupAggregateFluent(_filterQuery, Fluent);
-		Fluent.SetupApplyIncludes(_filterQuery, _include);
+		Fluent.SetupInclude(_filterQuery, _include);
 		Fluent.SetupMatch(_filterQuery);
 		Fluent.SetupGetCountAsync(_filterQuery, Follows, CancellationToken);
 	}
@@ -49,13 +49,13 @@ public class GetFollowsForFollowingTotalCountQueryRepositoryUnitTests : BaseFoll
 	}
 
 	[Fact]
-	public async Task GetTotalCountForFollowingAsync_ShouldCallTheFluentApplyIncludes_WhenQueryIsValid()
+	public async Task GetTotalCountForFollowingAsync_ShouldCallTheFluentInclude_WhenQueryIsValid()
 	{
 		// Act
 		await _repository.GetTotalCountForFollowingAsync(_filterQuery, CancellationToken);
 
 		// Assert
-		Fluent.ShouldHaveReceivedOneApplyIncludes(_filterQuery, _include);
+		Fluent.ShouldHaveReceivedOneInclude(_filterQuery, _include);
 	}
 
 	[Fact]

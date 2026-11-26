@@ -19,9 +19,13 @@ public class DeleteCurrentRefreshTokenControllerIntegrationTests : BaseRefreshTo
 		_request = _requestBuilder.Build();
 	}
 
-	protected override async Task OnInitializeAsync()
+	public override async Task InitializeAsync()
 	{
-		await ServiceScope.AddAsync(RefreshToken, CancellationToken);
+		await ServiceScope.SetupDeleteAsync(
+			_request,
+			User,
+			RefreshToken,
+			CancellationToken);
 	}
 
 	[Theory]

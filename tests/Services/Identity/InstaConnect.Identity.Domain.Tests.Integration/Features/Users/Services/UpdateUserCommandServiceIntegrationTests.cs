@@ -1,6 +1,7 @@
 using InstaConnect.Common.Tests.Features.DataAttributes.FormFiles.Base;
 using InstaConnect.Identity.Domain.Features.EmailConfirmationTokens.Extensions;
 using InstaConnect.Identity.Domain.Tests.Features.EmailConfirmationTokens.Assertions;
+using InstaConnect.Identity.Domain.Tests.Features.Users.Utilities;
 using InstaConnect.Identity.Tests.Features.EmailConfirmationTokens.Assertions;
 using InstaConnect.Identity.Tests.Features.Users.Assertions;
 using InstaConnect.Identity.Tests.Features.Users.DataAttributes.Email;
@@ -22,10 +23,14 @@ public class UpdateUserCommandServiceIntegrationTests : BaseUserDomainCommandInt
 		_command = _commandBuilder.Build();
 	}
 
-	protected override async Task OnInitializeAsync()
+	public override async Task InitializeAsync()
 	{
-		await ServiceScope.AddAsync(User, CancellationToken);
-		await ServiceScope.AddRangeAsync(User.EmailConfirmationTokens, CancellationToken);
+		await ServiceScope.SetupUpdateAsync(
+			_command,
+			User,
+			UserEmailConfirmationTokens,
+			CancellationToken);
+		await base.InitializeAsync();
 	}
 
 	[Fact]
@@ -365,6 +370,149 @@ public class UpdateUserCommandServiceIntegrationTests : BaseUserDomainCommandInt
 	}
 
 	[Fact]
+	public async Task UpdateAsync_ShouldDeleteCachedUser_WhenCommandIsValid()
+	{
+		// Act
+		await Service.UpdateAsync(_command, CancellationToken);
+		var cachedUser = await ServiceScope.GetUserCacheByIdAsync(_command, CancellationToken);
+
+		// Assert
+		cachedUser.ShouldBeNull();
+	}
+
+	[Theory]
+	[UserIdDifferentCaseData]
+	public async Task UpdateAsync_ShouldDeleteCachedUser_WhenCommandAndIdAreValid(
+		IStringTransformer transformer)
+	{
+		// Arrange
+		var command = _commandBuilder.WithId(transformer).Build();
+		await ServiceScope.AddUserCacheAsync(command, User, CancellationToken);
+
+		// Act
+		await Service.UpdateAsync(command, CancellationToken);
+		var cachedUser = await ServiceScope.GetUserCacheByIdAsync(command, CancellationToken);
+
+		// Assert
+		cachedUser.ShouldBeNull();
+	}
+
+	[Theory]
+	[UserNameDifferentCaseData]
+	public async Task UpdateAsync_ShouldDeleteCachedUser_WhenCommandAndNameAreValid(
+		IStringTransformer transformer)
+	{
+		// Arrange
+		var command = _commandBuilder.WithName(transformer).Build();
+		await ServiceScope.AddUserCacheAsync(command, User, CancellationToken);
+
+		// Act
+		await Service.UpdateAsync(command, CancellationToken);
+		var cachedUser = await ServiceScope.GetUserCacheByIdAsync(command, CancellationToken);
+
+		// Assert
+		cachedUser.ShouldBeNull();
+	}
+
+	[Fact]
+	public async Task UpdateAsync_ShouldDeleteCachedUser_WhenNameHasNotChanged()
+	{
+		// Arrange
+		var command = _commandBuilder.WithName(User.Name).Build();
+		await ServiceScope.AddUserCacheAsync(command, User, CancellationToken);
+
+		// Act
+		await Service.UpdateAsync(command, CancellationToken);
+		var cachedUser = await ServiceScope.GetUserCacheByIdAsync(command, CancellationToken);
+
+		// Assert
+		cachedUser.ShouldBeNull();
+	}
+
+	[Theory]
+	[UserNameDifferentCaseData]
+	public async Task UpdateAsync_ShouldDeleteCachedUser_WhenNameIsValidAndHasNotChanged(
+		IStringTransformer transformer)
+	{
+		// Arrange
+		var command = _commandBuilder.WithName(User.Name, transformer).Build();
+		await ServiceScope.AddUserCacheAsync(command, User, CancellationToken);
+
+		// Act
+		await Service.UpdateAsync(command, CancellationToken);
+		var cachedUser = await ServiceScope.GetUserCacheByIdAsync(command, CancellationToken);
+
+		// Assert
+		cachedUser.ShouldBeNull();
+	}
+
+	[Theory]
+	[UserEmailDifferentCaseData]
+	public async Task UpdateAsync_ShouldDeleteCachedUser_WhenCommandAndEmailAreValid(
+		IStringTransformer transformer)
+	{
+		// Arrange
+		var command = _commandBuilder.WithEmail(transformer).Build();
+		await ServiceScope.AddUserCacheAsync(command, User, CancellationToken);
+
+		// Act
+		await Service.UpdateAsync(command, CancellationToken);
+		var cachedUser = await ServiceScope.GetUserCacheByIdAsync(command, CancellationToken);
+
+		// Assert
+		cachedUser.ShouldBeNull();
+	}
+
+	[Fact]
+	public async Task UpdateAsync_ShouldDeleteCachedUser_WhenEmailHasNotChanged()
+	{
+		// Arrange
+		var command = _commandBuilder.WithEmail(User.Email).Build();
+		await ServiceScope.AddUserCacheAsync(command, User, CancellationToken);
+
+		// Act
+		await Service.UpdateAsync(command, CancellationToken);
+		var cachedUser = await ServiceScope.GetUserCacheByIdAsync(command, CancellationToken);
+
+		// Assert
+		cachedUser.ShouldBeNull();
+	}
+
+	[Theory]
+	[UserEmailDifferentCaseData]
+	public async Task UpdateAsync_ShouldDeleteCachedUser_WhenEmailIsValidAndHasNotChanged(
+		IStringTransformer transformer)
+	{
+		// Arrange
+		var command = _commandBuilder.WithEmail(User.Email, transformer).Build();
+		await ServiceScope.AddUserCacheAsync(command, User, CancellationToken);
+
+		// Act
+		await Service.UpdateAsync(command, CancellationToken);
+		var cachedUser = await ServiceScope.GetUserCacheByIdAsync(command, CancellationToken);
+
+		// Assert
+		cachedUser.ShouldBeNull();
+	}
+
+	[Theory]
+	[UserProfileImageNullData]
+	public async Task UpdateAsync_ShouldDeleteCachedUser_WhenCommandAndProfileImageAreValid(
+		IFormFileTransformer transformer)
+	{
+		// Arrange
+		var command = _commandBuilder.WithProfileImage(transformer).Build();
+		await ServiceScope.AddUserCacheAsync(command, User, CancellationToken);
+
+		// Act
+		await Service.UpdateAsync(command, CancellationToken);
+		var cachedUser = await ServiceScope.GetUserCacheByIdAsync(command, CancellationToken);
+
+		// Assert
+		cachedUser.ShouldBeNull();
+	}
+
+	[Fact]
 	public async Task UpdateAsync_ShouldPublishUserUpdatedEvent_WhenCommandIsValid()
 	{
 		// Act
@@ -652,7 +800,7 @@ public class UpdateUserCommandServiceIntegrationTests : BaseUserDomainCommandInt
 		var eventRequests = await EmailConfirmationTokenEventClient.PublishedDeletedRangeAsync(CancellationToken);
 
 		// Assert
-		eventRequests.ShouldSatisfy(_command, User.EmailConfirmationTokens.AddUser(user));
+		eventRequests.ShouldSatisfy(_command, UserEmailConfirmationTokens.AddUser(user));
 	}
 
 	[Theory]
@@ -669,7 +817,7 @@ public class UpdateUserCommandServiceIntegrationTests : BaseUserDomainCommandInt
 		var eventRequests = await EmailConfirmationTokenEventClient.PublishedDeletedRangeAsync(CancellationToken);
 
 		// Assert
-		eventRequests.ShouldSatisfy(command, User.EmailConfirmationTokens.AddUser(user));
+		eventRequests.ShouldSatisfy(command, UserEmailConfirmationTokens.AddUser(user));
 	}
 
 	[Theory]
@@ -686,7 +834,7 @@ public class UpdateUserCommandServiceIntegrationTests : BaseUserDomainCommandInt
 		var eventRequests = await EmailConfirmationTokenEventClient.PublishedDeletedRangeAsync(CancellationToken);
 
 		// Assert
-		eventRequests.ShouldSatisfy(command, User.EmailConfirmationTokens.AddUser(user));
+		eventRequests.ShouldSatisfy(command, UserEmailConfirmationTokens.AddUser(user));
 	}
 
 	[Fact]
@@ -701,7 +849,7 @@ public class UpdateUserCommandServiceIntegrationTests : BaseUserDomainCommandInt
 		var eventRequests = await EmailConfirmationTokenEventClient.PublishedDeletedRangeAsync(CancellationToken);
 
 		// Assert
-		eventRequests.ShouldSatisfy(command, User.EmailConfirmationTokens.AddUser(user));
+		eventRequests.ShouldSatisfy(command, UserEmailConfirmationTokens.AddUser(user));
 	}
 
 	[Theory]
@@ -718,7 +866,7 @@ public class UpdateUserCommandServiceIntegrationTests : BaseUserDomainCommandInt
 		var eventRequests = await EmailConfirmationTokenEventClient.PublishedDeletedRangeAsync(CancellationToken);
 
 		// Assert
-		eventRequests.ShouldSatisfy(command, User.EmailConfirmationTokens.AddUser(user));
+		eventRequests.ShouldSatisfy(command, UserEmailConfirmationTokens.AddUser(user));
 	}
 
 	[Fact]
@@ -765,7 +913,7 @@ public class UpdateUserCommandServiceIntegrationTests : BaseUserDomainCommandInt
 		var eventRequests = await EmailConfirmationTokenEventClient.PublishedDeletedRangeAsync(CancellationToken);
 
 		// Assert
-		eventRequests.ShouldSatisfy(command, User.EmailConfirmationTokens.AddUser(user));
+		eventRequests.ShouldSatisfy(command, UserEmailConfirmationTokens.AddUser(user));
 	}
 
 	[Theory]
@@ -782,6 +930,6 @@ public class UpdateUserCommandServiceIntegrationTests : BaseUserDomainCommandInt
 		var eventRequests = await EmailConfirmationTokenEventClient.PublishedDeletedRangeAsync(CancellationToken);
 
 		// Assert
-		eventRequests.ShouldSatisfy(command, User.EmailConfirmationTokens.AddUser(user));
+		eventRequests.ShouldSatisfy(command, UserEmailConfirmationTokens.AddUser(user));
 	}
 }

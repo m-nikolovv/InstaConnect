@@ -2,9 +2,9 @@ namespace InstaConnect.Posts.Tests.Features.PostImages.Builders;
 
 public class PostImageBuilder
 {
-	private readonly string _id;
+	private string _id;
 	private readonly Post _post;
-	private readonly string _imageId;
+	private string _imageId;
 	private readonly string _url;
 	private readonly DateTimeOffset _createdAtUtc;
 
@@ -26,6 +26,36 @@ public class PostImageBuilder
 		_createdAtUtc = postImage.CreatedAtUtc;
 	}
 
+	public PostImageBuilder WithId(IStringTransformer transformer)
+	{
+		_id = transformer.Transform(_id);
+
+		return this;
+	}
+
+	public PostImageBuilder WithImageId(PostImageId imageId, IStringTransformer? transformer = null)
+	{
+		_imageId = transformer.TryTransform(imageId.ImageId);
+
+		return this;
+	}
+
+	public PostImageBuilder WithImageId(IStringTransformer transformer)
+	{
+		_imageId = transformer.Transform(_imageId);
+
+		return this;
+	}
+
+	public PostImage BuildAttached()
+	{
+		var postImage = Build();
+
+		_post.AddPostImage(postImage);
+
+		return postImage;
+	}
+
 	public PostImage Build()
 	{
 		var postImage = new PostImage(
@@ -35,7 +65,6 @@ public class PostImageBuilder
 				new(_url),
 				_createdAtUtc);
 
-		_post.AddPostImage(postImage);
 		postImage.AddPost(_post);
 
 		return postImage;

@@ -5,13 +5,16 @@ namespace InstaConnect.Identity.Infrastructure.Features.UserClaims.Helpers.Repos
 internal class UserClaimQueryRepository : IUserClaimQueryRepository
 {
 	private readonly IUserClaimCollection _collection;
+	private readonly IUserClaimCacheHandler _cacheHandler;
 	private readonly IUserClaimIncludeBuilderFactory _includeBuilderFactory;
 
 	public UserClaimQueryRepository(
 		IUserClaimCollection collection,
+		IUserClaimCacheHandler cacheHandler,
 		IUserClaimIncludeBuilderFactory includeBuilderFactory)
 	{
 		_collection = collection;
+		_cacheHandler = cacheHandler;
 		_includeBuilderFactory = includeBuilderFactory;
 	}
 
@@ -26,8 +29,8 @@ internal class UserClaimQueryRepository : IUserClaimQueryRepository
 			.AggregateFluent()
 			.Match(filter)
 			.ProjectToResponseWithoutUser(current)
-			.ApplySorting(sorting)
-			.ApplyPagination(pagination)
+			.Sort(sorting)
+			.Paginate(pagination)
 			.ToListAsync(cancellationToken);
 	}
 
@@ -46,14 +49,27 @@ internal class UserClaimQueryRepository : IUserClaimQueryRepository
 		CurrentUserQuery current,
 		CancellationToken cancellationToken)
 	{
-		var include = _includeBuilderFactory.Create().WithUser().Build();
+		var cachedResponse = await _cacheHandler.GetByIdAsync(id, current.Id, cancellationToken);
 
-		return await _collection
+		if (cachedResponse != null)
+		{
+			return cachedResponse;
+		}
+
+		var include = _includeBuilderFactory.Create().WithUser().Build();
+		var response = await _collection
 			.AggregateFluent()
-			.ApplyIncludes(include)
 			.Match(id)
+			.Include(include)
 			.ProjectToFullResponse(current)
 			.FirstOrDefaultAsync(cancellationToken);
+
+		if (response != null)
+		{
+			await _cacheHandler.AddAsync(response, current.Id, cancellationToken);
+		}
+
+		return response;
 	}
 
 	public async Task<bool> ExistsByIdAsync(

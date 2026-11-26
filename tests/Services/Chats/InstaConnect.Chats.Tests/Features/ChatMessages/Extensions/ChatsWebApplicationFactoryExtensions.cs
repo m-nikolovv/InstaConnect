@@ -3,8 +3,6 @@ using InstaConnect.Chats.Tests.Features.ChatMessages.Abstractions;
 using InstaConnect.Chats.Tests.Features.ChatMessages.Helpers;
 using InstaConnect.Common.Tests.Features.Extensions;
 
-using Microsoft.Extensions.Options;
-
 namespace InstaConnect.Chats.Tests.Features.ChatMessages.Extensions;
 
 public static class ChatsWebApplicationFactoryExtensions
@@ -14,8 +12,7 @@ public static class ChatsWebApplicationFactoryExtensions
 		public IChatMessageNotificationClient CreateMessageNotificationClient(UserId participantTwoId)
 		{
 			var hubRoute = webApplicationFactory.Services
-				.GetRequiredService<IOptions<ChatMessageOptions>>()
-				.Value
+				.GetRequiredService<ChatMessageOptions>()
 				.HubRoute;
 
 			var connection = webApplicationFactory.CreateHubConnection(participantTwoId.Id, hubRoute.TrimLeadingSlash());

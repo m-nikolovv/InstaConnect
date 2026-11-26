@@ -258,62 +258,24 @@ public static class ChatMessageMockSetups
 		}
 	}
 
-	extension(IChatMessageQueryService service)
-	{
-		public void SetupGetAllAsync(
-			GetAllChatMessagesQuery query,
-			ChatMessageCollectionResponse response,
-			CancellationToken cancellationToken)
-		{
-			service
-				.GetAllAsync(query, cancellationToken)
-				.ReturnsTaskResponse(response);
-		}
-
-		public void SetupGetByIdAsync(
-			GetChatMessageByIdQuery query,
-			ChatMessageResponse response,
-			CancellationToken cancellationToken)
-		{
-			service
-				.GetByIdAsync(query, cancellationToken)
-				.ReturnsTaskResponse(response);
-		}
-	}
-
-	extension(IChatMessageCommandService service)
-	{
-		public void SetupAddAsync(
-			AddChatMessageCommand command,
-			ChatMessageId id,
-			CancellationToken cancellationToken)
-		{
-			service
-				.AddAsync(command, cancellationToken)
-				.ReturnsTaskResponse(id);
-		}
-
-		public void SetupUpdateAsync(
-			UpdateChatMessageCommand command,
-			ChatMessageId id,
-			CancellationToken cancellationToken)
-		{
-			service
-				.UpdateAsync(command, cancellationToken)
-				.ReturnsTaskResponse(id);
-		}
-	}
-
 	extension(IChatMessageImageFactory factory)
 	{
 		public void SetupCreateRange(
 			AddChatMessageCommand command,
 			ChatMessage chatMessage)
 		{
+			factory.SetupCreateRange(command, chatMessage, chatMessage.ChatMessageImages);
+		}
+
+		public void SetupCreateRange(
+			AddChatMessageCommand command,
+			ChatMessage chatMessage,
+			ICollection<ChatMessageImage> chatMessageImages)
+		{
 			factory.SetupCreateRange(
 				chatMessage.Id,
 				command.IsImages(),
-				chatMessage.ChatMessageImages.To(command));
+				chatMessageImages.To(command));
 		}
 
 		public void SetupCreateRange(

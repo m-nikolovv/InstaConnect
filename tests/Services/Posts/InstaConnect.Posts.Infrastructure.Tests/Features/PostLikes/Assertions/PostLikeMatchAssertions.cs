@@ -14,6 +14,14 @@ public static class PostLikeMatchAssertions
 		}
 	}
 
+	extension(ICollection<PostLike> response)
+	{
+		public void ShouldSatisfy(ICollection<PostLikeId> ids, ICollection<PostLike> postLikes)
+		{
+			response.ShouldSatisfy(p => p.Matches(ids, postLikes));
+		}
+	}
+
 	extension(PostLikeResponse response)
 	{
 		public void ShouldSatisfy(PostLikeId id, CurrentUserQuery currentUserQuery, PostLike postLike)

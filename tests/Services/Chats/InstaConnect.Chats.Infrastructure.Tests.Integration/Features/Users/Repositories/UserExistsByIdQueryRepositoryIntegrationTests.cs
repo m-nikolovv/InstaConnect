@@ -1,3 +1,5 @@
+
+
 namespace InstaConnect.Chats.Infrastructure.Tests.Integration.Features.Users.Repositories;
 
 public class UserExistsByIdQueryRepositoryIntegrationTests : BaseUserInfrastructureQueryIntegrationTest
@@ -7,9 +9,9 @@ public class UserExistsByIdQueryRepositoryIntegrationTests : BaseUserInfrastruct
 	{
 	}
 
-	protected override async Task OnInitializeAsync()
+	public override async Task InitializeAsync()
 	{
-		await ServiceScope.AddAsync(User, CancellationToken);
+		await ServiceScope.SetupGetUserByIdAsync(User, CancellationToken);
 	}
 
 	[Fact]

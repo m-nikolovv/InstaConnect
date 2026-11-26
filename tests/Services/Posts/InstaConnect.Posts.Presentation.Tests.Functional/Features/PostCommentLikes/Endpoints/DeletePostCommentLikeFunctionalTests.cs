@@ -1,3 +1,4 @@
+
 namespace InstaConnect.Posts.Presentation.Tests.Functional.Features.PostCommentLikes.Endpoints;
 
 public class DeletePostCommentLikeFunctionalTests : BasePostCommentLikePresentationCommandFunctionalTest
@@ -14,9 +15,16 @@ public class DeletePostCommentLikeFunctionalTests : BasePostCommentLikePresentat
 		_request = _requestBuilder.Build();
 	}
 
-	protected override async Task OnInitializeAsync()
+	public override async Task InitializeAsync()
 	{
-		await ServiceScope.AddAsync(PostCommentLike, CancellationToken);
+		await ServiceScope.SetupDeleteAsync(
+			_request,
+			User,
+			Post,
+			PostComment,
+			PostCommentLike,
+			CancellationToken);
+		await base.InitializeAsync();
 	}
 
 	[Fact]
@@ -317,6 +325,130 @@ public class DeletePostCommentLikeFunctionalTests : BasePostCommentLikePresentat
 
 		// Assert
 		postCommentLike.ShouldBeNull();
+	}
+
+	[Fact]
+	public async Task DeleteAsync_ShouldDeleteCachedPostCommentLike_WhenRequestIsValid()
+	{
+		// Act
+		await CommentLikeApiClient.DeleteAsync(_request, CancellationToken);
+		var cachedPostCommentLike = await ServiceScope.GetPostCommentLikeCacheByIdAsync(_request, CancellationToken);
+
+		// Assert
+		cachedPostCommentLike.ShouldBeNull();
+	}
+
+	[Theory]
+	[PostIdDifferentCaseData]
+	public async Task DeleteAsync_ShouldDeleteCachedPostCommentLike_WhenRequestAndIdAreValid(
+		IStringTransformer transformer)
+	{
+		// Arrange
+		var request = _requestBuilder.WithId(transformer).Build();
+		await ServiceScope.AddPostCommentLikeCacheAsync(request, PostCommentLike, CancellationToken);
+
+		// Act
+		await CommentLikeApiClient.DeleteAsync(request, CancellationToken);
+		var cachedPostCommentLike = await ServiceScope.GetPostCommentLikeCacheByIdAsync(request, CancellationToken);
+
+		// Assert
+		cachedPostCommentLike.ShouldBeNull();
+	}
+
+	[Theory]
+	[PostCommentIdDifferentCaseData]
+	public async Task DeleteAsync_ShouldDeleteCachedPostCommentLike_WhenRequestAndCommentIdAreValid(
+		IStringTransformer transformer)
+	{
+		// Arrange
+		var request = _requestBuilder.WithCommentId(transformer).Build();
+		await ServiceScope.AddPostCommentLikeCacheAsync(request, PostCommentLike, CancellationToken);
+
+		// Act
+		await CommentLikeApiClient.DeleteAsync(request, CancellationToken);
+		var cachedPostCommentLike = await ServiceScope.GetPostCommentLikeCacheByIdAsync(request, CancellationToken);
+
+		// Assert
+		cachedPostCommentLike.ShouldBeNull();
+	}
+
+	[Theory]
+	[UserIdDifferentCaseData]
+	public async Task DeleteAsync_ShouldDeleteCachedPostCommentLike_WhenRequestAndUserIdAreValid(
+		IStringTransformer transformer)
+	{
+		// Arrange
+		var request = _requestBuilder.WithUserId(transformer).Build();
+		await ServiceScope.AddPostCommentLikeCacheAsync(request, PostCommentLike, CancellationToken);
+
+		// Act
+		await CommentLikeApiClient.DeleteAsync(request, CancellationToken);
+		var cachedPostCommentLike = await ServiceScope.GetPostCommentLikeCacheByIdAsync(request, CancellationToken);
+
+		// Assert
+		cachedPostCommentLike.ShouldBeNull();
+	}
+
+	[Fact]
+	public async Task DeleteAsync_ShouldDeleteCachedPostComment_WhenRequestIsValid()
+	{
+		// Act
+		await CommentLikeApiClient.DeleteAsync(_request, CancellationToken);
+		var cachedPostComment = await ServiceScope.GetPostCommentCacheByIdAsync(_request, CancellationToken);
+
+		// Assert
+		cachedPostComment.ShouldBeNull();
+	}
+
+	[Theory]
+	[PostIdDifferentCaseData]
+	public async Task DeleteAsync_ShouldDeleteCachedPostComment_WhenRequestAndIdAreValid(
+		IStringTransformer transformer)
+	{
+		// Arrange
+		var request = _requestBuilder.WithId(transformer).Build();
+		await ServiceScope.AddPostCommentCacheAsync(request, PostComment, CancellationToken);
+
+		// Act
+		await CommentLikeApiClient.DeleteAsync(request, CancellationToken);
+		var cachedPostComment = await ServiceScope.GetPostCommentCacheByIdAsync(request, CancellationToken);
+
+		// Assert
+		cachedPostComment.ShouldBeNull();
+	}
+
+	[Theory]
+	[PostCommentIdDifferentCaseData]
+	public async Task DeleteAsync_ShouldDeleteCachedPostComment_WhenRequestAndCommentIdAreValid(
+		IStringTransformer transformer)
+	{
+		// Arrange
+		var request = _requestBuilder.WithCommentId(transformer).Build();
+		await ServiceScope.AddPostCommentCacheAsync(request, PostComment, CancellationToken);
+
+		// Act
+		await CommentLikeApiClient.DeleteAsync(request, CancellationToken);
+		var cachedPostComment = await ServiceScope.GetPostCommentCacheByIdAsync(request, CancellationToken);
+
+		// Assert
+		cachedPostComment.ShouldBeNull();
+	}
+
+	[Theory]
+	[UserIdDifferentCaseData]
+	public async Task DeleteAsync_ShouldDeleteCachedPostComment_WhenRequestAndUserIdAreValid(
+		IStringTransformer transformer)
+	{
+		// Arrange
+		var request = _requestBuilder.WithUserId(transformer).Build();
+		await ServiceScope.AddPostCommentCacheAsync(request, PostComment, CancellationToken);
+
+		// Act
+		await CommentLikeApiClient.DeleteAsync(request, CancellationToken);
+		var cachedPostComment = await ServiceScope.GetPostCommentCacheByIdAsync(request, CancellationToken);
+
+		// Assert
+		cachedPostComment.ShouldBeNull();
 	}
 
 	[Fact]

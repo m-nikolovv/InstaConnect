@@ -1,5 +1,7 @@
 using InstaConnect.Chats.Domain.Features.ChatMessages.Models.ValueObjects;
 using InstaConnect.Chats.Infrastructure.Features.ChatMessages.Abstractions;
+using InstaConnect.Chats.Infrastructure.Features.Chats.Abstractions;
+using InstaConnect.Chats.Infrastructure.Tests.Features.ChatMessages.Utilities;
 
 namespace InstaConnect.Chats.Infrastructure.Tests.Features.ChatMessages.Assertions;
 
@@ -8,6 +10,11 @@ public static class ChatMessageMockAssertions
 	extension(IChatMessageCollection collection)
 	{
 		public void ShouldHaveReceivedOneAggregateFluent(ChatMessageId id)
+		{
+			collection.ShouldHaveReceivedOneAggregateFluent();
+		}
+
+		public void ShouldHaveReceivedOneAggregateFluent(ICollection<ChatMessageId> ids)
 		{
 			collection.ShouldHaveReceivedOneAggregateFluent();
 		}
@@ -36,6 +43,27 @@ public static class ChatMessageMockAssertions
 		public void ShouldHaveReceivedOneAggregateFluent()
 		{
 			collection.ShouldHaveReceivedOne().AggregateFluent();
+		}
+
+		public void ShouldHaveReceivedZeroAggregateFluent(
+			ChatMessageId id,
+			CurrentUserQuery currentUserQuery)
+		{
+			collection.ShouldHaveReceivedZero().AggregateFluent();
+		}
+
+		public async Task ShouldHaveReceivedOneAddAsync(
+			ChatMessage chatMessage,
+			CancellationToken cancellationToken)
+		{
+			await collection.ShouldHaveReceivedOne().AddAsync(chatMessage, cancellationToken);
+		}
+
+		public async Task ShouldHaveReceivedOneAddRangeAsync(
+			ICollection<ChatMessage> chatMessages,
+			CancellationToken cancellationToken)
+		{
+			await collection.ShouldHaveReceivedOne().AddRangeAsync(chatMessages, cancellationToken);
 		}
 
 		public async Task ShouldHaveReceivedOneUpdateAsync(
@@ -74,6 +102,11 @@ public static class ChatMessageMockAssertions
 			fluent.ShouldHaveReceivedOne().Match(id);
 		}
 
+		public void ShouldHaveReceivedOneMatch(ICollection<ChatMessageId> ids)
+		{
+			fluent.ShouldHaveReceivedOne().Match(ids);
+		}
+
 		public void ShouldHaveReceivedOneMatch(
 			ChatMessageId id,
 			CurrentUserQuery currentUserQuery)
@@ -81,41 +114,63 @@ public static class ChatMessageMockAssertions
 			fluent.ShouldHaveReceivedOneMatch(id);
 		}
 
-		public void ShouldHaveReceivedOneApplyIncludes(
+		public void ShouldHaveReceivedZeroMatch(
+			ChatMessageId id,
+			CurrentUserQuery currentUserQuery)
+		{
+			fluent.ShouldHaveReceivedZero().Match(id);
+		}
+
+		public void ShouldHaveReceivedOneInclude(
 			ChatMessageId id,
 			ChatMessageInclude include)
 		{
-			fluent.ShouldHaveReceivedOneApplyIncludes(include);
+			fluent.ShouldHaveReceivedOneInclude(include);
 		}
 
-		public void ShouldHaveReceivedOneApplyIncludes(
+		public void ShouldHaveReceivedOneInclude(
+			ICollection<ChatMessageId> ids,
+			ChatMessageInclude include)
+		{
+			fluent.ShouldHaveReceivedOneInclude(include);
+		}
+
+		public void ShouldHaveReceivedOneInclude(
 			ChatMessageId id,
 			CurrentUserQuery currentUserQuery,
 			ChatMessageInclude include)
 		{
-			fluent.ShouldHaveReceivedOneApplyIncludes(include);
+			fluent.ShouldHaveReceivedOneInclude(include);
 		}
 
-		public void ShouldHaveReceivedOneApplyIncludes(
+		public void ShouldHaveReceivedOneInclude(
 			ChatMessagesFilterQuery filterQuery,
 			ChatMessageInclude include)
 		{
-			fluent.ShouldHaveReceivedOneApplyIncludes(include);
+			fluent.ShouldHaveReceivedOneInclude(include);
 		}
 
-		public void ShouldHaveReceivedOneApplyIncludes(
+		public void ShouldHaveReceivedOneInclude(
 			ChatMessagesFilterQuery filterQuery,
 			ChatMessagesSortingQuery sortingQuery,
 			ChatMessagesPaginationQuery paginationQuery,
 			CurrentUserQuery currentUserQuery,
 			ChatMessageInclude include)
 		{
-			fluent.ShouldHaveReceivedOneApplyIncludes(include);
+			fluent.ShouldHaveReceivedOneInclude(include);
 		}
 
-		public void ShouldHaveReceivedOneApplyIncludes(ChatMessageInclude include)
+		public void ShouldHaveReceivedOneInclude(ChatMessageInclude include)
 		{
-			fluent.ShouldHaveReceivedOne().ApplyIncludes(include);
+			fluent.ShouldHaveReceivedOne().Include(include);
+		}
+
+		public void ShouldHaveReceivedZeroInclude(
+			ChatMessageId id,
+			CurrentUserQuery currentUserQuery,
+			ChatMessageInclude include)
+		{
+			fluent.ShouldHaveReceivedZero().Include(include);
 		}
 
 		public void ShouldHaveReceivedOneProjectToFullResponse(
@@ -128,6 +183,13 @@ public static class ChatMessageMockAssertions
 		public void ShouldHaveReceivedOneProjectToFullResponse(CurrentUserQuery currentUserQuery)
 		{
 			fluent.ShouldHaveReceivedOne().ProjectToFullResponse(currentUserQuery);
+		}
+
+		public void ShouldHaveReceivedZeroProjectToFullResponse(
+			ChatMessageId id,
+			CurrentUserQuery currentUserQuery)
+		{
+			fluent.ShouldHaveReceivedZero().ProjectToFullResponse(currentUserQuery);
 		}
 
 		public void ShouldHaveReceivedOneProjectToResponseWithoutChat(
@@ -164,36 +226,43 @@ public static class ChatMessageMockAssertions
 		{
 			await fluent.ShouldHaveReceivedOneFirstOrDefaultAsync(cancellationToken);
 		}
+
+		public async Task ShouldHaveReceivedOneToListAsync(
+			ICollection<ChatMessageId> ids,
+			CancellationToken cancellationToken)
+		{
+			await fluent.ShouldHaveReceivedOneToListAsync(cancellationToken);
+		}
 	}
 
 	extension(IChatMessageResponseFluent fluent)
 	{
-		public void ShouldHaveReceivedOneApplySorting(
+		public void ShouldHaveReceivedOneSort(
 			ChatMessagesFilterQuery filterQuery,
 			ChatMessagesSortingQuery sortingQuery,
 			ChatMessagesPaginationQuery paginationQuery,
 			CurrentUserQuery currentUserQuery)
 		{
-			fluent.ShouldHaveReceivedOneApplySorting(sortingQuery);
+			fluent.ShouldHaveReceivedOneSort(sortingQuery);
 		}
 
-		public void ShouldHaveReceivedOneApplySorting(ChatMessagesSortingQuery sortingQuery)
+		public void ShouldHaveReceivedOneSort(ChatMessagesSortingQuery sortingQuery)
 		{
-			fluent.ShouldHaveReceivedOne().ApplySorting(sortingQuery);
+			fluent.ShouldHaveReceivedOne().Sort(sortingQuery);
 		}
 
-		public void ShouldHaveReceivedOneApplyPagination(
+		public void ShouldHaveReceivedOnePaginate(
 			ChatMessagesFilterQuery filterQuery,
 			ChatMessagesSortingQuery sortingQuery,
 			ChatMessagesPaginationQuery paginationQuery,
 			CurrentUserQuery currentUserQuery)
 		{
-			fluent.ShouldHaveReceivedOneApplyPagination(paginationQuery);
+			fluent.ShouldHaveReceivedOnePaginate(paginationQuery);
 		}
 
-		public void ShouldHaveReceivedOneApplyPagination(ChatMessagesPaginationQuery paginationQuery)
+		public void ShouldHaveReceivedOnePaginate(ChatMessagesPaginationQuery paginationQuery)
 		{
-			fluent.ShouldHaveReceivedOne().ApplyPagination(paginationQuery);
+			fluent.ShouldHaveReceivedOne().Paginate(paginationQuery);
 		}
 
 		public async Task ShouldHaveReceivedOneFirstOrDefaultAsync(
@@ -204,6 +273,14 @@ public static class ChatMessageMockAssertions
 			await fluent.ShouldHaveReceivedOneFirstOrDefaultAsync(cancellationToken);
 		}
 
+		public async Task ShouldHaveReceivedZeroFirstOrDefaultAsync(
+			ChatMessageId id,
+			CurrentUserQuery currentUserQuery,
+			CancellationToken cancellationToken)
+		{
+			await fluent.ShouldHaveReceivedZero().FirstOrDefaultAsync(cancellationToken);
+		}
+
 		public async Task ShouldHaveReceivedOneToListAsync(
 			ChatMessagesFilterQuery filterQuery,
 			ChatMessagesSortingQuery sortingQuery,
@@ -212,6 +289,57 @@ public static class ChatMessageMockAssertions
 			CancellationToken cancellationToken)
 		{
 			await fluent.ShouldHaveReceivedOneToListAsync(cancellationToken);
+		}
+	}
+
+	extension(IChatMessageCacheHandler cacheHandler)
+	{
+		public async Task ShouldHaveReceivedOneGetByIdAsync(
+			ChatMessageId id,
+			CurrentUserQuery currentUserQuery,
+			CancellationToken cancellationToken)
+		{
+			await cacheHandler.ShouldHaveReceivedOne().GetByIdAsync(id, currentUserQuery.Id, cancellationToken);
+		}
+
+		public async Task ShouldHaveReceivedOneAddAsync(
+			ChatMessage chatMessage,
+			CurrentUserQuery currentUserQuery,
+			CancellationToken cancellationToken)
+		{
+			await cacheHandler.ShouldHaveReceivedOne().AddAsync(chatMessage.IsChatMessageResponse(currentUserQuery), currentUserQuery.Id, cancellationToken);
+		}
+
+		public async Task ShouldHaveReceivedZeroAddAsync(
+			ChatMessage chatMessage,
+			CurrentUserQuery currentUserQuery,
+			CancellationToken cancellationToken)
+		{
+			await cacheHandler.ShouldHaveReceivedZero().AddAsync(chatMessage.IsChatMessageResponse(currentUserQuery), currentUserQuery.Id, cancellationToken);
+		}
+
+		public async Task ShouldHaveReceivedOneDeleteAsync(
+			ChatMessage chatMessage,
+			CancellationToken cancellationToken)
+		{
+			await cacheHandler.ShouldHaveReceivedOne().DeleteAsync(chatMessage.Id, cancellationToken);
+		}
+	}
+
+	extension(IChatCacheHandler cacheHandler)
+	{
+		public async Task ShouldHaveReceivedOneDeleteResponseAsync(
+			ChatMessage chatMessage,
+			CancellationToken cancellationToken)
+		{
+			await cacheHandler.ShouldHaveReceivedOne().DeleteResponseAsync(chatMessage.Id.Id, cancellationToken);
+		}
+
+		public async Task ShouldHaveReceivedOneDeleteResponseRangeAsync(
+			ICollection<ChatMessage> chatMessages,
+			CancellationToken cancellationToken)
+		{
+			await cacheHandler.ShouldHaveReceivedOne().DeleteResponseRangeAsync(chatMessages.Select(p => p.Id.Id), cancellationToken);
 		}
 	}
 }

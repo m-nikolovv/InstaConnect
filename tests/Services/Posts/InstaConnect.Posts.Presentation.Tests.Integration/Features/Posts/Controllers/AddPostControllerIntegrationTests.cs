@@ -19,6 +19,12 @@ public class AddPostControllerIntegrationTests : BasePostPresentationCommandInte
 		_request = _requestBuilder.Build();
 	}
 
+	public override async Task InitializeAsync()
+	{
+		await ServiceScope.SetupAddAsync(_request, User, CancellationToken);
+		await base.InitializeAsync();
+	}
+
 	[Theory]
 	[UserIdNullWithMessageData]
 	[UserIdEmptyWithMessageData]

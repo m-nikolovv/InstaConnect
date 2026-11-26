@@ -4,9 +4,9 @@ public class GetCurrentUserDetailsByIdQueryRequestBuilder
 {
 	private string _currentId;
 
-	public GetCurrentUserDetailsByIdQueryRequestBuilder(User user)
+	public GetCurrentUserDetailsByIdQueryRequestBuilder(User user, UserId currentId)
 	{
-		_currentId = user.Id.Id;
+		_currentId = currentId.Id;
 	}
 
 	public GetCurrentUserDetailsByIdQueryRequestBuilder WithCurrentId(UserId currentId, IStringTransformer? transformer = null)

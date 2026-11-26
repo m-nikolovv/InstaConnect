@@ -1,5 +1,6 @@
 using InstaConnect.Identity.Events.Features.Users;
 using InstaConnect.Posts.Application.Features.PostLikes.Models;
+using InstaConnect.Posts.Domain.Features.PostLikes.Models.Responses;
 using InstaConnect.Posts.Domain.Features.PostLikes.Models.ValueObjects;
 using InstaConnect.Posts.Events.Features.PostLikes;
 using InstaConnect.Posts.Events.Features.Posts;
@@ -393,6 +394,14 @@ public static class PostLikeEquals
 															  matches,
 															  termTransformer,
 															  matchesFilter);
+		}
+	}
+
+	extension(PostLikeResponse? response)
+	{
+		public bool Matches(GetPostLikeByIdQueryRequest request, PostLike postLike)
+		{
+			return response.MatchesFull(request.CurrentUserId, postLike);
 		}
 	}
 }

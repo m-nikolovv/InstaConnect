@@ -16,7 +16,7 @@ public class GetUsersTotalCountQueryRepositoryUnitTests : BaseUserInfrastructure
 		_filterQueryBuilder = _filterQueryBuilderFactory.Create(User);
 		_filterQuery = _filterQueryBuilder.Build();
 
-		_repository = new(Collection);
+		_repository = new(Collection, CacheHandler);
 
 		Collection.SetupAggregateFluent(_filterQuery, Fluent);
 		Fluent.SetupMatch(_filterQuery);

@@ -1,5 +1,3 @@
-using InstaConnect.Identity.Tests.Features.UserClaims.Utilities;
-
 namespace InstaConnect.Identity.Infrastructure.Tests.Features.UserClaims.Builders;
 
 public class UserClaimsSortingQueryBuilder

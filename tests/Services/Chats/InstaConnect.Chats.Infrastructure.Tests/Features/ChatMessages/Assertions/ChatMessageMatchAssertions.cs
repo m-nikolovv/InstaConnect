@@ -14,6 +14,14 @@ public static class ChatMessageMatchAssertions
 		}
 	}
 
+	extension(ICollection<ChatMessage> response)
+	{
+		public void ShouldSatisfy(ICollection<ChatMessageId> ids, ICollection<ChatMessage> chatMessages)
+		{
+			response.ShouldSatisfy(p => p.Matches(ids, chatMessages));
+		}
+	}
+
 	extension(ChatMessageResponse response)
 	{
 		public void ShouldSatisfy(ChatMessageId id, CurrentUserQuery currentUserQuery, ChatMessage chatMessage)

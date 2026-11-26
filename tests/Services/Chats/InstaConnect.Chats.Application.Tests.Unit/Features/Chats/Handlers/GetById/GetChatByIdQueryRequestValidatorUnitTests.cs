@@ -13,7 +13,7 @@ public class GetChatByIdQueryRequestValidatorUnitTests : BaseChatApplicationQuer
 	public GetChatByIdQueryRequestValidatorUnitTests()
 	{
 		_requestBuilderFactory = new();
-		_requestBuilder = _requestBuilderFactory.Create(Chat);
+		_requestBuilder = _requestBuilderFactory.Create(Chat, UserId);
 		_request = _requestBuilder.Build();
 
 		_requestValidator = new();

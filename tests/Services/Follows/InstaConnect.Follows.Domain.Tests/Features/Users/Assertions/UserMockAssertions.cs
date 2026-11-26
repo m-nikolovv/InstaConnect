@@ -172,28 +172,4 @@ public static class UserMockAssertions
 			await repository.ShouldHaveReceivedOne().GetByIdAsync(id, currentUser, cancellationToken);
 		}
 	}
-
-	extension(IUserCommandService service)
-	{
-		public async Task ShouldHaveReceivedOneAddAsync(
-			AddUserCommand command,
-			CancellationToken cancellationToken)
-		{
-			await service.ShouldHaveReceivedOne().AddAsync(command, cancellationToken);
-		}
-
-		public async Task ShouldHaveReceivedOneUpdateAsync(
-			UpdateUserCommand command,
-			CancellationToken cancellationToken)
-		{
-			await service.ShouldHaveReceivedOne().UpdateAsync(command, cancellationToken);
-		}
-
-		public async Task ShouldHaveReceivedOneDeleteAsync(
-			DeleteUserCommand command,
-			CancellationToken cancellationToken)
-		{
-			await service.ShouldHaveReceivedOne().DeleteAsync(command, cancellationToken);
-		}
-	}
 }

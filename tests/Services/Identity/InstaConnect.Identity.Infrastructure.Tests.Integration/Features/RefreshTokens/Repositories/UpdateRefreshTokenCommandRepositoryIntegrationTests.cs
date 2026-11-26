@@ -10,9 +10,9 @@ public class UpdateRefreshTokenCommandRepositoryIntegrationTests : BaseRefreshTo
 	{
 	}
 
-	protected override async Task OnInitializeAsync()
+	public override async Task InitializeAsync()
 	{
-		await ServiceScope.AddAsync(RefreshToken, CancellationToken);
+		await ServiceScope.SetupUpdateRefreshTokenAsync(User, RefreshToken, CancellationToken);
 	}
 
 	[Fact]

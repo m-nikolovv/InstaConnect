@@ -10,39 +10,6 @@ public static class FollowMapper
 {
 	extension(Follow follow)
 	{
-		internal FollowResponse ToFullResponse<TRequest>(
-			TRequest request)
-			where TRequest : ICurrentUserableQueryRequest
-		{
-			return new(follow.Id,
-					   follow.Follower?.ToFullResponse(),
-					   follow.Following?.ToFullResponse(),
-					   follow.Id.FollowerId.Matches(request.CurrentUserId),
-					   follow.CreatedAtUtc);
-		}
-
-		internal FollowResponse ToResponseWithoutFollower<TRequest>(
-			TRequest request)
-			where TRequest : ICurrentUserableQueryRequest
-		{
-			return new(follow.Id,
-					   null,
-					   follow.Following?.ToFullResponse(),
-					   follow.Id.FollowerId.Matches(request.CurrentUserId),
-					   follow.CreatedAtUtc);
-		}
-
-		internal FollowResponse ToResponseWithoutFollowing<TRequest>(
-			TRequest request)
-			where TRequest : ICurrentUserableQueryRequest
-		{
-			return new(follow.Id,
-					   follow.Follower?.ToFullResponse(),
-					   null,
-					   follow.Id.FollowerId.Matches(request.CurrentUserId),
-					   follow.CreatedAtUtc);
-		}
-
 		public FollowId ToResponse(
 			AddFollowCommandRequest request)
 		{
@@ -52,7 +19,7 @@ public static class FollowMapper
 		public FollowResponse ToResponse(
 			GetFollowByIdQueryRequest request)
 		{
-			return follow.ToFullResponse(request);
+			return follow.ToFullResponse(request.CurrentUserId);
 		}
 	}
 
@@ -106,7 +73,7 @@ public static class FollowMapper
 				request,
 				follower,
 				(request, follow) => follow.MatchesFilter(request),
-				(request, follow) => follow.ToResponseWithoutFollower(request));
+				(request, follow) => follow.ToResponseWithoutFollower(request.CurrentUserId));
 		}
 
 		public FollowCollectionResponse ToResponse(
@@ -117,7 +84,7 @@ public static class FollowMapper
 				request,
 				following,
 				(request, follow) => follow.MatchesFilter(request),
-				(request, follow) => follow.ToResponseWithoutFollowing(request));
+				(request, follow) => follow.ToResponseWithoutFollowing(request.CurrentUserId));
 		}
 	}
 }

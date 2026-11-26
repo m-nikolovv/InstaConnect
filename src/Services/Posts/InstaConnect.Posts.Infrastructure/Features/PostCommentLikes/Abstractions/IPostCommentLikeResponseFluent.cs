@@ -2,7 +2,7 @@ namespace InstaConnect.Posts.Infrastructure.Features.PostCommentLikes.Abstractio
 
 public interface IPostCommentLikeResponseFluent : IMongoDbResponseFluent<PostCommentLikeResponse>
 {
-	public IPostCommentLikeResponseFluent ApplySorting(PostCommentLikesSortingQuery query);
-	public IPostCommentLikeResponseFluent ApplySorting(PostCommentLikesForUserSortingQuery query);
-	public IPostCommentLikeResponseFluent ApplyPagination(PostCommentLikesPaginationQuery query);
+	public IPostCommentLikeResponseFluent Sort(PostCommentLikesSortingQuery query);
+	public IPostCommentLikeResponseFluent Sort(PostCommentLikesForUserSortingQuery query);
+	public IPostCommentLikeResponseFluent Paginate(PostCommentLikesPaginationQuery query);
 }

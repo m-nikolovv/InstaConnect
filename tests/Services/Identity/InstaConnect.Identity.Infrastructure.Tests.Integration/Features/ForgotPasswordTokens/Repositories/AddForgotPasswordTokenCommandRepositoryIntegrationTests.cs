@@ -9,6 +9,11 @@ public class AddForgotPasswordTokenCommandRepositoryIntegrationTests : BaseForgo
 	{
 	}
 
+	public override async Task InitializeAsync()
+	{
+		await ServiceScope.SetupAddForgotPasswordTokenAsync(User, CancellationToken);
+	}
+
 	[Fact]
 	public async Task AddAsync_ShouldAddForgotPasswordToken_WhenCommandIsValid()
 	{

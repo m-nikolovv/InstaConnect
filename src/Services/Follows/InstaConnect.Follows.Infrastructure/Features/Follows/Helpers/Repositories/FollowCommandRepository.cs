@@ -5,13 +5,16 @@ namespace InstaConnect.Follows.Infrastructure.Features.Follows.Helpers.Repositor
 internal class FollowCommandRepository : IFollowCommandRepository
 {
 	private readonly IFollowCollection _collection;
+	private readonly IFollowCacheHandler _cacheHandler;
 	private readonly IFollowIncludeBuilderFactory _includeBuilderFactory;
 
 	public FollowCommandRepository(
 		IFollowCollection collection,
+		IFollowCacheHandler cacheHandler,
 		IFollowIncludeBuilderFactory includeBuilderFactory)
 	{
 		_collection = collection;
+		_cacheHandler = cacheHandler;
 		_includeBuilderFactory = includeBuilderFactory;
 	}
 
@@ -22,8 +25,8 @@ internal class FollowCommandRepository : IFollowCommandRepository
 	{
 		return await _collection
 			.AggregateFluent()
-			.ApplyIncludes(include)
 			.Match(id)
+			.Include(include)
 			.FirstOrDefaultAsync(cancellationToken);
 	}
 
@@ -34,6 +37,27 @@ internal class FollowCommandRepository : IFollowCommandRepository
 		var include = _includeBuilderFactory.Create().Build();
 
 		return await GetByIdAsync(id, include, cancellationToken);
+	}
+
+	public async Task<ICollection<Follow>> GetByIdRangeAsync(
+		IEnumerable<FollowId> ids,
+		FollowInclude include,
+		CancellationToken cancellationToken)
+	{
+		return await _collection
+			.AggregateFluent()
+			.Match(ids)
+			.Include(include)
+			.ToListAsync(cancellationToken);
+	}
+
+	public async Task<ICollection<Follow>> GetByIdRangeAsync(
+		IEnumerable<FollowId> ids,
+		CancellationToken cancellationToken)
+	{
+		var include = _includeBuilderFactory.Create().Build();
+
+		return await GetByIdRangeAsync(ids, include, cancellationToken);
 	}
 
 	public async Task<bool> ExistsByIdAsync(
@@ -59,5 +83,6 @@ internal class FollowCommandRepository : IFollowCommandRepository
 	public async Task DeleteAsync(Follow entity, CancellationToken cancellationToken)
 	{
 		await _collection.DeleteAsync(entity, cancellationToken);
+		await _cacheHandler.DeleteAsync(entity.Id, cancellationToken);
 	}
 }

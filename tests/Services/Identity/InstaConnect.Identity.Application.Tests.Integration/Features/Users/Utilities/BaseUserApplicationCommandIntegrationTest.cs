@@ -5,7 +5,7 @@ using InstaConnect.Identity.Tests.Features.Users.Extensions;
 
 namespace InstaConnect.Identity.Application.Tests.Integration.Features.Users.Utilities;
 
-public abstract class BaseUserApplicationCommandIntegrationTest : BaseUserWebTest
+public abstract class BaseUserApplicationCommandIntegrationTest : BaseUserWebCommandTest
 {
 	protected IApplicationSender Sender { get; }
 
@@ -22,7 +22,7 @@ public abstract class BaseUserApplicationCommandIntegrationTest : BaseUserWebTes
 
 	public override async Task InitializeAsync()
 	{
-		await OnInitializeAsync();
+		await base.InitializeAsync();
 		await EventClient.StartAsync(CancellationToken);
 	}
 

@@ -1,7 +1,6 @@
 using InstaConnect.Posts.Domain.Features.PostCommentLikes.Models.Responses;
 using InstaConnect.Posts.Domain.Features.PostCommentLikes.Models.ValueObjects;
 using InstaConnect.Posts.Infrastructure.Tests.Features.PostComments.Utilities;
-using InstaConnect.Posts.Tests.Features.PostCommentLikes.Utilities;
 
 namespace InstaConnect.Posts.Infrastructure.Tests.Features.PostCommentLikes.Utilities;
 
@@ -28,6 +27,16 @@ public static class PostCommentLikeEquals
 		}
 	}
 
+	extension(ICollection<PostCommentLike> p)
+	{
+		public bool Matches(
+			ICollection<PostCommentLikeId> ids,
+			ICollection<PostCommentLike> postCommentLikes)
+		{
+			return p.Matches(postCommentLikes);
+		}
+	}
+
 	extension(User? u)
 	{
 		public bool MatchesFilter(PostCommentLikesFilterQuery query)
@@ -39,48 +48,12 @@ public static class PostCommentLikeEquals
 
 	extension(PostCommentLikeResponse? response)
 	{
-		public bool MatchesFull(
-			CurrentUserQuery currentUserQuery,
-			PostCommentLike? postCommentLike)
-		{
-			return response != null &&
-				   postCommentLike != null &&
-				   postCommentLike.Id.Matches(response.Id) &&
-				   postCommentLike.CreatedAtUtc == response.CreatedAtUtc &&
-				   response.User.MatchesFull(postCommentLike.User) &&
-				   response.PostComment.MatchesFull(currentUserQuery, postCommentLike.PostComment);
-		}
-
-		public bool MatchesWithoutUser(
-			CurrentUserQuery currentUserQuery,
-			PostCommentLike? postCommentLike)
-		{
-			return response != null &&
-				   postCommentLike != null &&
-				   postCommentLike.Id.Matches(response.Id) &&
-				   postCommentLike.CreatedAtUtc == response.CreatedAtUtc &&
-				   response.User == null &&
-				   response.PostComment.MatchesFull(currentUserQuery, postCommentLike.PostComment);
-		}
-
-		public bool MatchesWithoutPostComment(
-			CurrentUserQuery currentUserQuery,
-			PostCommentLike? postCommentLike)
-		{
-			return response != null &&
-				   postCommentLike != null &&
-				   postCommentLike.Id.Matches(response.Id) &&
-				   postCommentLike.CreatedAtUtc == response.CreatedAtUtc &&
-				   response.User.MatchesFull(postCommentLike.User) &&
-				   response.PostComment == null;
-		}
-
 		public bool Matches(
 			PostCommentLikeId id,
 			CurrentUserQuery currentUserQuery,
 			PostCommentLike postCommentLike)
 		{
-			return response.MatchesFull(currentUserQuery, postCommentLike);
+			return response.MatchesFull(currentUserQuery.Id, postCommentLike);
 		}
 	}
 
@@ -156,7 +129,7 @@ public static class PostCommentLikeEquals
 		{
 			return response.MatchesWithoutUser(
 					   paginationQuery,
-					   (response, postCommentLike) => response.MatchesWithoutPostComment(currentUserQuery, postCommentLike),
+					   (response, postCommentLike) => response.MatchesWithoutPostComment(postCommentLike),
 					   postCommentLike => postCommentLike.MatchesFilter(filterQuery),
 					   postComment,
 					   postCommentLikes);
@@ -173,7 +146,7 @@ public static class PostCommentLikeEquals
 		{
 			return response.MatchesWithoutUser(
 					   paginationQuery,
-					   (response, postCommentLike) => response.MatchesWithoutPostComment(currentUserQuery, postCommentLike),
+					   (response, postCommentLike) => response.MatchesWithoutPostComment(postCommentLike),
 					   postCommentLike => postCommentLike.MatchesFilter(filterQuery),
 					   postComment,
 					   postCommentLikes,
@@ -190,7 +163,7 @@ public static class PostCommentLikeEquals
 		{
 			return response.MatchesWithoutPostComment(
 					   paginationQuery,
-					   (response, postCommentLike) => response.MatchesWithoutUser(currentUserQuery, postCommentLike),
+					   (response, postCommentLike) => response.MatchesWithoutUser(currentUserQuery.Id, postCommentLike),
 					   postCommentLike => postCommentLike.MatchesFilter(filterQuery),
 					   user,
 					   postCommentLikes);
@@ -207,7 +180,7 @@ public static class PostCommentLikeEquals
 		{
 			return response.MatchesWithoutPostComment(
 					   paginationQuery,
-					   (response, postCommentLike) => response.MatchesWithoutUser(currentUserQuery, postCommentLike),
+					   (response, postCommentLike) => response.MatchesWithoutUser(currentUserQuery.Id, postCommentLike),
 					   postCommentLike => postCommentLike.MatchesFilter(filterQuery),
 					   user,
 					   postCommentLikes,

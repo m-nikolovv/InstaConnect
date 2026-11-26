@@ -11,12 +11,12 @@ public class GetAllPostCommentLikesQueryBuilder
 	private CommonSortOrder _sortOrder;
 	private PostCommentLikesSortTerm _sortTerm;
 
-	public GetAllPostCommentLikesQueryBuilder(PostCommentLike postCommentLike)
+	public GetAllPostCommentLikesQueryBuilder(PostCommentLike postCommentLike, UserId currentUserId)
 	{
 		_id = postCommentLike.Id.CommentId.Id.Id;
 		_commentId = postCommentLike.Id.CommentId.CommentId;
 		_userName = DataFaker.GetPrefixString(postCommentLike.User!.Name.Value);
-		_currentUserId = postCommentLike.Id.UserId.Id;
+		_currentUserId = currentUserId.Id;
 		_page = PostCommentLikeDataFaker.GetPage();
 		_pageSize = PostCommentLikeDataFaker.GetPageSize();
 		_sortOrder = DataFaker.GetSortOrder();

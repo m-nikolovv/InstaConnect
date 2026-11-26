@@ -7,13 +7,16 @@ namespace InstaConnect.Identity.Infrastructure.Features.RefreshTokens.Helpers.Re
 internal class RefreshTokenCommandRepository : IRefreshTokenCommandRepository
 {
 	private readonly IRefreshTokenCollection _collection;
+	private readonly IRefreshTokenCacheHandler _cacheHandler;
 	private readonly IRefreshTokenIncludeBuilderFactory _includeBuilderFactory;
 
 	public RefreshTokenCommandRepository(
 		IRefreshTokenCollection collection,
+		IRefreshTokenCacheHandler cacheHandler,
 		IRefreshTokenIncludeBuilderFactory includeBuilderFactory)
 	{
 		_collection = collection;
+		_cacheHandler = cacheHandler;
 		_includeBuilderFactory = includeBuilderFactory;
 	}
 
@@ -24,8 +27,8 @@ internal class RefreshTokenCommandRepository : IRefreshTokenCommandRepository
 	{
 		return await _collection
 			.AggregateFluent()
-			.ApplyIncludes(include)
 			.Match(id)
+			.Include(include)
 			.FirstOrDefaultAsync(cancellationToken);
 	}
 
@@ -36,6 +39,16 @@ internal class RefreshTokenCommandRepository : IRefreshTokenCommandRepository
 		var include = _includeBuilderFactory.Create().Build();
 
 		return await GetByIdAsync(id, include, cancellationToken);
+	}
+
+	public async Task<ICollection<RefreshToken>> GetByIdRangeAsync(
+		IEnumerable<RefreshTokenId> ids,
+		CancellationToken cancellationToken)
+	{
+		return await _collection
+			.AggregateFluent()
+			.Match(ids)
+			.ToListAsync(cancellationToken);
 	}
 
 	public async Task AddAsync(RefreshToken entity, CancellationToken cancellationToken)
@@ -51,10 +64,12 @@ internal class RefreshTokenCommandRepository : IRefreshTokenCommandRepository
 	public async Task UpdateAsync(RefreshToken entity, CancellationToken cancellationToken)
 	{
 		await _collection.UpdateAsync(entity, cancellationToken);
+		await _cacheHandler.DeleteAsync(entity.Id, cancellationToken);
 	}
 
 	public async Task DeleteAsync(RefreshToken entity, CancellationToken cancellationToken)
 	{
 		await _collection.DeleteAsync(entity, cancellationToken);
+		await _cacheHandler.DeleteAsync(entity.Id, cancellationToken);
 	}
 }

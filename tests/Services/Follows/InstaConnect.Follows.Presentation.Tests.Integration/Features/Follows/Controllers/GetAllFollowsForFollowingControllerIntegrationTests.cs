@@ -1,5 +1,6 @@
 using InstaConnect.Follows.Domain.Features.Follows.Models.Entities;
 using InstaConnect.Follows.Domain.Features.Follows.Models.Requests;
+using InstaConnect.Follows.Presentation.Tests.Features.Follows.Utilities;
 using InstaConnect.Follows.Tests.Features.Follows.DataAttributes.Page;
 using InstaConnect.Follows.Tests.Features.Follows.DataAttributes.PageSize;
 using InstaConnect.Follows.Tests.Features.Follows.DataAttributes.SortOrder;
@@ -18,13 +19,18 @@ public class GetAllFollowsForFollowingControllerIntegrationTests : BaseFollowPre
 		: base(webApplicationFactory)
 	{
 		_requestBuilderFactory = new();
-		_requestBuilder = _requestBuilderFactory.Create(Follow);
+		_requestBuilder = _requestBuilderFactory.Create(Follow, UserId);
 		_request = _requestBuilder.Build();
 	}
 
-	protected override async Task OnInitializeAsync()
+	public override async Task InitializeAsync()
 	{
-		await ServiceScope.AddRangeAsync(Follows, CancellationToken);
+		await ServiceScope.SetupGetAllAsync(
+			_request,
+			Followers,
+			Followings,
+			Follows,
+			CancellationToken);
 	}
 
 	[Theory]

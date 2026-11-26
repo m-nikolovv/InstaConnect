@@ -6,6 +6,14 @@ namespace InstaConnect.Chats.Tests.Features.ChatMessages.Assertions;
 
 public static class ChatMessageMatchAssertions
 {
+	extension(ICollection<ChatMessage> p)
+	{
+		public void ShouldSatisfy(ICollection<ChatMessage> chatMessages)
+		{
+			p.ShouldSatisfy(u => u.Matches(chatMessages));
+		}
+	}
+
 	extension(ChatMessage u)
 	{
 		public void ShouldSatisfy(ChatMessage chatMessage)

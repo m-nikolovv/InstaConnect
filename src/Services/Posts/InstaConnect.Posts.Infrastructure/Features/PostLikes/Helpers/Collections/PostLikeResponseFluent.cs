@@ -1,44 +1,55 @@
 namespace InstaConnect.Posts.Infrastructure.Features.PostLikes.Helpers.Collections;
 
-internal class PostLikeResponseFluent :
-	MongoDbResponseFluent<PostLikeResponse>, IPostLikeResponseFluent
+internal class PostLikeResponseFluent : IPostLikeResponseFluent
 {
 	private readonly IPaginator _paginator;
 	private readonly ISortOrdererFactory _sortOrdererFactory;
 	private readonly IPostLikesSortTermerFactory _sortTermerFactory;
 	private readonly IPostLikesForUserSortTermerFactory _forUserSortTermerFactory;
+	private readonly IMongoDbResponseFluentHandler<PostLikeResponse> _fluentHandler;
 
 	public PostLikeResponseFluent(
 		IPaginator paginator,
-		IAggregateFluent<PostLikeResponse> fluent,
 		ISortOrdererFactory sortOrdererFactory,
 		IPostLikesSortTermerFactory sortTermerFactory,
-		IPostLikesForUserSortTermerFactory forUserSortTermerFactory) : base(fluent)
+		IPostLikesForUserSortTermerFactory forUserSortTermerFactory,
+		IMongoDbResponseFluentHandler<PostLikeResponse> fluentHandler)
 	{
 		_paginator = paginator;
-		_sortOrdererFactory = sortOrdererFactory;
+		_fluentHandler = fluentHandler;
 		_sortTermerFactory = sortTermerFactory;
+		_sortOrdererFactory = sortOrdererFactory;
 		_forUserSortTermerFactory = forUserSortTermerFactory;
 	}
 
-	public IPostLikeResponseFluent ApplySorting(PostLikesSortingQuery query)
+	public IPostLikeResponseFluent Sort(PostLikesSortingQuery query)
 	{
-		ApplySorting(_sortOrdererFactory, _sortTermerFactory, query);
+		_fluentHandler.Sort(_sortOrdererFactory, _sortTermerFactory, query);
 
 		return this;
 	}
 
-	public IPostLikeResponseFluent ApplySorting(PostLikesForUserSortingQuery query)
+	public IPostLikeResponseFluent Sort(PostLikesForUserSortingQuery query)
 	{
-		ApplySorting(_sortOrdererFactory, _forUserSortTermerFactory, query);
+		_fluentHandler.Sort(_sortOrdererFactory, _forUserSortTermerFactory, query);
 
 		return this;
 	}
 
-	public IPostLikeResponseFluent ApplyPagination(PostLikesPaginationQuery query)
+	public IPostLikeResponseFluent Paginate(PostLikesPaginationQuery query)
 	{
-		ApplyPagination(_paginator, query);
+		_fluentHandler.Paginate(_paginator, query);
 
 		return this;
+	}
+
+	public async Task<PostLikeResponse?> FirstOrDefaultAsync(CancellationToken cancellationToken)
+	{
+		return await _fluentHandler.FirstOrDefaultAsync(cancellationToken);
+	}
+
+	public async Task<ICollection<PostLikeResponse>> ToListAsync(CancellationToken cancellationToken)
+	{
+		return await _fluentHandler.ToListAsync(cancellationToken);
 	}
 }

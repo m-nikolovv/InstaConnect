@@ -20,13 +20,17 @@ public class GetAllUserClaimsFunctionalTests : BaseUserClaimPresentationQueryFun
 		: base(webApplicationFactory)
 	{
 		_requestBuilderFactory = new();
-		_requestBuilder = _requestBuilderFactory.Create(UserClaim);
+		_requestBuilder = _requestBuilderFactory.Create(UserClaim, UserId);
 		_request = _requestBuilder.Build();
 	}
 
-	protected override async Task OnInitializeAsync()
+	public override async Task InitializeAsync()
 	{
-		await ServiceScope.AddRangeAsync(UserClaims, CancellationToken);
+		await ServiceScope.SetupGetAllAsync(
+			_request,
+			Users,
+			UserClaims,
+			CancellationToken);
 	}
 
 	[Fact]

@@ -1,3 +1,4 @@
+using InstaConnect.Posts.Infrastructure.Tests.Features.PostComments.Utilities;
 using InstaConnect.Posts.Tests.Features.PostComments.Builders;
 
 namespace InstaConnect.Posts.Infrastructure.Tests.Integration.Features.PostComments.Repositories;
@@ -16,9 +17,17 @@ public class GetPostCommentByIdQueryRepositoryIntegrationTests : BasePostComment
 		_currentUserQuery = _currentUserQueryBuilder.Build();
 	}
 
-	protected override async Task OnInitializeAsync()
+	public override async Task InitializeAsync()
 	{
-		await ServiceScope.AddAsync(PostComment, CancellationToken);
+		await ServiceScope.SetupGetPostCommentByIdAsync(
+			Users,
+			Post,
+			PostLikes,
+			PostImages,
+			PostComment,
+			PostCommentPostCommentLikes,
+			PostCommentPostCommentImages,
+			CancellationToken);
 	}
 
 	[Fact]
@@ -89,5 +98,66 @@ public class GetPostCommentByIdQueryRepositoryIntegrationTests : BasePostComment
 
 		// Assert
 		response.ShouldSatisfy(PostCommentId, currentUserQuery, PostComment);
+	}
+
+	[Fact]
+	public async Task GetByIdAsync_ShouldCachePostComment_WhenQueryIsValid()
+	{
+		// Act
+		await Repository.GetByIdAsync(PostCommentId, _currentUserQuery, CancellationToken);
+		var cachedPostComment = await ServiceScope.GetPostCommentCacheByIdAsync(PostCommentId, _currentUserQuery, CancellationToken);
+
+		// Assert
+		cachedPostComment.ShouldSatisfy(PostCommentId, _currentUserQuery, PostComment);
+	}
+
+	[Theory]
+	[PostIdDifferentCaseData]
+	public async Task GetByIdAsync_ShouldCachePostComment_WhenQueryAndIdAreValid(
+		IStringTransformer transformer)
+	{
+		// Arrange
+		var id = PostCommentIdBuilder.WithId(transformer).Build();
+
+		// Act
+		await Repository.GetByIdAsync(id, _currentUserQuery, CancellationToken);
+		var cachedPostComment = await ServiceScope.GetPostCommentCacheByIdAsync(id, _currentUserQuery, CancellationToken);
+
+		// Assert
+		cachedPostComment.ShouldSatisfy(id, _currentUserQuery, PostComment);
+	}
+
+	[Theory]
+	[PostCommentIdDifferentCaseData]
+	public async Task GetByIdAsync_ShouldCachePostComment_WhenQueryAndCommentIdAreValid(
+		IStringTransformer transformer)
+	{
+		// Arrange
+		var id = PostCommentIdBuilder.WithCommentId(transformer).Build();
+
+		// Act
+		await Repository.GetByIdAsync(id, _currentUserQuery, CancellationToken);
+		var cachedPostComment = await ServiceScope.GetPostCommentCacheByIdAsync(id, _currentUserQuery, CancellationToken);
+
+		// Assert
+		cachedPostComment.ShouldSatisfy(id, _currentUserQuery, PostComment);
+	}
+
+	[Theory]
+	[UserIdNullData]
+	[UserIdEmptyData]
+	[UserIdDifferentCaseData]
+	public async Task GetByIdAsync_ShouldCachePostComment_WhenQueryAndCurrentUserIdAreValid(
+		IStringTransformer transformer)
+	{
+		// Arrange
+		var currentUserQuery = _currentUserQueryBuilder.WithCurrentUserId(transformer).Build();
+
+		// Act
+		await Repository.GetByIdAsync(PostCommentId, currentUserQuery, CancellationToken);
+		var cachedPostComment = await ServiceScope.GetPostCommentCacheByIdAsync(PostCommentId, currentUserQuery, CancellationToken);
+
+		// Assert
+		cachedPostComment.ShouldSatisfy(PostCommentId, currentUserQuery, PostComment);
 	}
 }

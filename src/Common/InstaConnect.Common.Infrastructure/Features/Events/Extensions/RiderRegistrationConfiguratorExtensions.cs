@@ -1,4 +1,5 @@
 using InstaConnect.Common.Events.Features.Events.Abstractions;
+using InstaConnect.Common.Infrastructure.Features.Events.Utilities;
 
 using MassTransit;
 
@@ -11,7 +12,7 @@ public static class RiderRegistrationConfiguratorExtensions
 		public IRiderRegistrationConfigurator MapEventProducer<TEvent>(Func<TEvent, string> keySelector)
 			where TEvent : class, IEventRequest
 		{
-			riderConfigurator.AddProducer<string, TEvent>(KebabCaseEndpointNameFormatter.Instance.Message<TEvent>(), context => keySelector(context.Message));
+			riderConfigurator.AddProducer<string, TEvent>(EventUtilities.GetName<TEvent>(), context => keySelector(context.Message));
 			riderConfigurator.AddSingleton(keySelector);
 
 			return riderConfigurator;

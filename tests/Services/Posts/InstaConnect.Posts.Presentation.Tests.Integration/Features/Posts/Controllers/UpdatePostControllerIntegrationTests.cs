@@ -18,10 +18,15 @@ public class UpdatePostControllerIntegrationTests : BasePostPresentationCommandI
 		_request = _requestBuilder.Build();
 	}
 
-	protected override async Task OnInitializeAsync()
+	public override async Task InitializeAsync()
 	{
-		await ServiceScope.AddAsync(Post, CancellationToken);
-		await ServiceScope.AddRangeAsync(PostImages, CancellationToken);
+		await ServiceScope.SetupUpdateAsync(
+			_request,
+			User,
+			Post,
+			PostPostImages,
+			CancellationToken);
+		await base.InitializeAsync();
 	}
 
 	[Theory]
@@ -234,6 +239,51 @@ public class UpdatePostControllerIntegrationTests : BasePostPresentationCommandI
 
 		// Assert
 		post.ShouldSatisfy(request);
+	}
+
+	[Fact]
+	public async Task UpdateAsync_ShouldDeleteCachedPost_WhenRequestIsValid()
+	{
+		// Act
+		await Controller.UpdateAsync(_request, CancellationToken);
+		var cachedPost = await ServiceScope.GetPostCacheByIdAsync(_request, CancellationToken);
+
+		// Assert
+		cachedPost.ShouldBeNull();
+	}
+
+	[Theory]
+	[PostIdDifferentCaseData]
+	public async Task UpdateAsync_ShouldDeleteCachedPost_WhenRequestAndIdAreValid(
+		IStringTransformer transformer)
+	{
+		// Arrange
+		var request = _requestBuilder.WithId(transformer).Build();
+		await ServiceScope.AddPostCacheAsync(request, Post, CancellationToken);
+
+		// Act
+		await Controller.UpdateAsync(request, CancellationToken);
+		var cachedPost = await ServiceScope.GetPostCacheByIdAsync(request, CancellationToken);
+
+		// Assert
+		cachedPost.ShouldBeNull();
+	}
+
+	[Theory]
+	[UserIdDifferentCaseData]
+	public async Task UpdateAsync_ShouldDeleteCachedPost_WhenRequestAndUserIdAreValid(
+		IStringTransformer transformer)
+	{
+		// Arrange
+		var request = _requestBuilder.WithUserId(transformer).Build();
+		await ServiceScope.AddPostCacheAsync(request, Post, CancellationToken);
+
+		// Act
+		await Controller.UpdateAsync(request, CancellationToken);
+		var cachedPost = await ServiceScope.GetPostCacheByIdAsync(request, CancellationToken);
+
+		// Assert
+		cachedPost.ShouldBeNull();
 	}
 
 	[Fact]

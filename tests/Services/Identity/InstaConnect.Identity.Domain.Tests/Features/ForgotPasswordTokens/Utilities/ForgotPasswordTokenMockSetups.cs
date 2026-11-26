@@ -23,9 +23,9 @@ public static class ForgotPasswordTokenMockSetups
 
 		public void SetupGetOffsetUtcNow(
 			ForgotPasswordToken forgotPasswordToken,
-			IOptions<ForgotPasswordTokenOptions> forgotPasswordTokenOptions)
+			ForgotPasswordTokenOptions forgotPasswordTokenOptions)
 		{
-			dateTimeProvider.SetupGetOffsetUtcNow(forgotPasswordTokenOptions.Value.LifetimeSeconds, forgotPasswordToken.ExpiresAtUtc);
+			dateTimeProvider.SetupGetOffsetUtcNow(forgotPasswordTokenOptions.LifetimeSeconds, forgotPasswordToken.ExpiresAtUtc);
 		}
 
 		public void SetupGetOffsetUtcNow(VerifyForgotPasswordTokenCommand command, DateTimeOffset utcNow)
@@ -114,19 +114,6 @@ public static class ForgotPasswordTokenMockSetups
 			CancellationToken cancellationToken)
 		{
 			repository.SetupGetByIdAsync(command.Id, null, cancellationToken);
-		}
-	}
-
-	extension(IForgotPasswordTokenCommandService service)
-	{
-		public void SetupAddAsync(
-			AddForgotPasswordTokenCommand command,
-			ForgotPasswordTokenId id,
-			CancellationToken cancellationToken)
-		{
-			service
-				.AddAsync(command, cancellationToken)
-				.ReturnsTaskResponse(id);
 		}
 	}
 }

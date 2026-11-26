@@ -6,7 +6,7 @@ public class DeleteRangeEmailConfirmationTokensCommandRepositoryUnitTests : Base
 
 	public DeleteRangeEmailConfirmationTokensCommandRepositoryUnitTests()
 	{
-		_repository = new(Collection, IncludeBuilderFactory);
+		_repository = new(Collection, CacheHandler, IncludeBuilderFactory);
 	}
 
 	[Fact]
@@ -17,5 +17,15 @@ public class DeleteRangeEmailConfirmationTokensCommandRepositoryUnitTests : Base
 
 		// Assert
 		await Collection.ShouldHaveReceivedOneDeleteRangeAsync(EmailConfirmationTokens, CancellationToken);
+	}
+
+	[Fact]
+	public async Task DeleteRangeAsync_ShouldCallTheCacheHandlerDeleteRangeAsync_WhenCommandIsValid()
+	{
+		// Act
+		await _repository.DeleteRangeAsync(EmailConfirmationTokens, CancellationToken);
+
+		// Assert
+		await CacheHandler.ShouldHaveReceivedOneDeleteRangeAsync(EmailConfirmationTokens, CancellationToken);
 	}
 }

@@ -17,7 +17,7 @@ public class GetAllUserClaimsQueryServiceUnitTests : BaseUserClaimDomainQueryUni
 	public GetAllUserClaimsQueryServiceUnitTests()
 	{
 		_queryBuilderFactory = new();
-		_queryBuilder = _queryBuilderFactory.Create(UserClaim);
+		_queryBuilder = _queryBuilderFactory.Create(UserClaim, UserId);
 		_query = _queryBuilder.Build();
 
 		_service = new(Repository, ClaimRepository, CollectionResponseFactory);

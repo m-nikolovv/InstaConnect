@@ -4,11 +4,13 @@ using InstaConnect.Chats.Tests.Features.Chats.Utilities;
 
 namespace InstaConnect.Chats.Infrastructure.Tests.Unit.Features.Chats.Utilities;
 
-public abstract class BaseChatInfrastructureCommandUnitTest : BaseChatTest
+public abstract class BaseChatInfrastructureCommandUnitTest : BaseChatCommandTest
 {
 	protected IChatFluent Fluent { get; }
 
 	protected IChatCollection Collection { get; }
+
+	protected IChatCacheHandler CacheHandler { get; }
 
 	protected IChatIncludeBuilderFactory IncludeBuilderFactory { get; }
 
@@ -16,6 +18,7 @@ public abstract class BaseChatInfrastructureCommandUnitTest : BaseChatTest
 	{
 		Fluent = ChatInfrastructureMockFactory.CreateFluent();
 		Collection = ChatInfrastructureMockFactory.CreateCollection();
+		CacheHandler = ChatInfrastructureMockFactory.CreateCacheHandler();
 		IncludeBuilderFactory = ChatMockFactory.CreateIncludeBuilderFactory();
 	}
 }

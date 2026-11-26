@@ -16,6 +16,16 @@ public class AddFollowCommandHandlerIntegrationTests : BaseFollowApplicationComm
 		_request = _requestBuilder.Build();
 	}
 
+	public override async Task InitializeAsync()
+	{
+		await ServiceScope.SetupAddAsync(
+			_request,
+			Follower,
+			Following,
+			CancellationToken);
+		await base.InitializeAsync();
+	}
+
 	[Theory]
 	[UserIdNullWithMessageData]
 	[UserIdEmptyWithMessageData]

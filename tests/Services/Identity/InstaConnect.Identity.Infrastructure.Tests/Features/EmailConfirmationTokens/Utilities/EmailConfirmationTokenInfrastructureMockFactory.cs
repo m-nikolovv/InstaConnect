@@ -13,4 +13,9 @@ public static class EmailConfirmationTokenInfrastructureMockFactory
 	{
 		return Mocker.Mock<IEmailConfirmationTokenFluent>();
 	}
+
+	public static IEmailConfirmationTokenCacheHandler CreateCacheHandler()
+	{
+		return Mocker.Mock<IEmailConfirmationTokenCacheHandler>();
+	}
 }

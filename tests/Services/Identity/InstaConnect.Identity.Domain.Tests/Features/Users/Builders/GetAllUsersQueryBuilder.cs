@@ -11,12 +11,12 @@ public class GetAllUsersQueryBuilder
 	private CommonSortOrder _sortOrder;
 	private UsersSortTerm _sortTerm;
 
-	public GetAllUsersQueryBuilder(User user)
+	public GetAllUsersQueryBuilder(User user, UserId currentUserId)
 	{
 		_name = DataFaker.GetPrefixString(user.Name.Value);
 		_firstName = DataFaker.GetPrefixString(user.FirstName);
 		_lastName = DataFaker.GetPrefixString(user.LastName);
-		_currentUserId = user.Id.Id;
+		_currentUserId = currentUserId.Id;
 		_page = UserDataFaker.GetPage();
 		_pageSize = UserDataFaker.GetPageSize();
 		_sortOrder = DataFaker.GetSortOrder();

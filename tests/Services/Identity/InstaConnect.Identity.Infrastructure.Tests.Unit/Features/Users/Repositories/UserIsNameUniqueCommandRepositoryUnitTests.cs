@@ -17,7 +17,7 @@ public class UserIsNameUniqueCommandRepositoryUnitTests : BaseUserInfrastructure
 		_nameBuilder = _nameBuilderFactory.Create(User.Name);
 		_name = _nameBuilder.Build();
 
-		_repository = new(Collection, IncludeBuilderFactory);
+		_repository = new(Collection, CacheHandler, IncludeBuilderFactory);
 
 		Collection.SetupAggregateFluent(_name, Fluent);
 		Fluent.SetupMatch(_name);

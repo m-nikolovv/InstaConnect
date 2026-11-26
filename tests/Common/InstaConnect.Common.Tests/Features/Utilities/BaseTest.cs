@@ -15,12 +15,7 @@ public abstract class BaseTest : IAsyncLifetime
 		CancellationToken = MockFactory.CreateCancellationToken();
 	}
 
-	public virtual async Task InitializeAsync()
-	{
-		await OnInitializeAsync();
-	}
-
-	protected virtual Task OnInitializeAsync()
+	public virtual Task InitializeAsync()
 	{
 		return Task.CompletedTask;
 	}

@@ -2,10 +2,10 @@ namespace InstaConnect.Posts.Tests.Features.PostCommentLikes.Builders;
 
 public class PostCommentLikeBuilder
 {
-	private readonly string _id;
-	private readonly string _commentId;
+	private string _id;
+	private string _commentId;
 	private readonly PostComment _postComment;
-	private readonly string _userId;
+	private string _userId;
 	private readonly User _user;
 	private readonly DateTimeOffset _createdAtUtc;
 
@@ -29,6 +29,37 @@ public class PostCommentLikeBuilder
 		_createdAtUtc = postCommentLike.CreatedAtUtc;
 	}
 
+	public PostCommentLikeBuilder WithId(IStringTransformer transformer)
+	{
+		_id = transformer.Transform(_id);
+
+		return this;
+	}
+
+	public PostCommentLikeBuilder WithCommentId(IStringTransformer transformer)
+	{
+		_commentId = transformer.Transform(_commentId);
+
+		return this;
+	}
+
+	public PostCommentLikeBuilder WithUserId(IStringTransformer transformer)
+	{
+		_userId = transformer.Transform(_userId);
+
+		return this;
+	}
+
+	public PostCommentLike BuildAttached()
+	{
+		var postCommentLike = Build();
+
+		_user.AddPostCommentLike(postCommentLike);
+		_postComment.AddPostCommentLike(postCommentLike);
+
+		return postCommentLike;
+	}
+
 	public PostCommentLike Build()
 	{
 		var postCommentLike = new PostCommentLike(
@@ -39,8 +70,6 @@ public class PostCommentLikeBuilder
 					new(_userId)),
 				_createdAtUtc);
 
-		_user.AddPostCommentLike(postCommentLike);
-		_postComment.AddPostCommentLike(postCommentLike);
 		postCommentLike.AddUser(_user);
 		postCommentLike.AddPostComment(_postComment);
 

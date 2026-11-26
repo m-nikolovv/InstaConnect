@@ -18,13 +18,13 @@ public class GetAllUsersFunctionalTests : BaseUserPresentationQueryFunctionalTes
 		: base(webApplicationFactory)
 	{
 		_requestBuilderFactory = new();
-		_requestBuilder = _requestBuilderFactory.Create(User);
+		_requestBuilder = _requestBuilderFactory.Create(User, UserId);
 		_request = _requestBuilder.Build();
 	}
 
-	protected override async Task OnInitializeAsync()
+	public override async Task InitializeAsync()
 	{
-		await ServiceScope.AddRangeAsync(Users, CancellationToken);
+		await ServiceScope.SetupGetAllAsync(_request, Users, CancellationToken);
 	}
 
 	[Theory]

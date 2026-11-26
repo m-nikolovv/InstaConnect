@@ -1,3 +1,4 @@
+
 namespace InstaConnect.Posts.Infrastructure.Tests.Integration.Features.Posts.Repositories;
 
 public class AddPostCommandRepositoryIntegrationTests : BasePostInfrastructureCommandIntegrationTest
@@ -5,6 +6,11 @@ public class AddPostCommandRepositoryIntegrationTests : BasePostInfrastructureCo
 	public AddPostCommandRepositoryIntegrationTests(PostsWebApplicationFactory webApplicationFactory)
 		: base(webApplicationFactory)
 	{
+	}
+
+	public override async Task InitializeAsync()
+	{
+		await ServiceScope.SetupAddPostAsync(User, CancellationToken);
 	}
 
 	[Fact]

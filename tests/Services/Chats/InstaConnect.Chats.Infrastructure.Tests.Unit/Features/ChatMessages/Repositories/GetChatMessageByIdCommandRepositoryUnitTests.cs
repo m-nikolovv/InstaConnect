@@ -12,10 +12,10 @@ public class GetChatMessageByIdCommandRepositoryUnitTests : BaseChatMessageInfra
 	{
 		_include = MessageIncludeBuilderFactory.Create().WithSender().WithChat().Build();
 
-		_repository = new(Collection, MessageIncludeBuilderFactory);
+		_repository = new(CacheHandler, Collection, MessageCacheHandler, MessageIncludeBuilderFactory);
 
 		Collection.SetupAggregateFluent(ChatMessageId, Fluent);
-		Fluent.SetupApplyIncludes(ChatMessageId, _include);
+		Fluent.SetupInclude(ChatMessageId, _include);
 		Fluent.SetupMatch(ChatMessageId);
 		Fluent.SetupFirstOrDefaultAsync(ChatMessageId, ChatMessage, CancellationToken);
 	}
@@ -41,13 +41,13 @@ public class GetChatMessageByIdCommandRepositoryUnitTests : BaseChatMessageInfra
 	}
 
 	[Fact]
-	public async Task GetByIdAsync_ShouldCallTheFluentApplyIncludes_WhenCommandIsValid()
+	public async Task GetByIdAsync_ShouldCallTheFluentInclude_WhenCommandIsValid()
 	{
 		// Act
 		await _repository.GetByIdAsync(ChatMessageId, _include, CancellationToken);
 
 		// Assert
-		Fluent.ShouldHaveReceivedOneApplyIncludes(ChatMessageId, _include);
+		Fluent.ShouldHaveReceivedOneInclude(ChatMessageId, _include);
 	}
 
 	[Fact]

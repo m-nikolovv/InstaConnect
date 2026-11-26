@@ -1,3 +1,7 @@
+using InstaConnect.Posts.Domain.Features.PostCommentLikes.Abstractions;
+using InstaConnect.Posts.Infrastructure.Features.PostCommentLikes.Helpers.Repositories;
+using InstaConnect.Posts.Infrastructure.Features.PostCommentLikes.Models.Options;
+
 namespace InstaConnect.Posts.Infrastructure.Features.PostCommentLikes.Extensions;
 
 internal static class ServiceCollectionExtensions
@@ -12,14 +16,20 @@ internal static class ServiceCollectionExtensions
 			serviceCollection.AddImplementationsOf<IPostCommentLikesForUserSortTermer>(PostsInfrastructureReference.Assembly);
 			serviceCollection.AddImplementationsOf<IPostCommentLikeIncluder>(PostsInfrastructureReference.Assembly);
 
-			serviceCollection.AddCollection<PostCommentLike>(CollectionName);
+			serviceCollection.AddValidatedOptions<PostCommentLikeCacheOptions>(PostCommentLikeCacheOptions.SectionName);
+
+			serviceCollection.AddCollection<PostCommentLike, PostCommentLikeId>(CollectionName);
+
+			serviceCollection.AddScoped<IPostCommentLikeCommandRepository, PostCommentLikeCommandRepository>();
+
+			serviceCollection.AddScoped<IPostCommentLikeQueryRepository, PostCommentLikeQueryRepository>();
 
 			BsonClassMap.TryRegisterClassMap<PostCommentLike>(cm =>
 			{
 				cm.MapIdMember(c => c.Id);
 
 				cm.MapMember(c => c.Id);
-				cm.MapMember(c => c.CreatedAtUtc);
+				cm.MapDateTimeMember(c => c.CreatedAtUtc);
 
 				cm.MapMemberWithoutSerialization(c => c.User);
 				cm.MapMemberWithoutSerialization(c => c.PostComment);
@@ -28,11 +38,10 @@ internal static class ServiceCollectionExtensions
 					c.Id,
 					c.CreatedAtUtc));
 
-				cm.SetIgnoreExtraElements(true);
+				cm.IgnoreExtraElements();
 			});
 
 			return serviceCollection;
 		}
 	}
 }
-

@@ -5,8 +5,6 @@ using InstaConnect.Identity.Domain.Features.ForgotPasswordTokens.Models.Entities
 using InstaConnect.Identity.Presentation.Features.ForgotPasswordTokens.Abstractions;
 using InstaConnect.Identity.Presentation.Features.ForgotPasswordTokens.Utilities;
 
-using Microsoft.Extensions.Options;
-
 namespace InstaConnect.Identity.Presentation.Features.ForgotPasswordTokens.Helpers;
 
 public class ForgotPasswordTokenSendEmailRequestFactory : IForgotPasswordTokenSendEmailRequestFactory
@@ -15,10 +13,10 @@ public class ForgotPasswordTokenSendEmailRequestFactory : IForgotPasswordTokenSe
 	private readonly IForgotPasswordTokenTemplateFactory _templateFactory;
 
 	public ForgotPasswordTokenSendEmailRequestFactory(
-		IOptions<MainOptions> mainOptions,
+		MainOptions mainOptions,
 		IForgotPasswordTokenTemplateFactory templateFactory)
 	{
-		_mainOptions = mainOptions.Value;
+		_mainOptions = mainOptions;
 		_templateFactory = templateFactory;
 	}
 

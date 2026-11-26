@@ -28,5 +28,31 @@ public static class RefreshTokenSetups
 				new RefreshTokenId(new(response.IdCookie.GetStringValue()), response.ValueCookie.GetStringValue()),
 				cancellationToken);
 		}
+
+		public async Task SetupAddAsync(
+			IssueRefreshTokenApiRequest request,
+			User user,
+			CancellationToken cancellationToken)
+		{
+			await serviceScope.SetupAddRefreshTokenAsync(user, cancellationToken);
+		}
+
+		public async Task SetupDeleteAsync(
+			DeleteCurrentRefreshTokenApiRequest request,
+			User user,
+			RefreshToken refreshToken,
+			CancellationToken cancellationToken)
+		{
+			await serviceScope.SetupDeleteRefreshTokenAsync(user, refreshToken, cancellationToken);
+		}
+
+		public async Task SetupUpdateAsync(
+			RotateRefreshTokenApiRequest request,
+			User user,
+			RefreshToken refreshToken,
+			CancellationToken cancellationToken)
+		{
+			await serviceScope.SetupUpdateRefreshTokenAsync(user, refreshToken, cancellationToken);
+		}
 	}
 }

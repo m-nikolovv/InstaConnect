@@ -6,11 +6,11 @@ public class GetPostLikeByIdApiRequestBuilder
 	private string _userId;
 	private string _currentUserId;
 
-	public GetPostLikeByIdApiRequestBuilder(PostLike postLike)
+	public GetPostLikeByIdApiRequestBuilder(PostLike postLike, UserId currentUserId)
 	{
 		_id = postLike.Id.Id.Id;
 		_userId = postLike.Id.UserId.Id;
-		_currentUserId = postLike.Id.UserId.Id;
+		_currentUserId = currentUserId.Id;
 	}
 
 	public GetPostLikeByIdApiRequestBuilder WithId(PostId id, IStringTransformer? transformer = null)

@@ -1,3 +1,5 @@
+using InstaConnect.Chats.Infrastructure.Tests.Features.ChatMessageImages.Assertions;
+
 namespace InstaConnect.Chats.Infrastructure.Tests.Unit.Features.ChatMessageImages.Repositories;
 
 public class AddChatMessageImageCommandRepositoryUnitTests : BaseChatMessageImageInfrastructureCommandUnitTest
@@ -6,7 +8,7 @@ public class AddChatMessageImageCommandRepositoryUnitTests : BaseChatMessageImag
 
 	public AddChatMessageImageCommandRepositoryUnitTests()
 	{
-		_repository = new(Collection);
+		_repository = new(Collection, MessageCacheHandler, MessageImageCacheHandler);
 	}
 
 	[Fact]
@@ -17,5 +19,15 @@ public class AddChatMessageImageCommandRepositoryUnitTests : BaseChatMessageImag
 
 		// Assert
 		await Collection.ShouldHaveReceivedOneAddAsync(ChatMessageImage, CancellationToken);
+	}
+
+	[Fact]
+	public async Task AddAsync_ShouldCallTheMessageCacheHandlerDeleteResponseAsync_WhenCommandIsValid()
+	{
+		// Act
+		await _repository.AddAsync(ChatMessageImage, CancellationToken);
+
+		// Assert
+		await MessageCacheHandler.ShouldHaveReceivedOneDeleteResponseAsync(ChatMessageImage, CancellationToken);
 	}
 }

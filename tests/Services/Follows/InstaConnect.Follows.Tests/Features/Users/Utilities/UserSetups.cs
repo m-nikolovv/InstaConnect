@@ -1,6 +1,8 @@
 using InstaConnect.Common.Domain.Features.ValueObjects.Models;
 using InstaConnect.Follows.Domain.Features.Follows.Abstractions;
 using InstaConnect.Follows.Domain.Features.Users.Abstractions;
+using InstaConnect.Follows.Domain.Features.Users.Models.Responses;
+using InstaConnect.Follows.Infrastructure.Features.Users.Abstractions;
 
 namespace InstaConnect.Follows.Tests.Features.Users.Utilities;
 
@@ -32,6 +34,16 @@ public static class UserSetups
 		{
 			return serviceProvider.GetRequiredService<IFollowFollowingIncludeBuilderFactory>();
 		}
+
+		public IUserCollection GetUserCollection()
+		{
+			return serviceProvider.GetRequiredService<IUserCollection>();
+		}
+
+		public IUserCacheHandler GetUserCacheHandler()
+		{
+			return serviceProvider.GetRequiredService<IUserCacheHandler>();
+		}
 	}
 
 	extension(IServiceScope serviceScope)
@@ -61,14 +73,16 @@ public static class UserSetups
 			return serviceScope.ServiceProvider.GetFollowFollowingIncludeBuilderFactory();
 		}
 
+		public IUserCacheHandler GetUserCacheHandler()
+		{
+			return serviceScope.ServiceProvider.GetUserCacheHandler();
+		}
+
 		public async Task<User?> GetByIdAsync(
 			UserId id,
 			CancellationToken cancellationToken)
 		{
-			var followFollowerInclude = serviceScope.GetFollowFollowerIncludeBuilderFactory().Create().WithFollower().Build();
-			var followFollowingInclude = serviceScope.GetFollowFollowingIncludeBuilderFactory().Create().WithFollowing().Build();
-
-			var include = serviceScope.GetUserIncludeBuilderFactory().Create().WithFollowFollowers(followFollowerInclude).WithFollowFollowings(followFollowingInclude).Build();
+			var include = serviceScope.GetUserIncludeBuilderFactory().Create().WithFollowers().WithFollowings().Build();
 
 			return (await serviceScope.GetUserCommandRepository().GetByIdAsync(id, include, cancellationToken)).SetFollowFollowers().SetFollowFollowings();
 		}
@@ -77,10 +91,7 @@ public static class UserSetups
 			Name name,
 			CancellationToken cancellationToken)
 		{
-			var followFollowerInclude = serviceScope.GetFollowFollowerIncludeBuilderFactory().Create().WithFollower().Build();
-			var followFollowingInclude = serviceScope.GetFollowFollowingIncludeBuilderFactory().Create().WithFollowing().Build();
-
-			var include = serviceScope.GetUserIncludeBuilderFactory().Create().WithFollowFollowers(followFollowerInclude).WithFollowFollowings(followFollowingInclude).Build();
+			var include = serviceScope.GetUserIncludeBuilderFactory().Create().WithFollowers().WithFollowings().Build();
 
 			return (await serviceScope.GetUserCommandRepository().GetByNameAsync(name, include, cancellationToken)).SetFollowFollowers().SetFollowFollowings();
 		}
@@ -89,10 +100,7 @@ public static class UserSetups
 			Email email,
 			CancellationToken cancellationToken)
 		{
-			var followFollowerInclude = serviceScope.GetFollowFollowerIncludeBuilderFactory().Create().WithFollower().Build();
-			var followFollowingInclude = serviceScope.GetFollowFollowingIncludeBuilderFactory().Create().WithFollowing().Build();
-
-			var include = serviceScope.GetUserIncludeBuilderFactory().Create().WithFollowFollowers(followFollowerInclude).WithFollowFollowings(followFollowingInclude).Build();
+			var include = serviceScope.GetUserIncludeBuilderFactory().Create().WithFollowers().WithFollowings().Build();
 
 			return (await serviceScope.GetUserCommandRepository().GetByEmailAsync(email, include, cancellationToken)).SetFollowFollowers().SetFollowFollowings();
 		}
@@ -101,21 +109,120 @@ public static class UserSetups
 			User user,
 			CancellationToken cancellationToken)
 		{
-			await serviceScope.GetUserCommandRepository().AddAsync(user, cancellationToken);
+			var userRepository = serviceScope.GetUserCommandRepository();
+
+			await userRepository.AddAsync(user, cancellationToken);
 		}
 
 		public async Task AddRangeAsync(
-			IEnumerable<User> users,
+			ICollection<User> users,
 			CancellationToken cancellationToken)
 		{
-			await serviceScope.GetUserCommandRepository().AddRangeAsync(users, cancellationToken);
+			var userRepository = serviceScope.GetUserCommandRepository();
+
+			await userRepository.AddRangeAsync(users, cancellationToken);
 		}
 
 		public async Task DeleteAsync(
 			User user,
 			CancellationToken cancellationToken)
 		{
-			await serviceScope.GetUserCommandRepository().DeleteAsync(user, cancellationToken);
+			var cacheHandler = serviceScope.GetUserCacheHandler();
+			var userRepository = serviceScope.GetUserCommandRepository();
+
+			await userRepository.DeleteAsync(user, cancellationToken);
+			await cacheHandler.DeleteAsync(user.Id, cancellationToken);
+		}
+
+		public async Task<UserResponse?> GetUserCacheByIdAsync(
+			string id,
+			string currentUserId,
+			CancellationToken cancellationToken)
+		{
+			var cacheHandler = serviceScope.GetUserCacheHandler();
+
+			return await cacheHandler.GetByIdAsync(new(id), new(currentUserId), cancellationToken);
+		}
+
+		public async Task<UserResponse?> GetUserCacheByIdAsync(
+			UserId id,
+			UserId currentUserId,
+			CancellationToken cancellationToken)
+		{
+			var cacheHandler = serviceScope.GetUserCacheHandler();
+
+			return await cacheHandler.GetByIdAsync(id, currentUserId, cancellationToken);
+		}
+
+		public async Task SetupDeleteUserAsync(
+			User user,
+			User follower,
+			User following,
+			ICollection<Follow> followFollowers,
+			ICollection<Follow> followFollowings,
+			string currentUserId,
+			CancellationToken cancellationToken)
+		{
+			await serviceScope.AddAsync(user, cancellationToken);
+			await serviceScope.AddAsync(follower, cancellationToken);
+			await serviceScope.AddAsync(following, cancellationToken);
+			await serviceScope.AddRangeAsync(followFollowers, cancellationToken);
+			await serviceScope.AddRangeAsync(followFollowings, cancellationToken);
+			await serviceScope.AddUserCacheAsync(user, currentUserId, cancellationToken);
+		}
+
+		public async Task SetupDeleteUserAsync(
+			User user,
+			User follower,
+			User following,
+			ICollection<Follow> followFollowers,
+			ICollection<Follow> followFollowings,
+			UserId currentUserId,
+			CancellationToken cancellationToken)
+		{
+			await serviceScope.SetupDeleteUserAsync(user, follower, following, followFollowers, followFollowings, currentUserId.Id, cancellationToken);
+		}
+
+		public async Task SetupGetUserByIdAsync(
+			User user,
+			CancellationToken cancellationToken)
+		{
+			await serviceScope.AddAsync(user, cancellationToken);
+		}
+
+		public async Task SetupUpdateUserAsync(
+			User user,
+			string currentUserId,
+			CancellationToken cancellationToken)
+		{
+			await serviceScope.AddAsync(user, cancellationToken);
+			await serviceScope.AddUserCacheAsync(user, currentUserId, cancellationToken);
+		}
+
+		public async Task SetupUpdateUserAsync(
+			User user,
+			UserId currentUserId,
+			CancellationToken cancellationToken)
+		{
+			await serviceScope.SetupUpdateUserAsync(user, currentUserId.Id, cancellationToken);
+		}
+
+		public async Task AddUserCacheAsync(
+			User user,
+			string currentUserId,
+			CancellationToken cancellationToken)
+		{
+			var cacheHandler = serviceScope.GetUserCacheHandler();
+
+			await cacheHandler.AddAsync(user.ToFullResponse(), new(currentUserId), cancellationToken);
+		}
+
+		public async Task AddUserCacheAsync(
+			User user,
+			UserId currentUserId,
+			CancellationToken cancellationToken)
+		{
+			await serviceScope.AddUserCacheAsync(user, currentUserId.Id, cancellationToken);
 		}
 	}
 }

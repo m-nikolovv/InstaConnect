@@ -44,9 +44,17 @@ public class GetAllPostsForUserQueryRepositoryIntegrationTests : BasePostInfrast
 		_currentUserQuery = _currentUserQueryBuilder.Build();
 	}
 
-	protected override async Task OnInitializeAsync()
+	public override async Task InitializeAsync()
 	{
-		await ServiceScope.AddRangeAsync(Posts, CancellationToken);
+		await ServiceScope.SetupGetAllPostsForUserAsync(
+			Users,
+			Posts,
+			PostLikes,
+			PostImages,
+			PostComments,
+			PostCommentLikes,
+			PostCommentImages,
+			CancellationToken);
 	}
 
 	[Fact]

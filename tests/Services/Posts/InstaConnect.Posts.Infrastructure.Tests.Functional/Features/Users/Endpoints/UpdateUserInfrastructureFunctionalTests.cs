@@ -4,6 +4,7 @@ using InstaConnect.Common.Tests.Features.DataAttributes.Strings.Base;
 using InstaConnect.Identity.Events.Features.Users;
 using InstaConnect.Posts.Infrastructure.Tests.Features.Users.Assertions;
 using InstaConnect.Posts.Infrastructure.Tests.Features.Users.Builders;
+using InstaConnect.Posts.Infrastructure.Tests.Features.Users.Utilities;
 using InstaConnect.Posts.Infrastructure.Tests.Functional.Features.Users.Utilities;
 using InstaConnect.Posts.Tests.Features.Common.Utilities;
 using InstaConnect.Posts.Tests.Features.Users.Assertions;
@@ -33,9 +34,10 @@ public class UpdateUserInfrastructureFunctionalTests : BaseUserInfrastructureCom
 		_request = _requestBuilder.Build();
 	}
 
-	protected override async Task OnInitializeAsync()
+	public override async Task InitializeAsync()
 	{
-		await ServiceScope.AddAsync(User, CancellationToken);
+		await ServiceScope.SetupUpdateUserAsync(User, CancellationToken);
+		await base.InitializeAsync();
 	}
 
 	[Theory]

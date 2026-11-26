@@ -18,4 +18,9 @@ public static class UserInfrastructureMockFactory
 	{
 		return Mocker.Mock<IUserResponseFluent>();
 	}
+
+	public static IUserCacheHandler CreateCacheHandler()
+	{
+		return Mocker.Mock<IUserCacheHandler>();
+	}
 }

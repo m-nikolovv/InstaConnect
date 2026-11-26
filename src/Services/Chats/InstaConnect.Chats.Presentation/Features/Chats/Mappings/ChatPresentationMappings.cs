@@ -49,6 +49,7 @@ internal class ChatPresentationMappings : IRegister
 				src.ParticipantTwoId,
 				src.ParticipantOne.Adapt<UserApiResponse>(config),
 				src.ParticipantTwo.Adapt<UserApiResponse>(config),
+				src.MessageCount,
 				src.CreatedAtUtc));
 
 		config.NewConfig<ChatCollectionQueryResponse, ChatCollectionApiResponse>()

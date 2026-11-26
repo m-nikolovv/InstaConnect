@@ -1,3 +1,4 @@
+using InstaConnect.Posts.Domain.Tests.Features.PostLikes.Utilities;
 using InstaConnect.Posts.Tests.Features.PostLikes.Assertions;
 
 namespace InstaConnect.Posts.Domain.Tests.Integration.Features.PostLikes.Services;
@@ -14,6 +15,16 @@ public class AddPostLikeCommandServiceIntegrationTests : BasePostLikeDomainComma
 		_commandBuilderFactory = new();
 		_commandBuilder = _commandBuilderFactory.Create(Post, User);
 		_command = _commandBuilder.Build();
+	}
+
+	public override async Task InitializeAsync()
+	{
+		await ServiceScope.SetupAddAsync(
+			_command,
+			User,
+			Post,
+			CancellationToken);
+		await base.InitializeAsync();
 	}
 
 	[Fact]
@@ -156,6 +167,51 @@ public class AddPostLikeCommandServiceIntegrationTests : BasePostLikeDomainComma
 
 		// Assert
 		postLike.ShouldSatisfy(command);
+	}
+
+	[Fact]
+	public async Task AddAsync_ShouldDeleteCachedPost_WhenCommandIsValid()
+	{
+		// Act
+		await Service.AddAsync(_command, CancellationToken);
+		var cachedPost = await ServiceScope.GetPostCacheByIdAsync(_command, CancellationToken);
+
+		// Assert
+		cachedPost.ShouldBeNull();
+	}
+
+	[Theory]
+	[PostIdDifferentCaseData]
+	public async Task AddAsync_ShouldDeleteCachedPost_WhenCommandAndIdAreValid(
+		IStringTransformer transformer)
+	{
+		// Arrange
+		var command = _commandBuilder.WithId(transformer).Build();
+		await ServiceScope.AddPostCacheAsync(command, Post, CancellationToken);
+
+		// Act
+		await Service.AddAsync(command, CancellationToken);
+		var cachedPost = await ServiceScope.GetPostCacheByIdAsync(command, CancellationToken);
+
+		// Assert
+		cachedPost.ShouldBeNull();
+	}
+
+	[Theory]
+	[UserIdDifferentCaseData]
+	public async Task AddAsync_ShouldDeleteCachedPost_WhenCommandAndUserIdAreValid(
+		IStringTransformer transformer)
+	{
+		// Arrange
+		var command = _commandBuilder.WithUserId(transformer).Build();
+		await ServiceScope.AddPostCacheAsync(command, Post, CancellationToken);
+
+		// Act
+		await Service.AddAsync(command, CancellationToken);
+		var cachedPost = await ServiceScope.GetPostCacheByIdAsync(command, CancellationToken);
+
+		// Assert
+		cachedPost.ShouldBeNull();
 	}
 
 	[Fact]

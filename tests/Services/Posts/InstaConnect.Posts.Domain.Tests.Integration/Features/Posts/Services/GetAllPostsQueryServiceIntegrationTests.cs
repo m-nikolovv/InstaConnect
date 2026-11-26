@@ -1,4 +1,5 @@
 using InstaConnect.Posts.Domain.Features.Posts.Models.Entities;
+using InstaConnect.Posts.Domain.Tests.Features.Posts.Utilities;
 using InstaConnect.Posts.Tests.Features.Posts.DataAttributes.SortOrder;
 using InstaConnect.Posts.Tests.Features.Posts.DataAttributes.SortTerm;
 using InstaConnect.Posts.Tests.Features.Posts.DataAttributes.Title;
@@ -19,9 +20,18 @@ public class GetAllPostsQueryServiceIntegrationTests : BasePostDomainQueryIntegr
 		_query = _queryBuilder.Build();
 	}
 
-	protected override async Task OnInitializeAsync()
+	public override async Task InitializeAsync()
 	{
-		await ServiceScope.AddRangeAsync(Posts, CancellationToken);
+		await ServiceScope.SetupGetAllAsync(
+			_query,
+			Users,
+			Posts,
+			PostLikes,
+			PostImages,
+			PostComments,
+			PostCommentLikes,
+			PostCommentImages,
+			CancellationToken);
 	}
 
 	[Fact]

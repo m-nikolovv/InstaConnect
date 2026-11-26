@@ -22,9 +22,9 @@ public class GetUserByEmailCommandRepositoryIntegrationTests : BaseUserInfrastru
 		_include = IncludeBuilderFactory.Create().WithPosts().WithPostLikes().Build();
 	}
 
-	protected override async Task OnInitializeAsync()
+	public override async Task InitializeAsync()
 	{
-		await ServiceScope.AddAsync(User, CancellationToken);
+		await ServiceScope.SetupGetUserByIdAsync(User, CancellationToken);
 	}
 
 	[Fact]

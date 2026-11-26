@@ -3,6 +3,7 @@ using InstaConnect.Common.Tests.Features.DataAttributes.DateTimeOffsets.Base;
 using InstaConnect.Common.Tests.Features.DataAttributes.Strings.Base;
 using InstaConnect.Follows.Infrastructure.Tests.Features.Users.Assertions;
 using InstaConnect.Follows.Infrastructure.Tests.Features.Users.Builders;
+using InstaConnect.Follows.Infrastructure.Tests.Features.Users.Utilities;
 using InstaConnect.Follows.Infrastructure.Tests.Functional.Features.Users.Utilities;
 using InstaConnect.Follows.Tests.Features.Common.Utilities;
 using InstaConnect.Follows.Tests.Features.Users.Assertions;
@@ -33,9 +34,10 @@ public class UpdateUserInfrastructureFunctionalTests : BaseUserInfrastructureCom
 		_request = _requestBuilder.Build();
 	}
 
-	protected override async Task OnInitializeAsync()
+	public override async Task InitializeAsync()
 	{
-		await ServiceScope.AddAsync(User, CancellationToken);
+		await ServiceScope.SetupUpdateUserAsync(User, CancellationToken);
+		await base.InitializeAsync();
 	}
 
 	[Theory]

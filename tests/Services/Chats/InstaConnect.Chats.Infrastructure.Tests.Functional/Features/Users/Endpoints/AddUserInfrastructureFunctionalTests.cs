@@ -34,6 +34,11 @@ public class AddUserInfrastructureFunctionalTests : BaseUserInfrastructureComman
 		_request = _requestBuilder.Build();
 	}
 
+	public override async Task InitializeAsync()
+	{
+		await base.InitializeAsync();
+	}
+
 	[Theory]
 	[UserIdNullData]
 	[UserIdEmptyData]

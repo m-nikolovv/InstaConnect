@@ -6,7 +6,7 @@ public class UpdatePostCommentCommandRepositoryUnitTests : BasePostCommentInfras
 
 	public UpdatePostCommentCommandRepositoryUnitTests()
 	{
-		_repository = new(Collection, IncludeBuilderFactory);
+		_repository = new(CacheHandler, Collection, CommentCacheHandler, IncludeBuilderFactory);
 	}
 
 	[Fact]
@@ -17,5 +17,15 @@ public class UpdatePostCommentCommandRepositoryUnitTests : BasePostCommentInfras
 
 		// Assert
 		await Collection.ShouldHaveReceivedOneUpdateAsync(PostComment, CancellationToken);
+	}
+
+	[Fact]
+	public async Task UpdateAsync_ShouldCallTheCommentCacheHandlerDeleteAsync_WhenCommandIsValid()
+	{
+		// Act
+		await _repository.UpdateAsync(PostComment, CancellationToken);
+
+		// Assert
+		await CommentCacheHandler.ShouldHaveReceivedOneDeleteAsync(PostComment, CancellationToken);
 	}
 }

@@ -1,6 +1,6 @@
 using InstaConnect.Common.Infrastructure.Features.Databases.Helpers;
-using InstaConnect.Posts.Application.Tests.Features.PostImages.Utilities;
 using InstaConnect.Posts.Domain.Features.Posts.Models.Responses;
+using InstaConnect.Posts.Tests.Features.PostImages.Utilities;
 
 namespace InstaConnect.Posts.Application.Tests.Features.Posts.Utilities;
 
@@ -8,38 +8,6 @@ public static class PostMapper
 {
 	extension(Post post)
 	{
-		internal PostResponse ToFullResponse<TRequest>(
-			TRequest request)
-			where TRequest : ICurrentUserableQueryRequest
-		{
-			return new(post.Id,
-					   post.UserId,
-					   post.Title,
-					   post.Content,
-					   post.Summary,
-					   post.User?.ToFullResponse(),
-					   post.PostImages.ToFullResponse(),
-					   post.PostLikes.Any(pl => pl.Id.UserId.Matches(request.CurrentUserId)),
-					   post.CreatedAtUtc,
-					   post.UpdatedAtUtc);
-		}
-
-		internal PostResponse ToResponseWithoutUser<TRequest>(
-			TRequest request)
-			where TRequest : ICurrentUserableQueryRequest
-		{
-			return new(post.Id,
-					   post.UserId,
-					   post.Title,
-					   post.Content,
-					   post.Summary,
-					   null,
-					   post.PostImages.ToFullResponse(),
-					   post.PostLikes.Any(pl => pl.Id.UserId.Matches(request.CurrentUserId)),
-					   post.CreatedAtUtc,
-					   post.UpdatedAtUtc);
-		}
-
 		public PostId ToResponse(
 			AddPostCommandRequest request)
 		{
@@ -55,7 +23,7 @@ public static class PostMapper
 		public PostResponse ToResponse(
 			GetPostByIdQueryRequest request)
 		{
-			return post.ToFullResponse(request);
+			return post.ToFullResponse(request.CurrentUserId);
 		}
 	}
 
@@ -104,7 +72,7 @@ public static class PostMapper
 			return posts.ToResponseWithoutUser(
 				request,
 				(request, post) => post.MatchesFilter(request),
-				(request, post) => post.ToFullResponse(request));
+				(request, post) => post.ToFullResponse(request.CurrentUserId));
 		}
 
 		public PostCollectionResponse ToResponse(
@@ -115,7 +83,7 @@ public static class PostMapper
 				request,
 				user,
 				(request, post) => post.MatchesFilter(request),
-				(request, post) => post.ToResponseWithoutUser(request));
+				(request, post) => post.ToResponseWithoutUser(request.CurrentUserId));
 		}
 	}
 }

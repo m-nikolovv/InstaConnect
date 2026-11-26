@@ -1,38 +1,54 @@
+using InstaConnect.Chats.Domain.Features.Chats.Abstractions;
 using InstaConnect.Chats.Infrastructure.Features.Chats.Extensions;
 
 namespace InstaConnect.Chats.Infrastructure.Features.Chats.Helpers.Collections;
 
-internal class ChatFluent : MongoDbFluent<Chat>, IChatFluent
+internal class ChatFluent : IChatFluent
 {
 	private readonly IChatIncluderFactory _includerFactory;
+	private readonly IChatIncludeBuilderFactory _includeBuilderFactory;
 	private readonly IChatResponseFluentFactory _responseFluentFactory;
+	private readonly IMongoDbFluentHandler<Chat, ChatId> _fluentHandler;
 
 	public ChatFluent(
-		IAggregateFluent<Chat> fluent,
 		IChatIncluderFactory includerFactory,
-		IChatResponseFluentFactory responseFluentFactory) : base(fluent)
+		IChatIncludeBuilderFactory includeBuilderFactory,
+		IChatResponseFluentFactory responseFluentFactory,
+		IMongoDbFluentHandler<Chat, ChatId> fluentHandler)
 	{
+		_fluentHandler = fluentHandler;
 		_includerFactory = includerFactory;
+		_includeBuilderFactory = includeBuilderFactory;
 		_responseFluentFactory = responseFluentFactory;
 	}
 
-	public IChatFluent ApplyIncludes(ChatInclude include)
+	public IChatFluent Include(ChatInclude include)
 	{
-		ApplyIncludes(_includerFactory, include);
+		_fluentHandler.Include(_includerFactory, include);
 
 		return this;
 	}
 
 	public IChatFluent Match(ChatsFilterQuery filter)
 	{
-		Match(filter.GetFilter());
+		_fluentHandler.Match(filter.GetParticipantFilter());
+
+		Include(_includeBuilderFactory.Create().WithParticipantOne().WithParticipantTwo().Build());
+		_fluentHandler.Match(filter.GetFilter());
 
 		return this;
 	}
 
 	public IChatFluent Match(ChatId filter)
 	{
-		Match(filter.GetFilter());
+		_fluentHandler.Match(filter.GetFilter());
+
+		return this;
+	}
+
+	public IChatFluent Match(IEnumerable<ChatId> filter)
+	{
+		_fluentHandler.Match(filter.GetFilter());
 
 		return this;
 	}
@@ -63,8 +79,9 @@ internal class ChatFluent : MongoDbFluent<Chat>, IChatFluent
 								   p.Id.ParticipantOneId.Id.ToLower() == currentUserId ? p.ParticipantTwo!.ProfileImageUrl : p.ParticipantOne!.ProfileImageUrl,
 								   p.Id.ParticipantOneId.Id.ToLower() == currentUserId ? p.ParticipantTwo!.CreatedAtUtc : p.ParticipantOne!.CreatedAtUtc,
 								   p.Id.ParticipantOneId.Id.ToLower() == currentUserId ? p.ParticipantTwo!.UpdatedAtUtc : p.ParticipantOne!.UpdatedAtUtc),
+							   p.ChatMessages.Count,
 							   p.CreatedAtUtc));
-		var fluent = Project(projection);
+		var fluent = _fluentHandler.Project(projection);
 
 		return _responseFluentFactory.Create(fluent);
 	}
@@ -87,8 +104,9 @@ internal class ChatFluent : MongoDbFluent<Chat>, IChatFluent
 								   p.Id.ParticipantOneId.Id.ToLower() == currentUserId ? p.ParticipantTwo!.ProfileImageUrl : p.ParticipantOne!.ProfileImageUrl,
 								   p.Id.ParticipantOneId.Id.ToLower() == currentUserId ? p.ParticipantTwo!.CreatedAtUtc : p.ParticipantOne!.CreatedAtUtc,
 								   p.Id.ParticipantOneId.Id.ToLower() == currentUserId ? p.ParticipantTwo!.UpdatedAtUtc : p.ParticipantOne!.UpdatedAtUtc),
+							   p.ChatMessages.Count,
 							   p.CreatedAtUtc));
-		var fluent = Project(projection);
+		var fluent = _fluentHandler.Project(projection);
 
 		return _responseFluentFactory.Create(fluent);
 	}
@@ -111,9 +129,42 @@ internal class ChatFluent : MongoDbFluent<Chat>, IChatFluent
 								   p.Id.ParticipantOneId.Id.ToLower() == currentUserId ? p.ParticipantOne!.CreatedAtUtc : p.ParticipantTwo!.CreatedAtUtc,
 								   p.Id.ParticipantOneId.Id.ToLower() == currentUserId ? p.ParticipantOne!.UpdatedAtUtc : p.ParticipantTwo!.UpdatedAtUtc),
 							   null,
+							   p.ChatMessages.Count,
 							   p.CreatedAtUtc));
-		var fluent = Project(projection);
+		var fluent = _fluentHandler.Project(projection);
 
 		return _responseFluentFactory.Create(fluent);
+	}
+
+	public IMongoDbFluent<Chat, ChatId> Match(FilterDefinition<Chat> filterDefinition)
+	{
+		_fluentHandler.Match(filterDefinition);
+
+		return this;
+	}
+
+	public async Task<Chat?> FirstOrDefaultAsync(CancellationToken cancellationToken)
+	{
+		return await _fluentHandler.FirstOrDefaultAsync(cancellationToken);
+	}
+
+	public async Task<long> GetCountAsync(CancellationToken cancellationToken)
+	{
+		return await _fluentHandler.GetCountAsync(cancellationToken);
+	}
+
+	public async Task<ICollection<Chat>> ToListAsync(CancellationToken cancellationToken)
+	{
+		return await _fluentHandler.ToListAsync(cancellationToken);
+	}
+
+	public async Task<bool> AnyAsync(CancellationToken cancellationToken)
+	{
+		return await _fluentHandler.AnyAsync(cancellationToken);
+	}
+
+	public async Task<ICollection<ChatId>> GetIdsAsync(CancellationToken cancellationToken)
+	{
+		return await _fluentHandler.GetIdsAsync(cancellationToken);
 	}
 }

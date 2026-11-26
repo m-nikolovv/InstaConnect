@@ -1,5 +1,3 @@
-using InstaConnect.Chats.Domain.Features.Users.Models.Responses;
-
 namespace InstaConnect.Chats.Domain.Tests.Features.Users.Utilities;
 
 public static class UserEquals
@@ -57,23 +55,6 @@ public static class UserEquals
 				   (u.ProfileImageUrl == null || u.ProfileImageUrl.Value.IsNotNullOrEmptyOrWhiteSpace()) &&
 				   u.CreatedAtUtc != default &&
 				   u.UpdatedAtUtc != default;
-		}
-	}
-
-	extension(UserResponse? response)
-	{
-		public bool MatchesFull(User? user)
-		{
-			return response != null &&
-				   user != null &&
-				   user.Id.Matches(response.Id) &&
-				   user.FirstName == response.FirstName &&
-				   user.LastName == response.LastName &&
-				   user.Name.Matches(response.Name) &&
-				   user.Email.Matches(response.Email) &&
-				   user.ProfileImageUrl.Matches(response.ProfileImageUrl) &&
-				   user.CreatedAtUtc == response.CreatedAtUtc &&
-				   user.UpdatedAtUtc == response.UpdatedAtUtc;
 		}
 	}
 }

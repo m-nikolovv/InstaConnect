@@ -5,6 +5,7 @@ public record ChatResponse(
 	ChatId Id,
 	UserResponse? ParticipantOne,
 	UserResponse? ParticipantTwo,
+	int MessageCount,
 	DateTimeOffset CreatedAtUtc) : IEntityResponse
 {
 	public bool IsNotParticipant(UserId participantId)

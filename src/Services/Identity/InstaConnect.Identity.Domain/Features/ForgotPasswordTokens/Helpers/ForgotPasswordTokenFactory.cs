@@ -1,8 +1,6 @@
 using InstaConnect.Common.Domain.Features.Guids.Abstractions;
 using InstaConnect.Identity.Domain.Features.ForgotPasswordTokens.Models.Options;
 
-using Microsoft.Extensions.Options;
-
 namespace InstaConnect.Identity.Domain.Features.ForgotPasswordTokens.Helpers;
 
 internal class ForgotPasswordTokenFactory : IForgotPasswordTokenFactory
@@ -14,11 +12,11 @@ internal class ForgotPasswordTokenFactory : IForgotPasswordTokenFactory
 	public ForgotPasswordTokenFactory(
 		IGuidProvider guidProvider,
 		IDateTimeProvider dateTimeProvider,
-		IOptions<ForgotPasswordTokenOptions> forgotPasswordTokenOptions)
+		ForgotPasswordTokenOptions forgotPasswordTokenOptions)
 	{
 		_guidProvider = guidProvider;
 		_dateTimeProvider = dateTimeProvider;
-		_forgotPasswordTokenOptions = forgotPasswordTokenOptions.Value;
+		_forgotPasswordTokenOptions = forgotPasswordTokenOptions;
 	}
 
 	public ForgotPasswordToken Create(UserId id)

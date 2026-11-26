@@ -13,7 +13,7 @@ public class GetPostCommentLikeByIdQueryRequestValidatorUnitTests : BasePostComm
 	public GetPostCommentLikeByIdQueryRequestValidatorUnitTests()
 	{
 		_requestBuilderFactory = new();
-		_requestBuilder = _requestBuilderFactory.Create(PostCommentLike);
+		_requestBuilder = _requestBuilderFactory.Create(PostCommentLike, UserId);
 		_request = _requestBuilder.Build();
 
 		_requestValidator = new();

@@ -19,8 +19,8 @@ public static class ForgotPasswordTokenDomainMockFactory
 		return Mocker.Mock<IForgotPasswordTokenCommandRepository>();
 	}
 
-	public static IOptions<ForgotPasswordTokenOptions> CreateOptions()
+	public static ForgotPasswordTokenOptions CreateOptions()
 	{
-		return Options.Create(new ForgotPasswordTokenOptions(ForgotPasswordTokenDataFaker.GetLifetimeSeconds()));
+		return new ForgotPasswordTokenOptions(ForgotPasswordTokenDataFaker.GetLifetimeSeconds());
 	}
 }

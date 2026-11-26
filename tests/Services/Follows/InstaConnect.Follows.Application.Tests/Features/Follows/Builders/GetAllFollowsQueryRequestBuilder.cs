@@ -10,11 +10,11 @@ public class GetAllFollowsQueryRequestBuilder
 	private CommonSortOrder _sortOrder;
 	private FollowsSortTerm _sortTerm;
 
-	public GetAllFollowsQueryRequestBuilder(Follow follow)
+	public GetAllFollowsQueryRequestBuilder(Follow follow, UserId currentUserId)
 	{
 		_followerId = follow.Id.FollowerId.Id;
 		_followingName = DataFaker.GetPrefixString(follow.Following!.Name.Value);
-		_currentUserId = follow.Id.FollowerId.Id;
+		_currentUserId = currentUserId.Id;
 		_page = FollowDataFaker.GetPage();
 		_pageSize = FollowDataFaker.GetPageSize();
 		_sortOrder = DataFaker.GetSortOrder();

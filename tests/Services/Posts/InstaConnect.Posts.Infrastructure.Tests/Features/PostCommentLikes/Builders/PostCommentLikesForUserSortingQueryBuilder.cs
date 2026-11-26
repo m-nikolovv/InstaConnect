@@ -1,5 +1,3 @@
-using InstaConnect.Posts.Tests.Features.PostCommentLikes.Utilities;
-
 namespace InstaConnect.Posts.Infrastructure.Tests.Features.PostCommentLikes.Builders;
 
 public class PostCommentLikesForUserSortingQueryBuilder

@@ -1,3 +1,4 @@
+
 namespace InstaConnect.Identity.Infrastructure.Tests.Integration.Features.EmailConfirmationTokens.Repositories;
 
 public class DeleteRangeEmailConfirmationTokensCommandRepositoryIntegrationTests : BaseEmailConfirmationTokenInfrastructureCommandIntegrationTest
@@ -7,9 +8,9 @@ public class DeleteRangeEmailConfirmationTokensCommandRepositoryIntegrationTests
 	{
 	}
 
-	protected override async Task OnInitializeAsync()
+	public override async Task InitializeAsync()
 	{
-		await ServiceScope.AddRangeAsync(EmailConfirmationTokens, CancellationToken);
+		await ServiceScope.SetupGetAllEmailConfirmationTokensAsync(Users, EmailConfirmationTokens, CancellationToken);
 	}
 
 	[Fact]

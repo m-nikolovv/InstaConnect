@@ -1,5 +1,6 @@
 using InstaConnect.Common.Tests.Features.DataAttributes.FormFiles.Base;
 using InstaConnect.Identity.Domain.Tests.Features.EmailConfirmationTokens.Assertions;
+using InstaConnect.Identity.Domain.Tests.Features.Users.Utilities;
 using InstaConnect.Identity.Tests.Features.EmailConfirmationTokens.Assertions;
 using InstaConnect.Identity.Tests.Features.Users.Assertions;
 using InstaConnect.Identity.Tests.Features.Users.DataAttributes.Email;
@@ -21,11 +22,16 @@ public class AddUserCommandServiceIntegrationTests : BaseUserDomainCommandIntegr
 		_command = _commandBuilder.Build();
 	}
 
+	public override async Task InitializeAsync()
+	{
+		await ServiceScope.SetupAddAsync(_command, User, CancellationToken);
+		await base.InitializeAsync();
+	}
+
 	[Fact]
 	public async Task AddAsync_ShouldThrowUserEmailAlreadyTakenException_WhenUserEmailAlreadyTaken()
 	{
 		// Arrange
-		await ServiceScope.AddAsync(User, CancellationToken);
 		var command = _commandBuilder.WithEmail(User.Email).Build();
 
 		// Assert
@@ -38,7 +44,6 @@ public class AddUserCommandServiceIntegrationTests : BaseUserDomainCommandIntegr
 		IStringTransformer transformer)
 	{
 		// Arrange
-		await ServiceScope.AddAsync(User, CancellationToken);
 		var command = _commandBuilder.WithEmail(User.Email, transformer).Build();
 
 		// Assert
@@ -49,7 +54,6 @@ public class AddUserCommandServiceIntegrationTests : BaseUserDomainCommandIntegr
 	public async Task AddAsync_ShouldThrowUserNameAlreadyTakenException_WhenUserNameAlreadyTaken()
 	{
 		// Arrange
-		await ServiceScope.AddAsync(User, CancellationToken);
 		var command = _commandBuilder.WithName(User.Name).Build();
 
 		// Assert
@@ -62,7 +66,6 @@ public class AddUserCommandServiceIntegrationTests : BaseUserDomainCommandIntegr
 		IStringTransformer transformer)
 	{
 		// Arrange
-		await ServiceScope.AddAsync(User, CancellationToken);
 		var command = _commandBuilder.WithName(User.Name, transformer).Build();
 
 		// Assert

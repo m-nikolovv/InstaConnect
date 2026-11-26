@@ -9,6 +9,11 @@ public class AddChatCommandRepositoryIntegrationTests : BaseChatInfrastructureCo
 	{
 	}
 
+	public override async Task InitializeAsync()
+	{
+		await ServiceScope.SetupAddChatAsync(ParticipantOne, ParticipantTwo, CancellationToken);
+	}
+
 	[Fact]
 	public async Task AddAsync_ShouldAddChat_WhenCommandIsValid()
 	{

@@ -21,10 +21,14 @@ public class UpdateCurrentUserControllerIntegrationTests : BaseUserPresentationC
 		_request = _requestBuilder.Build();
 	}
 
-	protected override async Task OnInitializeAsync()
+	public override async Task InitializeAsync()
 	{
-		await ServiceScope.AddAsync(User, CancellationToken);
-		await ServiceScope.AddRangeAsync(User.EmailConfirmationTokens, CancellationToken);
+		await ServiceScope.SetupUpdateAsync(
+			_request,
+			User,
+			UserEmailConfirmationTokens,
+			CancellationToken);
+		await base.InitializeAsync();
 	}
 
 	[Theory]
@@ -599,6 +603,155 @@ public class UpdateCurrentUserControllerIntegrationTests : BaseUserPresentationC
 	}
 
 	[Fact]
+	public async Task UpdateCurrentAsync_ShouldDeleteCachedUser_WhenRequestIsValid()
+	{
+		// Act
+		await Controller.UpdateCurrentAsync(_request, CancellationToken);
+		var cachedUser = await ServiceScope.GetUserCacheByIdAsync(_request, CancellationToken);
+
+		// Assert
+		cachedUser.ShouldBeNull();
+	}
+
+	[Theory]
+	[UserIdDifferentCaseData]
+	public async Task UpdateCurrentAsync_ShouldDeleteCachedUser_WhenRequestAndIdAreValid(
+		IStringTransformer transformer)
+	{
+		// Arrange
+		var request = _requestBuilder.WithId(transformer).Build();
+		await ServiceScope.AddUserCacheAsync(request, User, CancellationToken);
+
+		// Act
+		await Controller.UpdateCurrentAsync(request, CancellationToken);
+		var cachedUser = await ServiceScope.GetUserCacheByIdAsync(request, CancellationToken);
+
+		// Assert
+		cachedUser.ShouldBeNull();
+	}
+
+	[Theory]
+	[UserNameDifferentCaseData]
+	public async Task UpdateCurrentAsync_ShouldDeleteCachedUser_WhenRequestAndNameAreValid(
+		IStringTransformer transformer)
+	{
+		// Arrange
+		var request = _requestBuilder.WithName(transformer).Build();
+		await ServiceScope.AddUserCacheAsync(request, User, CancellationToken);
+
+		// Act
+		await Controller.UpdateCurrentAsync(request, CancellationToken);
+		var cachedUser = await ServiceScope.GetUserCacheByIdAsync(request, CancellationToken);
+
+		// Assert
+		cachedUser.ShouldBeNull();
+	}
+
+	[Fact]
+	public async Task UpdateCurrentAsync_ShouldDeleteCachedUser_WhenNameHasNotChanged()
+	{
+		// Arrange
+		var request = _requestBuilder.WithName(User.Name).Build();
+		await ServiceScope.AddUserCacheAsync(request, User, CancellationToken);
+
+		// Act
+		await Controller.UpdateCurrentAsync(request, CancellationToken);
+		var cachedUser = await ServiceScope.GetUserCacheByIdAsync(request, CancellationToken);
+
+		// Assert
+		cachedUser.ShouldBeNull();
+	}
+
+	[Theory]
+	[UserNameDifferentCaseData]
+	public async Task UpdateCurrentAsync_ShouldDeleteCachedUser_WhenNameIsValidAndHasNotChanged(
+		IStringTransformer transformer)
+	{
+		// Arrange
+		var request = _requestBuilder.WithName(User.Name, transformer).Build();
+		await ServiceScope.AddUserCacheAsync(request, User, CancellationToken);
+
+		// Act
+		await Controller.UpdateCurrentAsync(request, CancellationToken);
+		var cachedUser = await ServiceScope.GetUserCacheByIdAsync(request, CancellationToken);
+
+		// Assert
+		cachedUser.ShouldBeNull();
+	}
+
+	[Theory]
+	[UserEmailDifferentCaseData]
+	public async Task UpdateCurrentAsync_ShouldDeleteCachedUser_WhenRequestAndEmailAreValid(
+		IStringTransformer transformer)
+	{
+		// Arrange
+		var request = _requestBuilder.WithEmail(transformer).Build();
+		await ServiceScope.AddUserCacheAsync(request, User, CancellationToken);
+
+		// Act
+		await Controller.UpdateCurrentAsync(request, CancellationToken);
+		var cachedUser = await ServiceScope.GetUserCacheByIdAsync(request, CancellationToken);
+
+		// Assert
+		cachedUser.ShouldBeNull();
+	}
+
+	[Fact]
+	public async Task UpdateCurrentAsync_ShouldDeleteCachedUser_WhenEmailHasNotChanged()
+	{
+		// Arrange
+		var request = _requestBuilder.WithEmail(User.Email).Build();
+		await ServiceScope.AddUserCacheAsync(request, User, CancellationToken);
+
+		// Act
+		await Controller.UpdateCurrentAsync(request, CancellationToken);
+		var cachedUser = await ServiceScope.GetUserCacheByIdAsync(request, CancellationToken);
+
+		// Assert
+		cachedUser.ShouldBeNull();
+	}
+
+	[Theory]
+	[UserEmailDifferentCaseData]
+	public async Task UpdateCurrentAsync_ShouldDeleteCachedUser_WhenEmailIsValidAndHasNotChanged(
+		IStringTransformer transformer)
+	{
+		// Arrange
+		var request = _requestBuilder.WithEmail(User.Email, transformer).Build();
+		await ServiceScope.AddUserCacheAsync(request, User, CancellationToken);
+
+		// Act
+		await Controller.UpdateCurrentAsync(request, CancellationToken);
+		var cachedUser = await ServiceScope.GetUserCacheByIdAsync(request, CancellationToken);
+
+		// Assert
+		cachedUser.ShouldBeNull();
+	}
+
+	[Theory]
+	[UserProfileImageNullData]
+	[UserProfileImageJpegData]
+	[UserProfileImagePngData]
+	[UserProfileImageWebpData]
+	[UserProfileImageJpegDifferentCaseData]
+	[UserProfileImagePngDifferentCaseData]
+	[UserProfileImageWebpDifferentCaseData]
+	public async Task UpdateCurrentAsync_ShouldDeleteCachedUser_WhenRequestAndProfileImageAreValid(
+		IFormFileTransformer transformer)
+	{
+		// Arrange
+		var request = _requestBuilder.WithProfileImage(transformer).Build();
+		await ServiceScope.AddUserCacheAsync(request, User, CancellationToken);
+
+		// Act
+		await Controller.UpdateCurrentAsync(request, CancellationToken);
+		var cachedUser = await ServiceScope.GetUserCacheByIdAsync(request, CancellationToken);
+
+		// Assert
+		cachedUser.ShouldBeNull();
+	}
+
+	[Fact]
 	public async Task UpdateCurrentAsync_ShouldPublishUserUpdatedEvent_WhenRequestIsValid()
 	{
 		// Act
@@ -898,7 +1051,7 @@ public class UpdateCurrentUserControllerIntegrationTests : BaseUserPresentationC
 		var eventRequests = await EmailConfirmationTokenEventClient.PublishedDeletedRangeAsync(CancellationToken);
 
 		// Assert
-		eventRequests.ShouldSatisfy(_request, User.EmailConfirmationTokens.AddUser(user));
+		eventRequests.ShouldSatisfy(_request, UserEmailConfirmationTokens.AddUser(user));
 	}
 
 	[Theory]
@@ -915,7 +1068,7 @@ public class UpdateCurrentUserControllerIntegrationTests : BaseUserPresentationC
 		var eventRequests = await EmailConfirmationTokenEventClient.PublishedDeletedRangeAsync(CancellationToken);
 
 		// Assert
-		eventRequests.ShouldSatisfy(request, User.EmailConfirmationTokens.AddUser(user));
+		eventRequests.ShouldSatisfy(request, UserEmailConfirmationTokens.AddUser(user));
 	}
 
 	[Theory]
@@ -932,7 +1085,7 @@ public class UpdateCurrentUserControllerIntegrationTests : BaseUserPresentationC
 		var eventRequests = await EmailConfirmationTokenEventClient.PublishedDeletedRangeAsync(CancellationToken);
 
 		// Assert
-		eventRequests.ShouldSatisfy(request, User.EmailConfirmationTokens.AddUser(user));
+		eventRequests.ShouldSatisfy(request, UserEmailConfirmationTokens.AddUser(user));
 	}
 
 	[Fact]
@@ -947,7 +1100,7 @@ public class UpdateCurrentUserControllerIntegrationTests : BaseUserPresentationC
 		var eventRequests = await EmailConfirmationTokenEventClient.PublishedDeletedRangeAsync(CancellationToken);
 
 		// Assert
-		eventRequests.ShouldSatisfy(request, User.EmailConfirmationTokens.AddUser(user));
+		eventRequests.ShouldSatisfy(request, UserEmailConfirmationTokens.AddUser(user));
 	}
 
 	[Theory]
@@ -964,7 +1117,7 @@ public class UpdateCurrentUserControllerIntegrationTests : BaseUserPresentationC
 		var eventRequests = await EmailConfirmationTokenEventClient.PublishedDeletedRangeAsync(CancellationToken);
 
 		// Assert
-		eventRequests.ShouldSatisfy(request, User.EmailConfirmationTokens.AddUser(user));
+		eventRequests.ShouldSatisfy(request, UserEmailConfirmationTokens.AddUser(user));
 	}
 
 	[Theory]
@@ -981,7 +1134,7 @@ public class UpdateCurrentUserControllerIntegrationTests : BaseUserPresentationC
 		var eventRequests = await EmailConfirmationTokenEventClient.PublishedDeletedRangeAsync(CancellationToken);
 
 		// Assert
-		eventRequests.ShouldSatisfy(request, User.EmailConfirmationTokens.AddUser(user));
+		eventRequests.ShouldSatisfy(request, UserEmailConfirmationTokens.AddUser(user));
 	}
 
 	[Theory]
@@ -1004,7 +1157,7 @@ public class UpdateCurrentUserControllerIntegrationTests : BaseUserPresentationC
 		var eventRequests = await EmailConfirmationTokenEventClient.PublishedDeletedRangeAsync(CancellationToken);
 
 		// Assert
-		eventRequests.ShouldSatisfy(request, User.EmailConfirmationTokens.AddUser(user));
+		eventRequests.ShouldSatisfy(request, UserEmailConfirmationTokens.AddUser(user));
 	}
 
 	[Fact]

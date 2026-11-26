@@ -1,5 +1,5 @@
 using InstaConnect.Posts.Domain.Features.Users.Abstractions;
-using InstaConnect.Posts.Domain.Tests.Features.Users.Assertions;
+using InstaConnect.Posts.Domain.Features.Users.Models.Requests;
 
 namespace InstaConnect.Posts.Application.Tests.Features.Users.Assertions;
 
@@ -14,6 +14,13 @@ public static class UserMockAssertions
 			await userService.ShouldHaveReceivedOneAddAsync(request.IsAddUserCommand(), cancellationToken);
 		}
 
+		public async Task ShouldHaveReceivedOneAddAsync(
+			AddUserCommand command,
+			CancellationToken cancellationToken)
+		{
+			await userService.ShouldHaveReceivedOne().AddAsync(command, cancellationToken);
+		}
+
 		public async Task ShouldHaveReceivedOneUpdateAsync(
 			UpdateUserCommandRequest request,
 			CancellationToken cancellationToken)
@@ -21,11 +28,25 @@ public static class UserMockAssertions
 			await userService.ShouldHaveReceivedOneUpdateAsync(request.IsUpdateUserCommand(), cancellationToken);
 		}
 
+		public async Task ShouldHaveReceivedOneUpdateAsync(
+			UpdateUserCommand command,
+			CancellationToken cancellationToken)
+		{
+			await userService.ShouldHaveReceivedOne().UpdateAsync(command, cancellationToken);
+		}
+
 		public async Task ShouldHaveReceivedOneDeleteAsync(
 			DeleteUserCommandRequest request,
 			CancellationToken cancellationToken)
 		{
 			await userService.ShouldHaveReceivedOneDeleteAsync(request.IsDeleteUserCommand(), cancellationToken);
+		}
+
+		public async Task ShouldHaveReceivedOneDeleteAsync(
+			DeleteUserCommand command,
+			CancellationToken cancellationToken)
+		{
+			await userService.ShouldHaveReceivedOne().DeleteAsync(command, cancellationToken);
 		}
 	}
 }

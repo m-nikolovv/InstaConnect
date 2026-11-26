@@ -61,9 +61,14 @@ public static class UserDataFaker
 		return IsEmailConfirmed;
 	}
 
+	public static int GetProfileImageSize()
+	{
+		return DataFaker.GetAverageNumber(UserConfigurations.ProfileImageMaxSize);
+	}
+
 	public static IFormFile GetProfileImage()
 	{
-		return DataFaker.GetAverageFormFile(UserConfigurations.ProfileImageMaxSize);
+		return DataFaker.GetFormFile(GetProfileImageSize());
 	}
 
 	public static string GetProfileImageUrl()

@@ -1,3 +1,4 @@
+using InstaConnect.Chats.Infrastructure.Tests.Features.ChatMessages.Utilities;
 using InstaConnect.Chats.Tests.Features.ChatMessages.Assertions;
 
 namespace InstaConnect.Chats.Infrastructure.Tests.Integration.Features.ChatMessages.Repositories;
@@ -9,6 +10,15 @@ public class AddChatMessageCommandRepositoryIntegrationTests : BaseChatMessageIn
 	{
 	}
 
+	public override async Task InitializeAsync()
+	{
+		await ServiceScope.SetupAddChatMessageAsync(
+			ParticipantOne,
+			ParticipantTwo,
+			Chat,
+			CancellationToken);
+	}
+
 	[Fact]
 	public async Task AddAsync_ShouldAddChatMessage_WhenCommandIsValid()
 	{
@@ -18,5 +28,16 @@ public class AddChatMessageCommandRepositoryIntegrationTests : BaseChatMessageIn
 
 		// Assert
 		chatMessage.ShouldSatisfy(ChatMessage);
+	}
+
+	[Fact]
+	public async Task AddAsync_ShouldDeleteCachedChat_WhenCommandIsValid()
+	{
+		// Act
+		await Repository.AddAsync(ChatMessage, CancellationToken);
+		var cachedChat = await ServiceScope.GetChatCacheByIdAsync(ChatMessage, CancellationToken);
+
+		// Assert
+		cachedChat.ShouldBeNull();
 	}
 }

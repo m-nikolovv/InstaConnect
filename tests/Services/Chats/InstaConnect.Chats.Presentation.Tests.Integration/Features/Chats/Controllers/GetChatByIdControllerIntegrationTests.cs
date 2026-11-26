@@ -17,16 +17,21 @@ public class GetChatByIdControllerIntegrationTests : BaseChatPresentationQueryIn
 		: base(webApplicationFactory)
 	{
 		_requestBuilderFactory = new();
-		_requestBuilder = _requestBuilderFactory.Create(Chat);
+		_requestBuilder = _requestBuilderFactory.Create(Chat, UserId);
 		_request = _requestBuilder.Build();
 
-		_invertedRequestBuilder = _requestBuilderFactory.Create(Chat).WithCurrentUserId(ParticipantTwoId).WithParticipantTwoId(ParticipantOneId);
+		_invertedRequestBuilder = _requestBuilderFactory.Create(Chat, UserId).WithCurrentUserId(ParticipantTwoId).WithParticipantTwoId(ParticipantOneId);
 		_invertedRequest = _invertedRequestBuilder.Build();
 	}
 
-	protected override async Task OnInitializeAsync()
+	public override async Task InitializeAsync()
 	{
-		await ServiceScope.AddAsync(Chat, CancellationToken);
+		await ServiceScope.SetupGetByIdAsync(
+			_request,
+			ParticipantOne,
+			ParticipantTwo,
+			Chat,
+			CancellationToken);
 	}
 
 	[Theory]
@@ -189,6 +194,49 @@ public class GetChatByIdControllerIntegrationTests : BaseChatPresentationQueryIn
 
 		// Assert
 		response.ShouldSatisfy(request, Chat);
+	}
+
+	[Fact]
+	public async Task GetByIdAsync_ShouldCacheChat_WhenRequestIsValid()
+	{
+		// Act
+		await Controller.GetByIdAsync(_request, CancellationToken);
+		var cachedChat = await ServiceScope.GetChatCacheByIdAsync(_request, CancellationToken);
+
+		// Assert
+		cachedChat.ShouldSatisfy(_request, Chat);
+	}
+
+	[Theory]
+	[UserIdDifferentCaseData]
+	public async Task GetByIdAsync_ShouldCacheChat_WhenRequestAndParticipantTwoIdAreValid(
+		IStringTransformer transformer)
+	{
+		// Arrange
+		var request = _requestBuilder.WithParticipantTwoId(transformer).Build();
+
+		// Act
+		await Controller.GetByIdAsync(request, CancellationToken);
+		var cachedChat = await ServiceScope.GetChatCacheByIdAsync(request, CancellationToken);
+
+		// Assert
+		cachedChat.ShouldSatisfy(request, Chat);
+	}
+
+	[Theory]
+	[UserIdDifferentCaseData]
+	public async Task GetByIdAsync_ShouldCacheChat_WhenRequestAndCurrentUserIdAreValid(
+		IStringTransformer transformer)
+	{
+		// Arrange
+		var request = _requestBuilder.WithCurrentUserId(transformer).Build();
+
+		// Act
+		await Controller.GetByIdAsync(request, CancellationToken);
+		var cachedChat = await ServiceScope.GetChatCacheByIdAsync(request, CancellationToken);
+
+		// Assert
+		cachedChat.ShouldSatisfy(request, Chat);
 	}
 
 	[Fact]

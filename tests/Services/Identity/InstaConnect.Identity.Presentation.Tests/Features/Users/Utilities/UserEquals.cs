@@ -11,6 +11,7 @@ using InstaConnect.Identity.Application.Features.Users.Queries.GetCurrentDetails
 using InstaConnect.Identity.Application.Features.Users.Queries.GetDetailsById;
 using InstaConnect.Identity.Domain.Features.Common.Helpers;
 using InstaConnect.Identity.Domain.Features.Users.Models.Requests;
+using InstaConnect.Identity.Domain.Features.Users.Models.Responses;
 using InstaConnect.Identity.Events.Features.EmailConfirmationTokens;
 using InstaConnect.Identity.Presentation.Features.Users.Abstractions;
 
@@ -484,6 +485,29 @@ public static class UserEquals
 		where TApiRequest : ICurrentUserableApiRequest
 		{
 			return query.CurrentId == request.CurrentId;
+		}
+	}
+
+	extension(UserResponse? response)
+	{
+		public bool Matches(GetUserByIdApiRequest request, User user)
+		{
+			return response.MatchesFull(user);
+		}
+
+		public bool Matches(GetCurrentUserByIdApiRequest request, User user)
+		{
+			return response.MatchesFull(user);
+		}
+
+		public bool Matches(GetUserDetailsByIdApiRequest request, User user)
+		{
+			return response.MatchesFull(user);
+		}
+
+		public bool Matches(GetCurrentUserDetailsByIdApiRequest request, User user)
+		{
+			return response.MatchesFull(user);
 		}
 	}
 }

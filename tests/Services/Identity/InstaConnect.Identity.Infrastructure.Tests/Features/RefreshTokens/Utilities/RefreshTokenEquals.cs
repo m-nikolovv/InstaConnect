@@ -15,4 +15,14 @@ public static class RefreshTokenEquals
 			return p.Matches(refreshToken);
 		}
 	}
+
+	extension(ICollection<RefreshToken> p)
+	{
+		public bool Matches(
+			ICollection<RefreshTokenId> ids,
+			ICollection<RefreshToken> refreshTokens)
+		{
+			return p.Matches(refreshTokens);
+		}
+	}
 }

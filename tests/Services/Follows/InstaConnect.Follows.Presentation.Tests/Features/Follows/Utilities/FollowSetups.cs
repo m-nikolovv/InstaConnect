@@ -1,3 +1,4 @@
+using InstaConnect.Follows.Domain.Features.Follows.Models.Responses;
 using InstaConnect.Follows.Domain.Features.Follows.Models.ValueObjects;
 using InstaConnect.Follows.Presentation.Features.Follows.Controllers.v1;
 
@@ -57,6 +58,78 @@ public static class FollowSetups
 			return await serviceScope.GetByIdAsync(
 				response.GetValue(),
 				cancellationToken);
+		}
+
+		public async Task<FollowResponse?> GetFollowCacheByIdAsync(
+			DeleteFollowApiRequest request,
+			CancellationToken cancellationToken)
+		{
+			return await serviceScope.GetFollowCacheByIdAsync(request.FollowerId, request.FollowingId, request.FollowerId, cancellationToken);
+		}
+
+		public async Task<FollowResponse?> GetFollowCacheByIdAsync(
+			GetFollowByIdApiRequest request,
+			CancellationToken cancellationToken)
+		{
+			return await serviceScope.GetFollowCacheByIdAsync(request.FollowerId, request.FollowingId, request.CurrentUserId, cancellationToken);
+		}
+
+		public async Task SetupAddAsync(
+			AddFollowApiRequest request,
+			User follower,
+			User following,
+			CancellationToken cancellationToken)
+		{
+			await serviceScope.SetupAddFollowAsync(follower, following, cancellationToken);
+		}
+
+		public async Task SetupDeleteAsync(
+			DeleteFollowApiRequest request,
+			User follower,
+			User following,
+			Follow follow,
+			CancellationToken cancellationToken)
+		{
+			await serviceScope.SetupDeleteFollowAsync(follower, following, follow, request.FollowerId, cancellationToken);
+		}
+
+		public async Task AddFollowCacheAsync(
+			DeleteFollowApiRequest request,
+			Follow follow,
+			CancellationToken cancellationToken)
+		{
+			await serviceScope.AddFollowCacheAsync(follow, request.FollowerId, cancellationToken);
+		}
+
+		public async Task SetupGetAllAsync(
+			GetAllFollowsApiRequest request,
+			ICollection<User> followers,
+			ICollection<User> followings,
+			ICollection<Follow> follows,
+			CancellationToken cancellationToken)
+		{
+			await serviceScope.SetupGetAllFollowsAsync(followers, followings, follows, cancellationToken);
+		}
+
+		public async Task SetupGetAllAsync(
+			GetAllFollowsForFollowingApiRequest request,
+			ICollection<User> followers,
+			ICollection<User> followings,
+			ICollection<Follow> follows,
+			CancellationToken cancellationToken)
+		{
+			await serviceScope.SetupGetAllFollowsAsync(followers, followings, follows, cancellationToken);
+		}
+
+
+		public async Task SetupGetByIdAsync(
+			GetFollowByIdApiRequest request,
+			User follower,
+			User following,
+			Follow follow,
+			CancellationToken cancellationToken)
+		{
+			await serviceScope.SetupGetFollowByIdAsync(follower, following, follow, cancellationToken);
 		}
 	}
 }

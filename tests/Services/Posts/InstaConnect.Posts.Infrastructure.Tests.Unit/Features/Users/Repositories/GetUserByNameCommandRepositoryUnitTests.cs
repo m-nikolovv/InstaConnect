@@ -22,10 +22,10 @@ public class GetUserByNameCommandRepositoryUnitTests : BaseUserInfrastructureCom
 
 		_include = IncludeBuilderFactory.Create().WithPosts().WithPostLikes().Build();
 
-		_repository = new(Collection, IncludeBuilderFactory);
+		_repository = new(Collection, CacheHandler, IncludeBuilderFactory);
 
 		Collection.SetupAggregateFluent(_name, Fluent);
-		Fluent.SetupApplyIncludes(_name, _include);
+		Fluent.SetupInclude(_name, _include);
 		Fluent.SetupMatch(_name);
 		Fluent.SetupFirstOrDefaultAsync(_name, User, CancellationToken);
 	}
@@ -51,13 +51,13 @@ public class GetUserByNameCommandRepositoryUnitTests : BaseUserInfrastructureCom
 	}
 
 	[Fact]
-	public async Task GetByNameAsync_ShouldCallTheFluentApplyIncludes_WhenCommandIsValid()
+	public async Task GetByNameAsync_ShouldCallTheFluentInclude_WhenCommandIsValid()
 	{
 		// Act
 		await _repository.GetByNameAsync(_name, _include, CancellationToken);
 
 		// Assert
-		Fluent.ShouldHaveReceivedOneApplyIncludes(_name, _include);
+		Fluent.ShouldHaveReceivedOneInclude(_name, _include);
 	}
 
 	[Fact]

@@ -7,7 +7,7 @@ using InstaConnect.Posts.Tests.Features.PostCommentLikes.Utilities;
 
 namespace InstaConnect.Posts.Domain.Tests.Unit.Features.PostCommentLikes.Utilities;
 
-public abstract class BasePostCommentLikeDomainCommandUnitTest : BasePostCommentLikeTest
+public abstract class BasePostCommentLikeDomainCommandUnitTest : BasePostCommentLikeCommandTest
 {
 	protected IApplicationMapper Mapper { get; }
 

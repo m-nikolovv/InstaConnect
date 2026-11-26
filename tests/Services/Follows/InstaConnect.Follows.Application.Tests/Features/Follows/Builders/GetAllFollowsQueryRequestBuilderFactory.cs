@@ -2,8 +2,8 @@ namespace InstaConnect.Follows.Application.Tests.Features.Follows.Builders;
 
 public class GetAllFollowsQueryRequestBuilderFactory
 {
-	public GetAllFollowsQueryRequestBuilder Create(Follow follow)
+	public GetAllFollowsQueryRequestBuilder Create(Follow follow, UserId currentUserId)
 	{
-		return new(follow);
+		return new(follow, currentUserId);
 	}
 }

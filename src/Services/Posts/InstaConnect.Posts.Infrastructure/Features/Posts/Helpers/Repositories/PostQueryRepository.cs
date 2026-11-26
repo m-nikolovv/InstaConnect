@@ -3,13 +3,16 @@ namespace InstaConnect.Posts.Infrastructure.Features.Posts.Helpers.Repositories;
 internal class PostQueryRepository : IPostQueryRepository
 {
 	private readonly IPostCollection _collection;
+	private readonly IPostCacheHandler _cacheHandler;
 	private readonly IPostIncludeBuilderFactory _includeBuilderFactory;
 
 	public PostQueryRepository(
 		IPostCollection collection,
+		IPostCacheHandler cacheHandler,
 		IPostIncludeBuilderFactory includeBuilderFactory)
 	{
 		_collection = collection;
+		_cacheHandler = cacheHandler;
 		_includeBuilderFactory = includeBuilderFactory;
 	}
 
@@ -20,15 +23,15 @@ internal class PostQueryRepository : IPostQueryRepository
 		CurrentUserQuery currentUser,
 		CancellationToken cancellationToken)
 	{
-		var include = _includeBuilderFactory.Create().WithUser().WithPostLikes().WithPostImages().Build();
+		var include = _includeBuilderFactory.Create().WithUser().WithPostLikes().WithPostComments().WithPostImages().Build();
 
 		return await _collection
 			.AggregateFluent()
-			.ApplyIncludes(include)
+			.Include(include)
 			.Match(filter)
 			.ProjectToFullResponse(currentUser)
-			.ApplySorting(sorting)
-			.ApplyPagination(pagination)
+			.Sort(sorting)
+			.Paginate(pagination)
 			.ToListAsync(cancellationToken);
 	}
 
@@ -39,15 +42,15 @@ internal class PostQueryRepository : IPostQueryRepository
 		CurrentUserQuery currentUser,
 		CancellationToken cancellationToken)
 	{
-		var include = _includeBuilderFactory.Create().WithPostLikes().WithPostImages().Build();
+		var include = _includeBuilderFactory.Create().WithPostLikes().WithPostComments().WithPostImages().Build();
 
 		return await _collection
 			.AggregateFluent()
-			.ApplyIncludes(include)
 			.Match(filter)
+			.Include(include)
 			.ProjectToResponseWithoutUser(currentUser)
-			.ApplySorting(sorting)
-			.ApplyPagination(pagination)
+			.Sort(sorting)
+			.Paginate(pagination)
 			.ToListAsync(cancellationToken);
 	}
 
@@ -55,11 +58,11 @@ internal class PostQueryRepository : IPostQueryRepository
 		PostsFilterQuery filter,
 		CancellationToken cancellationToken)
 	{
-		var include = _includeBuilderFactory.Create().WithUser().WithPostLikes().WithPostImages().Build();
+		var include = _includeBuilderFactory.Create().WithUser().Build();
 
 		return await _collection
 			.AggregateFluent()
-			.ApplyIncludes(include)
+			.Include(include)
 			.Match(filter)
 			.GetCountAsync(cancellationToken);
 	}
@@ -68,11 +71,8 @@ internal class PostQueryRepository : IPostQueryRepository
 		PostsForUserFilterQuery filter,
 		CancellationToken cancellationToken)
 	{
-		var include = _includeBuilderFactory.Create().WithPostLikes().WithPostImages().Build();
-
 		return await _collection
 			.AggregateFluent()
-			.ApplyIncludes(include)
 			.Match(filter)
 			.GetCountAsync(cancellationToken);
 	}
@@ -82,14 +82,27 @@ internal class PostQueryRepository : IPostQueryRepository
 		CurrentUserQuery currentUser,
 		CancellationToken cancellationToken)
 	{
-		var include = _includeBuilderFactory.Create().WithUser().WithPostLikes().WithPostImages().Build();
+		var cachedResponse = await _cacheHandler.GetByIdAsync(id, currentUser.Id, cancellationToken);
 
-		return await _collection
+		if (cachedResponse != null)
+		{
+			return cachedResponse;
+		}
+
+		var include = _includeBuilderFactory.Create().WithUser().WithPostLikes().WithPostComments().WithPostImages().Build();
+		var response = await _collection
 			.AggregateFluent()
-			.ApplyIncludes(include)
 			.Match(id)
+			.Include(include)
 			.ProjectToFullResponse(currentUser)
 			.FirstOrDefaultAsync(cancellationToken);
+
+		if (response != null)
+		{
+			await _cacheHandler.AddAsync(response, currentUser.Id, cancellationToken);
+		}
+
+		return response;
 	}
 
 	public async Task<bool> ExistsByIdAsync(

@@ -4,8 +4,7 @@ using InstaConnect.Posts.Application.Features.Posts.Models;
 using InstaConnect.Posts.Application.Tests.Features.PostImages.Utilities;
 using InstaConnect.Posts.Application.Tests.Features.Posts.Extensions;
 using InstaConnect.Posts.Domain.Features.PostImages.Models.Entities;
-using InstaConnect.Posts.Domain.Tests.Features.PostImages.Utilities;
-using InstaConnect.Posts.Domain.Tests.Features.Posts.Utilities;
+using InstaConnect.Posts.Domain.Features.Posts.Models.Responses;
 using InstaConnect.Posts.Events.Features.PostImages;
 using InstaConnect.Posts.Events.Features.Posts;
 using InstaConnect.Posts.Tests.Features.PostImages.Utilities;
@@ -429,6 +428,8 @@ public static class PostEquals
 				   post.Summary.Matches(response.Summary) &&
 				   response.PostImages.MatchesFull(post.PostImages) &&
 				   response.IsLikedByCurrentUser == post.PostLikes.Any(pl => pl.Id.UserId.Matches(request.CurrentUserId)) &&
+				   response.LikeCount == post.PostLikes.Count &&
+				   response.CommentCount == post.PostComments.Count &&
 				   post.CreatedAtUtc == response.CreatedAtUtc &&
 				   post.UpdatedAtUtc == response.UpdatedAtUtc &&
 				   response.User.MatchesFull(post.User);
@@ -446,6 +447,8 @@ public static class PostEquals
 				   post.Summary.Matches(response.Summary) &&
 				   response.PostImages.MatchesFull(post.PostImages) &&
 				   response.IsLikedByCurrentUser == post.PostLikes.Any(pl => pl.Id.UserId.Matches(request.CurrentUserId)) &&
+				   response.LikeCount == post.PostLikes.Count &&
+				   response.CommentCount == post.PostComments.Count &&
 				   post.CreatedAtUtc == response.CreatedAtUtc &&
 				   post.UpdatedAtUtc == response.UpdatedAtUtc &&
 				   response.User == null;
@@ -522,6 +525,14 @@ public static class PostEquals
 														  matches,
 														  termTransformer,
 														  matchesFilter);
+		}
+	}
+
+	extension(PostResponse? response)
+	{
+		public bool Matches(GetPostByIdQueryRequest request, Post post)
+		{
+			return response.MatchesFull(request.CurrentUserId, post);
 		}
 	}
 }

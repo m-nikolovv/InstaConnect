@@ -20,9 +20,14 @@ public class DeleteUserClaimFunctionalTests : BaseUserClaimPresentationCommandFu
 		_request = _requestBuilder.Build();
 	}
 
-	protected override async Task OnInitializeAsync()
+	public override async Task InitializeAsync()
 	{
-		await ServiceScope.AddAsync(UserClaim, CancellationToken);
+		await ServiceScope.SetupDeleteAsync(
+			_request,
+			User,
+			UserClaim,
+			CancellationToken);
+		await base.InitializeAsync();
 	}
 
 	[Fact]
@@ -210,6 +215,34 @@ public class DeleteUserClaimFunctionalTests : BaseUserClaimPresentationCommandFu
 
 		// Assert
 		userClaim.ShouldBeNull();
+	}
+
+	[Fact]
+	public async Task DeleteAsync_ShouldDeleteCachedUserClaim_WhenRequestIsValid()
+	{
+		// Act
+		await ClaimApiClient.DeleteAsync(_request, CancellationToken);
+		var cachedUserClaim = await ServiceScope.GetUserClaimCacheByIdAsync(_request, CancellationToken);
+
+		// Assert
+		cachedUserClaim.ShouldBeNull();
+	}
+
+	[Theory]
+	[UserIdDifferentCaseData]
+	public async Task DeleteAsync_ShouldDeleteCachedUserClaim_WhenRequestAndIdAreValid(
+		IStringTransformer transformer)
+	{
+		// Arrange
+		var request = _requestBuilder.WithId(transformer).Build();
+		await ServiceScope.AddUserClaimCacheAsync(request, UserClaim, CancellationToken);
+
+		// Act
+		await ClaimApiClient.DeleteAsync(request, CancellationToken);
+		var cachedUserClaim = await ServiceScope.GetUserClaimCacheByIdAsync(request, CancellationToken);
+
+		// Assert
+		cachedUserClaim.ShouldBeNull();
 	}
 
 	[Fact]

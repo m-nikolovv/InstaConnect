@@ -6,7 +6,7 @@ public class AddEmailConfirmationTokenCommandRepositoryUnitTests : BaseEmailConf
 
 	public AddEmailConfirmationTokenCommandRepositoryUnitTests()
 	{
-		_repository = new(Collection, IncludeBuilderFactory);
+		_repository = new(Collection, CacheHandler, IncludeBuilderFactory);
 	}
 
 	[Fact]

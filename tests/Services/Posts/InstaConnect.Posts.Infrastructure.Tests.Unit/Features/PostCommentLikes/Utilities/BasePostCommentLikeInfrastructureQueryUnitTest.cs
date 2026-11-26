@@ -6,7 +6,7 @@ using InstaConnect.Posts.Tests.Features.PostComments.Utilities;
 
 namespace InstaConnect.Posts.Infrastructure.Tests.Unit.Features.PostCommentLikes.Utilities;
 
-public abstract class BasePostCommentLikeInfrastructureQueryUnitTest : BasePostCommentLikeTest
+public abstract class BasePostCommentLikeInfrastructureQueryUnitTest : BasePostCommentLikeQueryTest
 {
 	protected IPostCommentLikeFluent Fluent { get; }
 
@@ -16,16 +16,19 @@ public abstract class BasePostCommentLikeInfrastructureQueryUnitTest : BasePostC
 
 	protected IPostIncludeBuilderFactory IncludeBuilderFactory { get; }
 
+	protected IPostCommentLikeCacheHandler CommentLikeCacheHandler { get; }
+
 	protected IPostCommentIncludeBuilderFactory CommentIncludeBuilderFactory { get; }
 
 	protected IPostCommentLikeIncludeBuilderFactory CommentLikeIncludeBuilderFactory { get; }
 
 	protected BasePostCommentLikeInfrastructureQueryUnitTest()
 	{
-		Collection = PostCommentLikeInfrastructureMockFactory.CreateCollection();
 		Fluent = PostCommentLikeInfrastructureMockFactory.CreateFluent();
+		Collection = PostCommentLikeInfrastructureMockFactory.CreateCollection();
 		ResponseFluent = PostCommentLikeInfrastructureMockFactory.CreateResponseFluent();
 		IncludeBuilderFactory = PostMockFactory.CreateIncludeBuilderFactory();
+		CommentLikeCacheHandler = PostCommentLikeInfrastructureMockFactory.CreateCacheHandler();
 		CommentIncludeBuilderFactory = PostCommentMockFactory.CreateIncludeBuilderFactory();
 		CommentLikeIncludeBuilderFactory = PostCommentLikeMockFactory.CreateIncludeBuilderFactory();
 	}

@@ -8,7 +8,7 @@ public class PostExistsByIdQueryRepositoryUnitTests : BasePostInfrastructureQuer
 
 	public PostExistsByIdQueryRepositoryUnitTests()
 	{
-		_repository = new(Collection, IncludeBuilderFactory);
+		_repository = new(Collection, CacheHandler, IncludeBuilderFactory);
 
 		Collection.SetupAggregateFluent(PostId, Fluent);
 		Fluent.SetupMatch(PostId);

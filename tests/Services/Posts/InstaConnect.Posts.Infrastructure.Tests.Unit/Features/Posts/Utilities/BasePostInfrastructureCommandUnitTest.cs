@@ -2,11 +2,13 @@ using InstaConnect.Posts.Infrastructure.Features.Posts.Abstractions;
 
 namespace InstaConnect.Posts.Infrastructure.Tests.Unit.Features.Posts.Utilities;
 
-public abstract class BasePostInfrastructureCommandUnitTest : BasePostTest
+public abstract class BasePostInfrastructureCommandUnitTest : BasePostCommandTest
 {
 	protected IPostFluent Fluent { get; }
 
 	protected IPostCollection Collection { get; }
+
+	protected IPostCacheHandler CacheHandler { get; }
 
 	protected IPostIncludeBuilderFactory IncludeBuilderFactory { get; }
 
@@ -14,6 +16,7 @@ public abstract class BasePostInfrastructureCommandUnitTest : BasePostTest
 	{
 		Fluent = PostInfrastructureMockFactory.CreateFluent();
 		Collection = PostInfrastructureMockFactory.CreateCollection();
+		CacheHandler = PostInfrastructureMockFactory.CreateCacheHandler();
 		IncludeBuilderFactory = PostMockFactory.CreateIncludeBuilderFactory();
 	}
 }

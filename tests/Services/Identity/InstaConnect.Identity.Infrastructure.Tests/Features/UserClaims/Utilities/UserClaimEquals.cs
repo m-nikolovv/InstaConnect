@@ -1,7 +1,5 @@
 using InstaConnect.Identity.Domain.Features.UserClaims.Models.Responses;
 using InstaConnect.Identity.Infrastructure.Tests.Features.Users.Utilities;
-using InstaConnect.Identity.Tests.Features.UserClaims.Utilities;
-using InstaConnect.Identity.Tests.Features.Users.Utilities;
 
 namespace InstaConnect.Identity.Infrastructure.Tests.Features.UserClaims.Utilities;
 
@@ -22,26 +20,18 @@ public static class UserClaimEquals
 		}
 	}
 
+	extension(ICollection<UserClaim> p)
+	{
+		public bool Matches(
+			ICollection<UserClaimId> ids,
+			ICollection<UserClaim> userClaims)
+		{
+			return p.Matches(userClaims);
+		}
+	}
+
 	extension(UserClaimResponse? response)
 	{
-		public bool MatchesFull(UserClaim? userClaim)
-		{
-			return response != null &&
-				   userClaim != null &&
-				   userClaim.Id.Matches(response.Id) &&
-				   response.User.MatchesFull(userClaim.User) &&
-				   userClaim.CreatedAtUtc == response.CreatedAtUtc;
-		}
-
-		public bool MatchesWithoutUser(UserClaim? userClaim)
-		{
-			return response != null &&
-				   userClaim != null &&
-				   userClaim.Id.Matches(response.Id) &&
-				   response.User == null &&
-				   userClaim.CreatedAtUtc == response.CreatedAtUtc;
-		}
-
 		public bool Matches(
 			UserClaimId id,
 			CurrentUserQuery currentUserQuery,

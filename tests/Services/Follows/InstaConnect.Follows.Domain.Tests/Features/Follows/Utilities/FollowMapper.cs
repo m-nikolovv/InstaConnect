@@ -22,39 +22,6 @@ public static class FollowMapper
 
 	extension(Follow follow)
 	{
-		internal FollowResponse ToFullResponse<TQuery>(
-			TQuery request)
-			where TQuery : ICurrentUserableQuery
-		{
-			return new(follow.Id,
-					   follow.Follower?.ToFullResponse(),
-					   follow.Following?.ToFullResponse(),
-					   follow.Id.FollowerId.Matches(request.CurrentUser.Id),
-					   follow.CreatedAtUtc);
-		}
-
-		internal FollowResponse ToResponseWithoutFollower<TQuery>(
-			TQuery request)
-			where TQuery : ICurrentUserableQuery
-		{
-			return new(follow.Id,
-					   null,
-					   follow.Following?.ToFullResponse(),
-					   follow.Id.FollowerId.Matches(request.CurrentUser.Id),
-					   follow.CreatedAtUtc);
-		}
-
-		internal FollowResponse ToResponseWithoutFollowing<TQuery>(
-			TQuery request)
-			where TQuery : ICurrentUserableQuery
-		{
-			return new(follow.Id,
-					   follow.Follower?.ToFullResponse(),
-					   null,
-					   follow.Id.FollowerId.Matches(request.CurrentUser.Id),
-					   follow.CreatedAtUtc);
-		}
-
 		public Follow To(AddFollowCommand command)
 		{
 			return new(
@@ -71,7 +38,7 @@ public static class FollowMapper
 		public FollowResponse ToResponse(
 			GetFollowByIdQuery query)
 		{
-			return follow.ToFullResponse(query);
+			return follow.ToFullResponse(query.CurrentUser.Id);
 		}
 	}
 
@@ -80,13 +47,13 @@ public static class FollowMapper
 		public ICollection<FollowResponse> ToResponse(
 			GetAllFollowsQuery query)
 		{
-			return follows.Filter(query.Pagination, follow => follow.MatchesFilter(query.Filter), follow => follow.ToResponseWithoutFollower(query));
+			return follows.Filter(query.Pagination, follow => follow.MatchesFilter(query.Filter), follow => follow.ToResponseWithoutFollower(query.CurrentUser.Id));
 		}
 
 		public ICollection<FollowResponse> ToResponse(
 			GetAllFollowsForFollowingQuery query)
 		{
-			return follows.Filter(query.Pagination, follow => follow.MatchesFilter(query.Filter), follow => follow.ToResponseWithoutFollowing(query));
+			return follows.Filter(query.Pagination, follow => follow.MatchesFilter(query.Filter), follow => follow.ToResponseWithoutFollowing(query.CurrentUser.Id));
 		}
 
 		public long ToTotalCountResponse(

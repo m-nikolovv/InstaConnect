@@ -1,3 +1,5 @@
+using InstaConnect.Chats.Infrastructure.Tests.Features.Chats.Utilities;
+
 namespace InstaConnect.Chats.Infrastructure.Tests.Integration.Features.Chats.Repositories;
 
 public class DeleteChatCommandRepositoryIntegrationTests : BaseChatInfrastructureCommandIntegrationTest
@@ -7,9 +9,15 @@ public class DeleteChatCommandRepositoryIntegrationTests : BaseChatInfrastructur
 	{
 	}
 
-	protected override async Task OnInitializeAsync()
+	public override async Task InitializeAsync()
 	{
-		await ServiceScope.AddAsync(Chat, CancellationToken);
+		await ServiceScope.SetupDeleteChatAsync(
+			ParticipantOne,
+			ParticipantTwo,
+			Chat,
+			ChatChatMessages,
+			ChatChatMessagesChatMessageImages,
+			CancellationToken);
 	}
 
 	[Fact]
@@ -21,5 +29,38 @@ public class DeleteChatCommandRepositoryIntegrationTests : BaseChatInfrastructur
 
 		// Assert
 		chat.ShouldBeNull();
+	}
+
+	[Fact]
+	public async Task DeleteAsync_ShouldDeleteCachedChat_WhenCommandIsValid()
+	{
+		// Act
+		await Repository.DeleteAsync(Chat, CancellationToken);
+		var cachedChat = await ServiceScope.GetChatCacheByIdAsync(Chat, CancellationToken);
+
+		// Assert
+		cachedChat.ShouldBeNull();
+	}
+
+	[Fact]
+	public async Task DeleteAsync_ShouldDeleteChatChatMessages_WhenCommandIsValid()
+	{
+		// Act
+		await Repository.DeleteAsync(Chat, CancellationToken);
+		var chatChatMessages = await ServiceScope.GetByIdRangeAsync(ChatChatMessageIds, CancellationToken);
+
+		// Assert
+		chatChatMessages.ShouldBeEmpty();
+	}
+
+	[Fact]
+	public async Task DeleteAsync_ShouldDeleteChatChatMessagesChatMessageImages_WhenCommandIsValid()
+	{
+		// Act
+		await Repository.DeleteAsync(Chat, CancellationToken);
+		var chatChatMessagesChatMessageImages = await ServiceScope.GetByIdRangeAsync(ChatChatMessagesChatMessageImageIds, CancellationToken);
+
+		// Assert
+		chatChatMessagesChatMessageImages.ShouldBeEmpty();
 	}
 }

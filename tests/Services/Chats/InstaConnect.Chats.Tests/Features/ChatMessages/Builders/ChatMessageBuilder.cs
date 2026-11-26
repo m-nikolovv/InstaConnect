@@ -1,9 +1,11 @@
+using InstaConnect.Common.Tests.Features.DataAttributes.Base;
+
 namespace InstaConnect.Chats.Tests.Features.ChatMessages.Builders;
 
 public class ChatMessageBuilder
 {
-	private readonly string _participantOneId;
-	private readonly string _participantTwoId;
+	private string _participantOneId;
+	private string _participantTwoId;
 	private readonly Chat _chat;
 	private string _messageId;
 	private string _senderId;
@@ -52,11 +54,42 @@ public class ChatMessageBuilder
 		return this;
 	}
 
-	public ChatMessageBuilder WithMessageId(ChatMessageId messageId)
+	public ChatMessageBuilder WithParticipantOneId(IStringTransformer transformer)
 	{
-		_messageId = messageId.MessageId;
+		_participantOneId = transformer.Transform(_participantOneId);
 
 		return this;
+	}
+
+	public ChatMessageBuilder WithParticipantTwoId(IStringTransformer transformer)
+	{
+		_participantTwoId = transformer.Transform(_participantTwoId);
+
+		return this;
+	}
+
+	public ChatMessageBuilder WithMessageId(ChatMessageId messageId, IStringTransformer? transformer = null)
+	{
+		_messageId = transformer.TryTransform(messageId.MessageId);
+
+		return this;
+	}
+
+	public ChatMessageBuilder WithMessageId(IStringTransformer transformer)
+	{
+		_messageId = transformer.Transform(_messageId);
+
+		return this;
+	}
+
+	public ChatMessage BuildAttached()
+	{
+		var chatMessage = Build();
+
+		_chat.AddChatMessage(chatMessage);
+		_sender.AddChatMessage(chatMessage);
+
+		return chatMessage;
 	}
 
 	public ChatMessage Build()
@@ -73,8 +106,6 @@ public class ChatMessageBuilder
 				_createdAtUtc,
 				_updatedAtUtc);
 
-		_chat.AddChatMessage(chatMessage);
-		_sender.AddChatMessage(chatMessage);
 		chatMessage.AddChat(_chat);
 		chatMessage.AddSender(_sender);
 		chatMessage.AddChatMessageImages(_chatMessageImages);

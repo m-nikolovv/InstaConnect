@@ -1,3 +1,4 @@
+using InstaConnect.Identity.Domain.Features.UserClaims.Models.Responses;
 using InstaConnect.Identity.Domain.Features.UserClaims.Models.ValueObjects;
 using InstaConnect.Identity.Presentation.Features.UserClaims.Controllers.v1;
 
@@ -45,6 +46,47 @@ public static class UserClaimSetups
 			return await serviceScope.GetByIdAsync(
 				response.GetValue(),
 				cancellationToken);
+		}
+
+		public async Task<UserClaimResponse?> GetUserClaimCacheByIdAsync(
+			DeleteUserClaimApiRequest request,
+			CancellationToken cancellationToken)
+		{
+			return await serviceScope.GetUserClaimCacheByIdAsync(request.Id, request.Claim, request.Id, cancellationToken);
+		}
+
+		public async Task SetupAddAsync(
+			AddUserClaimApiRequest request,
+			User user,
+			CancellationToken cancellationToken)
+		{
+			await serviceScope.SetupAddUserClaimAsync(user, cancellationToken);
+		}
+
+		public async Task SetupDeleteAsync(
+			DeleteUserClaimApiRequest request,
+			User user,
+			UserClaim userClaim,
+			CancellationToken cancellationToken)
+		{
+			await serviceScope.SetupDeleteUserClaimAsync(user, userClaim, request.Id, cancellationToken);
+		}
+
+		public async Task AddUserClaimCacheAsync(
+			DeleteUserClaimApiRequest request,
+			UserClaim userClaim,
+			CancellationToken cancellationToken)
+		{
+			await serviceScope.AddUserClaimCacheAsync(userClaim, request.Id, cancellationToken);
+		}
+
+		public async Task SetupGetAllAsync(
+			GetAllUserClaimsApiRequest request,
+			ICollection<User> users,
+			ICollection<UserClaim> userClaims,
+			CancellationToken cancellationToken)
+		{
+			await serviceScope.SetupGetAllUserClaimsAsync(users, userClaims, cancellationToken);
 		}
 	}
 }

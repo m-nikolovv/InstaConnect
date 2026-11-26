@@ -5,13 +5,16 @@ namespace InstaConnect.Follows.Infrastructure.Features.Follows.Helpers.Repositor
 internal class FollowQueryRepository : IFollowQueryRepository
 {
 	private readonly IFollowCollection _collection;
+	private readonly IFollowCacheHandler _cacheHandler;
 	private readonly IFollowIncludeBuilderFactory _includeBuilderFactory;
 
 	public FollowQueryRepository(
 		IFollowCollection collection,
+		IFollowCacheHandler cacheHandler,
 		IFollowIncludeBuilderFactory includeBuilderFactory)
 	{
 		_collection = collection;
+		_cacheHandler = cacheHandler;
 		_includeBuilderFactory = includeBuilderFactory;
 	}
 
@@ -26,11 +29,11 @@ internal class FollowQueryRepository : IFollowQueryRepository
 
 		return await _collection
 			.AggregateFluent()
-			.ApplyIncludes(include)
+			.Include(include)
 			.Match(filter)
 			.ProjectToResponseWithoutFollower(currentUser)
-			.ApplySorting(sorting)
-			.ApplyPagination(pagination)
+			.Sort(sorting)
+			.Paginate(pagination)
 			.ToListAsync(cancellationToken);
 	}
 
@@ -45,11 +48,11 @@ internal class FollowQueryRepository : IFollowQueryRepository
 
 		return await _collection
 			.AggregateFluent()
-			.ApplyIncludes(include)
+			.Include(include)
 			.Match(filter)
 			.ProjectToResponseWithoutFollowing(currentUser)
-			.ApplySorting(sorting)
-			.ApplyPagination(pagination)
+			.Sort(sorting)
+			.Paginate(pagination)
 			.ToListAsync(cancellationToken);
 	}
 
@@ -61,7 +64,7 @@ internal class FollowQueryRepository : IFollowQueryRepository
 
 		return await _collection
 			.AggregateFluent()
-			.ApplyIncludes(include)
+			.Include(include)
 			.Match(filter)
 			.GetCountAsync(cancellationToken);
 	}
@@ -74,7 +77,7 @@ internal class FollowQueryRepository : IFollowQueryRepository
 
 		return await _collection
 			.AggregateFluent()
-			.ApplyIncludes(include)
+			.Include(include)
 			.Match(filter)
 			.GetCountAsync(cancellationToken);
 	}
@@ -84,14 +87,27 @@ internal class FollowQueryRepository : IFollowQueryRepository
 		CurrentUserQuery currentUser,
 		CancellationToken cancellationToken)
 	{
-		var include = _includeBuilderFactory.Create().WithFollower().WithFollowing().Build();
+		var cachedResponse = await _cacheHandler.GetByIdAsync(id, currentUser.Id, cancellationToken);
 
-		return await _collection
+		if (cachedResponse != null)
+		{
+			return cachedResponse;
+		}
+
+		var include = _includeBuilderFactory.Create().WithFollower().WithFollowing().Build();
+		var response = await _collection
 			.AggregateFluent()
-			.ApplyIncludes(include)
 			.Match(id)
+			.Include(include)
 			.ProjectToFullResponse(currentUser)
 			.FirstOrDefaultAsync(cancellationToken);
+
+		if (response != null)
+		{
+			await _cacheHandler.AddAsync(response, currentUser.Id, cancellationToken);
+		}
+
+		return response;
 	}
 
 	public async Task<bool> ExistsByIdAsync(

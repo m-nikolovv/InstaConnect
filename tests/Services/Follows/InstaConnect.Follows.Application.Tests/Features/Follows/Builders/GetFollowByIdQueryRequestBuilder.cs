@@ -6,11 +6,11 @@ public class GetFollowByIdQueryRequestBuilder
 	private string _followingId;
 	private string _currentUserId;
 
-	public GetFollowByIdQueryRequestBuilder(Follow follow)
+	public GetFollowByIdQueryRequestBuilder(Follow follow, UserId currentUserId)
 	{
 		_followerId = follow.Id.FollowerId.Id;
 		_followingId = follow.Id.FollowingId.Id;
-		_currentUserId = follow.Id.FollowerId.Id;
+		_currentUserId = currentUserId.Id;
 	}
 
 	public GetFollowByIdQueryRequestBuilder WithFollowerId(UserId followerId, IStringTransformer? transformer = null)

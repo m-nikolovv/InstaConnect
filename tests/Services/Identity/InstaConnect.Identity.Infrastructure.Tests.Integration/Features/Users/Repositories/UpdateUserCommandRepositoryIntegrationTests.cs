@@ -1,3 +1,4 @@
+using InstaConnect.Identity.Infrastructure.Tests.Features.Users.Utilities;
 using InstaConnect.Identity.Tests.Features.Users.Assertions;
 
 namespace InstaConnect.Identity.Infrastructure.Tests.Integration.Features.Users.Repositories;
@@ -9,9 +10,9 @@ public class UpdateUserCommandRepositoryIntegrationTests : BaseUserInfrastructur
 	{
 	}
 
-	protected override async Task OnInitializeAsync()
+	public override async Task InitializeAsync()
 	{
-		await ServiceScope.AddAsync(User, CancellationToken);
+		await ServiceScope.SetupUpdateUserAsync(User, UserEmailConfirmationTokens, CancellationToken);
 	}
 
 	[Fact]
@@ -26,5 +27,19 @@ public class UpdateUserCommandRepositoryIntegrationTests : BaseUserInfrastructur
 
 		// Assert
 		user.ShouldSatisfy(updatedUser);
+	}
+
+	[Fact]
+	public async Task UpdateAsync_ShouldDeleteCachedUser_WhenCommandIsValid()
+	{
+		// Arrange
+		var updatedUser = UserBuilderFactory.Create(PasswordHasher.Hash(Password)).WithId(UserId).Build();
+
+		// Act
+		await Repository.UpdateAsync(updatedUser, CancellationToken);
+		var cachedUser = await ServiceScope.GetUserCacheByIdAsync(updatedUser, CancellationToken);
+
+		// Assert
+		cachedUser.ShouldBeNull();
 	}
 }

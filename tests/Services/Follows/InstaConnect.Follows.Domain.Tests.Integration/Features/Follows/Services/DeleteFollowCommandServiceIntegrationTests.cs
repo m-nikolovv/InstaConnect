@@ -1,3 +1,4 @@
+using InstaConnect.Follows.Domain.Tests.Features.Follows.Utilities;
 using InstaConnect.Follows.Tests.Features.Follows.Assertions;
 
 namespace InstaConnect.Follows.Domain.Tests.Integration.Features.Follows.Services;
@@ -16,9 +17,15 @@ public class DeleteFollowCommandServiceIntegrationTests : BaseFollowDomainComman
 		_command = _commandBuilder.Build();
 	}
 
-	protected override async Task OnInitializeAsync()
+	public override async Task InitializeAsync()
 	{
-		await ServiceScope.AddAsync(Follow, CancellationToken);
+		await ServiceScope.SetupDeleteAsync(
+			_command,
+			Follower,
+			Following,
+			Follow,
+			CancellationToken);
+		await base.InitializeAsync();
 	}
 
 	[Fact]
@@ -72,6 +79,51 @@ public class DeleteFollowCommandServiceIntegrationTests : BaseFollowDomainComman
 
 		// Assert
 		follow.ShouldBeNull();
+	}
+
+	[Fact]
+	public async Task DeleteAsync_ShouldDeleteCachedFollow_WhenCommandIsValid()
+	{
+		// Act
+		await Service.DeleteAsync(_command, CancellationToken);
+		var cachedFollow = await ServiceScope.GetFollowCacheByIdAsync(_command, CancellationToken);
+
+		// Assert
+		cachedFollow.ShouldBeNull();
+	}
+
+	[Theory]
+	[UserIdDifferentCaseData]
+	public async Task DeleteAsync_ShouldDeleteCachedFollow_WhenCommandAndFollowerIdAreValid(
+		IStringTransformer transformer)
+	{
+		// Arrange
+		var command = _commandBuilder.WithFollowerId(transformer).Build();
+		await ServiceScope.AddFollowCacheAsync(command, Follow, CancellationToken);
+
+		// Act
+		await Service.DeleteAsync(command, CancellationToken);
+		var cachedFollow = await ServiceScope.GetFollowCacheByIdAsync(command, CancellationToken);
+
+		// Assert
+		cachedFollow.ShouldBeNull();
+	}
+
+	[Theory]
+	[UserIdDifferentCaseData]
+	public async Task DeleteAsync_ShouldDeleteCachedFollow_WhenCommandAndFollowingIdAreValid(
+		IStringTransformer transformer)
+	{
+		// Arrange
+		var command = _commandBuilder.WithFollowingId(transformer).Build();
+		await ServiceScope.AddFollowCacheAsync(command, Follow, CancellationToken);
+
+		// Act
+		await Service.DeleteAsync(command, CancellationToken);
+		var cachedFollow = await ServiceScope.GetFollowCacheByIdAsync(command, CancellationToken);
+
+		// Assert
+		cachedFollow.ShouldBeNull();
 	}
 
 	[Fact]

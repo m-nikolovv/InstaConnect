@@ -6,15 +6,18 @@ namespace InstaConnect.Chats.Infrastructure.Features.ChatMessages.Helpers.Reposi
 internal class ChatMessageQueryRepository : IChatMessageQueryRepository
 {
 	private readonly IChatMessageCollection _collection;
+	private readonly IChatMessageCacheHandler _messageCacheHandler;
 	private readonly IChatIncludeBuilderFactory _includeBuilderFactory;
 	private readonly IChatMessageIncludeBuilderFactory _messageIncludeBuilderFactory;
 
 	public ChatMessageQueryRepository(
 		IChatMessageCollection collection,
+		IChatMessageCacheHandler messageCacheHandler,
 		IChatIncludeBuilderFactory includeBuilderFactory,
 		IChatMessageIncludeBuilderFactory messageIncludeBuilderFactory)
 	{
 		_collection = collection;
+		_messageCacheHandler = messageCacheHandler;
 		_includeBuilderFactory = includeBuilderFactory;
 		_messageIncludeBuilderFactory = messageIncludeBuilderFactory;
 	}
@@ -30,11 +33,11 @@ internal class ChatMessageQueryRepository : IChatMessageQueryRepository
 
 		return await _collection
 			.AggregateFluent()
-			.ApplyIncludes(messageInclude)
 			.Match(filter)
+			.Include(messageInclude)
 			.ProjectToResponseWithoutChat(currentUser)
-			.ApplySorting(sorting)
-			.ApplyPagination(pagination)
+			.Sort(sorting)
+			.Paginate(pagination)
 			.ToListAsync(cancellationToken);
 	}
 
@@ -42,11 +45,8 @@ internal class ChatMessageQueryRepository : IChatMessageQueryRepository
 		ChatMessagesFilterQuery filter,
 		CancellationToken cancellationToken)
 	{
-		var messageInclude = _messageIncludeBuilderFactory.Create().WithSender().WithChatMessageImages().Build();
-
 		return await _collection
 			.AggregateFluent()
-			.ApplyIncludes(messageInclude)
 			.Match(filter)
 			.GetCountAsync(cancellationToken);
 	}
@@ -56,15 +56,28 @@ internal class ChatMessageQueryRepository : IChatMessageQueryRepository
 		CurrentUserQuery currentUser,
 		CancellationToken cancellationToken)
 	{
-		var include = _includeBuilderFactory.Create().WithParticipantOne().WithParticipantTwo().Build();
-		var messageInclude = _messageIncludeBuilderFactory.Create().WithSender().WithChat(include).WithChatMessageImages().Build();
+		var cachedResponse = await _messageCacheHandler.GetByIdAsync(id, currentUser.Id, cancellationToken);
 
-		return await _collection
+		if (cachedResponse != null)
+		{
+			return cachedResponse;
+		}
+
+		var include = _includeBuilderFactory.Create().WithParticipantOne().WithParticipantTwo().WithChatMessages().Build();
+		var messageInclude = _messageIncludeBuilderFactory.Create().WithSender().WithChat(include).WithChatMessageImages().Build();
+		var response = await _collection
 			.AggregateFluent()
-			.ApplyIncludes(messageInclude)
 			.Match(id)
+			.Include(messageInclude)
 			.ProjectToFullResponse(currentUser)
 			.FirstOrDefaultAsync(cancellationToken);
+
+		if (response != null)
+		{
+			await _messageCacheHandler.AddAsync(response, currentUser.Id, cancellationToken);
+		}
+
+		return response;
 	}
 
 	public async Task<bool> ExistsByIdAsync(

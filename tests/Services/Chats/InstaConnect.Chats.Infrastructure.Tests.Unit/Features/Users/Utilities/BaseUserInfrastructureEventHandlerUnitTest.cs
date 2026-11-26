@@ -5,7 +5,7 @@ using InstaConnect.Common.Domain.Features.Mappers.Abstractions;
 
 namespace InstaConnect.Chats.Infrastructure.Tests.Unit.Features.Users.Utilities;
 
-public abstract class BaseUserInfrastructureEventHandlerUnitTest : BaseUserTest
+public abstract class BaseUserInfrastructureEventHandlerUnitTest : BaseUserCommandTest
 {
 	protected IApplicationSender Sender { get; }
 

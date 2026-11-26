@@ -16,7 +16,7 @@ public class GetChatByIdQueryServiceUnitTests : BaseChatDomainQueryUnitTest
 	public GetChatByIdQueryServiceUnitTests()
 	{
 		_queryBuilderFactory = new();
-		_queryBuilder = _queryBuilderFactory.Create(Chat);
+		_queryBuilder = _queryBuilderFactory.Create(Chat, UserId);
 		_query = _queryBuilder.Build();
 
 		_service = new(Repository, UserRepository, CollectionResponseFactory);

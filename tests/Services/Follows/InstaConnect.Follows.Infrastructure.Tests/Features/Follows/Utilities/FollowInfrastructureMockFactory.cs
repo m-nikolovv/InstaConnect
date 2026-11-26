@@ -18,4 +18,9 @@ public static class FollowInfrastructureMockFactory
 	{
 		return Mocker.Mock<IFollowResponseFluent>();
 	}
+
+	public static IFollowCacheHandler CreateCacheHandler()
+	{
+		return Mocker.Mock<IFollowCacheHandler>();
+	}
 }

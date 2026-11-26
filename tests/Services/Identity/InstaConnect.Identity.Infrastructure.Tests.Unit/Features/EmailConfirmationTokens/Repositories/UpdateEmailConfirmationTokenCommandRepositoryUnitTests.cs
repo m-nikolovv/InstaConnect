@@ -6,7 +6,7 @@ public class UpdateEmailConfirmationTokenCommandRepositoryUnitTests : BaseEmailC
 
 	public UpdateEmailConfirmationTokenCommandRepositoryUnitTests()
 	{
-		_repository = new(Collection, IncludeBuilderFactory);
+		_repository = new(Collection, CacheHandler, IncludeBuilderFactory);
 	}
 
 	[Fact]
@@ -17,5 +17,15 @@ public class UpdateEmailConfirmationTokenCommandRepositoryUnitTests : BaseEmailC
 
 		// Assert
 		await Collection.ShouldHaveReceivedOneUpdateAsync(EmailConfirmationToken, CancellationToken);
+	}
+
+	[Fact]
+	public async Task UpdateAsync_ShouldCallTheCacheHandlerDeleteAsync_WhenCommandIsValid()
+	{
+		// Act
+		await _repository.UpdateAsync(EmailConfirmationToken, CancellationToken);
+
+		// Assert
+		await CacheHandler.ShouldHaveReceivedOneDeleteAsync(EmailConfirmationToken, CancellationToken);
 	}
 }

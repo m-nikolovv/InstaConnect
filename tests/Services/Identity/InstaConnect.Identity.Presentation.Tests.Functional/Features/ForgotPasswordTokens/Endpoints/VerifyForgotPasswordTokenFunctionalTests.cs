@@ -1,6 +1,7 @@
 using InstaConnect.Identity.Presentation.Features.ForgotPasswordTokens.Models.Bodies;
 using InstaConnect.Identity.Presentation.Features.ForgotPasswordTokens.Models.Requests;
 using InstaConnect.Identity.Presentation.Tests.Features.ForgotPasswordTokens.Builders;
+using InstaConnect.Identity.Presentation.Tests.Features.ForgotPasswordTokens.Utilities;
 using InstaConnect.Identity.Presentation.Tests.Functional.Features.ForgotPasswordTokens.Utilities;
 using InstaConnect.Identity.Tests.Features.ForgotPasswordTokens.Assertions;
 using InstaConnect.Identity.Tests.Features.ForgotPasswordTokens.Builders;
@@ -26,9 +27,14 @@ public class VerifyForgotPasswordTokenFunctionalTests : BaseForgotPasswordTokenP
 		_request = _requestBuilder.Build();
 	}
 
-	protected override async Task OnInitializeAsync()
+	public override async Task InitializeAsync()
 	{
-		await ServiceScope.AddRangeAsync(User.ForgotPasswordTokens, CancellationToken);
+		await ServiceScope.SetupVerifyAsync(
+			_request,
+			User,
+			ForgotPasswordTokens,
+			CancellationToken);
+		await base.InitializeAsync();
 	}
 
 	[Theory]
@@ -324,6 +330,51 @@ public class VerifyForgotPasswordTokenFunctionalTests : BaseForgotPasswordTokenP
 
 		// Assert
 		user.ShouldSatisfy(_request, PasswordHasher);
+	}
+
+	[Fact]
+	public async Task VerifyAsync_ShouldDeleteCachedUser_WhenRequestIsValid()
+	{
+		// Act
+		await ForgotPasswordTokenApiClient.VerifyAsync(_request, CancellationToken);
+		var cachedUser = await ServiceScope.GetUserCacheByIdAsync(_request, CancellationToken);
+
+		// Assert
+		cachedUser.ShouldBeNull();
+	}
+
+	[Theory]
+	[UserIdDifferentCaseData]
+	public async Task VerifyAsync_ShouldDeleteCachedUser_WhenRequestAndIdAreValid(
+		IStringTransformer transformer)
+	{
+		// Arrange
+		var request = _requestBuilder.WithId(transformer).Build();
+		await ServiceScope.AddUserCacheAsync(request, User, CancellationToken);
+
+		// Act
+		await ForgotPasswordTokenApiClient.VerifyAsync(request, CancellationToken);
+		var cachedUser = await ServiceScope.GetUserCacheByIdAsync(request, CancellationToken);
+
+		// Assert
+		cachedUser.ShouldBeNull();
+	}
+
+	[Theory]
+	[ForgotPasswordTokenValueDifferentCaseData]
+	public async Task VerifyAsync_ShouldDeleteCachedUser_WhenRequestAndValueAreValid(
+		IStringTransformer transformer)
+	{
+		// Arrange
+		var request = _requestBuilder.WithValue(transformer).Build();
+		await ServiceScope.AddUserCacheAsync(request, User, CancellationToken);
+
+		// Act
+		await ForgotPasswordTokenApiClient.VerifyAsync(request, CancellationToken);
+		var cachedUser = await ServiceScope.GetUserCacheByIdAsync(request, CancellationToken);
+
+		// Assert
+		cachedUser.ShouldBeNull();
 	}
 
 	[Fact]

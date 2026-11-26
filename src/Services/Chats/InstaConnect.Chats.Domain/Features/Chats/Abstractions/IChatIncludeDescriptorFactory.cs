@@ -4,4 +4,5 @@ public interface IChatIncludeDescriptorFactory
 {
 	public ChatsIncludeDescriptor CreateParticipantOne();
 	public ChatsIncludeDescriptor CreateParticipantTwo();
+	public ChatsIncludeDescriptor CreateChatMessages();
 }

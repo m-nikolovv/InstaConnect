@@ -22,10 +22,10 @@ public class GetUserByEmailCommandRepositoryUnitTests : BaseUserInfrastructureCo
 
 		_include = IncludeBuilderFactory.Create().WithFollowers().WithFollowings().Build();
 
-		_repository = new(Collection, IncludeBuilderFactory);
+		_repository = new(Collection, CacheHandler, IncludeBuilderFactory);
 
 		Collection.SetupAggregateFluent(_email, Fluent);
-		Fluent.SetupApplyIncludes(_email, _include);
+		Fluent.SetupInclude(_email, _include);
 		Fluent.SetupMatch(_email);
 		Fluent.SetupFirstOrDefaultAsync(_email, User, CancellationToken);
 	}
@@ -51,13 +51,13 @@ public class GetUserByEmailCommandRepositoryUnitTests : BaseUserInfrastructureCo
 	}
 
 	[Fact]
-	public async Task GetByEmailAsync_ShouldCallTheFluentApplyIncludes_WhenCommandIsValid()
+	public async Task GetByEmailAsync_ShouldCallTheFluentInclude_WhenCommandIsValid()
 	{
 		// Act
 		await _repository.GetByEmailAsync(_email, _include, CancellationToken);
 
 		// Assert
-		Fluent.ShouldHaveReceivedOneApplyIncludes(_email, _include);
+		Fluent.ShouldHaveReceivedOneInclude(_email, _include);
 	}
 
 	[Fact]

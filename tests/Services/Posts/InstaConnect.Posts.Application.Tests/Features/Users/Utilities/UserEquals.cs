@@ -128,4 +128,5 @@ public static class UserEquals
 			return query.CurrentUser.Id.Matches(request.CurrentUserId);
 		}
 	}
+
 }

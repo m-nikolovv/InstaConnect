@@ -2,8 +2,8 @@ namespace InstaConnect.Chats.Presentation.Tests.Features.ChatMessages.Builders;
 
 public class GetAllChatMessagesApiRequestBuilderFactory
 {
-	public GetAllChatMessagesApiRequestBuilder Create(ChatMessage chatMessage)
+	public GetAllChatMessagesApiRequestBuilder Create(ChatMessage chatMessage, UserId currentUserId)
 	{
-		return new(chatMessage);
+		return new(chatMessage, currentUserId);
 	}
 }

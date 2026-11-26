@@ -3,13 +3,16 @@ namespace InstaConnect.Posts.Infrastructure.Features.Posts.Helpers.Repositories;
 internal class PostCommandRepository : IPostCommandRepository
 {
 	private readonly IPostCollection _collection;
+	private readonly IPostCacheHandler _cacheHandler;
 	private readonly IPostIncludeBuilderFactory _includeBuilderFactory;
 
 	public PostCommandRepository(
 		IPostCollection collection,
+		IPostCacheHandler cacheHandler,
 		IPostIncludeBuilderFactory includeBuilderFactory)
 	{
 		_collection = collection;
+		_cacheHandler = cacheHandler;
 		_includeBuilderFactory = includeBuilderFactory;
 	}
 
@@ -20,8 +23,8 @@ internal class PostCommandRepository : IPostCommandRepository
 	{
 		return await _collection
 			.AggregateFluent()
-			.ApplyIncludes(include)
 			.Match(id)
+			.Include(include)
 			.FirstOrDefaultAsync(cancellationToken);
 	}
 
@@ -32,6 +35,27 @@ internal class PostCommandRepository : IPostCommandRepository
 		var include = _includeBuilderFactory.Create().Build();
 
 		return await GetByIdAsync(id, include, cancellationToken);
+	}
+
+	public async Task<ICollection<Post>> GetByIdRangeAsync(
+		IEnumerable<PostId> ids,
+		PostInclude include,
+		CancellationToken cancellationToken)
+	{
+		return await _collection
+			.AggregateFluent()
+			.Match(ids)
+			.Include(include)
+			.ToListAsync(cancellationToken);
+	}
+
+	public async Task<ICollection<Post>> GetByIdRangeAsync(
+		IEnumerable<PostId> ids,
+		CancellationToken cancellationToken)
+	{
+		var include = _includeBuilderFactory.Create().Build();
+
+		return await GetByIdRangeAsync(ids, include, cancellationToken);
 	}
 
 	public async Task<bool> ExistsByIdAsync(
@@ -57,10 +81,18 @@ internal class PostCommandRepository : IPostCommandRepository
 	public async Task UpdateAsync(Post entity, CancellationToken cancellationToken)
 	{
 		await _collection.UpdateAsync(entity, cancellationToken);
+		await _cacheHandler.DeleteAsync(entity.Id, cancellationToken);
 	}
 
 	public async Task DeleteAsync(Post entity, CancellationToken cancellationToken)
 	{
 		await _collection.DeleteAsync(entity, cancellationToken);
+		await _cacheHandler.DeleteAsync(entity.Id, cancellationToken);
+	}
+
+	public async Task DeleteRangeAsync(IEnumerable<Post> entities, CancellationToken cancellationToken)
+	{
+		await _collection.DeleteRangeAsync(entities, cancellationToken);
+		await _cacheHandler.DeleteRangeAsync(entities.Select(p => p.Id), cancellationToken);
 	}
 }

@@ -5,10 +5,14 @@ namespace InstaConnect.Identity.Infrastructure.Features.Users.Helpers.Repositori
 internal class UserQueryRepository : IUserQueryRepository
 {
 	private readonly IUserCollection _collection;
+	private readonly IUserCacheHandler _cacheHandler;
 
-	public UserQueryRepository(IUserCollection collection)
+	public UserQueryRepository(
+		IUserCollection collection,
+		IUserCacheHandler cacheHandler)
 	{
 		_collection = collection;
+		_cacheHandler = cacheHandler;
 	}
 
 	public async Task<ICollection<UserResponse>> GetAllAsync(
@@ -22,8 +26,8 @@ internal class UserQueryRepository : IUserQueryRepository
 			.AggregateFluent()
 			.Match(filter)
 			.ProjectToFullResponse(current)
-			.ApplySorting(sorting)
-			.ApplyPagination(pagination)
+			.Sort(sorting)
+			.Paginate(pagination)
 			.ToListAsync(cancellationToken);
 	}
 
@@ -42,11 +46,25 @@ internal class UserQueryRepository : IUserQueryRepository
 		CurrentUserQuery current,
 		CancellationToken cancellationToken)
 	{
-		return await _collection
+		var cachedResponse = await _cacheHandler.GetByIdAsync(id, current.Id, cancellationToken);
+
+		if (cachedResponse != null)
+		{
+			return cachedResponse;
+		}
+
+		var response = await _collection
 			.AggregateFluent()
 			.Match(id)
 			.ProjectToFullResponse(current)
 			.FirstOrDefaultAsync(cancellationToken);
+
+		if (response != null)
+		{
+			await _cacheHandler.AddAsync(response, current.Id, cancellationToken);
+		}
+
+		return response;
 	}
 
 	public async Task<bool> ExistsByIdAsync(

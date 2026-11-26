@@ -18,7 +18,7 @@ public class GetAllPostCommentLikesForUserQueryRequestValidatorUnitTests : BaseP
 	public GetAllPostCommentLikesForUserQueryRequestValidatorUnitTests()
 	{
 		_requestBuilderFactory = new();
-		_requestBuilder = _requestBuilderFactory.Create(PostCommentLike);
+		_requestBuilder = _requestBuilderFactory.Create(PostCommentLike, UserId);
 		_request = _requestBuilder.Build();
 
 		_requestValidator = new();

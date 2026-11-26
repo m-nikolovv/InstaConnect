@@ -13,4 +13,9 @@ public static class PostImageInfrastructureMockFactory
 	{
 		return Mocker.Mock<IPostImageFluent>();
 	}
+
+	public static IPostImageCacheHandler CreateCacheHandler()
+	{
+		return Mocker.Mock<IPostImageCacheHandler>();
+	}
 }

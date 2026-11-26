@@ -7,7 +7,7 @@ using InstaConnect.Follows.Tests.Features.Follows.Utilities;
 
 namespace InstaConnect.Follows.Domain.Tests.Unit.Features.Follows.Utilities;
 
-public abstract class BaseFollowDomainCommandUnitTest : BaseFollowTest
+public abstract class BaseFollowDomainCommandUnitTest : BaseFollowCommandTest
 {
 	protected IFollowFactory Factory { get; }
 

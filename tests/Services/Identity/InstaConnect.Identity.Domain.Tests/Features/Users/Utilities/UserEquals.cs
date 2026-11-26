@@ -71,20 +71,6 @@ public static class UserEquals
 
 	extension(UserResponse? response)
 	{
-		public bool MatchesFull(User? user)
-		{
-			return response != null &&
-				   user != null &&
-				   user.Id.Matches(response.Id) &&
-				   user.FirstName == response.FirstName &&
-				   user.LastName == response.LastName &&
-				   user.Name.Matches(response.Name) &&
-				   user.Email.Matches(response.Email) &&
-				   user.ProfileImageUrl.Matches(response.ProfileImageUrl) &&
-				   user.CreatedAtUtc == response.CreatedAtUtc &&
-				   user.UpdatedAtUtc == response.UpdatedAtUtc;
-		}
-
 		public bool Matches(GetUserByIdQuery query, User user)
 		{
 			return response.MatchesFull(user);

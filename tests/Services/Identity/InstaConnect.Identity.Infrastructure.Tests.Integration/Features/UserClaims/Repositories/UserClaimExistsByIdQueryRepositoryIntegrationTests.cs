@@ -9,9 +9,9 @@ public class UserClaimExistsByIdQueryRepositoryIntegrationTests : BaseUserClaimI
 	{
 	}
 
-	protected override async Task OnInitializeAsync()
+	public override async Task InitializeAsync()
 	{
-		await ServiceScope.AddAsync(UserClaim, CancellationToken);
+		await ServiceScope.SetupGetUserClaimByIdAsync(User, UserClaim, CancellationToken);
 	}
 
 	[Fact]

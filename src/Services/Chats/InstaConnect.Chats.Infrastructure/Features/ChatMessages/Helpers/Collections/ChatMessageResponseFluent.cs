@@ -1,34 +1,45 @@
 namespace InstaConnect.Chats.Infrastructure.Features.ChatMessages.Helpers.Collections;
 
-internal class ChatMessageResponseFluent :
-	MongoDbResponseFluent<ChatMessageResponse>, IChatMessageResponseFluent
+internal class ChatMessageResponseFluent : IChatMessageResponseFluent
 {
 	private readonly IPaginator _paginator;
 	private readonly ISortOrdererFactory _sortOrdererFactory;
 	private readonly IChatMessagesSortTermerFactory _sortTermerFactory;
+	private readonly IMongoDbResponseFluentHandler<ChatMessageResponse> _fluentHandler;
 
 	public ChatMessageResponseFluent(
 		IPaginator paginator,
-		IAggregateFluent<ChatMessageResponse> fluent,
 		ISortOrdererFactory sortOrdererFactory,
-		IChatMessagesSortTermerFactory sortTermerFactory) : base(fluent)
+		IChatMessagesSortTermerFactory sortTermerFactory,
+		IMongoDbResponseFluentHandler<ChatMessageResponse> fluentHandler)
 	{
 		_paginator = paginator;
-		_sortOrdererFactory = sortOrdererFactory;
+		_fluentHandler = fluentHandler;
 		_sortTermerFactory = sortTermerFactory;
+		_sortOrdererFactory = sortOrdererFactory;
 	}
 
-	public IChatMessageResponseFluent ApplySorting(ChatMessagesSortingQuery query)
+	public IChatMessageResponseFluent Sort(ChatMessagesSortingQuery query)
 	{
-		ApplySorting(_sortOrdererFactory, _sortTermerFactory, query);
+		_fluentHandler.Sort(_sortOrdererFactory, _sortTermerFactory, query);
 
 		return this;
 	}
 
-	public IChatMessageResponseFluent ApplyPagination(ChatMessagesPaginationQuery query)
+	public IChatMessageResponseFluent Paginate(ChatMessagesPaginationQuery query)
 	{
-		ApplyPagination(_paginator, query);
+		_fluentHandler.Paginate(_paginator, query);
 
 		return this;
+	}
+
+	public async Task<ChatMessageResponse?> FirstOrDefaultAsync(CancellationToken cancellationToken)
+	{
+		return await _fluentHandler.FirstOrDefaultAsync(cancellationToken);
+	}
+
+	public async Task<ICollection<ChatMessageResponse>> ToListAsync(CancellationToken cancellationToken)
+	{
+		return await _fluentHandler.ToListAsync(cancellationToken);
 	}
 }

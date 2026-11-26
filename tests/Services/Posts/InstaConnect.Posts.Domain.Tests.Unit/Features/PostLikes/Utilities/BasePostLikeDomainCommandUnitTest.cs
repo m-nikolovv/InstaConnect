@@ -6,7 +6,7 @@ using InstaConnect.Posts.Tests.Features.PostLikes.Utilities;
 
 namespace InstaConnect.Posts.Domain.Tests.Unit.Features.PostLikes.Utilities;
 
-public abstract class BasePostLikeDomainCommandUnitTest : BasePostLikeTest
+public abstract class BasePostLikeDomainCommandUnitTest : BasePostLikeCommandTest
 {
 	protected IPostLikeFactory Factory { get; }
 

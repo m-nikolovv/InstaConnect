@@ -2,6 +2,7 @@ using InstaConnect.Identity.Domain.Features.UserClaims.Models.Entities;
 using InstaConnect.Identity.Domain.Features.UserClaims.Models.Requests;
 using InstaConnect.Identity.Domain.Tests.Features.UserClaims.Assertions;
 using InstaConnect.Identity.Domain.Tests.Features.UserClaims.Builders;
+using InstaConnect.Identity.Domain.Tests.Features.UserClaims.Utilities;
 using InstaConnect.Identity.Domain.Tests.Integration.Features.UserClaims.Utilities;
 using InstaConnect.Identity.Tests.Features.UserClaims.DataAttributes.SortOrder;
 using InstaConnect.Identity.Tests.Features.UserClaims.DataAttributes.SortTerm;
@@ -18,13 +19,17 @@ public class GetAllUserClaimsQueryServiceIntegrationTests : BaseUserClaimDomainQ
 		: base(webApplicationFactory)
 	{
 		_queryBuilderFactory = new();
-		_queryBuilder = _queryBuilderFactory.Create(UserClaim);
+		_queryBuilder = _queryBuilderFactory.Create(UserClaim, UserId);
 		_query = _queryBuilder.Build();
 	}
 
-	protected override async Task OnInitializeAsync()
+	public override async Task InitializeAsync()
 	{
-		await ServiceScope.AddRangeAsync(UserClaims, CancellationToken);
+		await ServiceScope.SetupGetAllAsync(
+			_query,
+			Users,
+			UserClaims,
+			CancellationToken);
 	}
 
 	[Fact]

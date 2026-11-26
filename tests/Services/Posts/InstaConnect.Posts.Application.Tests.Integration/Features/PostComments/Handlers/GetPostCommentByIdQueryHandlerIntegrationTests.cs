@@ -1,4 +1,5 @@
 using InstaConnect.Posts.Application.Features.PostComments.Queries.GetById;
+using InstaConnect.Posts.Tests.Features.PostCommentImages.Utilities;
 
 namespace InstaConnect.Posts.Application.Tests.Integration.Features.PostComments.Handlers;
 
@@ -16,9 +17,18 @@ public class GetPostCommentByIdQueryHandlerIntegrationTests : BasePostCommentApp
 		_request = _requestBuilder.Build();
 	}
 
-	protected override async Task OnInitializeAsync()
+	public override async Task InitializeAsync()
 	{
-		await ServiceScope.AddAsync(PostComment, CancellationToken);
+		await ServiceScope.SetupGetByIdAsync(
+			_request,
+			Users,
+			Post,
+			PostLikes,
+			PostImages,
+			PostComment,
+			PostCommentPostCommentLikes,
+			PostCommentPostCommentImages,
+			CancellationToken);
 	}
 
 	[Theory]
@@ -86,7 +96,6 @@ public class GetPostCommentByIdQueryHandlerIntegrationTests : BasePostCommentApp
 		await Sender.ShouldThrowPostCommentNotFoundExceptionAsync(_request, CancellationToken);
 	}
 
-
 	[Fact]
 	public async Task SendAsync_ShouldReturnResponse_WhenRequestIsValid()
 	{
@@ -142,5 +151,66 @@ public class GetPostCommentByIdQueryHandlerIntegrationTests : BasePostCommentApp
 
 		// Assert
 		response.ShouldSatisfy(request, PostComment);
+	}
+
+	[Fact]
+	public async Task SendAsync_ShouldCachePostComment_WhenRequestIsValid()
+	{
+		// Act
+		await Sender.SendAsync(_request, CancellationToken);
+		var cachedPostComment = await ServiceScope.GetPostCommentCacheByIdAsync(_request, CancellationToken);
+
+		// Assert
+		cachedPostComment.ShouldSatisfy(_request, PostComment);
+	}
+
+	[Theory]
+	[PostIdDifferentCaseData]
+	public async Task SendAsync_ShouldCachePostComment_WhenRequestAndIdAreValid(
+		IStringTransformer transformer)
+	{
+		// Arrange
+		var request = _requestBuilder.WithId(transformer).Build();
+
+		// Act
+		await Sender.SendAsync(request, CancellationToken);
+		var cachedPostComment = await ServiceScope.GetPostCommentCacheByIdAsync(request, CancellationToken);
+
+		// Assert
+		cachedPostComment.ShouldSatisfy(request, PostComment);
+	}
+
+	[Theory]
+	[PostCommentIdDifferentCaseData]
+	public async Task SendAsync_ShouldCachePostComment_WhenRequestAndCommentIdAreValid(
+		IStringTransformer transformer)
+	{
+		// Arrange
+		var request = _requestBuilder.WithCommentId(transformer).Build();
+
+		// Act
+		await Sender.SendAsync(request, CancellationToken);
+		var cachedPostComment = await ServiceScope.GetPostCommentCacheByIdAsync(request, CancellationToken);
+
+		// Assert
+		cachedPostComment.ShouldSatisfy(request, PostComment);
+	}
+
+	[Theory]
+	[UserIdNullData]
+	[UserIdEmptyData]
+	[UserIdDifferentCaseData]
+	public async Task SendAsync_ShouldCachePostComment_WhenRequestAndCurrentUserIdAreValid(
+		IStringTransformer transformer)
+	{
+		// Arrange
+		var request = _requestBuilder.WithCurrentUserId(transformer).Build();
+
+		// Act
+		await Sender.SendAsync(request, CancellationToken);
+		var cachedPostComment = await ServiceScope.GetPostCommentCacheByIdAsync(request, CancellationToken);
+
+		// Assert
+		cachedPostComment.ShouldSatisfy(request, PostComment);
 	}
 }

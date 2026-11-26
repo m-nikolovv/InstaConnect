@@ -1,6 +1,5 @@
 using InstaConnect.Common.Tests.Features.DataAttributes.FormFiles.Base;
 using InstaConnect.Identity.Application.Features.Users.Commands.Add;
-using InstaConnect.Identity.Domain.Tests.Features.Users.Assertions;
 using InstaConnect.Identity.Tests.Features.Users.DataAttributes.ConfirmPassword;
 using InstaConnect.Identity.Tests.Features.Users.DataAttributes.Email;
 using InstaConnect.Identity.Tests.Features.Users.DataAttributes.FirstName;
@@ -24,6 +23,12 @@ public class AddUserCommandHandlerIntegrationTests : BaseUserApplicationCommandI
 		_requestBuilderFactory = new();
 		_requestBuilder = _requestBuilderFactory.Create();
 		_request = _requestBuilder.Build();
+	}
+
+	public override async Task InitializeAsync()
+	{
+		await ServiceScope.SetupAddAsync(_request, User, CancellationToken);
+		await base.InitializeAsync();
 	}
 
 	[Theory]
@@ -132,7 +137,6 @@ public class AddUserCommandHandlerIntegrationTests : BaseUserApplicationCommandI
 	public async Task SendAsync_ShouldThrowUserEmailAlreadyTakenException_WhenUserEmailAlreadyTaken()
 	{
 		// Arrange
-		await ServiceScope.AddAsync(User, CancellationToken);
 		var request = _requestBuilder.WithEmail(User.Email).Build();
 
 		// Assert
@@ -145,7 +149,6 @@ public class AddUserCommandHandlerIntegrationTests : BaseUserApplicationCommandI
 		IStringTransformer transformer)
 	{
 		// Arrange
-		await ServiceScope.AddAsync(User, CancellationToken);
 		var request = _requestBuilder.WithEmail(User.Email, transformer).Build();
 
 		// Assert
@@ -156,7 +159,6 @@ public class AddUserCommandHandlerIntegrationTests : BaseUserApplicationCommandI
 	public async Task SendAsync_ShouldThrowUserNameAlreadyTakenException_WhenUserNameAlreadyTaken()
 	{
 		// Arrange
-		await ServiceScope.AddAsync(User, CancellationToken);
 		var request = _requestBuilder.WithName(User.Name).Build();
 
 		// Assert
@@ -169,7 +171,6 @@ public class AddUserCommandHandlerIntegrationTests : BaseUserApplicationCommandI
 		IStringTransformer transformer)
 	{
 		// Arrange
-		await ServiceScope.AddAsync(User, CancellationToken);
 		var request = _requestBuilder.WithName(User.Name, transformer).Build();
 
 		// Assert

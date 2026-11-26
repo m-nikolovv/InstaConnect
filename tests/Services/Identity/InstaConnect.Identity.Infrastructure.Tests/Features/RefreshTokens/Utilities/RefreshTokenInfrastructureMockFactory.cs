@@ -13,4 +13,9 @@ public static class RefreshTokenInfrastructureMockFactory
 	{
 		return Mocker.Mock<IRefreshTokenFluent>();
 	}
+
+	public static IRefreshTokenCacheHandler CreateCacheHandler()
+	{
+		return Mocker.Mock<IRefreshTokenCacheHandler>();
+	}
 }

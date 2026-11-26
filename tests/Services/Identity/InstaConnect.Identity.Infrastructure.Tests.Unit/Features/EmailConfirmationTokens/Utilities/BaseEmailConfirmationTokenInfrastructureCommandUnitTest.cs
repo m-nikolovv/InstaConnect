@@ -5,18 +5,21 @@ using InstaConnect.Identity.Tests.Features.EmailConfirmationTokens.Utilities;
 
 namespace InstaConnect.Identity.Infrastructure.Tests.Unit.Features.EmailConfirmationTokens.Utilities;
 
-public abstract class BaseEmailConfirmationTokenInfrastructureCommandUnitTest : BaseEmailConfirmationTokenTest
+public abstract class BaseEmailConfirmationTokenInfrastructureCommandUnitTest : BaseEmailConfirmationTokenCommandTest
 {
 	protected IEmailConfirmationTokenFluent Fluent { get; }
 
 	protected IEmailConfirmationTokenCollection Collection { get; }
 
+	protected IEmailConfirmationTokenCacheHandler CacheHandler { get; }
+
 	protected IEmailConfirmationTokenIncludeBuilderFactory IncludeBuilderFactory { get; }
 
-	protected BaseEmailConfirmationTokenInfrastructureCommandUnitTest() : base(IdentityMockFactory.CreatePasswordHasher())
+	protected BaseEmailConfirmationTokenInfrastructureCommandUnitTest() : base(IdentityMockFactory.CreatePasswordHasher(), false)
 	{
 		Fluent = EmailConfirmationTokenInfrastructureMockFactory.CreateFluent();
 		Collection = EmailConfirmationTokenInfrastructureMockFactory.CreateCollection();
+		CacheHandler = EmailConfirmationTokenInfrastructureMockFactory.CreateCacheHandler();
 		IncludeBuilderFactory = EmailConfirmationTokenMockFactory.CreateIncludeBuilderFactory();
 
 		PasswordHasher.ClearCalls();

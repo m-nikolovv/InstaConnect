@@ -1,3 +1,5 @@
+using InstaConnect.Identity.Domain.Tests.Features.Users.Utilities;
+
 namespace InstaConnect.Identity.Domain.Tests.Integration.Features.Users.Services;
 
 public class GetUserByIdQueryServiceIntegrationTests : BaseUserDomainQueryIntegrationTest
@@ -10,13 +12,13 @@ public class GetUserByIdQueryServiceIntegrationTests : BaseUserDomainQueryIntegr
 		: base(webApplicationFactory)
 	{
 		_queryBuilderFactory = new();
-		_queryBuilder = _queryBuilderFactory.Create(User);
+		_queryBuilder = _queryBuilderFactory.Create(User, UserId);
 		_query = _queryBuilder.Build();
 	}
 
-	protected override async Task OnInitializeAsync()
+	public override async Task InitializeAsync()
 	{
-		await ServiceScope.AddAsync(User, CancellationToken);
+		await ServiceScope.SetupGetByIdAsync(_query, User, CancellationToken);
 	}
 
 	[Fact]
@@ -69,5 +71,50 @@ public class GetUserByIdQueryServiceIntegrationTests : BaseUserDomainQueryIntegr
 
 		// Assert
 		response.ShouldSatisfy(query, User);
+	}
+
+	[Fact]
+	public async Task GetByIdAsync_ShouldCacheUser_WhenQueryIsValid()
+	{
+		// Act
+		await Service.GetByIdAsync(_query, CancellationToken);
+		var cachedUser = await ServiceScope.GetUserCacheByIdAsync(_query, CancellationToken);
+
+		// Assert
+		cachedUser.ShouldSatisfy(_query, User);
+	}
+
+	[Theory]
+	[UserIdDifferentCaseData]
+	public async Task GetByIdAsync_ShouldCacheUser_WhenQueryAndIdAreValid(
+		IStringTransformer transformer)
+	{
+		// Arrange
+		var query = _queryBuilder.WithId(transformer).Build();
+
+		// Act
+		await Service.GetByIdAsync(query, CancellationToken);
+		var cachedUser = await ServiceScope.GetUserCacheByIdAsync(query, CancellationToken);
+
+		// Assert
+		cachedUser.ShouldSatisfy(query, User);
+	}
+
+	[Theory]
+	[UserIdNullData]
+	[UserIdEmptyData]
+	[UserIdDifferentCaseData]
+	public async Task GetByIdAsync_ShouldCacheUser_WhenQueryAndCurrentUserIdAreValid(
+		IStringTransformer transformer)
+	{
+		// Arrange
+		var query = _queryBuilder.WithCurrentUserId(transformer).Build();
+
+		// Act
+		await Service.GetByIdAsync(query, CancellationToken);
+		var cachedUser = await ServiceScope.GetUserCacheByIdAsync(query, CancellationToken);
+
+		// Assert
+		cachedUser.ShouldSatisfy(query, User);
 	}
 }

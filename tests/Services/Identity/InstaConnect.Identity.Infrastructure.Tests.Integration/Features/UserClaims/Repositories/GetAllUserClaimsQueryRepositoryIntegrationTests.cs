@@ -45,9 +45,9 @@ public class GetAllUserClaimsQueryRepositoryIntegrationTests : BaseUserClaimInfr
 		_currentUserQuery = _currentUserQueryBuilder.Build();
 	}
 
-	protected override async Task OnInitializeAsync()
+	public override async Task InitializeAsync()
 	{
-		await ServiceScope.AddRangeAsync(UserClaims, CancellationToken);
+		await ServiceScope.SetupGetAllUserClaimsAsync(Users, UserClaims, CancellationToken);
 	}
 
 	[Fact]

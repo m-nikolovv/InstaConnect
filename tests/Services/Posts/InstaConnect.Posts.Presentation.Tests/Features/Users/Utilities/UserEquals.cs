@@ -30,4 +30,5 @@ public static class UserEquals
 			return query.CurrentUserId == request.CurrentUserId;
 		}
 	}
+
 }

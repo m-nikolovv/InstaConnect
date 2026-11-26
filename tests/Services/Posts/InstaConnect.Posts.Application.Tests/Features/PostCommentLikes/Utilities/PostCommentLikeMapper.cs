@@ -8,32 +8,6 @@ public static class PostCommentLikeMapper
 {
 	extension(PostCommentLike postCommentLike)
 	{
-		internal PostCommentLikeResponse ToFullResponse<TRequest>(TRequest request)
-			where TRequest : ICurrentUserableQueryRequest
-		{
-			return new(postCommentLike.Id,
-					   postCommentLike.User?.ToFullResponse(),
-					   postCommentLike.PostComment?.ToFullResponse(request),
-					   postCommentLike.CreatedAtUtc);
-		}
-
-		internal PostCommentLikeResponse ToResponseWithoutUser<TRequest>(TRequest request)
-			where TRequest : ICurrentUserableQueryRequest
-		{
-			return new(postCommentLike.Id,
-					   null,
-					   postCommentLike.PostComment?.ToFullResponse(request),
-					   postCommentLike.CreatedAtUtc);
-		}
-
-		internal PostCommentLikeResponse ToResponseWithoutPostComment()
-		{
-			return new(postCommentLike.Id,
-					   postCommentLike.User?.ToFullResponse(),
-					   null,
-					   postCommentLike.CreatedAtUtc);
-		}
-
 		public PostCommentLikeId ToResponse(AddPostCommentLikeCommandRequest request)
 		{
 			return postCommentLike.ToId();
@@ -41,7 +15,7 @@ public static class PostCommentLikeMapper
 
 		public PostCommentLikeResponse ToResponse(GetPostCommentLikeByIdQueryRequest request)
 		{
-			return postCommentLike.ToFullResponse(request);
+			return postCommentLike.ToFullResponse(request.CurrentUserId);
 		}
 	}
 
@@ -57,7 +31,7 @@ public static class PostCommentLikeMapper
 			var paginator = new Paginator();
 			var totalCount = postCommentLikes.Count(postCommentLike => filter(request, postCommentLike));
 
-			return new(postComment.ToFullResponse(request),
+			return new(postComment.ToFullResponse(request.CurrentUserId),
 					   null,
 					   postCommentLikes.Filter(request, postCommentLike => filter(request, postCommentLike), postCommentLike => transform(request, postCommentLike)),
 					   request.Page,
@@ -106,7 +80,7 @@ public static class PostCommentLikeMapper
 																 request,
 																 user,
 																 (request, postCommentLike) => postCommentLike.MatchesFilter(request),
-																 (request, postCommentLike) => postCommentLike.ToResponseWithoutUser(request));
+																 (request, postCommentLike) => postCommentLike.ToResponseWithoutUser(request.CurrentUserId));
 		}
 	}
 }

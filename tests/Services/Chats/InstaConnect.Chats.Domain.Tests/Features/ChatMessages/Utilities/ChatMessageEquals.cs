@@ -1,7 +1,7 @@
 using InstaConnect.Chats.Domain.Features.ChatMessageImages.Models.Requests;
 using InstaConnect.Chats.Domain.Features.ChatMessages.Models.Responses;
-using InstaConnect.Chats.Domain.Tests.Features.ChatMessageImages.Utilities;
 using InstaConnect.Chats.Domain.Tests.Features.ChatMessages.Extensions;
+using InstaConnect.Chats.Tests.Features.ChatMessageImages.Utilities;
 using InstaConnect.Chats.Tests.Features.ChatMessages.Extensions;
 using InstaConnect.Common.Domain.Features.Requests.Abstractions;
 using InstaConnect.Common.Tests.Features.Extensions;
@@ -623,78 +623,14 @@ public static class ChatMessageEquals
 
 	extension(ChatMessageResponse? response)
 	{
-		public bool MatchesFull<TQuery>(TQuery request, ChatMessage? chatMessage)
-			where TQuery : ICurrentUserableQuery
-		{
-			return response != null &&
-				   chatMessage != null &&
-				   chatMessage.Id.Matches(response.Id) &&
-				   chatMessage.SenderId.Matches(response.SenderId) &&
-				   chatMessage.Content == response.Content &&
-				   chatMessage.Summary.Matches(response.Summary) &&
-				   response.ChatMessageImages.MatchesFull(chatMessage.ChatMessageImages) &&
-				   chatMessage.CreatedAtUtc == response.CreatedAtUtc &&
-				   chatMessage.UpdatedAtUtc == response.UpdatedAtUtc &&
-				   response.Sender.MatchesFull(chatMessage.Sender) &&
-				   response.Chat.MatchesFull(request, chatMessage.Chat);
-		}
-
-		public bool MatchesFullInverted<TQuery>(TQuery request, ChatMessage? chatMessage)
-			where TQuery : ICurrentUserableQuery
-		{
-			return response != null &&
-				   chatMessage != null &&
-				   chatMessage.Id.Matches(new(response.Id.Id.ParticipantTwoId, response.Id.Id.ParticipantOneId), response.Id.MessageId) &&
-				   chatMessage.SenderId.Matches(response.SenderId) &&
-				   chatMessage.Content == response.Content &&
-				   chatMessage.Summary.Matches(response.Summary) &&
-				   response.ChatMessageImages.MatchesFullInverted(chatMessage.ChatMessageImages) &&
-				   chatMessage.CreatedAtUtc == response.CreatedAtUtc &&
-				   chatMessage.UpdatedAtUtc == response.UpdatedAtUtc &&
-				   response.Sender.MatchesFull(chatMessage.Sender) &&
-				   response.Chat.MatchesFullInverted(request, chatMessage.Chat);
-		}
-
-		public bool MatchesWithoutChat<TQuery>(TQuery request, ChatMessage? chatMessage)
-			where TQuery : ICurrentUserableQuery
-		{
-			return response != null &&
-				   chatMessage != null &&
-				   chatMessage.Id.Matches(response.Id) &&
-				   chatMessage.SenderId.Matches(response.SenderId) &&
-				   chatMessage.Content == response.Content &&
-				   chatMessage.Summary.Matches(response.Summary) &&
-				   response.ChatMessageImages.MatchesFull(chatMessage.ChatMessageImages) &&
-				   chatMessage.CreatedAtUtc == response.CreatedAtUtc &&
-				   chatMessage.UpdatedAtUtc == response.UpdatedAtUtc &&
-				   response.Sender.MatchesFull(chatMessage.Sender) &&
-				   response.Chat == null;
-		}
-
-		public bool MatchesWithoutChatInverted<TQuery>(TQuery request, ChatMessage? chatMessage)
-			where TQuery : ICurrentUserableQuery
-		{
-			return response != null &&
-				   chatMessage != null &&
-				   chatMessage.Id.Matches(new(response.Id.Id.ParticipantTwoId, response.Id.Id.ParticipantOneId), response.Id.MessageId) &&
-				   chatMessage.SenderId.Matches(response.SenderId) &&
-				   chatMessage.Content == response.Content &&
-				   chatMessage.Summary.Matches(response.Summary) &&
-				   response.ChatMessageImages.MatchesFullInverted(chatMessage.ChatMessageImages) &&
-				   chatMessage.CreatedAtUtc == response.CreatedAtUtc &&
-				   chatMessage.UpdatedAtUtc == response.UpdatedAtUtc &&
-				   response.Sender.MatchesFull(chatMessage.Sender) &&
-				   response.Chat == null;
-		}
-
 		public bool Matches(GetChatMessageByIdQuery query, ChatMessage chatMessage)
 		{
-			return response.MatchesFull(query, chatMessage);
+			return response.MatchesFull(chatMessage);
 		}
 
 		public bool MatchesInverted(GetChatMessageByIdQuery query, ChatMessage chatMessage)
 		{
-			return response.MatchesFullInverted(query, chatMessage);
+			return response.MatchesFullInverted(chatMessage);
 		}
 	}
 
@@ -710,7 +646,7 @@ public static class ChatMessageEquals
 		{
 			return response.MatchesCollectionResponse(request.Pagination, chatMessages.Count(matchesFilter)) &&
 				   response.Sender == null &&
-				   response.Chat.MatchesFull(request, chat) &&
+				   response.Chat.MatchesFull(chat) &&
 				   response.ChatMessages.MatchesCollectionAndNotEmpty(request.Pagination,
 														   chatMessages,
 														   response => response.Id,
@@ -730,7 +666,7 @@ public static class ChatMessageEquals
 		{
 			return response.MatchesCollectionResponse(request.Pagination, chatMessages.Count(matchesFilter)) &&
 				   response.Sender == null &&
-				   response.Chat.MatchesFull(request, chat) &&
+				   response.Chat.MatchesFull(chat) &&
 				   response.ChatMessages.MatchesSortedCollection(request.Pagination,
 																 chatMessages,
 																 matches,
@@ -748,7 +684,7 @@ public static class ChatMessageEquals
 		{
 			return response.MatchesCollectionResponse(request.Pagination, chatMessages.Count(matchesFilter)) &&
 				   response.Sender == null &&
-				   response.Chat.MatchesFullInverted(request, chat) &&
+				   response.Chat.MatchesFullInverted(chat) &&
 				   response.ChatMessages.MatchesCollectionAndNotEmpty(request.Pagination,
 														   chatMessages,
 														   response => new(new(response.Id.Id.ParticipantTwoId, response.Id.Id.ParticipantOneId), response.Id.MessageId),
@@ -768,7 +704,7 @@ public static class ChatMessageEquals
 		{
 			return response.MatchesCollectionResponse(request.Pagination, chatMessages.Count(matchesFilter)) &&
 				   response.Sender == null &&
-				   response.Chat.MatchesFullInverted(request, chat) &&
+				   response.Chat.MatchesFullInverted(chat) &&
 				   response.ChatMessages.MatchesSortedCollection(request.Pagination,
 																 chatMessages,
 																 matches,
@@ -783,7 +719,7 @@ public static class ChatMessageEquals
 		{
 			return response.MatchesWithoutSender(
 					   query,
-					   (response, chatMessage) => response.MatchesWithoutChat(query, chatMessage),
+					   (response, chatMessage) => response.MatchesWithoutChat(chatMessage),
 					   chatMessage => chatMessage.MatchesFilter(query),
 					   chat,
 					   chatMessages);
@@ -797,7 +733,7 @@ public static class ChatMessageEquals
 		{
 			return response.MatchesWithoutSender(
 					   query,
-					   (response, chatMessage) => response.MatchesWithoutChat(query, chatMessage),
+					   (response, chatMessage) => response.MatchesWithoutChat(chatMessage),
 					   chatMessage => chatMessage.MatchesFilter(query),
 					   chat,
 					   chatMessages,
@@ -811,7 +747,7 @@ public static class ChatMessageEquals
 		{
 			return response.MatchesWithoutSenderInverted(
 					   query,
-					   (response, chatMessage) => response.MatchesWithoutChatInverted(query, chatMessage),
+					   (response, chatMessage) => response.MatchesWithoutChatInverted(chatMessage),
 					   chatMessage => chatMessage.MatchesFilter(query),
 					   chat,
 					   chatMessages);
@@ -825,7 +761,7 @@ public static class ChatMessageEquals
 		{
 			return response.MatchesWithoutSenderInverted(
 					   query,
-					   (response, chatMessage) => response.MatchesWithoutChatInverted(query, chatMessage),
+					   (response, chatMessage) => response.MatchesWithoutChatInverted(chatMessage),
 					   chatMessage => chatMessage.MatchesFilter(query),
 					   chat,
 					   chatMessages,

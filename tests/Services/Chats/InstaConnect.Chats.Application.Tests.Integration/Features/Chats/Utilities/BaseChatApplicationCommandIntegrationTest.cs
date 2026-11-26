@@ -3,7 +3,7 @@ using InstaConnect.Chats.Tests.Features.Chats.Extensions;
 
 namespace InstaConnect.Chats.Application.Tests.Integration.Features.Chats.Utilities;
 
-public abstract class BaseChatApplicationCommandIntegrationTest : BaseChatWebTest
+public abstract class BaseChatApplicationCommandIntegrationTest : BaseChatWebCommandTest
 {
 	protected IApplicationSender Sender { get; }
 
@@ -17,9 +17,7 @@ public abstract class BaseChatApplicationCommandIntegrationTest : BaseChatWebTes
 
 	public override async Task InitializeAsync()
 	{
-		await ServiceScope.AddAsync(ParticipantOne, CancellationToken);
-		await ServiceScope.AddAsync(ParticipantTwo, CancellationToken);
-		await OnInitializeAsync();
+		await base.InitializeAsync();
 		await EventClient.StartAsync(CancellationToken);
 	}
 

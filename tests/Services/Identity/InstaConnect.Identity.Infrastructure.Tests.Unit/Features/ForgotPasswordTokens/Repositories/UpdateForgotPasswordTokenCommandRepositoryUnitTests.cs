@@ -6,7 +6,7 @@ public class UpdateForgotPasswordTokenCommandRepositoryUnitTests : BaseForgotPas
 
 	public UpdateForgotPasswordTokenCommandRepositoryUnitTests()
 	{
-		_repository = new(Collection, IncludeBuilderFactory);
+		_repository = new(Collection, CacheHandler, IncludeBuilderFactory);
 	}
 
 	[Fact]
@@ -17,5 +17,15 @@ public class UpdateForgotPasswordTokenCommandRepositoryUnitTests : BaseForgotPas
 
 		// Assert
 		await Collection.ShouldHaveReceivedOneUpdateAsync(ForgotPasswordToken, CancellationToken);
+	}
+
+	[Fact]
+	public async Task UpdateAsync_ShouldCallTheCacheHandlerDeleteAsync_WhenCommandIsValid()
+	{
+		// Act
+		await _repository.UpdateAsync(ForgotPasswordToken, CancellationToken);
+
+		// Assert
+		await CacheHandler.ShouldHaveReceivedOneDeleteAsync(ForgotPasswordToken, CancellationToken);
 	}
 }

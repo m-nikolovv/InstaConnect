@@ -6,7 +6,7 @@ public class DeleteUserClaimCommandRepositoryUnitTests : BaseUserClaimInfrastruc
 
 	public DeleteUserClaimCommandRepositoryUnitTests()
 	{
-		_repository = new(Collection, IncludeBuilderFactory);
+		_repository = new(Collection, CacheHandler, IncludeBuilderFactory);
 	}
 
 	[Fact]
@@ -17,5 +17,15 @@ public class DeleteUserClaimCommandRepositoryUnitTests : BaseUserClaimInfrastruc
 
 		// Assert
 		await Collection.ShouldHaveReceivedOneDeleteAsync(UserClaim, CancellationToken);
+	}
+
+	[Fact]
+	public async Task DeleteAsync_ShouldCallTheCacheHandlerDeleteAsync_WhenCommandIsValid()
+	{
+		// Act
+		await _repository.DeleteAsync(UserClaim, CancellationToken);
+
+		// Assert
+		await CacheHandler.ShouldHaveReceivedOneDeleteAsync(UserClaim, CancellationToken);
 	}
 }

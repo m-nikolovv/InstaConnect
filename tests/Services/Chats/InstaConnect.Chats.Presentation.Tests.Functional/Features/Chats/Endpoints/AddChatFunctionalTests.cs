@@ -26,6 +26,16 @@ public class AddChatFunctionalTests : BaseChatPresentationCommandFunctionalTest
 		_invertedRequest = _invertedRequestBuilder.Build();
 	}
 
+	public override async Task InitializeAsync()
+	{
+		await ServiceScope.SetupAddAsync(
+			_request,
+			ParticipantOne,
+			ParticipantTwo,
+			CancellationToken);
+		await base.InitializeAsync();
+	}
+
 	[Fact]
 	public async Task AddAsync_ShouldReturnUnauthorizedStatusCode_WhenRequestIsUnauthorized()
 	{

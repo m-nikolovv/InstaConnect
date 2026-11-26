@@ -3,18 +3,21 @@ using InstaConnect.Identity.Tests.Features.Users.Utilities;
 
 namespace InstaConnect.Identity.Infrastructure.Tests.Unit.Features.Users.Utilities;
 
-public abstract class BaseUserInfrastructureQueryUnitTest : BaseUserTest
+public abstract class BaseUserInfrastructureQueryUnitTest : BaseUserQueryTest
 {
 	protected IUserFluent Fluent { get; }
 
 	protected IUserCollection Collection { get; }
 
+	protected IUserCacheHandler CacheHandler { get; }
+
 	protected IUserResponseFluent ResponseFluent { get; }
 
 	protected BaseUserInfrastructureQueryUnitTest() : base(IdentityMockFactory.CreatePasswordHasher())
 	{
-		Collection = UserInfrastructureMockFactory.CreateCollection();
 		Fluent = UserInfrastructureMockFactory.CreateFluent();
+		Collection = UserInfrastructureMockFactory.CreateCollection();
+		CacheHandler = UserInfrastructureMockFactory.CreateCacheHandler();
 		ResponseFluent = UserInfrastructureMockFactory.CreateResponseFluent();
 
 		PasswordHasher.ClearCalls();

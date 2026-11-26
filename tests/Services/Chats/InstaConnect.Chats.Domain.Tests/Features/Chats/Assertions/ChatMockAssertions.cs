@@ -202,31 +202,4 @@ public static class ChatMockAssertions
 			await eventPublisher.ShouldHaveReceivedOnePublishAsync(command.IsChatAddedEventRequest(chat), cancellationToken);
 		}
 	}
-
-	extension(IChatQueryService service)
-	{
-		public async Task ShouldHaveReceivedOneGetAllAsync(
-			GetAllChatsQuery query,
-			CancellationToken cancellationToken)
-		{
-			await service.ShouldHaveReceivedOne().GetAllAsync(query, cancellationToken);
-		}
-
-		public async Task ShouldHaveReceivedOneGetByIdAsync(
-			GetChatByIdQuery query,
-			CancellationToken cancellationToken)
-		{
-			await service.ShouldHaveReceivedOne().GetByIdAsync(query, cancellationToken);
-		}
-	}
-
-	extension(IChatCommandService service)
-	{
-		public async Task ShouldHaveReceivedOneAddAsync(
-			AddChatCommand command,
-			CancellationToken cancellationToken)
-		{
-			await service.ShouldHaveReceivedOne().AddAsync(command, cancellationToken);
-		}
-	}
 }

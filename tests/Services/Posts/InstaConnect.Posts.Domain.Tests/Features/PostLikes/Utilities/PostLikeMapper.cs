@@ -18,40 +18,13 @@ public static class PostLikeMapper
 		public PostResponse ToResponse(
 			GetAllPostLikesQuery query)
 		{
-			return post.ToFullResponse(query);
+			return post.ToFullResponse(query.CurrentUser.Id);
 		}
 	}
 
+
 	extension(PostLike postLike)
 	{
-		internal PostLikeResponse ToFullResponse<TQuery>(
-			TQuery request)
-			where TQuery : ICurrentUserableQuery
-		{
-			return new(postLike.Id,
-					   postLike.User?.ToFullResponse(),
-					   postLike.Post?.ToFullResponse(request),
-					   postLike.CreatedAtUtc);
-		}
-
-		internal PostLikeResponse ToResponseWithoutUser<TQuery>(
-			TQuery request)
-			where TQuery : ICurrentUserableQuery
-		{
-			return new(postLike.Id,
-					   null,
-					   postLike.Post?.ToFullResponse(request),
-					   postLike.CreatedAtUtc);
-		}
-
-		internal PostLikeResponse ToResponseWithoutPost()
-		{
-			return new(postLike.Id,
-					   postLike.User?.ToFullResponse(),
-					   null,
-					   postLike.CreatedAtUtc);
-		}
-
 		public PostLike To(AddPostLikeCommand command)
 		{
 			return new(
@@ -68,7 +41,7 @@ public static class PostLikeMapper
 		public PostLikeResponse ToResponse(
 			GetPostLikeByIdQuery query)
 		{
-			return postLike.ToFullResponse(query);
+			return postLike.ToFullResponse(query.CurrentUser.Id);
 		}
 	}
 
@@ -83,7 +56,7 @@ public static class PostLikeMapper
 		public ICollection<PostLikeResponse> ToResponse(
 			GetAllPostLikesForUserQuery query)
 		{
-			return postLikes.Filter(query.Pagination, postLike => postLike.MatchesFilter(query.Filter), postLike => postLike.ToResponseWithoutUser(query));
+			return postLikes.Filter(query.Pagination, postLike => postLike.MatchesFilter(query.Filter), postLike => postLike.ToResponseWithoutUser(query.CurrentUser.Id));
 		}
 
 		public long ToTotalCountResponse(

@@ -1,3 +1,5 @@
+
+
 namespace InstaConnect.Follows.Infrastructure.Tests.Integration.Features.Users.Repositories;
 
 public class GetUserByIdCommandRepositoryIntegrationTests : BaseUserInfrastructureCommandIntegrationTest
@@ -10,9 +12,9 @@ public class GetUserByIdCommandRepositoryIntegrationTests : BaseUserInfrastructu
 		_include = IncludeBuilderFactory.Create().WithFollowers().WithFollowings().Build();
 	}
 
-	protected override async Task OnInitializeAsync()
+	public override async Task InitializeAsync()
 	{
-		await ServiceScope.AddAsync(User, CancellationToken);
+		await ServiceScope.SetupGetUserByIdAsync(User, CancellationToken);
 	}
 
 	[Fact]

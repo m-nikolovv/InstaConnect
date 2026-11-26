@@ -19,11 +19,13 @@
 
   <ItemGroup Label="PostCommentImages">
     <Using Include="InstaConnect.Posts.Domain.Features.PostCommentImages.Models.Entities" />
+    <Using Include="InstaConnect.Posts.Tests.Features.PostCommentImages.Utilities" />
   </ItemGroup>
 
   <ItemGroup Label="PostCommentLikes">
     <Using Include="InstaConnect.Posts.Domain.Features.PostCommentLikes.Models.Entities" />
     <Using Include="InstaConnect.Posts.Domain.Features.PostCommentLikes.Models.Requests" />
+    <Using Include="InstaConnect.Posts.Tests.Features.PostCommentLikes.Utilities" />
   </ItemGroup>
 
   <ItemGroup Label="PostComments">
@@ -35,11 +37,13 @@
 
   <ItemGroup Label="PostImages">
     <Using Include="InstaConnect.Posts.Domain.Features.PostImages.Models.Entities" />
+    <Using Include="InstaConnect.Posts.Tests.Features.PostImages.Utilities" />
   </ItemGroup>
 
   <ItemGroup Label="PostLikes">
     <Using Include="InstaConnect.Posts.Domain.Features.PostLikes.Models.Entities" />
     <Using Include="InstaConnect.Posts.Domain.Features.PostLikes.Models.Requests" />
+    <Using Include="InstaConnect.Posts.Tests.Features.PostLikes.Utilities" />
   </ItemGroup>
 
   <ItemGroup Label="Posts">

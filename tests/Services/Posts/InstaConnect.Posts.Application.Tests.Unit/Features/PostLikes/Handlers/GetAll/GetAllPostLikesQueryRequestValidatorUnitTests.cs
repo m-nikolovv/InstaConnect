@@ -18,7 +18,7 @@ public class GetAllPostLikesQueryRequestValidatorUnitTests : BasePostLikeApplica
 	public GetAllPostLikesQueryRequestValidatorUnitTests()
 	{
 		_requestBuilderFactory = new();
-		_requestBuilder = _requestBuilderFactory.Create(PostLike);
+		_requestBuilder = _requestBuilderFactory.Create(PostLike, UserId);
 		_request = _requestBuilder.Build();
 
 		_requestValidator = new();
