@@ -9,10 +9,9 @@ public static class UserClaimSetups
 	{
 		public async Task<UserClaimResponse?> GetUserClaimCacheByIdAsync(
 			UserClaim userClaim,
-			UserId currentUserId,
 			CancellationToken cancellationToken)
 		{
-			return await serviceScope.GetUserClaimCacheByIdAsync(userClaim.Id, currentUserId, cancellationToken);
+			return await serviceScope.GetUserClaimCacheByIdAsync(userClaim.Id, userClaim.Id.Id, cancellationToken);
 		}
 
 		public async Task<UserClaimResponse?> GetUserClaimCacheByIdAsync(
@@ -21,6 +20,13 @@ public static class UserClaimSetups
 			CancellationToken cancellationToken)
 		{
 			return await serviceScope.GetUserClaimCacheByIdAsync(id, currentUserQuery.Id, cancellationToken);
+		}
+
+		public async Task SetupDeleteAsync(
+			UserClaim userClaim,
+			CancellationToken cancellationToken)
+		{
+			await serviceScope.SetupDeleteAsync(userClaim, userClaim.Id.Id, cancellationToken);
 		}
 	}
 

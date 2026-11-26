@@ -1,3 +1,5 @@
+using InstaConnect.Chats.Infrastructure.Tests.Features.Users.Utilities;
+
 
 namespace InstaConnect.Chats.Infrastructure.Tests.Integration.Features.Users.Repositories;
 

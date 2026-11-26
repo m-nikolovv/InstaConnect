@@ -9,10 +9,9 @@ public static class UserSetups
 	{
 		public async Task<UserResponse?> GetUserCacheByIdAsync(
 			User user,
-			UserId currentUserId,
 			CancellationToken cancellationToken)
 		{
-			return await serviceScope.GetUserCacheByIdAsync(user.Id, currentUserId, cancellationToken);
+			return await serviceScope.GetUserCacheByIdAsync(user.Id, user.Id, cancellationToken);
 		}
 
 		public async Task<UserResponse?> GetUserCacheByIdAsync(
@@ -21,6 +20,20 @@ public static class UserSetups
 			CancellationToken cancellationToken)
 		{
 			return await serviceScope.GetUserCacheByIdAsync(id, currentUserQuery.Id, cancellationToken);
+		}
+
+		public async Task SetupUpdateAsync(
+			User user,
+			CancellationToken cancellationToken)
+		{
+			await serviceScope.SetupUpdateAsync(user, user.Id, cancellationToken);
+		}
+
+		public async Task SetupDeleteAsync(
+			User user,
+			CancellationToken cancellationToken)
+		{
+			await serviceScope.SetupDeleteAsync(user, user.Id, cancellationToken);
 		}
 	}
 

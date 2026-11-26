@@ -10,10 +10,9 @@ public static class ChatSetups
 	{
 		public async Task<ChatResponse?> GetChatCacheByIdAsync(
 			Chat chat,
-			UserId currentUserId,
 			CancellationToken cancellationToken)
 		{
-			return await serviceScope.GetChatCacheByIdAsync(chat.Id, currentUserId, cancellationToken);
+			return await serviceScope.GetChatCacheByIdAsync(chat.Id, chat.Id.ParticipantOneId, cancellationToken);
 		}
 
 		public async Task<ChatResponse?> GetChatCacheByIdAsync(
@@ -22,6 +21,13 @@ public static class ChatSetups
 			CancellationToken cancellationToken)
 		{
 			return await serviceScope.GetChatCacheByIdAsync(id, currentUserQuery.Id, cancellationToken);
+		}
+
+		public async Task SetupDeleteAsync(
+			Chat chat,
+			CancellationToken cancellationToken)
+		{
+			await serviceScope.SetupDeleteAsync(chat, chat.Id.ParticipantOneId, cancellationToken);
 		}
 	}
 

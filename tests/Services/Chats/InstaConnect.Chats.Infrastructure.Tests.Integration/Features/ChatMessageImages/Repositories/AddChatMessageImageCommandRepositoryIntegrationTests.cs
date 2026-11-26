@@ -1,3 +1,4 @@
+using InstaConnect.Chats.Infrastructure.Tests.Features.ChatMessageImages.Utilities;
 using InstaConnect.Chats.Infrastructure.Tests.Features.ChatMessages.Utilities;
 using InstaConnect.Chats.Tests.Features.ChatMessageImages.Assertions;
 
@@ -12,7 +13,7 @@ public class AddChatMessageImageCommandRepositoryIntegrationTests : BaseChatMess
 
 	public override async Task InitializeAsync()
 	{
-		await ServiceScope.SetupAddAsync(ChatMessageImage, UserId, CancellationToken);
+		await ServiceScope.SetupAddAsync(ChatMessageImage, CancellationToken);
 	}
 
 	[Fact]
@@ -31,7 +32,7 @@ public class AddChatMessageImageCommandRepositoryIntegrationTests : BaseChatMess
 	{
 		// Act
 		await Repository.AddAsync(ChatMessageImage, CancellationToken);
-		var cachedChatMessage = await ServiceScope.GetChatMessageCacheByIdAsync(ChatMessage, UserId, CancellationToken);
+		var cachedChatMessage = await ServiceScope.GetChatMessageCacheByIdAsync(ChatMessage, CancellationToken);
 
 		// Assert
 		cachedChatMessage.ShouldBeNull();

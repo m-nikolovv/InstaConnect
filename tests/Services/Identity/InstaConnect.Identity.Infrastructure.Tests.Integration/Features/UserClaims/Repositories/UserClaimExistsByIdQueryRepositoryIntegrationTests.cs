@@ -1,3 +1,4 @@
+using InstaConnect.Identity.Infrastructure.Tests.Features.UserClaims.Utilities;
 using InstaConnect.Identity.Tests.Features.UserClaims.Builders;
 
 namespace InstaConnect.Identity.Infrastructure.Tests.Integration.Features.UserClaims.Repositories;

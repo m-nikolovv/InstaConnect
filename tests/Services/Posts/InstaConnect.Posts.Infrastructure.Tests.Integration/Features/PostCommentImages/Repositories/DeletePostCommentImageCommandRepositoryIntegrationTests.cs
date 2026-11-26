@@ -1,3 +1,6 @@
+using InstaConnect.Posts.Infrastructure.Tests.Features.PostCommentImages.Utilities;
+using InstaConnect.Posts.Infrastructure.Tests.Features.PostComments.Utilities;
+
 
 
 namespace InstaConnect.Posts.Infrastructure.Tests.Integration.Features.PostCommentImages.Repositories;
@@ -11,7 +14,7 @@ public class DeletePostCommentImageCommandRepositoryIntegrationTests : BasePostC
 
 	public override async Task InitializeAsync()
 	{
-		await ServiceScope.SetupDeleteAsync(PostCommentImage, UserId, CancellationToken);
+		await ServiceScope.SetupDeleteAsync(PostCommentImage, CancellationToken);
 	}
 
 	[Fact]
@@ -30,7 +33,7 @@ public class DeletePostCommentImageCommandRepositoryIntegrationTests : BasePostC
 	{
 		// Act
 		await Repository.DeleteAsync(PostCommentImage, CancellationToken);
-		var cachedPostComment = await ServiceScope.GetPostCommentCacheByIdAsync(PostComment, UserId, CancellationToken);
+		var cachedPostComment = await ServiceScope.GetPostCommentCacheByIdAsync(PostComment, CancellationToken);
 
 		// Assert
 		cachedPostComment.ShouldBeNull();

@@ -1,3 +1,4 @@
+using InstaConnect.Chats.Infrastructure.Tests.Features.ChatMessageImages.Utilities;
 using InstaConnect.Chats.Tests.Features.ChatMessageImages.Assertions;
 
 namespace InstaConnect.Chats.Infrastructure.Tests.Integration.Features.ChatMessageImages.Repositories;
@@ -11,7 +12,7 @@ public class AddRangeChatMessageImagesCommandRepositoryIntegrationTests : BaseCh
 
 	public override async Task InitializeAsync()
 	{
-		await ServiceScope.SetupAddAsync(ChatMessageImage, UserId, CancellationToken);
+		await ServiceScope.SetupAddAsync(ChatMessageImage, CancellationToken);
 	}
 
 	[Fact]

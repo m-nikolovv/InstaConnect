@@ -1,5 +1,6 @@
 using InstaConnect.Chats.Infrastructure.Tests.Features.Users.Assertions;
 using InstaConnect.Chats.Infrastructure.Tests.Features.Users.Builders;
+using InstaConnect.Chats.Infrastructure.Tests.Features.Users.Utilities;
 using InstaConnect.Chats.Infrastructure.Tests.Functional.Features.Users.Utilities;
 using InstaConnect.Chats.Tests.Features.Common.Utilities;
 using InstaConnect.Chats.Tests.Features.Users.Assertions;
@@ -35,7 +36,7 @@ public class UpdateUserInfrastructureFunctionalTests : BaseUserInfrastructureCom
 
 	public override async Task InitializeAsync()
 	{
-		await ServiceScope.SetupUpdateAsync(User, UserId, CancellationToken);
+		await ServiceScope.SetupUpdateAsync(User, CancellationToken);
 		await base.InitializeAsync();
 	}
 

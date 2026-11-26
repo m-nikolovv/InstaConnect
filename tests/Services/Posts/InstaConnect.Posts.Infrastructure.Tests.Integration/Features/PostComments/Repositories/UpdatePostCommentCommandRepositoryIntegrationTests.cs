@@ -12,7 +12,7 @@ public class UpdatePostCommentCommandRepositoryIntegrationTests : BasePostCommen
 
 	public override async Task InitializeAsync()
 	{
-		await ServiceScope.SetupUpdateAsync(PostComment, UserId, CancellationToken);
+		await ServiceScope.SetupUpdateAsync(PostComment, CancellationToken);
 	}
 
 	[Fact]
@@ -36,7 +36,7 @@ public class UpdatePostCommentCommandRepositoryIntegrationTests : BasePostCommen
 
 		// Act
 		await Repository.UpdateAsync(updatedPostComment, CancellationToken);
-		var cachedPostComment = await ServiceScope.GetPostCommentCacheByIdAsync(updatedPostComment, UserId, CancellationToken);
+		var cachedPostComment = await ServiceScope.GetPostCommentCacheByIdAsync(updatedPostComment, CancellationToken);
 
 		// Assert
 		cachedPostComment.ShouldBeNull();

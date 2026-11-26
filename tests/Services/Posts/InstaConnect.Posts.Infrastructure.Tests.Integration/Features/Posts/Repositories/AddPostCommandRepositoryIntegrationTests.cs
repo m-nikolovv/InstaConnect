@@ -1,3 +1,4 @@
+
 namespace InstaConnect.Posts.Infrastructure.Tests.Integration.Features.Posts.Repositories;
 
 public class AddPostCommandRepositoryIntegrationTests : BasePostInfrastructureCommandIntegrationTest

@@ -1,5 +1,6 @@
 using InstaConnect.Chats.Infrastructure.Tests.Features.Users.Assertions;
 using InstaConnect.Chats.Infrastructure.Tests.Features.Users.Builders;
+using InstaConnect.Chats.Infrastructure.Tests.Features.Users.Utilities;
 using InstaConnect.Chats.Infrastructure.Tests.Functional.Features.Users.Utilities;
 using InstaConnect.Chats.Tests.Features.ChatMessageImages.Utilities;
 using InstaConnect.Chats.Tests.Features.ChatMessages.Utilities;
@@ -30,7 +31,7 @@ public class DeleteUserInfrastructureFunctionalTests : BaseUserInfrastructureCom
 
 	public override async Task InitializeAsync()
 	{
-		await ServiceScope.SetupDeleteAsync(User, UserId, CancellationToken);
+		await ServiceScope.SetupDeleteAsync(User, CancellationToken);
 		await base.InitializeAsync();
 	}
 

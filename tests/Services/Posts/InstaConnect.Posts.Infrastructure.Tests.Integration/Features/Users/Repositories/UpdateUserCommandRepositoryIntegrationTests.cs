@@ -12,7 +12,7 @@ public class UpdateUserCommandRepositoryIntegrationTests : BaseUserInfrastructur
 
 	public override async Task InitializeAsync()
 	{
-		await ServiceScope.SetupUpdateAsync(User, UserId, CancellationToken);
+		await ServiceScope.SetupUpdateAsync(User, CancellationToken);
 	}
 
 	[Fact]
@@ -36,7 +36,7 @@ public class UpdateUserCommandRepositoryIntegrationTests : BaseUserInfrastructur
 
 		// Act
 		await Repository.UpdateAsync(updatedUser, CancellationToken);
-		var cachedUser = await ServiceScope.GetUserCacheByIdAsync(updatedUser, UserId, CancellationToken);
+		var cachedUser = await ServiceScope.GetUserCacheByIdAsync(updatedUser, CancellationToken);
 
 		// Assert
 		cachedUser.ShouldBeNull();

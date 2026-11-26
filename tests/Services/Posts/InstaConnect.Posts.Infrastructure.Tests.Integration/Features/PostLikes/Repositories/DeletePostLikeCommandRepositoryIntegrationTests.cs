@@ -11,7 +11,7 @@ public class DeletePostLikeCommandRepositoryIntegrationTests : BasePostLikeInfra
 
 	public override async Task InitializeAsync()
 	{
-		await ServiceScope.SetupDeleteAsync(PostLike, UserId, CancellationToken);
+		await ServiceScope.SetupDeleteAsync(PostLike, CancellationToken);
 	}
 
 	[Fact]
@@ -30,7 +30,7 @@ public class DeletePostLikeCommandRepositoryIntegrationTests : BasePostLikeInfra
 	{
 		// Act
 		await Repository.DeleteAsync(PostLike, CancellationToken);
-		var cachedPostLike = await ServiceScope.GetPostLikeCacheByIdAsync(PostLike, UserId, CancellationToken);
+		var cachedPostLike = await ServiceScope.GetPostLikeCacheByIdAsync(PostLike, CancellationToken);
 
 		// Assert
 		cachedPostLike.ShouldBeNull();
@@ -41,7 +41,7 @@ public class DeletePostLikeCommandRepositoryIntegrationTests : BasePostLikeInfra
 	{
 		// Act
 		await Repository.DeleteAsync(PostLike, CancellationToken);
-		var cachedPost = await ServiceScope.GetPostCacheByIdAsync(PostLike, UserId, CancellationToken);
+		var cachedPost = await ServiceScope.GetPostCacheByIdAsync(PostLike, CancellationToken);
 
 		// Assert
 		cachedPost.ShouldBeNull();

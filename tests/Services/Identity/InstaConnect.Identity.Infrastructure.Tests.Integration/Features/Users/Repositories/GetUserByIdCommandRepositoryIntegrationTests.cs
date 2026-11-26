@@ -1,3 +1,4 @@
+using InstaConnect.Identity.Infrastructure.Tests.Features.Users.Utilities;
 using InstaConnect.Identity.Tests.Features.Users.Builders;
 
 namespace InstaConnect.Identity.Infrastructure.Tests.Integration.Features.Users.Repositories;

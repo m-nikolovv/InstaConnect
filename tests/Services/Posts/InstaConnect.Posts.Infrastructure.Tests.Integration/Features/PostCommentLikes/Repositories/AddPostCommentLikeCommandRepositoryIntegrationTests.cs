@@ -12,7 +12,7 @@ public class AddPostCommentLikeCommandRepositoryIntegrationTests : BasePostComme
 
 	public override async Task InitializeAsync()
 	{
-		await ServiceScope.SetupAddAsync(PostCommentLike, UserId, CancellationToken);
+		await ServiceScope.SetupAddAsync(PostCommentLike, CancellationToken);
 	}
 
 	[Fact]
@@ -31,7 +31,7 @@ public class AddPostCommentLikeCommandRepositoryIntegrationTests : BasePostComme
 	{
 		// Act
 		await Repository.AddAsync(PostCommentLike, CancellationToken);
-		var cachedPostComment = await ServiceScope.GetPostCommentCacheByIdAsync(PostCommentLike, UserId, CancellationToken);
+		var cachedPostComment = await ServiceScope.GetPostCommentCacheByIdAsync(PostCommentLike, CancellationToken);
 
 		// Assert
 		cachedPostComment.ShouldBeNull();

@@ -1,3 +1,4 @@
+using InstaConnect.Posts.Infrastructure.Tests.Features.Posts.Utilities;
 using InstaConnect.Posts.Tests.Features.Posts.Builders;
 
 namespace InstaConnect.Posts.Infrastructure.Tests.Integration.Features.Posts.Repositories;

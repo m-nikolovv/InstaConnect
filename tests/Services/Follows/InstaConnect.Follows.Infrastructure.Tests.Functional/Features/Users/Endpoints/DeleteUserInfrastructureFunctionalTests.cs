@@ -2,6 +2,7 @@ using InstaConnect.Common.Tests.Features.Assertions;
 using InstaConnect.Common.Tests.Features.DataAttributes.Strings.Base;
 using InstaConnect.Follows.Infrastructure.Tests.Features.Users.Assertions;
 using InstaConnect.Follows.Infrastructure.Tests.Features.Users.Builders;
+using InstaConnect.Follows.Infrastructure.Tests.Features.Users.Utilities;
 using InstaConnect.Follows.Infrastructure.Tests.Functional.Features.Users.Utilities;
 using InstaConnect.Follows.Tests.Features.Common.Utilities;
 using InstaConnect.Follows.Tests.Features.Follows.Utilities;
@@ -28,7 +29,7 @@ public class DeleteUserInfrastructureFunctionalTests : BaseUserInfrastructureCom
 
 	public override async Task InitializeAsync()
 	{
-		await ServiceScope.SetupDeleteAsync(User, UserId, CancellationToken);
+		await ServiceScope.SetupDeleteAsync(User, CancellationToken);
 		await base.InitializeAsync();
 	}
 

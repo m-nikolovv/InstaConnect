@@ -1,3 +1,4 @@
+using InstaConnect.Posts.Infrastructure.Tests.Features.PostImages.Utilities;
 using InstaConnect.Posts.Tests.Features.PostImages.Assertions;
 
 namespace InstaConnect.Posts.Infrastructure.Tests.Integration.Features.PostImages.Repositories;
@@ -11,7 +12,7 @@ public class AddRangePostImagesCommandRepositoryIntegrationTests : BasePostImage
 
 	public override async Task InitializeAsync()
 	{
-		await ServiceScope.SetupAddAsync(PostImage, UserId, CancellationToken);
+		await ServiceScope.SetupAddAsync(PostImage, CancellationToken);
 	}
 
 	[Fact]

@@ -1,3 +1,4 @@
+using InstaConnect.Chats.Infrastructure.Tests.Features.ChatMessageImages.Utilities;
 using InstaConnect.Chats.Infrastructure.Tests.Features.ChatMessages.Utilities;
 
 namespace InstaConnect.Chats.Infrastructure.Tests.Integration.Features.ChatMessageImages.Repositories;
@@ -11,7 +12,7 @@ public class DeleteChatMessageImageCommandRepositoryIntegrationTests : BaseChatM
 
 	public override async Task InitializeAsync()
 	{
-		await ServiceScope.SetupDeleteAsync(ChatMessageImage, UserId, CancellationToken);
+		await ServiceScope.SetupDeleteAsync(ChatMessageImage, CancellationToken);
 	}
 
 	[Fact]
@@ -30,7 +31,7 @@ public class DeleteChatMessageImageCommandRepositoryIntegrationTests : BaseChatM
 	{
 		// Act
 		await Repository.DeleteAsync(ChatMessageImage, CancellationToken);
-		var cachedChatMessage = await ServiceScope.GetChatMessageCacheByIdAsync(ChatMessage, UserId, CancellationToken);
+		var cachedChatMessage = await ServiceScope.GetChatMessageCacheByIdAsync(ChatMessage, CancellationToken);
 
 		// Assert
 		cachedChatMessage.ShouldBeNull();

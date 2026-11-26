@@ -11,7 +11,7 @@ public class UpdatePostCommandRepositoryIntegrationTests : BasePostInfrastructur
 
 	public override async Task InitializeAsync()
 	{
-		await ServiceScope.SetupUpdateAsync(Post, UserId, CancellationToken);
+		await ServiceScope.SetupUpdateAsync(Post, CancellationToken);
 	}
 
 	[Fact]
@@ -35,7 +35,7 @@ public class UpdatePostCommandRepositoryIntegrationTests : BasePostInfrastructur
 
 		// Act
 		await Repository.UpdateAsync(updatedPost, CancellationToken);
-		var cachedPost = await ServiceScope.GetPostCacheByIdAsync(updatedPost, UserId, CancellationToken);
+		var cachedPost = await ServiceScope.GetPostCacheByIdAsync(updatedPost, CancellationToken);
 
 		// Assert
 		cachedPost.ShouldBeNull();

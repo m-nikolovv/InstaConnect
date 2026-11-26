@@ -11,7 +11,7 @@ public class DeletePostCommandRepositoryIntegrationTests : BasePostInfrastructur
 
 	public override async Task InitializeAsync()
 	{
-		await ServiceScope.SetupDeleteAsync(Post, UserId, CancellationToken);
+		await ServiceScope.SetupDeleteAsync(Post, CancellationToken);
 	}
 
 	[Fact]
@@ -30,7 +30,7 @@ public class DeletePostCommandRepositoryIntegrationTests : BasePostInfrastructur
 	{
 		// Act
 		await Repository.DeleteAsync(Post, CancellationToken);
-		var cachedPost = await ServiceScope.GetPostCacheByIdAsync(Post, UserId, CancellationToken);
+		var cachedPost = await ServiceScope.GetPostCacheByIdAsync(Post, CancellationToken);
 
 		// Assert
 		cachedPost.ShouldBeNull();

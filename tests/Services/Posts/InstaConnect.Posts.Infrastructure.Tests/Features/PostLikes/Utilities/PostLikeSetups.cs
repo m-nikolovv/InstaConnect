@@ -11,10 +11,9 @@ public static class PostLikeSetups
 	{
 		public async Task<PostLikeResponse?> GetPostLikeCacheByIdAsync(
 			PostLike postLike,
-			UserId currentUserId,
 			CancellationToken cancellationToken)
 		{
-			return await serviceScope.GetPostLikeCacheByIdAsync(postLike.Id, currentUserId, cancellationToken);
+			return await serviceScope.GetPostLikeCacheByIdAsync(postLike.Id, postLike.Id.UserId, cancellationToken);
 		}
 
 		public async Task<PostLikeResponse?> GetPostLikeCacheByIdAsync(
@@ -27,10 +26,23 @@ public static class PostLikeSetups
 
 		public async Task<PostResponse?> GetPostCacheByIdAsync(
 			PostLike postLike,
-			UserId currentUserId,
 			CancellationToken cancellationToken)
 		{
-			return await serviceScope.GetPostCacheByIdAsync(postLike.Id.Id, currentUserId, cancellationToken);
+			return await serviceScope.GetPostCacheByIdAsync(postLike.Id.Id, postLike.Id.UserId, cancellationToken);
+		}
+
+		public async Task SetupAddAsync(
+			PostLike postLike,
+			CancellationToken cancellationToken)
+		{
+			await serviceScope.SetupAddAsync(postLike, postLike.Id.UserId, cancellationToken);
+		}
+
+		public async Task SetupDeleteAsync(
+			PostLike postLike,
+			CancellationToken cancellationToken)
+		{
+			await serviceScope.SetupDeleteAsync(postLike, postLike.Id.UserId, cancellationToken);
 		}
 	}
 
