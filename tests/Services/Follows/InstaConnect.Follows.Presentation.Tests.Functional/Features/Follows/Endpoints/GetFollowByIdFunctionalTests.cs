@@ -18,12 +18,7 @@ public class GetFollowByIdFunctionalTests : BaseFollowPresentationQueryFunctiona
 
 	public override async Task InitializeAsync()
 	{
-		await ServiceScope.InitializeGetByIdAsync(_request, Follow, CancellationToken);
-	}
-
-	public override async Task DisposeAsync()
-	{
-		await ServiceScope.DisposeGetByIdAsync(_request, Follow, CancellationToken);
+		await ServiceScope.SetupGetByIdAsync(_request, Follow, CancellationToken);
 	}
 
 	[Theory]

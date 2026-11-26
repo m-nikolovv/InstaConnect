@@ -25,14 +25,8 @@ public class VerifyForgotPasswordTokenCommandServiceIntegrationTests : BaseForgo
 
 	public override async Task InitializeAsync()
 	{
-		await ServiceScope.InitializeVerifyAsync(_command, ForgotPasswordToken, CancellationToken);
+		await ServiceScope.SetupVerifyAsync(_command, ForgotPasswordToken, CancellationToken);
 		await base.InitializeAsync();
-	}
-
-	public override async Task DisposeAsync()
-	{
-		await ServiceScope.DisposeVerifyAsync(_command, ForgotPasswordToken, CancellationToken);
-		await base.DisposeAsync();
 	}
 
 	[Fact]

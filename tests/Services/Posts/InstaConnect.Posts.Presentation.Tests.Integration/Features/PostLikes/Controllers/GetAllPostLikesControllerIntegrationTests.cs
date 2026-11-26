@@ -24,12 +24,7 @@ public class GetAllPostLikesControllerIntegrationTests : BasePostLikePresentatio
 
 	public override async Task InitializeAsync()
 	{
-		await ServiceScope.InitializeGetAllAsync(_request, PostLikes, CancellationToken);
-	}
-
-	public override async Task DisposeAsync()
-	{
-		await ServiceScope.DisposeGetAllAsync(_request, PostLikes, CancellationToken);
+		await ServiceScope.SetupGetAllAsync(_request, PostLikes, CancellationToken);
 	}
 
 	[Theory]

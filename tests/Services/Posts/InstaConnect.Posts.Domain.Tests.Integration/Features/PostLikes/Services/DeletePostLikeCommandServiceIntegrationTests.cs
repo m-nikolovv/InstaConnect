@@ -19,14 +19,8 @@ public class DeletePostLikeCommandServiceIntegrationTests : BasePostLikeDomainCo
 
 	public override async Task InitializeAsync()
 	{
-		await ServiceScope.InitializeDeleteAsync(_command, PostLike, CancellationToken);
+		await ServiceScope.SetupDeleteAsync(_command, PostLike, CancellationToken);
 		await base.InitializeAsync();
-	}
-
-	public override async Task DisposeAsync()
-	{
-		await ServiceScope.DisposeDeleteAsync(_command, PostLike, CancellationToken);
-		await base.DisposeAsync();
 	}
 
 	[Fact]

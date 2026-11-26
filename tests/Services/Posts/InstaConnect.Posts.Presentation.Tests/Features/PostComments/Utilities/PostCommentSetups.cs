@@ -78,100 +78,52 @@ public static class PostCommentSetups
 				cancellationToken);
 		}
 
-		public async Task InitializeAddAsync(
+		public async Task SetupAddAsync(
 			AddPostCommentApiRequest request,
 			PostComment postComment,
 			CancellationToken cancellationToken)
 		{
-			await serviceScope.InitializeAddAsync(postComment, request.UserId, cancellationToken);
+			await serviceScope.SetupAddAsync(postComment, request.UserId, cancellationToken);
 		}
 
-		public async Task DisposeAddAsync(
-			AddPostCommentApiRequest request,
-			PostComment postComment,
-			CancellationToken cancellationToken)
-		{
-			await serviceScope.DisposeAddAsync(postComment, cancellationToken);
-		}
-
-		public async Task InitializeUpdateAsync(
+		public async Task SetupUpdateAsync(
 			UpdatePostCommentApiRequest request,
 			PostComment postComment,
 			CancellationToken cancellationToken)
 		{
-			await serviceScope.InitializeUpdateAsync(postComment, request.UserId, cancellationToken);
+			await serviceScope.SetupUpdateAsync(postComment, request.UserId, cancellationToken);
 		}
 
-		public async Task DisposeUpdateAsync(
-			UpdatePostCommentApiRequest request,
-			PostComment postComment,
-			CancellationToken cancellationToken)
-		{
-			await serviceScope.DisposeUpdateAsync(postComment, cancellationToken);
-		}
-
-		public async Task InitializeDeleteAsync(
+		public async Task SetupDeleteAsync(
 			DeletePostCommentApiRequest request,
 			PostComment postComment,
 			CancellationToken cancellationToken)
 		{
-			await serviceScope.InitializeDeleteAsync(postComment, request.UserId, cancellationToken);
+			await serviceScope.SetupDeleteAsync(postComment, request.UserId, cancellationToken);
 		}
 
-		public async Task DisposeDeleteAsync(
-			DeletePostCommentApiRequest request,
-			PostComment postComment,
-			CancellationToken cancellationToken)
-		{
-			await serviceScope.DisposeDeleteAsync(postComment, cancellationToken);
-		}
-
-		public async Task InitializeGetByIdAsync(
+		public async Task SetupGetByIdAsync(
 			GetPostCommentByIdApiRequest request,
 			PostComment postComment,
 			CancellationToken cancellationToken)
 		{
-			await serviceScope.InitializeGetByIdAsync(postComment, cancellationToken);
+			await serviceScope.SetupGetByIdAsync(postComment, cancellationToken);
 		}
 
-		public async Task DisposeGetByIdAsync(
-			GetPostCommentByIdApiRequest request,
-			PostComment postComment,
-			CancellationToken cancellationToken)
-		{
-			await serviceScope.DisposeGetByIdAsync(postComment, cancellationToken);
-		}
-
-		public async Task InitializeGetAllAsync(
+		public async Task SetupGetAllAsync(
 			GetAllPostCommentsApiRequest request,
 			ICollection<PostComment> postComments,
 			CancellationToken cancellationToken)
 		{
-			await serviceScope.InitializeGetAllAsync(postComments, cancellationToken);
+			await serviceScope.SetupGetAllAsync(postComments, cancellationToken);
 		}
 
-		public async Task DisposeGetAllAsync(
-			GetAllPostCommentsApiRequest request,
-			ICollection<PostComment> postComments,
-			CancellationToken cancellationToken)
-		{
-			await serviceScope.DisposeGetAllAsync(postComments, cancellationToken);
-		}
-
-		public async Task InitializeGetAllForUserAsync(
+		public async Task SetupGetAllForUserAsync(
 			GetAllPostCommentsForUserApiRequest request,
 			ICollection<PostComment> postComments,
 			CancellationToken cancellationToken)
 		{
-			await serviceScope.InitializeGetAllForUserAsync(postComments, cancellationToken);
-		}
-
-		public async Task DisposeGetAllForUserAsync(
-			GetAllPostCommentsForUserApiRequest request,
-			ICollection<PostComment> postComments,
-			CancellationToken cancellationToken)
-		{
-			await serviceScope.DisposeGetAllForUserAsync(postComments, cancellationToken);
+			await serviceScope.SetupGetAllForUserAsync(postComments, cancellationToken);
 		}
 
 		public async Task<PostCommentResponse?> GetPostCommentCacheByIdAsync(

@@ -39,12 +39,6 @@ public class AddUserInfrastructureFunctionalTests : BaseUserInfrastructureComman
 		await base.InitializeAsync();
 	}
 
-	public override async Task DisposeAsync()
-	{
-		await ServiceScope.DisposeAddAsync(User, CancellationToken);
-		await base.DisposeAsync();
-	}
-
 	[Theory]
 	[UserIdNullData]
 	[UserIdEmptyData]

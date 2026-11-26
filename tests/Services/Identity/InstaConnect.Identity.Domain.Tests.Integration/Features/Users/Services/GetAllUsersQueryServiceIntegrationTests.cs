@@ -23,12 +23,7 @@ public class GetAllUsersQueryServiceIntegrationTests : BaseUserDomainQueryIntegr
 
 	public override async Task InitializeAsync()
 	{
-		await ServiceScope.InitializeGetAllAsync(_query, Users, CancellationToken);
-	}
-
-	public override async Task DisposeAsync()
-	{
-		await ServiceScope.DisposeGetAllAsync(_query, Users, CancellationToken);
+		await ServiceScope.SetupGetAllAsync(_query, Users, CancellationToken);
 	}
 
 	[Fact]

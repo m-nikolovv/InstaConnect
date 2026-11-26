@@ -26,12 +26,7 @@ public class AddChatMessageControllerIntegrationTests : BaseChatMessagePresentat
 
 	public override async Task InitializeAsync()
 	{
-		await ServiceScope.InitializeAddAsync(_request, ChatMessage, CancellationToken);
-	}
-
-	public override async Task DisposeAsync()
-	{
-		await ServiceScope.DisposeAddAsync(_request, ChatMessage, CancellationToken);
+		await ServiceScope.SetupAddAsync(_request, ChatMessage, CancellationToken);
 	}
 
 	[Theory]

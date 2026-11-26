@@ -24,12 +24,7 @@ public class GetAllUsersFunctionalTests : BaseUserPresentationQueryFunctionalTes
 
 	public override async Task InitializeAsync()
 	{
-		await ServiceScope.InitializeGetAllAsync(_request, Users, CancellationToken);
-	}
-
-	public override async Task DisposeAsync()
-	{
-		await ServiceScope.DisposeGetAllAsync(_request, Users, CancellationToken);
+		await ServiceScope.SetupGetAllAsync(_request, Users, CancellationToken);
 	}
 
 	[Theory]

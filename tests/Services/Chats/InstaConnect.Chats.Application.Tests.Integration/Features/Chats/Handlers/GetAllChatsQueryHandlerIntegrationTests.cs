@@ -33,12 +33,7 @@ public class GetAllChatsQueryHandlerIntegrationTests : BaseChatApplicationQueryI
 
 	public override async Task InitializeAsync()
 	{
-		await ServiceScope.InitializeGetAllAsync(_request, Chats, CancellationToken);
-	}
-
-	public override async Task DisposeAsync()
-	{
-		await ServiceScope.DisposeGetAllAsync(_request, Chats, CancellationToken);
+		await ServiceScope.SetupGetAllAsync(_request, Chats, CancellationToken);
 	}
 
 	[Theory]

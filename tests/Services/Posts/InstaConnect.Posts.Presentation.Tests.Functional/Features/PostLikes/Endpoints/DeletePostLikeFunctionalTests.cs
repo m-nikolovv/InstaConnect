@@ -16,14 +16,8 @@ public class DeletePostLikeFunctionalTests : BasePostLikePresentationCommandFunc
 
 	public override async Task InitializeAsync()
 	{
-		await ServiceScope.InitializeDeleteAsync(_request, PostLike, CancellationToken);
+		await ServiceScope.SetupDeleteAsync(_request, PostLike, CancellationToken);
 		await base.InitializeAsync();
-	}
-
-	public override async Task DisposeAsync()
-	{
-		await ServiceScope.DisposeDeleteAsync(_request, PostLike, CancellationToken);
-		await base.DisposeAsync();
 	}
 
 	[Fact]

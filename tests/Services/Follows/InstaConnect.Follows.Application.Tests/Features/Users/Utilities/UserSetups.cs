@@ -48,28 +48,12 @@ public static class UserSetups
 			return await serviceScope.GetUserCacheByIdAsync(request.Id, request.Id, cancellationToken);
 		}
 
-		public async Task DisposeAddAsync(
-			AddUserCommandRequest request,
-			User user,
-			CancellationToken cancellationToken)
-		{
-			await serviceScope.DisposeAddAsync(user, cancellationToken);
-		}
-
-		public async Task InitializeDeleteAsync(
+		public async Task SetupDeleteAsync(
 			DeleteUserCommandRequest request,
 			User user,
 			CancellationToken cancellationToken)
 		{
-			await serviceScope.InitializeDeleteAsync(user, request.Id, cancellationToken);
-		}
-
-		public async Task DisposeDeleteAsync(
-			DeleteUserCommandRequest request,
-			User user,
-			CancellationToken cancellationToken)
-		{
-			await serviceScope.DisposeDeleteAsync(user, cancellationToken);
+			await serviceScope.SetupDeleteAsync(user, request.Id, cancellationToken);
 		}
 
 		public async Task AddUserCacheAsync(
@@ -88,20 +72,12 @@ public static class UserSetups
 			await serviceScope.AddUserCacheAsync(user, request.Id, cancellationToken);
 		}
 
-		public async Task InitializeUpdateAsync(
+		public async Task SetupUpdateAsync(
 			UpdateUserCommandRequest request,
 			User user,
 			CancellationToken cancellationToken)
 		{
-			await serviceScope.InitializeUpdateAsync(user, request.Id, cancellationToken);
-		}
-
-		public async Task DisposeUpdateAsync(
-			UpdateUserCommandRequest request,
-			User user,
-			CancellationToken cancellationToken)
-		{
-			await serviceScope.DisposeUpdateAsync(user, cancellationToken);
+			await serviceScope.SetupUpdateAsync(user, request.Id, cancellationToken);
 		}
 	}
 }

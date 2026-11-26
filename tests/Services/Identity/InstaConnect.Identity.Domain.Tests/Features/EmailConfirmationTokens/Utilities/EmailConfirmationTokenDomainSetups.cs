@@ -25,36 +25,20 @@ public static class EmailConfirmationTokenDomainSetups
 			return await serviceScope.GetUserCacheByIdAsync(command.Id.Id, command.Id.Id, cancellationToken);
 		}
 
-		public async Task InitializeAddAsync(
+		public async Task SetupAddAsync(
 			AddEmailConfirmationTokenCommand command,
 			EmailConfirmationToken emailConfirmationToken,
 			CancellationToken cancellationToken)
 		{
-			await serviceScope.InitializeAddAsync(emailConfirmationToken, cancellationToken);
+			await serviceScope.SetupAddAsync(emailConfirmationToken, cancellationToken);
 		}
 
-		public async Task DisposeAddAsync(
-			AddEmailConfirmationTokenCommand command,
-			EmailConfirmationToken emailConfirmationToken,
-			CancellationToken cancellationToken)
-		{
-			await serviceScope.DisposeAddAsync(emailConfirmationToken, cancellationToken);
-		}
-
-		public async Task InitializeVerifyAsync(
+		public async Task SetupVerifyAsync(
 			VerifyEmailConfirmationTokenCommand command,
 			EmailConfirmationToken emailConfirmationToken,
 			CancellationToken cancellationToken)
 		{
-			await serviceScope.InitializeVerifyAsync(emailConfirmationToken, command.Id.Id, cancellationToken);
-		}
-
-		public async Task DisposeVerifyAsync(
-			VerifyEmailConfirmationTokenCommand command,
-			EmailConfirmationToken emailConfirmationToken,
-			CancellationToken cancellationToken)
-		{
-			await serviceScope.DisposeVerifyAsync(emailConfirmationToken, cancellationToken);
+			await serviceScope.SetupVerifyAsync(emailConfirmationToken, command.Id.Id, cancellationToken);
 		}
 
 		public async Task AddUserCacheAsync(

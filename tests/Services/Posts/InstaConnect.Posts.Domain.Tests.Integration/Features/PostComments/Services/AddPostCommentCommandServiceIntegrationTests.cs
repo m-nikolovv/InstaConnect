@@ -21,14 +21,8 @@ public class AddPostCommentCommandServiceIntegrationTests : BasePostCommentDomai
 
 	public override async Task InitializeAsync()
 	{
-		await ServiceScope.InitializeAddAsync(_command, PostComment, CancellationToken);
+		await ServiceScope.SetupAddAsync(_command, PostComment, CancellationToken);
 		await base.InitializeAsync();
-	}
-
-	public override async Task DisposeAsync()
-	{
-		await ServiceScope.DisposeAddAsync(_command, PostComment, CancellationToken);
-		await base.DisposeAsync();
 	}
 
 	[Fact]

@@ -35,52 +35,28 @@ public static class RefreshTokenSetups
 				cancellationToken);
 		}
 
-		public async Task InitializeAddAsync(
+		public async Task SetupAddAsync(
 			IssueRefreshTokenCommandRequest request,
 			RefreshToken refreshToken,
 			CancellationToken cancellationToken)
 		{
-			await serviceScope.InitializeAddAsync(refreshToken, cancellationToken);
+			await serviceScope.SetupAddAsync(refreshToken, cancellationToken);
 		}
 
-		public async Task DisposeAddAsync(
-			IssueRefreshTokenCommandRequest request,
-			RefreshToken refreshToken,
-			CancellationToken cancellationToken)
-		{
-			await serviceScope.DisposeAddAsync(refreshToken, cancellationToken);
-		}
-
-		public async Task InitializeDeleteAsync(
+		public async Task SetupDeleteAsync(
 			DeleteCurrentRefreshTokenCommandRequest request,
 			RefreshToken refreshToken,
 			CancellationToken cancellationToken)
 		{
-			await serviceScope.InitializeDeleteAsync(refreshToken, cancellationToken);
+			await serviceScope.SetupDeleteAsync(refreshToken, cancellationToken);
 		}
 
-		public async Task DisposeDeleteAsync(
-			DeleteCurrentRefreshTokenCommandRequest request,
-			RefreshToken refreshToken,
-			CancellationToken cancellationToken)
-		{
-			await serviceScope.DisposeDeleteAsync(refreshToken, cancellationToken);
-		}
-
-		public async Task InitializeUpdateAsync(
+		public async Task SetupUpdateAsync(
 			RotateRefreshTokenCommandRequest request,
 			RefreshToken refreshToken,
 			CancellationToken cancellationToken)
 		{
-			await serviceScope.InitializeUpdateAsync(refreshToken, cancellationToken);
-		}
-
-		public async Task DisposeUpdateAsync(
-			RotateRefreshTokenCommandRequest request,
-			RefreshToken refreshToken,
-			CancellationToken cancellationToken)
-		{
-			await serviceScope.DisposeUpdateAsync(refreshToken, cancellationToken);
+			await serviceScope.SetupUpdateAsync(refreshToken, cancellationToken);
 		}
 	}
 }

@@ -35,52 +35,28 @@ public static class ChatDomainSetups
 			return await serviceScope.GetChatCacheByIdAsync(query.Id, query.CurrentUser.Id, cancellationToken);
 		}
 
-		public async Task InitializeAddAsync(
+		public async Task SetupAddAsync(
 			AddChatCommand command,
 			Chat chat,
 			CancellationToken cancellationToken)
 		{
-			await serviceScope.InitializeAddAsync(chat, cancellationToken);
+			await serviceScope.SetupAddAsync(chat, cancellationToken);
 		}
 
-		public async Task DisposeAddAsync(
-			AddChatCommand command,
-			Chat chat,
-			CancellationToken cancellationToken)
-		{
-			await serviceScope.DisposeAddAsync(chat, cancellationToken);
-		}
-
-		public async Task InitializeGetAllAsync(
+		public async Task SetupGetAllAsync(
 			GetAllChatsQuery query,
 			ICollection<Chat> chats,
 			CancellationToken cancellationToken)
 		{
-			await serviceScope.InitializeGetAllAsync(chats, cancellationToken);
+			await serviceScope.SetupGetAllAsync(chats, cancellationToken);
 		}
 
-		public async Task DisposeGetAllAsync(
-			GetAllChatsQuery query,
-			ICollection<Chat> chats,
-			CancellationToken cancellationToken)
-		{
-			await serviceScope.DisposeGetAllAsync(chats, cancellationToken);
-		}
-
-		public async Task InitializeGetByIdAsync(
+		public async Task SetupGetByIdAsync(
 			GetChatByIdQuery query,
 			Chat chat,
 			CancellationToken cancellationToken)
 		{
-			await serviceScope.InitializeGetByIdAsync(chat, cancellationToken);
-		}
-
-		public async Task DisposeGetByIdAsync(
-			GetChatByIdQuery query,
-			Chat chat,
-			CancellationToken cancellationToken)
-		{
-			await serviceScope.DisposeGetByIdAsync(chat, cancellationToken);
+			await serviceScope.SetupGetByIdAsync(chat, cancellationToken);
 		}
 	}
 }

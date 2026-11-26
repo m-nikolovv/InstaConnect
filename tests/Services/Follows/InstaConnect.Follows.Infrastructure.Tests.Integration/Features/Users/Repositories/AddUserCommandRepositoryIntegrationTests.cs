@@ -9,11 +9,6 @@ public class AddUserCommandRepositoryIntegrationTests : BaseUserInfrastructureCo
 	{
 	}
 
-	public override async Task DisposeAsync()
-	{
-		await ServiceScope.DisposeAddAsync(User, CancellationToken);
-	}
-
 	[Fact]
 	public async Task AddAsync_ShouldAddUser_WhenCommandIsValid()
 	{

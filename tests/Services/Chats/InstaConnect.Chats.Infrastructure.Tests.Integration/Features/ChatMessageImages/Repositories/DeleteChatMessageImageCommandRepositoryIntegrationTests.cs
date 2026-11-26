@@ -11,12 +11,7 @@ public class DeleteChatMessageImageCommandRepositoryIntegrationTests : BaseChatM
 
 	public override async Task InitializeAsync()
 	{
-		await ServiceScope.InitializeDeleteAsync(ChatMessageImage, CurrentUserId, CancellationToken);
-	}
-
-	public override async Task DisposeAsync()
-	{
-		await ServiceScope.DisposeDeleteAsync(ChatMessageImage, CancellationToken);
+		await ServiceScope.SetupDeleteAsync(ChatMessageImage, CurrentUserId, CancellationToken);
 	}
 
 	[Fact]

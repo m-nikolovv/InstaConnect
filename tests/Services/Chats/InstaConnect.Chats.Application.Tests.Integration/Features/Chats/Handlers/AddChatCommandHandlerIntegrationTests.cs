@@ -26,14 +26,8 @@ public class AddChatCommandHandlerIntegrationTests : BaseChatApplicationCommandI
 
 	public override async Task InitializeAsync()
 	{
-		await ServiceScope.InitializeAddAsync(_request, Chat, CancellationToken);
+		await ServiceScope.SetupAddAsync(_request, Chat, CancellationToken);
 		await base.InitializeAsync();
-	}
-
-	public override async Task DisposeAsync()
-	{
-		await ServiceScope.DisposeAddAsync(_request, Chat, CancellationToken);
-		await base.DisposeAsync();
 	}
 
 	[Theory]

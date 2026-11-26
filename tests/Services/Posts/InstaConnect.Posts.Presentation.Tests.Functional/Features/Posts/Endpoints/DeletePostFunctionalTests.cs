@@ -19,14 +19,8 @@ public class DeletePostFunctionalTests : BasePostPresentationCommandFunctionalTe
 
 	public override async Task InitializeAsync()
 	{
-		await ServiceScope.InitializeDeleteAsync(_request, Post, CancellationToken);
+		await ServiceScope.SetupDeleteAsync(_request, Post, CancellationToken);
 		await base.InitializeAsync();
-	}
-
-	public override async Task DisposeAsync()
-	{
-		await ServiceScope.DisposeDeleteAsync(_request, Post, CancellationToken);
-		await base.DisposeAsync();
 	}
 
 	[Fact]

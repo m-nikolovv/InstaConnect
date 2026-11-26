@@ -12,12 +12,7 @@ public class AddChatMessageImageCommandRepositoryIntegrationTests : BaseChatMess
 
 	public override async Task InitializeAsync()
 	{
-		await ServiceScope.InitializeAddAsync(ChatMessageImage, CurrentUserId, CancellationToken);
-	}
-
-	public override async Task DisposeAsync()
-	{
-		await ServiceScope.DisposeAddAsync(ChatMessageImage, CancellationToken);
+		await ServiceScope.SetupAddAsync(ChatMessageImage, CurrentUserId, CancellationToken);
 	}
 
 	[Fact]

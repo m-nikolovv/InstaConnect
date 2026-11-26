@@ -45,12 +45,7 @@ public class GetAllPostCommentsForUserQueryRepositoryIntegrationTests : BasePost
 
 	public override async Task InitializeAsync()
 	{
-		await ServiceScope.InitializeGetAllForUserAsync(PostComments, CancellationToken);
-	}
-
-	public override async Task DisposeAsync()
-	{
-		await ServiceScope.DisposeGetAllForUserAsync(PostComments, CancellationToken);
+		await ServiceScope.SetupGetAllForUserAsync(PostComments, CancellationToken);
 	}
 
 	[Fact]

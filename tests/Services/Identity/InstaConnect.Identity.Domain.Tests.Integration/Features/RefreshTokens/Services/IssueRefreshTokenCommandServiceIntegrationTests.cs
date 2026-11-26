@@ -23,12 +23,7 @@ public class IssueRefreshTokenCommandServiceIntegrationTests : BaseRefreshTokenD
 
 	public override async Task InitializeAsync()
 	{
-		await ServiceScope.InitializeAddAsync(_command, RefreshToken, CancellationToken);
-	}
-
-	public override async Task DisposeAsync()
-	{
-		await ServiceScope.DisposeAddAsync(_command, RefreshToken, CancellationToken);
+		await ServiceScope.SetupAddAsync(_command, RefreshToken, CancellationToken);
 	}
 
 	[Fact]

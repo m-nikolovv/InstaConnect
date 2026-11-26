@@ -13,12 +13,7 @@ public class GetRefreshTokenByIdRangeCommandRepositoryIntegrationTests : BaseRef
 
 	public override async Task InitializeAsync()
 	{
-		await ServiceScope.InitializeGetAllAsync(RefreshTokens, CancellationToken);
-	}
-
-	public override async Task DisposeAsync()
-	{
-		await ServiceScope.DisposeGetAllAsync(RefreshTokens, CancellationToken);
+		await ServiceScope.SetupGetAllAsync(RefreshTokens, CancellationToken);
 	}
 
 	[Fact]

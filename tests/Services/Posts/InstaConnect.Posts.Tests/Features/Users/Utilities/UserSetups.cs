@@ -114,14 +114,7 @@ public static class UserSetups
 			return await cacheHandler.GetByIdAsync(id, currentUserId, cancellationToken);
 		}
 
-		public async Task DisposeAddAsync(
-			User user,
-			CancellationToken cancellationToken)
-		{
-			await serviceScope.DeleteAsync(user, cancellationToken);
-		}
-
-		public async Task InitializeDeleteAsync(
+		public async Task SetupDeleteAsync(
 			User user,
 			string currentUserId,
 			CancellationToken cancellationToken)
@@ -143,49 +136,22 @@ public static class UserSetups
 			await serviceScope.AddUserCacheAsync(user, currentUserId, cancellationToken);
 		}
 
-		public async Task InitializeDeleteAsync(
+		public async Task SetupDeleteAsync(
 			User user,
 			UserId currentUserId,
 			CancellationToken cancellationToken)
 		{
-			await serviceScope.InitializeDeleteAsync(user, currentUserId.Id, cancellationToken);
+			await serviceScope.SetupDeleteAsync(user, currentUserId.Id, cancellationToken);
 		}
 
-		public async Task DisposeDeleteAsync(
-			User user,
-			CancellationToken cancellationToken)
-		{
-			var posts = user.Posts;
-			var postLikes = user.PostLikes;
-			var postComments = user.PostComments;
-			var postCommentLikes = user.PostCommentLikes;
-			var postImages = posts.SelectMany(p => p.PostImages).ToList();
-			var postCommentImages = postComments.SelectMany(p => p.PostCommentImages).ToList();
-
-			await serviceScope.DeleteRangeAsync(postCommentLikes, cancellationToken);
-			await serviceScope.DeleteRangeAsync(postCommentImages, cancellationToken);
-			await serviceScope.DeleteRangeAsync(postComments, cancellationToken);
-			await serviceScope.DeleteRangeAsync(postLikes, cancellationToken);
-			await serviceScope.DeleteRangeAsync(postImages, cancellationToken);
-			await serviceScope.DeleteRangeAsync(posts, cancellationToken);
-			await serviceScope.DeleteAsync(user, cancellationToken);
-		}
-
-		public async Task InitializeGetByIdAsync(
+		public async Task SetupGetByIdAsync(
 			User user,
 			CancellationToken cancellationToken)
 		{
 			await serviceScope.AddAsync(user, cancellationToken);
 		}
 
-		public async Task DisposeGetByIdAsync(
-			User user,
-			CancellationToken cancellationToken)
-		{
-			await serviceScope.DeleteAsync(user, cancellationToken);
-		}
-
-		public async Task InitializeUpdateAsync(
+		public async Task SetupUpdateAsync(
 			User user,
 			string currentUserId,
 			CancellationToken cancellationToken)
@@ -194,19 +160,12 @@ public static class UserSetups
 			await serviceScope.AddUserCacheAsync(user, currentUserId, cancellationToken);
 		}
 
-		public async Task InitializeUpdateAsync(
+		public async Task SetupUpdateAsync(
 			User user,
 			UserId currentUserId,
 			CancellationToken cancellationToken)
 		{
-			await serviceScope.InitializeUpdateAsync(user, currentUserId.Id, cancellationToken);
-		}
-
-		public async Task DisposeUpdateAsync(
-			User user,
-			CancellationToken cancellationToken)
-		{
-			await serviceScope.DeleteAsync(user, cancellationToken);
+			await serviceScope.SetupUpdateAsync(user, currentUserId.Id, cancellationToken);
 		}
 
 		public async Task AddUserCacheAsync(

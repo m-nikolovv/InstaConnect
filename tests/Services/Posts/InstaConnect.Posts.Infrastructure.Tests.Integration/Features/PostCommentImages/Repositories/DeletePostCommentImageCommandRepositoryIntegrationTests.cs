@@ -11,12 +11,7 @@ public class DeletePostCommentImageCommandRepositoryIntegrationTests : BasePostC
 
 	public override async Task InitializeAsync()
 	{
-		await ServiceScope.InitializeDeleteAsync(PostCommentImage, UserId, CancellationToken);
-	}
-
-	public override async Task DisposeAsync()
-	{
-		await ServiceScope.DisposeDeleteAsync(PostCommentImage, CancellationToken);
+		await ServiceScope.SetupDeleteAsync(PostCommentImage, UserId, CancellationToken);
 	}
 
 	[Fact]

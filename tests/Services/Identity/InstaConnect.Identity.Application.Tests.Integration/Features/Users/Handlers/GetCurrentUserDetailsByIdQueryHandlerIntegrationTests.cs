@@ -18,12 +18,7 @@ public class GetCurrentUserDetailsByIdQueryHandlerIntegrationTests : BaseUserApp
 
 	public override async Task InitializeAsync()
 	{
-		await ServiceScope.InitializeGetByIdAsync(_request, User, CancellationToken);
-	}
-
-	public override async Task DisposeAsync()
-	{
-		await ServiceScope.DisposeGetByIdAsync(_request, User, CancellationToken);
+		await ServiceScope.SetupGetByIdAsync(_request, User, CancellationToken);
 	}
 
 	[Theory]

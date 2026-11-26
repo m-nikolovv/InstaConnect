@@ -16,12 +16,7 @@ public class GetPostLikeByIdFunctionalTests : BasePostLikePresentationQueryFunct
 
 	public override async Task InitializeAsync()
 	{
-		await ServiceScope.InitializeGetByIdAsync(_request, PostLike, CancellationToken);
-	}
-
-	public override async Task DisposeAsync()
-	{
-		await ServiceScope.DisposeGetByIdAsync(_request, PostLike, CancellationToken);
+		await ServiceScope.SetupGetByIdAsync(_request, PostLike, CancellationToken);
 	}
 
 	[Theory]

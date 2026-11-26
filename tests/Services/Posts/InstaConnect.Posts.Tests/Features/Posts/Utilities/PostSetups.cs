@@ -189,7 +189,7 @@ public static class PostSetups
 			await cacheHandler.DeleteRangeAsync(posts.Select(p => p.Id), cancellationToken);
 		}
 
-		public async Task InitializeAddAsync(
+		public async Task SetupAddAsync(
 			Post post,
 			CancellationToken cancellationToken)
 		{
@@ -198,7 +198,7 @@ public static class PostSetups
 			await serviceScope.AddAsync(user, cancellationToken);
 		}
 
-		public async Task InitializeUpdateAsync(
+		public async Task SetupUpdateAsync(
 			Post post,
 			string currentUserId,
 			CancellationToken cancellationToken)
@@ -212,15 +212,15 @@ public static class PostSetups
 			await serviceScope.AddPostCacheAsync(post, currentUserId, cancellationToken);
 		}
 
-		public async Task InitializeUpdateAsync(
+		public async Task SetupUpdateAsync(
 			Post post,
 			UserId currentUserId,
 			CancellationToken cancellationToken)
 		{
-			await serviceScope.InitializeUpdateAsync(post, currentUserId.Id, cancellationToken);
+			await serviceScope.SetupUpdateAsync(post, currentUserId.Id, cancellationToken);
 		}
 
-		public async Task InitializeDeleteAsync(
+		public async Task SetupDeleteAsync(
 			Post post,
 			string currentUserId,
 			CancellationToken cancellationToken)
@@ -248,15 +248,15 @@ public static class PostSetups
 			await serviceScope.AddPostCacheAsync(post, currentUserId, cancellationToken);
 		}
 
-		public async Task InitializeDeleteAsync(
+		public async Task SetupDeleteAsync(
 			Post post,
 			UserId currentUserId,
 			CancellationToken cancellationToken)
 		{
-			await serviceScope.InitializeDeleteAsync(post, currentUserId.Id, cancellationToken);
+			await serviceScope.SetupDeleteAsync(post, currentUserId.Id, cancellationToken);
 		}
 
-		public async Task InitializeGetByIdAsync(
+		public async Task SetupGetByIdAsync(
 			Post post,
 			CancellationToken cancellationToken)
 		{
@@ -282,7 +282,7 @@ public static class PostSetups
 			await serviceScope.AddRangeAsync(postCommentLikes, cancellationToken);
 		}
 
-		public async Task InitializeGetAllAsync(
+		public async Task SetupGetAllAsync(
 			ICollection<Post> posts,
 			CancellationToken cancellationToken)
 		{
@@ -308,7 +308,7 @@ public static class PostSetups
 			await serviceScope.AddRangeAsync(postCommentLikes, cancellationToken);
 		}
 
-		public async Task InitializeGetAllForUserAsync(
+		public async Task SetupGetAllForUserAsync(
 			ICollection<Post> posts,
 			CancellationToken cancellationToken)
 		{
@@ -334,147 +334,10 @@ public static class PostSetups
 			await serviceScope.AddRangeAsync(postCommentLikes, cancellationToken);
 		}
 
-		public async Task DisposeAddAsync(
-			Post post,
-			CancellationToken cancellationToken)
-		{
-			var user = post.User!;
 
-			await serviceScope.DeleteAsync(post, cancellationToken);
-			await serviceScope.DeleteAsync(user, cancellationToken);
-		}
 
-		public async Task DisposeUpdateAsync(
-			Post post,
-			CancellationToken cancellationToken)
-		{
-			var user = post.User!;
-			var postImages = post.PostImages;
 
-			await serviceScope.DeleteRangeAsync(postImages, cancellationToken);
-			await serviceScope.DeleteAsync(post, cancellationToken);
-			await serviceScope.DeleteAsync(user, cancellationToken);
-		}
 
-		public async Task DisposeDeleteAsync(
-			Post post,
-			CancellationToken cancellationToken)
-		{
-			var postLikes = post.PostLikes;
-			var postImages = post.PostImages;
-			var postComments = post.PostComments;
-			var postCommentLikes = postComments.SelectMany(p => p.PostCommentLikes).ToList();
-			var postCommentImages = postComments.SelectMany(p => p.PostCommentImages).ToList();
-			var users = postLikes
-				.Select(p => p.User!)
-				.Concat(postComments.Select(p => p.User!))
-				.Concat(postCommentLikes.Select(p => p.User!))
-				.Prepend(post.User!)
-				.DistinctBy(p => p.Id)
-				.ToList();
-
-			await serviceScope.DeleteRangeAsync(postCommentLikes, cancellationToken);
-			await serviceScope.DeleteRangeAsync(postCommentImages, cancellationToken);
-			await serviceScope.DeleteRangeAsync(postComments, cancellationToken);
-			await serviceScope.DeleteRangeAsync(postLikes, cancellationToken);
-			await serviceScope.DeleteRangeAsync(postImages, cancellationToken);
-			await serviceScope.DeleteAsync(post, cancellationToken);
-
-			foreach (var user in users)
-			{
-				await serviceScope.DeleteAsync(user, cancellationToken);
-			}
-		}
-
-		public async Task DisposeGetByIdAsync(
-			Post post,
-			CancellationToken cancellationToken)
-		{
-			var postLikes = post.PostLikes;
-			var postImages = post.PostImages;
-			var postComments = post.PostComments;
-			var postCommentLikes = postComments.SelectMany(p => p.PostCommentLikes).ToList();
-			var postCommentImages = postComments.SelectMany(p => p.PostCommentImages).ToList();
-			var users = postLikes
-				.Select(p => p.User!)
-				.Concat(postComments.Select(p => p.User!))
-				.Concat(postCommentLikes.Select(p => p.User!))
-				.Prepend(post.User!)
-				.DistinctBy(p => p.Id)
-				.ToList();
-
-			await serviceScope.DeleteRangeAsync(postCommentLikes, cancellationToken);
-			await serviceScope.DeleteRangeAsync(postCommentImages, cancellationToken);
-			await serviceScope.DeleteRangeAsync(postComments, cancellationToken);
-			await serviceScope.DeleteRangeAsync(postLikes, cancellationToken);
-			await serviceScope.DeleteRangeAsync(postImages, cancellationToken);
-			await serviceScope.DeleteAsync(post, cancellationToken);
-
-			foreach (var user in users)
-			{
-				await serviceScope.DeleteAsync(user, cancellationToken);
-			}
-		}
-
-		public async Task DisposeGetAllAsync(
-			ICollection<Post> posts,
-			CancellationToken cancellationToken)
-		{
-			var postLikes = posts.SelectMany(p => p.PostLikes).ToList();
-			var postImages = posts.SelectMany(p => p.PostImages).ToList();
-			var postComments = posts.SelectMany(p => p.PostComments).ToList();
-			var postCommentLikes = postComments.SelectMany(p => p.PostCommentLikes).ToList();
-			var postCommentImages = postComments.SelectMany(p => p.PostCommentImages).ToList();
-			var users = posts
-				.Select(p => p.User!)
-				.Concat(postLikes.Select(p => p.User!))
-				.Concat(postComments.Select(p => p.User!))
-				.Concat(postCommentLikes.Select(p => p.User!))
-				.DistinctBy(p => p.Id)
-				.ToList();
-
-			await serviceScope.DeleteRangeAsync(postCommentLikes, cancellationToken);
-			await serviceScope.DeleteRangeAsync(postCommentImages, cancellationToken);
-			await serviceScope.DeleteRangeAsync(postComments, cancellationToken);
-			await serviceScope.DeleteRangeAsync(postLikes, cancellationToken);
-			await serviceScope.DeleteRangeAsync(postImages, cancellationToken);
-			await serviceScope.DeleteRangeAsync(posts, cancellationToken);
-
-			foreach (var user in users)
-			{
-				await serviceScope.DeleteAsync(user, cancellationToken);
-			}
-		}
-
-		public async Task DisposeGetAllForUserAsync(
-			ICollection<Post> posts,
-			CancellationToken cancellationToken)
-		{
-			var postLikes = posts.SelectMany(p => p.PostLikes).ToList();
-			var postImages = posts.SelectMany(p => p.PostImages).ToList();
-			var postComments = posts.SelectMany(p => p.PostComments).ToList();
-			var postCommentLikes = postComments.SelectMany(p => p.PostCommentLikes).ToList();
-			var postCommentImages = postComments.SelectMany(p => p.PostCommentImages).ToList();
-			var users = posts
-				.Select(p => p.User!)
-				.Concat(postLikes.Select(p => p.User!))
-				.Concat(postComments.Select(p => p.User!))
-				.Concat(postCommentLikes.Select(p => p.User!))
-				.DistinctBy(p => p.Id)
-				.ToList();
-
-			await serviceScope.DeleteRangeAsync(postCommentLikes, cancellationToken);
-			await serviceScope.DeleteRangeAsync(postCommentImages, cancellationToken);
-			await serviceScope.DeleteRangeAsync(postComments, cancellationToken);
-			await serviceScope.DeleteRangeAsync(postLikes, cancellationToken);
-			await serviceScope.DeleteRangeAsync(postImages, cancellationToken);
-			await serviceScope.DeleteRangeAsync(posts, cancellationToken);
-
-			foreach (var user in users)
-			{
-				await serviceScope.DeleteAsync(user, cancellationToken);
-			}
-		}
 
 		public async Task DeleteAsync(
 			Post post,

@@ -33,14 +33,8 @@ public class DeleteUserInfrastructureFunctionalTests : BaseUserInfrastructureCom
 
 	public override async Task InitializeAsync()
 	{
-		await ServiceScope.InitializeDeleteAsync(User, UserId, CancellationToken);
+		await ServiceScope.SetupDeleteAsync(User, UserId, CancellationToken);
 		await base.InitializeAsync();
-	}
-
-	public override async Task DisposeAsync()
-	{
-		await ServiceScope.DisposeDeleteAsync(User, CancellationToken);
-		await base.DisposeAsync();
 	}
 
 	[Theory]

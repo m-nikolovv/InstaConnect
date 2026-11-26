@@ -13,36 +13,20 @@ public static class ForgotPasswordTokenSetups
 			return await serviceScope.GetUserCacheByIdAsync(request.Id, request.Id, cancellationToken);
 		}
 
-		public async Task InitializeAddAsync(
+		public async Task SetupAddAsync(
 			AddForgotPasswordTokenCommandRequest request,
 			ForgotPasswordToken forgotPasswordToken,
 			CancellationToken cancellationToken)
 		{
-			await serviceScope.InitializeAddAsync(forgotPasswordToken, cancellationToken);
+			await serviceScope.SetupAddAsync(forgotPasswordToken, cancellationToken);
 		}
 
-		public async Task DisposeAddAsync(
-			AddForgotPasswordTokenCommandRequest request,
-			ForgotPasswordToken forgotPasswordToken,
-			CancellationToken cancellationToken)
-		{
-			await serviceScope.DisposeAddAsync(forgotPasswordToken, cancellationToken);
-		}
-
-		public async Task InitializeVerifyAsync(
+		public async Task SetupVerifyAsync(
 			VerifyForgotPasswordTokenCommandRequest request,
 			ForgotPasswordToken forgotPasswordToken,
 			CancellationToken cancellationToken)
 		{
-			await serviceScope.InitializeVerifyAsync(forgotPasswordToken, request.Id, cancellationToken);
-		}
-
-		public async Task DisposeVerifyAsync(
-			VerifyForgotPasswordTokenCommandRequest request,
-			ForgotPasswordToken forgotPasswordToken,
-			CancellationToken cancellationToken)
-		{
-			await serviceScope.DisposeVerifyAsync(forgotPasswordToken, cancellationToken);
+			await serviceScope.SetupVerifyAsync(forgotPasswordToken, request.Id, cancellationToken);
 		}
 
 		public async Task AddUserCacheAsync(

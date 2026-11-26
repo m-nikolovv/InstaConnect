@@ -22,14 +22,8 @@ public class AddEmailConfirmationTokenCommandHandlerIntegrationTests : BaseEmail
 
 	public override async Task InitializeAsync()
 	{
-		await ServiceScope.InitializeAddAsync(_request, EmailConfirmationToken, CancellationToken);
+		await ServiceScope.SetupAddAsync(_request, EmailConfirmationToken, CancellationToken);
 		await base.InitializeAsync();
-	}
-
-	public override async Task DisposeAsync()
-	{
-		await ServiceScope.DisposeAddAsync(_request, EmailConfirmationToken, CancellationToken);
-		await base.DisposeAsync();
 	}
 
 	[Theory]

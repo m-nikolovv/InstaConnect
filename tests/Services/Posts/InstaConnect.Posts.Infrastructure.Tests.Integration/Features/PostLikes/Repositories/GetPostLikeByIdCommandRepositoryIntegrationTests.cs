@@ -14,12 +14,7 @@ public class GetPostLikeByIdCommandRepositoryIntegrationTests : BasePostLikeInfr
 
 	public override async Task InitializeAsync()
 	{
-		await ServiceScope.InitializeGetByIdAsync(PostLike, CancellationToken);
-	}
-
-	public override async Task DisposeAsync()
-	{
-		await ServiceScope.DisposeGetByIdAsync(PostLike, CancellationToken);
+		await ServiceScope.SetupGetByIdAsync(PostLike, CancellationToken);
 	}
 
 	[Fact]

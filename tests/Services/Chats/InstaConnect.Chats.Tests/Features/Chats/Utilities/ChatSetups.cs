@@ -139,7 +139,7 @@ public static class ChatSetups
 			return await cacheHandler.GetByIdAsync(id, currentUserId, cancellationToken);
 		}
 
-		public async Task InitializeAddAsync(
+		public async Task SetupAddAsync(
 			Chat chat,
 			CancellationToken cancellationToken)
 		{
@@ -148,21 +148,7 @@ public static class ChatSetups
 			await serviceScope.AddRangeAsync(users, cancellationToken);
 		}
 
-		public async Task DisposeAddAsync(
-			Chat chat,
-			CancellationToken cancellationToken)
-		{
-			var users = new List<User> { chat.ParticipantOne!, chat.ParticipantTwo! }.DistinctBy(p => p.Id).ToList();
-
-			await serviceScope.DeleteAsync(chat, cancellationToken);
-
-			foreach (var linkedUser in users)
-			{
-				await serviceScope.DeleteAsync(linkedUser, cancellationToken);
-			}
-		}
-
-		public async Task InitializeDeleteAsync(
+		public async Task SetupDeleteAsync(
 			Chat chat,
 			string currentUserId,
 			CancellationToken cancellationToken)
@@ -178,33 +164,15 @@ public static class ChatSetups
 			await serviceScope.AddChatCacheAsync(chat, currentUserId, cancellationToken);
 		}
 
-		public async Task InitializeDeleteAsync(
+		public async Task SetupDeleteAsync(
 			Chat chat,
 			UserId currentUserId,
 			CancellationToken cancellationToken)
 		{
-			await serviceScope.InitializeDeleteAsync(chat, currentUserId.Id, cancellationToken);
+			await serviceScope.SetupDeleteAsync(chat, currentUserId.Id, cancellationToken);
 		}
 
-		public async Task DisposeDeleteAsync(
-			Chat chat,
-			CancellationToken cancellationToken)
-		{
-			var users = new List<User> { chat.ParticipantOne!, chat.ParticipantTwo! }.DistinctBy(p => p.Id).ToList();
-			var chatMessages = chat.ChatMessages;
-			var chatMessageImages = chatMessages.SelectMany(p => p.ChatMessageImages).ToList();
-
-			await serviceScope.DeleteRangeAsync(chatMessageImages, cancellationToken);
-			await serviceScope.DeleteRangeAsync(chatMessages, cancellationToken);
-			await serviceScope.DeleteAsync(chat, cancellationToken);
-
-			foreach (var linkedUser in users)
-			{
-				await serviceScope.DeleteAsync(linkedUser, cancellationToken);
-			}
-		}
-
-		public async Task InitializeGetAllAsync(
+		public async Task SetupGetAllAsync(
 			ICollection<Chat> chats,
 			CancellationToken cancellationToken)
 		{
@@ -220,27 +188,7 @@ public static class ChatSetups
 			await serviceScope.AddRangeAsync(chatMessages, cancellationToken);
 		}
 
-		public async Task DisposeGetAllAsync(
-			ICollection<Chat> chats,
-			CancellationToken cancellationToken)
-		{
-			var chatMessages = chats.SelectMany(p => p.ChatMessages).ToList();
-			var users = chats
-				.Select(p => p.ParticipantOne!)
-				.Concat(chats.Select(p => p.ParticipantTwo!))
-				.DistinctBy(p => p.Id)
-				.ToList();
-
-			await serviceScope.DeleteRangeAsync(chatMessages, cancellationToken);
-			await serviceScope.DeleteRangeAsync(chats, cancellationToken);
-
-			foreach (var linkedUser in users)
-			{
-				await serviceScope.DeleteAsync(linkedUser, cancellationToken);
-			}
-		}
-
-		public async Task InitializeGetByIdAsync(
+		public async Task SetupGetByIdAsync(
 			Chat chat,
 			CancellationToken cancellationToken)
 		{
@@ -248,20 +196,6 @@ public static class ChatSetups
 
 			await serviceScope.AddRangeAsync(users, cancellationToken);
 			await serviceScope.AddAsync(chat, cancellationToken);
-		}
-
-		public async Task DisposeGetByIdAsync(
-			Chat chat,
-			CancellationToken cancellationToken)
-		{
-			var users = new List<User> { chat.ParticipantOne!, chat.ParticipantTwo! }.DistinctBy(p => p.Id).ToList();
-
-			await serviceScope.DeleteAsync(chat, cancellationToken);
-
-			foreach (var linkedUser in users)
-			{
-				await serviceScope.DeleteAsync(linkedUser, cancellationToken);
-			}
 		}
 
 		public async Task AddChatCacheAsync(

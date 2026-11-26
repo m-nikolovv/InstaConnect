@@ -24,12 +24,7 @@ public class RotateRefreshTokenCommandServiceIntegrationTests : BaseRefreshToken
 
 	public override async Task InitializeAsync()
 	{
-		await ServiceScope.InitializeUpdateAsync(_command, RefreshToken, CancellationToken);
-	}
-
-	public override async Task DisposeAsync()
-	{
-		await ServiceScope.DisposeUpdateAsync(_command, RefreshToken, CancellationToken);
+		await ServiceScope.SetupUpdateAsync(_command, RefreshToken, CancellationToken);
 	}
 
 	[Fact]

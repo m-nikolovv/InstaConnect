@@ -20,14 +20,8 @@ public class DeletePostCommandServiceIntegrationTests : BasePostDomainCommandInt
 
 	public override async Task InitializeAsync()
 	{
-		await ServiceScope.InitializeDeleteAsync(_command, Post, CancellationToken);
+		await ServiceScope.SetupDeleteAsync(_command, Post, CancellationToken);
 		await base.InitializeAsync();
-	}
-
-	public override async Task DisposeAsync()
-	{
-		await ServiceScope.DisposeDeleteAsync(_command, Post, CancellationToken);
-		await base.DisposeAsync();
 	}
 
 	[Fact]

@@ -27,12 +27,7 @@ public class AddChatMessageCommandServiceIntegrationTests : BaseChatMessageDomai
 
 	public override async Task InitializeAsync()
 	{
-		await ServiceScope.InitializeAddAsync(_command, ChatMessage, CancellationToken);
-	}
-
-	public override async Task DisposeAsync()
-	{
-		await ServiceScope.DisposeAddAsync(_command, ChatMessage, CancellationToken);
+		await ServiceScope.SetupAddAsync(_command, ChatMessage, CancellationToken);
 	}
 
 	[Fact]

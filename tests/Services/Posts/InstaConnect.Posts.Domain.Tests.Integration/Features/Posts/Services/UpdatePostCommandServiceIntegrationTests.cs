@@ -19,14 +19,8 @@ public class UpdatePostCommandServiceIntegrationTests : BasePostDomainCommandInt
 
 	public override async Task InitializeAsync()
 	{
-		await ServiceScope.InitializeUpdateAsync(_command, Post, CancellationToken);
+		await ServiceScope.SetupUpdateAsync(_command, Post, CancellationToken);
 		await base.InitializeAsync();
-	}
-
-	public override async Task DisposeAsync()
-	{
-		await ServiceScope.DisposeUpdateAsync(_command, Post, CancellationToken);
-		await base.DisposeAsync();
 	}
 
 	[Fact]

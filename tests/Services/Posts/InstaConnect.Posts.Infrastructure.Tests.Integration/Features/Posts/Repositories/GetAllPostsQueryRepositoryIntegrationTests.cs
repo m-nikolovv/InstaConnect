@@ -46,12 +46,7 @@ public class GetAllPostsQueryRepositoryIntegrationTests : BasePostInfrastructure
 
 	public override async Task InitializeAsync()
 	{
-		await ServiceScope.InitializeGetAllAsync(Posts, CancellationToken);
-	}
-
-	public override async Task DisposeAsync()
-	{
-		await ServiceScope.DisposeGetAllAsync(Posts, CancellationToken);
+		await ServiceScope.SetupGetAllAsync(Posts, CancellationToken);
 	}
 
 	[Fact]

@@ -21,12 +21,7 @@ public class GetAllPostLikesQueryServiceIntegrationTests : BasePostLikeDomainQue
 
 	public override async Task InitializeAsync()
 	{
-		await ServiceScope.InitializeGetAllAsync(_query, PostLikes, CancellationToken);
-	}
-
-	public override async Task DisposeAsync()
-	{
-		await ServiceScope.DisposeGetAllAsync(_query, PostLikes, CancellationToken);
+		await ServiceScope.SetupGetAllAsync(_query, PostLikes, CancellationToken);
 	}
 
 	[Fact]

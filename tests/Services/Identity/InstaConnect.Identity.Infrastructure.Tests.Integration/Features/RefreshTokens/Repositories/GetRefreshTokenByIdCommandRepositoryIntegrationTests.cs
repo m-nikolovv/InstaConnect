@@ -18,12 +18,7 @@ public class GetRefreshTokenByIdCommandRepositoryIntegrationTests : BaseRefreshT
 
 	public override async Task InitializeAsync()
 	{
-		await ServiceScope.InitializeGetByIdAsync(RefreshToken, CancellationToken);
-	}
-
-	public override async Task DisposeAsync()
-	{
-		await ServiceScope.DisposeGetByIdAsync(RefreshToken, CancellationToken);
+		await ServiceScope.SetupGetByIdAsync(RefreshToken, CancellationToken);
 	}
 
 	[Fact]

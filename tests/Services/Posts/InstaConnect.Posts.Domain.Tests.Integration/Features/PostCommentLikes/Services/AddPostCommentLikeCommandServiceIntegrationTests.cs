@@ -19,14 +19,8 @@ public class AddPostCommentLikeCommandServiceIntegrationTests : BasePostCommentL
 
 	public override async Task InitializeAsync()
 	{
-		await ServiceScope.InitializeAddAsync(_command, PostCommentLike, CancellationToken);
+		await ServiceScope.SetupAddAsync(_command, PostCommentLike, CancellationToken);
 		await base.InitializeAsync();
-	}
-
-	public override async Task DisposeAsync()
-	{
-		await ServiceScope.DisposeAddAsync(_command, PostCommentLike, CancellationToken);
-		await base.DisposeAsync();
 	}
 
 	[Fact]

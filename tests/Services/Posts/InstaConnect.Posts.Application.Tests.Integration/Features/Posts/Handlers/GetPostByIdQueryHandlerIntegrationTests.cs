@@ -18,12 +18,7 @@ public class GetPostByIdQueryHandlerIntegrationTests : BasePostApplicationQueryI
 
 	public override async Task InitializeAsync()
 	{
-		await ServiceScope.InitializeGetByIdAsync(_request, Post, CancellationToken);
-	}
-
-	public override async Task DisposeAsync()
-	{
-		await ServiceScope.DisposeGetByIdAsync(_request, Post, CancellationToken);
+		await ServiceScope.SetupGetByIdAsync(_request, Post, CancellationToken);
 	}
 
 	[Theory]

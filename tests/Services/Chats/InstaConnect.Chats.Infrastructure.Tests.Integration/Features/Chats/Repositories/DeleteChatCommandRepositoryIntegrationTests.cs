@@ -11,12 +11,7 @@ public class DeleteChatCommandRepositoryIntegrationTests : BaseChatInfrastructur
 
 	public override async Task InitializeAsync()
 	{
-		await ServiceScope.InitializeDeleteAsync(Chat, CurrentUserId, CancellationToken);
-	}
-
-	public override async Task DisposeAsync()
-	{
-		await ServiceScope.DisposeDeleteAsync(Chat, CancellationToken);
+		await ServiceScope.SetupDeleteAsync(Chat, CurrentUserId, CancellationToken);
 	}
 
 	[Fact]

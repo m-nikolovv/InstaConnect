@@ -12,12 +12,7 @@ public class AddChatMessageCommandRepositoryIntegrationTests : BaseChatMessageIn
 
 	public override async Task InitializeAsync()
 	{
-		await ServiceScope.InitializeAddAsync(ChatMessage, CurrentUserId, CancellationToken);
-	}
-
-	public override async Task DisposeAsync()
-	{
-		await ServiceScope.DisposeAddAsync(ChatMessage, CancellationToken);
+		await ServiceScope.SetupAddAsync(ChatMessage, CurrentUserId, CancellationToken);
 	}
 
 	[Fact]

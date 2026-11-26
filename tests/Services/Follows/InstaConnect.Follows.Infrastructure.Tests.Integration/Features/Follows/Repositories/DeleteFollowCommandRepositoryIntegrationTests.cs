@@ -11,12 +11,7 @@ public class DeleteFollowCommandRepositoryIntegrationTests : BaseFollowInfrastru
 
 	public override async Task InitializeAsync()
 	{
-		await ServiceScope.InitializeDeleteAsync(Follow, CurrentUserId, CancellationToken);
-	}
-
-	public override async Task DisposeAsync()
-	{
-		await ServiceScope.DisposeDeleteAsync(Follow, CancellationToken);
+		await ServiceScope.SetupDeleteAsync(Follow, CurrentUserId, CancellationToken);
 	}
 
 	[Fact]

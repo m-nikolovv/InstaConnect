@@ -23,14 +23,8 @@ public class AddUserClaimCommandServiceIntegrationTests : BaseUserClaimDomainCom
 
 	public override async Task InitializeAsync()
 	{
-		await ServiceScope.InitializeAddAsync(_command, UserClaim, CancellationToken);
+		await ServiceScope.SetupAddAsync(_command, UserClaim, CancellationToken);
 		await base.InitializeAsync();
-	}
-
-	public override async Task DisposeAsync()
-	{
-		await ServiceScope.DisposeAddAsync(_command, UserClaim, CancellationToken);
-		await base.DisposeAsync();
 	}
 
 	[Fact]

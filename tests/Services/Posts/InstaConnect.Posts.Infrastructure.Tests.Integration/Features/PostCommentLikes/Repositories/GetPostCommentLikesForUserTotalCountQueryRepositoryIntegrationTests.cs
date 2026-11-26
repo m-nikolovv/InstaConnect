@@ -18,12 +18,7 @@ public class GetPostCommentLikesForUserTotalCountQueryRepositoryIntegrationTests
 
 	public override async Task InitializeAsync()
 	{
-		await ServiceScope.InitializeGetAllForUserAsync(PostCommentLikes, CancellationToken);
-	}
-
-	public override async Task DisposeAsync()
-	{
-		await ServiceScope.DisposeGetAllForUserAsync(PostCommentLikes, CancellationToken);
+		await ServiceScope.SetupGetAllForUserAsync(PostCommentLikes, CancellationToken);
 	}
 
 	[Fact]

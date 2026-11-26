@@ -11,12 +11,7 @@ public class AddRangePostCommentImagesCommandRepositoryIntegrationTests : BasePo
 
 	public override async Task InitializeAsync()
 	{
-		await ServiceScope.InitializeAddAsync(PostCommentImage, UserId, CancellationToken);
-	}
-
-	public override async Task DisposeAsync()
-	{
-		await ServiceScope.DisposeAddAsync(PostCommentImage, CancellationToken);
+		await ServiceScope.SetupAddAsync(PostCommentImage, UserId, CancellationToken);
 	}
 
 	[Fact]

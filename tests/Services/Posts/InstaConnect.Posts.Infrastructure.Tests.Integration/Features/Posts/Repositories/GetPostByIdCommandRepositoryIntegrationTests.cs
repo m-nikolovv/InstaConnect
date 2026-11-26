@@ -14,12 +14,7 @@ public class GetPostByIdCommandRepositoryIntegrationTests : BasePostInfrastructu
 
 	public override async Task InitializeAsync()
 	{
-		await ServiceScope.InitializeGetByIdAsync(Post, CancellationToken);
-	}
-
-	public override async Task DisposeAsync()
-	{
-		await ServiceScope.DisposeGetByIdAsync(Post, CancellationToken);
+		await ServiceScope.SetupGetByIdAsync(Post, CancellationToken);
 	}
 
 	[Fact]

@@ -22,12 +22,7 @@ public class GetAllPostCommentsQueryServiceIntegrationTests : BasePostCommentDom
 
 	public override async Task InitializeAsync()
 	{
-		await ServiceScope.InitializeGetAllAsync(_query, PostComments, CancellationToken);
-	}
-
-	public override async Task DisposeAsync()
-	{
-		await ServiceScope.DisposeGetAllAsync(_query, PostComments, CancellationToken);
+		await ServiceScope.SetupGetAllAsync(_query, PostComments, CancellationToken);
 	}
 
 	[Fact]

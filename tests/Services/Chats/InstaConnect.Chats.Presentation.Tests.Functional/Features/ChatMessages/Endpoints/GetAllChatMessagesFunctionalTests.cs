@@ -30,12 +30,7 @@ public class GetAllChatMessagesFunctionalTests : BaseChatMessagePresentationQuer
 
 	public override async Task InitializeAsync()
 	{
-		await ServiceScope.InitializeGetAllAsync(_request, ChatMessages, CancellationToken);
-	}
-
-	public override async Task DisposeAsync()
-	{
-		await ServiceScope.DisposeGetAllAsync(_request, ChatMessages, CancellationToken);
+		await ServiceScope.SetupGetAllAsync(_request, ChatMessages, CancellationToken);
 	}
 
 	[Fact]

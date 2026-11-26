@@ -24,12 +24,7 @@ public class GetChatMessageByIdControllerIntegrationTests : BaseChatMessagePrese
 
 	public override async Task InitializeAsync()
 	{
-		await ServiceScope.InitializeGetByIdAsync(_request, ChatMessage, CancellationToken);
-	}
-
-	public override async Task DisposeAsync()
-	{
-		await ServiceScope.DisposeGetByIdAsync(_request, ChatMessage, CancellationToken);
+		await ServiceScope.SetupGetByIdAsync(_request, ChatMessage, CancellationToken);
 	}
 
 	[Theory]

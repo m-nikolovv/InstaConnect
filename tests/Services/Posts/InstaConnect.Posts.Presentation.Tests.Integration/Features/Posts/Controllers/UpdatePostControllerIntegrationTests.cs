@@ -20,14 +20,8 @@ public class UpdatePostControllerIntegrationTests : BasePostPresentationCommandI
 
 	public override async Task InitializeAsync()
 	{
-		await ServiceScope.InitializeUpdateAsync(_request, Post, CancellationToken);
+		await ServiceScope.SetupUpdateAsync(_request, Post, CancellationToken);
 		await base.InitializeAsync();
-	}
-
-	public override async Task DisposeAsync()
-	{
-		await ServiceScope.DisposeUpdateAsync(_request, Post, CancellationToken);
-		await base.DisposeAsync();
 	}
 
 	[Theory]

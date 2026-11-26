@@ -24,12 +24,7 @@ public class GetAllPostCommentsForUserFunctionalTests : BasePostCommentPresentat
 
 	public override async Task InitializeAsync()
 	{
-		await ServiceScope.InitializeGetAllForUserAsync(_request, PostComments, CancellationToken);
-	}
-
-	public override async Task DisposeAsync()
-	{
-		await ServiceScope.DisposeGetAllForUserAsync(_request, PostComments, CancellationToken);
+		await ServiceScope.SetupGetAllForUserAsync(_request, PostComments, CancellationToken);
 	}
 
 	[Theory]

@@ -27,14 +27,8 @@ public class AddUserFunctionalTests : BaseUserPresentationCommandFunctionalTest
 
 	public override async Task InitializeAsync()
 	{
-		await ServiceScope.InitializeAddAsync(_request, User, CancellationToken);
+		await ServiceScope.SetupAddAsync(_request, User, CancellationToken);
 		await base.InitializeAsync();
-	}
-
-	public override async Task DisposeAsync()
-	{
-		await ServiceScope.DisposeAddAsync(_request, User, CancellationToken);
-		await base.DisposeAsync();
 	}
 
 	[Theory]

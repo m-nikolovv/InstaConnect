@@ -49,12 +49,7 @@ public class GetAllUsersQueryRepositoryIntegrationTests : BaseUserInfrastructure
 
 	public override async Task InitializeAsync()
 	{
-		await ServiceScope.InitializeGetAllAsync(Users, CancellationToken);
-	}
-
-	public override async Task DisposeAsync()
-	{
-		await ServiceScope.DisposeGetAllAsync(Users, CancellationToken);
+		await ServiceScope.SetupGetAllAsync(Users, CancellationToken);
 	}
 
 	[Fact]

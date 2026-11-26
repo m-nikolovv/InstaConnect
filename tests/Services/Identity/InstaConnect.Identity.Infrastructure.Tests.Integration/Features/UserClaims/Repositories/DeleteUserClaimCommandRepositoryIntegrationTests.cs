@@ -11,12 +11,7 @@ public class DeleteUserClaimCommandRepositoryIntegrationTests : BaseUserClaimInf
 
 	public override async Task InitializeAsync()
 	{
-		await ServiceScope.InitializeDeleteAsync(UserClaim, CurrentUserId, CancellationToken);
-	}
-
-	public override async Task DisposeAsync()
-	{
-		await ServiceScope.DisposeDeleteAsync(UserClaim, CancellationToken);
+		await ServiceScope.SetupDeleteAsync(UserClaim, CurrentUserId, CancellationToken);
 	}
 
 	[Fact]

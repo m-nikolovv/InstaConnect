@@ -23,14 +23,8 @@ public class UpdateCurrentUserFunctionalTests : BaseUserPresentationCommandFunct
 
 	public override async Task InitializeAsync()
 	{
-		await ServiceScope.InitializeUpdateAsync(_request, User, CancellationToken);
+		await ServiceScope.SetupUpdateAsync(_request, User, CancellationToken);
 		await base.InitializeAsync();
-	}
-
-	public override async Task DisposeAsync()
-	{
-		await ServiceScope.DisposeUpdateAsync(_request, User, CancellationToken);
-		await base.DisposeAsync();
 	}
 
 	[Fact]

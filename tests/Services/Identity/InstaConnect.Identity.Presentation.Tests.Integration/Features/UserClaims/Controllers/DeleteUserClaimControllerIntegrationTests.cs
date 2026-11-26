@@ -22,14 +22,8 @@ public class DeleteUserClaimControllerIntegrationTests : BaseUserClaimPresentati
 
 	public override async Task InitializeAsync()
 	{
-		await ServiceScope.InitializeDeleteAsync(_request, UserClaim, CancellationToken);
+		await ServiceScope.SetupDeleteAsync(_request, UserClaim, CancellationToken);
 		await base.InitializeAsync();
-	}
-
-	public override async Task DisposeAsync()
-	{
-		await ServiceScope.DisposeDeleteAsync(_request, UserClaim, CancellationToken);
-		await base.DisposeAsync();
 	}
 
 	[Theory]

@@ -18,12 +18,7 @@ public class GetUserByIdQueryServiceIntegrationTests : BaseUserDomainQueryIntegr
 
 	public override async Task InitializeAsync()
 	{
-		await ServiceScope.InitializeGetByIdAsync(_query, User, CancellationToken);
-	}
-
-	public override async Task DisposeAsync()
-	{
-		await ServiceScope.DisposeGetByIdAsync(_query, User, CancellationToken);
+		await ServiceScope.SetupGetByIdAsync(_query, User, CancellationToken);
 	}
 
 	[Fact]

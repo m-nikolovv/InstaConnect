@@ -74,20 +74,12 @@ public static class ChatMessageSetups
 			return await serviceScope.GetChatCacheByIdAsync(request.ParticipantOneId, request.ParticipantTwoId, request.ParticipantOneId, cancellationToken);
 		}
 
-		public async Task InitializeAddAsync(
+		public async Task SetupAddAsync(
 			AddChatMessageCommandRequest request,
 			ChatMessage chatMessage,
 			CancellationToken cancellationToken)
 		{
-			await serviceScope.InitializeAddAsync(chatMessage, request.ParticipantOneId, cancellationToken);
-		}
-
-		public async Task DisposeAddAsync(
-			AddChatMessageCommandRequest request,
-			ChatMessage chatMessage,
-			CancellationToken cancellationToken)
-		{
-			await serviceScope.DisposeAddAsync(chatMessage, cancellationToken);
+			await serviceScope.SetupAddAsync(chatMessage, request.ParticipantOneId, cancellationToken);
 		}
 
 		public async Task AddChatCacheAsync(
@@ -106,20 +98,12 @@ public static class ChatMessageSetups
 			await serviceScope.AddChatCacheAsync(chat, request.ParticipantOneId, cancellationToken);
 		}
 
-		public async Task InitializeDeleteAsync(
+		public async Task SetupDeleteAsync(
 			DeleteChatMessageCommandRequest request,
 			ChatMessage chatMessage,
 			CancellationToken cancellationToken)
 		{
-			await serviceScope.InitializeDeleteAsync(chatMessage, request.ParticipantOneId, cancellationToken);
-		}
-
-		public async Task DisposeDeleteAsync(
-			DeleteChatMessageCommandRequest request,
-			ChatMessage chatMessage,
-			CancellationToken cancellationToken)
-		{
-			await serviceScope.DisposeDeleteAsync(chatMessage, cancellationToken);
+			await serviceScope.SetupDeleteAsync(chatMessage, request.ParticipantOneId, cancellationToken);
 		}
 
 		public async Task AddChatMessageCacheAsync(
@@ -138,52 +122,28 @@ public static class ChatMessageSetups
 			await serviceScope.AddChatMessageCacheAsync(chatMessage, request.ParticipantOneId, cancellationToken);
 		}
 
-		public async Task InitializeGetAllAsync(
+		public async Task SetupGetAllAsync(
 			GetAllChatMessagesQueryRequest request,
 			ICollection<ChatMessage> chatMessages,
 			CancellationToken cancellationToken)
 		{
-			await serviceScope.InitializeGetAllAsync(chatMessages, cancellationToken);
+			await serviceScope.SetupGetAllAsync(chatMessages, cancellationToken);
 		}
 
-		public async Task DisposeGetAllAsync(
-			GetAllChatMessagesQueryRequest request,
-			ICollection<ChatMessage> chatMessages,
-			CancellationToken cancellationToken)
-		{
-			await serviceScope.DisposeGetAllAsync(chatMessages, cancellationToken);
-		}
-
-		public async Task InitializeGetByIdAsync(
+		public async Task SetupGetByIdAsync(
 			GetChatMessageByIdQueryRequest request,
 			ChatMessage chatMessage,
 			CancellationToken cancellationToken)
 		{
-			await serviceScope.InitializeGetByIdAsync(chatMessage, cancellationToken);
+			await serviceScope.SetupGetByIdAsync(chatMessage, cancellationToken);
 		}
 
-		public async Task DisposeGetByIdAsync(
-			GetChatMessageByIdQueryRequest request,
-			ChatMessage chatMessage,
-			CancellationToken cancellationToken)
-		{
-			await serviceScope.DisposeGetByIdAsync(chatMessage, cancellationToken);
-		}
-
-		public async Task InitializeUpdateAsync(
+		public async Task SetupUpdateAsync(
 			UpdateChatMessageCommandRequest request,
 			ChatMessage chatMessage,
 			CancellationToken cancellationToken)
 		{
-			await serviceScope.InitializeUpdateAsync(chatMessage, request.ParticipantOneId, cancellationToken);
-		}
-
-		public async Task DisposeUpdateAsync(
-			UpdateChatMessageCommandRequest request,
-			ChatMessage chatMessage,
-			CancellationToken cancellationToken)
-		{
-			await serviceScope.DisposeUpdateAsync(chatMessage, cancellationToken);
+			await serviceScope.SetupUpdateAsync(chatMessage, request.ParticipantOneId, cancellationToken);
 		}
 	}
 }

@@ -25,12 +25,7 @@ public class GetAllUserClaimsQueryServiceIntegrationTests : BaseUserClaimDomainQ
 
 	public override async Task InitializeAsync()
 	{
-		await ServiceScope.InitializeGetAllAsync(_query, UserClaims, CancellationToken);
-	}
-
-	public override async Task DisposeAsync()
-	{
-		await ServiceScope.DisposeGetAllAsync(_query, UserClaims, CancellationToken);
+		await ServiceScope.SetupGetAllAsync(_query, UserClaims, CancellationToken);
 	}
 
 	[Fact]

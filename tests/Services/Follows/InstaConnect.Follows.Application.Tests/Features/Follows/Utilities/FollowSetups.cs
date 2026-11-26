@@ -42,36 +42,20 @@ public static class FollowSetups
 			return await serviceScope.GetFollowCacheByIdAsync(request.FollowerId, request.FollowingId, request.CurrentUserId, cancellationToken);
 		}
 
-		public async Task InitializeAddAsync(
+		public async Task SetupAddAsync(
 			AddFollowCommandRequest request,
 			Follow follow,
 			CancellationToken cancellationToken)
 		{
-			await serviceScope.InitializeAddAsync(follow, cancellationToken);
+			await serviceScope.SetupAddAsync(follow, cancellationToken);
 		}
 
-		public async Task DisposeAddAsync(
-			AddFollowCommandRequest request,
-			Follow follow,
-			CancellationToken cancellationToken)
-		{
-			await serviceScope.DisposeAddAsync(follow, cancellationToken);
-		}
-
-		public async Task InitializeDeleteAsync(
+		public async Task SetupDeleteAsync(
 			DeleteFollowCommandRequest request,
 			Follow follow,
 			CancellationToken cancellationToken)
 		{
-			await serviceScope.InitializeDeleteAsync(follow, request.FollowerId, cancellationToken);
-		}
-
-		public async Task DisposeDeleteAsync(
-			DeleteFollowCommandRequest request,
-			Follow follow,
-			CancellationToken cancellationToken)
-		{
-			await serviceScope.DisposeDeleteAsync(follow, cancellationToken);
+			await serviceScope.SetupDeleteAsync(follow, request.FollowerId, cancellationToken);
 		}
 
 		public async Task AddFollowCacheAsync(
@@ -82,52 +66,29 @@ public static class FollowSetups
 			await serviceScope.AddFollowCacheAsync(follow, request.FollowerId, cancellationToken);
 		}
 
-		public async Task InitializeGetAllAsync(
+		public async Task SetupGetAllAsync(
 			GetAllFollowsForFollowingQueryRequest request,
 			ICollection<Follow> follows,
 			CancellationToken cancellationToken)
 		{
-			await serviceScope.InitializeGetAllAsync(follows, cancellationToken);
+			await serviceScope.SetupGetAllAsync(follows, cancellationToken);
 		}
 
-		public async Task InitializeGetAllAsync(
+		public async Task SetupGetAllAsync(
 			GetAllFollowsQueryRequest request,
 			ICollection<Follow> follows,
 			CancellationToken cancellationToken)
 		{
-			await serviceScope.InitializeGetAllAsync(follows, cancellationToken);
+			await serviceScope.SetupGetAllAsync(follows, cancellationToken);
 		}
 
-		public async Task DisposeGetAllAsync(
-			GetAllFollowsForFollowingQueryRequest request,
-			ICollection<Follow> follows,
-			CancellationToken cancellationToken)
-		{
-			await serviceScope.DisposeGetAllAsync(follows, cancellationToken);
-		}
 
-		public async Task DisposeGetAllAsync(
-			GetAllFollowsQueryRequest request,
-			ICollection<Follow> follows,
-			CancellationToken cancellationToken)
-		{
-			await serviceScope.DisposeGetAllAsync(follows, cancellationToken);
-		}
-
-		public async Task InitializeGetByIdAsync(
+		public async Task SetupGetByIdAsync(
 			GetFollowByIdQueryRequest request,
 			Follow follow,
 			CancellationToken cancellationToken)
 		{
-			await serviceScope.InitializeGetByIdAsync(follow, cancellationToken);
-		}
-
-		public async Task DisposeGetByIdAsync(
-			GetFollowByIdQueryRequest request,
-			Follow follow,
-			CancellationToken cancellationToken)
-		{
-			await serviceScope.DisposeGetByIdAsync(follow, cancellationToken);
+			await serviceScope.SetupGetByIdAsync(follow, cancellationToken);
 		}
 	}
 }

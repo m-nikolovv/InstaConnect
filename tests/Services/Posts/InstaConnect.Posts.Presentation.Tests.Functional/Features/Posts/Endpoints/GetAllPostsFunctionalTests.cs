@@ -25,12 +25,7 @@ public class GetAllPostsFunctionalTests : BasePostPresentationQueryFunctionalTes
 
 	public override async Task InitializeAsync()
 	{
-		await ServiceScope.InitializeGetAllAsync(_request, Posts, CancellationToken);
-	}
-
-	public override async Task DisposeAsync()
-	{
-		await ServiceScope.DisposeGetAllAsync(_request, Posts, CancellationToken);
+		await ServiceScope.SetupGetAllAsync(_request, Posts, CancellationToken);
 	}
 
 	[Theory]

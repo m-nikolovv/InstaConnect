@@ -110,7 +110,7 @@ public static class EmailConfirmationTokenSetups
 			await cacheHandler.DeleteRangeAsync(emailConfirmationTokens.Select(p => p.Id), cancellationToken);
 		}
 
-		public async Task InitializeAddAsync(
+		public async Task SetupAddAsync(
 			EmailConfirmationToken emailConfirmationToken,
 			CancellationToken cancellationToken)
 		{
@@ -119,16 +119,7 @@ public static class EmailConfirmationTokenSetups
 			await serviceScope.AddAsync(user, cancellationToken);
 		}
 
-		public async Task DisposeAddAsync(
-			EmailConfirmationToken emailConfirmationToken,
-			CancellationToken cancellationToken)
-		{
-			var user = emailConfirmationToken.User!;
-
-			await serviceScope.DeleteAsync(user, cancellationToken);
-		}
-
-		public async Task InitializeDeleteAsync(
+		public async Task SetupDeleteAsync(
 			EmailConfirmationToken emailConfirmationToken,
 			CancellationToken cancellationToken)
 		{
@@ -138,17 +129,7 @@ public static class EmailConfirmationTokenSetups
 			await serviceScope.AddAsync(emailConfirmationToken, cancellationToken);
 		}
 
-		public async Task DisposeDeleteAsync(
-			EmailConfirmationToken emailConfirmationToken,
-			CancellationToken cancellationToken)
-		{
-			var user = emailConfirmationToken.User!;
-
-			await serviceScope.DeleteAsync(emailConfirmationToken, cancellationToken);
-			await serviceScope.DeleteAsync(user, cancellationToken);
-		}
-
-		public async Task InitializeGetAllAsync(
+		public async Task SetupGetAllAsync(
 			ICollection<EmailConfirmationToken> emailConfirmationTokens,
 			CancellationToken cancellationToken)
 		{
@@ -158,21 +139,7 @@ public static class EmailConfirmationTokenSetups
 			await serviceScope.AddRangeAsync(emailConfirmationTokens, cancellationToken);
 		}
 
-		public async Task DisposeGetAllAsync(
-			ICollection<EmailConfirmationToken> emailConfirmationTokens,
-			CancellationToken cancellationToken)
-		{
-			var users = emailConfirmationTokens.Select(p => p.User!).DistinctBy(p => p.Id).ToList();
-
-			await serviceScope.DeleteRangeAsync(emailConfirmationTokens, cancellationToken);
-
-			foreach (var linkedUser in users)
-			{
-				await serviceScope.DeleteAsync(linkedUser, cancellationToken);
-			}
-		}
-
-		public async Task InitializeGetByIdAsync(
+		public async Task SetupGetByIdAsync(
 			EmailConfirmationToken emailConfirmationToken,
 			CancellationToken cancellationToken)
 		{
@@ -182,17 +149,7 @@ public static class EmailConfirmationTokenSetups
 			await serviceScope.AddAsync(emailConfirmationToken, cancellationToken);
 		}
 
-		public async Task DisposeGetByIdAsync(
-			EmailConfirmationToken emailConfirmationToken,
-			CancellationToken cancellationToken)
-		{
-			var user = emailConfirmationToken.User!;
-
-			await serviceScope.DeleteAsync(emailConfirmationToken, cancellationToken);
-			await serviceScope.DeleteAsync(user, cancellationToken);
-		}
-
-		public async Task InitializeUpdateAsync(
+		public async Task SetupUpdateAsync(
 			EmailConfirmationToken emailConfirmationToken,
 			CancellationToken cancellationToken)
 		{
@@ -202,17 +159,7 @@ public static class EmailConfirmationTokenSetups
 			await serviceScope.AddAsync(emailConfirmationToken, cancellationToken);
 		}
 
-		public async Task DisposeUpdateAsync(
-			EmailConfirmationToken emailConfirmationToken,
-			CancellationToken cancellationToken)
-		{
-			var user = emailConfirmationToken.User!;
-
-			await serviceScope.DeleteAsync(emailConfirmationToken, cancellationToken);
-			await serviceScope.DeleteAsync(user, cancellationToken);
-		}
-
-		public async Task InitializeVerifyAsync(
+		public async Task SetupVerifyAsync(
 			EmailConfirmationToken emailConfirmationToken,
 			string currentUserId,
 			CancellationToken cancellationToken)
@@ -225,23 +172,12 @@ public static class EmailConfirmationTokenSetups
 			await serviceScope.AddUserCacheAsync(user, currentUserId, cancellationToken);
 		}
 
-		public async Task InitializeVerifyAsync(
+		public async Task SetupVerifyAsync(
 			EmailConfirmationToken emailConfirmationToken,
 			UserId currentUserId,
 			CancellationToken cancellationToken)
 		{
-			await serviceScope.InitializeVerifyAsync(emailConfirmationToken, currentUserId.Id, cancellationToken);
-		}
-
-		public async Task DisposeVerifyAsync(
-			EmailConfirmationToken emailConfirmationToken,
-			CancellationToken cancellationToken)
-		{
-			var user = emailConfirmationToken.User!;
-			var emailConfirmationTokens = user.EmailConfirmationTokens;
-
-			await serviceScope.DeleteRangeAsync(emailConfirmationTokens, cancellationToken);
-			await serviceScope.DeleteAsync(user, cancellationToken);
+			await serviceScope.SetupVerifyAsync(emailConfirmationToken, currentUserId.Id, cancellationToken);
 		}
 	}
 }

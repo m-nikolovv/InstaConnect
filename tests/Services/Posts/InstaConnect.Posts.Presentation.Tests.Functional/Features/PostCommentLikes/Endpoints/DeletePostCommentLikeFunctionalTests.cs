@@ -17,14 +17,8 @@ public class DeletePostCommentLikeFunctionalTests : BasePostCommentLikePresentat
 
 	public override async Task InitializeAsync()
 	{
-		await ServiceScope.InitializeDeleteAsync(_request, PostCommentLike, CancellationToken);
+		await ServiceScope.SetupDeleteAsync(_request, PostCommentLike, CancellationToken);
 		await base.InitializeAsync();
-	}
-
-	public override async Task DisposeAsync()
-	{
-		await ServiceScope.DisposeDeleteAsync(_request, PostCommentLike, CancellationToken);
-		await base.DisposeAsync();
 	}
 
 	[Fact]

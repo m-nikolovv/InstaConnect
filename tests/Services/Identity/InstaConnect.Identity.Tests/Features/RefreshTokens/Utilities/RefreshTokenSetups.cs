@@ -99,7 +99,7 @@ public static class RefreshTokenSetups
 			await cacheHandler.DeleteAsync(refreshToken.Id, cancellationToken);
 		}
 
-		public async Task InitializeAddAsync(
+		public async Task SetupAddAsync(
 			RefreshToken refreshToken,
 			CancellationToken cancellationToken)
 		{
@@ -108,16 +108,7 @@ public static class RefreshTokenSetups
 			await serviceScope.AddAsync(user, cancellationToken);
 		}
 
-		public async Task DisposeAddAsync(
-			RefreshToken refreshToken,
-			CancellationToken cancellationToken)
-		{
-			var user = refreshToken.User!;
-
-			await serviceScope.DeleteAsync(user, cancellationToken);
-		}
-
-		public async Task InitializeDeleteAsync(
+		public async Task SetupDeleteAsync(
 			RefreshToken refreshToken,
 			CancellationToken cancellationToken)
 		{
@@ -127,17 +118,7 @@ public static class RefreshTokenSetups
 			await serviceScope.AddAsync(refreshToken, cancellationToken);
 		}
 
-		public async Task DisposeDeleteAsync(
-			RefreshToken refreshToken,
-			CancellationToken cancellationToken)
-		{
-			var user = refreshToken.User!;
-
-			await serviceScope.DeleteAsync(refreshToken, cancellationToken);
-			await serviceScope.DeleteAsync(user, cancellationToken);
-		}
-
-		public async Task InitializeGetAllAsync(
+		public async Task SetupGetAllAsync(
 			ICollection<RefreshToken> refreshTokens,
 			CancellationToken cancellationToken)
 		{
@@ -147,20 +128,7 @@ public static class RefreshTokenSetups
 			await serviceScope.AddRangeAsync(refreshTokens, cancellationToken);
 		}
 
-		public async Task DisposeGetAllAsync(
-			ICollection<RefreshToken> refreshTokens,
-			CancellationToken cancellationToken)
-		{
-			var users = refreshTokens.Select(p => p.User!).DistinctBy(p => p.Id).ToList();
-
-
-			foreach (var linkedUser in users)
-			{
-				await serviceScope.DeleteAsync(linkedUser, cancellationToken);
-			}
-		}
-
-		public async Task InitializeGetByIdAsync(
+		public async Task SetupGetByIdAsync(
 			RefreshToken refreshToken,
 			CancellationToken cancellationToken)
 		{
@@ -170,17 +138,7 @@ public static class RefreshTokenSetups
 			await serviceScope.AddAsync(refreshToken, cancellationToken);
 		}
 
-		public async Task DisposeGetByIdAsync(
-			RefreshToken refreshToken,
-			CancellationToken cancellationToken)
-		{
-			var user = refreshToken.User!;
-
-			await serviceScope.DeleteAsync(refreshToken, cancellationToken);
-			await serviceScope.DeleteAsync(user, cancellationToken);
-		}
-
-		public async Task InitializeUpdateAsync(
+		public async Task SetupUpdateAsync(
 			RefreshToken refreshToken,
 			CancellationToken cancellationToken)
 		{
@@ -188,16 +146,6 @@ public static class RefreshTokenSetups
 
 			await serviceScope.AddAsync(user, cancellationToken);
 			await serviceScope.AddAsync(refreshToken, cancellationToken);
-		}
-
-		public async Task DisposeUpdateAsync(
-			RefreshToken refreshToken,
-			CancellationToken cancellationToken)
-		{
-			var user = refreshToken.User!;
-
-			await serviceScope.DeleteAsync(refreshToken, cancellationToken);
-			await serviceScope.DeleteAsync(user, cancellationToken);
 		}
 	}
 }

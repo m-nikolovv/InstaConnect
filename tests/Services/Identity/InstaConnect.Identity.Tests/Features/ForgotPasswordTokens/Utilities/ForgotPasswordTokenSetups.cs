@@ -110,7 +110,7 @@ public static class ForgotPasswordTokenSetups
 			await cacheHandler.DeleteRangeAsync(forgotPasswordTokens.Select(p => p.Id), cancellationToken);
 		}
 
-		public async Task InitializeAddAsync(
+		public async Task SetupAddAsync(
 			ForgotPasswordToken forgotPasswordToken,
 			CancellationToken cancellationToken)
 		{
@@ -119,16 +119,7 @@ public static class ForgotPasswordTokenSetups
 			await serviceScope.AddAsync(user, cancellationToken);
 		}
 
-		public async Task DisposeAddAsync(
-			ForgotPasswordToken forgotPasswordToken,
-			CancellationToken cancellationToken)
-		{
-			var user = forgotPasswordToken.User!;
-
-			await serviceScope.DeleteAsync(user, cancellationToken);
-		}
-
-		public async Task InitializeDeleteAsync(
+		public async Task SetupDeleteAsync(
 			ForgotPasswordToken forgotPasswordToken,
 			CancellationToken cancellationToken)
 		{
@@ -138,17 +129,7 @@ public static class ForgotPasswordTokenSetups
 			await serviceScope.AddAsync(forgotPasswordToken, cancellationToken);
 		}
 
-		public async Task DisposeDeleteAsync(
-			ForgotPasswordToken forgotPasswordToken,
-			CancellationToken cancellationToken)
-		{
-			var user = forgotPasswordToken.User!;
-
-			await serviceScope.DeleteAsync(forgotPasswordToken, cancellationToken);
-			await serviceScope.DeleteAsync(user, cancellationToken);
-		}
-
-		public async Task InitializeGetAllAsync(
+		public async Task SetupGetAllAsync(
 			ICollection<ForgotPasswordToken> forgotPasswordTokens,
 			CancellationToken cancellationToken)
 		{
@@ -158,21 +139,7 @@ public static class ForgotPasswordTokenSetups
 			await serviceScope.AddRangeAsync(forgotPasswordTokens, cancellationToken);
 		}
 
-		public async Task DisposeGetAllAsync(
-			ICollection<ForgotPasswordToken> forgotPasswordTokens,
-			CancellationToken cancellationToken)
-		{
-			var users = forgotPasswordTokens.Select(p => p.User!).DistinctBy(p => p.Id).ToList();
-
-			await serviceScope.DeleteRangeAsync(forgotPasswordTokens, cancellationToken);
-
-			foreach (var linkedUser in users)
-			{
-				await serviceScope.DeleteAsync(linkedUser, cancellationToken);
-			}
-		}
-
-		public async Task InitializeGetByIdAsync(
+		public async Task SetupGetByIdAsync(
 			ForgotPasswordToken forgotPasswordToken,
 			CancellationToken cancellationToken)
 		{
@@ -182,17 +149,7 @@ public static class ForgotPasswordTokenSetups
 			await serviceScope.AddAsync(forgotPasswordToken, cancellationToken);
 		}
 
-		public async Task DisposeGetByIdAsync(
-			ForgotPasswordToken forgotPasswordToken,
-			CancellationToken cancellationToken)
-		{
-			var user = forgotPasswordToken.User!;
-
-			await serviceScope.DeleteAsync(forgotPasswordToken, cancellationToken);
-			await serviceScope.DeleteAsync(user, cancellationToken);
-		}
-
-		public async Task InitializeUpdateAsync(
+		public async Task SetupUpdateAsync(
 			ForgotPasswordToken forgotPasswordToken,
 			CancellationToken cancellationToken)
 		{
@@ -202,17 +159,7 @@ public static class ForgotPasswordTokenSetups
 			await serviceScope.AddAsync(forgotPasswordToken, cancellationToken);
 		}
 
-		public async Task DisposeUpdateAsync(
-			ForgotPasswordToken forgotPasswordToken,
-			CancellationToken cancellationToken)
-		{
-			var user = forgotPasswordToken.User!;
-
-			await serviceScope.DeleteAsync(forgotPasswordToken, cancellationToken);
-			await serviceScope.DeleteAsync(user, cancellationToken);
-		}
-
-		public async Task InitializeVerifyAsync(
+		public async Task SetupVerifyAsync(
 			ForgotPasswordToken forgotPasswordToken,
 			string currentUserId,
 			CancellationToken cancellationToken)
@@ -225,23 +172,12 @@ public static class ForgotPasswordTokenSetups
 			await serviceScope.AddUserCacheAsync(user, currentUserId, cancellationToken);
 		}
 
-		public async Task InitializeVerifyAsync(
+		public async Task SetupVerifyAsync(
 			ForgotPasswordToken forgotPasswordToken,
 			UserId currentUserId,
 			CancellationToken cancellationToken)
 		{
-			await serviceScope.InitializeVerifyAsync(forgotPasswordToken, currentUserId.Id, cancellationToken);
-		}
-
-		public async Task DisposeVerifyAsync(
-			ForgotPasswordToken forgotPasswordToken,
-			CancellationToken cancellationToken)
-		{
-			var user = forgotPasswordToken.User!;
-			var forgotPasswordTokens = user.ForgotPasswordTokens;
-
-			await serviceScope.DeleteRangeAsync(forgotPasswordTokens, cancellationToken);
-			await serviceScope.DeleteAsync(user, cancellationToken);
+			await serviceScope.SetupVerifyAsync(forgotPasswordToken, currentUserId.Id, cancellationToken);
 		}
 	}
 }

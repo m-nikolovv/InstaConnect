@@ -57,20 +57,12 @@ public static class PostLikeSetups
 			return await serviceScope.GetPostCacheByIdAsync(command.Id.Id, command.Id.UserId, cancellationToken);
 		}
 
-		public async Task InitializeAddAsync(
+		public async Task SetupAddAsync(
 			AddPostLikeCommand command,
 			PostLike postLike,
 			CancellationToken cancellationToken)
 		{
-			await serviceScope.InitializeAddAsync(postLike, command.UserId, cancellationToken);
-		}
-
-		public async Task DisposeAddAsync(
-			AddPostLikeCommand command,
-			PostLike postLike,
-			CancellationToken cancellationToken)
-		{
-			await serviceScope.DisposeAddAsync(postLike, cancellationToken);
+			await serviceScope.SetupAddAsync(postLike, command.UserId, cancellationToken);
 		}
 
 		public async Task AddPostCacheAsync(
@@ -89,20 +81,12 @@ public static class PostLikeSetups
 			await serviceScope.AddPostCacheAsync(post, command.Id.UserId, cancellationToken);
 		}
 
-		public async Task InitializeDeleteAsync(
+		public async Task SetupDeleteAsync(
 			DeletePostLikeCommand command,
 			PostLike postLike,
 			CancellationToken cancellationToken)
 		{
-			await serviceScope.InitializeDeleteAsync(postLike, command.Id.UserId, cancellationToken);
-		}
-
-		public async Task DisposeDeleteAsync(
-			DeletePostLikeCommand command,
-			PostLike postLike,
-			CancellationToken cancellationToken)
-		{
-			await serviceScope.DisposeDeleteAsync(postLike, cancellationToken);
+			await serviceScope.SetupDeleteAsync(postLike, command.Id.UserId, cancellationToken);
 		}
 
 		public async Task AddPostLikeCacheAsync(
@@ -113,52 +97,28 @@ public static class PostLikeSetups
 			await serviceScope.AddPostLikeCacheAsync(postLike, command.Id.UserId, cancellationToken);
 		}
 
-		public async Task InitializeGetAllAsync(
+		public async Task SetupGetAllAsync(
 			GetAllPostLikesQuery query,
 			ICollection<PostLike> postLikes,
 			CancellationToken cancellationToken)
 		{
-			await serviceScope.InitializeGetAllAsync(postLikes, cancellationToken);
+			await serviceScope.SetupGetAllAsync(postLikes, cancellationToken);
 		}
 
-		public async Task DisposeGetAllAsync(
-			GetAllPostLikesQuery query,
-			ICollection<PostLike> postLikes,
-			CancellationToken cancellationToken)
-		{
-			await serviceScope.DisposeGetAllAsync(postLikes, cancellationToken);
-		}
-
-		public async Task InitializeGetAllForUserAsync(
+		public async Task SetupGetAllForUserAsync(
 			GetAllPostLikesForUserQuery query,
 			ICollection<PostLike> postLikes,
 			CancellationToken cancellationToken)
 		{
-			await serviceScope.InitializeGetAllForUserAsync(postLikes, cancellationToken);
+			await serviceScope.SetupGetAllForUserAsync(postLikes, cancellationToken);
 		}
 
-		public async Task DisposeGetAllForUserAsync(
-			GetAllPostLikesForUserQuery query,
-			ICollection<PostLike> postLikes,
-			CancellationToken cancellationToken)
-		{
-			await serviceScope.DisposeGetAllForUserAsync(postLikes, cancellationToken);
-		}
-
-		public async Task InitializeGetByIdAsync(
+		public async Task SetupGetByIdAsync(
 			GetPostLikeByIdQuery query,
 			PostLike postLike,
 			CancellationToken cancellationToken)
 		{
-			await serviceScope.InitializeGetByIdAsync(postLike, cancellationToken);
-		}
-
-		public async Task DisposeGetByIdAsync(
-			GetPostLikeByIdQuery query,
-			PostLike postLike,
-			CancellationToken cancellationToken)
-		{
-			await serviceScope.DisposeGetByIdAsync(postLike, cancellationToken);
+			await serviceScope.SetupGetByIdAsync(postLike, cancellationToken);
 		}
 	}
 }

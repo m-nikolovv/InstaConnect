@@ -10,12 +10,7 @@ public class DeleteRangePostImagesCommandRepositoryIntegrationTests : BasePostIm
 
 	public override async Task InitializeAsync()
 	{
-		await ServiceScope.InitializeGetAllAsync(PostImages, CancellationToken);
-	}
-
-	public override async Task DisposeAsync()
-	{
-		await ServiceScope.DisposeGetAllAsync(PostImages, CancellationToken);
+		await ServiceScope.SetupGetAllAsync(PostImages, CancellationToken);
 	}
 
 	[Fact]

@@ -11,12 +11,7 @@ public class DeletePostCommandRepositoryIntegrationTests : BasePostInfrastructur
 
 	public override async Task InitializeAsync()
 	{
-		await ServiceScope.InitializeDeleteAsync(Post, UserId, CancellationToken);
-	}
-
-	public override async Task DisposeAsync()
-	{
-		await ServiceScope.DisposeDeleteAsync(Post, CancellationToken);
+		await ServiceScope.SetupDeleteAsync(Post, UserId, CancellationToken);
 	}
 
 	[Fact]

@@ -157,7 +157,7 @@ public static class ChatMessageSetups
 			return await cacheHandler.GetByIdAsync(id, currentUserId, cancellationToken);
 		}
 
-		public async Task InitializeAddAsync(
+		public async Task SetupAddAsync(
 			ChatMessage chatMessage,
 			string currentUserId,
 			CancellationToken cancellationToken)
@@ -170,30 +170,15 @@ public static class ChatMessageSetups
 			await serviceScope.AddChatCacheAsync(chat, currentUserId, cancellationToken);
 		}
 
-		public async Task InitializeAddAsync(
+		public async Task SetupAddAsync(
 			ChatMessage chatMessage,
 			UserId currentUserId,
 			CancellationToken cancellationToken)
 		{
-			await serviceScope.InitializeAddAsync(chatMessage, currentUserId.Id, cancellationToken);
+			await serviceScope.SetupAddAsync(chatMessage, currentUserId.Id, cancellationToken);
 		}
 
-		public async Task DisposeAddAsync(
-			ChatMessage chatMessage,
-			CancellationToken cancellationToken)
-		{
-			var chat = chatMessage.Chat!;
-			var users = new List<User> { chat.ParticipantOne!, chat.ParticipantTwo!, chatMessage.Sender! }.DistinctBy(p => p.Id).ToList();
-
-			await serviceScope.DeleteAsync(chat, cancellationToken);
-
-			foreach (var linkedUser in users)
-			{
-				await serviceScope.DeleteAsync(linkedUser, cancellationToken);
-			}
-		}
-
-		public async Task InitializeDeleteAsync(
+		public async Task SetupDeleteAsync(
 			ChatMessage chatMessage,
 			string currentUserId,
 			CancellationToken cancellationToken)
@@ -210,33 +195,15 @@ public static class ChatMessageSetups
 			await serviceScope.AddChatMessageCacheAsync(chatMessage, currentUserId, cancellationToken);
 		}
 
-		public async Task InitializeDeleteAsync(
+		public async Task SetupDeleteAsync(
 			ChatMessage chatMessage,
 			UserId currentUserId,
 			CancellationToken cancellationToken)
 		{
-			await serviceScope.InitializeDeleteAsync(chatMessage, currentUserId.Id, cancellationToken);
+			await serviceScope.SetupDeleteAsync(chatMessage, currentUserId.Id, cancellationToken);
 		}
 
-		public async Task DisposeDeleteAsync(
-			ChatMessage chatMessage,
-			CancellationToken cancellationToken)
-		{
-			var chat = chatMessage.Chat!;
-			var chatMessageImages = chatMessage.ChatMessageImages;
-			var users = new List<User> { chat.ParticipantOne!, chat.ParticipantTwo!, chatMessage.Sender! }.DistinctBy(p => p.Id).ToList();
-
-			await serviceScope.DeleteRangeAsync(chatMessageImages, cancellationToken);
-			await serviceScope.DeleteAsync(chatMessage, cancellationToken);
-			await serviceScope.DeleteAsync(chat, cancellationToken);
-
-			foreach (var linkedUser in users)
-			{
-				await serviceScope.DeleteAsync(linkedUser, cancellationToken);
-			}
-		}
-
-		public async Task InitializeGetAllAsync(
+		public async Task SetupGetAllAsync(
 			ICollection<ChatMessage> chatMessages,
 			CancellationToken cancellationToken)
 		{
@@ -255,30 +222,7 @@ public static class ChatMessageSetups
 			await serviceScope.AddRangeAsync(chatMessageImages, cancellationToken);
 		}
 
-		public async Task DisposeGetAllAsync(
-			ICollection<ChatMessage> chatMessages,
-			CancellationToken cancellationToken)
-		{
-			var chats = chatMessages.Select(p => p.Chat!).DistinctBy(p => p.Id).ToList();
-			var chatMessageImages = chatMessages.SelectMany(p => p.ChatMessageImages).ToList();
-			var users = chats
-				.Select(p => p.ParticipantOne!)
-				.Concat(chats.Select(p => p.ParticipantTwo!))
-				.Concat(chatMessages.Select(p => p.Sender!))
-				.DistinctBy(p => p.Id)
-				.ToList();
-
-			await serviceScope.DeleteRangeAsync(chatMessageImages, cancellationToken);
-			await serviceScope.DeleteRangeAsync(chatMessages, cancellationToken);
-			await serviceScope.DeleteRangeAsync(chats, cancellationToken);
-
-			foreach (var linkedUser in users)
-			{
-				await serviceScope.DeleteAsync(linkedUser, cancellationToken);
-			}
-		}
-
-		public async Task InitializeGetByIdAsync(
+		public async Task SetupGetByIdAsync(
 			ChatMessage chatMessage,
 			CancellationToken cancellationToken)
 		{
@@ -292,25 +236,7 @@ public static class ChatMessageSetups
 			await serviceScope.AddRangeAsync(chatMessageImages, cancellationToken);
 		}
 
-		public async Task DisposeGetByIdAsync(
-			ChatMessage chatMessage,
-			CancellationToken cancellationToken)
-		{
-			var chat = chatMessage.Chat!;
-			var chatMessageImages = chatMessage.ChatMessageImages;
-			var users = new List<User> { chat.ParticipantOne!, chat.ParticipantTwo!, chatMessage.Sender! }.DistinctBy(p => p.Id).ToList();
-
-			await serviceScope.DeleteRangeAsync(chatMessageImages, cancellationToken);
-			await serviceScope.DeleteAsync(chatMessage, cancellationToken);
-			await serviceScope.DeleteAsync(chat, cancellationToken);
-
-			foreach (var linkedUser in users)
-			{
-				await serviceScope.DeleteAsync(linkedUser, cancellationToken);
-			}
-		}
-
-		public async Task InitializeUpdateAsync(
+		public async Task SetupUpdateAsync(
 			ChatMessage chatMessage,
 			string currentUserId,
 			CancellationToken cancellationToken)
@@ -326,30 +252,12 @@ public static class ChatMessageSetups
 			await serviceScope.AddChatMessageCacheAsync(chatMessage, currentUserId, cancellationToken);
 		}
 
-		public async Task InitializeUpdateAsync(
+		public async Task SetupUpdateAsync(
 			ChatMessage chatMessage,
 			UserId currentUserId,
 			CancellationToken cancellationToken)
 		{
-			await serviceScope.InitializeUpdateAsync(chatMessage, currentUserId.Id, cancellationToken);
-		}
-
-		public async Task DisposeUpdateAsync(
-			ChatMessage chatMessage,
-			CancellationToken cancellationToken)
-		{
-			var chat = chatMessage.Chat!;
-			var chatMessageImages = chatMessage.ChatMessageImages;
-			var users = new List<User> { chat.ParticipantOne!, chat.ParticipantTwo!, chatMessage.Sender! }.DistinctBy(p => p.Id).ToList();
-
-			await serviceScope.DeleteRangeAsync(chatMessageImages, cancellationToken);
-			await serviceScope.DeleteAsync(chatMessage, cancellationToken);
-			await serviceScope.DeleteAsync(chat, cancellationToken);
-
-			foreach (var linkedUser in users)
-			{
-				await serviceScope.DeleteAsync(linkedUser, cancellationToken);
-			}
+			await serviceScope.SetupUpdateAsync(chatMessage, currentUserId.Id, cancellationToken);
 		}
 
 		public async Task AddChatMessageCacheAsync(

@@ -11,12 +11,7 @@ public class DeleteUserCommandRepositoryIntegrationTests : BaseUserInfrastructur
 
 	public override async Task InitializeAsync()
 	{
-		await ServiceScope.InitializeDeleteAsync(User, UserId, CancellationToken);
-	}
-
-	public override async Task DisposeAsync()
-	{
-		await ServiceScope.DisposeDeleteAsync(User, CancellationToken);
+		await ServiceScope.SetupDeleteAsync(User, UserId, CancellationToken);
 	}
 
 	[Fact]

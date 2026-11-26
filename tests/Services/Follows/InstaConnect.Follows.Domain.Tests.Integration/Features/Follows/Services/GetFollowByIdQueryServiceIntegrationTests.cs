@@ -18,12 +18,7 @@ public class GetFollowByIdQueryServiceIntegrationTests : BaseFollowDomainQueryIn
 
 	public override async Task InitializeAsync()
 	{
-		await ServiceScope.InitializeGetByIdAsync(_query, Follow, CancellationToken);
-	}
-
-	public override async Task DisposeAsync()
-	{
-		await ServiceScope.DisposeGetByIdAsync(_query, Follow, CancellationToken);
+		await ServiceScope.SetupGetByIdAsync(_query, Follow, CancellationToken);
 	}
 
 	[Fact]

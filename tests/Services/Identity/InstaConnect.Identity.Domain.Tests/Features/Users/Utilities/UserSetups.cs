@@ -49,36 +49,20 @@ public static class UserSetups
 			return await serviceScope.GetUserCacheByIdAsync(query.Id, query.Current.Id, cancellationToken);
 		}
 
-		public async Task InitializeAddAsync(
+		public async Task SetupAddAsync(
 			AddUserCommand command,
 			User user,
 			CancellationToken cancellationToken)
 		{
-			await serviceScope.InitializeAddAsync(user, cancellationToken);
+			await serviceScope.SetupAddAsync(user, cancellationToken);
 		}
 
-		public async Task DisposeAddAsync(
-			AddUserCommand command,
-			User user,
-			CancellationToken cancellationToken)
-		{
-			await serviceScope.DisposeAddAsync(user, cancellationToken);
-		}
-
-		public async Task InitializeDeleteAsync(
+		public async Task SetupDeleteAsync(
 			DeleteUserCommand command,
 			User user,
 			CancellationToken cancellationToken)
 		{
-			await serviceScope.InitializeDeleteAsync(user, command.Id, cancellationToken);
-		}
-
-		public async Task DisposeDeleteAsync(
-			DeleteUserCommand command,
-			User user,
-			CancellationToken cancellationToken)
-		{
-			await serviceScope.DisposeDeleteAsync(user, cancellationToken);
+			await serviceScope.SetupDeleteAsync(user, command.Id, cancellationToken);
 		}
 
 		public async Task AddUserCacheAsync(
@@ -97,52 +81,28 @@ public static class UserSetups
 			await serviceScope.AddUserCacheAsync(user, command.Id, cancellationToken);
 		}
 
-		public async Task InitializeGetAllAsync(
+		public async Task SetupGetAllAsync(
 			GetAllUsersQuery query,
 			ICollection<User> users,
 			CancellationToken cancellationToken)
 		{
-			await serviceScope.InitializeGetAllAsync(users, cancellationToken);
+			await serviceScope.SetupGetAllAsync(users, cancellationToken);
 		}
 
-		public async Task DisposeGetAllAsync(
-			GetAllUsersQuery query,
-			ICollection<User> users,
-			CancellationToken cancellationToken)
-		{
-			await serviceScope.DisposeGetAllAsync(users, cancellationToken);
-		}
-
-		public async Task InitializeGetByIdAsync(
+		public async Task SetupGetByIdAsync(
 			GetUserByIdQuery query,
 			User user,
 			CancellationToken cancellationToken)
 		{
-			await serviceScope.InitializeGetByIdAsync(user, cancellationToken);
+			await serviceScope.SetupGetByIdAsync(user, cancellationToken);
 		}
 
-		public async Task DisposeGetByIdAsync(
-			GetUserByIdQuery query,
-			User user,
-			CancellationToken cancellationToken)
-		{
-			await serviceScope.DisposeGetByIdAsync(user, cancellationToken);
-		}
-
-		public async Task InitializeUpdateAsync(
+		public async Task SetupUpdateAsync(
 			UpdateUserCommand command,
 			User user,
 			CancellationToken cancellationToken)
 		{
-			await serviceScope.InitializeUpdateAsync(user, command.Id, cancellationToken);
-		}
-
-		public async Task DisposeUpdateAsync(
-			UpdateUserCommand command,
-			User user,
-			CancellationToken cancellationToken)
-		{
-			await serviceScope.DisposeUpdateAsync(user, cancellationToken);
+			await serviceScope.SetupUpdateAsync(user, command.Id, cancellationToken);
 		}
 	}
 }

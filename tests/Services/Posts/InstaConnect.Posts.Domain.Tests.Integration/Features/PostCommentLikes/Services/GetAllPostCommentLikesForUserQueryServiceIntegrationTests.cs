@@ -21,12 +21,7 @@ public class GetAllPostCommentLikesForUserQueryServiceIntegrationTests : BasePos
 
 	public override async Task InitializeAsync()
 	{
-		await ServiceScope.InitializeGetAllForUserAsync(_query, PostCommentLikes, CancellationToken);
-	}
-
-	public override async Task DisposeAsync()
-	{
-		await ServiceScope.DisposeGetAllForUserAsync(_query, PostCommentLikes, CancellationToken);
+		await ServiceScope.SetupGetAllForUserAsync(_query, PostCommentLikes, CancellationToken);
 	}
 
 	[Fact]

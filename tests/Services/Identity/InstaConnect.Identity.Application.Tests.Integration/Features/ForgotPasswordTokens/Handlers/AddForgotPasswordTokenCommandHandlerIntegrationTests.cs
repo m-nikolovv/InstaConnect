@@ -21,14 +21,8 @@ public class AddForgotPasswordTokenCommandHandlerIntegrationTests : BaseForgotPa
 
 	public override async Task InitializeAsync()
 	{
-		await ServiceScope.InitializeAddAsync(_request, ForgotPasswordToken, CancellationToken);
+		await ServiceScope.SetupAddAsync(_request, ForgotPasswordToken, CancellationToken);
 		await base.InitializeAsync();
-	}
-
-	public override async Task DisposeAsync()
-	{
-		await ServiceScope.DisposeAddAsync(_request, ForgotPasswordToken, CancellationToken);
-		await base.DisposeAsync();
 	}
 
 	[Theory]

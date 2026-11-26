@@ -27,12 +27,7 @@ public class UpdateUserCommandHandlerIntegrationTests : BaseUserApplicationComma
 
 	public override async Task InitializeAsync()
 	{
-		await ServiceScope.InitializeUpdateAsync(_request, User, CancellationToken);
-	}
-
-	public override async Task DisposeAsync()
-	{
-		await ServiceScope.DisposeUpdateAsync(_request, User, CancellationToken);
+		await ServiceScope.SetupUpdateAsync(_request, User, CancellationToken);
 	}
 
 	[Theory]

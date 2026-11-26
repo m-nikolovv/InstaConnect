@@ -32,14 +32,8 @@ public class UserUpdatedEventHandlerIntegrationTests : BaseUserInfrastructureEve
 
 	public override async Task InitializeAsync()
 	{
-		await ServiceScope.InitializeGetByIdAsync(User, CancellationToken);
+		await ServiceScope.SetupGetByIdAsync(User, CancellationToken);
 		await base.InitializeAsync();
-	}
-
-	public override async Task DisposeAsync()
-	{
-		await ServiceScope.DisposeGetByIdAsync(User, CancellationToken);
-		await base.DisposeAsync();
 	}
 
 	[Theory]

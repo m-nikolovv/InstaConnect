@@ -24,12 +24,7 @@ public class GetAllPostsForUserControllerIntegrationTests : BasePostPresentation
 
 	public override async Task InitializeAsync()
 	{
-		await ServiceScope.InitializeGetAllForUserAsync(_request, Posts, CancellationToken);
-	}
-
-	public override async Task DisposeAsync()
-	{
-		await ServiceScope.DisposeGetAllForUserAsync(_request, Posts, CancellationToken);
+		await ServiceScope.SetupGetAllForUserAsync(_request, Posts, CancellationToken);
 	}
 
 	[Theory]

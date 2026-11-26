@@ -28,12 +28,7 @@ public class GetAllChatMessagesQueryServiceIntegrationTests : BaseChatMessageDom
 
 	public override async Task InitializeAsync()
 	{
-		await ServiceScope.InitializeGetAllAsync(_query, ChatMessages, CancellationToken);
-	}
-
-	public override async Task DisposeAsync()
-	{
-		await ServiceScope.DisposeGetAllAsync(_query, ChatMessages, CancellationToken);
+		await ServiceScope.SetupGetAllAsync(_query, ChatMessages, CancellationToken);
 	}
 
 	[Fact]

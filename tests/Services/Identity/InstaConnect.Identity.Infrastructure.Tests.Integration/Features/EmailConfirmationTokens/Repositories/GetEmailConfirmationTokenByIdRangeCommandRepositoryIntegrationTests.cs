@@ -12,12 +12,7 @@ public class GetEmailConfirmationTokenByIdRangeCommandRepositoryIntegrationTests
 
 	public override async Task InitializeAsync()
 	{
-		await ServiceScope.InitializeGetAllAsync(EmailConfirmationTokens, CancellationToken);
-	}
-
-	public override async Task DisposeAsync()
-	{
-		await ServiceScope.DisposeGetAllAsync(EmailConfirmationTokens, CancellationToken);
+		await ServiceScope.SetupGetAllAsync(EmailConfirmationTokens, CancellationToken);
 	}
 
 	[Fact]

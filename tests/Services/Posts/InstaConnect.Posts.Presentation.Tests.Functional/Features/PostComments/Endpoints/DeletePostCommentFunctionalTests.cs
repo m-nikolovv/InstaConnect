@@ -19,14 +19,8 @@ public class DeletePostCommentFunctionalTests : BasePostCommentPresentationComma
 
 	public override async Task InitializeAsync()
 	{
-		await ServiceScope.InitializeDeleteAsync(_request, PostComment, CancellationToken);
+		await ServiceScope.SetupDeleteAsync(_request, PostComment, CancellationToken);
 		await base.InitializeAsync();
-	}
-
-	public override async Task DisposeAsync()
-	{
-		await ServiceScope.DisposeDeleteAsync(_request, PostComment, CancellationToken);
-		await base.DisposeAsync();
 	}
 
 	[Fact]

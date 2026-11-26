@@ -24,12 +24,7 @@ public class DeleteRefreshTokenCommandServiceIntegrationTests : BaseRefreshToken
 
 	public override async Task InitializeAsync()
 	{
-		await ServiceScope.InitializeDeleteAsync(_command, RefreshToken, CancellationToken);
-	}
-
-	public override async Task DisposeAsync()
-	{
-		await ServiceScope.DisposeDeleteAsync(_command, RefreshToken, CancellationToken);
+		await ServiceScope.SetupDeleteAsync(_command, RefreshToken, CancellationToken);
 	}
 
 	[Fact]

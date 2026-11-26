@@ -17,12 +17,7 @@ public class GetPostCommentLikeByIdFunctionalTests : BasePostCommentLikePresenta
 
 	public override async Task InitializeAsync()
 	{
-		await ServiceScope.InitializeGetByIdAsync(_request, PostCommentLike, CancellationToken);
-	}
-
-	public override async Task DisposeAsync()
-	{
-		await ServiceScope.DisposeGetByIdAsync(_request, PostCommentLike, CancellationToken);
+		await ServiceScope.SetupGetByIdAsync(_request, PostCommentLike, CancellationToken);
 	}
 
 	[Theory]

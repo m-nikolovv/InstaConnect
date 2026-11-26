@@ -24,14 +24,8 @@ public class VerifyEmailConfirmationTokenCommandServiceIntegrationTests : BaseEm
 
 	public override async Task InitializeAsync()
 	{
-		await ServiceScope.InitializeVerifyAsync(_command, EmailConfirmationToken, CancellationToken);
+		await ServiceScope.SetupVerifyAsync(_command, EmailConfirmationToken, CancellationToken);
 		await base.InitializeAsync();
-	}
-
-	public override async Task DisposeAsync()
-	{
-		await ServiceScope.DisposeVerifyAsync(_command, EmailConfirmationToken, CancellationToken);
-		await base.DisposeAsync();
 	}
 
 	[Fact]

@@ -1,7 +1,6 @@
 using InstaConnect.Chats.Domain.Features.Users.Models.Requests;
 using InstaConnect.Chats.Domain.Tests.Features.Users.Assertions;
 using InstaConnect.Chats.Domain.Tests.Features.Users.Builders;
-using InstaConnect.Chats.Domain.Tests.Features.Users.Utilities;
 using InstaConnect.Chats.Domain.Tests.Integration.Features.Users.Utilities;
 using InstaConnect.Chats.Tests.Features.Users.DataAttributes.Email;
 using InstaConnect.Chats.Tests.Features.Users.DataAttributes.Name;
@@ -21,11 +20,6 @@ public class AddUserCommandServiceIntegrationTests : BaseUserDomainCommandIntegr
 		_commandBuilderFactory = new();
 		_commandBuilder = _commandBuilderFactory.Create();
 		_command = _commandBuilder.Build();
-	}
-
-	public override async Task DisposeAsync()
-	{
-		await ServiceScope.DisposeAddAsync(_command, User, CancellationToken);
 	}
 
 	[Fact]

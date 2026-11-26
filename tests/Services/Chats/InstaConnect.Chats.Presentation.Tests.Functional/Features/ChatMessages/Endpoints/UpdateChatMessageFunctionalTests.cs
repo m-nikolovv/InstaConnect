@@ -27,12 +27,7 @@ public class UpdateChatMessageFunctionalTests : BaseChatMessagePresentationComma
 
 	public override async Task InitializeAsync()
 	{
-		await ServiceScope.InitializeUpdateAsync(_request, ChatMessage, CancellationToken);
-	}
-
-	public override async Task DisposeAsync()
-	{
-		await ServiceScope.DisposeUpdateAsync(_request, ChatMessage, CancellationToken);
+		await ServiceScope.SetupUpdateAsync(_request, ChatMessage, CancellationToken);
 	}
 
 	[Fact]

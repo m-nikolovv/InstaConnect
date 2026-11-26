@@ -93,7 +93,7 @@ public static class PostImageSetups
 			await imageCacheHandler.DeleteRangeAsync(postImages.Select(p => p.Id), cancellationToken);
 		}
 
-		public async Task InitializeAddAsync(
+		public async Task SetupAddAsync(
 			PostImage postImage,
 			string currentUserId,
 			CancellationToken cancellationToken)
@@ -106,26 +106,15 @@ public static class PostImageSetups
 			await serviceScope.AddPostCacheAsync(post, currentUserId, cancellationToken);
 		}
 
-		public async Task InitializeAddAsync(
+		public async Task SetupAddAsync(
 			PostImage postImage,
 			UserId currentUserId,
 			CancellationToken cancellationToken)
 		{
-			await serviceScope.InitializeAddAsync(postImage, currentUserId.Id, cancellationToken);
+			await serviceScope.SetupAddAsync(postImage, currentUserId.Id, cancellationToken);
 		}
 
-		public async Task DisposeAddAsync(
-			PostImage postImage,
-			CancellationToken cancellationToken)
-		{
-			var post = postImage.Post!;
-			var user = post.User!;
-
-			await serviceScope.DeleteAsync(post, cancellationToken);
-			await serviceScope.DeleteAsync(user, cancellationToken);
-		}
-
-		public async Task InitializeDeleteAsync(
+		public async Task SetupDeleteAsync(
 			PostImage postImage,
 			string currentUserId,
 			CancellationToken cancellationToken)
@@ -139,27 +128,15 @@ public static class PostImageSetups
 			await serviceScope.AddPostCacheAsync(post, currentUserId, cancellationToken);
 		}
 
-		public async Task InitializeDeleteAsync(
+		public async Task SetupDeleteAsync(
 			PostImage postImage,
 			UserId currentUserId,
 			CancellationToken cancellationToken)
 		{
-			await serviceScope.InitializeDeleteAsync(postImage, currentUserId.Id, cancellationToken);
+			await serviceScope.SetupDeleteAsync(postImage, currentUserId.Id, cancellationToken);
 		}
 
-		public async Task DisposeDeleteAsync(
-			PostImage postImage,
-			CancellationToken cancellationToken)
-		{
-			var post = postImage.Post!;
-			var user = post.User!;
-
-			await serviceScope.DeleteAsync(postImage, cancellationToken);
-			await serviceScope.DeleteAsync(post, cancellationToken);
-			await serviceScope.DeleteAsync(user, cancellationToken);
-		}
-
-		public async Task InitializeGetAllAsync(
+		public async Task SetupGetAllAsync(
 			ICollection<PostImage> postImages,
 			CancellationToken cancellationToken)
 		{
@@ -171,23 +148,7 @@ public static class PostImageSetups
 			await serviceScope.AddRangeAsync(postImages, cancellationToken);
 		}
 
-		public async Task DisposeGetAllAsync(
-			ICollection<PostImage> postImages,
-			CancellationToken cancellationToken)
-		{
-			var posts = postImages.Select(p => p.Post!).DistinctBy(p => p.Id).ToList();
-			var users = posts.Select(p => p.User!).DistinctBy(p => p.Id).ToList();
-
-			await serviceScope.DeleteRangeAsync(postImages, cancellationToken);
-			await serviceScope.DeleteRangeAsync(posts, cancellationToken);
-
-			foreach (var user in users)
-			{
-				await serviceScope.DeleteAsync(user, cancellationToken);
-			}
-		}
-
-		public async Task InitializeGetByIdAsync(
+		public async Task SetupGetByIdAsync(
 			PostImage postImage,
 			CancellationToken cancellationToken)
 		{
@@ -197,18 +158,6 @@ public static class PostImageSetups
 			await serviceScope.AddAsync(user, cancellationToken);
 			await serviceScope.AddAsync(post, cancellationToken);
 			await serviceScope.AddAsync(postImage, cancellationToken);
-		}
-
-		public async Task DisposeGetByIdAsync(
-			PostImage postImage,
-			CancellationToken cancellationToken)
-		{
-			var post = postImage.Post!;
-			var user = post.User!;
-
-			await serviceScope.DeleteAsync(postImage, cancellationToken);
-			await serviceScope.DeleteAsync(post, cancellationToken);
-			await serviceScope.DeleteAsync(user, cancellationToken);
 		}
 	}
 }

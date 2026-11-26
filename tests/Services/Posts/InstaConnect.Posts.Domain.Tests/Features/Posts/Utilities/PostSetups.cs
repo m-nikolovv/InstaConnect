@@ -28,101 +28,58 @@ public static class PostSetups
 			return serviceScope.ServiceProvider.GetPostQueryService();
 		}
 
-		public async Task InitializeAddAsync(
+		public async Task SetupAddAsync(
 			AddPostCommand command,
 			Post post,
 			CancellationToken cancellationToken)
 		{
-			await serviceScope.InitializeAddAsync(post, cancellationToken);
+			await serviceScope.SetupAddAsync(post, cancellationToken);
 		}
 
-		public async Task InitializeUpdateAsync(
+		public async Task SetupUpdateAsync(
 			UpdatePostCommand command,
 			Post post,
 			CancellationToken cancellationToken)
 		{
-			await serviceScope.InitializeUpdateAsync(post, command.UserId, cancellationToken);
+			await serviceScope.SetupUpdateAsync(post, command.UserId, cancellationToken);
 		}
 
-		public async Task InitializeDeleteAsync(
+		public async Task SetupDeleteAsync(
 			DeletePostCommand command,
 			Post post,
 			CancellationToken cancellationToken)
 		{
-			await serviceScope.InitializeDeleteAsync(post, command.UserId, cancellationToken);
+			await serviceScope.SetupDeleteAsync(post, command.UserId, cancellationToken);
 		}
 
-		public async Task InitializeGetByIdAsync(
+		public async Task SetupGetByIdAsync(
 			GetPostByIdQuery query,
 			Post post,
 			CancellationToken cancellationToken)
 		{
-			await serviceScope.InitializeGetByIdAsync(post, cancellationToken);
+			await serviceScope.SetupGetByIdAsync(post, cancellationToken);
 		}
 
-		public async Task InitializeGetAllAsync(
+		public async Task SetupGetAllAsync(
 			GetAllPostsQuery query,
 			ICollection<Post> posts,
 			CancellationToken cancellationToken)
 		{
-			await serviceScope.InitializeGetAllAsync(posts, cancellationToken);
+			await serviceScope.SetupGetAllAsync(posts, cancellationToken);
 		}
 
-		public async Task InitializeGetAllForUserAsync(
+		public async Task SetupGetAllForUserAsync(
 			GetAllPostsForUserQuery query,
 			ICollection<Post> posts,
 			CancellationToken cancellationToken)
 		{
-			await serviceScope.InitializeGetAllForUserAsync(posts, cancellationToken);
+			await serviceScope.SetupGetAllForUserAsync(posts, cancellationToken);
 		}
 
-		public async Task DisposeAddAsync(
-			AddPostCommand command,
-			Post post,
-			CancellationToken cancellationToken)
-		{
-			await serviceScope.DisposeAddAsync(post, cancellationToken);
-		}
 
-		public async Task DisposeUpdateAsync(
-			UpdatePostCommand command,
-			Post post,
-			CancellationToken cancellationToken)
-		{
-			await serviceScope.DisposeUpdateAsync(post, cancellationToken);
-		}
 
-		public async Task DisposeDeleteAsync(
-			DeletePostCommand command,
-			Post post,
-			CancellationToken cancellationToken)
-		{
-			await serviceScope.DisposeDeleteAsync(post, cancellationToken);
-		}
 
-		public async Task DisposeGetByIdAsync(
-			GetPostByIdQuery query,
-			Post post,
-			CancellationToken cancellationToken)
-		{
-			await serviceScope.DisposeGetByIdAsync(post, cancellationToken);
-		}
 
-		public async Task DisposeGetAllAsync(
-			GetAllPostsQuery query,
-			ICollection<Post> posts,
-			CancellationToken cancellationToken)
-		{
-			await serviceScope.DisposeGetAllAsync(posts, cancellationToken);
-		}
-
-		public async Task DisposeGetAllForUserAsync(
-			GetAllPostsForUserQuery query,
-			ICollection<Post> posts,
-			CancellationToken cancellationToken)
-		{
-			await serviceScope.DisposeGetAllForUserAsync(posts, cancellationToken);
-		}
 
 		public async Task<PostResponse?> GetPostCacheByIdAsync(
 			UpdatePostCommand command,

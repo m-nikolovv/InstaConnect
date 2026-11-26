@@ -25,12 +25,7 @@ public class DeleteChatMessageCommandHandlerIntegrationTests : BaseChatMessageAp
 
 	public override async Task InitializeAsync()
 	{
-		await ServiceScope.InitializeDeleteAsync(_request, ChatMessage, CancellationToken);
-	}
-
-	public override async Task DisposeAsync()
-	{
-		await ServiceScope.DisposeDeleteAsync(_request, ChatMessage, CancellationToken);
+		await ServiceScope.SetupDeleteAsync(_request, ChatMessage, CancellationToken);
 	}
 
 	[Theory]

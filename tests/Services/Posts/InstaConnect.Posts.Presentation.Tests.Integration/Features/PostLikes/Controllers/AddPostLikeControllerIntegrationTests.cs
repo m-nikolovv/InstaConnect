@@ -16,14 +16,8 @@ public class AddPostLikeControllerIntegrationTests : BasePostLikePresentationCom
 
 	public override async Task InitializeAsync()
 	{
-		await ServiceScope.InitializeAddAsync(_request, PostLike, CancellationToken);
+		await ServiceScope.SetupAddAsync(_request, PostLike, CancellationToken);
 		await base.InitializeAsync();
-	}
-
-	public override async Task DisposeAsync()
-	{
-		await ServiceScope.DisposeAddAsync(_request, PostLike, CancellationToken);
-		await base.DisposeAsync();
 	}
 
 	[Theory]

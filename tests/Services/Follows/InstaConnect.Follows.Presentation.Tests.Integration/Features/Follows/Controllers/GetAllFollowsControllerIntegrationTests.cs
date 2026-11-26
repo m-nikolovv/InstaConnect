@@ -25,12 +25,7 @@ public class GetAllFollowsControllerIntegrationTests : BaseFollowPresentationQue
 
 	public override async Task InitializeAsync()
 	{
-		await ServiceScope.InitializeGetAllAsync(_request, Follows, CancellationToken);
-	}
-
-	public override async Task DisposeAsync()
-	{
-		await ServiceScope.DisposeGetAllAsync(_request, Follows, CancellationToken);
+		await ServiceScope.SetupGetAllAsync(_request, Follows, CancellationToken);
 	}
 
 	[Theory]

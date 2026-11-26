@@ -122,7 +122,7 @@ public static class UserClaimSetups
 			return await cacheHandler.GetByIdAsync(id, currentUserId, cancellationToken);
 		}
 
-		public async Task InitializeAddAsync(
+		public async Task SetupAddAsync(
 			UserClaim userClaim,
 			CancellationToken cancellationToken)
 		{
@@ -131,16 +131,7 @@ public static class UserClaimSetups
 			await serviceScope.AddAsync(user, cancellationToken);
 		}
 
-		public async Task DisposeAddAsync(
-			UserClaim userClaim,
-			CancellationToken cancellationToken)
-		{
-			var user = userClaim.User!;
-
-			await serviceScope.DeleteAsync(user, cancellationToken);
-		}
-
-		public async Task InitializeDeleteAsync(
+		public async Task SetupDeleteAsync(
 			UserClaim userClaim,
 			string currentUserId,
 			CancellationToken cancellationToken)
@@ -152,25 +143,15 @@ public static class UserClaimSetups
 			await serviceScope.AddUserClaimCacheAsync(userClaim, currentUserId, cancellationToken);
 		}
 
-		public async Task InitializeDeleteAsync(
+		public async Task SetupDeleteAsync(
 			UserClaim userClaim,
 			UserId currentUserId,
 			CancellationToken cancellationToken)
 		{
-			await serviceScope.InitializeDeleteAsync(userClaim, currentUserId.Id, cancellationToken);
+			await serviceScope.SetupDeleteAsync(userClaim, currentUserId.Id, cancellationToken);
 		}
 
-		public async Task DisposeDeleteAsync(
-			UserClaim userClaim,
-			CancellationToken cancellationToken)
-		{
-			var user = userClaim.User!;
-
-			await serviceScope.DeleteAsync(userClaim, cancellationToken);
-			await serviceScope.DeleteAsync(user, cancellationToken);
-		}
-
-		public async Task InitializeGetAllAsync(
+		public async Task SetupGetAllAsync(
 			ICollection<UserClaim> userClaims,
 			CancellationToken cancellationToken)
 		{
@@ -180,20 +161,7 @@ public static class UserClaimSetups
 			await serviceScope.AddRangeAsync(userClaims, cancellationToken);
 		}
 
-		public async Task DisposeGetAllAsync(
-			ICollection<UserClaim> userClaims,
-			CancellationToken cancellationToken)
-		{
-			var users = userClaims.Select(p => p.User!).DistinctBy(p => p.Id).ToList();
-
-
-			foreach (var linkedUser in users)
-			{
-				await serviceScope.DeleteAsync(linkedUser, cancellationToken);
-			}
-		}
-
-		public async Task InitializeGetByIdAsync(
+		public async Task SetupGetByIdAsync(
 			UserClaim userClaim,
 			CancellationToken cancellationToken)
 		{
@@ -201,16 +169,6 @@ public static class UserClaimSetups
 
 			await serviceScope.AddAsync(user, cancellationToken);
 			await serviceScope.AddAsync(userClaim, cancellationToken);
-		}
-
-		public async Task DisposeGetByIdAsync(
-			UserClaim userClaim,
-			CancellationToken cancellationToken)
-		{
-			var user = userClaim.User!;
-
-			await serviceScope.DeleteAsync(userClaim, cancellationToken);
-			await serviceScope.DeleteAsync(user, cancellationToken);
 		}
 
 		public async Task AddUserClaimCacheAsync(

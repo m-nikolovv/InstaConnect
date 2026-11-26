@@ -32,12 +32,7 @@ public class GetAllChatsQueryServiceIntegrationTests : BaseChatDomainQueryIntegr
 
 	public override async Task InitializeAsync()
 	{
-		await ServiceScope.InitializeGetAllAsync(_query, Chats, CancellationToken);
-	}
-
-	public override async Task DisposeAsync()
-	{
-		await ServiceScope.DisposeGetAllAsync(_query, Chats, CancellationToken);
+		await ServiceScope.SetupGetAllAsync(_query, Chats, CancellationToken);
 	}
 
 	[Fact]

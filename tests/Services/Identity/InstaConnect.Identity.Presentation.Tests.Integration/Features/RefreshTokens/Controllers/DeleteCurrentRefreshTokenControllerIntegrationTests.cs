@@ -21,12 +21,7 @@ public class DeleteCurrentRefreshTokenControllerIntegrationTests : BaseRefreshTo
 
 	public override async Task InitializeAsync()
 	{
-		await ServiceScope.InitializeDeleteAsync(_request, RefreshToken, CancellationToken);
-	}
-
-	public override async Task DisposeAsync()
-	{
-		await ServiceScope.DisposeDeleteAsync(_request, RefreshToken, CancellationToken);
+		await ServiceScope.SetupDeleteAsync(_request, RefreshToken, CancellationToken);
 	}
 
 	[Theory]

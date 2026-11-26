@@ -24,14 +24,8 @@ public class AddUserCommandServiceIntegrationTests : BaseUserDomainCommandIntegr
 
 	public override async Task InitializeAsync()
 	{
-		await ServiceScope.InitializeAddAsync(_command, User, CancellationToken);
+		await ServiceScope.SetupAddAsync(_command, User, CancellationToken);
 		await base.InitializeAsync();
-	}
-
-	public override async Task DisposeAsync()
-	{
-		await ServiceScope.DisposeAddAsync(_command, User, CancellationToken);
-		await base.DisposeAsync();
 	}
 
 	[Fact]

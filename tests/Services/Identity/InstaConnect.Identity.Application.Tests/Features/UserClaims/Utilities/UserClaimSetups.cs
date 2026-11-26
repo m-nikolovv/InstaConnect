@@ -33,36 +33,20 @@ public static class UserClaimSetups
 			return await serviceScope.GetUserClaimCacheByIdAsync(request.Id, request.Claim, request.Id, cancellationToken);
 		}
 
-		public async Task InitializeAddAsync(
+		public async Task SetupAddAsync(
 			AddUserClaimCommandRequest request,
 			UserClaim userClaim,
 			CancellationToken cancellationToken)
 		{
-			await serviceScope.InitializeAddAsync(userClaim, cancellationToken);
+			await serviceScope.SetupAddAsync(userClaim, cancellationToken);
 		}
 
-		public async Task DisposeAddAsync(
-			AddUserClaimCommandRequest request,
-			UserClaim userClaim,
-			CancellationToken cancellationToken)
-		{
-			await serviceScope.DisposeAddAsync(userClaim, cancellationToken);
-		}
-
-		public async Task InitializeDeleteAsync(
+		public async Task SetupDeleteAsync(
 			DeleteUserClaimCommandRequest request,
 			UserClaim userClaim,
 			CancellationToken cancellationToken)
 		{
-			await serviceScope.InitializeDeleteAsync(userClaim, request.Id, cancellationToken);
-		}
-
-		public async Task DisposeDeleteAsync(
-			DeleteUserClaimCommandRequest request,
-			UserClaim userClaim,
-			CancellationToken cancellationToken)
-		{
-			await serviceScope.DisposeDeleteAsync(userClaim, cancellationToken);
+			await serviceScope.SetupDeleteAsync(userClaim, request.Id, cancellationToken);
 		}
 
 		public async Task AddUserClaimCacheAsync(
@@ -73,20 +57,12 @@ public static class UserClaimSetups
 			await serviceScope.AddUserClaimCacheAsync(userClaim, request.Id, cancellationToken);
 		}
 
-		public async Task InitializeGetAllAsync(
+		public async Task SetupGetAllAsync(
 			GetAllUserClaimsQueryRequest request,
 			ICollection<UserClaim> userClaims,
 			CancellationToken cancellationToken)
 		{
-			await serviceScope.InitializeGetAllAsync(userClaims, cancellationToken);
-		}
-
-		public async Task DisposeGetAllAsync(
-			GetAllUserClaimsQueryRequest request,
-			ICollection<UserClaim> userClaims,
-			CancellationToken cancellationToken)
-		{
-			await serviceScope.DisposeGetAllAsync(userClaims, cancellationToken);
+			await serviceScope.SetupGetAllAsync(userClaims, cancellationToken);
 		}
 	}
 }

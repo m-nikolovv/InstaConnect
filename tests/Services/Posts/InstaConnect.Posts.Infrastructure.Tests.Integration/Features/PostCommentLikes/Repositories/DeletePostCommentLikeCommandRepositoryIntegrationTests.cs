@@ -11,12 +11,7 @@ public class DeletePostCommentLikeCommandRepositoryIntegrationTests : BasePostCo
 
 	public override async Task InitializeAsync()
 	{
-		await ServiceScope.InitializeDeleteAsync(PostCommentLike, UserId, CancellationToken);
-	}
-
-	public override async Task DisposeAsync()
-	{
-		await ServiceScope.DisposeDeleteAsync(PostCommentLike, CancellationToken);
+		await ServiceScope.SetupDeleteAsync(PostCommentLike, UserId, CancellationToken);
 	}
 
 	[Fact]

@@ -28,12 +28,7 @@ public class GetChatByIdQueryServiceIntegrationTests : BaseChatDomainQueryIntegr
 
 	public override async Task InitializeAsync()
 	{
-		await ServiceScope.InitializeGetByIdAsync(_query, Chat, CancellationToken);
-	}
-
-	public override async Task DisposeAsync()
-	{
-		await ServiceScope.DisposeGetByIdAsync(_query, Chat, CancellationToken);
+		await ServiceScope.SetupGetByIdAsync(_query, Chat, CancellationToken);
 	}
 
 	[Fact]

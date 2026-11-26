@@ -12,12 +12,7 @@ public class UpdateRefreshTokenCommandRepositoryIntegrationTests : BaseRefreshTo
 
 	public override async Task InitializeAsync()
 	{
-		await ServiceScope.InitializeUpdateAsync(RefreshToken, CancellationToken);
-	}
-
-	public override async Task DisposeAsync()
-	{
-		await ServiceScope.DisposeUpdateAsync(RefreshToken, CancellationToken);
+		await ServiceScope.SetupUpdateAsync(RefreshToken, CancellationToken);
 	}
 
 	[Fact]
