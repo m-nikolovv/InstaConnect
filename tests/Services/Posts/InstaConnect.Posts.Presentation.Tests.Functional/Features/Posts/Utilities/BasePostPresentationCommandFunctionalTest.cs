@@ -1,4 +1,3 @@
-using InstaConnect.Posts.Infrastructure.Features.Posts.Abstractions;
 using InstaConnect.Posts.Presentation.Tests.Features.Posts.Abstractions;
 using InstaConnect.Posts.Presentation.Tests.Features.Posts.Extensions;
 using InstaConnect.Posts.Tests.Features.Posts.Abstractions;
@@ -12,13 +11,10 @@ public abstract class BasePostPresentationCommandFunctionalTest : BasePostWebCom
 
 	protected IPostEventClient EventClient { get; }
 
-	protected IPostCacheHandler CacheHandler { get; }
-
 	protected BasePostPresentationCommandFunctionalTest(PostsWebApplicationFactory webApplicationFactory) : base(webApplicationFactory)
 	{
 		ApiClient = webApplicationFactory.CreateApiClient();
 		EventClient = webApplicationFactory.CreateEventClient();
-		CacheHandler = ServiceScope.GetPostCacheHandler();
 	}
 
 	public override async Task InitializeAsync()

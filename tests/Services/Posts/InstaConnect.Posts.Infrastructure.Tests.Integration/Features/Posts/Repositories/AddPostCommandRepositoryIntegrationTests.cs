@@ -7,6 +7,16 @@ public class AddPostCommandRepositoryIntegrationTests : BasePostInfrastructureCo
 	{
 	}
 
+	public override async Task InitializeAsync()
+	{
+		await ServiceScope.InitializeAddAsync(Post, CancellationToken);
+	}
+
+	public override async Task DisposeAsync()
+	{
+		await ServiceScope.DisposeAddAsync(Post, CancellationToken);
+	}
+
 	[Fact]
 	public async Task AddAsync_ShouldAddPost_WhenCommandIsValid()
 	{

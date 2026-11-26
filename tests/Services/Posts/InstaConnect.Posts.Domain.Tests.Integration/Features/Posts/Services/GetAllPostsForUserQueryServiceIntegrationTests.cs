@@ -1,4 +1,5 @@
 using InstaConnect.Posts.Domain.Features.Posts.Models.Entities;
+using InstaConnect.Posts.Domain.Tests.Features.Posts.Utilities;
 using InstaConnect.Posts.Tests.Features.Posts.DataAttributes.SortOrder;
 using InstaConnect.Posts.Tests.Features.Posts.DataAttributes.SortTerm.ForUser;
 using InstaConnect.Posts.Tests.Features.Posts.DataAttributes.Title;
@@ -15,8 +16,18 @@ public class GetAllPostsForUserQueryServiceIntegrationTests : BasePostDomainQuer
 		: base(webApplicationFactory)
 	{
 		_queryBuilderFactory = new();
-		_queryBuilder = _queryBuilderFactory.Create(Post, CurrentUserId);
+		_queryBuilder = _queryBuilderFactory.Create(Post);
 		_query = _queryBuilder.Build();
+	}
+
+	public override async Task InitializeAsync()
+	{
+		await ServiceScope.InitializeGetAllForUserAsync(_query, Posts, CancellationToken);
+	}
+
+	public override async Task DisposeAsync()
+	{
+		await ServiceScope.DisposeGetAllForUserAsync(_query, Posts, CancellationToken);
 	}
 
 	[Fact]

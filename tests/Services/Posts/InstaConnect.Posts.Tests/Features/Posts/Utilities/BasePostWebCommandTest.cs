@@ -6,10 +6,4 @@ public abstract class BasePostWebCommandTest : BasePostWebTest
 		: base(webApplicationFactory)
 	{
 	}
-
-	public override async Task InitializeAsync()
-	{
-		await ServiceScope.AddAsync(User, CancellationToken);
-		await OnInitializeAsync();
-	}
 }

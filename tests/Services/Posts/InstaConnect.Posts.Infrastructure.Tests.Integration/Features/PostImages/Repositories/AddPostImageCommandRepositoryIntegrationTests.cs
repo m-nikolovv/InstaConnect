@@ -1,4 +1,3 @@
-using InstaConnect.Posts.Infrastructure.Tests.Features.Posts.Utilities;
 using InstaConnect.Posts.Tests.Features.PostImages.Assertions;
 
 namespace InstaConnect.Posts.Infrastructure.Tests.Integration.Features.PostImages.Repositories;
@@ -26,7 +25,7 @@ public class AddPostImageCommandRepositoryIntegrationTests : BasePostImageInfras
 	{
 		// Act
 		await Repository.AddAsync(PostImage, CancellationToken);
-		var cachedPost = await CacheHandler.GetByIdAsync(Post, CurrentUserId, CancellationToken);
+		var cachedPost = await ServiceScope.GetPostCacheByIdAsync(Post, CurrentUserId, CancellationToken);
 
 		// Assert
 		cachedPost.ShouldBeNull();

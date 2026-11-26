@@ -54,13 +54,13 @@ public abstract class BasePostTest : BasePostsTest
 		PostPostLikeIdRangeBuilderFactory = new();
 		PostPostLikeIdRangeBuilder = PostPostLikeIdRangeBuilderFactory.Create([.. PostPostLikes.Select(p => p.Id)]);
 		PostPostLikeIds = PostPostLikeIdRangeBuilder.Build();
-		PostPostLikeResponses = PostPostLikes.ToFullResponse(CurrentUserId);
+		PostPostLikeResponses = PostPostLikes.ToFullResponse(UserId);
 
 		PostPostComments = [.. Post.PostComments];
 		PostPostCommentIdRangeBuilderFactory = new();
 		PostPostCommentIdRangeBuilder = PostPostCommentIdRangeBuilderFactory.Create([.. PostPostComments.Select(p => p.Id)]);
 		PostPostCommentIds = PostPostCommentIdRangeBuilder.Build();
-		PostPostCommentResponses = PostPostComments.ToFullResponse(CurrentUserId);
+		PostPostCommentResponses = PostPostComments.ToFullResponse(UserId);
 
 		PostPostCommentsPostCommentImages = [.. Post.PostComments.SelectMany(p => p.PostCommentImages)];
 		PostPostCommentsPostCommentImageIdRangeBuilderFactory = new();
@@ -72,6 +72,6 @@ public abstract class BasePostTest : BasePostsTest
 		PostPostCommentsPostCommentLikeIdRangeBuilderFactory = new();
 		PostPostCommentsPostCommentLikeIdRangeBuilder = PostPostCommentsPostCommentLikeIdRangeBuilderFactory.Create([.. PostPostCommentsPostCommentLikes.Select(p => p.Id)]);
 		PostPostCommentsPostCommentLikeIds = PostPostCommentsPostCommentLikeIdRangeBuilder.Build();
-		PostPostCommentsPostCommentLikeResponses = PostPostCommentsPostCommentLikes.ToFullResponse(CurrentUserId);
+		PostPostCommentsPostCommentLikeResponses = PostPostCommentsPostCommentLikes.ToFullResponse(UserId);
 	}
 }

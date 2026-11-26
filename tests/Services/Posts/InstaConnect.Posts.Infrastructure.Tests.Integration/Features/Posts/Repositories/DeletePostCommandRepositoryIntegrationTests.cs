@@ -9,14 +9,14 @@ public class DeletePostCommandRepositoryIntegrationTests : BasePostInfrastructur
 	{
 	}
 
-	protected override async Task OnInitializeAsync()
+	public override async Task InitializeAsync()
 	{
-		await ServiceScope.AddAsync(Post, CancellationToken);
-		await ServiceScope.AddRangeAsync(PostImages, CancellationToken);
-		await ServiceScope.AddRangeAsync(PostLikes, CancellationToken);
-		await ServiceScope.AddRangeAsync(PostComments, CancellationToken);
-		await ServiceScope.AddRangeAsync(PostCommentImages, CancellationToken);
-		await ServiceScope.AddRangeAsync(PostCommentLikes, CancellationToken);
+		await ServiceScope.InitializeDeleteAsync(Post, UserId, CancellationToken);
+	}
+
+	public override async Task DisposeAsync()
+	{
+		await ServiceScope.DisposeDeleteAsync(Post, CancellationToken);
 	}
 
 	[Fact]
@@ -35,7 +35,7 @@ public class DeletePostCommandRepositoryIntegrationTests : BasePostInfrastructur
 	{
 		// Act
 		await Repository.DeleteAsync(Post, CancellationToken);
-		var cachedPost = await CacheHandler.GetByIdAsync(Post, CurrentUserId, CancellationToken);
+		var cachedPost = await ServiceScope.GetPostCacheByIdAsync(Post, UserId, CancellationToken);
 
 		// Assert
 		cachedPost.ShouldBeNull();

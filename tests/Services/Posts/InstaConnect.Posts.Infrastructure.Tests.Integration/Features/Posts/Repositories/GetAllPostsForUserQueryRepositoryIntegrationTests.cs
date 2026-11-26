@@ -44,6 +44,16 @@ public class GetAllPostsForUserQueryRepositoryIntegrationTests : BasePostInfrast
 		_currentUserQuery = _currentUserQueryBuilder.Build();
 	}
 
+	public override async Task InitializeAsync()
+	{
+		await ServiceScope.InitializeGetAllForUserAsync(Posts, CancellationToken);
+	}
+
+	public override async Task DisposeAsync()
+	{
+		await ServiceScope.DisposeGetAllForUserAsync(Posts, CancellationToken);
+	}
+
 	[Fact]
 	public async Task GetAllForUserAsync_ShouldReturnResponse_WhenQueryIsValid()
 	{

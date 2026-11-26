@@ -13,7 +13,7 @@ public class GetAllPostsForUserQueryHandlerUnitTests : BasePostApplicationQueryU
 	public GetAllPostsForUserQueryHandlerUnitTests()
 	{
 		_requestBuilderFactory = new();
-		_requestBuilder = _requestBuilderFactory.Create(Post, CurrentUserId);
+		_requestBuilder = _requestBuilderFactory.Create(Post);
 		_request = _requestBuilder.Build();
 
 		_handler = new(Mapper, Service);

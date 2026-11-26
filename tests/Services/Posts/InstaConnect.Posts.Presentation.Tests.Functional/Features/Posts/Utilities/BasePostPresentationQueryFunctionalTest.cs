@@ -1,4 +1,3 @@
-using InstaConnect.Posts.Infrastructure.Features.Posts.Abstractions;
 using InstaConnect.Posts.Presentation.Tests.Features.Posts.Abstractions;
 using InstaConnect.Posts.Presentation.Tests.Features.Posts.Extensions;
 
@@ -8,11 +7,8 @@ public abstract class BasePostPresentationQueryFunctionalTest : BasePostWebQuery
 {
 	protected IPostApiClient ApiClient { get; }
 
-	protected IPostCacheHandler CacheHandler { get; }
-
 	protected BasePostPresentationQueryFunctionalTest(PostsWebApplicationFactory webApplicationFactory) : base(webApplicationFactory)
 	{
 		ApiClient = webApplicationFactory.CreateApiClient();
-		CacheHandler = ServiceScope.GetPostCacheHandler();
 	}
 }

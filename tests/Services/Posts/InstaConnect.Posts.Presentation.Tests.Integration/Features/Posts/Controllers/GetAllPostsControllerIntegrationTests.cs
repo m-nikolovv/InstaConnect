@@ -19,8 +19,18 @@ public class GetAllPostsControllerIntegrationTests : BasePostPresentationQueryIn
 		: base(webApplicationFactory)
 	{
 		_requestBuilderFactory = new();
-		_requestBuilder = _requestBuilderFactory.Create(Post, CurrentUserId);
+		_requestBuilder = _requestBuilderFactory.Create(Post);
 		_request = _requestBuilder.Build();
+	}
+
+	public override async Task InitializeAsync()
+	{
+		await ServiceScope.InitializeGetAllAsync(_request, Posts, CancellationToken);
+	}
+
+	public override async Task DisposeAsync()
+	{
+		await ServiceScope.DisposeGetAllAsync(_request, Posts, CancellationToken);
 	}
 
 	[Theory]

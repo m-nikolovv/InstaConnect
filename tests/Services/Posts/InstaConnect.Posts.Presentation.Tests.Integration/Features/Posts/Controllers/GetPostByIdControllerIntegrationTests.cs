@@ -10,8 +10,18 @@ public class GetPostByIdControllerIntegrationTests : BasePostPresentationQueryIn
 		: base(webApplicationFactory)
 	{
 		_requestBuilderFactory = new();
-		_requestBuilder = _requestBuilderFactory.Create(Post, CurrentUserId);
+		_requestBuilder = _requestBuilderFactory.Create(Post);
 		_request = _requestBuilder.Build();
+	}
+
+	public override async Task InitializeAsync()
+	{
+		await ServiceScope.InitializeGetByIdAsync(_request, Post, CancellationToken);
+	}
+
+	public override async Task DisposeAsync()
+	{
+		await ServiceScope.DisposeGetByIdAsync(_request, Post, CancellationToken);
 	}
 
 	[Theory]
@@ -142,7 +152,7 @@ public class GetPostByIdControllerIntegrationTests : BasePostPresentationQueryIn
 	{
 		// Act
 		await Controller.GetByIdAsync(_request, CancellationToken);
-		var cachedPost = await CacheHandler.GetByIdAsync(_request, CancellationToken);
+		var cachedPost = await ServiceScope.GetPostCacheByIdAsync(_request, CancellationToken);
 
 		// Assert
 		cachedPost.ShouldSatisfy(_request, Post);
@@ -158,7 +168,7 @@ public class GetPostByIdControllerIntegrationTests : BasePostPresentationQueryIn
 
 		// Act
 		await Controller.GetByIdAsync(request, CancellationToken);
-		var cachedPost = await CacheHandler.GetByIdAsync(request, CancellationToken);
+		var cachedPost = await ServiceScope.GetPostCacheByIdAsync(request, CancellationToken);
 
 		// Assert
 		cachedPost.ShouldSatisfy(request, Post);
@@ -176,7 +186,7 @@ public class GetPostByIdControllerIntegrationTests : BasePostPresentationQueryIn
 
 		// Act
 		await Controller.GetByIdAsync(request, CancellationToken);
-		var cachedPost = await CacheHandler.GetByIdAsync(request, CancellationToken);
+		var cachedPost = await ServiceScope.GetPostCacheByIdAsync(request, CancellationToken);
 
 		// Assert
 		cachedPost.ShouldSatisfy(request, Post);

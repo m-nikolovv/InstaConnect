@@ -18,10 +18,16 @@ public class UpdatePostControllerIntegrationTests : BasePostPresentationCommandI
 		_request = _requestBuilder.Build();
 	}
 
-	protected override async Task OnInitializeAsync()
+	public override async Task InitializeAsync()
 	{
-		await ServiceScope.AddAsync(Post, CancellationToken);
-		await ServiceScope.AddRangeAsync(PostImages, CancellationToken);
+		await ServiceScope.InitializeUpdateAsync(_request, Post, CancellationToken);
+		await base.InitializeAsync();
+	}
+
+	public override async Task DisposeAsync()
+	{
+		await ServiceScope.DisposeUpdateAsync(_request, Post, CancellationToken);
+		await base.DisposeAsync();
 	}
 
 	[Theory]
@@ -241,7 +247,7 @@ public class UpdatePostControllerIntegrationTests : BasePostPresentationCommandI
 	{
 		// Act
 		await Controller.UpdateAsync(_request, CancellationToken);
-		var cachedPost = await CacheHandler.GetByIdAsync(_request, CancellationToken);
+		var cachedPost = await ServiceScope.GetPostCacheByIdAsync(_request, CancellationToken);
 
 		// Assert
 		cachedPost.ShouldBeNull();
@@ -254,10 +260,11 @@ public class UpdatePostControllerIntegrationTests : BasePostPresentationCommandI
 	{
 		// Arrange
 		var request = _requestBuilder.WithId(transformer).Build();
+		await ServiceScope.AddPostCacheAsync(request, Post, CancellationToken);
 
 		// Act
 		await Controller.UpdateAsync(request, CancellationToken);
-		var cachedPost = await CacheHandler.GetByIdAsync(request, CancellationToken);
+		var cachedPost = await ServiceScope.GetPostCacheByIdAsync(request, CancellationToken);
 
 		// Assert
 		cachedPost.ShouldBeNull();
@@ -270,10 +277,11 @@ public class UpdatePostControllerIntegrationTests : BasePostPresentationCommandI
 	{
 		// Arrange
 		var request = _requestBuilder.WithUserId(transformer).Build();
+		await ServiceScope.AddPostCacheAsync(request, Post, CancellationToken);
 
 		// Act
 		await Controller.UpdateAsync(request, CancellationToken);
-		var cachedPost = await CacheHandler.GetByIdAsync(request, CancellationToken);
+		var cachedPost = await ServiceScope.GetPostCacheByIdAsync(request, CancellationToken);
 
 		// Assert
 		cachedPost.ShouldBeNull();

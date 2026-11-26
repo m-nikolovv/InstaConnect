@@ -1,4 +1,5 @@
 using InstaConnect.Common.Tests.Features.DataAttributes.FormFileCollections.Base;
+using InstaConnect.Posts.Domain.Tests.Features.Posts.Utilities;
 using InstaConnect.Posts.Tests.Features.Posts.Assertions;
 using InstaConnect.Posts.Tests.Features.Posts.DataAttributes.Images;
 
@@ -16,6 +17,18 @@ public class AddPostCommandServiceIntegrationTests : BasePostDomainCommandIntegr
 		_commandBuilderFactory = new();
 		_commandBuilder = _commandBuilderFactory.Create(User);
 		_command = _commandBuilder.Build();
+	}
+
+	public override async Task InitializeAsync()
+	{
+		await ServiceScope.InitializeAddAsync(_command, Post, CancellationToken);
+		await base.InitializeAsync();
+	}
+
+	public override async Task DisposeAsync()
+	{
+		await ServiceScope.DisposeAddAsync(_command, Post, CancellationToken);
+		await base.DisposeAsync();
 	}
 
 	[Fact]

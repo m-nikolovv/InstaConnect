@@ -1,4 +1,3 @@
-using InstaConnect.Posts.Infrastructure.Tests.Features.Posts.Utilities;
 
 namespace InstaConnect.Posts.Infrastructure.Tests.Integration.Features.PostImages.Repositories;
 
@@ -30,7 +29,7 @@ public class DeletePostImageCommandRepositoryIntegrationTests : BasePostImageInf
 	{
 		// Act
 		await Repository.DeleteAsync(PostImage, CancellationToken);
-		var cachedPost = await CacheHandler.GetByIdAsync(Post, CurrentUserId, CancellationToken);
+		var cachedPost = await ServiceScope.GetPostCacheByIdAsync(Post, CurrentUserId, CancellationToken);
 
 		// Assert
 		cachedPost.ShouldBeNull();

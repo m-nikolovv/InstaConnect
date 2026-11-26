@@ -17,6 +17,16 @@ public class GetPostsForUserTotalCountQueryRepositoryIntegrationTests : BasePost
 		_filterQuery = _filterQueryBuilder.Build();
 	}
 
+	public override async Task InitializeAsync()
+	{
+		await ServiceScope.InitializeGetAllForUserAsync(Posts, CancellationToken);
+	}
+
+	public override async Task DisposeAsync()
+	{
+		await ServiceScope.DisposeGetAllForUserAsync(Posts, CancellationToken);
+	}
+
 	[Fact]
 	public async Task GetTotalCountForUserAsync_ShouldReturnResponse_WhenQueryIsValid()
 	{

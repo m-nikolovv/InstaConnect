@@ -19,7 +19,7 @@ public class GetAllPostsQueryRequestValidatorUnitTests : BasePostApplicationQuer
 	public GetAllPostsQueryRequestValidatorUnitTests()
 	{
 		_requestBuilderFactory = new();
-		_requestBuilder = _requestBuilderFactory.Create(Post, CurrentUserId);
+		_requestBuilder = _requestBuilderFactory.Create(Post);
 		_request = _requestBuilder.Build();
 
 		_requestValidator = new();

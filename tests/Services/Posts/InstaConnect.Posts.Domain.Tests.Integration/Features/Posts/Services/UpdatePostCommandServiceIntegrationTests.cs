@@ -17,10 +17,16 @@ public class UpdatePostCommandServiceIntegrationTests : BasePostDomainCommandInt
 		_command = _commandBuilder.Build();
 	}
 
-	protected override async Task OnInitializeAsync()
+	public override async Task InitializeAsync()
 	{
-		await ServiceScope.AddAsync(Post, CancellationToken);
-		await ServiceScope.AddRangeAsync(PostImages, CancellationToken);
+		await ServiceScope.InitializeUpdateAsync(_command, Post, CancellationToken);
+		await base.InitializeAsync();
+	}
+
+	public override async Task DisposeAsync()
+	{
+		await ServiceScope.DisposeUpdateAsync(_command, Post, CancellationToken);
+		await base.DisposeAsync();
 	}
 
 	[Fact]
@@ -136,7 +142,7 @@ public class UpdatePostCommandServiceIntegrationTests : BasePostDomainCommandInt
 	{
 		// Act
 		await Service.UpdateAsync(_command, CancellationToken);
-		var cachedPost = await CacheHandler.GetByIdAsync(_command, CancellationToken);
+		var cachedPost = await ServiceScope.GetPostCacheByIdAsync(_command, CancellationToken);
 
 		// Assert
 		cachedPost.ShouldBeNull();
@@ -149,10 +155,11 @@ public class UpdatePostCommandServiceIntegrationTests : BasePostDomainCommandInt
 	{
 		// Arrange
 		var command = _commandBuilder.WithId(transformer).Build();
+		await ServiceScope.AddPostCacheAsync(command, Post, CancellationToken);
 
 		// Act
 		await Service.UpdateAsync(command, CancellationToken);
-		var cachedPost = await CacheHandler.GetByIdAsync(command, CancellationToken);
+		var cachedPost = await ServiceScope.GetPostCacheByIdAsync(command, CancellationToken);
 
 		// Assert
 		cachedPost.ShouldBeNull();
@@ -165,10 +172,11 @@ public class UpdatePostCommandServiceIntegrationTests : BasePostDomainCommandInt
 	{
 		// Arrange
 		var command = _commandBuilder.WithUserId(transformer).Build();
+		await ServiceScope.AddPostCacheAsync(command, Post, CancellationToken);
 
 		// Act
 		await Service.UpdateAsync(command, CancellationToken);
-		var cachedPost = await CacheHandler.GetByIdAsync(command, CancellationToken);
+		var cachedPost = await ServiceScope.GetPostCacheByIdAsync(command, CancellationToken);
 
 		// Assert
 		cachedPost.ShouldBeNull();

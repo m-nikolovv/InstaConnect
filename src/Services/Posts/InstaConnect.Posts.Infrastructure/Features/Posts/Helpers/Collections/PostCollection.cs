@@ -64,6 +64,18 @@ internal class PostCollection : IPostCollection
 		await _collectionHandler.RemoveAsync(entity.Id.GetFilter(), cancellationToken);
 	}
 
+	public async Task DeleteRangeAsync(
+		IEnumerable<Post> entities,
+		CancellationToken cancellationToken)
+	{
+		var ids = entities.Select(p => p.Id).ToList();
+
+		await _imageCollection.DeleteByParentAsync(ids.GetPostImageByParentFilter(), cancellationToken);
+		await _likeCollection.DeleteByParentAsync(ids.GetPostLikeByParentFilter(), cancellationToken);
+		await _commentCollection.DeleteByParentAsync(ids.GetPostCommentByParentFilter(), cancellationToken);
+		await _collectionHandler.RemoveRangeAsync(ids.GetFilter(), cancellationToken);
+	}
+
 	public async Task DeleteByParentAsync(
 		FilterDefinition<Post> filter,
 		CancellationToken cancellationToken)

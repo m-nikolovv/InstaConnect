@@ -19,8 +19,18 @@ public class GetAllPostsForUserQueryHandlerIntegrationTests : BasePostApplicatio
 		: base(webApplicationFactory)
 	{
 		_requestBuilderFactory = new();
-		_requestBuilder = _requestBuilderFactory.Create(Post, CurrentUserId);
+		_requestBuilder = _requestBuilderFactory.Create(Post);
 		_request = _requestBuilder.Build();
+	}
+
+	public override async Task InitializeAsync()
+	{
+		await ServiceScope.InitializeGetAllForUserAsync(_request, Posts, CancellationToken);
+	}
+
+	public override async Task DisposeAsync()
+	{
+		await ServiceScope.DisposeGetAllForUserAsync(_request, Posts, CancellationToken);
 	}
 
 	[Theory]

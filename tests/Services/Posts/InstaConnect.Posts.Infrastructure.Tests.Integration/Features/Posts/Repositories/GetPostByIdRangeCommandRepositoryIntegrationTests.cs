@@ -10,9 +10,14 @@ public class GetPostByIdRangeCommandRepositoryIntegrationTests : BasePostInfrast
 		_include = IncludeBuilderFactory.Create().WithUser().WithPostLikes().WithPostImages().Build();
 	}
 
-	protected override async Task OnInitializeAsync()
+	public override async Task InitializeAsync()
 	{
-		await ServiceScope.AddRangeAsync(Posts, CancellationToken);
+		await ServiceScope.InitializeGetAllAsync(Posts, CancellationToken);
+	}
+
+	public override async Task DisposeAsync()
+	{
+		await ServiceScope.DisposeGetAllAsync(Posts, CancellationToken);
 	}
 
 	[Fact]

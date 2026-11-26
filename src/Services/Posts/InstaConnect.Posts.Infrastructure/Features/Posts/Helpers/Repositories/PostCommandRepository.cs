@@ -89,4 +89,10 @@ internal class PostCommandRepository : IPostCommandRepository
 		await _collection.DeleteAsync(entity, cancellationToken);
 		await _cacheHandler.DeleteAsync(entity.Id, cancellationToken);
 	}
+
+	public async Task DeleteRangeAsync(IEnumerable<Post> entities, CancellationToken cancellationToken)
+	{
+		await _collection.DeleteRangeAsync(entities, cancellationToken);
+		await _cacheHandler.DeleteRangeAsync(entities.Select(p => p.Id), cancellationToken);
+	}
 }

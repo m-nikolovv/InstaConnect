@@ -20,6 +20,10 @@ public interface IPostCollection
 		Post entity,
 		CancellationToken cancellationToken);
 
+	public Task DeleteRangeAsync(
+		IEnumerable<Post> entities,
+		CancellationToken cancellationToken);
+
 	internal Task DeleteByParentAsync(
 		FilterDefinition<Post> filter,
 		CancellationToken cancellationToken);

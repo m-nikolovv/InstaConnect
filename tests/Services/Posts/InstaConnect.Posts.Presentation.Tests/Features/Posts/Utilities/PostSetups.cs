@@ -1,5 +1,4 @@
 using InstaConnect.Posts.Domain.Features.Posts.Models.Responses;
-using InstaConnect.Posts.Infrastructure.Features.Posts.Abstractions;
 using InstaConnect.Posts.Presentation.Features.Posts.Controllers.v1;
 
 namespace InstaConnect.Posts.Presentation.Tests.Features.Posts.Utilities;
@@ -75,29 +74,138 @@ public static class PostSetups
 				response.GetValue(),
 				cancellationToken);
 		}
-	}
 
-	extension(IPostCacheHandler cacheHandler)
-	{
-		public async Task<PostResponse?> GetByIdAsync(
+		public async Task InitializeAddAsync(
+			AddPostApiRequest request,
+			Post post,
+			CancellationToken cancellationToken)
+		{
+			await serviceScope.InitializeAddAsync(post, cancellationToken);
+		}
+
+		public async Task InitializeUpdateAsync(
+			UpdatePostApiRequest request,
+			Post post,
+			CancellationToken cancellationToken)
+		{
+			await serviceScope.InitializeUpdateAsync(post, request.UserId, cancellationToken);
+		}
+
+		public async Task InitializeDeleteAsync(
+			DeletePostApiRequest request,
+			Post post,
+			CancellationToken cancellationToken)
+		{
+			await serviceScope.InitializeDeleteAsync(post, request.UserId, cancellationToken);
+		}
+
+		public async Task InitializeGetByIdAsync(
+			GetPostByIdApiRequest request,
+			Post post,
+			CancellationToken cancellationToken)
+		{
+			await serviceScope.InitializeGetByIdAsync(post, cancellationToken);
+		}
+
+		public async Task InitializeGetAllAsync(
+			GetAllPostsApiRequest request,
+			ICollection<Post> posts,
+			CancellationToken cancellationToken)
+		{
+			await serviceScope.InitializeGetAllAsync(posts, cancellationToken);
+		}
+
+		public async Task InitializeGetAllForUserAsync(
+			GetAllPostsForUserApiRequest request,
+			ICollection<Post> posts,
+			CancellationToken cancellationToken)
+		{
+			await serviceScope.InitializeGetAllForUserAsync(posts, cancellationToken);
+		}
+
+		public async Task DisposeAddAsync(
+			AddPostApiRequest request,
+			Post post,
+			CancellationToken cancellationToken)
+		{
+			await serviceScope.DisposeAddAsync(post, cancellationToken);
+		}
+
+		public async Task DisposeUpdateAsync(
+			UpdatePostApiRequest request,
+			Post post,
+			CancellationToken cancellationToken)
+		{
+			await serviceScope.DisposeUpdateAsync(post, cancellationToken);
+		}
+
+		public async Task DisposeDeleteAsync(
+			DeletePostApiRequest request,
+			Post post,
+			CancellationToken cancellationToken)
+		{
+			await serviceScope.DisposeDeleteAsync(post, cancellationToken);
+		}
+
+		public async Task DisposeGetByIdAsync(
+			GetPostByIdApiRequest request,
+			Post post,
+			CancellationToken cancellationToken)
+		{
+			await serviceScope.DisposeGetByIdAsync(post, cancellationToken);
+		}
+
+		public async Task DisposeGetAllAsync(
+			GetAllPostsApiRequest request,
+			ICollection<Post> posts,
+			CancellationToken cancellationToken)
+		{
+			await serviceScope.DisposeGetAllAsync(posts, cancellationToken);
+		}
+
+		public async Task DisposeGetAllForUserAsync(
+			GetAllPostsForUserApiRequest request,
+			ICollection<Post> posts,
+			CancellationToken cancellationToken)
+		{
+			await serviceScope.DisposeGetAllForUserAsync(posts, cancellationToken);
+		}
+
+		public async Task<PostResponse?> GetPostCacheByIdAsync(
 			UpdatePostApiRequest request,
 			CancellationToken cancellationToken)
 		{
-			return await cacheHandler.GetByIdAsync(request.Id, request.UserId, cancellationToken);
+			return await serviceScope.GetPostCacheByIdAsync(request.Id, request.UserId, cancellationToken);
 		}
 
-		public async Task<PostResponse?> GetByIdAsync(
+		public async Task<PostResponse?> GetPostCacheByIdAsync(
 			DeletePostApiRequest request,
 			CancellationToken cancellationToken)
 		{
-			return await cacheHandler.GetByIdAsync(request.Id, request.UserId, cancellationToken);
+			return await serviceScope.GetPostCacheByIdAsync(request.Id, request.UserId, cancellationToken);
 		}
 
-		public async Task<PostResponse?> GetByIdAsync(
+		public async Task<PostResponse?> GetPostCacheByIdAsync(
 			GetPostByIdApiRequest request,
 			CancellationToken cancellationToken)
 		{
-			return await cacheHandler.GetByIdAsync(request.Id, request.CurrentUserId, cancellationToken);
+			return await serviceScope.GetPostCacheByIdAsync(request.Id, request.CurrentUserId, cancellationToken);
+		}
+
+		public async Task AddPostCacheAsync(
+			UpdatePostApiRequest request,
+			Post post,
+			CancellationToken cancellationToken)
+		{
+			await serviceScope.AddPostCacheAsync(post, request.UserId, cancellationToken);
+		}
+
+		public async Task AddPostCacheAsync(
+			DeletePostApiRequest request,
+			Post post,
+			CancellationToken cancellationToken)
+		{
+			await serviceScope.AddPostCacheAsync(post, request.UserId, cancellationToken);
 		}
 	}
 }

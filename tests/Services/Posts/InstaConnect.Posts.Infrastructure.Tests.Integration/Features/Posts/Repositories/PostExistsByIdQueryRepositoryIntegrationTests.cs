@@ -9,6 +9,16 @@ public class PostExistsByIdQueryRepositoryIntegrationTests : BasePostInfrastruct
 	{
 	}
 
+	public override async Task InitializeAsync()
+	{
+		await ServiceScope.InitializeGetByIdAsync(Post, CancellationToken);
+	}
+
+	public override async Task DisposeAsync()
+	{
+		await ServiceScope.DisposeGetByIdAsync(Post, CancellationToken);
+	}
+
 	[Fact]
 	public async Task ExistsByIdAsync_ShouldReturnNull_WhenIdIsInvalid()
 	{

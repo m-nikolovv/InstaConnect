@@ -5,10 +5,10 @@ public class GetPostByIdQueryRequestBuilder
 	private string _id;
 	private string _currentUserId;
 
-	public GetPostByIdQueryRequestBuilder(Post post, UserId currentUserId)
+	public GetPostByIdQueryRequestBuilder(Post post)
 	{
 		_id = post.Id.Id;
-		_currentUserId = currentUserId.Id;
+		_currentUserId = post.UserId.Id;
 	}
 
 	public GetPostByIdQueryRequestBuilder WithId(PostId id, IStringTransformer? transformer = null)

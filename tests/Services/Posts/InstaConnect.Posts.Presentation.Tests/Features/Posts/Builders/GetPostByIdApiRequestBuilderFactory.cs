@@ -2,8 +2,8 @@ namespace InstaConnect.Posts.Presentation.Tests.Features.Posts.Builders;
 
 public class GetPostByIdApiRequestBuilderFactory
 {
-	public GetPostByIdApiRequestBuilder Create(Post post, UserId currentUserId)
+	public GetPostByIdApiRequestBuilder Create(Post post)
 	{
-		return new(post, currentUserId);
+		return new(post);
 	}
 }

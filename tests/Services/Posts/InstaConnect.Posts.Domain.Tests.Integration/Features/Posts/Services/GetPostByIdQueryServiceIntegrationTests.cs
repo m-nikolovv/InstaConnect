@@ -12,8 +12,18 @@ public class GetPostByIdQueryServiceIntegrationTests : BasePostDomainQueryIntegr
 		: base(webApplicationFactory)
 	{
 		_queryBuilderFactory = new();
-		_queryBuilder = _queryBuilderFactory.Create(Post, CurrentUserId);
+		_queryBuilder = _queryBuilderFactory.Create(Post);
 		_query = _queryBuilder.Build();
+	}
+
+	public override async Task InitializeAsync()
+	{
+		await ServiceScope.InitializeGetByIdAsync(_query, Post, CancellationToken);
+	}
+
+	public override async Task DisposeAsync()
+	{
+		await ServiceScope.DisposeGetByIdAsync(_query, Post, CancellationToken);
 	}
 
 	[Fact]
@@ -73,7 +83,7 @@ public class GetPostByIdQueryServiceIntegrationTests : BasePostDomainQueryIntegr
 	{
 		// Act
 		await Service.GetByIdAsync(_query, CancellationToken);
-		var cachedPost = await CacheHandler.GetByIdAsync(_query, CancellationToken);
+		var cachedPost = await ServiceScope.GetPostCacheByIdAsync(_query, CancellationToken);
 
 		// Assert
 		cachedPost.ShouldSatisfy(_query, Post);
@@ -89,7 +99,7 @@ public class GetPostByIdQueryServiceIntegrationTests : BasePostDomainQueryIntegr
 
 		// Act
 		await Service.GetByIdAsync(query, CancellationToken);
-		var cachedPost = await CacheHandler.GetByIdAsync(query, CancellationToken);
+		var cachedPost = await ServiceScope.GetPostCacheByIdAsync(query, CancellationToken);
 
 		// Assert
 		cachedPost.ShouldSatisfy(query, Post);
@@ -107,7 +117,7 @@ public class GetPostByIdQueryServiceIntegrationTests : BasePostDomainQueryIntegr
 
 		// Act
 		await Service.GetByIdAsync(query, CancellationToken);
-		var cachedPost = await CacheHandler.GetByIdAsync(query, CancellationToken);
+		var cachedPost = await ServiceScope.GetPostCacheByIdAsync(query, CancellationToken);
 
 		// Assert
 		cachedPost.ShouldSatisfy(query, Post);

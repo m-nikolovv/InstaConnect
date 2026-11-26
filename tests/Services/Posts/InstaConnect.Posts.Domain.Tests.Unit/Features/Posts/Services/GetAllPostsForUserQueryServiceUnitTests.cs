@@ -11,7 +11,7 @@ public class GetAllPostsForUserQueryServiceUnitTests : BasePostDomainQueryUnitTe
 	public GetAllPostsForUserQueryServiceUnitTests()
 	{
 		_queryBuilderFactory = new();
-		_queryBuilder = _queryBuilderFactory.Create(Post, CurrentUserId);
+		_queryBuilder = _queryBuilderFactory.Create(Post);
 		_query = _queryBuilder.Build();
 
 		_service = new(Repository, UserRepository, CollectionResponseFactory);
