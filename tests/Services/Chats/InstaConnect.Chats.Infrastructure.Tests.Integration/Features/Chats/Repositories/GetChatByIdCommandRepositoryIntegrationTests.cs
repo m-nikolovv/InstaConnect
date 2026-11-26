@@ -13,9 +13,14 @@ public class GetChatByIdCommandRepositoryIntegrationTests : BaseChatInfrastructu
 		_include = IncludeBuilderFactory.Create().WithParticipantOne().WithParticipantTwo().Build();
 	}
 
-	protected override async Task OnInitializeAsync()
+	public override async Task InitializeAsync()
 	{
-		await ServiceScope.AddAsync(Chat, CancellationToken);
+		await ServiceScope.InitializeGetByIdAsync(Chat, CancellationToken);
+	}
+
+	public override async Task DisposeAsync()
+	{
+		await ServiceScope.DisposeGetByIdAsync(Chat, CancellationToken);
 	}
 
 	[Fact]

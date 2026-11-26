@@ -23,10 +23,14 @@ public class UpdateChatMessageControllerIntegrationTests : BaseChatMessagePresen
 		_invertedRequest = _invertedRequestBuilder.Build();
 	}
 
-	protected override async Task OnInitializeAsync()
+	public override async Task InitializeAsync()
 	{
-		await ServiceScope.AddAsync(ChatMessage, CancellationToken);
-		await ServiceScope.AddRangeAsync(ChatMessageImages, CancellationToken);
+		await ServiceScope.InitializeUpdateAsync(_request, ChatMessage, CancellationToken);
+	}
+
+	public override async Task DisposeAsync()
+	{
+		await ServiceScope.DisposeUpdateAsync(_request, ChatMessage, CancellationToken);
 	}
 
 	[Theory]
@@ -426,7 +430,7 @@ public class UpdateChatMessageControllerIntegrationTests : BaseChatMessagePresen
 	{
 		// Act
 		await Controller.UpdateAsync(_request, CancellationToken);
-		var cachedChatMessage = await MessageCacheHandler.GetByIdAsync(_request, CancellationToken);
+		var cachedChatMessage = await ServiceScope.GetChatMessageCacheByIdAsync(_request, CancellationToken);
 
 		// Assert
 		cachedChatMessage.ShouldBeNull();
@@ -439,10 +443,11 @@ public class UpdateChatMessageControllerIntegrationTests : BaseChatMessagePresen
 	{
 		// Arrange
 		var request = _requestBuilder.WithParticipantOneId(transformer).Build();
+		await ServiceScope.AddChatMessageCacheAsync(request, ChatMessage, CancellationToken);
 
 		// Act
 		await Controller.UpdateAsync(request, CancellationToken);
-		var cachedChatMessage = await MessageCacheHandler.GetByIdAsync(request, CancellationToken);
+		var cachedChatMessage = await ServiceScope.GetChatMessageCacheByIdAsync(request, CancellationToken);
 
 		// Assert
 		cachedChatMessage.ShouldBeNull();
@@ -455,10 +460,11 @@ public class UpdateChatMessageControllerIntegrationTests : BaseChatMessagePresen
 	{
 		// Arrange
 		var request = _requestBuilder.WithParticipantTwoId(transformer).Build();
+		await ServiceScope.AddChatMessageCacheAsync(request, ChatMessage, CancellationToken);
 
 		// Act
 		await Controller.UpdateAsync(request, CancellationToken);
-		var cachedChatMessage = await MessageCacheHandler.GetByIdAsync(request, CancellationToken);
+		var cachedChatMessage = await ServiceScope.GetChatMessageCacheByIdAsync(request, CancellationToken);
 
 		// Assert
 		cachedChatMessage.ShouldBeNull();
@@ -471,10 +477,11 @@ public class UpdateChatMessageControllerIntegrationTests : BaseChatMessagePresen
 	{
 		// Arrange
 		var request = _requestBuilder.WithMessageId(transformer).Build();
+		await ServiceScope.AddChatMessageCacheAsync(request, ChatMessage, CancellationToken);
 
 		// Act
 		await Controller.UpdateAsync(request, CancellationToken);
-		var cachedChatMessage = await MessageCacheHandler.GetByIdAsync(request, CancellationToken);
+		var cachedChatMessage = await ServiceScope.GetChatMessageCacheByIdAsync(request, CancellationToken);
 
 		// Assert
 		cachedChatMessage.ShouldBeNull();

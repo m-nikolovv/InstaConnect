@@ -9,9 +9,14 @@ public class ChatExistsByIdCommandRepositoryIntegrationTests : BaseChatInfrastru
 	{
 	}
 
-	protected override async Task OnInitializeAsync()
+	public override async Task InitializeAsync()
 	{
-		await ServiceScope.AddAsync(Chat, CancellationToken);
+		await ServiceScope.InitializeGetByIdAsync(Chat, CancellationToken);
+	}
+
+	public override async Task DisposeAsync()
+	{
+		await ServiceScope.DisposeGetByIdAsync(Chat, CancellationToken);
 	}
 
 	[Fact]

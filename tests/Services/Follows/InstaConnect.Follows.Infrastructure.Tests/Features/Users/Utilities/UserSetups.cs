@@ -1,5 +1,4 @@
 using InstaConnect.Follows.Domain.Features.Users.Models.Responses;
-using InstaConnect.Follows.Infrastructure.Features.Users.Abstractions;
 using InstaConnect.Follows.Infrastructure.Features.Users.EventHandlers;
 
 using Microsoft.Extensions.DependencyInjection;
@@ -42,24 +41,21 @@ public static class UserSetups
 		{
 			return serviceScope.ServiceProvider.GetUserDeletedEventHandler();
 		}
-	}
 
-	extension(IUserCacheHandler cacheHandler)
-	{
-		public async Task<UserResponse?> GetByIdAsync(
+		public async Task<UserResponse?> GetUserCacheByIdAsync(
 			User user,
 			UserId currentUserId,
 			CancellationToken cancellationToken)
 		{
-			return await cacheHandler.GetByIdAsync(user.Id, currentUserId, cancellationToken);
+			return await serviceScope.GetUserCacheByIdAsync(user.Id, currentUserId, cancellationToken);
 		}
 
-		public async Task<UserResponse?> GetByIdAsync(
+		public async Task<UserResponse?> GetUserCacheByIdAsync(
 			UserId id,
 			CurrentUserQuery currentUserQuery,
 			CancellationToken cancellationToken)
 		{
-			return await cacheHandler.GetByIdAsync(id, currentUserQuery.Id, cancellationToken);
+			return await serviceScope.GetUserCacheByIdAsync(id, currentUserQuery.Id, cancellationToken);
 		}
 	}
 }

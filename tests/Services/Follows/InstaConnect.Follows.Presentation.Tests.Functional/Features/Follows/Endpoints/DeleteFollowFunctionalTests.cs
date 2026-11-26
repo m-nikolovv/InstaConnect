@@ -16,9 +16,16 @@ public class DeleteFollowFunctionalTests : BaseFollowPresentationCommandFunction
 		_request = _requestBuilder.Build();
 	}
 
-	protected override async Task OnInitializeAsync()
+	public override async Task InitializeAsync()
 	{
-		await ServiceScope.AddAsync(Follow, CancellationToken);
+		await ServiceScope.InitializeDeleteAsync(_request, Follow, CancellationToken);
+		await base.InitializeAsync();
+	}
+
+	public override async Task DisposeAsync()
+	{
+		await ServiceScope.DisposeDeleteAsync(_request, Follow, CancellationToken);
+		await base.DisposeAsync();
 	}
 
 	[Fact]
@@ -211,7 +218,7 @@ public class DeleteFollowFunctionalTests : BaseFollowPresentationCommandFunction
 	{
 		// Act
 		await ApiClient.DeleteAsync(_request, CancellationToken);
-		var cachedFollow = await CacheHandler.GetByIdAsync(_request, CancellationToken);
+		var cachedFollow = await ServiceScope.GetFollowCacheByIdAsync(_request, CancellationToken);
 
 		// Assert
 		cachedFollow.ShouldBeNull();
@@ -224,10 +231,11 @@ public class DeleteFollowFunctionalTests : BaseFollowPresentationCommandFunction
 	{
 		// Arrange
 		var request = _requestBuilder.WithFollowerId(transformer).Build();
+		await ServiceScope.AddFollowCacheAsync(request, Follow, CancellationToken);
 
 		// Act
 		await ApiClient.DeleteAsync(request, CancellationToken);
-		var cachedFollow = await CacheHandler.GetByIdAsync(request, CancellationToken);
+		var cachedFollow = await ServiceScope.GetFollowCacheByIdAsync(request, CancellationToken);
 
 		// Assert
 		cachedFollow.ShouldBeNull();
@@ -240,10 +248,11 @@ public class DeleteFollowFunctionalTests : BaseFollowPresentationCommandFunction
 	{
 		// Arrange
 		var request = _requestBuilder.WithFollowingId(transformer).Build();
+		await ServiceScope.AddFollowCacheAsync(request, Follow, CancellationToken);
 
 		// Act
 		await ApiClient.DeleteAsync(request, CancellationToken);
-		var cachedFollow = await CacheHandler.GetByIdAsync(request, CancellationToken);
+		var cachedFollow = await ServiceScope.GetFollowCacheByIdAsync(request, CancellationToken);
 
 		// Assert
 		cachedFollow.ShouldBeNull();

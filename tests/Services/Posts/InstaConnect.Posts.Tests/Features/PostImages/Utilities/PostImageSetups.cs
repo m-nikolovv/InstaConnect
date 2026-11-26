@@ -92,5 +92,123 @@ public static class PostImageSetups
 			await cacheHandler.DeleteResponseRangeAsync(postImages.Select(p => p.Id.Id), cancellationToken);
 			await imageCacheHandler.DeleteRangeAsync(postImages.Select(p => p.Id), cancellationToken);
 		}
+
+		public async Task InitializeAddAsync(
+			PostImage postImage,
+			string currentUserId,
+			CancellationToken cancellationToken)
+		{
+			var post = postImage.Post!;
+			var user = post.User!;
+
+			await serviceScope.AddAsync(user, cancellationToken);
+			await serviceScope.AddAsync(post, cancellationToken);
+			await serviceScope.AddPostCacheAsync(post, currentUserId, cancellationToken);
+		}
+
+		public async Task InitializeAddAsync(
+			PostImage postImage,
+			UserId currentUserId,
+			CancellationToken cancellationToken)
+		{
+			await serviceScope.InitializeAddAsync(postImage, currentUserId.Id, cancellationToken);
+		}
+
+		public async Task DisposeAddAsync(
+			PostImage postImage,
+			CancellationToken cancellationToken)
+		{
+			var post = postImage.Post!;
+			var user = post.User!;
+
+			await serviceScope.DeleteAsync(post, cancellationToken);
+			await serviceScope.DeleteAsync(user, cancellationToken);
+		}
+
+		public async Task InitializeDeleteAsync(
+			PostImage postImage,
+			string currentUserId,
+			CancellationToken cancellationToken)
+		{
+			var post = postImage.Post!;
+			var user = post.User!;
+
+			await serviceScope.AddAsync(user, cancellationToken);
+			await serviceScope.AddAsync(post, cancellationToken);
+			await serviceScope.AddAsync(postImage, cancellationToken);
+			await serviceScope.AddPostCacheAsync(post, currentUserId, cancellationToken);
+		}
+
+		public async Task InitializeDeleteAsync(
+			PostImage postImage,
+			UserId currentUserId,
+			CancellationToken cancellationToken)
+		{
+			await serviceScope.InitializeDeleteAsync(postImage, currentUserId.Id, cancellationToken);
+		}
+
+		public async Task DisposeDeleteAsync(
+			PostImage postImage,
+			CancellationToken cancellationToken)
+		{
+			var post = postImage.Post!;
+			var user = post.User!;
+
+			await serviceScope.DeleteAsync(postImage, cancellationToken);
+			await serviceScope.DeleteAsync(post, cancellationToken);
+			await serviceScope.DeleteAsync(user, cancellationToken);
+		}
+
+		public async Task InitializeGetAllAsync(
+			ICollection<PostImage> postImages,
+			CancellationToken cancellationToken)
+		{
+			var posts = postImages.Select(p => p.Post!).DistinctBy(p => p.Id).ToList();
+			var users = posts.Select(p => p.User!).DistinctBy(p => p.Id).ToList();
+
+			await serviceScope.AddRangeAsync(users, cancellationToken);
+			await serviceScope.AddRangeAsync(posts, cancellationToken);
+			await serviceScope.AddRangeAsync(postImages, cancellationToken);
+		}
+
+		public async Task DisposeGetAllAsync(
+			ICollection<PostImage> postImages,
+			CancellationToken cancellationToken)
+		{
+			var posts = postImages.Select(p => p.Post!).DistinctBy(p => p.Id).ToList();
+			var users = posts.Select(p => p.User!).DistinctBy(p => p.Id).ToList();
+
+			await serviceScope.DeleteRangeAsync(postImages, cancellationToken);
+			await serviceScope.DeleteRangeAsync(posts, cancellationToken);
+
+			foreach (var user in users)
+			{
+				await serviceScope.DeleteAsync(user, cancellationToken);
+			}
+		}
+
+		public async Task InitializeGetByIdAsync(
+			PostImage postImage,
+			CancellationToken cancellationToken)
+		{
+			var post = postImage.Post!;
+			var user = post.User!;
+
+			await serviceScope.AddAsync(user, cancellationToken);
+			await serviceScope.AddAsync(post, cancellationToken);
+			await serviceScope.AddAsync(postImage, cancellationToken);
+		}
+
+		public async Task DisposeGetByIdAsync(
+			PostImage postImage,
+			CancellationToken cancellationToken)
+		{
+			var post = postImage.Post!;
+			var user = post.User!;
+
+			await serviceScope.DeleteAsync(postImage, cancellationToken);
+			await serviceScope.DeleteAsync(post, cancellationToken);
+			await serviceScope.DeleteAsync(user, cancellationToken);
+		}
 	}
 }

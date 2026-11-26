@@ -1,6 +1,7 @@
 using InstaConnect.Chats.Domain.Features.Chats.Abstractions;
 using InstaConnect.Chats.Domain.Features.Chats.Models.Responses;
 using InstaConnect.Chats.Infrastructure.Features.Chats.Abstractions;
+using InstaConnect.Chats.Tests.Features.ChatMessageImages.Utilities;
 
 namespace InstaConnect.Chats.Tests.Features.Chats.Utilities;
 
@@ -116,17 +117,169 @@ public static class ChatSetups
 				await cacheHandler.DeleteAsync(chat.Id, cancellationToken);
 			}
 		}
-	}
 
-	extension(IChatCacheHandler cacheHandler)
-	{
-		public async Task<ChatResponse?> GetByIdAsync(
+		public async Task<ChatResponse?> GetChatCacheByIdAsync(
 			string participantOneId,
 			string participantTwoId,
 			string currentUserId,
 			CancellationToken cancellationToken)
 		{
+			var cacheHandler = serviceScope.GetCacheHandler();
+
 			return await cacheHandler.GetByIdAsync(new(new(participantOneId), new(participantTwoId)), new(currentUserId), cancellationToken);
+		}
+
+		public async Task<ChatResponse?> GetChatCacheByIdAsync(
+			ChatId id,
+			UserId currentUserId,
+			CancellationToken cancellationToken)
+		{
+			var cacheHandler = serviceScope.GetCacheHandler();
+
+			return await cacheHandler.GetByIdAsync(id, currentUserId, cancellationToken);
+		}
+
+		public async Task InitializeAddAsync(
+			Chat chat,
+			CancellationToken cancellationToken)
+		{
+			var users = new List<User> { chat.ParticipantOne!, chat.ParticipantTwo! }.DistinctBy(p => p.Id).ToList();
+
+			await serviceScope.AddRangeAsync(users, cancellationToken);
+		}
+
+		public async Task DisposeAddAsync(
+			Chat chat,
+			CancellationToken cancellationToken)
+		{
+			var users = new List<User> { chat.ParticipantOne!, chat.ParticipantTwo! }.DistinctBy(p => p.Id).ToList();
+
+			await serviceScope.DeleteAsync(chat, cancellationToken);
+
+			foreach (var linkedUser in users)
+			{
+				await serviceScope.DeleteAsync(linkedUser, cancellationToken);
+			}
+		}
+
+		public async Task InitializeDeleteAsync(
+			Chat chat,
+			string currentUserId,
+			CancellationToken cancellationToken)
+		{
+			var users = new List<User> { chat.ParticipantOne!, chat.ParticipantTwo! }.DistinctBy(p => p.Id).ToList();
+			var chatMessages = chat.ChatMessages;
+			var chatMessageImages = chatMessages.SelectMany(p => p.ChatMessageImages).ToList();
+
+			await serviceScope.AddRangeAsync(users, cancellationToken);
+			await serviceScope.AddAsync(chat, cancellationToken);
+			await serviceScope.AddRangeAsync(chatMessages, cancellationToken);
+			await serviceScope.AddRangeAsync(chatMessageImages, cancellationToken);
+			await serviceScope.AddChatCacheAsync(chat, currentUserId, cancellationToken);
+		}
+
+		public async Task InitializeDeleteAsync(
+			Chat chat,
+			UserId currentUserId,
+			CancellationToken cancellationToken)
+		{
+			await serviceScope.InitializeDeleteAsync(chat, currentUserId.Id, cancellationToken);
+		}
+
+		public async Task DisposeDeleteAsync(
+			Chat chat,
+			CancellationToken cancellationToken)
+		{
+			var users = new List<User> { chat.ParticipantOne!, chat.ParticipantTwo! }.DistinctBy(p => p.Id).ToList();
+			var chatMessages = chat.ChatMessages;
+			var chatMessageImages = chatMessages.SelectMany(p => p.ChatMessageImages).ToList();
+
+			await serviceScope.DeleteRangeAsync(chatMessageImages, cancellationToken);
+			await serviceScope.DeleteRangeAsync(chatMessages, cancellationToken);
+			await serviceScope.DeleteAsync(chat, cancellationToken);
+
+			foreach (var linkedUser in users)
+			{
+				await serviceScope.DeleteAsync(linkedUser, cancellationToken);
+			}
+		}
+
+		public async Task InitializeGetAllAsync(
+			ICollection<Chat> chats,
+			CancellationToken cancellationToken)
+		{
+			var chatMessages = chats.SelectMany(p => p.ChatMessages).ToList();
+			var users = chats
+				.Select(p => p.ParticipantOne!)
+				.Concat(chats.Select(p => p.ParticipantTwo!))
+				.DistinctBy(p => p.Id)
+				.ToList();
+
+			await serviceScope.AddRangeAsync(users, cancellationToken);
+			await serviceScope.AddRangeAsync(chats, cancellationToken);
+			await serviceScope.AddRangeAsync(chatMessages, cancellationToken);
+		}
+
+		public async Task DisposeGetAllAsync(
+			ICollection<Chat> chats,
+			CancellationToken cancellationToken)
+		{
+			var chatMessages = chats.SelectMany(p => p.ChatMessages).ToList();
+			var users = chats
+				.Select(p => p.ParticipantOne!)
+				.Concat(chats.Select(p => p.ParticipantTwo!))
+				.DistinctBy(p => p.Id)
+				.ToList();
+
+			await serviceScope.DeleteRangeAsync(chatMessages, cancellationToken);
+			await serviceScope.DeleteRangeAsync(chats, cancellationToken);
+
+			foreach (var linkedUser in users)
+			{
+				await serviceScope.DeleteAsync(linkedUser, cancellationToken);
+			}
+		}
+
+		public async Task InitializeGetByIdAsync(
+			Chat chat,
+			CancellationToken cancellationToken)
+		{
+			var users = new List<User> { chat.ParticipantOne!, chat.ParticipantTwo! }.DistinctBy(p => p.Id).ToList();
+
+			await serviceScope.AddRangeAsync(users, cancellationToken);
+			await serviceScope.AddAsync(chat, cancellationToken);
+		}
+
+		public async Task DisposeGetByIdAsync(
+			Chat chat,
+			CancellationToken cancellationToken)
+		{
+			var users = new List<User> { chat.ParticipantOne!, chat.ParticipantTwo! }.DistinctBy(p => p.Id).ToList();
+
+			await serviceScope.DeleteAsync(chat, cancellationToken);
+
+			foreach (var linkedUser in users)
+			{
+				await serviceScope.DeleteAsync(linkedUser, cancellationToken);
+			}
+		}
+
+		public async Task AddChatCacheAsync(
+			Chat chat,
+			string currentUserId,
+			CancellationToken cancellationToken)
+		{
+			var cacheHandler = serviceScope.GetCacheHandler();
+
+			await cacheHandler.AddAsync(chat.ToFullResponse(), new(currentUserId), cancellationToken);
+		}
+
+		public async Task AddChatCacheAsync(
+			Chat chat,
+			UserId currentUserId,
+			CancellationToken cancellationToken)
+		{
+			await serviceScope.AddChatCacheAsync(chat, currentUserId.Id, cancellationToken);
 		}
 	}
 }

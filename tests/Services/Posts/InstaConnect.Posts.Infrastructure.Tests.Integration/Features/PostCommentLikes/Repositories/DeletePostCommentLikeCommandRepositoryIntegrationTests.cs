@@ -9,9 +9,14 @@ public class DeletePostCommentLikeCommandRepositoryIntegrationTests : BasePostCo
 	{
 	}
 
-	protected override async Task OnInitializeAsync()
+	public override async Task InitializeAsync()
 	{
-		await ServiceScope.AddAsync(PostCommentLike, CancellationToken);
+		await ServiceScope.InitializeDeleteAsync(PostCommentLike, UserId, CancellationToken);
+	}
+
+	public override async Task DisposeAsync()
+	{
+		await ServiceScope.DisposeDeleteAsync(PostCommentLike, CancellationToken);
 	}
 
 	[Fact]
@@ -30,7 +35,7 @@ public class DeletePostCommentLikeCommandRepositoryIntegrationTests : BasePostCo
 	{
 		// Act
 		await Repository.DeleteAsync(PostCommentLike, CancellationToken);
-		var cachedPostCommentLike = await CommentLikeCacheHandler.GetByIdAsync(PostCommentLike, CurrentUserId, CancellationToken);
+		var cachedPostCommentLike = await ServiceScope.GetPostCommentLikeCacheByIdAsync(PostCommentLike, CurrentUserId, CancellationToken);
 
 		// Assert
 		cachedPostCommentLike.ShouldBeNull();
@@ -41,7 +46,7 @@ public class DeletePostCommentLikeCommandRepositoryIntegrationTests : BasePostCo
 	{
 		// Act
 		await Repository.DeleteAsync(PostCommentLike, CancellationToken);
-		var cachedPostComment = await CommentCacheHandler.GetByIdAsync(PostCommentLike, CurrentUserId, CancellationToken);
+		var cachedPostComment = await ServiceScope.GetPostCommentCacheByIdAsync(PostCommentLike, CurrentUserId, CancellationToken);
 
 		// Assert
 		cachedPostComment.ShouldBeNull();

@@ -1,5 +1,6 @@
 using InstaConnect.Identity.Application.Features.EmailConfirmationTokens.Commands.Add;
 using InstaConnect.Identity.Application.Tests.Features.EmailConfirmationTokens.Builders;
+using InstaConnect.Identity.Application.Tests.Features.EmailConfirmationTokens.Utilities;
 using InstaConnect.Identity.Application.Tests.Integration.Features.EmailConfirmationTokens.Utilities;
 using InstaConnect.Identity.Tests.Features.Users.Builders;
 
@@ -17,6 +18,18 @@ public class AddEmailConfirmationTokenCommandHandlerIntegrationTests : BaseEmail
 		_requestBuilderFactory = new();
 		_requestBuilder = _requestBuilderFactory.Create(User);
 		_request = _requestBuilder.Build();
+	}
+
+	public override async Task InitializeAsync()
+	{
+		await ServiceScope.InitializeAddAsync(_request, EmailConfirmationToken, CancellationToken);
+		await base.InitializeAsync();
+	}
+
+	public override async Task DisposeAsync()
+	{
+		await ServiceScope.DisposeAddAsync(_request, EmailConfirmationToken, CancellationToken);
+		await base.DisposeAsync();
 	}
 
 	[Theory]

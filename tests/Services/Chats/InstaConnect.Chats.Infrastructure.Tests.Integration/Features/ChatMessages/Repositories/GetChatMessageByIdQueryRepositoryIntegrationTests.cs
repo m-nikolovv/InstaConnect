@@ -24,6 +24,16 @@ public class GetChatMessageByIdQueryRepositoryIntegrationTests : BaseChatMessage
 		_invertedCurrentUserQuery = _invertedCurrentUserQueryBuilder.Build();
 	}
 
+	public override async Task InitializeAsync()
+	{
+		await ServiceScope.InitializeGetByIdAsync(ChatMessage, CancellationToken);
+	}
+
+	public override async Task DisposeAsync()
+	{
+		await ServiceScope.DisposeGetByIdAsync(ChatMessage, CancellationToken);
+	}
+
 	[Fact]
 	public async Task GetByIdAsync_ShouldReturnNull_WhenIdIsInvalid()
 	{
@@ -112,7 +122,7 @@ public class GetChatMessageByIdQueryRepositoryIntegrationTests : BaseChatMessage
 	{
 		// Act
 		await Repository.GetByIdAsync(ChatMessageId, _currentUserQuery, CancellationToken);
-		var cachedChatMessage = await MessageCacheHandler.GetByIdAsync(ChatMessageId, _currentUserQuery, CancellationToken);
+		var cachedChatMessage = await ServiceScope.GetChatMessageCacheByIdAsync(ChatMessageId, _currentUserQuery, CancellationToken);
 
 		// Assert
 		cachedChatMessage.ShouldSatisfy(ChatMessageId, _currentUserQuery, ChatMessage);
@@ -128,7 +138,7 @@ public class GetChatMessageByIdQueryRepositoryIntegrationTests : BaseChatMessage
 
 		// Act
 		await Repository.GetByIdAsync(id, _currentUserQuery, CancellationToken);
-		var cachedChatMessage = await MessageCacheHandler.GetByIdAsync(id, _currentUserQuery, CancellationToken);
+		var cachedChatMessage = await ServiceScope.GetChatMessageCacheByIdAsync(id, _currentUserQuery, CancellationToken);
 
 		// Assert
 		cachedChatMessage.ShouldSatisfy(id, _currentUserQuery, ChatMessage);
@@ -144,7 +154,7 @@ public class GetChatMessageByIdQueryRepositoryIntegrationTests : BaseChatMessage
 
 		// Act
 		await Repository.GetByIdAsync(id, _currentUserQuery, CancellationToken);
-		var cachedChatMessage = await MessageCacheHandler.GetByIdAsync(id, _currentUserQuery, CancellationToken);
+		var cachedChatMessage = await ServiceScope.GetChatMessageCacheByIdAsync(id, _currentUserQuery, CancellationToken);
 
 		// Assert
 		cachedChatMessage.ShouldSatisfy(id, _currentUserQuery, ChatMessage);
@@ -160,7 +170,7 @@ public class GetChatMessageByIdQueryRepositoryIntegrationTests : BaseChatMessage
 
 		// Act
 		await Repository.GetByIdAsync(id, _currentUserQuery, CancellationToken);
-		var cachedChatMessage = await MessageCacheHandler.GetByIdAsync(id, _currentUserQuery, CancellationToken);
+		var cachedChatMessage = await ServiceScope.GetChatMessageCacheByIdAsync(id, _currentUserQuery, CancellationToken);
 
 		// Assert
 		cachedChatMessage.ShouldSatisfy(id, _currentUserQuery, ChatMessage);
@@ -176,7 +186,7 @@ public class GetChatMessageByIdQueryRepositoryIntegrationTests : BaseChatMessage
 
 		// Act
 		await Repository.GetByIdAsync(ChatMessageId, currentUserQuery, CancellationToken);
-		var cachedChatMessage = await MessageCacheHandler.GetByIdAsync(ChatMessageId, currentUserQuery, CancellationToken);
+		var cachedChatMessage = await ServiceScope.GetChatMessageCacheByIdAsync(ChatMessageId, currentUserQuery, CancellationToken);
 
 		// Assert
 		cachedChatMessage.ShouldSatisfy(ChatMessageId, currentUserQuery, ChatMessage);

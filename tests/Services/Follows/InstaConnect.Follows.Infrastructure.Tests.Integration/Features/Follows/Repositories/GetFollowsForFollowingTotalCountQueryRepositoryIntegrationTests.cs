@@ -16,6 +16,16 @@ public class GetFollowsForFollowingTotalCountQueryRepositoryIntegrationTests : B
 		_filterQuery = _filterQueryBuilder.Build();
 	}
 
+	public override async Task InitializeAsync()
+	{
+		await ServiceScope.InitializeGetAllAsync(Follows, CancellationToken);
+	}
+
+	public override async Task DisposeAsync()
+	{
+		await ServiceScope.DisposeGetAllAsync(Follows, CancellationToken);
+	}
+
 	[Fact]
 	public async Task GetTotalCountForFollowingAsync_ShouldReturnResponse_WhenQueryIsValid()
 	{

@@ -16,6 +16,16 @@ public class GetUserByIdQueryHandlerIntegrationTests : BaseUserApplicationQueryI
 		_request = _requestBuilder.Build();
 	}
 
+	public override async Task InitializeAsync()
+	{
+		await ServiceScope.InitializeGetByIdAsync(_request, User, CancellationToken);
+	}
+
+	public override async Task DisposeAsync()
+	{
+		await ServiceScope.DisposeGetByIdAsync(_request, User, CancellationToken);
+	}
+
 	[Theory]
 	[UserIdNullWithMessageData]
 	[UserIdEmptyWithMessageData]
@@ -102,7 +112,7 @@ public class GetUserByIdQueryHandlerIntegrationTests : BaseUserApplicationQueryI
 	{
 		// Act
 		await Sender.SendAsync(_request, CancellationToken);
-		var cachedUser = await CacheHandler.GetByIdAsync(_request, CancellationToken);
+		var cachedUser = await ServiceScope.GetUserCacheByIdAsync(_request, CancellationToken);
 
 		// Assert
 		cachedUser.ShouldSatisfy(_request, User);
@@ -118,7 +128,7 @@ public class GetUserByIdQueryHandlerIntegrationTests : BaseUserApplicationQueryI
 
 		// Act
 		await Sender.SendAsync(request, CancellationToken);
-		var cachedUser = await CacheHandler.GetByIdAsync(request, CancellationToken);
+		var cachedUser = await ServiceScope.GetUserCacheByIdAsync(request, CancellationToken);
 
 		// Assert
 		cachedUser.ShouldSatisfy(request, User);
@@ -136,7 +146,7 @@ public class GetUserByIdQueryHandlerIntegrationTests : BaseUserApplicationQueryI
 
 		// Act
 		await Sender.SendAsync(request, CancellationToken);
-		var cachedUser = await CacheHandler.GetByIdAsync(request, CancellationToken);
+		var cachedUser = await ServiceScope.GetUserCacheByIdAsync(request, CancellationToken);
 
 		// Assert
 		cachedUser.ShouldSatisfy(request, User);

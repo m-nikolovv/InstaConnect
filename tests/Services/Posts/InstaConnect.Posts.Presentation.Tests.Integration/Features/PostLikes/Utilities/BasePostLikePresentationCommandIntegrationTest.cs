@@ -1,5 +1,3 @@
-using InstaConnect.Posts.Infrastructure.Features.PostLikes.Abstractions;
-using InstaConnect.Posts.Infrastructure.Features.Posts.Abstractions;
 using InstaConnect.Posts.Presentation.Features.PostLikes.Controllers.v1;
 using InstaConnect.Posts.Tests.Features.PostLikes.Abstractions;
 using InstaConnect.Posts.Tests.Features.PostLikes.Extensions;
@@ -10,18 +8,12 @@ public abstract class BasePostLikePresentationCommandIntegrationTest : BasePostL
 {
 	protected PostLikeController Controller { get; }
 
-	protected IPostCacheHandler CacheHandler { get; }
-
 	protected IPostLikeEventClient LikeEventClient { get; }
-
-	protected IPostLikeCacheHandler LikeCacheHandler { get; }
 
 	protected BasePostLikePresentationCommandIntegrationTest(PostsWebApplicationFactory webApplicationFactory) : base(webApplicationFactory)
 	{
 		Controller = ServiceScope.GetPostLikeController();
-		CacheHandler = ServiceScope.GetPostCacheHandler();
 		LikeEventClient = webApplicationFactory.CreateLikeEventClient();
-		LikeCacheHandler = ServiceScope.GetPostLikeCacheHandler();
 	}
 
 	public override async Task InitializeAsync()

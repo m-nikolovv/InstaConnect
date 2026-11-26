@@ -1,3 +1,4 @@
+
 namespace InstaConnect.Identity.Presentation.Tests.Functional.Features.Users.Endpoints;
 
 public class DeleteCurrentUserFunctionalTests : BaseUserPresentationCommandFunctionalTest
@@ -14,13 +15,16 @@ public class DeleteCurrentUserFunctionalTests : BaseUserPresentationCommandFunct
 		_request = _requestBuilder.Build();
 	}
 
-	protected override async Task OnInitializeAsync()
+	public override async Task InitializeAsync()
 	{
-		await ServiceScope.AddAsync(User, CancellationToken);
-		await ServiceScope.AddRangeAsync(UserClaims, CancellationToken);
-		await ServiceScope.AddRangeAsync(RefreshTokens, CancellationToken);
-		await ServiceScope.AddRangeAsync(ForgotPasswordTokens, CancellationToken);
-		await ServiceScope.AddRangeAsync(EmailConfirmationTokens, CancellationToken);
+		await ServiceScope.InitializeDeleteAsync(_request, User, CancellationToken);
+		await base.InitializeAsync();
+	}
+
+	public override async Task DisposeAsync()
+	{
+		await ServiceScope.DisposeDeleteAsync(_request, User, CancellationToken);
+		await base.DisposeAsync();
 	}
 
 	[Fact]
@@ -151,7 +155,7 @@ public class DeleteCurrentUserFunctionalTests : BaseUserPresentationCommandFunct
 	{
 		// Act
 		await ApiClient.DeleteCurrentAsync(_request, CancellationToken);
-		var cachedUser = await CacheHandler.GetByIdAsync(_request, CancellationToken);
+		var cachedUser = await ServiceScope.GetUserCacheByIdAsync(_request, CancellationToken);
 
 		// Assert
 		cachedUser.ShouldBeNull();
@@ -164,10 +168,11 @@ public class DeleteCurrentUserFunctionalTests : BaseUserPresentationCommandFunct
 	{
 		// Arrange
 		var request = _requestBuilder.WithId(transformer).Build();
+		await ServiceScope.AddUserCacheAsync(request, User, CancellationToken);
 
 		// Act
 		await ApiClient.DeleteCurrentAsync(request, CancellationToken);
-		var cachedUser = await CacheHandler.GetByIdAsync(request, CancellationToken);
+		var cachedUser = await ServiceScope.GetUserCacheByIdAsync(request, CancellationToken);
 
 		// Assert
 		cachedUser.ShouldBeNull();

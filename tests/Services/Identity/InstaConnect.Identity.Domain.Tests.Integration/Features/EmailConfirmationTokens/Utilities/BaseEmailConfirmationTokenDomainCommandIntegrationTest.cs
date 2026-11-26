@@ -1,6 +1,5 @@
 using InstaConnect.Identity.Domain.Features.EmailConfirmationTokens.Abstractions;
 using InstaConnect.Identity.Domain.Tests.Features.EmailConfirmationTokens.Utilities;
-using InstaConnect.Identity.Infrastructure.Features.Users.Abstractions;
 using InstaConnect.Identity.Tests.Features.EmailConfirmationTokens.Abstractions;
 using InstaConnect.Identity.Tests.Features.EmailConfirmationTokens.Extensions;
 
@@ -8,8 +7,6 @@ namespace InstaConnect.Identity.Domain.Tests.Integration.Features.EmailConfirmat
 
 public abstract class BaseEmailConfirmationTokenDomainCommandIntegrationTest : BaseEmailConfirmationTokenWebCommandTest
 {
-	protected IUserCacheHandler UserCacheHandler { get; }
-
 	protected IEmailConfirmationTokenCommandService Service { get; }
 
 	protected IEmailConfirmationTokenEventClient EmailConfirmationTokenEventClient { get; }
@@ -17,7 +14,6 @@ public abstract class BaseEmailConfirmationTokenDomainCommandIntegrationTest : B
 	protected BaseEmailConfirmationTokenDomainCommandIntegrationTest(IdentityWebApplicationFactory webApplicationFactory)
 		: base(webApplicationFactory, isEmailConfirmed: false)
 	{
-		UserCacheHandler = ServiceScope.GetCacheHandler();
 		Service = ServiceScope.GetEmailConfirmationTokenCommandService();
 		EmailConfirmationTokenEventClient = webApplicationFactory.CreateEmailConfirmationTokenEventClient();
 	}

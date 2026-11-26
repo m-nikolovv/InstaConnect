@@ -10,10 +10,14 @@ public class ChatMessageExistsByIdCommandRepositoryIntegrationTests : BaseChatMe
 	{
 	}
 
-	protected override async Task OnInitializeAsync()
+	public override async Task InitializeAsync()
 	{
-		await ServiceScope.AddAsync(ChatMessage, CancellationToken);
-		await ServiceScope.AddRangeAsync(ChatMessageImages, CancellationToken);
+		await ServiceScope.InitializeGetByIdAsync(ChatMessage, CancellationToken);
+	}
+
+	public override async Task DisposeAsync()
+	{
+		await ServiceScope.DisposeGetByIdAsync(ChatMessage, CancellationToken);
 	}
 
 	[Fact]

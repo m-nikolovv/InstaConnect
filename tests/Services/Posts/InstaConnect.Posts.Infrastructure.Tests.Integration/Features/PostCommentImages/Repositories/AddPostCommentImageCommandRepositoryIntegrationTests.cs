@@ -9,6 +9,16 @@ public class AddPostCommentImageCommandRepositoryIntegrationTests : BasePostComm
 	{
 	}
 
+	public override async Task InitializeAsync()
+	{
+		await ServiceScope.InitializeAddAsync(PostCommentImage, UserId, CancellationToken);
+	}
+
+	public override async Task DisposeAsync()
+	{
+		await ServiceScope.DisposeAddAsync(PostCommentImage, CancellationToken);
+	}
+
 	[Fact]
 	public async Task AddAsync_ShouldAddPostCommentImage_WhenCommandIsValid()
 	{
@@ -25,7 +35,7 @@ public class AddPostCommentImageCommandRepositoryIntegrationTests : BasePostComm
 	{
 		// Act
 		await Repository.AddAsync(PostCommentImage, CancellationToken);
-		var cachedPostComment = await CommentCacheHandler.GetByIdAsync(PostComment, CurrentUserId, CancellationToken);
+		var cachedPostComment = await ServiceScope.GetPostCommentCacheByIdAsync(PostComment, CurrentUserId, CancellationToken);
 
 		// Assert
 		cachedPostComment.ShouldBeNull();

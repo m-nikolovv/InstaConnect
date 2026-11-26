@@ -10,9 +10,14 @@ public class GetPostCommentImageByIdCommandRepositoryIntegrationTests : BasePost
 	{
 	}
 
-	protected override async Task OnInitializeAsync()
+	public override async Task InitializeAsync()
 	{
-		await ServiceScope.AddAsync(PostCommentImage, CancellationToken);
+		await ServiceScope.InitializeGetByIdAsync(PostCommentImage, CancellationToken);
+	}
+
+	public override async Task DisposeAsync()
+	{
+		await ServiceScope.DisposeGetByIdAsync(PostCommentImage, CancellationToken);
 	}
 
 	[Fact]

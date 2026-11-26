@@ -6,11 +6,4 @@ public abstract class BaseChatWebCommandTest : BaseChatWebTest
 		: base(webApplicationFactory)
 	{
 	}
-
-	public override async Task InitializeAsync()
-	{
-		await ServiceScope.AddAsync(ParticipantOne, CancellationToken);
-		await ServiceScope.AddAsync(ParticipantTwo, CancellationToken);
-		await OnInitializeAsync();
-	}
 }

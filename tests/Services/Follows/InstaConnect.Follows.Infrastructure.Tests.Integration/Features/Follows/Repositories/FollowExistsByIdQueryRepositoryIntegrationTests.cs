@@ -9,6 +9,16 @@ public class FollowExistsByIdQueryRepositoryIntegrationTests : BaseFollowInfrast
 	{
 	}
 
+	public override async Task InitializeAsync()
+	{
+		await ServiceScope.InitializeGetByIdAsync(Follow, CancellationToken);
+	}
+
+	public override async Task DisposeAsync()
+	{
+		await ServiceScope.DisposeGetByIdAsync(Follow, CancellationToken);
+	}
+
 	[Fact]
 	public async Task ExistsByIdAsync_ShouldReturnNull_WhenIdIsInvalid()
 	{

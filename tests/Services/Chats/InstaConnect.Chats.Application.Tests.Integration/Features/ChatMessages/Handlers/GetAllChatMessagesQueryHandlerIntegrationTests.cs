@@ -28,6 +28,16 @@ public class GetAllChatMessagesQueryHandlerIntegrationTests : BaseChatMessageApp
 		_invertedRequest = _invertedRequestBuilder.Build();
 	}
 
+	public override async Task InitializeAsync()
+	{
+		await ServiceScope.InitializeGetAllAsync(_request, ChatMessages, CancellationToken);
+	}
+
+	public override async Task DisposeAsync()
+	{
+		await ServiceScope.DisposeGetAllAsync(_request, ChatMessages, CancellationToken);
+	}
+
 	[Theory]
 	[UserIdNullWithMessageData]
 	[UserIdEmptyWithMessageData]

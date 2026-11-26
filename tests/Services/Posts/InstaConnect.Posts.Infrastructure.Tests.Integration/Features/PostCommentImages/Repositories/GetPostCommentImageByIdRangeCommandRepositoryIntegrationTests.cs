@@ -10,9 +10,14 @@ public class GetPostCommentImageByIdRangeCommandRepositoryIntegrationTests : Bas
 	{
 	}
 
-	protected override async Task OnInitializeAsync()
+	public override async Task InitializeAsync()
 	{
-		await ServiceScope.AddRangeAsync(PostCommentImages, CancellationToken);
+		await ServiceScope.InitializeGetAllAsync(PostCommentImages, CancellationToken);
+	}
+
+	public override async Task DisposeAsync()
+	{
+		await ServiceScope.DisposeGetAllAsync(PostCommentImages, CancellationToken);
 	}
 
 	[Fact]

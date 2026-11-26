@@ -14,9 +14,16 @@ public class DeletePostLikeControllerIntegrationTests : BasePostLikePresentation
 		_request = _requestBuilder.Build();
 	}
 
-	protected override async Task OnInitializeAsync()
+	public override async Task InitializeAsync()
 	{
-		await ServiceScope.AddAsync(PostLike, CancellationToken);
+		await ServiceScope.InitializeDeleteAsync(_request, PostLike, CancellationToken);
+		await base.InitializeAsync();
+	}
+
+	public override async Task DisposeAsync()
+	{
+		await ServiceScope.DisposeDeleteAsync(_request, PostLike, CancellationToken);
+		await base.DisposeAsync();
 	}
 
 	[Theory]
@@ -159,7 +166,7 @@ public class DeletePostLikeControllerIntegrationTests : BasePostLikePresentation
 	{
 		// Act
 		await Controller.DeleteAsync(_request, CancellationToken);
-		var cachedPostLike = await LikeCacheHandler.GetByIdAsync(_request, CancellationToken);
+		var cachedPostLike = await ServiceScope.GetPostLikeCacheByIdAsync(_request, CancellationToken);
 
 		// Assert
 		cachedPostLike.ShouldBeNull();
@@ -172,10 +179,11 @@ public class DeletePostLikeControllerIntegrationTests : BasePostLikePresentation
 	{
 		// Arrange
 		var request = _requestBuilder.WithId(transformer).Build();
+		await ServiceScope.AddPostLikeCacheAsync(request, PostLike, CancellationToken);
 
 		// Act
 		await Controller.DeleteAsync(request, CancellationToken);
-		var cachedPostLike = await LikeCacheHandler.GetByIdAsync(request, CancellationToken);
+		var cachedPostLike = await ServiceScope.GetPostLikeCacheByIdAsync(request, CancellationToken);
 
 		// Assert
 		cachedPostLike.ShouldBeNull();
@@ -188,10 +196,11 @@ public class DeletePostLikeControllerIntegrationTests : BasePostLikePresentation
 	{
 		// Arrange
 		var request = _requestBuilder.WithUserId(transformer).Build();
+		await ServiceScope.AddPostLikeCacheAsync(request, PostLike, CancellationToken);
 
 		// Act
 		await Controller.DeleteAsync(request, CancellationToken);
-		var cachedPostLike = await LikeCacheHandler.GetByIdAsync(request, CancellationToken);
+		var cachedPostLike = await ServiceScope.GetPostLikeCacheByIdAsync(request, CancellationToken);
 
 		// Assert
 		cachedPostLike.ShouldBeNull();
@@ -202,7 +211,7 @@ public class DeletePostLikeControllerIntegrationTests : BasePostLikePresentation
 	{
 		// Act
 		await Controller.DeleteAsync(_request, CancellationToken);
-		var cachedPost = await CacheHandler.GetByIdAsync(_request, CancellationToken);
+		var cachedPost = await ServiceScope.GetPostCacheByIdAsync(_request, CancellationToken);
 
 		// Assert
 		cachedPost.ShouldBeNull();
@@ -215,10 +224,11 @@ public class DeletePostLikeControllerIntegrationTests : BasePostLikePresentation
 	{
 		// Arrange
 		var request = _requestBuilder.WithId(transformer).Build();
+		await ServiceScope.AddPostCacheAsync(request, Post, CancellationToken);
 
 		// Act
 		await Controller.DeleteAsync(request, CancellationToken);
-		var cachedPost = await CacheHandler.GetByIdAsync(request, CancellationToken);
+		var cachedPost = await ServiceScope.GetPostCacheByIdAsync(request, CancellationToken);
 
 		// Assert
 		cachedPost.ShouldBeNull();
@@ -231,10 +241,11 @@ public class DeletePostLikeControllerIntegrationTests : BasePostLikePresentation
 	{
 		// Arrange
 		var request = _requestBuilder.WithUserId(transformer).Build();
+		await ServiceScope.AddPostCacheAsync(request, Post, CancellationToken);
 
 		// Act
 		await Controller.DeleteAsync(request, CancellationToken);
-		var cachedPost = await CacheHandler.GetByIdAsync(request, CancellationToken);
+		var cachedPost = await ServiceScope.GetPostCacheByIdAsync(request, CancellationToken);
 
 		// Assert
 		cachedPost.ShouldBeNull();

@@ -17,9 +17,16 @@ public class DeletePostLikeCommandServiceIntegrationTests : BasePostLikeDomainCo
 		_command = _commandBuilder.Build();
 	}
 
-	protected override async Task OnInitializeAsync()
+	public override async Task InitializeAsync()
 	{
-		await ServiceScope.AddAsync(PostLike, CancellationToken);
+		await ServiceScope.InitializeDeleteAsync(_command, PostLike, CancellationToken);
+		await base.InitializeAsync();
+	}
+
+	public override async Task DisposeAsync()
+	{
+		await ServiceScope.DisposeDeleteAsync(_command, PostLike, CancellationToken);
+		await base.DisposeAsync();
 	}
 
 	[Fact]
@@ -90,7 +97,7 @@ public class DeletePostLikeCommandServiceIntegrationTests : BasePostLikeDomainCo
 	{
 		// Act
 		await Service.DeleteAsync(_command, CancellationToken);
-		var cachedPostLike = await LikeCacheHandler.GetByIdAsync(_command, CancellationToken);
+		var cachedPostLike = await ServiceScope.GetPostLikeCacheByIdAsync(_command, CancellationToken);
 
 		// Assert
 		cachedPostLike.ShouldBeNull();
@@ -103,10 +110,11 @@ public class DeletePostLikeCommandServiceIntegrationTests : BasePostLikeDomainCo
 	{
 		// Arrange
 		var command = _commandBuilder.WithId(transformer).Build();
+		await ServiceScope.AddPostLikeCacheAsync(command, PostLike, CancellationToken);
 
 		// Act
 		await Service.DeleteAsync(command, CancellationToken);
-		var cachedPostLike = await LikeCacheHandler.GetByIdAsync(command, CancellationToken);
+		var cachedPostLike = await ServiceScope.GetPostLikeCacheByIdAsync(command, CancellationToken);
 
 		// Assert
 		cachedPostLike.ShouldBeNull();
@@ -119,10 +127,11 @@ public class DeletePostLikeCommandServiceIntegrationTests : BasePostLikeDomainCo
 	{
 		// Arrange
 		var command = _commandBuilder.WithUserId(transformer).Build();
+		await ServiceScope.AddPostLikeCacheAsync(command, PostLike, CancellationToken);
 
 		// Act
 		await Service.DeleteAsync(command, CancellationToken);
-		var cachedPostLike = await LikeCacheHandler.GetByIdAsync(command, CancellationToken);
+		var cachedPostLike = await ServiceScope.GetPostLikeCacheByIdAsync(command, CancellationToken);
 
 		// Assert
 		cachedPostLike.ShouldBeNull();
@@ -133,7 +142,7 @@ public class DeletePostLikeCommandServiceIntegrationTests : BasePostLikeDomainCo
 	{
 		// Act
 		await Service.DeleteAsync(_command, CancellationToken);
-		var cachedPost = await CacheHandler.GetByIdAsync(_command, CancellationToken);
+		var cachedPost = await ServiceScope.GetPostCacheByIdAsync(_command, CancellationToken);
 
 		// Assert
 		cachedPost.ShouldBeNull();
@@ -146,10 +155,11 @@ public class DeletePostLikeCommandServiceIntegrationTests : BasePostLikeDomainCo
 	{
 		// Arrange
 		var command = _commandBuilder.WithId(transformer).Build();
+		await ServiceScope.AddPostCacheAsync(command, Post, CancellationToken);
 
 		// Act
 		await Service.DeleteAsync(command, CancellationToken);
-		var cachedPost = await CacheHandler.GetByIdAsync(command, CancellationToken);
+		var cachedPost = await ServiceScope.GetPostCacheByIdAsync(command, CancellationToken);
 
 		// Assert
 		cachedPost.ShouldBeNull();
@@ -162,10 +172,11 @@ public class DeletePostLikeCommandServiceIntegrationTests : BasePostLikeDomainCo
 	{
 		// Arrange
 		var command = _commandBuilder.WithUserId(transformer).Build();
+		await ServiceScope.AddPostCacheAsync(command, Post, CancellationToken);
 
 		// Act
 		await Service.DeleteAsync(command, CancellationToken);
-		var cachedPost = await CacheHandler.GetByIdAsync(command, CancellationToken);
+		var cachedPost = await ServiceScope.GetPostCacheByIdAsync(command, CancellationToken);
 
 		// Assert
 		cachedPost.ShouldBeNull();

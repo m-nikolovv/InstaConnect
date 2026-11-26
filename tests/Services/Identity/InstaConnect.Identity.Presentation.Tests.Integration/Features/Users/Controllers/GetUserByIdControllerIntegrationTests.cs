@@ -1,3 +1,4 @@
+
 namespace InstaConnect.Identity.Presentation.Tests.Integration.Features.Users.Controllers;
 
 public class GetUserByIdControllerIntegrationTests : BaseUserPresentationQueryIntegrationTest
@@ -12,6 +13,16 @@ public class GetUserByIdControllerIntegrationTests : BaseUserPresentationQueryIn
 		_requestBuilderFactory = new();
 		_requestBuilder = _requestBuilderFactory.Create(User, CurrentUserId);
 		_request = _requestBuilder.Build();
+	}
+
+	public override async Task InitializeAsync()
+	{
+		await ServiceScope.InitializeGetByIdAsync(_request, User, CancellationToken);
+	}
+
+	public override async Task DisposeAsync()
+	{
+		await ServiceScope.DisposeGetByIdAsync(_request, User, CancellationToken);
 	}
 
 	[Theory]
@@ -140,7 +151,7 @@ public class GetUserByIdControllerIntegrationTests : BaseUserPresentationQueryIn
 	{
 		// Act
 		await Controller.GetByIdAsync(_request, CancellationToken);
-		var cachedUser = await CacheHandler.GetByIdAsync(_request, CancellationToken);
+		var cachedUser = await ServiceScope.GetUserCacheByIdAsync(_request, CancellationToken);
 
 		// Assert
 		cachedUser.ShouldSatisfy(_request, User);
@@ -156,7 +167,7 @@ public class GetUserByIdControllerIntegrationTests : BaseUserPresentationQueryIn
 
 		// Act
 		await Controller.GetByIdAsync(request, CancellationToken);
-		var cachedUser = await CacheHandler.GetByIdAsync(request, CancellationToken);
+		var cachedUser = await ServiceScope.GetUserCacheByIdAsync(request, CancellationToken);
 
 		// Assert
 		cachedUser.ShouldSatisfy(request, User);
@@ -173,7 +184,7 @@ public class GetUserByIdControllerIntegrationTests : BaseUserPresentationQueryIn
 
 		// Act
 		await Controller.GetByIdAsync(request, CancellationToken);
-		var cachedUser = await CacheHandler.GetByIdAsync(request, CancellationToken);
+		var cachedUser = await ServiceScope.GetUserCacheByIdAsync(request, CancellationToken);
 
 		// Assert
 		cachedUser.ShouldSatisfy(request, User);

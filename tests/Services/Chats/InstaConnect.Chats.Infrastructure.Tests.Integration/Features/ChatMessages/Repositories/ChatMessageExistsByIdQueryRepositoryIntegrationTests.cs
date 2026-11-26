@@ -10,6 +10,16 @@ public class ChatMessageExistsByIdQueryRepositoryIntegrationTests : BaseChatMess
 	{
 	}
 
+	public override async Task InitializeAsync()
+	{
+		await ServiceScope.InitializeGetByIdAsync(ChatMessage, CancellationToken);
+	}
+
+	public override async Task DisposeAsync()
+	{
+		await ServiceScope.DisposeGetByIdAsync(ChatMessage, CancellationToken);
+	}
+
 	[Fact]
 	public async Task ExistsByIdAsync_ShouldReturnNull_WhenIdIsInvalid()
 	{

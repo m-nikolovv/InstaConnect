@@ -1,3 +1,4 @@
+
 namespace InstaConnect.Posts.Presentation.Tests.Functional.Features.PostCommentLikes.Endpoints;
 
 public class AddPostCommentLikeFunctionalTests : BasePostCommentLikePresentationCommandFunctionalTest
@@ -12,6 +13,18 @@ public class AddPostCommentLikeFunctionalTests : BasePostCommentLikePresentation
 		_requestBuilderFactory = new();
 		_requestBuilder = _requestBuilderFactory.Create(PostComment, User);
 		_request = _requestBuilder.Build();
+	}
+
+	public override async Task InitializeAsync()
+	{
+		await ServiceScope.InitializeAddAsync(_request, PostCommentLike, CancellationToken);
+		await base.InitializeAsync();
+	}
+
+	public override async Task DisposeAsync()
+	{
+		await ServiceScope.DisposeAddAsync(_request, PostCommentLike, CancellationToken);
+		await base.DisposeAsync();
 	}
 
 	[Fact]
@@ -500,7 +513,7 @@ public class AddPostCommentLikeFunctionalTests : BasePostCommentLikePresentation
 	{
 		// Act
 		await CommentLikeApiClient.AddAsync(_request, CancellationToken);
-		var cachedPostComment = await CommentCacheHandler.GetByIdAsync(_request, CancellationToken);
+		var cachedPostComment = await ServiceScope.GetPostCommentCacheByIdAsync(_request, CancellationToken);
 
 		// Assert
 		cachedPostComment.ShouldBeNull();
@@ -513,10 +526,11 @@ public class AddPostCommentLikeFunctionalTests : BasePostCommentLikePresentation
 	{
 		// Arrange
 		var request = _requestBuilder.WithId(transformer).Build();
+		await ServiceScope.AddPostCommentCacheAsync(request, PostComment, CancellationToken);
 
 		// Act
 		await CommentLikeApiClient.AddAsync(request, CancellationToken);
-		var cachedPostComment = await CommentCacheHandler.GetByIdAsync(request, CancellationToken);
+		var cachedPostComment = await ServiceScope.GetPostCommentCacheByIdAsync(request, CancellationToken);
 
 		// Assert
 		cachedPostComment.ShouldBeNull();
@@ -529,10 +543,11 @@ public class AddPostCommentLikeFunctionalTests : BasePostCommentLikePresentation
 	{
 		// Arrange
 		var request = _requestBuilder.WithCommentId(transformer).Build();
+		await ServiceScope.AddPostCommentCacheAsync(request, PostComment, CancellationToken);
 
 		// Act
 		await CommentLikeApiClient.AddAsync(request, CancellationToken);
-		var cachedPostComment = await CommentCacheHandler.GetByIdAsync(request, CancellationToken);
+		var cachedPostComment = await ServiceScope.GetPostCommentCacheByIdAsync(request, CancellationToken);
 
 		// Assert
 		cachedPostComment.ShouldBeNull();
@@ -545,10 +560,11 @@ public class AddPostCommentLikeFunctionalTests : BasePostCommentLikePresentation
 	{
 		// Arrange
 		var request = _requestBuilder.WithUserId(transformer).Build();
+		await ServiceScope.AddPostCommentCacheAsync(request, PostComment, CancellationToken);
 
 		// Act
 		await CommentLikeApiClient.AddAsync(request, CancellationToken);
-		var cachedPostComment = await CommentCacheHandler.GetByIdAsync(request, CancellationToken);
+		var cachedPostComment = await ServiceScope.GetPostCommentCacheByIdAsync(request, CancellationToken);
 
 		// Assert
 		cachedPostComment.ShouldBeNull();

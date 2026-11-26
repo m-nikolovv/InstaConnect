@@ -17,6 +17,16 @@ public class GetPostLikeByIdQueryRepositoryIntegrationTests : BasePostLikeInfras
 		_currentUserQuery = _currentUserQueryBuilder.Build();
 	}
 
+	public override async Task InitializeAsync()
+	{
+		await ServiceScope.InitializeGetByIdAsync(PostLike, CancellationToken);
+	}
+
+	public override async Task DisposeAsync()
+	{
+		await ServiceScope.DisposeGetByIdAsync(PostLike, CancellationToken);
+	}
+
 	[Fact]
 	public async Task GetByIdAsync_ShouldReturnNull_WhenIdIsInvalid()
 	{
@@ -92,7 +102,7 @@ public class GetPostLikeByIdQueryRepositoryIntegrationTests : BasePostLikeInfras
 	{
 		// Act
 		await Repository.GetByIdAsync(PostLikeId, _currentUserQuery, CancellationToken);
-		var cachedPostLike = await LikeCacheHandler.GetByIdAsync(PostLikeId, _currentUserQuery, CancellationToken);
+		var cachedPostLike = await ServiceScope.GetPostLikeCacheByIdAsync(PostLikeId, _currentUserQuery, CancellationToken);
 
 		// Assert
 		cachedPostLike.ShouldSatisfy(PostLikeId, _currentUserQuery, PostLike);
@@ -108,7 +118,7 @@ public class GetPostLikeByIdQueryRepositoryIntegrationTests : BasePostLikeInfras
 
 		// Act
 		await Repository.GetByIdAsync(id, _currentUserQuery, CancellationToken);
-		var cachedPostLike = await LikeCacheHandler.GetByIdAsync(id, _currentUserQuery, CancellationToken);
+		var cachedPostLike = await ServiceScope.GetPostLikeCacheByIdAsync(id, _currentUserQuery, CancellationToken);
 
 		// Assert
 		cachedPostLike.ShouldSatisfy(id, _currentUserQuery, PostLike);
@@ -124,7 +134,7 @@ public class GetPostLikeByIdQueryRepositoryIntegrationTests : BasePostLikeInfras
 
 		// Act
 		await Repository.GetByIdAsync(id, _currentUserQuery, CancellationToken);
-		var cachedPostLike = await LikeCacheHandler.GetByIdAsync(id, _currentUserQuery, CancellationToken);
+		var cachedPostLike = await ServiceScope.GetPostLikeCacheByIdAsync(id, _currentUserQuery, CancellationToken);
 
 		// Assert
 		cachedPostLike.ShouldSatisfy(id, _currentUserQuery, PostLike);
@@ -142,7 +152,7 @@ public class GetPostLikeByIdQueryRepositoryIntegrationTests : BasePostLikeInfras
 
 		// Act
 		await Repository.GetByIdAsync(PostLikeId, currentUserQuery, CancellationToken);
-		var cachedPostLike = await LikeCacheHandler.GetByIdAsync(PostLikeId, currentUserQuery, CancellationToken);
+		var cachedPostLike = await ServiceScope.GetPostLikeCacheByIdAsync(PostLikeId, currentUserQuery, CancellationToken);
 
 		// Assert
 		cachedPostLike.ShouldSatisfy(PostLikeId, currentUserQuery, PostLike);

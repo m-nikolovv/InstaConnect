@@ -22,6 +22,16 @@ public class GetAllPostCommentLikesQueryHandlerIntegrationTests : BasePostCommen
 		_request = _requestBuilder.Build();
 	}
 
+	public override async Task InitializeAsync()
+	{
+		await ServiceScope.InitializeGetAllAsync(_request, PostCommentLikes, CancellationToken);
+	}
+
+	public override async Task DisposeAsync()
+	{
+		await ServiceScope.DisposeGetAllAsync(_request, PostCommentLikes, CancellationToken);
+	}
+
 	[Theory]
 	[PostIdNullWithMessageData]
 	[PostIdEmptyWithMessageData]

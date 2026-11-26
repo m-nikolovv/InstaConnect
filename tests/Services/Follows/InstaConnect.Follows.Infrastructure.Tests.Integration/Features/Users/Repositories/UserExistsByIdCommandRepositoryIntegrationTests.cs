@@ -1,3 +1,4 @@
+
 namespace InstaConnect.Follows.Infrastructure.Tests.Integration.Features.Users.Repositories;
 
 public class UserExistsByIdCommandRepositoryIntegrationTests : BaseUserInfrastructureCommandIntegrationTest
@@ -7,9 +8,14 @@ public class UserExistsByIdCommandRepositoryIntegrationTests : BaseUserInfrastru
 	{
 	}
 
-	protected override async Task OnInitializeAsync()
+	public override async Task InitializeAsync()
 	{
-		await ServiceScope.AddAsync(User, CancellationToken);
+		await ServiceScope.InitializeGetByIdAsync(User, CancellationToken);
+	}
+
+	public override async Task DisposeAsync()
+	{
+		await ServiceScope.DisposeGetByIdAsync(User, CancellationToken);
 	}
 
 	[Fact]

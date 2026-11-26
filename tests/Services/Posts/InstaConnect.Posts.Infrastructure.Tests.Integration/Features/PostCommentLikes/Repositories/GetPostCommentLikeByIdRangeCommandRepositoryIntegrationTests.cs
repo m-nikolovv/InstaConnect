@@ -12,9 +12,14 @@ public class GetPostCommentLikeByIdRangeCommandRepositoryIntegrationTests : Base
 		_include = IncludeBuilderFactory.Create().WithUser().WithPostComment().Build();
 	}
 
-	protected override async Task OnInitializeAsync()
+	public override async Task InitializeAsync()
 	{
-		await ServiceScope.AddRangeAsync(PostCommentLikes, CancellationToken);
+		await ServiceScope.InitializeGetAllAsync(PostCommentLikes, CancellationToken);
+	}
+
+	public override async Task DisposeAsync()
+	{
+		await ServiceScope.DisposeGetAllAsync(PostCommentLikes, CancellationToken);
 	}
 
 	[Fact]

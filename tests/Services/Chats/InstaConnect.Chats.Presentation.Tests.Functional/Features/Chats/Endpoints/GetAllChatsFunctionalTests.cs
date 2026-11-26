@@ -2,6 +2,7 @@ using InstaConnect.Chats.Domain.Features.Chats.Models.Entities;
 using InstaConnect.Chats.Domain.Features.Chats.Models.Requests;
 using InstaConnect.Chats.Presentation.Features.Chats.Models.Requests;
 using InstaConnect.Chats.Presentation.Tests.Features.Chats.Builders;
+using InstaConnect.Chats.Presentation.Tests.Features.Chats.Utilities;
 using InstaConnect.Chats.Presentation.Tests.Functional.Features.Chats.Utilities;
 using InstaConnect.Chats.Tests.Features.Chats.DataAttributes.Page;
 using InstaConnect.Chats.Tests.Features.Chats.DataAttributes.PageSize;
@@ -29,6 +30,16 @@ public class GetAllChatsFunctionalTests : BaseChatPresentationQueryFunctionalTes
 
 		_invertedRequestBuilder = _requestBuilderFactory.Create(Chat, CurrentUserId).WithCurrentUserId(ParticipantTwoId).WithParticipantTwoName(ParticipantOne.Name);
 		_invertedRequest = _invertedRequestBuilder.Build();
+	}
+
+	public override async Task InitializeAsync()
+	{
+		await ServiceScope.InitializeGetAllAsync(_request, Chats, CancellationToken);
+	}
+
+	public override async Task DisposeAsync()
+	{
+		await ServiceScope.DisposeGetAllAsync(_request, Chats, CancellationToken);
 	}
 
 	[Fact]

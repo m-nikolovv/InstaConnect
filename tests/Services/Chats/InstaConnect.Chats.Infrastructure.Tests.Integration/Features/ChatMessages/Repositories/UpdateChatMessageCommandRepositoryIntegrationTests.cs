@@ -10,9 +10,14 @@ public class UpdateChatMessageCommandRepositoryIntegrationTests : BaseChatMessag
 	{
 	}
 
-	protected override async Task OnInitializeAsync()
+	public override async Task InitializeAsync()
 	{
-		await ServiceScope.AddAsync(ChatMessage, CancellationToken);
+		await ServiceScope.InitializeUpdateAsync(ChatMessage, CurrentUserId, CancellationToken);
+	}
+
+	public override async Task DisposeAsync()
+	{
+		await ServiceScope.DisposeUpdateAsync(ChatMessage, CancellationToken);
 	}
 
 	[Fact]
@@ -37,7 +42,7 @@ public class UpdateChatMessageCommandRepositoryIntegrationTests : BaseChatMessag
 
 		// Act
 		await Repository.UpdateAsync(updatedChatMessage, CancellationToken);
-		var cachedChatMessage = await MessageCacheHandler.GetByIdAsync(updatedChatMessage, CurrentUserId, CancellationToken);
+		var cachedChatMessage = await ServiceScope.GetChatMessageCacheByIdAsync(updatedChatMessage, CurrentUserId, CancellationToken);
 
 		// Assert
 		cachedChatMessage.ShouldBeNull();

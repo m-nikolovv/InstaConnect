@@ -1,6 +1,5 @@
 using InstaConnect.Posts.Application.Features.Users.Models;
 using InstaConnect.Posts.Domain.Features.Users.Models.Responses;
-using InstaConnect.Posts.Infrastructure.Features.Users.Abstractions;
 
 namespace InstaConnect.Posts.Application.Tests.Features.Users.Utilities;
 
@@ -34,22 +33,75 @@ public static class UserSetups
 				response.Response,
 				cancellationToken);
 		}
-	}
 
-	extension(IUserCacheHandler cacheHandler)
-	{
-		public async Task<UserResponse?> GetByIdAsync(
+		public async Task<UserResponse?> GetUserCacheByIdAsync(
 			UpdateUserCommandRequest request,
 			CancellationToken cancellationToken)
 		{
-			return await cacheHandler.GetByIdAsync(request.Id, request.Id, cancellationToken);
+			return await serviceScope.GetUserCacheByIdAsync(request.Id, request.Id, cancellationToken);
 		}
 
-		public async Task<UserResponse?> GetByIdAsync(
+		public async Task<UserResponse?> GetUserCacheByIdAsync(
 			DeleteUserCommandRequest request,
 			CancellationToken cancellationToken)
 		{
-			return await cacheHandler.GetByIdAsync(request.Id, request.Id, cancellationToken);
+			return await serviceScope.GetUserCacheByIdAsync(request.Id, request.Id, cancellationToken);
+		}
+
+		public async Task DisposeAddAsync(
+			AddUserCommandRequest request,
+			User user,
+			CancellationToken cancellationToken)
+		{
+			await serviceScope.DisposeAddAsync(user, cancellationToken);
+		}
+
+		public async Task InitializeDeleteAsync(
+			DeleteUserCommandRequest request,
+			User user,
+			CancellationToken cancellationToken)
+		{
+			await serviceScope.InitializeDeleteAsync(user, request.Id, cancellationToken);
+		}
+
+		public async Task DisposeDeleteAsync(
+			DeleteUserCommandRequest request,
+			User user,
+			CancellationToken cancellationToken)
+		{
+			await serviceScope.DisposeDeleteAsync(user, cancellationToken);
+		}
+
+		public async Task AddUserCacheAsync(
+			DeleteUserCommandRequest request,
+			User user,
+			CancellationToken cancellationToken)
+		{
+			await serviceScope.AddUserCacheAsync(user, request.Id, cancellationToken);
+		}
+
+		public async Task AddUserCacheAsync(
+			UpdateUserCommandRequest request,
+			User user,
+			CancellationToken cancellationToken)
+		{
+			await serviceScope.AddUserCacheAsync(user, request.Id, cancellationToken);
+		}
+
+		public async Task InitializeUpdateAsync(
+			UpdateUserCommandRequest request,
+			User user,
+			CancellationToken cancellationToken)
+		{
+			await serviceScope.InitializeUpdateAsync(user, request.Id, cancellationToken);
+		}
+
+		public async Task DisposeUpdateAsync(
+			UpdateUserCommandRequest request,
+			User user,
+			CancellationToken cancellationToken)
+		{
+			await serviceScope.DisposeUpdateAsync(user, cancellationToken);
 		}
 	}
 }

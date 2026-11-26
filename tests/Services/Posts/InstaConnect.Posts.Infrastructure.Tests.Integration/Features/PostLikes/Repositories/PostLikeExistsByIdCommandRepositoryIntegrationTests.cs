@@ -9,9 +9,14 @@ public class PostLikeExistsByIdCommandRepositoryIntegrationTests : BasePostLikeI
 	{
 	}
 
-	protected override async Task OnInitializeAsync()
+	public override async Task InitializeAsync()
 	{
-		await ServiceScope.AddAsync(PostLike, CancellationToken);
+		await ServiceScope.InitializeGetByIdAsync(PostLike, CancellationToken);
+	}
+
+	public override async Task DisposeAsync()
+	{
+		await ServiceScope.DisposeGetByIdAsync(PostLike, CancellationToken);
 	}
 
 	[Fact]

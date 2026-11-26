@@ -1,6 +1,5 @@
 using InstaConnect.Follows.Domain.Features.Follows.Abstractions;
 using InstaConnect.Follows.Domain.Tests.Features.Follows.Utilities;
-using InstaConnect.Follows.Infrastructure.Features.Follows.Abstractions;
 
 namespace InstaConnect.Follows.Domain.Tests.Integration.Features.Follows.Utilities;
 
@@ -8,11 +7,8 @@ public abstract class BaseFollowDomainQueryIntegrationTest : BaseFollowWebQueryT
 {
 	protected IFollowQueryService Service { get; }
 
-	protected IFollowCacheHandler CacheHandler { get; }
-
 	protected BaseFollowDomainQueryIntegrationTest(FollowsWebApplicationFactory webApplicationFactory) : base(webApplicationFactory)
 	{
 		Service = ServiceScope.GetFollowQueryService();
-		CacheHandler = ServiceScope.GetFollowCacheHandler();
 	}
 }

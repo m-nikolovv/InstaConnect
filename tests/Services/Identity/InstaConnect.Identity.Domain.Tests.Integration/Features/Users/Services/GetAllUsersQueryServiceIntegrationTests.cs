@@ -1,4 +1,5 @@
 using InstaConnect.Identity.Domain.Features.Users.Models.Entities;
+using InstaConnect.Identity.Domain.Tests.Features.Users.Utilities;
 using InstaConnect.Identity.Tests.Features.Users.DataAttributes.FirstName;
 using InstaConnect.Identity.Tests.Features.Users.DataAttributes.LastName;
 using InstaConnect.Identity.Tests.Features.Users.DataAttributes.SortOrder;
@@ -18,6 +19,16 @@ public class GetAllUsersQueryServiceIntegrationTests : BaseUserDomainQueryIntegr
 		_queryBuilderFactory = new();
 		_queryBuilder = _queryBuilderFactory.Create(User, CurrentUserId);
 		_query = _queryBuilder.Build();
+	}
+
+	public override async Task InitializeAsync()
+	{
+		await ServiceScope.InitializeGetAllAsync(_query, Users, CancellationToken);
+	}
+
+	public override async Task DisposeAsync()
+	{
+		await ServiceScope.DisposeGetAllAsync(_query, Users, CancellationToken);
 	}
 
 	[Fact]

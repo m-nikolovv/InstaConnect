@@ -110,17 +110,157 @@ public static class FollowSetups
 				await serviceScope.DeleteAsync(follow, cancellationToken);
 			}
 		}
-	}
 
-	extension(IFollowCacheHandler cacheHandler)
-	{
-		public async Task<FollowResponse?> GetByIdAsync(
+		public async Task<FollowResponse?> GetFollowCacheByIdAsync(
 			string followerId,
 			string followingId,
 			string currentUserId,
 			CancellationToken cancellationToken)
 		{
+			var cacheHandler = serviceScope.GetFollowCacheHandler();
+
 			return await cacheHandler.GetByIdAsync(new(new(followerId), new(followingId)), new(currentUserId), cancellationToken);
+		}
+
+		public async Task<FollowResponse?> GetFollowCacheByIdAsync(
+			FollowId id,
+			UserId currentUserId,
+			CancellationToken cancellationToken)
+		{
+			var cacheHandler = serviceScope.GetFollowCacheHandler();
+
+			return await cacheHandler.GetByIdAsync(id, currentUserId, cancellationToken);
+		}
+
+		public async Task InitializeAddAsync(
+			Follow follow,
+			CancellationToken cancellationToken)
+		{
+			var users = new List<User> { follow.Follower!, follow.Following! }.DistinctBy(p => p.Id).ToList();
+
+			await serviceScope.AddRangeAsync(users, cancellationToken);
+		}
+
+		public async Task DisposeAddAsync(
+			Follow follow,
+			CancellationToken cancellationToken)
+		{
+			var users = new List<User> { follow.Follower!, follow.Following! }.DistinctBy(p => p.Id).ToList();
+
+			await serviceScope.DeleteAsync(follow, cancellationToken);
+
+			foreach (var user in users)
+			{
+				await serviceScope.DeleteAsync(user, cancellationToken);
+			}
+		}
+
+		public async Task InitializeDeleteAsync(
+			Follow follow,
+			string currentUserId,
+			CancellationToken cancellationToken)
+		{
+			var users = new List<User> { follow.Follower!, follow.Following! }.DistinctBy(p => p.Id).ToList();
+
+			await serviceScope.AddRangeAsync(users, cancellationToken);
+			await serviceScope.AddAsync(follow, cancellationToken);
+			await serviceScope.AddFollowCacheAsync(follow, currentUserId, cancellationToken);
+		}
+
+		public async Task InitializeDeleteAsync(
+			Follow follow,
+			UserId currentUserId,
+			CancellationToken cancellationToken)
+		{
+			await serviceScope.InitializeDeleteAsync(follow, currentUserId.Id, cancellationToken);
+		}
+
+		public async Task DisposeDeleteAsync(
+			Follow follow,
+			CancellationToken cancellationToken)
+		{
+			var users = new List<User> { follow.Follower!, follow.Following! }.DistinctBy(p => p.Id).ToList();
+
+			await serviceScope.DeleteAsync(follow, cancellationToken);
+
+			foreach (var user in users)
+			{
+				await serviceScope.DeleteAsync(user, cancellationToken);
+			}
+		}
+
+		public async Task InitializeGetAllAsync(
+			ICollection<Follow> follows,
+			CancellationToken cancellationToken)
+		{
+			var users = follows
+				.Select(p => p.Follower!)
+				.Concat(follows.Select(p => p.Following!))
+				.DistinctBy(p => p.Id)
+				.ToList();
+
+			await serviceScope.AddRangeAsync(users, cancellationToken);
+			await serviceScope.AddRangeAsync(follows, cancellationToken);
+		}
+
+		public async Task DisposeGetAllAsync(
+			ICollection<Follow> follows,
+			CancellationToken cancellationToken)
+		{
+			var users = follows
+				.Select(p => p.Follower!)
+				.Concat(follows.Select(p => p.Following!))
+				.DistinctBy(p => p.Id)
+				.ToList();
+
+			await serviceScope.DeleteRangeAsync(follows, cancellationToken);
+
+			foreach (var user in users)
+			{
+				await serviceScope.DeleteAsync(user, cancellationToken);
+			}
+		}
+
+		public async Task InitializeGetByIdAsync(
+			Follow follow,
+			CancellationToken cancellationToken)
+		{
+			var users = new List<User> { follow.Follower!, follow.Following! }.DistinctBy(p => p.Id).ToList();
+
+			await serviceScope.AddRangeAsync(users, cancellationToken);
+			await serviceScope.AddAsync(follow, cancellationToken);
+		}
+
+		public async Task DisposeGetByIdAsync(
+			Follow follow,
+			CancellationToken cancellationToken)
+		{
+			var users = new List<User> { follow.Follower!, follow.Following! }.DistinctBy(p => p.Id).ToList();
+
+			await serviceScope.DeleteAsync(follow, cancellationToken);
+
+			foreach (var user in users)
+			{
+				await serviceScope.DeleteAsync(user, cancellationToken);
+			}
+		}
+
+		public async Task AddFollowCacheAsync(
+			Follow follow,
+			string currentUserId,
+			CancellationToken cancellationToken)
+		{
+			var cacheHandler = serviceScope.GetFollowCacheHandler();
+
+			await cacheHandler.AddAsync(follow.ToFullResponse(currentUserId), new(currentUserId), cancellationToken);
+		}
+
+		public async Task AddFollowCacheAsync(
+			Follow follow,
+			UserId currentUserId,
+			CancellationToken cancellationToken)
+		{
+			await serviceScope.AddFollowCacheAsync(follow, currentUserId.Id, cancellationToken);
 		}
 	}
 }

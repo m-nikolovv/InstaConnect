@@ -17,6 +17,18 @@ public class AddPostLikeCommandServiceIntegrationTests : BasePostLikeDomainComma
 		_command = _commandBuilder.Build();
 	}
 
+	public override async Task InitializeAsync()
+	{
+		await ServiceScope.InitializeAddAsync(_command, PostLike, CancellationToken);
+		await base.InitializeAsync();
+	}
+
+	public override async Task DisposeAsync()
+	{
+		await ServiceScope.DisposeAddAsync(_command, PostLike, CancellationToken);
+		await base.DisposeAsync();
+	}
+
 	[Fact]
 	public async Task AddAsync_ShouldThrowPostNotFoundException_WhenPostNotFound()
 	{
@@ -164,7 +176,7 @@ public class AddPostLikeCommandServiceIntegrationTests : BasePostLikeDomainComma
 	{
 		// Act
 		await Service.AddAsync(_command, CancellationToken);
-		var cachedPost = await CacheHandler.GetByIdAsync(_command, CancellationToken);
+		var cachedPost = await ServiceScope.GetPostCacheByIdAsync(_command, CancellationToken);
 
 		// Assert
 		cachedPost.ShouldBeNull();
@@ -177,10 +189,11 @@ public class AddPostLikeCommandServiceIntegrationTests : BasePostLikeDomainComma
 	{
 		// Arrange
 		var command = _commandBuilder.WithId(transformer).Build();
+		await ServiceScope.AddPostCacheAsync(command, Post, CancellationToken);
 
 		// Act
 		await Service.AddAsync(command, CancellationToken);
-		var cachedPost = await CacheHandler.GetByIdAsync(command, CancellationToken);
+		var cachedPost = await ServiceScope.GetPostCacheByIdAsync(command, CancellationToken);
 
 		// Assert
 		cachedPost.ShouldBeNull();
@@ -193,10 +206,11 @@ public class AddPostLikeCommandServiceIntegrationTests : BasePostLikeDomainComma
 	{
 		// Arrange
 		var command = _commandBuilder.WithUserId(transformer).Build();
+		await ServiceScope.AddPostCacheAsync(command, Post, CancellationToken);
 
 		// Act
 		await Service.AddAsync(command, CancellationToken);
-		var cachedPost = await CacheHandler.GetByIdAsync(command, CancellationToken);
+		var cachedPost = await ServiceScope.GetPostCacheByIdAsync(command, CancellationToken);
 
 		// Assert
 		cachedPost.ShouldBeNull();

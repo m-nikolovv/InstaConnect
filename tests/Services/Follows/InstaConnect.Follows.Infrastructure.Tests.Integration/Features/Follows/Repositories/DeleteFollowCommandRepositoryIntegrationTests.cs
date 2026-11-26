@@ -9,9 +9,14 @@ public class DeleteFollowCommandRepositoryIntegrationTests : BaseFollowInfrastru
 	{
 	}
 
-	protected override async Task OnInitializeAsync()
+	public override async Task InitializeAsync()
 	{
-		await ServiceScope.AddAsync(Follow, CancellationToken);
+		await ServiceScope.InitializeDeleteAsync(Follow, CurrentUserId, CancellationToken);
+	}
+
+	public override async Task DisposeAsync()
+	{
+		await ServiceScope.DisposeDeleteAsync(Follow, CancellationToken);
 	}
 
 	[Fact]
@@ -30,7 +35,7 @@ public class DeleteFollowCommandRepositoryIntegrationTests : BaseFollowInfrastru
 	{
 		// Act
 		await Repository.DeleteAsync(Follow, CancellationToken);
-		var cachedFollow = await CacheHandler.GetByIdAsync(Follow, CurrentUserId, CancellationToken);
+		var cachedFollow = await ServiceScope.GetFollowCacheByIdAsync(Follow, CurrentUserId, CancellationToken);
 
 		// Assert
 		cachedFollow.ShouldBeNull();

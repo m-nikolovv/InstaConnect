@@ -23,6 +23,16 @@ public class GetChatsTotalCountQueryRepositoryIntegrationTests : BaseChatInfrast
 		_invertedFilterQuery = _invertedFilterQueryBuilder.Build();
 	}
 
+	public override async Task InitializeAsync()
+	{
+		await ServiceScope.InitializeGetAllAsync(Chats, CancellationToken);
+	}
+
+	public override async Task DisposeAsync()
+	{
+		await ServiceScope.DisposeGetAllAsync(Chats, CancellationToken);
+	}
+
 	[Fact]
 	public async Task GetTotalCountAsync_ShouldReturnResponse_WhenQueryIsValid()
 	{

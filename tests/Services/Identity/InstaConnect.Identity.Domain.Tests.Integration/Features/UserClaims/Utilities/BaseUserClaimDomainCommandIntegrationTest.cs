@@ -1,6 +1,5 @@
 using InstaConnect.Identity.Domain.Features.UserClaims.Abstractions;
 using InstaConnect.Identity.Domain.Tests.Features.UserClaims.Utilities;
-using InstaConnect.Identity.Infrastructure.Features.UserClaims.Abstractions;
 using InstaConnect.Identity.Tests.Features.UserClaims.Abstractions;
 using InstaConnect.Identity.Tests.Features.UserClaims.Extensions;
 
@@ -10,15 +9,12 @@ public abstract class BaseUserClaimDomainCommandIntegrationTest : BaseUserClaimW
 {
 	protected IUserClaimCommandService Service { get; }
 
-	protected IUserClaimCacheHandler CacheHandler { get; }
-
 	protected IUserClaimEventClient ClaimEventClient { get; }
 
 	protected BaseUserClaimDomainCommandIntegrationTest(IdentityWebApplicationFactory webApplicationFactory)
 		: base(webApplicationFactory)
 	{
 		Service = ServiceScope.GetClaimCommandService();
-		CacheHandler = ServiceScope.GetClaimCacheHandler();
 		ClaimEventClient = webApplicationFactory.CreateClaimEventClient();
 	}
 

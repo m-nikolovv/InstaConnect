@@ -9,6 +9,16 @@ public class AddPostImageCommandRepositoryIntegrationTests : BasePostImageInfras
 	{
 	}
 
+	public override async Task InitializeAsync()
+	{
+		await ServiceScope.InitializeAddAsync(PostImage, UserId, CancellationToken);
+	}
+
+	public override async Task DisposeAsync()
+	{
+		await ServiceScope.DisposeAddAsync(PostImage, CancellationToken);
+	}
+
 	[Fact]
 	public async Task AddAsync_ShouldAddPostImage_WhenCommandIsValid()
 	{

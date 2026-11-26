@@ -2,6 +2,7 @@ using InstaConnect.Chats.Domain.Features.Chats.Models.Entities;
 using InstaConnect.Chats.Domain.Features.Chats.Models.Requests;
 using InstaConnect.Chats.Domain.Tests.Features.Chats.Assertions;
 using InstaConnect.Chats.Domain.Tests.Features.Chats.Builders;
+using InstaConnect.Chats.Domain.Tests.Features.Chats.Utilities;
 using InstaConnect.Chats.Domain.Tests.Integration.Features.Chats.Utilities;
 using InstaConnect.Chats.Tests.Features.Chats.DataAttributes.SortOrder;
 using InstaConnect.Chats.Tests.Features.Chats.DataAttributes.SortTerm;
@@ -27,6 +28,16 @@ public class GetAllChatsQueryServiceIntegrationTests : BaseChatDomainQueryIntegr
 
 		_invertedQueryBuilder = _queryBuilderFactory.Create(Chat, CurrentUserId).WithCurrentUserId(ParticipantTwoId).WithParticipantTwoName(ParticipantOne.Name);
 		_invertedQuery = _invertedQueryBuilder.Build();
+	}
+
+	public override async Task InitializeAsync()
+	{
+		await ServiceScope.InitializeGetAllAsync(_query, Chats, CancellationToken);
+	}
+
+	public override async Task DisposeAsync()
+	{
+		await ServiceScope.DisposeGetAllAsync(_query, Chats, CancellationToken);
 	}
 
 	[Fact]

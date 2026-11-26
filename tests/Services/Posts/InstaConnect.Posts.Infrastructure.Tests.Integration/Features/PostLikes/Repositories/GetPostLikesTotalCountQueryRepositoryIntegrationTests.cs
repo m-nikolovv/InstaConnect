@@ -16,6 +16,16 @@ public class GetPostLikesTotalCountQueryRepositoryIntegrationTests : BasePostLik
 		_filterQuery = _filterQueryBuilder.Build();
 	}
 
+	public override async Task InitializeAsync()
+	{
+		await ServiceScope.InitializeGetAllAsync(PostLikes, CancellationToken);
+	}
+
+	public override async Task DisposeAsync()
+	{
+		await ServiceScope.DisposeGetAllAsync(PostLikes, CancellationToken);
+	}
+
 	[Fact]
 	public async Task GetTotalCountAsync_ShouldReturnResponse_WhenQueryIsValid()
 	{

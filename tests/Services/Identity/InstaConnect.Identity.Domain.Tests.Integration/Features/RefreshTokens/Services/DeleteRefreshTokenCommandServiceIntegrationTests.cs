@@ -1,6 +1,7 @@
 using InstaConnect.Identity.Domain.Features.RefreshTokens.Models.Requests;
 using InstaConnect.Identity.Domain.Tests.Features.RefreshTokens.Assertions;
 using InstaConnect.Identity.Domain.Tests.Features.RefreshTokens.Builders;
+using InstaConnect.Identity.Domain.Tests.Features.RefreshTokens.Utilities;
 using InstaConnect.Identity.Domain.Tests.Integration.Features.RefreshTokens.Utilities;
 using InstaConnect.Identity.Tests.Features.RefreshTokens.DataAttributes.Value;
 using InstaConnect.Identity.Tests.Features.RefreshTokens.Utilities;
@@ -21,9 +22,14 @@ public class DeleteRefreshTokenCommandServiceIntegrationTests : BaseRefreshToken
 		_command = _commandBuilder.Build();
 	}
 
-	protected override async Task OnInitializeAsync()
+	public override async Task InitializeAsync()
 	{
-		await ServiceScope.AddAsync(RefreshToken, CancellationToken);
+		await ServiceScope.InitializeDeleteAsync(_command, RefreshToken, CancellationToken);
+	}
+
+	public override async Task DisposeAsync()
+	{
+		await ServiceScope.DisposeDeleteAsync(_command, RefreshToken, CancellationToken);
 	}
 
 	[Fact]

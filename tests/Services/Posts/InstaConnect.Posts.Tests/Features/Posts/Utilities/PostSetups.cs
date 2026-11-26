@@ -496,15 +496,4 @@ public static class PostSetups
 			await serviceScope.DeletePostCacheRangeAsync(posts, cancellationToken);
 		}
 	}
-
-	extension(IPostCacheHandler cacheHandler)
-	{
-		public async Task<PostResponse?> GetByIdAsync(
-			string id,
-			string currentUserId,
-			CancellationToken cancellationToken)
-		{
-			return await cacheHandler.GetByIdAsync(new(id), new(currentUserId), cancellationToken);
-		}
-	}
 }

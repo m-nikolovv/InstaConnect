@@ -123,16 +123,164 @@ public static class UserSetups
 			await repository.DeleteAsync(user, cancellationToken);
 			await cacheHandler.DeleteAsync(user.Id, cancellationToken);
 		}
-	}
 
-	extension(IUserCacheHandler cacheHandler)
-	{
-		public async Task<UserResponse?> GetByIdAsync(
+		public async Task<UserResponse?> GetUserCacheByIdAsync(
 			string id,
 			string currentUserId,
 			CancellationToken cancellationToken)
 		{
+			var cacheHandler = serviceScope.GetCacheHandler();
+
 			return await cacheHandler.GetByIdAsync(new(id), new(currentUserId), cancellationToken);
+		}
+
+		public async Task<UserResponse?> GetUserCacheByIdAsync(
+			UserId id,
+			UserId currentUserId,
+			CancellationToken cancellationToken)
+		{
+			var cacheHandler = serviceScope.GetCacheHandler();
+
+			return await cacheHandler.GetByIdAsync(id, currentUserId, cancellationToken);
+		}
+
+		public async Task InitializeAddAsync(
+			User user,
+			CancellationToken cancellationToken)
+		{
+			await serviceScope.AddAsync(user, cancellationToken);
+		}
+
+		public async Task DisposeAddAsync(
+			User user,
+			CancellationToken cancellationToken)
+		{
+			await serviceScope.DeleteAsync(user, cancellationToken);
+		}
+
+		public async Task InitializeDeleteAsync(
+			User user,
+			string currentUserId,
+			CancellationToken cancellationToken)
+		{
+			var userClaims = user.UserClaims;
+			var refreshTokens = user.RefreshTokens;
+			var forgotPasswordTokens = user.ForgotPasswordTokens;
+			var emailConfirmationTokens = user.EmailConfirmationTokens;
+
+			await serviceScope.AddAsync(user, cancellationToken);
+			await serviceScope.AddRangeAsync(userClaims, cancellationToken);
+			await serviceScope.AddRangeAsync(refreshTokens, cancellationToken);
+			await serviceScope.AddRangeAsync(forgotPasswordTokens, cancellationToken);
+			await serviceScope.AddRangeAsync(emailConfirmationTokens, cancellationToken);
+			await serviceScope.AddUserCacheAsync(user, currentUserId, cancellationToken);
+		}
+
+		public async Task InitializeDeleteAsync(
+			User user,
+			UserId currentUserId,
+			CancellationToken cancellationToken)
+		{
+			await serviceScope.InitializeDeleteAsync(user, currentUserId.Id, cancellationToken);
+		}
+
+		public async Task DisposeDeleteAsync(
+			User user,
+			CancellationToken cancellationToken)
+		{
+			var forgotPasswordTokens = user.ForgotPasswordTokens;
+			var emailConfirmationTokens = user.EmailConfirmationTokens;
+
+			await serviceScope.DeleteRangeAsync(emailConfirmationTokens, cancellationToken);
+			await serviceScope.DeleteRangeAsync(forgotPasswordTokens, cancellationToken);
+			await serviceScope.DeleteAsync(user, cancellationToken);
+		}
+
+		public async Task InitializeGetAllAsync(
+			ICollection<User> users,
+			CancellationToken cancellationToken)
+		{
+			await serviceScope.AddRangeAsync(users, cancellationToken);
+		}
+
+		public async Task DisposeGetAllAsync(
+			ICollection<User> users,
+			CancellationToken cancellationToken)
+		{
+
+			foreach (var linkedUser in users)
+			{
+				await serviceScope.DeleteAsync(linkedUser, cancellationToken);
+			}
+		}
+
+		public async Task InitializeGetByIdAsync(
+			User user,
+			CancellationToken cancellationToken)
+		{
+			await serviceScope.AddAsync(user, cancellationToken);
+		}
+
+		public async Task DisposeGetByIdAsync(
+			User user,
+			CancellationToken cancellationToken)
+		{
+			await serviceScope.DeleteAsync(user, cancellationToken);
+		}
+
+		public async Task DisposeInsertAsync(
+			User user,
+			CancellationToken cancellationToken)
+		{
+			await serviceScope.DeleteAsync(user, cancellationToken);
+		}
+
+		public async Task InitializeUpdateAsync(
+			User user,
+			string currentUserId,
+			CancellationToken cancellationToken)
+		{
+			var emailConfirmationTokens = user.EmailConfirmationTokens;
+
+			await serviceScope.AddAsync(user, cancellationToken);
+			await serviceScope.AddRangeAsync(emailConfirmationTokens, cancellationToken);
+			await serviceScope.AddUserCacheAsync(user, currentUserId, cancellationToken);
+		}
+
+		public async Task InitializeUpdateAsync(
+			User user,
+			UserId currentUserId,
+			CancellationToken cancellationToken)
+		{
+			await serviceScope.InitializeUpdateAsync(user, currentUserId.Id, cancellationToken);
+		}
+
+		public async Task DisposeUpdateAsync(
+			User user,
+			CancellationToken cancellationToken)
+		{
+			var emailConfirmationTokens = user.EmailConfirmationTokens;
+
+			await serviceScope.DeleteRangeAsync(emailConfirmationTokens, cancellationToken);
+			await serviceScope.DeleteAsync(user, cancellationToken);
+		}
+
+		public async Task AddUserCacheAsync(
+			User user,
+			string currentUserId,
+			CancellationToken cancellationToken)
+		{
+			var cacheHandler = serviceScope.GetCacheHandler();
+
+			await cacheHandler.AddAsync(user.ToFullResponse(), new(currentUserId), cancellationToken);
+		}
+
+		public async Task AddUserCacheAsync(
+			User user,
+			UserId currentUserId,
+			CancellationToken cancellationToken)
+		{
+			await serviceScope.AddUserCacheAsync(user, currentUserId.Id, cancellationToken);
 		}
 	}
 }

@@ -1,6 +1,7 @@
 using InstaConnect.Identity.Domain.Features.ForgotPasswordTokens.Models.Requests;
 using InstaConnect.Identity.Domain.Tests.Features.ForgotPasswordTokens.Assertions;
 using InstaConnect.Identity.Domain.Tests.Features.ForgotPasswordTokens.Builders;
+using InstaConnect.Identity.Domain.Tests.Features.ForgotPasswordTokens.Utilities;
 using InstaConnect.Identity.Domain.Tests.Integration.Features.ForgotPasswordTokens.Utilities;
 using InstaConnect.Identity.Tests.Features.ForgotPasswordTokens.Utilities;
 
@@ -18,6 +19,18 @@ public class AddForgotPasswordTokenCommandServiceIntegrationTests : BaseForgotPa
 		_commandBuilderFactory = new();
 		_commandBuilder = _commandBuilderFactory.Create(User);
 		_command = _commandBuilder.Build();
+	}
+
+	public override async Task InitializeAsync()
+	{
+		await ServiceScope.InitializeAddAsync(_command, ForgotPasswordToken, CancellationToken);
+		await base.InitializeAsync();
+	}
+
+	public override async Task DisposeAsync()
+	{
+		await ServiceScope.DisposeAddAsync(_command, ForgotPasswordToken, CancellationToken);
+		await base.DisposeAsync();
 	}
 
 	[Fact]

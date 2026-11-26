@@ -56,6 +56,16 @@ public class GetAllChatMessagesQueryRepositoryIntegrationTests : BaseChatMessage
 		_invertedCurrentUserQuery = _invertedCurrentUserQueryBuilder.Build();
 	}
 
+	public override async Task InitializeAsync()
+	{
+		await ServiceScope.InitializeGetAllAsync(ChatMessages, CancellationToken);
+	}
+
+	public override async Task DisposeAsync()
+	{
+		await ServiceScope.DisposeGetAllAsync(ChatMessages, CancellationToken);
+	}
+
 	[Fact]
 	public async Task GetAllAsync_ShouldReturnResponse_WhenQueryIsValid()
 	{

@@ -16,6 +16,16 @@ public class GetFollowByIdQueryServiceIntegrationTests : BaseFollowDomainQueryIn
 		_query = _queryBuilder.Build();
 	}
 
+	public override async Task InitializeAsync()
+	{
+		await ServiceScope.InitializeGetByIdAsync(_query, Follow, CancellationToken);
+	}
+
+	public override async Task DisposeAsync()
+	{
+		await ServiceScope.DisposeGetByIdAsync(_query, Follow, CancellationToken);
+	}
+
 	[Fact]
 	public async Task GetByIdAsync_ShouldThrowFollowNotFoundException_WhenFollowNotFound()
 	{
@@ -88,7 +98,7 @@ public class GetFollowByIdQueryServiceIntegrationTests : BaseFollowDomainQueryIn
 	{
 		// Act
 		await Service.GetByIdAsync(_query, CancellationToken);
-		var cachedFollow = await CacheHandler.GetByIdAsync(_query, CancellationToken);
+		var cachedFollow = await ServiceScope.GetFollowCacheByIdAsync(_query, CancellationToken);
 
 		// Assert
 		cachedFollow.ShouldSatisfy(_query, Follow);
@@ -104,7 +114,7 @@ public class GetFollowByIdQueryServiceIntegrationTests : BaseFollowDomainQueryIn
 
 		// Act
 		await Service.GetByIdAsync(query, CancellationToken);
-		var cachedFollow = await CacheHandler.GetByIdAsync(query, CancellationToken);
+		var cachedFollow = await ServiceScope.GetFollowCacheByIdAsync(query, CancellationToken);
 
 		// Assert
 		cachedFollow.ShouldSatisfy(query, Follow);
@@ -120,7 +130,7 @@ public class GetFollowByIdQueryServiceIntegrationTests : BaseFollowDomainQueryIn
 
 		// Act
 		await Service.GetByIdAsync(query, CancellationToken);
-		var cachedFollow = await CacheHandler.GetByIdAsync(query, CancellationToken);
+		var cachedFollow = await ServiceScope.GetFollowCacheByIdAsync(query, CancellationToken);
 
 		// Assert
 		cachedFollow.ShouldSatisfy(query, Follow);
@@ -138,7 +148,7 @@ public class GetFollowByIdQueryServiceIntegrationTests : BaseFollowDomainQueryIn
 
 		// Act
 		await Service.GetByIdAsync(query, CancellationToken);
-		var cachedFollow = await CacheHandler.GetByIdAsync(query, CancellationToken);
+		var cachedFollow = await ServiceScope.GetFollowCacheByIdAsync(query, CancellationToken);
 
 		// Assert
 		cachedFollow.ShouldSatisfy(query, Follow);

@@ -9,9 +9,14 @@ public class UpdateForgotPasswordTokenCommandRepositoryIntegrationTests : BaseFo
 	{
 	}
 
-	protected override async Task OnInitializeAsync()
+	public override async Task InitializeAsync()
 	{
-		await ServiceScope.AddAsync(ForgotPasswordToken, CancellationToken);
+		await ServiceScope.InitializeUpdateAsync(ForgotPasswordToken, CancellationToken);
+	}
+
+	public override async Task DisposeAsync()
+	{
+		await ServiceScope.DisposeUpdateAsync(ForgotPasswordToken, CancellationToken);
 	}
 
 	[Fact]

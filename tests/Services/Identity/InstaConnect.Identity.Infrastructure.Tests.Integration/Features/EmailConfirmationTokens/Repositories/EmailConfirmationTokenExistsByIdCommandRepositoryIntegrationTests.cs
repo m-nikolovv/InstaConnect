@@ -11,9 +11,14 @@ public class EmailConfirmationTokenExistsByIdCommandRepositoryIntegrationTests :
 	{
 	}
 
-	protected override async Task OnInitializeAsync()
+	public override async Task InitializeAsync()
 	{
-		await ServiceScope.AddAsync(EmailConfirmationToken, CancellationToken);
+		await ServiceScope.InitializeGetByIdAsync(EmailConfirmationToken, CancellationToken);
+	}
+
+	public override async Task DisposeAsync()
+	{
+		await ServiceScope.DisposeGetByIdAsync(EmailConfirmationToken, CancellationToken);
 	}
 
 	[Fact]

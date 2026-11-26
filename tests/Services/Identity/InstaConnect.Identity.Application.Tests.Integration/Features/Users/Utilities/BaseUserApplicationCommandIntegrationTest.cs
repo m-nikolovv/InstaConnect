@@ -1,4 +1,3 @@
-using InstaConnect.Identity.Infrastructure.Features.Users.Abstractions;
 using InstaConnect.Identity.Tests.Features.EmailConfirmationTokens.Abstractions;
 using InstaConnect.Identity.Tests.Features.EmailConfirmationTokens.Extensions;
 using InstaConnect.Identity.Tests.Features.Users.Abstractions;
@@ -12,15 +11,12 @@ public abstract class BaseUserApplicationCommandIntegrationTest : BaseUserWebCom
 
 	protected IUserEventClient EventClient { get; }
 
-	protected IUserCacheHandler CacheHandler { get; }
-
 	protected IEmailConfirmationTokenEventClient EmailConfirmationTokenEventClient { get; }
 
 	protected BaseUserApplicationCommandIntegrationTest(IdentityWebApplicationFactory webApplicationFactory) : base(webApplicationFactory)
 	{
 		Sender = ServiceScope.GetSender();
 		EventClient = webApplicationFactory.CreateEventClient();
-		CacheHandler = ServiceScope.GetCacheHandler();
 		EmailConfirmationTokenEventClient = webApplicationFactory.CreateEmailConfirmationTokenEventClient();
 	}
 

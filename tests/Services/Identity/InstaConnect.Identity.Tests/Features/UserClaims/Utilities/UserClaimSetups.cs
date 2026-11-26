@@ -100,17 +100,135 @@ public static class UserClaimSetups
 			await claimRepository.DeleteAsync(userClaim, cancellationToken);
 			await cacheHandler.DeleteAsync(userClaim.Id, cancellationToken);
 		}
-	}
 
-	extension(IUserClaimCacheHandler cacheHandler)
-	{
-		public async Task<UserClaimResponse?> GetByIdAsync(
+		public async Task<UserClaimResponse?> GetUserClaimCacheByIdAsync(
 			string id,
 			ApplicationClaims claim,
 			string currentUserId,
 			CancellationToken cancellationToken)
 		{
+			var cacheHandler = serviceScope.GetClaimCacheHandler();
+
 			return await cacheHandler.GetByIdAsync(new(new(id), claim), new(currentUserId), cancellationToken);
+		}
+
+		public async Task<UserClaimResponse?> GetUserClaimCacheByIdAsync(
+			UserClaimId id,
+			UserId currentUserId,
+			CancellationToken cancellationToken)
+		{
+			var cacheHandler = serviceScope.GetClaimCacheHandler();
+
+			return await cacheHandler.GetByIdAsync(id, currentUserId, cancellationToken);
+		}
+
+		public async Task InitializeAddAsync(
+			UserClaim userClaim,
+			CancellationToken cancellationToken)
+		{
+			var user = userClaim.User!;
+
+			await serviceScope.AddAsync(user, cancellationToken);
+		}
+
+		public async Task DisposeAddAsync(
+			UserClaim userClaim,
+			CancellationToken cancellationToken)
+		{
+			var user = userClaim.User!;
+
+			await serviceScope.DeleteAsync(user, cancellationToken);
+		}
+
+		public async Task InitializeDeleteAsync(
+			UserClaim userClaim,
+			string currentUserId,
+			CancellationToken cancellationToken)
+		{
+			var user = userClaim.User!;
+
+			await serviceScope.AddAsync(user, cancellationToken);
+			await serviceScope.AddAsync(userClaim, cancellationToken);
+			await serviceScope.AddUserClaimCacheAsync(userClaim, currentUserId, cancellationToken);
+		}
+
+		public async Task InitializeDeleteAsync(
+			UserClaim userClaim,
+			UserId currentUserId,
+			CancellationToken cancellationToken)
+		{
+			await serviceScope.InitializeDeleteAsync(userClaim, currentUserId.Id, cancellationToken);
+		}
+
+		public async Task DisposeDeleteAsync(
+			UserClaim userClaim,
+			CancellationToken cancellationToken)
+		{
+			var user = userClaim.User!;
+
+			await serviceScope.DeleteAsync(userClaim, cancellationToken);
+			await serviceScope.DeleteAsync(user, cancellationToken);
+		}
+
+		public async Task InitializeGetAllAsync(
+			ICollection<UserClaim> userClaims,
+			CancellationToken cancellationToken)
+		{
+			var users = userClaims.Select(p => p.User!).DistinctBy(p => p.Id).ToList();
+
+			await serviceScope.AddRangeAsync(users, cancellationToken);
+			await serviceScope.AddRangeAsync(userClaims, cancellationToken);
+		}
+
+		public async Task DisposeGetAllAsync(
+			ICollection<UserClaim> userClaims,
+			CancellationToken cancellationToken)
+		{
+			var users = userClaims.Select(p => p.User!).DistinctBy(p => p.Id).ToList();
+
+
+			foreach (var linkedUser in users)
+			{
+				await serviceScope.DeleteAsync(linkedUser, cancellationToken);
+			}
+		}
+
+		public async Task InitializeGetByIdAsync(
+			UserClaim userClaim,
+			CancellationToken cancellationToken)
+		{
+			var user = userClaim.User!;
+
+			await serviceScope.AddAsync(user, cancellationToken);
+			await serviceScope.AddAsync(userClaim, cancellationToken);
+		}
+
+		public async Task DisposeGetByIdAsync(
+			UserClaim userClaim,
+			CancellationToken cancellationToken)
+		{
+			var user = userClaim.User!;
+
+			await serviceScope.DeleteAsync(userClaim, cancellationToken);
+			await serviceScope.DeleteAsync(user, cancellationToken);
+		}
+
+		public async Task AddUserClaimCacheAsync(
+			UserClaim userClaim,
+			string currentUserId,
+			CancellationToken cancellationToken)
+		{
+			var cacheHandler = serviceScope.GetClaimCacheHandler();
+
+			await cacheHandler.AddAsync(userClaim.ToFullResponse(), new(currentUserId), cancellationToken);
+		}
+
+		public async Task AddUserClaimCacheAsync(
+			UserClaim userClaim,
+			UserId currentUserId,
+			CancellationToken cancellationToken)
+		{
+			await serviceScope.AddUserClaimCacheAsync(userClaim, currentUserId.Id, cancellationToken);
 		}
 	}
 }

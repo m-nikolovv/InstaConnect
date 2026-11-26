@@ -1,3 +1,4 @@
+
 namespace InstaConnect.Identity.Presentation.Tests.Functional.Features.Users.Endpoints;
 
 public class GetUserDetailsByIdFunctionalTests : BaseUserPresentationQueryFunctionalTest
@@ -12,6 +13,16 @@ public class GetUserDetailsByIdFunctionalTests : BaseUserPresentationQueryFuncti
 		_requestBuilderFactory = new();
 		_requestBuilder = _requestBuilderFactory.Create(User, CurrentUserId);
 		_request = _requestBuilder.Build();
+	}
+
+	public override async Task InitializeAsync()
+	{
+		await ServiceScope.InitializeGetByIdAsync(_request, User, CancellationToken);
+	}
+
+	public override async Task DisposeAsync()
+	{
+		await ServiceScope.DisposeGetByIdAsync(_request, User, CancellationToken);
 	}
 
 	[Fact]
@@ -209,7 +220,7 @@ public class GetUserDetailsByIdFunctionalTests : BaseUserPresentationQueryFuncti
 	{
 		// Act
 		await ApiClient.GetDetailsByIdAsync(_request, CancellationToken);
-		var cachedUser = await CacheHandler.GetByIdAsync(_request, CancellationToken);
+		var cachedUser = await ServiceScope.GetUserCacheByIdAsync(_request, CancellationToken);
 
 		// Assert
 		cachedUser.ShouldSatisfy(_request, User);
@@ -225,7 +236,7 @@ public class GetUserDetailsByIdFunctionalTests : BaseUserPresentationQueryFuncti
 
 		// Act
 		await ApiClient.GetDetailsByIdAsync(request, CancellationToken);
-		var cachedUser = await CacheHandler.GetByIdAsync(request, CancellationToken);
+		var cachedUser = await ServiceScope.GetUserCacheByIdAsync(request, CancellationToken);
 
 		// Assert
 		cachedUser.ShouldSatisfy(request, User);
@@ -242,7 +253,7 @@ public class GetUserDetailsByIdFunctionalTests : BaseUserPresentationQueryFuncti
 
 		// Act
 		await ApiClient.GetDetailsByIdAsync(request, CancellationToken);
-		var cachedUser = await CacheHandler.GetByIdAsync(request, CancellationToken);
+		var cachedUser = await ServiceScope.GetUserCacheByIdAsync(request, CancellationToken);
 
 		// Assert
 		cachedUser.ShouldSatisfy(request, User);

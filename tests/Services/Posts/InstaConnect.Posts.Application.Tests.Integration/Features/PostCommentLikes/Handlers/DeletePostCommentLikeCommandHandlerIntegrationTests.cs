@@ -16,9 +16,16 @@ public class DeletePostCommentLikeCommandHandlerIntegrationTests : BasePostComme
 		_request = _requestBuilder.Build();
 	}
 
-	protected override async Task OnInitializeAsync()
+	public override async Task InitializeAsync()
 	{
-		await ServiceScope.AddAsync(PostCommentLike, CancellationToken);
+		await ServiceScope.InitializeDeleteAsync(_request, PostCommentLike, CancellationToken);
+		await base.InitializeAsync();
+	}
+
+	public override async Task DisposeAsync()
+	{
+		await ServiceScope.DisposeDeleteAsync(_request, PostCommentLike, CancellationToken);
+		await base.DisposeAsync();
 	}
 
 	[Theory]
@@ -163,7 +170,7 @@ public class DeletePostCommentLikeCommandHandlerIntegrationTests : BasePostComme
 	{
 		// Act
 		await Sender.SendAsync(_request, CancellationToken);
-		var cachedPostCommentLike = await CommentLikeCacheHandler.GetByIdAsync(_request, CancellationToken);
+		var cachedPostCommentLike = await ServiceScope.GetPostCommentLikeCacheByIdAsync(_request, CancellationToken);
 
 		// Assert
 		cachedPostCommentLike.ShouldBeNull();
@@ -176,10 +183,11 @@ public class DeletePostCommentLikeCommandHandlerIntegrationTests : BasePostComme
 	{
 		// Arrange
 		var request = _requestBuilder.WithId(transformer).Build();
+		await ServiceScope.AddPostCommentLikeCacheAsync(request, PostCommentLike, CancellationToken);
 
 		// Act
 		await Sender.SendAsync(request, CancellationToken);
-		var cachedPostCommentLike = await CommentLikeCacheHandler.GetByIdAsync(request, CancellationToken);
+		var cachedPostCommentLike = await ServiceScope.GetPostCommentLikeCacheByIdAsync(request, CancellationToken);
 
 		// Assert
 		cachedPostCommentLike.ShouldBeNull();
@@ -192,10 +200,11 @@ public class DeletePostCommentLikeCommandHandlerIntegrationTests : BasePostComme
 	{
 		// Arrange
 		var request = _requestBuilder.WithCommentId(transformer).Build();
+		await ServiceScope.AddPostCommentLikeCacheAsync(request, PostCommentLike, CancellationToken);
 
 		// Act
 		await Sender.SendAsync(request, CancellationToken);
-		var cachedPostCommentLike = await CommentLikeCacheHandler.GetByIdAsync(request, CancellationToken);
+		var cachedPostCommentLike = await ServiceScope.GetPostCommentLikeCacheByIdAsync(request, CancellationToken);
 
 		// Assert
 		cachedPostCommentLike.ShouldBeNull();
@@ -208,10 +217,11 @@ public class DeletePostCommentLikeCommandHandlerIntegrationTests : BasePostComme
 	{
 		// Arrange
 		var request = _requestBuilder.WithUserId(transformer).Build();
+		await ServiceScope.AddPostCommentLikeCacheAsync(request, PostCommentLike, CancellationToken);
 
 		// Act
 		await Sender.SendAsync(request, CancellationToken);
-		var cachedPostCommentLike = await CommentLikeCacheHandler.GetByIdAsync(request, CancellationToken);
+		var cachedPostCommentLike = await ServiceScope.GetPostCommentLikeCacheByIdAsync(request, CancellationToken);
 
 		// Assert
 		cachedPostCommentLike.ShouldBeNull();
@@ -222,7 +232,7 @@ public class DeletePostCommentLikeCommandHandlerIntegrationTests : BasePostComme
 	{
 		// Act
 		await Sender.SendAsync(_request, CancellationToken);
-		var cachedPostComment = await CommentCacheHandler.GetByIdAsync(_request, CancellationToken);
+		var cachedPostComment = await ServiceScope.GetPostCommentCacheByIdAsync(_request, CancellationToken);
 
 		// Assert
 		cachedPostComment.ShouldBeNull();
@@ -235,10 +245,11 @@ public class DeletePostCommentLikeCommandHandlerIntegrationTests : BasePostComme
 	{
 		// Arrange
 		var request = _requestBuilder.WithId(transformer).Build();
+		await ServiceScope.AddPostCommentCacheAsync(request, PostComment, CancellationToken);
 
 		// Act
 		await Sender.SendAsync(request, CancellationToken);
-		var cachedPostComment = await CommentCacheHandler.GetByIdAsync(request, CancellationToken);
+		var cachedPostComment = await ServiceScope.GetPostCommentCacheByIdAsync(request, CancellationToken);
 
 		// Assert
 		cachedPostComment.ShouldBeNull();
@@ -251,10 +262,11 @@ public class DeletePostCommentLikeCommandHandlerIntegrationTests : BasePostComme
 	{
 		// Arrange
 		var request = _requestBuilder.WithCommentId(transformer).Build();
+		await ServiceScope.AddPostCommentCacheAsync(request, PostComment, CancellationToken);
 
 		// Act
 		await Sender.SendAsync(request, CancellationToken);
-		var cachedPostComment = await CommentCacheHandler.GetByIdAsync(request, CancellationToken);
+		var cachedPostComment = await ServiceScope.GetPostCommentCacheByIdAsync(request, CancellationToken);
 
 		// Assert
 		cachedPostComment.ShouldBeNull();
@@ -267,10 +279,11 @@ public class DeletePostCommentLikeCommandHandlerIntegrationTests : BasePostComme
 	{
 		// Arrange
 		var request = _requestBuilder.WithUserId(transformer).Build();
+		await ServiceScope.AddPostCommentCacheAsync(request, PostComment, CancellationToken);
 
 		// Act
 		await Sender.SendAsync(request, CancellationToken);
-		var cachedPostComment = await CommentCacheHandler.GetByIdAsync(request, CancellationToken);
+		var cachedPostComment = await ServiceScope.GetPostCommentCacheByIdAsync(request, CancellationToken);
 
 		// Assert
 		cachedPostComment.ShouldBeNull();

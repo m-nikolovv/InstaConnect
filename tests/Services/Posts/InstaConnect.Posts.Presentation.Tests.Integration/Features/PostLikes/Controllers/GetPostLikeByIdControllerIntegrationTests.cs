@@ -14,6 +14,16 @@ public class GetPostLikeByIdControllerIntegrationTests : BasePostLikePresentatio
 		_request = _requestBuilder.Build();
 	}
 
+	public override async Task InitializeAsync()
+	{
+		await ServiceScope.InitializeGetByIdAsync(_request, PostLike, CancellationToken);
+	}
+
+	public override async Task DisposeAsync()
+	{
+		await ServiceScope.DisposeGetByIdAsync(_request, PostLike, CancellationToken);
+	}
+
 	[Theory]
 	[PostIdNullWithMessageData]
 	[PostIdEmptyWithMessageData]
@@ -196,7 +206,7 @@ public class GetPostLikeByIdControllerIntegrationTests : BasePostLikePresentatio
 	{
 		// Act
 		await Controller.GetByIdAsync(_request, CancellationToken);
-		var cachedPostLike = await LikeCacheHandler.GetByIdAsync(_request, CancellationToken);
+		var cachedPostLike = await ServiceScope.GetPostLikeCacheByIdAsync(_request, CancellationToken);
 
 		// Assert
 		cachedPostLike.ShouldSatisfy(_request, PostLike);
@@ -212,7 +222,7 @@ public class GetPostLikeByIdControllerIntegrationTests : BasePostLikePresentatio
 
 		// Act
 		await Controller.GetByIdAsync(request, CancellationToken);
-		var cachedPostLike = await LikeCacheHandler.GetByIdAsync(request, CancellationToken);
+		var cachedPostLike = await ServiceScope.GetPostLikeCacheByIdAsync(request, CancellationToken);
 
 		// Assert
 		cachedPostLike.ShouldSatisfy(request, PostLike);
@@ -228,7 +238,7 @@ public class GetPostLikeByIdControllerIntegrationTests : BasePostLikePresentatio
 
 		// Act
 		await Controller.GetByIdAsync(request, CancellationToken);
-		var cachedPostLike = await LikeCacheHandler.GetByIdAsync(request, CancellationToken);
+		var cachedPostLike = await ServiceScope.GetPostLikeCacheByIdAsync(request, CancellationToken);
 
 		// Assert
 		cachedPostLike.ShouldSatisfy(request, PostLike);
@@ -245,7 +255,7 @@ public class GetPostLikeByIdControllerIntegrationTests : BasePostLikePresentatio
 
 		// Act
 		await Controller.GetByIdAsync(request, CancellationToken);
-		var cachedPostLike = await LikeCacheHandler.GetByIdAsync(request, CancellationToken);
+		var cachedPostLike = await ServiceScope.GetPostLikeCacheByIdAsync(request, CancellationToken);
 
 		// Assert
 		cachedPostLike.ShouldSatisfy(request, PostLike);

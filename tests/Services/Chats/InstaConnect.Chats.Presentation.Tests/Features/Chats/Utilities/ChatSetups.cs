@@ -1,6 +1,5 @@
 using InstaConnect.Chats.Domain.Features.Chats.Models.Responses;
 using InstaConnect.Chats.Domain.Features.Chats.Models.ValueObjects;
-using InstaConnect.Chats.Infrastructure.Features.Chats.Abstractions;
 using InstaConnect.Chats.Presentation.Features.Chats.Controllers.v1;
 
 namespace InstaConnect.Chats.Presentation.Tests.Features.Chats.Utilities;
@@ -48,15 +47,60 @@ public static class ChatSetups
 				response.GetValue(),
 				cancellationToken);
 		}
-	}
 
-	extension(IChatCacheHandler cacheHandler)
-	{
-		public async Task<ChatResponse?> GetByIdAsync(
+		public async Task<ChatResponse?> GetChatCacheByIdAsync(
 			GetChatByIdApiRequest request,
 			CancellationToken cancellationToken)
 		{
-			return await cacheHandler.GetByIdAsync(request.CurrentUserId, request.ParticipantTwoId, request.CurrentUserId, cancellationToken);
+			return await serviceScope.GetChatCacheByIdAsync(request.CurrentUserId, request.ParticipantTwoId, request.CurrentUserId, cancellationToken);
+		}
+
+		public async Task InitializeAddAsync(
+			AddChatApiRequest request,
+			Chat chat,
+			CancellationToken cancellationToken)
+		{
+			await serviceScope.InitializeAddAsync(chat, cancellationToken);
+		}
+
+		public async Task DisposeAddAsync(
+			AddChatApiRequest request,
+			Chat chat,
+			CancellationToken cancellationToken)
+		{
+			await serviceScope.DisposeAddAsync(chat, cancellationToken);
+		}
+
+		public async Task InitializeGetAllAsync(
+			GetAllChatsApiRequest request,
+			ICollection<Chat> chats,
+			CancellationToken cancellationToken)
+		{
+			await serviceScope.InitializeGetAllAsync(chats, cancellationToken);
+		}
+
+		public async Task DisposeGetAllAsync(
+			GetAllChatsApiRequest request,
+			ICollection<Chat> chats,
+			CancellationToken cancellationToken)
+		{
+			await serviceScope.DisposeGetAllAsync(chats, cancellationToken);
+		}
+
+		public async Task InitializeGetByIdAsync(
+			GetChatByIdApiRequest request,
+			Chat chat,
+			CancellationToken cancellationToken)
+		{
+			await serviceScope.InitializeGetByIdAsync(chat, cancellationToken);
+		}
+
+		public async Task DisposeGetByIdAsync(
+			GetChatByIdApiRequest request,
+			Chat chat,
+			CancellationToken cancellationToken)
+		{
+			await serviceScope.DisposeGetByIdAsync(chat, cancellationToken);
 		}
 	}
 }

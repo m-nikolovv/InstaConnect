@@ -21,12 +21,14 @@ public class DeleteUserCommandServiceIntegrationTests : BaseUserDomainCommandInt
 		_command = _commandBuilder.Build();
 	}
 
-	protected override async Task OnInitializeAsync()
+	public override async Task InitializeAsync()
 	{
-		await ServiceScope.AddAsync(User, CancellationToken);
-		await ServiceScope.AddRangeAsync(Chats, CancellationToken);
-		await ServiceScope.AddRangeAsync(ChatMessages, CancellationToken);
-		await ServiceScope.AddRangeAsync(ChatMessageImages, CancellationToken);
+		await ServiceScope.InitializeDeleteAsync(_command, User, CancellationToken);
+	}
+
+	public override async Task DisposeAsync()
+	{
+		await ServiceScope.DisposeDeleteAsync(_command, User, CancellationToken);
 	}
 
 	[Fact]
@@ -71,7 +73,7 @@ public class DeleteUserCommandServiceIntegrationTests : BaseUserDomainCommandInt
 	{
 		// Act
 		await UserService.DeleteAsync(_command, CancellationToken);
-		var cachedUser = await CacheHandler.GetByIdAsync(_command, CancellationToken);
+		var cachedUser = await ServiceScope.GetUserCacheByIdAsync(_command, CancellationToken);
 
 		// Assert
 		cachedUser.ShouldBeNull();
@@ -84,10 +86,11 @@ public class DeleteUserCommandServiceIntegrationTests : BaseUserDomainCommandInt
 	{
 		// Arrange
 		var command = _commandBuilder.WithId(transformer).Build();
+		await ServiceScope.AddUserCacheAsync(command, User, CancellationToken);
 
 		// Act
 		await UserService.DeleteAsync(command, CancellationToken);
-		var cachedUser = await CacheHandler.GetByIdAsync(command, CancellationToken);
+		var cachedUser = await ServiceScope.GetUserCacheByIdAsync(command, CancellationToken);
 
 		// Assert
 		cachedUser.ShouldBeNull();

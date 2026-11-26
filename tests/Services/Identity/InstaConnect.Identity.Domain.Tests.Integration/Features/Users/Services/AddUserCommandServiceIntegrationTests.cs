@@ -1,5 +1,6 @@
 using InstaConnect.Common.Tests.Features.DataAttributes.FormFiles.Base;
 using InstaConnect.Identity.Domain.Tests.Features.EmailConfirmationTokens.Assertions;
+using InstaConnect.Identity.Domain.Tests.Features.Users.Utilities;
 using InstaConnect.Identity.Tests.Features.EmailConfirmationTokens.Assertions;
 using InstaConnect.Identity.Tests.Features.Users.Assertions;
 using InstaConnect.Identity.Tests.Features.Users.DataAttributes.Email;
@@ -21,9 +22,16 @@ public class AddUserCommandServiceIntegrationTests : BaseUserDomainCommandIntegr
 		_command = _commandBuilder.Build();
 	}
 
-	protected override async Task OnInitializeAsync()
+	public override async Task InitializeAsync()
 	{
-		await ServiceScope.AddAsync(User, CancellationToken);
+		await ServiceScope.InitializeAddAsync(_command, User, CancellationToken);
+		await base.InitializeAsync();
+	}
+
+	public override async Task DisposeAsync()
+	{
+		await ServiceScope.DisposeAddAsync(_command, User, CancellationToken);
+		await base.DisposeAsync();
 	}
 
 	[Fact]

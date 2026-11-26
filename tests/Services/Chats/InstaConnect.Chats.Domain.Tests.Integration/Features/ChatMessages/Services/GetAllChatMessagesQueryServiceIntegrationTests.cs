@@ -1,4 +1,5 @@
 using InstaConnect.Chats.Domain.Features.ChatMessages.Models.Entities;
+using InstaConnect.Chats.Domain.Tests.Features.ChatMessages.Utilities;
 using InstaConnect.Chats.Tests.Features.ChatMessageImages.Utilities;
 using InstaConnect.Chats.Tests.Features.ChatMessages.DataAttributes.SortOrder;
 using InstaConnect.Chats.Tests.Features.ChatMessages.DataAttributes.SortTerm;
@@ -23,6 +24,16 @@ public class GetAllChatMessagesQueryServiceIntegrationTests : BaseChatMessageDom
 
 		_invertedQueryBuilder = _queryBuilderFactory.Create(ChatMessage, CurrentUserId).WithCurrentUserId(ParticipantTwoId).WithParticipantTwoId(ParticipantOneId);
 		_invertedQuery = _invertedQueryBuilder.Build();
+	}
+
+	public override async Task InitializeAsync()
+	{
+		await ServiceScope.InitializeGetAllAsync(_query, ChatMessages, CancellationToken);
+	}
+
+	public override async Task DisposeAsync()
+	{
+		await ServiceScope.DisposeGetAllAsync(_query, ChatMessages, CancellationToken);
 	}
 
 	[Fact]

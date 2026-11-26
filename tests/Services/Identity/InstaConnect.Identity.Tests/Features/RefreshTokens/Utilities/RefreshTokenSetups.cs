@@ -98,5 +98,106 @@ public static class RefreshTokenSetups
 			await refreshTokenRepository.DeleteAsync(refreshToken, cancellationToken);
 			await cacheHandler.DeleteAsync(refreshToken.Id, cancellationToken);
 		}
+
+		public async Task InitializeAddAsync(
+			RefreshToken refreshToken,
+			CancellationToken cancellationToken)
+		{
+			var user = refreshToken.User!;
+
+			await serviceScope.AddAsync(user, cancellationToken);
+		}
+
+		public async Task DisposeAddAsync(
+			RefreshToken refreshToken,
+			CancellationToken cancellationToken)
+		{
+			var user = refreshToken.User!;
+
+			await serviceScope.DeleteAsync(user, cancellationToken);
+		}
+
+		public async Task InitializeDeleteAsync(
+			RefreshToken refreshToken,
+			CancellationToken cancellationToken)
+		{
+			var user = refreshToken.User!;
+
+			await serviceScope.AddAsync(user, cancellationToken);
+			await serviceScope.AddAsync(refreshToken, cancellationToken);
+		}
+
+		public async Task DisposeDeleteAsync(
+			RefreshToken refreshToken,
+			CancellationToken cancellationToken)
+		{
+			var user = refreshToken.User!;
+
+			await serviceScope.DeleteAsync(refreshToken, cancellationToken);
+			await serviceScope.DeleteAsync(user, cancellationToken);
+		}
+
+		public async Task InitializeGetAllAsync(
+			ICollection<RefreshToken> refreshTokens,
+			CancellationToken cancellationToken)
+		{
+			var users = refreshTokens.Select(p => p.User!).DistinctBy(p => p.Id).ToList();
+
+			await serviceScope.AddRangeAsync(users, cancellationToken);
+			await serviceScope.AddRangeAsync(refreshTokens, cancellationToken);
+		}
+
+		public async Task DisposeGetAllAsync(
+			ICollection<RefreshToken> refreshTokens,
+			CancellationToken cancellationToken)
+		{
+			var users = refreshTokens.Select(p => p.User!).DistinctBy(p => p.Id).ToList();
+
+
+			foreach (var linkedUser in users)
+			{
+				await serviceScope.DeleteAsync(linkedUser, cancellationToken);
+			}
+		}
+
+		public async Task InitializeGetByIdAsync(
+			RefreshToken refreshToken,
+			CancellationToken cancellationToken)
+		{
+			var user = refreshToken.User!;
+
+			await serviceScope.AddAsync(user, cancellationToken);
+			await serviceScope.AddAsync(refreshToken, cancellationToken);
+		}
+
+		public async Task DisposeGetByIdAsync(
+			RefreshToken refreshToken,
+			CancellationToken cancellationToken)
+		{
+			var user = refreshToken.User!;
+
+			await serviceScope.DeleteAsync(refreshToken, cancellationToken);
+			await serviceScope.DeleteAsync(user, cancellationToken);
+		}
+
+		public async Task InitializeUpdateAsync(
+			RefreshToken refreshToken,
+			CancellationToken cancellationToken)
+		{
+			var user = refreshToken.User!;
+
+			await serviceScope.AddAsync(user, cancellationToken);
+			await serviceScope.AddAsync(refreshToken, cancellationToken);
+		}
+
+		public async Task DisposeUpdateAsync(
+			RefreshToken refreshToken,
+			CancellationToken cancellationToken)
+		{
+			var user = refreshToken.User!;
+
+			await serviceScope.DeleteAsync(refreshToken, cancellationToken);
+			await serviceScope.DeleteAsync(user, cancellationToken);
+		}
 	}
 }

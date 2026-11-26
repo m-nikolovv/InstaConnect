@@ -24,6 +24,16 @@ public class GetChatByIdQueryHandlerIntegrationTests : BaseChatApplicationQueryI
 		_invertedRequest = _invertedRequestBuilder.Build();
 	}
 
+	public override async Task InitializeAsync()
+	{
+		await ServiceScope.InitializeGetByIdAsync(_request, Chat, CancellationToken);
+	}
+
+	public override async Task DisposeAsync()
+	{
+		await ServiceScope.DisposeGetByIdAsync(_request, Chat, CancellationToken);
+	}
+
 	[Theory]
 	[UserIdNullWithMessageData]
 	[UserIdEmptyWithMessageData]
@@ -111,7 +121,7 @@ public class GetChatByIdQueryHandlerIntegrationTests : BaseChatApplicationQueryI
 	{
 		// Act
 		await Sender.SendAsync(_request, CancellationToken);
-		var cachedChat = await CacheHandler.GetByIdAsync(_request, CancellationToken);
+		var cachedChat = await ServiceScope.GetChatCacheByIdAsync(_request, CancellationToken);
 
 		// Assert
 		cachedChat.ShouldSatisfy(_request, Chat);
@@ -127,7 +137,7 @@ public class GetChatByIdQueryHandlerIntegrationTests : BaseChatApplicationQueryI
 
 		// Act
 		await Sender.SendAsync(request, CancellationToken);
-		var cachedChat = await CacheHandler.GetByIdAsync(request, CancellationToken);
+		var cachedChat = await ServiceScope.GetChatCacheByIdAsync(request, CancellationToken);
 
 		// Assert
 		cachedChat.ShouldSatisfy(request, Chat);
@@ -143,7 +153,7 @@ public class GetChatByIdQueryHandlerIntegrationTests : BaseChatApplicationQueryI
 
 		// Act
 		await Sender.SendAsync(request, CancellationToken);
-		var cachedChat = await CacheHandler.GetByIdAsync(request, CancellationToken);
+		var cachedChat = await ServiceScope.GetChatCacheByIdAsync(request, CancellationToken);
 
 		// Assert
 		cachedChat.ShouldSatisfy(request, Chat);

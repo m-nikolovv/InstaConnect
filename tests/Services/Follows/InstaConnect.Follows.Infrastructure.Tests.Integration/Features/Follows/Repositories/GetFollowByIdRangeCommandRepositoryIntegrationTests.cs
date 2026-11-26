@@ -12,9 +12,14 @@ public class GetFollowByIdRangeCommandRepositoryIntegrationTests : BaseFollowInf
 		_include = IncludeBuilderFactory.Create().WithFollower().WithFollowing().Build();
 	}
 
-	protected override async Task OnInitializeAsync()
+	public override async Task InitializeAsync()
 	{
-		await ServiceScope.AddRangeAsync(Follows, CancellationToken);
+		await ServiceScope.InitializeGetAllAsync(Follows, CancellationToken);
+	}
+
+	public override async Task DisposeAsync()
+	{
+		await ServiceScope.DisposeGetAllAsync(Follows, CancellationToken);
 	}
 
 	[Fact]

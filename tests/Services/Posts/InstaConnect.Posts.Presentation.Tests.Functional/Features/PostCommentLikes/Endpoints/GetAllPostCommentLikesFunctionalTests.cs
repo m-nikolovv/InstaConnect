@@ -22,6 +22,16 @@ public class GetAllPostCommentLikesFunctionalTests : BasePostCommentLikePresenta
 		_request = _requestBuilder.Build();
 	}
 
+	public override async Task InitializeAsync()
+	{
+		await ServiceScope.InitializeGetAllAsync(_request, PostCommentLikes, CancellationToken);
+	}
+
+	public override async Task DisposeAsync()
+	{
+		await ServiceScope.DisposeGetAllAsync(_request, PostCommentLikes, CancellationToken);
+	}
+
 	[Theory]
 	[PostIdTooShortData]
 	[PostIdTooLongData]

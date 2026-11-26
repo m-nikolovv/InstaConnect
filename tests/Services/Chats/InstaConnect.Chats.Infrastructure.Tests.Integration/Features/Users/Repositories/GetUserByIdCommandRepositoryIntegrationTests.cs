@@ -1,3 +1,4 @@
+
 namespace InstaConnect.Chats.Infrastructure.Tests.Integration.Features.Users.Repositories;
 
 public class GetUserByIdCommandRepositoryIntegrationTests : BaseUserInfrastructureCommandIntegrationTest
@@ -10,9 +11,14 @@ public class GetUserByIdCommandRepositoryIntegrationTests : BaseUserInfrastructu
 		_include = IncludeBuilderFactory.Create().WithChats().WithChatMessages().Build();
 	}
 
-	protected override async Task OnInitializeAsync()
+	public override async Task InitializeAsync()
 	{
-		await ServiceScope.AddAsync(User, CancellationToken);
+		await ServiceScope.InitializeGetByIdAsync(User, CancellationToken);
+	}
+
+	public override async Task DisposeAsync()
+	{
+		await ServiceScope.DisposeGetByIdAsync(User, CancellationToken);
 	}
 
 	[Fact]

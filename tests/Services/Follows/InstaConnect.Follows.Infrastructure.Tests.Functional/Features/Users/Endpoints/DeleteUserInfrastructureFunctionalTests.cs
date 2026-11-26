@@ -26,12 +26,16 @@ public class DeleteUserInfrastructureFunctionalTests : BaseUserInfrastructureCom
 		_request = _requestBuilder.Build();
 	}
 
-	protected override async Task OnInitializeAsync()
+	public override async Task InitializeAsync()
 	{
-		await ServiceScope.AddAsync(User, CancellationToken);
-		await ServiceScope.AddRangeAsync(Follows, CancellationToken);
-		await ServiceScope.AddRangeAsync(UserFollowFollowers, CancellationToken);
-		await ServiceScope.AddRangeAsync(UserFollowFollowings, CancellationToken);
+		await ServiceScope.InitializeDeleteAsync(User, CurrentUserId, CancellationToken);
+		await base.InitializeAsync();
+	}
+
+	public override async Task DisposeAsync()
+	{
+		await ServiceScope.DisposeDeleteAsync(User, CancellationToken);
+		await base.DisposeAsync();
 	}
 
 	[Theory]

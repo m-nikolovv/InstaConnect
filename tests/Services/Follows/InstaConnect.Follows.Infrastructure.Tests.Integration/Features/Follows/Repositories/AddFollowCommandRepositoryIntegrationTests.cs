@@ -9,6 +9,16 @@ public class AddFollowCommandRepositoryIntegrationTests : BaseFollowInfrastructu
 	{
 	}
 
+	public override async Task InitializeAsync()
+	{
+		await ServiceScope.InitializeAddAsync(Follow, CancellationToken);
+	}
+
+	public override async Task DisposeAsync()
+	{
+		await ServiceScope.DisposeAddAsync(Follow, CancellationToken);
+	}
+
 	[Fact]
 	public async Task AddAsync_ShouldAddFollow_WhenCommandIsValid()
 	{

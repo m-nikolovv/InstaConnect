@@ -1,4 +1,3 @@
-using InstaConnect.Follows.Infrastructure.Features.Follows.Abstractions;
 using InstaConnect.Follows.Presentation.Tests.Features.Follows.Abstractions;
 using InstaConnect.Follows.Presentation.Tests.Features.Follows.Extensions;
 
@@ -8,11 +7,8 @@ public abstract class BaseFollowPresentationQueryFunctionalTest : BaseFollowWebQ
 {
 	protected IFollowApiClient ApiClient { get; }
 
-	protected IFollowCacheHandler CacheHandler { get; }
-
 	protected BaseFollowPresentationQueryFunctionalTest(FollowsWebApplicationFactory webApplicationFactory) : base(webApplicationFactory)
 	{
 		ApiClient = webApplicationFactory.CreateApiClient();
-		CacheHandler = ServiceScope.GetFollowCacheHandler();
 	}
 }

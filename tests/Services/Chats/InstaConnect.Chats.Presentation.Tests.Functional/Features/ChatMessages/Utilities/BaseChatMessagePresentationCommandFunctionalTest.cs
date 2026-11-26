@@ -1,5 +1,3 @@
-using InstaConnect.Chats.Infrastructure.Features.ChatMessages.Abstractions;
-using InstaConnect.Chats.Infrastructure.Features.Chats.Abstractions;
 using InstaConnect.Chats.Presentation.Tests.Features.ChatMessages.Abstractions;
 using InstaConnect.Chats.Presentation.Tests.Features.ChatMessages.Extensions;
 using InstaConnect.Chats.Tests.Features.ChatMessages.Abstractions;
@@ -9,19 +7,13 @@ namespace InstaConnect.Chats.Presentation.Tests.Functional.Features.ChatMessages
 
 public abstract class BaseChatMessagePresentationCommandFunctionalTest : BaseChatMessageWebCommandTest
 {
-	protected IChatCacheHandler CacheHandler { get; }
-
 	protected IChatMessageApiClient ApiClient { get; }
-
-	protected IChatMessageCacheHandler MessageCacheHandler { get; }
 
 	protected IChatMessageNotificationClient MessageNotificationClient { get; }
 
 	protected BaseChatMessagePresentationCommandFunctionalTest(ChatsWebApplicationFactory webApplicationFactory) : base(webApplicationFactory)
 	{
-		CacheHandler = ServiceScope.GetCacheHandler();
 		ApiClient = webApplicationFactory.CreateMessageApiClient();
-		MessageCacheHandler = ServiceScope.GetMessageCacheHandler();
 		MessageNotificationClient = webApplicationFactory.CreateMessageNotificationClient(ParticipantTwoId);
 	}
 

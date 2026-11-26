@@ -24,6 +24,16 @@ public class GetAllUserClaimsFunctionalTests : BaseUserClaimPresentationQueryFun
 		_request = _requestBuilder.Build();
 	}
 
+	public override async Task InitializeAsync()
+	{
+		await ServiceScope.InitializeGetAllAsync(_request, UserClaims, CancellationToken);
+	}
+
+	public override async Task DisposeAsync()
+	{
+		await ServiceScope.DisposeGetAllAsync(_request, UserClaims, CancellationToken);
+	}
+
 	[Fact]
 	public async Task GetAllAsync_ShouldReturnUnauthorizedStatusCode_WhenRequestIsUnauthorized()
 	{

@@ -9,9 +9,14 @@ public class DeleteRefreshTokenCommandRepositoryIntegrationTests : BaseRefreshTo
 	{
 	}
 
-	protected override async Task OnInitializeAsync()
+	public override async Task InitializeAsync()
 	{
-		await ServiceScope.AddAsync(RefreshToken, CancellationToken);
+		await ServiceScope.InitializeDeleteAsync(RefreshToken, CancellationToken);
+	}
+
+	public override async Task DisposeAsync()
+	{
+		await ServiceScope.DisposeDeleteAsync(RefreshToken, CancellationToken);
 	}
 
 	[Fact]

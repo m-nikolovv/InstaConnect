@@ -13,9 +13,14 @@ public class GetUserClaimByIdCommandRepositoryIntegrationTests : BaseUserClaimIn
 		_include = IncludeBuilderFactory.Create().WithUser().Build();
 	}
 
-	protected override async Task OnInitializeAsync()
+	public override async Task InitializeAsync()
 	{
-		await ServiceScope.AddAsync(UserClaim, CancellationToken);
+		await ServiceScope.InitializeGetByIdAsync(UserClaim, CancellationToken);
+	}
+
+	public override async Task DisposeAsync()
+	{
+		await ServiceScope.DisposeGetByIdAsync(UserClaim, CancellationToken);
 	}
 
 	[Fact]

@@ -21,10 +21,16 @@ public class UpdateCurrentUserFunctionalTests : BaseUserPresentationCommandFunct
 		_request = _requestBuilder.Build();
 	}
 
-	protected override async Task OnInitializeAsync()
+	public override async Task InitializeAsync()
 	{
-		await ServiceScope.AddAsync(User, CancellationToken);
-		await ServiceScope.AddRangeAsync(EmailConfirmationTokens, CancellationToken);
+		await ServiceScope.InitializeUpdateAsync(_request, User, CancellationToken);
+		await base.InitializeAsync();
+	}
+
+	public override async Task DisposeAsync()
+	{
+		await ServiceScope.DisposeUpdateAsync(_request, User, CancellationToken);
+		await base.DisposeAsync();
 	}
 
 	[Fact]
@@ -827,7 +833,7 @@ public class UpdateCurrentUserFunctionalTests : BaseUserPresentationCommandFunct
 	{
 		// Act
 		await ApiClient.UpdateCurrentAsync(_request, CancellationToken);
-		var cachedUser = await CacheHandler.GetByIdAsync(_request, CancellationToken);
+		var cachedUser = await ServiceScope.GetUserCacheByIdAsync(_request, CancellationToken);
 
 		// Assert
 		cachedUser.ShouldBeNull();
@@ -840,10 +846,11 @@ public class UpdateCurrentUserFunctionalTests : BaseUserPresentationCommandFunct
 	{
 		// Arrange
 		var request = _requestBuilder.WithId(transformer).Build();
+		await ServiceScope.AddUserCacheAsync(request, User, CancellationToken);
 
 		// Act
 		await ApiClient.UpdateCurrentAsync(request, CancellationToken);
-		var cachedUser = await CacheHandler.GetByIdAsync(request, CancellationToken);
+		var cachedUser = await ServiceScope.GetUserCacheByIdAsync(request, CancellationToken);
 
 		// Assert
 		cachedUser.ShouldBeNull();
@@ -856,10 +863,11 @@ public class UpdateCurrentUserFunctionalTests : BaseUserPresentationCommandFunct
 	{
 		// Arrange
 		var request = _requestBuilder.WithName(transformer).Build();
+		await ServiceScope.AddUserCacheAsync(request, User, CancellationToken);
 
 		// Act
 		await ApiClient.UpdateCurrentAsync(request, CancellationToken);
-		var cachedUser = await CacheHandler.GetByIdAsync(request, CancellationToken);
+		var cachedUser = await ServiceScope.GetUserCacheByIdAsync(request, CancellationToken);
 
 		// Assert
 		cachedUser.ShouldBeNull();
@@ -870,10 +878,11 @@ public class UpdateCurrentUserFunctionalTests : BaseUserPresentationCommandFunct
 	{
 		// Arrange
 		var request = _requestBuilder.WithName(User.Name).Build();
+		await ServiceScope.AddUserCacheAsync(request, User, CancellationToken);
 
 		// Act
 		await ApiClient.UpdateCurrentAsync(request, CancellationToken);
-		var cachedUser = await CacheHandler.GetByIdAsync(request, CancellationToken);
+		var cachedUser = await ServiceScope.GetUserCacheByIdAsync(request, CancellationToken);
 
 		// Assert
 		cachedUser.ShouldBeNull();
@@ -886,10 +895,11 @@ public class UpdateCurrentUserFunctionalTests : BaseUserPresentationCommandFunct
 	{
 		// Arrange
 		var request = _requestBuilder.WithName(User.Name, transformer).Build();
+		await ServiceScope.AddUserCacheAsync(request, User, CancellationToken);
 
 		// Act
 		await ApiClient.UpdateCurrentAsync(request, CancellationToken);
-		var cachedUser = await CacheHandler.GetByIdAsync(request, CancellationToken);
+		var cachedUser = await ServiceScope.GetUserCacheByIdAsync(request, CancellationToken);
 
 		// Assert
 		cachedUser.ShouldBeNull();
@@ -902,10 +912,11 @@ public class UpdateCurrentUserFunctionalTests : BaseUserPresentationCommandFunct
 	{
 		// Arrange
 		var request = _requestBuilder.WithEmail(transformer).Build();
+		await ServiceScope.AddUserCacheAsync(request, User, CancellationToken);
 
 		// Act
 		await ApiClient.UpdateCurrentAsync(request, CancellationToken);
-		var cachedUser = await CacheHandler.GetByIdAsync(request, CancellationToken);
+		var cachedUser = await ServiceScope.GetUserCacheByIdAsync(request, CancellationToken);
 
 		// Assert
 		cachedUser.ShouldBeNull();
@@ -916,10 +927,11 @@ public class UpdateCurrentUserFunctionalTests : BaseUserPresentationCommandFunct
 	{
 		// Arrange
 		var request = _requestBuilder.WithEmail(User.Email).Build();
+		await ServiceScope.AddUserCacheAsync(request, User, CancellationToken);
 
 		// Act
 		await ApiClient.UpdateCurrentAsync(request, CancellationToken);
-		var cachedUser = await CacheHandler.GetByIdAsync(request, CancellationToken);
+		var cachedUser = await ServiceScope.GetUserCacheByIdAsync(request, CancellationToken);
 
 		// Assert
 		cachedUser.ShouldBeNull();
@@ -932,10 +944,11 @@ public class UpdateCurrentUserFunctionalTests : BaseUserPresentationCommandFunct
 	{
 		// Arrange
 		var request = _requestBuilder.WithEmail(User.Email, transformer).Build();
+		await ServiceScope.AddUserCacheAsync(request, User, CancellationToken);
 
 		// Act
 		await ApiClient.UpdateCurrentAsync(request, CancellationToken);
-		var cachedUser = await CacheHandler.GetByIdAsync(request, CancellationToken);
+		var cachedUser = await ServiceScope.GetUserCacheByIdAsync(request, CancellationToken);
 
 		// Assert
 		cachedUser.ShouldBeNull();
@@ -954,10 +967,11 @@ public class UpdateCurrentUserFunctionalTests : BaseUserPresentationCommandFunct
 	{
 		// Arrange
 		var request = _requestBuilder.WithProfileImage(transformer).Build();
+		await ServiceScope.AddUserCacheAsync(request, User, CancellationToken);
 
 		// Act
 		await ApiClient.UpdateCurrentAsync(request, CancellationToken);
-		var cachedUser = await CacheHandler.GetByIdAsync(request, CancellationToken);
+		var cachedUser = await ServiceScope.GetUserCacheByIdAsync(request, CancellationToken);
 
 		// Assert
 		cachedUser.ShouldBeNull();

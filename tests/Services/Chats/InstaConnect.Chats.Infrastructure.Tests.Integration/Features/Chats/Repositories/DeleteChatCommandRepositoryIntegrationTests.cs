@@ -9,11 +9,14 @@ public class DeleteChatCommandRepositoryIntegrationTests : BaseChatInfrastructur
 	{
 	}
 
-	protected override async Task OnInitializeAsync()
+	public override async Task InitializeAsync()
 	{
-		await ServiceScope.AddAsync(Chat, CancellationToken);
-		await ServiceScope.AddRangeAsync(ChatMessages, CancellationToken);
-		await ServiceScope.AddRangeAsync(ChatMessageImages, CancellationToken);
+		await ServiceScope.InitializeDeleteAsync(Chat, CurrentUserId, CancellationToken);
+	}
+
+	public override async Task DisposeAsync()
+	{
+		await ServiceScope.DisposeDeleteAsync(Chat, CancellationToken);
 	}
 
 	[Fact]
@@ -32,7 +35,7 @@ public class DeleteChatCommandRepositoryIntegrationTests : BaseChatInfrastructur
 	{
 		// Act
 		await Repository.DeleteAsync(Chat, CancellationToken);
-		var cachedChat = await CacheHandler.GetByIdAsync(Chat, CurrentUserId, CancellationToken);
+		var cachedChat = await ServiceScope.GetChatCacheByIdAsync(Chat, CurrentUserId, CancellationToken);
 
 		// Assert
 		cachedChat.ShouldBeNull();

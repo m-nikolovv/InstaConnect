@@ -1,4 +1,5 @@
 using InstaConnect.Posts.Domain.Features.PostLikes.Models.Entities;
+using InstaConnect.Posts.Domain.Tests.Features.PostLikes.Utilities;
 using InstaConnect.Posts.Tests.Features.PostLikes.DataAttributes.SortOrder;
 using InstaConnect.Posts.Tests.Features.PostLikes.DataAttributes.SortTerm.ForUser;
 
@@ -16,6 +17,16 @@ public class GetAllPostLikesForUserQueryServiceIntegrationTests : BasePostLikeDo
 		_queryBuilderFactory = new();
 		_queryBuilder = _queryBuilderFactory.Create(PostLike, CurrentUserId);
 		_query = _queryBuilder.Build();
+	}
+
+	public override async Task InitializeAsync()
+	{
+		await ServiceScope.InitializeGetAllForUserAsync(_query, PostLikes, CancellationToken);
+	}
+
+	public override async Task DisposeAsync()
+	{
+		await ServiceScope.DisposeGetAllForUserAsync(_query, PostLikes, CancellationToken);
 	}
 
 	[Fact]

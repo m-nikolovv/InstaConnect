@@ -22,9 +22,16 @@ public class VerifyEmailConfirmationTokenCommandServiceIntegrationTests : BaseEm
 		_command = _commandBuilder.Build();
 	}
 
-	protected override async Task OnInitializeAsync()
+	public override async Task InitializeAsync()
 	{
-		await ServiceScope.AddRangeAsync(EmailConfirmationTokens, CancellationToken);
+		await ServiceScope.InitializeVerifyAsync(_command, EmailConfirmationToken, CancellationToken);
+		await base.InitializeAsync();
+	}
+
+	public override async Task DisposeAsync()
+	{
+		await ServiceScope.DisposeVerifyAsync(_command, EmailConfirmationToken, CancellationToken);
+		await base.DisposeAsync();
 	}
 
 	[Fact]
@@ -117,7 +124,7 @@ public class VerifyEmailConfirmationTokenCommandServiceIntegrationTests : BaseEm
 	{
 		// Act
 		await Service.VerifyAsync(_command, CancellationToken);
-		var cachedUser = await UserCacheHandler.GetByIdAsync(_command, CancellationToken);
+		var cachedUser = await ServiceScope.GetUserCacheByIdAsync(_command, CancellationToken);
 
 		// Assert
 		cachedUser.ShouldBeNull();
@@ -130,10 +137,11 @@ public class VerifyEmailConfirmationTokenCommandServiceIntegrationTests : BaseEm
 	{
 		// Arrange
 		var command = _commandBuilder.WithId(transformer).Build();
+		await ServiceScope.AddUserCacheAsync(command, User, CancellationToken);
 
 		// Act
 		await Service.VerifyAsync(command, CancellationToken);
-		var cachedUser = await UserCacheHandler.GetByIdAsync(command, CancellationToken);
+		var cachedUser = await ServiceScope.GetUserCacheByIdAsync(command, CancellationToken);
 
 		// Assert
 		cachedUser.ShouldBeNull();
@@ -146,10 +154,11 @@ public class VerifyEmailConfirmationTokenCommandServiceIntegrationTests : BaseEm
 	{
 		// Arrange
 		var command = _commandBuilder.WithValue(transformer).Build();
+		await ServiceScope.AddUserCacheAsync(command, User, CancellationToken);
 
 		// Act
 		await Service.VerifyAsync(command, CancellationToken);
-		var cachedUser = await UserCacheHandler.GetByIdAsync(command, CancellationToken);
+		var cachedUser = await ServiceScope.GetUserCacheByIdAsync(command, CancellationToken);
 
 		// Assert
 		cachedUser.ShouldBeNull();

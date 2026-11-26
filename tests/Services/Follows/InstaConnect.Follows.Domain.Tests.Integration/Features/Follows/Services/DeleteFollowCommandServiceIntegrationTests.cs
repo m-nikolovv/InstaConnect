@@ -17,9 +17,16 @@ public class DeleteFollowCommandServiceIntegrationTests : BaseFollowDomainComman
 		_command = _commandBuilder.Build();
 	}
 
-	protected override async Task OnInitializeAsync()
+	public override async Task InitializeAsync()
 	{
-		await ServiceScope.AddAsync(Follow, CancellationToken);
+		await ServiceScope.InitializeDeleteAsync(_command, Follow, CancellationToken);
+		await base.InitializeAsync();
+	}
+
+	public override async Task DisposeAsync()
+	{
+		await ServiceScope.DisposeDeleteAsync(_command, Follow, CancellationToken);
+		await base.DisposeAsync();
 	}
 
 	[Fact]
@@ -80,7 +87,7 @@ public class DeleteFollowCommandServiceIntegrationTests : BaseFollowDomainComman
 	{
 		// Act
 		await Service.DeleteAsync(_command, CancellationToken);
-		var cachedFollow = await CacheHandler.GetByIdAsync(_command, CancellationToken);
+		var cachedFollow = await ServiceScope.GetFollowCacheByIdAsync(_command, CancellationToken);
 
 		// Assert
 		cachedFollow.ShouldBeNull();
@@ -93,10 +100,11 @@ public class DeleteFollowCommandServiceIntegrationTests : BaseFollowDomainComman
 	{
 		// Arrange
 		var command = _commandBuilder.WithFollowerId(transformer).Build();
+		await ServiceScope.AddFollowCacheAsync(command, Follow, CancellationToken);
 
 		// Act
 		await Service.DeleteAsync(command, CancellationToken);
-		var cachedFollow = await CacheHandler.GetByIdAsync(command, CancellationToken);
+		var cachedFollow = await ServiceScope.GetFollowCacheByIdAsync(command, CancellationToken);
 
 		// Assert
 		cachedFollow.ShouldBeNull();
@@ -109,10 +117,11 @@ public class DeleteFollowCommandServiceIntegrationTests : BaseFollowDomainComman
 	{
 		// Arrange
 		var command = _commandBuilder.WithFollowingId(transformer).Build();
+		await ServiceScope.AddFollowCacheAsync(command, Follow, CancellationToken);
 
 		// Act
 		await Service.DeleteAsync(command, CancellationToken);
-		var cachedFollow = await CacheHandler.GetByIdAsync(command, CancellationToken);
+		var cachedFollow = await ServiceScope.GetFollowCacheByIdAsync(command, CancellationToken);
 
 		// Assert
 		cachedFollow.ShouldBeNull();

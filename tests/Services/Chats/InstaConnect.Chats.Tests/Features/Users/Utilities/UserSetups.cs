@@ -1,6 +1,7 @@
 using InstaConnect.Chats.Domain.Features.Users.Abstractions;
 using InstaConnect.Chats.Domain.Features.Users.Models.Responses;
 using InstaConnect.Chats.Infrastructure.Features.Users.Abstractions;
+using InstaConnect.Chats.Tests.Features.ChatMessageImages.Utilities;
 using InstaConnect.Common.Domain.Features.ValueObjects.Models;
 
 namespace InstaConnect.Chats.Tests.Features.Users.Utilities;
@@ -112,16 +113,126 @@ public static class UserSetups
 			await userRepository.DeleteAsync(user, cancellationToken);
 			await cacheHandler.DeleteAsync(user.Id, cancellationToken);
 		}
-	}
 
-	extension(IUserCacheHandler cacheHandler)
-	{
-		public async Task<UserResponse?> GetByIdAsync(
+		public async Task<UserResponse?> GetUserCacheByIdAsync(
 			string id,
 			string currentUserId,
 			CancellationToken cancellationToken)
 		{
+			var cacheHandler = serviceScope.GetUserCacheHandler();
+
 			return await cacheHandler.GetByIdAsync(new(id), new(currentUserId), cancellationToken);
+		}
+
+		public async Task<UserResponse?> GetUserCacheByIdAsync(
+			UserId id,
+			UserId currentUserId,
+			CancellationToken cancellationToken)
+		{
+			var cacheHandler = serviceScope.GetUserCacheHandler();
+
+			return await cacheHandler.GetByIdAsync(id, currentUserId, cancellationToken);
+		}
+
+		public async Task DisposeAddAsync(
+			User user,
+			CancellationToken cancellationToken)
+		{
+			await serviceScope.DeleteAsync(user, cancellationToken);
+		}
+
+		public async Task InitializeDeleteAsync(
+			User user,
+			string currentUserId,
+			CancellationToken cancellationToken)
+		{
+			var chats = user.Chats;
+			var chatMessages = user.ChatMessages;
+			var chatMessageImages = chatMessages.SelectMany(p => p.ChatMessageImages).ToList();
+
+			await serviceScope.AddAsync(user, cancellationToken);
+			await serviceScope.AddRangeAsync(chats, cancellationToken);
+			await serviceScope.AddRangeAsync(chatMessages, cancellationToken);
+			await serviceScope.AddRangeAsync(chatMessageImages, cancellationToken);
+			await serviceScope.AddUserCacheAsync(user, currentUserId, cancellationToken);
+		}
+
+		public async Task InitializeDeleteAsync(
+			User user,
+			UserId currentUserId,
+			CancellationToken cancellationToken)
+		{
+			await serviceScope.InitializeDeleteAsync(user, currentUserId.Id, cancellationToken);
+		}
+
+		public async Task DisposeDeleteAsync(
+			User user,
+			CancellationToken cancellationToken)
+		{
+			var chats = user.Chats;
+			var chatMessages = user.ChatMessages;
+			var chatMessageImages = chatMessages.SelectMany(p => p.ChatMessageImages).ToList();
+
+			await serviceScope.DeleteRangeAsync(chatMessageImages, cancellationToken);
+			await serviceScope.DeleteRangeAsync(chatMessages, cancellationToken);
+			await serviceScope.DeleteRangeAsync(chats, cancellationToken);
+			await serviceScope.DeleteAsync(user, cancellationToken);
+		}
+
+		public async Task InitializeGetByIdAsync(
+			User user,
+			CancellationToken cancellationToken)
+		{
+			await serviceScope.AddAsync(user, cancellationToken);
+		}
+
+		public async Task DisposeGetByIdAsync(
+			User user,
+			CancellationToken cancellationToken)
+		{
+			await serviceScope.DeleteAsync(user, cancellationToken);
+		}
+
+		public async Task InitializeUpdateAsync(
+			User user,
+			string currentUserId,
+			CancellationToken cancellationToken)
+		{
+			await serviceScope.AddAsync(user, cancellationToken);
+			await serviceScope.AddUserCacheAsync(user, currentUserId, cancellationToken);
+		}
+
+		public async Task InitializeUpdateAsync(
+			User user,
+			UserId currentUserId,
+			CancellationToken cancellationToken)
+		{
+			await serviceScope.InitializeUpdateAsync(user, currentUserId.Id, cancellationToken);
+		}
+
+		public async Task DisposeUpdateAsync(
+			User user,
+			CancellationToken cancellationToken)
+		{
+			await serviceScope.DeleteAsync(user, cancellationToken);
+		}
+
+		public async Task AddUserCacheAsync(
+			User user,
+			string currentUserId,
+			CancellationToken cancellationToken)
+		{
+			var cacheHandler = serviceScope.GetUserCacheHandler();
+
+			await cacheHandler.AddAsync(user.ToFullResponse(), new(currentUserId), cancellationToken);
+		}
+
+		public async Task AddUserCacheAsync(
+			User user,
+			UserId currentUserId,
+			CancellationToken cancellationToken)
+		{
+			await serviceScope.AddUserCacheAsync(user, currentUserId.Id, cancellationToken);
 		}
 	}
 }

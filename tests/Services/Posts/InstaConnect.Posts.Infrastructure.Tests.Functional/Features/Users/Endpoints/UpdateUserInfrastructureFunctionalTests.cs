@@ -33,9 +33,16 @@ public class UpdateUserInfrastructureFunctionalTests : BaseUserInfrastructureCom
 		_request = _requestBuilder.Build();
 	}
 
-	protected override async Task OnInitializeAsync()
+	public override async Task InitializeAsync()
 	{
-		await ServiceScope.AddAsync(User, CancellationToken);
+		await ServiceScope.InitializeUpdateAsync(User, UserId, CancellationToken);
+		await base.InitializeAsync();
+	}
+
+	public override async Task DisposeAsync()
+	{
+		await ServiceScope.DisposeUpdateAsync(User, CancellationToken);
+		await base.DisposeAsync();
 	}
 
 	[Theory]

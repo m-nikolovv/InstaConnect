@@ -16,6 +16,16 @@ public class GetPostLikeByIdQueryServiceIntegrationTests : BasePostLikeDomainQue
 		_query = _queryBuilder.Build();
 	}
 
+	public override async Task InitializeAsync()
+	{
+		await ServiceScope.InitializeGetByIdAsync(_query, PostLike, CancellationToken);
+	}
+
+	public override async Task DisposeAsync()
+	{
+		await ServiceScope.DisposeGetByIdAsync(_query, PostLike, CancellationToken);
+	}
+
 	[Fact]
 	public async Task GetByIdAsync_ShouldThrowPostNotFoundException_WhenPostNotFound()
 	{
@@ -98,7 +108,7 @@ public class GetPostLikeByIdQueryServiceIntegrationTests : BasePostLikeDomainQue
 	{
 		// Act
 		await Service.GetByIdAsync(_query, CancellationToken);
-		var cachedPostLike = await LikeCacheHandler.GetByIdAsync(_query, CancellationToken);
+		var cachedPostLike = await ServiceScope.GetPostLikeCacheByIdAsync(_query, CancellationToken);
 
 		// Assert
 		cachedPostLike.ShouldSatisfy(_query, PostLike);
@@ -114,7 +124,7 @@ public class GetPostLikeByIdQueryServiceIntegrationTests : BasePostLikeDomainQue
 
 		// Act
 		await Service.GetByIdAsync(query, CancellationToken);
-		var cachedPostLike = await LikeCacheHandler.GetByIdAsync(query, CancellationToken);
+		var cachedPostLike = await ServiceScope.GetPostLikeCacheByIdAsync(query, CancellationToken);
 
 		// Assert
 		cachedPostLike.ShouldSatisfy(query, PostLike);
@@ -130,7 +140,7 @@ public class GetPostLikeByIdQueryServiceIntegrationTests : BasePostLikeDomainQue
 
 		// Act
 		await Service.GetByIdAsync(query, CancellationToken);
-		var cachedPostLike = await LikeCacheHandler.GetByIdAsync(query, CancellationToken);
+		var cachedPostLike = await ServiceScope.GetPostLikeCacheByIdAsync(query, CancellationToken);
 
 		// Assert
 		cachedPostLike.ShouldSatisfy(query, PostLike);
@@ -148,7 +158,7 @@ public class GetPostLikeByIdQueryServiceIntegrationTests : BasePostLikeDomainQue
 
 		// Act
 		await Service.GetByIdAsync(query, CancellationToken);
-		var cachedPostLike = await LikeCacheHandler.GetByIdAsync(query, CancellationToken);
+		var cachedPostLike = await ServiceScope.GetPostLikeCacheByIdAsync(query, CancellationToken);
 
 		// Assert
 		cachedPostLike.ShouldSatisfy(query, PostLike);

@@ -12,9 +12,14 @@ public class GetPostLikeByIdRangeCommandRepositoryIntegrationTests : BasePostLik
 		_include = IncludeBuilderFactory.Create().WithUser().WithPost().Build();
 	}
 
-	protected override async Task OnInitializeAsync()
+	public override async Task InitializeAsync()
 	{
-		await ServiceScope.AddRangeAsync(PostLikes, CancellationToken);
+		await ServiceScope.InitializeGetAllAsync(PostLikes, CancellationToken);
+	}
+
+	public override async Task DisposeAsync()
+	{
+		await ServiceScope.DisposeGetAllAsync(PostLikes, CancellationToken);
 	}
 
 	[Fact]

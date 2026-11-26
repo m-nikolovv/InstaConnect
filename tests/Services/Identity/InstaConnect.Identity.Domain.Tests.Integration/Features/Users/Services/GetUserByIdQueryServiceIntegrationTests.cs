@@ -16,6 +16,16 @@ public class GetUserByIdQueryServiceIntegrationTests : BaseUserDomainQueryIntegr
 		_query = _queryBuilder.Build();
 	}
 
+	public override async Task InitializeAsync()
+	{
+		await ServiceScope.InitializeGetByIdAsync(_query, User, CancellationToken);
+	}
+
+	public override async Task DisposeAsync()
+	{
+		await ServiceScope.DisposeGetByIdAsync(_query, User, CancellationToken);
+	}
+
 	[Fact]
 	public async Task GetByIdAsync_ShouldThrowUserNotFoundException_WhenUserNotFound()
 	{
@@ -73,7 +83,7 @@ public class GetUserByIdQueryServiceIntegrationTests : BaseUserDomainQueryIntegr
 	{
 		// Act
 		await Service.GetByIdAsync(_query, CancellationToken);
-		var cachedUser = await CacheHandler.GetByIdAsync(_query, CancellationToken);
+		var cachedUser = await ServiceScope.GetUserCacheByIdAsync(_query, CancellationToken);
 
 		// Assert
 		cachedUser.ShouldSatisfy(_query, User);
@@ -89,7 +99,7 @@ public class GetUserByIdQueryServiceIntegrationTests : BaseUserDomainQueryIntegr
 
 		// Act
 		await Service.GetByIdAsync(query, CancellationToken);
-		var cachedUser = await CacheHandler.GetByIdAsync(query, CancellationToken);
+		var cachedUser = await ServiceScope.GetUserCacheByIdAsync(query, CancellationToken);
 
 		// Assert
 		cachedUser.ShouldSatisfy(query, User);
@@ -107,7 +117,7 @@ public class GetUserByIdQueryServiceIntegrationTests : BaseUserDomainQueryIntegr
 
 		// Act
 		await Service.GetByIdAsync(query, CancellationToken);
-		var cachedUser = await CacheHandler.GetByIdAsync(query, CancellationToken);
+		var cachedUser = await ServiceScope.GetUserCacheByIdAsync(query, CancellationToken);
 
 		// Assert
 		cachedUser.ShouldSatisfy(query, User);

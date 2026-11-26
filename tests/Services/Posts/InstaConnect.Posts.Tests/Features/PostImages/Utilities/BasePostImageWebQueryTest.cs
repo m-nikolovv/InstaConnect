@@ -6,12 +6,4 @@ public abstract class BasePostImageWebQueryTest : BasePostImageWebTest
 		: base(webApplicationFactory)
 	{
 	}
-
-	public override async Task InitializeAsync()
-	{
-		await ServiceScope.AddRangeAsync(Users, CancellationToken);
-		await ServiceScope.AddRangeAsync(Posts, CancellationToken);
-		await ServiceScope.AddRangeAsync(PostImages, CancellationToken);
-		await OnInitializeAsync();
-	}
 }

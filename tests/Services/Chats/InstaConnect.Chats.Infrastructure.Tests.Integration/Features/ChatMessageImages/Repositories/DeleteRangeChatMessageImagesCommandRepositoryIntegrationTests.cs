@@ -1,3 +1,4 @@
+
 namespace InstaConnect.Chats.Infrastructure.Tests.Integration.Features.ChatMessageImages.Repositories;
 
 public class DeleteRangeChatMessageImagesCommandRepositoryIntegrationTests : BaseChatMessageImageInfrastructureCommandIntegrationTest
@@ -7,9 +8,14 @@ public class DeleteRangeChatMessageImagesCommandRepositoryIntegrationTests : Bas
 	{
 	}
 
-	protected override async Task OnInitializeAsync()
+	public override async Task InitializeAsync()
 	{
-		await ServiceScope.AddRangeAsync(ChatMessageImages, CancellationToken);
+		await ServiceScope.InitializeGetAllAsync(ChatMessageImages, CancellationToken);
+	}
+
+	public override async Task DisposeAsync()
+	{
+		await ServiceScope.DisposeGetAllAsync(ChatMessageImages, CancellationToken);
 	}
 
 	[Fact]

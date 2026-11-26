@@ -1,3 +1,4 @@
+
 namespace InstaConnect.Identity.Presentation.Tests.Integration.Features.Users.Controllers;
 
 public class DeleteCurrentUserControllerIntegrationTests : BaseUserPresentationCommandIntegrationTest
@@ -14,13 +15,16 @@ public class DeleteCurrentUserControllerIntegrationTests : BaseUserPresentationC
 		_request = _requestBuilder.Build();
 	}
 
-	protected override async Task OnInitializeAsync()
+	public override async Task InitializeAsync()
 	{
-		await ServiceScope.AddAsync(User, CancellationToken);
-		await ServiceScope.AddRangeAsync(UserClaims, CancellationToken);
-		await ServiceScope.AddRangeAsync(RefreshTokens, CancellationToken);
-		await ServiceScope.AddRangeAsync(ForgotPasswordTokens, CancellationToken);
-		await ServiceScope.AddRangeAsync(EmailConfirmationTokens, CancellationToken);
+		await ServiceScope.InitializeDeleteAsync(_request, User, CancellationToken);
+		await base.InitializeAsync();
+	}
+
+	public override async Task DisposeAsync()
+	{
+		await ServiceScope.DisposeDeleteAsync(_request, User, CancellationToken);
+		await base.DisposeAsync();
 	}
 
 	[Theory]
@@ -106,7 +110,7 @@ public class DeleteCurrentUserControllerIntegrationTests : BaseUserPresentationC
 	{
 		// Act
 		await Controller.DeleteCurrentAsync(_request, CancellationToken);
-		var cachedUser = await CacheHandler.GetByIdAsync(_request, CancellationToken);
+		var cachedUser = await ServiceScope.GetUserCacheByIdAsync(_request, CancellationToken);
 
 		// Assert
 		cachedUser.ShouldBeNull();
@@ -119,10 +123,11 @@ public class DeleteCurrentUserControllerIntegrationTests : BaseUserPresentationC
 	{
 		// Arrange
 		var request = _requestBuilder.WithId(transformer).Build();
+		await ServiceScope.AddUserCacheAsync(request, User, CancellationToken);
 
 		// Act
 		await Controller.DeleteCurrentAsync(request, CancellationToken);
-		var cachedUser = await CacheHandler.GetByIdAsync(request, CancellationToken);
+		var cachedUser = await ServiceScope.GetUserCacheByIdAsync(request, CancellationToken);
 
 		// Assert
 		cachedUser.ShouldBeNull();

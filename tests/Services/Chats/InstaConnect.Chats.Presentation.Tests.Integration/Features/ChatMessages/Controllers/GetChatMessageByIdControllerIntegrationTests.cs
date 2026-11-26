@@ -22,6 +22,16 @@ public class GetChatMessageByIdControllerIntegrationTests : BaseChatMessagePrese
 		_invertedRequest = _invertedRequestBuilder.Build();
 	}
 
+	public override async Task InitializeAsync()
+	{
+		await ServiceScope.InitializeGetByIdAsync(_request, ChatMessage, CancellationToken);
+	}
+
+	public override async Task DisposeAsync()
+	{
+		await ServiceScope.DisposeGetByIdAsync(_request, ChatMessage, CancellationToken);
+	}
+
 	[Theory]
 	[UserIdNullWithMessageData]
 	[UserIdEmptyWithMessageData]
@@ -260,7 +270,7 @@ public class GetChatMessageByIdControllerIntegrationTests : BaseChatMessagePrese
 	{
 		// Act
 		await Controller.GetByIdAsync(_request, CancellationToken);
-		var cachedChatMessage = await MessageCacheHandler.GetByIdAsync(_request, CancellationToken);
+		var cachedChatMessage = await ServiceScope.GetChatMessageCacheByIdAsync(_request, CancellationToken);
 
 		// Assert
 		cachedChatMessage.ShouldSatisfy(_request, ChatMessage);
@@ -276,7 +286,7 @@ public class GetChatMessageByIdControllerIntegrationTests : BaseChatMessagePrese
 
 		// Act
 		await Controller.GetByIdAsync(request, CancellationToken);
-		var cachedChatMessage = await MessageCacheHandler.GetByIdAsync(request, CancellationToken);
+		var cachedChatMessage = await ServiceScope.GetChatMessageCacheByIdAsync(request, CancellationToken);
 
 		// Assert
 		cachedChatMessage.ShouldSatisfy(request, ChatMessage);
@@ -292,7 +302,7 @@ public class GetChatMessageByIdControllerIntegrationTests : BaseChatMessagePrese
 
 		// Act
 		await Controller.GetByIdAsync(request, CancellationToken);
-		var cachedChatMessage = await MessageCacheHandler.GetByIdAsync(request, CancellationToken);
+		var cachedChatMessage = await ServiceScope.GetChatMessageCacheByIdAsync(request, CancellationToken);
 
 		// Assert
 		cachedChatMessage.ShouldSatisfy(request, ChatMessage);
@@ -308,7 +318,7 @@ public class GetChatMessageByIdControllerIntegrationTests : BaseChatMessagePrese
 
 		// Act
 		await Controller.GetByIdAsync(request, CancellationToken);
-		var cachedChatMessage = await MessageCacheHandler.GetByIdAsync(request, CancellationToken);
+		var cachedChatMessage = await ServiceScope.GetChatMessageCacheByIdAsync(request, CancellationToken);
 
 		// Assert
 		cachedChatMessage.ShouldSatisfy(request, ChatMessage);

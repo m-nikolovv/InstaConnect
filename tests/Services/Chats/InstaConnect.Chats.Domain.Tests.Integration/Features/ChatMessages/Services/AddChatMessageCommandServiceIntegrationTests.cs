@@ -25,6 +25,16 @@ public class AddChatMessageCommandServiceIntegrationTests : BaseChatMessageDomai
 		_invertedCommand = _invertedCommandBuilder.Build();
 	}
 
+	public override async Task InitializeAsync()
+	{
+		await ServiceScope.InitializeAddAsync(_command, ChatMessage, CancellationToken);
+	}
+
+	public override async Task DisposeAsync()
+	{
+		await ServiceScope.DisposeAddAsync(_command, ChatMessage, CancellationToken);
+	}
+
 	[Fact]
 	public async Task AddAsync_ShouldThrowChatNotFoundException_WhenChatNotFound()
 	{
@@ -158,7 +168,7 @@ public class AddChatMessageCommandServiceIntegrationTests : BaseChatMessageDomai
 	{
 		// Act
 		await Service.AddAsync(_command, CancellationToken);
-		var cachedChat = await CacheHandler.GetByIdAsync(_command, CancellationToken);
+		var cachedChat = await ServiceScope.GetChatCacheByIdAsync(_command, CancellationToken);
 
 		// Assert
 		cachedChat.ShouldBeNull();
@@ -171,10 +181,11 @@ public class AddChatMessageCommandServiceIntegrationTests : BaseChatMessageDomai
 	{
 		// Arrange
 		var command = _commandBuilder.WithParticipantOneId(transformer).Build();
+		await ServiceScope.AddChatCacheAsync(command, Chat, CancellationToken);
 
 		// Act
 		await Service.AddAsync(command, CancellationToken);
-		var cachedChat = await CacheHandler.GetByIdAsync(command, CancellationToken);
+		var cachedChat = await ServiceScope.GetChatCacheByIdAsync(command, CancellationToken);
 
 		// Assert
 		cachedChat.ShouldBeNull();
@@ -187,10 +198,11 @@ public class AddChatMessageCommandServiceIntegrationTests : BaseChatMessageDomai
 	{
 		// Arrange
 		var command = _commandBuilder.WithParticipantTwoId(transformer).Build();
+		await ServiceScope.AddChatCacheAsync(command, Chat, CancellationToken);
 
 		// Act
 		await Service.AddAsync(command, CancellationToken);
-		var cachedChat = await CacheHandler.GetByIdAsync(command, CancellationToken);
+		var cachedChat = await ServiceScope.GetChatCacheByIdAsync(command, CancellationToken);
 
 		// Assert
 		cachedChat.ShouldBeNull();
@@ -203,10 +215,11 @@ public class AddChatMessageCommandServiceIntegrationTests : BaseChatMessageDomai
 	{
 		// Arrange
 		var command = _commandBuilder.WithImages(transformer).Build();
+		await ServiceScope.AddChatCacheAsync(command, Chat, CancellationToken);
 
 		// Act
 		await Service.AddAsync(command, CancellationToken);
-		var cachedChat = await CacheHandler.GetByIdAsync(command, CancellationToken);
+		var cachedChat = await ServiceScope.GetChatCacheByIdAsync(command, CancellationToken);
 
 		// Assert
 		cachedChat.ShouldBeNull();

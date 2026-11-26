@@ -1,40 +1,37 @@
 using InstaConnect.Posts.Domain.Features.PostLikes.Models.Responses;
 using InstaConnect.Posts.Domain.Features.PostLikes.Models.ValueObjects;
 using InstaConnect.Posts.Domain.Features.Posts.Models.Responses;
-using InstaConnect.Posts.Infrastructure.Features.PostLikes.Abstractions;
-using InstaConnect.Posts.Infrastructure.Features.Posts.Abstractions;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace InstaConnect.Posts.Infrastructure.Tests.Features.PostLikes.Utilities;
 
 public static class PostLikeSetups
 {
-	extension(IPostLikeCacheHandler cacheHandler)
+	extension(IServiceScope serviceScope)
 	{
-		public async Task<PostLikeResponse?> GetByIdAsync(
+		public async Task<PostLikeResponse?> GetPostLikeCacheByIdAsync(
 			PostLike postLike,
 			UserId currentUserId,
 			CancellationToken cancellationToken)
 		{
-			return await cacheHandler.GetByIdAsync(postLike.Id, currentUserId, cancellationToken);
+			return await serviceScope.GetPostLikeCacheByIdAsync(postLike.Id, currentUserId, cancellationToken);
 		}
 
-		public async Task<PostLikeResponse?> GetByIdAsync(
+		public async Task<PostLikeResponse?> GetPostLikeCacheByIdAsync(
 			PostLikeId id,
 			CurrentUserQuery currentUserQuery,
 			CancellationToken cancellationToken)
 		{
-			return await cacheHandler.GetByIdAsync(id, currentUserQuery.Id, cancellationToken);
+			return await serviceScope.GetPostLikeCacheByIdAsync(id, currentUserQuery.Id, cancellationToken);
 		}
-	}
 
-	extension(IPostCacheHandler cacheHandler)
-	{
-		public async Task<PostResponse?> GetByIdAsync(
+		public async Task<PostResponse?> GetPostCacheByIdAsync(
 			PostLike postLike,
 			UserId currentUserId,
 			CancellationToken cancellationToken)
 		{
-			return await cacheHandler.GetByIdAsync(postLike.Id.Id, currentUserId, cancellationToken);
+			return await serviceScope.GetPostCacheByIdAsync(postLike.Id.Id, currentUserId, cancellationToken);
 		}
 	}
+
 }

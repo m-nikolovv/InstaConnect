@@ -16,6 +16,16 @@ public class GetFollowByIdQueryHandlerIntegrationTests : BaseFollowApplicationQu
 		_request = _requestBuilder.Build();
 	}
 
+	public override async Task InitializeAsync()
+	{
+		await ServiceScope.InitializeGetByIdAsync(_request, Follow, CancellationToken);
+	}
+
+	public override async Task DisposeAsync()
+	{
+		await ServiceScope.DisposeGetByIdAsync(_request, Follow, CancellationToken);
+	}
+
 	[Theory]
 	[UserIdNullWithMessageData]
 	[UserIdEmptyWithMessageData]
@@ -133,7 +143,7 @@ public class GetFollowByIdQueryHandlerIntegrationTests : BaseFollowApplicationQu
 	{
 		// Act
 		await Sender.SendAsync(_request, CancellationToken);
-		var cachedFollow = await CacheHandler.GetByIdAsync(_request, CancellationToken);
+		var cachedFollow = await ServiceScope.GetFollowCacheByIdAsync(_request, CancellationToken);
 
 		// Assert
 		cachedFollow.ShouldSatisfy(_request, Follow);
@@ -149,7 +159,7 @@ public class GetFollowByIdQueryHandlerIntegrationTests : BaseFollowApplicationQu
 
 		// Act
 		await Sender.SendAsync(request, CancellationToken);
-		var cachedFollow = await CacheHandler.GetByIdAsync(request, CancellationToken);
+		var cachedFollow = await ServiceScope.GetFollowCacheByIdAsync(request, CancellationToken);
 
 		// Assert
 		cachedFollow.ShouldSatisfy(request, Follow);
@@ -165,7 +175,7 @@ public class GetFollowByIdQueryHandlerIntegrationTests : BaseFollowApplicationQu
 
 		// Act
 		await Sender.SendAsync(request, CancellationToken);
-		var cachedFollow = await CacheHandler.GetByIdAsync(request, CancellationToken);
+		var cachedFollow = await ServiceScope.GetFollowCacheByIdAsync(request, CancellationToken);
 
 		// Assert
 		cachedFollow.ShouldSatisfy(request, Follow);
@@ -183,7 +193,7 @@ public class GetFollowByIdQueryHandlerIntegrationTests : BaseFollowApplicationQu
 
 		// Act
 		await Sender.SendAsync(request, CancellationToken);
-		var cachedFollow = await CacheHandler.GetByIdAsync(request, CancellationToken);
+		var cachedFollow = await ServiceScope.GetFollowCacheByIdAsync(request, CancellationToken);
 
 		// Assert
 		cachedFollow.ShouldSatisfy(request, Follow);

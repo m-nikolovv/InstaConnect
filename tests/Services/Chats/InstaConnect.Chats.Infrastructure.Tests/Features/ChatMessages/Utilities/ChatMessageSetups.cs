@@ -1,40 +1,37 @@
 using InstaConnect.Chats.Domain.Features.ChatMessages.Models.Responses;
 using InstaConnect.Chats.Domain.Features.ChatMessages.Models.ValueObjects;
 using InstaConnect.Chats.Domain.Features.Chats.Models.Responses;
-using InstaConnect.Chats.Infrastructure.Features.ChatMessages.Abstractions;
-using InstaConnect.Chats.Infrastructure.Features.Chats.Abstractions;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace InstaConnect.Chats.Infrastructure.Tests.Features.ChatMessages.Utilities;
 
 public static class ChatMessageSetups
 {
-	extension(IChatMessageCacheHandler cacheHandler)
+	extension(IServiceScope serviceScope)
 	{
-		public async Task<ChatMessageResponse?> GetByIdAsync(
+		public async Task<ChatMessageResponse?> GetChatMessageCacheByIdAsync(
 			ChatMessage chatMessage,
 			UserId currentUserId,
 			CancellationToken cancellationToken)
 		{
-			return await cacheHandler.GetByIdAsync(chatMessage.Id, currentUserId, cancellationToken);
+			return await serviceScope.GetChatMessageCacheByIdAsync(chatMessage.Id, currentUserId, cancellationToken);
 		}
 
-		public async Task<ChatMessageResponse?> GetByIdAsync(
+		public async Task<ChatMessageResponse?> GetChatMessageCacheByIdAsync(
 			ChatMessageId id,
 			CurrentUserQuery currentUserQuery,
 			CancellationToken cancellationToken)
 		{
-			return await cacheHandler.GetByIdAsync(id, currentUserQuery.Id, cancellationToken);
+			return await serviceScope.GetChatMessageCacheByIdAsync(id, currentUserQuery.Id, cancellationToken);
 		}
-	}
 
-	extension(IChatCacheHandler cacheHandler)
-	{
-		public async Task<ChatResponse?> GetByIdAsync(
+		public async Task<ChatResponse?> GetChatCacheByIdAsync(
 			ChatMessage chatMessage,
 			UserId currentUserId,
 			CancellationToken cancellationToken)
 		{
-			return await cacheHandler.GetByIdAsync(chatMessage.Id.Id, currentUserId, cancellationToken);
+			return await serviceScope.GetChatCacheByIdAsync(chatMessage.Id.Id, currentUserId, cancellationToken);
 		}
 	}
+
 }

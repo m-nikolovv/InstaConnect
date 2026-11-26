@@ -20,9 +20,14 @@ public class RotateRefreshTokenControllerIntegrationTests : BaseRefreshTokenPres
 		_request = _requestBuilder.Build();
 	}
 
-	protected override async Task OnInitializeAsync()
+	public override async Task InitializeAsync()
 	{
-		await ServiceScope.AddAsync(RefreshToken, CancellationToken);
+		await ServiceScope.InitializeUpdateAsync(_request, RefreshToken, CancellationToken);
+	}
+
+	public override async Task DisposeAsync()
+	{
+		await ServiceScope.DisposeUpdateAsync(_request, RefreshToken, CancellationToken);
 	}
 
 	[Theory]

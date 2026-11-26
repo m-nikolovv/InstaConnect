@@ -10,9 +10,14 @@ public class GetForgotPasswordTokenByIdRangeCommandRepositoryIntegrationTests : 
 	{
 	}
 
-	protected override async Task OnInitializeAsync()
+	public override async Task InitializeAsync()
 	{
-		await ServiceScope.AddRangeAsync(ForgotPasswordTokens, CancellationToken);
+		await ServiceScope.InitializeGetAllAsync(ForgotPasswordTokens, CancellationToken);
+	}
+
+	public override async Task DisposeAsync()
+	{
+		await ServiceScope.DisposeGetAllAsync(ForgotPasswordTokens, CancellationToken);
 	}
 
 	[Fact]

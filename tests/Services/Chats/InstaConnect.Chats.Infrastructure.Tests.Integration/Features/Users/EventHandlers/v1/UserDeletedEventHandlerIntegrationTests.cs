@@ -24,12 +24,16 @@ public class UserDeletedEventHandlerIntegrationTests : BaseUserInfrastructureEve
 		_handler = ServiceScope.GetUserDeletedEventHandler();
 	}
 
-	protected override async Task OnInitializeAsync()
+	public override async Task InitializeAsync()
 	{
-		await ServiceScope.AddAsync(User, CancellationToken);
-		await ServiceScope.AddRangeAsync(Chats, CancellationToken);
-		await ServiceScope.AddRangeAsync(ChatMessages, CancellationToken);
-		await ServiceScope.AddRangeAsync(ChatMessageImages, CancellationToken);
+		await ServiceScope.InitializeGetByIdAsync(User, CancellationToken);
+		await base.InitializeAsync();
+	}
+
+	public override async Task DisposeAsync()
+	{
+		await ServiceScope.DisposeGetByIdAsync(User, CancellationToken);
+		await base.DisposeAsync();
 	}
 
 	[Theory]

@@ -1,4 +1,5 @@
 
+
 namespace InstaConnect.Posts.Infrastructure.Tests.Integration.Features.PostImages.Repositories;
 
 public class DeletePostImageCommandRepositoryIntegrationTests : BasePostImageInfrastructureCommandIntegrationTest
@@ -8,9 +9,14 @@ public class DeletePostImageCommandRepositoryIntegrationTests : BasePostImageInf
 	{
 	}
 
-	protected override async Task OnInitializeAsync()
+	public override async Task InitializeAsync()
 	{
-		await ServiceScope.AddAsync(PostImage, CancellationToken);
+		await ServiceScope.InitializeDeleteAsync(PostImage, UserId, CancellationToken);
+	}
+
+	public override async Task DisposeAsync()
+	{
+		await ServiceScope.DisposeDeleteAsync(PostImage, CancellationToken);
 	}
 
 	[Fact]

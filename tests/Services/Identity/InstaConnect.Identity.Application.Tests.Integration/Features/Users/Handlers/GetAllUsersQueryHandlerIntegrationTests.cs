@@ -23,6 +23,16 @@ public class GetAllUsersQueryHandlerIntegrationTests : BaseUserApplicationQueryI
 		_request = _requestBuilder.Build();
 	}
 
+	public override async Task InitializeAsync()
+	{
+		await ServiceScope.InitializeGetAllAsync(_request, Users, CancellationToken);
+	}
+
+	public override async Task DisposeAsync()
+	{
+		await ServiceScope.DisposeGetAllAsync(_request, Users, CancellationToken);
+	}
+
 	[Theory]
 	[UserNameTooLongWithMessageData]
 	public async Task SendAsync_ShouldThrowValidationException_WhenNameIsInvalid(

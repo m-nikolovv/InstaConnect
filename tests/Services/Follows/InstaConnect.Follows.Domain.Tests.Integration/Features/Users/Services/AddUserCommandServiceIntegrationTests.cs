@@ -1,6 +1,7 @@
 using InstaConnect.Follows.Domain.Features.Users.Models.Requests;
 using InstaConnect.Follows.Domain.Tests.Features.Users.Assertions;
 using InstaConnect.Follows.Domain.Tests.Features.Users.Builders;
+using InstaConnect.Follows.Domain.Tests.Features.Users.Utilities;
 using InstaConnect.Follows.Domain.Tests.Integration.Features.Users.Utilities;
 using InstaConnect.Follows.Tests.Features.Users.DataAttributes.Email;
 using InstaConnect.Follows.Tests.Features.Users.DataAttributes.Name;
@@ -20,6 +21,11 @@ public class AddUserCommandServiceIntegrationTests : BaseUserDomainCommandIntegr
 		_commandBuilderFactory = new();
 		_commandBuilder = _commandBuilderFactory.Create();
 		_command = _commandBuilder.Build();
+	}
+
+	public override async Task DisposeAsync()
+	{
+		await ServiceScope.DisposeAddAsync(_command, User, CancellationToken);
 	}
 
 	[Fact]

@@ -6,12 +6,4 @@ public abstract class BasePostCommentLikeWebCommandTest : BasePostCommentLikeWeb
 		: base(webApplicationFactory)
 	{
 	}
-
-	public override async Task InitializeAsync()
-	{
-		await ServiceScope.AddAsync(User, CancellationToken);
-		await ServiceScope.AddAsync(Post, CancellationToken);
-		await ServiceScope.AddAsync(PostComment, CancellationToken);
-		await OnInitializeAsync();
-	}
 }

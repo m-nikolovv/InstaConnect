@@ -1,3 +1,4 @@
+
 namespace InstaConnect.Identity.Infrastructure.Tests.Integration.Features.ForgotPasswordTokens.Repositories;
 
 public class DeleteForgotPasswordTokenCommandRepositoryIntegrationTests : BaseForgotPasswordTokenInfrastructureCommandIntegrationTest
@@ -7,9 +8,14 @@ public class DeleteForgotPasswordTokenCommandRepositoryIntegrationTests : BaseFo
 	{
 	}
 
-	protected override async Task OnInitializeAsync()
+	public override async Task InitializeAsync()
 	{
-		await ServiceScope.AddAsync(ForgotPasswordToken, CancellationToken);
+		await ServiceScope.InitializeDeleteAsync(ForgotPasswordToken, CancellationToken);
+	}
+
+	public override async Task DisposeAsync()
+	{
+		await ServiceScope.DisposeDeleteAsync(ForgotPasswordToken, CancellationToken);
 	}
 
 	[Fact]

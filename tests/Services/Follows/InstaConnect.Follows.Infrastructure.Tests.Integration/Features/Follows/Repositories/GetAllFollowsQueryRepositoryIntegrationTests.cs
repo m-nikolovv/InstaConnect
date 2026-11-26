@@ -44,6 +44,16 @@ public class GetAllFollowsQueryRepositoryIntegrationTests : BaseFollowInfrastruc
 		_currentUserQuery = _currentUserQueryBuilder.Build();
 	}
 
+	public override async Task InitializeAsync()
+	{
+		await ServiceScope.InitializeGetAllAsync(Follows, CancellationToken);
+	}
+
+	public override async Task DisposeAsync()
+	{
+		await ServiceScope.DisposeGetAllAsync(Follows, CancellationToken);
+	}
+
 	[Fact]
 	public async Task GetAllAsync_ShouldReturnResponse_WhenQueryIsValid()
 	{

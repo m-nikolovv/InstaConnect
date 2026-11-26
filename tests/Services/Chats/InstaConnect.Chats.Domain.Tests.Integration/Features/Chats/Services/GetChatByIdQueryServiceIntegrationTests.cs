@@ -26,6 +26,16 @@ public class GetChatByIdQueryServiceIntegrationTests : BaseChatDomainQueryIntegr
 		_invertedQuery = _invertedQueryBuilder.Build();
 	}
 
+	public override async Task InitializeAsync()
+	{
+		await ServiceScope.InitializeGetByIdAsync(_query, Chat, CancellationToken);
+	}
+
+	public override async Task DisposeAsync()
+	{
+		await ServiceScope.DisposeGetByIdAsync(_query, Chat, CancellationToken);
+	}
+
 	[Fact]
 	public async Task GetByIdAsync_ShouldThrowChatNotFoundException_WhenChatNotFound()
 	{
@@ -81,7 +91,7 @@ public class GetChatByIdQueryServiceIntegrationTests : BaseChatDomainQueryIntegr
 	{
 		// Act
 		await Service.GetByIdAsync(_query, CancellationToken);
-		var cachedChat = await CacheHandler.GetByIdAsync(_query, CancellationToken);
+		var cachedChat = await ServiceScope.GetChatCacheByIdAsync(_query, CancellationToken);
 
 		// Assert
 		cachedChat.ShouldSatisfy(_query, Chat);
@@ -97,7 +107,7 @@ public class GetChatByIdQueryServiceIntegrationTests : BaseChatDomainQueryIntegr
 
 		// Act
 		await Service.GetByIdAsync(query, CancellationToken);
-		var cachedChat = await CacheHandler.GetByIdAsync(query, CancellationToken);
+		var cachedChat = await ServiceScope.GetChatCacheByIdAsync(query, CancellationToken);
 
 		// Assert
 		cachedChat.ShouldSatisfy(query, Chat);
@@ -113,7 +123,7 @@ public class GetChatByIdQueryServiceIntegrationTests : BaseChatDomainQueryIntegr
 
 		// Act
 		await Service.GetByIdAsync(query, CancellationToken);
-		var cachedChat = await CacheHandler.GetByIdAsync(query, CancellationToken);
+		var cachedChat = await ServiceScope.GetChatCacheByIdAsync(query, CancellationToken);
 
 		// Assert
 		cachedChat.ShouldSatisfy(query, Chat);

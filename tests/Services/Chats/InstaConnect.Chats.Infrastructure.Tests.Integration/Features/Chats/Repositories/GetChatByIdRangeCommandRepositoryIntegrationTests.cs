@@ -9,9 +9,14 @@ public class GetChatByIdRangeCommandRepositoryIntegrationTests : BaseChatInfrast
 	{
 	}
 
-	protected override async Task OnInitializeAsync()
+	public override async Task InitializeAsync()
 	{
-		await ServiceScope.AddRangeAsync(Chats, CancellationToken);
+		await ServiceScope.InitializeGetAllAsync(Chats, CancellationToken);
+	}
+
+	public override async Task DisposeAsync()
+	{
+		await ServiceScope.DisposeGetAllAsync(Chats, CancellationToken);
 	}
 
 	[Fact]

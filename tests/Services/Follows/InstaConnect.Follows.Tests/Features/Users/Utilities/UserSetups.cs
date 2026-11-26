@@ -133,16 +133,136 @@ public static class UserSetups
 			await userRepository.DeleteAsync(user, cancellationToken);
 			await cacheHandler.DeleteAsync(user.Id, cancellationToken);
 		}
-	}
 
-	extension(IUserCacheHandler cacheHandler)
-	{
-		public async Task<UserResponse?> GetByIdAsync(
+		public async Task<UserResponse?> GetUserCacheByIdAsync(
 			string id,
 			string currentUserId,
 			CancellationToken cancellationToken)
 		{
+			var cacheHandler = serviceScope.GetUserCacheHandler();
+
 			return await cacheHandler.GetByIdAsync(new(id), new(currentUserId), cancellationToken);
+		}
+
+		public async Task<UserResponse?> GetUserCacheByIdAsync(
+			UserId id,
+			UserId currentUserId,
+			CancellationToken cancellationToken)
+		{
+			var cacheHandler = serviceScope.GetUserCacheHandler();
+
+			return await cacheHandler.GetByIdAsync(id, currentUserId, cancellationToken);
+		}
+
+		public async Task DisposeAddAsync(
+			User user,
+			CancellationToken cancellationToken)
+		{
+			await serviceScope.DeleteAsync(user, cancellationToken);
+		}
+
+		public async Task InitializeDeleteAsync(
+			User user,
+			string currentUserId,
+			CancellationToken cancellationToken)
+		{
+			var follows = user.FollowFollowers.Concat(user.FollowFollowings).DistinctBy(p => p.Id).ToList();
+			var users = follows
+				.Select(p => p.Follower!)
+				.Concat(follows.Select(p => p.Following!))
+				.Where(p => p.Id != user.Id)
+				.DistinctBy(p => p.Id)
+				.ToList();
+
+			await serviceScope.AddAsync(user, cancellationToken);
+			await serviceScope.AddRangeAsync(users, cancellationToken);
+			await serviceScope.AddRangeAsync(follows, cancellationToken);
+			await serviceScope.AddUserCacheAsync(user, currentUserId, cancellationToken);
+		}
+
+		public async Task InitializeDeleteAsync(
+			User user,
+			UserId currentUserId,
+			CancellationToken cancellationToken)
+		{
+			await serviceScope.InitializeDeleteAsync(user, currentUserId.Id, cancellationToken);
+		}
+
+		public async Task DisposeDeleteAsync(
+			User user,
+			CancellationToken cancellationToken)
+		{
+			var follows = user.FollowFollowers.Concat(user.FollowFollowings).DistinctBy(p => p.Id).ToList();
+			var users = follows
+				.Select(p => p.Follower!)
+				.Concat(follows.Select(p => p.Following!))
+				.Where(p => p.Id != user.Id)
+				.DistinctBy(p => p.Id)
+				.ToList();
+
+			await serviceScope.DeleteRangeAsync(follows, cancellationToken);
+			await serviceScope.DeleteAsync(user, cancellationToken);
+
+			foreach (var linkedUser in users)
+			{
+				await serviceScope.DeleteAsync(linkedUser, cancellationToken);
+			}
+		}
+
+		public async Task InitializeGetByIdAsync(
+			User user,
+			CancellationToken cancellationToken)
+		{
+			await serviceScope.AddAsync(user, cancellationToken);
+		}
+
+		public async Task DisposeGetByIdAsync(
+			User user,
+			CancellationToken cancellationToken)
+		{
+			await serviceScope.DeleteAsync(user, cancellationToken);
+		}
+
+		public async Task InitializeUpdateAsync(
+			User user,
+			string currentUserId,
+			CancellationToken cancellationToken)
+		{
+			await serviceScope.AddAsync(user, cancellationToken);
+			await serviceScope.AddUserCacheAsync(user, currentUserId, cancellationToken);
+		}
+
+		public async Task InitializeUpdateAsync(
+			User user,
+			UserId currentUserId,
+			CancellationToken cancellationToken)
+		{
+			await serviceScope.InitializeUpdateAsync(user, currentUserId.Id, cancellationToken);
+		}
+
+		public async Task DisposeUpdateAsync(
+			User user,
+			CancellationToken cancellationToken)
+		{
+			await serviceScope.DeleteAsync(user, cancellationToken);
+		}
+
+		public async Task AddUserCacheAsync(
+			User user,
+			string currentUserId,
+			CancellationToken cancellationToken)
+		{
+			var cacheHandler = serviceScope.GetUserCacheHandler();
+
+			await cacheHandler.AddAsync(user.ToFullResponse(), new(currentUserId), cancellationToken);
+		}
+
+		public async Task AddUserCacheAsync(
+			User user,
+			UserId currentUserId,
+			CancellationToken cancellationToken)
+		{
+			await serviceScope.AddUserCacheAsync(user, currentUserId.Id, cancellationToken);
 		}
 	}
 }

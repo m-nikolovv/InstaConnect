@@ -18,6 +18,16 @@ public class GetFollowByIdQueryRepositoryIntegrationTests : BaseFollowInfrastruc
 		_currentUserQuery = _currentUserQueryBuilder.Build();
 	}
 
+	public override async Task InitializeAsync()
+	{
+		await ServiceScope.InitializeGetByIdAsync(Follow, CancellationToken);
+	}
+
+	public override async Task DisposeAsync()
+	{
+		await ServiceScope.DisposeGetByIdAsync(Follow, CancellationToken);
+	}
+
 	[Fact]
 	public async Task GetByIdAsync_ShouldReturnNull_WhenIdIsInvalid()
 	{
@@ -93,7 +103,7 @@ public class GetFollowByIdQueryRepositoryIntegrationTests : BaseFollowInfrastruc
 	{
 		// Act
 		await Repository.GetByIdAsync(FollowId, _currentUserQuery, CancellationToken);
-		var cachedFollow = await CacheHandler.GetByIdAsync(FollowId, _currentUserQuery, CancellationToken);
+		var cachedFollow = await ServiceScope.GetFollowCacheByIdAsync(FollowId, _currentUserQuery, CancellationToken);
 
 		// Assert
 		cachedFollow.ShouldSatisfy(FollowId, _currentUserQuery, Follow);
@@ -109,7 +119,7 @@ public class GetFollowByIdQueryRepositoryIntegrationTests : BaseFollowInfrastruc
 
 		// Act
 		await Repository.GetByIdAsync(id, _currentUserQuery, CancellationToken);
-		var cachedFollow = await CacheHandler.GetByIdAsync(id, _currentUserQuery, CancellationToken);
+		var cachedFollow = await ServiceScope.GetFollowCacheByIdAsync(id, _currentUserQuery, CancellationToken);
 
 		// Assert
 		cachedFollow.ShouldSatisfy(id, _currentUserQuery, Follow);
@@ -125,7 +135,7 @@ public class GetFollowByIdQueryRepositoryIntegrationTests : BaseFollowInfrastruc
 
 		// Act
 		await Repository.GetByIdAsync(id, _currentUserQuery, CancellationToken);
-		var cachedFollow = await CacheHandler.GetByIdAsync(id, _currentUserQuery, CancellationToken);
+		var cachedFollow = await ServiceScope.GetFollowCacheByIdAsync(id, _currentUserQuery, CancellationToken);
 
 		// Assert
 		cachedFollow.ShouldSatisfy(id, _currentUserQuery, Follow);
@@ -143,7 +153,7 @@ public class GetFollowByIdQueryRepositoryIntegrationTests : BaseFollowInfrastruc
 
 		// Act
 		await Repository.GetByIdAsync(FollowId, currentUserQuery, CancellationToken);
-		var cachedFollow = await CacheHandler.GetByIdAsync(FollowId, currentUserQuery, CancellationToken);
+		var cachedFollow = await ServiceScope.GetFollowCacheByIdAsync(FollowId, currentUserQuery, CancellationToken);
 
 		// Assert
 		cachedFollow.ShouldSatisfy(FollowId, currentUserQuery, Follow);

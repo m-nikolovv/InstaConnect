@@ -1,4 +1,3 @@
-using InstaConnect.Follows.Infrastructure.Features.Follows.Abstractions;
 using InstaConnect.Follows.Tests.Features.Follows.Abstractions;
 using InstaConnect.Follows.Tests.Features.Follows.Extensions;
 
@@ -10,8 +9,6 @@ public abstract class BaseFollowApplicationCommandIntegrationTest : BaseFollowWe
 
 	protected IFollowEventClient EventClient { get; }
 
-	protected IFollowCacheHandler CacheHandler { get; }
-
 	protected IFollowNotificationClient NotificationClient { get; }
 
 	protected BaseFollowApplicationCommandIntegrationTest(FollowsWebApplicationFactory webApplicationFactory)
@@ -19,7 +16,6 @@ public abstract class BaseFollowApplicationCommandIntegrationTest : BaseFollowWe
 	{
 		Sender = ServiceScope.GetSender();
 		EventClient = webApplicationFactory.CreateEventClient();
-		CacheHandler = ServiceScope.GetFollowCacheHandler();
 		NotificationClient = webApplicationFactory.CreateNotificationClient(FollowingId);
 	}
 

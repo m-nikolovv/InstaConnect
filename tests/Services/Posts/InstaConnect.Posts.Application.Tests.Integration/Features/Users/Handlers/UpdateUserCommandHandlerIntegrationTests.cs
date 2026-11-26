@@ -25,9 +25,14 @@ public class UpdateUserCommandHandlerIntegrationTests : BaseUserApplicationComma
 		_request = _requestBuilder.Build();
 	}
 
-	protected override async Task OnInitializeAsync()
+	public override async Task InitializeAsync()
 	{
-		await ServiceScope.AddAsync(User, CancellationToken);
+		await ServiceScope.InitializeUpdateAsync(_request, User, CancellationToken);
+	}
+
+	public override async Task DisposeAsync()
+	{
+		await ServiceScope.DisposeUpdateAsync(_request, User, CancellationToken);
 	}
 
 	[Theory]
@@ -480,7 +485,7 @@ public class UpdateUserCommandHandlerIntegrationTests : BaseUserApplicationComma
 	{
 		// Act
 		await Sender.SendAsync(_request, CancellationToken);
-		var cachedUser = await CacheHandler.GetByIdAsync(_request, CancellationToken);
+		var cachedUser = await ServiceScope.GetUserCacheByIdAsync(_request, CancellationToken);
 
 		// Assert
 		cachedUser.ShouldBeNull();
@@ -493,10 +498,11 @@ public class UpdateUserCommandHandlerIntegrationTests : BaseUserApplicationComma
 	{
 		// Arrange
 		var request = _requestBuilder.WithId(transformer).Build();
+		await ServiceScope.AddUserCacheAsync(request, User, CancellationToken);
 
 		// Act
 		await Sender.SendAsync(request, CancellationToken);
-		var cachedUser = await CacheHandler.GetByIdAsync(request, CancellationToken);
+		var cachedUser = await ServiceScope.GetUserCacheByIdAsync(request, CancellationToken);
 
 		// Assert
 		cachedUser.ShouldBeNull();
@@ -509,10 +515,11 @@ public class UpdateUserCommandHandlerIntegrationTests : BaseUserApplicationComma
 	{
 		// Arrange
 		var request = _requestBuilder.WithName(transformer).Build();
+		await ServiceScope.AddUserCacheAsync(request, User, CancellationToken);
 
 		// Act
 		await Sender.SendAsync(request, CancellationToken);
-		var cachedUser = await CacheHandler.GetByIdAsync(request, CancellationToken);
+		var cachedUser = await ServiceScope.GetUserCacheByIdAsync(request, CancellationToken);
 
 		// Assert
 		cachedUser.ShouldBeNull();
@@ -523,10 +530,11 @@ public class UpdateUserCommandHandlerIntegrationTests : BaseUserApplicationComma
 	{
 		// Arrange
 		var request = _requestBuilder.WithName(User.Name).Build();
+		await ServiceScope.AddUserCacheAsync(request, User, CancellationToken);
 
 		// Act
 		await Sender.SendAsync(request, CancellationToken);
-		var cachedUser = await CacheHandler.GetByIdAsync(request, CancellationToken);
+		var cachedUser = await ServiceScope.GetUserCacheByIdAsync(request, CancellationToken);
 
 		// Assert
 		cachedUser.ShouldBeNull();
@@ -539,10 +547,11 @@ public class UpdateUserCommandHandlerIntegrationTests : BaseUserApplicationComma
 	{
 		// Arrange
 		var request = _requestBuilder.WithName(User.Name, transformer).Build();
+		await ServiceScope.AddUserCacheAsync(request, User, CancellationToken);
 
 		// Act
 		await Sender.SendAsync(request, CancellationToken);
-		var cachedUser = await CacheHandler.GetByIdAsync(request, CancellationToken);
+		var cachedUser = await ServiceScope.GetUserCacheByIdAsync(request, CancellationToken);
 
 		// Assert
 		cachedUser.ShouldBeNull();
@@ -555,10 +564,11 @@ public class UpdateUserCommandHandlerIntegrationTests : BaseUserApplicationComma
 	{
 		// Arrange
 		var request = _requestBuilder.WithEmail(transformer).Build();
+		await ServiceScope.AddUserCacheAsync(request, User, CancellationToken);
 
 		// Act
 		await Sender.SendAsync(request, CancellationToken);
-		var cachedUser = await CacheHandler.GetByIdAsync(request, CancellationToken);
+		var cachedUser = await ServiceScope.GetUserCacheByIdAsync(request, CancellationToken);
 
 		// Assert
 		cachedUser.ShouldBeNull();
@@ -569,10 +579,11 @@ public class UpdateUserCommandHandlerIntegrationTests : BaseUserApplicationComma
 	{
 		// Arrange
 		var request = _requestBuilder.WithEmail(User.Email).Build();
+		await ServiceScope.AddUserCacheAsync(request, User, CancellationToken);
 
 		// Act
 		await Sender.SendAsync(request, CancellationToken);
-		var cachedUser = await CacheHandler.GetByIdAsync(request, CancellationToken);
+		var cachedUser = await ServiceScope.GetUserCacheByIdAsync(request, CancellationToken);
 
 		// Assert
 		cachedUser.ShouldBeNull();
@@ -585,10 +596,11 @@ public class UpdateUserCommandHandlerIntegrationTests : BaseUserApplicationComma
 	{
 		// Arrange
 		var request = _requestBuilder.WithEmail(User.Email, transformer).Build();
+		await ServiceScope.AddUserCacheAsync(request, User, CancellationToken);
 
 		// Act
 		await Sender.SendAsync(request, CancellationToken);
-		var cachedUser = await CacheHandler.GetByIdAsync(request, CancellationToken);
+		var cachedUser = await ServiceScope.GetUserCacheByIdAsync(request, CancellationToken);
 
 		// Assert
 		cachedUser.ShouldBeNull();
@@ -602,10 +614,11 @@ public class UpdateUserCommandHandlerIntegrationTests : BaseUserApplicationComma
 	{
 		// Arrange
 		var request = _requestBuilder.WithProfileImage(transformer).Build();
+		await ServiceScope.AddUserCacheAsync(request, User, CancellationToken);
 
 		// Act
 		await Sender.SendAsync(request, CancellationToken);
-		var cachedUser = await CacheHandler.GetByIdAsync(request, CancellationToken);
+		var cachedUser = await ServiceScope.GetUserCacheByIdAsync(request, CancellationToken);
 
 		// Assert
 		cachedUser.ShouldBeNull();

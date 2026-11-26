@@ -10,6 +10,16 @@ public class AddChatMessageImageCommandRepositoryIntegrationTests : BaseChatMess
 	{
 	}
 
+	public override async Task InitializeAsync()
+	{
+		await ServiceScope.InitializeAddAsync(ChatMessageImage, CurrentUserId, CancellationToken);
+	}
+
+	public override async Task DisposeAsync()
+	{
+		await ServiceScope.DisposeAddAsync(ChatMessageImage, CancellationToken);
+	}
+
 	[Fact]
 	public async Task AddAsync_ShouldAddChatMessageImage_WhenCommandIsValid()
 	{
@@ -26,7 +36,7 @@ public class AddChatMessageImageCommandRepositoryIntegrationTests : BaseChatMess
 	{
 		// Act
 		await Repository.AddAsync(ChatMessageImage, CancellationToken);
-		var cachedChatMessage = await MessageCacheHandler.GetByIdAsync(ChatMessage, CurrentUserId, CancellationToken);
+		var cachedChatMessage = await ServiceScope.GetChatMessageCacheByIdAsync(ChatMessage, CurrentUserId, CancellationToken);
 
 		// Assert
 		cachedChatMessage.ShouldBeNull();

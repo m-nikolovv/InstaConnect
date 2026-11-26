@@ -1,4 +1,3 @@
-using InstaConnect.Posts.Infrastructure.Features.PostLikes.Abstractions;
 using InstaConnect.Posts.Presentation.Tests.Features.PostLikes.Abstractions;
 using InstaConnect.Posts.Presentation.Tests.Features.PostLikes.Extensions;
 
@@ -8,11 +7,8 @@ public abstract class BasePostLikePresentationQueryFunctionalTest : BasePostLike
 {
 	protected IPostLikeApiClient LikeApiClient { get; }
 
-	protected IPostLikeCacheHandler LikeCacheHandler { get; }
-
 	protected BasePostLikePresentationQueryFunctionalTest(PostsWebApplicationFactory webApplicationFactory) : base(webApplicationFactory)
 	{
 		LikeApiClient = webApplicationFactory.CreateLikeApiClient();
-		LikeCacheHandler = ServiceScope.GetPostLikeCacheHandler();
 	}
 }

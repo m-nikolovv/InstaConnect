@@ -25,10 +25,14 @@ public class DeleteChatMessageCommandServiceIntegrationTests : BaseChatMessageDo
 		_invertedCommand = _invertedCommandBuilder.Build();
 	}
 
-	protected override async Task OnInitializeAsync()
+	public override async Task InitializeAsync()
 	{
-		await ServiceScope.AddAsync(ChatMessage, CancellationToken);
-		await ServiceScope.AddRangeAsync(ChatMessageImages, CancellationToken);
+		await ServiceScope.InitializeDeleteAsync(_command, ChatMessage, CancellationToken);
+	}
+
+	public override async Task DisposeAsync()
+	{
+		await ServiceScope.DisposeDeleteAsync(_command, ChatMessage, CancellationToken);
 	}
 
 	[Fact]
@@ -124,7 +128,7 @@ public class DeleteChatMessageCommandServiceIntegrationTests : BaseChatMessageDo
 	{
 		// Act
 		await Service.DeleteAsync(_command, CancellationToken);
-		var cachedChatMessage = await MessageCacheHandler.GetByIdAsync(_command, CancellationToken);
+		var cachedChatMessage = await ServiceScope.GetChatMessageCacheByIdAsync(_command, CancellationToken);
 
 		// Assert
 		cachedChatMessage.ShouldBeNull();
@@ -137,10 +141,11 @@ public class DeleteChatMessageCommandServiceIntegrationTests : BaseChatMessageDo
 	{
 		// Arrange
 		var command = _commandBuilder.WithParticipantOneId(transformer).Build();
+		await ServiceScope.AddChatMessageCacheAsync(command, ChatMessage, CancellationToken);
 
 		// Act
 		await Service.DeleteAsync(command, CancellationToken);
-		var cachedChatMessage = await MessageCacheHandler.GetByIdAsync(command, CancellationToken);
+		var cachedChatMessage = await ServiceScope.GetChatMessageCacheByIdAsync(command, CancellationToken);
 
 		// Assert
 		cachedChatMessage.ShouldBeNull();
@@ -153,10 +158,11 @@ public class DeleteChatMessageCommandServiceIntegrationTests : BaseChatMessageDo
 	{
 		// Arrange
 		var command = _commandBuilder.WithParticipantTwoId(transformer).Build();
+		await ServiceScope.AddChatMessageCacheAsync(command, ChatMessage, CancellationToken);
 
 		// Act
 		await Service.DeleteAsync(command, CancellationToken);
-		var cachedChatMessage = await MessageCacheHandler.GetByIdAsync(command, CancellationToken);
+		var cachedChatMessage = await ServiceScope.GetChatMessageCacheByIdAsync(command, CancellationToken);
 
 		// Assert
 		cachedChatMessage.ShouldBeNull();
@@ -169,10 +175,11 @@ public class DeleteChatMessageCommandServiceIntegrationTests : BaseChatMessageDo
 	{
 		// Arrange
 		var command = _commandBuilder.WithMessageId(transformer).Build();
+		await ServiceScope.AddChatMessageCacheAsync(command, ChatMessage, CancellationToken);
 
 		// Act
 		await Service.DeleteAsync(command, CancellationToken);
-		var cachedChatMessage = await MessageCacheHandler.GetByIdAsync(command, CancellationToken);
+		var cachedChatMessage = await ServiceScope.GetChatMessageCacheByIdAsync(command, CancellationToken);
 
 		// Assert
 		cachedChatMessage.ShouldBeNull();
@@ -183,7 +190,7 @@ public class DeleteChatMessageCommandServiceIntegrationTests : BaseChatMessageDo
 	{
 		// Act
 		await Service.DeleteAsync(_command, CancellationToken);
-		var cachedChat = await CacheHandler.GetByIdAsync(_command, CancellationToken);
+		var cachedChat = await ServiceScope.GetChatCacheByIdAsync(_command, CancellationToken);
 
 		// Assert
 		cachedChat.ShouldBeNull();
@@ -196,10 +203,11 @@ public class DeleteChatMessageCommandServiceIntegrationTests : BaseChatMessageDo
 	{
 		// Arrange
 		var command = _commandBuilder.WithParticipantOneId(transformer).Build();
+		await ServiceScope.AddChatCacheAsync(command, Chat, CancellationToken);
 
 		// Act
 		await Service.DeleteAsync(command, CancellationToken);
-		var cachedChat = await CacheHandler.GetByIdAsync(command, CancellationToken);
+		var cachedChat = await ServiceScope.GetChatCacheByIdAsync(command, CancellationToken);
 
 		// Assert
 		cachedChat.ShouldBeNull();
@@ -212,10 +220,11 @@ public class DeleteChatMessageCommandServiceIntegrationTests : BaseChatMessageDo
 	{
 		// Arrange
 		var command = _commandBuilder.WithParticipantTwoId(transformer).Build();
+		await ServiceScope.AddChatCacheAsync(command, Chat, CancellationToken);
 
 		// Act
 		await Service.DeleteAsync(command, CancellationToken);
-		var cachedChat = await CacheHandler.GetByIdAsync(command, CancellationToken);
+		var cachedChat = await ServiceScope.GetChatCacheByIdAsync(command, CancellationToken);
 
 		// Assert
 		cachedChat.ShouldBeNull();
@@ -228,10 +237,11 @@ public class DeleteChatMessageCommandServiceIntegrationTests : BaseChatMessageDo
 	{
 		// Arrange
 		var command = _commandBuilder.WithMessageId(transformer).Build();
+		await ServiceScope.AddChatCacheAsync(command, Chat, CancellationToken);
 
 		// Act
 		await Service.DeleteAsync(command, CancellationToken);
-		var cachedChat = await CacheHandler.GetByIdAsync(command, CancellationToken);
+		var cachedChat = await ServiceScope.GetChatCacheByIdAsync(command, CancellationToken);
 
 		// Assert
 		cachedChat.ShouldBeNull();

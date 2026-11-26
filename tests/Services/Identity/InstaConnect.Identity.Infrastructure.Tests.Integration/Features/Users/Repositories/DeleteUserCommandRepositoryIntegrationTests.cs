@@ -9,13 +9,14 @@ public class DeleteUserCommandRepositoryIntegrationTests : BaseUserInfrastructur
 	{
 	}
 
-	protected override async Task OnInitializeAsync()
+	public override async Task InitializeAsync()
 	{
-		await ServiceScope.AddAsync(User, CancellationToken);
-		await ServiceScope.AddRangeAsync(UserClaims, CancellationToken);
-		await ServiceScope.AddRangeAsync(RefreshTokens, CancellationToken);
-		await ServiceScope.AddRangeAsync(ForgotPasswordTokens, CancellationToken);
-		await ServiceScope.AddRangeAsync(EmailConfirmationTokens, CancellationToken);
+		await ServiceScope.InitializeDeleteAsync(User, CurrentUserId, CancellationToken);
+	}
+
+	public override async Task DisposeAsync()
+	{
+		await ServiceScope.DisposeDeleteAsync(User, CancellationToken);
 	}
 
 	[Fact]
@@ -34,7 +35,7 @@ public class DeleteUserCommandRepositoryIntegrationTests : BaseUserInfrastructur
 	{
 		// Act
 		await Repository.DeleteAsync(User, CancellationToken);
-		var cachedUser = await CacheHandler.GetByIdAsync(User, CurrentUserId, CancellationToken);
+		var cachedUser = await ServiceScope.GetUserCacheByIdAsync(User, CurrentUserId, CancellationToken);
 
 		// Assert
 		cachedUser.ShouldBeNull();

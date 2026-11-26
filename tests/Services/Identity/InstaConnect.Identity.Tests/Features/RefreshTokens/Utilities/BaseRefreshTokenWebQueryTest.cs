@@ -6,11 +6,4 @@ public abstract class BaseRefreshTokenWebQueryTest : BaseRefreshTokenWebTest
 		: base(webApplicationFactory, isEmailConfirmed)
 	{
 	}
-
-	public override async Task InitializeAsync()
-	{
-		await ServiceScope.AddRangeAsync(Users, CancellationToken);
-		await ServiceScope.AddRangeAsync(RefreshTokens, CancellationToken);
-		await OnInitializeAsync();
-	}
 }

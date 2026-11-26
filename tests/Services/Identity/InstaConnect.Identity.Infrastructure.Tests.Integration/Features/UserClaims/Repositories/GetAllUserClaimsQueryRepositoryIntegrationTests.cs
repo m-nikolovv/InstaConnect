@@ -45,6 +45,16 @@ public class GetAllUserClaimsQueryRepositoryIntegrationTests : BaseUserClaimInfr
 		_currentUserQuery = _currentUserQueryBuilder.Build();
 	}
 
+	public override async Task InitializeAsync()
+	{
+		await ServiceScope.InitializeGetAllAsync(UserClaims, CancellationToken);
+	}
+
+	public override async Task DisposeAsync()
+	{
+		await ServiceScope.DisposeGetAllAsync(UserClaims, CancellationToken);
+	}
+
 	[Fact]
 	public async Task GetAllAsync_ShouldReturnResponse_WhenQueryIsValid()
 	{

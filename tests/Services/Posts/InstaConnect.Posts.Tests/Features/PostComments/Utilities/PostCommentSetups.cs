@@ -161,7 +161,7 @@ public static class PostCommentSetups
 		{
 			var commentCacheHandler = serviceScope.GetPostCommentCacheHandler();
 
-			await commentCacheHandler.AddAsync(postComment, currentUserId, cancellationToken);
+			await commentCacheHandler.AddAsync(postComment.ToFullResponse(currentUserId), new(currentUserId), cancellationToken);
 		}
 
 		public async Task AddPostCommentCacheAsync(
@@ -522,58 +522,6 @@ public static class PostCommentSetups
 
 			await postCommentRepository.DeleteRangeAsync(postComments, cancellationToken);
 			await serviceScope.DeletePostCommentCacheRangeAsync(postComments, cancellationToken);
-		}
-	}
-
-	extension(IPostCommentCacheHandler cacheHandler)
-	{
-		public async Task<PostCommentResponse?> GetByIdAsync(
-			string id,
-			string commentId,
-			string currentUserId,
-			CancellationToken cancellationToken)
-		{
-			return await cacheHandler.GetByIdAsync(new(new(id), commentId), new(currentUserId), cancellationToken);
-		}
-
-		public async Task<PostCommentResponse?> GetByIdAsync(
-			PostComment postComment,
-			string currentUserId,
-			CancellationToken cancellationToken)
-		{
-			return await cacheHandler.GetByIdAsync(postComment.Id.Id.Id, postComment.Id.CommentId, currentUserId, cancellationToken);
-		}
-
-		public async Task<PostCommentResponse?> GetByIdAsync(
-			PostComment postComment,
-			UserId currentUserId,
-			CancellationToken cancellationToken)
-		{
-			return await cacheHandler.GetByIdAsync(postComment, currentUserId.Id, cancellationToken);
-		}
-
-		public async Task AddAsync(
-			PostCommentResponse response,
-			string currentUserId,
-			CancellationToken cancellationToken)
-		{
-			await cacheHandler.AddAsync(response, new(currentUserId), cancellationToken);
-		}
-
-		public async Task AddAsync(
-			PostComment postComment,
-			string currentUserId,
-			CancellationToken cancellationToken)
-		{
-			await cacheHandler.AddAsync(postComment.ToFullResponse(currentUserId), currentUserId, cancellationToken);
-		}
-
-		public async Task AddAsync(
-			PostComment postComment,
-			UserId currentUserId,
-			CancellationToken cancellationToken)
-		{
-			await cacheHandler.AddAsync(postComment, currentUserId.Id, cancellationToken);
 		}
 	}
 }

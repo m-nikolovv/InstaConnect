@@ -1,5 +1,6 @@
 using InstaConnect.Chats.Domain.Features.ChatMessages.Models.Entities;
 using InstaConnect.Chats.Domain.Features.ChatMessages.Models.Requests;
+using InstaConnect.Chats.Presentation.Tests.Features.ChatMessages.Utilities;
 using InstaConnect.Chats.Tests.Features.ChatMessages.DataAttributes.Page;
 using InstaConnect.Chats.Tests.Features.ChatMessages.DataAttributes.PageSize;
 using InstaConnect.Chats.Tests.Features.ChatMessages.DataAttributes.SortOrder;
@@ -25,6 +26,16 @@ public class GetAllChatMessagesFunctionalTests : BaseChatMessagePresentationQuer
 
 		_invertedRequestBuilder = _requestBuilderFactory.Create(ChatMessage, CurrentUserId).WithCurrentUserId(ParticipantTwoId).WithParticipantTwoId(ParticipantOneId);
 		_invertedRequest = _invertedRequestBuilder.Build();
+	}
+
+	public override async Task InitializeAsync()
+	{
+		await ServiceScope.InitializeGetAllAsync(_request, ChatMessages, CancellationToken);
+	}
+
+	public override async Task DisposeAsync()
+	{
+		await ServiceScope.DisposeGetAllAsync(_request, ChatMessages, CancellationToken);
 	}
 
 	[Fact]

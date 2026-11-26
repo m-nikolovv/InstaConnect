@@ -10,6 +10,16 @@ public class AddRefreshTokenCommandRepositoryIntegrationTests : BaseRefreshToken
 	{
 	}
 
+	public override async Task InitializeAsync()
+	{
+		await ServiceScope.InitializeAddAsync(RefreshToken, CancellationToken);
+	}
+
+	public override async Task DisposeAsync()
+	{
+		await ServiceScope.DisposeAddAsync(RefreshToken, CancellationToken);
+	}
+
 	[Fact]
 	public async Task AddAsync_ShouldAddRefreshToken_WhenCommandIsValid()
 	{

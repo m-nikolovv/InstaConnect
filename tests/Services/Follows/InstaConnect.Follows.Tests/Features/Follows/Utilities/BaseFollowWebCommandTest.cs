@@ -8,11 +8,4 @@ public abstract class BaseFollowWebCommandTest : BaseFollowWebTest
 		: base(webApplicationFactory)
 	{
 	}
-
-	public override async Task InitializeAsync()
-	{
-		await ServiceScope.AddAsync(Follower, CancellationToken);
-		await ServiceScope.AddAsync(Following, CancellationToken);
-		await OnInitializeAsync();
-	}
 }

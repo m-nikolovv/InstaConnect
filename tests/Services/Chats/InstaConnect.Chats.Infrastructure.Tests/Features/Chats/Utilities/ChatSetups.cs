@@ -1,27 +1,28 @@
 using InstaConnect.Chats.Domain.Features.Chats.Models.Responses;
 using InstaConnect.Chats.Domain.Features.Chats.Models.ValueObjects;
-using InstaConnect.Chats.Infrastructure.Features.Chats.Abstractions;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace InstaConnect.Chats.Infrastructure.Tests.Features.Chats.Utilities;
 
 public static class ChatSetups
 {
-	extension(IChatCacheHandler cacheHandler)
+	extension(IServiceScope serviceScope)
 	{
-		public async Task<ChatResponse?> GetByIdAsync(
+		public async Task<ChatResponse?> GetChatCacheByIdAsync(
 			Chat chat,
 			UserId currentUserId,
 			CancellationToken cancellationToken)
 		{
-			return await cacheHandler.GetByIdAsync(chat.Id, currentUserId, cancellationToken);
+			return await serviceScope.GetChatCacheByIdAsync(chat.Id, currentUserId, cancellationToken);
 		}
 
-		public async Task<ChatResponse?> GetByIdAsync(
+		public async Task<ChatResponse?> GetChatCacheByIdAsync(
 			ChatId id,
 			CurrentUserQuery currentUserQuery,
 			CancellationToken cancellationToken)
 		{
-			return await cacheHandler.GetByIdAsync(id, currentUserQuery.Id, cancellationToken);
+			return await serviceScope.GetChatCacheByIdAsync(id, currentUserQuery.Id, cancellationToken);
 		}
 	}
+
 }

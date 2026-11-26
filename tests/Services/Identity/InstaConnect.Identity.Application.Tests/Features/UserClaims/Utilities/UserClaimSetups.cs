@@ -1,7 +1,6 @@
 using InstaConnect.Identity.Application.Features.UserClaims.Models;
 using InstaConnect.Identity.Domain.Features.UserClaims.Models.Responses;
 using InstaConnect.Identity.Domain.Features.UserClaims.Models.ValueObjects;
-using InstaConnect.Identity.Infrastructure.Features.UserClaims.Abstractions;
 
 namespace InstaConnect.Identity.Application.Tests.Features.UserClaims.Utilities;
 
@@ -26,15 +25,68 @@ public static class UserClaimSetups
 				response.Response,
 				cancellationToken);
 		}
-	}
 
-	extension(IUserClaimCacheHandler cacheHandler)
-	{
-		public async Task<UserClaimResponse?> GetByIdAsync(
+		public async Task<UserClaimResponse?> GetUserClaimCacheByIdAsync(
 			DeleteUserClaimCommandRequest request,
 			CancellationToken cancellationToken)
 		{
-			return await cacheHandler.GetByIdAsync(request.Id, request.Claim, request.Id, cancellationToken);
+			return await serviceScope.GetUserClaimCacheByIdAsync(request.Id, request.Claim, request.Id, cancellationToken);
+		}
+
+		public async Task InitializeAddAsync(
+			AddUserClaimCommandRequest request,
+			UserClaim userClaim,
+			CancellationToken cancellationToken)
+		{
+			await serviceScope.InitializeAddAsync(userClaim, cancellationToken);
+		}
+
+		public async Task DisposeAddAsync(
+			AddUserClaimCommandRequest request,
+			UserClaim userClaim,
+			CancellationToken cancellationToken)
+		{
+			await serviceScope.DisposeAddAsync(userClaim, cancellationToken);
+		}
+
+		public async Task InitializeDeleteAsync(
+			DeleteUserClaimCommandRequest request,
+			UserClaim userClaim,
+			CancellationToken cancellationToken)
+		{
+			await serviceScope.InitializeDeleteAsync(userClaim, request.Id, cancellationToken);
+		}
+
+		public async Task DisposeDeleteAsync(
+			DeleteUserClaimCommandRequest request,
+			UserClaim userClaim,
+			CancellationToken cancellationToken)
+		{
+			await serviceScope.DisposeDeleteAsync(userClaim, cancellationToken);
+		}
+
+		public async Task AddUserClaimCacheAsync(
+			DeleteUserClaimCommandRequest request,
+			UserClaim userClaim,
+			CancellationToken cancellationToken)
+		{
+			await serviceScope.AddUserClaimCacheAsync(userClaim, request.Id, cancellationToken);
+		}
+
+		public async Task InitializeGetAllAsync(
+			GetAllUserClaimsQueryRequest request,
+			ICollection<UserClaim> userClaims,
+			CancellationToken cancellationToken)
+		{
+			await serviceScope.InitializeGetAllAsync(userClaims, cancellationToken);
+		}
+
+		public async Task DisposeGetAllAsync(
+			GetAllUserClaimsQueryRequest request,
+			ICollection<UserClaim> userClaims,
+			CancellationToken cancellationToken)
+		{
+			await serviceScope.DisposeGetAllAsync(userClaims, cancellationToken);
 		}
 	}
 }

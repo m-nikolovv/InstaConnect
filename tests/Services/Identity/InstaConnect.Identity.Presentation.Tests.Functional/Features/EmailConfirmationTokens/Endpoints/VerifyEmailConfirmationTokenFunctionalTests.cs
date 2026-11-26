@@ -21,9 +21,16 @@ public class VerifyEmailConfirmationTokenFunctionalTests : BaseEmailConfirmation
 		_request = _requestBuilder.Build();
 	}
 
-	protected override async Task OnInitializeAsync()
+	public override async Task InitializeAsync()
 	{
-		await ServiceScope.AddRangeAsync(EmailConfirmationTokens, CancellationToken);
+		await ServiceScope.InitializeVerifyAsync(_request, EmailConfirmationToken, CancellationToken);
+		await base.InitializeAsync();
+	}
+
+	public override async Task DisposeAsync()
+	{
+		await ServiceScope.DisposeVerifyAsync(_request, EmailConfirmationToken, CancellationToken);
+		await base.DisposeAsync();
 	}
 
 	[Theory]
@@ -288,7 +295,7 @@ public class VerifyEmailConfirmationTokenFunctionalTests : BaseEmailConfirmation
 	{
 		// Act
 		await EmailConfirmationTokenApiClient.VerifyAsync(_request, CancellationToken);
-		var cachedUser = await UserCacheHandler.GetByIdAsync(_request, CancellationToken);
+		var cachedUser = await ServiceScope.GetUserCacheByIdAsync(_request, CancellationToken);
 
 		// Assert
 		cachedUser.ShouldBeNull();
@@ -301,10 +308,11 @@ public class VerifyEmailConfirmationTokenFunctionalTests : BaseEmailConfirmation
 	{
 		// Arrange
 		var request = _requestBuilder.WithId(transformer).Build();
+		await ServiceScope.AddUserCacheAsync(request, User, CancellationToken);
 
 		// Act
 		await EmailConfirmationTokenApiClient.VerifyAsync(request, CancellationToken);
-		var cachedUser = await UserCacheHandler.GetByIdAsync(request, CancellationToken);
+		var cachedUser = await ServiceScope.GetUserCacheByIdAsync(request, CancellationToken);
 
 		// Assert
 		cachedUser.ShouldBeNull();
@@ -317,10 +325,11 @@ public class VerifyEmailConfirmationTokenFunctionalTests : BaseEmailConfirmation
 	{
 		// Arrange
 		var request = _requestBuilder.WithValue(transformer).Build();
+		await ServiceScope.AddUserCacheAsync(request, User, CancellationToken);
 
 		// Act
 		await EmailConfirmationTokenApiClient.VerifyAsync(request, CancellationToken);
-		var cachedUser = await UserCacheHandler.GetByIdAsync(request, CancellationToken);
+		var cachedUser = await ServiceScope.GetUserCacheByIdAsync(request, CancellationToken);
 
 		// Assert
 		cachedUser.ShouldBeNull();

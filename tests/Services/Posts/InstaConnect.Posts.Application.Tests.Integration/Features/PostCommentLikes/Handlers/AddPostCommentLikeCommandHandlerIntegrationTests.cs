@@ -16,6 +16,18 @@ public class AddPostCommentLikeCommandHandlerIntegrationTests : BasePostCommentL
 		_request = _requestBuilder.Build();
 	}
 
+	public override async Task InitializeAsync()
+	{
+		await ServiceScope.InitializeAddAsync(_request, PostCommentLike, CancellationToken);
+		await base.InitializeAsync();
+	}
+
+	public override async Task DisposeAsync()
+	{
+		await ServiceScope.DisposeAddAsync(_request, PostCommentLike, CancellationToken);
+		await base.DisposeAsync();
+	}
+
 	[Theory]
 	[PostIdNullWithMessageData]
 	[PostIdEmptyWithMessageData]
@@ -266,7 +278,7 @@ public class AddPostCommentLikeCommandHandlerIntegrationTests : BasePostCommentL
 	{
 		// Act
 		await Sender.SendAsync(_request, CancellationToken);
-		var cachedPostComment = await CommentCacheHandler.GetByIdAsync(_request, CancellationToken);
+		var cachedPostComment = await ServiceScope.GetPostCommentCacheByIdAsync(_request, CancellationToken);
 
 		// Assert
 		cachedPostComment.ShouldBeNull();
@@ -279,10 +291,11 @@ public class AddPostCommentLikeCommandHandlerIntegrationTests : BasePostCommentL
 	{
 		// Arrange
 		var request = _requestBuilder.WithId(transformer).Build();
+		await ServiceScope.AddPostCommentCacheAsync(request, PostComment, CancellationToken);
 
 		// Act
 		await Sender.SendAsync(request, CancellationToken);
-		var cachedPostComment = await CommentCacheHandler.GetByIdAsync(request, CancellationToken);
+		var cachedPostComment = await ServiceScope.GetPostCommentCacheByIdAsync(request, CancellationToken);
 
 		// Assert
 		cachedPostComment.ShouldBeNull();
@@ -295,10 +308,11 @@ public class AddPostCommentLikeCommandHandlerIntegrationTests : BasePostCommentL
 	{
 		// Arrange
 		var request = _requestBuilder.WithCommentId(transformer).Build();
+		await ServiceScope.AddPostCommentCacheAsync(request, PostComment, CancellationToken);
 
 		// Act
 		await Sender.SendAsync(request, CancellationToken);
-		var cachedPostComment = await CommentCacheHandler.GetByIdAsync(request, CancellationToken);
+		var cachedPostComment = await ServiceScope.GetPostCommentCacheByIdAsync(request, CancellationToken);
 
 		// Assert
 		cachedPostComment.ShouldBeNull();
@@ -311,10 +325,11 @@ public class AddPostCommentLikeCommandHandlerIntegrationTests : BasePostCommentL
 	{
 		// Arrange
 		var request = _requestBuilder.WithUserId(transformer).Build();
+		await ServiceScope.AddPostCommentCacheAsync(request, PostComment, CancellationToken);
 
 		// Act
 		await Sender.SendAsync(request, CancellationToken);
-		var cachedPostComment = await CommentCacheHandler.GetByIdAsync(request, CancellationToken);
+		var cachedPostComment = await ServiceScope.GetPostCommentCacheByIdAsync(request, CancellationToken);
 
 		// Assert
 		cachedPostComment.ShouldBeNull();

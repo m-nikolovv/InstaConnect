@@ -1,3 +1,4 @@
+
 namespace InstaConnect.Identity.Infrastructure.Tests.Integration.Features.UserClaims.Repositories;
 
 public class GetUserClaimByIdRangeCommandRepositoryIntegrationTests : BaseUserClaimInfrastructureCommandIntegrationTest
@@ -7,9 +8,14 @@ public class GetUserClaimByIdRangeCommandRepositoryIntegrationTests : BaseUserCl
 	{
 	}
 
-	protected override async Task OnInitializeAsync()
+	public override async Task InitializeAsync()
 	{
-		await ServiceScope.AddRangeAsync(UserClaims, CancellationToken);
+		await ServiceScope.InitializeGetAllAsync(UserClaims, CancellationToken);
+	}
+
+	public override async Task DisposeAsync()
+	{
+		await ServiceScope.DisposeGetAllAsync(UserClaims, CancellationToken);
 	}
 
 	[Fact]

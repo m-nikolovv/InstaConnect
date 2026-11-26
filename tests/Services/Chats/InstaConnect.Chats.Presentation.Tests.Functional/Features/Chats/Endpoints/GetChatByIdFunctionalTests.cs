@@ -25,6 +25,16 @@ public class GetChatByIdFunctionalTests : BaseChatPresentationQueryFunctionalTes
 		_invertedRequest = _invertedRequestBuilder.Build();
 	}
 
+	public override async Task InitializeAsync()
+	{
+		await ServiceScope.InitializeGetByIdAsync(_request, Chat, CancellationToken);
+	}
+
+	public override async Task DisposeAsync()
+	{
+		await ServiceScope.DisposeGetByIdAsync(_request, Chat, CancellationToken);
+	}
+
 	[Fact]
 	public async Task GetByIdAsync_ShouldReturnUnauthorizedStatusCode_WhenRequestIsUnauthorized()
 	{
@@ -212,7 +222,7 @@ public class GetChatByIdFunctionalTests : BaseChatPresentationQueryFunctionalTes
 	{
 		// Act
 		await ApiClient.GetByIdAsync(_request, CancellationToken);
-		var cachedChat = await CacheHandler.GetByIdAsync(_request, CancellationToken);
+		var cachedChat = await ServiceScope.GetChatCacheByIdAsync(_request, CancellationToken);
 
 		// Assert
 		cachedChat.ShouldSatisfy(_request, Chat);
@@ -228,7 +238,7 @@ public class GetChatByIdFunctionalTests : BaseChatPresentationQueryFunctionalTes
 
 		// Act
 		await ApiClient.GetByIdAsync(request, CancellationToken);
-		var cachedChat = await CacheHandler.GetByIdAsync(request, CancellationToken);
+		var cachedChat = await ServiceScope.GetChatCacheByIdAsync(request, CancellationToken);
 
 		// Assert
 		cachedChat.ShouldSatisfy(request, Chat);
@@ -244,7 +254,7 @@ public class GetChatByIdFunctionalTests : BaseChatPresentationQueryFunctionalTes
 
 		// Act
 		await ApiClient.GetByIdAsync(request, CancellationToken);
-		var cachedChat = await CacheHandler.GetByIdAsync(request, CancellationToken);
+		var cachedChat = await ServiceScope.GetChatCacheByIdAsync(request, CancellationToken);
 
 		// Assert
 		cachedChat.ShouldSatisfy(request, Chat);

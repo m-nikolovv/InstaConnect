@@ -16,6 +16,16 @@ public class GetPostCommentLikeByIdQueryServiceIntegrationTests : BasePostCommen
 		_query = _queryBuilder.Build();
 	}
 
+	public override async Task InitializeAsync()
+	{
+		await ServiceScope.InitializeGetByIdAsync(_query, PostCommentLike, CancellationToken);
+	}
+
+	public override async Task DisposeAsync()
+	{
+		await ServiceScope.DisposeGetByIdAsync(_query, PostCommentLike, CancellationToken);
+	}
+
 	[Fact]
 	public async Task GetByIdAsync_ShouldThrowPostNotFoundException_WhenPostNotFound()
 	{
@@ -123,7 +133,7 @@ public class GetPostCommentLikeByIdQueryServiceIntegrationTests : BasePostCommen
 	{
 		// Act
 		await Service.GetByIdAsync(_query, CancellationToken);
-		var cachedPostCommentLike = await CommentLikeCacheHandler.GetByIdAsync(_query, CancellationToken);
+		var cachedPostCommentLike = await ServiceScope.GetPostCommentLikeCacheByIdAsync(_query, CancellationToken);
 
 		// Assert
 		cachedPostCommentLike.ShouldSatisfy(_query, PostCommentLike);
@@ -139,7 +149,7 @@ public class GetPostCommentLikeByIdQueryServiceIntegrationTests : BasePostCommen
 
 		// Act
 		await Service.GetByIdAsync(query, CancellationToken);
-		var cachedPostCommentLike = await CommentLikeCacheHandler.GetByIdAsync(query, CancellationToken);
+		var cachedPostCommentLike = await ServiceScope.GetPostCommentLikeCacheByIdAsync(query, CancellationToken);
 
 		// Assert
 		cachedPostCommentLike.ShouldSatisfy(query, PostCommentLike);
@@ -155,7 +165,7 @@ public class GetPostCommentLikeByIdQueryServiceIntegrationTests : BasePostCommen
 
 		// Act
 		await Service.GetByIdAsync(query, CancellationToken);
-		var cachedPostCommentLike = await CommentLikeCacheHandler.GetByIdAsync(query, CancellationToken);
+		var cachedPostCommentLike = await ServiceScope.GetPostCommentLikeCacheByIdAsync(query, CancellationToken);
 
 		// Assert
 		cachedPostCommentLike.ShouldSatisfy(query, PostCommentLike);
@@ -171,7 +181,7 @@ public class GetPostCommentLikeByIdQueryServiceIntegrationTests : BasePostCommen
 
 		// Act
 		await Service.GetByIdAsync(query, CancellationToken);
-		var cachedPostCommentLike = await CommentLikeCacheHandler.GetByIdAsync(query, CancellationToken);
+		var cachedPostCommentLike = await ServiceScope.GetPostCommentLikeCacheByIdAsync(query, CancellationToken);
 
 		// Assert
 		cachedPostCommentLike.ShouldSatisfy(query, PostCommentLike);
@@ -189,7 +199,7 @@ public class GetPostCommentLikeByIdQueryServiceIntegrationTests : BasePostCommen
 
 		// Act
 		await Service.GetByIdAsync(query, CancellationToken);
-		var cachedPostCommentLike = await CommentLikeCacheHandler.GetByIdAsync(query, CancellationToken);
+		var cachedPostCommentLike = await ServiceScope.GetPostCommentLikeCacheByIdAsync(query, CancellationToken);
 
 		// Assert
 		cachedPostCommentLike.ShouldSatisfy(query, PostCommentLike);

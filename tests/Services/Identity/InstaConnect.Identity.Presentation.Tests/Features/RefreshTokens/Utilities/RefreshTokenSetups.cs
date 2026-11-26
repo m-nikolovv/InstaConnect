@@ -28,5 +28,53 @@ public static class RefreshTokenSetups
 				new RefreshTokenId(new(response.IdCookie.GetStringValue()), response.ValueCookie.GetStringValue()),
 				cancellationToken);
 		}
+
+		public async Task InitializeAddAsync(
+			IssueRefreshTokenApiRequest request,
+			RefreshToken refreshToken,
+			CancellationToken cancellationToken)
+		{
+			await serviceScope.InitializeAddAsync(refreshToken, cancellationToken);
+		}
+
+		public async Task DisposeAddAsync(
+			IssueRefreshTokenApiRequest request,
+			RefreshToken refreshToken,
+			CancellationToken cancellationToken)
+		{
+			await serviceScope.DisposeAddAsync(refreshToken, cancellationToken);
+		}
+
+		public async Task InitializeDeleteAsync(
+			DeleteCurrentRefreshTokenApiRequest request,
+			RefreshToken refreshToken,
+			CancellationToken cancellationToken)
+		{
+			await serviceScope.InitializeDeleteAsync(refreshToken, cancellationToken);
+		}
+
+		public async Task DisposeDeleteAsync(
+			DeleteCurrentRefreshTokenApiRequest request,
+			RefreshToken refreshToken,
+			CancellationToken cancellationToken)
+		{
+			await serviceScope.DisposeDeleteAsync(refreshToken, cancellationToken);
+		}
+
+		public async Task InitializeUpdateAsync(
+			RotateRefreshTokenApiRequest request,
+			RefreshToken refreshToken,
+			CancellationToken cancellationToken)
+		{
+			await serviceScope.InitializeUpdateAsync(refreshToken, cancellationToken);
+		}
+
+		public async Task DisposeUpdateAsync(
+			RotateRefreshTokenApiRequest request,
+			RefreshToken refreshToken,
+			CancellationToken cancellationToken)
+		{
+			await serviceScope.DisposeUpdateAsync(refreshToken, cancellationToken);
+		}
 	}
 }

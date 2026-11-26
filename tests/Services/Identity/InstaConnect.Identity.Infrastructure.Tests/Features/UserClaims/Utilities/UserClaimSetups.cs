@@ -1,26 +1,27 @@
 using InstaConnect.Identity.Domain.Features.UserClaims.Models.Responses;
-using InstaConnect.Identity.Infrastructure.Features.UserClaims.Abstractions;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace InstaConnect.Identity.Infrastructure.Tests.Features.UserClaims.Utilities;
 
 public static class UserClaimSetups
 {
-	extension(IUserClaimCacheHandler cacheHandler)
+	extension(IServiceScope serviceScope)
 	{
-		public async Task<UserClaimResponse?> GetByIdAsync(
+		public async Task<UserClaimResponse?> GetUserClaimCacheByIdAsync(
 			UserClaim userClaim,
 			UserId currentUserId,
 			CancellationToken cancellationToken)
 		{
-			return await cacheHandler.GetByIdAsync(userClaim.Id, currentUserId, cancellationToken);
+			return await serviceScope.GetUserClaimCacheByIdAsync(userClaim.Id, currentUserId, cancellationToken);
 		}
 
-		public async Task<UserClaimResponse?> GetByIdAsync(
+		public async Task<UserClaimResponse?> GetUserClaimCacheByIdAsync(
 			UserClaimId id,
 			CurrentUserQuery currentUserQuery,
 			CancellationToken cancellationToken)
 		{
-			return await cacheHandler.GetByIdAsync(id, currentUserQuery.Id, cancellationToken);
+			return await serviceScope.GetUserClaimCacheByIdAsync(id, currentUserQuery.Id, cancellationToken);
 		}
 	}
+
 }

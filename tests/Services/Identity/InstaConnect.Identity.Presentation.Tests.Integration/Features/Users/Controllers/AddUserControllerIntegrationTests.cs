@@ -25,9 +25,16 @@ public class AddUserControllerIntegrationTests : BaseUserPresentationCommandInte
 		_request = _requestBuilder.Build();
 	}
 
-	protected override async Task OnInitializeAsync()
+	public override async Task InitializeAsync()
 	{
-		await ServiceScope.AddAsync(User, CancellationToken);
+		await ServiceScope.InitializeAddAsync(_request, User, CancellationToken);
+		await base.InitializeAsync();
+	}
+
+	public override async Task DisposeAsync()
+	{
+		await ServiceScope.DisposeAddAsync(_request, User, CancellationToken);
+		await base.DisposeAsync();
 	}
 
 	[Theory]

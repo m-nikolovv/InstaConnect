@@ -1,4 +1,3 @@
-using InstaConnect.Identity.Infrastructure.Features.UserClaims.Abstractions;
 using InstaConnect.Identity.Presentation.Tests.Features.UserClaims.Abstractions;
 using InstaConnect.Identity.Presentation.Tests.Features.UserClaims.Extensions;
 using InstaConnect.Identity.Tests.Features.UserClaims.Abstractions;
@@ -10,14 +9,11 @@ public abstract class BaseUserClaimPresentationCommandFunctionalTest : BaseUserC
 {
 	protected IUserClaimApiClient ClaimApiClient { get; }
 
-	protected IUserClaimCacheHandler CacheHandler { get; }
-
 	protected IUserClaimEventClient ClaimEventClient { get; }
 
 	protected BaseUserClaimPresentationCommandFunctionalTest(IdentityWebApplicationFactory webApplicationFactory) : base(webApplicationFactory)
 	{
 		ClaimApiClient = webApplicationFactory.CreateClaimApiClient();
-		CacheHandler = ServiceScope.GetClaimCacheHandler();
 		ClaimEventClient = webApplicationFactory.CreateClaimEventClient();
 	}
 

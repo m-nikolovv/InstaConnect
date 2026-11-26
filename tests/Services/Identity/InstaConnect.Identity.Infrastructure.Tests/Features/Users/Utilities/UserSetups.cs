@@ -1,26 +1,27 @@
 using InstaConnect.Identity.Domain.Features.Users.Models.Responses;
-using InstaConnect.Identity.Infrastructure.Features.Users.Abstractions;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace InstaConnect.Identity.Infrastructure.Tests.Features.Users.Utilities;
 
 public static class UserSetups
 {
-	extension(IUserCacheHandler cacheHandler)
+	extension(IServiceScope serviceScope)
 	{
-		public async Task<UserResponse?> GetByIdAsync(
+		public async Task<UserResponse?> GetUserCacheByIdAsync(
 			User user,
 			UserId currentUserId,
 			CancellationToken cancellationToken)
 		{
-			return await cacheHandler.GetByIdAsync(user.Id, currentUserId, cancellationToken);
+			return await serviceScope.GetUserCacheByIdAsync(user.Id, currentUserId, cancellationToken);
 		}
 
-		public async Task<UserResponse?> GetByIdAsync(
+		public async Task<UserResponse?> GetUserCacheByIdAsync(
 			UserId id,
 			CurrentUserQuery currentUserQuery,
 			CancellationToken cancellationToken)
 		{
-			return await cacheHandler.GetByIdAsync(id, currentUserQuery.Id, cancellationToken);
+			return await serviceScope.GetUserCacheByIdAsync(id, currentUserQuery.Id, cancellationToken);
 		}
 	}
+
 }

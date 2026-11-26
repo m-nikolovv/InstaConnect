@@ -25,6 +25,11 @@ public class AddUserCommandHandlerIntegrationTests : BaseUserApplicationCommandI
 		_request = _requestBuilder.Build();
 	}
 
+	public override async Task DisposeAsync()
+	{
+		await ServiceScope.DisposeAddAsync(_request, User, CancellationToken);
+	}
+
 	[Theory]
 	[UserIdNullWithMessageData]
 	[UserIdEmptyWithMessageData]

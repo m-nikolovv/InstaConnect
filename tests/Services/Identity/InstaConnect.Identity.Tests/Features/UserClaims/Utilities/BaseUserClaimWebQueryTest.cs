@@ -6,11 +6,4 @@ public abstract class BaseUserClaimWebQueryTest : BaseUserClaimWebTest
 		: base(webApplicationFactory, isEmailConfirmed)
 	{
 	}
-
-	public override async Task InitializeAsync()
-	{
-		await ServiceScope.AddRangeAsync(Users, CancellationToken);
-		await ServiceScope.AddRangeAsync(UserClaims, CancellationToken);
-		await OnInitializeAsync();
-	}
 }

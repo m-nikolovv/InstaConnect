@@ -17,6 +17,16 @@ public class GetUserByIdQueryRepositoryIntegrationTests : BaseUserInfrastructure
 		_currentUserQuery = _currentUserQueryBuilder.Build();
 	}
 
+	public override async Task InitializeAsync()
+	{
+		await ServiceScope.InitializeGetByIdAsync(User, CancellationToken);
+	}
+
+	public override async Task DisposeAsync()
+	{
+		await ServiceScope.DisposeGetByIdAsync(User, CancellationToken);
+	}
+
 	[Fact]
 	public async Task GetByIdAsync_ShouldReturnNull_WhenIdIsInvalid()
 	{
@@ -77,7 +87,7 @@ public class GetUserByIdQueryRepositoryIntegrationTests : BaseUserInfrastructure
 	{
 		// Act
 		await Repository.GetByIdAsync(UserId, _currentUserQuery, CancellationToken);
-		var cachedUser = await CacheHandler.GetByIdAsync(UserId, _currentUserQuery, CancellationToken);
+		var cachedUser = await ServiceScope.GetUserCacheByIdAsync(UserId, _currentUserQuery, CancellationToken);
 
 		// Assert
 		cachedUser.ShouldSatisfy(UserId, _currentUserQuery, User);
@@ -93,7 +103,7 @@ public class GetUserByIdQueryRepositoryIntegrationTests : BaseUserInfrastructure
 
 		// Act
 		await Repository.GetByIdAsync(id, _currentUserQuery, CancellationToken);
-		var cachedUser = await CacheHandler.GetByIdAsync(id, _currentUserQuery, CancellationToken);
+		var cachedUser = await ServiceScope.GetUserCacheByIdAsync(id, _currentUserQuery, CancellationToken);
 
 		// Assert
 		cachedUser.ShouldSatisfy(id, _currentUserQuery, User);
@@ -111,7 +121,7 @@ public class GetUserByIdQueryRepositoryIntegrationTests : BaseUserInfrastructure
 
 		// Act
 		await Repository.GetByIdAsync(UserId, currentUserQuery, CancellationToken);
-		var cachedUser = await CacheHandler.GetByIdAsync(UserId, currentUserQuery, CancellationToken);
+		var cachedUser = await ServiceScope.GetUserCacheByIdAsync(UserId, currentUserQuery, CancellationToken);
 
 		// Assert
 		cachedUser.ShouldSatisfy(UserId, currentUserQuery, User);
