@@ -1,4 +1,5 @@
 using InstaConnect.Posts.Domain.Features.PostComments.Models.Entities;
+using InstaConnect.Posts.Domain.Tests.Features.PostComments.Utilities;
 using InstaConnect.Posts.Tests.Features.PostCommentImages.Utilities;
 using InstaConnect.Posts.Tests.Features.PostComments.DataAttributes.SortOrder;
 using InstaConnect.Posts.Tests.Features.PostComments.DataAttributes.SortTerm.ForUser;
@@ -15,20 +16,18 @@ public class GetAllPostCommentsForUserQueryServiceIntegrationTests : BasePostCom
 		: base(webApplicationFactory)
 	{
 		_queryBuilderFactory = new();
-		_queryBuilder = _queryBuilderFactory.Create(PostComment, CurrentUserId);
+		_queryBuilder = _queryBuilderFactory.Create(PostComment);
 		_query = _queryBuilder.Build();
 	}
 
 	public override async Task InitializeAsync()
 	{
-		await ServiceScope.AddRangeAsync(Users, CancellationToken);
-		await ServiceScope.AddRangeAsync(Posts, CancellationToken);
-		await ServiceScope.AddRangeAsync(PostLikes, CancellationToken);
-		await ServiceScope.AddRangeAsync(PostComments, CancellationToken);
-		await ServiceScope.AddRangeAsync(PostImages, CancellationToken);
-		await ServiceScope.AddRangeAsync(PostCommentLikes, CancellationToken);
-		await ServiceScope.AddRangeAsync(PostCommentImages, CancellationToken);
-		await base.InitializeAsync();
+		await ServiceScope.InitializeGetAllForUserAsync(_query, PostComments, CancellationToken);
+	}
+
+	public override async Task DisposeAsync()
+	{
+		await ServiceScope.DisposeGetAllForUserAsync(_query, PostComments, CancellationToken);
 	}
 
 	[Fact]

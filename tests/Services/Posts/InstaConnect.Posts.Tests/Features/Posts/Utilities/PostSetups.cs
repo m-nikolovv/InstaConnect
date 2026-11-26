@@ -92,6 +92,42 @@ public static class PostSetups
 			await postRepository.AddRangeAsync(posts, cancellationToken);
 		}
 
+		public async Task<PostResponse?> GetPostCacheByIdAsync(
+			string id,
+			string currentUserId,
+			CancellationToken cancellationToken)
+		{
+			var cacheHandler = serviceScope.GetPostCacheHandler();
+
+			return await cacheHandler.GetByIdAsync(new(id), new(currentUserId), cancellationToken);
+		}
+
+		public async Task<PostResponse?> GetPostCacheByIdAsync(
+			PostId id,
+			UserId currentUserId,
+			CancellationToken cancellationToken)
+		{
+			return await serviceScope.GetPostCacheByIdAsync(id.Id, currentUserId.Id, cancellationToken);
+		}
+
+		public async Task AddPostCacheAsync(
+			Post post,
+			string currentUserId,
+			CancellationToken cancellationToken)
+		{
+			var cacheHandler = serviceScope.GetPostCacheHandler();
+
+			await cacheHandler.AddAsync(post.ToFullResponse(currentUserId), new(currentUserId), cancellationToken);
+		}
+
+		public async Task AddPostCacheAsync(
+			Post post,
+			UserId currentUserId,
+			CancellationToken cancellationToken)
+		{
+			await serviceScope.AddPostCacheAsync(post, currentUserId.Id, cancellationToken);
+		}
+
 		public async Task DeleteAsync(
 			Post post,
 			CancellationToken cancellationToken)

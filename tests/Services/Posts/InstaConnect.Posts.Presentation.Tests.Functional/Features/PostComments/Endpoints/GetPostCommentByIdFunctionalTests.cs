@@ -12,20 +12,18 @@ public class GetPostCommentByIdFunctionalTests : BasePostCommentPresentationQuer
 		: base(webApplicationFactory)
 	{
 		_requestBuilderFactory = new();
-		_requestBuilder = _requestBuilderFactory.Create(PostComment, CurrentUserId);
+		_requestBuilder = _requestBuilderFactory.Create(PostComment);
 		_request = _requestBuilder.Build();
 	}
 
 	public override async Task InitializeAsync()
 	{
-		await ServiceScope.AddRangeAsync(Users, CancellationToken);
-		await ServiceScope.AddRangeAsync(Posts, CancellationToken);
-		await ServiceScope.AddRangeAsync(PostLikes, CancellationToken);
-		await ServiceScope.AddRangeAsync(PostComments, CancellationToken);
-		await ServiceScope.AddRangeAsync(PostImages, CancellationToken);
-		await ServiceScope.AddRangeAsync(PostCommentLikes, CancellationToken);
-		await ServiceScope.AddRangeAsync(PostCommentImages, CancellationToken);
-		await base.InitializeAsync();
+		await ServiceScope.InitializeGetByIdAsync(_request, PostComment, CancellationToken);
+	}
+
+	public override async Task DisposeAsync()
+	{
+		await ServiceScope.DisposeGetByIdAsync(_request, PostComment, CancellationToken);
 	}
 
 	[Theory]
@@ -291,7 +289,7 @@ public class GetPostCommentByIdFunctionalTests : BasePostCommentPresentationQuer
 	{
 		// Act
 		await CommentApiClient.GetByIdAsync(_request, CancellationToken);
-		var cachedPostComment = await CommentCacheHandler.GetByIdAsync(_request, CancellationToken);
+		var cachedPostComment = await ServiceScope.GetPostCommentCacheByIdAsync(_request, CancellationToken);
 
 		// Assert
 		cachedPostComment.ShouldSatisfy(_request, PostComment);
@@ -307,7 +305,7 @@ public class GetPostCommentByIdFunctionalTests : BasePostCommentPresentationQuer
 
 		// Act
 		await CommentApiClient.GetByIdAsync(request, CancellationToken);
-		var cachedPostComment = await CommentCacheHandler.GetByIdAsync(request, CancellationToken);
+		var cachedPostComment = await ServiceScope.GetPostCommentCacheByIdAsync(request, CancellationToken);
 
 		// Assert
 		cachedPostComment.ShouldSatisfy(request, PostComment);
@@ -323,7 +321,7 @@ public class GetPostCommentByIdFunctionalTests : BasePostCommentPresentationQuer
 
 		// Act
 		await CommentApiClient.GetByIdAsync(request, CancellationToken);
-		var cachedPostComment = await CommentCacheHandler.GetByIdAsync(request, CancellationToken);
+		var cachedPostComment = await ServiceScope.GetPostCommentCacheByIdAsync(request, CancellationToken);
 
 		// Assert
 		cachedPostComment.ShouldSatisfy(request, PostComment);
@@ -340,7 +338,7 @@ public class GetPostCommentByIdFunctionalTests : BasePostCommentPresentationQuer
 
 		// Act
 		await CommentApiClient.GetByIdAsync(request, CancellationToken);
-		var cachedPostComment = await CommentCacheHandler.GetByIdAsync(request, CancellationToken);
+		var cachedPostComment = await ServiceScope.GetPostCommentCacheByIdAsync(request, CancellationToken);
 
 		// Assert
 		cachedPostComment.ShouldSatisfy(request, PostComment);

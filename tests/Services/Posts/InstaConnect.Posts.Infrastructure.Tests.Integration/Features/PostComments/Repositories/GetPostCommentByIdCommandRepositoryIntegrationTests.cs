@@ -14,10 +14,12 @@ public class GetPostCommentByIdCommandRepositoryIntegrationTests : BasePostComme
 
 	public override async Task InitializeAsync()
 	{
-		await ServiceScope.AddAsync(User, CancellationToken);
-		await ServiceScope.AddAsync(Post, CancellationToken);
-		await ServiceScope.AddAsync(PostComment, CancellationToken);
-		await base.InitializeAsync();
+		await ServiceScope.InitializeGetByIdAsync(PostComment, CancellationToken);
+	}
+
+	public override async Task DisposeAsync()
+	{
+		await ServiceScope.DisposeGetByIdAsync(PostComment, CancellationToken);
 	}
 
 	[Fact]

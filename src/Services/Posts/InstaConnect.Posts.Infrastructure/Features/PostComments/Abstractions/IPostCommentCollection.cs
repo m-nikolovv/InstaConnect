@@ -20,6 +20,10 @@ public interface IPostCommentCollection
 		PostComment entity,
 		CancellationToken cancellationToken);
 
+	public Task DeleteRangeAsync(
+		IEnumerable<PostComment> entities,
+		CancellationToken cancellationToken);
+
 	internal Task DeleteByParentAsync(
 		FilterDefinition<PostComment> filter,
 		CancellationToken cancellationToken);

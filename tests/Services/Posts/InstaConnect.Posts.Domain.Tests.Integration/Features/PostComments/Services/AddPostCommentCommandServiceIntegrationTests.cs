@@ -21,9 +21,14 @@ public class AddPostCommentCommandServiceIntegrationTests : BasePostCommentDomai
 
 	public override async Task InitializeAsync()
 	{
-		await ServiceScope.AddAsync(User, CancellationToken);
-		await ServiceScope.AddAsync(Post, CancellationToken);
+		await ServiceScope.InitializeAddAsync(_command, PostComment, CancellationToken);
 		await base.InitializeAsync();
+	}
+
+	public override async Task DisposeAsync()
+	{
+		await ServiceScope.DisposeAddAsync(_command, PostComment, CancellationToken);
+		await base.DisposeAsync();
 	}
 
 	[Fact]
@@ -169,7 +174,7 @@ public class AddPostCommentCommandServiceIntegrationTests : BasePostCommentDomai
 	{
 		// Act
 		await Service.AddAsync(_command, CancellationToken);
-		var cachedPost = await CacheHandler.GetByIdAsync(_command, CancellationToken);
+		var cachedPost = await ServiceScope.GetPostCacheByIdAsync(_command, CancellationToken);
 
 		// Assert
 		cachedPost.ShouldBeNull();
@@ -185,7 +190,7 @@ public class AddPostCommentCommandServiceIntegrationTests : BasePostCommentDomai
 
 		// Act
 		await Service.AddAsync(command, CancellationToken);
-		var cachedPost = await CacheHandler.GetByIdAsync(command, CancellationToken);
+		var cachedPost = await ServiceScope.GetPostCacheByIdAsync(command, CancellationToken);
 
 		// Assert
 		cachedPost.ShouldBeNull();
@@ -201,7 +206,7 @@ public class AddPostCommentCommandServiceIntegrationTests : BasePostCommentDomai
 
 		// Act
 		await Service.AddAsync(command, CancellationToken);
-		var cachedPost = await CacheHandler.GetByIdAsync(command, CancellationToken);
+		var cachedPost = await ServiceScope.GetPostCacheByIdAsync(command, CancellationToken);
 
 		// Assert
 		cachedPost.ShouldBeNull();
@@ -217,7 +222,7 @@ public class AddPostCommentCommandServiceIntegrationTests : BasePostCommentDomai
 
 		// Act
 		await Service.AddAsync(command, CancellationToken);
-		var cachedPost = await CacheHandler.GetByIdAsync(command, CancellationToken);
+		var cachedPost = await ServiceScope.GetPostCacheByIdAsync(command, CancellationToken);
 
 		// Assert
 		cachedPost.ShouldBeNull();

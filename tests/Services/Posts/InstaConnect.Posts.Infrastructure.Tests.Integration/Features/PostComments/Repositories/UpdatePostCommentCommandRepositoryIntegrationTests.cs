@@ -12,10 +12,12 @@ public class UpdatePostCommentCommandRepositoryIntegrationTests : BasePostCommen
 
 	public override async Task InitializeAsync()
 	{
-		await ServiceScope.AddAsync(User, CancellationToken);
-		await ServiceScope.AddAsync(Post, CancellationToken);
-		await ServiceScope.AddAsync(PostComment, CancellationToken);
-		await base.InitializeAsync();
+		await ServiceScope.InitializeUpdateAsync(PostComment, UserId, CancellationToken);
+	}
+
+	public override async Task DisposeAsync()
+	{
+		await ServiceScope.DisposeUpdateAsync(PostComment, CancellationToken);
 	}
 
 	[Fact]
@@ -36,11 +38,10 @@ public class UpdatePostCommentCommandRepositoryIntegrationTests : BasePostCommen
 	{
 		// Arrange
 		var updatedPostComment = PostCommentBuilderFactory.Create(Post, User).WithCommentId(PostCommentId).Build();
-		await CommentCacheHandler.AddAsync(updatedPostComment, CurrentUserId, CancellationToken);
 
 		// Act
 		await Repository.UpdateAsync(updatedPostComment, CancellationToken);
-		var cachedPostComment = await CommentCacheHandler.GetByIdAsync(updatedPostComment, CurrentUserId, CancellationToken);
+		var cachedPostComment = await ServiceScope.GetPostCommentCacheByIdAsync(updatedPostComment, UserId, CancellationToken);
 
 		// Assert
 		cachedPostComment.ShouldBeNull();

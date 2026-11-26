@@ -10,11 +10,11 @@ public class GetAllPostCommentsApiRequestBuilder
 	private CommonSortOrder _sortOrder;
 	private PostCommentsSortTerm _sortTerm;
 
-	public GetAllPostCommentsApiRequestBuilder(PostComment postComment, UserId currentUserId)
+	public GetAllPostCommentsApiRequestBuilder(PostComment postComment)
 	{
 		_id = postComment.Id.Id.Id;
 		_userName = DataFaker.GetPrefixString(postComment.User!.Name.Value);
-		_currentUserId = currentUserId.Id;
+		_currentUserId = postComment.UserId.Id;
 		_page = PostCommentDataFaker.GetPage();
 		_pageSize = PostCommentDataFaker.GetPageSize();
 		_sortOrder = DataFaker.GetSortOrder();

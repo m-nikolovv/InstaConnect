@@ -1,31 +1,18 @@
 using InstaConnect.Posts.Domain.Features.PostComments.Models.Responses;
-using InstaConnect.Posts.Domain.Features.Posts.Models.Responses;
-using InstaConnect.Posts.Infrastructure.Features.PostComments.Abstractions;
-using InstaConnect.Posts.Infrastructure.Features.Posts.Abstractions;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace InstaConnect.Posts.Infrastructure.Tests.Features.PostComments.Utilities;
 
 public static class PostCommentSetups
 {
-	extension(IPostCommentCacheHandler cacheHandler)
+	extension(IServiceScope serviceScope)
 	{
-		public async Task<PostCommentResponse?> GetByIdAsync(
+		public async Task<PostCommentResponse?> GetPostCommentCacheByIdAsync(
 			PostCommentId id,
 			CurrentUserQuery currentUserQuery,
 			CancellationToken cancellationToken)
 		{
-			return await cacheHandler.GetByIdAsync(id, currentUserQuery.Id, cancellationToken);
-		}
-	}
-
-	extension(IPostCacheHandler cacheHandler)
-	{
-		public async Task<PostResponse?> GetByIdAsync(
-			PostComment postComment,
-			UserId currentUserId,
-			CancellationToken cancellationToken)
-		{
-			return await cacheHandler.GetByIdAsync(postComment.Id.Id, currentUserId, cancellationToken);
+			return await serviceScope.GetPostCommentCacheByIdAsync(id, currentUserQuery.Id, cancellationToken);
 		}
 	}
 }

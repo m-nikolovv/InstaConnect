@@ -2,8 +2,8 @@ namespace InstaConnect.Posts.Domain.Tests.Features.PostComments.Builders;
 
 public class GetAllPostCommentsForUserQueryBuilderFactory
 {
-	public GetAllPostCommentsForUserQueryBuilder Create(PostComment postComment, UserId currentUserId)
+	public GetAllPostCommentsForUserQueryBuilder Create(PostComment postComment)
 	{
-		return new(postComment, currentUserId);
+		return new(postComment);
 	}
 }

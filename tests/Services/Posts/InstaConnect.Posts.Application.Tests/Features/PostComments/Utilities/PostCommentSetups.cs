@@ -1,8 +1,6 @@
 using InstaConnect.Posts.Application.Features.PostComments.Models;
 using InstaConnect.Posts.Domain.Features.PostComments.Models.Responses;
 using InstaConnect.Posts.Domain.Features.Posts.Models.Responses;
-using InstaConnect.Posts.Infrastructure.Features.PostComments.Abstractions;
-using InstaConnect.Posts.Infrastructure.Features.Posts.Abstractions;
 
 namespace InstaConnect.Posts.Application.Tests.Features.PostComments.Utilities;
 
@@ -38,62 +36,152 @@ public static class PostCommentSetups
 				response.Response,
 				cancellationToken);
 		}
-	}
 
-	extension(IPostCommentCacheHandler cacheHandler)
-	{
-		public async Task<PostCommentResponse?> GetByIdAsync(
+		public async Task InitializeAddAsync(
+			AddPostCommentCommandRequest request,
+			PostComment postComment,
+			CancellationToken cancellationToken)
+		{
+			await serviceScope.InitializeAddAsync(postComment, request.UserId, cancellationToken);
+		}
+
+		public async Task DisposeAddAsync(
+			AddPostCommentCommandRequest request,
+			PostComment postComment,
+			CancellationToken cancellationToken)
+		{
+			await serviceScope.DisposeAddAsync(postComment, cancellationToken);
+		}
+
+		public async Task InitializeUpdateAsync(
+			UpdatePostCommentCommandRequest request,
+			PostComment postComment,
+			CancellationToken cancellationToken)
+		{
+			await serviceScope.InitializeUpdateAsync(postComment, request.UserId, cancellationToken);
+		}
+
+		public async Task DisposeUpdateAsync(
+			UpdatePostCommentCommandRequest request,
+			PostComment postComment,
+			CancellationToken cancellationToken)
+		{
+			await serviceScope.DisposeUpdateAsync(postComment, cancellationToken);
+		}
+
+		public async Task InitializeDeleteAsync(
+			DeletePostCommentCommandRequest request,
+			PostComment postComment,
+			CancellationToken cancellationToken)
+		{
+			await serviceScope.InitializeDeleteAsync(postComment, request.UserId, cancellationToken);
+		}
+
+		public async Task DisposeDeleteAsync(
+			DeletePostCommentCommandRequest request,
+			PostComment postComment,
+			CancellationToken cancellationToken)
+		{
+			await serviceScope.DisposeDeleteAsync(postComment, cancellationToken);
+		}
+
+		public async Task InitializeGetByIdAsync(
+			GetPostCommentByIdQueryRequest request,
+			PostComment postComment,
+			CancellationToken cancellationToken)
+		{
+			await serviceScope.InitializeGetByIdAsync(postComment, cancellationToken);
+		}
+
+		public async Task DisposeGetByIdAsync(
+			GetPostCommentByIdQueryRequest request,
+			PostComment postComment,
+			CancellationToken cancellationToken)
+		{
+			await serviceScope.DisposeGetByIdAsync(postComment, cancellationToken);
+		}
+
+		public async Task InitializeGetAllAsync(
+			GetAllPostCommentsQueryRequest request,
+			ICollection<PostComment> postComments,
+			CancellationToken cancellationToken)
+		{
+			await serviceScope.InitializeGetAllAsync(postComments, cancellationToken);
+		}
+
+		public async Task DisposeGetAllAsync(
+			GetAllPostCommentsQueryRequest request,
+			ICollection<PostComment> postComments,
+			CancellationToken cancellationToken)
+		{
+			await serviceScope.DisposeGetAllAsync(postComments, cancellationToken);
+		}
+
+		public async Task InitializeGetAllForUserAsync(
+			GetAllPostCommentsForUserQueryRequest request,
+			ICollection<PostComment> postComments,
+			CancellationToken cancellationToken)
+		{
+			await serviceScope.InitializeGetAllForUserAsync(postComments, cancellationToken);
+		}
+
+		public async Task DisposeGetAllForUserAsync(
+			GetAllPostCommentsForUserQueryRequest request,
+			ICollection<PostComment> postComments,
+			CancellationToken cancellationToken)
+		{
+			await serviceScope.DisposeGetAllForUserAsync(postComments, cancellationToken);
+		}
+
+		public async Task<PostCommentResponse?> GetPostCommentCacheByIdAsync(
 			UpdatePostCommentCommandRequest request,
 			CancellationToken cancellationToken)
 		{
-			return await cacheHandler.GetByIdAsync(request.Id, request.CommentId, request.UserId, cancellationToken);
+			return await serviceScope.GetPostCommentCacheByIdAsync(request.Id, request.CommentId, request.UserId, cancellationToken);
 		}
 
-		public async Task<PostCommentResponse?> GetByIdAsync(
+		public async Task<PostCommentResponse?> GetPostCommentCacheByIdAsync(
 			DeletePostCommentCommandRequest request,
 			CancellationToken cancellationToken)
 		{
-			return await cacheHandler.GetByIdAsync(request.Id, request.CommentId, request.UserId, cancellationToken);
+			return await serviceScope.GetPostCommentCacheByIdAsync(request.Id, request.CommentId, request.UserId, cancellationToken);
 		}
 
-		public async Task<PostCommentResponse?> GetByIdAsync(
+		public async Task<PostCommentResponse?> GetPostCommentCacheByIdAsync(
 			GetPostCommentByIdQueryRequest request,
 			CancellationToken cancellationToken)
 		{
-			return await cacheHandler.GetByIdAsync(request.Id, request.CommentId, request.CurrentUserId, cancellationToken);
+			return await serviceScope.GetPostCommentCacheByIdAsync(request.Id, request.CommentId, request.CurrentUserId, cancellationToken);
 		}
 
-		public async Task AddAsync(
+		public async Task AddPostCommentCacheAsync(
 			UpdatePostCommentCommandRequest request,
 			PostComment postComment,
 			CancellationToken cancellationToken)
 		{
-			await cacheHandler.AddAsync(postComment, request.UserId, cancellationToken);
+			await serviceScope.AddPostCommentCacheAsync(postComment, request.UserId, cancellationToken);
 		}
 
-		public async Task AddAsync(
+		public async Task AddPostCommentCacheAsync(
 			DeletePostCommentCommandRequest request,
 			PostComment postComment,
 			CancellationToken cancellationToken)
 		{
-			await cacheHandler.AddAsync(postComment, request.UserId, cancellationToken);
+			await serviceScope.AddPostCommentCacheAsync(postComment, request.UserId, cancellationToken);
 		}
-	}
 
-	extension(IPostCacheHandler cacheHandler)
-	{
-		public async Task<PostResponse?> GetByIdAsync(
+		public async Task<PostResponse?> GetPostCacheByIdAsync(
 			AddPostCommentCommandRequest request,
 			CancellationToken cancellationToken)
 		{
-			return await cacheHandler.GetByIdAsync(request.Id, request.UserId, cancellationToken);
+			return await serviceScope.GetPostCacheByIdAsync(request.Id, request.UserId, cancellationToken);
 		}
 
-		public async Task<PostResponse?> GetByIdAsync(
+		public async Task<PostResponse?> GetPostCacheByIdAsync(
 			DeletePostCommentCommandRequest request,
 			CancellationToken cancellationToken)
 		{
-			return await cacheHandler.GetByIdAsync(request.Id, request.UserId, cancellationToken);
+			return await serviceScope.GetPostCacheByIdAsync(request.Id, request.UserId, cancellationToken);
 		}
 	}
 }

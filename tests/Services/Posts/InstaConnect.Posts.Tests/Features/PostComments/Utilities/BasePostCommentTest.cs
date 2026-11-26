@@ -31,6 +31,6 @@ public abstract class BasePostCommentTest : BasePostsTest
 		PostCommentPostCommentLikeIdRangeBuilderFactory = new();
 		PostCommentPostCommentLikeIdRangeBuilder = PostCommentPostCommentLikeIdRangeBuilderFactory.Create([.. PostCommentPostCommentLikes.Select(p => p.Id)]);
 		PostCommentPostCommentLikeIds = PostCommentPostCommentLikeIdRangeBuilder.Build();
-		PostCommentPostCommentLikeResponses = PostCommentPostCommentLikes.ToFullResponse(CurrentUserId);
+		PostCommentPostCommentLikeResponses = PostCommentPostCommentLikes.ToFullResponse(UserId);
 	}
 }

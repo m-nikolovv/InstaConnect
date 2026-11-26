@@ -19,14 +19,12 @@ public class GetPostCommentByIdQueryRepositoryIntegrationTests : BasePostComment
 
 	public override async Task InitializeAsync()
 	{
-		await ServiceScope.AddRangeAsync(Users, CancellationToken);
-		await ServiceScope.AddRangeAsync(Posts, CancellationToken);
-		await ServiceScope.AddRangeAsync(PostLikes, CancellationToken);
-		await ServiceScope.AddRangeAsync(PostComments, CancellationToken);
-		await ServiceScope.AddRangeAsync(PostImages, CancellationToken);
-		await ServiceScope.AddRangeAsync(PostCommentLikes, CancellationToken);
-		await ServiceScope.AddRangeAsync(PostCommentImages, CancellationToken);
-		await base.InitializeAsync();
+		await ServiceScope.InitializeGetByIdAsync(PostComment, CancellationToken);
+	}
+
+	public override async Task DisposeAsync()
+	{
+		await ServiceScope.DisposeGetByIdAsync(PostComment, CancellationToken);
 	}
 
 	[Fact]
@@ -104,7 +102,7 @@ public class GetPostCommentByIdQueryRepositoryIntegrationTests : BasePostComment
 	{
 		// Act
 		await Repository.GetByIdAsync(PostCommentId, _currentUserQuery, CancellationToken);
-		var cachedPostComment = await CommentCacheHandler.GetByIdAsync(PostCommentId, _currentUserQuery, CancellationToken);
+		var cachedPostComment = await ServiceScope.GetPostCommentCacheByIdAsync(PostCommentId, _currentUserQuery, CancellationToken);
 
 		// Assert
 		cachedPostComment.ShouldSatisfy(PostCommentId, _currentUserQuery, PostComment);
@@ -120,7 +118,7 @@ public class GetPostCommentByIdQueryRepositoryIntegrationTests : BasePostComment
 
 		// Act
 		await Repository.GetByIdAsync(id, _currentUserQuery, CancellationToken);
-		var cachedPostComment = await CommentCacheHandler.GetByIdAsync(id, _currentUserQuery, CancellationToken);
+		var cachedPostComment = await ServiceScope.GetPostCommentCacheByIdAsync(id, _currentUserQuery, CancellationToken);
 
 		// Assert
 		cachedPostComment.ShouldSatisfy(id, _currentUserQuery, PostComment);
@@ -136,7 +134,7 @@ public class GetPostCommentByIdQueryRepositoryIntegrationTests : BasePostComment
 
 		// Act
 		await Repository.GetByIdAsync(id, _currentUserQuery, CancellationToken);
-		var cachedPostComment = await CommentCacheHandler.GetByIdAsync(id, _currentUserQuery, CancellationToken);
+		var cachedPostComment = await ServiceScope.GetPostCommentCacheByIdAsync(id, _currentUserQuery, CancellationToken);
 
 		// Assert
 		cachedPostComment.ShouldSatisfy(id, _currentUserQuery, PostComment);
@@ -154,7 +152,7 @@ public class GetPostCommentByIdQueryRepositoryIntegrationTests : BasePostComment
 
 		// Act
 		await Repository.GetByIdAsync(PostCommentId, currentUserQuery, CancellationToken);
-		var cachedPostComment = await CommentCacheHandler.GetByIdAsync(PostCommentId, currentUserQuery, CancellationToken);
+		var cachedPostComment = await ServiceScope.GetPostCommentCacheByIdAsync(PostCommentId, currentUserQuery, CancellationToken);
 
 		// Assert
 		cachedPostComment.ShouldSatisfy(PostCommentId, currentUserQuery, PostComment);

@@ -18,7 +18,7 @@ public class GetAllPostCommentsForUserQueryRequestValidatorUnitTests : BasePostC
 	public GetAllPostCommentsForUserQueryRequestValidatorUnitTests()
 	{
 		_requestBuilderFactory = new();
-		_requestBuilder = _requestBuilderFactory.Create(PostComment, CurrentUserId);
+		_requestBuilder = _requestBuilderFactory.Create(PostComment);
 		_request = _requestBuilder.Build();
 
 		_requestValidator = new();

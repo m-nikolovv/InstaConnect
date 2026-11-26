@@ -1,4 +1,3 @@
-using InstaConnect.Posts.Infrastructure.Tests.Features.PostComments.Utilities;
 using InstaConnect.Posts.Tests.Features.PostCommentImages.Assertions;
 
 namespace InstaConnect.Posts.Infrastructure.Tests.Integration.Features.PostCommentImages.Repositories;

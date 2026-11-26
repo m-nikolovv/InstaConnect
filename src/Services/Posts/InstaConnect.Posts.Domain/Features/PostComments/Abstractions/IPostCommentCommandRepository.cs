@@ -31,4 +31,6 @@ public interface IPostCommentCommandRepository
 	public Task UpdateAsync(PostComment entity, CancellationToken cancellationToken);
 
 	public Task DeleteAsync(PostComment entity, CancellationToken cancellationToken);
+
+	public Task DeleteRangeAsync(IEnumerable<PostComment> entities, CancellationToken cancellationToken);
 }

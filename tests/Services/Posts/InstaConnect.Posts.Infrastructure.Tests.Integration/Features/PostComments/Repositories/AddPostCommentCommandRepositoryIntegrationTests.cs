@@ -1,4 +1,3 @@
-using InstaConnect.Posts.Infrastructure.Tests.Features.PostComments.Utilities;
 using InstaConnect.Posts.Tests.Features.PostComments.Assertions;
 
 namespace InstaConnect.Posts.Infrastructure.Tests.Integration.Features.PostComments.Repositories;
@@ -12,9 +11,12 @@ public class AddPostCommentCommandRepositoryIntegrationTests : BasePostCommentIn
 
 	public override async Task InitializeAsync()
 	{
-		await ServiceScope.AddAsync(User, CancellationToken);
-		await ServiceScope.AddAsync(Post, CancellationToken);
-		await base.InitializeAsync();
+		await ServiceScope.InitializeAddAsync(PostComment, UserId, CancellationToken);
+	}
+
+	public override async Task DisposeAsync()
+	{
+		await ServiceScope.DisposeAddAsync(PostComment, CancellationToken);
 	}
 
 	[Fact]
@@ -33,7 +35,7 @@ public class AddPostCommentCommandRepositoryIntegrationTests : BasePostCommentIn
 	{
 		// Act
 		await Repository.AddAsync(PostComment, CancellationToken);
-		var cachedPost = await CacheHandler.GetByIdAsync(PostComment, CurrentUserId, CancellationToken);
+		var cachedPost = await ServiceScope.GetPostCacheByIdAsync(PostComment, UserId, CancellationToken);
 
 		// Assert
 		cachedPost.ShouldBeNull();

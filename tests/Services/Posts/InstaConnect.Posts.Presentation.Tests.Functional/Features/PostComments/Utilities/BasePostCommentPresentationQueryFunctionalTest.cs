@@ -1,4 +1,3 @@
-using InstaConnect.Posts.Infrastructure.Features.PostComments.Abstractions;
 using InstaConnect.Posts.Presentation.Tests.Features.PostComments.Abstractions;
 using InstaConnect.Posts.Presentation.Tests.Features.PostComments.Extensions;
 
@@ -8,11 +7,8 @@ public abstract class BasePostCommentPresentationQueryFunctionalTest : BasePostC
 {
 	protected IPostCommentApiClient CommentApiClient { get; }
 
-	protected IPostCommentCacheHandler CommentCacheHandler { get; }
-
 	protected BasePostCommentPresentationQueryFunctionalTest(PostsWebApplicationFactory webApplicationFactory) : base(webApplicationFactory)
 	{
 		CommentApiClient = webApplicationFactory.CreateCommentApiClient();
-		CommentCacheHandler = ServiceScope.GetPostCommentCacheHandler();
 	}
 }

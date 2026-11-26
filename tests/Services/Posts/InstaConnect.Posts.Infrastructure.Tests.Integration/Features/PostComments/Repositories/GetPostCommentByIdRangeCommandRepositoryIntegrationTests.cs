@@ -14,10 +14,12 @@ public class GetPostCommentByIdRangeCommandRepositoryIntegrationTests : BasePost
 
 	public override async Task InitializeAsync()
 	{
-		await ServiceScope.AddAsync(User, CancellationToken);
-		await ServiceScope.AddAsync(Post, CancellationToken);
-		await ServiceScope.AddRangeAsync(PostComments, CancellationToken);
-		await base.InitializeAsync();
+		await ServiceScope.InitializeGetAllAsync(PostComments, CancellationToken);
+	}
+
+	public override async Task DisposeAsync()
+	{
+		await ServiceScope.DisposeGetAllAsync(PostComments, CancellationToken);
 	}
 
 	[Fact]

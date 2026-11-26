@@ -19,20 +19,18 @@ public class GetAllPostCommentsForUserQueryHandlerIntegrationTests : BasePostCom
 		: base(webApplicationFactory)
 	{
 		_requestBuilderFactory = new();
-		_requestBuilder = _requestBuilderFactory.Create(PostComment, CurrentUserId);
+		_requestBuilder = _requestBuilderFactory.Create(PostComment);
 		_request = _requestBuilder.Build();
 	}
 
 	public override async Task InitializeAsync()
 	{
-		await ServiceScope.AddRangeAsync(Users, CancellationToken);
-		await ServiceScope.AddRangeAsync(Posts, CancellationToken);
-		await ServiceScope.AddRangeAsync(PostLikes, CancellationToken);
-		await ServiceScope.AddRangeAsync(PostComments, CancellationToken);
-		await ServiceScope.AddRangeAsync(PostImages, CancellationToken);
-		await ServiceScope.AddRangeAsync(PostCommentLikes, CancellationToken);
-		await ServiceScope.AddRangeAsync(PostCommentImages, CancellationToken);
-		await base.InitializeAsync();
+		await ServiceScope.InitializeGetAllForUserAsync(_request, PostComments, CancellationToken);
+	}
+
+	public override async Task DisposeAsync()
+	{
+		await ServiceScope.DisposeGetAllForUserAsync(_request, PostComments, CancellationToken);
 	}
 
 	[Theory]

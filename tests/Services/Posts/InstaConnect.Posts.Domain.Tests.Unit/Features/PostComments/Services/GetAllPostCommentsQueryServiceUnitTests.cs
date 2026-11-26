@@ -11,7 +11,7 @@ public class GetAllPostCommentsQueryServiceUnitTests : BasePostCommentDomainQuer
 	public GetAllPostCommentsQueryServiceUnitTests()
 	{
 		_queryBuilderFactory = new();
-		_queryBuilder = _queryBuilderFactory.Create(PostComment, CurrentUserId);
+		_queryBuilder = _queryBuilderFactory.Create(PostComment);
 		_query = _queryBuilder.Build();
 
 		_service = new(Repository, UserRepository, CommentRepository, CollectionResponseFactory);

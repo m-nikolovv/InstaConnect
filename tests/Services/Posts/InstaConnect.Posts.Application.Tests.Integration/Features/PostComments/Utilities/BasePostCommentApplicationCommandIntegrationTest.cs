@@ -1,5 +1,3 @@
-using InstaConnect.Posts.Infrastructure.Features.PostComments.Abstractions;
-using InstaConnect.Posts.Infrastructure.Features.Posts.Abstractions;
 using InstaConnect.Posts.Tests.Features.PostComments.Abstractions;
 using InstaConnect.Posts.Tests.Features.PostComments.Extensions;
 
@@ -9,19 +7,13 @@ public abstract class BasePostCommentApplicationCommandIntegrationTest : BasePos
 {
 	protected IApplicationSender Sender { get; }
 
-	protected IPostCacheHandler CacheHandler { get; }
-
 	protected IPostCommentEventClient CommentEventClient { get; }
-
-	protected IPostCommentCacheHandler CommentCacheHandler { get; }
 
 	protected BasePostCommentApplicationCommandIntegrationTest(PostsWebApplicationFactory webApplicationFactory)
 		: base(webApplicationFactory)
 	{
 		Sender = ServiceScope.GetSender();
-		CacheHandler = ServiceScope.GetPostCacheHandler();
 		CommentEventClient = webApplicationFactory.CreateCommentEventClient();
-		CommentCacheHandler = ServiceScope.GetPostCommentCacheHandler();
 	}
 
 	public override async Task InitializeAsync()

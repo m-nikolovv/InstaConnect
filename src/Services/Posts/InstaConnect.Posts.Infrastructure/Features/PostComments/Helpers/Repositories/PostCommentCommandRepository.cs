@@ -97,4 +97,11 @@ internal class PostCommentCommandRepository : IPostCommentCommandRepository
 		await _cacheHandler.DeleteResponseAsync(entity.Id.Id, cancellationToken);
 		await _commentCacheHandler.DeleteAsync(entity.Id, cancellationToken);
 	}
+
+	public async Task DeleteRangeAsync(IEnumerable<PostComment> entities, CancellationToken cancellationToken)
+	{
+		await _collection.DeleteRangeAsync(entities, cancellationToken);
+		await _cacheHandler.DeleteResponseRangeAsync(entities.Select(p => p.Id.Id), cancellationToken);
+		await _commentCacheHandler.DeleteRangeAsync(entities.Select(p => p.Id), cancellationToken);
+	}
 }
